@@ -16,6 +16,7 @@
 3. [Requirements](#requirements)
 4. [Installation](#installation)
 5. [License](#license)
+6. [Screenshots](#screenshots)
 
 
 ## <a name="introduction"></a> Introduction
@@ -66,3 +67,12 @@ UNIT3D currently has the following features:
 ## <a name="license"></a> License
 
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
+
+
+<hr>
+
+## <a name="screenshots"></a> Screenshots
+
+<p align="center">
+    <img src="https://i.gyazo.com/9039e2e0906e36d74bb0224dc888323b.gif" alt="Torrent Details Page">
+</p>
