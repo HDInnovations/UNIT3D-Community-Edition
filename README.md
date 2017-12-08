@@ -10,6 +10,10 @@
 <a href="https://github.com/HDVinnie/UNIT3D"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=HDVinnie&repo=UNIT3D&style=flat&color=fff&background=7289DA" /></a>
 </p>
 
+<p align="center">
+<b>Repo Not Yet Complete -- v1.0 of codebase coming soon</b>
+</p>
+
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Some Features](#features)
