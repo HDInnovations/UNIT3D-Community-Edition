@@ -74,5 +74,10 @@ UNIT3D is open-sourced software licensed under the [GNU General Public License v
 ## <a name="screenshots"></a> Screenshots
 
 <p align="center">
+Torrent Details (Light Theme)
     <img src="https://i.imgur.com/l8DbExT.gif" alt="Torrent Details Page">
+User Profile (Light Theme)
+    <img src="https://i.imgur.com/94XCo3Q.gif" alt="User Profile Page">
+BON Store (Dark Theme)
+    <img src="https://i.imgur.com/7PPEiNT.gif" alt="BON Store Page">
 </p>
