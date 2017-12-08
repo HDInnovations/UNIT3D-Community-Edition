@@ -54,15 +54,15 @@ UNIT3D currently has the following features:
 1. First grab the source and upload dir to your web directory
 2. Open up terminal and SSH into your server.
 3. Go to the script dir and download [composer](https://getcomposer.org/download/) and run `composer update`
-4. When all libraries are installed edit `app/config/database.php`, `app/config/app.php` and `app/config/other.php` (These house some basic settings)
-5. Run  `php artisan migrate`
-6. Run `composer require predis/predis`
-6. Run `composer update`
-7. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
-10. Go to your script url
-11. Create an account from the site
-12. In your database change your group in `the users` table, to ID 4 for administrators (Owner Rank)
-13. Enjoy
+4. When all libraries are installed edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
+5. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
+6. Run `php artisan db:seed --class=UsersTableSeeder` (Seeds Default Owner Account and 2 System Bot Accounts To Users Table)
+7. Run `composer require predis/predis`
+8. Run `composer update`
+9. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
+10. Go to your web url
+11. Login using Username: UNIT3D & Password: UNIT3D (Default Owner Account)
+12. Enjoy
 
 ## <a name="license"></a> License
 
@@ -74,5 +74,5 @@ UNIT3D is open-sourced software licensed under the [GNU General Public License v
 ## <a name="screenshots"></a> Screenshots
 
 <p align="center">
-    <img src="https://i.gyazo.com/9039e2e0906e36d74bb0224dc888323b.gif" alt="Torrent Details Page">
+    <img src="https://i.imgur.com/l8DbExT.gif" alt="Torrent Details Page">
 </p>
