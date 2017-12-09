@@ -48,7 +48,7 @@ UNIT3D currently has the following features:
 - Web server (NGINX Recommended)
 - PHP 7.0+ is required
 - Dependencies for PHP, (Updated as issues spotted)
-  -   php-gettext -> This is primarly for phpmyadmin, if you're going to use it, there has been cases where it does not install when installing phpmyadmin.
+  -   php-gettext -> This is primarly for phpmyadmin, if your going to use it, there has been cases where it does not install when installing phpmyadmin.
   -   php-curl -> This is specifically needed for the Various API's we have running.
 - Crontab access
 - Redis Server
