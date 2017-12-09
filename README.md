@@ -25,11 +25,11 @@
 
 ## <a name="introduction"></a> Introduction
 
-For the last year, I have been developing a Nex-Gen Torrent Tracker Script called "UNIT3D." This is a PHP script based off the lovely Laravel Framework -- currently Laravel Framework 5.4.36, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is clean and to PSR-2 coding style standards. Using MVC Architecture to ensure clarity between logic and presentation. Bcrypt hashing algorithm for generating encrypted representation of a password. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+For the last year, I have been developing a Nex-Gen Torrent Tracker Script called "UNIT3D." This is a PHP script based off the lovely Laravel Framework -- currently Laravel Framework 5.4.36, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm Bcrypt is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> Some Features
 
-UNIT3D currently has the following features:
+UNIT3D currently offers the following features:
   - Internal Forums System
   - Staff Dashboard
   - Faceted Ajax Torrent Search System
@@ -45,28 +45,28 @@ UNIT3D currently has the following features:
 
 ## <a name="requirements"></a> Requirements
 
-- Web server (NGINX Recommended)
+- A Web server (NGINX is recommended)
 - PHP 7.0+ is required
 - Dependencies for PHP, (Updated as issues spotted)
   -   php-gettext -> This is primarly for phpmyadmin, if you're going to use it, there has been cases where it does not install when installing phpmyadmin.
-  -   php-curl -> This is specifically needed for the Various API's we have running.
+  -   php-curl -> This is specifically needed for the various APIs we have running.
 - Crontab access
-- Redis Server
+- A Redis server
 
 ## <a name="installation"></a> Installation
 
-1. First grab the source and upload dir to your web directory
-2. Open up terminal and SSH into your server.
-3. Go to the script dir and download [composer](https://getcomposer.org/download/) and run `composer update`
+1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
+2. Open a terminal and SSH into your server.
+3. Go to the script directory and download [composer](https://getcomposer.org/download/) and run `composer update`
 4. When all libraries are installed edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 5. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
 6. Run `php artisan db:seed --class=UsersTableSeeder` (Seeds Default Owner Account and 2 System Bot Accounts To Users Table)
 7. Run `composer require predis/predis`
 8. Run `composer update`
 9. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
-10. Go to your web url
-11. Login using Username: UNIT3D & Password: UNIT3D (Default Owner Account)
-12. Enjoy
+10. Go to your web URL.
+11. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
+12. Enjoy using UNIT3D.
 
 ## <a name="license"></a> License
 
