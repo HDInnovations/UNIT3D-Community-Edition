@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.imgur.com/CWez49j.png" alt="UNIT3D Logo">
+    <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
 <hr>
 
@@ -7,7 +7,7 @@
 <a href="https://github.com/HDVinnie/UNIT3D"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" /></a>
 <a href="https://codeclimate.com/github/HDVinnie/UNIT3D/maintainability"><img src="https://api.codeclimate.com/v1/badges/69b1bed95964c8d1d951/maintainability" /></a>
 <a href="https://codeclimate.com/github/HDVinnie/UNIT3D/test_coverage"><img src="https://api.codeclimate.com/v1/badges/69b1bed95964c8d1d951/test_coverage" /></a>
-<a href="https://github.com/HDVinnie/UNIT3D"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=HDVinnie&repo=UNIT3D&style=flat&color=fff&background=7289DA" /></a>
+<a href="https://github.com/HDVinnie/UNIT3D"><img alt="star this repo" src="https://githubbadges.com/star.svg?user=HDVinnie&repo=UNIT3D&style=flat&color=fff&background=7289DA" /></a>
 <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://cdn.rawgit.com/Hyleus/237f9903320939eb4f7615633a8fb221/raw/dca104edf34eabaca1016e633f06a52a346a7700/chat-Discord-blue.svg" /></a>
 </p>
 
