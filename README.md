@@ -123,8 +123,8 @@ databases:
 2. run `vagrant ssh`
 3. cd to the unit3d project root directory
 4. copy `.env.example` to `.env`
-5. run 'php artisan key:generate' 
-6. run 'composer install'
-7. run 'npm install'
+5. run `php artisan key:generate` 
+6. run `composer install`
+7. run `npm install`
 8. run `php artisan migrate:refresh --seed`
 9. visit <a href="http://unit3d.site">unit3d.site</a>
