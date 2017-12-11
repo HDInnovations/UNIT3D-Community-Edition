@@ -63,7 +63,7 @@
                     {{ $user->id }}
                   </td>
                   <td class="action-links">
-                    <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                    <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
                     </a>
                   </td>
                   @endif
@@ -104,7 +104,7 @@
 										{{ $uploader->id }}
 									</td>
 									<td class="action-links">
-										<a href="{{ route('user_edit', ['username' => $uploader->username, 'id' => $uploader->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+										<a href="{{ route('user_setting', ['username' => $uploader->username, 'id' => $uploader->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
 										</a>
 									</td>
 									@endif
@@ -140,7 +140,7 @@
                     {{ $mod->id }}
                   </td>
                   <td class="action-links">
-                    <a href="{{ route('user_edit', ['username' => $mod->username, 'id' => $mod->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                    <a href="{{ route('user_setting', ['username' => $mod->username, 'id' => $mod->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
                     </a>
                   </td>
                   @endif
@@ -176,7 +176,7 @@
                     {{ $admin->id }}
                   </td>
                   <td class="action-links">
-                    <a href="{{ route('user_edit', ['username' => $admin->username, 'id' => $admin->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                    <a href="{{ route('user_setting', ['username' => $admin->username, 'id' => $admin->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
                     </a>
                   </td>
                   @endif
@@ -212,7 +212,7 @@
                     {{ $coder->id }}
                   </td>
                   <td class="action-links">
-                    <a href="{{ route('user_edit', ['username' => $coder->username, 'id' => $coder->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                    <a href="{{ route('user_setting', ['username' => $coder->username, 'id' => $coder->id]) }}" class="edit"> <i class="fa fa-pencil"></i> Edit Profile
                     </a>
                   </td>
                   @endif
