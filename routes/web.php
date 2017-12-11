@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -26,7 +26,7 @@
 | Website (Not Authorized)
 |------------------------------------------
 */
-Route::group(['before' => 'auth'], function () {
+Route::group(['before' => 'auth', 'middleware' =>'guest'], function () {
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login')->name('');
