@@ -93,8 +93,7 @@ BON Store (Dark Theme)
 ## <a name="homestead"></a> Homestead
 
 <a href="https://laravel.com/docs/5.4/homestead#installation-and-setup">Install and Setup Homestead </a>
-
-<h4>Example `Homestead.yaml`</h4>
+### Example `Homestead.yaml`
 ```yaml
 folders:
     - map: ~/projects
@@ -110,14 +109,16 @@ databases:
     - unit3d
 ```
 
-<h4>Example `/etc/hosts`</h4>
+### Example `/etc/hosts`
 ```
 127.0.0.1       localhost
 127.0.1.1       3rdtech-gnome
 
 ...
 192.168.10.10   unit3d.site
+
 ```
+
 1. run `cd ~/Hometead && vagrant up --provision`
 2. run `vagrant ssh`
 3. cd to the unit3d project root directory
