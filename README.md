@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-<b>Repo Not Yet Complete -- v1.0 of codebase coming soon</b>
+<b>UNIT3D v1.0 Released! In BETA and not ready for production!</b>
 </p>
 
 ## Table of Contents
