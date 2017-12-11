@@ -74,10 +74,12 @@ class RegisterController extends Controller
                 $user->group_id = $group->id;
                 $user->save();
 
+                if ($key) {
                 // Update The Invite Record
                 $key->accepted_by = $user->id;
                 $key->accepted_at = new Carbon();
                 $key->save();
+                }
 
                 // Handle The Activation System
                 $token = hash_hmac('sha256', $user->username . $user->email . str_random(16), config('app.key'));
