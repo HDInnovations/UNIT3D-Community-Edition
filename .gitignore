@@ -1,8 +1,18 @@
-# This project.
+# Laravel
 
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
 /vendor
-/storage/logs/**
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
 
-# IntelliJ.
+# IntelliJ
 
 /.idea
