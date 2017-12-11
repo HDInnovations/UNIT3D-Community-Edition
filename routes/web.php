@@ -30,7 +30,6 @@ Route::group(['before' => 'auth', 'middleware' =>'guest'], function () {
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login')->name('');
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Password Reset Routes...
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
@@ -71,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@home')->name('home');
     Route::any('/search', 'HomeController@search')->name('search');
     Route::any('/contact', 'HomeController@contact')->name('contact');
+    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
     // Article
     Route::get('/articles', 'ArticleController@articles')->name('articles');
