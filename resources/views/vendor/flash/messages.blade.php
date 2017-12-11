@@ -1,0 +1,1 @@
+@include(config('flash.template'))

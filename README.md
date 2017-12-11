@@ -59,15 +59,17 @@ UNIT3D currently offers the following features:
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
 2. Open a terminal and SSH into your server.
 3. Go to the script directory and download [composer](https://getcomposer.org/download/) and run `composer update`
-4. When all libraries are installed edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
-5. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
-6. Run `php artisan db:seed --class=UsersTableSeeder` (Seeds Default Owner Account and 2 System Bot Accounts To Users Table)
-7. Run `composer require predis/predis`
-8. Run `composer update`
-9. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
-10. Go to your web URL.
-11. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
-12. Enjoy using UNIT3D.
+4. Edit your .env file with you APP, DB, REDIS and MAIL info.
+5. Run `php artisan key:generate` to generate your cipher key.
+6. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
+7. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
+8. Run `php artisan db:seed` (Seeds Default Data Into Database Tables)
+9. Run `composer require predis/predis`
+10. Run `composer update`
+11. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
+12. Go to your web URL.
+13. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
+14. Enjoy using UNIT3D.
 
 ## <a name="license"></a> License
 
