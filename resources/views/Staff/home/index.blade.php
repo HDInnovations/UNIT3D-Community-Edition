@@ -202,7 +202,7 @@
 					 </h3>
 				 </div>
 				 <div class="panel-body">
-					 <span class="text-red text-bold text-center"><h3>Currently Running UNIT3D V2.5</h3></span>
+					 <span class="text-red text-bold text-center"><h3>Currently Running {{ config('other.codebase') }}</h3></span>
 
 				 </div>
 			 </div>

@@ -82,7 +82,7 @@
             <div class="color-overlay">
               <div class="movie-content">
                 <div class="movie-header">
-                  <h1 class="movie-title">Blutopia's Featured Torrents</h1>
+                  <h1 class="movie-title">{{ Config::get('other.title') }}'s Featured Torrents</h1>
                   <h4 class="movie-info">
                     Get Them While You Can!
                     <br>

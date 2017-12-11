@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">
     <meta property="og:url" content="{{ url('/') }}">
-    <meta name="_base_url" content="https://blutopia.xyz">
+    <meta name="_base_url" content="{{ route('home') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @show
 
@@ -241,14 +241,14 @@
               </a>
             </li>
             <li>
-              <a href="https://blutopia.xyz/p/rules.1">
+              <a href="{{ route('home') }}/p/rules.1">
                 <i class="livicon" data-name="info" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
                 <span class="menu-text">Rules</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
-              <a href="https://blutopia.xyz/p/faq.3">
+              <a href="{{ route('home') }}/p/faq.3">
                 <i class="livicon" data-name="question" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
                 <span class="menu-text">FAQ</span>
                 <span class="selected"></span>

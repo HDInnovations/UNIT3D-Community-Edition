@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker (BETA)',
+    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker (BETA) v1.0',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'meta_description' => 'Next-Gen Torrent Tracker',
+    'meta_description' => 'Built On Laravel',
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +116,7 @@ return [
     | Invite System On/Off (Open Reg / Closed)
     |
     */
-    'invite-only' => false,
+    'invite-only' => true,
 
     /*
     |--------------------------------------------------------------------------

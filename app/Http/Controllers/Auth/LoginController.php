@@ -21,7 +21,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/landing';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -43,8 +43,8 @@ class LoginController extends Controller
         if ($user->group_id == 5) {
             $this->guard()->logout();
 
-            return redirect('login')->with(Toastr::error('This account is Banned! Believe There Is A Error? Join Our Support Channel https://anon.to/?https://discord.gg/SHT8GDj', 'Whoops!', ['options']));
+            return redirect('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
-        return redirect('/landing');
+        return redirect('/');
     }
 }

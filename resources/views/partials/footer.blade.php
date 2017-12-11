@@ -39,11 +39,11 @@
     <div class="col-md-2 l-footer-section">
       <h2 class="l-footer-section-title">Pages</h2>
       <ul>
-        <li><a href="https://blutopia.xyz/p/rules.1">Rules</a></li>
-        <li><a href="https://blutopia.xyz/p/faq.3">FAQ</a></li>
-        <li><a href="https://blutopia.xyz/p/suggested-clients.4">Suggested Clients</a></li>
-        <li><a href="https://blutopia.xyz/p/tracker-codes.6">Tracker Codes</a></li>
-        <li><a href="https://blutopia.xyz/p/upload-guide.5">Upload Guide</a></li>
+        <li><a href="{{ route('home') }}/p/rules.1">Rules</a></li>
+        <li><a href="{{ route('home') }}/p/faq.3">FAQ</a></li>
+        <li><a href="{{ route('home') }}/p/suggested-clients.4">Suggested Clients</a></li>
+        <li><a href="{{ route('home') }}/p/tracker-codes.6">Tracker Codes</a></li>
+        <li><a href="{{ route('home') }}/p/upload-guide.5">Upload Guide</a></li>
       </ul>
     </div>
     <!-- /Pages -->
@@ -52,7 +52,7 @@
     <div class="col-md-2 l-footer-section">
       <h2 class="l-footer-section-title">Legal</h2>
       <ul>
-        <li><a href="https://blutopia.xyz/p/terms_of_use.7">Terms Of Use</a></li>
+        <li><a href="{{ route('home') }}/p/terms_of_use.7">Terms Of Use</a></li>
         <li><a href="#">Privacy Policy</a></li>
       </ul>
     </div>
@@ -62,8 +62,6 @@
     <div class="col-md-1 l-footer-section">
       <h2 class="l-footer-section-title">Other</h2>
       <a href="https://anon.to/?https://www.patreon.com/UNIT3D" class="btn btn-xs btn-primary">Become A Patron</a>
-      <a href="https://anon.to/?https://discord.gg/SHT8GDj" class="btn btn-xs btn-primary">Discord Channel</a>
-      <a href="https://anon.to/?https://www.expressvpn.com" class="btn btn-xs btn-primary">Recommended VPN</a>
     </div>
     <!-- /Other -->
 
