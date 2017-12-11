@@ -127,4 +127,4 @@ databases:
 6. run 'composer install'
 7. run 'npm install'
 8. run `php artisan migrate:refresh --seed`
-9. visit <a href="unit3d.site">unit3d.site</a>
+9. visit <a href="http://unit3d.site">unit3d.site</a>
