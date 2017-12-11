@@ -22,6 +22,7 @@
 4. [Installation](#installation)
 5. [License](#license)
 6. [Screenshots](#screenshots)
+7. [Homestead](#homestead)
 
 
 ## <a name="introduction"></a> Introduction
@@ -88,3 +89,41 @@ User Profile (Light Theme)
 BON Store (Dark Theme)
     <img src="https://i.imgur.com/7PPEiNT.gif" alt="BON Store Page">
 </p>
+
+## <a name="homestead"></a> Homestead
+
+<a href="https://laravel.com/docs/5.4/homestead#installation-and-setup">Install and Setup Homestead </a>
+
+<h4>Example `Homestead.yaml`</h4>
+```yaml
+folders:
+    - map: ~/projects
+      to: /home/vagrant/projects
+
+sites:
+    ...
+    - map: unit3d.site
+      to: /home/vagrant/projects/www/unit3d/public
+
+databases:
+    - homestead
+    - unit3d
+```
+
+<h4>Example `/etc/hosts`</h4>
+```
+127.0.0.1       localhost
+127.0.1.1       3rdtech-gnome
+
+...
+192.168.10.10   unit3d.site
+```
+1. run `cd ~/Hometead && vagrant up --provision`
+2. run `vagrant ssh`
+3. cd to the unit3d project root directory
+4. copy `.env.example` to `.env`
+5. run 'php artisan key:generate' 
+6. run 'composer install'
+7. run 'npm install'
+8. run `php artisan migrate:refresh --seed`
+9. visit <a href="unit3d.site">unit3d.site</a>
