@@ -1,0 +1,8 @@
+# This project.
+
+/vendor
+/storage/logs/**
+
+# IntelliJ.
+
+/.idea
