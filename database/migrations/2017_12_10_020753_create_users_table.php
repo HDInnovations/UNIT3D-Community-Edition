@@ -31,8 +31,8 @@ class CreateUsersTable extends Migration {
 			$table->string('passkey', 40);
 			$table->integer('group_id')->index('fk_users_groups_idx');
 			$table->boolean('active')->default(0);
-			$table->bigInteger('uploaded')->unsigned();
-			$table->bigInteger('downloaded')->unsigned();
+			$table->bigInteger('uploaded')->unsigned()->default(0);
+			$table->bigInteger('downloaded')->unsigned()->default(0);
 			$table->string('image')->nullable();
 			$table->string('title')->nullable();
 			$table->string('about', 500)->nullable();

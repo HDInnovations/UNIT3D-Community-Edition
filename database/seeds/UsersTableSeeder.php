@@ -29,27 +29,30 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->insert(array (
             0 =>
             array (
-                'id' => 0,
                 'username' => 'System',
                 'email' => 'system@none.com',
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'passkey' => md5(uniqid() . time() . microtime()),
+                'active' => 1
             ),
             1 =>
             array (
-                'id' => 1,
                 'username' => 'Bot',
                 'email' => 'bot@none.com',
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'passkey' => md5(uniqid() . time() . microtime()),
+                'active' => 1
             ),
             2 =>
             array (
-                'id' => 2,
                 'username' => env('DEFAULT_OWNER_NAME'),
                 'email' => env('DEFAULT_OWNER_EMAIL'),
                 'group_id' => 10,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'passkey' => md5(uniqid() . time() . microtime()),
+                'active' => 1
             ),
         ));
     }

@@ -128,3 +128,4 @@ databases:
 7. run `npm install`
 8. run `php artisan migrate:refresh --seed`
 9. visit <a href="http://unit3d.site">unit3d.site</a>
+10. Login u: `System` p: `UNIT3D`
