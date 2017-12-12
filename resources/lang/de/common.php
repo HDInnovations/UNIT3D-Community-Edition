@@ -6,15 +6,15 @@
 */
 
 return [
-	'home' => 'Home',
+	'home' => 'Startseit',
 	'account' => 'Account',
-	'username' => 'Username',
-	'password' => 'Password',
+	'username' => 'Benutzername',
+	'password' => 'Passwort',
 	'download' => 'Download',
-	'members' => 'Members',
+	'members' => 'Mitglieder',
 	'name' => 'Name',
-	'times' => 'times',
-	'added_on' => 'Added on',
-	'search' => 'Search',
-	'category' => 'Category',
+	'times' => 'Zeiten',
+	'added_on' => 'Hinzugefügt am',
+	'search' => 'Suche',
+	'category' => 'Kategorie',
 ];

@@ -6,7 +6,7 @@
 */
 
 return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more' => 'Read more',
-    'published-at' => 'Published at ',
+    'meta-articles' => 'Artikel und Neuigkeiten über den Tracker und die Community.',
+    'read-more' => 'Lese mehr',
+    'published-at' => 'Veröffentlicht am ',
 ];
