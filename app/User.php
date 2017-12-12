@@ -25,6 +25,8 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Helpers\StringHelper;
+
 /**
  * User-Related Template
  *
@@ -320,12 +322,7 @@ class User extends Authenticatable
     public function getUploaded($bytes = null, $precision = 2)
     {
         $bytes = $this->uploaded;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
@@ -335,12 +332,7 @@ class User extends Authenticatable
     public function getDownloaded($bytes = null, $precision = 2)
     {
         $bytes = $this->downloaded;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
