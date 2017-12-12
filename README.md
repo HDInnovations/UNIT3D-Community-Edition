@@ -62,14 +62,14 @@ UNIT3D currently offers the following features:
 
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
 2. Open a terminal and SSH into your server.
-3. Go to the script directory and download [composer](https://getcomposer.org/download/) and run `composer install`
+3. Go to the script directory and download [composer](https://getcomposer.org/download/) and run `composer update`
 4. Edit your .env file with you APP, DB, REDIS and MAIL info.
 5. Run `php artisan key:generate` to generate your cipher key.
 6. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 7. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
 8. Run `php artisan db:seed` (Seeds Default Data Into Database Tables)
 9. Run `composer require predis/predis`
-10. Run `composer update`
+10. Run `composer install`
 11. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
 12. Go to your web URL.
 13. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
