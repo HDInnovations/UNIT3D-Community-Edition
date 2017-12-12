@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,8 +25,8 @@ class CreateCatalogTorrentTable extends Migration {
 		Schema::create('catalog_torrent', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('imdb', 11)->nullable()->index('catalog_torrent_imdb_foreign');
-			$table->string('tvdb', 11)->nullable()->index('catalog_torrent_tvdb_foreign');
+			$table->string('imdb')->nullable()->index('catalog_torrent_imdb_foreign');
+			$table->string('tvdb')->nullable()->index('catalog_torrent_tvdb_foreign');
 			$table->integer('catalog_id')->nullable();
 			$table->timestamps();
 		});

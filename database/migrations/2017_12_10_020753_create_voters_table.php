@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -27,7 +27,7 @@ class CreateVotersTable extends Migration {
 			$table->increments('id');
 			$table->integer('poll_id')->unsigned()->index('voters_poll_id_foreign');
 			$table->integer('user_id')->unsigned()->default(0);
-			$table->string('ip_address', 45);
+			$table->string('ip_address');
 			$table->timestamps();
 		});
 	}

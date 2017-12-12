@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,7 +25,7 @@ class CreateBonExchangeTable extends Migration {
 		Schema::create('bon_exchange', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('description', 180)->nullable();
+			$table->string('description')->nullable();
 			$table->bigInteger('value')->unsigned()->default(0);
 			$table->integer('cost')->unsigned()->default(0);
 			$table->boolean('upload')->default(0);

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -29,8 +29,8 @@ class CreateTorrentsTable extends Migration {
 			$table->string('slug')->nullable();
 			$table->text('description');
 			$table->text('mediainfo')->nullable();
-			$table->string('info_hash', 40)->index('info_hash');
-			$table->string('file_name', 45);
+			$table->string('info_hash')->index('info_hash');
+			$table->string('file_name');
 			$table->integer('num_file');
 			$table->float('size', 10, 0);
 			$table->text('nfo')->nullable();
@@ -41,11 +41,11 @@ class CreateTorrentsTable extends Migration {
 			$table->integer('category_id')->nullable()->index('fk_table1_categories1_idx');
 			$table->string('announce');
 			$table->integer('user_id')->index('fk_torrents_users1_idx');
-			$table->string('imdb', 11)->nullable()->index('imdb');
-			$table->string('tvdb', 11)->nullable()->index('tvdb');
-			$table->string('tmdb', 11)->nullable()->index('tmdb');
-			$table->string('mal', 11)->nullable()->index('mal');
-			$table->string('type', 11)->nullable()->index('type');
+			$table->string('imdb')->nullable()->index('imdb');
+			$table->string('tvdb')->nullable()->index('tvdb');
+			$table->string('tmdb')->nullable()->index('tmdb');
+			$table->string('mal')->nullable()->index('mal');
+			$table->string('type')->nullable()->index('type');
 			$table->boolean('stream')->default(0);
 			$table->boolean('free')->default(0);
 			$table->boolean('doubleup')->default(0);

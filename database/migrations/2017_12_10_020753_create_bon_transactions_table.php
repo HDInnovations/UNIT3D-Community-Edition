@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -26,7 +26,7 @@ class CreateBonTransactionsTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('itemID')->unsigned()->default(0);
-			$table->string('name', 180)->default('');
+			$table->string('name')->default('');
 			$table->float('cost', 22)->default(0.00);
 			$table->integer('sender')->unsigned()->default(0);
 			$table->integer('receiver')->unsigned()->default(0);

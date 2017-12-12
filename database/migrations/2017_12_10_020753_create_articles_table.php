@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,8 +25,8 @@ class CreateArticlesTable extends Migration {
 		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('title', 100);
-			$table->string('slug', 100);
+			$table->string('title');
+			$table->string('slug');
 			$table->string('image')->nullable();
 			$table->text('content', 65535);
 			$table->timestamps();

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -27,7 +27,7 @@ class CreateFailedLoginAttemptsTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned()->nullable();
 			$table->string('username');
-			$table->string('ip_address', 45);
+			$table->string('ip_address');
 			$table->timestamps();
 		});
 	}

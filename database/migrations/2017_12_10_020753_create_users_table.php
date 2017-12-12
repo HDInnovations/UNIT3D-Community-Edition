@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,10 +25,10 @@ class CreateUsersTable extends Migration {
 		Schema::create('users', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('username', 80);
-			$table->string('email', 90);
-			$table->string('password', 150);
-			$table->string('passkey', 40);
+			$table->string('username');
+			$table->string('email');
+			$table->string('password');
+			$table->string('passkey');
 			$table->integer('group_id')->index('fk_users_groups_idx');
 			$table->boolean('active')->default(0);
 			$table->bigInteger('uploaded')->unsigned()->default(0);
@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration {
 			$table->float('seedbonus', 12)->unsigned()->default(0.00);
 			$table->integer('invites')->unsigned()->default(0);
 			$table->integer('hitandruns')->unsigned()->default(0);
-			$table->string('rsskey', 40)->default('abcdefg');
+			$table->string('rsskey')->default('abcdefg');
 			$table->boolean('hidden')->default(0);
 			$table->boolean('style')->default(0);
 			$table->boolean('nav')->default(0);
@@ -55,7 +55,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean('peer_hidden')->default(0);
 			$table->boolean('private_profile')->default(0);
 			$table->boolean('stat_hidden')->default(0);
-			$table->string('remember_token', 80)->nullable();
+			$table->string('remember_token')->nullable();
 			$table->dateTime('last_login')->nullable();
 			$table->timestamps();
 		});

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,9 +25,9 @@ class CreateTopicsTable extends Migration {
 		Schema::create('topics', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('name', 75);
-			$table->string('slug', 75);
-			$table->string('state', 45)->nullable();
+			$table->string('name');
+			$table->string('slug');
+			$table->string('state')->nullable();
 			$table->boolean('pinned')->default(0);
 			$table->boolean('approved')->default(0);
 			$table->boolean('denied')->default(0);
@@ -38,8 +38,8 @@ class CreateTopicsTable extends Migration {
 			$table->integer('num_post')->nullable();
 			$table->integer('first_post_user_id')->nullable();
 			$table->integer('last_post_user_id')->nullable();
-			$table->string('first_post_user_username', 45)->nullable();
-			$table->string('last_post_user_username', 45)->nullable();
+			$table->string('first_post_user_username')->nullable();
+			$table->string('last_post_user_username')->nullable();
 			$table->integer('views')->nullable();
 			$table->timestamps();
 			$table->integer('forum_id')->index('fk_topics_forums1_idx');

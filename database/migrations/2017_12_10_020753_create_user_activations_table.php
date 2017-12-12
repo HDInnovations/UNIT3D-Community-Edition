@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -26,7 +26,7 @@ class CreateUserActivationsTable extends Migration {
 		{
 			$table->bigInteger('id', true)->unsigned();
 			$table->bigInteger('user_id')->unsigned();
-			$table->string('token', 100);
+			$table->string('token');
 			$table->timestamps();
 		});
 	}

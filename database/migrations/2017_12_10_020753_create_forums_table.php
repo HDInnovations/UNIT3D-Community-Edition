@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -32,9 +32,9 @@ class CreateForumsTable extends Migration {
 			$table->string('last_topic_name')->nullable();
 			$table->string('last_topic_slug')->nullable();
 			$table->integer('last_post_user_id')->nullable();
-			$table->string('last_post_user_username', 45)->nullable();
-			$table->string('name', 45)->nullable();
-			$table->string('slug', 45)->nullable();
+			$table->string('last_post_user_username')->nullable();
+			$table->string('name')->nullable();
+			$table->string('slug')->nullable();
 			$table->text('description', 65535)->nullable();
 			$table->integer('parent_id')->nullable();
 			$table->timestamps();

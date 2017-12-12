@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -26,7 +26,7 @@ class CreateRssTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->integer('userID')->index('userID');
-			$table->string('category', 40)->nullable();
+			$table->string('category')->nullable();
 			$table->timestamps();
 		});
 	}

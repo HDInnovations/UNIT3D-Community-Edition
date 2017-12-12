@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -26,7 +26,7 @@ class CreateSessionsTable extends Migration {
 		{
 			$table->string('id')->unique();
 			$table->integer('user_id')->nullable();
-			$table->string('ip_address', 45)->nullable();
+			$table->string('ip_address')->nullable();
 			$table->text('user_agent', 65535)->nullable();
 			$table->text('payload', 65535);
 			$table->integer('last_activity');

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
@@ -25,8 +25,8 @@ class CreateCategoriesTable extends Migration {
 		Schema::create('categories', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('name', 45);
-			$table->string('slug', 45);
+			$table->string('name');
+			$table->string('slug');
 			$table->integer('num_torrent')->default(0);
 		});
 	}
