@@ -90,7 +90,7 @@ class RegisterController extends Controller
                 $this->dispatch(new SendActivationMail($user, $token));
 
                 // Post To Shoutbox
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Welcome [url={{ route('home') }}/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] hope you enjoy the community :rocket:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={{ route('home') }}/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] hope you enjoy the community :rocket:"]);
                 Cache::forget('shoutbox_messages');
 
                 // Send Welcome PM

@@ -71,7 +71,7 @@ class CommentController extends Controller
         $comment->article_id = $article->id;
         $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
         if ($v->passes()) {
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on article [url=https://blutopia.xyz/articles/" .$article->slug. "." .$article->id. "]" .$article->title. "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on article [url=https://blutopia.xyz/articles/" .$article->slug. "." .$article->id. "]" .$article->title. "[/url]"]);
             Cache::forget('shoutbox_messages');
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
@@ -125,10 +125,10 @@ class CommentController extends Controller
 
             // Auto Shout
             if ($comment->anon == 0){
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
             Cache::forget('shoutbox_messages');
             } else {
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User Anonymous has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User Anonymous has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
                 Cache::forget('shoutbox_messages');
             }
         } else {
@@ -175,7 +175,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
             // Auto Shout
-              Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Request [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]"]);
+              Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Request [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]"]);
               Cache::forget('shoutbox_messages');
             // Auto PM
               PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " .$request->name. " Has A New Comment!", 'message' => $comment->user->username. " Has Left A Comment On [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]"]);
@@ -230,7 +230,7 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
 
             // Auto Shout
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
             Cache::forget('shoutbox_messages');
 
             } else {

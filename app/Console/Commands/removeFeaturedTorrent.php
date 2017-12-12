@@ -58,7 +58,7 @@ class removeFeaturedTorrent extends Command
             $torrent->save();
 
             // Auto Announce Featured Expired
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url={{ route('torrents') }}/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] is no longer featured. :poop:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={{ route('torrents') }}/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] is no longer featured. :poop:"]);
             Cache::forget('shoutbox_messages');
 
             // Delete The Record From DB

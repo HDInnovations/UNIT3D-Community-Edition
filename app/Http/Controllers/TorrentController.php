@@ -258,10 +258,10 @@ class TorrentController extends Controller
                 $user->addProgress(new UserMade900Uploads(), 1);
                 if ($torrent->sd == 0) {
                 if ($torrent->anon == 0) {
-                    Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has uploaded [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] grab it now! :slight_smile:"]);
+                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has uploaded [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] grab it now! :slight_smile:"]);
                     Cache::forget('shoutbox_messages');
                 } else {
-                    Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User Anonymous has uploaded [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] grab it now! :slight_smile:"]);
+                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User Anonymous has uploaded [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] grab it now! :slight_smile:"]);
                     Cache::forget('shoutbox_messages');
                 }
               }
@@ -543,11 +543,11 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         if ($torrent->free == 0) {
             $torrent->free = "1";
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
             Cache::forget('shoutbox_messages');
         } else {
             $torrent->free = "0";
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been revoked of its 100% FreeLeech! :poop:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been revoked of its 100% FreeLeech! :poop:"]);
             Cache::forget('shoutbox_messages');
         }
         $torrent->save();
@@ -582,8 +582,9 @@ class TorrentController extends Controller
                 'torrent_id' => $torrent->id,
             ]);
             $featured->save();
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]
-            has been added to the Featured Torrents Slider by [url=https://blutopia.xyz/" .Auth::user()->username. "." .Auth::user()->id. "]" .Auth::user()->username. "[/url]! Grab It While You Can! :fire:"]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=url={$appurl}/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]
+            has been added to the Featured Torrents Slider by [url={$appurl}/" .Auth::user()->username. "." .Auth::user()->id. "]" .Auth::user()->username. "[/url]! Grab It While You Can! :fire:"]);
             Cache::forget('shoutbox_messages');
         } else {
           return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Ummm', ['options']));
@@ -613,11 +614,11 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         if ($torrent->doubleup == 0) {
             $torrent->doubleup = "1";
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
             Cache::forget('shoutbox_messages');
         } else {
             $torrent->doubleup = "0";
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been revoked of its Double Upload! :poop:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] has been revoked of its Double Upload! :poop:"]);
             Cache::forget('shoutbox_messages');
         }
         $torrent->save();
@@ -718,7 +719,7 @@ class TorrentController extends Controller
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
         if ($torrent->seeders <= 2) {
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has requested a reseed on [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] can you help out :question:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has requested a reseed on [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] can you help out :question:"]);
             Cache::forget('shoutbox_messages');
             foreach ($reseed as $pm) {
                 $pmuser = new PrivateMessage();

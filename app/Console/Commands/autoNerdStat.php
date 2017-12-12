@@ -84,7 +84,7 @@ class autoNerdStat extends Command
         $selected = mt_rand(0, count($statArray) -1);
 
         // Auto Shout Nerd Stat
-        Shoutbox::create(['user' => "1", 'mentions' => "0", 'message' => ":nerd: [b]Random Nerd Stat:[/b] ".$statArray[$selected]." :nerd:"]);
+        Shoutbox::create(['user' => "2", 'mentions' => "2", 'message' => ":nerd: [b]Random Nerd Stat:[/b] ".$statArray[$selected]." :nerd:"]);
         Cache::forget('shoutbox_messages');
     }
 }

@@ -223,7 +223,7 @@ class BonusController extends Controller
                 ]);
                 $transaction->save();
 
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has gifted " . $value . "BON to [url=https://blutopia.xyz/"
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has gifted " . $value . "BON to [url=https://blutopia.xyz/"
                 .$recipient->username. "." .$recipient->id. "]" .$recipient->username. "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
