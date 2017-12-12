@@ -73,7 +73,8 @@ class PollController extends Controller
         \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has created a new poll ". $poll->title ." .");
 
         // Auto Shout
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url=https://blutopia.xyz/poll/" .$poll->slug."]" .$poll->title. "[/url] vote on it now! :slight_smile:"]);
+        $appurl = env('APP_URL', 'http://unit3d.site');
+        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/" . $poll->slug . "]" . $poll->title . "[/url] vote on it now! :slight_smile:"]);
         Cache::forget('shoutbox_messages');
 
         Toastr::success('Your poll has been created.', 'Yay!', ['options']);

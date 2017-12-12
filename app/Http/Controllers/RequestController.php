@@ -192,7 +192,8 @@ class RequestController extends Controller
                 $user->seedbonus -= Request::get('bounty');
                 $user->save();
 
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has created a new request [url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                $appurl = env('APP_URL', 'http://unit3d.site');
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
                 return Redirect::to('/requests')->with(Toastr::success('Request Added.', 'Successful', ['options']));
@@ -294,9 +295,10 @@ class RequestController extends Controller
                 $user->seedbonus -= Request::get('bonus_value');
                 $user->save();
 
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has addded " . Request::get('bonus_value') . " BON bounty to request " . "[url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                $appurl = env('APP_URL', 'http://unit3d.site');
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . Request::get('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
-                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " .$requests->name. " Has A New Bounty!", 'message' => $user->username. " Has Added A Bounty To " . "[url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " . $requests->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
 
                 return Redirect::route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Bonus added', ['options']));
             } else {
@@ -366,7 +368,8 @@ class RequestController extends Controller
 
         $request->save();
 
-        PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " .$request->name. " Has Been Filled!", 'message' => $request->filled_by. " Has Filled Your Request [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]". " Please Approve or Decline The FullFill! "]);
+        $appurl = env('APP_URL', 'http://unit3d.site');
+        PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has Been Filled!", 'message' => $request->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
 
     }
 
@@ -410,9 +413,10 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$fill_user->username. "." .$fill_user->id. "]" .$fill_user->username. "[/url] has filled [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url] and was awarded " . $fill_amount . " BON "]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             Cache::forget('shoutbox_messages');
-            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " .$request->name. " Has Been Approved!", 'message' => $request->approved_by. " Has Approved Your Fullfillment On [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url] Enjoy The " .$request->bounty. " Bonus Points!"]);
+            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " . $request->name . " Has Been Approved!", 'message' => $request->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] Enjoy The " . $request->bounty . " Bonus Points!"]);
             return Redirect::route('request', ['id' => $id])->with(Toastr::success("You have approved {$request->name} and the bounty has been awarded to {$fill_user->username}", "Request completed!", ['options']));
         } else {
             return Redirect::route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Permission denied', ['options']));

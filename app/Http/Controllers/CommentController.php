@@ -70,8 +70,9 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->article_id = $article->id;
         $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
+        $appurl = env('APP_URL', 'http://unit3d.site');
         if ($v->passes()) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on article [url=https://blutopia.xyz/articles/" .$article->slug. "." .$article->id. "]" .$article->title. "[/url]"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
             Cache::forget('shoutbox_messages');
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
@@ -124,11 +125,12 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
 
             // Auto Shout
+            $appurl = env('APP_URL', 'http://unit3d.site');
             if ($comment->anon == 0){
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
             } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User Anonymous has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User Anonymous has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
             }
         } else {
@@ -175,10 +177,11 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
             // Auto Shout
-              Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Request [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]"]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
               Cache::forget('shoutbox_messages');
             // Auto PM
-              PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " .$request->name. " Has A New Comment!", 'message' => $comment->user->username. " Has Left A Comment On [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]"]);
+            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
@@ -230,7 +233,8 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
 
             // Auto Shout
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a comment on Torrent [url=https://blutopia.xyz/torrents/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url]"]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
 
             } else {

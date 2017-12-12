@@ -223,7 +223,8 @@ class ForumController extends Controller
             $topicCreator = User::findOrFail($topic->first_post_user_id);
 
             // Post To ShoutBox
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has left a reply on topic [url=https://blutopia.xyz/community/topic/" .$topic->slug. "." .$topic->id. "]" .$topic->name. "[/url]"]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/community/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
 
             // Mail Topic Creator Of New Reply
@@ -314,7 +315,8 @@ class ForumController extends Controller
                     $forum->save();
 
                     // Post To ShoutBox
-                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has created a new topic [url=https://blutopia.xyz/community/topic/" .$topic->slug. "." .$topic->id. "]" .$topic->name. "[/url]"]);
+                    $appurl = env('APP_URL', 'http://unit3d.site');
+                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new topic [url={$appurl}/community/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
                     Cache::forget('shoutbox_messages');
 
                     //Achievements
