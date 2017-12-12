@@ -122,7 +122,7 @@ databases:
 
 ```
 
-1. run `cd ~/Hometead && vagrant up --provision`
+1. run `cd ~/Homestead && vagrant up --provision`
 2. run `vagrant ssh`
 3. cd to the unit3d project root directory
 4. copy `.env.example` to `.env`
