@@ -69,7 +69,7 @@ UNIT3D currently offers the following features:
 7. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
 8. Run `php artisan db:seed` (Seeds Default Data Into Database Tables)
 9. Run `composer require predis/predis`
-10. Run `composer update`
+10. Run `composer install`
 11. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
 12. Go to your web URL.
 13. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
