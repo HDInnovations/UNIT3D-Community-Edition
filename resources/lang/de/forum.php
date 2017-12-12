@@ -15,6 +15,6 @@ return [
 	'send-new-topic' => 'Speichere dieses Thema',
 	'read-topic' => 'Lese dieses Thema',
 	'mark-as-resolved' => 'Schliesse Thema',
-	'delete-topic' => 'Loesche dieses Thema',
+	'delete-topic' => 'Lösche dieses Thema',
 	'display-forum' => 'Themas anzeigen in '
 ];
