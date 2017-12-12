@@ -127,7 +127,8 @@ class ShoutboxController extends Controller
 
               if (Auth::user()->group->is_modo) {
                   $flag = true;
-                  $delete = '<a title="Delete Shout" href=\'https://blutopia.xyz/shoutbox/delete/' .$messages->id. '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
+                  $appurl = env('APP_URL', 'http://unit3d.site');
+                  $delete = '<a title="Delete Shout" href=\''.$appurl.'/shoutbox/delete/' .$messages->id. '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
               } else {
                   $flag = true;
                   $delete = '';
