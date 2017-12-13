@@ -18,7 +18,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Welcome To The Installer',
+        'title' => 'Welcome To The Installer',
         'message' => 'Welcome to the setup wizard.',
     ],
 
@@ -88,7 +88,7 @@ return [
          *
          */
         'welcome' => [
-            'title'   => 'Welcome To The Updater',
+            'title' => 'Welcome To The Updater',
             'message' => 'Welcome to the update wizard.',
         ],
 
@@ -98,7 +98,7 @@ return [
          *
          */
         'overview' => [
-            'title'   => 'Overview',
+            'title' => 'Overview',
             'message' => 'There is 1 update.|There are :number updates.',
         ],
 

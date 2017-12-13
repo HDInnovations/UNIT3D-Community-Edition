@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -31,169 +31,169 @@ use \Toastr;
 class UserController extends Controller
 {
     /**
-  * Members List
-  *
-  *
-  */
-  public function members()
-  {
-      $users = User::orderBy('created_at', 'DESC')->paginate(20);
-      $uploaders = User::where('group_id', '=', 7)->orderBy('created_at', 'DESC')->paginate(20);
-      $mods = User::where('group_id', '=', 6)->orderBy('created_at', 'DESC')->paginate(20);
-      $admins = User::where('group_id', '=', 4)->orderBy('created_at', 'DESC')->paginate(20);
-      $coders = User::where('group_id', '=', 10)->orderBy('created_at', 'DESC')->paginate(20);
-      return view('Staff.user.user_search', ['users' => $users, 'uploaders' => $uploaders, 'mods' => $mods, 'admins' => $admins, 'coders' => $coders]);
-  }
+     * Members List
+     *
+     *
+     */
+    public function members()
+    {
+        $users = User::orderBy('created_at', 'DESC')->paginate(20);
+        $uploaders = User::where('group_id', '=', 7)->orderBy('created_at', 'DESC')->paginate(20);
+        $mods = User::where('group_id', '=', 6)->orderBy('created_at', 'DESC')->paginate(20);
+        $admins = User::where('group_id', '=', 4)->orderBy('created_at', 'DESC')->paginate(20);
+        $coders = User::where('group_id', '=', 10)->orderBy('created_at', 'DESC')->paginate(20);
+        return view('Staff.user.user_search', ['users' => $users, 'uploaders' => $uploaders, 'mods' => $mods, 'admins' => $admins, 'coders' => $coders]);
+    }
 
-  /**
-  * Search for members
-  *
-  * @access public
-  *
-  */
-  public function userSearch()
-  {
-      $search = Request::get('search');
-      $users = User::where([
-          ['username','like','%'.Request::get('username').'%'],
-      ])->paginate(25);
-      $users->setPath('?username='.Request::get('username'));
-      return view('Staff.user.user_results')->with('users', $users);
-  }
+    /**
+     * Search for members
+     *
+     * @access public
+     *
+     */
+    public function userSearch()
+    {
+        $search = Request::get('search');
+        $users = User::where([
+            ['username', 'like', '%' . Request::get('username') . '%'],
+        ])->paginate(25);
+        $users->setPath('?username=' . Request::get('username'));
+        return view('Staff.user.user_results')->with('users', $users);
+    }
 
-  /**
-  * User Edit
-  *
-  * @access public
-  * @return view user.settings
-  */
-  public function userSettings($username, $id)
-  {
-      $user = User::findOrFail($id);
-      $groups = Group::all();
-      $notes = Note::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(20);
-      return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
-  }
+    /**
+     * User Edit
+     *
+     * @access public
+     * @return view user.settings
+     */
+    public function userSettings($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $groups = Group::all();
+        $notes = Note::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(20);
+        return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
+    }
 
-  /**
-  * Edit User
-  *
-  * @access public
-  * @return view user.profile
-  */
-  public function userEdit($username, $id)
-  {
-      $user = User::findOrFail($id);
-      $staff = Auth::user();
-      $groups = Group::all();
-      if (Request::isMethod('post')) {
-          $user->username = Request::get('username');
-          $user->email = Request::get('email');
-          $user->uploaded = Request::get('uploaded');
-          $user->downloaded = Request::get('downloaded');
-          $user->about = Request::get('about');
-          $user->group_id = (int) Request::get('group_id');
-          $user->save();
+    /**
+     * Edit User
+     *
+     * @access public
+     * @return view user.profile
+     */
+    public function userEdit($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $staff = Auth::user();
+        $groups = Group::all();
+        if (Request::isMethod('post')) {
+            $user->username = Request::get('username');
+            $user->email = Request::get('email');
+            $user->uploaded = Request::get('uploaded');
+            $user->downloaded = Request::get('downloaded');
+            $user->about = Request::get('about');
+            $user->group_id = (int)Request::get('group_id');
+            $user->save();
 
-          // Activity Log
-          \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account.");
+            // Activity Log
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account.");
 
-          return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
-      } else {
-          return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
-      }
-  }
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
+        } else {
+            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        }
+    }
 
-  /**
-  * Edit User Permissions
-  *
-  * @access public
-  * @return view user.profile
-  */
-  public function userPermissions($username, $id)
-  {
-      $user = User::findOrFail($id);
-      $staff = Auth::user();
-      if (Request::isMethod('post')) {
-          $user->can_upload =  Request::get('can_upload');
-          $user->can_download = Request::get('can_download');
-          $user->can_comment = Request::get('can_comment');
-          $user->can_invite = Request::get('can_invite');
-          $user->can_request = Request::get('can_request');
-          $user->can_chat = Request::get('can_chat');
-          $user->save();
+    /**
+     * Edit User Permissions
+     *
+     * @access public
+     * @return view user.profile
+     */
+    public function userPermissions($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $staff = Auth::user();
+        if (Request::isMethod('post')) {
+            $user->can_upload = Request::get('can_upload');
+            $user->can_download = Request::get('can_download');
+            $user->can_comment = Request::get('can_comment');
+            $user->can_invite = Request::get('can_invite');
+            $user->can_request = Request::get('can_request');
+            $user->can_chat = Request::get('can_chat');
+            $user->save();
 
-          // Activity Log
-          \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account permissions.");
+            // Activity Log
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account permissions.");
 
-          return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
-      } else {
-          return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
-      }
-  }
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+        } else {
+            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        }
+    }
 
-  /**
-  * Delete User
-  *
-  * @access protected
-  * @return void
-  *
-  */
-  protected function userDelete($username, $id)
-  {
-      $user = User::findOrFail($id);
-      $staff = Auth::user();
-      // Removes UserID from Torrents if any and replaces with System UserID (0)
-      foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
-          $tor->user_id = 0;
-          $tor->save();
-      }
-      // Removes UserID from Comments if any and replaces with System UserID (0)
-      foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-          $com->user_id = 0;
-          $com->save();
-      }
-      // Removes UserID from Posts if any and replaces with System UserID (0)
-      foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-          $post->user_id = 0;
-          $post->save();
-      }
-      // Removes UserID from Topic Creators if any and replaces with System UserID (0)
-      foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-          $topic->first_post_user_id = 0;
-          $topic->save();
-      }
-      // Removes UserID from Topic if any and replaces with System UserID (0)
-      foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-          $topic->last_post_user_id = 0;
-          $topic->save();
-      }
-      // Removes UserID from PM if any and replaces with System UserID (0)
-      foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-          $sent->sender_id = 0;
-          $sent->save();
-      }
-      // Removes UserID from PM if any and replaces with System UserID (0)
-      foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
-          $recieved->reciever_id = 0;
-          $recieved->save();
-      }
-      // Removes all Posts made by User from the shoutbox
-      foreach (Shoutbox::where('user', '=', $user->id)->get() as $shout) {
-          $shout->delete();
-      }
-      // Removes all notes for user
-      foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-          $note->delete();
-      }
+    /**
+     * Delete User
+     *
+     * @access protected
+     * @return void
+     *
+     */
+    protected function userDelete($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $staff = Auth::user();
+        // Removes UserID from Torrents if any and replaces with System UserID (0)
+        foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
+            $tor->user_id = 0;
+            $tor->save();
+        }
+        // Removes UserID from Comments if any and replaces with System UserID (0)
+        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
+            $com->user_id = 0;
+            $com->save();
+        }
+        // Removes UserID from Posts if any and replaces with System UserID (0)
+        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
+            $post->user_id = 0;
+            $post->save();
+        }
+        // Removes UserID from Topic Creators if any and replaces with System UserID (0)
+        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->first_post_user_id = 0;
+            $topic->save();
+        }
+        // Removes UserID from Topic if any and replaces with System UserID (0)
+        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->last_post_user_id = 0;
+            $topic->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (0)
+        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
+            $sent->sender_id = 0;
+            $sent->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (0)
+        foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
+            $recieved->reciever_id = 0;
+            $recieved->save();
+        }
+        // Removes all Posts made by User from the shoutbox
+        foreach (Shoutbox::where('user', '=', $user->id)->get() as $shout) {
+            $shout->delete();
+        }
+        // Removes all notes for user
+        foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
+            $note->delete();
+        }
 
-      // Activity Log
-      \LogActivity::addToLog("Staff Member " . $staff->username . " has deleted " . $user->username . " account.");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member " . $staff->username . " has deleted " . $user->username . " account.");
 
-      if ($user->delete()) {
-          return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
-      } else {
-          return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
-      }
-  }
+        if ($user->delete()) {
+            return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
+        } else {
+            return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        }
+    }
 }

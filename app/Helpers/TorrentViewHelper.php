@@ -38,9 +38,9 @@ class TorrentViewHelper
             $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
             if ($list->category_id == 2) {
-                $movie = $client->scrape('tv', 'tt'.$list->imdb);
+                $movie = $client->scrape('tv', 'tt' . $list->imdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'.$list->imdb);
+                $movie = $client->scrape('movie', 'tt' . $list->imdb);
             }
 
             if ($user->show_poster == 1) {
@@ -76,17 +76,17 @@ class TorrentViewHelper
             }
 
             if ($user->ratings == 1) {
-            $link = "https://anon.to?http://www.imdb.com/title/tt".$list->imdb;
-            $rating = $movie->imdbRating;
-            $votes = $movie->imdbVotes;
+                $link = "https://anon.to?http://www.imdb.com/title/tt" . $list->imdb;
+                $rating = $movie->imdbRating;
+                $votes = $movie->imdbVotes;
             } else {
-            $rating = $movie->tmdbRating;
-            $votes = $movie->tmdbVotes;
-            if ($list->category_id == '2') {
-            $link = "https://www.themoviedb.org/tv/".$movie->tmdb;
-            } else {
-            $link = "https://www.themoviedb.org/movie/".$movie->tmdb;
-            }
+                $rating = $movie->tmdbRating;
+                $votes = $movie->tmdbVotes;
+                if ($list->category_id == '2') {
+                    $link = "https://www.themoviedb.org/tv/" . $movie->tmdb;
+                } else {
+                    $link = "https://www.themoviedb.org/movie/" . $movie->tmdb;
+                }
             }
 
             $thank_count = $list->thanks()->count();
@@ -97,14 +97,14 @@ class TorrentViewHelper
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-play text-red' data-toggle='tooltip' title='' data-original-title='Stream Optimized'></i> Stream Optimized</span>";
             }
 
-            if($list->featured == "0"){
-            if ($list->doubleup == "1") {
-                $icons .= "<span class='badge-extra text-bold'><i class='fa fa-diamond text-green' data-toggle='tooltip' title='' data-original-title='Double upload'></i> Double Upload</span>";
-            }
+            if ($list->featured == "0") {
+                if ($list->doubleup == "1") {
+                    $icons .= "<span class='badge-extra text-bold'><i class='fa fa-diamond text-green' data-toggle='tooltip' title='' data-original-title='Double upload'></i> Double Upload</span>";
+                }
 
-            if ($list->free == "1") {
-                $icons .= "<span class='badge-extra text-bold'><i class='fa fa-star text-gold' data-toggle='tooltip' title='' data-original-title='100% Free'></i> 100% Free</span>";
-            }
+                if ($list->free == "1") {
+                    $icons .= "<span class='badge-extra text-bold'><i class='fa fa-star text-gold' data-toggle='tooltip' title='' data-original-title='100% Free'></i> 100% Free</span>";
+                }
             }
 
             if ($personal_freeleech) {
@@ -153,8 +153,8 @@ class TorrentViewHelper
             $common_times = trans('common.times');
 
 
-            $data[] = $sticky.
-            "<td>".$poster."</td>
+            $data[] = $sticky .
+                "<td>" . $poster . "</td>
             <td>
               <center>
               <a href='{$category_link}'>{$category}</a>
@@ -187,7 +187,7 @@ class TorrentViewHelper
             </td>
 
             <td><time datetime='{$datetime}'>{$datetime_inner}</time></td>
-            <td><span class='badge-extra text-blue text-bold'>".$list->getSize()."</span></td>
+            <td><span class='badge-extra text-blue text-bold'>" . $list->getSize() . "</span></td>
             <td><span class='badge-extra text-orange text-bold'>{$list->times_completed} {$common_times}</span></td>
             <td><span class='badge-extra text-green text-bold'>{$list->seeders}</span></td>
             <td><span class='badge-extra text-red text-bold'>{$list->leechers}</span></td>

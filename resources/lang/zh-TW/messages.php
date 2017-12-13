@@ -18,7 +18,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => '歡迎來到Laravel安裝程序',
+        'title' => '歡迎來到Laravel安裝程序',
         'message' => '歡迎來到安裝嚮導.',
     ],
 

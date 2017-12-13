@@ -44,19 +44,19 @@ class HtmlEncrypt
 
     public function encryptHtml($content)
     {
-        $text = str_split(bin2hex($content),2);
+        $text = str_split(bin2hex($content), 2);
 
-        array_walk($text , function (&$a) {
-            $this->addHexValue('%'.$a);
+        array_walk($text, function (&$a) {
+            $this->addHexValue('%' . $a);
         });
 
-        $script = '<script type="text/javascript">document.writeln(unescape("'.$this->hex.'"));</script>';
+        $script = '<script type="text/javascript">document.writeln(unescape("' . $this->hex . '"));</script>';
 
-        if (config('html-encrypt.disable_right_click')){
+        if (config('html-encrypt.disable_right_click')) {
             $script .= '<script>var body = document.getElementsByTagName("body")[0];var att = document.createAttribute("oncontextmenu");att.value = "return false";body.setAttributeNode(att);</script>';
         }
 
-        if (config('html-encrypt.disable_ctrl_and_F12_key')){
+        if (config('html-encrypt.disable_ctrl_and_F12_key')) {
             $script .= '<script>document.onkeydown=function(e){if(e.ctrlKey || e.keyCode == 123){return false}}</script>';
         }
 

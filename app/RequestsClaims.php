@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -24,8 +24,8 @@ class RequestsClaims extends Model
     protected $table = 'request_claims';
 
     /**
-    * Mass assignment fields
-    *
-    */
-   protected $fillable = ['username', 'anon', 'request_id'];
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['username', 'anon', 'request_id'];
 }

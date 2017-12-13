@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Listeners;
 
 use Session;
@@ -43,9 +43,9 @@ class AchievementUnlocked
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
         Session::flash('achievement', $event->progress->details->name);
 
-        if($user->private_profile == 0) {
+        if ($user->private_profile == 0) {
             $appurl = env('APP_URL', 'http://unit3d.site');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' =>  "User [url={$appurl}/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has unlocked the " .$event->progress->details->name. " achievement :medal:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
             Cache::forget('shoutbox_messages');
         }
     }

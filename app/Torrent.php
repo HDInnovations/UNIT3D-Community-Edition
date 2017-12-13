@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Decoda\Decoda;
@@ -18,6 +18,7 @@ use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
 
 use App\Helpers\MediaInfo;
+use App\Helpers\StringHelper;
 
 /**
  * Torrent model
@@ -32,8 +33,8 @@ class Torrent extends Model
      * Mass assignment fields
      *
      */
-    protected $fillable = ['name', 'slug', 'description', 'mediainfo', 'info_hash', 'file_name', 'num_file', 'announce', 'size', 'nfo', 'category_id', 'user_id' ,
-     'imdb' , 'tvdb', 'tmdb', 'mal', 'type', 'anon', 'stream', 'sd'];
+    protected $fillable = ['name', 'slug', 'description', 'mediainfo', 'info_hash', 'file_name', 'num_file', 'announce', 'size', 'nfo', 'category_id', 'user_id',
+        'imdb', 'tvdb', 'tmdb', 'mal', 'type', 'anon', 'stream', 'sd'];
 
     /**
      * Rules
@@ -127,18 +128,18 @@ class Torrent extends Model
     }
 
     /**
-    * Relationship to a single request
-    *
-    */
+     * Relationship to a single request
+     *
+     */
     public function request()
     {
         return $this->hasOne(\App\Request::class, 'filled_hash', 'info_hash');
     }
 
     /**
-    * Torrent has been moderated by
-    *
-    */
+     * Torrent has been moderated by
+     *
+     */
     public function moderated()
     {
         return $this->belongsTo(\App\User::class, 'moderated_by');
@@ -170,33 +171,28 @@ class Torrent extends Model
     }
 
     /**
-    * Returns the size in human format
-    *
-    */
+     * Returns the size in human format
+     *
+     */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-    * Bookmarks
-    *
-    */
+     * Bookmarks
+     *
+     */
     public function bookmarks()
     {
-        return (bool) Bookmark::where('user_id', Auth::id())->where('torrent_id', $this->id)->first();
+        return (bool)Bookmark::where('user_id', Auth::id())->where('torrent_id', $this->id)->first();
     }
 
     /**
-    * One movie belongs to many catalogs
-    *
-    */
+     * One movie belongs to many catalogs
+     *
+     */
     public function catalogs()
     {
         return $this->belongsToMany(Catalog::class)->withTimestamps();

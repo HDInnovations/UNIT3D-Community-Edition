@@ -17,7 +17,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Bienvenue dans l’installateur...',
+        'title' => 'Bienvenue dans l’installateur...',
         'message' => 'Bienvenue dans le programme d’installation.',
     ],
 
@@ -85,7 +85,7 @@ return [
          *
          */
         'welcome' => [
-            'title'   => 'Bienvenue dans l\'updateur...',
+            'title' => 'Bienvenue dans l\'updateur...',
             'message' => 'Bienvenue dans le programme de mise à jour.',
         ],
 
@@ -95,7 +95,7 @@ return [
          *
          */
         'overview' => [
-            'title'   => 'Aperçu',
+            'title' => 'Aperçu',
             'message' => 'Il y a 1 mise à jour.|Il y a :number mises à jour.',
         ],
 

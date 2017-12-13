@@ -500,11 +500,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
           <h2>Hey There</h2>
           <img src="{{ url('img/deadpool.png') }}" width="902" height="298">
 
-          <h3>Let's Talk About Blutopia</h3>
-          <p>Blutopia (BLU) is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. Blutopia's strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure
+          <h3>Let's Talk About {{ Config::get('other.title') }}</h3>
+          <p>{{ Config::get('other.title') }} is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. {{ Config::get('other.title') }}'s strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure
             codebase and a helpful and friendly Staff team.</p>
 
-          <h4><i class="fa fa-globe" aria-hidden="true"></i> The Blutopian Advantage <i class="fa fa-globe" aria-hidden="true"></i></h4>
+          <h4><i class="fa fa-globe" aria-hidden="true"></i> The {{ Config::get('other.title') }} Advantage <i class="fa fa-globe" aria-hidden="true"></i></h4>
           <div class="wrapper">
             <div>
               <div>1</div>
@@ -523,7 +523,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
             <div>
               <div>4</div>
-              <p>Our community is second to none for its early age. Between our staff and userbase, we're always here to help. We're passionate about making sure your experience on Blutopia is nothing short of amazing.</p>
+              <p>Our community is second to none for its early age. Between our staff and userbase, we're always here to help. We're passionate about making sure your experience on {{ Config::get('other.title') }} is nothing short of amazing.</p>
             </div>
 
             <div>
@@ -545,11 +545,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
             <div>
               <div>3</div>
-              <p>Make suggestions! We are striving to make Blutopia better each day. We aren't saying that every suggestion will be used, but it never hurts to see new ideas.</p>
+              <p>Make suggestions! We are striving to make {{ Config::get('other.title') }} better each day. We aren't saying that every suggestion will be used, but it never hurts to see new ideas.</p>
             </div>
           </div>
 
-          <a href="{{ route('contact') }}" class="contact button white">Contact Blutopia</a>
+          <a href="{{ route('contact') }}" class="contact button white">Contact {{ Config::get('other.title') }}</a>
         </div>
       </div>
     </div>

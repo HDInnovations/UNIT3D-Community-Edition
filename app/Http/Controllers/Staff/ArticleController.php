@@ -53,9 +53,9 @@ class ArticleController extends Controller
             $post->user_id = Auth::user()->id;
             // Verify that an image was upload
             if (Request::hasFile('image') && Request::file('image')->getError() == 0) {
-            // The file is an image
+                // The file is an image
                 if (in_array(Request::file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
-                // Move and add the name to the object that will be saved
+                    // Move and add the name to the object that will be saved
                     $post->image = 'article-' . uniqid() . '.' . Request::file('image')->getClientOriginalExtension();
                     Request::file('image')->move(getcwd() . '/files/img/', $post->image);
                 } else {
@@ -69,7 +69,7 @@ class ArticleController extends Controller
 
             $v = Validator::make($post->toArray(), $post->rules);
             if ($v->fails()) {
-            // Delete the image because the validation failed
+                // Delete the image because the validation failed
                 if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
                     unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
@@ -92,7 +92,7 @@ class ArticleController extends Controller
      */
     public function edit($slug, $id)
     {
-        $post =  Article::findOrFail($id);
+        $post = Article::findOrFail($id);
         if (Request::isMethod('post')) {
             $input = Request::all();
             $post->title = $input['title'];
@@ -102,9 +102,9 @@ class ArticleController extends Controller
 
             // Verify that an image was upload
             if (Request::hasFile('image') && Request::file('image')->getError() == 0) {
-            // The file is an image
+                // The file is an image
                 if (in_array(Request::file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
-                  // Move and add the name to the object that will be saved
+                    // Move and add the name to the object that will be saved
                     $post->image = 'article-' . uniqid() . '.' . Request::file('image')->getClientOriginalExtension();
                     Request::file('image')->move(getcwd() . '/files/img/', $post->image);
                 } else {

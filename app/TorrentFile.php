@@ -9,10 +9,11 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\StringHelper;
 
 /**
  * Template for torrent files
@@ -45,17 +46,12 @@ class TorrentFile extends Model
     }
 
     /**
-    * Return Size In Human Format
-    *
-    */
+     * Return Size In Human Format
+     *
+     */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 }

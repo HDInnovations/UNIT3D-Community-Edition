@@ -29,5 +29,5 @@ class UserMade100Comments extends Achievement
     /*
     * The amount of "points" this user need to obtain in order to complete this achievement
     */
-   public $points = 100;
+    public $points = 100;
 }

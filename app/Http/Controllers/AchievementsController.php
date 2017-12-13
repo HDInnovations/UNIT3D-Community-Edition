@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\User;
@@ -18,11 +18,11 @@ class AchievementsController extends Controller
 {
 
     /**
-    * Show User Achievements
-    *
-    * @access public
-    * @return user.achievements
-    */
+     * Show User Achievements
+     *
+     * @access public
+     * @return user.achievements
+     */
     public function index($username, $id)
     {
         $user = User::findOrFail($id);

@@ -25,6 +25,8 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Helpers\StringHelper;
+
 /**
  * User-Related Template
  *
@@ -35,9 +37,9 @@ class User extends Authenticatable
     use Achiever;
 
     public $rules = [
-      'username'  => 'required|alpha_dash|min:3|max:20|unique:users',
-      'email' => 'required|email|max:255|unique:users',
-      'password' => 'required|min:6',
+        'username' => 'required|alpha_dash|min:3|max:20|unique:users',
+        'email' => 'required|email|max:255|unique:users',
+        'password' => 'required|min:6',
     ];
 
     /**
@@ -72,7 +74,7 @@ class User extends Authenticatable
      */
     public function polls()
     {
-    return $this->hasMany('App\Poll');
+        return $this->hasMany('App\Poll');
     }
 
     /**
@@ -103,45 +105,45 @@ class User extends Authenticatable
     }
 
     /**
-    * Has received many pms
-    *
-    */
+     * Has received many pms
+     *
+     */
     public function pm_receiver()
     {
         return $this->hasMany(\App\PrivateMessage::class, "reciever_id");
     }
 
     /**
-    * Has many peers
-    *
-    */
+     * Has many peers
+     *
+     */
     public function peers()
     {
         return $this->hasMany(\App\Peer::class);
     }
 
     /**
-    * Has many follow
-    *
-    */
+     * Has many follow
+     *
+     */
     public function follows()
     {
         return $this->hasMany(\App\Follow::class);
     }
 
     /**
-    * Has many articles
-    *
-    */
+     * Has many articles
+     *
+     */
     public function articles()
     {
         return $this->hasMany(\App\Article::class);
     }
 
     /**
-    * Has many posts
-    *
-    */
+     * Has many posts
+     *
+     */
     public function posts()
     {
         return $this->hasMany(\App\Post::class);
@@ -157,88 +159,88 @@ class User extends Authenticatable
     }
 
     /**
-    * Has many created requests
-    *
-    */
+     * Has many created requests
+     *
+     */
     public function requests()
     {
         return $this->hasMany(\App\Requests::class);
     }
 
     /**
-    * Has approved many requests
-    *
-    */
+     * Has approved many requests
+     *
+     */
     public function ApprovedRequests()
     {
         return $this->hasMany(\App\Requests::class, 'approved_by');
     }
 
     /**
-    * Has filled many requests
-    *
-    */
+     * Has filled many requests
+     *
+     */
     public function FilledRequests()
     {
         return $this->hasMany(\App\Requests::class, 'filled_by');
     }
 
     /**
-    * Has many request Bounties
-    *
-    */
+     * Has many request Bounties
+     *
+     */
     public function requestBounty()
     {
         return $this->hasMany(\App\RequestsBounty::class);
     }
 
     /**
-    * Has moderated many torrents
-    *
-    */
+     * Has moderated many torrents
+     *
+     */
     public function moderated()
     {
         return $this->hasMany(\App\Torrent::class, 'moderated_by');
     }
 
     /**
-    * Has many Notes
-    *
-    */
+     * Has many Notes
+     *
+     */
     public function notes()
     {
         return $this->hasMany(\App\Note::class, 'user_id');
     }
 
     /**
-    * Has many Reports
-    *
-    */
+     * Has many Reports
+     *
+     */
     public function reports()
     {
         return $this->hasMany(\App\Report::class, 'reporter_id');
     }
 
     /**
-    * Has many solvedReports
-    *
-    */
+     * Has many solvedReports
+     *
+     */
     public function solvedReports()
     {
         return $this->hasMany(\App\Report::class, 'staff_id');
     }
 
     /**
-    * Get all of bookmarks for the user.
-    */
+     * Get all of bookmarks for the user.
+     */
     public function bookmarks()
     {
         return $this->belongsToMany(\App\Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
     }
 
     /**
-    * Get all of follows for the user.
-    */
+     * Get all of follows for the user.
+     */
     public function isFollowing($target_id)
     {
         return (bool)$this->follows()->where('target_id', $target_id)->first(['id']);
@@ -279,36 +281,36 @@ class User extends Authenticatable
     }
 
     /**
-    * Has many invites
-    *
-    */
+     * Has many invites
+     *
+     */
     public function sentInvite()
     {
         return $this->hasMany(\App\Invite::class, 'user_id');
     }
 
     /**
-    * Has many invites
-    *
-    */
+     * Has many invites
+     *
+     */
     public function recievedInvite()
     {
         return $this->hasMany(\App\Invite::class, 'accepted_by');
     }
 
     /**
-    * Has many featured
-    *
-    */
+     * Has many featured
+     *
+     */
     public function featuredTorrent()
     {
         return $this->hasMany(\App\FeaturedTorrent::class);
     }
 
     /**
-    * Has many likes
-    *
-    */
+     * Has many likes
+     *
+     */
     public function likes()
     {
         return $this->hasMany('App\Like');
@@ -320,37 +322,27 @@ class User extends Authenticatable
     public function getUploaded($bytes = null, $precision = 2)
     {
         $bytes = $this->uploaded;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-    * Return Download In Human Format
-    *
-    */
+     * Return Download In Human Format
+     *
+     */
     public function getDownloaded($bytes = null, $precision = 2)
     {
         $bytes = $this->downloaded;
-        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
-        $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= pow(1024, $pow);
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-    * Return The Ratio
-    *
-    */
-     public function getRatio()
-     {
-         return round($this->uploaded / max(1, $this->downloaded), 2);
-     }
+     * Return The Ratio
+     *
+     */
+    public function getRatio()
+    {
+        return round($this->uploaded / max(1, $this->downloaded), 2);
+    }
 
     /**
      * Returns the HTML of the user's signature
@@ -383,92 +375,92 @@ class User extends Authenticatable
     }
 
     /**
-    * @method getSeedbonus
-    *
-    * Formats the seebonus of the User
-    *
-    * @access public
-    * @return decimal
-    */
+     * @method getSeedbonus
+     *
+     * Formats the seebonus of the User
+     *
+     * @access public
+     * @return decimal
+     */
     public function getSeedbonus()
     {
         return number_format($this->seedbonus, 2, '.', ' ');
     }
 
     /**
-    * @method getSeeding
-    *
-    * Gets the amount of torrents a user seeds
-    *
-    * @access public
-    * @return integer
-    */
+     * @method getSeeding
+     *
+     * Gets the amount of torrents a user seeds
+     *
+     * @access public
+     * @return integer
+     */
     public function getSeeding()
     {
         return Peer::where('user_id', '=', $this->id)
-                ->where('seeder', '=', '1')
-                ->distinct('hash')
-                ->count();
+            ->where('seeder', '=', '1')
+            ->distinct('hash')
+            ->count();
     }
 
     /**
-    * @method getSeeding
-    *
-    * Gets the amount of torrents a user seeds
-    *
-    * @access public
-    * @return integer
-    */
+     * @method getSeeding
+     *
+     * Gets the amount of torrents a user seeds
+     *
+     * @access public
+     * @return integer
+     */
     public function getUploads()
     {
         return Torrent::withAnyStatus()
-                ->where('user_id', '=', $this->id)
-                ->count();
+            ->where('user_id', '=', $this->id)
+            ->count();
     }
 
     /**
-    * @method getLeeching
-    *
-    * Gets the amount of torrents a user seeds
-    *
-    * @access public
-    * @return integer
-    */
+     * @method getLeeching
+     *
+     * Gets the amount of torrents a user seeds
+     *
+     * @access public
+     * @return integer
+     */
     public function getLeeching()
     {
         return Peer::where('user_id', '=', $this->id)
-                ->where('left', '>', '0')
-                ->distinct('hash')
-                ->count();
+            ->where('left', '>', '0')
+            ->distinct('hash')
+            ->count();
     }
 
     /**
-    * @method getWarning
-    *
-    * Gets count on users active warnings
-    *
-    * @access public
-    * @return integer
-    */
+     * @method getWarning
+     *
+     * Gets count on users active warnings
+     *
+     * @access public
+     * @return integer
+     */
     public function getWarning()
     {
         return Warning::where('user_id', '=', $this->id)
-                ->whereNotNull('torrent')
-                ->where('active', '=', '1')
-                ->count();
+            ->whereNotNull('torrent')
+            ->where('active', '=', '1')
+            ->count();
     }
 
     /**
-    * @method getTotalSeedTime
-    *
-    * Gets the users total seedtime
-    *
-    * @access public
-    * @return integer
-    */
+     * @method getTotalSeedTime
+     *
+     * Gets the users total seedtime
+     *
+     * @access public
+     * @return integer
+     */
     public function getTotalSeedTime()
     {
         return History::where('user_id', '=', $this->id)
-        ->sum('seedtime');
+            ->sum('seedtime');
     }
 }

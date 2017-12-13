@@ -13,34 +13,34 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateVotersTable extends Migration {
+class CreateVotersTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('voters', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('poll_id')->unsigned()->index('voters_poll_id_foreign');
-			$table->integer('user_id')->unsigned()->default(0);
-			$table->string('ip_address');
-			$table->timestamps();
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('voters', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('poll_id')->unsigned()->index('voters_poll_id_foreign');
+            $table->integer('user_id')->unsigned()->default(0);
+            $table->string('ip_address');
+            $table->timestamps();
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('voters');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('voters');
+    }
 
 }

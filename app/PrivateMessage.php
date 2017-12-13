@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -20,22 +20,22 @@ use Decoda\Decoda;
 class PrivateMessage extends Model
 {
     protected $fillable = [
-      'sender_id', 'reciever_id', 'subject', 'message', 'read', 'related_to'
+        'sender_id', 'reciever_id', 'subject', 'message', 'read', 'related_to'
     ];
 
     /**
-    * PM belongs to User
-    *
-    */
+     * PM belongs to User
+     *
+     */
     public function sender()
     {
         return $this->belongsTo(\App\User::class, "sender_id");
     }
 
     /**
-    * PM belongs to User
-    *
-    */
+     * PM belongs to User
+     *
+     */
     public function receiver()
     {
         return $this->belongsTo(\App\User::class, "reciever_id");

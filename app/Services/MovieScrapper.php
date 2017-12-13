@@ -71,7 +71,7 @@ class MovieScrapper
             }
 
             if ($imdb) {
-                if(!$tmdb_tv->title) {
+                if (!$tmdb_tv->title) {
                     $tmdb_tv = $this->tmdbClient->find(['imdb' => $imdb], 'tv');
                     $tvdb = empty($tvdb) ? $tmdb_tv->tvdb : $tvdb;
                 }

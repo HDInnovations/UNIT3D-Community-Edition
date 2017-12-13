@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\CatalogTorrent;
@@ -22,11 +22,11 @@ class CatalogController extends Controller
 {
 
     /**
-    * Display catalogs list
-    *
-    * @access public
-    * @return catalogs.catalogs View
-    */
+     * Display catalogs list
+     *
+     * @access public
+     * @return catalogs.catalogs View
+     */
     public function catalogs()
     {
         $catalogs = Catalog::all();
@@ -35,13 +35,13 @@ class CatalogController extends Controller
     }
 
     /**
-    * Displays movies in catalog
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return catalogs.catalog View
-    */
+     * Displays movies in catalog
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return catalogs.catalog View
+     */
     public function catalog($slug, $id)
     {
         $user = Auth::user();
@@ -52,13 +52,13 @@ class CatalogController extends Controller
     }
 
     /**
-    * Displays torrents
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return catalogs.torrents View
-    */
+     * Displays torrents
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return catalogs.torrents View
+     */
     public function torrents($imdb)
     {
         $user = Auth::user();

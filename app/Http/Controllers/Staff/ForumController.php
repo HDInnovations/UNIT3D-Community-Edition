@@ -61,12 +61,12 @@ class ForumController extends Controller
                 $perm->forum_id = $forum->id;
                 $perm->group_id = $group->id;
                 if (array_key_exists($group->id, Request::get('permissions'))) {
-                    $perm->show_forum = (isset(Request::get('permissions')[$group->id]['show_forum'])) ? true: false;
-                    $perm->read_topic = (isset(Request::get('permissions')[$group->id]['read_topic'])) ? true: false;
-                    $perm->reply_topic = (isset(Request::get('permissions')[$group->id]['reply_topic'])) ? true: false;
-                    $perm->start_topic = (isset(Request::get('permissions')[$group->id]['start_topic'])) ? true: false;
-                    $perm->upload = (isset(Request::get('permissions')[$group->id]['upload'])) ? true: false;
-                    $perm->download = (isset(Request::get('permissions')[$group->id]['download'])) ? true: false;
+                    $perm->show_forum = (isset(Request::get('permissions')[$group->id]['show_forum'])) ? true : false;
+                    $perm->read_topic = (isset(Request::get('permissions')[$group->id]['read_topic'])) ? true : false;
+                    $perm->reply_topic = (isset(Request::get('permissions')[$group->id]['reply_topic'])) ? true : false;
+                    $perm->start_topic = (isset(Request::get('permissions')[$group->id]['start_topic'])) ? true : false;
+                    $perm->upload = (isset(Request::get('permissions')[$group->id]['upload'])) ? true : false;
+                    $perm->download = (isset(Request::get('permissions')[$group->id]['download'])) ? true : false;
                 } else {
                     $perm->show_forum = false;
                     $perm->read_topic = false;
@@ -111,12 +111,12 @@ class ForumController extends Controller
                 $perm->forum_id = $forum->id;
                 $perm->group_id = $group->id;
                 if (array_key_exists($group->id, Request::get('permissions'))) {
-                    $perm->show_forum = (isset(Request::get('permissions')[$group->id]['show_forum'])) ? true: false;
-                    $perm->read_topic = (isset(Request::get('permissions')[$group->id]['read_topic'])) ? true: false;
-                    $perm->reply_topic = (isset(Request::get('permissions')[$group->id]['reply_topic'])) ? true: false;
-                    $perm->start_topic = (isset(Request::get('permissions')[$group->id]['start_topic'])) ? true: false;
-                    $perm->upload = (isset(Request::get('permissions')[$group->id]['upload'])) ? true: false;
-                    $perm->download = (isset(Request::get('permissions')[$group->id]['download'])) ? true: false;
+                    $perm->show_forum = (isset(Request::get('permissions')[$group->id]['show_forum'])) ? true : false;
+                    $perm->read_topic = (isset(Request::get('permissions')[$group->id]['read_topic'])) ? true : false;
+                    $perm->reply_topic = (isset(Request::get('permissions')[$group->id]['reply_topic'])) ? true : false;
+                    $perm->start_topic = (isset(Request::get('permissions')[$group->id]['start_topic'])) ? true : false;
+                    $perm->upload = (isset(Request::get('permissions')[$group->id]['upload'])) ? true : false;
+                    $perm->download = (isset(Request::get('permissions')[$group->id]['download'])) ? true : false;
                 } else {
                     $perm->show_forum = false;
                     $perm->read_topic = false;

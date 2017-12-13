@@ -17,7 +17,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'تنصيب Laravel',
+        'title' => 'تنصيب Laravel',
         'message' => 'أهلا بك في صفحة تنصيب Laravel',
     ],
 

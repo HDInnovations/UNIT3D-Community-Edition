@@ -1,8 +1,8 @@
-<?php 
+<?php
 /**
  * EN
  *
  */
 return array(
-	'your_torrent_is_now_seeding' => 'Votre torrent est maintenant en ligne, ajoutez-le maintenant en seed'
+    'your_torrent_is_now_seeding' => 'Votre torrent est maintenant en ligne, ajoutez-le maintenant en seed'
 ) ?>

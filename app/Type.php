@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -38,9 +38,9 @@ class Type extends Model
     }
 
     /**
-    * Has many requests
-    *
-    */
+     * Has many requests
+     *
+     */
     public function requests()
     {
         return $this->hasMany(\App\Requests::class);

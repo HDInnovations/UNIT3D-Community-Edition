@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Services;
 
 /**
@@ -89,10 +89,10 @@ class TorrentTools
                 $count = count($file["path"]);
                 for ($i = 0; $i < $count; $i++) {
                     if (($i + 1) == $count) {
-                        $fname = $dir.$file["path"][$i];
+                        $fname = $dir . $file["path"][$i];
                         $files[$k]['name'] = $fname;
                     } else {
-                        $dir .= $file["path"][$i]."/";
+                        $dir .= $file["path"][$i] . "/";
                         $files[$k]['name'] = $dir;
                     }
                     $files[$k]['size'] = $file['length'];

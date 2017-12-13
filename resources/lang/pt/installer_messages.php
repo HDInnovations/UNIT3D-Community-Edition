@@ -18,7 +18,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Bem-vindo ao Instalador',
+        'title' => 'Bem-vindo ao Instalador',
         'message' => 'Bem-vindo ao assistente de configuração.',
     ],
 

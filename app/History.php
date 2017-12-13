@@ -17,7 +17,7 @@ use Kyslik\ColumnSortable\Sortable;
 
 class History extends Model
 {
-      use Sortable;
+    use Sortable;
 
     public $sortable = ['id', 'agent', 'active', 'seeder', 'uploaded', 'downloaded', 'seedtime', 'created_at', 'updated_at', 'completed_at'];
 
@@ -29,7 +29,7 @@ class History extends Model
      */
     protected $table = 'history';
 
-    protected $fillable = ['user_id','info_hash'];
+    protected $fillable = ['user_id', 'info_hash'];
 
     protected $dates = ['completed_at'];
 

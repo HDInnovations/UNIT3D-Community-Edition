@@ -61,19 +61,19 @@ class OmdbClient extends Client implements MovieTvInterface
         }
 
         $data = [
-            'imdb'         => $movie['imdbID'],
-            'title'        => $movie['Title'],
-            'releaseDate'  => $movie['Released'],
-            'plot'         => $movie['Plot'],
-            'languages'    => $this->formatLanguages($movie['Language']),
-            'genres'       => $this->formatGenres($movie['Genre']),
-            'runtime'      => (float) $movie['Runtime'],
-            'poster'       => $this->resizePoster($movie['Poster']),
+            'imdb' => $movie['imdbID'],
+            'title' => $movie['Title'],
+            'releaseDate' => $movie['Released'],
+            'plot' => $movie['Plot'],
+            'languages' => $this->formatLanguages($movie['Language']),
+            'genres' => $this->formatGenres($movie['Genre']),
+            'runtime' => (float)$movie['Runtime'],
+            'poster' => $this->resizePoster($movie['Poster']),
             'videoTrailer' => null,
-            'wikiUrl'      => null,
-            'rated'        => $movie['Rated'],
-            'imdbRating'   => $movie['imdbRating'],
-            'imdbVotes'    => str_replace(',', '', $movie['imdbVotes']),
+            'wikiUrl' => null,
+            'rated' => $movie['Rated'],
+            'imdbRating' => $movie['imdbRating'],
+            'imdbVotes' => str_replace(',', '', $movie['imdbVotes']),
         ];
 
         return ($type == 'movie') ? new Movie($data) : new Tv($data);
@@ -86,7 +86,7 @@ class OmdbClient extends Client implements MovieTvInterface
             $languages = explode(',', $languages);
             foreach ($languages as $language) {
                 $movie_languages[] = [
-                    'code'     => null,
+                    'code' => null,
                     'language' => trim($language),
                 ];
             }

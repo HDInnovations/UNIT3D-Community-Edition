@@ -7,8 +7,8 @@ return [
      * Shared translations.
      *
      */
-    'title'        => 'Установка Laravel',
-    'next'         => 'Следующий шаг',
+    'title' => 'Установка Laravel',
+    'next' => 'Следующий шаг',
 
 
     /**
@@ -16,8 +16,8 @@ return [
      * Home page translations.
      *
      */
-    'welcome'      => [
-        'title'   => 'Установка Laravel',
+    'welcome' => [
+        'title' => 'Установка Laravel',
         'message' => 'Добро пожаловать в первоначальную настройку фреймворка Laravel.',
     ],
 
@@ -37,7 +37,7 @@ return [
      * Permissions page translations.
      *
      */
-    'permissions'  => [
+    'permissions' => [
         'title' => 'Проверка прав на папках',
     ],
 
@@ -47,11 +47,11 @@ return [
      * Environment page translations.
      *
      */
-    'environment'  => [
-        'title'   => 'Настройки окружения',
-        'save'    => 'Сохранить .env',
+    'environment' => [
+        'title' => 'Настройки окружения',
+        'save' => 'Сохранить .env',
         'success' => 'Настройки успешно сохранены в файле .env',
-        'errors'  => 'Произошла ошибка при сохранении файла .env, пожалуйста, сохраните его вручную',
+        'errors' => 'Произошла ошибка при сохранении файла .env, пожалуйста, сохраните его вручную',
     ],
 
 
@@ -60,9 +60,9 @@ return [
      * Final page translations.
      *
      */
-    'final'        => [
-        'title'    => 'Готово',
+    'final' => [
+        'title' => 'Готово',
         'finished' => 'Приложение успешно настроено.',
-        'exit'     => 'Нажмите для выхода',
+        'exit' => 'Нажмите для выхода',
     ],
 ];
