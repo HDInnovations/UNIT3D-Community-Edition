@@ -7,13 +7,13 @@
 
 return [
     'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Zu viele fehlgeschlagene Loginversuche. Bitte probieren sie es erneut in :seconds sekunde(n).',
     'login' => 'Login',
-    'signup' => 'Signup',
+    'signup' => 'Registrierung',
     'logout' => 'Logout',
-    'username' => 'Username',
-    'password' => 'Password',
-    'lost-password' => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
+    'username' => 'Benutzername',
+    'password' => 'Passwort',
+    'lost-password' => 'Haben sie ihr Passwort vergessen?',
+    'recover-my-password' => 'Möchten sie ihr Passwort wiederherstellen?',
     'remember-me' => 'Remember Me',
 ];
