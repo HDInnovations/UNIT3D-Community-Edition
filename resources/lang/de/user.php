@@ -6,5 +6,5 @@
 */
 
 return [
-    'my-profile' => 'My Profile',
+    'my-profile' => 'Mein Profil',
 ];

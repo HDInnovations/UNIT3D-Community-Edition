@@ -13,18 +13,18 @@ return [
 	'featured-torrents' => 'Featured Torrents',
 
     // Latest Torrents
-	'latest-torrents' => 'Latest Torrents',
+	'latest-torrents' => 'Letzte Torrents',
 
     // Latest Posts
-	'latest-posts' => 'Latest Posts',
+	'latest-posts' => 'Letzte Beiträge',
 
     // Latest Topics
-	'latest-topics' => 'Latest Topics',
+	'latest-topics' => 'Letzte Themen',
 
     // Users Online
-	'users-online' => 'Users Online',
+	'users-online' => 'Mitglieder online',
 
     // News/Articles
-	'new-news' => 'New News',
+	'new-news' => 'Neuigkeiten',
     'check-news' => 'News (Check Daily)',
 ];
