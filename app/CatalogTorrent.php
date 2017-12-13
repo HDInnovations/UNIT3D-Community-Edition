@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -20,16 +20,16 @@ use App\CatalogTorrent;
 class CatalogTorrent extends Model
 {
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = "catalog_torrent";
 
     /**
-    * Mass assignment fields
-    *
-    */
+     * Mass assignment fields
+     *
+     */
     protected $fillable = [
         'imdb', 'tvdb', 'catalog_id'
     ];

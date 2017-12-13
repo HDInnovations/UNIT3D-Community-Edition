@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e97268d5eed066589fd705afd374d37",
+    "content-hash": "aab12807a71c5a0056bc2c4ab09a4ec6",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -3259,6 +3259,43 @@
                 "dump"
             ],
             "time": "2017-11-30T14:59:23+00:00"
+        },
+        {
+            "name": "theodorejb/polycast",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/theodorejb/PolyCast.git",
+                "reference": "68ae87e42ead5c1a59ae4e03446607f592cefea3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/theodorejb/PolyCast/zipball/68ae87e42ead5c1a59ae4e03446607f592cefea3",
+                "reference": "68ae87e42ead5c1a59ae4e03446607f592cefea3",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/PolyCast.php",
+                    "lib/CastException.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Theodore Brown",
+                    "email": "theodorejb@outlook.com"
+                }
+            ],
+            "description": "Safely cast values to int, float, or string",
+            "time": "2015-10-25T19:36:42+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",

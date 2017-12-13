@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
@@ -18,10 +18,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use Carbon\Carbon;
 
-class UpdateLastLogin {
-  public function handle(Login $event)
-  {
-      $event->user->last_login = Carbon::now();
-      $event->user->save();
-  }
+class UpdateLastLogin
+{
+    public function handle(Login $event)
+    {
+        $event->user->last_login = Carbon::now();
+        $event->user->save();
+    }
 }

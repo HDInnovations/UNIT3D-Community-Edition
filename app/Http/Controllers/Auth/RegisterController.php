@@ -75,22 +75,22 @@ class RegisterController extends Controller
                 $user->save();
 
                 if ($key) {
-                // Update The Invite Record
-                $key->accepted_by = $user->id;
-                $key->accepted_at = new Carbon();
-                $key->save();
+                    // Update The Invite Record
+                    $key->accepted_by = $user->id;
+                    $key->accepted_at = new Carbon();
+                    $key->save();
                 }
 
                 // Handle The Activation System
                 $token = hash_hmac('sha256', $user->username . $user->email . str_random(16), config('app.key'));
                 UserActivation::create([
                     'user_id' => $user->id,
-                    'token'   => $token,
+                    'token' => $token,
                 ]);
                 $this->dispatch(new SendActivationMail($user, $token));
 
                 // Post To Shoutbox
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={{ route('home') }}/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] hope you enjoy the community :rocket:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={{ route('home') }}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
                 Cache::forget('shoutbox_messages');
 
                 // Send Welcome PM

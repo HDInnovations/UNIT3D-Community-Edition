@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,16 +17,16 @@ use Illuminate\Database\Eloquent\Model;
 class Warning extends Model
 {
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = "warnings";
 
     /**
-    * Mass assignment fields
-    *
-    */
+     * Mass assignment fields
+     *
+     */
     protected $fillable = [
         'user_id', 'warned_by', 'torrent', 'reason', 'expires_on', 'active'
     ];

@@ -18,17 +18,17 @@ class BonTransactions extends Model
 {
 
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = 'bon_transactions';
 
     /**
-    * Tells Laravel to not maintain the timestamp columns
-    *
-    * @var boolean
-    */
+     * Tells Laravel to not maintain the timestamp columns
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     /**
@@ -39,8 +39,8 @@ class BonTransactions extends Model
     protected $dateFormat = 'U';
 
     /**
-    * Mass assignment fields
-    *
-    */
-    protected $fillable = ['itemID', 'name', 'cost', 'sender' ,'receiver', 'comment', 'torrent_id'];
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['itemID', 'name', 'cost', 'sender', 'receiver', 'comment', 'torrent_id'];
 }

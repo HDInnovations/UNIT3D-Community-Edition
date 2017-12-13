@@ -19,24 +19,24 @@ class BonExchange extends Model
 {
 
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = 'bon_exchange';
 
     /**
-    * Tells Laravel to not maintain the timestamp columns
-    *
-    * @var boolean
-    */
+     * Tells Laravel to not maintain the timestamp columns
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     /**
-    * The attributes that should be casted to native types.
-    *
-    * @var array
-    */
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'upload' => 'boolean',
         'download' => 'boolean',
@@ -51,10 +51,10 @@ class BonExchange extends Model
      */
     public function getDownloadOptions()
     {
-        return BonExchange::where('download' , true)
-                ->orderBy('value' , 'asc')
-                ->get()
-                ->toArray();
+        return BonExchange::where('download', true)
+            ->orderBy('value', 'asc')
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -64,10 +64,10 @@ class BonExchange extends Model
      */
     public function getUploadOptions()
     {
-        return BonExchange::where('upload' , true)
-                ->orderBy('value' , 'asc')
-                ->get()
-                ->toArray();
+        return BonExchange::where('upload', true)
+            ->orderBy('value', 'asc')
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -77,10 +77,10 @@ class BonExchange extends Model
      */
     public function getPersonalFreeleechOption()
     {
-        return BonExchange::where('personal_freeleech' , true)
-                ->orderBy('value' , 'asc')
-                ->get()
-                ->toArray();
+        return BonExchange::where('personal_freeleech', true)
+            ->orderBy('value', 'asc')
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -90,10 +90,10 @@ class BonExchange extends Model
      */
     public function getInviteOption()
     {
-        return BonExchange::where('invite' , true)
-                ->orderBy('value' , 'asc')
-                ->get()
-                ->toArray();
+        return BonExchange::where('invite', true)
+            ->orderBy('value', 'asc')
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -101,12 +101,12 @@ class BonExchange extends Model
      *
      * @return integer
      */
-     public function getItemCost($id)
-     {
-         return BonExchange::where('id', '=' , $id)
-                ->get()
-                ->toArray()[0]['cost'];
-     }
+    public function getItemCost($id)
+    {
+        return BonExchange::where('id', '=', $id)
+            ->get()
+            ->toArray()[0]['cost'];
+    }
 
 }
 

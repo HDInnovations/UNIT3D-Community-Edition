@@ -21,43 +21,41 @@ use Illuminate\Support\Facades\DB;
 
 class autoSeedbox extends Command
 {
-/**
-* The name and signature of the console command.
-*
-* @var string
-*/
-protected $signature = 'autoSeedbox';
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'autoSeedbox';
 
-/**
-* The console command description.
-*
-* @var string
-*/
-protected $description = 'Updates Torrents Highspeed Tag based on registered seedboxes.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Updates Torrents Highspeed Tag based on registered seedboxes.';
 
-/**
-* Execute the console command.
-*
-* @return mixed
-*/
-public function handle()
-{
-    DB::table('torrents')->update(['highspeed' => 0]);
-
-    $seedboxips = Client::select('ip')->get()->toArray();
-
-    if(is_array($seedboxips) && count($seedboxips) > 0)
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
     {
-        $torid = Peer::select('torrent_id')->whereIn('ip', $seedboxips)->get()->toArray();
+        DB::table('torrents')->update(['highspeed' => 0]);
 
-        foreach($torid as $id)
-        {
-          $torrent = Torrent::where('id' , '=' , $id)->first();
-          $torrent->highspeed = 1;
-          $torrent->save();
+        $seedboxips = Client::select('ip')->get()->toArray();
 
-          unset($torrent);
+        if (is_array($seedboxips) && count($seedboxips) > 0) {
+            $torid = Peer::select('torrent_id')->whereIn('ip', $seedboxips)->get()->toArray();
+
+            foreach ($torid as $id) {
+                $torrent = Torrent::where('id', '=', $id)->first();
+                $torrent->highspeed = 1;
+                $torrent->save();
+
+                unset($torrent);
+            }
         }
     }
-}
 }

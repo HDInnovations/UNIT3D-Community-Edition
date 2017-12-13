@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
@@ -103,12 +103,12 @@ class HomeController extends Controller
         $terms = explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
-          $search .= '%'.$term.'%';
+            $search .= '%' . $term . '%';
         }
-        $torrents = Torrent::where('name','like', $search)->orderBy('created_at', 'desc')->paginate(50);
+        $torrents = Torrent::where('name', 'like', $search)->orderBy('created_at', 'desc')->paginate(50);
         $personal_freeleech = UserFreeleech::where('user_id', '=', $user->id)->first();
 
-        $torrents->setPath('?name='.Request::get('name'));
+        $torrents->setPath('?name=' . Request::get('name'));
 
         return view('home.search', ['torrents' => $torrents, 'user' => $user, 'personal_freeleech' => $personal_freeleech, 'categories' => Category::all(), 'types' => Type::all()]);
     }
@@ -141,7 +141,7 @@ class HomeController extends Controller
 
     public function landing()
     {
-      return View::make('landing.christmas');
+        return View::make('landing.christmas');
     }
 
 }

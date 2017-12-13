@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Console\Commands;
 
 use App\BonTransactions;
@@ -22,140 +22,140 @@ use Illuminate\Support\Facades\DB;
 class bonAllocation extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'bonAllocation';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Allocates Bonus Points to users based on Peer Activity.';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         //Dying Torrent
         $dying = DB::table('peers')
-                 ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                 ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                 ->where('torrents.seeders', '=', 1)
-                 ->where('torrents.times_completed', '>', 2)
-                 ->where('peers.seeder', '=', 1)
-                 ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                 ->groupBy('peers.user_id')
-                 ->get()
-                 ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('torrents.seeders', '=', 1)
+            ->where('torrents.times_completed', '>', 2)
+            ->where('peers.seeder', '=', 1)
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $legendary = DB::table('peers')
-                 ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                 ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                 ->where('peers.seeder', '=', 1)
-                 ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
-                 ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                 ->groupBy('peers.user_id')
-                 ->get()
-                 ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('peers.seeder', '=', 1)
+            ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $old = DB::table('peers')
-                 ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                 ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                 ->where('peers.seeder', '=', 1)
-                 ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
-                 ->whereRaw('torrents.created_at > date_sub(now(), interval 12 month)')
-                 ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                 ->groupBy('peers.user_id')
-                 ->get()
-                 ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('peers.seeder', '=', 1)
+            ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
+            ->whereRaw('torrents.created_at > date_sub(now(), interval 12 month)')
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $huge = DB::table('peers')
-                ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                ->where('peers.seeder', '=', 1)
-                ->where('torrents.size', '>=', 1073741824*100)
-                ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                ->groupBy('peers.user_id')
-                ->get()
-                ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('peers.seeder', '=', 1)
+            ->where('torrents.size', '>=', 1073741824 * 100)
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $large = DB::table('peers')
-                 ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                 ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                 ->where('peers.seeder', '=', 1)
-                 ->where('torrents.size', '>=', 1073741824*25)
-                 ->where('torrents.size', '<', 1073741824*100)
-                 ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                 ->groupBy('peers.user_id')
-                 ->get()
-                 ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('peers.seeder', '=', 1)
+            ->where('torrents.size', '>=', 1073741824 * 25)
+            ->where('torrents.size', '<', 1073741824 * 100)
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $regular = DB::table('peers')
-                 ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
-                 ->join('torrents', 'torrents.id', 'peers.torrent_id')
-                 ->where('peers.seeder', '=', 1)
-                 ->where('torrents.size', '>=', 1073741824)
-                 ->where('torrents.size', '<', 1073741824*25)
-                 ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-                 ->groupBy('peers.user_id')
-                 ->get()
-                 ->toArray();
+            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->join('torrents', 'torrents.id', 'peers.torrent_id')
+            ->where('peers.seeder', '=', 1)
+            ->where('torrents.size', '>=', 1073741824)
+            ->where('torrents.size', '<', 1073741824 * 25)
+            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->groupBy('peers.user_id')
+            ->get()
+            ->toArray();
 
         $participaint = DB::table('history')
-                      ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-                      ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-                      ->where('history.active', '=', 1)
-                      ->where('history.seedtime', '>=', 2592000)
-                      ->where('history.seedtime', '<', 2592000*2)
-                      ->groupBy('history.user_id')
-                      ->get()
-                      ->toArray();
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', '=', 1)
+            ->where('history.seedtime', '>=', 2592000)
+            ->where('history.seedtime', '<', 2592000 * 2)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
 
 
         $teamplayer = DB::table('history')
-                    ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-                    ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-                    ->where('history.active', '=', 1)
-                    ->where('history.seedtime', '>=', 2592000*2)
-                    ->where('history.seedtime', '<', 2592000*3)
-                    ->groupBy('history.user_id')
-                    ->get()
-                    ->toArray();
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', '=', 1)
+            ->where('history.seedtime', '>=', 2592000 * 2)
+            ->where('history.seedtime', '<', 2592000 * 3)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
 
         $commited = DB::table('history')
-                    ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-                    ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-                    ->where('history.active', '=', 1)
-                    ->where('history.seedtime', '>=', 2592000*3)
-                    ->where('history.seedtime', '<', 2592000*6)
-                    ->groupBy('history.user_id')
-                    ->get()
-                    ->toArray();
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', '=', 1)
+            ->where('history.seedtime', '>=', 2592000 * 3)
+            ->where('history.seedtime', '<', 2592000 * 6)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
 
         $mvp = DB::table('history')
-             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-             ->where('history.active', '=', 1)
-             ->where('history.seedtime', '>=', 2592000*6)
-             ->where('history.seedtime', '<', 2592000*12)
-             ->groupBy('history.user_id')
-             ->get()
-             ->toArray();
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', '=', 1)
+            ->where('history.seedtime', '>=', 2592000 * 6)
+            ->where('history.seedtime', '<', 2592000 * 12)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
 
         $legendary = DB::table('history')
-                   ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-                   ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-                   ->where('history.active', '=', 1)
-                   ->where('history.seedtime', '>=', 2592000*12)
-                   ->groupBy('history.user_id')
-                   ->get()
-                   ->toArray();
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', '=', 1)
+            ->where('history.seedtime', '>=', 2592000 * 12)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
 
         //Move data from SQL to array
 

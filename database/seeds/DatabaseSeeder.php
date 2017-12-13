@@ -15,20 +15,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
-  public function run()
-  {
-      $this->call(GroupsTableSeeder::class);
-      $this->call(UsersTableSeeder::class);
-      $this->call(BonExchangeTableSeeder::class);
-      $this->call(AchievementDetailsTableSeeder::class);
-      $this->call(PagesTableSeeder::class);
-      $this->call(CategoriesTableSeeder::class);
-      $this->call(TypesTableSeeder::class);
-      //$this->call(ArticlesTableSeeder::class);
-  }
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $this->call(GroupsTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(BonExchangeTableSeeder::class);
+        $this->call(AchievementDetailsTableSeeder::class);
+        $this->call(PagesTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
+        //$this->call(ArticlesTableSeeder::class);
+    }
 }

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\User;
@@ -49,12 +49,12 @@ class CommentController extends Controller
 {
 
     /**
-    * Add a comment on a artical
-    *
-    * @param $slug
-    * @param $id
-    *
-    */
+     * Add a comment on a artical
+     *
+     * @param $slug
+     * @param $id
+     *
+     */
     public function article($slug, $id)
     {
         $article = Article::findOrFail($id);
@@ -83,11 +83,11 @@ class CommentController extends Controller
     }
 
     /**
-    * Add a comment on a torrent
-    *
-    * @param $slug
-    * @param $id
-    */
+     * Add a comment on a torrent
+     *
+     * @param $slug
+     * @param $id
+     */
     public function torrent($slug, $id)
     {
         $torrent = Torrent::findOrFail($id);
@@ -126,9 +126,9 @@ class CommentController extends Controller
 
             // Auto Shout
             $appurl = env('APP_URL', 'http://unit3d.site');
-            if ($comment->anon == 0){
+            if ($comment->anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-            Cache::forget('shoutbox_messages');
+                Cache::forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
@@ -140,11 +140,11 @@ class CommentController extends Controller
     }
 
     /**
-    * Add a comment on a request
-    *
-    * @param $slug
-    * @param $id
-    */
+     * Add a comment on a request
+     *
+     * @param $slug
+     * @param $id
+     */
     public function request($id)
     {
         $request = Requests::findOrFail($id);
@@ -179,7 +179,7 @@ class CommentController extends Controller
             // Auto Shout
             $appurl = env('APP_URL', 'http://unit3d.site');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
-              Cache::forget('shoutbox_messages');
+            Cache::forget('shoutbox_messages');
             // Auto PM
             PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
         } else {
@@ -189,11 +189,11 @@ class CommentController extends Controller
     }
 
     /**
-    * Add a comment on a torrent via quickthanks
-    *
-    * @param $slug
-    * @param $id
-    */
+     * Add a comment on a torrent via quickthanks
+     *
+     * @param $slug
+     * @param $id
+     */
     public function quickthanks($id)
     {
         $torrent = Torrent::findOrFail($id);
@@ -206,8 +206,8 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $thankArray = ["Thanks for the upload! :thumbsup_tone2:","Time and effort is much appreciated :thumbsup_tone2:","Great upload! :fire:","Thankyou :smiley:"];
-        $selected = mt_rand(0, count($thankArray) -1);
+        $thankArray = ["Thanks for the upload! :thumbsup_tone2:", "Time and effort is much appreciated :thumbsup_tone2:", "Great upload! :fire:", "Thankyou :smiley:"];
+        $selected = mt_rand(0, count($thankArray) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
@@ -237,31 +237,31 @@ class CommentController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
 
-            } else {
+        } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
-            }
+        }
 
         return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
     }
 
 
     /**
-    * Delete a comment on a torrent
-    *
-    *
-    * @param $comment_id
-    */
+     * Delete a comment on a torrent
+     *
+     *
+     * @param $comment_id
+     */
     public function deleteComment($comment_id)
     {
-    $comment = Comment::findOrFail($comment_id);
+        $comment = Comment::findOrFail($comment_id);
 
-    if(!$comment){
-        return back()->with(Toastr::error('Comment Is Already Deleted', 'Attention', ['options']));
+        if (!$comment) {
+            return back()->with(Toastr::error('Comment Is Already Deleted', 'Attention', ['options']));
+        }
+
+        $comment->delete();
+
+        return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
     }
-
-    $comment->delete();
-
-    return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
-  }
 
 }

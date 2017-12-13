@@ -23,7 +23,7 @@ use Kyslik\ColumnSortable\Sortable;
  */
 class Peer extends Model
 {
-      use Sortable;
+    use Sortable;
 
     public $sortable = ['id', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'created_at'];
 

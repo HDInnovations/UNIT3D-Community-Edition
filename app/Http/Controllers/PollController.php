@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Poll;
@@ -42,7 +42,7 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $slug)
@@ -63,9 +63,9 @@ class PollController extends Controller
 
         if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
 
-              Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']);
+            Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']);
 
-              return redirect('poll/' . $poll->slug . '/result');
+            return redirect('poll/' . $poll->slug . '/result');
 
         }
 

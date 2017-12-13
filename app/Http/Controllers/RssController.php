@@ -54,10 +54,10 @@ class RssController extends Controller
         $catArray = $this->getUserData();
 
         $torrents = Torrent::select('id', 'name', 'slug', 'size', 'seeders', 'leechers', 'info_hash', 'created_at')
-                    ->whereIn('category', $catArray)
-                    ->with('category')
-                    ->orderBy('created_at', 'DESC')
-                    ->take(25)->toArray();
+            ->whereIn('category', $catArray)
+            ->with('category')
+            ->orderBy('created_at', 'DESC')
+            ->take(25)->toArray();
 
         return $torrents;
     }
@@ -80,6 +80,7 @@ class RssController extends Controller
 
         return abort(404);
     }
+
     public function setView()
     {
         Redirect::to();

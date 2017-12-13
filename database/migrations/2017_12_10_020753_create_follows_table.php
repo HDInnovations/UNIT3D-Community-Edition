@@ -9,37 +9,37 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFollowsTable extends Migration {
+class CreateFollowsTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('follows', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('user_id')->index();
-			$table->integer('target_id')->index();
-			$table->timestamps();
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('follows', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->index();
+            $table->integer('target_id')->index();
+            $table->timestamps();
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('follows');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('follows');
+    }
 
 }

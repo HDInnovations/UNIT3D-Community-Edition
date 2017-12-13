@@ -25,31 +25,30 @@ use Illuminate\Support\Facades\DB;
 class removeFeaturedTorrent extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'removeFeaturedTorrent';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Automatically Removes Featured Torrents If Expired';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         $current = Carbon::now();
-        $featured_torrents = FeaturedTorrent::where('created_at','<', $current->copy()->subDays(7)->toDateTimeString())->get();
+        $featured_torrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
 
-        foreach($featured_torrents as $featured_torrent)
-        {
+        foreach ($featured_torrents as $featured_torrent) {
             // Find The Torrent
             $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featured_torrent->torrent_id)->first();
             $torrent->free = 0;
@@ -58,7 +57,7 @@ class removeFeaturedTorrent extends Command
             $torrent->save();
 
             // Auto Announce Featured Expired
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={{ route('torrents') }}/" .$torrent->slug. "." .$torrent->id. "]" .$torrent->name. "[/url] is no longer featured. :poop:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={{ route('torrents') }}/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] is no longer featured. :poop:"]);
             Cache::forget('shoutbox_messages');
 
             // Delete The Record From DB

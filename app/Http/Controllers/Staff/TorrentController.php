@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -43,10 +43,10 @@ class TorrentController extends Controller
     {
         $search = Request::get('name');
         $torrents = Torrent::where([
-            ['name','like','%'.Request::get('name').'%'],
+            ['name', 'like', '%' . Request::get('name') . '%'],
         ])->orderBy('created_at', 'DESC')->paginate(25);
 
-        $torrents->setPath('?name='.Request::get('name'));
+        $torrents->setPath('?name=' . Request::get('name'));
 
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }

@@ -9,37 +9,36 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToTorrentsTable extends Migration {
+class AddForeignKeysToTorrentsTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::table('torrents', function(Blueprint $table)
-		{
-			$table->foreign('category_id', 'category_id')->references('id')->on('categories')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('torrents', function (Blueprint $table) {
+            $table->foreign('category_id', 'category_id')->references('id')->on('categories')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::table('torrents', function(Blueprint $table)
-		{
-			$table->dropForeign('category_id');
-		});
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('torrents', function (Blueprint $table) {
+            $table->dropForeign('category_id');
+        });
+    }
 
 }

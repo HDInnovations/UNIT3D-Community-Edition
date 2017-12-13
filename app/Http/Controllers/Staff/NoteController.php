@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -24,19 +24,19 @@ use \Toastr;
 class NoteController extends Controller
 {
     /**
-    * User Staff Notes System
-    *
-    *
-    */
+     * User Staff Notes System
+     *
+     *
+     */
     public function postNote($username, $id)
     {
         $staff = Auth::user();
         $user = User::findOrFail($id);
 
         $v = Validator::make(Request::all(), [
-            'user_id'=>'required',
-            'staff_id'=>'required|numeric',
-            'message'=>'required',
+            'user_id' => 'required',
+            'staff_id' => 'required|numeric',
+            'message' => 'required',
         ]);
 
         $note = new Note();

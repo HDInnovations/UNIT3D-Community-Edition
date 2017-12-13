@@ -26,24 +26,24 @@ use Illuminate\Support\Facades\Config;
 class autoNerdStat extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'autoNerdStat';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Automatically Posts Daily Nerd Stat To Shoutbox';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         // Current Timestamp
@@ -70,21 +70,21 @@ class autoNerdStat extends Command
         $du = Torrent::where('doubleup', '=', 1)->count();
 
         // Select A Random Nerd Stat
-        $statArray = ["In The Last 24 Hours " .$logins. " Unique Users Have Logged Into " .Config::get('other.title'). "!",
-        "In The Last 24 Hours " .$uploads. " Torrents Have Been Uploaded To " .Config::get('other.title'). "!",
-        "In The Last 24 Hours " .$users. " Users Have Registered To " .Config::get('other.title'). "!",
-        "There Are Currently " .$fl. " Freeleech Torrents On " .Config::get('other.title'). "!",
-        "There Are Currently " .$du. " DoubleUpload Torrents On " .Config::get('other.title'). "!",
-        "Currently " .$seeders->name. " Is The Best Seeded Torrent On " .Config::get('other.title'). "!",
-        "Currently " .$leechers->name. " Is The Most Leeched Torrent On " .Config::get('other.title'). "!",
-        "Currently " .$snatched->name. " Is The Most Snatched Torrent On " .Config::get('other.title'). "!",
-        "Currently " .$banker->username. " Is The Top BON Holder On " .Config::get('other.title'). "!",
-        Config::get('other.title'). " Birthdate Is " .$bday->toFormattedDateString(). "!"
+        $statArray = ["In The Last 24 Hours " . $logins . " Unique Users Have Logged Into " . Config::get('other.title') . "!",
+            "In The Last 24 Hours " . $uploads . " Torrents Have Been Uploaded To " . Config::get('other.title') . "!",
+            "In The Last 24 Hours " . $users . " Users Have Registered To " . Config::get('other.title') . "!",
+            "There Are Currently " . $fl . " Freeleech Torrents On " . Config::get('other.title') . "!",
+            "There Are Currently " . $du . " DoubleUpload Torrents On " . Config::get('other.title') . "!",
+            "Currently " . $seeders->name . " Is The Best Seeded Torrent On " . Config::get('other.title') . "!",
+            "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . Config::get('other.title') . "!",
+            "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . Config::get('other.title') . "!",
+            "Currently " . $banker->username . " Is The Top BON Holder On " . Config::get('other.title') . "!",
+            Config::get('other.title') . " Birthdate Is " . $bday->toFormattedDateString() . "!"
         ];
-        $selected = mt_rand(0, count($statArray) -1);
+        $selected = mt_rand(0, count($statArray) - 1);
 
         // Auto Shout Nerd Stat
-        Shoutbox::create(['user' => "2", 'mentions' => "2", 'message' => ":nerd: [b]Random Nerd Stat:[/b] ".$statArray[$selected]." :nerd:"]);
+        Shoutbox::create(['user' => "2", 'mentions' => "2", 'message' => ":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:"]);
         Cache::forget('shoutbox_messages');
     }
 }

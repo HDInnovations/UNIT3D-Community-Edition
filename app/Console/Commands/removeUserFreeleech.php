@@ -22,31 +22,30 @@ use Illuminate\Support\Facades\DB;
 class removeUserFreeleech extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'removeUserFreeleech';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Automatically Removes Users Personal Freeleech If Expired';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         $current = Carbon::now();
-        $personal_freeleech = UserFreeleech::where('created_at','<', $current->copy()->subDays(1)->toDateTimeString())->get();
+        $personal_freeleech = UserFreeleech::where('created_at', '<', $current->copy()->subDays(1)->toDateTimeString())->get();
 
-        foreach($personal_freeleech as $pfl)
-        {
+        foreach ($personal_freeleech as $pfl) {
             // Delete The Record From DB
             $pfl->delete();
 

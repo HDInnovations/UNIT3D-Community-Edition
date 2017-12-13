@@ -22,37 +22,36 @@ use Illuminate\Support\Facades\DB;
 class removeWarning extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'removeWarning';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Automatically Remove User Warnings If Expired';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
         $current = Carbon::now();
-        $warnings = Warning::with(['warneduser','torrenttitle'])->where('active','=','1')->where('expires_on' ,'<',$current)->get();
+        $warnings = Warning::with(['warneduser', 'torrenttitle'])->where('active', '=', '1')->where('expires_on', '<', $current)->get();
 
-        foreach($warnings as $warning)
-        {
+        foreach ($warnings as $warning) {
             // Set Records Active To 0 in warnings table
             $warning->active = "0";
             $warning->save();
 
             // PM User That Warning Has Expired
-            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $warning->warneduser->id, 'subject' => "Hit and Run Warning Removed", 'message' => "The [b]WARNING[/b] you received relating to Torrent ". $warning->torrenttitle->name ." has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $warning->warneduser->id, 'subject' => "Hit and Run Warning Removed", 'message' => "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
         }
     }
 }

@@ -29,7 +29,7 @@ class AnnClient extends Client implements MangaInterface
         $staffs = [];
         foreach ($mangas->staff as $staff) {
             $staffs[] = [
-                'task'  => $staff->task,
+                'task' => $staff->task,
                 'staff' => $staff->person,
             ];
         }

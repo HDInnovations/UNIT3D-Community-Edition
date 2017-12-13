@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 return [
 
     /*
@@ -146,13 +146,13 @@ return [
 
         'child-src' => [
             'allow' => [
-            'https://www.youtube.com',
-          ],
+                'https://www.youtube.com',
+            ],
         ],
 
         'script-src' => [
             'allow' => [
-              //
+                //
             ],
 
             'hashes' => [
@@ -172,7 +172,7 @@ return [
 
         'style-src' => [
             'allow' => [
-              'https://fonts.googleapis.com',
+                'https://fonts.googleapis.com',
             ],
 
             'self' => true,
@@ -212,16 +212,16 @@ return [
 
         'font-src' => [
             'allow' => [
-              'https://fonts.googleapis.com',
-              'https://fonts.gstatic.com',
+                'https://fonts.googleapis.com',
+                'https://fonts.gstatic.com',
             ],
             'self' => true,
         ],
 
         'connect-src' => [
             'allow' => [
-              'www.omdbapi.com',
-              'https://api.themoviedb.org',
+                'www.omdbapi.com',
+                'https://api.themoviedb.org',
             ],
             'self' => true,
         ],
