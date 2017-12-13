@@ -15,7 +15,7 @@ return [
 	'meta-category' => 'Liste von Foren in der Kategorie',
 	'create-new-topic' => 'Neues Thema erstellen',
 	'topic-title' => 'Titel des Themas',
-	'send-new-topic' => 'Thema abspeichern',
+	'send-new-topic' => 'Thema speichern',
 	'read-topic' => 'Thema lesen',
 	'mark-as-resolved' => 'Thema schließen',
 	'delete-topic' => 'Thema löschen',
