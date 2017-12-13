@@ -25,6 +25,6 @@ return [
 	'users-online' => 'Mitglieder online',
 
     // News/Articles
-	'new-news' => 'Neuigkeiten',
-    'check-news' => 'News (Check Daily)',
+	'new-news' => 'Letzte Neuigkeit',
+    'check-news' => 'Neuigkeiten (täglich nachschauen)',
 ];
