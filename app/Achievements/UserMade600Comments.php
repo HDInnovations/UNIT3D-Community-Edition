@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Achievements;
 
 use Gstt\Achievements\Achievement;
@@ -29,5 +29,5 @@ class UserMade600Comments extends Achievement
     /*
     * The amount of "points" this user need to obtain in order to complete this achievement
     */
-   public $points = 600;
+    public $points = 600;
 }

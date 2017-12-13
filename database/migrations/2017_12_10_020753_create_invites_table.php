@@ -9,42 +9,42 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateInvitesTable extends Migration {
+class CreateInvitesTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('invites', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->integer('user_id')->index('user_id');
-			$table->string('email');
-			$table->string('code');
-			$table->dateTime('expires_on')->nullable();
-			$table->integer('accepted_by')->nullable()->index('accepted_by');
-			$table->dateTime('accepted_at')->nullable();
-			$table->text('custom')->nullable();
-			$table->timestamps();
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('invites', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->index('user_id');
+            $table->string('email');
+            $table->string('code');
+            $table->dateTime('expires_on')->nullable();
+            $table->integer('accepted_by')->nullable()->index('accepted_by');
+            $table->dateTime('accepted_at')->nullable();
+            $table->text('custom')->nullable();
+            $table->timestamps();
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('invites');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('invites');
+    }
 
 }

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,11 +17,11 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     protected $fillable = [
-		'name'
-	];
+        'name'
+    ];
 
-	public function poll()
-	{
-		return $this->belongsTo('App\Poll');
-	}
+    public function poll()
+    {
+        return $this->belongsTo('App\Poll');
+    }
 }

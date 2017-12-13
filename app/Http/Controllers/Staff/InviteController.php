@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -18,10 +18,10 @@ use App\Invite;
 class InviteController extends Controller
 {
     /**
-      * Invites Log
-      *
-      *
-      */
+     * Invites Log
+     *
+     *
+     */
     public function getInvites()
     {
         $invites = Invite::orderBy('created_at', 'DESC')->paginate(50);

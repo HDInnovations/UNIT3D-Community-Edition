@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -32,7 +32,7 @@ class GroupsController extends Controller
     {
         $groups = Group::orderBy('name', 'ASC')->get();
 
-        return view('Staff.groups.index',['groups' => $groups]);
+        return view('Staff.groups.index', ['groups' => $groups]);
     }
 
     /**
@@ -43,20 +43,20 @@ class GroupsController extends Controller
     public function add()
     {
         if (Request::isMethod('POST')) {
-          $group = new Group();
-          $group->name = Request::get('group_name');
-          $group->color = Request::get('group_color');
-          $group->icon = Request::get('group_icon');
-          $group->is_modo = 0;
-          $group->is_admin = 0;
-          $group->is_trusted = 0;
-          $group->is_immune = 0;
-          $group->save();
+            $group = new Group();
+            $group->name = Request::get('group_name');
+            $group->color = Request::get('group_color');
+            $group->icon = Request::get('group_icon');
+            $group->is_modo = 0;
+            $group->is_admin = 0;
+            $group->is_trusted = 0;
+            $group->is_immune = 0;
+            $group->save();
             return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
         } else {
             return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
-      return view('Staff.groups.add');
+        return view('Staff.groups.add');
     }
 
     /**
@@ -68,18 +68,18 @@ class GroupsController extends Controller
     {
         $group = Group::findOrFail($id);
         if (Request::isMethod('POST')) {
-          $group->name = Request::get('group_name');
-          $group->color = Request::get('group_color');
-          $group->icon = Request::get('group_icon');
-          $group->is_modo = Input::get('group_modo');
-          $group->is_admin = Input::get('group_admin');
-          $group->is_trusted = Input::get('group_trusted');
-          $group->is_immune = Input::get('group_immune');
-          $group->save();
+            $group->name = Request::get('group_name');
+            $group->color = Request::get('group_color');
+            $group->icon = Request::get('group_icon');
+            $group->is_modo = Input::get('group_modo');
+            $group->is_admin = Input::get('group_admin');
+            $group->is_trusted = Input::get('group_trusted');
+            $group->is_immune = Input::get('group_immune');
+            $group->save();
             return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
         } else {
             return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
-      return view('Staff.groups.edit');
+        return view('Staff.groups.edit');
     }
 }

@@ -253,7 +253,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'CookieConsent' => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+        'Toastr' => Brian2694\Toastr\Facades\Toastr::class,
         'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
 
         'LogActivity' => App\Helpers\LogActivity::class,

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 return [
 
     /*
@@ -39,9 +39,9 @@ return [
     |
     */
     'permissions' => [
-        'storage/app/'           => '775',
-        'storage/framework/'     => '775',
-        'storage/logs/'          => '775',
-        'bootstrap/cache/'       => '775'
+        'storage/app/' => '775',
+        'storage/framework/' => '775',
+        'storage/logs/' => '775',
+        'bootstrap/cache/' => '775'
     ]
 ];

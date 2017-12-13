@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Forum;
@@ -49,29 +49,29 @@ class ForumController extends Controller
 {
 
     /**
-    * Search for topics
-    *
-    * @access public
-    * @return View page.torrents
-    *
-    */
+     * Search for topics
+     *
+     * @access public
+     * @return View page.torrents
+     *
+     */
     public function search()
     {
-      $user = Auth::user();
-      $search = Request::get('name');
-      $results = Topic::where([
-          ['name','like','%'.Request::get('name').'%'],
-      ])->orderBy('created_at', 'DESC')->paginate(25);
+        $user = Auth::user();
+        $search = Request::get('name');
+        $results = Topic::where([
+            ['name', 'like', '%' . Request::get('name') . '%'],
+        ])->orderBy('created_at', 'DESC')->paginate(25);
 
-      $results->setPath('?name='.Request::get('name'));
+        $results->setPath('?name=' . Request::get('name'));
 
-      return view('forum.results', ['results' => $results, 'user' => $user]);
+        return view('forum.results', ['results' => $results, 'user' => $user]);
     }
 
     /**
-    * Display the forum homepage
-    *
-    */
+     * Display the forum homepage
+     *
+     */
     public function index()
     {
         $categories = Forum::orderBy('position', 'ASC')->get();
@@ -85,13 +85,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Displays the requested category
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return void
-    */
+     * Displays the requested category
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return void
+     */
     public function category($slug, $id)
     {
         $category = Forum::findOrFail($id);
@@ -102,13 +102,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Shows forums and topics inside
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return View forum.display
-    */
+     * Shows forums and topics inside
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return View forum.display
+     */
     public function display($slug, $id)
     {
         // Find the topic
@@ -130,13 +130,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Show the topic
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return forum.topic
-    */
+     * Show the topic
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return forum.topic
+     */
     public function topic($slug, $id)
     {
         // Find the topic
@@ -156,7 +156,7 @@ class ForumController extends Controller
 
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
-        // Redirect him to the forum index
+            // Redirect him to the forum index
             return Redirect::route('forum_index')->with(Toastr::warning('You Do Not Have Access To Read This Topic!', 'Sorry', ['options']));
         }
 
@@ -168,11 +168,11 @@ class ForumController extends Controller
     }
 
     /**
-    * Add a reply to a topic
-    *
-    * @param $slug
-    * @param $id
-    */
+     * Add a reply to a topic
+     *
+     * @param $slug
+     * @param $id
+     */
     public function reply($slug, $id)
     {
         $user = Auth::user();
@@ -194,9 +194,9 @@ class ForumController extends Controller
             'content' => 'required',
             'user_id' => 'required',
             'topic_id' => 'required'
-            ]);
+        ]);
         if ($v->passes()) {
-        // Save the reply
+            // Save the reply
             $post->save();
             // Save last post user data to topic table
             $topic->last_post_user_id = $user->id;
@@ -228,8 +228,8 @@ class ForumController extends Controller
             Cache::forget('shoutbox_messages');
 
             // Mail Topic Creator Of New Reply
-            if($post->user_id != $topic->first_post_user_id) {
-            Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
+            if ($post->user_id != $topic->first_post_user_id) {
+                Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
             }
 
             //Achievements
@@ -253,11 +253,11 @@ class ForumController extends Controller
     }
 
     /**
-    * Create a new topic in the forum
-    *
-    * @param $slug
-    * @param $id
-    */
+     * Create a new topic in the forum
+     *
+     * @param $slug
+     * @param $id
+     */
     public function newTopic($slug, $id)
     {
         $user = Auth::user();
@@ -281,7 +281,7 @@ class ForumController extends Controller
         }
 
         if (Request::getMethod() == 'POST' && Request::get('post') == true) {
-        // Create The Topic
+            // Create The Topic
             $topic = new Topic();
             $topic->name = Request::get('title');
             $topic->slug = str_slug(Request::get('title'));
@@ -346,12 +346,12 @@ class ForumController extends Controller
     }
 
     /**
-    * Edit user's post
-    *
-    * @param $slug
-    * @param $id
-    * @param $postId
-    */
+     * Edit user's post
+     *
+     * @param $slug
+     * @param $id
+     * @param $postId
+     */
     public function postEdit($slug, $id, $postId)
     {
         $user = Auth::user();
@@ -384,12 +384,12 @@ class ForumController extends Controller
     }
 
     /**
-    * Delete user's post
-    *
-    * @param $slug
-    * @param $id
-    * @param $postId
-    */
+     * Delete user's post
+     *
+     * @param $slug
+     * @param $id
+     * @param $postId
+     */
     public function postDelete($slug, $id, $postId)
     {
         $user = Auth::user();
@@ -407,13 +407,13 @@ class ForumController extends Controller
 
 
     /**
-    * Close The Topic
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Close The Topic
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function closeTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -424,13 +424,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Open The Topic
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Open The Topic
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function openTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -440,13 +440,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Delete the topic and the posts
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Delete the topic and the posts
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function deleteTopic($slug, $id)
     {
         $user = Auth::user();
@@ -462,13 +462,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Pin The Topic
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Pin The Topic
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function pinTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -478,13 +478,13 @@ class ForumController extends Controller
     }
 
     /**
-    * Unpin The Topic
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Unpin The Topic
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function unpinTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -494,21 +494,21 @@ class ForumController extends Controller
     }
 
     /**
-    * Forum Tag System
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return Redirect to forum_topic
-    */
+     * Forum Tag System
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return Redirect to forum_topic
+     */
     public function approvedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->approved == 0) {
-        $topic->approved = "1";
-      } else {
-        $topic->approved = "0";
-      }
+        if ($topic->approved == 0) {
+            $topic->approved = "1";
+        } else {
+            $topic->approved = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -517,11 +517,11 @@ class ForumController extends Controller
     public function deniedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->denied == 0) {
-        $topic->denied = "1";
-      } else {
-        $topic->denied = "0";
-      }
+        if ($topic->denied == 0) {
+            $topic->denied = "1";
+        } else {
+            $topic->denied = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -530,11 +530,11 @@ class ForumController extends Controller
     public function solvedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->solved == 0) {
-        $topic->solved = "1";
-      } else {
-        $topic->solved = "0";
-      }
+        if ($topic->solved == 0) {
+            $topic->solved = "1";
+        } else {
+            $topic->solved = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -543,11 +543,11 @@ class ForumController extends Controller
     public function invalidTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->invalid == 0) {
-        $topic->invalid = "1";
-      } else {
-        $topic->invalid = "0";
-      }
+        if ($topic->invalid == 0) {
+            $topic->invalid = "1";
+        } else {
+            $topic->invalid = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -556,11 +556,11 @@ class ForumController extends Controller
     public function bugTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->bug == 0) {
-        $topic->bug = "1";
-      } else {
-        $topic->bug = "0";
-      }
+        if ($topic->bug == 0) {
+            $topic->bug = "1";
+        } else {
+            $topic->bug = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -569,11 +569,11 @@ class ForumController extends Controller
     public function suggestionTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-      if ($topic->suggestion == 0) {
-        $topic->suggestion = "1";
-      } else {
-        $topic->suggestion = "0";
-      }
+        if ($topic->suggestion == 0) {
+            $topic->suggestion = "1";
+        } else {
+            $topic->suggestion = "0";
+        }
         $topic->save();
 
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
@@ -581,25 +581,25 @@ class ForumController extends Controller
 
     public function likePost($postId)
     {
-      $post = Post::findOrFail($postId);
-      $user = Auth::user();
-      $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
-      $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
+        $post = Post::findOrFail($postId);
+        $user = Auth::user();
+        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
+        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
-      if($like || $dislike) {
-          return back()->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
-      } elseif($user->id == $post->user_id) {
-          return back()->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
-      } else {
-        $new = new Like();
-        $new->user_id = $user->id;
-        $new->post_id = $post->id;
-        $new->like = 1;
-        $new->save();
+        if ($like || $dislike) {
+            return back()->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
+        } elseif ($user->id == $post->user_id) {
+            return back()->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
+        } else {
+            $new = new Like();
+            $new->user_id = $user->id;
+            $new->post_id = $post->id;
+            $new->like = 1;
+            $new->save();
 
-      return back()->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
+            return back()->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
+        }
     }
-  }
 
     public function dislikePost($postId)
     {
@@ -608,19 +608,19 @@ class ForumController extends Controller
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
-        if($like || $dislike) {
+        if ($like || $dislike) {
             return back()->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
-        } elseif($user->id == $post->user_id) {
+        } elseif ($user->id == $post->user_id) {
             return back()->with(Toastr::error('You cannot dislike your own post!', 'Umm', ['options']));
         } else {
-          $new = new Like();
-          $new->user_id = $user->id;
-          $new->post_id = $post->id;
-          $new->dislike = 1;
-          $new->save();
+            $new = new Like();
+            $new->user_id = $user->id;
+            $new->post_id = $post->id;
+            $new->dislike = 1;
+            $new->save();
 
-          return back()->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
+            return back()->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
         }
-      }
+    }
 
 }

@@ -37,10 +37,10 @@ use \Toastr;
 class HomeController extends Controller
 {
     /**
-    * Staff dashboard
-    *
-    *
-    */
+     * Staff dashboard
+     *
+     *
+     */
     public function home()
     {
         //User Info
@@ -67,7 +67,7 @@ class HomeController extends Controller
         $pollCount = Poll::count();
         //System Specs
 
-        return view('Staff.home.index', ['num_user' => $num_user, 'banned' => $banned, 'validating' => $validating, 'num_torrent' => $num_torrent, 'pending' => $pending, 'rejected' => $rejected, 'peers'=> $peers, 'seeders' => $seeders,
+        return view('Staff.home.index', ['num_user' => $num_user, 'banned' => $banned, 'validating' => $validating, 'num_torrent' => $num_torrent, 'pending' => $pending, 'rejected' => $rejected, 'peers' => $peers, 'seeders' => $seeders,
             'leechers' => $leechers, 'seedboxes' => $seedboxes, 'highspeed_users' => $highspeed_users, 'highspeed_torrents' => $highspeed_torrents, 'reports' => $reports, 'unsolved' => $unsolved, 'solved' => $solved, 'pollCount' => $pollCount]);
     }
 }

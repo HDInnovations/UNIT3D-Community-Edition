@@ -48,49 +48,49 @@ class ModerationController extends Controller
      * @param $slug Slug of the torrent
      * @param $id Id of the torrent
      */
-     public function approve($slug, $id)
-     {
-         Torrent::approve($id);
+    public function approve($slug, $id)
+    {
+        Torrent::approve($id);
 
-         return  Redirect::route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
-     }
+        return Redirect::route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
+    }
 
-     /**
-      * Torrent Moderation -> reject
-      *
-      * @param $slug Slug of the torrent
-      * @param $id Id of the torrent
-      */
-      public function reject($slug, $id)
-      {
-          Torrent::reject($id);
+    /**
+     * Torrent Moderation -> reject
+     *
+     * @param $slug Slug of the torrent
+     * @param $id Id of the torrent
+     */
+    public function reject($slug, $id)
+    {
+        Torrent::reject($id);
 
-          return Redirect::route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
-      }
+        return Redirect::route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
+    }
 
-      /**
-      * Resets the filled and approved attributes on a given request
-      * @method resetRequest
-      *
-      */
-      public function resetRequest($id)
-      {
-          $user = Auth::user();
-          // reset code here
-          if ($user->group->is_modo) {
-              $request = Requests::findOrFail($id);
+    /**
+     * Resets the filled and approved attributes on a given request
+     * @method resetRequest
+     *
+     */
+    public function resetRequest($id)
+    {
+        $user = Auth::user();
+        // reset code here
+        if ($user->group->is_modo) {
+            $request = Requests::findOrFail($id);
 
-              $request->filled_by = null;
-              $request->filled_when = null;
-              $request->filled_hash = null;
-              $request->approved_by = null;
-              $request->approved_when = null;
-              $request->save();
+            $request->filled_by = null;
+            $request->filled_when = null;
+            $request->filled_hash = null;
+            $request->approved_by = null;
+            $request->approved_when = null;
+            $request->save();
 
-              return Redirect::route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
-          } else {
-              return Redirect::route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
-          }
-          return Redirect::route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
-      }
+            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
+        } else {
+            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
+        }
+        return Redirect::route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
+    }
 }

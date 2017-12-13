@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Console\Commands;
 
 use App\PrivateMessage;
@@ -22,30 +22,30 @@ use Illuminate\Support\Facades\DB;
 class denyRights extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'denyRights';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Revokes download rights of users who have above x active warnings';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
-        User::where('group_id', '!=', '5')->where('group_id', '!=', '1')->where('group_id', '!=', '15')->update(['can_download' => '1', 'can_request'=>'1']);
-        User::where('group_id', '=', '1')->update(['can_download' => '0','can_request' => '0']);
-        User::where('group_id', '=', '5')->update(['can_download' => '0','can_request' => '0']);
-        User::where('group_id', '=', '15')->update(['can_download' => '0','can_request' => '0']);
+        User::where('group_id', '!=', '5')->where('group_id', '!=', '1')->where('group_id', '!=', '15')->update(['can_download' => '1', 'can_request' => '1']);
+        User::where('group_id', '=', '1')->update(['can_download' => '0', 'can_request' => '0']);
+        User::where('group_id', '=', '5')->update(['can_download' => '0', 'can_request' => '0']);
+        User::where('group_id', '=', '15')->update(['can_download' => '0', 'can_request' => '0']);
 
         $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', '1')->groupBy('user_id')->having('value', '>=', '2')->get();
 

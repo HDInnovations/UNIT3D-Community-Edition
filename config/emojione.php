@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 return [
     'imagePathPNG' => null, // defaults to jsdelivr's free CDN
     'sprites' => false, // use sprites?

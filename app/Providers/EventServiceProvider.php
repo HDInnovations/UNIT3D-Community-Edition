@@ -14,14 +14,14 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'Gstt\Achievements\Event\Unlocked' => [
-        'App\Listeners\AchievementUnlocked',
-    ],
+            'App\Listeners\AchievementUnlocked',
+        ],
         'Illuminate\Auth\Events\Failed' => [
-        'App\Listeners\RecordFailedLoginAttempt',
-    ],
+            'App\Listeners\RecordFailedLoginAttempt',
+        ],
         'Illuminate\Auth\Events\Login' => [
-        'App\Listeners\UpdateLastLogin',
-    ],
+            'App\Listeners\UpdateLastLogin',
+        ],
     ];
 
     /**

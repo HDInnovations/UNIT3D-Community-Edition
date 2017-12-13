@@ -24,10 +24,10 @@ class RequestsBounty extends Model
     protected $table = 'request_bounty';
 
     /**
-    * Mass assignment fields
-    *
-    */
-   protected $fillable = ['user_id', 'seedbonus', 'requests_id'];
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['user_id', 'seedbonus', 'requests_id'];
 
     /**
      * Belongs to This User
@@ -39,9 +39,9 @@ class RequestsBounty extends Model
     }
 
     /**
-    * Belongs to Request
-    *
-    */
+     * Belongs to Request
+     *
+     */
     public function request()
     {
         return $this->belongsTo(\App\Requests::class);

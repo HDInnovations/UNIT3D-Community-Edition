@@ -17,7 +17,7 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Bienvenue dans l’installateur...',
+        'title' => 'Bienvenue dans l’installateur...',
         'message' => 'Bienvenue dans le programme d’installation.',
     ],
 

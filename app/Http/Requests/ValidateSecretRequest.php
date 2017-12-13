@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Http\Requests;
+
 use Cache;
 use Crypt;
 use Google2FA;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Factory as ValidatonFactory;
+
 class ValidateSecretRequest extends FormRequest
 {
     /**
@@ -13,6 +16,7 @@ class ValidateSecretRequest extends FormRequest
      * @var \App\User
      */
     private $user;
+
     /**
      * Create a new FormRequest instance.
      *
@@ -38,6 +42,7 @@ class ValidateSecretRequest extends FormRequest
             'Cannot reuse token'
         );
     }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -54,6 +59,7 @@ class ValidateSecretRequest extends FormRequest
         }
         return true;
     }
+
     /**
      * Get the validation rules that apply to the request.
      *

@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -46,9 +46,9 @@ class TorrentFile extends Model
     }
 
     /**
-    * Return Size In Human Format
-    *
-    */
+     * Return Size In Human Format
+     *
+     */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;

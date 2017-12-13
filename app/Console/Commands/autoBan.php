@@ -26,32 +26,30 @@ use Illuminate\Support\Facades\Mail;
 class autoBan extends Command
 {
     /**
-    * The name and signature of the console command.
-    *
-    * @var string
-    */
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'autoBan';
 
     /**
-    * The console command description.
-    *
-    * @var string
-    */
+     * The console command description.
+     *
+     * @var string
+     */
     protected $description = 'Ban if user has more than x Active Warnings';
 
     /**
-    * Execute the console command.
-    *
-    * @return mixed
-    */
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     public function handle()
     {
-        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active','=','1')->groupBy('user_id')->having('value','>=','3')->get();
+        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', '1')->groupBy('user_id')->having('value', '>=', '3')->get();
 
-        foreach($bans as $ban)
-        {
-            if($ban->warneduser->group_id != 5 && !$ban->warneduser->group->is_immune)
-            {
+        foreach ($bans as $ban) {
+            if ($ban->warneduser->group_id != 5 && !$ban->warneduser->group->is_immune) {
                 // If User Has 3 or More Active Warnings Ban Set The Users Group To Banned
                 $ban->warneduser->group_id = 5;
                 $ban->warneduser->save();

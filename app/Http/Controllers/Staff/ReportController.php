@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     BluCrew
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -24,10 +24,10 @@ use \Toastr;
 class ReportController extends Controller
 {
     /**
-      * Reports System
-      *
-      *
-      */
+     * Reports System
+     *
+     *
+     */
     public function getReports()
     {
         $reports = Report::orderBy('created_at', 'DESC')->get();
@@ -47,9 +47,9 @@ class ReportController extends Controller
         $user = Auth::user();
 
         $v = Validator::make(Request::all(), [
-          'verdict'=>'required|min:3',
-          'staff_id'=>'required'
-      ]);
+            'verdict' => 'required|min:3',
+            'staff_id' => 'required'
+        ]);
 
         $report = Report::findOrFail($report_id);
 

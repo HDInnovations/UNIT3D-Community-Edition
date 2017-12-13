@@ -52,10 +52,10 @@ class StringHelper
     }
 
     /**
-    * @method timeElapsed
-    * @param $seconds time in bigInt
-    * @return String
-    */
+     * @method timeElapsed
+     * @param $seconds time in bigInt
+     * @return String
+     */
     public static function timeElapsed($seconds)
     {
         $minutes = 0;
@@ -92,13 +92,13 @@ class StringHelper
             $minutes++;
             $seconds -= 60;
         }
-        $years = ($years == 0) ? "" : $years."Y ";
-        $months = ($months == 0) ? "" : $months."M ";
-        $weeks = ($weeks == 0) ? "" : $weeks."W ";
-        $days = ($days == 0) ? "" : $days."D ";
-        $hours = ($hours == 0) ? "" : $hours."h ";
-        $minutes = ($minutes == 0) ? "" : $minutes."m ";
-        $seconds = ($seconds == 0) ? "" : $seconds."s";
+        $years = ($years == 0) ? "" : $years . "Y ";
+        $months = ($months == 0) ? "" : $months . "M ";
+        $weeks = ($weeks == 0) ? "" : $weeks . "W ";
+        $days = ($days == 0) ? "" : $days . "D ";
+        $hours = ($hours == 0) ? "" : $hours . "h ";
+        $minutes = ($minutes == 0) ? "" : $minutes . "m ";
+        $seconds = ($seconds == 0) ? "" : $seconds . "s";
         return $years . $months . $weeks . $days . $hours . $minutes . $seconds;
     }
 }

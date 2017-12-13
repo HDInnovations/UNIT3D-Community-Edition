@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 
         //Secure Headers
-	      \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
+        \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
 
         //HtmlEncrypt
         //\App\Http\Middleware\HtmlEncrypt::class,
