@@ -6,20 +6,20 @@
 */
 
 return [
-    'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
+    'title' => 'Konfigurationsmanager',
+    'info_choose' => 'Eine Datei auswählen zum editieren.',
+    'file' => 'Datei',
+    'path' => 'Pfad',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions',
+        'key' => 'Schlüssel',
+        'value' => 'Wert',
+        'actions' => 'Aktion',
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel',
+        'edit' => 'Editieren',
+        'confirm' => 'Neuen Schlüssel speichern.',
+        'save' => 'Speichern!',
+        'cancel' => 'Abbrechen',
     ],
-    'sure' => 'Are you sure?',
+    'sure' => 'Bist du sicher?',
 ];

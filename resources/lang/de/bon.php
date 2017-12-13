@@ -8,8 +8,8 @@
 return [
 	'bon' => 'BON',
 	'bonus' => 'Bonus',
-	'points' => 'Points',
-	'your-points' => 'Your Points',
+	'points' => 'Punkte',
+	'your-points' => 'Deine Punkte',
     'store' => 'Store',
 	'gift-to' => 'Gift Bonus Points To?',
 	'gift' => 'Gift Bonus Points',
@@ -18,7 +18,7 @@ return [
 	'no-refund' => 'NO REFUNDS!',
 	'active' => 'Activated!',
 	'earning' => 'Earning',
-	'per-hour' => 'Points Per Hour',
+	'per-hour' => 'Punkte per Stunde',
 	'item' => 'Item',
 	'total' => 'Total Earnings',
 ];
