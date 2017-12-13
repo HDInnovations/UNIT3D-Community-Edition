@@ -7,13 +7,13 @@
 
 return [
     // Chat
-	'chatbox' => 'Chatroom',
+	'chatbox' => 'Chat Box',
 
     // Featured Torrents
-	'featured-torrents' => 'Torrents der Woche',
+	'featured-torrents' => 'Featured Torrents',
 
     // Latest Torrents
-	'latest-torrents' => 'Neuste Torrents',
+	'latest-torrents' => 'Letzte Torrents',
 
     // Latest Posts
 	'latest-posts' => 'Letzte Beiträge',
@@ -22,7 +22,7 @@ return [
 	'latest-topics' => 'Letzte Themen',
 
     // Users Online
-	'users-online' => 'Wer ist online?',
+	'users-online' => 'Mitglieder online',
 
     // News/Articles
 	'new-news' => 'Letzte Neuigkeit',
