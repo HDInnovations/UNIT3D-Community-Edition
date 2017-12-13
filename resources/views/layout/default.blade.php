@@ -68,7 +68,7 @@
               </a>
               <ul class="dropdown-menu ">
                 <li class="hoe-submenu-label">
-                  <h3><span class="bold">{{ Auth::user()->unreadNotifications->count() }} Unread</span> Notifications <a href="#">view all</a></h3>
+                  <h3><span class="bold">{{ Auth::user()->unreadNotifications->count() }} {{ trans('pm.unread') }}</span> {{ trans('common.notifications') }} <a href="#">{{ trans('common.view-all') }}</a></h3>
                 </li>
                 <li>
                   @foreach(Auth::user()->unreadNotifications as $notification)
@@ -100,7 +100,7 @@
               </a>
               <ul class="dropdown-menu ">
                 <li class="hoe-submenu-label">
-                  <h3> You have <span class="bold">{{ $modder }}  </span>Pending Torrents <a href="{{ route('moderation') }}">view all</a></h3>
+                  <h3> {{ trans('staff.you-have') }} <span class="bold">{{ $modder }}  </span>{{ trans('common.pending') }} {{ trans('torrent.torrents') }} <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
                 </li>
                 <li>
                   @php $pending = DB::table('torrents')->where('status', '=', '0')->get(); @endphp
@@ -108,7 +108,7 @@
                   <a href="#" class="clearfix">
                     <span class="notification-title"> {{ $p->name }} </span>
                     <span class="notification-ago-1 ">{{ $p->created_at }}</span>
-                    <p class="notification-message">Please Moderate This Torrent!</p>
+                    <p class="notification-message">{{ trans('staff.please-moderate') }}</p>
                   </a>
                   @endforeach
                 </li>
@@ -118,7 +118,7 @@
 
             <li>
               {{ Form::open(array('route' => 'search','role' => 'form', 'class' => 'hoe-searchbar')) }}
-              <input type="text" placeholder="Quick Search..." name="name" id="name" class="form-control">
+              <input type="text" placeholder="{{ trans('common.quick-search') }}..." name="name" id="name" class="form-control">
               <span class="search-icon"><i class="fa fa-search"></i></span>
               {{ Form::close() }}
             </li>
@@ -137,127 +137,125 @@
                 <span>{{ Auth::user()->username }} <i class=" fa fa-angle-down"></i></span>
               </a>
               <ul class="dropdown-menu ">
-                <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>My Profile</a></li>
+                <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
                 <li><a href="{{ route('lock') }}"><i class="fa fa-lock"></i>Lock Account</a></li>
                 <li>
-                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-logout"></i>Logout</a>
+                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-logout"></i>{{ trans('auth.logout') }}</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                 </li>
               </ul>
             </li>
           </ul>
-
       </li>
     </div>
   </header>
 
       <div id="hoeapp-container" hoe-color-type="lpanel-bg5" hoe-lpanel-effect="shrink">
         <aside id="hoe-left-panel" hoe-position-type="fixed" hoe-position-type="absolute">
-
           <ul class="nav panel-list">
-            <li class="nav-level">Navigation</li>
+            <li class="nav-level">{{ trans('common.navigation') }}</li>
             <li>
               <a href="{{ route('home') }}">
                 <i class="livicon" data-name="home" data-size="18" data-c="#418BCA" data-hc="#418BCA" data-loop="true"></i>
-                <span class="menu-text">Home</span>
+                <span class="menu-text">{{ trans('common.home') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('torrents') }}">
                 <i class="livicon" data-name="medal" data-size="18" data-c="#00bc8c" data-hc="#00bc8c" data-loop="true"></i>
-                <span class="menu-text">Torrents</span>
+                <span class="menu-text">{{ trans('torrent.torrents') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('forum_index') }}">
                 <i class="livicon" data-name="doc-portrait" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Forums</span>
+                <span class="menu-text">{{ trans('forums.forums') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('upload') }}">
                 <i class="livicon" data-name="upload" data-c="#F89A14" data-hc="#F89A14" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Upload</span>
+                <span class="menu-text">{{ trans('common.upload') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('requests') }}">
                 <i class="livicon" data-name="folder-add" data-c="#f1c40f" data-hc="#f1c40f" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Requests</span>
+                <span class="menu-text">{{ trans('request.requests') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('graveyard') }}">
                 <i class="livicon" data-name="ghost" data-c="#7289DA" data-hc="#7289DA" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Graveyard</span>
+                <span class="menu-text">{ trans('torrent.graveyard') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('bookmarks') }}">
                 <i class="livicon" data-name="bookmark" data-c="silver" data-hc="silver" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Bookmarks</span>
+                <span class="menu-text">{{ trans('torrent.bookmark') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('stats') }}">
                 <i class="livicon" data-name="barchart" data-c="pink" data-hc="pink" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Extra-Stats</span>
+                <span class="menu-text">{{ trans('common.extra-stats') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('polls') }}">
                 <i class="livicon" data-name="piechart" data-c="green" data-hc="green" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Polls</span>
+                <span class="menu-text">{{ trans('poll.polls') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('bonus') }}">
                 <i class="livicon" data-name="star-full" data-c="#BF55EC" data-hc="#BF55EC" data-size="18" data-loop="true"></i>
-                <span class="menu-text">BON Store</span>
+                <span class="menu-text">{{ trans('bon.bon') }} {{ trans('bon.store') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
                 <i class="livicon" data-name="mail" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
-                <span class="menu-text">Inbox</span>
+                <span class="menu-text">{{ trans('pm.inbox') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('bug') }}">
                 <i class="livicon" data-name="bug" data-c="#E74C3C" data-hc="#E74C3C" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Report A Bug</span>
+                <span class="menu-text">{{ trans('common.bug') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('home') }}/p/rules.1">
                 <i class="livicon" data-name="info" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Rules</span>
+                <span class="menu-text">{{ trans('common.rules') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('home') }}/p/faq.3">
                 <i class="livicon" data-name="question" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18" data-loop="true"></i>
-                <span class="menu-text">FAQ</span>
+                <span class="menu-text">{{ trans('common.faq') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
             <li>
               <a href="{{ route('rss', array('passkey' => Auth::user()->passkey)) }}">
                 <i class="livicon" data-name="rss" data-c="orange" data-hc="orange" data-size="18" data-loop="true"></i>
-                <span class="menu-text">RSS</span>
+                <span class="menu-text">{{ trans('torrent.rss') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
@@ -265,7 +263,7 @@
             <li>
               <a href="{{ route('staff_dashboard') }}">
                 <i class="livicon" data-name="gears" data-c="#E74C3C" data-hc="#E74C3C" data-size="18" data-loop="true"></i>
-                <span class="menu-text">Staff Dashboard</span>
+                <span class="menu-text">{{ trans('staff.staff-dashboard') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
@@ -287,9 +285,9 @@
                   <li><i class="fa fa-group text-black"></i>
                     <span class="badge-user text-bold" style="color:{{ Auth::user()->group->color }}"><i class="{{ Auth::user()->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ Auth::user()->group->name }}"></i><strong> {{ Auth::user()->group->name }}</strong></span>
                   </li>
-                  <li><i class="fa fa-arrow-up text-green text-bold"></i> Up: {{ Auth::user()->getUploaded() }}</li>
-                  <li><i class="fa fa-arrow-down text-red text-bold"></i> Down: {{ Auth::user()->getDownloaded() }}</li>
-                  <li><i class="fa fa-signal text-blue text-bold"></i> Ratio: {{ Auth::user()->getRatio() }}</li>
+                  <li><i class="fa fa-arrow-up text-green text-bold"></i> {{ trans('common.upload') }}: {{ Auth::user()->getUploaded() }}</li>
+                  <li><i class="fa fa-arrow-down text-red text-bold"></i> {{ trans('common.download') }}: {{ Auth::user()->getDownloaded() }}</li>
+                  <li><i class="fa fa-signal text-blue text-bold"></i> {{ trans('common.ratio') }}: {{ Auth::user()->getRatio() }}</li>
                   <li><i class="fa fa-upload text-green text-bold"></i>
                     <a href="{{ route('myactive', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" title="My Active Torrents"><span class="text-blue"> Seeding:</span></a> {{ Auth::user()->getSeeding() }}
                   </li>
@@ -297,10 +295,10 @@
                     <a href="{{ route('myactive', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" title="My Active Torrents"><span class="text-blue"> Leeching:</span></a> {{ Auth::user()->getLeeching() }}
                   </li>
                   <li><i class="fa fa-exclamation-circle text-orange text-bold"></i>
-                    <a href="#" title="Hit and Run Count"><span class="text-blue"> Warnings:</span></a> {{ Auth::user()->getWarning() }}
+                    <a href="#" title="Hit and Run Count"><span class="text-blue"> {{ trans('common.warnings') }}:</span></a> {{ Auth::user()->getWarning() }}
                   </li>
                   <li><i class="fa fa-star text-purple text-bold"></i>
-                    <a href="{{ route('bonus') }}" title="My Bonus Points"><span class="text-blue"> Bonus:</span></a> {{ Auth::user()->getSeedbonus() }}
+                    <a href="{{ route('bonus') }}" title="My Bonus Points"><span class="text-blue"> {{ trans('bon.bon') }}:</span></a> {{ Auth::user()->getSeedbonus() }}
                   </li>
                 </ul>
               </div>

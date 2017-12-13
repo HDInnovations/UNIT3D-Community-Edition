@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li class="active">
-  <span itemprop="title" class="l-breadcrumb-item-link-title">Message</span>
+  <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
 </li>
 @stop
 
@@ -14,17 +14,17 @@
 <div class="container">
   <div class="header gradient silver">
     <div class="inner_content">
-      <h1>Private Messages - Message</h1>
+      <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.message') }}</h1>
     </div>
   </div>
 <div class="row">
   <div class="col-md-2">
     <div class="block">
-      <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">New Message</a>
+      <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
       <div class="separator"></div>
       <div class="list-group">
-        <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Inbox</a>
-        <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Outbox</a>
+        <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
+        <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
       </div>
     </div>
   </div>
@@ -39,15 +39,15 @@
       @endif
         <div class="row message-headers">
           <div class="col-sm-4">
-            <div><strong>From:</strong> <a href="{{ route('profil', ['username' => $pm->sender->username, 'id' => $pm->sender->id]) }}" title="">{{ $pm->sender->username }}</a>
+            <div><strong>{{ trans('pm.from') }}:</strong> <a href="{{ route('profil', ['username' => $pm->sender->username, 'id' => $pm->sender->id]) }}" title="">{{ $pm->sender->username }}</a>
             </div>
-            <div><strong>To:</strong> <a href="{{ route('profil', ['username' => $pm->receiver->username, 'id' => $pm->receiver->id]) }}" title="">{{ $pm->receiver->username }}</a>
+            <div><strong>{{ trans('pm.to') }}:</strong> <a href="{{ route('profil', ['username' => $pm->receiver->username, 'id' => $pm->receiver->id]) }}" title="">{{ $pm->receiver->username }}</a>
             </div>
           </div>
           <div class="col-sm-7">
-            <div><strong>Subject:</strong> Re: {{ $pm->subject }}</div>
+            <div><strong>{{ trans('pm.subject') }}:</strong> Re: {{ $pm->subject }}</div>
             <div>
-              <strong>Sent:</strong> {{ $pm->created_at }}
+              <strong>{{ trans('pm.sent') }}:</strong> {{ $pm->created_at }}
             </div>
           </div>
           {{ Form::open(array('route' => array('delete-pm', 'pmid' => $pm->id))) }}
@@ -65,7 +65,7 @@
       {{ Form::open(array('route' => array('reply-pm', 'pmid' => $pm->id))) }}
       <div class="form-group">
         <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
-        <button type="submit" class="btn btn-primary" style="float:right;">REPLY</button>
+        <button type="submit" class="btn btn-primary" style="float:right;">{{ trans('pm.reply') }}</button>
       </div>
       {{ Form::close() }}
     </div>

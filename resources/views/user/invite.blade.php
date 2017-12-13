@@ -59,7 +59,7 @@
 <input class="form-control" name="email" type="email" id="email" size="10">
 <label for="message" class="col-sm-2 control-label">Message</label>
 <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea>
-<input class="btn btn-primary" type="submit" value="Send Invitation">
+<button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
 </form>
 </div>
 </div>

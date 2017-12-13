@@ -9,7 +9,7 @@ return [
 	'forum' => 'Forum',
 	'forums' => 'Forums',
 	'topics' => 'Topics',
-	'post' => 'Post'
+	'post' => 'Post',
 	'replies' => 'Replies',
 	'views' => 'Views',
 	'meta-category' => 'List of forums in the category',
@@ -19,5 +19,5 @@ return [
 	'read-topic' => 'Read the topic',
 	'mark-as-resolved' => 'Lock Topic',
 	'delete-topic' => 'Delete this topic',
-	'display-forum' => 'Show topics in '
+	'display-forum' => 'Show topics in ',
 ];

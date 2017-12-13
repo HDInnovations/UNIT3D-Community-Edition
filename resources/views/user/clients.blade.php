@@ -32,7 +32,7 @@
 			<div class="form-group input-group">
 				<input type="text" name="client_name" class="form-control" placeholder="UsernameSeebox1">
 			</div>
-			<center><button type="submit" class="btn btn-primary btn-sm">Save</a></center>
+			<center><button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</a></center>
 		{{ Form::close() }}
 	</div>
 </div>
@@ -61,7 +61,13 @@
 		<td>{{ $client->name }}</td>
 		<td>{{ $client->ip }}</td>
 		<td>{{ $client->created_at }}</td>
-		<td>{{ Form::open(['route' => ['rmcli', 'username' => $user->username , 'id' => $user->id], 'role' => 'form', 'class' => 'login-frm']) }}<input type='hidden' name="cliid" value="{{ $client->id }}"><input type="hidden" name="userid" value="{{ $user->id }}"><button type="submit" class="btn btn-danger">Delete</button>{{ Form::close() }}</td>
+		<td>
+            {{ Form::open(['route' => ['rmcli', 'username' => $user->username , 'id' => $user->id], 'role' => 'form', 'class' => 'login-frm']) }}
+            <input type='hidden' name="cliid" value="{{ $client->id }}">
+            <input type="hidden" name="userid" value="{{ $user->id }}">
+            <button type="submit" class="btn btn-danger">{{ trans('common.delete') }}</button>
+            {{ Form::close() }}
+        </td>
         </tr>
 		@endforeach
 	</table>
@@ -72,30 +78,4 @@
 		@endif
 	</div>
 </div>
-
-<!-- Remove Client Modal
-<div class="modal fade" id="removeCModal" tabindex="-1" role="dialog" aria-labelledby="removeCModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="removeCModalLabel">Remove Seedbox</h4>
-			</div>
-			<div class="modal-body">
-				<center><p class="text-danger">Yeah...are you sure you want to do this? Removing this seedbox will result in all torrents seeding from this client to no longer be registered as a high speed torrent!</p></center>
-				{{ Form::open(array('url' => 'members/{username}.{id}/rmcli','role' => 'form', 'class' => 'login-frm')) }}
-					<input type="hidden" name="cliid" value="">
-					<div class="form-group input-group input-group-lg">
-						<input class="form-control"  name="password" id="rmcpw" type="password" placeholder="Password">
-					</div>
-					<center>
-						<button type="button" class="btn btn-warning" data-dismiss="modal">My bad, wrong button</button>
-						<button type="submit" class="btn btn-danger">Submit</button>
-					</center>
-			{{ Form::close() }}
-			</div>
-		</div>
-	</div>
-</div>
- /Remove Client Modal -->
 @stop

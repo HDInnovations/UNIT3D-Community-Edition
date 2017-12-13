@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li class="active">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Send Message</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.send') }} {{ trans('pm.message') }}</span>
 </li>
 @stop
 
@@ -14,17 +14,17 @@
 <div class="container">
   <div class="header gradient silver">
     <div class="inner_content">
-      <h1>Private Message - Create</h1>
+      <h1>{{ trans('pm.private') }} {{ trans('pm.message') }} - {{ trans('pm.create') }}</h1>
     </div>
   </div>
         <div class="row">
           <div class="col-md-2">
             <div class="block">
-              <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">New Message</a>
+              <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
               <div class="separator"></div>
               <div class="list-group">
-                <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Inbox</a>
-                <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Outbox</a>
+                <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
+                <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
               </div>
             </div>
           </div>
@@ -33,7 +33,7 @@
             <div class="block">
                   {{ Form::open(array('route' => array('send-pm'))) }}
                   <div class="form-group">
-                    <label for="users">Select a User</label>
+                    <label for="users">{{ trans('pm.select') }}</label>
                     <select class="form-control user-select-placeholder-single" name="reciever_id">
                       @foreach($usernames as $username)
                         <option value="{{ $username->id }}">{{ $username->username }}</option>
@@ -42,17 +42,17 @@
                     </div>
 
                   <div class="form-group">
-                    <label for="">Subject</label>
+                    <label for="">{{ trans('pm.subject') }}</label>
                     <input name="subject" class="form-control" placeholder="Enter subject">
                   </div>
 
                   <div class="form-group">
-                    <label for="">Message</label>
+                    <label for="">{{ trans('pm.message') }}</label>
                     <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
                   </div>
 
                   <button class="btn btn-primary">
-                    <i class="fa fa-save"></i> Send
+                    <i class="fa fa-save"></i> {{ trans('pm.send') }}
                   </button>
                 {{ Form::close() }}
       </div>

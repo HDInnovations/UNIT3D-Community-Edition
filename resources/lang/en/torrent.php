@@ -14,4 +14,10 @@ return [
     'categories' => 'Categories',
     'catalog' => 'Catalog',
     'catalogs' => 'Catalogs',
+    'type' => 'Type',
+    'types' => 'Types',
+    'history' => 'History',
+    'peers' => 'Peers',
+    'graveyard' => 'Graveyard',
+    'rss' => 'RSS',
 ];

@@ -7,7 +7,7 @@
 @section('breadcrumb')
 <li>
   <a href="{{ route('edit', ['slug' => $tor->slug, 'id' => $tor->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Edit</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }} {{ trans('common.edit') }}</span>
   </a>
 </li>
 @stop
@@ -15,7 +15,7 @@
 @section('content')
 <div class="container">
     <div class="col-md-10">
-        <h2>Edit: {{ $tor->name }}</h2>
+        <h2>{{ trans('common.edit') }}: {{ $tor->name }}</h2>
         <div class="block">
          {{ Form::open(array('route' => array('edit', 'slug' => $tor->slug, 'id' => $tor->id))) }}
          {{ csrf_field() }}
@@ -45,7 +45,7 @@
           </div>
 
             <div class="form-group">
-              <label for="category_id">Category</label>
+              <label for="category_id">{{ trans('torrent.category') }}</label>
               <select name="category_id" class="form-control">
                   <option value="{{ $tor->category->id }}" selected>{{ $tor->category->name  }} (Current)</option>
                 @foreach($categories as $category)
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form-group">
-              <label for="type">Type</label>
+              <label for="type">{{ trans('torrent.type') }}</label>
               <select name="type" class="form-control">
                   <option value="{{ $tor->type }}" selected>{{ $tor->type  }} (Current)</option>
                   @foreach($types as $type)
@@ -101,7 +101,7 @@
             </div>
             <br>
             <br>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
     </div>
 </div>
