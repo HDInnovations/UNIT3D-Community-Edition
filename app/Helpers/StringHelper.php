@@ -14,6 +14,11 @@ namespace App\Helpers;
 
 class StringHelper
 {
+    const KIB = 1024;
+    const MIB = 1024 * 1024;
+    const GIB = 1024 * 1024 * 1024;
+    const TIB = 1024 * 1024 * 1024 * 1024;
+
     public static function generateRandomString($length = 20)
     {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
@@ -26,12 +31,24 @@ class StringHelper
 
     public static function formatBytes($bytes, $precision = 2)
     {
-        $units = array('B', 'KB', 'MB', 'GB', 'TB', 'PB');
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
-        $bytes /= (1 << (10 * $pow));
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        $suffix = 'B';
+        $value = $bytes;
+        if ($bytes >= self::TIB) {
+            $suffix = 'TiB';
+            $value = $bytes / self::TIB;
+        } else if ($bytes >= self::GIB) {
+            $suffix = "GiB";
+            $value = $bytes / self::GIB;
+        } else if ($bytes >= self::MIB) {
+            $suffix = "MiB";
+            $value = $bytes / self::MIB;
+        } else if ($bytes >= self::KIB) {
+            $suffix = "KiB";
+            $value = $bytes / self::KIB;
+        }
+
+        return round($value, $precision) . ' ' . $suffix;
     }
 
     /**
