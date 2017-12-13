@@ -6,6 +6,6 @@
 */
 
 return [
-	'requests' => 'Requests',
-	'request' => 'Request',
+	'requests' => 'Requêtes',
+	'request' => 'Demande',
 ];
