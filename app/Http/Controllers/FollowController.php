@@ -31,7 +31,9 @@ class FollowController extends Controller
      */
     public function follow(User $user)
     {
-        if (!Auth::user()->isFollowing($user->id)) {
+        if (Auth::user()->id == $user->id) {
+            return back()->with(Toastr::error("Nice try, but sadly you can not follow yourself.", 'Error!', ['options']));
+        } elseif (!Auth::user()->isFollowing($user->id)) {
             // Create a new follow instance for the authenticated user
             Auth::user()->follows()->create([
                 'target_id' => $user->id,
