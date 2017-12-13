@@ -17,9 +17,6 @@ return [
 	'members' => 'Members',
 	'navigation' => 'Navigation',
 	'notifications' => 'Notifications',
-	'name' => 'Name',
-	'size' => 'Size',
-	'times' => 'Times',
 	'added_on' => 'Added On',
 	'search' => 'Search',
 	'quick-search' => 'Quick Search',
@@ -36,4 +33,7 @@ return [
 	'faq' => 'FAQ',
 	'report' => 'Report',
 	'bug' => 'Report A Bug',
+	'results' => 'Results',
+	'contact' => 'Contact',
+	'about' => 'About Us',
 ];

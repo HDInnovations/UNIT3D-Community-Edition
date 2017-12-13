@@ -171,7 +171,7 @@
             <li>
               <a href="{{ route('forum_index') }}">
                 <i class="livicon" data-name="doc-portrait" data-c="#5bc0de" data-hc="#5bc0de" data-size="18" data-loop="true"></i>
-                <span class="menu-text">{{ trans('forums.forums') }}</span>
+                <span class="menu-text">{{ trans('forum.forums') }}</span>
                 <span class="selected"></span>
               </a>
             </li>
@@ -192,7 +192,7 @@
             <li>
               <a href="{{ route('graveyard') }}">
                 <i class="livicon" data-name="ghost" data-c="#7289DA" data-hc="#7289DA" data-size="18" data-loop="true"></i>
-                <span class="menu-text">{ trans('torrent.graveyard') }}</span>
+                <span class="menu-text">{{ trans('graveyard.graveyard') }}</span>
                 <span class="selected"></span>
               </a>
             </li>

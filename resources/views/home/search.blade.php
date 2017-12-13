@@ -1,14 +1,14 @@
 @extends('layout.default')
 
 @section('title')
-<title>Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
 <meta name="description" content="{{ 'Liste des torrents disponible gratuitement et en illimité sur ' . Config::get('other.title') }}"> @stop @section('breadcrumb')
 <li class="active">
   <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 @stop
@@ -20,7 +20,7 @@
       <thead>
         <tr>
           <th> </th>
-          <th>Category</th>
+          <th>{{ trans('torrent.category') }}</th>
           <th>{{ trans('common.name') }}</th>
           <th><i class="fa fa-clock-o"></i></th>
           <th><i class="fa fa-file"></i></th>

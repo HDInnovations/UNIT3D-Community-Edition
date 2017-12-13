@@ -18,6 +18,16 @@ return [
     'types' => 'Types',
     'history' => 'History',
     'peers' => 'Peers',
-    'graveyard' => 'Graveyard',
+    'seeder' => 'Seeder',
+    'leecher' => 'Leecher',
+    'seeders' => 'Seeders',
+    'leechers' => 'Leechers',
     'rss' => 'RSS',
+    'name' => 'Name',
+    'size' => 'Size',
+    'times' => 'Times',
+    'completed' => 'Completed',
+    'released' => 'Released',
+    'title' => 'Title',
+    'titles' => 'Titles'
 ];
