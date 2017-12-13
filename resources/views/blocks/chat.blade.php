@@ -2,12 +2,11 @@
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
 @stop
 
-<!-- ShoutBox -->
 <div class="col-md-10 col-sm-10 col-md-offset-1">
   <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
       <div class="panel-heading">
-        <h4>Chat Box</h4>
+        <h4>{{ trans('blocks.chatbox') }}</h4>
       </div>
       <div class="chat-messages">
         <ul class="list-group">
@@ -51,7 +50,6 @@
       </div>
     </div>
   </div>
-<!-- /ShoutBox -->
 <br>
 
 @section('javascripts')
@@ -60,7 +58,7 @@
 <script>
 $(document).ready(function() {
   var wbbOpt = {
-  
+
   }
     $("#chat-message").wysibb(wbbOpt);
 });

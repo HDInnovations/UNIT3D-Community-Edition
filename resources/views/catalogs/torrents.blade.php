@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,17 +11,17 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('catalogs') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Catalogs</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
     </a>
 </li>
 <li>
   <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Catalog</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
   </a>
 </li>
 <li class="active">
   <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 @stop
@@ -30,7 +30,7 @@
 <div class="container box">
   <div class="header gradient yellow">
     <div class="inner_content">
-      <h1>Results</h1>
+      <h1>{{ trans('comman.results') }}</h1>
     </div>
   </div>
   @if(count($torrents) == 0)
@@ -44,11 +44,11 @@
       <a href="#" title="{{ $t->name }}">{{ $t->name }}</a>
     </h3>
     <ul class="list-inline">
-      <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>Size: </strong> {{ $t->getSize() }}</span>
-      <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>Released: </strong> {{ $t->created_at->diffForHumans() }}</span>
-      <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>Seeders: </strong> {{ $t->seeders }}</li></span>
-      <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>Leechers: </strong> {{ $t->leechers }}</li></span>
-      <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>Completed: </strong> {{ $t->times_completed }}</li></span>
+      <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}: </strong> {{ $t->getSize() }}</span>
+      <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}: </strong> {{ $t->created_at->diffForHumans() }}</span>
+      <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}: </strong> {{ $t->seeders }}</li></span>
+      <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}: </strong> {{ $t->leechers }}</li></span>
+      <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}: </strong> {{ $t->times_completed }}</li></span>
     </ul>
   </div>
   @endforeach

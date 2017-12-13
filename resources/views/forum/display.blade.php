@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $forum->name }} - Forums - {{ Config::get('other.title') }}</title>
+<title>{{ $forum->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
     </a>
 </li>
 <li>
@@ -72,10 +72,9 @@
                 </tbody>
             </table>
         </div>
-        <!-- Permissions -->
         @if($category->getPermission()->start_topic == true)
-            <a href="{{ route('forum_new_topic', array('slug' => $forum->slug, 'id' => $forum->id)) }}" class="btn btn-primary">{{ trans('traduction.start_a_new_topic') }}</a>
-        @endif<!-- /Permissions -->
+            <a href="{{ route('forum_new_topic', array('slug' => $forum->slug, 'id' => $forum->id)) }}" class="btn btn-primary">{{ trans('common.submit') }}</a>
+        @endif
         <div class="f-display-pagination col-md-12">
             {{ $topics->links() }}
         </div>

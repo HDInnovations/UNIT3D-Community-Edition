@@ -9,7 +9,6 @@
 @stop
 
 @section('content')
-<!-- Bug Details -->
 <div class="container">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -66,5 +65,5 @@
           </tbody>
         </table>
     </div>
-    </div>
+</div>
 @stop

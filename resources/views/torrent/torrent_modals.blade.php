@@ -94,8 +94,8 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>{{ trans('traduction.name') }}</th>
-                <th>{{ trans('traduction.size') }}</th>
+                <th>{{ trans('common.name') }}</th>
+                <th>{{ trans('common.size') }}</th>
               </tr>
             </thead>
             <tbody>

@@ -1,9 +1,8 @@
-<!-- Online Users -->
 <div class="col-md-10 col-sm-10 col-md-offset-1">
   <div class="clearfix visible-sm-block"></div>
   <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
-      <h4>Online Users <small>(Active In Last 15 Min)</small></h4></div>
+      <h4>{{ trans('blocks.users-online') }}<small>(Active In Last 15 Min)</small></h4></div>
     <div class="panel-body">
     @foreach($user as $u)
     @if($u->isOnline())
@@ -32,4 +31,3 @@
     </div>
   </div>
 </div>
-<!-- /Online Users -->

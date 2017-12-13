@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li>
   <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 <li>
@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="container box">
-  <h1 class="torrents-title">Torrents</h1>
+  <h1 class="torrents-title">{{ trans('torrent.torrents') }}</h1>
   <hr>
   <center>
     <p class="text-danger">Search</p>
@@ -34,9 +34,8 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label class="pull-left control-label" for="genre">Category:</label>
+              <label class="pull-left control-label" for="genre">{{ trans('torrent.category') }}:</label>
               <select name="category_id" id="category_id" class="form-control">
-                <!-- <option value="">All</option> -->
                 @foreach($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
@@ -45,7 +44,7 @@
           </div>
           <div class="col-lg-3 col-lg-offset-1">
             <div class="form-group">
-              <label class="pull-left control-label" for="rating">Type:</label>
+              <label class="pull-left control-label" for="rating">{{ trans('torrent.type') }}:</label>
               <select name="type" id="type" class="form-control">
                 @foreach($types as $type)
                   <option value="{{ $type->name }}">{{ $type->name }}</option>
@@ -73,8 +72,8 @@
       </form>
       <div style="float:left;">
         <strong>Extra:</strong>
-        <a href="{{ route('categories') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> Categories</a>
-        <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> Catalogs</a>
+        <a href="{{ route('categories') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> {{ trans('torrent.categories') }}</a>
+        <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> {{ trans('torrent.catalogs') }}</a>
       </div>
       <div style="float:right;">
         <strong>View:</strong>

@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-	<title>About Us - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('coomon.about') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-	<meta name="description" content="About Us">
+	<meta name="description" content="{{ trans('coomon.about') }}">
 @stop
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('about') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">About Us</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('coomon.about') }}</span>
     </a>
 </li>
 @stop
@@ -549,7 +549,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
             </div>
           </div>
 
-          <a href="{{ route('contact') }}" class="contact button white">Contact {{ Config::get('other.title') }}</a>
+          <a href="{{ route('contact') }}" class="contact button white">{{ trans('common.contact') }} {{ Config::get('other.title') }}</a>
         </div>
       </div>
     </div>

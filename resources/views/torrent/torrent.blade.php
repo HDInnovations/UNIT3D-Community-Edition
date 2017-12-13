@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $torrent->name }} - Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('stylesheets')
@@ -9,10 +9,13 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Download ' . $torrent->name . ' at maximum speed!' }}"> @stop @section('breadcrumb')
+<meta name="description" content="{{ 'Download ' . $torrent->name . ' at maximum speed!' }}">
+@stop
+
+@section('breadcrumb')
 <li>
   <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 <li class="active">
@@ -208,7 +211,7 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Category</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
           <td>
             @if($torrent->category_id == "1")
             <i class="fa fa-film torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i> {{ $torrent->category->name }}
@@ -220,7 +223,7 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Type</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.type') }}</strong></td>
           <td>{{ $torrent->type }}</td>
         </tr>
 
@@ -237,13 +240,13 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Peers</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.peers') }}</strong></td>
           <td>
             <span class="badge-extra text-green"><i class="fa fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}</span>
             <span class="badge-extra text-red"><i class="fa fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}</span>
             <span class="badge-extra text-info"><i class="fa fa-fw fa-check"></i>{{ $torrent->times_completed }} Times</span>
-            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">View Peers</a></span>
-            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View History</a></span>
+            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">View {{ trans('torrent.peers') }}</a></span>
+            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View {{ trans('torrent.history') }}</a></span>
           </td>
         </tr>
       </tbody>
@@ -463,7 +466,7 @@
       <label for="content">Your comment:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
       <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
     </div>
-    <button type="submit" class="btn btn-danger">{{ trans('traduction.save') }}</button>
+    <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
     <label class="radio-inline"><strong>Anonymous Comment:</strong></label>
       <input type="radio" value="1" name="anonymous"> Yes
       <input type="radio" value="0" checked="checked" name="anonymous"> No

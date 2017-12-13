@@ -8,7 +8,7 @@
 </li>
 <li>
     <a href="{{ route('user_edit_profil', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Edit</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.edit') }}</span>
     </a>
 </li>
 @stop
@@ -44,7 +44,7 @@
             <center><p>Forum Signature </p> {!! $user->getSignature() !!}</center>
             @endif
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
 
     </div>

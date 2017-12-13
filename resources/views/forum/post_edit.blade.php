@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-<title>Edit post - {{ $topic->name }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Edit post in ' . $forum->name }}">
+<meta name="description" content="{{ 'Edit Post In ' . $forum->name }}">
 @stop
 
 @section('stylesheets')
@@ -15,7 +15,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
     </a>
 </li>
 <li>
@@ -35,7 +35,7 @@
 </li>
 <li>
     <a href="{{ route('forum_post_edit', array('slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id)) }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Edit post</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.edit') }} {{ trans('forum.post') }}</span>
     </a>
 </li>
 @stop
@@ -49,7 +49,7 @@
 	@endif
 
 	<div class="col-md-12">
-		<h2>Edit a post in: {{ $forum->name }}</h2>
+		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} In: {{ $forum->name }}</h2>
 		{{ Form::open(array('route' => array('forum_post_edit', 'slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id))) }}
 		{{ csrf_field() }}
 
@@ -58,8 +58,8 @@
 			</div>
 
 
-			<button type="submit" name="post" value="true" class="btn btn-primary">Save</button>
-			<button type="submit" name="preview" value="true" class="btn btn-default">Preview</button>
+			<button type="submit" name="post" value="true" class="btn btn-primary">{{ trans('common.submit') }}</button>
+			<button type="submit" name="preview" value="true" class="btn btn-default">{{ trans('common.preview') }}</button>
 		{{ Form::close() }}
 	</div>
 </div>

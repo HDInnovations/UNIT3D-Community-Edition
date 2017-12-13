@@ -1,19 +1,19 @@
 @extends('layout.default')
 
 @section('title')
-	<title>Contact - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('common.contact') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-	<meta name="description" content="Page de contact de {{ Config::get('other.title') }}. {{ 'Une requête ? Une question ? Contactez nous ici !' }}">
+	<meta name="description" content="Contact {{ Config::get('other.title') }}.">
 @stop
 
 @section('breadcrumb')
-<div class="l-breadcrumb-item" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+<li>
     <a href="{{ route('contact') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Contact</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.contact') }}</span>
     </a>
-</div>
+</li>
 @stop
 
 @section('content')
@@ -34,7 +34,7 @@
 				<textarea name="message" placeholder="Message" class="form-control" cols="30" rows="10"></textarea>
 			</div>
 
-			<button type="submit" class="btn btn-lg btn-primary btn-block">Send</button>
+			<button type="submit" class="btn btn-lg btn-primary btn-block">{{ trans('common.submit') }}</button>
 		{{ Form::close() }}
 	</div>
 

@@ -8,7 +8,6 @@
   @include('blocks.top_torrents')
   @include('blocks.latest_topics')
   @include('blocks.latest_posts')
-  {{--@include('blocks.new_members')--}}
   @include('blocks.online')
 </div>
 

@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('common.login') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.login') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
     <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
@@ -50,8 +50,8 @@
     </svg>
   <div id="formContent">
     <!-- Tabs Titles -->
-    <a href="{{ route('login') }}"><h2 class="inactive underlineHover">Sign In </h2></a>
-    <a href="{{ route('register') }}"><h2 class="active">Sign Up </h2></a>
+    <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
+    <a href="{{ route('register') }}"><h2 class="active">{{ trans('auth.signup') }} </h2></a>
 
     <!-- Icon -->
     <div class="fadeIn first">
@@ -63,12 +63,12 @@
       <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
       <input type="text" id="email" class="fadeIn third" name="email" placeholder="email">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-      <button type="submit" class="fadeIn fourth">{{ trans('common.signup') }}</button>
+      <button type="submit" class="fadeIn fourth">{{ trans('auth.login') }}</button>
     {{ Form::close() }}
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="{{ route('password.request') }}">Forgot Password?</a>
+      <a class="underlineHover" href="{{ route('password.request') }}">{{ trans('auth.lost-password') }}</a>
     </div>
 
   </div>

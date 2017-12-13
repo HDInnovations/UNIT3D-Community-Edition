@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('common.lost-password') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.lost-password') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
   @section('meta')
     <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
@@ -52,9 +52,9 @@
     </svg>
   <div id="formContent">
     <!-- Tabs Titles -->
-    <a href="{{ route('login') }}"><h2 class="inactive underlineHover">Sign In </h2></a>
-    <a href="{{ route('register') }}"><h2 class="inactive underlineHover">Sign Up </h2></a>
-    <h2 class="active">Password Reset </h2>
+    <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
+    <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
+    <h2 class="active">{{ trans('auth.lost-password') }} </h2>
     <!-- Icon -->
     <div class="fadeIn first">
       <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
@@ -75,7 +75,7 @@
               <input type="password" id="password-confirm" name="password_confirmation" class="form-control" placeholder="{{ trans('common.password') }} confirmation">
             </div>
             <div class="col s6">
-                <button type="submit" class="btn waves-effect waves-light blue right">Send</button>
+                <button type="submit" class="btn waves-effect waves-light blue right">{{ trans('common.submit') }}</button>
             </div>
           </form>
 

@@ -2,7 +2,7 @@
 <html lang="{{ config('app.locale') }}">
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('common.login') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.login') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
     <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
@@ -45,8 +45,8 @@
     </svg>
   <div id="formContent">
     <!-- Tabs Titles -->
-    <a href="{{ route('login') }}"><h2 class="active">Sign In </h2></a>
-    <a href="{{ route('register') }}"><h2 class="inactive underlineHover">Sign Up </h2></a>
+    <a href="{{ route('login') }}"><h2 class="active">{{ trans('auth.login') }} </h2></a>
+    <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }} </h2></a>
 
     <!-- Icon -->
     <div class="fadeIn first">
@@ -56,7 +56,7 @@
     <!-- Login Form -->
     {{ Form::open(array('route' => 'login')) }}
     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-        <label for="username" class="col-md-4 control-label">Username</label>
+        <label for="username" class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 
         <div class="col-md-6">
             <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-        <label for="password" class="col-md-4 control-label">Password</label>
+        <label for="password" class="col-md-4 control-label">{{ trans('auth.password') }}</label>
 
         <div class="col-md-6">
             <input id="password" type="password" class="form-control" name="password" required>
@@ -89,17 +89,17 @@
         <div class="col-md-6 col-md-offset-4">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ trans('auth.remember-me') }}
                 </label>
             </div>
         </div>
     </div>
-    <button type="submit" class="fadeIn fourth" id="login-button">Log In</button>
+    <button type="submit" class="fadeIn fourth" id="login-button">{{ trans('auth.login') }}</button>
     {{ Form::close() }}
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="{{ route('password.request') }}">Forgot Password?</a>
+      <a class="underlineHover" href="{{ route('password.request') }}">{{ trans('auth.lost-password') }}</a>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <li class="active">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Outbox</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.outbox') }}</span>
 </li>
 @stop
 
@@ -10,17 +10,17 @@
 <div class="container">
   <div class="header gradient silver">
     <div class="inner_content">
-      <h1>Private Messages - Outbox</h1>
+      <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.outbox') }}</h1>
     </div>
   </div>
         <div class="row">
           <div class="col-md-2">
             <div class="block">
-              <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">New Message</a>
+              <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
               <div class="separator"></div>
               <div class="list-group">
-                <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Inbox</a>
-                <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">Outbox</a>
+                <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
+                <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
               </div>
             </div>
           </div>
@@ -30,9 +30,9 @@
           <table class="table table-striped table-hover table-bordered">
             <thead>
               <tr>
-                <td class="col-sm-2">To</td>
-                <td class="col-sm-6">Subject</td>
-                <td class="col-sm-2">Sent At</td>
+                <td class="col-sm-2">{{ trans('pm.to') }}</td>
+                <td class="col-sm-6">{{ trans('pm.subject') }}</td>
+                <td class="col-sm-2">{{ trans('pm.sent-at') }}</td>
               </tr>
             </thead>
             <tbody>

@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $category->name }} - {{ trans('common.category') }} - {{ Config::get('other.title') }}</title>
+<title>{{ $category->name }} {{ trans('torrent.category') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Découvrez tout les torrents dans la catégorie ' . $category->name  . ' disponible en téléchargement gratuit' }}">
+<meta name="description" content="{{ $category->name }}">
 @stop
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Categories</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.categories') }}</span>
     </a>
 </li>
 <li>
@@ -25,14 +25,14 @@
 <div class="container box">
   <div class="header gradient green">
     <div class="inner_content">
-      <h1>Torrents in {{ $category->name }}</h1>
+      <h1>{{ trans('torrent.torrents') }} in {{ $category->name }}</h1>
     </div>
   </div>
 <div class="torrents col-md-12">
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th>Category</th>
+        <th>{{ trans('torrent.category') }}</th>
         <th>{{ trans('common.name') }}</th>
         <th><i class="fa fa-clock-o"></i></th>
         <th><i class="fa fa-file"></i></th>
@@ -93,22 +93,6 @@
       @endforeach
     </tbody>
   </table>
-  <!-- <div class="col-sm-4 text-center">
-    <div class="text-blue well well-sm">
-      <h2><strong>ACTIVITY LEGEND</strong></h2>
-      <center>
-        <button type="button" class="btn btn-success" data-toggle="tooltip" title="" data-original-title="YOU ARE SEEDING THIS!">
-          Seeding
-        </button>
-        <button type="button" class="btn btn-danger" data-toggle="tooltip" title="" data-original-title="YOU ARE LEECHING THIS!">
-          Leeching
-        </button>
-        <button type="button" class="btn btn-warning" data-toggle="tooltip" title="" data-original-title="YOU HAVE SNATCHED THIS!">
-          Snatched
-        </button>
-      </center>
-    </div>
-  </div> -->
   {{ $torrents->links() }}
 </div>
 </div>
