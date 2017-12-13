@@ -15,7 +15,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
     </a>
 </li>
 <li>
@@ -49,7 +49,7 @@
 			</div>
 
 			<button type="submit" name="post" value="true" id="post" class="btn btn-primary">{{ trans('forum.send-new-topic') }}</button>
-			<button type="submit" name="preview" value="true" id="preview" class="btn btn-default">Preview</button>
+			<button type="submit" name="preview" value="true" id="preview" class="btn btn-default">{{ trans('common.preview') }}</button>
 		{{ Form::close() }}
 	</div>
 </div>
@@ -69,6 +69,5 @@ $(document).ready(function() {
 
     var wysibb = $("#new-thread-content").wysibb();
 });
-
 </script>
 @stop

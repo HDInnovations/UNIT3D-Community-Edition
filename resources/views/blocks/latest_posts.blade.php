@@ -1,9 +1,8 @@
-<!-- Forums Posts -->
 <div class="col-md-10 col-sm-10 col-md-offset-1">
   <div class="clearfix visible-sm-block"></div>
   <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
-      <h4>Latest Posts</h4>
+      <h4>{{ trans('blocks.latest-posts') }}</h4>
     </div>
     <div class="table-responsive">
       <table class="table table-condensed table-striped table-bordered">
@@ -29,4 +28,3 @@
     </div>
   </div>
 </div>
-<!-- /Forums Posts -->

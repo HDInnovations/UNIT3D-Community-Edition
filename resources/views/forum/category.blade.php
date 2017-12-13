@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $c->name }} - Forums - {{ Config::get('other.title') }}</title>
+<title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
     </a>
 </li>
 <li>
@@ -24,17 +24,16 @@
 @section('content')
 <div class="box container">
     <div class="f-category" id="category_{{ $c->id }}">
-        <!-- Titre de la categorie -->
         <div class="f-category-title col-md-12">
             <h2><a href="{{ route('forum_category', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></h2>
-        </div><!-- Titre de la categorie -->
+        </div>
 
         <div class="f-category-table-wrapper col-md-12">
             <table class="f-category-forums table col-md-12">
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Forum</th>
+                        <th>{{ trans('forum.forum') }}</th>
                         <th>Stats</th>
                         <th>Last message</th>
                     </tr>

@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,17 +11,17 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('catalogs') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Catalogs</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
     </a>
 </li>
 <li>
   <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Catalog</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
   </a>
 </li>
 <li class="active">
   <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 @stop

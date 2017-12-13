@@ -63,7 +63,7 @@
               </a>
             <p>{{ $p->user->title }}</p>
             <p><span class="badge-extra text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->group->name }}</span></p>
-            <p>{{ trans('traduction.join_date')}}: {{ date('m/d/Y', strtotime($p->user->created_at)) }}</p>
+            <p>Join Date: {{ date('m/d/Y', strtotime($p->user->created_at)) }}</p>
             <span class="inline">
             <button id="quote" class="btn btn-xs btn-xxs btn-info">Quote</button>
             @if(Auth::check() && (Auth::user()->group->is_modo || $p->user_id == Auth::user()->id) && $topic->state == 'open')
@@ -123,7 +123,7 @@
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
         </div>
         @if(Auth::check())
-        <button type="submit" class="btn btn-primary">{{ trans('traduction.add') }}</button>
+        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         @else
         <button type="submit" class="btn btn-default disabled">You must be connected</button>
         @endif

@@ -1,25 +1,25 @@
 @extends('layout.default')
 
 @section('title')
-<title>Forums - {{ Config::get('other.title') }}</title>
+<title>{{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Forum de partage et d\'échange de ' . Config::get('other.title') . '. Téléchargez vos films et séries préférer en torrent. Rejoignez la communauté.' }}">
+<meta name="description" content="{{ Config::get('other.title') . 'Forums' }}">
 @stop
 
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
   </a>
 </li>
 @stop
 
 @section('content')
 <div class="box container">
-<span class="badge-user" style="float: right;"><strong>Forums:</strong> {{ $num_forums }} | <strong>Topics:</strong> {{ $num_topics }} | <strong>Posts:</strong> {{ $num_posts }}</span>
+<span class="badge-user" style="float: right;"><strong>{{ trans('forum.forums') }}:</strong> {{ $num_forums }} | <strong>Topics:</strong> {{ $num_topics }} | <strong>Posts:</strong> {{ $num_posts }}</span>
 {{ Form::open(array('route' => 'forum_search')) }}
 <input type="text" name="name" id="name" placeholder="Topic Name Quick Search" class="form-control">
 {{ Form::close() }}

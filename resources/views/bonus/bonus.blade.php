@@ -1,7 +1,9 @@
-@extends('layout.default') @section('breadcrumb')
+@extends('layout.default')
+
+@section('breadcrumb')
 <li>
 <a href="{{ route('bug') }}" itemprop="url" class="l-breadcrumb-item-link">
-<span itemprop="title" class="l-breadcrumb-item-link-title">Bonus Points</span>
+<span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('bon.bonus') }} {{ trans('bon.points') }}</span>
 </a>
 </li>
 @stop
@@ -10,7 +12,7 @@
 <div class="container box">
   <div class="header gradient purple">
     <div class="inner_content">
-      <h1>BON Store</h1>
+      <h1>{{ trans('bon.bon') }} {{ trans('bon.store') }}</h1>
     </div>
   </div>
 <h3>Earning</h3>

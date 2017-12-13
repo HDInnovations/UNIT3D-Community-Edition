@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-<title>Catalogs - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.catalogs') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('catalogs') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Catalogs</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
     </a>
 </li>
 @stop
@@ -17,7 +17,7 @@
     <div class="forum-category-childs">
       <div class="header gradient blue">
         <div class="inner_content">
-          <h1>Our Catalogs</h1>
+          <h1>Our {{ trans('torrent.catalogs') }}</h1>
         </div>
       </div>
         @foreach($catalogs as $c)
