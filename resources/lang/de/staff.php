@@ -7,8 +7,8 @@
 
 return [
     'moderation' => 'Moderation',
-    'please-moderate' => 'Please Moderate This Torrent!',
-    'you-have' => 'You Have',
+    'please-moderate' => 'Bitte moderiere diesen Torrent!',
+    'you-have' => 'Du hast',
     'dashboard' => 'Dashboard',
     'staff-dashboard' => 'Staff Dashboard',
 ];

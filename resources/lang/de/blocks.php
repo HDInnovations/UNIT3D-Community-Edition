@@ -7,10 +7,10 @@
 
 return [
     // Chat
-	'chatbox' => 'Chat Box',
+	'chatbox' => 'Chatbox',
 
     // Featured Torrents
-	'featured-torrents' => 'Featured Torrents',
+	'featured-torrents' => 'Torrents der Woche',
 
     // Latest Torrents
 	'latest-torrents' => 'Letzte Torrents',
