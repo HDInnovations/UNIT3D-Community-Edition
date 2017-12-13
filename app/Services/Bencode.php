@@ -12,64 +12,139 @@
  
 namespace App\Services;
 
+use function theodorejb\polycast\{safe_int, safe_float};
+
 /**
  * Bencode library for torrents
  *
  */
 class Bencode
 {
-    public static function bdecode($s, & $pos = 0)
+    public static function parse_integer($s, &$pos)
     {
-        if ($pos >= strlen($s)) {
+        $len = strlen($s);
+        if ($len == 0 || $s[$pos] != 'i') {
+            return null;
+        }
+        ++$pos;
+
+        $result = "";
+        while ($pos < $len && $s[$pos] != 'e') {
+            if (is_numeric($s[$pos])) {
+                $result .= $s[$pos];
+            } else {
+                // We have an invalid character in the string.
+                return null;
+            }
+            ++$pos;
+        }
+
+        if ($pos >= $len) {
+            // No end marker, hence we return null.
             return null;
         }
 
-        switch ($s[$pos]) {
-            case 'd':
-                $pos ++;
-                $retval = [];
-                while ($s[$pos] != 'e') {
-                    $key = self::bdecode($s, $pos);
-                    $val = self::bdecode($s, $pos);
-                    if ($key === null || $val === null) {
-                        break;
-                    }
-                    $retval[$key] = $val;
-                }
-                $retval['isDct'] = true;
-                $pos ++;
-                return $retval;
+        ++$pos;
 
-            case 'l':
-                $pos ++;
-                $retval = [];
-                while ($s[$pos] != 'e') {
-                    $val = self::bdecode($s, $pos);
-                    if ($val === null) {
-                        break;
-                    }
-                    $retval[] = $val;
-                }
-                $pos ++;
-                return $retval;
+        if (safe_int($result)) {
+            return (int)$result;
+        } else {
+            return null;
+        }
+    }
 
-            case 'i':
-                $pos ++;
-                $digits = strpos($s, 'e', $pos) - $pos;
-                $val    = round((float) substr($s, $pos, $digits));
-                $pos += $digits + 1;
-                return $val;
+    public static function parse_string($s, &$pos)
+    {
+        $len = strlen($s);
+        $length_str = "";
 
-            default:
-                $digits = strpos($s, ':', $pos) - $pos;
-                if ($digits < 0 || $digits > 20) {
+        while ($pos < $len && $s[$pos] != ':') {
+            if (is_numeric($s[$pos])) {
+                $length_str .= $s[$pos];
+            } else {
+                // Non-numeric character, we return null in this case.
+                return null;
+            }
+            ++$pos;
+        }
+
+        if ($pos >= $len) {
+            // We need a colon here, but there's none.
+            return null;
+        }
+
+        ++$pos;
+        if (!safe_int($length_str)) {
+            return null;
+        }
+
+        $length = (int)$length_str;
+        $result = "";
+        while ($pos < $len && $length > 0) {
+            $result .= $s[$pos];
+            --$length;
+            ++$pos;
+        }
+
+        if ($length > 0) {
+            // Input ended, but the string is longer than that.
+            return null;
+        }
+
+        return $result;
+    }
+
+    public static function bdecode($s, &$pos = 0)
+    {
+        $len = strlen($s);
+        if ($pos >= $len) {
+            return null;
+        }
+
+        $c = $s[$pos];
+        if ($c == 'i') {
+            return self::parse_integer($s, $pos);
+        } elseif (is_numeric($c)) {
+            return self::parse_string($s, $pos);
+        } elseif ($c == 'd') {
+            $dict = [];
+            ++$pos;
+            while ($pos < $len && $s[$pos] != 'e') {
+                $key = self::bdecode($s, $pos);
+                $value = self::bdecode($s, $pos);
+                if (is_null($key) || is_null($value)) {
                     return null;
                 }
-                $len = (int) substr($s, $pos, $digits);
-                $pos += $digits + 1;
-                $str = substr($s, $pos, $len);
-                $pos += $len;
-                return (string) $str;
+                $dict[$key] = $value;
+            }
+
+            if ($pos >= $len) {
+                // We need a end marker here
+                return null;
+            }
+            ++$pos;
+
+            return $dict;
+        } elseif ($c == 'l') {
+            $list = [];
+            ++$pos;
+            while ($pos < $len && $s[$pos] != 'e') {
+                $next = self::bdecode($s, $pos);
+                if (!is_null($next)) {
+                    array_push($list, $next);
+                } else {
+                    return null;
+                }
+            }
+
+            if ($pos >= $len) {
+                // We need a end marker here
+                return null;
+            }
+            ++$pos;
+            return $list;
+        } else {
+            return null;
         }
     }
 
