@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-	<title>{{ trans('coomon.about') }} - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('common.about') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
-	<meta name="description" content="{{ trans('coomon.about') }}">
+	<meta name="description" content="{{ trans('common.about') }}">
 @stop
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('about') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('coomon.about') }}</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.about') }}</span>
     </a>
 </li>
 @stop
