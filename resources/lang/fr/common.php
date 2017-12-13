@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 /*
 |--------------------------------------------------------------------------
 | Common Language Lines
@@ -12,36 +11,29 @@ return [
 	'username' => 'Username',
 	'password' => 'Password',
 	'download' => 'Download',
+	'upload' => 'Upload',
+	'ratio' => 'Ratio',
+	'warnings' => 'Warnings',
 	'members' => 'Members',
-	'name' => 'Name',
-	'times' => 'times',
-	'added_on' => 'Added on',
+	'navigation' => 'Navigation',
+	'notifications' => 'Notifications',
+	'added_on' => 'Added On',
 	'search' => 'Search',
-	'category' => 'Category',
+	'quick-search' => 'Quick Search',
+	'submit' => 'Submit',
+	'comment' => 'Comment',
+	'view-all' => 'View All',
+	'preview' => 'Preview',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'pending' => 'Pending',
+	'stats' => 'Stats',
+	'extra-stats' => 'Extra-Stats',
+	'rules' => 'Rules',
+	'faq' => 'FAQ',
+	'report' => 'Report',
+	'bug' => 'Report A Bug',
+	'results' => 'Results',
+	'contact' => 'Contact',
+	'about' => 'About Us',
 ];
-=======
-/**
- * Common.php FR
- *
- */
-return array(
-    'home' => 'Accueil',
-    'account' => 'Compte',
-    'login' => 'Connexion',
-    'signup' => 'Inscription',
-    'logout' => 'Déconnexion',
-    'username' => 'Nom d\'utilisateur',
-    'password' => 'Mot de passe',
-    'download' => 'Télécharger',
-    'members' => 'Membres',
-    'name' => 'Nom',
-    'times' => 'fois', // Times completed (fois)
-    'added_on' => 'Ajouté le',
-    'lost-password' => 'Mot de passe oublié ?',
-    'recover-my-password' => 'Récupération de mot de passe',
-    'search' => 'Recherche',
-    'category' => 'Catégorie',
-
-);
-?>
->>>>>>> master

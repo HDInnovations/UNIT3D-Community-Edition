@@ -6,15 +6,18 @@
 */
 
 return [
-	'topics' => 'Themas',
-	'replies' => 'Antworten',
-	'views' => 'Angeschaut',
+	'forum' => 'Forum',
+	'forums' => 'Forums',
+	'topics' => 'Topics',
+	'post' => 'Post',
+	'replies' => 'Replies',
+	'views' => 'Views',
 	'meta-category' => 'List of forums in the category',
-	'create-new-topic' => 'Neues Thema erstellen',
-	'topic-title' => 'Titel für dieses Thema',
-	'send-new-topic' => 'Speichere dieses Thema',
-	'read-topic' => 'Lese dieses Thema',
-	'mark-as-resolved' => 'Schliesse Thema',
-	'delete-topic' => 'Lösche dieses Thema',
-	'display-forum' => 'Themas anzeigen in '
+	'create-new-topic' => 'Create New Topic',
+	'topic-title' => 'Title of this topic',
+	'send-new-topic' => 'Save this topic',
+	'read-topic' => 'Read the topic',
+	'mark-as-resolved' => 'Lock Topic',
+	'delete-topic' => 'Delete this topic',
+	'display-forum' => 'Show topics in ',
 ];

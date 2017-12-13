@@ -13,6 +13,7 @@ return [
     'logout' => 'Logout',
     'username' => 'Username',
     'password' => 'Password',
-    'lost-password' => 'Forgot your password ?',
-    'recover-my-password' => 'Recover my password',
+    'lost-password' => 'Forgot Your Password?',
+    'recover-my-password' => 'Recover My Password',
+    'remember-me' => 'Remember Me',
 ];
