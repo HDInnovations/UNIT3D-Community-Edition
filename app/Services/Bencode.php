@@ -151,7 +151,7 @@ class Bencode
     public static function bencode($d)
     {
         if (is_array($d)) {
-            $ret='l';
+            $ret = 'l';
             $is_dict = false;
             if (!isset($d['isDct'])) {
                 foreach (array_keys($d) as $key) {
@@ -161,32 +161,32 @@ class Bencode
                     }
                 }
             } else {
-                $is_dict = (bool) $d['isDct'];
+                $is_dict = (bool)$d['isDct'];
                 unset($d['isDct']);
             }
 
             if ($is_dict) {
-                $ret='d';
+                $ret = 'd';
                 // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
                 ksort($d, SORT_STRING);
             }
 
             foreach ($d as $key => $value) {
                 if ($is_dict) {
-                    $ret .= strlen($key).':'.$key;
+                    $ret .= strlen($key) . ':' . $key;
                 }
 
                 if (is_int($value) || is_float($value)) {
                     $ret .= sprintf('i%de', $value);
                 } elseif (is_string($value)) {
-                    $ret .= strlen($value).':'.$value;
+                    $ret .= strlen($value) . ':' . $value;
                 } else {
                     $ret .= self::bencode($value);
                 }
             }
-            return $ret.'e';
+            return $ret . 'e';
         } elseif (is_string($d)) {
-            return strlen($d).':'.$d;
+            return strlen($d) . ':' . $d;
         } elseif (is_int($d) || is_float($d)) {
             return sprintf('i%de', $d);
         } else {
@@ -196,7 +196,7 @@ class Bencode
 
     public static function bdecode_file($filename)
     {
-        $f=file_get_contents($filename, FILE_BINARY);
+        $f = file_get_contents($filename, FILE_BINARY);
         return self::bdecode($f);
     }
 
@@ -211,7 +211,7 @@ class Bencode
 
             foreach ($t['info']['files'] as $file) {
                 $t['info']['filecount']++;
-                $t['info']['size']+=$file['length'];
+                $t['info']['size'] += $file['length'];
             }
         } else {
             $t['info']['size'] = $t['info']['length'];
