@@ -58,6 +58,7 @@ UNIT3D currently offers the following features:
   -   php-curl -> This is specifically needed for the various APIs we have running.
 - Crontab access
 - A Redis server
+- MySQL 5.7
 
 ## <a name="installation"></a> Installation
 
