@@ -108,12 +108,13 @@ Route::group(['middleware' => 'auth'], function () {
     // About Us
     Route::any('/aboutus', 'PageController@about')->name('about');
 
-    // Commentaires
+    // Comments
     Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
     Route::any('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
-    Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
+    Route::any('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
     Route::any('/comment/request/{id}', 'CommentController@request')->name('comment_request');
-    Route::get('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
+    Route::any('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
+    Route::any('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
     //Extra-Stats
     Route::get('/stats', 'StatsController@index')->name('stats');

@@ -440,12 +440,14 @@
             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
             @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
             <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+            <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
             @endif
             <div class="pt-5">
             @emojione($comment->getContentHtml())
             </div>
           </div>
           </li>
+          @include('partials.modals', ['comment' => $comment])
           @endforeach
           @endif
           </ul>

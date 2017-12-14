@@ -4,6 +4,10 @@
 <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ Config::get('other.title') }}</title>
 @stop
 
+@section('stylesheets')
+<link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@stop
+
 @section('meta')
 <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
 @stop
@@ -43,7 +47,7 @@
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="content">Your {{ trans('common.comment') }}:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
-                <textarea name="content" cols="30" rows="5" class="form-control"></textarea>
+                <textarea name="content" id="content" cols="30" rows="5" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
@@ -70,14 +74,26 @@
         <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
         @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
         <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+        <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
         @endif
         <div class="pt-5">
         @emojione($comment->getContentHtml())
         </div>
       </div>
       </li>
+      @include('partials.modals', ['comment' => $comment])
       @endforeach
       </ul>
     </div>
 </div>
+@stop
+
+@section('javascripts')
+<script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
+<script>
+$(document).ready(function() {
+    var wbbOpt = { }
+    $("#content").wysibb(wbbOpt);
+});
+</script>
 @stop

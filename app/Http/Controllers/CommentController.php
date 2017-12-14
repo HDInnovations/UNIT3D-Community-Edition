@@ -181,7 +181,7 @@ class CommentController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
             // Auto PM
-            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
@@ -244,6 +244,27 @@ class CommentController extends Controller
         return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
     }
 
+    /**
+     * Edit a comment
+     *
+     *
+     * @param $comment_id
+     */
+    public function editComment($comment_id)
+    {
+        $user = Auth::user();
+        $comment = Comment::findOrFail($comment_id);
+
+        if ($user->group->is_modo || $user->id == $comment->user_id) {
+            $content = Request::get('comment-edit');
+            $comment->content = $content;
+            $comment->save();
+
+            return back()->with(Toastr::success('Comment Has Been Edited.', 'Yay!', ['options']));
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
+    }
 
     /**
      * Delete a comment on a torrent
@@ -253,15 +274,17 @@ class CommentController extends Controller
      */
     public function deleteComment($comment_id)
     {
+        $user = Auth::user();
         $comment = Comment::findOrFail($comment_id);
 
-        if (!$comment) {
-            return back()->with(Toastr::error('Comment Is Already Deleted', 'Attention', ['options']));
+        if ($user->group->is_modo || $user->id == $comment->user_id) {
+
+            $comment->delete();
+
+            return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
+        } else {
+            abort(403, 'Unauthorized action.');
         }
-
-        $comment->delete();
-
-        return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
     }
 
 }
