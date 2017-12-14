@@ -28,7 +28,9 @@
         "renatomarinho/laravel-page-speed": "^1.8",
         "spatie/laravel-cookie-consent": "^1.8",
         "spatie/laravel-image-optimizer": "^1.1",
-        "theodorejb/polycast": "^1.0"
+        "theodorejb/polycast": "^1.0",
+        "intervention/image": "dev-master"
+
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

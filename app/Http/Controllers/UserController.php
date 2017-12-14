@@ -47,7 +47,7 @@ use Illuminate\Support\Facades\Input;
 
 use Cache;
 use \Toastr;
-
+use Image;
 use Carbon\Cabon;
 
 /**
@@ -130,13 +130,13 @@ class UserController extends Controller
         $user = Auth::user();
         // Requetes post only
         if (Request::isMethod('post')) {
+            // Avatar
             if (Request::hasFile('image')) {
-                // Modification de l'image de l'utilisateur
                 $image = Request::file('image');
-                // Check file
                 if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif', 'GIF']) && preg_match('#image/*#', $image->getMimeType())) {
-                    // Move file
-                    $image->move(getcwd() . '/files/img/', $user->username . '.' . $image->getClientOriginalExtension());
+                    $filename = $user->username . '.' . $image->getClientOriginalExtension();
+                    $path = public_path('/files/img/' . $filename);
+                    Image::make($image->getRealPath())->fit(150, 150)->save($path);
                     $user->image = $user->username . '.' . $image->getClientOriginalExtension();
                 }
             }

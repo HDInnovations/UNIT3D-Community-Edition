@@ -191,6 +191,7 @@ return [
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -255,6 +256,7 @@ return [
         'CookieConsent' => BrianFaust\CookieConsent\Facades\CookieConsent::class,
         'Toastr' => Brian2694\Toastr\Facades\Toastr::class,
         'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
         'LogActivity' => App\Helpers\LogActivity::class,
     ],
