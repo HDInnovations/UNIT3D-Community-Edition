@@ -7,24 +7,24 @@
 
 return [
     // Chat
-	'chatbox' => 'Chat Box',
+	'chatbox' => 'Chatbox',
 
     // Featured Torrents
-	'featured-torrents' => 'Featured Torrents',
+	'featured-torrents' => 'Uitgelichte Torrents',
 
     // Latest Torrents
-	'latest-torrents' => 'Latest Torrents',
+	'latest-torrents' => 'Nieuwste Torrents',
 
     // Latest Posts
-	'latest-posts' => 'Latest Posts',
+	'latest-posts' => 'Nieuwste Posts',
 
     // Latest Topics
-	'latest-topics' => 'Latest Topics',
+	'latest-topics' => 'Nieuwste Topics',
 
     // Users Online
-	'users-online' => 'Users Online',
+	'users-online' => 'Gebruikers Online',
 
     // News/Articles
-	'new-news' => 'New News',
-    'check-news' => 'News (Check Daily)',
+	'new-news' => 'Nieuw Nieuwsartikelen',
+    'check-news' => 'Nieuws (Dagelijks Bekijken)',
 ];
