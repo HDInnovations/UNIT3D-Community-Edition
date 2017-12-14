@@ -6,14 +6,14 @@
 */
 
 return [
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login' => 'Login',
-    'signup' => 'Signup',
-    'logout' => 'Logout',
-    'username' => 'Username',
-    'password' => 'Password',
-    'lost-password' => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
-    'remember-me' => 'Remember Me',
+    'failed' => 'Deze inloggegevens komen niet voor in onze database.',
+    'throttle' => 'Te veel mislukte inlogpogingen. Probeer het opnieuw in :seconds seconde.',
+    'login' => 'Inloggen',
+    'signup' => 'Inschrijven',
+    'logout' => 'Uitloggen',
+    'username' => 'Gebruikersnaam',
+    'password' => 'Wachtwoord',
+    'lost-password' => 'Wachtwoord Vergeten?',
+    'recover-my-password' => 'Herstel Mijn Wachtwoord',
+    'remember-me' => 'Onthoud Mij',
 ];
