@@ -344,7 +344,7 @@ class User extends Authenticatable
         if ($this->downloaded == 0) {
             return INF;
         }
-        return (float)round($this->uploaded / max(1, $this->downloaded), 2);
+        return (float)round($this->uploaded / $this->downloaded, 2);
     }
 
     // Return the ratio pretty formated as a string.
