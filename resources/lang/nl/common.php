@@ -21,7 +21,7 @@ return [
 	'search' => 'Zoeken',
 	'quick-search' => 'Snel Zoeken',
 	'submit' => 'Verzenden',
-	'comment' => 'Plaats Reactie',
+	'comment' => 'Commentaar',
 	'view-all' => 'Alles Bekijken',
 	'preview' => 'Voorbeeld',
 	'edit' => 'Bewerken',
