@@ -25,7 +25,7 @@
 
     <!-- Community -->
     <div class="col-md-2 l-footer-section">
-      <h2 class="l-footer-section-title">{{ trans('traduction.community') }}</h2>
+      <h2 class="l-footer-section-title">{{ trans('common.community') }}</h2>
       <ul>
         <li><a href="{{ route('forum_index') }}">Forums</a></li>
         <li><a href="{{ route('members') }}">{{ trans('common.members') }}</a></li>
