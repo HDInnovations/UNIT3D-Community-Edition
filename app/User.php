@@ -341,7 +341,21 @@ class User extends Authenticatable
      */
     public function getRatio()
     {
-        return round($this->uploaded / max(1, $this->downloaded), 2);
+        if ($this->downloaded == 0) {
+            return INF;
+        }
+        return (float)round($this->uploaded / max(1, $this->downloaded), 2);
+    }
+
+    // Return the ratio pretty formated as a string.
+    public function getRatioString()
+    {
+        $ratio = self::getRatio();
+        if (is_infinite($ratio)) {
+            return "∞";
+        } else {
+            return (string)$ratio;
+        }
     }
 
     /**
