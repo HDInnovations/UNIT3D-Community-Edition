@@ -147,7 +147,7 @@
   </tr>
   <tr>
     <td>Ratio</td>
-    <td><span class="badge-user group-member">{{ $user->getRatio() }}</span></td>
+    <td><span class="badge-user group-member">{{ $user->getRatioString() }}</span></td>
   </tr>
   <tr>
     <td>Total Seedtime (All Torrents)</td>

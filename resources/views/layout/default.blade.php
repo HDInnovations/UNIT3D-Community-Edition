@@ -287,7 +287,7 @@
                   </li>
                   <li><i class="fa fa-arrow-up text-green text-bold"></i> {{ trans('common.upload') }}: {{ Auth::user()->getUploaded() }}</li>
                   <li><i class="fa fa-arrow-down text-red text-bold"></i> {{ trans('common.download') }}: {{ Auth::user()->getDownloaded() }}</li>
-                  <li><i class="fa fa-signal text-blue text-bold"></i> {{ trans('common.ratio') }}: {{ Auth::user()->getRatio() }}</li>
+                  <li><i class="fa fa-signal text-blue text-bold"></i> {{ trans('common.ratio') }}: {{ Auth::user()->getRatioString() }}</li>
                   <li><i class="fa fa-upload text-green text-bold"></i>
                     <a href="{{ route('myactive', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" title="My Active Torrents"><span class="text-blue"> Seeding:</span></a> {{ Auth::user()->getSeeding() }}
                   </li>
