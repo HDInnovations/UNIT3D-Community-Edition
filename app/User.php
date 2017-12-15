@@ -358,6 +358,31 @@ class User extends Authenticatable
         }
     }
 
+    // Return the ratio after $size bytes would be downloaded.
+    public function ratioAfterSize($size)
+    {
+        if ($this->downloaded + $size == 0) {
+            return INF;
+        }
+        return (float)round($this->uploaded / ($this->downloaded + $size), 2);
+    }
+
+    // Return the ratio after $size bytes would be downloaded, pretty formatted
+    // as a string.
+    public function ratioAfterSizeString($size, $freeleech = false)
+    {
+        if ($freeleech) {
+            return $this->getRatioString();
+        }
+
+        $ratio = $this->ratioAfterSize($size);
+        if (is_infinite($ratio)) {
+            return "∞";
+        } else {
+            return (string)$ratio;
+        }
+    }
+
     /**
      * Returns the HTML of the user's signature
      *
