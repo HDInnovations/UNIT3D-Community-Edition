@@ -72,6 +72,10 @@
   </center>
   <br>
   <center>
+    <strong>You can still download {{ $user->untilRatio(config('other.ratio')) }} bytes until you fall under the required ratio ({{ config('other.ratio')}}).</strong>
+  </center>
+  <br/>
+  <center>
   @if($user->getRatio() < config('other.ratio') || $user->can_download == 0)
   <span class="text-red text-bold">Please Solve The Failed Results Above For Download Button To Appear</span>
   @else
