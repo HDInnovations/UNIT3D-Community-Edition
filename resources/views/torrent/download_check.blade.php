@@ -70,7 +70,7 @@
       @else<span class="badge-extra text-green"><i class="fa fa-check"></i> APPROVED</span>
       @endif
   </center>
-  <br/>
+  <br>
   <center>
   @if($user->getRatio() < config('other.ratio') || $user->can_download == 0)
   <span class="text-red text-bold">Please Solve The Failed Results Above For Download Button To Appear</span>
