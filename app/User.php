@@ -350,7 +350,7 @@ class User extends Authenticatable
     // Return the ratio pretty formated as a string.
     public function getRatioString()
     {
-        $ratio = self::getRatio();
+        $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
             return "∞";
         } else {
