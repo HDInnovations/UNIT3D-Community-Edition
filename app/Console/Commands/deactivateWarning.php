@@ -19,21 +19,21 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class removeWarning extends Command
+class deactivateWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'removeWarning';
+    protected $signature = 'deactivateWarning';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Remove User Warnings If Expired';
+    protected $description = 'Automatically Deactivates User Warnings If Expired';
 
     /**
      * Execute the console command.
@@ -51,7 +51,7 @@ class removeWarning extends Command
             $warning->save();
 
             // PM User That Warning Has Expired
-            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $warning->warneduser->id, 'subject' => "Hit and Run Warning Removed", 'message' => "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $warning->warneduser->id, 'subject' => "Hit and Run Warning Deactivated", 'message' => "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
         }
     }
 }

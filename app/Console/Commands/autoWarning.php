@@ -45,8 +45,14 @@ class autoWarning extends Command
      */
     public function handle()
     {
+        if (config('hitrun.enabled') == true) {
         $current = new Carbon();
-        $hitrun = History::with(['user', 'torrent'])->where('actual_downloaded', '>', 0)->where('active', '=', 0)->where('seedtime', '<=', 604800)->where('updated_at', '<', $current->copy()->subDays(3)->toDateTimeString())->get();
+        $hitrun = History::with(['user', 'torrent'])
+                            ->where('actual_downloaded', '>', 0)
+                            ->where('active', '=', 0)
+                            ->where('seedtime', '<=', config('hitrun.seedtime'))
+                            ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
+                            ->get();
 
         foreach ($hitrun as $hr) {
             if (!$hr->user->group->is_immune) {
@@ -58,10 +64,10 @@ class autoWarning extends Command
                     if (!$exsist) {
                         $warning = new Warning();
                         $warning->user_id = $hr->user->id;
-                        $warning->warned_by = "0";
+                        $warning->warned_by = "1";
                         $warning->torrent = $hr->torrent->id;
                         $warning->reason = "Hit and Run Warning For Torrent {$hr->torrent->name}";
-                        $warning->expires_on = $current->copy()->addDays(14);
+                        $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
                         $warning->active = "1";
                         $warning->save();
 
@@ -70,12 +76,13 @@ class autoWarning extends Command
                         $hr->user->save();
 
                         // Send PM To The Offender
-                        PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Recieved", 'message' => "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b][color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+                        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Recieved", 'message' => "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b][color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
                     }
 
                     unset($exist);
                 }
             }
         }
+    }
     }
 }

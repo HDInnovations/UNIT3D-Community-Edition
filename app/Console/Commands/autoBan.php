@@ -46,26 +46,22 @@ class autoBan extends Command
      */
     public function handle()
     {
-        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', '1')->groupBy('user_id')->having('value', '>=', '3')->get();
+        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', '1')->groupBy('user_id')->having('value', '>=', config('hitrun.buffer'))->get();
 
         foreach ($bans as $ban) {
             if ($ban->warneduser->group_id != 5 && !$ban->warneduser->group->is_immune) {
-                // If User Has 3 or More Active Warnings Ban Set The Users Group To Banned
+                // If User Has x or More Active Warnings Ban Set The Users Group To Banned
                 $ban->warneduser->group_id = 5;
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log
                 $ban = new Ban([
                     "owned_by" => $ban->warneduser->id,
-                    "created_by" => "0",
+                    "created_by" => "1",
                     "ban_reason" => "Warning Limit Reached, has " . $ban->value . " warnings.",
                     "unban_reason" => "",
                 ]);
                 $ban->save();
-
-                // Email The User That They Have Been Banned For Hitting Warning Limits
-                //Mail::to($user->email, $user->username)->send(new BanUser($user, $ban));
-
             }
         }
     }
