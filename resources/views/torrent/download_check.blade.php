@@ -72,7 +72,7 @@
   </center>
   <br>
   <center>
-    <strong>You can still download {{ $user->untilRatio(config('other.ratio')) }} bytes until you fall under the required ratio ({{ config('other.ratio')}}).</strong>
+    <strong>You can still download {{ $user->untilRatio(config('other.ratio')) }} until you fall under the required ratio ({{ config('other.ratio')}}).</strong>
   </center>
   <br/>
   <center>
