@@ -36,5 +36,6 @@ return [
 	'results' => 'Results',
 	'contact' => 'Contact',
 	'about' => 'About Us',
-	'community' => 'Community',
+    'community' => 'Community',
+    'buffer' => 'Buffer'
 ];

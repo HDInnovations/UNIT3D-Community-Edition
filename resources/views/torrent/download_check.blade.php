@@ -70,10 +70,6 @@
       @else<span class="badge-extra text-green"><i class="fa fa-check"></i> APPROVED</span>
       @endif
   </center>
-  <br>
-  <center>
-    <strong>You can still download {{ $user->untilRatio(config('other.ratio')) }} until you fall under the required ratio ({{ config('other.ratio')}}).</strong>
-  </center>
   <br/>
   <center>
   @if($user->getRatio() < config('other.ratio') || $user->can_download == 0)
