@@ -24,6 +24,7 @@ use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use function theodorejb\polycast\to_int;
 
 use App\Helpers\StringHelper;
 
@@ -381,6 +382,18 @@ class User extends Authenticatable
         } else {
             return (string)$ratio;
         }
+    }
+
+    // Return the size (pretty formated) which can be safely downloaded
+    // without falling under the minimum ratio.
+    public function untilRatio($ratio)
+    {
+        if ($ratio == 0.0) {
+            return "∞";
+        }
+
+        $bytes = to_int($this->uploaded / $ratio);
+        return StringHelper::formatBytes($bytes);
     }
 
     /**
