@@ -211,6 +211,11 @@
         </tr>
 
         <tr>
+          <td class="col-sm-2"><strong>Estimated Ratio after Download</strong></td>
+          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->free == "1") }}</td>
+        </tr>
+
+        <tr>
           <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
           <td>
             @if($torrent->category_id == "1")
