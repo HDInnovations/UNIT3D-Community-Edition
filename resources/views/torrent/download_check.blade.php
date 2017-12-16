@@ -67,6 +67,7 @@
       @endif
   <strong>Torrent Status: </strong>
       @if($torrent->isRejected())<span class="badge-extra text-red"><i class="fa fa-times"></i> REJECTED</span>
+      @elseif($torrent->isPending())<span class="badge-extra text-orange"><i class="fa fa-times"></i> PENDING</span>
       @else<span class="badge-extra text-green"><i class="fa fa-check"></i> APPROVED</span>
       @endif
   </center>
