@@ -39,8 +39,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('bonAllocation')->hourly();
         $schedule->command('autoSeedbox')->hourly();
         $schedule->command('removeWarning')->hourly();
-        $schedule->command('autoWarning')->hourly();
-        $schedule->command('denyRights')->hourly();
+        $schedule->command('deactivateWarning')->hourly();
+        $schedule->command('revokePermissions')->hourly();
         $schedule->command('autoBan')->hourly();
         $schedule->command('FlushPeers')->hourly();
         $schedule->command('autoGroup')->daily();
