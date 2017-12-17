@@ -37,5 +37,6 @@ return [
 	'contact' => 'Contact',
 	'about' => 'About Us',
     'community' => 'Community',
-    'buffer' => 'Buffer'
+    'buffer' => 'Buffer',
+	'times' => 'Times'
 ];
