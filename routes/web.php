@@ -173,9 +173,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
     Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
     Route::any('/upload', 'TorrentController@upload')->name('upload');
-    Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
-    Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
-    Route::get('/poster', 'TorrentController@poster')->name('poster');
+    Route::get('torrents/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
+    Route::get('torrents/download/{slug}.{id}', 'TorrentController@download')->name('download');
+    Route::get('torrents/poster', 'TorrentController@posterLayout')->name('poster');
+    Route::get('torrents/grouping', 'TorrentController@groupingLayout')->name('grouping');
+    Route::get('torrents/grouping/{imdb}', 'TorrentController@groupingResults')->name('grouping_results');
     Route::post('/torrents/{id}/delete', 'TorrentController@deleteTorrent')->name('delete');
     Route::get('/torrents/{id}/delete', 'TorrentController@deleteTorrent')->name('delete');
     Route::any('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
