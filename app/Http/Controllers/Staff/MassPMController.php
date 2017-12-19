@@ -58,7 +58,7 @@ class MassPMController extends Controller
             if ($v->passes()) {
 
                 foreach ($users as $user) {
-                    PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $user->id, 'subject' => Request::get('title'), 'message' => Request::get('message')]);
+                    PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => Request::get('title'), 'message' => Request::get('message')]);
                 }
 
                 // Activity Log
