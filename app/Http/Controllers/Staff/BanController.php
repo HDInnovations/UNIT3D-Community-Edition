@@ -45,6 +45,9 @@ class BanController extends Controller
     public function ban($username, $id)
     {
         $user = User::findOrFail($id);
+        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+            return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff', 'Alert', ['options']));
+        } else {
         $user->group_id = 5;
         $user->can_upload = 0;
         $user->can_download = 0;
@@ -70,7 +73,8 @@ class BanController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
 
-        return redirect()->back()->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
+        return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
+        }
     }
 
 
@@ -85,6 +89,9 @@ class BanController extends Controller
     public function unban($username, $id)
     {
         $user = User::findOrFail($id);
+        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+            return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff', 'Alert', ['options']));
+        } else {
         $user->group_id = Request::get('group_id');
         $user->can_upload = 1;
         $user->can_download = 1;
@@ -110,6 +117,7 @@ class BanController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
 
-        return redirect()->back()->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
+        return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
+        }
     }
 }
