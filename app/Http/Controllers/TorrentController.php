@@ -585,7 +585,7 @@ class TorrentController extends Controller
                 ]);
                 $featured->save();
                 $appurl = env('APP_URL', 'http://unit3d.site');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
             has been added to the Featured Torrents Slider by [url={$appurl}/" . Auth::user()->username . "." . Auth::user()->id . "]" . Auth::user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
@@ -749,7 +749,7 @@ class TorrentController extends Controller
      * @access public
      * @return view::make poster.poster
      */
-    public function poster()
+    public function posterLayout()
     {
         $user = Auth::user();
         $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(20);
@@ -837,4 +837,33 @@ class TorrentController extends Controller
             abort(403, 'Unauthorized action.');
         }
     }
+
+    /**
+     * Torrent Grouping
+     *
+     * @access public
+     *
+     */
+    public function groupingLayout() {
+        $user = Auth::user();
+        $torrents = Torrent::select('imdb')->distinct()->get();
+
+        return view('torrent.grouping', ['user' => $user, 'torrents' => $torrents]);
+    }
+
+    /**
+     * Torrent Grouping Results
+     *
+     * @access public
+     *
+     */
+    public function groupingResults($imdb) {
+        $user = Auth::user();
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb'));
+        $movie = $client->scrape('movie', 'tt'.$imdb);
+        $torrents = Torrent::where('imdb', $imdb)->get();
+
+        return view('torrent.grouping_results', ['user' => $user, 'torrents' => $torrents, 'movie' => $movie]);
+    }
+
 }

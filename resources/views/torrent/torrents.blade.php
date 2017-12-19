@@ -146,6 +146,7 @@
   <strong>View:</strong>
   <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Lists</a>
   <a href="{{ route('poster') }}" class="btn btn-xs btn-primary"><i class="fa fa-image"></i> Posters</a>
+  <a href="{{ route('grouping') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Grouping</a>
 </div>
 </div>
 <!-- /Search -->
