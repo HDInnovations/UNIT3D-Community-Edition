@@ -275,7 +275,7 @@
         <section id="main-content">
           <div class="inner-content">
             <div class="ratio-bar">
-              <div class="container">
+              <div class="container-fluid">
                 <ul class="list-inline">
                   <li><i class="fa fa-user text-black"></i>
                     <a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="l-header-user-data-link">
