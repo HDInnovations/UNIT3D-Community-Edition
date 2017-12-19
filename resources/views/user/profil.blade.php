@@ -91,7 +91,6 @@
         <a href="{{ route('follow', ['user' => $user->id]) }}" id="follow-user-{{ $user->id }}" class="btn btn-xs btn-success" title="Follow"><i class="fa fa-user"></i> Follow {{ $user->username }}</a>
         @endif
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_report"><i class="fa fa-eye"></i> Report User</button>
-        @endif
         </span>
         <span style="float:right;">
         @if(Auth::check() && Auth::user()->group->is_modo)
@@ -102,6 +101,7 @@
         @endif
         <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span> Edit User </a>
         <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_delete"><span class="fa fa-trash"></span> Delete User </button>
+        @endif
         @endif
         </span>
       </div>
