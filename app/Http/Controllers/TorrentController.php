@@ -846,7 +846,7 @@ class TorrentController extends Controller
      */
     public function groupingLayout() {
         $user = Auth::user();
-        $torrents = Torrent::select('imdb')->distinct()->get();
+        $torrents = Torrent::select('imdb')->distinct()->paginate(25);;
 
         return view('torrent.grouping', ['user' => $user, 'torrents' => $torrents]);
     }

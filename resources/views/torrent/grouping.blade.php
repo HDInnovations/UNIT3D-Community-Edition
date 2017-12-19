@@ -75,5 +75,6 @@
     </div>
   </div>
   @endforeach
+  {{ $torrents->links() }}
 </div>
 @stop
