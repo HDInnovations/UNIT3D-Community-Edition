@@ -53,17 +53,19 @@
             <img src="{{ url('img/profil.png') }}" alt="{{ $p->user->username }}" class="img-thumbnail post-info-image">
             @endif
               <a href="{{ route('profil', ['username' => $p->user->username, 'id' => $p->user->id]) }}" class="post-info-username">
-                <p><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->username }}</span>
+                <p>
+                <span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->username }}
                   @if($p->user->isOnline())
                   <i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>
                   @else
                   <i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>
                   @endif
+                </span>
                 </p>
               </a>
-            <p>{{ $p->user->title }}</p>
-            <p><span class="badge-extra text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->group->name }}</span></p>
-            <p>Join Date: {{ date('m/d/Y', strtotime($p->user->created_at)) }}</p>
+            <p><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i>&nbsp;{{ $p->user->group->name }}</span></p>
+            <p class="pre">{{ $p->user->title }}</p>
+            <p>Member Since: {{ $p->user->created_at->getTimestamp() }}</p>
             <span class="inline">
             <button id="quote" class="btn btn-xs btn-xxs btn-info">Quote</button>
             @if(Auth::check() && (Auth::user()->group->is_modo || $p->user_id == Auth::user()->id) && $topic->state == 'open')
