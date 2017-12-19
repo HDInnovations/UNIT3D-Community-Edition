@@ -18,6 +18,7 @@ class StringHelper
     const MIB = 1024 * 1024;
     const GIB = 1024 * 1024 * 1024;
     const TIB = 1024 * 1024 * 1024 * 1024;
+    const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
     public static function generateRandomString($length = 20)
     {
@@ -34,16 +35,19 @@ class StringHelper
         $bytes = max($bytes, 0);
         $suffix = 'B';
         $value = $bytes;
-        if ($bytes >= self::TIB) {
+        if ($bytes >= self::PIB) {
+            $suffix = 'PiB';
+            $value = $bytes / self::PIB;
+        } elseif ($bytes >= self::TIB) {
             $suffix = 'TiB';
             $value = $bytes / self::TIB;
-        } else if ($bytes >= self::GIB) {
+        } elseif ($bytes >= self::GIB) {
             $suffix = "GiB";
             $value = $bytes / self::GIB;
-        } else if ($bytes >= self::MIB) {
+        } elseif ($bytes >= self::MIB) {
             $suffix = "MiB";
             $value = $bytes / self::MIB;
-        } else if ($bytes >= self::KIB) {
+        } elseif ($bytes >= self::KIB) {
             $suffix = "KiB";
             $value = $bytes / self::KIB;
         }
