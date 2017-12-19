@@ -14,6 +14,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
+use App\Hook\ClickableHook;
 
 class Shoutbox extends Model
 {
@@ -40,6 +41,8 @@ class Shoutbox extends Model
     {
         $code = new Decoda($message);
         $code->defaults();
+        $code->removeHook('Clickable');
+        $code->addHook(new ClickableHook());
         $code->setXhtml(false);
         $code->setStrict(false);
         $code->setLineBreaks(true);
