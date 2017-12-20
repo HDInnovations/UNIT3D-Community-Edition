@@ -21143,7 +21143,8 @@ body.tvshow .movie-poster {
     background: rgba(102, 102, 102, 0.14);
 }
 .topic .topic-posts .post aside.post-info .post-info-image {
-    max-width: 100%}
+    width: 150px;
+    height: 150px;}
 .topic .topic-posts .post aside.post-info .post-info-username {
     display: block;
 }
@@ -21181,7 +21182,7 @@ body.tvshow .movie-poster {
 .topic .topic-posts .post .post-signature img {
     max-width: 100%}
 .topic .topic-new-post {
-    background: #ebf0f3;
+    background: #e3e3e3;
     padding: 0.75em;
 }
 .post-signature.col-md-12 {

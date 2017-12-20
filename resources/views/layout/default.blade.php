@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="{{ url('css/nav/hoe.css?v=05') }}">
     <link rel="stylesheet" href="{{ url('css/main/app.css?v=04') }}">
-    <link rel="stylesheet" href="{{ url('css/main/custom.css?v=35') }}">
+    <link rel="stylesheet" href="{{ url('css/main/custom.css?v=36') }}">
     @if(Auth::check()) @if(Auth::user()->style != 0)
     <link rel="stylesheet" href="{{ url('css/main/dark.css?v=02') }}">
     @endif @endif
