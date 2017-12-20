@@ -585,7 +585,7 @@ class TorrentController extends Controller
                 ]);
                 $featured->save();
                 $appurl = env('APP_URL', 'http://unit3d.site');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url=url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
             has been added to the Featured Torrents Slider by [url={$appurl}/" . Auth::user()->username . "." . Auth::user()->id . "]" . Auth::user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
@@ -727,7 +727,7 @@ class TorrentController extends Controller
             Cache::forget('shoutbox_messages');
             foreach ($reseed as $pm) {
                 $pmuser = new PrivateMessage();
-                $pmuser->sender_id = 0;
+                $pmuser->sender_id = 1;
                 $pmuser->reciever_id = $pm->user_id;
                 $pmuser->subject = "New Reseed Request!";
                 $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
@@ -828,7 +828,7 @@ class TorrentController extends Controller
                 FeaturedTorrent::where('torrent_id', '=', $id)->delete();
             }
             Torrent::where('id', '=', $id)->delete();
-            PrivateMessage::create(['sender_id' => 0, 'reciever_id' => $torrent->user_id, 'subject' => "Your Torrent Has Been Deleted!", 'message' => $torrent->name . " Has Been Deleted From Our Site. $message"]);
+            PrivateMessage::create(['sender_id' => 1, 'reciever_id' => $torrent->user_id, 'subject' => "Your Torrent Has Been Deleted!", 'message' => $torrent->name . " Has Been Deleted From Our Site. $message"]);
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
 
