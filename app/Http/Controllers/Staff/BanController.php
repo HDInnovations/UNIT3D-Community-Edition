@@ -45,7 +45,7 @@ class BanController extends Controller
     public function ban($username, $id)
     {
         $user = User::findOrFail($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+        if ($user->group->is_modo || Auth::user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff', 'Alert', ['options']));
         } else {
         $user->group_id = 5;
@@ -89,7 +89,7 @@ class BanController extends Controller
     public function unban($username, $id)
     {
         $user = User::findOrFail($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+        if ($user->group->is_modo || Auth::user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff', 'Alert', ['options']));
         } else {
         $user->group_id = Request::get('group_id');
