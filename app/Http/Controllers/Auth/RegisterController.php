@@ -94,7 +94,7 @@ class RegisterController extends Controller
                 Cache::forget('shoutbox_messages');
 
                 // Send Welcome PM
-                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");
