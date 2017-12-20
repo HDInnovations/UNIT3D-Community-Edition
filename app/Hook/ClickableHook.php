@@ -51,7 +51,7 @@ class ClickableHook extends AbstractHook {
 
             $result = "";
             foreach (explode(" ", $content) as $v) {
-                if (substr($v, 0, strlen("http://") === "http://") || substr($v, 0, strlen("https://")) === "https://") {
+                if (filter_var($v, FILTER_VALIDATE_URL) !== false ) {
                     $result .= "[url]" . $v . "[/url]";
                 } else {
                     $result .= $v;
