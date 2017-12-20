@@ -16,6 +16,7 @@ use \App\Services\MovieScrapper;
 use \App\UserFreeleech;
 use \App\Group;
 use \App\User;
+use \App\History;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -147,6 +148,25 @@ class TorrentViewHelper
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-ticket text-orange' data-toggle='tooltip' title='' data-original-title='SD Content!'></i> SD Content</span>";
             }
 
+            $status = "";
+
+            $history = History::where('user_id', '=', $user->id)->where('info_hash', '=', $list->info_hash)->first();
+
+            if ($history) {
+                if ($history->seeder == 1 && $history->active == 1) {
+                    $status .= "<button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Seeding!'><i class='fa fa-arrow-up'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 1) {
+                    $status .= "<button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Leeching!'><i class='fa fa-arrow-down'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null) {
+                    $status .= "<button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Started Downloading But Never Completed!'><i class='fa fa-hand-paper-o'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null) {
+                    $status .= "<button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='You Completed This Download But Are No Longer Seeding It!'><i class='fa fa-thumbs-down'></i></button>";
+                }
+            }
+
             $datetime = date('Y-m-d H:m:s', strtotime($list->created_at));
             $datetime_inner = $list->created_at->diffForHumans();
 
@@ -165,6 +185,7 @@ class TorrentViewHelper
             </td>
             <td><a class='view-torrent' data-id='{$list->id}' data-slug='{$list->slug}' href='{$torrent_link}' data-toggle='tooltip' title='' data-original-title='{$list->name}'>{$list->name}</a>
                 <a href='{$download_check_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='DOWNLOAD!'><i class='fa fa-download'></i></button></a>
+                {$status}
                 <br>
                 <strong>
                 <span class='badge-extra text-bold'>
