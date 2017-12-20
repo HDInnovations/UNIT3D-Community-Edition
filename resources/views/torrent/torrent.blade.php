@@ -175,10 +175,10 @@
             <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-default btn-xs disabled" role="button">Already Featured</a>
             @endif
             @endif
-            @if(Auth::user()->group->is_modo || Auth::user()->id == $user->id)
+            @if(Auth::user()->group->is_modo || Auth::user()->id == $uploader->id)
             <a class="btn btn-warning btn-xs" href="{{ route('edit', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button">Edit</a>
             @endif
-            @if(Auth::user()->group->is_modo || ( Auth::user()->id == $user->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+            @if(Auth::user()->group->is_modo || ( Auth::user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
               <span class="icon"><i class="fa fa-fw fa-times"></i> Delete</span>
             </button>
@@ -190,9 +190,9 @@
           <td class="col-sm-2"><strong>Uploader</strong></td>
           <td>
             @if($torrent->anon == 1)
-            <span class="badge-user text-orange text-bold">ANONYMOUS @if(Auth::user()->id == $user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}">({{ $user->username }})</a>@endif</span>
+            <span class="badge-user text-orange text-bold">ANONYMOUS @if(Auth::user()->id == $uploader->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
             @else
-            <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}" style="color:{{ $user->group->color }};">{{ $user->username }}</a></span>
+            <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}" style="color:{{ $uploader->group->color }};">{{ $uploader->username }}</a></span>
             @endif
             <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-xs btn-success pro-ajax" data-id="" data-toggle="tooltip" title="" data-original-title="Thank Uploader">
               <i class="fa fa-thumbs-up"></i> Thank Uploader</a>

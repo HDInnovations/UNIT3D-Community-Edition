@@ -463,7 +463,8 @@ class TorrentController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $similar = Torrent::where('imdb', '=', $torrent->imdb)->where('status', '=', 1)->orderBy('seeders', 'DESC')->get();
-        $user = $torrent->user;
+        $uploader = $torrent->user;
+        $user = Auth::user();
         $comments = $torrent->comments()->orderBy('created_at', 'DESC')->paginate(6);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
@@ -500,7 +501,7 @@ class TorrentController extends Controller
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar,
             'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general,
-            'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings]);
+            'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader]);
     }
 
     /**
