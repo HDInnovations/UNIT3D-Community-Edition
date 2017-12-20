@@ -280,7 +280,7 @@ class BonusController extends Controller
         $transaction->save();
 
         // Insert the Recipient notification below
-        PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
+        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
         // End insert recipient notification here
 
         return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
