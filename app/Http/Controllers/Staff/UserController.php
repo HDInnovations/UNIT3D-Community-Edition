@@ -145,37 +145,37 @@ class UserController extends Controller
         $staff = Auth::user();
         // Removes UserID from Torrents if any and replaces with System UserID (0)
         foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
-            $tor->user_id = 0;
+            $tor->user_id = 1;
             $tor->save();
         }
         // Removes UserID from Comments if any and replaces with System UserID (0)
         foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-            $com->user_id = 0;
+            $com->user_id = 1;
             $com->save();
         }
         // Removes UserID from Posts if any and replaces with System UserID (0)
         foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-            $post->user_id = 0;
+            $post->user_id = 1;
             $post->save();
         }
         // Removes UserID from Topic Creators if any and replaces with System UserID (0)
         foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->first_post_user_id = 0;
+            $topic->first_post_user_id = 1;
             $topic->save();
         }
         // Removes UserID from Topic if any and replaces with System UserID (0)
         foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->last_post_user_id = 0;
+            $topic->last_post_user_id = 1;
             $topic->save();
         }
         // Removes UserID from PM if any and replaces with System UserID (0)
         foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-            $sent->sender_id = 0;
+            $sent->sender_id = 1;
             $sent->save();
         }
         // Removes UserID from PM if any and replaces with System UserID (0)
         foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
-            $recieved->reciever_id = 0;
+            $recieved->reciever_id = 1;
             $recieved->save();
         }
         // Removes all Posts made by User from the shoutbox
