@@ -20,7 +20,7 @@
 
 <body>
   <div class="wrapper fadeInDown">
-    @if (config('other.invite-only') == true)
+    @if (config('other.invite-only') == true && !$code)
       <div class="alert alert-info">
           Open Registration Is Disabled and You Will Need A Invite To Gain Access!
       </div>
@@ -63,7 +63,7 @@
       <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
       <input type="text" id="email" class="fadeIn third" name="email" placeholder="email">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-      <button type="submit" class="fadeIn fourth">{{ trans('auth.login') }}</button>
+      <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
     {{ Form::close() }}
 
     <!-- Remind Passowrd -->
