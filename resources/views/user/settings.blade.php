@@ -56,6 +56,12 @@
         <div class="radio-inline">
             <label><input type="radio" name="sidenav" @if($user->nav == 0) checked @endif value="0">Compact</label>
         </div>
+        <br>
+        <br>
+        <div class="form-group">
+            <label for="custom_css" class="control-label">Custom CSS URL</label>
+            <input type="text" name="custom_css" class="form-control" value="@if($user->custom_css) {{ $user->custom_css }} @else @endif" placeholder="Custom CSS URL">
+        </div>
 
         <h3>Privacy Settings</h3>
         <hr>
