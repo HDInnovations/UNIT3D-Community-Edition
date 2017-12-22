@@ -508,7 +508,7 @@ class TorrentController extends Controller
             $audio = $parsed['audio'];
             $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];
-            $subtitle_crumbs = $view_crumbs['text'];
+            $text_crumbs = $view_crumbs['text'];
         }
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar,
