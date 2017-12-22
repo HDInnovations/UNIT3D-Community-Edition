@@ -23,7 +23,7 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
-5. [Packages](#installation)
+5. [Packages](#packages)
 6. [Contributing](#contributing)
 7. [License](#license)
 8. [Screenshots](#screenshots)
