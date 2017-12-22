@@ -77,6 +77,8 @@ return [
     */
     'freeleech' => false,
 
+    'freeleech_until' => '12/23/2017 3:00 PM EST',
+
     /*
     |--------------------------------------------------------------------------
     | Double Upload State
