@@ -181,7 +181,7 @@ class UserController extends Controller
             $user->style = (int)Request::get('theme');
             $css_url = Request::get('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-                return redirect()->back()->with(Toastr::warning('The CSS URL is invalid!', 'Error', ['options']));
+                return redirect()->back()->with(Toastr::warning('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Error', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }

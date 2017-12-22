@@ -59,8 +59,8 @@
         <br>
         <br>
         <div class="form-group">
-            <label for="custom_css" class="control-label">Custom CSS URL</label>
-            <input type="text" name="custom_css" class="form-control" value="@if($user->custom_css) {{ $user->custom_css }} @else @endif" placeholder="Custom CSS URL">
+            <label for="custom_css" class="control-label">External CSS Stylesheet</label>
+            <input type="text" name="custom_css" class="form-control" value="@if($user->custom_css) {{ $user->custom_css }}@endif" placeholder="CSS URL">
         </div>
 
         <h3>Privacy Settings</h3>
