@@ -30,10 +30,10 @@
     @endif @endif
     <link rel="stylesheet" href="{{ url('css/main/advbuttons.css?v=02') }}">
     <link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css') }}" />
-    @yield('stylesheets')
     @if(isset(Auth::user()->custom_css))
     <link rel="stylesheet" href="{{Auth::user()->custom_css}}"/>
     @endif
+    @yield('stylesheets')
 
     @php $bg = rand(1, 8); $bgchange = $bg.".jpg"; @endphp
   </head>
