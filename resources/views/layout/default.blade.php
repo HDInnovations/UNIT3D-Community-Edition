@@ -404,7 +404,7 @@
 
       @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
       <script type="text/javascript">
-        CountDownTimer('12/01/2017 3:00 PM EST', 'promotions');
+        CountDownTimer('{{config('other.freeleech_until')}}', 'promotions');
 
         function CountDownTimer(dt, id) {
           var end = new Date(dt);
@@ -414,6 +414,15 @@
           var _hour = _minute * 60;
           var _day = _hour * 24;
           var timer;
+
+          function formatUnit(text, v) {
+              console.log(v);
+              let suffix = "s";
+              if (v === 1) {
+                  suffix = "";
+              }
+              return  v + " " + text + suffix;
+          }
 
           function showRemaining() {
             var now = new Date();
@@ -430,10 +439,10 @@
             var minutes = Math.floor((distance % _hour) / _minute);
             var seconds = Math.floor((distance % _minute) / _second);
 
-            document.getElementById(id).innerHTML = days + 'day(s)';
-            document.getElementById(id).innerHTML += hours + 'hour(s)';
-            document.getElementById(id).innerHTML += minutes + 'minute(s)';
-            document.getElementById(id).innerHTML += seconds + 'second(s)';
+            document.getElementById(id).innerHTML = formatUnit("day", days) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('hour', hours) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('minute', minutes) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('second', seconds);
           }
 
           timer = setInterval(showRemaining, 1000);
