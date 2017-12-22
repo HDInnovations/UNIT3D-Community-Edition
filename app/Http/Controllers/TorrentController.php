@@ -486,11 +486,16 @@ class TorrentController extends Controller
         if ($torrent->mediainfo != null) {
             $parser = new \App\Helpers\MediaInfo;
             $parsed = $parser->parse($torrent->mediainfo);
+            $view_crumbs = $parser->prepareViewCrumbs($parsed);
             $general = $parsed['general'];
+            $general_crumbs = $view_crumbs['general'];
             $video = $parsed['video'];
-            $settings = $parsed['video'][0];
+            $video_crumbs = $view_crumbs['video'];
+            $settings = ($parsed['video'] !== NULL && isset($parsed['video'][0]) && isset($parsed['video'][0]['encoding_settings'])) ? $parsed['video'][0]['encoding_settings'] : NULL;
             $audio = $parsed['audio'];
+            $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];
+            $subtitle_crumbs = $view_crumbs['text'];
         } else {
             $general = null;
             $video = null;
