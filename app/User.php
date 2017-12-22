@@ -373,7 +373,7 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
-            return $this->getRatioString();
+            return $this->getRatioString() . " (Freeleech)";
         }
 
         $ratio = $this->ratioAfterSize($size);
