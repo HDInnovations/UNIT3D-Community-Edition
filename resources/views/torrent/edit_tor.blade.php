@@ -71,7 +71,7 @@
 
             <div class="form-group">
                 <label for="description">MediaInfo</label>
-                <textarea name="mediainfo" cols="30" rows="10" class="form-control" disabled>{{ $tor->mediainfo }}</textarea>
+                <textarea name="mediainfo" cols="30" rows="10" class="form-control">{{ $tor->mediainfo }}</textarea>
             </div>
 
             <label for="hidden" class="control-label">Anonymous Upload?</label>
