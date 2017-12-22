@@ -483,6 +483,19 @@ class TorrentController extends Controller
             $featured = null;
         }
 
+        $general = null;
+        $video = null;
+        $settings = null;
+        $audio = null;
+        $general_crumbs = null;
+        $text_crumbs = null;
+        $subtitle = null;
+        $view_crumbs = null;
+        $video_crumbs = null;
+        $settings = null;
+        $audio_crumbs = null;
+        $subtitle = null;
+        $subtitle_crumbs = null;
         if ($torrent->mediainfo != null) {
             $parser = new \App\Helpers\MediaInfo;
             $parsed = $parser->parse($torrent->mediainfo);
@@ -496,16 +509,10 @@ class TorrentController extends Controller
             $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];
             $subtitle_crumbs = $view_crumbs['text'];
-        } else {
-            $general = null;
-            $video = null;
-            $settings = null;
-            $audio = null;
-            $subtitle = null;
         }
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar,
-            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general,
+            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader]);
     }
 

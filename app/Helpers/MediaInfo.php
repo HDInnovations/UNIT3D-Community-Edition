@@ -297,7 +297,7 @@ class MediaInfo
     {
         $output = ["general"=>[],"video"=>[],"audio"=>[]];
 
-        $generalCrumbs = array("format"=>"ucfirst","duration"=>NULL);
+        $general_crumbs = array("format"=>"ucfirst","duration"=>NULL);
 
         if($data['general'] === NULL){
             $output["general"] = NULL;
