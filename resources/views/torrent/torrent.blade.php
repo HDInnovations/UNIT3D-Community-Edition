@@ -212,7 +212,7 @@
 
         <tr>
           <td class="col-sm-2"><strong>Estimated Ratio after Download</strong></td>
-          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->free == "1") }}</td>
+          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(Auth::user())) }}</td>
         </tr>
 
         <tr>
