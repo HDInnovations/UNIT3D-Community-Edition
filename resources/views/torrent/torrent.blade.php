@@ -317,7 +317,7 @@
                 @endif
                 <br>
                 @if($text_crumbs !== null)
-                  @foreach($subtitle as $key => $s)
+                  @foreach($text_crumbs as $key => $s)
                   <span class="text-bold text-blue">@emojione(':speech_balloon:') SUBTITLE {{ ++$key }}:</span>
                   <span class="text-bold"><em>
                       @foreach($s as $crumb)
