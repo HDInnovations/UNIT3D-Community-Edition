@@ -330,12 +330,12 @@
                   <br>
                   @endforeach
                 @endif
-                {{--@if($settings)
+                @if($settings)
                 <br>
                 <span class="text-bold text-blue">@emojione(':gear:') ENCODE SETTINGS:</span>
                 <br>
                 <div class="decoda-code text-black">{{ $settings }}</div>
-                @endif--}}
+                @endif
                 <br>
                 <br>
                 <center>
