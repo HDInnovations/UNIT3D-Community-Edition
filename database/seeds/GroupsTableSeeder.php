@@ -165,7 +165,7 @@ class GroupsTableSeeder extends Seeder
                     'icon' => 'fa fa-android',
                     'effect' => 'none',
                     'is_admin' => 0,
-                    'is_modo' => 0,
+                    'is_modo' => 1,
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,

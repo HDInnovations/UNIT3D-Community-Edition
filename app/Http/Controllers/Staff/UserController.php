@@ -143,6 +143,9 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = Auth::user();
+        if ($user->group->is_modo || Auth::user()->id == $user->id) {
+            return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Alert', ['options']));
+        } else {
         // Removes UserID from Torrents if any and replaces with System UserID (0)
         foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
             $tor->user_id = 1;
@@ -194,6 +197,7 @@ class UserController extends Controller
             return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
         } else {
             return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        }
         }
     }
 }
