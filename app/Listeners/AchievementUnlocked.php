@@ -7,13 +7,12 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Listeners;
 
 use Session;
-use Gstt\Model\AchievementProgress;
 use Gstt\Achievements\Event\Unlocked;
 use App\Shoutbox;
 use App\User;
@@ -43,9 +42,11 @@ class AchievementUnlocked
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
         Session::flash('achievement', $event->progress->details->name);
-        if($user->private_profile == 0) {
-        Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' =>  "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has unlocked the " .$event->progress->details->name. " achievement :medal:"]);
-        Cache::forget('shoutbox_messages');
+
+        if ($user->private_profile == 0) {
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
+            Cache::forget('shoutbox_messages');
         }
     }
 }

@@ -7,41 +7,40 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToBanTable extends Migration {
+class AddForeignKeysToBanTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::table('ban', function(Blueprint $table)
-		{
-			$table->foreign('owned_by', 'foreign_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
-			$table->foreign('created_by', 'foreign_staff_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('ban', function (Blueprint $table) {
+            $table->foreign('owned_by', 'foreign_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('created_by', 'foreign_staff_ban_user_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::table('ban', function(Blueprint $table)
-		{
-			$table->dropForeign('foreign_ban_user_id');
-			$table->dropForeign('foreign_staff_ban_user_id');
-		});
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('ban', function (Blueprint $table) {
+            $table->dropForeign('foreign_ban_user_id');
+            $table->dropForeign('foreign_staff_ban_user_id');
+        });
+    }
 
 }

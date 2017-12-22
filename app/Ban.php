@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use App\User;
@@ -43,9 +43,9 @@ class Ban extends Model
     ];
 
     /**
-    * Rules For Validation
-    *
-    */
+     * Rules For Validation
+     *
+     */
     public $rules = [
         'owned_by' => 'required',
         'created_by' => 'required',

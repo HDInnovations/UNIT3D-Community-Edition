@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -23,9 +23,9 @@ class FailedLoginAttempt extends Model
     public static function record($user = null, $username, $ip)
     {
         return static::create([
-          'user_id' => is_null($user) ? null : $user->id,
-          'username' => $username,
-          'ip_address' => $ip
+            'user_id' => is_null($user) ? null : $user->id,
+            'username' => $username,
+            'ip_address' => $ip
         ]);
     }
 }

@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 use Illuminate\Database\Seeder;
@@ -25,61 +25,62 @@ class PagesTableSeeder extends Seeder
 
 
         \DB::table('pages')->delete();
+        $appurl = env('APP_URL', 'http://unit3d.site');
 
-        \DB::table('pages')->insert(array (
+        \DB::table('pages')->insert(array(
             0 =>
-            array (
-                'id' => 1,
-                'name' => 'Rules',
-                'slug' => 'rules',
-                'content' => 'RULES GOES HERE',
-                'created_at' => '2016-12-20 22:09:45',
-                'updated_at' => '2017-12-01 13:39:43',
-            ),
+                array(
+                    'id' => 1,
+                    'name' => 'Rules',
+                    'slug' => 'rules',
+                    'content' => 'RULES GOES HERE',
+                    'created_at' => '2016-12-20 22:09:45',
+                    'updated_at' => '2017-12-01 13:39:43',
+                ),
             1 =>
-            array (
-                'id' => 3,
-                'name' => 'FAQ',
-                'slug' => 'faq',
-                'content' => 'FAQ GOES HERE',
-                'created_at' => '2017-10-28 21:26:15',
-                'updated_at' => '2017-10-28 21:26:15',
-            ),
+                array(
+                    'id' => 3,
+                    'name' => 'FAQ',
+                    'slug' => 'faq',
+                    'content' => 'FAQ GOES HERE',
+                    'created_at' => '2017-10-28 21:26:15',
+                    'updated_at' => '2017-10-28 21:26:15',
+                ),
             2 =>
-            array (
-                'id' => 4,
-                'name' => 'Suggested Clients',
-                'slug' => 'suggested-clients',
-                'content' => 'We suggest the following BitTorrent clients.',
-                'created_at' => '2017-01-27 15:52:01',
-                'updated_at' => '2017-08-07 17:30:56',
-            ),
+                array(
+                    'id' => 4,
+                    'name' => 'Suggested Clients',
+                    'slug' => 'suggested-clients',
+                    'content' => 'We suggest the following BitTorrent clients.',
+                    'created_at' => '2017-01-27 15:52:01',
+                    'updated_at' => '2017-08-07 17:30:56',
+                ),
             3 =>
-            array (
-                'id' => 5,
-                'name' => 'Upload Guide',
-                'slug' => 'upload-guide',
-                'content' => 'UPLOAD GUIDE HERE',
-                'created_at' => '2017-04-24 14:45:03',
-                'updated_at' => '2017-08-07 17:34:42',
-            ),
+                array(
+                    'id' => 5,
+                    'name' => 'Upload Guide',
+                    'slug' => 'upload-guide',
+                    'content' => 'UPLOAD GUIDE HERE',
+                    'created_at' => '2017-04-24 14:45:03',
+                    'updated_at' => '2017-08-07 17:34:42',
+                ),
             4 =>
-            array (
-                'id' => 6,
-                'name' => 'Tracker Codes',
-                'slug' => 'tracker-codes',
-                'content' => 'Our Tracker Codes/Responses',
-                'created_at' => '2017-09-08 14:23:16',
-                'updated_at' => '2017-09-08 14:27:12',
-            ),
+                array(
+                    'id' => 6,
+                    'name' => 'Tracker Codes',
+                    'slug' => 'tracker-codes',
+                    'content' => 'Our Tracker Codes/Responses',
+                    'created_at' => '2017-09-08 14:23:16',
+                    'updated_at' => '2017-09-08 14:27:12',
+                ),
             5 =>
-            array (
-                'id' => 7,
-                'name' => 'Terms Of Use',
-                'slug' => 'terms-of-use',
-            'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
+                array(
+                    'id' => 7,
+                    'name' => 'Terms Of Use',
+                    'slug' => 'terms-of-use',
+                    'content' => '*All references to "we", "us" or "our" refer to the site owner(s).
 
-Welcome to our website located at https://blutopia.xyz (this "Site")! This Site allows you to:
+Welcome to our website located at ' . $appurl . ' (this "Site")! This Site allows you to:
 (a) participate in interactive features that we may make available from time to time through the Site; or
 (b) simply view this Site (collectively, the "Services"). We prepared this Terms of Use Agreement (this "Agreement") to help explain the terms that apply to your use of this Site and Services. Provisions in these terms that apply to the Site shall also apply to the Services, and provisions in these terms that apply to the Services shall also apply to this Site.In order to use the interactive features on this Site, you must first register with us through our on-line registration process on this Site. Regardless of how you decide to use this Site, your conduct on this Site and use of the Services is governed by this Agreement.YOU ACCEPT THIS AGREEMENT BY USING THIS SITE AND/OR THE SERVICES IN ANY MANNER. IF YOU DO NOT AGREE TO ALL THESE TERMS THEN DO NOT USE THIS WEBSITE.
 [b]
@@ -92,7 +93,7 @@ Welcome to our website located at https://blutopia.xyz (this "Site")! This Site 
 (e) you will comply with the rules for on-line conduct and making Contributions (as defined in Section 2 below) to this Site, as discussed in Section 2 below. You further represent and warrant that you will comply with all local rules regarding on-line conduct and acceptable Contributions
 
 [b]2. User conduct
-[/b]This Site may provide fora and other features for communication. Please read our Privacy Policy, available at https://blutopia.xyz/p/privacy.8 to understand your privacy protections. You are entirely responsible for the content of, and any harm resulting from, any of your postings or submissions to this Site (collectively, "Contributions"). You understand that we may also make the Contributions you submit available to other websites and businesses (such other websites and businesses, the “Network”) where they may be used. Any licenses or other rights grants, and promises, representations and warranties you make about the Contributions with respect to this Site or the Services, you are also hereby making with respect to the use of such Contributions through and by the Network (i.e., wherever you are granting a license or other rights grant, or making a promise, representation or warranty, with respect to this Site or the Services, that grant, promise, representation or warranty shall be deemed and construed to also apply to the Network). When you create or make available a Contribution, you represent and warrant that you:own or have sufficient rights to post your Contributions on or through this Site;will not post Contributions that violate our or any other person’s privacy rights, publicity rights, intellectual property rights (including without limitation copyrights), confidentiality or contract rights;have fully complied with any third-party licenses relating to Contributions, agree to pay all royalties, fees and any other monies owning any person by reason of Contributions that you posted to or through this Site;will not post or submit Contributions that:
+[/b]This Site may provide fora and other features for communication. Please read our Privacy Policy, available at ' . $appurl . '/p/privacy.8 to understand your privacy protections. You are entirely responsible for the content of, and any harm resulting from, any of your postings or submissions to this Site (collectively, "Contributions"). You understand that we may also make the Contributions you submit available to other websites and businesses (such other websites and businesses, the “Network”) where they may be used. Any licenses or other rights grants, and promises, representations and warranties you make about the Contributions with respect to this Site or the Services, you are also hereby making with respect to the use of such Contributions through and by the Network (i.e., wherever you are granting a license or other rights grant, or making a promise, representation or warranty, with respect to this Site or the Services, that grant, promise, representation or warranty shall be deemed and construed to also apply to the Network). When you create or make available a Contribution, you represent and warrant that you:own or have sufficient rights to post your Contributions on or through this Site;will not post Contributions that violate our or any other person’s privacy rights, publicity rights, intellectual property rights (including without limitation copyrights), confidentiality or contract rights;have fully complied with any third-party licenses relating to Contributions, agree to pay all royalties, fees and any other monies owning any person by reason of Contributions that you posted to or through this Site;will not post or submit Contributions that:
 (i) are defamatory, damaging, disruptive, unlawful, inappropriate, offensive, inaccurate, pornographic, vulgar, indecent, profane, hateful, racially or ethnically offensive, obscene, lewd, lascivious, filthy, threatening, excessively violent, harassing, or otherwise objectionable;
 (ii) incite, encourage or threaten immediate physical harm against another, including but not limited to, Contributions that promote racism, bigotry, sexism, religious intolerance or harm against any group or individual; or
 (iii) contain material that solicits personal information from anyone under 13 or exploits anyone in a sexual or violent manner;will not post or submit Contributions that contain advertisements or solicit any person to buy or sell products or services (other than our products and services);will not use this Site for any unauthorized purpose including collecting usernames and/or email addresses of other users by electronic or other means for the purpose of sending unsolicited email or other electronic communications, or engaging in unauthorized framing of, or linking to, this Site without our express written consent;will not post or submit Contributions that constitute, contain, install or attempt to install or promote spyware, malware or other computer code, whether on our or others’ computers or equipment, designated to enable you or others to gather information about or monitor the on-line or other activities of another party;will not transmit chain letters, bulk or junk email or interfere with, disrupt, or create an undue burden on this Site or the networks or services connected to this Site, including without limitation, hacking into this Site, or using the system to send unsolicited or commercial emails, bulletins, comments or other communications; orwill not impersonate any other person or entity, sell or let others use your profile or password, provide false or misleading identification or address information, or invade the privacy, or violate the personal or proprietary right, of any person or entity.
@@ -156,9 +157,9 @@ YOU AGREE THAT YOUR USE OF THIS SITE AND SERVICES WILL BE AT YOUR SOLE RISK. WE 
 (D) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THIS SITE,
 (E) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH THIS SITE BY ANY THIRD PARTY, AND/OR
 (F) ANY ERRORS OR OMISSIONS IN ANY CONTRIBUTIONS, CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT, CONTRIBUTIONS, OR MATERIALS POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THIS SITE.WE WILL NOT BE LIABLE TO YOU FOR ANY LOSS OF ANY DATA (INCLUDING CONTENT) OR FOR LOSS OF USE OF THIS SITE.SOME STATES OR JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF CERTAIN WARRANTIES, OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF YOU RESIDE IN ONE OF THESE STATES OR JURISDICTIONS, THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.',
-                'created_at' => '2017-10-03 14:50:15',
-                'updated_at' => '2017-10-03 18:31:25',
-            ),
+                    'created_at' => '2017-10-03 14:50:15',
+                    'updated_at' => '2017-10-03 18:31:25',
+                ),
         ));
 
 

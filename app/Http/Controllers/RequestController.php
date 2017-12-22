@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     Bruzer
+ * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
@@ -42,39 +42,39 @@ use Cache;
 
 class RequestController extends Controller
 {
-  /**
-   * Search for requests
-   *
-   * @access public
-   * @return View page.requests
-   *
-   */
-  public function search()
-  {
-      $user = Auth::user();
-      $num_req = Requests::count();
-      $num_fil = Requests::whereNotNull('filled_by')->count();
-      $num_unfil = Requests::whereNull('filled_by')->count();
-      $total_bounty = Requests::all()->sum('bounty');
-      $claimed_bounty = Requests::whereNotNull('filled_by')->sum('bounty');
-      $unclaimed_bounty = Requests::whereNull('filled_by')->sum('bounty');
-      $requests = Requests::where([
-          ['name','like','%'.Request::get('name').'%'],
-          ['category_id','=',Request::get('category_id')],
-      ])->orderBy('created_at', 'DESC')->paginate(25);
+    /**
+     * Search for requests
+     *
+     * @access public
+     * @return View page.requests
+     *
+     */
+    public function search()
+    {
+        $user = Auth::user();
+        $num_req = Requests::count();
+        $num_fil = Requests::whereNotNull('filled_by')->count();
+        $num_unfil = Requests::whereNull('filled_by')->count();
+        $total_bounty = Requests::all()->sum('bounty');
+        $claimed_bounty = Requests::whereNotNull('filled_by')->sum('bounty');
+        $unclaimed_bounty = Requests::whereNull('filled_by')->sum('bounty');
+        $requests = Requests::where([
+            ['name', 'like', '%' . Request::get('name') . '%'],
+            ['category_id', '=', Request::get('category_id')],
+        ])->orderBy('created_at', 'DESC')->paginate(25);
 
-      $requests->setPath('?name='.Request::get('name').'&category_id='.Request::get('category_id'));
+        $requests->setPath('?name=' . Request::get('name') . '&category_id=' . Request::get('category_id'));
 
-      return view('requests.requests', ['requests' => $requests, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty, 'categories' => Category::all()]);
-  }
+        return view('requests.requests', ['requests' => $requests, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty, 'categories' => Category::all()]);
+    }
 
     /**
-    * Torrent Requests
-    *
-    *
-    * @access public
-    * @return view::make requests.requests
-    */
+     * Torrent Requests
+     *
+     *
+     * @access public
+     * @return view::make requests.requests
+     */
     public function requests()
     {
         $user = Auth::user();
@@ -85,30 +85,27 @@ class RequestController extends Controller
         $claimed_bounty = Requests::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = Requests::whereNull('filled_by')->sum('bounty');
         if (Request::get('filled_requests') == true) {
-          $requests = Requests::whereNotNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
-          $requests->setPath('?filled_requests=true');
-        }
-        elseif (Request::get('unfilled_requests') == true) {
-          $requests = Requests::whereNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
-          $requests->setPath('?unfilled_requests=true');
-        }
-        elseif (Request::get('my_requests') == true) {
-          $requests = Requests::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
-          $requests->setPath('?my_requests=true');
-        }
-        else {
-          $requests = Requests::orderBy('created_at', 'DESC')->paginate(20);
+            $requests = Requests::whereNotNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
+            $requests->setPath('?filled_requests=true');
+        } elseif (Request::get('unfilled_requests') == true) {
+            $requests = Requests::whereNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
+            $requests->setPath('?unfilled_requests=true');
+        } elseif (Request::get('my_requests') == true) {
+            $requests = Requests::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
+            $requests->setPath('?my_requests=true');
+        } else {
+            $requests = Requests::orderBy('created_at', 'DESC')->paginate(20);
         }
         return view('requests.requests', ['requests' => $requests, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty, 'categories' => Category::all()]);
     }
 
     /**
-    * Torrent Request
-    *
-    *
-    * @access public
-    * @return view::make requests.request
-    */
+     * Torrent Request
+     *
+     *
+     * @access public
+     * @return view::make requests.request
+     */
     public function request($id)
     {
         // Find the torrent in the database
@@ -118,22 +115,22 @@ class RequestController extends Controller
         $voters = $request->requestBounty()->get();
         $comments = $request->comments()->orderBy('created_at', 'DESC')->get();
         $carbon = Carbon::now()->addDay();
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb'));
-        if($request->category_id ==2) {
-          $movie = $client->scrape('tv', 'tt'.$request->imdb);
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        if ($request->category_id == 2) {
+            $movie = $client->scrape('tv', 'tt' . $request->imdb);
         } else {
-          $movie = $client->scrape('movie', 'tt'.$request->imdb);
+            $movie = $client->scrape('movie', 'tt' . $request->imdb);
         }
-      return view('requests.request', ['request' => $request, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'requestClaim' => $requestClaim]);
+        return view('requests.request', ['request' => $request, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'requestClaim' => $requestClaim]);
     }
 
     /**
-    * Add Torrent Request
-    *
-    *
-    * @access public
-    * @return Redirect::to
-    */
+     * Add Torrent Request
+     *
+     *
+     * @access public
+     * @return Redirect::to
+     */
     public function addrequest()
     {
         $user = Auth::user();
@@ -185,14 +182,15 @@ class RequestController extends Controller
                     'cost' => Request::get('bounty'),
                     'sender' => $user->id,
                     'receiver' => 0,
-                    'comment' => "new request - ".Request::get('name').""
+                    'comment' => "new request - " . Request::get('name') . ""
                 ]);
                 $BonTransactions->save();
 
                 $user->seedbonus -= Request::get('bounty');
                 $user->save();
 
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has created a new request [url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                $appurl = env('APP_URL', 'http://unit3d.site');
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
                 return Redirect::to('/requests')->with(Toastr::success('Request Added.', 'Successful', ['options']));
@@ -209,19 +207,19 @@ class RequestController extends Controller
     }
 
     /**
-    * Edit Torrent Request
-    *
-    *
-    * @access public
-    * @return Redirect::to
-    */
+     * Edit Torrent Request
+     *
+     *
+     * @access public
+     * @return Redirect::to
+     */
     public function editrequest($id)
     {
         $user = Auth::user();
         $request = Requests::findOrFail($id);
         if ($user->group->is_modo || $user->id == $request->user_id) {
-        // Post the Request
-        if (Request::isMethod('post')) {
+            // Post the Request
+            if (Request::isMethod('post')) {
                 // Find the right category
                 $name = Request::get('name');
                 $imdb = Request::get('imdb');
@@ -246,17 +244,17 @@ class RequestController extends Controller
             } else {
                 return view('requests.edit_request', ['categories' => Category::all(), 'types' => Type::all(), 'user' => $user, 'request' => $request]);
             }
-          } else {
-              return Redirect::route('requests', ['id' => $request->id])->with(Toastr::warning('You Dont Have Access To This Operation!', 'Error!', ['options']));
-          }
-      }
+        } else {
+            return Redirect::route('requests', ['id' => $request->id])->with(Toastr::warning('You Dont Have Access To This Operation!', 'Error!', ['options']));
+        }
+    }
 
     /**
-    * Add Bounty to a request
-    *
-    * @access public
-    * @return Redirect::route
-    */
+     * Add Bounty to a request
+     *
+     * @access public
+     * @return Redirect::route
+     */
     public function addBonus($id)
     {
         $user = Auth::user();
@@ -294,9 +292,10 @@ class RequestController extends Controller
                 $user->seedbonus -= Request::get('bonus_value');
                 $user->save();
 
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] has addded " . Request::get('bonus_value') . " BON bounty to request " . "[url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                $appurl = env('APP_URL', 'http://unit3d.site');
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . Request::get('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
-                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " .$requests->name. " Has A New Bounty!", 'message' => $user->username. " Has Added A Bounty To " . "[url=https://blutopia.xyz/request/" .$requests->id. "]" .$requests->name. "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " . $requests->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
 
                 return Redirect::route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Bonus added', ['options']));
             } else {
@@ -309,12 +308,12 @@ class RequestController extends Controller
     }
 
     /**
-    * Fill a request
-    * @method fillRequest
-    *
-    * @param $id ID of the request
-    *
-    */
+     * Fill a request
+     * @method fillRequest
+     *
+     * @param $id ID of the request
+     *
+     */
     public function fillRequest($id)
     {
         $user = Auth::user();
@@ -348,12 +347,12 @@ class RequestController extends Controller
     }
 
     /**
-    * Function that handles the actual filling of requests
-    * @method addRequestModeration
-    *
-    * @param $request_id ID of the Request being handled
-    * @param $info_hash Hash of the torrent filling the hash
-    */
+     * Function that handles the actual filling of requests
+     * @method addRequestModeration
+     *
+     * @param $request_id ID of the Request being handled
+     * @param $info_hash Hash of the torrent filling the hash
+     */
     public function addRequestModeration($request_id, $info_hash)
     {
         $user = Auth::user();
@@ -366,15 +365,16 @@ class RequestController extends Controller
 
         $request->save();
 
-        PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->user_id, 'subject' => "Your Request " .$request->name. " Has Been Filled!", 'message' => $request->filled_by. " Has Filled Your Request [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url]". " Please Approve or Decline The FullFill! "]);
+        $appurl = env('APP_URL', 'http://unit3d.site');
+        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has Been Filled!", 'message' => $request->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
 
     }
 
     /**
-    * Approves the filled torrent on a request
-    * @method approveRequest
-    *
-    */
+     * Approves the filled torrent on a request
+     * @method approveRequest
+     *
+     */
     public function approveRequest($id)
     {
         $user = Auth::user();
@@ -410,9 +410,10 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
-            Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "User [url=https://blutopia.xyz/" .$fill_user->username. "." .$fill_user->id. "]" .$fill_user->username. "[/url] has filled [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url] and was awarded " . $fill_amount . " BON "]);
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             Cache::forget('shoutbox_messages');
-            PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " .$request->name. " Has Been Approved!", 'message' => $request->approved_by. " Has Approved Your Fullfillment On [url=https://blutopia.xyz/request/" .$request->id. "]" .$request->name. "[/url] Enjoy The " .$request->bounty. " Bonus Points!"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " . $request->name . " Has Been Approved!", 'message' => $request->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] Enjoy The " . $request->bounty . " Bonus Points!"]);
             return Redirect::route('request', ['id' => $id])->with(Toastr::success("You have approved {$request->name} and the bounty has been awarded to {$fill_user->username}", "Request completed!", ['options']));
         } else {
             return Redirect::route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Permission denied', ['options']));
@@ -420,10 +421,10 @@ class RequestController extends Controller
     }
 
     /**
-    * Rejects the filling torrent on a request
-    * @method rejectRequest
-    *
-    */
+     * Rejects the filling torrent on a request
+     * @method rejectRequest
+     *
+     */
     public function rejectRequest($id)
     {
         $user = Auth::user();
@@ -444,10 +445,10 @@ class RequestController extends Controller
     }
 
     /**
-    * Deletes a specific request
-    * @method deleteRequest
-    *
-    */
+     * Deletes a specific request
+     * @method deleteRequest
+     *
+     */
     public function deleteRequest($id)
     {
         $user = Auth::user();
@@ -464,10 +465,10 @@ class RequestController extends Controller
     }
 
     /**
-    * User can claim a specific request
-    * @method claimRequest
-    *
-    */
+     * User can claim a specific request
+     * @method claimRequest
+     *
+     */
     public function claimRequest($id)
     {
         $user = Auth::user();
@@ -492,32 +493,32 @@ class RequestController extends Controller
     }
 
     /**
-    * User can claim a specific request
-    * @method claimRequest
-    *
-    */
+     * User can claim a specific request
+     * @method claimRequest
+     *
+     */
     public function unclaimRequest($id)
     {
         $user = Auth::user();
         $request = Requests::findOrFail($id);
         $claimer = RequestsClaims::where('request_id', '=', $id)->first();
 
-        if($user->group->is_modo || $user->username == $claimer->username){
+        if ($user->group->is_modo || $user->username == $claimer->username) {
 
-        if ($request->claimed == 1) {
+            if ($request->claimed == 1) {
 
-            $requestClaim = RequestsClaims::where('request_id', '=', $id)->firstOrFail();
-            $requestClaim->delete();
+                $requestClaim = RequestsClaims::where('request_id', '=', $id)->firstOrFail();
+                $requestClaim->delete();
 
-            $request->claimed = 0;
-            $request->save();
+                $request->claimed = 0;
+                $request->save();
 
-            return Redirect::route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Request Claimed', ['options']));
+                return Redirect::route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Request Claimed', ['options']));
+            } else {
+                return Redirect::route('request', ['id' => $id])->with(Toastr::error("Nothing To Unclaim.", 'Whoops!', ['options']));
+            }
         } else {
-            return Redirect::route('request', ['id' => $id])->with(Toastr::error("Nothing To Unclaim.", 'Whoops!', ['options']));
+            abort(403, 'Unauthorized action.');
         }
-      } else {
-        abort(403, 'Unauthorized action.');
-      }
     }
 }

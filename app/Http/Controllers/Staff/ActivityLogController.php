@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -17,14 +17,14 @@ use App\Http\Controllers\Controller;
 class ActivityLogController extends Controller
 {
 
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function activityLog()
-  {
-      $logs = \LogActivity::logActivityLists();
-      return view('Staff.activity.index',compact('logs'));
-  }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function activityLog()
+    {
+        $logs = \LogActivity::logActivityLists();
+        return view('Staff.activity.index', compact('logs'));
+    }
 }

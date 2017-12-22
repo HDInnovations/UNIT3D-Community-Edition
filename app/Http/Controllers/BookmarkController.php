@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Bookmark;
@@ -24,12 +24,12 @@ class BookmarkController extends Controller
 {
 
     /**
-    * Bookmarks
-    *
-    *
-    * @access public
-    * @return view::make bookmark.bookmarks
-    */
+     * Bookmarks
+     *
+     *
+     * @access public
+     * @return view::make bookmark.bookmarks
+     */
     public function bookmarks()
     {
         $myBookmarks = Auth::user()->bookmarks;
@@ -38,11 +38,11 @@ class BookmarkController extends Controller
     }
 
     /**
-    * unBookmark a particular torrent
-    *
-    *
-    * @return Response
-    */
+     * unBookmark a particular torrent
+     *
+     *
+     * @return Response
+     */
     public function unBookmark($id)
     {
         Auth::user()->bookmarks()->detach($id);

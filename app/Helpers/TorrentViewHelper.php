@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     Mr.G
  */
 
 namespace App\Helpers;
@@ -16,6 +16,7 @@ use \App\Services\MovieScrapper;
 use \App\UserFreeleech;
 use \App\Group;
 use \App\User;
+use \App\History;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -38,9 +39,9 @@ class TorrentViewHelper
             $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
             if ($list->category_id == 2) {
-                $movie = $client->scrape('tv', 'tt'.$list->imdb);
+                $movie = $client->scrape('tv', 'tt' . $list->imdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'.$list->imdb);
+                $movie = $client->scrape('movie', 'tt' . $list->imdb);
             }
 
             if ($user->show_poster == 1) {
@@ -76,17 +77,17 @@ class TorrentViewHelper
             }
 
             if ($user->ratings == 1) {
-            $link = "https://anon.to?http://www.imdb.com/title/tt".$list->imdb;
-            $rating = $movie->imdbRating;
-            $votes = $movie->imdbVotes;
+                $link = "https://anon.to?http://www.imdb.com/title/tt" . $list->imdb;
+                $rating = $movie->imdbRating;
+                $votes = $movie->imdbVotes;
             } else {
-            $rating = $movie->tmdbRating;
-            $votes = $movie->tmdbVotes;
-            if ($list->category_id == '2') {
-            $link = "https://www.themoviedb.org/tv/".$movie->tmdb;
-            } else {
-            $link = "https://www.themoviedb.org/movie/".$movie->tmdb;
-            }
+                $rating = $movie->tmdbRating;
+                $votes = $movie->tmdbVotes;
+                if ($list->category_id == '2') {
+                    $link = "https://www.themoviedb.org/tv/" . $movie->tmdb;
+                } else {
+                    $link = "https://www.themoviedb.org/movie/" . $movie->tmdb;
+                }
             }
 
             $thank_count = $list->thanks()->count();
@@ -97,14 +98,14 @@ class TorrentViewHelper
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-play text-red' data-toggle='tooltip' title='' data-original-title='Stream Optimized'></i> Stream Optimized</span>";
             }
 
-            if($list->featured == "0"){
-            if ($list->doubleup == "1") {
-                $icons .= "<span class='badge-extra text-bold'><i class='fa fa-diamond text-green' data-toggle='tooltip' title='' data-original-title='Double upload'></i> Double Upload</span>";
-            }
+            if ($list->featured == "0") {
+                if ($list->doubleup == "1") {
+                    $icons .= "<span class='badge-extra text-bold'><i class='fa fa-diamond text-green' data-toggle='tooltip' title='' data-original-title='Double upload'></i> Double Upload</span>";
+                }
 
-            if ($list->free == "1") {
-                $icons .= "<span class='badge-extra text-bold'><i class='fa fa-star text-gold' data-toggle='tooltip' title='' data-original-title='100% Free'></i> 100% Free</span>";
-            }
+                if ($list->free == "1") {
+                    $icons .= "<span class='badge-extra text-bold'><i class='fa fa-star text-gold' data-toggle='tooltip' title='' data-original-title='100% Free'></i> 100% Free</span>";
+                }
             }
 
             if ($personal_freeleech) {
@@ -147,14 +148,33 @@ class TorrentViewHelper
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-ticket text-orange' data-toggle='tooltip' title='' data-original-title='SD Content!'></i> SD Content</span>";
             }
 
+            $status = "";
+
+            $history = History::where('user_id', '=', $user->id)->where('info_hash', '=', $list->info_hash)->first();
+
+            if ($history) {
+                if ($history->seeder == 1 && $history->active == 1) {
+                    $status .= "<button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Seeding!'><i class='fa fa-arrow-up'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 1) {
+                    $status .= "<button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Leeching!'><i class='fa fa-arrow-down'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null) {
+                    $status .= "<button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Started Downloading But Never Completed!'><i class='fa fa-hand-paper-o'></i></button>";
+                }
+                if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null) {
+                    $status .= "<button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='You Completed This Download But Are No Longer Seeding It!'><i class='fa fa-thumbs-down'></i></button>";
+                }
+            }
+
             $datetime = date('Y-m-d H:m:s', strtotime($list->created_at));
             $datetime_inner = $list->created_at->diffForHumans();
 
             $common_times = trans('common.times');
 
 
-            $data[] = $sticky.
-            "<td>".$poster."</td>
+            $data[] = $sticky .
+                "<td>" . $poster . "</td>
             <td>
               <center>
               <a href='{$category_link}'>{$category}</a>
@@ -165,6 +185,7 @@ class TorrentViewHelper
             </td>
             <td><a class='view-torrent' data-id='{$list->id}' data-slug='{$list->slug}' href='{$torrent_link}' data-toggle='tooltip' title='' data-original-title='{$list->name}'>{$list->name}</a>
                 <a href='{$download_check_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='DOWNLOAD!'><i class='fa fa-download'></i></button></a>
+                {$status}
                 <br>
                 <strong>
                 <span class='badge-extra text-bold'>
@@ -187,7 +208,7 @@ class TorrentViewHelper
             </td>
 
             <td><time datetime='{$datetime}'>{$datetime_inner}</time></td>
-            <td><span class='badge-extra text-blue text-bold'>".$list->getSize()."</span></td>
+            <td><span class='badge-extra text-blue text-bold'>" . $list->getSize() . "</span></td>
             <td><span class='badge-extra text-orange text-bold'>{$list->times_completed} {$common_times}</span></td>
             <td><span class='badge-extra text-green text-bold'>{$list->seeders}</span></td>
             <td><span class='badge-extra text-red text-bold'>{$list->leechers}</span></td>

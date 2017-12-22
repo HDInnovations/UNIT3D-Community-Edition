@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
@@ -23,8 +23,8 @@ class ActivationController extends Controller
 
     public function activate($token)
     {
-      $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
-        if (!empty($activation->user->id) && $activation->user->group->id != 5 ) {
+        $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
+        if (!empty($activation->user->id) && $activation->user->group->id != 5) {
             $activation->user->active = true;
             $activation->user->group_id = $this->group_id;
             $activation->user->save();
@@ -33,9 +33,9 @@ class ActivationController extends Controller
             \LogActivity::addToLog("Member " . $activation->user->username . " has successfully activated his/her account.");
 
             $activation->delete();
-              return redirect('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
-            } else {
-              return redirect('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
-          }
+            return redirect('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+        } else {
+            return redirect('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+        }
     }
 }

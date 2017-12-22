@@ -1,18 +1,17 @@
-<!-- Articles -->
 @foreach($articles as $a)
 <div class="col-md-10 col-sm-10 col-md-offset-1">
 @if(Auth::user()->updated_at->getTimestamp() < $a->created_at->getTimestamp())
 <div class="panel panel-danger">
 <div class="panel-heading">
   <h4 class="text-center">
-  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:#fff">New News</a>
+  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:#fff">{{ trans('blocks.new-news') }}</a>
   </h4>
 </div>
 @else
 <div class="panel panel-success">
 <div class="panel-heading">
   <h4 class="text-center">
-  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:#fff">News (Check Daily)</a>
+  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse4" style="color:#fff">{{ trans('blocks.check-news') }}</a>
   </h4>
 </div>
 @endif
@@ -52,10 +51,9 @@
         </div>
       </div>
     </article>
-    <a href="{{ route('articles') }}" class="btn btn-primary">View All</a>
+    <a href="{{ route('articles') }}" class="btn btn-primary">{{ trans('common.view-all') }}</a>
   </div>
 </div>
 </div>
 </div>
 @endforeach
-<!-- /Articles -->

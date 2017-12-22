@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
@@ -39,7 +39,7 @@ class NewTorrentComment extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -50,23 +50,24 @@ class NewTorrentComment extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
-      if ($this->comment->anon == 0){
-        return [
-            'title' => "New Torrent Comment Recieved",
-            'body' => $this->comment->user->username ." has left you a comment on ". $this->comment->torrent->name,
-            'url' => 'https://blutopia.xyz/torrents/'. $this->comment->torrent->slug. '.'. $this->comment->torrent->id
-        ];
-      } else {
-        return [
-            'title' => "New Torrent Comment Recieved",
-            'body' => "A anonymous member has left you a comment on ". $this->comment->torrent->name,
-            'url' => 'https://blutopia.xyz/torrents/'. $this->comment->torrent->slug. '.'. $this->comment->torrent->id
-        ];
-      }
+        $appurl = env('APP_URL', 'http://unit3d.site');
+        if ($this->comment->anon == 0) {
+            return [
+                'title' => "New Torrent Comment Recieved",
+                'body' => $this->comment->user->username . " has left you a comment on " . $this->comment->torrent->name,
+                'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
+            ];
+        } else {
+            return [
+                'title' => "New Torrent Comment Recieved",
+                'body' => "A anonymous member has left you a comment on " . $this->comment->torrent->name,
+                'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
+            ];
+        }
     }
 }

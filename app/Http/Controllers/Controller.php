@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -23,6 +23,6 @@ class Controller extends BaseController
 
     public function __construct()
     {
-      //
+        //
     }
 }

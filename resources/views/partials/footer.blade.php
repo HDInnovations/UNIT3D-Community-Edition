@@ -25,7 +25,7 @@
 
     <!-- Community -->
     <div class="col-md-2 l-footer-section">
-      <h2 class="l-footer-section-title">{{ trans('traduction.community') }}</h2>
+      <h2 class="l-footer-section-title">{{ trans('common.community') }}</h2>
       <ul>
         <li><a href="{{ route('forum_index') }}">Forums</a></li>
         <li><a href="{{ route('members') }}">{{ trans('common.members') }}</a></li>
@@ -62,6 +62,7 @@
     <div class="col-md-1 l-footer-section">
       <h2 class="l-footer-section-title">Other</h2>
       <a href="https://anon.to/?https://www.patreon.com/UNIT3D" class="btn btn-xs btn-primary">Become A Patron</a>
+      <a href="https://anon.to/?https://github.com/UNIT3D/UNIT3D" class="btn btn-xs btn-primary">Powered By UNIT3D</a>
     </div>
     <!-- /Other -->
 

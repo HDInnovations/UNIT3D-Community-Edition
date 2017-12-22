@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -24,28 +24,28 @@ class FeaturedTorrent extends Model
     protected $table = 'featured_torrents';
 
     /**
-    * Mass assignment fields
-    *
-    */
-   protected $fillable = ['user_id', 'torrent_id'];
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['user_id', 'torrent_id'];
 
-   /**
-    * Belongs to torrent
-    *
-    *
-    */
-   public function torrent()
-   {
-       return $this->belongsTo(\App\Torrent::class);
-   }
+    /**
+     * Belongs to torrent
+     *
+     *
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(\App\Torrent::class);
+    }
 
-   /**
-    * Belongs to user
-    *
-    *
-    */
-   public function user()
-   {
-       return $this->belongsTo(\App\User::class);
-   }
+    /**
+     * Belongs to user
+     *
+     *
+     */
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class);
+    }
 }

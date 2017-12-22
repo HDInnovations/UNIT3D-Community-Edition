@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     Bruzer
+ * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
@@ -31,12 +31,12 @@ class AnnounceController extends Controller
 {
 
     /**
-    * Announce code
-    *
-    * @access public
-    * @param $Passkey User passkey
-    * @return Bencoded response for the torrent client
-    */
+     * Announce code
+     *
+     * @access public
+     * @param $Passkey User passkey
+     * @return Bencoded response for the torrent client
+     */
     public function announce(Request $request, $passkey)
     {
         // Browser safety check
@@ -48,7 +48,7 @@ class AnnounceController extends Controller
         }
 
         // If User Client Is Not Sending Required Data Return Error to Client
-        if (! $request->has('info_hash') || ! $request->has('peer_id') || ! $request->has('port') || ! $request->has('left') || ! $request->has('uploaded') || ! $request->has('downloaded')) {
+        if (!$request->has('info_hash') || !$request->has('peer_id') || !$request->has('port') || !$request->has('left') || !$request->has('uploaded') || !$request->has('downloaded')) {
             return response(Bencode::bencode(['failure reason' => 'Bad Data from client']), 200, ['Content-Type' => 'text/plain']);
         }
 
@@ -71,9 +71,9 @@ class AnnounceController extends Controller
         $peer_id = bin2hex($request->get('peer_id'));
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
-        $port = (int) $request->get('port');
-        $left = (float) $request->get('left');
-        $uploaded = (float) $request->get('uploaded');
+        $port = (int)$request->get('port');
+        $left = (float)$request->get('left');
+        $uploaded = (float)$request->get('uploaded');
         $real_uploaded = $uploaded;
         $downloaded = (float )$request->get('downloaded');
         $real_downloaded = $downloaded;
@@ -92,7 +92,7 @@ class AnnounceController extends Controller
         }
 
         // If User Client Does Not Support Compact Return Error to Client
-        if (! $compact) {
+        if (!$compact) {
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]), 200, ['Content-Type' => 'text/plain']);
         }
 
@@ -116,7 +116,7 @@ class AnnounceController extends Controller
             }
 
             unset($p['id'], $p['md5_peer_id'], $p['hash'], $p['agent'], $p['uploaded'], $p['downloaded'], $p['left'], $p['torrent_id'],
-                  $p['user_id'], $p['seeder'], $p['created_at'], $p['updated_at']);
+                $p['user_id'], $p['seeder'], $p['created_at'], $p['updated_at']);
         }
 
         // Pull Count On Users Peers Per Torrent
@@ -134,9 +134,9 @@ class AnnounceController extends Controller
         $ghost = false;
 
         // Creates a new client if not existing
-        if (! $client && $event == 'completed') {
+        if (!$client && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']), 200, ['Content-Type' => 'text/plain']);
-        } elseif (! $client) {
+        } elseif (!$client) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
             }
@@ -146,7 +146,7 @@ class AnnounceController extends Controller
         // Get history information
         $history = History::where("info_hash", "=", $hash)->where("user_id", "=", $user->id)->first();
 
-        if (! $history) {
+        if (!$history) {
             $history = new History([
                 "user_id" => $user->id,
                 "info_hash" => $hash
@@ -382,7 +382,7 @@ class AnnounceController extends Controller
                     $pcomp .= pack('Nn', ip2long($p['ip']), (int)$p['port']);
                 }
             }
-            return $pcomp ;
+            return $pcomp;
         } elseif ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);

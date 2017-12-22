@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 return [
 
     /*
@@ -47,14 +47,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Download Rights Disable
+    | Revoke Permissions
     |--------------------------------------------------------------------------
     |
-    | Max Warnings Before Download Rights Are Disabled
+    | Max Warnings Before Certain Permissions Are Revoked
     |
     */
 
-    'download_disable' => 2,
+    'revoke' => 2,
 
     /*
     |--------------------------------------------------------------------------
@@ -89,4 +89,5 @@ return [
     */
 
     'expire' => 14,
+
 ];

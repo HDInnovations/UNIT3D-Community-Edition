@@ -1,9 +1,8 @@
-<!-- Torrents -->
 <div class="col-md-10 col-sm-10 col-md-offset-1">
   <div class="clearfix visible-sm-block"></div>
   <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
-      <h4>Latest Torrents</h4>
+      <h4>{{ trans('blocks.latest-torrents') }}</h4>
     </div>
     <ul class="nav nav-tabs mb-5" role="tablist">
       <li class="active"><a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-trophy text-gold"></i> New Torrents</a></li>
@@ -319,4 +318,3 @@
     </div>
   </div>
 </div>
-<!-- /Torrents -->

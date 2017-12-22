@@ -1,24 +1,43 @@
-<?php 
-/**
- * Common.php EN
- *
- */
-return array(
+<?php
+/*
+|--------------------------------------------------------------------------
+| Common Language Lines
+|--------------------------------------------------------------------------
+*/
+
+return [
 	'home' => 'Home',
 	'account' => 'Account',
-	'login' => 'Login',
-	'signup' => 'Signup',
-	'logout' => 'Logout',
 	'username' => 'Username',
 	'password' => 'Password',
-	'download' => 'Download', 
+	'download' => 'Download',
+	'upload' => 'Upload',
+	'ratio' => 'Ratio',
+	'warnings' => 'Warnings',
 	'members' => 'Members',
-	'name' => 'Name',
-	'times' => 'times', // Times completed (fois)
-	'added_on' => 'Added on',
-	'lost-password' => 'Forgot your password ?',
-	'recover-my-password' => 'Recover my password',
+	'navigation' => 'Navigation',
+	'notifications' => 'Notifications',
+	'added_on' => 'Added On',
 	'search' => 'Search',
-	'category' => 'Category',
-); 
-?>
+	'quick-search' => 'Quick Search',
+	'submit' => 'Submit',
+	'comment' => 'Comment',
+	'view-all' => 'View All',
+	'preview' => 'Preview',
+	'edit' => 'Edit',
+	'delete' => 'Delete',
+	'pending' => 'Pending',
+	'stats' => 'Stats',
+	'extra-stats' => 'Extra-Stats',
+	'rules' => 'Rules',
+	'faq' => 'FAQ',
+	'report' => 'Report',
+	'bug' => 'Report A Bug',
+	'results' => 'Results',
+	'contact' => 'Contact',
+	'about' => 'About Us',
+    'community' => 'Community',
+    'buffer' => 'Buffer',
+	'times' => 'Times',
+	'name' => 'Name'
+];

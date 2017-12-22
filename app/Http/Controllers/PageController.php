@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Page;
@@ -18,10 +18,10 @@ class PageController extends Controller
 {
 
     /**
-    * Displays the requested page
-    *
-    *
-    */
+     * Displays the requested page
+     *
+     *
+     */
     public function page($slug, $id)
     {
         $page = Page::findOrFail($id);
@@ -30,20 +30,20 @@ class PageController extends Controller
     }
 
     /**
-    * Credits Page
-    *
-    *
-    */
+     * Credits Page
+     *
+     *
+     */
     public function credits()
     {
         return view('page.credits');
     }
 
     /**
-    * About Us Page
-    *
-    *
-    */
+     * About Us Page
+     *
+     *
+     */
     public function about()
     {
         return view('page.aboutus');

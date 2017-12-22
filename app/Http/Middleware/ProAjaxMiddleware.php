@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * NOTICE OF LICENSE
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @author     HDVinnie
+ */
+ 
 namespace App\Http\Middleware;
 
 use Closure;
@@ -21,7 +31,7 @@ class ProAjaxMiddleware
      * or if the user should be redirected to another page.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure                 $next
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -61,7 +71,7 @@ class ProAjaxMiddleware
 
             // Finally, let's return a json with the flash message
             return response()->json([
-                'type'    => $flash_message['type'],
+                'type' => $flash_message['type'],
                 'message' => $flash_message['message'],
                 //'redirect' => $flash_message['redirect'], // Returns false if no redirect request
             ]);
@@ -132,6 +142,6 @@ class ProAjaxMiddleware
         //dd($request->server('HTTP_REFERER'));
         //dd($response->getTargetUrl());
         return ($response->getStatusCode() == 302 && ($request->server('HTTP_REFERER') != $response->getTargetUrl()))
-        || $request->session()->has('errors');
+            || $request->session()->has('errors');
     }
 }

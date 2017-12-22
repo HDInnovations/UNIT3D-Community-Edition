@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 return [
 
     /*
@@ -38,6 +38,6 @@ return [
 	|
 	*/
 
-    'compiled' => realpath(storage_path().'/framework/views'),
+    'compiled' => realpath(storage_path() . '/framework/views'),
 
 ];

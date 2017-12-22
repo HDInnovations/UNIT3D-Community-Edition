@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
@@ -27,49 +27,49 @@ use \Toastr;
 class MassPMController extends Controller
 {
 
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function massPM()
-  {
-      return view('Staff.masspm.index');
-  }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function massPM()
+    {
+        return view('Staff.masspm.index');
+    }
 
-  /**
-  * @method gift
-  *
-  * @access public
-  *
-  * @return void
-  */
-  public function sendMassPM()
-  {
-      $staff = Auth::user();
-      $users = User::all();
+    /**
+     * @method gift
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function sendMassPM()
+    {
+        $staff = Auth::user();
+        $users = User::all();
 
-      if (Request::isMethod('post')) {
-          $v = Validator::make(Request::all(), [
-              'title' => "required|min:5",
-              'message' => "required|min:5"
-          ]);
+        if (Request::isMethod('post')) {
+            $v = Validator::make(Request::all(), [
+                'title' => "required|min:5",
+                'message' => "required|min:5"
+            ]);
 
-          if ($v->passes()) {
+            if ($v->passes()) {
 
-              foreach ($users as $user) {
-                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $user->id, 'subject' => Request::get('title'), 'message' => Request::get('message')]);
-              }
+                foreach ($users as $user) {
+                    PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => Request::get('title'), 'message' => Request::get('message')]);
+                }
 
-              // Activity Log
-              \LogActivity::addToLog("Staff Member " . $staff->username . " has sent a MassPM.");
+                // Activity Log
+                \LogActivity::addToLog("Staff Member " . $staff->username . " has sent a MassPM.");
 
-              return Redirect::to('/staff_dashboard/masspm')->with(Toastr::info('Sent', 'MassPM', ['options']));
-          } else {
-              return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Failed', 'MassPM', ['options']));
-          }
-      } else {
-          return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
-      }
-  }
+                return Redirect::to('/staff_dashboard/masspm')->with(Toastr::info('Sent', 'MassPM', ['options']));
+            } else {
+                return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Failed', 'MassPM', ['options']));
+            }
+        } else {
+            return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+        }
+    }
 }

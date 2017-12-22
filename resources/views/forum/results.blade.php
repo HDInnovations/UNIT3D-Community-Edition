@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Results - Forums - {{ Config::get('other.title') }}</title>
+<title>Results - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Forums</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
     </a>
 </li>
 <li>

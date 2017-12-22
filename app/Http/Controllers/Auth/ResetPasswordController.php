@@ -22,9 +22,9 @@ class ResetPasswordController extends Controller
     protected function resetPassword($user, $password)
     {
         $user->forceFill([
-            'password'       => bcrypt($password),
+            'password' => bcrypt($password),
             'remember_token' => Str::random(60),
-            'active'         => true,
+            'active' => true,
         ])->save();
 
         // Activity Log
@@ -38,8 +38,8 @@ class ResetPasswordController extends Controller
     protected function rules()
     {
         return [
-            'token'    => 'required',
-            'email'    => 'required|email',
+            'token' => 'required',
+            'email' => 'required|email',
             'password' => 'required|confirmed|min:8',
         ];
     }

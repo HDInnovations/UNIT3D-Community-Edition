@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     Bruzer
+ * @author     Mr.G
  */
 
 namespace App;
@@ -16,29 +16,29 @@ use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
 
 /**
-* Torrent Requests
-*
-*/
+ * Torrent Requests
+ *
+ */
 class Requests extends Model
 {
 
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = 'requests';
 
     /**
-    * Mass assignment fields
-    *
-    */
-    protected $fillable = ['name', 'description', 'category_id', 'user_id' , 'imdb' , 'votes', 'tvdb', 'type', 'bounty', 'tmdb', 'mal'];
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['name', 'description', 'category_id', 'user_id', 'imdb', 'votes', 'tvdb', 'type', 'bounty', 'tmdb', 'mal'];
 
     /**
-    * Rules For Validation
-    *
-    */
+     * Rules For Validation
+     *
+     */
     public $rules = [
         'name' => 'required',
         'description' => 'required',
@@ -53,10 +53,10 @@ class Requests extends Model
     ];
 
     /**
-    * The attributes that should be mutated to dates.
-    *
-    * @var array
-    */
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -65,80 +65,81 @@ class Requests extends Model
     ];
 
     /**
-    * Belongs to This User who created the request
-    *
-    */
+     * Belongs to This User who created the request
+     *
+     */
     public function user()
     {
         return $this->belongsTo(\App\User::class);
     }
 
     /**
-    * Belongs to the user who approves the request
-    *
-    */
+     * Belongs to the user who approves the request
+     *
+     */
     public function approveUser()
     {
         return $this->belongsTo(\App\User::class, 'approved_by');
     }
 
     /**
-    * Belongs to the user who fills the request
-    *
-    */
+     * Belongs to the user who fills the request
+     *
+     */
     public function FillUser()
     {
         return $this->belongsTo(\App\User::class, 'filled_by');
     }
 
     /**
-    * Belongs to This Category
-    *
-    */
+     * Belongs to This Category
+     *
+     */
     public function category()
     {
         return $this->belongsTo(\App\Category::class);
     }
 
     /**
-    * Belongs to This Type
-    *
-    */
+     * Belongs to This Type
+     *
+     */
     public function type()
     {
         return $this->belongsTo(\App\Type::class);
     }
 
     /**
-    * Belongs to this torrent
-    *
-    */
+     * Belongs to this torrent
+     *
+     */
     public function torrent()
     {
         return $this->belongsTo(\App\Torrent::class, 'filled_hash', 'info_hash');
     }
+
     /**
-    * Has many Comment
-    *
-    */
+     * Has many Comment
+     *
+     */
     public function comments()
     {
         return $this->hasMany(\App\Comment::class);
     }
 
     /**
-    * Has many request bounties
-    *
-    */
+     * Has many request bounties
+     *
+     */
     public function requestBounty()
     {
         return $this->hasMany(\App\RequestsBounty::class);
     }
 
     /**
-    * Format The Description
-    *
-    */
+     * Format The Description
+     *
+     */
     public function getDescriptionHtml()
     {
         $code = new Decoda($this->description);

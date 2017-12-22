@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Category;
@@ -20,13 +20,13 @@ class CategoryController extends Controller
 {
 
     /**
-    * Displays torrents by category
-    *
-    * @access public
-    * @param $slug
-    * @param $id
-    * @return category.category View
-    */
+     * Displays torrents by category
+     *
+     * @access public
+     * @param $slug
+     * @param $id
+     * @return category.category View
+     */
     public function category($slug, $id)
     {
         $user = Auth::user();
@@ -37,11 +37,11 @@ class CategoryController extends Controller
     }
 
     /**
-    * Display category list
-    *
-    * @access public
-    * @return category.categories View
-    */
+     * Display category list
+     *
+     * @access public
+     * @return category.categories View
+     */
     public function categories()
     {
         $categories = Category::all();

@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 return [
@@ -191,6 +191,7 @@ return [
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -253,8 +254,9 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'CookieConsent' => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
+        'Toastr' => Brian2694\Toastr\Facades\Toastr::class,
         'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
         'LogActivity' => App\Helpers\LogActivity::class,
     ],

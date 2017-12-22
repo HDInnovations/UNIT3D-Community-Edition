@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\Report;
@@ -24,20 +24,20 @@ use \Toastr;
 class ReportController extends Controller
 {
     /**
-      * Reports System
-      *
-      *
-      */
+     * Reports System
+     *
+     *
+     */
     public function postReport()
     {
         $user = Auth::user();
 
         $v = Validator::make(Request::all(), [
-            'type'=>'required',
-            'reporter_id'=>'required|numeric',
-            'title'=>'required',
-            'message'=>'required',
-            'solved'=>'required|numeric'
+            'type' => 'required',
+            'reporter_id' => 'required|numeric',
+            'title' => 'required',
+            'message' => 'required',
+            'solved' => 'required|numeric'
         ]);
 
         $report = new Report();

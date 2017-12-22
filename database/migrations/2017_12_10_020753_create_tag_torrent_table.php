@@ -7,38 +7,38 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateTagTorrentTable extends Migration {
+class CreateTagTorrentTable extends Migration
+{
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('tag_torrent', function(Blueprint $table)
-		{
-			$table->bigInteger('torrent_id')->unsigned();
-			$table->integer('tag_id')->index('fk_torrents_tags_tags_1');
-			$table->primary(['torrent_id','tag_id']);
-		});
-	}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tag_torrent', function (Blueprint $table) {
+            $table->bigInteger('torrent_id')->unsigned();
+            $table->integer('tag_id')->index('fk_torrents_tags_tags_1');
+            $table->primary(['torrent_id', 'tag_id']);
+        });
+    }
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		Schema::drop('tag_torrent');
-	}
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop('tag_torrent');
+    }
 
 }

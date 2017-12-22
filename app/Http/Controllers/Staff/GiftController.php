@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
@@ -26,57 +26,57 @@ use \Toastr;
 class GiftController extends Controller
 {
 
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-      $users = User::orderBy('username', 'ASC')->get();
-      return view('Staff.gift.index',compact('users'));
-  }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $users = User::orderBy('username', 'ASC')->get();
+        return view('Staff.gift.index', compact('users'));
+    }
 
-  /**
-  * @method gift
-  *
-  * @access public
-  *
-  * @return void
-  */
-  public function gift()
-  {
-      $user = Auth::user();
+    /**
+     * @method gift
+     *
+     * @access public
+     *
+     * @return void
+     */
+    public function gift()
+    {
+        $user = Auth::user();
 
-      if (Request::isMethod('post')) {
-          $v = Validator::make(Request::all(), [
-              'username' => "required|exists:users,username|max:180",
-              'bonus_points' => "required|numeric|min:0",
-              'invites' => "required|numeric|min:0"
-          ]);
+        if (Request::isMethod('post')) {
+            $v = Validator::make(Request::all(), [
+                'username' => "required|exists:users,username|max:180",
+                'bonus_points' => "required|numeric|min:0",
+                'invites' => "required|numeric|min:0"
+            ]);
 
-          if ($v->passes()) {
-              $recipient = User::where('username', 'LIKE', Request::get('username'))->first();
+            if ($v->passes()) {
+                $recipient = User::where('username', 'LIKE', Request::get('username'))->first();
 
-              if (! $recipient) {
-                  return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
-              }
+                if (!$recipient) {
+                    return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
+                }
 
-              $bon = Request::get('bonus_points');
-              $invites = Request::get('invites');
-              $recipient->seedbonus += $bon;
-              $recipient->invites += $invites;
-              $recipient->save();
+                $bon = Request::get('bonus_points');
+                $invites = Request::get('invites');
+                $recipient->seedbonus += $bon;
+                $recipient->invites += $invites;
+                $recipient->save();
 
-              // Activity Log
-              \LogActivity::addToLog("Staff Member " . $user->username . " has sent a system gift to " . $recipient->username . " account.");
+                // Activity Log
+                \LogActivity::addToLog("Staff Member " . $user->username . " has sent a system gift to " . $recipient->username . " account.");
 
-              return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::info('Sent', 'Gift', ['options']));
-          } else {
-              return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Failed', 'Gifting', ['options']));
-          }
-          } else {
-          return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
-      }
+                return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::info('Sent', 'Gift', ['options']));
+            } else {
+                return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Failed', 'Gifting', ['options']));
+            }
+        } else {
+            return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+        }
     }
 }

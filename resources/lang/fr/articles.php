@@ -1,10 +1,13 @@
 <?php
-/**
- * FR
- *
- */
-return array(
-    'meta-articles' => 'Articles et news sur le tracker et la communauté. Découvrez les nouveautés warez et de téléchargement.',
+/*
+|--------------------------------------------------------------------------
+| Articles Language Lines
+|--------------------------------------------------------------------------
+*/
+
+return [
+    'meta-articles' => 'Articles et nouvelles sur le tracker et la communauté',
     'read-more' => 'Lire la suite',
-    'published-at' => 'Publié le ',
-) ?>
+    'published-at' => 'Publié à',
+    'articles' => 'Articles',
+];

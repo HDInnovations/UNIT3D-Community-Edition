@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * NOTICE OF LICENSE
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @author     HDVinnie
+ */
+ 
 namespace App\Services\Clients;
 
 use App\Services\Contracts\MovieTvInterface;
@@ -73,18 +83,18 @@ class TvdbClient extends Client implements MovieTvInterface
         $tv = $data['serie'];
 
         return new Tv([
-            'imdb'        => $tv->imdbId,
-            'tvdb'        => $tv->id,
-            'title'       => $tv->name,
+            'imdb' => $tv->imdbId,
+            'tvdb' => $tv->id,
+            'title' => $tv->name,
             'releaseDate' => $tv->firstAired,
-            'plot'        => $tv->overview,
-            'genres'      => $tv->genres,
-            'network'     => $tv->network,
-            'runtime'     => $tv->runtime,
-            'tvdbRating'  => $tv->rating,
-            'tvdbVotes'   => $tv->ratingCount,
-            'poster'      => !empty($tv->poster) ? $this->imagePath . $tv->poster : null,
-            'episodes'    => $this->formatEpisodes($data['episodes'])
+            'plot' => $tv->overview,
+            'genres' => $tv->genres,
+            'network' => $tv->network,
+            'runtime' => $tv->runtime,
+            'tvdbRating' => $tv->rating,
+            'tvdbVotes' => $tv->ratingCount,
+            'poster' => !empty($tv->poster) ? $this->imagePath . $tv->poster : null,
+            'episodes' => $this->formatEpisodes($data['episodes'])
         ]);
     }
 
@@ -94,12 +104,12 @@ class TvdbClient extends Client implements MovieTvInterface
         if (!empty($episodes)) {
             foreach ($episodes as $episode) {
                 $tv_episodes[] = new Episode([
-                    'episode'     => $episode->number,
-                    'season'      => $episode->season,
-                    'title'       => $episode->name,
+                    'episode' => $episode->number,
+                    'season' => $episode->season,
+                    'title' => $episode->name,
                     'releaseDate' => $episode->firstAired,
-                    'plot'        => $episode->overview,
-                    'photo'       => !empty($episode->thumbnail) ? $this->imagePath . $episode->thumbnail : null,
+                    'plot' => $episode->overview,
+                    'photo' => !empty($episode->thumbnail) ? $this->imagePath . $episode->thumbnail : null,
                 ]);
             }
         }

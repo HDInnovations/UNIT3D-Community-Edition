@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
@@ -75,26 +75,27 @@ class RegisterController extends Controller
                 $user->save();
 
                 if ($key) {
-                // Update The Invite Record
-                $key->accepted_by = $user->id;
-                $key->accepted_at = new Carbon();
-                $key->save();
+                    // Update The Invite Record
+                    $key->accepted_by = $user->id;
+                    $key->accepted_at = new Carbon();
+                    $key->save();
                 }
 
                 // Handle The Activation System
                 $token = hash_hmac('sha256', $user->username . $user->email . str_random(16), config('app.key'));
                 UserActivation::create([
                     'user_id' => $user->id,
-                    'token'   => $token,
+                    'token' => $token,
                 ]);
                 $this->dispatch(new SendActivationMail($user, $token));
 
+                $appurl = env('APP_URL', 'http://unit3d.site');
                 // Post To Shoutbox
-                Shoutbox::create(['user' => "0", 'mentions' => "0", 'message' => "Welcome [url={{ route('home') }}/" .$user->username. "." .$user->id. "]" .$user->username. "[/url] hope you enjoy the community :rocket:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
                 Cache::forget('shoutbox_messages');
 
                 // Send Welcome PM
-                PrivateMessage::create(['sender_id' => "0", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");

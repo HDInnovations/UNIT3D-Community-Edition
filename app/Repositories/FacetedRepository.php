@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Repositories;
 
 use App\Torrent;
@@ -24,7 +24,7 @@ class FacetedRepository
      */
     public function categories()
     {
-        return Category::all()->pluck('name','id');
+        return Category::all()->pluck('name', 'id');
     }
 
     /**
@@ -33,7 +33,7 @@ class FacetedRepository
      */
     public function types()
     {
-        return Type::all()->where('slug', '!=', 'sd')->sortBy('position')->pluck('name','id');
+        return Type::all()->where('slug', '!=', 'sd')->sortBy('position')->pluck('name', 'id');
     }
 
     /**

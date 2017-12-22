@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li>
 <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-<span itemprop="title" class="l-breadcrumb-item-link-title">Bookmarks</span>
+<span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.bookmarks') }}</span>
 </a>
 </li>
 @stop
@@ -13,7 +13,7 @@
   <div class="block">
     <div class="header gradient orange">
       <div class="inner_content">
-        <h1>My Bookmarks</h1>
+        <h1>My {{ trans('torrent.bookmarks') }}</h1>
       </div>
     </div>
   <div class="table-responsive">

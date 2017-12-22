@@ -94,8 +94,8 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>{{ trans('traduction.name') }}</th>
-                <th>{{ trans('traduction.size') }}</th>
+                <th>{{ trans('common.name') }}</th>
+                <th>{{ trans('common.size') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -130,8 +130,8 @@
       </div>
       <div class="modal-body">
         <pre class="torrent-bottom-nfo">
-  {{ $torrent->nfo }}
-</pre>
+            {{ $torrent->nfo }}
+        </pre>
       </div>
       <div class="modal-footer">
         <button class="btn btn-info" data-dismiss="modal">Close me! </button>

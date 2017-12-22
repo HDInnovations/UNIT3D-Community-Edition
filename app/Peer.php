@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     Bruzer
+ * @author     Mr.G
  */
 
 namespace App;
@@ -23,7 +23,7 @@ use Kyslik\ColumnSortable\Sortable;
  */
 class Peer extends Model
 {
-      use Sortable;
+    use Sortable;
 
     public $sortable = ['id', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'created_at'];
 

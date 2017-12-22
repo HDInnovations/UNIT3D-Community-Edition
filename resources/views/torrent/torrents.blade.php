@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 @stop
@@ -152,12 +152,24 @@
 
 <!-- Results -->
 <div class="container-fluid">
+    <div class="block" style="padding-bottom:50px;">
+        <div style="float:left;">
+          <strong>Stats:</strong>
+          <span class="label label-primary text-bold"><i class="fa fa-file-o"></i> {{ $torrents->count() }} Torrents</span>
+          <span class="label label-success text-bold"><i class="fa fa-smile-o"></i> {{ $alive }} Alive</span>
+          <span class="label label-danger text-bold"><i class="fa fa-frown-o"></i> {{ $dead }} Dead</span>
+        </div>
+        <div style="float:right;">
+          <strong>Activity Legend:</strong>
+          <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Seeding!'><i class='fa fa-arrow-up'></i></button>
+          <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Currently Leeching!'><i class='fa fa-arrow-down'></i></button>
+          <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='Started Downloading But Never Completed!'><i class='fa fa-hand-paper-o'></i></button>
+          <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='You Completed This Download But Are No Longer Seeding It!'><i class='fa fa-thumbs-down'></i></button>
+        </div>
+      </div>
   <div class="block">
-    <span class="label label-primary text-bold"><i class="fa fa-file-o"></i> {{ $torrents->count() }} Torrents</span>
-    <span class="label label-success text-bold"><i class="fa fa-smile-o"></i> {{ $alive }} Alive</span>
-    <span class="label label-danger text-bold"><i class="fa fa-frown-o"></i> {{ $dead }} Dead</span>
   <center>
-    <h3 class="filter-title">Results</h3>
+     <h1 class="filter-title">Results</h1>
   </center>
   <div class="form-horizontal">
     <div class="form-group">

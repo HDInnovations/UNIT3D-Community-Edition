@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use App\PrivateMessage;
@@ -26,31 +26,31 @@ use Carbon\Carbon;
 class PrivateMessageController extends Controller
 {
 
-  /**
-   * Search pm by username
-   *
-   * @access public
-   * @return View pm.inbox
-   *
-   */
-  public function searchPM(Request $request, $username, $id)
-  {
-      $user = Auth::user();
-      $search = $request->input('subject');
-      $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->where([
-          ['subject','like','%'.$search.'%'],
-      ])->orderBy('created_at', 'DESC')->paginate(20);
+    /**
+     * Search pm by username
+     *
+     * @access public
+     * @return View pm.inbox
+     *
+     */
+    public function searchPM(Request $request, $username, $id)
+    {
+        $user = Auth::user();
+        $search = $request->input('subject');
+        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->where([
+            ['subject', 'like', '%' . $search . '%'],
+        ])->orderBy('created_at', 'DESC')->paginate(20);
 
-      return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
-  }
+        return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
+    }
 
-  /**
-   * Get Private Messages
-   *
-   * @access public
-   * @return View pm.inbox
-   *
-   */
+    /**
+     * Get Private Messages
+     *
+     * @access public
+     * @return View pm.inbox
+     *
+     */
     public function getPrivateMessages(Request $request, $username, $id)
     {
         $user = Auth::user();
@@ -90,8 +90,8 @@ class PrivateMessageController extends Controller
     {
         $user = Auth::user();
         $pms = PrivateMessage::where('sender_id', $request->user()->id)
-        ->orderBy('created_at', 'desc')
-        ->paginate(20);
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
         return view('pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
@@ -149,13 +149,13 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
         $attributes = [
-          'sender_id' => $user->id,
-          'reciever_id' => $pm->sender_id,
-          'subject' => $pm->subject,
-          'message' => $request->input('message'),
-          'related_to' => $pm->id,
-          'read' => 0,
-      ];
+            'sender_id' => $user->id,
+            'reciever_id' => $pm->sender_id,
+            'subject' => $pm->subject,
+            'message' => $request->input('message'),
+            'related_to' => $pm->id,
+            'read' => 0,
+        ];
 
         $pm = PrivateMessage::create($attributes);
 

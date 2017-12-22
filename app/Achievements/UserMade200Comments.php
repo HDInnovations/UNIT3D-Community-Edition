@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App\Achievements;
@@ -29,5 +29,5 @@ class UserMade200Comments extends Achievement
     /*
     * The amount of "points" this user need to obtain in order to complete this achievement
     */
-   public $points = 200;
+    public $points = 200;
 }

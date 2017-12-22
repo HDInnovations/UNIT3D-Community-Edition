@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $torrent->name }} - Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('stylesheets')
@@ -9,10 +9,13 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Download ' . $torrent->name . ' at maximum speed!' }}"> @stop @section('breadcrumb')
+<meta name="description" content="{{ 'Download ' . $torrent->name . ' at maximum speed!' }}">
+@stop
+
+@section('breadcrumb')
 <li>
   <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
 <li class="active">
@@ -172,10 +175,10 @@
             <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-default btn-xs disabled" role="button">Already Featured</a>
             @endif
             @endif
-            @if(Auth::user()->group->is_modo || Auth::user()->id == $user->id)
+            @if(Auth::user()->group->is_modo || Auth::user()->id == $uploader->id)
             <a class="btn btn-warning btn-xs" href="{{ route('edit', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button">Edit</a>
             @endif
-            @if(Auth::user()->group->is_modo || ( Auth::user()->id == $user->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+            @if(Auth::user()->group->is_modo || ( Auth::user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
               <span class="icon"><i class="fa fa-fw fa-times"></i> Delete</span>
             </button>
@@ -187,9 +190,9 @@
           <td class="col-sm-2"><strong>Uploader</strong></td>
           <td>
             @if($torrent->anon == 1)
-            <span class="badge-user text-orange text-bold">ANONYMOUS @if(Auth::user()->id == $user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}">({{ $user->username }})</a>@endif</span>
+            <span class="badge-user text-orange text-bold">ANONYMOUS @if(Auth::user()->id == $uploader->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
             @else
-            <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}" style="color:{{ $user->group->color }};">{{ $user->username }}</a></span>
+            <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}" style="color:{{ $uploader->group->color }};">{{ $uploader->username }}</a></span>
             @endif
             <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-xs btn-success pro-ajax" data-id="" data-toggle="tooltip" title="" data-original-title="Thank Uploader">
               <i class="fa fa-thumbs-up"></i> Thank Uploader</a>
@@ -208,7 +211,12 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Category</strong></td>
+          <td class="col-sm-2"><strong>Estimated Ratio after Download</strong></td>
+          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(Auth::user())) }}</td>
+        </tr>
+
+        <tr>
+          <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
           <td>
             @if($torrent->category_id == "1")
             <i class="fa fa-film torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i> {{ $torrent->category->name }}
@@ -220,7 +228,7 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Type</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.type') }}</strong></td>
           <td>{{ $torrent->type }}</td>
         </tr>
 
@@ -237,13 +245,13 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Peers</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.peers') }}</strong></td>
           <td>
             <span class="badge-extra text-green"><i class="fa fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}</span>
             <span class="badge-extra text-red"><i class="fa fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}</span>
             <span class="badge-extra text-info"><i class="fa fa-fw fa-check"></i>{{ $torrent->times_completed }} Times</span>
-            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">View Peers</a></span>
-            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View History</a></span>
+            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">View {{ trans('torrent.peers') }}</a></span>
+            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View {{ trans('torrent.history') }}</a></span>
           </td>
         </tr>
       </tbody>
@@ -437,12 +445,14 @@
             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
             @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
             <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+            <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
             @endif
             <div class="pt-5">
             @emojione($comment->getContentHtml())
             </div>
           </div>
           </li>
+          @include('partials.modals', ['comment' => $comment])
           @endforeach
           @endif
           </ul>
@@ -463,7 +473,7 @@
       <label for="content">Your comment:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
       <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
     </div>
-    <button type="submit" class="btn btn-danger">{{ trans('traduction.save') }}</button>
+    <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
     <label class="radio-inline"><strong>Anonymous Comment:</strong></label>
       <input type="radio" value="1" name="anonymous"> Yes
       <input type="radio" value="0" checked="checked" name="anonymous"> No

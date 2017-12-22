@@ -1,6 +1,9 @@
 <p align="center">
     <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
+<p align="center">
+    <b>A Special Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a></b>
+</p>
 <hr>
 
 <p align="center">
@@ -20,9 +23,11 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
-5. [License](#license)
-6. [Screenshots](#screenshots)
-7. [Homestead](#homestead)
+5. [Packages](#packages)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Screenshots](#screenshots)
+9. [Homestead](#homestead)
 
 
 ## <a name="introduction"></a> Introduction
@@ -54,23 +59,32 @@ UNIT3D currently offers the following features:
   -   php-curl -> This is specifically needed for the various APIs we have running.
 - Crontab access
 - A Redis server
+- MySQL 5.7
 
 ## <a name="installation"></a> Installation
 
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
 2. Open a terminal and SSH into your server.
-3. Go to the script directory and download [composer](https://getcomposer.org/download/) and run `composer update`
-4. Edit your .env file with you APP, DB, REDIS and MAIL info.
-5. Run `php artisan key:generate` to generate your cipher key.
-6. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
-7. Run  `php artisan migrate` (Migrates All Tables And Foreign Keys)
-8. Run `php artisan db:seed` (Seeds Default Data Into Database Tables)
-9. Run `composer require predis/predis`
-10. Run `composer update`
-11. Add   <code>* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1</code>   to crontab
-12. Go to your web URL.
-13. Login with the username UNIT3D and the password UNIT3D. (This is the default owner account.)
-14. Enjoy using UNIT3D.
+3. cd to the sites root directory
+4. run `chmod +x composer-setup.sh && ./composer-setup.sh && php composer install`
+5. Edit your `.env` file with your APP, DB, REDIS and MAIL info.
+6. Run `php artisan key:generate` to generate your cipher key.
+7. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
+8. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
+9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab
+10. Go to your sites URL.
+11. Login with the username `UNIT3D` and the password `UNIT3D`. (This is the default owner account.)
+12. Enjoy using UNIT3D.
+
+## <a name="packages"></a> Packages
+Here are some packages that are built for UNIT3D.
+- [An artisan package to import a XBTIT database into UNIT3D](https://github.com/pxgamer/xbtit-to-unit3d).
+- [An artisan package to import a Gazelle database into UNIT3D](https://github.com/pxgamer/gazelle-to-unit3d).
+- [An artisan package to import a U-232 database into UNIT3D](https://github.com/pxgamer/u232-to-unit3d).
+
+## <a name="contributing"></a> Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
 ## <a name="license"></a> License
 
@@ -119,7 +133,7 @@ databases:
 
 ```
 
-1. run `cd ~/Hometead && vagrant up --provision`
+1. run `cd ~/Homestead && vagrant up --provision`
 2. run `vagrant ssh`
 3. cd to the unit3d project root directory
 4. copy `.env.example` to `.env`

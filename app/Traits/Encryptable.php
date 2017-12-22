@@ -1,74 +1,189 @@
 <?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @author     HDVinnie
+ */
 
 namespace App\Traits;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Support\Facades\Crypt;
 
 trait Encryptable
 {
     /**
-     * Decrypt the column value if it is in the encrypted array.
+     * Get the configuration setting for the prefix used to determine if a string is encrypted.
      *
-     * @param $key
-     *
-     * @return mixed
+     * @return string
      */
-    public function getAttribute($key)
+    protected function getCryptPrefix()
     {
-        $value = parent::getAttribute($key);
-        if (in_array($key, $this->encrypted ?? [])) {
-            $value = $this->decryptValue($value);
-        }
-
-        return $value;
+        return '__ENCRYPTED__:';
     }
 
     /**
-     * Decrypts a value only if it is not null and not empty.
+     * Determine whether an attribute should be encrypted.
      *
-     * @param $value
+     * @param string $key
      *
-     * @return mixed
+     * @return bool
      */
-    protected function decryptValue($value)
+    protected function shouldEncrypt($key)
     {
-        if ($value !== null && !empty($value)) {
-            return Crypt::decrypt($value);
-        }
-
-        return $value;
+        return in_array($key, $this->encryptable);
     }
 
     /**
-     * Set the value, encrypting it if it is in the encrypted array.
+     * Determine whether a string has already been encrypted.
      *
-     * @param $key
-     * @param $value
+     * @param mixed $value
+     *
+     * @return bool
      */
-    public function setAttribute($key, $value)
+    protected function isEncrypted($value)
     {
-        if (in_array($key, $this->encrypted ?? [])) {
-            $value = Crypt::encrypt($value);
-        }
-
-        return parent::setAttribute($key, $value);
+        return strpos((string) $value, $this->getCryptPrefix()) === 0;
     }
 
     /**
-     * Retrieves all values and decrypts them if needed.
+     * Return the encrypted value of an attribute's value.
+     *
+     * This has been exposed as a public method because it is of some
+     * use when searching.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public function encryptedAttribute($value)
+    {
+        return $this->getCryptPrefix() . Crypt::encrypt($value);
+    }
+
+    /**
+     * Return the decrypted value of an attribute's encrypted value.
+     *
+     * This has been exposed as a public method because it is of some
+     * use when searching.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public function decryptedAttribute($value)
+    {
+        return Crypt::decrypt(str_replace($this->getCryptPrefix(), '', $value));
+    }
+
+    /**
+     * Encrypt a stored attribute.
+     *
+     * @param string $key
+     *
+     * @return void
+     */
+    protected function doEncryptAttribute($key)
+    {
+        if ($this->shouldEncrypt($key) and ! $this->isEncrypted($this->attributes[$key])) {
+            try {
+                $this->attributes[$key] = $this->encryptedAttribute($this->attributes[$key]);
+            } catch (EncryptException $e) {
+            }
+        }
+    }
+
+    /**
+     * Decrypt an attribute if required.
+     *
+     * @param string $key
+     * @param mixed  $value
      *
      * @return mixed
      */
-    public function attributesToArray()
+    protected function doDecryptAttribute($key, $value)
     {
-        $attributes = parent::attributesToArray();
-
-        foreach ($this->encrypted ?? [] as $key) {
-            if (isset($attributes[$key])) {
-                $attributes[$key] = $this->decryptValue($attributes[$key]);
+        if ($this->shouldEncrypt($key) and $this->isEncrypted($value)) {
+            try {
+                return $this->decryptedAttribute($value);
+            } catch (DecryptException $e) {
             }
         }
 
+        return $value;
+    }
+
+    /**
+     * Decrypt each attribute in the array as required.
+     *
+     * @param array $attributes
+     *
+     * @return array
+     */
+    public function doDecryptAttributes($attributes)
+    {
+        foreach ($attributes as $key => $value) {
+            $attributes[$key] = $this->doDecryptAttribute($key, $value);
+        }
+
         return $attributes;
+    }
+
+    //
+    // Methods below here override methods within the base Laravel/Illuminate/Eloquent
+    // model class and may need adjusting for later releases of Laravel.
+    //
+
+    /**
+     * Set a given attribute on the model.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return void
+     */
+    public function setAttribute($key, $value)
+    {
+        parent::setAttribute($key, $value);
+
+        $this->doEncryptAttribute($key);
+    }
+
+    /**
+     * Get an attribute from the $attributes array.
+     *
+     * @param string $key
+     *
+     * @return mixed
+     */
+    protected function getAttributeFromArray($key)
+    {
+        return $this->doDecryptAttribute($key, parent::getAttributeFromArray($key));
+    }
+
+    /**
+     * Get an attribute array of all arrayable attributes.
+     *
+     * @return array
+     */
+    protected function getArrayableAttributes()
+    {
+        return $this->doDecryptAttributes(parent::getArrayableAttributes());
+    }
+
+    /**
+     * Get all of the current attributes on the model.
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->doDecryptAttributes(parent::getAttributes());
     }
 }

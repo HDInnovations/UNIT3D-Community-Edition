@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 /*
@@ -26,7 +26,7 @@
 | Website (Not Authorized)
 |------------------------------------------
 */
-Route::group(['before' => 'auth', 'middleware' =>'guest'], function () {
+Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login')->name('');
@@ -108,12 +108,13 @@ Route::group(['middleware' => 'auth'], function () {
     // About Us
     Route::any('/aboutus', 'PageController@about')->name('about');
 
-    // Commentaires
+    // Comments
     Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
     Route::any('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
-    Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
+    Route::any('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
     Route::any('/comment/request/{id}', 'CommentController@request')->name('comment_request');
-    Route::get('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
+    Route::any('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
+    Route::any('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
     //Extra-Stats
     Route::get('/stats', 'StatsController@index')->name('stats');

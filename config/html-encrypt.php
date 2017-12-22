@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 /*
 |--------------------------------------------------------------------------
 | HTML Encrypt
@@ -22,6 +22,6 @@ return [
     // By default, the ecnvryption is set to true
     'encrypt' => env('HTML_ENCRYPT', true),
 
-    'disable_right_click'       => true,
-    'disable_ctrl_and_F12_key'  => true,
+    'disable_right_click' => true,
+    'disable_ctrl_and_F12_key' => true,
 ];

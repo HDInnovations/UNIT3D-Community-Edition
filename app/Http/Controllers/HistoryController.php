@@ -7,12 +7,12 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
 
 class HistoryController extends Controller
 {
-  //
+    //
 }

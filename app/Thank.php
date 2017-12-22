@@ -7,25 +7,25 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Thank extends Model
 {
-  protected $fillable = [
-    'user_id', 'torrent_id'
-  ];
+    protected $fillable = [
+        'user_id', 'torrent_id'
+    ];
 
-  /**
-   * Belongs to Torrent
-   *
-   */
-  public function torrent()
-  {
-      return $this->belongsTo(\App\Torrent::class);
-  }
+    /**
+     * Belongs to Torrent
+     *
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(\App\Torrent::class);
+    }
 }

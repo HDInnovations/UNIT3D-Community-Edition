@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,18 +17,18 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = "groups";
 
     /**
-    * Mass assignment fields
-    *
-    */
+     * Mass assignment fields
+     *
+     */
     protected $fillable = [
-      'name', 'color', 'icon'
+        'name', 'color', 'icon'
     ];
 
     public $timestamps = false;
@@ -52,9 +52,9 @@ class Group extends Model
     }
 
     /**
-    * Returns the requested row from the permissions table
-    *
-    */
+     * Returns the requested row from the permissions table
+     *
+     */
     public function getPermissionsByForum($forum)
     {
         return Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $this->id])->first();

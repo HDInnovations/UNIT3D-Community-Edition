@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class LockAccountController extends Controller
             'password' => 'required|string',
         ]);
 
-        if(\Hash::check($password, \Auth::user()->password)){
+        if (\Hash::check($password, \Auth::user()->password)) {
             $request->session()->forget('locked');
             return redirect()->route('home')->with(Toastr::success('Your Account Has Been Unlocked Successfully!', 'Yay!', ['options']));
         }

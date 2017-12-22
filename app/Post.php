@@ -7,7 +7,7 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
 
 namespace App;
@@ -78,7 +78,7 @@ class Post extends Model
      * Returns the cut content for the home page
      *
      * @access public
-     * @param $length 
+     * @param $length
      * @param ellipses
      * @param strip_html Remove HTML tags from string
      * @return string Formatted and cutted content

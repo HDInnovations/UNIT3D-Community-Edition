@@ -7,25 +7,25 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class UserFreeleech extends Model
 {
-  /**
-  * The database table used by the model.
-  *
-  * @var string
-  */
-  protected $table = 'user_freeleech';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'user_freeleech';
 
-  /**
-  * Mass assignment fields
-  *
-  */
-  protected $fillable = ['user_id'];
+    /**
+     * Mass assignment fields
+     *
+     */
+    protected $fillable = ['user_id'];
 }

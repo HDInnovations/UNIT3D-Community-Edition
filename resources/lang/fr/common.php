@@ -1,25 +1,39 @@
-<?php 
-/**
- * Common.php FR
- *
- */
-return array(
+<?php
+/*
+|--------------------------------------------------------------------------
+| Common Language Lines
+|--------------------------------------------------------------------------
+*/
+
+return [
 	'home' => 'Accueil',
 	'account' => 'Compte',
-	'login' => 'Connexion',
-	'signup' => 'Inscription',
-	'logout' => 'Déconnexion',
-	'username' => 'Nom d\'utilisateur',
-	'password' => 'Mot de passe',
-	'download' => 'Télécharger', 
+	'username' => 'Username',
+	'password' => 'Password',
+	'download' => 'Télécharger',
+	'upload' => 'Télécharger',
+	'ratio' => 'Rapport',
+	'warnings' => 'Avertissements',
 	'members' => 'Membres',
-	'name' => 'Nom',
-	'times' => 'fois', // Times completed (fois)
+	'navigation' => 'Navigation',
+	'notifications' => 'Notifications',
 	'added_on' => 'Ajouté le',
-	'lost-password' => 'Mot de passe oublié ?',
-	'recover-my-password' => 'Récupération de mot de passe',
-	'search' => 'Recherche',
-	'category' => 'Catégorie',
-	
-);
-?>
+	'search' => 'Chercher',
+	'quick-search' => 'Recherche rapide',
+	'submit' => 'Soumettre',
+	'comment' => 'Commentaire',
+	'view-all' => 'Voir tout',
+	'preview' => 'Aperçu',
+	'edit' => 'modifier',
+	'delete' => 'Effacer',
+	'pending' => 'en attendant',
+	'stats' => 'Statistiques',
+	'extra-stats' => 'Statistiques supplémentaires',
+	'rules' => 'Règles',
+	'faq' => 'FAQ',
+	'report' => 'rapport',
+	'bug' => 'Signaler un bug',
+	'results' => 'Résultats',
+	'contact' => 'Contact',
+	'about' => 'À propos de nous',
+];

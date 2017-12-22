@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $catalog->name }} - Torrents - {{ Config::get('other.title') }}</title>
+<title>{{ $catalog->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('meta')
@@ -11,12 +11,12 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Catalogs</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
     </a>
 </li>
 <li class="active">
   <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Catalog</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
   </a>
 </li>
 @stop
@@ -25,7 +25,7 @@
 <div class="container box">
   <div class="header gradient pink">
     <div class="inner_content">
-      <h1>Movies in {{ $catalog->name }} Catalog</h1>
+      <h1>Movies in {{ $catalog->name }} {{ trans('torrent.catalog') }}</h1>
     </div>
   </div>
   @foreach($records as $r)

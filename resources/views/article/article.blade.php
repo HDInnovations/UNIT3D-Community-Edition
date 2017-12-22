@@ -1,7 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $article->title }} - Articles - {{ Config::get('other.title') }}</title>
+<title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ Config::get('other.title') }}</title>
+@stop
+
+@section('stylesheets')
+<link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
 @stop
 
 @section('meta')
@@ -11,7 +15,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Articles</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('articles.articles') }}</span>
     </a>
 </li>
 <li>
@@ -42,10 +46,10 @@
         {{ Form::open(array('route' => array('comment_article', 'slug' => $article->slug, 'id' => $article->id))) }}
         {{ csrf_field() }}
             <div class="form-group">
-                <label for="content">Your comment:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
-                <textarea name="content" cols="30" rows="5" class="form-control"></textarea>
+                <label for="content">Your {{ trans('common.comment') }}:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
+                <textarea name="content" id="content" cols="30" rows="5" class="form-control"></textarea>
             </div>
-            <button type="submit" class="btn btn-default">Save my comment</button>
+            <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
         <hr>
     </div>
@@ -70,14 +74,26 @@
         <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
         @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
         <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+        <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
         @endif
         <div class="pt-5">
         @emojione($comment->getContentHtml())
         </div>
       </div>
       </li>
+      @include('partials.modals', ['comment' => $comment])
       @endforeach
       </ul>
     </div>
 </div>
+@stop
+
+@section('javascripts')
+<script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
+<script>
+$(document).ready(function() {
+    var wbbOpt = { }
+    $("#content").wysibb(wbbOpt);
+});
+</script>
 @stop

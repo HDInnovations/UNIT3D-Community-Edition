@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -17,16 +17,16 @@ use Illuminate\Database\Eloquent\Model;
 class Graveyard extends Model
 {
     /**
-    * The database table used by the model.
-    *
-    * @var string
-    */
+     * The database table used by the model.
+     *
+     * @var string
+     */
     protected $table = "graveyard";
 
     /**
-    * Mass assignment fields
-    *
-    */
+     * Mass assignment fields
+     *
+     */
     protected $fillable = [
         'user_id', 'torrent_id', 'seedtime'
     ];

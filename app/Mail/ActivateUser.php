@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Mail;
 
 use App\User;
@@ -56,9 +56,9 @@ class ActivateUser extends Mailable
             ->view('emails.activate')
             ->text('emails.activate-plain')
             ->with([
-                'to'      => $this->user->email,
+                'to' => $this->user->email,
                 'subject' => $this->subject,
-                'code'    => $this->code,
+                'code' => $this->code,
             ]);
     }
 }

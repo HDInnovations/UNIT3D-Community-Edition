@@ -7,12 +7,12 @@
 @section('breadcrumb')
 <li>
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
     </a>
 </li>
 <li>
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }}</span>
     </a>
 </li>
 <li>
@@ -67,6 +67,7 @@
       @endif
   <strong>Torrent Status: </strong>
       @if($torrent->isRejected())<span class="badge-extra text-red"><i class="fa fa-times"></i> REJECTED</span>
+      @elseif($torrent->isPending())<span class="badge-extra text-orange"><i class="fa fa-times"></i> PENDING</span>
       @else<span class="badge-extra text-green"><i class="fa fa-check"></i> APPROVED</span>
       @endif
   </center>

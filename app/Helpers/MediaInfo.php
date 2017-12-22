@@ -7,9 +7,9 @@
  *
  * @project    UNIT3D
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     BluCrew
+ * @author     HDVinnie
  */
- 
+
 namespace App\Helpers;
 
 class MediaInfo
@@ -294,13 +294,13 @@ class MediaInfo
 
     private function computerSize($number, $size)
     {
-        $bytes = (float) $number;
+        $bytes = (float)$number;
         $size = strtolower($size);
 
         $factors = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
         if (isset($factors[$size])) {
-            return (float) number_format($bytes * pow(1024, $factors[$size]), 2, '.', '');
+            return (float)number_format($bytes * pow(1024, $factors[$size]), 2, '.', '');
         }
 
         return $bytes;
