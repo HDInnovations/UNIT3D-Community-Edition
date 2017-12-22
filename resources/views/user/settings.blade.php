@@ -34,7 +34,7 @@
       {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
       {{ csrf_field() }}
         <div class="form-group">
-          <label for="language" class="col-sm-3 control-label">Language</label>
+          <label for="language" class="control-label">Language</label>
             <select class="form-control" id="language" name="language">
               <option value="English">English</option>
             </select>
@@ -43,11 +43,15 @@
         <h3>Style Settings</h3>
         <hr>
         <div class="form-group">
-          <label for="theme" class="col-sm-3 control-label">Theme</label>
+          <label for="theme" class="control-label">Theme</label>
             <select class="form-control" id="theme" name="theme">
               <option @if($user->style == 0) selected @endif value="0">Default Theme</option>
               <option @if($user->style == 1) selected @endif value="1">Dark Theme</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="custom_css" class="control-label">External CSS Stylesheet</label>
+            <input type="text" name="custom_css" class="form-control" value="@if($user->custom_css) {{ $user->custom_css }}@endif" placeholder="CSS URL">
         </div>
         <label for="sidenav" class="control-label">Side Navigation</label>
         <div class="radio-inline">
@@ -56,6 +60,8 @@
         <div class="radio-inline">
             <label><input type="radio" name="sidenav" @if($user->nav == 0) checked @endif value="0">Compact</label>
         </div>
+        <br>
+        <br>
 
         <h3>Privacy Settings</h3>
         <hr>
