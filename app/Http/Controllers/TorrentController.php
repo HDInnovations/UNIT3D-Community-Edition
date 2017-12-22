@@ -483,24 +483,36 @@ class TorrentController extends Controller
             $featured = null;
         }
 
+        $general = null;
+        $video = null;
+        $settings = null;
+        $audio = null;
+        $general_crumbs = null;
+        $text_crumbs = null;
+        $subtitle = null;
+        $view_crumbs = null;
+        $video_crumbs = null;
+        $settings = null;
+        $audio_crumbs = null;
+        $subtitle = null;
+        $subtitle_crumbs = null;
         if ($torrent->mediainfo != null) {
             $parser = new \App\Helpers\MediaInfo;
             $parsed = $parser->parse($torrent->mediainfo);
+            $view_crumbs = $parser->prepareViewCrumbs($parsed);
             $general = $parsed['general'];
+            $general_crumbs = $view_crumbs['general'];
             $video = $parsed['video'];
-            $settings = $parsed['video'][0];
+            $video_crumbs = $view_crumbs['video'];
+            $settings = ($parsed['video'] !== NULL && isset($parsed['video'][0]) && isset($parsed['video'][0]['encoding_settings'])) ? $parsed['video'][0]['encoding_settings'] : NULL;
             $audio = $parsed['audio'];
+            $audio_crumbs = $view_crumbs['audio'];
             $subtitle = $parsed['text'];
-        } else {
-            $general = null;
-            $video = null;
-            $settings = null;
-            $audio = null;
-            $subtitle = null;
+            $subtitle_crumbs = $view_crumbs['text'];
         }
 
         return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar,
-            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general,
+            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader]);
     }
 

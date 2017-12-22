@@ -267,36 +267,74 @@
             <div class="panel-body torrent-desc">
                 <center><span class="text-bold text-blue">@emojione(':blue_heart:') Media Info Output @emojione(':blue_heart:')</span></center>
                 <br>
-                <span class="text-bold text-blue">@emojione(':name_badge:') FILE:</span>
-                <span class="text-bold"><em>{{ $general['file_name'] }}</em></span>
-                <br>
-                <br>
-                <span class="text-bold text-blue">@emojione(':information_source:') GENERAL:</span>
-                <span class="text-bold"><em>{{ ucfirst($general['format']) }} /  {{ $general['duration'] }}</em></span>
-                <br>
-                <br>
-                @foreach($video as $key => $v)
-                <span class="text-bold text-blue">@emojione(':projector:') VIDEO:</span>
-                <span class="text-bold"><em>{{ strtoupper($v['format']) }} / {{ $v['width'] }} x {{ $v['height'] }} / {{ $v['aspect_ratio'] }} / {{ $v['frame_rate'] }} / {{ $v['bit_depth'] }} / {{ $v['bit_rate'] }} / {{ $v['format_profile'] }} / {{ $v['scan_type'] }}</em></span>
-                <br>
-                <br>
-                @endforeach
-                @foreach($audio as $key => $a)
-                  <span class="text-bold text-blue">@emojione(':loud_sound:') AUDIO {{ ++$key }}:</span>
-                  <span class="text-bold"><em>{{ ucfirst($a['language']) }} / {{ strtoupper($a['format']) }} / {{ $a['channels'] }} / {{ $a['bit_rate'] }}</em></span>
+                @if($general !== null && isset($general['file_name']))
+                  <span class="text-bold text-blue">@emojione(':name_badge:') FILE:</span>
+                  <span class="text-bold"><em>{{ $general['file_name'] }}</em></span>
                   <br>
-                @endforeach
+                  <br>
+                @endif
+                @if($general_crumbs !== null)
+                  <span class="text-bold text-blue">@emojione(':information_source:') GENERAL:</span>
+                  <span class="text-bold"><em>
+                      @foreach($general_crumbs as $crumb)
+                        {{ $crumb }}
+                        @if(!$loop->last)
+                          /
+                        @endif
+                      @endforeach
+                    </em></span>
+                  <br>
+                  <br>
+                @endif
+                @if($video_crumbs !== null)
+                  @foreach($video_crumbs as $key => $v)
+                    <span class="text-bold text-blue">@emojione(':projector:') VIDEO:</span>
+                    <span class="text-bold"><em>
+                        @foreach($v as $crumb)
+                          {{ $crumb }}
+                          @if(!$loop->last)
+                            /
+                          @endif
+                        @endforeach
+                      </em></span>
+                    <br>
+                    <br>
+                  @endforeach
+                @endif
+                @if($audio_crumbs !== null)
+                  @foreach($audio_crumbs as $key => $a)
+                  <span class="text-bold text-blue">@emojione(':loud_sound:') AUDIO {{ ++$key }}:</span>
+                  <span class="text-bold"><em>
+                      @foreach($a as $crumb)
+                        {{ $crumb }}
+                        @if(!$loop->last)
+                          /
+                        @endif
+                      @endforeach
+                    </em></span>
+                  <br>
+                  @endforeach
+                @endif
                 <br>
-                @foreach($subtitle as $key => $s)
-                <span class="text-bold text-blue">@emojione(':speech_balloon:') SUBTITLE {{ ++$key }}:</span>
-                <span class="text-bold"><em>{{ ucfirst($s['language']) }} / {{ $s['codec'] }}</em></span>
-                <br>
-                @endforeach
-                {{--@if($settings['encoding_settings'])
+                @if($text_crumbs !== null)
+                  @foreach($subtitle as $key => $s)
+                  <span class="text-bold text-blue">@emojione(':speech_balloon:') SUBTITLE {{ ++$key }}:</span>
+                  <span class="text-bold"><em>
+                      @foreach($s as $crumb)
+                          {{ $crumb }}
+                          @if(!$loop->last)
+                            /
+                        @endif
+                      @endforeach
+                    </em></span>
+                  <br>
+                  @endforeach
+                @endif
+                {{--@if($settings)
                 <br>
                 <span class="text-bold text-blue">@emojione(':gear:') ENCODE SETTINGS:</span>
                 <br>
-                <div class="decoda-code text-black">{{ $settings['encoding_settings'] }}</div>
+                <div class="decoda-code text-black">{{ $settings }}</div>
                 @endif--}}
                 <br>
                 <br>

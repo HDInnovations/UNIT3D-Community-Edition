@@ -152,7 +152,7 @@
 
       <center>
         <button type="submit" name="preview" value="true" id="preview" class="btn btn-warning">Preview</button>
-        <button id="add" class="btn btn-default" disabled>Add MediaInfo Parser</button>
+        <button id="add" class="btn btn-default">Add MediaInfo Parser</button>
         <button type="submit" name="post" value="true" id="post" class="btn btn-primary">Upload</button>
       </center>
         <br>
