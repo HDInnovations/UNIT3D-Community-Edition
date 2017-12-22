@@ -14,7 +14,7 @@ class AddCustomCssToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('custom_css')->nullable();
+            $table->string('custom_css')->after('nav')->nullable();
         });
     }
 
