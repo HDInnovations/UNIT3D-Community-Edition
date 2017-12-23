@@ -38,9 +38,11 @@ class TorrentTools
      */
     public static function moveAndDecode($torrentFile)
     {
+        self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
+        self::$decodedTorrent['info']['source'] = config('other.source');
+        $encoded = Bencode::bencode(self::$decodedTorrent);
         self::$fileName = uniqid() . '.torrent'; // Generate a unique name
-        $torrentFile->move(getcwd() . '/files/torrents/', self::$fileName); // Move
-        self::$decodedTorrent = Bencode::bdecode_file(getcwd() . '/files/torrents/' . self::$fileName);
+        file_put_contents(getcwd() . '/files/torrents/' . self::$fileName, $encoded); // Create torrent
     }
 
     /**
