@@ -32,7 +32,7 @@
               </span>&nbsp;<span class="text-muted"><small><em>{{ $messages->created_at->diffForHumans() }}</em></small></span>
               </h4>
               <p class="message-content">
-                @if(Auth::user()->group->is_modo)
+                @if(Auth::user()->group->is_modo || $messages->poster->id == Auth::user()->id )
                   <a title="Delete Shout" href="{{route('shout-delete',['id' => $messages->id])}}"><i class="pull-right fa fa-lg fa-times"></i></a>
                 @endif
 

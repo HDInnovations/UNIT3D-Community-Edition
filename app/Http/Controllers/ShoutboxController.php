@@ -126,7 +126,7 @@ class ShoutboxController extends Controller
                     $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
                 }
 
-                if (Auth::user()->group->is_modo) {
+                if (Auth::user()->group->is_modo || $messages->poster->id == Auth::user()->id) {
                     $flag = true;
                     $appurl = env('APP_URL', 'http://unit3d.site');
                     $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $messages->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
@@ -167,8 +167,8 @@ class ShoutboxController extends Controller
      */
     public function deleteShout($id)
     {
-        if (Auth::user()->group->is_modo) {
-            $shout = Shoutbox::find($id);
+        $shout = Shoutbox::find($id);
+        if (Auth::user()->group->is_modo || Auth::user()->id == $shout->poster->id) {
             Shoutbox::where('id', '=', $id)->delete();
             Cache::forget('shoutbox_messages');
             return redirect()->back()->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
