@@ -35,10 +35,10 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if (!$user->active) {
+        if (!$user->active || $user->group_id == 1) {
             $this->guard()->logout();
 
-            return redirect('login')->with(Toastr::warning('This account is not activated, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" link on the login page.', 'Whoops!', ['options']));
+            return redirect('login')->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
         if ($user->group_id == 5) {
             $this->guard()->logout();
