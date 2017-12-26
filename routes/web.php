@@ -45,7 +45,9 @@ Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
 
     // Announce
     Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
+});
 
+Route::group(['before' => 'auth'], function () {
     // RSS
     Route::get('/rss/{passkey}', function () {
         return abort(307);
