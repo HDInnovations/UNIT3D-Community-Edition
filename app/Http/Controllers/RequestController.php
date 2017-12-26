@@ -270,6 +270,7 @@ class RequestController extends Controller
 
                 $requests->votes += 1;
                 $requests->bounty += Request::get('bonus_value');
+                $requests->created_at = Carbon::now();
                 $requests->save();
 
                 $requestsBounty = new RequestsBounty([
