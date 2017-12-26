@@ -39,5 +39,6 @@ return [
     'community' => 'Community',
     'buffer' => 'Buffer',
 	'times' => 'Times',
-	'name' => 'Name'
+	'name' => 'Name',
+	'add' => 'Add'
 ];

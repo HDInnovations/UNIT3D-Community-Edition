@@ -25,6 +25,7 @@ class Type extends Model
     public $rules = [
         'name' => 'required',
         'slug' => 'required',
+        'position' => 'required'
     ];
 
     /**

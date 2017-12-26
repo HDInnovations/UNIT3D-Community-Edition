@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
+use \Toastr;
+
 class TypeController extends Controller
 {
 
@@ -30,7 +32,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::all()->sortBy('position');
 
         return view('Staff.type.index', ['types' => $types]);
     }
@@ -46,12 +48,13 @@ class TypeController extends Controller
             $type = new Type();
             $type->name = Request::get('name');
             $type->slug = str_slug($type->name);
+            $type->position = Request::get('position');
             $v = Validator::make($type->toArray(), $type->rules);
             if ($v->fails()) {
-                Session::put('message', 'An error has occurred');
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $type->save();
-                return Redirect::route('staff_type_index')->with('message', 'Type sucessfully added');
+                return Redirect::route('staff_type_index')->with(Toastr::info('Type Sucessfully Added', 'Yay!', ['options']));
             }
         }
         return view('Staff.type.add');
@@ -68,12 +71,13 @@ class TypeController extends Controller
         if (Request::isMethod('post')) {
             $type->name = Request::get('name');
             $type->slug = str_slug($type->name);
+            $type->position = Request::get('position');
             $v = Validator::make($type->toArray(), $type->rules);
             if ($v->fails()) {
-                Session::put('message', 'An error has occurred');
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $type->save();
-                return Redirect::route('staff_type_index')->with('message', 'Type sucessfully modified');
+                return Redirect::route('staff_type_index')->with(Toastr::info('Type Sucessfully Modified', 'Yay!', ['options']));
             }
         }
 
@@ -89,6 +93,6 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->delete();
-        return Redirect::route('staff_type_index')->with('message', 'Type successfully deleted');
+        return Redirect::route('staff_type_index')->with(Toastr::warning('Type Sucessfully Deleted', 'Yay!', ['options']));
     }
 }
