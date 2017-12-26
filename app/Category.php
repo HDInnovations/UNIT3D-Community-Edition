@@ -13,7 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Decoda\Decoda;
 
 class Category extends Model
 {
@@ -26,8 +25,7 @@ class Category extends Model
     public $rules = [
         'name' => 'required|unique:categories',
         'slug' => 'required|unique:categories',
-        'image' => '',
-        'description' => '',
+        'icon' => 'required'
     ];
 
     /**
@@ -49,17 +47,4 @@ class Category extends Model
         return $this->hasMany(\App\Requests::class);
     }
 
-    /**
-     * Parse content and return valid HTML
-     *
-     */
-    public function getContentHtml()
-    {
-        $code = new Decoda($this->content);
-        $code->defaults();
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
-    }
 }

@@ -217,14 +217,7 @@
 
         <tr>
           <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
-          <td>
-            @if($torrent->category_id == "1")
-            <i class="fa fa-film torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i> {{ $torrent->category->name }}
-            @elseif($torrent->category_id == "2")
-            <i class="fa fa-tv torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>{{ $torrent->category->name }}
-            @else
-            <i class="fa fa-video-camera torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i> {{ $torrent->category->name }}
-            @endif
+          <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="{{ $torrent->category->name }} Torrent"></i> {{ $torrent->category->name }}</td>
         </tr>
 
         <tr>

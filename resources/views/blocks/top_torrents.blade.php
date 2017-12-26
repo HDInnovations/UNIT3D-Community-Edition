@@ -31,15 +31,7 @@
             <tbody>
               @foreach($torrents as $t)
               <tr class="">
-                <td>
-                  @if($t->category_id == "1")
-                  <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-                  @elseif($t->category_id == "2")
-                  <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-                  @else
-                  <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-                  @endif
-                </td>
+                <td><i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} Torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>
@@ -90,15 +82,7 @@
             <tbody>
               @foreach($best as $b)
               <tr class="">
-                <td>
-                  @if($b->category_id == "1")
-                  <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-                  @elseif($b->category_id == "2")
-                  <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-                  @else
-                  <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-                  @endif
-                </td>
+                <td><i class="{{ $b->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $b->category->name }} Torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>
@@ -149,15 +133,7 @@
             <tbody>
               @foreach($leeched as $l)
               <tr class="">
-                <td>
-                  @if($l->category_id == "1")
-                  <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-                  @elseif($l->category_id == "2")
-                  <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-                  @else
-                  <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-                  @endif
-                </td>
+                <td><i class="{{ $l->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $l->category->name }} Torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>
@@ -210,15 +186,7 @@
             <tbody>
               @foreach($dying as $d)
               <tr class="">
-                <td>
-                  @if($d->category_id == "1")
-                  <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-                  @elseif($d->category_id == "2")
-                  <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-                  @else
-                  <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-                  @endif
-                </td>
+                <td><i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $d->category->name }} Torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>
@@ -271,15 +239,7 @@
             <tbody>
               @foreach($dead as $d)
               <tr class="">
-                <td>
-                  @if($d->category_id == "1")
-                  <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-                  @elseif($d->category_id == "2")
-                  <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-                  @else
-                  <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-                  @endif
-                </td>
+                <td><i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $d->category->name }} Torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>

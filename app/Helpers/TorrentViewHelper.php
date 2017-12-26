@@ -52,13 +52,7 @@ class TorrentViewHelper
 
             $category_link = route('category', ['slug' => $list->category->slug, 'id' => $list->category->id]);
 
-            if ($list->category_id == '1') {
-                $category = "<i class='fa fa-film torrent-icon' data-toggle='tooltip' title='' data-original-title='Movie Torrent'></i>";
-            } elseif ($list->category_id == '2') {
-                $category = "<i class='fa fa-tv torrent-icon' data-toggle='tooltip' title='' data-original-title='TV-Show Torrent'></i>";
-            } else {
-                $category = "<i class='fa fa-video-camera torrent-icon' data-toggle='tooltip' title='' data-original-title='FANRES Torrent'></i>";
-            }
+            $category = "<i class='{$list->category->icon} torrent-icon' data-toggle='tooltip' title='' data-original-title='{$list->category->name} Torrent'></i>";
 
             $torrent_link = route('torrent', ['slug' => $list->slug, 'id' => $list->id]);
             $download_check_link = route('download_check', ['slug' => $list->slug, 'id' => $list->id]);

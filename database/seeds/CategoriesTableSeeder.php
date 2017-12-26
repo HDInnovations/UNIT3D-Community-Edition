@@ -32,6 +32,7 @@ class CategoriesTableSeeder extends Seeder
                     'id' => 1,
                     'name' => 'Movies',
                     'slug' => 'movies',
+                    'icon' => 'fa fa-film',
                     'num_torrent' => 0,
                 ),
             1 =>
@@ -39,6 +40,7 @@ class CategoriesTableSeeder extends Seeder
                     'id' => 2,
                     'name' => 'TV',
                     'slug' => 'tv',
+                    'icon' => 'fa fa-television',
                     'num_torrent' => 0,
                 ),
             2 =>
@@ -46,6 +48,7 @@ class CategoriesTableSeeder extends Seeder
                     'id' => 3,
                     'name' => 'FANRES',
                     'slug' => 'fanres',
+                    'icon' => 'fa fa-video-camera',
                     'num_torrent' => 0,
                 ),
         ));

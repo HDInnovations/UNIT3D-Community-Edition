@@ -17,8 +17,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+
+use \Toastr;
 
 class CategoryController extends Controller
 {
@@ -46,14 +47,13 @@ class CategoryController extends Controller
             $category = new Category();
             $category->name = Request::get('name');
             $category->slug = str_slug($category->name);
-            //$category->image = '';
-            //$category->description = Request::get('description');
+            $category->icon = Request::get('icon');
             $v = Validator::make($category->toArray(), $category->rules);
             if ($v->fails()) {
-                Session::put('message', 'An error has occurred');
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with('message', 'Category sucessfully added');
+                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Added', 'Yay!', ['options']));
             }
         }
         return view('Staff.category.add');
@@ -70,14 +70,13 @@ class CategoryController extends Controller
         if (Request::isMethod('post')) {
             $category->name = Request::get('name');
             $category->slug = str_slug($category->name);
-            //$category->image = '';
-            //$category->description = Request::get('description');
+            $category->icon = Request::get('icon');
             $v = Validator::make($category->toArray(), $category->rules);
             if ($v->fails()) {
-                Session::put('message', 'An error has occurred');
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with('message', 'Category sucessfully modified');
+                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Modified', 'Yay!', ['options']));
             }
         }
 
@@ -93,6 +92,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return Redirect::route('staff_category_index')->with('message', 'Category successfully deleted');
+        return Redirect::route('staff_category_index')->with(Toastr::warning('Category Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

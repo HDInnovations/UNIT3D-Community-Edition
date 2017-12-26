@@ -27,6 +27,7 @@ class CreateCategoriesTable extends Migration
             $table->integer('id', true);
             $table->string('name');
             $table->string('slug');
+            $table->string('icon');
             $table->integer('num_torrent')->default(0);
         });
     }
