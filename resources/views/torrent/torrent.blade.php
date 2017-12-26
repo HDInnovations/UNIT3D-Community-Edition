@@ -247,6 +247,15 @@
             <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View {{ trans('torrent.history') }}</a></span>
           </td>
         </tr>
+
+        @if($torrent->seeders == 0)
+        <tr>
+          <td class="col-sm-2"><strong>Last Seed Activity</strong></td>
+          <td>
+            <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> {{ $last_seed_activity->updated_at->diffForHumans() }}</span>
+          </td>
+        </tr>
+        @endif
       </tbody>
     </table>
   </div>

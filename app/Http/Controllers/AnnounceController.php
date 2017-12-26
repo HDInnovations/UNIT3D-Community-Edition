@@ -263,7 +263,7 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
             $history->active = false;
-            $history->seeder = false;
+            $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
