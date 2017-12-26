@@ -252,7 +252,11 @@
         <tr>
           <td class="col-sm-2"><strong>Last Seed Activity</strong></td>
           <td>
+            @if($last_seed_activity)
             <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> {{ $last_seed_activity->updated_at->diffForHumans() }}</span>
+            @else
+            <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> Unknown</span>
+            @endif
           </td>
         </tr>
         @endif
