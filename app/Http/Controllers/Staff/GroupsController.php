@@ -13,9 +13,12 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 use App\Group;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Input;
+
 use \Toastr;
 
 class GroupsController extends Controller
@@ -30,7 +33,7 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $groups = Group::orderBy('name', 'ASC')->get();
+        $groups = Group::all()->sortBy('position');
 
         return view('Staff.groups.index', ['groups' => $groups]);
     }
@@ -40,21 +43,29 @@ class GroupsController extends Controller
      *
      *
      */
-    public function add()
+    public function add(Request $request)
     {
-        if (Request::isMethod('POST')) {
+        if ($request->isMethod('POST')) {
             $group = new Group();
-            $group->name = Request::get('group_name');
-            $group->color = Request::get('group_color');
-            $group->icon = Request::get('group_icon');
-            $group->is_modo = 0;
-            $group->is_admin = 0;
-            $group->is_trusted = 0;
-            $group->is_immune = 0;
-            $group->save();
-            return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
-        } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            $group->name = $request->get('group_name');
+            $group->slug = str_slug($request->get('group_name'));
+            $group->position = $request->get('position');
+            $group->color = $request->get('group_color');
+            $group->icon = $request->get('group_icon');
+            $group->effect = $request->get('group_effect');
+            $group->is_modo = $request->get('group_modo');
+            $group->is_admin = $request->get('group_admin');
+            $group->is_trusted = $request->get('group_trusted');
+            $group->is_immune = $request->get('group_immune');
+            $group->is_freeleech = $request->get('group_freeleech');
+            $group->autogroup = $request->get('autogroup');
+            $v = Validator::make($group->toArray(), $group->rules);
+            if ($v->fails()) {
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+            } else {
+                $group->save();
+                return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
+            }
         }
         return view('Staff.groups.add');
     }
@@ -64,22 +75,30 @@ class GroupsController extends Controller
      *
      *
      */
-    public function edit($group, $id)
+    public function edit(Request $request, $group, $id)
     {
         $group = Group::findOrFail($id);
-        if (Request::isMethod('POST')) {
-            $group->name = Request::get('group_name');
-            $group->color = Request::get('group_color');
-            $group->icon = Request::get('group_icon');
-            $group->is_modo = Input::get('group_modo');
-            $group->is_admin = Input::get('group_admin');
-            $group->is_trusted = Input::get('group_trusted');
-            $group->is_immune = Input::get('group_immune');
-            $group->save();
-            return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
-        } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        if ($request->isMethod('POST')) {
+            $group->name = $request->get('group_name');
+            $group->slug = str_slug($group->name);
+            $group->position = $request->get('position');
+            $group->color = $request->get('group_color');
+            $group->icon = $request->get('group_icon');
+            $group->effect = $request->get('group_effect');
+            $group->is_modo = $request->get('group_modo');
+            $group->is_admin = $request->get('group_admin');
+            $group->is_trusted = $request->get('group_trusted');
+            $group->is_immune = $request->get('group_immune');
+            $group->is_freeleech = $request->get('group_freeleech');
+            $group->autogroup = $request->get('autogroup');
+            $v = Validator::make($group->toArray(), $group->rules);
+            if ($v->fails()) {
+                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+            } else {
+                $group->save();
+                return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
+            }
         }
-        return view('Staff.groups.edit');
+        return view('Staff.groups.edit', ['group' => $group]);
     }
 }

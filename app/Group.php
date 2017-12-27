@@ -16,22 +16,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = "groups";
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'name', 'color', 'icon'
-    ];
-
     public $timestamps = false;
+
+    /**
+     * Validation rules
+     *
+     */
+    public $rules = [
+        'name' => 'required',
+        'slug' => 'required',
+        'position' => 'required',
+        'color' => 'required',
+        'icon' => 'required'
+    ];
 
     /**
      * Has many users
