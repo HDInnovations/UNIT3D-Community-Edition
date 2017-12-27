@@ -27,9 +27,9 @@ class CreateGroupsTable extends Migration
             $table->integer('id', true);
             $table->string('name');
             $table->string('slug');
-            $table->integer('position')->nullable();
+            $table->integer('position');
             $table->string('color');
-            $table->string('icon')->nullable();
+            $table->string('icon');
             $table->string('effect')->default('none');
             $table->boolean('is_admin');
             $table->boolean('is_modo');
