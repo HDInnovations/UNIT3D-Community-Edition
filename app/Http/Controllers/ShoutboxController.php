@@ -103,13 +103,17 @@ class ShoutboxController extends Controller
      *
      *
      */
-    public function fetch()
+    public function fetch($since = null)
     {
+        $since = $since ?? 0;
         if (Request::ajax()) {
-            $getData = Cache::remember('shoutbox_messages', 1440, function () {
+            $timestamp = time();
+            $getData = Cache::remember('shoutbox_messages', 1440, function () use ($since) {
                 return Shoutbox::orderBy('created_at', 'desc')->take(50)->get();
             });
-            $getData = $getData->reverse();
+            $getData = $getData->reverse()->filter(function ($value, $key) use ($since) {
+                return strtotime($value->created_at) > $since;
+            });
             $data = [];
             $flag = false;
             foreach ($getData as $messages) {
@@ -156,7 +160,7 @@ class ShoutboxController extends Controller
                        ' . ($flag ? $delete : "") . '
                        </p></li>';
             }
-            return Response::json(['success' => true, 'data' => $data]);
+            return Response::json(['success' => true, 'data' => $data, 'timestamp' => $timestamp]);
         }
     }
 
