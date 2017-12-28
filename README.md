@@ -48,6 +48,7 @@ UNIT3D currently offers the following features:
   - Polls System
   - Extra-Stats
   - PM System
+  - Multilingual Support
   - and MUCH MORE!
 
 ## <a name="requirements"></a> Requirements
