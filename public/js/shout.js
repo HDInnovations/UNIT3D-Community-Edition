@@ -2,6 +2,7 @@ var scollBox = $('.shoutbox');
 var height = 0;
 var next_batch = null;
 var forceScroll = true;
+let messages = $('.chat-messages .list-group');
 
 $("ul li").each(function() {
   height += $(this).outerHeight(true); // to include margins
@@ -18,6 +19,13 @@ $.ajaxSetup({
   }
 });
 
+messages.scroll(function() {
+  forceScroll = false;
+  let scrollTop = messages.scrollTop() + messages.prop('clientHeight');
+  let scrollHeight = messages.prop('scrollHeight');
+  forceScroll = scrollTop >= scrollHeight;
+});
+
 window.setInterval(function() {
   $('.chat-messages .list-group');
   $.ajax({
@@ -30,17 +38,13 @@ window.setInterval(function() {
       next_batch = data.next_batch;
     } else {
       next_batch = data.next_batch;
-      let messages = $('.chat-messages .list-group');
       data.data.forEach(function(h) {
         let message = $(h);
         messages.append(message);
       });
       if (forceScroll) {
-        messages.animate({ scrollTop: messages.prop('scrollHeight') }, 2000);
+        messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
       }
-      let scrollTop = messages.scrollTop() + messages.prop('clientHeight');
-      let scrollHeight = messages.prop('scrollHeight');
-      forceScroll = scrollTop === scrollHeight;
     }
   }
   });
