@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 return [
 
     /*
@@ -120,7 +120,7 @@ return [
         ['short' => 'fa',       'long' => 'fa-FA',      'english' => 'Persian',             'native' => 'Farsi'],
         ['short' => 'fi',       'long' => 'fi-FI',      'english' => 'Finnish',             'native' => 'Suomi'],
         ['short' => 'fr',       'long' => 'fr-FR',      'english' => 'French',              'native' => 'Français'],
-        ['short' => 'el',       'long' => 'el-GR',      'english' => 'Greek',               'native' => 'Ελληνικά'],
+        ['short' => 'gr',       'long' => 'gr-GR',      'english' => 'Greek',               'native' => 'Ελληνικά'],
         ['short' => 'en',       'long' => 'en-AU',      'english' => 'English (AU)',        'native' => 'English (AU)'],
         ['short' => 'en',       'long' => 'en-CA',      'english' => 'English (CA)',        'native' => 'English (CA)'],
         ['short' => 'en',       'long' => 'en-GB',      'english' => 'English (GB)',        'native' => 'English (GB)'],
