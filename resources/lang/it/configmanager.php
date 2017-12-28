@@ -7,19 +7,19 @@
 
 return [
     'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
+    'info_choose' => 'Seleziona un file per iniziare la modifica',
     'file' => 'File',
-    'path' => 'Path',
+    'path' => 'Percorso',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions',
+        'key' => 'Chiave',
+        'value' => 'Valore',
+        'actions' => 'Azioni',
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel',
+        'edit' => 'Modifica',
+        'confirm' => 'Salva una nuova chiave',
+        'save' => 'Salva!',
+        'cancel' => 'Cancella',
     ],
-    'sure' => 'Are you sure?',
+    'sure' => 'Sei sicuro?',
 ];
