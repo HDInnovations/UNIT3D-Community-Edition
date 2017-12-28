@@ -1,6 +1,8 @@
 var scollBox = $('.shoutbox');
 var height = 0;
 var next_batch = null;
+var forceScroll = true;
+
 $("ul li").each(function() {
   height += $(this).outerHeight(true); // to include margins
 });
@@ -33,6 +35,12 @@ window.setInterval(function() {
         let message = $(h);
         messages.append(message);
       });
+      if (forceScroll) {
+        messages.animate({ scrollTop: messages.prop('scrollHeight') }, 2000);
+      }
+      let scrollTop = messages.scrollTop() + messages.prop('clientHeight');
+      let scrollHeight = messages.prop('scrollHeight');
+      forceScroll = scrollTop === scrollHeight;
     }
   }
   });
@@ -50,6 +58,7 @@ $("#chat-message").keypress(function(evt) {
       data: post_data,
       dataType: 'json',
       success: function(data) {
+        forceScroll = true;
         $('#chat-error').addClass('hidden');
         $('#chat-message').removeClass('invalid');
         $('#chat-message').val('');
