@@ -150,6 +150,9 @@
             </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span>
+                    <img src="{{ url('img/flags/'.strtolower(Auth::user()->locale).'.png') }}" class="img-circle" />
+                </span>
               <span>Language <i class=" fa fa-angle-down"></i></span>
             </a>
             <ul class="dropdown-menu ">
