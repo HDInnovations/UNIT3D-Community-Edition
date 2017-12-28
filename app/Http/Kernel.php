@@ -83,5 +83,6 @@ class Kernel extends HttpKernel
         'immune' => \App\Http\Middleware\CheckForImmunity::class,
         'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'language' => \App\Http\Middleware\SetLanguage::class,
+        'censor' => \App\Http\Middleware\LanguageCensor::class,
     ];
 }

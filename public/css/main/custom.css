@@ -22351,3 +22351,18 @@ div.header div.inner_content h1 {
   font-weight: 800;
 	text-align: center;
 }
+.censor {
+  filter:blur(3px);
+}
+
+.censor:hover{
+    -webkit-animation: 0.25s linear forwards censor;
+     -moz-animation: 0.25s linear forwards censor;
+       -o-animation: 0.25s linear forwards censor;
+          animation: 0.25s linear forwards censor;
+}
+
+@-webkit-keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
+   @-moz-keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
+     @-o-keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
+        @keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }

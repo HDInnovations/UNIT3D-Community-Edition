@@ -41,6 +41,7 @@ class Shoutbox extends Model
     {
         $code = new Decoda($message);
         $code->defaults();
+        $code->removeHook('Censor');
         $code->removeHook('Clickable');
         $code->addHook(new ClickableHook());
         $code->setXhtml(false);
