@@ -6,7 +6,7 @@
 */
 
 return [
-    'moderation' => 'Moderation',
+    'moderation' => 'Moderazione',
     'please-moderate' => 'Per favora controlla questo torrent!',
     'you-have' => 'Tu hai',
     'dashboard' => 'Dashboard',
