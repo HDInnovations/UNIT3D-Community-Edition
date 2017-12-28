@@ -10,7 +10,7 @@ return [
 	'bonus' => 'Bonus',
 	'points' => 'Punti',
 	'your-points' => 'I tuoi punti',
-        'store' => 'Store',
+        'store' => 'Negozio',
 	'gift-to' => 'Regala punti bonus a?',
 	'gift' => 'Regala punti bonus',
 	'exchange' => 'Acquisti',
