@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="{{ url('css/nav/hoe.css?v=05') }}">
     <link rel="stylesheet" href="{{ url('css/main/app.css?v=04') }}">
-    <link rel="stylesheet" href="{{ url('css/main/custom.css?v=36') }}">
+    <link rel="stylesheet" href="{{ url('css/main/custom.css?v=37') }}">
     @if(Auth::check()) @if(Auth::user()->style != 0)
     <link rel="stylesheet" href="{{ url('css/main/dark.css?v=02') }}">
     @endif @endif
@@ -148,6 +148,20 @@
                 </li>
               </ul>
             </li>
+            <li class="dropdown hoe-rheader-submenu hoe-header-profile">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span>Language <i class=" fa fa-angle-down"></i></span>
+            </a>
+            <ul class="dropdown-menu ">
+                @foreach (App\Language::allowed() as $code => $name)
+                    <li class="{{ config('language.flags.li_class') }}">
+                        <a href="{{ route('back', ['local' => $code]) }}">
+                            <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">(Active!)</span>@endif
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+          </li>
           </ul>
       </li>
     </div>
