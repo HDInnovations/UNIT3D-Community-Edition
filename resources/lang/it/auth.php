@@ -1,19 +1,19 @@
+
 <?php
 /*
 |--------------------------------------------------------------------------
 | Authentication Language Lines
 |--------------------------------------------------------------------------
 */
-
 return [
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Queste credenziali non sono presenti nei nostri database.',
+    'throttle' => 'Troppi tentativi di accesso. Per favore riprova in :seconds secondi.',
     'login' => 'Login',
-    'signup' => 'Signup',
+    'signup' => 'Registrati',
     'logout' => 'Logout',
     'username' => 'Username',
     'password' => 'Password',
-    'lost-password' => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
-    'remember-me' => 'Remember Me',
+    'lost-password' => 'Hai dimenticato la tua Password?',
+    'recover-my-password' => 'Recupera la Password',
+    'remember-me' => 'Ricordami',
 ];

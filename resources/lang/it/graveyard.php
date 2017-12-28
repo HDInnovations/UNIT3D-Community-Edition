@@ -6,5 +6,5 @@
 */
 
 return [
-    'graveyard' => 'Graveyard',
+    'graveyard' => 'Cimitero',
 ];
