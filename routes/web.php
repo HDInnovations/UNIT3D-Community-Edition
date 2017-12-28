@@ -258,7 +258,7 @@ Route::group(['middleware' => 'auth'], function () {
 */
 Route::group(['prefix' => 'shoutbox', 'middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@home')->name('shoutbox-home');
-    Route::get('/messages/{since?}', 'ShoutboxController@fetch')->name('shoutbox-fetch');
+    Route::get('/messages/{after?}', 'ShoutboxController@fetch')->name('shoutbox-fetch');
     Route::post('/send', 'ShoutboxController@send')->name('shoutbox-send');
     Route::get('/delete/{id}', 'ShoutboxController@deleteShout')->name('shout-delete');
 });
