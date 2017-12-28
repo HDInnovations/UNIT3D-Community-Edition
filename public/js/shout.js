@@ -1,6 +1,6 @@
 var scollBox = $('.shoutbox');
 var height = 0;
-var since = 0;
+var next_batch = null;
 $("ul li").each(function() {
   height += $(this).outerHeight(true); // to include margins
 });
@@ -19,15 +19,15 @@ $.ajaxSetup({
 window.setInterval(function() {
   $('.chat-messages .list-group');
   $.ajax({
-  url: "shoutbox/messages/" + parseInt(since),
+  url: "shoutbox/messages/" + parseInt(next_batch),
   type: 'get',
   data: load_data,
   dataType: 'json',
   success: function(data) {
-    if (since === 0) {
-      since = data.timestamp;
+    if (next_batch === null) {
+      next_batch = data.next_batch;
     } else {
-      since = data.timestamp;
+      next_batch = data.next_batch;
       let messages = $('.chat-messages .list-group');
       data.data.forEach(function(h) {
         let message = $(h);
