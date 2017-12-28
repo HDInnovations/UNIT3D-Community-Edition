@@ -21,6 +21,8 @@
 |
 */
 
+Route::group(['middleware' => 'language'], function () {
+
 /*
 |------------------------------------------
 | Website (Not Authorized)
@@ -221,6 +223,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/{username}.{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
     Route::any('/{username}.{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
     Route::any('/{username}.{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
+
+    // User Language
+    Route::get('/{locale}/back', 'LanguageController@back')->name('back');
 
     // User Clients
     Route::any('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
@@ -441,4 +446,5 @@ Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'modo'], '
     // MassPM
     Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
     Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+});
 });

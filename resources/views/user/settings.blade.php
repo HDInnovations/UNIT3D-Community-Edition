@@ -29,17 +29,8 @@
 
   <div class="tab-content block block-titled">
     <div role="tabpanel" class="tab-pane active" id="welcome">
-      <h3>Language Settings</h3>
-      <hr>
-      {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
-      {{ csrf_field() }}
-        <div class="form-group">
-          <label for="language" class="control-label">Language</label>
-            <select class="form-control" id="language" name="language">
-              <option value="English">English</option>
-            </select>
-        </div>
-
+        
+        {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
         <h3>Style Settings</h3>
         <hr>
         <div class="form-group">
