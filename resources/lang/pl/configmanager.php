@@ -1,25 +1,25 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| Cofig Manager Language Lines
+| Config Manager Language Lines
 |--------------------------------------------------------------------------
 */
 
 return [
-    'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
+    'title' => 'Menadżer konfiguracji',
+    'info_choose' => 'Wybierz plik do edycji',
+    'file' => 'Plik',
+    'path' => 'Ścieżka',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions',
+        'key' => 'Klucz',
+        'value' => 'Wartość',
+        'actions' => 'Akcja',
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel',
+        'edit' => 'Edycja',
+        'confirm' => 'Zapisz nowy klucz',
+        'save' => 'Zapisz!',
+        'cancel' => 'Anuluj',
     ],
-    'sure' => 'Are you sure?',
+    'sure' => 'Na pewno?',
 ];

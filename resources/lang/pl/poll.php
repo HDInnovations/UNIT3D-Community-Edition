@@ -6,14 +6,14 @@
 */
 
 return [
-    'poll' => 'Poll',
-    'polls' => 'Polls',
-    'current' => 'Current Poll(s)',
-    'total' => 'Total Votes Ever',
-    'vote-now' => 'Get Your Vote In Now!',
-    'results' => 'Poll Results',
-    'multiple-choice' => 'This is a multiple choice poll. Select as many answers as you like.',
-    'ip-checking' => 'This poll has duplicate vote checking. You can only vote once.',
-    'vote' => 'Vote',
-    'votes' => 'Votes',
+    'poll' => 'Ankieta',
+    'polls' => 'Ankiety',
+    'current' => 'Aktualne ankiety',
+    'total' => 'Wszystkie głosy',
+    'vote-now' => 'Zagłosuj!',
+    'results' => 'Wynik',
+    'multiple-choice' => 'To jest ankieta wielokrotnego wyboru. Wybierz tyle odpowiedzi ile chcesz.',
+    'ip-checking' => 'Ta ankieta nie dopuszcza podwójnych głosów.',
+    'vote' => 'Zagłosuj',
+    'votes' => 'Głosy',
 ];
