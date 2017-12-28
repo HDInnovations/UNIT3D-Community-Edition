@@ -53,7 +53,7 @@
 <br>
 
 @section('javascripts')
-<script type="text/javascript" src="{{ url('js/shout.js') }}"></script>
+<script type="text/javascript" src="{{ url('js/shout.js?v=02') }}"></script>
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
 <script>
 $(document).ready(function() {
