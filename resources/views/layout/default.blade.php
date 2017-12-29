@@ -433,7 +433,6 @@
           var timer;
 
           function formatUnit(text, v) {
-              console.log(v);
               let suffix = "s";
               if (v === 1) {
                   suffix = "";
