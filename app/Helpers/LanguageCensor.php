@@ -22,14 +22,24 @@ use Config;
  */
 class LanguageCensor
 {
-    static protected function matchWords($string, $word)
+    static protected function isSpecial($c)
+    {
+        $specialChars = " [].;,";
+        return strpos($specialChars, $c) !== false;
+    }
+
+    static protected function matchWordIndexes($string, $word)
     {
         $result = [];
         $length = strlen($word);
+        $string_length = strlen($string);
         $pos = stripos($string, $word, 0);
         while ($pos !== false) {
-            $match = substr($string, $pos, $length);
-            array_push($result, $match);
+            $prev = ($pos === 0) ? ' ' : $string[$pos - 1];
+            $last = ($pos + $length) < $string_length ? $string[$pos + $length] : ' ';
+            if (self::isSpecial($prev) && self::isSpecial($last)) {
+                array_push($result, $pos);
+            }
             $pos = stripos($string, $word, $pos + $length);
         }
 
@@ -47,10 +57,24 @@ class LanguageCensor
     {
         $redactArray = Config::get('censor.redact', []);
         foreach ($redactArray as $word) {
-            foreach (self::matchWords($source, $word) as $match) {
-                $replacement = "<span class='censor'>{$match}</span>";
-                $source = str_replace($match, $replacement, $source);
+            $result = "";
+            $length = strlen($source);
+            $word_length = strlen($word);
+            assert($word_length > 0);
+            $indexes = self::matchWordIndexes($source, $word);
+            $ignore = 0;
+            for ($i = 0; $i < $length; ++$i) {
+                if (count($indexes) > 0 && $indexes[0] == $i) {
+                    $match = substr($source, $indexes[0], $word_length);
+                    $result .= "<span class='censor'>{$match}</span>";
+                    $ignore = $word_length - 1;
+                } elseif ($ignore > 0) {
+                    --$ignore;
+                } else {
+                    $result .= $source[$i];
+                }
             }
+            $source = $result;
         }
 
         $replaceDict = Config::get('censor.replace', []);
