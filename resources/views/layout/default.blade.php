@@ -128,6 +128,23 @@
           </ul>
 
           <ul class="right-navbar">
+              <li class="dropdown hoe-rheader-submenu hoe-header-profile">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span>
+                      <img src="{{ url('img/flags/'.strtolower(Auth::user()->locale).'.png') }}" class="img-circle" />
+                  </span>
+                <span>Language <i class=" fa fa-angle-down"></i></span>
+              </a>
+              <ul class="dropdown-menu ">
+                  @foreach (App\Language::allowed() as $code => $name)
+                      <li class="{{ config('language.flags.li_class') }}">
+                          <a href="{{ route('back', ['local' => $code]) }}">
+                              <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">(Active!)</span>@endif
+                          </a>
+                      </li>
+                  @endforeach
+              </ul>
+            </li>
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span>
@@ -143,28 +160,11 @@
                 <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
                 <li><a href="{{ route('lock') }}"><i class="fa fa-lock"></i>Lock Account</a></li>
                 <li>
-                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-logout"></i>{{ trans('auth.logout') }}</a>
+                  <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                 </li>
               </ul>
             </li>
-            <li class="dropdown hoe-rheader-submenu hoe-header-profile">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span>
-                    <img src="{{ url('img/flags/'.strtolower(Auth::user()->locale).'.png') }}" class="img-circle" />
-                </span>
-              <span>Language <i class=" fa fa-angle-down"></i></span>
-            </a>
-            <ul class="dropdown-menu ">
-                @foreach (App\Language::allowed() as $code => $name)
-                    <li class="{{ config('language.flags.li_class') }}">
-                        <a href="{{ route('back', ['local' => $code]) }}">
-                            <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">(Active!)</span>@endif
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-          </li>
           </ul>
       </li>
     </div>
