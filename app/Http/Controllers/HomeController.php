@@ -72,10 +72,10 @@ class HomeController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->take(5)->get();     // Fetch Latest Forum Posts
 
         //ShoutBox Block
-        $shoutboxItems = Cache::remember('shoutbox_messages', 60, function () {
+        $shoutboxMessages = Cache::remember('shoutbox_messages', 60, function () {
             return Shoutbox::orderBy('created_at', 'desc')->take(50)->get();
         });
-        $shoutboxItems = $shoutboxItems->reverse();
+        $shoutboxMessages = $shoutboxMessages->reverse();
 
         //Online Block
         $user = User::orderBy('username', 'asc')->get();
@@ -86,7 +86,7 @@ class HomeController extends Controller
 
         return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
-            'articles' => $articles, 'shoutboxItems' => $shoutboxItems, 'featured' => $featured]);
+            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured]);
     }
 
     /**
