@@ -1,15 +1,10 @@
 var scollBox = $('.shoutbox');
-var height = 0;
 var next_batch = null;
 var forceScroll = true;
 let messages = $('.chat-messages .list-group');
 
-$("ul li").each(function() {
-  height += $(this).outerHeight(true); // to include margins
-});
-$('.chat-messages .list-group').animate({
-  scrollTop: height
-});
+messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
+
 load_data = {
   'fetch': 1
 };
@@ -42,12 +37,12 @@ window.setInterval(function() {
         let message = $(h);
         messages.append(message);
       });
-      if (forceScroll) {
-        messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
-      }
     }
-  }
-  });
+
+    if (forceScroll) {
+      messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
+    }
+  }});
 }, 3000);
 
 $("#chat-message").keypress(function(evt) {
@@ -66,9 +61,9 @@ $("#chat-message").keypress(function(evt) {
         $('#chat-error').addClass('hidden');
         $('#chat-message').removeClass('invalid');
         $('#chat-message').val('');
-        $('.chat-messages .list-group').animate({
-          scrollTop: height
-        });
+        messages.animate({
+          scrollTop: messages.prop('scrollHeight')
+        }, 0);
       },
       error: function(data) {
         $('#chat-message').addClass('invalid');
