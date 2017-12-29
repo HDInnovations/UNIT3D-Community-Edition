@@ -10,46 +10,19 @@
  * @author     HDVinnie
  */
 
-namespace App\Http\Middleware;
+namespace App\Helpers;
 
-use Closure;
 use Config;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class LanguageCensor
  *
- * A middleware that can replace or redact(blur) words on a page.
+ * A class that can redact/replace words.
  *
  */
 class LanguageCensor
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param string|null              $ability
-     * @param string|null              $boundModelName
-     *
-     * @return mixed
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-     */
-    public function handle($request, Closure $next, $ability = null, $boundModelName = null)
-    {
-        $response = $next($request);
-
-        $content = $response->getContent();
-        $content = $this->censorResponse($content);
-
-        $response->setContent($content);
-
-        return $response;
-    }
-
-    protected function matchWords($string, $word)
+    static protected function matchWords($string, $word)
     {
         $result = [];
         $length = strlen($word);
@@ -64,13 +37,13 @@ class LanguageCensor
     }
 
     /**
-     * Censor the request response.
+     * Censor a text.
      *
      * @param $source
      *
      * @return mixed
      */
-    protected function censorResponse($source)
+    static public function censor($source)
     {
         $redactArray = Config::get('censor.redact', []);
         foreach ($redactArray as $word) {

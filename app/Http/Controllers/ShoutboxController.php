@@ -14,6 +14,7 @@ namespace App\Http\Controllers;
 
 use App\Shoutbox;
 use App\User;
+use App\Helpers\LanguageCensor;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -153,7 +154,7 @@ class ShoutboxController extends Controller
                        </span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
                        </h4>
                        <p class="message-content">
-                       ' . \LaravelEmojiOne::toImage(Shoutbox::getMessageHtml($message->message)) . '
+                       ' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
                        ' . ($flag ? $delete : "") . '
                        </p></li>';
             }

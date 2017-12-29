@@ -256,7 +256,7 @@ Route::group(['middleware' => 'auth'], function () {
 | ShoutBox Routes Group (when authorized)
 |------------------------------------------
 */
-Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth','censor']], function () {
+Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@home')->name('shoutbox-home');
     Route::get('/messages/{after?}', 'ShoutboxController@fetch')->name('shoutbox-fetch');
     Route::post('/send', 'ShoutboxController@send')->name('shoutbox-send');
