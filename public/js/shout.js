@@ -50,9 +50,13 @@ function updateTime() {
     })
 }
 
+var xhr = new XMLHttpRequest();
 function updateMessages() {
   $('.chat-messages .list-group');
-  $.ajax({
+  if(xhr !== 'undefined'){
+     xhr.abort();
+  }
+  xhr = $.ajax({
   url: "shoutbox/messages/" + parseInt(next_batch),
   type: 'get',
   data: load_data,
@@ -75,16 +79,20 @@ function updateMessages() {
   updateTime();
   window.setTimeout(updateMessages, 3000);
 }
-
 window.setTimeout(updateMessages, 3000);
 
+
+var xhr = new XMLHttpRequest();
 $("#chat-message").keypress(function(evt) {
   if (evt.which == 13) {
     var message = $('#chat-message').val();
     post_data = {
       'message': message
     };
-    $.ajax({
+    if(xhr !== 'undefined'){
+       xhr.abort();
+    }
+    xhr = $.ajax({
       url: "shoutbox/send",
       type: 'post',
       data: post_data,
