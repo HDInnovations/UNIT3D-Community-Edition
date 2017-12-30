@@ -146,7 +146,7 @@ class RequestController extends Controller
                 "category_id" => "required|exists:categories,id",
                 "type" => "required",
                 "description" => "required|string",
-                "bounty" => "required|numeric|max:{$user->seedbonus}"
+                "bounty" => "required|numeric|min:0|max:{$user->seedbonus}"
             ]);
 
             if ($v->passes()) {
@@ -262,7 +262,7 @@ class RequestController extends Controller
         if (Request::isMethod('POST') && $user->seedbonus >= 100) {
             $v = Validator::make(Request::all(), [
                 'request_id' => "required|exists:requests,id",
-                'bonus_value' => "required|numeric|max:{$user->seedbonus}",
+                'bonus_value' => "required|numeric|min:0|max:{$user->seedbonus}",
             ]);
 
             if ($v->passes()) {
