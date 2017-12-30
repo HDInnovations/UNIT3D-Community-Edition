@@ -134,15 +134,14 @@ class TorrentController extends Controller
      * @param  Torrent $torrent
      * @return Response
      */
-    public function Bookmark($id)
+    public function bookmark($id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $bookmarks = Auth::user()->bookmarks();
-        if ($bookmarks->where('torrent_id', '=', $torrent->id)->first() === null) {
-            $bookmarks->attach($torrent->id);
-            return back()->with(Toastr::success('Torrent Has Been Bookmarked Successfully!', 'Yay', ['options']));
-        } else {
+        if (Auth::user()->hasBookmarked($torrent->id)) {
             return back()->with(Toastr::error('Torrent has already been bookmarked.', 'Error', ['options']));
+        } else {
+            Auth::user()->bookmarks()->attach($torrent->id);
+            return back()->with(Toastr::success('Torrent Has Been Bookmarked Successfully!', 'Yay', ['options']));
         }
     }
 

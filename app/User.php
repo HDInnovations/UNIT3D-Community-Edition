@@ -239,6 +239,10 @@ class User extends Authenticatable
         return $this->belongsToMany(\App\Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
     }
 
+    public function hasBookmarked($torrent_id) {
+        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+    }
+
     /**
      * Get all of follows for the user.
      */
