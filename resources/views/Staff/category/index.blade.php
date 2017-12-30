@@ -23,6 +23,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Icon</th>
+                    <th>Meta?</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                     <tr>
                         <td><a href="{{ route('staff_category_edit', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></td>
                         <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
+                        <td>@if($c->meta == 1) YES @else NO @endif</td>
                         <td>
                             <a href="{{ route('staff_category_edit', array('slug' => $c->slug, 'id' => $c->id)) }}" class="btn btn-warning">Edit</a>
                             <a href="{{ route('staff_category_delete', array('slug' => $c->slug, 'id' => $c->id)) }}" class="btn btn-danger">Delete</a>

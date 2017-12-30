@@ -64,6 +64,7 @@
                 </div>
             </div>
         </div>
+        @if($request->category->meta == 1)
         <div class="movie-wrapper">
           <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
             <div class="tags">
@@ -139,7 +140,7 @@
             </div>
           </div>
         </div>
-
+        @endif
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <tbody>

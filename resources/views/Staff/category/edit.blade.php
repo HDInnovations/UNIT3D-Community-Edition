@@ -30,7 +30,15 @@
                 <label for="name">Icon (FontAwesome)</label>
                 <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
             </div>
-
+            <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="meta" @if($category->meta == 1) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="meta" @if($category->meta == 0) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
             <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
 </div>

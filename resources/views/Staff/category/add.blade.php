@@ -30,7 +30,15 @@
                 <label for="name">Icon (FontAwesome)</label>
                 <input type="text" class="form-control" name="icon" placeholder="Example: fa fa-rocket">
             </div>
-
+            <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="meta" checked value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="meta" value="0">No</label>
+            </div>
+            <br>
+            <br>
             <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
         {{ Form::close() }}
 </div>

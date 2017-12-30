@@ -29,6 +29,7 @@
 <div class="torrent box container">
   <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
     <br>Please remember to say <b>thanks</b> and <b>seed</b> for as long as you can!</div>
+    @if($torrent->category->meta == 1)
   <div class="movie-wrapper">
     <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
       <div class="tags">
@@ -119,7 +120,7 @@
       </div>
     </div>
   </div>
-
+  @endif
   <!-- Info -->
   <div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped">

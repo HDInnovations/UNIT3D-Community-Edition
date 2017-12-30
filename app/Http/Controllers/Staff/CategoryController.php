@@ -48,6 +48,7 @@ class CategoryController extends Controller
             $category->name = Request::get('name');
             $category->slug = str_slug($category->name);
             $category->icon = Request::get('icon');
+            $category->meta = Request::get('meta');
             $v = Validator::make($category->toArray(), $category->rules);
             if ($v->fails()) {
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
@@ -71,6 +72,7 @@ class CategoryController extends Controller
             $category->name = Request::get('name');
             $category->slug = str_slug($category->name);
             $category->icon = Request::get('icon');
+            $category->meta = Request::get('meta');
             $v = Validator::make($category->toArray(), $category->rules);
             if ($v->fails()) {
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
