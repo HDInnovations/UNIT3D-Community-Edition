@@ -61,6 +61,18 @@ UNIT3D currently offers the following features:
 - Crontab access
 - A Redis server
 - MySQL 5.7
+- A decent dedicated server. Dont try running this on some crappy server!
+<pre>
+Processor: Intel  Xeon E3-1245v2 -
+Cores/Threads: 4c/8t
+Frequency: 3.4GHz /3.8GHz
+RAM: 32GB DDR3 1333 MHz
+Disks: SoftRaid  2x240 GB   SSD
+Bandwidth: 250 Mbps
+Traffic: Unlimited
+<b>Is Under $50 A Month</b>
+</pre>
+
 
 ## <a name="installation"></a> Installation
 
