@@ -95,6 +95,67 @@ class ShoutboxController extends Controller
         }
     }
 
+    static public function getMessages($after = null)
+    {
+        $messages = Cache::remember('shoutbox_messages', 1440, function () {
+            return Shoutbox::orderBy('created_at', 'desc')->take(50)->get();
+        });
+
+        $messages = $messages->reverse();
+        $next_batch = null;
+        if ($messages->count() !== 0) {
+            $next_batch = $messages->last()->id;
+        }
+        if ($after !== null) {
+            $messages = $messages->filter(function ($value, $key) use ($after) {
+                return $value->id > $after;
+            });
+        }
+
+        $data = [];
+        $flag = false;
+        foreach ($messages as $message) {
+            $class = '';
+            if (in_array(Auth::user()->id, explode(',', $message->mentions))) {
+                $class = 'mentioned';
+            }
+
+            $flag = true;
+            $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
+            if ($message->poster->image != null) {
+                $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
+            }
+
+            $flag = true;
+            $delete = '';
+            if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
+                $appurl = env('APP_URL', 'http://unit3d.site');
+                $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
+            }
+
+            $flag = true;
+            $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
+            if ($message->poster->isOnline()) {
+                $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
+            }
+
+            $appurl = env('APP_URL', 'http://unit3d.site');
+            $data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
+                   ' . ($flag ? $avatar : "") . '
+                   <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>&nbsp;<a style="color:' . ($message->poster->group->color) . ';" href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>'
+                . e($message->poster->username) . '</a>
+                   ' . ($flag ? $online : "") . '
+                   </span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
+                   </h4>
+                   <p class="message-content">
+                   ' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
+                   ' . ($flag ? $delete : "") . '
+                   </p></li>';
+        }
+
+        return ['data' => $data, 'next_batch' => $next_batch];
+    }
+
     /**
      * Fetch Shout
      *
@@ -103,61 +164,9 @@ class ShoutboxController extends Controller
     public function fetch($after = null)
     {
         if (Request::ajax()) {
-            $messages = Cache::remember('shoutbox_messages', 1440, function () {
-                return Shoutbox::orderBy('created_at', 'desc')->take(50)->get();
-            });
-
-            $messages = $messages->reverse();
-            $next_batch = null;
-            if ($messages->count() !== 0) {
-                $next_batch = $messages->last()->id;
-            }
-            if ($after !== null) {
-                $messages = $messages->filter(function ($value, $key) use ($after) {
-                    return $value->id > $after;
-                });
-            }
-
-            $data = [];
-            $flag = false;
-            foreach ($messages as $message) {
-                $class = '';
-                if (in_array(Auth::user()->id, explode(',', $message->mentions))) {
-                    $class = 'mentioned';
-                }
-
-                $flag = true;
-                $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
-                if ($message->poster->image != null) {
-                    $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
-                }
-
-                $flag = true;
-                $delete = '';
-                if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
-                    $appurl = env('APP_URL', 'http://unit3d.site');
-                    $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
-                }
-
-                $flag = true;
-                $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
-                if ($message->poster->isOnline()) {
-                    $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
-                }
-
-                $appurl = env('APP_URL', 'http://unit3d.site');
-                $data[] = '<li class="list-group-item ' . $class . '">
-                       ' . ($flag ? $avatar : "") . '
-                       <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>&nbsp;<a style="color:' . ($message->poster->group->color) . ';" href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>'
-                    . e($message->poster->username) . '</a>
-                       ' . ($flag ? $online : "") . '
-                       </span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
-                       </h4>
-                       <p class="message-content">
-                       ' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
-                       ' . ($flag ? $delete : "") . '
-                       </p></li>';
-            }
+            $messagesNext = self::getMessages($after);
+            $data = $messagesNext['data'];
+            $next_batch = $messagesNext['next_batch'];
             return Response::json(['success' => true, 'data' => $data, 'next_batch' => $next_batch]);
         }
     }

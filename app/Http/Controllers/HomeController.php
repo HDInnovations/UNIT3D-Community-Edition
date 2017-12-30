@@ -72,10 +72,7 @@ class HomeController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->take(5)->get();     // Fetch Latest Forum Posts
 
         //ShoutBox Block
-        $shoutboxMessages = Cache::remember('shoutbox_messages', 60, function () {
-            return Shoutbox::orderBy('created_at', 'desc')->take(50)->get();
-        });
-        $shoutboxMessages = $shoutboxMessages->reverse();
+        $shoutboxMessages = ShoutboxController::getMessages()['data'];
 
         //Online Block
         $user = User::orderBy('username', 'asc')->get();
