@@ -22,7 +22,6 @@ messages.scroll(function() {
 });
 
 function formatTime(seconds) {
-    console.log(seconds);
     const MINUTE = 60;
     const HOUR = MINUTE * 60;
     let suffix = "second";
