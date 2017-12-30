@@ -24,7 +24,7 @@ class LanguageCensor
 {
     static protected function isSpecial($c)
     {
-        $specialChars = " [].;,";
+        $specialChars = "<>\n [].;,";
         return strpos($specialChars, $c) !== false;
     }
 
