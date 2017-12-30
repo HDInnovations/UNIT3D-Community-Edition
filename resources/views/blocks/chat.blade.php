@@ -16,6 +16,11 @@
           if (in_array(\Auth::user()->id, explode(',', $message->mentions))) {
             $class = 'mentioned';
           }
+
+          $messageHtml = App\Shoutbox::getMessageHtml($message->message);
+          $messageHtml = \LaravelEmojiOne::toImage($messageHtml);
+          $messageHtml = App\Helpers\LanguageCensor::censor($messageHtml);
+
           @endphp
             <li class="list-group-item {{ $class }}">
               @if($message->poster->image != null)
@@ -36,7 +41,7 @@
                   <a title="Delete Shout" href="{{route('shout-delete',['id' => $message->id])}}"><i class="pull-right fa fa-lg fa-times"></i></a>
                 @endif
 
-                @emojione(App\Shoutbox::getMessageHtml($message->message))</p>
+                {!! $messageHtml !!}
             </li>
             @endforeach
         </ul>
