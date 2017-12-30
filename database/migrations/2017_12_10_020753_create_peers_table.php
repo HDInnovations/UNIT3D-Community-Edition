@@ -25,7 +25,7 @@ class CreatePeersTable extends Migration
     {
         Schema::create('peers', function (Blueprint $table) {
             $table->bigInteger('id', true)->unsigned();
-            $table->binary('peer_id', 60)->nullable();
+            $table->string('peer_id', 60)->nullable();
             $table->string('md5_peer_id')->nullable();
             $table->string('hash')->nullable();
             $table->string('ip')->nullable();
