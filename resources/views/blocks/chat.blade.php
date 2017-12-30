@@ -11,7 +11,7 @@
       <div class="chat-messages">
         <ul class="list-group">
           @foreach($shoutboxMessages as $message)
-          {!! $message !!}
+          @emojione($message)
           @endforeach
         </ul>
       </div>
