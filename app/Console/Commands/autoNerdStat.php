@@ -49,7 +49,7 @@ class autoNerdStat extends Command
         // Current Timestamp
         $current = Carbon::now();
         // Site Birthday
-        $bday = Carbon::create(2017, 4, 1, 0);
+        $bday = Config::get('other.birthdate');
         // Logins Count Last 24hours
         $logins = User::whereNotNull('last_login')->where('last_login', '>', $current->subDay())->count();
         // Torrents Uploaded Count Last 24hours
@@ -79,7 +79,7 @@ class autoNerdStat extends Command
             "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . Config::get('other.title') . "!",
             "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . Config::get('other.title') . "!",
             "Currently " . $banker->username . " Is The Top BON Holder On " . Config::get('other.title') . "!",
-            Config::get('other.title') . " Birthdate Is " . $bday->toFormattedDateString() . "!"
+            Config::get('other.title') . " Birthdate Is " . $bday . "!"
         ];
         $selected = mt_rand(0, count($statArray) - 1);
 
