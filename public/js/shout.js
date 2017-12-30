@@ -21,7 +21,7 @@ messages.scroll(function() {
   forceScroll = scrollTop >= scrollHeight;
 });
 
-window.setInterval(function() {
+function updateMessages() {
   $('.chat-messages .list-group');
   $.ajax({
   url: "shoutbox/messages/" + parseInt(next_batch),
@@ -43,7 +43,10 @@ window.setInterval(function() {
       messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
     }
   }});
-}, 3000);
+  window.setTimeout(updateMessages, 3000);
+}
+
+window.setTimeout(updateMessages, 3000);
 
 $("#chat-message").keypress(function(evt) {
   if (evt.which == 13) {
