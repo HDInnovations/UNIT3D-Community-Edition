@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li class="active">
-    <a href="{{ route('message', array('username' => Auth::user()->username, 'id' => Auth::user()->id, 'pmid' => {{ $pm->id }})) }}">
+    <a href="{{ route('message', array('username' => Auth::user()->username, 'id' => Auth::user()->id, 'pmid' => $pm->id)) }}">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
     </a>
 </li>
