@@ -21,6 +21,36 @@ messages.scroll(function() {
   forceScroll = scrollTop >= scrollHeight;
 });
 
+function formatTime(seconds) {
+    console.log(seconds);
+    const MINUTE = 60;
+    const HOUR = MINUTE * 60;
+    let suffix = "second";
+    let value = seconds;
+    if (seconds >= HOUR) {
+        suffix = "hour";
+        value = Math.floor(seconds / HOUR);
+    } else if (seconds >= MINUTE) {
+        suffix = "minute";
+        value = Math.floor(seconds / MINUTE);
+    }
+
+    if (value != 1) {
+        suffix += "s";
+    }
+
+    return value.toString() + " " + suffix;
+}
+
+function updateTime() {
+    messages.children().each(function (i, message) {
+        let createdAt = parseInt(message.getAttribute('data-created'));
+        let text = $(".text-muted > small > em", message);
+        let deltaTime = Math.floor((new Date).getTime() / 1000) - createdAt;
+        text.text(formatTime(deltaTime) + " ago");
+    })
+}
+
 function updateMessages() {
   $('.chat-messages .list-group');
   $.ajax({
@@ -43,6 +73,7 @@ function updateMessages() {
       messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
     }
   }});
+  updateTime();
   window.setTimeout(updateMessages, 3000);
 }
 
