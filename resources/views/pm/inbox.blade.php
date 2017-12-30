@@ -30,6 +30,9 @@
                 <div class="row">
                   <div class="col-md-8 col-xs-5">
                     <div class="btn-group">
+                      <a href="{{ route('mark-all-read', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+                          <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.mark-all-read') }}"><i class="fa fa-eye"></i></button>
+                      </a>
                       <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
                           <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh"><i class="fa fa-refresh"></i></button>
                       </a>
