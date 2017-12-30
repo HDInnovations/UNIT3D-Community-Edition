@@ -151,6 +151,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/{username}.{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
     Route::get('/{username}.{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
     Route::get('/{username}.{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
+    Route::any('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
     Route::post('/send-private-message', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
     Route::any('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
     Route::any('/{username}.{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');

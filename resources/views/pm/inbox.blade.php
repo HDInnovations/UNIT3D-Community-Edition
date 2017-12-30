@@ -17,6 +17,7 @@
           <div class="col-md-2">
             <div class="block">
               <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
+              <a href="{{ route('mark-all-read', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.mark-all-read') }}</a>
               <div class="separator"></div>
               <div class="list-group">
                 <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>

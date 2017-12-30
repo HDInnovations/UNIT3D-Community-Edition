@@ -59,6 +59,18 @@ class PrivateMessageController extends Controller
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
 
+    public function markAllAsRead(Request $request, $username, $id)
+    {
+        $user = Auth::user();
+        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->get();
+        foreach ($pms as $pm) {
+            $pm->read = 1;
+            $pm->save();
+        }
+
+        return $this->getPrivateMessages($request, $username, $id);
+    }
+
     /**
      * View The Message
      *
