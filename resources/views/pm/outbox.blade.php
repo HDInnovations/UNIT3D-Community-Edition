@@ -2,7 +2,9 @@
 
 @section('breadcrumb')
 <li class="active">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.outbox') }}</span>
+    <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.outbox') }}</span>
+    </a>
 </li>
 @stop
 
@@ -39,7 +41,7 @@
               @foreach($pms as $p)
               {{ Form::hidden('invisible', 'id', array('id' => 'id')) }}
               <tr>
-                <td class="col-sm-2"><a href="{{ route('profil', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}" title="">{{ $p->sender->username}}</a></td>
+                <td class="col-sm-2"><a href="{{ route('profil', ['username' => $p->receiver->username, 'id' => $p->receiver->id]) }}" title="">{{ $p->receiver->username}}</a></td>
                 <td class="col-sm-5"><a href="{{ route('message', ['username' => $user->username , 'id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
                 <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
               </tr>
