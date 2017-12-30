@@ -103,6 +103,8 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT
 
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
 
+<b> As per license do not remove the license from sourcecode or from footer in /resources/views/partials/footer.blade.php</b>
+
 
 <hr>
 
