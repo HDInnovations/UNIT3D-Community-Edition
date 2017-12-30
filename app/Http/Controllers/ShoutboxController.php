@@ -140,7 +140,7 @@ class ShoutboxController extends Controller
             }
 
             $appurl = env('APP_URL', 'http://unit3d.site');
-            $data[] = '<li class="list-group-item ' . $class . '">
+            $data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
                    ' . ($flag ? $avatar : "") . '
                    <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>&nbsp;<a style="color:' . ($message->poster->group->color) . ';" href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>'
                 . e($message->poster->username) . '</a>
