@@ -7,9 +7,9 @@ return [
     | Validation Language Lines
     |--------------------------------------------------------------------------
     |
-    | the following language lines contain the default error messages used by
-    | the validator class. Some of Τοse rules have multiple versions such
-    | as the size rules. Feel free to tweak each of Τοse messages here.
+    | The following language lines contain the default error messages used by
+    | the validator class. Some of these rules have multiple versions such
+    | as the size rules. Feel free to tweak each of these messages here.
     |
     */
 
@@ -89,8 +89,8 @@ return [
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
     |
-    | Here you may specify custom validation messages for attributes using Το
-    | convention "attribute.rule" to name Το lines. This makes it quick to
+    | Here you may specify custom validation messages for attributes using the
+    | convention "attribute.rule" to name the lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
     */
@@ -106,7 +106,7 @@ return [
     | Custom Validation Attributes
     |--------------------------------------------------------------------------
     |
-    | Το following language lines are used to swap attribute place-holders
+    | The following language lines are used to swap attribute place-holders
     | with something more reader friendly such as E-Mail Address instead
     | of "email". This simply helps us make messages a little cleaner.
     |
