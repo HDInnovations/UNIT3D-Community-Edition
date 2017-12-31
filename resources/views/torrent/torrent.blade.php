@@ -415,8 +415,13 @@
           <span class='btn-label'><i class='fa fa-heart'></i></span>Quick Comment</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>Show Files</a>
+        @if(Auth::user()->hasBookmarked($torrent->id))
+        <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-danger" role="button">
+          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>Unbookmark</a>
+        @else
         <a href="{{ route('bookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-primary" role="button">
           <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>Bookmark</a>
+        @endif
         @if($torrent->seeders <= 2)
           <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button" class="btn btn-labeled btn-warning">
           <span class='btn-label'><i class='fa fa-envelope'></i></span>Request Reseed</a>
