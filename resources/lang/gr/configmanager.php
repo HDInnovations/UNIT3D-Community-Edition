@@ -7,8 +7,8 @@
 
 return [
     'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
+    'info_choose' => 'Επέλεξε ένα αρχείο για να αρχίσεις την επεξεργασία',
+    'file' => 'Αρχείο',
     'path' => 'Path',
     'header' => [
         'key' => 'Key',
@@ -16,10 +16,10 @@ return [
         'actions' => 'Actions',
     ],
     'actions' => [
-        'edit' => 'Edit',
+        'edit' => 'Επεξεργασία',
         'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel',
+        'save' => 'Αποθήκευση!',
+        'cancel' => 'Άκυρο',
     ],
-    'sure' => 'Are you sure?',
+    'sure' => 'Είσαι σίγουρος;',
 ];
