@@ -10,21 +10,21 @@ return [
 	'chatbox' => 'Chat Box',
 
     // Featured Torrents
-	'featured-torrents' => 'Featured Torrents',
+	'featured-torrents' => 'Προτεινόμενα Torrent',
 
     // Latest Torrents
-	'latest-torrents' => 'Latest Torrents',
+	'latest-torrents' => 'Τελευταία Torrent',
 
     // Latest Posts
-	'latest-posts' => 'Latest Posts',
+	'latest-posts' => 'Τελευταία Posts',
 
     // Latest Topics
-	'latest-topics' => 'Latest Topics',
+	'latest-topics' => 'Τελευταία Topics',
 
     // Users Online
-	'users-online' => 'Users Online',
+	'users-online' => 'Χρήστες ονλάιν',
 
     // News/Articles
-	'new-news' => 'New News',
-    'check-news' => 'News (Check Daily)',
+	'new-news' => 'Καινούργια νέα',
+    'check-news' => 'Νέα(Τσεκάρετε καθημερινά!)',
 ];
