@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Torrent;
 use App\User;
 use App\Group;
@@ -127,6 +128,30 @@ class UserController extends Controller
             \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account permissions.");
 
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+        } else {
+            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+        }
+    }
+
+    /**
+     * Edit User Password
+     *
+     * @access protected
+     *
+     */
+    protected function userPassword($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $staff = Auth::user();
+        if (Request::isMethod('post')) {
+            $new_password = Request::get('new_password');
+            $user->password = Hash::make($new_password);
+            $user->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has changed " . $user->username . " password.");
+
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
         } else {
             return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }

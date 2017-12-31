@@ -346,6 +346,7 @@ Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'modo'], '
     Route::any('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
     Route::any('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
     Route::any('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
+    Route::any('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
 
     // Moderation
     Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');

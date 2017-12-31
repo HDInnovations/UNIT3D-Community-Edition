@@ -38,6 +38,7 @@
     <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab" data-toggle="tab" aria-expanded="true">Account</a></li>
     <li role="presentation" class=""><a href="#permissions" aria-controls="permissions" role="tab" data-toggle="tab" aria-expanded="false">Permissions</a></li>
     <li role="presentation" class=""><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab" aria-expanded="false">Staff Note</a></li>
+	<li role="presentation" class=""><a href="#password" aria-controls="notes" role="tab" data-toggle="tab" aria-expanded="false">Force Update Password</a></li>
   </ul>
 
   <div class="tab-content block block-titled">
@@ -193,6 +194,19 @@
 					</tbody>
 				</table>
     </div>
+
+	<div role="tabpanel" class="tab-pane" id="password">
+      <h3>Force Update Password</h3>
+      <hr>
+	{{ Form::open(array('route' => ['user_password', 'username' => $user->username, 'id' => $user->id])) }}
+    <div class="form-group">
+        <label for="new_password">New Password</label>
+          <input type="password" name="new_password" class="form-control" placeholder="New Password">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Make The Switch!</button>
+    {{ Form::close() }}
+  </div>
   </div>
 </div>
 @stop
