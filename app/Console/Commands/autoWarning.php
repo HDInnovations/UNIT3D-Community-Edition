@@ -67,10 +67,10 @@ class autoWarning extends Command
                         $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
                         // Send Prewarning PM To The Offender
                         PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Incoming", 'message' => "You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for " . config('hitrun.prewarn') . " days on Torrent " . $hr->torrent->name . "
-                        If you fail to seed it within" . $timeleft . " day(s) you will recieve a automated WARNING which will last " . config('hitrun.expire') ." days![/b]
+                        If you fail to seed it within " . $timeleft . " day(s) you will recieve a automated WARNING which will last " . config('hitrun.expire') ." days![/b]
                         [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
                         }
-                        
+
                         $warning = new Warning();
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = "1";
