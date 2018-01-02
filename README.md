@@ -24,10 +24,11 @@
 3. [Requirements](#requirements)
 4. [Installation](#installation)
 5. [Packages](#packages)
-6. [Contributing](#contributing)
-7. [License](#license)
-8. [Screenshots](#screenshots)
-9. [Homestead](#homestead)
+6. [Security](#security)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Screenshots](#screenshots)
+10. [Homestead](#homestead)
 
 
 ## <a name="introduction"></a> Introduction
@@ -95,6 +96,10 @@ Here are some packages that are built for UNIT3D.
 - [An artisan package to import a Gazelle database into UNIT3D](https://github.com/pxgamer/gazelle-to-unit3d).
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/pxgamer/u232-to-unit3d).
 
+## <a name="security"></a> Security
+
+If you discover any security related issues, please email unit3d@protonmail.com instead of using the issue tracker.
+
 ## <a name="contributing"></a> Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
@@ -152,7 +157,7 @@ databases:
 2. run `vagrant ssh`
 3. cd to the unit3d project root directory
 4. copy `.env.example` to `.env`
-5. run `php artisan key:generate` 
+5. run `php artisan key:generate`
 6. run `composer install`
 7. run `npm install`
 8. run `php artisan migrate:refresh --seed`
