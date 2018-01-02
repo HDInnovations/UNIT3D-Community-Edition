@@ -34,7 +34,7 @@ class CategoriesTableSeeder extends Seeder
                     'slug' => 'movies',
                     'icon' => 'fa fa-film',
                     'num_torrent' => 0,
-                    'meta' => 1;
+                    'meta' => 1,
                 ),
             1 =>
                 array(
@@ -43,7 +43,7 @@ class CategoriesTableSeeder extends Seeder
                     'slug' => 'tv',
                     'icon' => 'fa fa-television',
                     'num_torrent' => 0,
-                    'meta' => 1;
+                    'meta' => 1,
                 ),
             2 =>
                 array(
@@ -52,7 +52,7 @@ class CategoriesTableSeeder extends Seeder
                     'slug' => 'music',
                     'icon' => 'fa fa-music',
                     'num_torrent' => 0,
-                    'meta' => 0;
+                    'meta' => 0,
                 ),
         ));
 
