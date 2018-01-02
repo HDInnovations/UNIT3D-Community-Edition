@@ -62,6 +62,15 @@ class autoWarning extends Command
 
                     // Insert Warning Into Warnings Table if doesnt already exsist
                     if (!$exsist) {
+
+                        if ($hr->updated_at < $current->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString()) {
+                        $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
+                        // Send Prewarning PM To The Offender
+                        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Incoming", 'message' => "You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for " . config('hitrun.prewarn') . " days on Torrent " . $hr->torrent->name . "
+                        If you fail to seed it within" . $timeleft . " day(s) you will recieve a automated WARNING which will last " . config('hitrun.expire') ." days![/b]
+                        [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+                        }
+                        
                         $warning = new Warning();
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = "1";
@@ -76,7 +85,8 @@ class autoWarning extends Command
                         $hr->user->save();
 
                         // Send PM To The Offender
-                        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Recieved", 'message' => "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b][color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+                        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $hr->user->id, 'subject' => "Hit and Run Warning Recieved", 'message' => "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b]
+                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
                     }
 
                     unset($exist);

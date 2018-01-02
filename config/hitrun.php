@@ -90,4 +90,16 @@ return [
 
     'expire' => 14,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Prewarn Period
+    |--------------------------------------------------------------------------
+    |
+    | Max Time For User To Be Disconnected If "Seedtime" Value
+    | Is Not Yet Met. A Prewarning PM Will Be Sent. "In Days"
+    |
+    */
+
+    'prewarn' => 2,
+
 ];
