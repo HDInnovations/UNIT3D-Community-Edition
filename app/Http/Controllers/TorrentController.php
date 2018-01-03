@@ -189,6 +189,7 @@ class TorrentController extends Controller
         if (Request::getMethod() == 'POST' && Request::get('preview') == true) {
             $code = new Decoda(Request::get('description'));
             $code->defaults();
+            $code->removeHook('Censor');
             $code->setXhtml(false);
             $code->setStrict(false);
             $code->setLineBreaks(true);

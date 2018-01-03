@@ -69,6 +69,7 @@ class Post extends Model
     {
         $code = new Decoda($this->content);
         $code->defaults();
+        $code->removeHook('Censor');
         $code->removeHook('Clickable');
         $code->addHook(new ClickableHook());
         $code->setXhtml(false);

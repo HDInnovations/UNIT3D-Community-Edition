@@ -62,6 +62,7 @@ class Comment extends Model
     {
         $code = new Decoda($this->content);
         $code->defaults();
+        $code->removeHook('Censor');
         $code->setXhtml(false);
         $code->setStrict(false);
         $code->setLineBreaks(true);

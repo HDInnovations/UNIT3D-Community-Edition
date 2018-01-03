@@ -410,6 +410,7 @@ class User extends Authenticatable
     {
         $code = new Decoda($this->signature);
         $code->defaults();
+        $code->removeHook('Censor');
         $code->setXhtml(false);
         $code->setStrict(false);
         $code->setLineBreaks(true);
@@ -424,6 +425,7 @@ class User extends Authenticatable
     {
         $code = new Decoda($this->about);
         $code->defaults();
+        $code->removeHook('Censor');
         $code->setXhtml(false);
         $code->setStrict(false);
         $code->setLineBreaks(true);
