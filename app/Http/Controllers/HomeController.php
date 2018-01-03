@@ -120,7 +120,7 @@ class HomeController extends Controller
     public function contact()
     {
         // Fetch admin group
-        $group = Group::where('slug', '=', 'administrators')->first();
+        $group = Group::where('slug', '=', 'administrator')->first();
         // grab the admins
         $admins = User::where('group_id', '=', $group->id)->get();
 

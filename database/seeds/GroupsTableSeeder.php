@@ -47,7 +47,7 @@ class GroupsTableSeeder extends Seeder
                 array(
                     'id' => 2,
                     'name' => 'Guest',
-                    'slug' => 'guests',
+                    'slug' => 'guest',
                     'position' => 1,
                     'color' => '#575757',
                     'icon' => 'fa fa-question-circle',
@@ -62,8 +62,8 @@ class GroupsTableSeeder extends Seeder
             2 =>
                 array(
                     'id' => 3,
-                    'name' => 'Member',
-                    'slug' => 'members',
+                    'name' => 'User',
+                    'slug' => 'user',
                     'position' => 4,
                     'color' => '#7289DA',
                     'icon' => 'fa fa-user',
@@ -79,7 +79,7 @@ class GroupsTableSeeder extends Seeder
                 array(
                     'id' => 4,
                     'name' => 'Administrator',
-                    'slug' => 'administrators',
+                    'slug' => 'administrator',
                     'position' => 15,
                     'color' => '#f92672',
                     'icon' => 'fa fa-user-secret',
@@ -111,7 +111,7 @@ class GroupsTableSeeder extends Seeder
                 array(
                     'id' => 6,
                     'name' => 'Moderator',
-                    'slug' => 'moderators',
+                    'slug' => 'moderator',
                     'position' => 14,
                     'color' => '#4ECDC4',
                     'icon' => 'fa fa-user-secret',
@@ -174,11 +174,11 @@ class GroupsTableSeeder extends Seeder
             9 =>
                 array(
                     'id' => 10,
-                    'name' => 'Coder',
-                    'slug' => 'coder',
+                    'name' => 'Owner',
+                    'slug' => 'owner',
                     'position' => 16,
                     'color' => '#00abff',
-                    'icon' => 'fa fa-code',
+                    'icon' => 'fa fa-user-secret',
                     'effect' => 'none',
                     'is_admin' => 1,
                     'is_modo' => 1,
@@ -190,8 +190,8 @@ class GroupsTableSeeder extends Seeder
             10 =>
                 array(
                     'id' => 11,
-                    'name' => 'BluMember',
-                    'slug' => 'blumember',
+                    'name' => 'PowerUser',
+                    'slug' => 'poweruser',
                     'position' => 5,
                     'color' => '#3c78d8',
                     'icon' => 'fa fa-user-circle-o',
@@ -206,8 +206,8 @@ class GroupsTableSeeder extends Seeder
             11 =>
                 array(
                     'id' => 12,
-                    'name' => 'BluMaster',
-                    'slug' => 'blumaster',
+                    'name' => 'SuperUser',
+                    'slug' => 'superuser',
                     'position' => 6,
                     'color' => '#1155cc',
                     'icon' => 'fa fa-power-off',
@@ -222,8 +222,8 @@ class GroupsTableSeeder extends Seeder
             12 =>
                 array(
                     'id' => 13,
-                    'name' => 'BluExtremist',
-                    'slug' => 'bluextremist',
+                    'name' => 'ExtremeUser',
+                    'slug' => 'extremeuser',
                     'position' => 7,
                     'color' => '#1c4587',
                     'icon' => 'fa fa-bolt',
@@ -238,8 +238,8 @@ class GroupsTableSeeder extends Seeder
             13 =>
                 array(
                     'id' => 14,
-                    'name' => 'BluLegend',
-                    'slug' => 'blulegend',
+                    'name' => 'InsaneUser',
+                    'slug' => 'insaneuser',
                     'position' => 8,
                     'color' => '#1c4587',
                     'icon' => 'fa fa-rocket',
@@ -270,8 +270,8 @@ class GroupsTableSeeder extends Seeder
             15 =>
                 array(
                     'id' => 16,
-                    'name' => 'Blutopian',
-                    'slug' => 'blutopian',
+                    'name' => 'Veteran',
+                    'slug' => 'veteran',
                     'position' => 9,
                     'color' => '#1c4587',
                     'icon' => 'fa fa-key',
@@ -286,8 +286,8 @@ class GroupsTableSeeder extends Seeder
             16 =>
                 array(
                     'id' => 17,
-                    'name' => 'BluSeeder',
-                    'slug' => 'bluseeder',
+                    'name' => 'Seeder',
+                    'slug' => 'seeder',
                     'position' => 10,
                     'color' => '#1c4587',
                     'icon' => 'fa fa-hdd-o',
@@ -302,8 +302,8 @@ class GroupsTableSeeder extends Seeder
             17 =>
                 array(
                     'id' => 18,
-                    'name' => 'BluArchivist',
-                    'slug' => 'bluarchivist',
+                    'name' => 'Archivist',
+                    'slug' => 'archivist',
                     'position' => 11,
                     'color' => '#1c4587',
                     'icon' => 'fa fa-tasks',
