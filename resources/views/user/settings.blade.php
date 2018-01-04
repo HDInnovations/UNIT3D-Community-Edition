@@ -29,15 +29,16 @@
 
   <div class="tab-content block block-titled">
     <div role="tabpanel" class="tab-pane active" id="welcome">
-        
+
         {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
         <h3>Style Settings</h3>
         <hr>
         <div class="form-group">
           <label for="theme" class="control-label">Theme</label>
             <select class="form-control" id="theme" name="theme">
-              <option @if($user->style == 0) selected @endif value="0">Default Theme</option>
+              <option @if($user->style == 0) selected @endif value="0">Light Theme</option>
               <option @if($user->style == 1) selected @endif value="1">Dark Theme</option>
+              <option @if($user->style == 2) selected @endif value="2">Blur Theme</option>
             </select>
         </div>
         <div class="form-group">
