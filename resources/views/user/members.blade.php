@@ -20,7 +20,11 @@
 @section('content')
 <div class="box container">
 	<div class="profil">
-		<h2>{{ trans('common.members') }}</h2>
+		<div class="header gradient silver">
+			<div class="inner_content">
+				<div class="page-title"><h1>{{ trans('common.members') }}</h1></div>
+			</div>
+		</div>
 		<form action="{{route('userSearch')}}" method="any">
 		<input type="text" name="username" id="username" size="25" placeholder="Quick Search by Username" class="form-control" style="float:right;">
 		</form>
