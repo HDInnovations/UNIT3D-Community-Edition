@@ -75,7 +75,7 @@
 
       <li>
         {{ Form::open(array('route' => 'search','role' => 'form', 'class' => 'hoe-searchbar')) }}
-        <input type="text" placeholder="{{ trans('common.quick-search') }}..." name="name" id="name" class="form-control">
+        <input type="text" placeholder="{{ trans('common.quick-search') }}..." name="title" id="title" class="form-control">
         <span class="search-icon"><i class="fa fa-search"></i></span>
         {{ Form::close() }}
       </li>

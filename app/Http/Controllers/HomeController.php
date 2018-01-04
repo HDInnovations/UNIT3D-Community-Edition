@@ -96,7 +96,7 @@ class HomeController extends Controller
     public function search()
     {
         $user = Auth::user();
-        $search = Request::get('name');
+        $search = Request::get('title');
         $terms = explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
@@ -105,7 +105,7 @@ class HomeController extends Controller
         $torrents = Torrent::where('name', 'like', $search)->orderBy('created_at', 'desc')->paginate(50);
         $personal_freeleech = UserFreeleech::where('user_id', '=', $user->id)->first();
 
-        $torrents->setPath('?name=' . Request::get('name'));
+        $torrents->setPath('?name=' . Request::get('title'));
 
         return view('home.search', ['torrents' => $torrents, 'user' => $user, 'personal_freeleech' => $personal_freeleech, 'categories' => Category::all(), 'types' => Type::all()]);
     }
