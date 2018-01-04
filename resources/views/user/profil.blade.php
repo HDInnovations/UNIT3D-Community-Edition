@@ -288,8 +288,8 @@
         <td>{{ $user->email }}</td>
       </tr>
       <tr>
-        <td> Last Access</td>
-        <td>{{ date('M d Y H:m', $user->updated_at->getTimestamp()) }}</td>
+        <td> Last Login</td>
+        <td>@if($user->last_login != null){{ $user->last_login->toDayDateTimeString() }} ({{ $user->last_login->diffForHumans() }})@else N/A @endif</td>
       </tr>
       <tr>
         <td> Can Upload</td>

@@ -59,6 +59,8 @@ class User extends Authenticatable
 
     protected $fillable = ['name', 'email', 'password'];
 
+    protected $dates = ['last_login'];
+
 
     /**
      * Is Online?
