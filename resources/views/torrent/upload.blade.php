@@ -54,20 +54,19 @@
   <div class="upload col-md-12">
     <h3 class="upload-title">Upload A Torrent</h3>
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
-    {{ csrf_field() }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent">
+        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="document.getElementById('name').value = this.value.split('\\').pop().split('/').pop()">
       </div>
 
-      {{--<div class="form-group">
+      <div class="form-group">
         <label for="nfo">NFO File (Optional)</label>
         <input class="upload-form-file" type="file" name="nfo">
-      </div>--}}
+      </div>
 
             <div class="form-group">
                 <label for="name">Title</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" id="name" class="form-control">
             </div>
 
              <div class="form-group">
