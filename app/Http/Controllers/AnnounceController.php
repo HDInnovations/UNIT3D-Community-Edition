@@ -86,7 +86,7 @@ class AnnounceController extends Controller
         $ipv6 = $request->has('ipv6') ? bin2hex($request->get('ipv6')) : null;
         $no_peer_id = ($request->has('no_peer_id') && $request->get('no_peer_id') == 1) ? true : false;
 
-        // If User Client Is Sending Negitive Values Return Error to Client
+        // If User Client Is Sending Negative Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
             return response(Bencode::bencode(['failure reason' => 'Data from client is negative']), 200, ['Content-Type' => 'text/plain']);
         }

@@ -260,7 +260,7 @@ class BonusController extends Controller
             return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Bro!', ['options']));
         }
         if ($tip_amount <= 0) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip A Negitive Amount!', 'Bro!', ['options']));
+            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Bro!', ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
