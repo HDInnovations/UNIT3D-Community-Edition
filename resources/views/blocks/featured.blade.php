@@ -156,7 +156,6 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-      <hr class="transition-timer-carousel-progress-bar" />
     </div>
   </div>
 </div>
