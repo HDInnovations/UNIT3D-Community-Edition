@@ -250,7 +250,7 @@ class bonAllocation extends Command
         }
 
         //Move data from array to BonTransactions table
-        foreach ($array as $key => $value) {
+        /*foreach ($array as $key => $value) {
             $log = new BonTransactions();
             $log->itemID = 0;
             $log->name = "Seeding Award";
@@ -258,7 +258,7 @@ class bonAllocation extends Command
             $log->receiver = $key;
             $log->comment = "Seeding Award";
             $log->save();
-        }
+        }*/
 
         //Move data from array to Users table
         foreach ($array as $key => $value) {
