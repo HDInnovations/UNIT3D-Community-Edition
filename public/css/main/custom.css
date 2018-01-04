@@ -13776,7 +13776,6 @@ a.view-torrent:hover{
 .panel-chat > .panel-heading {
   color: #fff;
   background-color: #373d43;
-  border-color: #ddd;
 }
 
 .panel-chat > .panel-heading + .panel-collapse > .panel-body {
@@ -22355,7 +22354,7 @@ div.header div.inner_content h1 {
   filter:blur(3px);
 }
 
-.censor:hover{
+.censor:hover {
     -webkit-animation: 0.25s linear forwards censor;
      -moz-animation: 0.25s linear forwards censor;
        -o-animation: 0.25s linear forwards censor;
@@ -22366,3 +22365,44 @@ div.header div.inner_content h1 {
    @-moz-keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
      @-o-keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
         @keyframes censor { from { filter:blur(3px); } to { filter:blur(0px); }  }
+
+.oper-list .oper-item {
+    cursor: pointer;
+    position: relative;
+    border-radius: 4px;
+    padding: 10px 0 15px;
+    margin: 20px 0 0;
+    overflow: hidden
+}
+
+.oper-list .oper-item .fa {
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
+    -webkit-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+    font-size: 7em;
+    color: #fff
+}
+
+.oper-list .oper-item span {
+    color: #fff
+}
+
+.oper-list .oper-item:hover .fa {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5)
+}
+
+.oper-list .oper-item:hover .oper-icon {
+    opacity: .3
+}
+
+.oper-list .oper-icon {
+    position: absolute;
+    top: -5px;
+    right: -30px;
+    opacity: .5;
+}

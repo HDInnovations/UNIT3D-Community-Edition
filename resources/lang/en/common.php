@@ -40,5 +40,6 @@ return [
     'buffer' => 'Buffer',
 	'times' => 'Times',
 	'name' => 'Name',
-	'add' => 'Add'
+	'add' => 'Add',
+	'staff' => 'Staff',
 ];

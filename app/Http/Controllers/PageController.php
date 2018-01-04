@@ -12,7 +12,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Page;
+use App\User;
 
 class PageController extends Controller
 {
@@ -30,13 +33,15 @@ class PageController extends Controller
     }
 
     /**
-     * Credits Page
+     * Staff Page
      *
      *
      */
-    public function credits()
+    public function staff()
     {
-        return view('page.credits');
+        $staff = DB::table('users')->leftJoin('groups','users.group_id','=','groups.id')->select('users.id','users.title','users.username','groups.name','groups.color','groups.icon')->where('groups.is_admin','=','1')->orWhere('groups.is_modo','=','1')->get();
+
+        return view('page.staff', ['staff' => $staff]);
     }
 
     /**

@@ -106,8 +106,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/catalog/{slug}.{id}', 'CatalogController@catalog')->name('catalog');
     Route::get('/catalog/torrents/{imdb}', 'CatalogController@torrents')->name('catalog_torrents');
 
-    // Credits
-    Route::any('/credits', 'PageController@credits')->name('credits');
+    // Staff List
+    Route::any('/staff', 'PageController@staff')->name('staff');
 
     // About Us
     Route::any('/aboutus', 'PageController@about')->name('about');
