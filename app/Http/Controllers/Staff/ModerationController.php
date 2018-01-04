@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 
+use Carbon\Carbon;
 use \Toastr;
 
 class ModerationController extends Controller
@@ -35,11 +36,12 @@ class ModerationController extends Controller
      */
     public function moderation()
     {
+        $current = Carbon::now();
         $pending = Torrent::pending()->get(); //returns all Pending Torrents
         $rejected = Torrent::rejected()->get();
         $modder = DB::table('torrents')->where('status', '=', '0')->count();
 
-        return view('Staff.torrent.moderation', ['pending' => $pending, 'rejected' => $rejected, 'modder' => $modder]);
+        return view('Staff.torrent.moderation', ['current' => $current, 'pending' => $pending, 'rejected' => $rejected, 'modder' => $modder]);
     }
 
     /**
