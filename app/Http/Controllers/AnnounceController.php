@@ -42,7 +42,7 @@ class AnnounceController extends Controller
         // Check If Browser Is Blacklisted
         $blockedBrowsers = config('client-blacklist.browsers', []);
         foreach ($blockedBrowsers as $b) {
-            if ($b == $request->server('HTTP_USER_AGENT') ?: "Unknown") {
+            if ($b == $request->server('HTTP_USER_AGENT')) {
                 abort(405, "You Cannot Access This Through A Browser Bro!");
                 die();
             }
@@ -51,7 +51,7 @@ class AnnounceController extends Controller
         // Check If Client Is Blacklisted
         $blockedClients = config('client-blacklist.clients', []);
         foreach ($blockedClients as $blocked) {
-            if ($blocked == $request->server('HTTP_USER_AGENT') ?: "Unknown") {
+            if ($blocked == $request->server('HTTP_USER_AGENT')) {
                 return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
             }
         }
