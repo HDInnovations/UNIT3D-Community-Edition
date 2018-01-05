@@ -81,7 +81,7 @@
           @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Active Warning"></i>@endif
           @if($notes > 0 && Auth::user()->group->is_modo)<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Staff Noted Account"></i>@endif
         </h2>
-        <h4>Rank: <span class="badge-user text-bold" style="color:{{ $user->group->color }}"><i class="{{ $user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
+        <h4>Rank: <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i class="{{ $user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
         <h4>Member Since {{ date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         <span style="float:left;">
         @if(Auth::user()->id != $user->id)

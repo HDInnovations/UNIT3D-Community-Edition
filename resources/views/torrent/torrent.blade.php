@@ -193,7 +193,7 @@
             @if($torrent->anon == 1)
             <span class="badge-user text-orange text-bold">ANONYMOUS @if(Auth::user()->id == $uploader->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
             @else
-            <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}" style="color:{{ $uploader->group->color }};">{{ $uploader->username }}</a></span>
+            <a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i class="{{ $uploader->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
             @endif
             <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-xs btn-success pro-ajax" data-id="" data-toggle="tooltip" title="" data-original-title="Thank Uploader">
               <i class="fa fa-thumbs-up"></i> Thank Uploader</a>

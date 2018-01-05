@@ -56,7 +56,7 @@
         </td>
         @else
         <td>
-            <a href="{{ route('profil', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}">{{ $hpeers->user->username }}</span></a>
+            <a href="{{ route('profil', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $hpeers->user->group->name }}"></i> {{ $hpeers->user->username }}</span></a>
         </td>
         @endif
         @if($hpeers->active == 1) <td class="text-green">yes</td> @else <td class="text-red">no</td> @endif

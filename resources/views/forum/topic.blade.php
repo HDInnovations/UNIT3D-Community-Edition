@@ -63,7 +63,7 @@
                 </span>
                 </p>
               </a>
-            <p><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i>&nbsp;{{ $p->user->group->name }}</span></p>
+            <p><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span></p>
             <p class="pre">{{ $p->user->title }}</p>
             <p>Member Since: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
