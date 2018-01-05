@@ -69,8 +69,8 @@ class RegisterController extends Controller
                 $user->password = Hash::make($input['password']);
                 $user->passkey = md5(uniqid() . time() . microtime());
                 $user->rsskey = md5(uniqid() . time() . microtime() . $user->password);
-                $user->uploaded = 53687091200; // 50GB
-                $user->downloaded = 1073741824; // 1GB
+                $user->uploaded = config('other.default_upload');
+                $user->downloaded = config('other.default_download');
                 $user->group_id = $group->id;
                 $user->save();
 
