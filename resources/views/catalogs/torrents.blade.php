@@ -30,7 +30,7 @@
 <div class="container box">
   <div class="header gradient yellow">
     <div class="inner_content">
-      <h1>{{ trans('comman.results') }}</h1>
+      <h1>{{ trans('common.results') }}</h1>
     </div>
   </div>
   @if(count($torrents) == 0)

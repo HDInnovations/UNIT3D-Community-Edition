@@ -95,7 +95,7 @@
               <tr>
                 <th>#</th>
                 <th>{{ trans('common.name') }}</th>
-                <th>{{ trans('common.size') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
               </tr>
             </thead>
             <tbody>
