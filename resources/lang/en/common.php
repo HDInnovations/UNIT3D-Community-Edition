@@ -42,4 +42,5 @@ return [
 	'name' => 'Name',
 	'add' => 'Add',
 	'staff' => 'Staff',
+	'blacklist' => 'Blacklist'
 ];

@@ -44,12 +44,12 @@ Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
 
     // Activation Routes...
     Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
-
-    // Announce
-    Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
 });
 
 Route::group(['before' => 'auth'], function () {
+    // Announce
+    Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
+    
     // RSS
     Route::get('/rss/{passkey}', function () {
         return abort(307);
@@ -108,6 +108,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Staff List
     Route::any('/staff', 'PageController@staff')->name('staff');
+
+    // Black List
+    Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
 
     // About Us
     Route::any('/aboutus', 'PageController@about')->name('about');

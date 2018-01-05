@@ -38,7 +38,7 @@
       <ul>
         <li><a href="{{ route('home') }}/p/rules.1">Rules</a></li>
         <li><a href="{{ route('home') }}/p/faq.3">FAQ</a></li>
-        <li><a href="{{ route('home') }}/p/suggested-clients.4">Suggested Clients</a></li>
+        <li><a href="{{ route('blacklist') }}">Blacklist</a></li>
         <li><a href="{{ route('home') }}/p/tracker-codes.6">Tracker Codes</a></li>
         <li><a href="{{ route('home') }}/p/upload-guide.5">Upload Guide</a></li>
       </ul>

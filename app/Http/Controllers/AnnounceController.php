@@ -39,8 +39,24 @@ class AnnounceController extends Controller
      */
     public function announce(Request $request, $passkey)
     {
-        // Browser safety check
-        $this->BrowserCheck($request->server('HTTP_USER_AGENT'));
+        // Check If Browser Is Blacklisted
+        $blockedBrowsers = config('client-blacklist.browsers', []);
+        foreach ($blockedBrowsers as $b) {
+            if ($b == $request->server('HTTP_USER_AGENT') ?: "Unknown") {
+                abort(405, "You Cannot Access This Through A Browser Bro!");
+                die();
+            }
+        }
+
+        // Check If Client Is Blacklisted
+        if(config('client-blacklist.enabled' == "true") {
+        $blockedClients = config('client-blacklist.clients', []);
+        foreach ($blockedClients as $blocked) {
+            if ($blocked == $request->server('HTTP_USER_AGENT') ?: "Unknown") {
+                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
+            }
+        }
+        }
 
         // If Passkey Is Not Provided Exsist Return Error to Client
         if ($passkey == null) {
@@ -86,7 +102,7 @@ class AnnounceController extends Controller
         $ipv6 = $request->has('ipv6') ? bin2hex($request->get('ipv6')) : null;
         $no_peer_id = ($request->has('no_peer_id') && $request->get('no_peer_id') == 1) ? true : false;
 
-        // If User Client Is Sending Negative Values Return Error to Client
+        // If User Client Is Sending Negitive Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
             return response(Bencode::bencode(['failure reason' => 'Data from client is negative']), 200, ['Content-Type' => 'text/plain']);
         }
@@ -363,14 +379,6 @@ class AnnounceController extends Controller
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
 
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
-    }
-
-    private function BrowserCheck($user_agent)
-    {
-        if (preg_match("/^Mozilla|^Opera|^Links|^Lynx/i", $user_agent)) {
-            abort(500, "This application failed to load");
-            die();
-        }
     }
 
     private function givePeers($peers, $compact, $no_peer_id)

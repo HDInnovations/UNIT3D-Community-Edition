@@ -22406,3 +22406,60 @@ div.header div.inner_content h1 {
     right: -30px;
     opacity: .5;
 }
+
+.black-list .black-item {
+    cursor: pointer;
+    position: relative;
+    border: solid 1px #333;
+    border-radius: 4px;
+    background-color: #555;
+    padding: 10px 0 15px;
+    margin: 20px 0 0;
+    overflow: hidden
+}
+
+.black-list .black-item .fa {
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: transform, opacity;
+    transition-property: transform, opacity, -webkit-transform;
+    -webkit-transition-duration: .5s;
+    transition-duration: .5s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+    font-size: 7em
+}
+
+.black-list .black-item h4 {
+    color: #ddd;
+    position: relative;
+    z-index: 100
+}
+
+.black-list .black-item span,
+.oper-list .oper-item div,
+.oper-list .oper-item span {
+    color: #999;
+    position: relative;
+    z-index: 100
+}
+
+.black-list .black-item:hover .fa {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5)
+}
+
+.black-list .black-item:hover h4,
+.black-list .black-item:hover span {
+    color: #fff
+}
+
+.black-list .black-item:hover .black-icon {
+    opacity: 1
+}
+
+.black-list .black-icon {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    opacity: .5
+}
