@@ -49,13 +49,11 @@ class AnnounceController extends Controller
         }
 
         // Check If Client Is Blacklisted
-        if(config('client-blacklist.enabled' == "true") {
         $blockedClients = config('client-blacklist.clients', []);
         foreach ($blockedClients as $blocked) {
             if ($blocked == $request->server('HTTP_USER_AGENT') ?: "Unknown") {
                 return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
             }
-        }
         }
 
         // If Passkey Is Not Provided Exsist Return Error to Client
