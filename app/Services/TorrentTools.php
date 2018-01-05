@@ -40,6 +40,7 @@ class TorrentTools
     {
         self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
         self::$decodedTorrent['info']['source'] = config('other.source');
+        self::$decodedTorrent['info']['private'] = 1;
         $encoded = Bencode::bencode(self::$decodedTorrent);
         self::$fileName = uniqid() . '.torrent'; // Generate a unique name
         file_put_contents(getcwd() . '/files/torrents/' . self::$fileName, $encoded); // Create torrent
