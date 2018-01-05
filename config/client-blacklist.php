@@ -33,7 +33,7 @@ return [
     |
     */
     'clients' => [
-        "Transmission/2.93"
+        "Transmission/2.93", "Transmission/2.04"
     ],
 
     /*
