@@ -140,6 +140,13 @@ return [
     */
     'max_cli' => 6,
 
-    // This will be set in the torrents to generate an unique infohash.
+    /*
+    |--------------------------------------------------------------------------
+    | Infohash Source
+    |--------------------------------------------------------------------------
+    |
+    | This will be set in the torrents to generate an unique infohash.
+    |
+    */
     'source' => 'UNIT3D',
 ];
