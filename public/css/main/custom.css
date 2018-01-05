@@ -22430,7 +22430,7 @@ div.header div.inner_content h1 {
 }
 
 .black-list .black-item h4 {
-    color: #ddd;
+    color: #fff;
     position: relative;
     z-index: 100
 }
@@ -22438,7 +22438,7 @@ div.header div.inner_content h1 {
 .black-list .black-item span,
 .oper-list .oper-item div,
 .oper-list .oper-item span {
-    color: #999;
+    color: #fff;
     position: relative;
     z-index: 100
 }
