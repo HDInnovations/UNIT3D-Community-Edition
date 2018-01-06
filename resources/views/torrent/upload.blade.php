@@ -27,7 +27,7 @@ function updateTorrentName() {
     let name = document.querySelector("#name");
     let torrent = document.querySelector("#torrent");
     let fileEndings = [".mkv.torrent", ".torrent"];
-    let allowed = ["2.0", "5.1", "7.1"];
+    let allowed = ["1.0", "2.0", "5.1", "7.1"];
     if (name !== null && torrent !== null) {
         let value = torrent.value.split('\\').pop().split('/').pop();
         fileEndings.forEach(function(e) {
