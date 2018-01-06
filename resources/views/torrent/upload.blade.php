@@ -27,6 +27,7 @@ function updateTorrentName() {
     let name = document.querySelector("#name");
     let torrent = document.querySelector("#torrent");
     let fileEndings = [".mkv.torrent", ".torrent"];
+    let allowed = ["2.0", "5.1", "7.1"];
     if (name !== null && torrent !== null) {
         let value = torrent.value.split('\\').pop().split('/').pop();
         fileEndings.forEach(function(e) {
@@ -34,6 +35,11 @@ function updateTorrentName() {
                 value = value.substr(0, value.length - e.length);
             }
         });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function(a) {
+            search = a.replace(/\./g, " ");
+            value = value.replace(search, a);
+        })
         name.value = value;
     }
 }
