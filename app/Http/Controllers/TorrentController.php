@@ -300,8 +300,8 @@ class TorrentController extends Controller
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " .");
-
-                return Redirect::route('home')->with(Toastr::info('Your torrent is pending approval!...once approved you can download and seed your upload.', 'Attention', ['options']));
+                
+                return Redirect::route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
         return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
