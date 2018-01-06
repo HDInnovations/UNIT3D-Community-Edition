@@ -216,9 +216,10 @@ class TorrentController extends Controller
             // Find the right category
             $category = Category::findOrFail(Request::get('category_id'));
             // Create the torrent (DB)
+            $name = Request::get('name');
             $torrent = new Torrent([
-                'name' => str_replace(".", " ", Request::get('name')),
-                'slug' => str_slug(str_replace(".", " ", Request::get('name'))),
+                'name' => $name,
+                'slug' => str_slug($name),
                 'description' => Request::get('description'),
                 'mediainfo' => Request::get('mediainfo'),
                 'info_hash' => $info['info_hash'],

@@ -22,6 +22,28 @@
 @stop
 
 @section('content')
+<script>
+function updateTorrentName() {
+    let name = document.querySelector("#name");
+    let torrent = document.querySelector("#torrent");
+    let fileEndings = [".mkv.torrent", ".torrent"];
+    let allowed = ["1.0", "2.0", "5.1", "7.1"];
+    if (name !== null && torrent !== null) {
+        let value = torrent.value.split('\\').pop().split('/').pop();
+        fileEndings.forEach(function(e) {
+            if (value.endsWith(e)) {
+                value = value.substr(0, value.length - e.length);
+            }
+        });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function(a) {
+            search = a.replace(/\./g, " ");
+            value = value.replace(search, a);
+        })
+        name.value = value;
+    }
+}
+</script>
 @if($user->can_upload == 0)
 <div class="container">
   <div class="jumbotron shadowed">
@@ -57,7 +79,7 @@
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="document.getElementById('name').value = this.value.split('\\').pop().split('/').pop()">
+        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()">
       </div>
 
       <div class="form-group">
