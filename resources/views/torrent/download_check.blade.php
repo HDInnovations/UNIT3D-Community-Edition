@@ -5,18 +5,18 @@
 @stop
 
 @section('breadcrumb')
-<li>
-    <a href="#" itemprop="url" class="l-breadcrumb-item-link">
+<li class="active">
+    <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
     </a>
 </li>
-<li>
-    <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }}</span>
+<li class="active">
+    <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
     </a>
 </li>
 <li>
-    <a href="#" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">Download Check</span>
     </a>
 </li>
