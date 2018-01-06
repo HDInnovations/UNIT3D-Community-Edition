@@ -64,7 +64,7 @@ function updateTorrentName() {
   </div>
   @endif
 <div class="torrent box container">
-  <div class="alert alert-info">
+  <div class="alert alert-danger">
   <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}</h2>
   <p>Please use the announce URL above when creating a new torrent. If you want to use your torrent without downloading it from the site you need to set the private flag and the source to {{config('other.source')}}.</p>
   </div>
