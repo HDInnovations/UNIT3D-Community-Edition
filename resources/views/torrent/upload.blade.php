@@ -44,11 +44,12 @@
 <div class="torrent box container">
   <div class="alert alert-info">
   <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}</h2>
-  <p>Please use the announce URL above when creating a new torrent and set torrent to private.</p>
+  <p>Please use the announce URL above when creating a new torrent. If you want to use your torrent without downloading it from the site you need to set the private flag and the source to {{config('other.source')}}.</p>
   </div>
   <br>
 <center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
 <center><p class="text-danger">IMDB and or TVDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
+<center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
 <center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 
   <div class="upload col-md-12">
