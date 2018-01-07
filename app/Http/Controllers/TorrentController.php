@@ -216,9 +216,10 @@ class TorrentController extends Controller
             // Find the right category
             $category = Category::findOrFail(Request::get('category_id'));
             // Create the torrent (DB)
+            $name = Request::get('name');
             $torrent = new Torrent([
-                'name' => str_replace(".", " ", Request::get('name')),
-                'slug' => str_slug(str_replace(".", " ", Request::get('name'))),
+                'name' => $name,
+                'slug' => str_slug($name),
                 'description' => Request::get('description'),
                 'mediainfo' => Request::get('mediainfo'),
                 'info_hash' => $info['info_hash'],
@@ -299,8 +300,8 @@ class TorrentController extends Controller
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " .");
-
-                return Redirect::route('home')->with(Toastr::info('Your torrent is pending approval!...once approved you can download and seed your upload.', 'Attention', ['options']));
+                
+                return Redirect::route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
         return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);

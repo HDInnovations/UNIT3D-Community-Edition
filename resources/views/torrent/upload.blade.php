@@ -22,6 +22,28 @@
 @stop
 
 @section('content')
+<script>
+function updateTorrentName() {
+    let name = document.querySelector("#name");
+    let torrent = document.querySelector("#torrent");
+    let fileEndings = [".mkv.torrent", ".torrent"];
+    let allowed = ["1.0", "2.0", "5.1", "7.1"];
+    if (name !== null && torrent !== null) {
+        let value = torrent.value.split('\\').pop().split('/').pop();
+        fileEndings.forEach(function(e) {
+            if (value.endsWith(e)) {
+                value = value.substr(0, value.length - e.length);
+            }
+        });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function(a) {
+            search = a.replace(/\./g, " ");
+            value = value.replace(search, a);
+        })
+        name.value = value;
+    }
+}
+</script>
 @if($user->can_upload == 0)
 <div class="container">
   <div class="jumbotron shadowed">
@@ -42,13 +64,14 @@
   </div>
   @endif
 <div class="torrent box container">
-  <div class="alert alert-info">
+  <div class="alert alert-danger">
   <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}</h2>
-  <p>Please use the announce URL above when creating a new torrent and set torrent to private.</p>
+  <p>Please use the announce URL above when creating a new torrent. If you want to use your torrent without downloading it from the site you need to set the private flag and the source to {{config('other.source')}}.</p>
   </div>
   <br>
 <center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
 <center><p class="text-danger">IMDB and or TVDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
+<center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
 <center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 
   <div class="upload col-md-12">
@@ -56,7 +79,7 @@
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="document.getElementById('name').value = this.value.split('\\').pop().split('/').pop()">
+        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()">
       </div>
 
       <div class="form-group">
