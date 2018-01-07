@@ -97,13 +97,13 @@ class AnnounceController extends Controller
         }
 
         // If "Upload" Is Not Provided Return Error to Client
-        if (!$request->has('left')) {
+        if (!$request->has('uploaded')) {
             Log::notice('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing upload']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
-        if (!$request->has('left')) {
+        if (!$request->has('downloaded')) {
             Log::notice('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing download']), 200, ['Content-Type' => 'text/plain']);
         }
