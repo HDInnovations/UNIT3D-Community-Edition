@@ -12,7 +12,7 @@
 				<p class="text-center">Enter bonus points (minimum 100).</p>
 					<fieldset>
 						<input type='hidden' tabindex='3' name='request_id' value='{{ $request->id }}'>
-      					<input type="number" tabindex="3" name='bonus_value' placeholder="Bonus points">
+						<input type="number" tabindex="3" name='bonus_value' min='100' value="100">
     				</fieldset>
 					<br>
 					<div class="btns">
