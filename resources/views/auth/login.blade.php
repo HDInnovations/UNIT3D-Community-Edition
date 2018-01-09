@@ -14,8 +14,8 @@
 
   <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-  <link rel="stylesheet" href="{{ url('css/main/login.css') }}">
-  <link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css') }}" />
+  <link rel="stylesheet" href="{{ url('css/vendor/toastr.min.css?v=01') }}" />
+  <link rel="stylesheet" href="{{ url('css/main/login.css?v=01') }}">
 </head>
 
 <body>
@@ -103,7 +103,7 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="{{ url('js/vendor/app.js') }}"></script>
+<script type="text/javascript" src="{{ url('js/vendor/app.js?v=04') }}"></script>
 {!! Toastr::message() !!}
 </body>
 </html>
