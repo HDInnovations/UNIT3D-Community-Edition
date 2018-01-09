@@ -18,9 +18,9 @@
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-<link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=01') }}" />
+<link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=03') }}" />
 <link rel="stylesheet" href="{{ url('css/nav/hoe.css?v=05') }}">
-<link rel="stylesheet" href="{{ url('css/main/custom.css?v=46') }}">
+<link rel="stylesheet" href="{{ url('css/main/custom.css?v=48') }}">
 @if(Auth::user()->style == 1)
 <link rel="stylesheet" href="{{ url('css/main/dark.css?v=02') }}">
 @elseif(Auth::user()->style == 2)
