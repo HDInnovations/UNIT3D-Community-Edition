@@ -66,5 +66,4 @@ class CatalogController extends Controller
 
         return view('catalogs.torrents', ['torrents' => $torrents, 'user' => $user]);
     }
-
 }

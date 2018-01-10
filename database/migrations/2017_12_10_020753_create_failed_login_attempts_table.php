@@ -42,5 +42,4 @@ class CreateFailedLoginAttemptsTable extends Migration
     {
         Schema::drop('failed_login_attempts');
     }
-
 }

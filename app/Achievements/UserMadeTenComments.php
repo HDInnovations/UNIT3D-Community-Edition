@@ -36,7 +36,6 @@ class UserMadeTenComments extends Achievement
     */
     public function whenProgress($progress)
     {
-
     }
 
     /*
@@ -44,6 +43,5 @@ class UserMadeTenComments extends Achievement
     */
     public function whenUnlocked($progress)
     {
-
     }
 }

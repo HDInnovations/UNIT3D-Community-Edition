@@ -39,11 +39,9 @@ class CheckIfAlreadyVoted
         //flash a Toastr and redirect to results.
         if ($poll->ip_checking == 1) {
             if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-
                 Toastr::error('There is already a vote on this poll from your IP. Your vote has not been counted.', 'Whoops!', ['options']);
 
                 return redirect('poll/' . $poll->slug . '/result');
-
             }
         }
 

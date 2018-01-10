@@ -46,35 +46,33 @@ class autoPreWarning extends Command
     public function handle()
     {
         if (config('hitrun.enabled') == true) {
-        $current = new Carbon();
-        $prewarn = History::with(['user', 'torrent'])
+            $current = new Carbon();
+            $prewarn = History::with(['user', 'torrent'])
                             ->where('actual_downloaded', '>', 0)
                             ->where('active', '=', 0)
                             ->where('seedtime', '<=', config('hitrun.seedtime'))
                             ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                             ->get();
 
-        foreach ($prewarn as $pre) {
-            if (!$pre->user->group->is_immune) {
-                if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+            foreach ($prewarn as $pre) {
+                if (!$pre->user->group->is_immune) {
+                    if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+                        $exsist = Warning::where('torrent', '=', $pre->torrent->id)->where('user_id', '=', $pre->user->id)->first();
 
-                    $exsist = Warning::where('torrent', '=', $pre->torrent->id)->where('user_id', '=', $pre->user->id)->first();
+                        // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
+                        if (!$exsist) {
+                            $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
 
-                    // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
-                    if (!$exsist) {
-
-                        $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
-
-                        // Send Prewarning PM To The Offender
-                        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $pre->user->id, 'subject' => "Hit and Run Warning Incoming", 'message' => "You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for " . config('hitrun.prewarn') . " days on Torrent " . $pre->torrent->name . "
+                            // Send Prewarning PM To The Offender
+                            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $pre->user->id, 'subject' => "Hit and Run Warning Incoming", 'message' => "You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for " . config('hitrun.prewarn') . " days on Torrent " . $pre->torrent->name . "
                         If you fail to seed it within " . $timeleft . " day(s) you will recieve a automated WARNING which will last " . config('hitrun.expire') ." days![/b]
                         [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
-                    }
+                        }
 
-                    unset($exist);
+                        unset($exist);
+                    }
                 }
             }
         }
-    }
     }
 }

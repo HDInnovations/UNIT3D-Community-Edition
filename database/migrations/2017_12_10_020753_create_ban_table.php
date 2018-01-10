@@ -44,5 +44,4 @@ class CreateBanTable extends Migration
     {
         Schema::drop('ban');
     }
-
 }

@@ -49,5 +49,4 @@ class LockAccountController extends Controller
         }
         return back()->with(Toastr::error('Your Password Is Incorrect', 'Whoops!', ['options']));
     }
-
 }

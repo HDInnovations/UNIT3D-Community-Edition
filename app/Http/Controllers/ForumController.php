@@ -293,7 +293,6 @@ class ForumController extends Controller
             $topic->forum_id = $forum->id;
             $v = Validator::make($topic->toArray(), $topic->rules);
             if ($v->passes()) {
-
                 $topic->save();
 
                 $post = new Post();
@@ -622,5 +621,4 @@ class ForumController extends Controller
             return back()->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
         }
     }
-
 }

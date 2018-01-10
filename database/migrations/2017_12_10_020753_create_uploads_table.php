@@ -42,5 +42,4 @@ class CreateUploadsTable extends Migration
     {
         Schema::drop('uploads');
     }
-
 }

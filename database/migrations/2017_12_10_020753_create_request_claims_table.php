@@ -42,5 +42,4 @@ class CreateRequestClaimsTable extends Migration
     {
         Schema::drop('request_claims');
     }
-
 }

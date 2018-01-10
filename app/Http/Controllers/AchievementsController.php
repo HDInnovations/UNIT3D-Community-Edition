@@ -32,5 +32,4 @@ class AchievementsController extends Controller
 
         return view('user.achievements', ['user' => $user, 'achievements' => $achievements, 'locked' => $locked, 'pending' => $pending]);
     }
-
 }

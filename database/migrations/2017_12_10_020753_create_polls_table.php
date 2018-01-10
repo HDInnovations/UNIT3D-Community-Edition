@@ -44,5 +44,4 @@ class CreatePollsTable extends Migration
     {
         Schema::drop('polls');
     }
-
 }

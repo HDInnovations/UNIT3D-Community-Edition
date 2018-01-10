@@ -51,5 +51,4 @@ class CreatePeersTable extends Migration
     {
         Schema::drop('peers');
     }
-
 }

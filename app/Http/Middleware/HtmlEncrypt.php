@@ -49,7 +49,6 @@ class HtmlEncrypt
         }
 
         return $response;
-
     }
 
     public function encryptHtml($content)

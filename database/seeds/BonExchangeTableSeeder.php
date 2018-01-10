@@ -94,7 +94,5 @@ class BonExchangeTableSeeder extends Seeder
                     'invite' => 0,
                 ),
         ));
-
-
     }
 }

@@ -95,7 +95,7 @@ class ShoutboxController extends Controller
         }
     }
 
-    static public function getMessages($after = null)
+    public static function getMessages($after = null)
     {
         $messages = Cache::remember('shoutbox_messages', 1440, function () {
             return Shoutbox::orderBy('id', 'desc')->take(50)->get();

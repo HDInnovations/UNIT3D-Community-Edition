@@ -119,7 +119,5 @@ class TypesTableSeeder extends Seeder
                     'position' => 12,
                 ),
         ));
-
-
     }
 }

@@ -48,32 +48,32 @@ class BanController extends Controller
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff', 'Alert', ['options']));
         } else {
-        $user->group_id = 5;
-        $user->can_upload = 0;
-        $user->can_download = 0;
-        $user->can_comment = 0;
-        $user->can_invite = 0;
-        $user->can_request = 0;
-        $user->can_chat = 0;
-        $user->save();
+            $user->group_id = 5;
+            $user->can_upload = 0;
+            $user->can_download = 0;
+            $user->can_comment = 0;
+            $user->can_invite = 0;
+            $user->can_request = 0;
+            $user->can_chat = 0;
+            $user->save();
 
-        $staff = Auth::user();
-        $v = Validator::make(Request::all(), [
+            $staff = Auth::user();
+            $v = Validator::make(Request::all(), [
             'owned_by' => 'required',
             'created_by' => 'required|numeric',
             'ban_reason' => 'required',
-        ]);
+            ]);
 
-        $ban = new Ban();
-        $ban->owned_by = $user->id;
-        $ban->created_by = $staff->id;
-        $ban->ban_reason = Request::get('ban_reason');
-        $ban->save();
+            $ban = new Ban();
+            $ban->owned_by = $user->id;
+            $ban->created_by = $staff->id;
+            $ban->ban_reason = Request::get('ban_reason');
+            $ban->save();
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
 
-        return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
         }
     }
 
@@ -92,32 +92,32 @@ class BanController extends Controller
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff', 'Alert', ['options']));
         } else {
-        $user->group_id = Request::get('group_id');
-        $user->can_upload = 1;
-        $user->can_download = 1;
-        $user->can_comment = 1;
-        $user->can_invite = 1;
-        $user->can_request = 1;
-        $user->can_chat = 1;
-        $user->save();
+            $user->group_id = Request::get('group_id');
+            $user->can_upload = 1;
+            $user->can_download = 1;
+            $user->can_comment = 1;
+            $user->can_invite = 1;
+            $user->can_request = 1;
+            $user->can_chat = 1;
+            $user->save();
 
-        $staff = Auth::user();
-        $v = Validator::make(Request::all(), [
+            $staff = Auth::user();
+            $v = Validator::make(Request::all(), [
             'unban_reason' => 'required',
             'removed_at' => 'required'
-        ]);
+            ]);
 
-        $ban = new Ban();
-        $ban->owned_by = $user->id;
-        $ban->created_by = $staff->id;
-        $ban->unban_reason = Request::get('unban_reason');
-        $ban->removed_at = Carbon::now();
-        $ban->save();
+            $ban = new Ban();
+            $ban->owned_by = $user->id;
+            $ban->created_by = $staff->id;
+            $ban->unban_reason = Request::get('unban_reason');
+            $ban->removed_at = Carbon::now();
+            $ban->save();
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
 
-        return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
         }
     }
 }

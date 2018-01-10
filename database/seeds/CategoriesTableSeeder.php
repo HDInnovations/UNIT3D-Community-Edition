@@ -55,7 +55,5 @@ class CategoriesTableSeeder extends Seeder
                     'meta' => 0,
                 ),
         ));
-
-
     }
 }

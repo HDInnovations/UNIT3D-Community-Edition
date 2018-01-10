@@ -316,7 +316,5 @@ class GroupsTableSeeder extends Seeder
                     'autogroup' => 1,
                 ),
         ));
-
-
     }
 }

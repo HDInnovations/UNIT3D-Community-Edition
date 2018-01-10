@@ -40,5 +40,4 @@ class AddForeignKeysToTorrentsTable extends Migration
             $table->dropForeign('category_id');
         });
     }
-
 }
