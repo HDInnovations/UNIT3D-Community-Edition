@@ -29,7 +29,8 @@
         "spatie/laravel-cookie-consent": "^1.8",
         "spatie/laravel-image-optimizer": "^1.1",
         "theodorejb/polycast": "^1.0",
-        "intervention/image": "dev-master"
+        "intervention/image": "dev-master",
+        "symfony/dom-crawler": "^2.7|^3.0"
 
     },
     "require-dev": {
