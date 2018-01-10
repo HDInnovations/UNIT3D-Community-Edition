@@ -38,7 +38,7 @@ class BonExchangeTableSeeder extends Seeder
                     'personal_freeleech' => 0,
                     'invite' => 0,
                 ],
-            1 =>
+                1 =>
                 [
                     'id' => 2,
                     'description' => '10 GB Upload',
@@ -49,7 +49,7 @@ class BonExchangeTableSeeder extends Seeder
                     'personal_freeleech' => 0,
                     'invite' => 0,
                 ],
-            2 =>
+                2 =>
                 [
                     'id' => 3,
                     'description' => '25 GB Upload',
@@ -60,7 +60,7 @@ class BonExchangeTableSeeder extends Seeder
                     'personal_freeleech' => 0,
                     'invite' => 0,
                 ],
-            3 =>
+                3 =>
                 [
                     'id' => 4,
                     'description' => '100 GB Upload',
@@ -71,7 +71,7 @@ class BonExchangeTableSeeder extends Seeder
                     'personal_freeleech' => 0,
                     'invite' => 0,
                 ],
-            4 =>
+                4 =>
                 [
                     'id' => 9,
                     'description' => '1 Invite',
@@ -82,7 +82,7 @@ class BonExchangeTableSeeder extends Seeder
                     'personal_freeleech' => 0,
                     'invite' => 1,
                 ],
-            5 =>
+                5 =>
                 [
                     'id' => 10,
                     'description' => 'Personal 24Hr Freeleech',

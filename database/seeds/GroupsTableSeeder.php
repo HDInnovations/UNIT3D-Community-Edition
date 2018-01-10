@@ -43,7 +43,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            1 =>
+                1 =>
                 [
                     'id' => 2,
                     'name' => 'Guest',
@@ -59,7 +59,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            2 =>
+                2 =>
                 [
                     'id' => 3,
                     'name' => 'User',
@@ -75,7 +75,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            3 =>
+                3 =>
                 [
                     'id' => 4,
                     'name' => 'Administrator',
@@ -91,7 +91,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            4 =>
+                4 =>
                 [
                     'id' => 5,
                     'name' => 'Banned',
@@ -107,7 +107,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            5 =>
+                5 =>
                 [
                     'id' => 6,
                     'name' => 'Moderator',
@@ -123,7 +123,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            6 =>
+                6 =>
                 [
                     'id' => 7,
                     'name' => 'Uploader',
@@ -139,7 +139,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 1,
                     'autogroup' => 0,
                 ],
-            7 =>
+                7 =>
                 [
                     'id' => 8,
                     'name' => 'Trustee',
@@ -155,7 +155,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 1,
                     'autogroup' => 0,
                 ],
-            8 =>
+                8 =>
                 [
                     'id' => 9,
                     'name' => 'Bot',
@@ -171,7 +171,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            9 =>
+                9 =>
                 [
                     'id' => 10,
                     'name' => 'Owner',
@@ -187,7 +187,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 0,
                 ],
-            10 =>
+                10 =>
                 [
                     'id' => 11,
                     'name' => 'PowerUser',
@@ -203,7 +203,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            11 =>
+                11 =>
                 [
                     'id' => 12,
                     'name' => 'SuperUser',
@@ -219,7 +219,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            12 =>
+                12 =>
                 [
                     'id' => 13,
                     'name' => 'ExtremeUser',
@@ -235,7 +235,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            13 =>
+                13 =>
                 [
                     'id' => 14,
                     'name' => 'InsaneUser',
@@ -251,7 +251,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            14 =>
+                14 =>
                 [
                     'id' => 15,
                     'name' => 'Leech',
@@ -267,7 +267,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            15 =>
+                15 =>
                 [
                     'id' => 16,
                     'name' => 'Veteran',
@@ -283,7 +283,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 1,
                     'autogroup' => 1,
                 ],
-            16 =>
+                16 =>
                 [
                     'id' => 17,
                     'name' => 'Seeder',
@@ -299,7 +299,7 @@ class GroupsTableSeeder extends Seeder
                     'is_freeleech' => 0,
                     'autogroup' => 1,
                 ],
-            17 =>
+                17 =>
                 [
                     'id' => 18,
                     'name' => 'Archivist',

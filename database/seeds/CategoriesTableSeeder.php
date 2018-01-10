@@ -36,7 +36,7 @@ class CategoriesTableSeeder extends Seeder
                     'num_torrent' => 0,
                     'meta' => 1,
                 ],
-            1 =>
+                1 =>
                 [
                     'id' => 2,
                     'name' => 'TV',
@@ -45,7 +45,7 @@ class CategoriesTableSeeder extends Seeder
                     'num_torrent' => 0,
                     'meta' => 1,
                 ],
-            2 =>
+                2 =>
                 [
                     'id' => 3,
                     'name' => 'Music',
