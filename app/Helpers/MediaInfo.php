@@ -264,12 +264,12 @@ class MediaInfo
 
     private function parseWidthHeight($string)
     {
-        return str_replace(array('pixels', ' '), null, strtolower($string));
+        return str_replace(['pixels', ' '], null, strtolower($string));
     }
 
     private function parseAudioChannels($string)
     {
-        $replace = array(
+        $replace = [
             ' ' => '',
             'channels' => 'ch',
             'channel' => 'ch',
@@ -277,7 +277,7 @@ class MediaInfo
             '7ch' => '6.1ch',
             '6ch' => '5.1ch',
             '2ch' => '2.0ch'
-        );
+        ];
         return str_ireplace(array_keys($replace), $replace, $string);
     }
 
@@ -295,7 +295,7 @@ class MediaInfo
     {
         $output = ["general"=>[],"video"=>[],"audio"=>[]];
 
-        $general_crumbs = array("format"=>"ucfirst","duration"=>null);
+        $general_crumbs = ["format"=>"ucfirst","duration"=>null];
 
         if ($data['general'] === null) {
             $output["general"] = null;
@@ -311,16 +311,16 @@ class MediaInfo
         if ($data['video'] === null) {
             $output["video"] = null;
         } else {
-            $temp_output = array();
+            $temp_output = [];
             foreach ($data["video"] as $video_element) {
-                $temp_video_output = array();
+                $temp_video_output = [];
                 if (isset($video_element['format'])) {
                     $temp_video_output[] = strtoupper($video_element['format']);
                 }
                 if (isset($video_element['width']) && isset($video_element['height'])) {
                     $temp_video_output[] = $video_element['width']." x ".$video_element['height'];
                 }
-                foreach (array("aspect_ratio","frame_rate","bit_depth","bit_rate","format_profile","scan_type","title","color primaries") as $property) {
+                foreach (["aspect_ratio","frame_rate","bit_depth","bit_rate","format_profile","scan_type","title","color primaries"] as $property) {
                     if (isset($video_element[$property])) {
                         $temp_video_output[] = $video_element[$property];
                     }
@@ -337,10 +337,10 @@ class MediaInfo
         if ($data['audio'] === null) {
             $output["audio"] = null;
         } else {
-            $temp_output = array();
+            $temp_output = [];
             foreach ($data["audio"] as $audio_element) {
-                $temp_audio_output = array();
-                foreach (array("language","format","channels","bit_rate","title") as $property) {
+                $temp_audio_output = [];
+                foreach (["language","format","channels","bit_rate","title"] as $property) {
                     if (isset($audio_element[$property])) {
                         $temp_audio_output[] = $audio_element[$property];
                     }
@@ -357,10 +357,10 @@ class MediaInfo
         if ($data['text'] === null) {
             $output["text"] = null;
         } else {
-            $temp_output = array();
+            $temp_output = [];
             foreach ($data["text"] as $text_element) {
-                $temp_text_output = array();
-                foreach (array("language","format","title") as $property) {
+                $temp_text_output = [];
+                foreach (["language","format","title"] as $property) {
                     if (isset($text_element[$property])) {
                         $temp_text_output[] = $text_element[$property];
                     }

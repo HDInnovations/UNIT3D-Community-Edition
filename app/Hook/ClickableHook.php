@@ -28,11 +28,11 @@ class ClickableHook extends AbstractHook
 
         // To make sure we won't parse links inside [url] or [img] tags, we'll first replace all urls/imgs with uniqids
         // and keep them in this array, and restore them at the end, after parsing
-        $ignoredStrings = array();
+        $ignoredStrings = [];
 
         // The tags we won't touch
         // For example, neither [url="http://www.example.com"] nor [img]http://www.example.com[/img] will be replaced.
-        $ignoredTags = array('url', 'link', 'img', 'image');
+        $ignoredTags = ['url', 'link', 'img', 'image'];
 
         $i = 0;
         foreach ($ignoredTags as $tag) {
@@ -99,7 +99,7 @@ class ClickableHook extends AbstractHook
         if ($parser->hasFilter('Email')) {
             $pattern = '(:\/\/[\w\.\+]+:)?([a-z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*)';
 
-            $content = preg_replace_callback('/' . $pattern . '/i', array($this, '_emailCallback'), $content);
+            $content = preg_replace_callback('/' . $pattern . '/i', [$this, '_emailCallback'], $content);
         }
 
         // We restore the tags we ommited
@@ -123,10 +123,10 @@ class ClickableHook extends AbstractHook
             return $matches[0];
         }
 
-        return $this->getParser()->getFilter('Email')->parse(array(
+        return $this->getParser()->getFilter('Email')->parse([
             'tag' => 'email',
-            'attributes' => array()
-        ), trim($matches[2]));
+            'attributes' => []
+        ], trim($matches[2]));
     }
 
     /**
@@ -137,9 +137,9 @@ class ClickableHook extends AbstractHook
      */
     protected function _urlCallback($match)
     {
-        return $this->getParser()->getFilter('Url')->parse(array(
+        return $this->getParser()->getFilter('Url')->parse([
             'tag' => 'url',
-            'attributes' => array()
-        ), trim($match));
+            'attributes' => []
+        ], trim($match));
     }
 }

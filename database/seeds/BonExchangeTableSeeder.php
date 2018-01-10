@@ -26,9 +26,9 @@ class BonExchangeTableSeeder extends Seeder
 
         \DB::table('bon_exchange')->delete();
 
-        \DB::table('bon_exchange')->insert(array(
+        \DB::table('bon_exchange')->insert([
             0 =>
-                array(
+                [
                     'id' => 1,
                     'description' => '2 GB Upload',
                     'value' => 2147483648,
@@ -37,9 +37,9 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 0,
                     'invite' => 0,
-                ),
+                ],
             1 =>
-                array(
+                [
                     'id' => 2,
                     'description' => '10 GB Upload',
                     'value' => 10737418240,
@@ -48,9 +48,9 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 0,
                     'invite' => 0,
-                ),
+                ],
             2 =>
-                array(
+                [
                     'id' => 3,
                     'description' => '25 GB Upload',
                     'value' => 26843545600,
@@ -59,9 +59,9 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 0,
                     'invite' => 0,
-                ),
+                ],
             3 =>
-                array(
+                [
                     'id' => 4,
                     'description' => '100 GB Upload',
                     'value' => 107374182400,
@@ -70,9 +70,9 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 0,
                     'invite' => 0,
-                ),
+                ],
             4 =>
-                array(
+                [
                     'id' => 9,
                     'description' => '1 Invite',
                     'value' => 1,
@@ -81,9 +81,9 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 0,
                     'invite' => 1,
-                ),
+                ],
             5 =>
-                array(
+                [
                     'id' => 10,
                     'description' => 'Personal 24Hr Freeleech',
                     'value' => 1,
@@ -92,7 +92,7 @@ class BonExchangeTableSeeder extends Seeder
                     'download' => 0,
                     'personal_freeleech' => 1,
                     'invite' => 0,
-                ),
-        ));
+                ],
+        ]);
     }
 }

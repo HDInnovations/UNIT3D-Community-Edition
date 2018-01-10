@@ -26,9 +26,9 @@ class AchievementDetailsTableSeeder extends Seeder
 
         \DB::table('achievement_details')->delete();
 
-        \DB::table('achievement_details')->insert(array(
+        \DB::table('achievement_details')->insert([
             0 =>
-                array(
+                [
                     'id' => 2,
                     'name' => 'FirstComment',
                     'description' => 'Congratulations! You have made your first comment!',
@@ -37,9 +37,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMadeComment',
                     'created_at' => '2017-02-28 17:22:37',
                     'updated_at' => '2017-04-21 12:52:01',
-                ),
+                ],
             1 =>
-                array(
+                [
                     'id' => 3,
                     'name' => '10Comments',
                     'description' => 'Wow! You have already made 10 comments!',
@@ -48,9 +48,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMadeTenComments',
                     'created_at' => '2017-02-28 17:22:37',
                     'updated_at' => '2017-04-21 12:21:06',
-                ),
+                ],
             2 =>
-                array(
+                [
                     'id' => 4,
                     'name' => 'FirstUpload',
                     'description' => 'Congratulations! You have made your first torrent upload!',
@@ -59,9 +59,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMadeUpload',
                     'created_at' => '2017-03-01 13:31:50',
                     'updated_at' => '2017-03-22 14:59:32',
-                ),
+                ],
             3 =>
-                array(
+                [
                     'id' => 5,
                     'name' => '25Uploads',
                     'description' => 'You have made 25 torrent uploads!',
@@ -70,9 +70,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade25Uploads',
                     'created_at' => '2017-03-02 23:19:34',
                     'updated_at' => '2017-04-21 12:21:06',
-                ),
+                ],
             4 =>
-                array(
+                [
                     'id' => 6,
                     'name' => '50Comments',
                     'description' => 'Wow! You have already made 50 comments!',
@@ -81,9 +81,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade50Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             5 =>
-                array(
+                [
                     'id' => 7,
                     'name' => '100Comments',
                     'description' => 'Wow! You have already made 100 comments!',
@@ -92,9 +92,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade100Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             6 =>
-                array(
+                [
                     'id' => 8,
                     'name' => '200Comments',
                     'description' => 'Wow! You have already made 200 comments!',
@@ -103,9 +103,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade200Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             7 =>
-                array(
+                [
                     'id' => 9,
                     'name' => '300Comments',
                     'description' => 'Wow! You have already made 300 comments!',
@@ -114,9 +114,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade300Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             8 =>
-                array(
+                [
                     'id' => 10,
                     'name' => '400Comments',
                     'description' => 'Wow! You have already made 400 comments!',
@@ -125,9 +125,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade400Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             9 =>
-                array(
+                [
                     'id' => 11,
                     'name' => '500Comments',
                     'description' => 'Wow! You have already made 500 comments!',
@@ -136,9 +136,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade500Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             10 =>
-                array(
+                [
                     'id' => 12,
                     'name' => '600Comments',
                     'description' => 'Wow! You have already made 600 comments!',
@@ -147,9 +147,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade600Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             11 =>
-                array(
+                [
                     'id' => 13,
                     'name' => '700Comments',
                     'description' => 'Wow! You have already made 700 comments!',
@@ -158,9 +158,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade700Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             12 =>
-                array(
+                [
                     'id' => 14,
                     'name' => '800Comments',
                     'description' => 'Wow! You have already made 800 comments!',
@@ -169,9 +169,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade800Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             13 =>
-                array(
+                [
                     'id' => 15,
                     'name' => '900Comments',
                     'description' => 'DAMN BRO! You have made 900 comments!',
@@ -180,9 +180,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade900Comments',
                     'created_at' => '2017-04-21 13:04:26',
                     'updated_at' => '2017-04-21 13:04:26',
-                ),
+                ],
             14 =>
-                array(
+                [
                     'id' => 16,
                     'name' => '50Uploads',
                     'description' => 'You have made 50 torrent uploads!',
@@ -191,9 +191,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade50Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             15 =>
-                array(
+                [
                     'id' => 17,
                     'name' => '100Uploads',
                     'description' => 'You have made 100 torrent uploads!',
@@ -202,9 +202,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade100Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             16 =>
-                array(
+                [
                     'id' => 18,
                     'name' => '200Uploads',
                     'description' => 'You have made 200 torrent uploads!',
@@ -213,9 +213,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade200Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             17 =>
-                array(
+                [
                     'id' => 19,
                     'name' => '300Uploads',
                     'description' => 'You have made 300 torrent uploads!',
@@ -224,9 +224,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade300Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             18 =>
-                array(
+                [
                     'id' => 20,
                     'name' => '400Uploads',
                     'description' => 'You have made 400 torrent uploads!',
@@ -235,9 +235,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade400Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             19 =>
-                array(
+                [
                     'id' => 21,
                     'name' => '500Uploads',
                     'description' => 'You have made 500 torrent uploads!',
@@ -246,9 +246,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade500Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             20 =>
-                array(
+                [
                     'id' => 22,
                     'name' => '600Uploads',
                     'description' => 'You have made 600 torrent uploads!',
@@ -257,9 +257,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade600Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             21 =>
-                array(
+                [
                     'id' => 23,
                     'name' => '700Uploads',
                     'description' => 'You have made 700 torrent uploads!',
@@ -268,9 +268,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade700Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             22 =>
-                array(
+                [
                     'id' => 24,
                     'name' => '800Uploads',
                     'description' => 'You have made 800 torrent uploads!',
@@ -279,9 +279,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade800Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             23 =>
-                array(
+                [
                     'id' => 25,
                     'name' => '900Uploads',
                     'description' => 'DAMN BRO, you have made 900 torrent uploads!',
@@ -290,9 +290,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade900Uploads',
                     'created_at' => '2017-04-21 13:29:51',
                     'updated_at' => '2017-04-21 13:29:51',
-                ),
+                ],
             24 =>
-                array(
+                [
                     'id' => 26,
                     'name' => 'FirstPost',
                     'description' => 'Congratulations! You have made your first post!',
@@ -301,9 +301,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMadeFirstPost',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:38:48',
-                ),
+                ],
             25 =>
-                array(
+                [
                     'id' => 27,
                     'name' => '25Posts',
                     'description' => 'Wow! You have already made 25 posts!',
@@ -312,9 +312,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade25Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             26 =>
-                array(
+                [
                     'id' => 28,
                     'name' => '50Posts',
                     'description' => 'Wow! You have already made 50 posts!',
@@ -323,9 +323,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade50Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             27 =>
-                array(
+                [
                     'id' => 29,
                     'name' => '100Posts',
                     'description' => 'Wow! You have already made 100 posts!',
@@ -334,9 +334,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade100Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             28 =>
-                array(
+                [
                     'id' => 30,
                     'name' => '200Posts',
                     'description' => 'Wow! You have already made 200 posts!',
@@ -345,9 +345,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade200Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             29 =>
-                array(
+                [
                     'id' => 31,
                     'name' => '300Posts',
                     'description' => 'Wow! You have already made 300 posts!',
@@ -356,9 +356,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade300Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             30 =>
-                array(
+                [
                     'id' => 32,
                     'name' => '400Posts',
                     'description' => 'Wow! You have already made 400 posts!',
@@ -367,9 +367,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade400Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             31 =>
-                array(
+                [
                     'id' => 33,
                     'name' => '500Posts',
                     'description' => 'Wow! You have already made 500 posts!',
@@ -378,9 +378,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade500Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             32 =>
-                array(
+                [
                     'id' => 34,
                     'name' => '600Posts',
                     'description' => 'Wow! You have already made 600 posts!',
@@ -389,9 +389,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade600Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             33 =>
-                array(
+                [
                     'id' => 35,
                     'name' => '700Posts',
                     'description' => 'Wow! You have already made 700 posts!',
@@ -400,9 +400,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade700Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             34 =>
-                array(
+                [
                     'id' => 36,
                     'name' => '800Posts',
                     'description' => 'Wow! You have already made 800 posts!',
@@ -411,9 +411,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade800Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             35 =>
-                array(
+                [
                     'id' => 37,
                     'name' => '900Posts',
                     'description' => 'Wow! You have already made 900 posts!',
@@ -422,9 +422,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserMade900Posts',
                     'created_at' => '2017-04-21 18:37:09',
                     'updated_at' => '2017-04-21 18:37:09',
-                ),
+                ],
             36 =>
-                array(
+                [
                     'id' => 38,
                     'name' => 'Filled25Requests',
                     'description' => 'Congrats! You have already filled 25 requests!',
@@ -433,9 +433,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserFilled25Requests',
                     'created_at' => '2017-08-28 23:55:56',
                     'updated_at' => '2017-08-28 23:55:56',
-                ),
+                ],
             37 =>
-                array(
+                [
                     'id' => 39,
                     'name' => 'Filled50Requests',
                     'description' => 'Wow! You have already filled 50 requests!',
@@ -444,9 +444,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserFilled50Requests',
                     'created_at' => '2017-08-28 23:55:56',
                     'updated_at' => '2017-08-28 23:55:56',
-                ),
+                ],
             38 =>
-                array(
+                [
                     'id' => 40,
                     'name' => 'Filled75Requests',
                     'description' => 'Woot! You have already filled 75 requests!',
@@ -455,9 +455,9 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserFilled75Requests',
                     'created_at' => '2017-08-28 23:55:56',
                     'updated_at' => '2017-08-28 23:55:56',
-                ),
+                ],
             39 =>
-                array(
+                [
                     'id' => 41,
                     'name' => 'Filled100Requests',
                     'description' => 'DAMN BRO! You have already filled 100 requests!',
@@ -466,7 +466,7 @@ class AchievementDetailsTableSeeder extends Seeder
                     'class_name' => 'App\\Achievements\\UserFilled100Requests',
                     'created_at' => '2017-08-28 23:55:56',
                     'updated_at' => '2017-08-28 23:55:56',
-                ),
-        ));
+                ],
+        ]);
     }
 }
