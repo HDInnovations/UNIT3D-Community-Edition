@@ -50,7 +50,7 @@ class RegisterController extends Controller
         if (Request::isMethod('post')) {
             $key = Invite::where('code', '=', $code)->first();
             if (config('other.invite-only') == true && !$key) {
-                return View::make('auth.register', array('code' => $code))->with(Toastr::warning('Invalid or Expired Invite Key!', 'Error', ['options']));
+                return View::make('auth.register', ['code' => $code])->with(Toastr::warning('Invalid or Expired Invite Key!', 'Error', ['options']));
             }
 
             $current = Carbon::now();
@@ -60,7 +60,7 @@ class RegisterController extends Controller
             $v = Validator::make($input, $user->rules);
             if ($v->fails()) {
                 $errors = $v->messages();
-                return Redirect::route('register', array('code' => $code))->with(Toastr::warning('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Error', ['options']));
+                return Redirect::route('register', ['code' => $code])->with(Toastr::warning('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Error', ['options']));
             } else {
                 // Create The User
                 $group = Group::where('slug', '=', 'validating')->first();
@@ -103,6 +103,6 @@ class RegisterController extends Controller
                 return Redirect::route('login')->with(Toastr::info('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
             }
         }
-        return View::make('auth.register', array('code' => $code));
+        return View::make('auth.register', ['code' => $code]);
     }
 }

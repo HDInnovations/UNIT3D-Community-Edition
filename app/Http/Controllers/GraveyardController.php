@@ -63,5 +63,4 @@ class GraveyardController extends Controller
             return Redirect::route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Yay!', ['options']));
         }
     }
-
 }

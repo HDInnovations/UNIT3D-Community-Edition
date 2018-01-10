@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
 
-
 class AnnounceController extends Controller
 {
 
@@ -218,8 +217,20 @@ class AnnounceController extends Controller
                 $seeders++; // Counts the number of seeders
             }
 
-            unset($p['id'], $p['md5_peer_id'], $p['hash'], $p['agent'], $p['uploaded'], $p['downloaded'], $p['left'], $p['torrent_id'],
-                $p['user_id'], $p['seeder'], $p['created_at'], $p['updated_at']);
+            unset(
+                $p['id'],
+                $p['md5_peer_id'],
+                $p['hash'],
+                $p['agent'],
+                $p['uploaded'],
+                $p['downloaded'],
+                $p['left'],
+                $p['torrent_id'],
+                $p['user_id'],
+                $p['seeder'],
+                $p['created_at'],
+                $p['updated_at']
+            );
         }
 
         // Pull Count On Users Peers Per Torrent
@@ -317,7 +328,6 @@ class AnnounceController extends Controller
             //End Peer update
 
             $client->save();
-
         } elseif ($event == 'completed') {
             // Set the torrent data
             $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
@@ -362,7 +372,6 @@ class AnnounceController extends Controller
             $diff = $new_update - $old_update;
             $history->seedtime += $diff;
             $history->save();
-
         } elseif ($event == 'stopped') {
             // Set the torrent data
             $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
@@ -408,7 +417,6 @@ class AnnounceController extends Controller
             }
 
             $client->delete();
-
         } else {
             // Set the torrent data
             $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
@@ -458,7 +466,7 @@ class AnnounceController extends Controller
         $torrent->leechers = Peer::whereRaw('torrent_id = ? AND `left` > 0', [$torrent->id])->count();
         $torrent->save();
 
-        $res = array();
+        $res = [];
         $res['interval'] = (60 * 45); // Set to 45 for debug
         $res['min interval'] = (60 * 30); // Set to 30 for debug
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
@@ -489,5 +497,4 @@ class AnnounceController extends Controller
         }
         return $peers;
     }
-
 }

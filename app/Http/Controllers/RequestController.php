@@ -368,7 +368,6 @@ class RequestController extends Controller
 
         $appurl = env('APP_URL', 'http://unit3d.site');
         PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has Been Filled!", 'message' => $request->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
-
     }
 
     /**
@@ -476,7 +475,6 @@ class RequestController extends Controller
         $request = Requests::findOrFail($id);
 
         if ($request->claimed == 0) {
-
             $requestClaim = new RequestsClaims([
                 'request_id' => $id,
                 'username' => $user->username,
@@ -505,9 +503,7 @@ class RequestController extends Controller
         $claimer = RequestsClaims::where('request_id', '=', $id)->first();
 
         if ($user->group->is_modo || $user->username == $claimer->username) {
-
             if ($request->claimed == 1) {
-
                 $requestClaim = RequestsClaims::where('request_id', '=', $id)->firstOrFail();
                 $requestClaim->delete();
 

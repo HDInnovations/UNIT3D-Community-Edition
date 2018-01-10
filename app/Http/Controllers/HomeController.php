@@ -140,5 +140,4 @@ class HomeController extends Controller
     {
         return View::make('landing.christmas');
     }
-
 }

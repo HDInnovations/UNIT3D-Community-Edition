@@ -14,7 +14,7 @@ namespace App\Console\Commands;
 
 use App\Torrent;
 use App\Peer;
-Use App\Client;
+use App\Client;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

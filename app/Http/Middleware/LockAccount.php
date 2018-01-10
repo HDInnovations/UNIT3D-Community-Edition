@@ -30,13 +30,9 @@ class LockAccount
     public function handle($request, Closure $next)
     {
         if ($request->session()->has('locked')) {
-
             return Redirect::route('lock')->with(Toastr::info('Your Account Is Locked', 'Info', ['options']));
-
         }
 
         return $next($request);
-
     }
-
 }

@@ -42,5 +42,4 @@ class AddForeignKeysToReportsTable extends Migration
             $table->dropForeign('foreign_staff_user_id');
         });
     }
-
 }

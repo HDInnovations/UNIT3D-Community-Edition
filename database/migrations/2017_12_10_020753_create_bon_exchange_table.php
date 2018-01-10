@@ -45,5 +45,4 @@ class CreateBonExchangeTable extends Migration
     {
         Schema::drop('bon_exchange');
     }
-
 }

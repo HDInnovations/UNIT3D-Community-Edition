@@ -172,57 +172,57 @@ class UserController extends Controller
             return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Alert', ['options']));
         } else {
         // Removes UserID from Torrents if any and replaces with System UserID (0)
-        foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
-            $tor->user_id = 1;
-            $tor->save();
-        }
+            foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
+                $tor->user_id = 1;
+                $tor->save();
+            }
         // Removes UserID from Comments if any and replaces with System UserID (0)
-        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-            $com->user_id = 1;
-            $com->save();
-        }
+            foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
+                $com->user_id = 1;
+                $com->save();
+            }
         // Removes UserID from Posts if any and replaces with System UserID (0)
-        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-            $post->user_id = 1;
-            $post->save();
-        }
+            foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
+                $post->user_id = 1;
+                $post->save();
+            }
         // Removes UserID from Topic Creators if any and replaces with System UserID (0)
-        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->first_post_user_id = 1;
-            $topic->save();
-        }
+            foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
+                $topic->first_post_user_id = 1;
+                $topic->save();
+            }
         // Removes UserID from Topic if any and replaces with System UserID (0)
-        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-            $topic->last_post_user_id = 1;
-            $topic->save();
-        }
+            foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
+                $topic->last_post_user_id = 1;
+                $topic->save();
+            }
         // Removes UserID from PM if any and replaces with System UserID (0)
-        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-            $sent->sender_id = 1;
-            $sent->save();
-        }
+            foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
+                $sent->sender_id = 1;
+                $sent->save();
+            }
         // Removes UserID from PM if any and replaces with System UserID (0)
-        foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
-            $recieved->reciever_id = 1;
-            $recieved->save();
-        }
+            foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
+                $recieved->reciever_id = 1;
+                $recieved->save();
+            }
         // Removes all Posts made by User from the shoutbox
-        foreach (Shoutbox::where('user', '=', $user->id)->get() as $shout) {
-            $shout->delete();
-        }
+            foreach (Shoutbox::where('user', '=', $user->id)->get() as $shout) {
+                $shout->delete();
+            }
         // Removes all notes for user
-        foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-            $note->delete();
-        }
+            foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
+                $note->delete();
+            }
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . $staff->username . " has deleted " . $user->username . " account.");
+            \LogActivity::addToLog("Staff Member " . $staff->username . " has deleted " . $user->username . " account.");
 
-        if ($user->delete()) {
-            return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
-        } else {
-            return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
-        }
+            if ($user->delete()) {
+                return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
+            } else {
+                return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            }
         }
     }
 }

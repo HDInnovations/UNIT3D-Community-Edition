@@ -61,5 +61,4 @@ class FollowController extends Controller
             return back()->with(Toastr::error('You are not following this user to begin with', 'Error!', ['options']));
         }
     }
-
 }

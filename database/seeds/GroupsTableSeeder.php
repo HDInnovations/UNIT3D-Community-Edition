@@ -26,9 +26,9 @@ class GroupsTableSeeder extends Seeder
 
         \DB::table('groups')->delete();
 
-        \DB::table('groups')->insert(array(
+        \DB::table('groups')->insert([
             0 =>
-                array(
+                [
                     'id' => 1,
                     'name' => 'Validating',
                     'slug' => 'validating',
@@ -42,9 +42,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            1 =>
-                array(
+                ],
+                1 =>
+                [
                     'id' => 2,
                     'name' => 'Guest',
                     'slug' => 'guest',
@@ -58,9 +58,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            2 =>
-                array(
+                ],
+                2 =>
+                [
                     'id' => 3,
                     'name' => 'User',
                     'slug' => 'user',
@@ -74,9 +74,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            3 =>
-                array(
+                ],
+                3 =>
+                [
                     'id' => 4,
                     'name' => 'Administrator',
                     'slug' => 'administrator',
@@ -90,9 +90,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            4 =>
-                array(
+                ],
+                4 =>
+                [
                     'id' => 5,
                     'name' => 'Banned',
                     'slug' => 'banned',
@@ -106,9 +106,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            5 =>
-                array(
+                ],
+                5 =>
+                [
                     'id' => 6,
                     'name' => 'Moderator',
                     'slug' => 'moderator',
@@ -122,9 +122,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            6 =>
-                array(
+                ],
+                6 =>
+                [
                     'id' => 7,
                     'name' => 'Uploader',
                     'slug' => 'uploader',
@@ -138,9 +138,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 1,
                     'autogroup' => 0,
-                ),
-            7 =>
-                array(
+                ],
+                7 =>
+                [
                     'id' => 8,
                     'name' => 'Trustee',
                     'slug' => 'trustee',
@@ -154,9 +154,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 1,
                     'autogroup' => 0,
-                ),
-            8 =>
-                array(
+                ],
+                8 =>
+                [
                     'id' => 9,
                     'name' => 'Bot',
                     'slug' => 'bot',
@@ -170,9 +170,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            9 =>
-                array(
+                ],
+                9 =>
+                [
                     'id' => 10,
                     'name' => 'Owner',
                     'slug' => 'owner',
@@ -186,9 +186,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 0,
                     'autogroup' => 0,
-                ),
-            10 =>
-                array(
+                ],
+                10 =>
+                [
                     'id' => 11,
                     'name' => 'PowerUser',
                     'slug' => 'poweruser',
@@ -202,9 +202,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            11 =>
-                array(
+                ],
+                11 =>
+                [
                     'id' => 12,
                     'name' => 'SuperUser',
                     'slug' => 'superuser',
@@ -218,9 +218,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            12 =>
-                array(
+                ],
+                12 =>
+                [
                     'id' => 13,
                     'name' => 'ExtremeUser',
                     'slug' => 'extremeuser',
@@ -234,9 +234,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            13 =>
-                array(
+                ],
+                13 =>
+                [
                     'id' => 14,
                     'name' => 'InsaneUser',
                     'slug' => 'insaneuser',
@@ -250,9 +250,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            14 =>
-                array(
+                ],
+                14 =>
+                [
                     'id' => 15,
                     'name' => 'Leech',
                     'slug' => 'leech',
@@ -266,9 +266,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 0,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            15 =>
-                array(
+                ],
+                15 =>
+                [
                     'id' => 16,
                     'name' => 'Veteran',
                     'slug' => 'veteran',
@@ -282,9 +282,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 1,
                     'autogroup' => 1,
-                ),
-            16 =>
-                array(
+                ],
+                16 =>
+                [
                     'id' => 17,
                     'name' => 'Seeder',
                     'slug' => 'seeder',
@@ -298,9 +298,9 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 0,
                     'autogroup' => 1,
-                ),
-            17 =>
-                array(
+                ],
+                17 =>
+                [
                     'id' => 18,
                     'name' => 'Archivist',
                     'slug' => 'archivist',
@@ -314,9 +314,7 @@ class GroupsTableSeeder extends Seeder
                     'is_immune' => 1,
                     'is_freeleech' => 1,
                     'autogroup' => 1,
-                ),
-        ));
-
-
+                ],
+        ]);
     }
 }

@@ -45,5 +45,4 @@ class CreateLogActivitiesTable extends Migration
     {
         Schema::drop('log_activities');
     }
-
 }

@@ -46,5 +46,4 @@ class ArticleController extends Controller
 
         return view('article.article', ['article' => $article, 'comments' => $comments]);
     }
-
 }

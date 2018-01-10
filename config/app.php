@@ -177,7 +177,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
         Brian2694\Toastr\ToastrServiceProvider::class,

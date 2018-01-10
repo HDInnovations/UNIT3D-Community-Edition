@@ -41,5 +41,4 @@ class CreateTypesTable extends Migration
     {
         Schema::drop('types');
     }
-
 }

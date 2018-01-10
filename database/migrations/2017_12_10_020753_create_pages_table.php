@@ -42,5 +42,4 @@ class CreatePagesTable extends Migration
     {
         Schema::drop('pages');
     }
-
 }

@@ -26,9 +26,9 @@ class ArticlesTableSeeder extends Seeder
 
         \DB::table('articles')->delete();
 
-        \DB::table('articles')->insert(array(
+        \DB::table('articles')->insert([
             0 =>
-                array(
+                [
                     'id' => 1,
                     'title' => 'Welcome To UNIT3D',
                     'slug' => 'welcome_to_unit3d',
@@ -36,7 +36,7 @@ class ArticlesTableSeeder extends Seeder
                     'user_id' => 3,
                     'created_at' => '2017-02-28 17:22:37',
                     'updated_at' => '2017-04-21 12:21:06',
-                ),
-        ));
+                ],
+        ]);
     }
 }

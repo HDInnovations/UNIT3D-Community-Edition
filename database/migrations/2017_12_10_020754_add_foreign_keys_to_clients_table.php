@@ -40,5 +40,4 @@ class AddForeignKeysToClientsTable extends Migration
             $table->dropForeign('clients_user_id_foreign');
         });
     }
-
 }

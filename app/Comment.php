@@ -68,5 +68,4 @@ class Comment extends Model
         $code->setLineBreaks(true);
         return $code->parse();
     }
-
 }

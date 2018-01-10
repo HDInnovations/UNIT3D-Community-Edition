@@ -45,7 +45,6 @@ abstract class Client
         try {
             $response = $this->guzzle->request('GET', $url, $options);
         } catch (\Exception $e) {
-
         }
 
         if (!empty($response)) {

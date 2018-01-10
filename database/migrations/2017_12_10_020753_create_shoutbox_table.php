@@ -42,5 +42,4 @@ class CreateShoutboxTable extends Migration
     {
         Schema::drop('shoutbox');
     }
-
 }

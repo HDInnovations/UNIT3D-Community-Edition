@@ -17,7 +17,7 @@ class PermissionsTableSeeder extends Seeder
         \DB::table('permissions')->delete();
         
         \DB::table('permissions')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 103,
                 'forum_id' => 18,
@@ -29,7 +29,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 104,
                 'forum_id' => 18,
@@ -41,7 +41,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 105,
                 'forum_id' => 18,
@@ -53,7 +53,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 106,
                 'forum_id' => 18,
@@ -65,7 +65,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 107,
                 'forum_id' => 18,
@@ -77,7 +77,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 108,
                 'forum_id' => 18,
@@ -89,7 +89,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 109,
                 'forum_id' => 18,
@@ -101,7 +101,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 110,
                 'forum_id' => 18,
@@ -113,7 +113,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 111,
                 'forum_id' => 18,
@@ -125,7 +125,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 112,
                 'forum_id' => 18,
@@ -137,7 +137,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 113,
                 'forum_id' => 18,
@@ -149,7 +149,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 114,
                 'forum_id' => 18,
@@ -161,7 +161,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 115,
                 'forum_id' => 18,
@@ -173,7 +173,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 116,
                 'forum_id' => 18,
@@ -185,7 +185,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 117,
                 'forum_id' => 18,
@@ -197,7 +197,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 118,
                 'forum_id' => 18,
@@ -209,7 +209,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 119,
                 'forum_id' => 18,
@@ -221,7 +221,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 120,
                 'forum_id' => 18,
@@ -233,7 +233,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 130,
                 'forum_id' => 29,
@@ -245,7 +245,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 131,
                 'forum_id' => 29,
@@ -257,7 +257,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 132,
                 'forum_id' => 29,
@@ -269,7 +269,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 133,
                 'forum_id' => 29,
@@ -281,7 +281,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 134,
                 'forum_id' => 29,
@@ -293,7 +293,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 135,
                 'forum_id' => 29,
@@ -305,7 +305,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 136,
                 'forum_id' => 29,
@@ -317,7 +317,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 137,
                 'forum_id' => 29,
@@ -329,7 +329,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 138,
                 'forum_id' => 29,
@@ -341,7 +341,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 139,
                 'forum_id' => 29,
@@ -353,7 +353,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 140,
                 'forum_id' => 29,
@@ -365,7 +365,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 141,
                 'forum_id' => 29,
@@ -377,7 +377,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 142,
                 'forum_id' => 29,
@@ -389,7 +389,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 143,
                 'forum_id' => 29,
@@ -401,7 +401,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 144,
                 'forum_id' => 29,
@@ -413,7 +413,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 145,
                 'forum_id' => 29,
@@ -425,7 +425,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 146,
                 'forum_id' => 29,
@@ -437,7 +437,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 147,
                 'forum_id' => 29,
@@ -449,7 +449,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 150,
                 'forum_id' => 31,
@@ -461,7 +461,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 151,
                 'forum_id' => 31,
@@ -473,7 +473,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 152,
                 'forum_id' => 31,
@@ -485,7 +485,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 153,
                 'forum_id' => 31,
@@ -497,7 +497,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 154,
                 'forum_id' => 31,
@@ -509,7 +509,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 155,
                 'forum_id' => 31,
@@ -521,7 +521,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 156,
                 'forum_id' => 31,
@@ -533,7 +533,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 157,
                 'forum_id' => 31,
@@ -545,7 +545,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 158,
                 'forum_id' => 31,
@@ -557,7 +557,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 159,
                 'forum_id' => 31,
@@ -569,7 +569,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 160,
                 'forum_id' => 31,
@@ -581,7 +581,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 161,
                 'forum_id' => 31,
@@ -593,7 +593,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 162,
                 'forum_id' => 31,
@@ -605,7 +605,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 163,
                 'forum_id' => 31,
@@ -617,7 +617,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 164,
                 'forum_id' => 31,
@@ -629,7 +629,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 165,
                 'forum_id' => 31,
@@ -641,7 +641,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 166,
                 'forum_id' => 31,
@@ -653,7 +653,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 167,
                 'forum_id' => 31,
@@ -665,7 +665,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 170,
                 'forum_id' => 32,
@@ -677,7 +677,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 171,
                 'forum_id' => 32,
@@ -689,7 +689,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 172,
                 'forum_id' => 32,
@@ -701,7 +701,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 173,
                 'forum_id' => 32,
@@ -713,7 +713,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 174,
                 'forum_id' => 32,
@@ -725,7 +725,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 175,
                 'forum_id' => 32,
@@ -737,7 +737,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 176,
                 'forum_id' => 32,
@@ -749,7 +749,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 177,
                 'forum_id' => 32,
@@ -761,7 +761,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 178,
                 'forum_id' => 32,
@@ -773,7 +773,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 179,
                 'forum_id' => 32,
@@ -785,7 +785,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 180,
                 'forum_id' => 32,
@@ -797,7 +797,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 181,
                 'forum_id' => 32,
@@ -809,7 +809,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 182,
                 'forum_id' => 32,
@@ -821,7 +821,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 183,
                 'forum_id' => 32,
@@ -833,7 +833,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 184,
                 'forum_id' => 32,
@@ -845,7 +845,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 185,
                 'forum_id' => 32,
@@ -857,7 +857,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 186,
                 'forum_id' => 32,
@@ -869,7 +869,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 187,
                 'forum_id' => 32,
@@ -881,7 +881,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 190,
                 'forum_id' => 33,
@@ -893,7 +893,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 191,
                 'forum_id' => 33,
@@ -905,7 +905,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 192,
                 'forum_id' => 33,
@@ -917,7 +917,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 193,
                 'forum_id' => 33,
@@ -929,7 +929,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 194,
                 'forum_id' => 33,
@@ -941,7 +941,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 195,
                 'forum_id' => 33,
@@ -953,7 +953,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 196,
                 'forum_id' => 33,
@@ -965,7 +965,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 197,
                 'forum_id' => 33,
@@ -977,7 +977,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 198,
                 'forum_id' => 33,
@@ -989,7 +989,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 199,
                 'forum_id' => 33,
@@ -1001,7 +1001,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 200,
                 'forum_id' => 33,
@@ -1013,7 +1013,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 201,
                 'forum_id' => 33,
@@ -1025,7 +1025,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 202,
                 'forum_id' => 33,
@@ -1037,7 +1037,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 203,
                 'forum_id' => 33,
@@ -1049,7 +1049,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 204,
                 'forum_id' => 33,
@@ -1061,7 +1061,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 205,
                 'forum_id' => 33,
@@ -1073,7 +1073,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 206,
                 'forum_id' => 33,
@@ -1085,7 +1085,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 207,
                 'forum_id' => 33,
@@ -1097,7 +1097,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 210,
                 'forum_id' => 35,
@@ -1109,7 +1109,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 211,
                 'forum_id' => 35,
@@ -1121,7 +1121,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 212,
                 'forum_id' => 35,
@@ -1133,7 +1133,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 213,
                 'forum_id' => 35,
@@ -1145,7 +1145,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 214,
                 'forum_id' => 35,
@@ -1157,7 +1157,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 215,
                 'forum_id' => 35,
@@ -1169,7 +1169,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 216,
                 'forum_id' => 35,
@@ -1181,7 +1181,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 217,
                 'forum_id' => 35,
@@ -1193,7 +1193,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 218,
                 'forum_id' => 35,
@@ -1205,7 +1205,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 219,
                 'forum_id' => 35,
@@ -1217,7 +1217,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 220,
                 'forum_id' => 35,
@@ -1229,7 +1229,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 221,
                 'forum_id' => 35,
@@ -1241,7 +1241,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            102 => 
+            102 =>
             array (
                 'id' => 222,
                 'forum_id' => 35,
@@ -1253,7 +1253,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            103 => 
+            103 =>
             array (
                 'id' => 223,
                 'forum_id' => 35,
@@ -1265,7 +1265,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            104 => 
+            104 =>
             array (
                 'id' => 224,
                 'forum_id' => 35,
@@ -1277,7 +1277,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            105 => 
+            105 =>
             array (
                 'id' => 225,
                 'forum_id' => 35,
@@ -1289,7 +1289,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            106 => 
+            106 =>
             array (
                 'id' => 226,
                 'forum_id' => 35,
@@ -1301,7 +1301,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            107 => 
+            107 =>
             array (
                 'id' => 227,
                 'forum_id' => 35,
@@ -1313,7 +1313,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            108 => 
+            108 =>
             array (
                 'id' => 230,
                 'forum_id' => 36,
@@ -1325,7 +1325,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            109 => 
+            109 =>
             array (
                 'id' => 231,
                 'forum_id' => 36,
@@ -1337,7 +1337,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            110 => 
+            110 =>
             array (
                 'id' => 232,
                 'forum_id' => 36,
@@ -1349,7 +1349,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            111 => 
+            111 =>
             array (
                 'id' => 233,
                 'forum_id' => 36,
@@ -1361,7 +1361,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            112 => 
+            112 =>
             array (
                 'id' => 234,
                 'forum_id' => 36,
@@ -1373,7 +1373,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            113 => 
+            113 =>
             array (
                 'id' => 235,
                 'forum_id' => 36,
@@ -1385,7 +1385,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            114 => 
+            114 =>
             array (
                 'id' => 236,
                 'forum_id' => 36,
@@ -1397,7 +1397,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            115 => 
+            115 =>
             array (
                 'id' => 237,
                 'forum_id' => 36,
@@ -1409,7 +1409,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            116 => 
+            116 =>
             array (
                 'id' => 238,
                 'forum_id' => 36,
@@ -1421,7 +1421,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            117 => 
+            117 =>
             array (
                 'id' => 239,
                 'forum_id' => 36,
@@ -1433,7 +1433,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            118 => 
+            118 =>
             array (
                 'id' => 240,
                 'forum_id' => 36,
@@ -1445,7 +1445,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            119 => 
+            119 =>
             array (
                 'id' => 241,
                 'forum_id' => 36,
@@ -1457,7 +1457,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            120 => 
+            120 =>
             array (
                 'id' => 242,
                 'forum_id' => 36,
@@ -1469,7 +1469,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            121 => 
+            121 =>
             array (
                 'id' => 243,
                 'forum_id' => 36,
@@ -1481,7 +1481,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            122 => 
+            122 =>
             array (
                 'id' => 244,
                 'forum_id' => 36,
@@ -1493,7 +1493,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            123 => 
+            123 =>
             array (
                 'id' => 245,
                 'forum_id' => 36,
@@ -1505,7 +1505,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            124 => 
+            124 =>
             array (
                 'id' => 246,
                 'forum_id' => 36,
@@ -1517,7 +1517,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            125 => 
+            125 =>
             array (
                 'id' => 247,
                 'forum_id' => 36,
@@ -1529,7 +1529,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            126 => 
+            126 =>
             array (
                 'id' => 250,
                 'forum_id' => 37,
@@ -1541,7 +1541,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            127 => 
+            127 =>
             array (
                 'id' => 251,
                 'forum_id' => 37,
@@ -1553,7 +1553,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            128 => 
+            128 =>
             array (
                 'id' => 253,
                 'forum_id' => 37,
@@ -1565,7 +1565,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            129 => 
+            129 =>
             array (
                 'id' => 254,
                 'forum_id' => 37,
@@ -1577,7 +1577,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            130 => 
+            130 =>
             array (
                 'id' => 255,
                 'forum_id' => 37,
@@ -1589,7 +1589,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            131 => 
+            131 =>
             array (
                 'id' => 256,
                 'forum_id' => 37,
@@ -1601,7 +1601,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            132 => 
+            132 =>
             array (
                 'id' => 257,
                 'forum_id' => 37,
@@ -1613,7 +1613,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            133 => 
+            133 =>
             array (
                 'id' => 258,
                 'forum_id' => 37,
@@ -1625,7 +1625,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            134 => 
+            134 =>
             array (
                 'id' => 259,
                 'forum_id' => 37,
@@ -1637,7 +1637,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            135 => 
+            135 =>
             array (
                 'id' => 260,
                 'forum_id' => 37,
@@ -1649,7 +1649,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            136 => 
+            136 =>
             array (
                 'id' => 261,
                 'forum_id' => 37,
@@ -1661,7 +1661,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            137 => 
+            137 =>
             array (
                 'id' => 262,
                 'forum_id' => 37,
@@ -1673,7 +1673,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            138 => 
+            138 =>
             array (
                 'id' => 263,
                 'forum_id' => 37,
@@ -1685,7 +1685,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            139 => 
+            139 =>
             array (
                 'id' => 264,
                 'forum_id' => 37,
@@ -1697,7 +1697,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            140 => 
+            140 =>
             array (
                 'id' => 265,
                 'forum_id' => 37,
@@ -1709,7 +1709,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            141 => 
+            141 =>
             array (
                 'id' => 266,
                 'forum_id' => 37,
@@ -1721,7 +1721,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            142 => 
+            142 =>
             array (
                 'id' => 267,
                 'forum_id' => 37,
@@ -1733,7 +1733,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            143 => 
+            143 =>
             array (
                 'id' => 268,
                 'forum_id' => 37,
@@ -1745,7 +1745,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            144 => 
+            144 =>
             array (
                 'id' => 269,
                 'forum_id' => 38,
@@ -1757,7 +1757,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            145 => 
+            145 =>
             array (
                 'id' => 270,
                 'forum_id' => 38,
@@ -1769,7 +1769,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            146 => 
+            146 =>
             array (
                 'id' => 271,
                 'forum_id' => 38,
@@ -1781,7 +1781,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            147 => 
+            147 =>
             array (
                 'id' => 272,
                 'forum_id' => 38,
@@ -1793,7 +1793,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            148 => 
+            148 =>
             array (
                 'id' => 273,
                 'forum_id' => 38,
@@ -1805,7 +1805,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            149 => 
+            149 =>
             array (
                 'id' => 274,
                 'forum_id' => 38,
@@ -1817,7 +1817,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            150 => 
+            150 =>
             array (
                 'id' => 275,
                 'forum_id' => 38,
@@ -1829,7 +1829,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            151 => 
+            151 =>
             array (
                 'id' => 276,
                 'forum_id' => 38,
@@ -1841,7 +1841,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            152 => 
+            152 =>
             array (
                 'id' => 277,
                 'forum_id' => 38,
@@ -1853,7 +1853,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            153 => 
+            153 =>
             array (
                 'id' => 278,
                 'forum_id' => 38,
@@ -1865,7 +1865,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            154 => 
+            154 =>
             array (
                 'id' => 279,
                 'forum_id' => 38,
@@ -1877,7 +1877,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            155 => 
+            155 =>
             array (
                 'id' => 280,
                 'forum_id' => 38,
@@ -1889,7 +1889,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            156 => 
+            156 =>
             array (
                 'id' => 281,
                 'forum_id' => 38,
@@ -1901,7 +1901,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            157 => 
+            157 =>
             array (
                 'id' => 282,
                 'forum_id' => 38,
@@ -1913,7 +1913,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            158 => 
+            158 =>
             array (
                 'id' => 283,
                 'forum_id' => 38,
@@ -1925,7 +1925,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            159 => 
+            159 =>
             array (
                 'id' => 284,
                 'forum_id' => 38,
@@ -1937,7 +1937,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            160 => 
+            160 =>
             array (
                 'id' => 285,
                 'forum_id' => 38,
@@ -1949,7 +1949,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            161 => 
+            161 =>
             array (
                 'id' => 286,
                 'forum_id' => 38,
@@ -1961,7 +1961,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            162 => 
+            162 =>
             array (
                 'id' => 287,
                 'forum_id' => 39,
@@ -1973,7 +1973,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            163 => 
+            163 =>
             array (
                 'id' => 290,
                 'forum_id' => 39,
@@ -1985,7 +1985,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            164 => 
+            164 =>
             array (
                 'id' => 291,
                 'forum_id' => 39,
@@ -1997,7 +1997,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            165 => 
+            165 =>
             array (
                 'id' => 292,
                 'forum_id' => 39,
@@ -2009,7 +2009,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            166 => 
+            166 =>
             array (
                 'id' => 293,
                 'forum_id' => 39,
@@ -2021,7 +2021,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            167 => 
+            167 =>
             array (
                 'id' => 294,
                 'forum_id' => 39,
@@ -2033,7 +2033,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            168 => 
+            168 =>
             array (
                 'id' => 295,
                 'forum_id' => 39,
@@ -2045,7 +2045,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            169 => 
+            169 =>
             array (
                 'id' => 296,
                 'forum_id' => 39,
@@ -2057,7 +2057,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            170 => 
+            170 =>
             array (
                 'id' => 297,
                 'forum_id' => 39,
@@ -2069,7 +2069,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            171 => 
+            171 =>
             array (
                 'id' => 298,
                 'forum_id' => 39,
@@ -2081,7 +2081,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            172 => 
+            172 =>
             array (
                 'id' => 299,
                 'forum_id' => 39,
@@ -2093,7 +2093,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            173 => 
+            173 =>
             array (
                 'id' => 300,
                 'forum_id' => 39,
@@ -2105,7 +2105,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            174 => 
+            174 =>
             array (
                 'id' => 301,
                 'forum_id' => 39,
@@ -2117,7 +2117,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            175 => 
+            175 =>
             array (
                 'id' => 302,
                 'forum_id' => 39,
@@ -2129,7 +2129,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            176 => 
+            176 =>
             array (
                 'id' => 303,
                 'forum_id' => 39,
@@ -2141,7 +2141,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            177 => 
+            177 =>
             array (
                 'id' => 304,
                 'forum_id' => 39,
@@ -2153,7 +2153,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            178 => 
+            178 =>
             array (
                 'id' => 305,
                 'forum_id' => 39,
@@ -2165,7 +2165,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            179 => 
+            179 =>
             array (
                 'id' => 306,
                 'forum_id' => 39,
@@ -2177,7 +2177,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            180 => 
+            180 =>
             array (
                 'id' => 309,
                 'forum_id' => 40,
@@ -2189,7 +2189,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            181 => 
+            181 =>
             array (
                 'id' => 310,
                 'forum_id' => 40,
@@ -2201,7 +2201,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            182 => 
+            182 =>
             array (
                 'id' => 311,
                 'forum_id' => 40,
@@ -2213,7 +2213,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            183 => 
+            183 =>
             array (
                 'id' => 312,
                 'forum_id' => 40,
@@ -2225,7 +2225,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            184 => 
+            184 =>
             array (
                 'id' => 313,
                 'forum_id' => 40,
@@ -2237,7 +2237,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            185 => 
+            185 =>
             array (
                 'id' => 314,
                 'forum_id' => 40,
@@ -2249,7 +2249,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            186 => 
+            186 =>
             array (
                 'id' => 315,
                 'forum_id' => 40,
@@ -2261,7 +2261,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            187 => 
+            187 =>
             array (
                 'id' => 316,
                 'forum_id' => 40,
@@ -2273,7 +2273,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            188 => 
+            188 =>
             array (
                 'id' => 317,
                 'forum_id' => 40,
@@ -2285,7 +2285,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            189 => 
+            189 =>
             array (
                 'id' => 318,
                 'forum_id' => 40,
@@ -2297,7 +2297,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            190 => 
+            190 =>
             array (
                 'id' => 319,
                 'forum_id' => 40,
@@ -2309,7 +2309,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            191 => 
+            191 =>
             array (
                 'id' => 320,
                 'forum_id' => 40,
@@ -2321,7 +2321,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            192 => 
+            192 =>
             array (
                 'id' => 322,
                 'forum_id' => 40,
@@ -2333,7 +2333,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            193 => 
+            193 =>
             array (
                 'id' => 323,
                 'forum_id' => 40,
@@ -2345,7 +2345,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            194 => 
+            194 =>
             array (
                 'id' => 324,
                 'forum_id' => 40,
@@ -2357,7 +2357,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            195 => 
+            195 =>
             array (
                 'id' => 325,
                 'forum_id' => 40,
@@ -2369,7 +2369,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            196 => 
+            196 =>
             array (
                 'id' => 326,
                 'forum_id' => 40,
@@ -2381,7 +2381,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            197 => 
+            197 =>
             array (
                 'id' => 327,
                 'forum_id' => 40,
@@ -2393,7 +2393,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            198 => 
+            198 =>
             array (
                 'id' => 330,
                 'forum_id' => 42,
@@ -2405,7 +2405,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            199 => 
+            199 =>
             array (
                 'id' => 331,
                 'forum_id' => 42,
@@ -2417,7 +2417,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            200 => 
+            200 =>
             array (
                 'id' => 332,
                 'forum_id' => 42,
@@ -2429,7 +2429,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            201 => 
+            201 =>
             array (
                 'id' => 333,
                 'forum_id' => 42,
@@ -2441,7 +2441,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            202 => 
+            202 =>
             array (
                 'id' => 334,
                 'forum_id' => 42,
@@ -2453,7 +2453,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            203 => 
+            203 =>
             array (
                 'id' => 335,
                 'forum_id' => 42,
@@ -2465,7 +2465,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            204 => 
+            204 =>
             array (
                 'id' => 336,
                 'forum_id' => 42,
@@ -2477,7 +2477,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            205 => 
+            205 =>
             array (
                 'id' => 337,
                 'forum_id' => 42,
@@ -2489,7 +2489,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            206 => 
+            206 =>
             array (
                 'id' => 338,
                 'forum_id' => 42,
@@ -2501,7 +2501,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            207 => 
+            207 =>
             array (
                 'id' => 339,
                 'forum_id' => 42,
@@ -2513,7 +2513,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            208 => 
+            208 =>
             array (
                 'id' => 358,
                 'forum_id' => 44,
@@ -2525,7 +2525,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            209 => 
+            209 =>
             array (
                 'id' => 359,
                 'forum_id' => 44,
@@ -2537,7 +2537,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            210 => 
+            210 =>
             array (
                 'id' => 360,
                 'forum_id' => 44,
@@ -2549,7 +2549,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            211 => 
+            211 =>
             array (
                 'id' => 361,
                 'forum_id' => 44,
@@ -2561,7 +2561,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            212 => 
+            212 =>
             array (
                 'id' => 362,
                 'forum_id' => 44,
@@ -2573,7 +2573,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            213 => 
+            213 =>
             array (
                 'id' => 363,
                 'forum_id' => 44,
@@ -2585,7 +2585,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            214 => 
+            214 =>
             array (
                 'id' => 364,
                 'forum_id' => 44,
@@ -2597,7 +2597,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            215 => 
+            215 =>
             array (
                 'id' => 365,
                 'forum_id' => 44,
@@ -2609,7 +2609,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            216 => 
+            216 =>
             array (
                 'id' => 366,
                 'forum_id' => 44,
@@ -2621,7 +2621,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            217 => 
+            217 =>
             array (
                 'id' => 367,
                 'forum_id' => 44,
@@ -2633,7 +2633,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            218 => 
+            218 =>
             array (
                 'id' => 368,
                 'forum_id' => 44,
@@ -2645,7 +2645,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            219 => 
+            219 =>
             array (
                 'id' => 369,
                 'forum_id' => 44,
@@ -2657,7 +2657,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            220 => 
+            220 =>
             array (
                 'id' => 370,
                 'forum_id' => 44,
@@ -2669,7 +2669,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            221 => 
+            221 =>
             array (
                 'id' => 371,
                 'forum_id' => 44,
@@ -2681,7 +2681,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            222 => 
+            222 =>
             array (
                 'id' => 372,
                 'forum_id' => 44,
@@ -2693,7 +2693,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            223 => 
+            223 =>
             array (
                 'id' => 373,
                 'forum_id' => 44,
@@ -2705,7 +2705,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            224 => 
+            224 =>
             array (
                 'id' => 374,
                 'forum_id' => 44,
@@ -2717,7 +2717,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            225 => 
+            225 =>
             array (
                 'id' => 375,
                 'forum_id' => 44,
@@ -2729,7 +2729,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            226 => 
+            226 =>
             array (
                 'id' => 376,
                 'forum_id' => 45,
@@ -2741,7 +2741,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            227 => 
+            227 =>
             array (
                 'id' => 377,
                 'forum_id' => 45,
@@ -2753,7 +2753,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            228 => 
+            228 =>
             array (
                 'id' => 378,
                 'forum_id' => 45,
@@ -2765,7 +2765,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            229 => 
+            229 =>
             array (
                 'id' => 379,
                 'forum_id' => 45,
@@ -2777,7 +2777,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            230 => 
+            230 =>
             array (
                 'id' => 380,
                 'forum_id' => 45,
@@ -2789,7 +2789,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            231 => 
+            231 =>
             array (
                 'id' => 381,
                 'forum_id' => 45,
@@ -2801,7 +2801,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            232 => 
+            232 =>
             array (
                 'id' => 382,
                 'forum_id' => 45,
@@ -2813,7 +2813,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            233 => 
+            233 =>
             array (
                 'id' => 383,
                 'forum_id' => 45,
@@ -2825,7 +2825,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            234 => 
+            234 =>
             array (
                 'id' => 384,
                 'forum_id' => 45,
@@ -2837,7 +2837,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            235 => 
+            235 =>
             array (
                 'id' => 385,
                 'forum_id' => 45,
@@ -2849,7 +2849,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            236 => 
+            236 =>
             array (
                 'id' => 386,
                 'forum_id' => 45,
@@ -2861,7 +2861,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            237 => 
+            237 =>
             array (
                 'id' => 387,
                 'forum_id' => 45,
@@ -2873,7 +2873,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            238 => 
+            238 =>
             array (
                 'id' => 388,
                 'forum_id' => 45,
@@ -2885,7 +2885,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            239 => 
+            239 =>
             array (
                 'id' => 389,
                 'forum_id' => 45,
@@ -2897,7 +2897,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            240 => 
+            240 =>
             array (
                 'id' => 390,
                 'forum_id' => 45,
@@ -2909,7 +2909,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            241 => 
+            241 =>
             array (
                 'id' => 391,
                 'forum_id' => 45,
@@ -2921,7 +2921,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            242 => 
+            242 =>
             array (
                 'id' => 392,
                 'forum_id' => 45,
@@ -2933,7 +2933,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            243 => 
+            243 =>
             array (
                 'id' => 393,
                 'forum_id' => 45,
@@ -2945,7 +2945,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            244 => 
+            244 =>
             array (
                 'id' => 394,
                 'forum_id' => 46,
@@ -2957,7 +2957,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            245 => 
+            245 =>
             array (
                 'id' => 395,
                 'forum_id' => 46,
@@ -2969,7 +2969,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            246 => 
+            246 =>
             array (
                 'id' => 396,
                 'forum_id' => 46,
@@ -2981,7 +2981,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            247 => 
+            247 =>
             array (
                 'id' => 397,
                 'forum_id' => 46,
@@ -2993,7 +2993,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            248 => 
+            248 =>
             array (
                 'id' => 398,
                 'forum_id' => 46,
@@ -3005,7 +3005,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            249 => 
+            249 =>
             array (
                 'id' => 399,
                 'forum_id' => 46,
@@ -3017,7 +3017,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            250 => 
+            250 =>
             array (
                 'id' => 400,
                 'forum_id' => 46,
@@ -3029,7 +3029,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            251 => 
+            251 =>
             array (
                 'id' => 401,
                 'forum_id' => 46,
@@ -3041,7 +3041,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            252 => 
+            252 =>
             array (
                 'id' => 402,
                 'forum_id' => 46,
@@ -3053,7 +3053,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            253 => 
+            253 =>
             array (
                 'id' => 403,
                 'forum_id' => 46,
@@ -3065,7 +3065,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            254 => 
+            254 =>
             array (
                 'id' => 404,
                 'forum_id' => 46,
@@ -3077,7 +3077,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            255 => 
+            255 =>
             array (
                 'id' => 405,
                 'forum_id' => 46,
@@ -3089,7 +3089,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            256 => 
+            256 =>
             array (
                 'id' => 406,
                 'forum_id' => 46,
@@ -3101,7 +3101,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            257 => 
+            257 =>
             array (
                 'id' => 407,
                 'forum_id' => 46,
@@ -3113,7 +3113,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            258 => 
+            258 =>
             array (
                 'id' => 408,
                 'forum_id' => 46,
@@ -3125,7 +3125,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 0,
                 'download' => 0,
             ),
-            259 => 
+            259 =>
             array (
                 'id' => 409,
                 'forum_id' => 46,
@@ -3137,7 +3137,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            260 => 
+            260 =>
             array (
                 'id' => 410,
                 'forum_id' => 46,
@@ -3149,7 +3149,7 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
-            261 => 
+            261 =>
             array (
                 'id' => 411,
                 'forum_id' => 46,
@@ -3162,7 +3162,5 @@ class PermissionsTableSeeder extends Seeder
                 'download' => 1,
             ),
         ));
-        
-        
     }
 }

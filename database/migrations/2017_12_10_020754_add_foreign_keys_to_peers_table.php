@@ -42,5 +42,4 @@ class AddForeignKeysToPeersTable extends Migration
             $table->dropForeign('fk_peers_users1');
         });
     }
-
 }

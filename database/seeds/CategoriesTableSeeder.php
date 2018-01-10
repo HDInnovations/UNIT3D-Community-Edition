@@ -26,36 +26,34 @@ class CategoriesTableSeeder extends Seeder
 
         \DB::table('categories')->delete();
 
-        \DB::table('categories')->insert(array(
+        \DB::table('categories')->insert([
             0 =>
-                array(
+                [
                     'id' => 1,
                     'name' => 'Movies',
                     'slug' => 'movies',
                     'icon' => 'fa fa-film',
                     'num_torrent' => 0,
                     'meta' => 1,
-                ),
-            1 =>
-                array(
+                ],
+                1 =>
+                [
                     'id' => 2,
                     'name' => 'TV',
                     'slug' => 'tv',
                     'icon' => 'fa fa-television',
                     'num_torrent' => 0,
                     'meta' => 1,
-                ),
-            2 =>
-                array(
+                ],
+                2 =>
+                [
                     'id' => 3,
                     'name' => 'Music',
                     'slug' => 'music',
                     'icon' => 'fa fa-music',
                     'num_torrent' => 0,
                     'meta' => 0,
-                ),
-        ));
-
-
+                ],
+        ]);
     }
 }

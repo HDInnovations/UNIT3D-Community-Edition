@@ -48,5 +48,4 @@ class BugController extends Controller
         }
         return view('bug.bug');
     }
-
 }
