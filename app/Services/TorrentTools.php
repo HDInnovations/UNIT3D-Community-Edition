@@ -42,7 +42,9 @@ class TorrentTools
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
-        self::$decodedTorrent['announce'] = "SET_ON_DOWNLOAD";
+        $announce = env('APP_URL', 'http://unit3d.site');
+        $announce .= "/announce/PID";
+        self::$decodedTorrent['announce'] = $announce;
         self::$decodedTorrent['info']['source'] = config('torrent.source');
         self::$decodedTorrent['info']['private'] = 1;
         $created_by = config('torrent.created_by', null);
