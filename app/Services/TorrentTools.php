@@ -41,6 +41,17 @@ class TorrentTools
         self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
         self::$decodedTorrent['info']['source'] = config('other.source');
         self::$decodedTorrent['info']['private'] = 1;
+        $created_by = config('other.torrent_created_by', null);
+        $created_by_append = config('other.torrent_created_by_append', false);
+        if ($created_by !== null) {
+            if ($created_by_append) {
+                $c = self::$decodedTorrent['created by'];
+                $c = trim($c, ". ");
+                $c .= ". " . $created_by;
+                $created_by = $c;
+            }
+            self::$decodedTorrent['created by'] = $created_by;
+        }
         $encoded = Bencode::bencode(self::$decodedTorrent);
         self::$fileName = uniqid() . '.torrent'; // Generate a unique name
         file_put_contents(getcwd() . '/files/torrents/' . self::$fileName, $encoded); // Create torrent
