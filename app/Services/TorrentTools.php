@@ -39,10 +39,10 @@ class TorrentTools
     public static function moveAndDecode($torrentFile)
     {
         self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
-        self::$decodedTorrent['info']['source'] = config('other.source');
+        self::$decodedTorrent['info']['source'] = config('torrent.source');
         self::$decodedTorrent['info']['private'] = 1;
-        $created_by = config('other.torrent_created_by', null);
-        $created_by_append = config('other.torrent_created_by_append', false);
+        $created_by = config('torrent.created_by', null);
+        $created_by_append = config('torrent.created_by_append', false);
         if ($created_by !== null) {
             if ($created_by_append) {
                 $c = self::$decodedTorrent['created by'];
@@ -52,7 +52,7 @@ class TorrentTools
             }
             self::$decodedTorrent['created by'] = $created_by;
         }
-        $comment = config('other.torrent_comment', null);
+        $comment = config('torrent.comment', null);
         if ($comment !== null) {
             self::$decodedTorrent['comment'] = $comment;
         }

@@ -142,19 +142,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Infohash Source
-    |--------------------------------------------------------------------------
-    |
-    | This will be set in the torrents to generate an unique infohash.
-    |
-    */
-    'source' => 'UNIT3D',
-    'torrent_created_by' => 'Edited by UNIT3D',
-    'torrent_created_by_append' => true,
-    'torrent_comment' => "This torrent was downloaded from UNIT3D",
-
-    /*
-    |--------------------------------------------------------------------------
     | Default Users Stats
     |--------------------------------------------------------------------------
     |
