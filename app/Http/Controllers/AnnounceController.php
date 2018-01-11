@@ -1,14 +1,14 @@
 <?php
 /**
- * NOTICE OF LICENSE
- *
- * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
- * The details is bundled with this project in the file LICENSE.txt.
- *
- * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
- * @author     Mr.G
- */
+* NOTICE OF LICENSE
+*
+* UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+* The details is bundled with this project in the file LICENSE.txt.
+*
+* @project    UNIT3D
+* @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+* @author     Mr.G
+*/
 
 namespace App\Http\Controllers;
 
@@ -28,43 +28,23 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
 
-
 class AnnounceController extends Controller
 {
 
     /**
-     * Announce code
-     *
-     * @access public
-     * @param $Passkey User passkey
-     * @return Bencoded response for the torrent client
-     */
+    * Announce code
+    *
+    * @access public
+    * @param $Passkey User passkey
+    * @return Bencoded response for the torrent client
+    */
     public function announce(Request $request, $passkey)
     {
-        // Check Announce Request Method
-        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-            Log::notice('Announce Request Method Was Not GET');
-            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
-        }
+        $this->checkRequestType();
 
-        // Check If Browser Is Blacklisted
-        $blockedBrowsers = config('client-blacklist.browsers', []);
-        foreach ($blockedBrowsers as $b) {
-            if ($b == $request->server('HTTP_USER_AGENT')) {
-                Log::notice('Blacklist Browser Attempted To Connect To Announce');
-                abort(405, "You Cannot Access This Through A Browser Bro!");
-                die();
-            }
-        }
+        $agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
 
-        // Check If Client Is Blacklisted
-        $blockedClients = config('client-blacklist.clients', []);
-        foreach ($blockedClients as $blocked) {
-            if ($blocked == $request->server('HTTP_USER_AGENT')) {
-                Log::notice('Blacklist Client Attempted To Connect To Announce');
-                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
-            }
-        }
+        $this->checkBlacklist($agent);
 
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
@@ -135,12 +115,6 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        // If User Download Rights Are Disabled Return Error to Client
-        /*if ($user->can_download == 0) {
-            Log::notice('A User With Revoked Download Priviliges Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You download priviliges are Revoked']), 200, ['Content-Type' => 'text/plain']);
-        }*/
-
         // Standard Information Fields
         $event = $request->get('event');
         $hash = bin2hex($request->get('info_hash'));
@@ -162,6 +136,12 @@ class AnnounceController extends Controller
         $ipv6 = $request->has('ipv6') ? bin2hex($request->get('ipv6')) : null;
         $no_peer_id = ($request->has('no_peer_id') && $request->get('no_peer_id') == 1) ? true : false;
 
+        // If User Download Rights Are Disabled Return Error to Client
+        if ($user->can_download == 0 && $left != 0) {
+            Log::notice('A User With Revoked Download Priviliges Attempted To Announce');
+            return response(Bencode::bencode(['failure reason' => 'You download priviliges are Revoked']), 200, ['Content-Type' => 'text/plain']);
+        }
+
         // If User Client Is Sending Negitive Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
             Log::notice('Client Attempted To Send Data With A Negitive Value');
@@ -176,15 +156,13 @@ class AnnounceController extends Controller
 
         // If Infohash Is Not 20 Bytes Long Return Error to Client
         /*if (strlen($hash) != 20) {
-            Log::notice('sent invalid info_hash: ' . $hash);
-            return response(Bencode::bencode(['failure reason' => "Invalid infohash: infohash is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']);
-        }
+        Log::notice('sent invalid info_hash: ' . $hash);
+        return response(Bencode::bencode(['failure reason' => "Invalid infohash: infohash is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }
 
         // If Peerid Is Not 20 Bytes Long Return Error to Client
         if (strlen($peer_id) != 20) {
-            Log::notice('sent invalid peer_id: ' . $peer_id);
-            return response(Bencode::bencode(['failure reason' => "Invalid peerid: peerid is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']);
-        }*/
+        Log::notice('sent invalid peer_id: ' . $peer_id);
+        return response(Bencode::bencode(['failure reason' => "Invalid peerid: peerid is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }*/
 
         // Check Info Hash Agaist Torrents Table
         $torrent = Torrent::where('info_hash', '=', $hash)->first();
@@ -218,8 +196,9 @@ class AnnounceController extends Controller
                 $seeders++; // Counts the number of seeders
             }
 
-            unset($p['id'], $p['md5_peer_id'], $p['hash'], $p['agent'], $p['uploaded'], $p['downloaded'], $p['left'], $p['torrent_id'],
-                $p['user_id'], $p['seeder'], $p['created_at'], $p['updated_at']);
+            unset($p['id'], $p['md5_peer_id'], $p['hash'], $p['agent'], $p['uploaded'],
+            $p['downloaded'], $p['left'], $p['torrent_id'], $p['user_id'], $p['seeder'],
+            $p['created_at'], $p['updated_at']);
         }
 
         // Pull Count On Users Peers Per Torrent
@@ -243,6 +222,7 @@ class AnnounceController extends Controller
         } elseif (!$client) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
+                $event = 'started';
             }
             $client = new Peer();
         }
@@ -284,22 +264,18 @@ class AnnounceController extends Controller
 
         if ($event == 'started') {
             // Set the torrent data
-            $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $history->agent = $agent;
             $history->active = true;
             $history->seeder = ($left == 0) ? true : false;
-            $history->uploaded += $mod_uploaded;
-            $history->actual_uploaded += $uploaded;
+            $history->uploaded += 0;
+            $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
-            $history->downloaded += $mod_downloaded;
-            $history->actual_downloaded += $downloaded;
+            $history->downloaded += 0;
+            $history->actual_downloaded += 0;
             $history->client_downloaded = $real_downloaded;
             $history->save();
 
-            // user update
-            $user->uploaded += $mod_uploaded;
-            $user->downloaded += $mod_downloaded;
-            $user->save();
-            // End User update
+            // Never to push stats to user on start event
 
             //Peer update
             $client->peer_id = $peer_id;
@@ -307,7 +283,7 @@ class AnnounceController extends Controller
             $client->hash = $hash;
             $client->ip = $request->ip();
             $client->port = $port;
-            $client->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
             $client->seeder = ($left == 0) ? true : false;
@@ -317,10 +293,9 @@ class AnnounceController extends Controller
             //End Peer update
 
             $client->save();
-
         } elseif ($event == 'completed') {
             // Set the torrent data
-            $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $history->agent = $agent;
             $history->active = true;
             $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
@@ -344,7 +319,7 @@ class AnnounceController extends Controller
             $client->hash = $hash;
             $client->ip = $request->ip();
             $client->port = $port;
-            $client->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
             $client->seeder = true;
@@ -362,10 +337,9 @@ class AnnounceController extends Controller
             $diff = $new_update - $old_update;
             $history->seedtime += $diff;
             $history->save();
-
         } elseif ($event == 'stopped') {
             // Set the torrent data
-            $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $history->agent = $agent;
             $history->active = false;
             $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
@@ -388,7 +362,7 @@ class AnnounceController extends Controller
             $client->hash = $hash;
             $client->ip = $request->ip();
             $client->port = $port;
-            $client->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
             $client->seeder = ($left == 0) ? true : false;
@@ -408,10 +382,9 @@ class AnnounceController extends Controller
             }
 
             $client->delete();
-
         } else {
             // Set the torrent data
-            $history->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $history->agent = $agent;
             $history->active = true;
             $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
@@ -434,7 +407,7 @@ class AnnounceController extends Controller
             $client->hash = $hash;
             $client->ip = $request->ip();
             $client->port = $port;
-            $client->agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+            $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
             $client->seeder = ($left == 0) ? true : false;
@@ -469,6 +442,37 @@ class AnnounceController extends Controller
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
     }
 
+    private function checkBlacklist($client)
+    {
+        // Check If Browser Is Blacklisted
+        $blockedBrowsers = config('client-blacklist.browsers', []);
+        foreach ($blockedBrowsers as $b) {
+            if ($b == $client) {
+                Log::notice('Blacklist Browser Attempted To Connect To Announce');
+                abort(405, "You Cannot Access This Through A Browser Bro!");
+                die();
+            }
+        }
+
+        // Check If Client Is Blacklisted
+        $blockedClients = config('client-blacklist.clients', []);
+        foreach ($blockedClients as $blocked) {
+            if ($blocked == $client) {
+                Log::notice('Blacklist Client Attempted To Connect To Announce');
+                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
+            }
+        }
+    }
+
+    private function checkRequestType()
+    {
+        // Check Announce Request Method
+        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+            Log::notice('Announce Request Method Was Not GET');
+            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
+        }
+    }
+
     private function givePeers($peers, $compact, $no_peer_id)
     {
         if ($compact) {
@@ -489,5 +493,4 @@ class AnnounceController extends Controller
         }
         return $peers;
     }
-
 }
