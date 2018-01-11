@@ -38,6 +38,10 @@ class TorrentTools
      */
     public static function moveAndDecode($torrentFile)
     {
+        // The PID will be set if an user downloads the torrent, but for
+        // security purposes it's better to overwrite the user-provided
+        // announce URL.
+        self::$decodedTorrent['announce'] = "PID";
         self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
         self::$decodedTorrent['info']['source'] = config('torrent.source');
         self::$decodedTorrent['info']['private'] = 1;
