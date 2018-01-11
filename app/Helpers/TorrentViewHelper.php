@@ -57,6 +57,8 @@ class TorrentViewHelper
             $torrent_link = route('torrent', ['slug' => $list->slug, 'id' => $list->id]);
             $download_check_link = route('download_check', ['slug' => $list->slug, 'id' => $list->id]);
             $user_link = route('profil', ['username' => $list->user->username, 'id' => $list->user->id]);
+            $peers_link = route('peers', ['slug' => $list->slug, 'id' => $list->id]);
+            $history_link = route('history', ['slug' => $list->slug, 'id' => $list->id]);
 
             if ($list->anon == 1) {
                 if ($user->id == $list->user->id || $user->group->is_modo) {
@@ -203,9 +205,9 @@ class TorrentViewHelper
 
             <td><time datetime='{$datetime}'>{$datetime_inner}</time></td>
             <td><span class='badge-extra text-blue text-bold'>" . $list->getSize() . "</span></td>
-            <td><span class='badge-extra text-orange text-bold'>{$list->times_completed} {$common_times}</span></td>
-            <td><span class='badge-extra text-green text-bold'>{$list->seeders}</span></td>
-            <td><span class='badge-extra text-red text-bold'>{$list->leechers}</span></td>
+            <td><a href='{$history_link}'><span class='badge-extra text-orange text-bold'>{$list->times_completed} {$common_times}</span></a></td>
+            <td><a href='{$peers_link}'><span class='badge-extra text-green text-bold'>{$list->seeders}</span></a></td>
+            <td><a href='{$peers_link}'><span class='badge-extra text-red text-bold'>{$list->leechers}</span></a></td>
             </tr>
             ";
         }
