@@ -432,8 +432,8 @@ class AnnounceController extends Controller
         $torrent->save();
 
         $res = array();
-        $res['interval'] = (60 * 45); // Set to 45 for debug
-        $res['min interval'] = (60 * 30); // Set to 30 for debug
+        $res['interval'] = config('announce.interval');
+        $res['min interval'] = config('announce.min_interval');
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $seeders;
         $res['incomplete'] = $leechers;
