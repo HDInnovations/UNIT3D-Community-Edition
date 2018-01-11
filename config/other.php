@@ -151,6 +151,7 @@ return [
     'source' => 'UNIT3D',
     'torrent_created_by' => 'Edited by UNIT3D',
     'torrent_created_by_append' => true,
+    'torrent_comment' => "This torrent was downloaded from UNIT3D",
 
     /*
     |--------------------------------------------------------------------------

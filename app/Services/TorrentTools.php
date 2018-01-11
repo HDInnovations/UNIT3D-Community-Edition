@@ -52,6 +52,10 @@ class TorrentTools
             }
             self::$decodedTorrent['created by'] = $created_by;
         }
+        $comment = config('other.torrent_comment', null);
+        if ($comment !== null) {
+            self::$decodedTorrent['comment'] = $comment;
+        }
         $encoded = Bencode::bencode(self::$decodedTorrent);
         self::$fileName = uniqid() . '.torrent'; // Generate a unique name
         file_put_contents(getcwd() . '/files/torrents/' . self::$fileName, $encoded); // Create torrent
