@@ -97,7 +97,7 @@ class Http2ServerPush
     {
         $crawler = $this->getCrawler($response);
 
-        return collect($crawler->filter('link, script[src], img[src]')->extract(['src', 'href']));
+        return collect($crawler->filter('link, script[src]')->extract(['src', 'href']));
     }
 
     /**
@@ -112,12 +112,6 @@ class Http2ServerPush
         $linkTypeMap = [
             '.CSS'  => 'style',
             '.JS'   => 'script',
-            '.BMP'  => 'image',
-            '.GIF'  => 'image',
-            '.JPG'  => 'image',
-            '.JPEG' => 'image',
-            '.PNG'  => 'image',
-            '.TIFF' => 'image',
         ];
 
         $type = collect($linkTypeMap)->first(function ($type, $extension) use ($url) {

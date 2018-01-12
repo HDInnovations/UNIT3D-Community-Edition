@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\CheckIfOnline::class,
-            // \App\Http\Middleware\Http2ServerPush::class,
+            \App\Http\Middleware\Http2ServerPush::class,
         ],
 
         'api' => [
