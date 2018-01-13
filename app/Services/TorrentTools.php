@@ -50,7 +50,7 @@ class TorrentTools
         $created_by = config('torrent.created_by', null);
         $created_by_append = config('torrent.created_by_append', false);
         if ($created_by !== null) {
-            if ($created_by_append) {
+            if ($created_by_append && array_key_exists("created by", self::$decodedTorrent)) {
                 $c = self::$decodedTorrent['created by'];
                 $c = trim($c, ". ");
                 $c .= ". " . $created_by;
