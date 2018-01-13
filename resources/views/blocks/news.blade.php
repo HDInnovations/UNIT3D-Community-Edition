@@ -40,7 +40,7 @@
           </div>
 
           <div class="col-md-10 article-content">
-            @emojione(substr(strip_tags($a->content), 0, strpos(strip_tags($a->content), ' ', 150)))...
+             @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($a->content), 150))...
           </div>
           <br>
           <div class="col-md-12 article-readmore">
