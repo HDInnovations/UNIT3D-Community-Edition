@@ -19,10 +19,10 @@
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
         <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-bell-o"></i>
-        </a>
           @if(Auth::user()->unreadNotifications->count() > 0)
           <span class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
           @endif
+        </a>
       </li>
 
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
