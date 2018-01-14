@@ -20,4 +20,5 @@ return [
 	'mark-as-resolved' => 'Lock Topic',
 	'delete-topic' => 'Delete this topic',
 	'display-forum' => 'Show topics in ',
+	'edit-topic' => 'Edit Topic'
 ];

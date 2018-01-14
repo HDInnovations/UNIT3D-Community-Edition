@@ -49,7 +49,7 @@ Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
 Route::group(['before' => 'auth'], function () {
     // Announce
     Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
-    
+
     // RSS
     Route::get('/rss/{passkey}', function () {
         return abort(307);
@@ -303,6 +303,8 @@ Route::group(['prefix' => 'community', 'middleware' => 'auth'], function () {
     Route::any('/topic/{slug}.{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
     // Reply To Topic
     Route::post('/topic/{slug}.{id}/reply', 'ForumController@reply')->name('forum_reply');
+    // Edit Topic
+    Route::any('/topic/{slug}.{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
     // Delete Topic
     Route::any('/topic/{slug}.{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
     // Pin Topic

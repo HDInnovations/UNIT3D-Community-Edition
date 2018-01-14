@@ -346,6 +346,36 @@ class ForumController extends Controller
     }
 
     /**
+     * Edit topic in the forum
+     *
+     * @param $slug
+     * @param $id
+     */
+    public function editTopic($slug, $id)
+    {
+        $user = Auth::user();
+        $topic = Topic::findOrFail($id);
+        $categories = Forum::where('parent_id', '!=', 0)->get();
+
+        if ($user->group->is_modo) {
+            if (Request::isMethod('post')) {
+                $name = Request::get('name');
+                $forum_id = Request::get('forum_id');
+
+                $topic->name = $name;
+                $topic->forum_id = $forum_id;
+                $topic->save();
+
+                return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Topic Successfully Edited', 'Yay!', ['options']));
+            } else {
+                return view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
+            }
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
+    }
+
+    /**
      * Edit user's post
      *
      * @param $slug
