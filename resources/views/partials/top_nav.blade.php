@@ -17,27 +17,12 @@
       </li>
 
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-        <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
+        <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-bell-o"></i>
+        </a>
           @if(Auth::user()->unreadNotifications->count() > 0)
           <span class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
           @endif
-        </a>
-        <ul class="dropdown-menu ">
-          <li class="hoe-submenu-label">
-            <h3><span class="bold">{{ Auth::user()->unreadNotifications->count() }} {{ trans('pm.unread') }}</span> {{ trans('common.notifications') }} <a href="#">{{ trans('common.view-all') }}</a></h3>
-          </li>
-          <li>
-            @foreach(Auth::user()->unreadNotifications as $notification)
-            <a href="{{ $notification->data['url'] }}" class="clearfix">
-              <i class="fa fa-bell-o red-text"></i>
-              <span class="notification-title">{{ $notification->data['title'] }}</span>
-              <span class="notification-ago">{{ $notification->created_at->diffForHumans() }}</span>
-              <p class="notification-message">{{ str_limit(strip_tags($notification->data['body']), 65) }}</p>
-            </a>
-            @endforeach
-          </li>
-        </ul>
       </li>
 
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">

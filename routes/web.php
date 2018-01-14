@@ -253,6 +253,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/graveyard', function () {
         return abort(307);
     })->name('graveyard');
+
+    // Notifications System
+    Route::get('/notifications', 'NotificationController@get')->name('get_notifications');
+    Route::any('/notification/read/{id}', 'NotificationController@read')->name('read_notification');
+    Route::any('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
+    Route::any('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
+
 });
 
 /*
