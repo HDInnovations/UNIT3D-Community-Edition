@@ -300,7 +300,7 @@ class TorrentController extends Controller
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " .");
-                
+
                 return Redirect::route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
@@ -411,11 +411,11 @@ class TorrentController extends Controller
         }
 
         if ($request->has('alive')) {
-            $torrent->where('seeders', '<=', $alive);
+            $torrent->where('seeders', '>=', $alive);
         }
 
         if ($request->has('dying')) {
-            $torrent->where('seeders', $dying)->where('times_completed', '<=', 3);
+            $torrent->where('seeders', $dying)->where('times_completed', '>=', 3);
         }
 
         if ($request->has('dead')) {
