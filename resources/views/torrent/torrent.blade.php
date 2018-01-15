@@ -93,26 +93,7 @@
                     </span>
                   </li>
                 </ul>
-                {{--<br>
-                <br>
-                <p>
-                  <li>
-                    <legend class="xsmall-legend strong-legend"></legend>
-                    <div class="row cast-list">
-                    @if($movie->actors)
-                      @foreach(array_slice($movie->actors, 0,6) as $actor)
-                        <div class="col-xs-4 col-md-2 text-center">
-                          <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase" target="_blank">
-                            <img class="img-circle" style="height:100px; width:100px;" src="https://via.placeholder.com/100x100">
-                            <span class="badge-user"><strong>{{ $actor->name }}</strong></span>
-                          </a>
-                        </div>
-                      @endforeach
-                      @endif
-                      </div>
-                    </li>
-                </p>--}}
-      			    </div>
+      		</div>
 
       <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
         <img src="{{ $movie->poster }}" class="movie-poster img-responsive hidden-xs">
