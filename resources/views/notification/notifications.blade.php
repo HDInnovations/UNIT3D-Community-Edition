@@ -25,6 +25,7 @@
                 <th>Message</th>
                 <th>Date</th>
                 <th>Read</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody>
