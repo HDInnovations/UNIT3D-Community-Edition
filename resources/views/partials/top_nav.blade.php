@@ -59,8 +59,8 @@
       @endif
 
       <li>
-        {{ Form::open(array('route' => 'search','role' => 'form', 'class' => 'hoe-searchbar')) }}
-        <input type="text" placeholder="{{ trans('common.quick-search') }}..." name="title" id="title" class="form-control">
+        {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','role' => 'form','class'=>'hoe-searchbar']) }}
+        {{ Form::text('search',null,['id'=>'search','placeholder'=>'Quick Search...','class'=>'form-control']) }}
         <span class="search-icon"><i class="fa fa-search"></i></span>
         {{ Form::close() }}
       </li>

@@ -87,31 +87,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Search for torrents
-     *
-     * @access public
-     * @return View page.torrents
-     *
-     */
-    public function search()
-    {
-        $user = Auth::user();
-        $search = Request::get('title');
-        $terms = explode(' ', $search);
-        $search = '';
-        foreach ($terms as $term) {
-            $search .= '%' . $term . '%';
-        }
-        $torrents = Torrent::where('name', 'like', $search)->orderBy('created_at', 'desc')->paginate(50);
-        $personal_freeleech = UserFreeleech::where('user_id', '=', $user->id)->first();
-
-        $torrents->setPath('?name=' . Request::get('title'));
-
-        return view('home.search', ['torrents' => $torrents, 'user' => $user, 'personal_freeleech' => $personal_freeleech, 'categories' => Category::all(), 'types' => Type::all()]);
-    }
-
-
-    /**
      * Contact page, send an email to admins
      *
      * @access public
@@ -135,10 +110,4 @@ class HomeController extends Controller
 
         return view('home.contact');
     }
-
-    public function landing()
-    {
-        return View::make('landing.christmas');
-    }
-
 }

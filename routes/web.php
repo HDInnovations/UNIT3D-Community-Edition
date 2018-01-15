@@ -70,9 +70,7 @@ Route::group(['before' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
 
     // General
-    Route::get('/landing', 'HomeController@landing')->name('landing');
     Route::get('/', 'HomeController@home')->name('home');
-    Route::any('/search', 'HomeController@search')->name('search');
     Route::any('/contact', 'HomeController@contact')->name('contact');
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
