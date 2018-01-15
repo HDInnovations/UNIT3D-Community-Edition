@@ -31,7 +31,7 @@
       </div>
       @endif
 
-      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=04') }}"></script>
+      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=05') }}"></script>
       <script type="text/javascript" src="{{ url('js/hoe.js') }}"></script>
       <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
 

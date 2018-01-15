@@ -36,7 +36,7 @@
                   {{ Form::open(array('route' => array('send-pm'))) }}
                   <div class="form-group">
                     <label for="users">{{ trans('pm.select') }}</label>
-                    <select class="form-control user-select-placeholder-single" name="reciever_id">
+                    <select class="js-example-basic-single form-control" name="reciever_id">
                       @foreach($usernames as $username)
                         <option value="{{ $username->id }}">{{ $username->username }}</option>
                       @endforeach
@@ -65,10 +65,9 @@
 
 @section('javascripts')
     <script type="text/javascript">
-        $('.user-select-placeholder-single').select2({
-            placeholder: "Select A User",
-            allowClear: true
-        });
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
     </script>
 
     <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>

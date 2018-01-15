@@ -18,7 +18,7 @@
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-<link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=04') }}" />
+<link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=05') }}" />
 <link rel="stylesheet" href="{{ url('css/nav/hoe.css?v=05') }}">
 <link rel="stylesheet" href="{{ url('css/main/custom.css?v=49') }}">
 @if(Auth::user()->style == 1)
