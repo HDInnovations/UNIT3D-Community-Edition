@@ -193,6 +193,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/torrents/{slug}.{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
     Route::any('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
     Route::any('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
+    Route::any('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
 
     // User
     Route::get('/lockscreen', 'LockAccountController@lockscreen')->name('lock');
@@ -246,11 +247,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/poll/{slug}/result', 'PollController@result')->name('poll_results');
 
     // Graveyard System
-    //Route::get('/graveyard', 'GraveyardController@index')->name('graveyard');
-    //Route::post('/graveyard/{id}', 'GraveyardController@resurrect')->name('resurrect');
-    Route::get('/graveyard', function () {
-        return abort(307);
-    })->name('graveyard');
+    Route::get('/graveyard', 'GraveyardController@index')->name('graveyard');
+    Route::post('/graveyard/{id}', 'GraveyardController@resurrect')->name('resurrect');
 
     // Notifications System
     Route::get('/notifications', 'NotificationController@get')->name('get_notifications');

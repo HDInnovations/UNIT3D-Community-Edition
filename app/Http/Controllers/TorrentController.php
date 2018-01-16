@@ -27,6 +27,8 @@ use App\Warning;
 use App\User;
 use App\BonTransactions;
 use App\FeaturedTorrent;
+use App\PersonalFreeleech;
+use App\FreeleechToken;
 
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
@@ -471,6 +473,8 @@ class TorrentController extends Controller
         $similar = Torrent::where('imdb', '=', $torrent->imdb)->where('status', '=', 1)->orderBy('seeders', 'DESC')->get();
         $uploader = $torrent->user;
         $user = Auth::user();
+        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $comments = $torrent->comments()->orderBy('created_at', 'DESC')->paginate(6);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
@@ -518,7 +522,7 @@ class TorrentController extends Controller
             $text_crumbs = $view_crumbs['text'];
         }
 
-        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar,
+        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
             'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
     }
@@ -855,6 +859,32 @@ class TorrentController extends Controller
             return Redirect::to('/torrents')->with(Toastr::info('Torrent Has Been Deleted!', 'Attention!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
+        }
+    }
+
+    /**
+     * Use Freeleech Token
+     *
+     * @access public
+     * @param $id Id torrent
+     */
+    public function freeleechToken($slug, $id)
+    {
+        $user = Auth::user();
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $active_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        if ($user->fl_tokens >= 1 && !$active_token) {
+            $token = new FreeleechToken();
+            $token->user_id = $user->id;
+            $token->torrent_id = $torrent->id;
+            $token->save();
+
+            $user->fl_tokens -= "1";
+            $user->save();
+
+            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('You Have Successfully Activated A Freeleech Token For This Torrent!', 'Yay', ['options']));
+        } else {
+            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.', 'Whoops!', ['options']));
         }
     }
 }

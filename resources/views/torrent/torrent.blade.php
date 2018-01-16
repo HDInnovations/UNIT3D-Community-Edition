@@ -110,7 +110,10 @@
         <tr class="success">
           <td><strong>Discounts</strong></td>
           <td>
-            @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true)
+            @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
+            @if($freeleech_token)<span class="badge-extra text-bold"><i class="fa fa-viacoin text-bold" data-toggle="tooltip" title="" data-original-title="Freeleech Token"></i> Freeleech Token</span> @endif
+            @if($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i class="fa fa-trophy text-purple" data-toggle="tooltip" title="" data-original-title="Special FL"></i> Special FL</span> @endif
+            @if($personal_freeleech)<span class="badge-extra text-bold"><i class="fa fa-id-badge text-orange" data-toggle="tooltip" title="" data-original-title="Personal FL"></i> Personal FL</span> @endif
             @if($torrent->doubleup == "1")<span class="badge-extra text-bold"><i class="fa fa-diamond text-green" data-toggle="tooltip" title="" data-original-title="Double upload"></i> Double Upload</span> @endif
             @if($torrent->free == "1")<span class="badge-extra text-bold"><i class="fa fa-star text-gold" data-toggle="tooltip" title="" data-original-title="100% Free"></i> 100% Free</span> @endif
             @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-blue" data-toggle="tooltip" title="" data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
@@ -120,6 +123,14 @@
             @endif
           </td>
         </tr>
+        @if($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
+        <tr>
+          <td><strong>Freeleech Token</strong></td>
+          <td>
+              <a href="{{ route('freeleech_token', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-default btn-xs" role="button">Use A Freeleech Token </a><span class="small"><em> You Currently Have <strong><i class="fa fa-viacoin"></i> {{ $user->fl_tokens }} Left!</strong></em></span>
+          </td>
+        </tr>
+        @endif
         @endif
 
         @if($torrent->featured == 1)

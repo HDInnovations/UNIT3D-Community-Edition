@@ -15,7 +15,6 @@
 @section('content')
 <div class="container">
 <div class="well">
-    <p class="lead text-center">This system is not fully functional and is still being built.</p>
     <p class="text-red text-bold">Guidelines:</p>
     <p>
       1) You cannot resurrect your own uploads.
@@ -51,28 +50,14 @@
         @php $history = DB::table('history')->where('info_hash', '=', $d->info_hash)->where('user_id', '=', $user->id)->first(); @endphp
         <tr class="">
           <td>
-            @if($d->category_id == "1")
-            <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-            @elseif($d->category_id == "2")
-            <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-            @else
-            <i class="fa fa-video-camera torrent-icon" data-toggle="tooltip" title="" data-original-title="FANRES Torrent"></i>
-            @endif
+              <center>
+                  <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $d->category->name }} Torrent"></i>
+              </center>
           </td>
           <td>
             <div class="torrent-file">
               <div>
-                <a href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}" class="" title="">
-                  {{ $d->name }}
-                </a>
-              </div>
-              <div>
-                <span class="badge-extra">{{ $d->type }}</span>&nbsp;&nbsp;
-                @if($d->stream == "1")<span class="badge-extra"><i class="fa fa-play text-red text-bold" data-toggle="tooltip" title="" data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-                @if($d->doubleup == "1")<span class="badge-extra"><i class="fa fa-diamond text-green text-bold" data-toggle="tooltip" title="" data-original-title="Double upload"></i> Double Upload</span> @endif
-                @if($d->free == "1")<span class="badge-extra"><i class="fa fa-star text-gold text-bold" data-toggle="tooltip" title="" data-original-title="100% Free"></i> 100% Free</span> @endif
-                @if(config('other.freeleech') == true)<span class="badge-extra"><i class="fa fa-globe text-blue text-bold" data-toggle="tooltip" title="" data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-                @if(config('other.doubleup') == true)<span class="badge-extra"><i class="fa fa-globe text-green text-bold" data-toggle="tooltip" title="" data-original-title="Double Upload"></i> Global Double Upload</span> @endif
+                  <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}" href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $d->name }}">{{ $d->name }} </a><span class="label label-success">{{ $d->type }}</span>
               </div>
             </div>
           </td>
@@ -89,11 +74,11 @@
             @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $d->id)->first(); @endphp
             @if(!$resurrected)
             <button data-toggle="modal" data-target="#resurrect-{{ $d->id }}" class="btn btn-sm btn-default">
-              <span class="icon"><i class="fa fa-snapchat-ghost"></i> Resurrect</span>
+              <span class="icon">@emojione(':zombie:') Resurrect</span>
             </button>
             @else
-            <button class="btn btn-sm btn-default" disabled>
-              <span class="icon"><i class="fa fa-snapchat-ghost"></i> Pending Resurrection</span>
+            <button class="btn btn-sm btn-info" disabled>
+              <span class="icon">@emojione(':angel_tone2:') Pending</span>
             </button>
             @endif
           </td>
@@ -115,13 +100,13 @@
                     <p>You must seed <span class="text-green"><em>{{ $d->name }} </em></span> for <span class="text-red text-bold">1M (30 days)</span> for a succesful ressurection. In which case when your current seedtime of
                       <span class="text-red text-bold">@if(!$history) 0 @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }} @endif</span> hits
                       <span class="text-red text-bold">@if(!$history) {{ App\Helpers\StringHelper::timeElapsed($time) }} @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime + $time) }} @endif</span> you will be rewarded
-                      <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">1 Freeleech Slot(s)!</span></p>
+                      <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ $tokens }} Freeleech Token(s)!</span></p>
                   <div class="btns">
                     {{ Form::open(array('route' => array('resurrect', 'id' => $d->id))) }}
                     @if(!$history)
-                    <input hidden="seedtime" name="seedtime" id="seedtime" value="0">
+                    <input hidden="seedtime" name="seedtime" id="seedtime" value="{{ $time }}">
                     @else
-                    <input hidden="seedtime" name="seedtime" id="seedtime" value="$history->seedtime">
+                    <input hidden="seedtime" name="seedtime" id="seedtime" value="{{ $history->seedtime + $time }}">
                     @endif
                     <button type="submit" class="btn btn-success">Resurrect Now!</button>
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
@@ -129,7 +114,6 @@
                   </div>
                 </center>
               </div>
-
             </div>
           </div>
         </div>
@@ -140,8 +124,4 @@
   {{ $dead->links() }}
 </div>
 </div>
-@stop
-
-@section('javascripts')
-
 @stop

@@ -42,5 +42,6 @@ return [
 	'name' => 'Name',
 	'add' => 'Add',
 	'staff' => 'Staff',
-	'blacklist' => 'Blacklist'
+	'blacklist' => 'Blacklist',
+	'fl_tokens' => 'Freeleech Tokens'
 ];

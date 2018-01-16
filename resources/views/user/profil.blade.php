@@ -188,43 +188,48 @@
     <td>
       <ul class="list-inline mb-0">
         <li>
+          <span class="badge-extra"><strong>BON:</strong>
+            <span class="text-green text-bold">{{ $user->getSeedbonus() }}</span>
+          </span>
+        </li>
+        <li>
+          <span class="badge-extra"><strong>{{ trans('common.fl_tokens') }}:</strong>
+            <span class="text-green text-bold">{{ $user->fl_tokens }}</span>
+          </span>
+        </li>
+        <li>
           <span class="badge-extra"><strong>Thanks Received:</strong>
             <span class="text-pink text-bold">--</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Thanks Given:</strong>
-            <span class="text-green text-bold">{{ $thanks_given }}</span>
+            <span class="text-pink text-bold">{{ $thanks_given }}</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Article Comments Made:</strong>
-            <span class="text-purple text-bold">{{ $art_comments }}</span>
+            <span class="text-green text-bold">{{ $art_comments }}</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Torrent Comments Made:</strong>
-            <span class="text-purple text-bold">{{ $tor_comments }}</span>
+            <span class="text-green text-bold">{{ $tor_comments }}</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Request Comments Made:</strong>
-            <span class="text-purple text-bold">{{ $req_comments }}</span>
+            <span class="text-green text-bold">{{ $req_comments }}</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Forum Topics Made:</strong>
-            <span class="text-purple text-bold">{{ $topics }}</span>
+            <span class="text-green text-bold">{{ $topics }}</span>
           </span>
         </li>
         <li>
           <span class="badge-extra"><strong>Forum Posts Made:</strong>
-            <span class="text-purple text-bold">{{ $posts }}</span>
-          </span>
-        </li>
-        <li>
-          <span class="badge-extra"><strong>Referrals:</strong>
-            <span class="text-purple text-bold">--</span>
+            <span class="text-green text-bold">{{ $posts }}</span>
           </span>
         </li>
         <li>

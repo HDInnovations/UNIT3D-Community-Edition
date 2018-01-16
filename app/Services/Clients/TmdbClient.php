@@ -9,7 +9,7 @@
  * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Services\Clients;
 
 use App\Services\Contracts\MovieTvInterface;

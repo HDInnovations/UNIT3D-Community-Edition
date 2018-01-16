@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('title')->nullable();
             $table->string('about', 500)->nullable();
             $table->text('signature', 16777215)->nullable();
+            $table->integer('fl_tokens')->unsigned()->default(0);
             $table->float('seedbonus', 12)->unsigned()->default(0.00);
             $table->integer('invites')->unsigned()->default(0);
             $table->integer('hitandruns')->unsigned()->default(0);

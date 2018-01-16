@@ -13,7 +13,8 @@
 namespace App\Helpers;
 
 use \App\Services\MovieScrapper;
-use \App\UserFreeleech;
+use \App\PersonalFreeleech;
+use \App\FreeleechToken;
 use \App\Group;
 use \App\User;
 use \App\History;
@@ -25,7 +26,7 @@ class TorrentViewHelper
     public static function view($results)
     {
         $user = Auth::user();
-        $personal_freeleech = UserFreeleech::where('user_id', '=', $user->id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         $data = [];
 
@@ -106,6 +107,11 @@ class TorrentViewHelper
 
             if ($personal_freeleech) {
                 $icons .= "<span class='badge-extra text-bold'><i class='fa fa-id-badge text-orange' data-toggle='tooltip' title='' data-original-title='Personal FL'></i> Personal FL</span>";
+            }
+
+            $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $list->id)->first();
+            if ($freeleech_token) {
+                $icons .= "<span class='badge-extra text-bold'><i class='fa fa-viacoin text-bold' data-toggle='tooltip' title='' data-original-title='Freeleech Token'></i> Freeleech Token</span>";
             }
 
             if ($list->featured == "1") {

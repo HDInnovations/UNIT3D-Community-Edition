@@ -17,7 +17,7 @@ use App\BonExchange;
 use App\BonTransactions;
 use App\Shoutbox;
 use App\PrivateMessage;
-use App\UserFreeleech;
+use App\PersonalFreeleech;
 use App\Torrent;
 
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +44,7 @@ class BonusController extends Controller
     {
         $user = Auth::user();
         $userbon = $user->getSeedbonus();
-        $activefl = UserFreeleech::where('user_id', '=', $user->id)->first();
+        $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         $BonExchange = new BonExchange();
 
@@ -140,7 +140,7 @@ class BonusController extends Controller
         $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
 
         $user_acc = User::findOrFail($userID);
-        $activefl = UserFreeleech::where('user_id', '=', $user_acc->id)->first();
+        $activefl = PersonalFreeleech::where('user_id', '=', $user_acc->id)->first();
         $bon_transactions = new BonTransactions();
 
         if ($item['upload'] == true) {
@@ -155,7 +155,7 @@ class BonusController extends Controller
             }
         } elseif ($item['personal_freeleech'] == true) {
             if (!$activefl) {
-                $personal_freeleech = new UserFreeleech();
+                $personal_freeleech = new PersonalFreeleech();
                 $personal_freeleech->user_id = $user_acc->id;
                 $personal_freeleech->save();
             } else {

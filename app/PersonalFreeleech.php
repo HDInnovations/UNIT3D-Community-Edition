@@ -14,14 +14,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserFreeleech extends Model
+class PersonalFreeleech extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'user_freeleech';
+    protected $table = 'personal_freeleech';
 
     /**
      * Mass assignment fields

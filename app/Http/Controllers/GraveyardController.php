@@ -40,8 +40,9 @@ class GraveyardController extends Controller
         $dead = Torrent::where('seeders', '=', '0')->orderBy('leechers', 'desc')->paginate(50);
         $deadcount = Torrent::where('seeders', '=', '0')->count();
         $time = '2592000';
+        $tokens = '5';
 
-        return view('graveyard.index', compact('dead', 'deadcount', 'user', 'time'));
+        return view('graveyard.index', compact('dead', 'deadcount', 'user', 'time', 'tokens'));
     }
 
     public function resurrect($id)
@@ -63,5 +64,4 @@ class GraveyardController extends Controller
             return Redirect::route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Yay!', ['options']));
         }
     }
-
 }

@@ -24,8 +24,9 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\autoBan::class,
         \App\Console\Commands\FlushPeers::class,
         \App\Console\Commands\autoGroup::class,
-        \App\Console\Commands\removeUserFreeleech::class,
+        \App\Console\Commands\removePersonalFreeleech::class,
         \App\Console\Commands\removeFeaturedTorrent::class,
+        \App\Console\Commands\autoGraveyard::class,
     ];
 
     /**
@@ -46,8 +47,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('autoBan')->hourly();
         $schedule->command('FlushPeers')->hourly();
         $schedule->command('autoGroup')->daily();
-        $schedule->command('removeUserFreeleech')->hourly();
+        $schedule->command('removePersonalFreeleech')->hourly();
         $schedule->command('removeFeaturedTorrent')->hourly();
+        $schedule->command('autoGraveyard')->daily();
     }
 
     /**

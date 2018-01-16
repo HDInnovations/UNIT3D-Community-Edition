@@ -13,7 +13,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserFreeleechTable extends Migration
+class CreateFreeleechTokensTable extends Migration
 {
 
     /**
@@ -23,9 +23,10 @@ class CreateUserFreeleechTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_freeleech', function (Blueprint $table) {
+        Schema::create('freeleech_tokens', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->index();
+            $table->integer('torrent_id')->index();
             $table->timestamps();
         });
     }
@@ -38,7 +39,7 @@ class CreateUserFreeleechTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_freeleech');
+        Schema::drop('freeleech_tokens');
     }
 
 }

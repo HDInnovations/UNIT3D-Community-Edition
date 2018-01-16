@@ -16,7 +16,8 @@ use App\History;
 use App\Peer;
 use App\Torrent;
 use App\User;
-use App\UserFreeleech;
+use App\PersonalFreeleech;
+use App\FreeleechToken;
 use App\Group;
 
 use Carbon\Carbon;
@@ -248,9 +249,10 @@ class AnnounceController extends Controller
         $old_update = $client->updated_at ? $client->updated_at->timestamp : Carbon::now()->timestamp;
 
         // Modification of upload and Download
-        $personal_freeleech = UserFreeleech::where('user_id', '=', $user->id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
 
-        if (config('other.freeleech') == true || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1) {
+        if (config('other.freeleech') == true || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;
@@ -432,8 +434,8 @@ class AnnounceController extends Controller
         $torrent->save();
 
         $res = array();
-        $res['interval'] = config('announce.interval');
-        $res['min interval'] = config('announce.min_interval');
+        $res['interval'] = (60 * 45);
+        $res['min interval'] = (60 * 30);
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $seeders;
         $res['incomplete'] = $leechers;
