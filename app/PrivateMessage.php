@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
 use Decoda\Decoda;
+use App\Helpers\Bbcode;
 
 class PrivateMessage extends Model
 {
@@ -47,12 +48,6 @@ class PrivateMessage extends Model
      */
     public function getMessageHtml()
     {
-        $code = new Decoda($this->message);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->message);
     }
 }

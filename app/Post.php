@@ -15,6 +15,7 @@ namespace App;
 use Decoda\Decoda;
 use Illuminate\Database\Eloquent\Model;
 use App\Hook\ClickableHook;
+use App\Helpers\Bbcode;
 
 /**
  *  Post new topic Reply to topic
@@ -67,15 +68,7 @@ class Post extends Model
      */
     public function getContentHtml()
     {
-        $code = new Decoda($this->content);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->removeHook('Clickable');
-        $code->addHook(new ClickableHook());
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->content);
     }
 
     /**

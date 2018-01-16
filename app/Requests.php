@@ -15,6 +15,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
 use App\Hook\ClickableHook;
+use App\Helpers\Bbcode;
 
 /**
  * Torrent Requests
@@ -143,13 +144,6 @@ class Requests extends Model
      */
     public function getDescriptionHtml()
     {
-        $code = new Decoda($this->description);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->removeHook('Clickable');
-        $code->addHook(new ClickableHook());
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
+        return Bbcode::parse($this->description);
     }
 }
