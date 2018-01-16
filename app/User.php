@@ -17,7 +17,6 @@ use App\Warning;
 use App\Peer;
 use App\History;
 
-use Decoda\Decoda;
 use Cache;
 
 use Gstt\Achievements\Achiever;

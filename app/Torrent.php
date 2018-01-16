@@ -12,7 +12,6 @@
 
 namespace App;
 
-use Decoda\Decoda;
 use Illuminate\Database\Eloquent\Model;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;

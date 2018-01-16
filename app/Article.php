@@ -13,7 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Decoda\Decoda;
 use App\Helpers\Bbcode;
 
 class Article extends Model

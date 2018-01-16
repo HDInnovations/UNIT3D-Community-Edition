@@ -13,8 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Decoda\Decoda;
-use App\Hook\ClickableHook;
 use App\Helpers\Bbcode;
 
 /**

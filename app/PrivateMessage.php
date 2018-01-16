@@ -15,7 +15,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 use Carbon\Carbon;
-use Decoda\Decoda;
 use App\Helpers\Bbcode;
 
 class PrivateMessage extends Model
