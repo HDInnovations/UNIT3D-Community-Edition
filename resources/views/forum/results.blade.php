@@ -15,7 +15,7 @@
     </a>
 </li>
 <li>
-    <a href="{{ route('search') }}" itemprop="url" class="l-breadcrumb-item-link">
+    <a href="#" itemprop="url" class="l-breadcrumb-item-link">
         <span itemprop="title" class="l-breadcrumb-item-link-title">Search Results</span>
     </a>
 </li>
