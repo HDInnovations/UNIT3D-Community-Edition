@@ -19,13 +19,4 @@ class Thank extends Model
     protected $fillable = [
         'user_id', 'torrent_id'
     ];
-
-    /**
-     * Belongs to Torrent
-     *
-     */
-    public function torrent()
-    {
-        return $this->belongsTo(\App\Torrent::class);
-    }
 }

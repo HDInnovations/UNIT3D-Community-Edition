@@ -27,7 +27,6 @@ use App\Topic;
 use App\PrivateMessage;
 use App\Follow;
 use App\History;
-use App\Thank;
 use App\Warning;
 use App\Note;
 use Carbon\Carbon;
@@ -104,7 +103,6 @@ class UserController extends Controller
         $num_downloads = History::where('user_id', '=', $id)->where('actual_downloaded', '>', 0)->count();
         $achievements = $user->unlockedAchievements();
         $followers = Follow::where('target_id', '=', $id)->get();
-        $thanks_given = Thank::where('user_id', '=', $id)->count();
         $tor_comments = Comment::where('user_id', '=', $id)->where('torrent_id', '>', 0)->count();
         $art_comments = Comment::where('user_id', '=', $id)->where('article_id', '>', 0)->count();
         $req_comments = Comment::where('user_id', '=', $id)->where('requests_id', '>', 0)->count();
@@ -115,7 +113,7 @@ class UserController extends Controller
         $notes = Note::where('user_id', '=', $id)->count();
 
         return view('user.profil', ['user' => $user, 'groups' => $groups, 'num_uploads' => $num_uploads, 'num_downloads' => $num_downloads, 'achievements' => $achievements, 'followers' => $followers, 'notes' => $notes,
-            'seedtime' => $seedtime, 'hiscount' => $hiscount, 'thanks_given' => $thanks_given, 'tor_comments' => $tor_comments, 'art_comments' => $art_comments, 'req_comments' => $req_comments, 'topics' => $topics, 'posts' => $posts, 'warnings' => $warnings, 'hitrun' => $hitrun]);
+            'seedtime' => $seedtime, 'hiscount' => $hiscount, 'tor_comments' => $tor_comments, 'art_comments' => $art_comments, 'req_comments' => $req_comments, 'topics' => $topics, 'posts' => $posts, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
 
     /**
