@@ -14,7 +14,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Decoda\Decoda;
-use App\Hook\ClickableHook;
+use App\Helpers\Bbcode;
 
 class Shoutbox extends Model
 {
@@ -39,14 +39,6 @@ class Shoutbox extends Model
      */
     public static function getMessageHtml($message)
     {
-        $code = new Decoda($message);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->removeHook('Clickable');
-        $code->addHook(new ClickableHook());
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($message);
     }
 }

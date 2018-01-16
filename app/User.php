@@ -17,7 +17,6 @@ use App\Warning;
 use App\Peer;
 use App\History;
 
-use Decoda\Decoda;
 use Cache;
 
 use Gstt\Achievements\Achiever;
@@ -27,6 +26,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use function theodorejb\polycast\to_int;
 
 use App\Helpers\StringHelper;
+use App\Helpers\Bbcode;
 
 /**
  * User-Related Template
@@ -428,13 +428,7 @@ class User extends Authenticatable
      */
     public function getSignature()
     {
-        $code = new Decoda($this->signature);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->signature);
     }
 
     /**
@@ -443,13 +437,7 @@ class User extends Authenticatable
      */
     public function getAboutHtml()
     {
-        $code = new Decoda($this->about);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->about);
     }
 
     /**

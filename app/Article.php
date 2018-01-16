@@ -13,7 +13,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Decoda\Decoda;
+use App\Helpers\Bbcode;
 
 class Article extends Model
 {
@@ -84,12 +84,6 @@ class Article extends Model
      */
     public function getContentHtml()
     {
-        $code = new Decoda($this->content);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->content);
     }
 }

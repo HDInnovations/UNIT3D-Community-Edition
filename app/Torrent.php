@@ -12,13 +12,13 @@
 
 namespace App;
 
-use Decoda\Decoda;
 use Illuminate\Database\Eloquent\Model;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
 
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Helpers\Bbcode;
 
 /**
  * Torrent model
@@ -151,13 +151,7 @@ class Torrent extends Model
      */
     public function getDescriptionHtml()
     {
-        $code = new Decoda($this->description);
-        $code->defaults();
-        $code->removeHook('Censor');
-        $code->setXhtml(false);
-        $code->setStrict(false);
-        $code->setLineBreaks(true);
-        return $code->parse();
+        return Bbcode::parse($this->description);
     }
 
     /**
