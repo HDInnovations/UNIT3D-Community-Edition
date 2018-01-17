@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <li class="active">
-  <a href="{{ route('achievements', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" itemprop="url" class="l-breadcrumb-item-link">
+  <a href="{{ route('achievements') }}" itemprop="url" class="l-breadcrumb-item-link">
     <span itemprop="title" class="l-breadcrumb-item-link-title">Achievements</span>
   </a>
 </li>

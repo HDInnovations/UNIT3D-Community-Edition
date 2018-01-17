@@ -12,7 +12,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class AchievementsController extends Controller
 {
@@ -23,9 +23,9 @@ class AchievementsController extends Controller
      * @access public
      * @return user.achievements
      */
-    public function index($username, $id)
+    public function index()
     {
-        $user = User::findOrFail($id);
+        $user = Auth::user();
         $achievements = $user->unlockedAchievements();
         $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();

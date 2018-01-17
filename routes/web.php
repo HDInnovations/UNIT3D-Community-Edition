@@ -206,7 +206,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/{username}.{id}/activate/{token}', 'UserController@activate')->name('user_activate');
     Route::post('/{username}.{id}/about', 'UserController@changeAbout')->name('user_change_about');
     Route::post('/{username}.{id}/photo', 'UserController@changeTitle')->name('user_change_title');
-    Route::get('/achievements/{username}.{id}', 'AchievementsController@index')->name('achievements');
+    Route::get('/achievements', 'AchievementsController@index')->name('achievements');
     Route::get('/{username}.{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
     Route::any('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
     Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
