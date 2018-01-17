@@ -23,6 +23,9 @@ class LoginController extends Controller
 
     protected $redirectTo = '/';
 
+    public $maxAttempts = 5; // Max Attempts Until Lockout
+    public $decayMinutes = 30; // Minutes
+
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
