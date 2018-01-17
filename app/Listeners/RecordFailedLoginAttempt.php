@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Notifications\FailedLogin;
 
 use App\FailedLoginAttempt;
 
@@ -28,5 +29,11 @@ class RecordFailedLoginAttempt
             Request::get('username'),
             Request::getClientIp()
         );
+
+        if (isset($event->user) && is_a($event->user, 'Illuminate\Database\Eloquent\Model')) {
+            $event->user->notify(new FailedLogin(
+            Request::getClientIp()
+        ));
+        }
     }
 }
