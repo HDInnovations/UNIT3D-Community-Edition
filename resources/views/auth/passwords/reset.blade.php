@@ -17,7 +17,7 @@
   <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ url('css/vendor/toastr.min.css?v=01') }}" />
-  <link rel="stylesheet" href="{{ url('css/main/login.css?v=01') }}">
+  <link rel="stylesheet" href="{{ url('css/main/login.css?v=02') }}">
 </head>
 
 <body>
@@ -54,7 +54,6 @@
     <!-- Tabs Titles -->
     <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
     <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
-    <h2 class="active">{{ trans('auth.lost-password') }} </h2>
     <!-- Icon -->
     <div class="fadeIn first">
       <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
@@ -66,13 +65,13 @@
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="row">
             <div class="form-group">
-                <input type="text" id="email" class="fadeIn third" name="email" placeholder="email">
+                <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required autofocus>
             </div>
             <div class="form-group">
-              <input type="password" id="password" name="password" class="form-control" placeholder="{{ trans('common.password') }}">
+              <input type="password" id="password" name="password" class="form-control" placeholder="{{ trans('common.password') }}" required>
             </div>
             <div class="form-group">
-              <input type="password" id="password-confirm" name="password_confirmation" class="form-control" placeholder="{{ trans('common.password') }} confirmation">
+              <input type="password" id="password-confirm" name="password_confirmation" class="form-control" placeholder="{{ trans('common.password') }} confirmation" required>
             </div>
             <div class="col s6">
                 <button type="submit" class="btn waves-effect waves-light blue right">{{ trans('common.submit') }}</button>
@@ -80,7 +79,8 @@
           </form>
 
     <div id="formFooter">
-
+        <a href="{{ route('password.request') }}"><h2 class="active">{{ trans('auth.lost-password') }} </h2></a>
+        <a href="{{ route('username.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
     </div>
 
   </div>

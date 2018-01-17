@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('auth.login') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.signup') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
     <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
@@ -15,7 +15,7 @@
   <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ url('css/vendor/toastr.min.css?v=01') }}" />
-  <link rel="stylesheet" href="{{ url('css/main/login.css?v=01') }}">
+  <link rel="stylesheet" href="{{ url('css/main/login.css?v=02') }}">
 </head>
 
 <body>
@@ -60,15 +60,16 @@
 
     <!-- SignUp Form -->
     {{ Form::open(array('route' => array('register', 'code' => $code))) }}
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username">
-      <input type="text" id="email" class="fadeIn third" name="email" placeholder="email">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" required autofocus>
+      <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
       <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
     {{ Form::close() }}
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="{{ route('password.request') }}">{{ trans('auth.lost-password') }}</a>
+        <a href="{{ route('password.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-password') }} </h2></a>
+        <a href="{{ route('username.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
     </div>
 
   </div>

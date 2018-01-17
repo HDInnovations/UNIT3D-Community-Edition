@@ -15,7 +15,7 @@
   <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
   <link rel="stylesheet" href="{{ url('css/vendor/toastr.min.css?v=01') }}" />
-  <link rel="stylesheet" href="{{ url('css/main/login.css?v=01') }}">
+  <link rel="stylesheet" href="{{ url('css/main/login.css?v=02') }}">
 </head>
 
 <body>
@@ -59,8 +59,7 @@
         <label for="username" class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 
         <div class="col-md-6">
-            <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required>
-
+            <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
             @if ($errors->has('username'))
             <br>
                 <span class="help-block text-red">
@@ -75,7 +74,6 @@
 
         <div class="col-md-6">
             <input id="password" type="password" class="form-control" name="password" required>
-
             @if ($errors->has('password'))
             <br>
                 <span class="help-block text-red">
@@ -99,7 +97,8 @@
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="{{ route('password.request') }}">{{ trans('auth.lost-password') }}</a>
+        <a href="{{ route('password.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-password') }} </h2></a>
+        <a href="{{ route('username.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
     </div>
   </div>
 </div>

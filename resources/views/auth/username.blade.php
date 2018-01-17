@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('auth.lost-password') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.lost-username') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
   @section('meta')
     <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
@@ -61,7 +61,7 @@
     </div>
 
     <!-- SignUp Form -->
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
+    <form class="form-horizontal" role="form" method="POST" action="{{ route('username.email') }}">
       {{ csrf_field() }}
       <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required autofocus>
       @if ($errors->has('email'))
@@ -74,8 +74,8 @@
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-        <a href="{{ route('password.request') }}"><h2 class="active">{{ trans('auth.lost-password') }} </h2></a>
-        <a href="{{ route('username.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
+        <a href="{{ route('password.request') }}"><h2 class="inactive underlineHover">{{ trans('auth.lost-password') }} </h2></a>
+        <a href="{{ route('username.request') }}"><h2 class="active">{{ trans('auth.lost-username') }} </h2></a>
     </div>
 
   </div>
