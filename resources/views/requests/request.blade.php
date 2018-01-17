@@ -40,6 +40,7 @@
         <div class="row mb-10">
             <div class="col-sm-12">
                 <div class="pull-right">
+                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_request_report"><i class="fa fa-eye"></i> Report Request</button>
                     @if($request->filled_hash == null)
                     <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal" data-target="#vote"><i class="fa fa-thumbs-up">
                         </i> Vote Up</button>
