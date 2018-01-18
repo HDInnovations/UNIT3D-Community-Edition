@@ -17,7 +17,7 @@
         "guzzlehttp/guzzle": "6.*",
         "hootlex/laravel-moderation": "^1.0",
         "infinety-es/config-manager": "^1.1",
-        "kyslik/column-sortable": "5.4.*",
+        "kyslik/column-sortable": "5.5.*",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "5.5.*",
