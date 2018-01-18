@@ -68,15 +68,17 @@ class ShoutboxController extends Controller
             }
 
             $flag = true;
-            $avatar = '<img class="profile-avatar tiny pull-left" src="/img/profil.png">';
             if (Auth::user()->image != null) {
                 $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . Auth::user()->image . '">';
+            } else {
+                $avatar = '<img class="profile-avatar tiny pull-left" src="/img/profil.png">';
             }
 
             $flag = true;
-            $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             if (Auth::user()->isOnline()) {
                 $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
+            } else {
+                $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             }
 
             $appurl = env('APP_URL', 'http://unit3d.site');
@@ -121,9 +123,10 @@ class ShoutboxController extends Controller
             }
 
             $flag = true;
-            $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
             if ($message->poster->image != null) {
                 $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
+            } else {
+                $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
             }
 
             $flag = true;
@@ -134,9 +137,10 @@ class ShoutboxController extends Controller
             }
 
             $flag = true;
-            $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             if ($message->poster->isOnline()) {
                 $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
+            } else {
+                $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             }
 
             $appurl = env('APP_URL', 'http://unit3d.site');
