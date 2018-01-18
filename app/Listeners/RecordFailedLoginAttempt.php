@@ -32,8 +32,8 @@ class RecordFailedLoginAttempt
 
         if (isset($event->user) && is_a($event->user, 'Illuminate\Database\Eloquent\Model')) {
             $event->user->notify(new FailedLogin(
-            Request::getClientIp()
-        ));
+                Request::getClientIp()
+            ));
         }
     }
 }

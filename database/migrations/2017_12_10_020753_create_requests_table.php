@@ -56,5 +56,4 @@ class CreateRequestsTable extends Migration
     {
         Schema::drop('requests');
     }
-
 }

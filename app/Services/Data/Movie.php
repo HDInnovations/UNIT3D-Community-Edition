@@ -181,7 +181,6 @@ class Movie
 
         foreach ($movies as $movie) {
             foreach ($movie as $movie_key => $movie_value) {
-
                 if ($movie_key == 'title' && $movie_value != $this->title) {
                     $this->aka[] = $movie_value;
                 }

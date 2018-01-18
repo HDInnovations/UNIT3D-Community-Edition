@@ -46,5 +46,4 @@ class CreateReportsTable extends Migration
     {
         Schema::drop('reports');
     }
-
 }

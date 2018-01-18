@@ -35,17 +35,17 @@ class Poll extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 
     public function options()
     {
-        return $this->hasMany('App\Option');
+        return $this->hasMany(\App\Option::class);
     }
 
     public function voters()
     {
-        return $this->hasMany('App\Voter');
+        return $this->hasMany(\App\Voter::class);
     }
 
     /**

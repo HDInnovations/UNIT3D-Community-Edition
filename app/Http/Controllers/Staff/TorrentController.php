@@ -50,5 +50,4 @@ class TorrentController extends Controller
 
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }
-
 }

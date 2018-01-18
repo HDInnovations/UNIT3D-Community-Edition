@@ -40,5 +40,4 @@ class CreateTagTorrentTable extends Migration
     {
         Schema::drop('tag_torrent');
     }
-
 }

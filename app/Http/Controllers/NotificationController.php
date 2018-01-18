@@ -11,23 +11,27 @@ use Carbon\Carbon;
 
 class NotificationController extends Controller
 {
-    public function get() {
+    public function get()
+    {
         $notification = Auth::user()->notifications;
         return view('notification.notifications', ['notification' => $notification]);
     }
 
-    public function read($id) {
+    public function read($id)
+    {
         Auth::user()->unreadNotifications()->findOrFail($id)->markAsRead();
         return Redirect::back()->with(Toastr::success('Notification Marked As Read!', 'Yay!', ['options']));
     }
 
-    public function massRead() {
+    public function massRead()
+    {
         $current = new Carbon();
         Auth::user()->unreadNotifications()->update(['read_at' => $current]);
         return Redirect::back()->with(Toastr::success('All Notifications Marked As Read!', 'Yay!', ['options']));
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         Auth::user()->notifications()->findOrFail($id)->delete();
         return Redirect::back()->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
     }

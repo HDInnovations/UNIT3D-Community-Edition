@@ -41,5 +41,4 @@ class CreateFreeleechTokensTable extends Migration
     {
         Schema::drop('freeleech_tokens');
     }
-
 }

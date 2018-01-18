@@ -46,7 +46,7 @@ class RssController extends Controller
             return explode(',', $catArray);
         }
 
-        return array();
+        return [];
     }
 
     private function getTorrents()
@@ -67,7 +67,7 @@ class RssController extends Controller
         if ($this->auth($passkey)) {
             $torrents = $this->getTorrents();
 
-            return Response::view('rss.default', array('passkey' => $passkey, 'torrents' => $torrents))->header('Content-Type', 'text/xml');
+            return Response::view('rss.default', ['passkey' => $passkey, 'torrents' => $torrents])->header('Content-Type', 'text/xml');
         }
 
         return abort(404);

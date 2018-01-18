@@ -40,5 +40,4 @@ class AddForeignKeysToVotersTable extends Migration
             $table->dropForeign('voters_poll_id_foreign');
         });
     }
-
 }

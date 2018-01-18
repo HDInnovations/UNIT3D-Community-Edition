@@ -94,7 +94,6 @@ class MovieScrapper
 
             return $tvdb_tv->merge($tmdb_tv, $omdb_tv);
         }
-
     }
 
     public function person($tmdb)

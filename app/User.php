@@ -95,7 +95,7 @@ class User extends Authenticatable
      */
     public function polls()
     {
-        return $this->hasMany('App\Poll');
+        return $this->hasMany(\App\Poll::class);
     }
 
     /**
@@ -259,7 +259,8 @@ class User extends Authenticatable
         return $this->belongsToMany(\App\Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
     }
 
-    public function hasBookmarked($torrent_id) {
+    public function hasBookmarked($torrent_id)
+    {
         return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
     }
 
@@ -338,7 +339,7 @@ class User extends Authenticatable
      */
     public function likes()
     {
-        return $this->hasMany('App\Like');
+        return $this->hasMany(\App\Like::class);
     }
 
     /**

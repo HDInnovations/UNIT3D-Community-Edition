@@ -159,7 +159,7 @@ class bonAllocation extends Command
 
         //Move data from SQL to array
 
-        $array = array();
+        $array = [];
 
         foreach ($dying as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {

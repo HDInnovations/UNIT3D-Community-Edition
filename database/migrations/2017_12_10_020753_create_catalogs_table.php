@@ -42,5 +42,4 @@ class CreateCatalogsTable extends Migration
     {
         Schema::drop('catalogs');
     }
-
 }

@@ -42,5 +42,4 @@ class CreateCatalogTorrentTable extends Migration
     {
         Schema::drop('catalog_torrent');
     }
-
 }

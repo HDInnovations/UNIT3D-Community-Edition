@@ -18,10 +18,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use Config;
 
-class Bbcode {
+class Bbcode
+{
     private function __construct()
     {
-    
     }
 
     public static function decodaWithDefaults($data)

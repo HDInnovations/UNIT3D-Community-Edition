@@ -236,7 +236,6 @@ class CommentController extends Controller
             $appurl = env('APP_URL', 'http://unit3d.site');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
-
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
@@ -278,7 +277,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($comment_id);
 
         if ($user->group->is_modo || $user->id == $comment->user_id) {
-
             $comment->delete();
 
             return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
@@ -286,5 +284,4 @@ class CommentController extends Controller
             abort(403, 'Unauthorized action.');
         }
     }
-
 }

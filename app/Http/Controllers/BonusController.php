@@ -516,5 +516,4 @@ class BonusController extends Controller
             ->where('history.user_id', '=', $user->id)
             ->count();
     }
-
 }

@@ -70,5 +70,4 @@ class CreateTorrentsTable extends Migration
     {
         Schema::drop('torrents');
     }
-
 }
