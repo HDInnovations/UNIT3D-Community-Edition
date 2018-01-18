@@ -37,7 +37,7 @@ class PagesTableSeeder extends Seeder
                     'created_at' => '2016-12-20 22:09:45',
                     'updated_at' => '2017-12-01 13:39:43',
                 ],
-            1 =>
+                1 =>
                 [
                     'id' => 3,
                     'name' => 'FAQ',
@@ -46,7 +46,7 @@ class PagesTableSeeder extends Seeder
                     'created_at' => '2017-10-28 21:26:15',
                     'updated_at' => '2017-10-28 21:26:15',
                 ],
-            2 =>
+                2 =>
                 [
                     'id' => 4,
                     'name' => 'Suggested Clients',
@@ -55,7 +55,7 @@ class PagesTableSeeder extends Seeder
                     'created_at' => '2017-01-27 15:52:01',
                     'updated_at' => '2017-08-07 17:30:56',
                 ],
-            3 =>
+                3 =>
                 [
                     'id' => 5,
                     'name' => 'Upload Guide',
@@ -64,7 +64,7 @@ class PagesTableSeeder extends Seeder
                     'created_at' => '2017-04-24 14:45:03',
                     'updated_at' => '2017-08-07 17:34:42',
                 ],
-            4 =>
+                4 =>
                 [
                     'id' => 6,
                     'name' => 'Tracker Codes',
@@ -73,7 +73,7 @@ class PagesTableSeeder extends Seeder
                     'created_at' => '2017-09-08 14:23:16',
                     'updated_at' => '2017-09-08 14:27:12',
                 ],
-            5 =>
+                5 =>
                 [
                     'id' => 7,
                     'name' => 'Terms Of Use',
