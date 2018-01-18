@@ -49,7 +49,7 @@ class autoNerdStat extends Command
         // Current Timestamp
         $current = Carbon::now();
         // Site Birthday
-        $bday = Config::get('other.birthdate');
+        $bday = config('other.birthdate');
         // Logins Count Last 24hours
         $logins = User::whereNotNull('last_login')->where('last_login', '>', $current->subDay())->count();
         // Torrents Uploaded Count Last 24hours
@@ -70,16 +70,16 @@ class autoNerdStat extends Command
         $du = Torrent::where('doubleup', '=', 1)->count();
 
         // Select A Random Nerd Stat
-        $statArray = ["In The Last 24 Hours " . $logins . " Unique Users Have Logged Into " . Config::get('other.title') . "!",
-            "In The Last 24 Hours " . $uploads . " Torrents Have Been Uploaded To " . Config::get('other.title') . "!",
-            "In The Last 24 Hours " . $users . " Users Have Registered To " . Config::get('other.title') . "!",
-            "There Are Currently " . $fl . " Freeleech Torrents On " . Config::get('other.title') . "!",
-            "There Are Currently " . $du . " DoubleUpload Torrents On " . Config::get('other.title') . "!",
-            "Currently " . $seeders->name . " Is The Best Seeded Torrent On " . Config::get('other.title') . "!",
-            "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . Config::get('other.title') . "!",
-            "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . Config::get('other.title') . "!",
-            "Currently " . $banker->username . " Is The Top BON Holder On " . Config::get('other.title') . "!",
-            Config::get('other.title') . " Birthdate Is " . $bday . "!"
+        $statArray = ["In The Last 24 Hours " . $logins . " Unique Users Have Logged Into " . config('other.title') . "!",
+            "In The Last 24 Hours " . $uploads . " Torrents Have Been Uploaded To " . config('other.title') . "!",
+            "In The Last 24 Hours " . $users . " Users Have Registered To " . config('other.title') . "!",
+            "There Are Currently " . $fl . " Freeleech Torrents On " . config('other.title') . "!",
+            "There Are Currently " . $du . " DoubleUpload Torrents On " . config('other.title') . "!",
+            "Currently " . $seeders->name . " Is The Best Seeded Torrent On " . config('other.title') . "!",
+            "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . config('other.title') . "!",
+            "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . config('other.title') . "!",
+            "Currently " . $banker->username . " Is The Top BON Holder On " . config('other.title') . "!",
+            config('other.title') . " Birthdate Is " . $bday . "!"
         ];
         $selected = mt_rand(0, count($statArray) - 1);
 

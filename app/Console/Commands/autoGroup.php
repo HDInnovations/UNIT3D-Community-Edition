@@ -56,7 +56,7 @@ class autoGroup extends Command
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
 
             //Leech ratio dropped below sites minimum
-            if ($user->getRatio() < Config::get('other.ratio') && $user->group_id != 15) {
+            if ($user->getRatio() < config('other.ratio') && $user->group_id != 15) {
                 $user->group_id = 15;
                 $user->can_request = 0;
                 $user->can_invite = 0;
@@ -65,7 +65,7 @@ class autoGroup extends Command
                 //PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => "Sad News My Friend!", 'message' => "You have been demoted to Leech group. Your ratio dropped below 0.2. So now you have been placed in Leech Group and your download rights, invite rights and request rights have been revoked. Please seed and use bon to bring ratio back up! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
             }
             //Member >= 0 but < 1TB and ratio above sites minimum
-            if ($user->uploaded >= 0 && $user->getRatio() > Config::get('other.ratio') && $user->group_id != 3) {
+            if ($user->uploaded >= 0 && $user->getRatio() > config('other.ratio') && $user->group_id != 3) {
                 $user->group_id = 3;
                 $user->can_download = 1;
                 $user->can_request = 1;

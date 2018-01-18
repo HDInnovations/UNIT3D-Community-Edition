@@ -83,7 +83,7 @@ class RssController extends Controller
 
     public function setView()
     {
-        Redirect::to();
+        redirect();
     }
 
     public function getView()

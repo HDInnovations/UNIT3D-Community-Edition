@@ -193,15 +193,15 @@ class RequestController extends Controller
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
-                return Redirect::to('/requests')->with(Toastr::success('Request Added.', 'Successful', ['options']));
+                return redirect('/requests')->with(Toastr::success('Request Added.', 'Successful', ['options']));
             } else {
-                return Redirect::to('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Add request failed', ['options']));
+                return redirect('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Add request failed', ['options']));
             }
         } else {
             if ($user->seedbonus >= 100) {
                 return view('requests.add_request', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             } else {
-                return Redirect::to('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Error!', ['options']));
+                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Error!', ['options']));
             }
         }
     }

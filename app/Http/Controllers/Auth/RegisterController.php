@@ -44,13 +44,13 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and ivite code exsists and is not used or expired
         if (config('other.invite-only') == true && $code == null) {
-            return View::make('auth.login')->with(Toastr::warning('Open Reg Closed! You Must Be Invited To Register!', 'Error', ['options']));
+            return view('auth.login')->with(Toastr::warning('Open Reg Closed! You Must Be Invited To Register!', 'Error', ['options']));
         }
 
         if (Request::isMethod('post')) {
             $key = Invite::where('code', '=', $code)->first();
             if (config('other.invite-only') == true && !$key) {
-                return View::make('auth.register', ['code' => $code])->with(Toastr::warning('Invalid or Expired Invite Key!', 'Error', ['options']));
+                return view('auth.register', ['code' => $code])->with(Toastr::warning('Invalid or Expired Invite Key!', 'Error', ['options']));
             }
 
             $current = Carbon::now();
@@ -103,6 +103,6 @@ class RegisterController extends Controller
                 return Redirect::route('login')->with(Toastr::info('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
             }
         }
-        return View::make('auth.register', ['code' => $code]);
+        return view('auth.register', ['code' => $code]);
     }
 }

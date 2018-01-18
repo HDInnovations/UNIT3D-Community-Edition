@@ -55,7 +55,7 @@ class LanguageCensor
      */
     public static function censor($source)
     {
-        $redactArray = Config::get('censor.redact', []);
+        $redactArray = config('censor.redact', []);
         foreach ($redactArray as $word) {
             $result = "";
             $length = strlen($source);
@@ -77,7 +77,7 @@ class LanguageCensor
             $source = $result;
         }
 
-        $replaceDict = Config::get('censor.replace', []);
+        $replaceDict = config('censor.replace', []);
         foreach ($replaceDict as $word => $replacement) {
             $source = str_ireplace($word, $replacement, $source);
         }
