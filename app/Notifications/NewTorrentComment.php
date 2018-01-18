@@ -55,7 +55,7 @@ class NewTorrentComment extends Notification
      */
     public function toArray($notifiable)
     {
-        $appurl = env('APP_URL', 'http://unit3d.site');
+        $appurl = config('app.url');
         if ($this->comment->anon == 0) {
             return [
                 'title' => "New Torrent Comment Recieved",

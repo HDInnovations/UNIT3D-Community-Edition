@@ -81,7 +81,7 @@ class ShoutboxController extends Controller
                 $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             }
 
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
       <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (Auth::user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (Auth::user()->group->name) . '"></i>&nbsp;<a style="color:' . (Auth::user()->group->color) . ';" href=\'' . $appurl . '/' . Auth::user()->username . '.' . Auth::user()->id . '\'>'
@@ -132,7 +132,7 @@ class ShoutboxController extends Controller
             $flag = true;
             $delete = '';
             if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
-                $appurl = env('APP_URL', 'http://unit3d.site');
+                $appurl = config('app.url');
                 $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
             }
 
@@ -143,7 +143,7 @@ class ShoutboxController extends Controller
                 $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
             }
 
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             $data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
                    ' . ($flag ? $avatar : "") . '
                    <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>&nbsp;<a style="color:' . ($message->poster->group->color) . ';" href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>'
@@ -165,7 +165,7 @@ class ShoutboxController extends Controller
      *
      *
      */
-    public function fetch($after = null)
+    public function pluck($after = null)
     {
         if (Request::ajax()) {
             $messagesNext = self::getMessages($after);

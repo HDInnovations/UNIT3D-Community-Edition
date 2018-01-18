@@ -34,7 +34,7 @@
           <center><h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h3></center>
             @foreach($files as $file)
               <a href="?l={{ base64_encode($file) }}" class="log_file @if ($current_file == $file) llv-active @endif">
-                {{$file}}
+                {{ $file }}
               </a>
             @endforeach
         <div class="col-sm-9 col-md-12 table-container">
@@ -56,14 +56,14 @@
 
 @foreach($logs as $key => $log)
 <tr>
-  <td class="text-{{{$log['level_class']}}}"><span class="glyphicon glyphicon-{{{$log['level_img']}}}-sign" aria-hidden="true"></span> &nbsp;{{$log['level']}}</td>
-  <td class="text">{{$log['context']}}</td>
-  <td class="date">{{{$log['date']}}}</td>
+  <td class="text-{{ $log['level_class'] }}"><span class="glyphicon glyphicon-{{ $log['level_img'] }}-sign" aria-hidden="true"></span> &nbsp;{{ $log['level'] }}</td>
+  <td class="text">{{ $log['context'] }}</td>
+  <td class="date">{{ $log['date'] }}</td>
   <td class="text">
-    @if ($log['stack']) <a class="pull-right expand btn btn-default btn-xs" data-display="stack{{{$key}}}"><span class="glyphicon glyphicon-search"></span></a>@endif
-    {{{$log['text']}}}
-    @if (isset($log['in_file'])) <br />{{{$log['in_file']}}}@endif
-    @if ($log['stack']) <div class="stack" id="stack{{{$key}}}" style="display: none; white-space: pre-wrap;">{{{ trim($log['stack']) }}}</div>@endif
+    @if ($log['stack']) <a class="pull-right expand btn btn-default btn-xs" data-display="stack{{ $key }}"><span class="glyphicon glyphicon-search"></span></a>@endif
+    {{ $log['text'] }}
+    @if (isset($log['in_file'])) <br />{{ $log['in_file'] }}@endif
+    @if ($log['stack']) <div class="stack" id="stack{{ $key }}" style="display: none; white-space: pre-wrap;">{{ trim($log['stack']) }}</div>@endif
   </td>
 </tr>
 @endforeach

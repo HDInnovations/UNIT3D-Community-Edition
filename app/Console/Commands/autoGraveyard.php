@@ -61,7 +61,7 @@ class autoGraveyard extends Command
                 $user->save();
 
                 // Auto Announce Featured Expired
-                $appurl = env('APP_URL', 'http://unit3d.site');
+                $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has succesfully ressurected[url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]. :zombie:"]);
                 Cache::forget('shoutbox_messages');
 

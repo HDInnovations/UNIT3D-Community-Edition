@@ -70,7 +70,7 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->article_id = $article->id;
         $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
-        $appurl = env('APP_URL', 'http://unit3d.site');
+        $appurl = config('app.url');
         if ($v->passes()) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
             Cache::forget('shoutbox_messages');
@@ -125,7 +125,7 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
 
             // Auto Shout
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             if ($comment->anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
@@ -177,7 +177,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
             // Auto Shout
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
             // Auto PM
@@ -233,7 +233,7 @@ class CommentController extends Controller
             User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
 
             // Auto Shout
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
         } else {

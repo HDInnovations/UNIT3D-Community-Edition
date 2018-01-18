@@ -57,7 +57,7 @@ class removeFeaturedTorrent extends Command
             $torrent->save();
 
             // Auto Announce Featured Expired
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] is no longer featured. :poop:"]);
             Cache::forget('shoutbox_messages');
 

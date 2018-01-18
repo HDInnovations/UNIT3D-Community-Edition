@@ -66,9 +66,9 @@
         <div class="content">
           <div class="col-md-2">
             @if($user->image != null)
-            <img src="{{ url('files/img/' . $user->image) }}" alt="{{{ $user->username }}}" class="img-circle">
+            <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}" class="img-circle">
             @else
-            <img src="{{ url('img/profil.png') }}" alt="{{{ $user->username }}}" class="img-circle">
+            <img src="{{ url('img/profil.png') }}" alt="{{ $user->username }}" class="img-circle">
             @endif
           </div>
         <div class="col-md-10">

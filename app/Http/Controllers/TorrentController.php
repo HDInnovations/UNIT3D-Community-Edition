@@ -265,7 +265,7 @@ class TorrentController extends Controller
                 $user->addProgress(new UserMade800Uploads(), 1);
                 $user->addProgress(new UserMade900Uploads(), 1);
                 if ($torrent->sd == 0) {
-                    $appurl = env('APP_URL', 'http://unit3d.site');
+                    $appurl = config('app.url');
                     if ($torrent->anon == 0) {
                         Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
                         Cache::forget('shoutbox_messages');
@@ -566,7 +566,7 @@ class TorrentController extends Controller
     {
         if (Auth::user()->group->is_modo) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             if ($torrent->free == 0) {
                 $torrent->free = "1";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
@@ -608,7 +608,7 @@ class TorrentController extends Controller
                     'torrent_id' => $torrent->id,
                 ]);
                 $featured->save();
-                $appurl = env('APP_URL', 'http://unit3d.site');
+                $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
             has been added to the Featured Torrents Slider by [url={$appurl}/" . Auth::user()->username . "." . Auth::user()->id . "]" . Auth::user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
@@ -638,7 +638,7 @@ class TorrentController extends Controller
     {
         if (Auth::user()->group->is_modo) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
@@ -742,7 +742,7 @@ class TorrentController extends Controller
      */
     public function reseedTorrent($slug, $id)
     {
-        $appurl = env('APP_URL', 'http://unit3d.site');
+        $appurl = config('app.url');
         $user = Auth::user();
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();

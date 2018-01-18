@@ -44,7 +44,7 @@ class AchievementUnlocked
         Session::flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
-            $appurl = env('APP_URL', 'http://unit3d.site');
+            $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
             Cache::forget('shoutbox_messages');
         }

@@ -34,18 +34,18 @@
         @foreach ($torrents as $torrent)
         <tr>
           <td>
-            <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}" href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">{{{ $torrent->name }}}</a>
+            <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}" href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">{{ $torrent->name }}</a>
             <div class="pull-right">
               <a href="{{ route('download', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">
                 <button class="btn btn-primary btn-circle" type="button"><i class="fa fa-download"></i></button>
               </a>
               @if(Auth::check() && Auth::user()->id == $user->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay()))
-              <a class="btn btn-danger btn-xs" href="{{{ action('TorrentController@deleteTorrent', array('id' => $torrent->id)) }}}" role="button">Delete</a>
+              <a class="btn btn-danger btn-xs" href="{{ action('TorrentController@deleteTorrent', array('id' => $torrent->id)) }}" role="button">Delete</a>
               @endif
             </div>
           </td>
           <td>
-            <a href="{{ route('category', array('slug' => $torrent->category->slug, 'id' => $torrent->category->id)) }}">{{{ $torrent->category->name }}}</a>
+            <a href="{{ route('category', array('slug' => $torrent->category->slug, 'id' => $torrent->category->id)) }}">{{ $torrent->category->name }}</a>
           </td>
           <td>
             <span class="badge-extra text-blue text-bold"> {{ $torrent->getSize() }}</span>

@@ -21,7 +21,6 @@ use Cache;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
 
 class autoNerdStat extends Command
 {

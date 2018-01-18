@@ -58,8 +58,10 @@ class InviteController extends Controller
             do {
                 //generate a random string using Laravel's str_random helper
                 $code = str_random();
-            } //check if the token already exists and if it does, try again
+            }
+            //check if the token already exists and if it does, try again
             while (Invite::where('code', $code)->first()) {
+                //
             }
 
             //create a new invite record
