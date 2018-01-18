@@ -95,7 +95,7 @@ class User extends Authenticatable
      */
     public function polls()
     {
-        return $this->hasMany('App\Poll');
+        return $this->hasMany(\App\Poll::class);
     }
 
     /**
@@ -339,7 +339,7 @@ class User extends Authenticatable
      */
     public function likes()
     {
-        return $this->hasMany('App\Like');
+        return $this->hasMany(\App\Like::class);
     }
 
     /**

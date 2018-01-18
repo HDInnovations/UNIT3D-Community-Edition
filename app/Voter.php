@@ -25,11 +25,11 @@ class Voter extends Model
 
     public function poll()
     {
-        return $this->belongsTo('App\Poll');
+        return $this->belongsTo(\App\Poll::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 }

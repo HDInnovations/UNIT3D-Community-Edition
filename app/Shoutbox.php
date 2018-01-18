@@ -30,7 +30,7 @@ class Shoutbox extends Model
      */
     public function poster()
     {
-        return $this->belongsTo('App\User', 'user');
+        return $this->belongsTo(\App\User::class, 'user');
     }
 
     /**
