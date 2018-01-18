@@ -59,7 +59,7 @@ class GiftController extends Controller
                 $recipient = User::where('username', 'LIKE', Request::get('username'))->first();
 
                 if (!$recipient) {
-                    return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
+                    return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
                 }
 
                 $bon = Request::get('bonus_points');
@@ -71,12 +71,12 @@ class GiftController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Staff Member " . $user->username . " has sent a system gift to " . $recipient->username . " account.");
 
-                return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::info('Sent', 'Gift', ['options']));
+                return redirect('/staff_dashboard/systemgift')->with(Toastr::info('Sent', 'Gift', ['options']));
             } else {
-                return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Failed', 'Gifting', ['options']));
+                return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Failed', 'Gifting', ['options']));
             }
         } else {
-            return Redirect::to('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+            return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
         }
     }
 }

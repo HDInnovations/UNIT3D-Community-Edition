@@ -856,7 +856,7 @@ class TorrentController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
 
-            return Redirect::to('/torrents')->with(Toastr::info('Torrent Has Been Deleted!', 'Attention!', ['options']));
+            return redirect('/torrents')->with(Toastr::info('Torrent Has Been Deleted!', 'Attention!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }

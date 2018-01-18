@@ -63,12 +63,12 @@ class MassPMController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Staff Member " . $staff->username . " has sent a MassPM.");
 
-                return Redirect::to('/staff_dashboard/masspm')->with(Toastr::info('Sent', 'MassPM', ['options']));
+                return redirect('/staff_dashboard/masspm')->with(Toastr::info('Sent', 'MassPM', ['options']));
             } else {
-                return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Failed', 'MassPM', ['options']));
+                return redirect('/staff_dashboard/masspm')->with(Toastr::error('Failed', 'MassPM', ['options']));
             }
         } else {
-            return Redirect::to('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+            return redirect('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
         }
     }
 }

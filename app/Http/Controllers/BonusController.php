@@ -113,16 +113,16 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (!$flag) {
-                return Redirect::to('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
+                return redirect('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return Redirect::to('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
+            return redirect('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
         }
 
-        return Redirect::to('/bonus')->with(Toastr::info('Successful', 'Bonus Exchange', ['options']));
+        return redirect('/bonus')->with(Toastr::info('Successful', 'Bonus Exchange', ['options']));
     }
 
     /**
@@ -202,7 +202,7 @@ class BonusController extends Controller
                 $recipient = User::where('username', 'LIKE', Request::get('to_username'))->first();
 
                 if (!$recipient || $recipient->id == $user->id) {
-                    return Redirect::to('/bonus')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
+                    return redirect('/bonus')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
                 }
 
                 $value = Request::get('bonus_points');
@@ -230,12 +230,12 @@ class BonusController extends Controller
 
                 PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $recipient->id, 'subject' => "You Have Recieved A Gift", 'message' => $transaction->comment]);
 
-                return Redirect::to('/bonus')->with(Toastr::info('Sent', 'Gift', ['options']));
+                return redirect('/bonus')->with(Toastr::info('Sent', 'Gift', ['options']));
             } else {
-                return Redirect::to('/bonus')->with(Toastr::error('Failed', 'Gifting', ['options']));
+                return redirect('/bonus')->with(Toastr::error('Failed', 'Gifting', ['options']));
             }
         } else {
-            return Redirect::to('/bonus')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+            return redirect('/bonus')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
         }
     }
 
