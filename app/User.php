@@ -35,7 +35,6 @@ class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
-    use Encryptable;
 
     public $rules = [
         'username' => 'required|alpha_dash|min:3|max:20|unique:users',
