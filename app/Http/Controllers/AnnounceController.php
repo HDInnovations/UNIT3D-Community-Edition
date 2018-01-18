@@ -444,7 +444,7 @@ class AnnounceController extends Controller
         $torrent->leechers = Peer::whereRaw('torrent_id = ? AND `left` > 0', [$torrent->id])->count();
         $torrent->save();
 
-        $res = array();
+        $res = [];
         $res['interval'] = (60 * 45);
         $res['min interval'] = (60 * 30);
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
