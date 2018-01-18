@@ -37,7 +37,9 @@ trait Encryptable
      */
     protected function shouldEncrypt($key)
     {
-        return in_array($key, $this->encryptable);
+        $encrypt = isset($this->encrypts) ? $this->encrypts : $this->encryptable;
+
+        return in_array($key, $encrypt);
     }
 
     /**
@@ -91,7 +93,7 @@ trait Encryptable
      */
     protected function doEncryptAttribute($key)
     {
-        if ($this->shouldEncrypt($key) and ! $this->isEncrypted($this->attributes[$key])) {
+        if ($this->shouldEncrypt($key) && ! $this->isEncrypted($this->attributes[$key])) {
             try {
                 $this->attributes[$key] = $this->encryptedAttribute($this->attributes[$key]);
             } catch (EncryptException $e) {
@@ -109,7 +111,7 @@ trait Encryptable
      */
     protected function doDecryptAttribute($key, $value)
     {
-        if ($this->shouldEncrypt($key) and $this->isEncrypted($value)) {
+        if ($this->shouldEncrypt($key) && $this->isEncrypted($value)) {
             try {
                 return $this->decryptedAttribute($value);
             } catch (DecryptException $e) {

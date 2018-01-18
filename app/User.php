@@ -24,7 +24,7 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use function theodorejb\polycast\to_int;
-
+use App\Traits\Encryptable;
 use App\Helpers\StringHelper;
 use App\Helpers\Bbcode;
 
@@ -36,6 +36,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
+    use Encryptable;
 
     public $rules = [
         'username' => 'required|alpha_dash|min:3|max:20|unique:users',
@@ -60,6 +61,13 @@ class User extends Authenticatable
     protected $fillable = ['name', 'email', 'password'];
 
     protected $dates = ['last_login'];
+
+    /**
+    * The attributes that should be encrypted on save.
+    *
+    * @var array
+    */
+    protected $encrypts = ['email'];
 
 
     /**
