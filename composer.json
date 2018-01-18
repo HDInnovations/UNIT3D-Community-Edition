@@ -26,7 +26,7 @@
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "1.1.1",
         "renatomarinho/laravel-page-speed": "^1.8",
-        "spatie/laravel-cookie-consent": "^1.8",
+        "spatie/laravel-cookie-consent": "^2.2.0",
         "spatie/laravel-image-optimizer": "^1.1",
         "theodorejb/polycast": "^1.0",
         "intervention/image": "dev-master",
