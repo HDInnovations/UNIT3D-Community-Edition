@@ -22,13 +22,13 @@ use Config;
  */
 class LanguageCensor
 {
-    static protected function isSpecial($c)
+    protected static function isSpecial($c)
     {
         $specialChars = "<>\n [].;,";
         return strpos($specialChars, $c) !== false;
     }
 
-    static protected function matchWordIndexes($string, $word)
+    protected static function matchWordIndexes($string, $word)
     {
         $result = [];
         $length = strlen($word);
@@ -53,7 +53,7 @@ class LanguageCensor
      *
      * @return mixed
      */
-    static public function censor($source)
+    public static function censor($source)
     {
         $redactArray = Config::get('censor.redact', []);
         foreach ($redactArray as $word) {

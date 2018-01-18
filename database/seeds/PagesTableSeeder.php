@@ -161,7 +161,5 @@ YOU AGREE THAT YOUR USE OF THIS SITE AND SERVICES WILL BE AT YOUR SOLE RISK. WE 
                     'updated_at' => '2017-10-03 18:31:25',
                 ),
         ));
-
-
     }
 }

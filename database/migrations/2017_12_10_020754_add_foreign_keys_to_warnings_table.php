@@ -44,5 +44,4 @@ class AddForeignKeysToWarningsTable extends Migration
             $table->dropForeign('warnings_warned_by_foreign');
         });
     }
-
 }

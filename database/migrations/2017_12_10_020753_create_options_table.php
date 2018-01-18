@@ -42,5 +42,4 @@ class CreateOptionsTable extends Migration
     {
         Schema::drop('options');
     }
-
 }

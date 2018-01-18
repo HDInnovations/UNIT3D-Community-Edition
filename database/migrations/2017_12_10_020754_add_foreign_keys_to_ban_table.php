@@ -42,5 +42,4 @@ class AddForeignKeysToBanTable extends Migration
             $table->dropForeign('foreign_staff_ban_user_id');
         });
     }
-
 }

@@ -45,5 +45,4 @@ class CreateWarningsTable extends Migration
     {
         Schema::drop('warnings');
     }
-
 }

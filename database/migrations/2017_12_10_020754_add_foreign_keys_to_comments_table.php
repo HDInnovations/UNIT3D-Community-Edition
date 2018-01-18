@@ -42,5 +42,4 @@ class AddForeignKeysToCommentsTable extends Migration
             $table->dropForeign('fk_comments_users_1');
         });
     }
-
 }

@@ -47,5 +47,4 @@ class Category extends Model
     {
         return $this->hasMany(\App\Requests::class);
     }
-
 }

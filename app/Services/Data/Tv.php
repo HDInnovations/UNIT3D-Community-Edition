@@ -67,5 +67,4 @@ class Tv extends Movie
         }
         $this->ended = $this->endDate ? true : $this->ended;
     }
-
 }

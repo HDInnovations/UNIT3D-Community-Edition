@@ -48,5 +48,4 @@ class BookmarkController extends Controller
         Auth::user()->bookmarks()->detach($id);
         return back()->with(Toastr::info('Torrent Has Been Unbookmarked Successfully!', 'Info', ['options']));
     }
-
 }

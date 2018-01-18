@@ -43,5 +43,4 @@ class CreateLikesTable extends Migration
     {
         Schema::drop('likes');
     }
-
 }

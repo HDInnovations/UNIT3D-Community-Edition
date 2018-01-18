@@ -42,5 +42,4 @@ class CreateUserNotesTable extends Migration
     {
         Schema::drop('user_notes');
     }
-
 }

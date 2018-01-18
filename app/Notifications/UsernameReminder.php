@@ -19,7 +19,7 @@ class UsernameReminder extends Notification implements ShouldQueue
      */
     public function __construct()
     {
-		// nothing special to do
+        // nothing special to do
     }
 
     /**

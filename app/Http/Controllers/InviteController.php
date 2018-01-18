@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Input;
 use \Toastr;
 use Carbon\Carbon;
 
-
 class InviteController extends Controller
 {
 
@@ -60,7 +59,8 @@ class InviteController extends Controller
                 //generate a random string using Laravel's str_random helper
                 $code = str_random();
             } //check if the token already exists and if it does, try again
-            while (Invite::where('code', $code)->first());
+            while (Invite::where('code', $code)->first()) {
+            }
 
             //create a new invite record
             $invite = Invite::create([

@@ -12,7 +12,8 @@ use Decoda\Hook\AbstractHook;
 /**
  * Converts URLs and emails (not wrapped in tags) into clickable links.
  */
-class ClickableHook extends AbstractHook {
+class ClickableHook extends AbstractHook
+{
 
     /**
      * Matches a link or an email, and converts it to an anchor tag.
@@ -21,7 +22,8 @@ class ClickableHook extends AbstractHook {
      * @return string
      */
 
-    public function beforeParse($content) {
+    public function beforeParse($content)
+    {
         $parser = $this->getParser();
 
         // To make sure we won't parse links inside [url] or [img] tags, we'll first replace all urls/imgs with uniqids
@@ -35,7 +37,9 @@ class ClickableHook extends AbstractHook {
         $i = 0;
         foreach ($ignoredTags as $tag) {
             if (preg_match_all(sprintf('/\[%s[\s=\]].*?\[\/%s\]/is', $tag, $tag), $content, $matches, PREG_SET_ORDER)) {
-                $matches = array_unique(array_map(function($x) { return $x[0]; }, $matches));
+                $matches = array_unique(array_map(function ($x) {
+                    return $x[0];
+                }, $matches));
 
                 foreach ($matches as $val) {
                     $uniqid = uniqid($i++);
@@ -112,7 +116,8 @@ class ClickableHook extends AbstractHook {
      * @param array $matches
      * @return string
      */
-    protected function _emailCallback($matches) {
+    protected function _emailCallback($matches)
+    {
         // is like http://user:pass@domain.com ? Then we do not touch it.
         if ($matches[1]) {
             return $matches[0];
@@ -130,11 +135,11 @@ class ClickableHook extends AbstractHook {
      * @param array $matches
      * @return string
      */
-    protected function _urlCallback($match) {
+    protected function _urlCallback($match)
+    {
         return $this->getParser()->getFilter('Url')->parse(array(
             'tag' => 'url',
             'attributes' => array()
         ), trim($match));
     }
-
 }

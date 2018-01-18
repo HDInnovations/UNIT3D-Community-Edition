@@ -42,5 +42,4 @@ class CreateRequestBountyTable extends Migration
     {
         Schema::drop('request_bounty');
     }
-
 }

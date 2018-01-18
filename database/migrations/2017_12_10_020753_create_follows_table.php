@@ -41,5 +41,4 @@ class CreateFollowsTable extends Migration
     {
         Schema::drop('follows');
     }
-
 }

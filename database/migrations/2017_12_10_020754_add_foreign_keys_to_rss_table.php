@@ -40,5 +40,4 @@ class AddForeignKeysToRssTable extends Migration
             $table->dropForeign('rss_user_id');
         });
     }
-
 }

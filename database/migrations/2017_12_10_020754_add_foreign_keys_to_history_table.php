@@ -42,5 +42,4 @@ class AddForeignKeysToHistoryTable extends Migration
             $table->dropForeign('history_user_id_foreign');
         });
     }
-
 }

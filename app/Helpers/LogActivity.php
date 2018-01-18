@@ -34,5 +34,4 @@ class LogActivity
     {
         return LogActivityModel::latest()->paginate(50);
     }
-
 }

@@ -43,5 +43,4 @@ class CreateGraveyardTable extends Migration
     {
         Schema::drop('graveyard');
     }
-
 }

@@ -12,7 +12,8 @@
 
 namespace App\Services;
 
-use function theodorejb\polycast\{safe_int, safe_float};
+use function theodorejb\polycast\safe_int;
+use function theodorejb\polycast\safe_float;
 
 /**
  * Bencode library for torrents

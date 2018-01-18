@@ -197,9 +197,20 @@ class AnnounceController extends Controller
                 $seeders++; // Counts the number of seeders
             }
 
-            unset($p['id'], $p['md5_peer_id'], $p['hash'], $p['agent'], $p['uploaded'],
-            $p['downloaded'], $p['left'], $p['torrent_id'], $p['user_id'], $p['seeder'],
-            $p['created_at'], $p['updated_at']);
+            unset(
+                $p['id'],
+                $p['md5_peer_id'],
+                $p['hash'],
+                $p['agent'],
+                $p['uploaded'],
+                $p['downloaded'],
+                $p['left'],
+                $p['torrent_id'],
+                $p['user_id'],
+                $p['seeder'],
+                $p['created_at'],
+                $p['updated_at']
+            );
         }
 
         // Pull Count On Users Peers Per Torrent

@@ -134,11 +134,17 @@ class TmdbClient extends Client implements MovieTvInterface
             'writers' => $this->formatCasts($movie['credits'], 'writers'),
             'producers' => $this->formatCasts($movie['credits'], 'producers'),
             'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : null,
-            'posters' => !empty($movie['images']['posters']) ? $this->formatImages($movie['images']['posters'],
-                $this->imagePath, $movie['poster_path']) : null,
+            'posters' => !empty($movie['images']['posters']) ? $this->formatImages(
+                $movie['images']['posters'],
+                $this->imagePath,
+                $movie['poster_path']
+            ) : null,
             'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : null,
-            'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages($movie['images']['backdrops'],
-                $this->imageBackdropPath, $movie['backdrop_path']) : null,
+            'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
+                $movie['images']['backdrops'],
+                $this->imageBackdropPath,
+                $movie['backdrop_path']
+            ) : null,
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes' => $movie['vote_count'],
         ]);
@@ -166,11 +172,17 @@ class TmdbClient extends Client implements MovieTvInterface
             'genres' => $this->formatGenres($movie['genres']),
             'videoTrailer' => $this->formatVideoTrailers($movie),
             'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : null,
-            'posters' => !empty($movie['images']['posters']) ? $this->formatImages($movie['images']['posters'],
-                $this->imagePath, $movie['poster_path']) : null,
+            'posters' => !empty($movie['images']['posters']) ? $this->formatImages(
+                $movie['images']['posters'],
+                $this->imagePath,
+                $movie['poster_path']
+            ) : null,
             'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : null,
-            'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages($movie['images']['backdrops'],
-                $this->imageBackdropPath, $movie['backdrop_path']) : null,
+            'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
+                $movie['images']['backdrops'],
+                $this->imageBackdropPath,
+                $movie['backdrop_path']
+            ) : null,
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes' => $movie['vote_count'],
         ]);
@@ -193,8 +205,11 @@ class TmdbClient extends Client implements MovieTvInterface
             'placeOfBirth' => $person['place_of_birth'],
             'biography' => $person['biography'],
             'photo' => !empty($person['profile_path']) ? $this->imageProfilePath . $person['profile_path'] : null,
-            'photos' => !empty($person['images']['profiles']) ? $this->formatImages($person['images']['profiles'],
-                $this->imageProfilePath, $person['profile_path']) : null,
+            'photos' => !empty($person['images']['profiles']) ? $this->formatImages(
+                $person['images']['profiles'],
+                $this->imageProfilePath,
+                $person['profile_path']
+            ) : null,
         ]);
     }
 

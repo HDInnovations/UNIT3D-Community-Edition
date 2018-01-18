@@ -75,7 +75,6 @@ class TvdbClient extends Client implements MovieTvInterface
 
     public function person($id)
     {
-
     }
 
     private function formatTv($data)

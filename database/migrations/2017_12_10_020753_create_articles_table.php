@@ -44,5 +44,4 @@ class CreateArticlesTable extends Migration
     {
         Schema::drop('articles');
     }
-
 }

@@ -42,5 +42,4 @@ class CreateVotersTable extends Migration
     {
         Schema::drop('voters');
     }
-
 }

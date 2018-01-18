@@ -41,5 +41,4 @@ class CreateFeaturedTorrentsTable extends Migration
     {
         Schema::drop('featured_torrents');
     }
-
 }

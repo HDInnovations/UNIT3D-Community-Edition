@@ -62,5 +62,4 @@ class Comment extends Model
     {
         return Bbcode::parse($this->content);
     }
-
 }

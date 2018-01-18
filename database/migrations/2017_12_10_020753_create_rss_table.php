@@ -41,5 +41,4 @@ class CreateRssTable extends Migration
     {
         Schema::drop('rss');
     }
-
 }

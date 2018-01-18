@@ -107,7 +107,4 @@ class BonExchange extends Model
             ->get()
             ->toArray()[0]['cost'];
     }
-
 }
-
-?>

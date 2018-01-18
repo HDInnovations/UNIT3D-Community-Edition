@@ -45,6 +45,5 @@ class NewReply extends Mailable
         return $this->markdown('emails.new_reply')
             ->from(config('other.email'), config('other.title'))
             ->subject('The topic ' . $this->topic->name . ' has a new reply');
-
     }
 }

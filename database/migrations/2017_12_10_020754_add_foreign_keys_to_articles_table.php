@@ -40,5 +40,4 @@ class AddForeignKeysToArticlesTable extends Migration
             $table->dropForeign('fk_articles_users1');
         });
     }
-
 }

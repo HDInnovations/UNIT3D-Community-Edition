@@ -468,7 +468,5 @@ class AchievementDetailsTableSeeder extends Seeder
                     'updated_at' => '2017-08-28 23:55:56',
                 ),
         ));
-
-
     }
 }

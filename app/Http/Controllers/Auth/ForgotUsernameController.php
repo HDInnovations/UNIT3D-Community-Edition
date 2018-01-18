@@ -12,7 +12,7 @@ use \Toastr;
 
 class ForgotUsernameController extends Controller
 {
-	/**
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -22,7 +22,7 @@ class ForgotUsernameController extends Controller
         $this->middleware('guest');
     }
 
-	/**
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -30,7 +30,8 @@ class ForgotUsernameController extends Controller
      */
     protected function validator(array $data)
     {
-        $validator = Validator::make($data,
+        $validator = Validator::make(
+            $data,
             ['email' => 'required|email'],
             ['email.required' => 'Email is required', 'email.email' => 'Email is invalid']
         );
@@ -38,31 +39,33 @@ class ForgotUsernameController extends Controller
         return $validator;
     }
 
-	public function showForgotUsernameForm(){
-		return view('auth.username');
-	}
-
-	public function sendUserameReminder(Request $request)
+    public function showForgotUsernameForm()
     {
-		$validator = $this->validator($request->all());
+        return view('auth.username');
+    }
 
-		if ($validator->fails()) {
-			$this->throwValidationException(
-				$request, $validator
-			);
-		}
+    public function sendUserameReminder(Request $request)
+    {
+        $validator = $this->validator($request->all());
 
-		$email  = $request->get('email');
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request,
+                $validator
+            );
+        }
 
-		// get the user associated to this activation key
-		$user = User::where('email', $email)->first();
+        $email  = $request->get('email');
 
-		if (empty($user)) {
-			return redirect()->route('username.request')->with(Toastr::warning('We could not find this email in our system!', 'Error', ['options']));
-		}
+        // get the user associated to this activation key
+        $user = User::where('email', $email)->first();
 
-		//send username reminder notification
-		$user->notify(new UsernameReminder());
+        if (empty($user)) {
+            return redirect()->route('username.request')->with(Toastr::warning('We could not find this email in our system!', 'Error', ['options']));
+        }
+
+        //send username reminder notification
+        $user->notify(new UsernameReminder());
 
         return redirect()->route('login')->with(Toastr::success('Your username has been sent to your email address!', 'Yay!', ['options']));
     }

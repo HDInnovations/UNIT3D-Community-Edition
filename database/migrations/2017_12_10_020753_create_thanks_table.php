@@ -41,5 +41,4 @@ class CreateThanksTable extends Migration
     {
         Schema::drop('thanks');
     }
-
 }
