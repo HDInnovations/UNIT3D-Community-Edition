@@ -21,7 +21,7 @@ return [
 	'search' => 'Szukaj',
 	'quick-search' => 'Szybkie wyszukiwanie',
 	'submit' => 'Wyślij',
-	'comment' => 'Skomentuj',
+	'comment' => 'Komentarz',
 	'view-all' => 'Pokaż wszystko',
 	'preview' => 'Podgląd',
 	'edit' => 'Edytuj',
