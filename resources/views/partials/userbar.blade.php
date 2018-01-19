@@ -7,7 +7,7 @@
         </a>
       </li>
       <li><i class="fa fa-group text-black"></i>
-        <span class="badge-user text-bold" style="color:{{ Auth::user()->group->color }}"><i class="{{ Auth::user()->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ Auth::user()->group->name }}"></i><strong> {{ Auth::user()->group->name }}</strong></span>
+        <span class="badge-user text-bold" style="color:{{ Auth::user()->group->color }}; background-image:{{ Auth::user()->group->effect }};"><i class="{{ Auth::user()->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ Auth::user()->group->name }}"></i><strong> {{ Auth::user()->group->name }}</strong></span>
       </li>
       <li><i class="fa fa-arrow-up text-green text-bold"></i> {{ trans('common.upload') }}: {{ Auth::user()->getUploaded() }}</li>
       <li><i class="fa fa-arrow-down text-red text-bold"></i> {{ trans('common.download') }}: {{ Auth::user()->getDownloaded() }}</li>

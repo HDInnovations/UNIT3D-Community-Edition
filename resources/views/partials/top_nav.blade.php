@@ -26,7 +26,7 @@
       </li>
 
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-        <a href="{{ route('achievements', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="dropdown-toggle icon-circle">
+        <a href="{{ route('achievements') }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-trophy text-gold"></i>
         </a>
       </li>
@@ -58,12 +58,12 @@
       </li>
       @endif
 
-      <li>
+      {{--<li>
         {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','role' => 'form','class'=>'hoe-searchbar']) }}
         {{ Form::text('search',null,['id'=>'search','placeholder'=>'Quick Search...','class'=>'form-control']) }}
         <span class="search-icon"><i class="fa fa-search"></i></span>
         {{ Form::close() }}
-      </li>
+    </li>--}}
     </ul>
 
     <ul class="right-navbar">
@@ -88,9 +88,9 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <span>
             @if(Auth::user()->image != null)
-              <img src="{{ url('files/img/' . Auth::user()->image) }}" alt="{{{ Auth::user()->username }}}" class="img-circle">
+              <img src="{{ url('files/img/' . Auth::user()->image) }}" alt="{{ Auth::user()->username }}" class="img-circle">
             @else
-              <img src="{{ url('img/profil.png') }}" alt="{{{ Auth::user()->username }}}" class="img-circle">
+              <img src="{{ url('img/profil.png') }}" alt="{{ Auth::user()->username }}" class="img-circle">
             @endif
           </span>
           <span>{{ Auth::user()->username }} <i class=" fa fa-angle-down"></i></span>
