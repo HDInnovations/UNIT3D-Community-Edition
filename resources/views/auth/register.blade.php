@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>{{ trans('auth.signup') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
-    <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
+    <meta name="description" content="{{ trans('auth.login-now-on') }} {{ Config::get('other.title') }} . {{ trans('auth.not-a-member') }}">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">
@@ -22,7 +22,7 @@
   <div class="wrapper fadeInDown">
     @if (config('other.invite-only') == true && !$code)
       <div class="alert alert-info">
-          Open Registration Is Disabled and You Will Need A Invite To Gain Access!
+          {{ trans('auth.need-invite') }}
       </div>
     @endif
     <svg viewBox="0 0 1320 100">
@@ -55,14 +55,14 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
+      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}" />
     </div>
 
     <!-- SignUp Form -->
     {{ Form::open(array('route' => array('register', 'code' => $code))) }}
-      <input type="text" id="username" class="fadeIn second" name="username" placeholder="username" required autofocus>
-      <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required>
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="{{ trans('auth.username') }}" required autofocus>
+      <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('auth.password') }}" required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="{{ trans('auth.password') }}" required>
       <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
     {{ Form::close() }}
 

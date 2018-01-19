@@ -5,7 +5,7 @@
   <title>{{ trans('auth.lost-username') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
   @section('meta')
-    <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
+    <meta name="description" content="{{ trans('auth.login-now-on') }} {{ Config::get('other.title') }} . {{ trans('auth.not-a-member') }}">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">
@@ -57,13 +57,13 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
+      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}" />
     </div>
 
     <!-- SignUp Form -->
     <form class="form-horizontal" role="form" method="POST" action="{{ route('username.email') }}">
       {{ csrf_field() }}
-      <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required autofocus>
+      <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('auth.email') }}" required autofocus>
       @if ($errors->has('email'))
         <span class="help-block">
             <strong>{{ $errors->first('email') }}</strong>
