@@ -103,4 +103,16 @@ class Post extends Model
 
         return $trimmed_text;
     }
+
+    public function getPostNumber()
+    {
+        return $this->topic->postNumberFromId($this->id);
+    }
+
+    public function getPageNumber()
+    {
+        $result = ($this->getPostNumber() / 15) + 1;
+        $result = floor($result);
+        return $result;
+    }
 }
