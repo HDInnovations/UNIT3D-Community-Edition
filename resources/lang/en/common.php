@@ -43,5 +43,10 @@ return [
 	'add' => 'Add',
 	'staff' => 'Staff',
 	'blacklist' => 'Blacklist',
-	'fl_tokens' => 'Freeleech Tokens'
+	'fl_tokens' => 'Freeleech Tokens',
+        'your' => 'Your',
+        'type' => 'Type',
+        'for' => 'for',
+        'is-allowed' => 'is allowed',
+        'anonymous' => 'Anonymous',
 ];
