@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Input;
 
 use \Toastr;
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
@@ -55,14 +56,8 @@ class InviteController extends Controller
         }
 
         if ($user->invites > 0) {
-            do {
-                //generate a random string using Laravel's str_random helper
-                $code = str_random();
-            }
-            //check if the token already exists and if it does, try again
-            while (Invite::where('code', $code)->first()) {
-                //
-            }
+            // Generate a version 4, truly random, UUID
+            $code = Uuid::uuid4()->toString();
 
             //create a new invite record
             $invite = Invite::create([
