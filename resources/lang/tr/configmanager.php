@@ -6,20 +6,20 @@
 */
 
 return [
-    'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
+    'title' => 'Yapılandırma Yöneticisi',
+    'info_choose' => 'Düzenlemeye başlamak için bir dosya seç',
+    'file' => 'Dosya',
+    'path' => 'Yol',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions',
+        'key' => 'Anahtar',
+        'value' => 'Değer',
+        'actions' => 'Hareketler',
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel',
+        'edit' => 'Düzenle',
+        'confirm' => 'Yeni Anahtarı Kaydet',
+        'save' => 'Kaydet!',
+        'cancel' => 'İptal',
     ],
-    'sure' => 'Are you sure?',
+    'sure' => 'Emin misin?',
 ];
