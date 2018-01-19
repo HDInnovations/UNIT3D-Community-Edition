@@ -7,7 +7,9 @@
 
 return [
     // Chat
-	'chatbox' => 'Pogaduchy',
+    'chatbox' => 'Pogaduchy',
+    'click' => 'Kliknij',
+    'to-enable-editor' => 'by włączyć edytor',
 
     // Featured Torrents
     'featured-torrents' => 'Wyróżnione torrenty',

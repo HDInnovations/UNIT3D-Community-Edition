@@ -8,6 +8,8 @@
 return [
     // Chat
 	'chatbox' => 'Chat Box',
+    'click' => 'Click',
+    'to-enable-editor' => 'to enable editor',
 
     // Featured Torrents
     'featured-torrents' => 'Featured Torrents',
