@@ -40,7 +40,7 @@
         <br>
     <div class="topic-posts">
       @foreach($posts as $k => $p)
-      <div class="post">
+      <div class="post" id="post-{{$p->id}}">
         <div class="block">
         <div class="profil">
           <div class="head">
