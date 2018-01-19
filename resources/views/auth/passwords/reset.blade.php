@@ -65,7 +65,7 @@
         <input type="hidden" name="token" value="{{ $token }}">
         <div class="row">
             <div class="form-group">
-                <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required autofocus>
+                <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('common.email') }}" required autofocus>
             </div>
             <div class="form-group">
               <input type="password" id="password" name="password" class="form-control" placeholder="{{ trans('common.password') }}" required>

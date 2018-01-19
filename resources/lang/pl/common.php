@@ -7,7 +7,8 @@
 
 return [
 	'home' => 'Strona startowa',
-	'account' => 'Konto',
+    'account' => 'Konto',
+    'email' => 'E-mail',
 	'username' => 'Nazwa użytkownika',
 	'password' => 'Hasło',
 	'download' => 'Pobrane',

@@ -62,7 +62,7 @@
         @if($comment->anon == 1)
         <a href="#" class="pull-left">
         <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-        <strong>{{ trans('common.anonymous') }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
+        <strong>{{ Illuminate\Support\Str::upper(trans('common.anonymous')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
         @else
         <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
         @if($comment->user->image != null)
