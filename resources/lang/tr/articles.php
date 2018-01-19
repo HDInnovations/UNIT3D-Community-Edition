@@ -6,8 +6,8 @@
 */
 
 return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more' => 'Read More',
-    'published-at' => 'Published At ',
-    'articles' => 'Articles',
+    'meta-articles' => 'Trackerda ve toplulukta bulunan makalaleler ve haberler',
+    'read-more' => 'Devamını Oku',
+    'published-at' => 'Tarihinde Yayınlandı ',
+    'articles' => 'Makaleler',
 ];
