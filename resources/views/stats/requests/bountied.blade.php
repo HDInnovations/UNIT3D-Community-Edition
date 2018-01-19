@@ -26,7 +26,7 @@
   <hr>
   <div class="row">
     <div class="col-md-12">
-    <p class="text-success"><strong><i class="fa fa-trophy"></i> Top Bountied</strong> (Highest BON Bounties)</p>
+    <p class="text-success"><strong><i class="fa fa-trophy"></i> Top Bountied</strong> (Highest BONUS Bounties)</p>
     <table class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>

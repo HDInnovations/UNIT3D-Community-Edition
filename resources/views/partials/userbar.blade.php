@@ -23,7 +23,7 @@
         <a href="#" title="Hit and Run Count"><span class="text-blue"> {{ trans('common.warnings') }}:</span></a> {{ Auth::user()->getWarning() }}
       </li>
       <li><i class="fa fa-star text-purple text-bold"></i>
-        <a href="{{ route('bonus') }}" title="My Bonus Points"><span class="text-blue"> {{ trans('bon.bon') }}:</span></a> {{ Auth::user()->getSeedbonus() }}
+        <a href="{{ route('bonus') }}" title="My Bonus Points"><span class="text-blue"> {{ trans('BONUS.BONUS') }}:</span></a> {{ Auth::user()->getSeedbonus() }}
       </li>
       <li><i class="fa fa-viacoin text-bold"></i>
         <a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" title="My FL Tokens"><span class="text-blue"> {{ trans('common.fl_tokens') }}:</span></a> {{ Auth::user()->fl_tokens }}

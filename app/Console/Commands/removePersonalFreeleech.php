@@ -47,7 +47,7 @@ class removePersonalFreeleech extends Command
 
         foreach ($personal_freeleech as $pfl) {
             // PM User That Personal FL Has Expired
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $pfl->user_id, 'subject' => "Personal 24 Hour Freeleech", 'message' => "Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $pfl->user_id, 'subject' => "Personal 24 Hour Freeleech", 'message' => "Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BONUS Store! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
 
             // Delete The Record From DB
             $pfl->delete();

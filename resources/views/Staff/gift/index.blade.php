@@ -35,7 +35,7 @@
               </div>
 
             <div class="form-group">
-                <label for="name">BON</label>
+                <label for="name">BONUS</label>
                 <input type="number" class="form-control" name="bonus_points" value="0">
             </div>
 

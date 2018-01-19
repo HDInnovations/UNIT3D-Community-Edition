@@ -62,9 +62,9 @@ class GiftController extends Controller
                     return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
                 }
 
-                $bon = Request::get('bonus_points');
+                $BONUS = Request::get('bonus_points');
                 $invites = Request::get('invites');
-                $recipient->seedbonus += $bon;
+                $recipient->seedbonus += $BONUS;
                 $recipient->invites += $invites;
                 $recipient->save();
 

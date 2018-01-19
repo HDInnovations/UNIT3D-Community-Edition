@@ -28,7 +28,7 @@
   </div>
   @else
     <div class="well">
-      <p class="lead text-orange text-center">BON exchanges on creating, filling and bounties are final!<br><strong>NO REFUNDS!</strong></p>
+      <p class="lead text-orange text-center">BONUS exchanges on creating, filling and bounties are final!<br><strong>NO REFUNDS!</strong></p>
     </div>
 <div class="well">
   <form action="{{route('request_search')}}" style="display: inline;" method="get">
@@ -64,7 +64,7 @@
   <span class="badge-user" style="float: right;"><a href="{{ route('requests') }}"><strong>Requests:</strong></a> {{ $num_req }} |
   <a href="{{ route('requests') }}" name="filled_requests" value="true" id="filled_requests"><strong>Filled:</strong></a> {{ $num_fil }} |
   <a href="{{ route('requests') }}" name="unfilled_requests" value="true" id="unfilled_requests"><strong>Unfilled:</strong></a> {{ $num_unfil }}
-  | <strong>Total Bounty:</strong> {{ $total_bounty }} BON | <strong>Bounty Claimed:</strong> {{ $claimed_bounty }} BON | <strong>Bounty Unclaimed:</strong> {{ $unclaimed_bounty }} BON</span>
+  | <strong>Total Bounty:</strong> {{ $total_bounty }} BONUS | <strong>Bounty Claimed:</strong> {{ $claimed_bounty }} BONUS | <strong>Bounty Unclaimed:</strong> {{ $unclaimed_bounty }} BONUS</span>
   <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="Add New Request!" class="btn btn btn-success">Add New Request</a>
   <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">

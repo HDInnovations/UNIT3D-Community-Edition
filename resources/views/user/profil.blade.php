@@ -135,14 +135,14 @@
     <td>Downloaded</td>
     <td>
       <span class="badge-extra text-red" data-toggle="tooltip" title="" data-original-title="Recorded Download">{{ $user->getDownloaded() }}</span> -
-      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Download Removed From BON Store">N/A</span> =
+      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Download Removed From BONUS Store">N/A</span> =
       <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="True Download">N/A</span></td>
   </tr>
   <tr>
     <td>Uploaded</td>
     <td>
       <span class="badge-extra text-green" data-toggle="tooltip" title="" data-original-title="Recorded Upload">{{ $user->getUploaded() }}</span> -
-      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Upload Added From BON Store">N/A</span> =
+      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Upload Added From BONUS Store">N/A</span> =
       <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="True Upload">N/A</span></td>
   </tr>
   <tr>
@@ -167,7 +167,7 @@
     <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip" title="" data-original-title="Downloaded 100 Or More Torrents!"><i class="fa fa-download"></i> Certified Downloader!</span>
     @endif
     @if($user->getSeedbonus() >= 50000)
-    <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip" title="" data-original-title="Has 50,000 Or More BON In Bank"><i class="fa fa-star"></i> Certified Banker!</span>
+    <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip" title="" data-original-title="Has 50,000 Or More BONUS In Bank"><i class="fa fa-star"></i> Certified Banker!</span>
     @endif
     </td>
   </tr>
@@ -188,7 +188,7 @@
     <td>
       <ul class="list-inline mb-0">
         <li>
-          <span class="badge-extra"><strong>BON:</strong>
+          <span class="badge-extra"><strong>BONUS:</strong>
             <span class="text-green text-bold">{{ $user->getSeedbonus() }}</span>
           </span>
         </li>
