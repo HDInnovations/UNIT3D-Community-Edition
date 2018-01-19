@@ -67,7 +67,7 @@
     <li>
       <a href="{{ route('bonus') }}">
         <i class="livicon" data-name="star-full" data-c="#BF55EC" data-hc="#BF55EC" data-size="18" data-loop="true"></i>
-        <span class="menu-text">{{ trans('BONUS.BONUS') }} {{ trans('BONUS.store') }}</span>
+        <span class="menu-text">{{ trans('bon.bon') }} {{ trans('bon.store') }}</span>
         <span class="selected"></span>
       </a>
     </li>

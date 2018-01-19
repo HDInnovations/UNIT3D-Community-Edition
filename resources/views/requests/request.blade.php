@@ -34,7 +34,7 @@
     <h1 class="title h2">
         {{ $request->name }}
         <span class="text-green">for <i class="fa fa-star text-gold">
-            </i> <strong>{{ $request->bounty }}</strong> BONUS</span>
+            </i> <strong>{{ $request->bounty }}</strong> BON</span>
     </h1>
     <div class="block">
         <div class="row mb-10">
@@ -177,7 +177,7 @@
                 <i class="fa fa-star text-gold">
                 </i>
                 <strong>{{ $request->bounty }}</strong>
-                BONUS from
+                BON from
                 <strong>{{ $request->requestBounty->count() }}</strong>
                 Voters
             </td>

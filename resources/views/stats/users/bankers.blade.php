@@ -22,11 +22,11 @@
 @include('partials.statsusermenu')
 
 <div class="block">
-  <h2>Top Bankers (BONUS)</h2>
+  <h2>Top Bankers (BON)</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-      <p class="text-purple"><strong><i class="fa fa-star"></i> Top Bankers</strong> (BONUS)</p>
+      <p class="text-purple"><strong><i class="fa fa-star"></i> Top Bankers</strong> (BON)</p>
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>

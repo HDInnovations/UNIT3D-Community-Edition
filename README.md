@@ -34,8 +34,8 @@ UNIT3D currently offers the following features:
   - Internal Forums System
   - Staff Dashboard
   - Faceted Ajax Torrent Search System
-  - BONUS Store
-  - Torrent Request Section with BONUS Bounties
+  - BON Store
+  - Torrent Request Section with BON Bounties
   - Freeleech System
   - Double Upload System
   - Featured Torrents System
@@ -113,8 +113,8 @@ Torrent Details (Light Theme)
     <img src="https://i.imgur.com/l8DbExT.gif" alt="Torrent Details Page">
 User Profile (Light Theme)
     <img src="https://i.imgur.com/94XCo3Q.gif" alt="User Profile Page">
-BONUS Store (Dark Theme)
-    <img src="https://i.imgur.com/7PPEiNT.gif" alt="BONUS Store Page">
+BON Store (Dark Theme)
+    <img src="https://i.imgur.com/7PPEiNT.gif" alt="BON Store Page">
 </p>
 
 ## <a name="homestead"></a> Homestead

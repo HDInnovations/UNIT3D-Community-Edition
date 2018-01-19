@@ -372,7 +372,7 @@
         <tr>
           <td class="col-sm-2"><strong>Tip Jar</strong></td>
           <td>
-            <p>In Total <span class="text-red text-bold">{{ $total_tips }}</span> BONUS has been tipped to the uploader, in which <span class="text-red text-bold">{{ $user_tips }}</span> are from you.</p>
+            <p>In Total <span class="text-red text-bold">{{ $total_tips }}</span> BON has been tipped to the uploader, in which <span class="text-red text-bold">{{ $user_tips }}</span> are from you.</p>
               <span class="text-red text-bold">(This will be deducted from your available bonus points)</span>
             {{ Form::open(array('route' => array('tip_uploader', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
             <input type="number" name="tip" value="0" placeholder="0" class="form-control">

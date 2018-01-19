@@ -1,12 +1,12 @@
 <?php
 /*
 |--------------------------------------------------------------------------
-| BONUS Language Lines
+| BON Language Lines
 |--------------------------------------------------------------------------
 */
 
 return [
-	'BONUS' => 'BONUS',
+	'bon' => 'BON',
 	'bonus' => 'Bonos',
 	'points' => 'Puntos',
 	'your-points' => 'Tus Puntos',

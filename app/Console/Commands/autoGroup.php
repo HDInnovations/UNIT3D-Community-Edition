@@ -62,7 +62,7 @@ class autoGroup extends Command
                 $user->can_invite = 0;
                 $user->can_download = 0;
                 $user->save();
-                //PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => "Sad News My Friend!", 'message' => "You have been demoted to Leech group. Your ratio dropped below 0.2. So now you have been placed in Leech Group and your download rights, invite rights and request rights have been revoked. Please seed and use BONUS to bring ratio back up! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+                //PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => "Sad News My Friend!", 'message' => "You have been demoted to Leech group. Your ratio dropped below 0.2. So now you have been placed in Leech Group and your download rights, invite rights and request rights have been revoked. Please seed and use bon to bring ratio back up! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
             }
             //Member >= 0 but < 1TB and ratio above sites minimum
             if ($user->uploaded >= 0 && $user->getRatio() > config('other.ratio') && $user->group_id != 3) {

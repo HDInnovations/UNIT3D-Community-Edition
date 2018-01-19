@@ -224,7 +224,7 @@ class BonusController extends Controller
                 $transaction->save();
 
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has gifted " . $value . "BONUS to [url={$appurl}/"
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has gifted " . $value . "BON to [url={$appurl}/"
                     . $recipient->username . "." . $recipient->id . "]" . $recipient->username . "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
@@ -280,7 +280,7 @@ class BonusController extends Controller
         $transaction->save();
 
         // Insert the Recipient notification below
-        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BONUS Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BONUS on your upload " . $torrent->name . "."]);
+        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
         // End insert recipient notification here
 
         return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));

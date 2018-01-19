@@ -77,7 +77,7 @@ class autoNerdStat extends Command
             "Currently " . $seeders->name . " Is The Best Seeded Torrent On " . config('other.title') . "!",
             "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . config('other.title') . "!",
             "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . config('other.title') . "!",
-            "Currently " . $banker->username . " Is The Top BONUS Holder On " . config('other.title') . "!",
+            "Currently " . $banker->username . " Is The Top BON Holder On " . config('other.title') . "!",
             config('other.title') . " Birthdate Is " . $bday . "!"
         ];
         $selected = mt_rand(0, count($statArray) - 1);

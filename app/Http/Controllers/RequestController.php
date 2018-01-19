@@ -201,7 +201,7 @@ class RequestController extends Controller
             if ($user->seedbonus >= 100) {
                 return view('requests.add_request', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             } else {
-                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BONUS to make a request!', 'Error!', ['options']));
+                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Error!', ['options']));
             }
         }
     }
@@ -294,7 +294,7 @@ class RequestController extends Controller
                 $user->save();
 
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . Request::get('bonus_value') . " BONUS bounty to request " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . Request::get('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " . $requests->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
 
@@ -386,7 +386,7 @@ class RequestController extends Controller
             $request->approved_when = Carbon::now();
             $request->save();
 
-            //BONUS and torrent request hash code below
+            //BON and torrent request hash code below
             $fill_user = User::findOrFail($request->filled_by);
             $fill_amount = $request->bounty;
 
@@ -402,7 +402,7 @@ class RequestController extends Controller
 
             $fill_user->seedbonus += $fill_amount;
             $fill_user->save();
-            //End BONUS code here.
+            //End BON code here.
 
             // Achievements
             $fill_user->addProgress(new UserFilled25Requests(), 1);
@@ -411,7 +411,7 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] and was awarded " . $fill_amount . " BONUS "]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             Cache::forget('shoutbox_messages');
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " . $request->name . " Has Been Approved!", 'message' => $request->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] Enjoy The " . $request->bounty . " Bonus Points!"]);
             return Redirect::route('request', ['id' => $id])->with(Toastr::success("You have approved {$request->name} and the bounty has been awarded to {$fill_user->username}", "Request completed!", ['options']));
