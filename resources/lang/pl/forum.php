@@ -20,4 +20,5 @@ return [
 	'mark-as-resolved' => 'Zablokuj wątek',
 	'delete-topic' => 'Usuń watek',
 	'display-forum' => 'Pokaz wątki w ',
+	'edit-topic' => 'Edytuj wątek'
 ];

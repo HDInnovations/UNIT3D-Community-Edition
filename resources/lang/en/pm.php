@@ -25,5 +25,5 @@ return [
     'send' => 'Send',
     'create' => 'Create',
     'select' => 'Select A User',
-    'mark-all-read' => "Mark all messages as read",
+    'mark-all-read' => 'Mark all messages as read',
 ];

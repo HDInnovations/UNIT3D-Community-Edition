@@ -16,4 +16,5 @@ return [
     'lost-password' => 'Zapomniałeś hasła?',
     'recover-my-password' => 'Przypomnij mi hasło',
     'remember-me' => 'Zapamiętaj mnie',
+    'lost-username' => 'Zapomniałeś nazwy użytkownika?'
 ];

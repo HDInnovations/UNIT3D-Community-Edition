@@ -26,5 +26,5 @@ return [
 
     // News/Articles
 	'new-news' => 'New News',
-    'check-news' => 'News (Check Daily)',
+        'check-news' => 'News (Check Daily)',
 ];
