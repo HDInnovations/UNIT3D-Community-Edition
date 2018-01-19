@@ -26,5 +26,5 @@ return [
 
     // News/Articles
 	'new-news' => 'Nowe newsy',
-    'check-news' => 'Newsy (Sprawdzaj codziennie)',
+        'check-news' => 'Newsy (Sprawdzaj codziennie)',
 ];

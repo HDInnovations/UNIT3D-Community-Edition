@@ -36,4 +36,12 @@ return [
 	'results' => 'Wyniki',
 	'contact' => 'Kontakt',
 	'about' => 'O nas',
+        'community' => 'Społeczność',
+        'buffer' => 'Bufor',
+	'times' => 'razy',
+	'name' => 'Nazwa',
+	'add' => 'Dodaj',
+	'staff' => 'Zespół',
+	'blacklist' => 'Czarna lista',
+	'fl_tokens' => 'Tokeny Freeleech'
 ];

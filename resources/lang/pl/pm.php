@@ -25,4 +25,5 @@ return [
     'send' => 'Wyślij',
     'create' => 'Utwórz',
     'select' => 'Wybierz użytkownika',
+    'mark-all-read' => 'Oznacz wszystkie jako przeczytane',
 ];
