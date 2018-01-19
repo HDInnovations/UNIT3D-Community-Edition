@@ -27,6 +27,9 @@ use App\Topic;
 use App\PrivateMessage;
 use App\Note;
 use App\Shoutbox;
+use App\Like;
+use App\Thank;
+use App\Follow;
 use \Toastr;
 
 class UserController extends Controller
@@ -213,6 +216,18 @@ class UserController extends Controller
         // Removes all notes for user
             foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
                 $note->delete();
+            }
+        // Removes all likes for user
+            foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
+                $like->delete();
+            }
+        // Removes all thanks for user
+            foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
+                $thank->delete();
+            }
+        // Removes all follows for user
+            foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
+                $follow->delete();
             }
 
         // Activity Log
