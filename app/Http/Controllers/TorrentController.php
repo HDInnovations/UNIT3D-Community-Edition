@@ -330,8 +330,6 @@ class TorrentController extends Controller
     {
         $user = Auth::user();
         $search = $request->get('search');
-        $username = $request->get('username');
-        $uploader = User::where('username', '=', $username)->pluck('id');
         $imdb = $request->get('imdb');
         $tvdb = $request->get('tvdb');
         $tmdb = $request->get('tmdb');
@@ -356,71 +354,67 @@ class TorrentController extends Controller
 
         $torrent = $torrent->newQuery();
 
-        if ($request->has('search')) {
+        if ($request->has('search') && $request->get('search') != null) {
             $torrent->where('name', 'like', $search);
         }
 
-        if ($request->has('username')) {
-            $torrent->where('anon', 0)->where('user_id', $uploader);
-        }
-
-        if ($request->has('imdb')) {
+        if ($request->has('imdb') && $request->get('imdb') != null) {
             $torrent->where('imdb', $imdb);
         }
 
-        if ($request->has('tvdb')) {
+        if ($request->has('tvdb') && $request->get('tvdb') != null) {
             $torrent->where('tvdb', $tvdb);
         }
 
-        if ($request->has('tmdb')) {
+        if ($request->has('tmdb') && $request->get('tmdb') != null) {
             $torrent->where('tmdb', $tmdb);
         }
 
-        if ($request->has('mal')) {
+        if ($request->has('mal') && $request->get('mal') != null) {
             $torrent->where('mal', $mal);
         }
 
-        if ($request->has('categories')) {
+        if ($request->has('categories') && $request->get('categories') != null) {
             $torrent->whereIn('category_id', $categories);
         }
 
-        if ($request->has('types')) {
+        if ($request->has('types') && $request->get('types') != null) {
             $torrent->whereIn('type', $types);
         }
 
-        if ($request->has('freeleech')) {
+        if ($request->has('freeleech') && $request->get('freeleech') != null) {
             $torrent->where('free', $freeleech);
         }
 
-        if ($request->has('doubleupload')) {
+        if ($request->has('doubleupload') && $request->get('doubleupload') != null) {
             $torrent->where('doubleup', $doubleupload);
         }
 
-        if ($request->has('featured')) {
+        if ($request->has('featured') && $request->get('featured') != null) {
             $torrent->where('featured', $featured);
         }
 
-        if ($request->has('stream')) {
+        if ($request->has('stream') && $request->get('stream') != null) {
             $torrent->where('stream', $stream);
         }
 
-        if ($request->has('highspeed')) {
+        if ($request->has('highspeed') && $request->get('highspeed') != null) {
             $torrent->where('highspeed', $highspeed);
         }
 
-        if ($request->has('sd')) {
+        if ($request->has('sd') && $request->get('sd') != null) {
             $torrent->where('sd', $sd);
         }
 
-        if ($request->has('alive')) {
+        if ($request->has('alive') && $request->get('alive') != null) {
             $torrent->where('seeders', '>=', $alive);
         }
 
-        if ($request->has('dying')) {
+        if ($request->has('dying') && $request->get('dying') != null) {
             $torrent->where('seeders', $dying)->where('times_completed', '>=', 3);
         }
 
-        if ($request->has('dead')) {
+        if ($request->has('dead') && $request->get('dead') != null)  {
             $torrent->where('seeders', $dead);
         }
 
@@ -445,7 +439,7 @@ class TorrentController extends Controller
         }
         // pagination query ends
 
-        if ($request->has('sorting')) {
+        if ($request->has('sorting') && $request->get('sorting') != null) {
             $sorting = $request->get('sorting');
             $order = $request->get('direction');
             $torrent->orderBy($sorting, $order);
