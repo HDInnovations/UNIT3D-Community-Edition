@@ -45,4 +45,16 @@ class Topic extends Model
     {
         return $this->hasMany(\App\Post::class);
     }
+
+    public function postNumberFromId($searchId)
+    {
+        $count = 0;
+        foreach ($this->posts as $post) {
+            $count += 1;
+            if ($searchId == $post->id) {
+                break;
+            }
+        }
+        return $count;
+    }
 }

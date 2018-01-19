@@ -40,11 +40,11 @@
         <br>
     <div class="topic-posts">
       @foreach($posts as $k => $p)
-      <div class="post">
+      <div class="post" id="post-{{$p->id}}">
         <div class="block">
         <div class="profil">
           <div class="head">
-            <p>{{ date('M d Y', $p->created_at->getTimestamp()) }} ({{ $p->created_at->diffForHumans() }})</p>
+            <p>{{ date('M d Y', $p->created_at->getTimestamp()) }} ({{ $p->created_at->diffForHumans() }}) <a class="text-bold permalink" href="{{ route('forum_topic', array('slug' => $p->topic->slug, 'id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">Permalink</a></p>
           </div>
           <aside class="col-md-2 post-info">
             @if($p->user->image != null)
