@@ -82,13 +82,13 @@
             <div class="color-overlay">
               <div class="movie-content">
                 <div class="movie-header">
-                  <h1 class="movie-title">{{ Config::get('other.title') }}'s Featured Torrents</h1>
+                  <h1 class="movie-title">{{ Config::get('other.title') }} - {{ trans('blocks.featured-torrents') }}</h1>
                   <h4 class="movie-info">
-                    Get Them While You Can!
+                    {{ trans('blocks.featured-torrents-intro') }}
                     <br>
                     <br>
-                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">100% Freeleech!</span>
-                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">Double Upload!</span>
+                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('torrent.freeleech') }}</span>
+                    <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('torrent.double-upload') }}</span>
                   </h4>
                 </div>
                 <span class="movie-desc">
@@ -128,14 +128,14 @@
                   <br>
                   <br>
                 <ul class="list-inline">
-                <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>Size: </strong> {{ $feature->torrent->getSize() }}</span>
-                <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>Released: </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>Seeders: </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>Leechers: </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>Completed: </strong> {{ $feature->torrent->times_completed }}</li></span>
+                <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}: </strong> {{ $feature->torrent->getSize() }}</span>
+                <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}: </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
+                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}: </strong> {{ $feature->torrent->seeders }}</li></span>
+                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}: </strong> {{ $feature->torrent->leechers }}</li></span>
+                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}: </strong> {{ $feature->torrent->times_completed }}</li></span>
                 <br>
-                <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">This Is A Featured Torrent Until {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
-                <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">Selected By: {{ $feature->user->username }}!</span>
+                <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-until') }}: {{ $feature->created_at->addDay(7)->toFormattedDateString() }} ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
+                <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-by') }}: {{ $feature->user->username }}!</span>
                 </ul>
                 </span>
               </div>
@@ -149,11 +149,11 @@
         <!-- Left and right controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
+          <span class="sr-only">{{ trans('common.previous') }}</span>
         </a>
         <a class="right carousel-control" href="#myCarousel" data-slide="next">
           <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
+          <span class="sr-only">{{ trans('common.next') }}</span>
         </a>
       </div>
     </div>

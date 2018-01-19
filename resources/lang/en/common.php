@@ -50,4 +50,12 @@ return [
     'for' => 'for',
     'is-allowed' => 'is allowed',
     'anonymous' => 'Anonymous',
+    'hidden' => 'Hidden',
+    'previous' => 'Previous',
+    'next' => 'Next',
+    'active-warrning' => 'Active warrning',
+    'global' => 'Global',
+    'hot' => 'Hot!',
+    'sticked' => 'Sticked',
+    'high-speeds' => 'High speeds',
 ];

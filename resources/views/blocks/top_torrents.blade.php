@@ -5,13 +5,13 @@
       <h4>{{ trans('blocks.latest-torrents') }}</h4>
     </div>
     <ul class="nav nav-tabs mb-5" role="tablist">
-      <li class="active"><a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-trophy text-gold"></i> New Torrents</a></li>
-      <li class=""><a href="#topseeded" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-up text-success"></i> Top Seeded</a></li>
-      <li class=""><a href="#topleeched" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-danger"></i> Top Leeched</a></li>
-      <li class=""><a href="#dyingtorrents" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-red"></i> Dying Torrents
-    <i class="fa fa-recycle text-red" data-toggle="tooltip" title="" data-original-title="Requires Re-Seed"></i></a></li>
-      <li class=""><a href="#deadtorrents" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-exclamation-triangle text-red"></i> Dead Torrents
-    <i class="fa fa-recycle text-red" data-toggle="tooltip" title="" data-original-title="Requires Re-Seed"></i></a></li>
+      <li class="active"><a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-trophy text-gold"></i> {{ trans('blocks.new-torrents') }}</a></li>
+      <li class=""><a href="#topseeded" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-up text-success"></i> {{ trans('blocks.top-seeded') }}</a></li>
+      <li class=""><a href="#topleeched" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-danger"></i> {{ trans('blocks.top-leeched') }}</a></li>
+      <li class=""><a href="#dyingtorrents" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-red"></i> {{ trans('blocks.dying-torrents') }}
+    <i class="fa fa-recycle text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('blocks.requires-reseed') }}"></i></a></li>
+      <li class=""><a href="#deadtorrents" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-exclamation-triangle text-red"></i> {{ trans('blocks.dead-torrents') }}
+    <i class="fa fa-recycle text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('blocks.requires-reseed') }}"></i></a></li>
     </ul>
     <div class="tab-content">
       <div class="tab-pane fade active in" id="newtorrents">
@@ -20,18 +20,18 @@
             <thead>
               <tr>
                 <th class="torrents-icon"></th>
-                <th class="torrents-filename">File</th>
-                <th>Age</th>
-                <th>Size</th>
-                <th>S</th>
-                <th>L</th>
-                <th>C</th>
+                <th class="torrents-filename">{{ trans('torrent.name') }}</th>
+                <th>{{ trans('torrent.age') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
+                <th>{{ trans('torrent.short-seeds') }}</th>
+                <th>{{ trans('torrent.short-leechs') }}</th>
+                <th>{{ trans('torrent.short-completed') }}</th>
               </tr>
             </thead>
             <tbody>
               @foreach($torrents as $t)
               <tr class="">
-                <td><i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} Torrent"></i></td>
+                <td><i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} torrent"></i></td>
                 <td>
                   <div class="torrent-file">
                     <div>
@@ -41,14 +41,14 @@
                     </div>
                     <div>
                       <span class="badge-extra">{{ $t->type }}</span>&nbsp;&nbsp;
-                      @if($t->stream == "1")<span class="badge-extra"><i class="fa fa-play text-red text-bold" data-toggle="tooltip" title="" data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-                      @if($t->doubleup == "1")<span class="badge-extra"><i class="fa fa-diamond text-green text-bold" data-toggle="tooltip" title="" data-original-title="Double upload"></i> Double Upload</span> @endif
-                      @if($t->free == "1")<span class="badge-extra"><i class="fa fa-star text-gold text-bold" data-toggle="tooltip" title="" data-original-title="100% Free"></i> 100% Free</span> @endif
-                      @if(config('other.freeleech') == true)<span class="badge-extra"><i class="fa fa-globe text-blue text-bold" data-toggle="tooltip" title="" data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-                      @if(config('other.doubleup') == true)<span class="badge-extra"><i class="fa fa-globe text-green text-bold" data-toggle="tooltip" title="" data-original-title="Double Upload"></i> Global Double Upload</span> @endif
-                      @if($t->leechers >= "5") <span class="badge-extra"><i class="fa fa-fire text-orange text-bold" data-toggle="tooltip" title="" data-original-title="Hot!"></i> Hot!</span> @endif
-                      @if($t->sticky == 1) <span class="badge-extra"><i class="fa fa-thumb-tack text-black text-bold" data-toggle="tooltip" title="" data-original-title="Sticky!"></i> Sticky!</span> @endif
-                      @if($t->highspeed == 1)<span class="badge-extra"><i class="fa fa-tachometer text-red text-bold" data-toggle="tooltip" title="" data-original-title="High Speeds!"></i> High Speeds!</span> @endif
+                      @if($t->stream == "1")<span class="badge-extra"><i class="fa fa-play text-red text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.stream-optimized') }}"></i> {{ trans('torrent.stream-optimized') }}</span> @endif
+                      @if($t->doubleup == "1")<span class="badge-extra"><i class="fa fa-diamond text-green text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.stream-optimized') }}"></i> {{ trans('torrent.stream-optimized') }}</span> @endif
+                      @if($t->free == "1")<span class="badge-extra"><i class="fa fa-star text-gold text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.freeleech') }}"></i> {{ trans('torrent.freeleech') }}</span> @endif
+                      @if(config('other.freeleech') == true)<span class="badge-extra"><i class="fa fa-globe text-blue text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('common.global') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.global') }} {{ trans('torrent.freeleech') }}</span> @endif
+                      @if(config('other.doubleup') == true)<span class="badge-extra"><i class="fa fa-globe text-green text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('common.global') }} {{ trans('torrent.double-upload') }}"></i> {{ trans('common.global') }} {{ trans('torrent.double-upload') }}</span> @endif
+                      @if($t->leechers >= "5") <span class="badge-extra"><i class="fa fa-fire text-orange text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('common.hot') }}"></i> {{ trans('common.hot') }}</span> @endif
+                      @if($t->sticky == 1) <span class="badge-extra"><i class="fa fa-thumb-tack text-black text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('common.sticked') }}"></i> {{ trans('common.sticked') }}</span> @endif
+                      @if($t->highspeed == 1)<span class="badge-extra"><i class="fa fa-tachometer text-red text-bold" data-toggle="tooltip" title="" data-original-title="{{ trans('common.high-speeds') }}"></i> {{ trans('common.high-speeds') }}</span> @endif
                     </div>
                   </div>
                 </td>
@@ -71,13 +71,15 @@
         <div class="table-responsive">
           <table class="table table-condensed table-striped table-bordered">
             <thead>
-              <th class="torrents-icon"></th>
-              <th class="torrents-filename">File</th>
-              <th>Age</th>
-              <th>Size</th>
-              <th>S</th>
-              <th>L</th>
-              <th>C</th>
+              <tr>
+                <th class="torrents-icon"></th>
+                <th class="torrents-filename">{{ trans('torrent.name') }}</th>
+                <th>{{ trans('torrent.age') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
+                <th>{{ trans('torrent.short-seeds') }}</th>
+                <th>{{ trans('torrent.short-leechs') }}</th>
+                <th>{{ trans('torrent.short-completed') }}</th>
+              </tr>
             </thead>
             <tbody>
               @foreach($best as $b)
@@ -122,13 +124,15 @@
         <div class="table-responsive">
           <table class="table table-condensed table-striped table-bordered">
             <thead>
-              <th class="torrents-icon"></th>
-              <th class="torrents-filename">File</th>
-              <th>Age</th>
-              <th>Size</th>
-              <th>S</th>
-              <th>L</th>
-              <th>C</th>
+              <tr>
+                <th class="torrents-icon"></th>
+                <th class="torrents-filename">{{ trans('torrent.name') }}</th>
+                <th>{{ trans('torrent.age') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
+                <th>{{ trans('torrent.short-seeds') }}</th>
+                <th>{{ trans('torrent.short-leechs') }}</th>
+                <th>{{ trans('torrent.short-completed') }}</th>
+              </tr>
             </thead>
             <tbody>
               @foreach($leeched as $l)
@@ -175,12 +179,12 @@
             <thead>
               <tr>
                 <th class="torrents-icon"></th>
-                <th class="torrents-filename">File</th>
-                <th>Age</th>
-                <th>Size</th>
-                <th>S</th>
-                <th>L</th>
-                <th>C</th>
+                <th class="torrents-filename">{{ trans('torrent.name') }}</th>
+                <th>{{ trans('torrent.age') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
+                <th>{{ trans('torrent.short-seeds') }}</th>
+                <th>{{ trans('torrent.short-leechs') }}</th>
+                <th>{{ trans('torrent.short-completed') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -228,12 +232,12 @@
             <thead>
               <tr>
                 <th class="torrents-icon"></th>
-                <th class="torrents-filename">File</th>
-                <th>Age</th>
-                <th>Size</th>
-                <th>S</th>
-                <th>L</th>
-                <th>C</th>
+                <th class="torrents-filename">{{ trans('torrent.name') }}</th>
+                <th>{{ trans('torrent.age') }}</th>
+                <th>{{ trans('torrent.size') }}</th>
+                <th>{{ trans('torrent.short-seeds') }}</th>
+                <th>{{ trans('torrent.short-leechs') }}</th>
+                <th>{{ trans('torrent.short-completed') }}</th>
               </tr>
             </thead>
             <tbody>

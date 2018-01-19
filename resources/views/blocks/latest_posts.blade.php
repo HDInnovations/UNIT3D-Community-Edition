@@ -8,10 +8,10 @@
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>
-            <th class="torrents-filename">Post</th>
-            <th>Topic</th>
-            <th>By</th>
-            <th>Time</th>
+            <th class="torrents-filename">{{ trans('forum.post') }}</th>
+            <th>{{ trans('forum.topic') }}</th>
+            <th>{{ trans('forum.author') }}</th>
+            <th>{{ trans('forum.created') }}</th>
           </tr>
         </thead>
         <tbody>

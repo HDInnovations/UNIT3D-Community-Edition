@@ -2,14 +2,14 @@
   <div class="clearfix visible-sm-block"></div>
   <div class="panel panel-chat shoutbox">
     <div class="panel-heading">
-      <h4>{{ trans('blocks.users-online') }}<small> (Active In Last 15 Min)</small></h4></div>
+      <h4>{{ trans('blocks.users-online') }}<small> ({{ trans('blocks.active-in-last') }} 15 min)</small></h4></div>
     <div class="panel-body">
       @foreach($user as $u)
       @if($u->isOnline())
       @if($u->hidden == 1)
-      <span class="badge-extra text-orange text-bold">HIDDEN @if(Auth::user()->group->is_modo)<a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Active Warning"></i>@endif)</a>@endif</span>
+      <span class="badge-extra text-orange text-bold">{{ Illuminate\Support\Str::upper(trans('common.hidden')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>@endif)</a>@endif</span>
       @else
-      <a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"><span class="badge-extra text-bold" style="color:{{ $u->group->color }}; background-image:{{ $u->group->effect }};"><i class="{{ $u->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $u->group->name }}"></i> {{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Active Warning"></i>
+      <a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"><span class="badge-extra text-bold" style="color:{{ $u->group->color }}; background-image:{{ $u->group->effect }};"><i class="{{ $u->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $u->group->name }}"></i> {{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>
       @endif
       </span></a>
       @endif

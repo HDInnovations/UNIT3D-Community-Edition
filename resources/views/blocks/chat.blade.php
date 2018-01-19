@@ -16,7 +16,7 @@
         </ul>
       </div>
       <div class="panel-footer ">
-        <span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode Is Allowed</span> <span class="badge-extra text-red text-bold" style="float:right;">Click [BBCODE] To Enable Editor</span>
+        <span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span> <span class="badge-extra text-red text-bold" style="float:right;">Click [BBCODE] To Enable Editor</span>
           <div class="form-group">
             <textarea class="form-control" id="chat-message"></textarea>
             <p id="chat-error" class="hidden text-danger"></p>
