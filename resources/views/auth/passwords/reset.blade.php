@@ -5,7 +5,7 @@
   <title>{{ trans('auth.lost-password') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
   @section('meta')
-    <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
+    <meta name="description" content="{{ trans('auth.login-now-on') }} {{ Config::get('other.title') }} . {{ trans('auth.not-a-member') }}">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">
@@ -56,7 +56,7 @@
     <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
+      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}" />
     </div>
 
     <!-- SignUp Form -->

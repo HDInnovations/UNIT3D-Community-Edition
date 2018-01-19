@@ -43,5 +43,10 @@ return [
 	'add' => 'Dodaj',
 	'staff' => 'Zespół',
 	'blacklist' => 'Czarna lista',
-	'fl_tokens' => 'Tokeny Freeleech'
+	'fl_tokens' => 'Tokeny Freeleech',
+        'your' => 'Twój',
+        'type' => 'Naciśnij',
+        'for' => 'dla',
+        'is-allowed' => 'jest dozwolone',
+        'anonymous' => 'Anonim',
 ];
