@@ -7,9 +7,13 @@
 
 return [
 	'forum' => 'Forum',
-	'forums' => 'Fora',
-	'topics' => 'Wątki',
-	'post' => 'Posty',
+    'forums' => 'Fora',
+    'topic' => 'Wątek',
+    'topics' => 'Wątki',
+    'post' => 'Post',
+    'posts' => 'Posty',
+    'author' => 'Autor',
+    'created' => 'Utworzone',
 	'replies' => 'Odpowiedzi',
 	'views' => 'Wyświetlenia',
 	'meta-category' => 'Fora w kategorii',
@@ -18,7 +22,7 @@ return [
 	'send-new-topic' => 'Zapisz wątek',
 	'read-topic' => 'Przeczytaj wątek',
 	'mark-as-resolved' => 'Zablokuj wątek',
-	'delete-topic' => 'Usuń watek',
-	'display-forum' => 'Pokaz wątki w ',
+	'delete-topic' => 'Usuń wątek',
+	'display-forum' => 'Pokaż wątki w ',
 	'edit-topic' => 'Edytuj wątek'
 ];

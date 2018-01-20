@@ -24,10 +24,17 @@ return [
     'leechers' => 'Leechers',
     'rss' => 'RSS',
     'name' => 'Name',
+    'age' => 'Age',
     'size' => 'Size',
     'times' => 'Times',
     'completed' => 'Completed',
     'released' => 'Released',
     'title' => 'Title',
-    'titles' => 'Titles'
+    'titles' => 'Titles',
+    'freeleech' => 'Freeleech',
+    'double-upload' => 'Double upload',
+    'short-seeds' => 'S',
+    'short-leechs' => 'L',
+    'short-completed' => 'C',
+    'stream-optimized' => 'Stream optimized',
 ];

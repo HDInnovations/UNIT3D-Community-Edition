@@ -7,9 +7,13 @@
 
 return [
 	'forum' => 'Forum',
-	'forums' => 'Forums',
-	'topics' => 'Topics',
-	'post' => 'Post',
+    'forums' => 'Forums',
+    'topic' => 'Topic',
+    'topics' => 'Topics',
+    'post' => 'Post',
+    'posts' => 'Posts',
+    'author' => 'Author',
+    'created' => 'Created',
 	'replies' => 'Replies',
 	'views' => 'Views',
 	'meta-category' => 'List of forums in the category',
