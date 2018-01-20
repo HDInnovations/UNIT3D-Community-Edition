@@ -46,7 +46,7 @@
         {{ Form::open(array('route' => array('comment_article', 'slug' => $article->slug, 'id' => $article->id))) }}
         {{ csrf_field() }}
             <div class="form-group">
-                <label for="content">{{ trans('common.your') }} {{ Illuminate\Support\Str::lower(trans('common.comment')) }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
+                <label for="content">{{ trans('common.your') }} {{ str_lower(trans('common.comment')) }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
                 <textarea name="content" id="content" cols="30" rows="5" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
@@ -62,7 +62,7 @@
         @if($comment->anon == 1)
         <a href="#" class="pull-left">
         <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-        <strong>{{ Illuminate\Support\Str::upper(trans('common.anonymous')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
+        <strong>{{ str_upper(trans('common.anonymous')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif</strong>
         @else
         <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
         @if($comment->user->image != null)

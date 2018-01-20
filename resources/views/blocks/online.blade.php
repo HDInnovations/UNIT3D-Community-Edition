@@ -7,7 +7,7 @@
       @foreach($user as $u)
       @if($u->isOnline())
       @if($u->hidden == 1)
-      <span class="badge-extra text-orange text-bold">{{ strtoupper(trans('common.hidden')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>@endif)</a>@endif</span>
+      <span class="badge-extra text-orange text-bold">{{ str_upper(trans('common.hidden')) }} @if(Auth::user()->group->is_modo)<a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>@endif)</a>@endif</span>
       @else
       <a href="{{ route('profil', array('username' => $u->username, 'id' => $u->id)) }}"><span class="badge-extra text-bold" style="color:{{ $u->group->color }}; background-image:{{ $u->group->effect }};"><i class="{{ $u->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $u->group->name }}"></i> {{ $u->username }} @if($u->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>
       @endif
