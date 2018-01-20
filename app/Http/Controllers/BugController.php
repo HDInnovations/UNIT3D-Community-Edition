@@ -33,18 +33,15 @@ class BugController extends Controller
      */
     public function bug()
     {
-        // Fetch coder group
-        $group = Group::where('slug', '=', 'owner')->first();
-        // grab the admins
-        $coders = User::where('group_id', '=', $group->id)->get();
+        // Fetch owner account
+        $user = User::where('id', '=', '3')->first();
 
         if (Request::getMethod() == 'POST') {
             $input = Request::all();
-            // Send The Mail
-            foreach ($coders as $user) {
-                Mail::to($user->email, $user->username)->send(new Bug($input));
-            }
-            Toastr::success('Your Bug Was Succefully Sent To The Owners!', 'Success', ['options']);
+
+            Mail::to($user->email, $user->username)->send(new Bug($input));
+
+            Toastr::success('Your Bug Was Succefully Sent!', 'Success', ['options']);
         }
         return view('bug.bug');
     }
