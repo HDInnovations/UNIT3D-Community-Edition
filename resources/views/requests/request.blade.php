@@ -325,7 +325,6 @@
     <div class="panel-body">
         <label for="comment" class="sr-only">Comment</label>
         {{ Form::open(array('route' => array('comment_request', 'id' => $request->id))) }}
-        {{ csrf_field() }}
         <textarea rows="2" class="form-control" name="content" cols="50" id="content"></textarea>
         <div class="form-group">
             <div class="col-sm-12">

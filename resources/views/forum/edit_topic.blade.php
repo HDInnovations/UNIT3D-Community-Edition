@@ -33,7 +33,7 @@
 		{{ Form::open(array('route' => array('forum_edit_topic', 'slug' => $topic->slug, 'id' => $topic->id))) }}
 			<div class="form-group">
                 <label for="forum_name">Topic Name</label>
-				<input id="name" type="text" name="name" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $topic->name }}">
+				<input id="name" type="text" name="name" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $topic->name }}" required>
 			</div>
 
             <div class="form-group">

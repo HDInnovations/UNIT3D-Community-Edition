@@ -24,13 +24,13 @@
 		<h3>Add Seedbox</h3>
     {{ Form::open(['route' => ['addcli', 'username' => $user->username, 'id' => $user->id], 'method' => 'post' , 'role' => 'form', 'class' => 'login-frm']) }}
 			<div class="form-group input-group">
-				<input type="password" name="password" class="form-control" placeholder="Current Password">
+				<input type="password" name="password" class="form-control" placeholder="Current Password" required>
 			</div>
 			<div class="form-group input-group">
-				<input type="text" name="ip" class="form-control" placeholder="Client IP Address">
+				<input type="text" name="ip" class="form-control" placeholder="Client IP Address" required>
 			</div>
 			<div class="form-group input-group">
-				<input type="text" name="client_name" class="form-control" placeholder="UsernameSeebox1">
+				<input type="text" name="client_name" class="form-control" placeholder="UsernameSeebox1" required>
 			</div>
 			<center><button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</a></center>
 		{{ Form::close() }}

@@ -211,21 +211,21 @@
         <div class="form-group">
             <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
             <div class="col-sm-9">
-                <input class="form-control" placeholder="Enter username" name="to_username" type="text" id="to_username">
+                <input class="form-control" placeholder="Enter username" name="to_username" type="text" id="to_username" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="bonus_points" class="col-sm-3 control-label">{{ trans('bon.bon') }} {{ trans('bon.points') }}</label>
             <div class="col-sm-9">
-                <input class="form-control" placeholder="Enter amount" name="bonus_points" type="text" id="bonus_points">
+                <input class="form-control" placeholder="Enter amount" name="bonus_points" type="number" id="bonus_points" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="bonus_message" class="col-sm-3 control-label">{{ trans('pm.message') }}</label>
             <div class="col-sm-9">
-                <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
+                <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message" required></textarea>
             </div>
         </div>
 

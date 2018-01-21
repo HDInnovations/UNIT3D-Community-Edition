@@ -56,9 +56,9 @@
 <form action="{{ route('invite') }}" method="post">
 {{ csrf_field() }}
 <label for="email" class="col-sm-2 control-label">Email Address</label>
-<input class="form-control" name="email" type="email" id="email" size="10">
+<input class="form-control" name="email" type="email" id="email" size="10" required>
 <label for="message" class="col-sm-2 control-label">Message</label>
-<textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea>
+<textarea class="form-control" name="message" cols="50" rows="10" id="message" required></textarea>
 <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
 </form>
 </div>

@@ -103,7 +103,7 @@ function updateTorrentName() {
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()">
+        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()" required>
       </div>
 
       <div class="form-group">
@@ -113,27 +113,27 @@ function updateTorrentName() {
 
             <div class="form-group">
                 <label for="name">Title</label>
-                <input type="text" name="name" id="name" class="form-control">
+                <input type="text" name="name" id="name" class="form-control" required>
             </div>
 
              <div class="form-group">
                 <label for="name">IMDB ID (Required)</label>
-                <input type="number" name="imdb" value="0" class="form-control">
+                <input type="number" name="imdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
                <label for="name">TMDB ID </label>
-               <input type="number" name="tmdb" value="0" class="form-control">
+               <input type="number" name="tmdb" value="0" class="form-control" required>
            </div>
 
             <div class="form-group">
                 <label for="name">TVDB ID </label>
-                <input type="number" name="tvdb" value="0" class="form-control">
+                <input type="number" name="tvdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
                 <label for="name">MAL ID </label>
-                <input type="number" name="mal" value="0" class="form-control">
+                <input type="number" name="mal" value="0" class="form-control" required>
             </div>
 
       <div class="form-group">
@@ -161,7 +161,7 @@ function updateTorrentName() {
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
+        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control" required></textarea>
       </div>
 
       <div class="parser"></div>

@@ -21,27 +21,27 @@
          {{ csrf_field() }}
             <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" name="name" value="{{ $tor->name }}">
+                <input type="text" class="form-control" name="name" value="{{ $tor->name }}" required>
             </div>
 
            <div class="form-group">
               <label for="name">IMDB ID (Required)</label>
-              <input type="number" name="imdb" value="{{ $tor->imdb }}" class="form-control">
+              <input type="number" name="imdb" value="{{ $tor->imdb }}" class="form-control" required>
           </div>
 
           <div class="form-group">
              <label for="name">TMDB ID </label>
-             <input type="number" name="tmdb" value="{{ $tor->tmdb }}" class="form-control">
+             <input type="number" name="tmdb" value="{{ $tor->tmdb }}" class="form-control" required>
          </div>
 
           <div class="form-group">
               <label for="name">TVDB ID </label>
-              <input type="number" name="tvdb" value="{{ $tor->tvdb }}" class="form-control">
+              <input type="number" name="tvdb" value="{{ $tor->tvdb }}" class="form-control" required>
           </div>
 
           <div class="form-group">
               <label for="name">MAL ID </label>
-              <input type="number" name="mal" value="{{ $tor->mal }}" class="form-control">
+              <input type="number" name="mal" value="{{ $tor->mal }}" class="form-control" required>
           </div>
 
             <div class="form-group">

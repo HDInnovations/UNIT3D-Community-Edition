@@ -45,12 +45,12 @@
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.subject') }}</label>
-                    <input name="subject" class="form-control" placeholder="Enter subject">
+                    <input name="subject" class="form-control" placeholder="Enter subject" required>
                   </div>
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.message') }}</label>
-                    <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+                    <textarea id="message" name="message" cols="30" rows="10" class="form-control" required></textarea>
                   </div>
 
                   <button class="btn btn-primary">

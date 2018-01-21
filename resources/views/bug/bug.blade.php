@@ -20,28 +20,28 @@
               <td class="rowhead">Reporter:</td>
               <td>Please enter your username
                 <br>
-                <input type="text" class="form-control" name="username" size="60">
+                <input type="text" class="form-control" name="username" size="60" required>
               </td>
             </tr>
             <tr>
               <td class="rowhead">Email:</td>
               <td>Please enter your email
                 <br>
-                <input type="text" class="form-control" name="email" size="60">
+                <input type="email" class="form-control" name="email" size="60" required>
               </td>
             </tr>
             <tr>
               <td class="rowhead">Title:</td>
               <td>Please choose a proper title
                 <br>
-                <input type="text" class="form-control" name="title" size="60">
+                <input type="text" class="form-control" name="title" size="60" required>
               </td>
             </tr>
             <tr>
               <td class="rowhead">Problem (Bug):</td>
               <td>Describe the problem as best as possible
                 <br>
-                <textarea cols="60" rows="10" class="form-control" name="problem"></textarea>
+                <textarea cols="60" rows="10" class="form-control" name="problem" required></textarea>
               </td>
             </tr>
             <tr>

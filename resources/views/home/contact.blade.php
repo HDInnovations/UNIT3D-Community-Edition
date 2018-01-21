@@ -23,15 +23,15 @@
 		{{ Form::open(array('route' => 'contact')) }}
 		{{ csrf_field() }}
 			<div class="form-group">
-				<input type="text" name="contact-name" placeholder="Your name" class="form-control">
+				<input type="text" name="contact-name" placeholder="Your name" class="form-control" required>
 			</div>
 
 			<div class="form-group">
-				<input type="email" name="email" placeholder="E-mail" class="form-control">
+				<input type="email" name="email" placeholder="E-mail" class="form-control" required>
 			</div>
 
 			<div class="form-group">
-				<textarea name="message" placeholder="Message" class="form-control" cols="30" rows="10"></textarea>
+				<textarea name="message" placeholder="Message" class="form-control" cols="30" rows="10" required></textarea>
 			</div>
 
 			<button type="submit" class="btn btn-lg btn-primary btn-block">{{ trans('common.submit') }}</button>
