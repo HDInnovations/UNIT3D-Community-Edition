@@ -49,7 +49,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('common.huge') }} {{ trans('torrent.torrents') }}</strong><br>
-                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>'</span> 100GB</small>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">></span> 100GB</small>
                 </td>
                 <td><strong>{{ $huge }} x 0.75</strong></td>
                 <td>{{ $huge * 0.75 }} {{ trans('bon.per-hour') }}</td>
@@ -57,7 +57,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('common.large') }} {{ trans('torrent.torrents') }}</strong><br>
-                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>='</span> 25GB {{ strtolower(trans('common.but')) }} '<' 100GB</small>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">>=</span> 25GB {{ strtolower(trans('common.but')) }} < 100GB</small>
                 </td>
                 <td><strong>{{ $large }} x 0.50</strong></td>
                 <td>{{ $large * 0.50 }} {{ trans('bon.per-hour') }}</td>
@@ -65,7 +65,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('common.everyday') }} {{ trans('torrent.torrents') }}</strong><br>
-                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>='</span> 1GB {{ strtolower(trans('common.but')) }} '<' 25GB</small>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">>=</span> 1GB {{ strtolower(trans('common.but')) }} < 25GB</small>
                 </td>
                 <td><strong>{{ $regular }} x 0.25</strong></td>
                 <td>{{ $regular * 0.25 }} {{ trans('bon.per-hour') }}</td>
@@ -74,7 +74,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('torrent.legendary-seeder') }}</strong><br>
-                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 1 {{ strtolower(trans('common.year')) }}</small>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span> 1 {{ strtolower(trans('common.year')) }}</small>
                 </td>
                 <td><strong>{{ $legendary }} x 2</strong></td>
                 <td>{{ $legendary * 2 }} {{ trans('bon.per-hour') }}</td>
@@ -82,7 +82,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('torrent.mvp') }} {{ trans('torrent.seeder') }}</strong><br>
-                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 6 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 1 {{ strtolower(trans('common.year')) }}</small>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span> 6 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} < 1 {{ strtolower(trans('common.year')) }}</small>
                 </td>
                 <td><strong>{{ $mvp }} x 1</strong></td>
                 <td>{{ $mvp * 1 }} {{ trans('bon.per-hour') }}</td>
@@ -90,7 +90,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('torrent.commited') }} {{ trans('torrent.seeder') }}</strong><br>
-                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 6 {{ strtolower(trans('common.months')) }}</small>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span> 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} < 6 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $commited }} x 0.75</strong></td>
                 <td>{{ $commited * 0.75 }} {{ trans('bon.per-hour') }}</td>
@@ -98,7 +98,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('torrent.team-player') }} {{ trans('torrent.seeder') }}</strong><br>
-                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 2 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 3 {{ strtolower(trans('common.months')) }}</small>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span> 2 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} < 3 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $teamplayer }} x 0.50</strong></td>
                 <td>{{ $teamplayer * 0.50 }} {{ trans('bon.per-hour') }}</td>
@@ -106,7 +106,7 @@
             <tr>
                 <td>
                     <strong>{{ trans('torrent.participant') }} {{ trans('torrent.seeder') }}</strong><br>
-                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 1 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 2 {{ strtolower(trans('common.months')) }}</small>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span> 1 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} < 2 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $participaint }} x 0.25</strong></td>
                 <td>{{ $participaint * 0.25 }} {{ trans('bon.per-hour') }}</td>
