@@ -11,7 +11,7 @@ return [
     'email' => 'E-mail',
 	'username' => 'Nazwa użytkownika',
 	'password' => 'Hasło',
-	'download' => 'Pobrane',
+	'download' => 'Pobierz',
 	'upload' => 'Wysłane',
 	'ratio' => 'Ratio',
 	'warnings' => 'Ostrzeżenia',
@@ -68,4 +68,5 @@ return [
     'but' => 'Ale',
     'enter' => 'Wprowadź',
     'amount' => 'Ilość',
+    'my' => 'Moje',
 ];

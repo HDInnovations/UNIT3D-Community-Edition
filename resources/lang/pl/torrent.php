@@ -53,4 +53,7 @@ return [
     'requires-reseed' => 'Wymagany reseed',
     'last-seeder' => 'Jesteś ostatnim seedującym! (a torrent został pobrany przynajmniej 3 razy)',
     'seed-time' => 'Żywotne',
+    'downloaded' => 'Pobrania',
+    'delete-bookmark' => 'Skasuj zakładkę',
+    'no-bookmarks' => 'Nie znaleziono żadnych zakładek.',
 ];
