@@ -5,7 +5,7 @@
       <h4>{{ trans('blocks.latest-torrents') }}</h4>
     </div>
     <ul class="nav nav-tabs mb-5" role="tablist">
-      <li class="active"><a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-trophy text-gold"></i> {{ trans('torrent.new-torrents') }}</a></li>
+      <li class="active"><a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-trophy text-gold"></i> {{ trans('blocks.new-torrents') }}</a></li>
       <li class=""><a href="#topseeded" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-up text-success"></i> {{ trans('torrent.top-seeded') }}</a></li>
       <li class=""><a href="#topleeched" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-danger"></i> {{ trans('torrent.top-leeched') }}</a></li>
       <li class=""><a href="#dyingtorrents" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-arrow-down text-red"></i> {{ trans('torrent.dying-torrents') }}
