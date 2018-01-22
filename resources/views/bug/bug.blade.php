@@ -41,7 +41,7 @@
               <td class="rowhead">Problem (Bug):</td>
               <td>Describe the problem as best as possible
                 <br>
-                <textarea cols="60" rows="10" class="form-control" name="problem" required></textarea>
+                <textarea cols="60" rows="10" class="form-control" name="problem"></textarea>
               </td>
             </tr>
             <tr>

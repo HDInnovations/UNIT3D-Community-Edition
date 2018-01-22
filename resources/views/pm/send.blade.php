@@ -50,7 +50,7 @@
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.message') }}</label>
-                    <textarea id="message" name="message" cols="30" rows="10" class="form-control" required></textarea>
+                    <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
                   </div>
 
                   <button class="btn btn-primary">

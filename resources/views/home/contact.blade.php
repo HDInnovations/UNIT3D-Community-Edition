@@ -31,7 +31,7 @@
 			</div>
 
 			<div class="form-group">
-				<textarea name="message" placeholder="Message" class="form-control" cols="30" rows="10" required></textarea>
+				<textarea name="message" placeholder="Message" class="form-control" cols="30" rows="10"></textarea>
 			</div>
 
 			<button type="submit" class="btn btn-lg btn-primary btn-block">{{ trans('common.submit') }}</button>

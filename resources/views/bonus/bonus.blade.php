@@ -225,7 +225,7 @@
         <div class="form-group">
             <label for="bonus_message" class="col-sm-3 control-label">{{ trans('pm.message') }}</label>
             <div class="col-sm-9">
-                <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message" required></textarea>
+                <textarea class="form-control" name="bonus_message" cols="50" rows="10" id="bonus_message"></textarea>
             </div>
         </div>
 

@@ -161,7 +161,7 @@ function updateTorrentName() {
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control" required></textarea>
+        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
       </div>
 
       <div class="parser"></div>

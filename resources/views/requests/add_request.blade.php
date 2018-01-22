@@ -91,7 +91,7 @@
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control" required></textarea>
+        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
       </div>
 
       <div class="form-group">
