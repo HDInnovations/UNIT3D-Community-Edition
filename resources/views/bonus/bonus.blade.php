@@ -89,7 +89,7 @@
             </tr>
             <tr>
                 <td>
-                    <strong>{{ trans('torrent.committed') }} {{ trans('torrent.seeder') }}</strong><br>
+                    <strong>{{ trans('torrent.commited') }} {{ trans('torrent.seeder') }}</strong><br>
                     <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 6 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $commited }} x 0.75</strong></td>

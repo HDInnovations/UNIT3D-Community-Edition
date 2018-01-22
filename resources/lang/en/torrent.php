@@ -43,6 +43,7 @@ return [
     'dead-torrents' => 'Dead torrents',
     'dying-torrent' => 'Dying torrent',
     'dead-torrent' => 'Dead torrent',
+    'old-torrent' => 'Old torrent',
     'legendary-torrent' => 'Legendary torrent',
     'legendary-seeder' => 'Legendary seeder',
     'mvp' => 'MVP',
