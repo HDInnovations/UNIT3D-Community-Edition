@@ -36,9 +36,4 @@ return [
     
     //Top torrents
     'new-torrents' => 'New torrents',
-    'top-seeded' => 'Top seeded',
-    'top-leeched' => 'Top leeched',
-    'dying-torrents' => 'Dying torrents',
-    'dead-torrents' => 'Dead torrents',
-    'requires-reseed' => 'Requires reseed',
 ];

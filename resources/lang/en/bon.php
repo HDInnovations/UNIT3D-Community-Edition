@@ -20,5 +20,6 @@ return [
 	'earning' => 'Earning',
 	'per-hour' => 'Points Per Hour',
 	'item' => 'Item',
-	'total' => 'Total Earnings',
+    'total' => 'Total Earnings',
+    'activated' => 'Activated',
 ];
