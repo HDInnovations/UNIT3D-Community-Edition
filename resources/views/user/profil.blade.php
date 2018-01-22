@@ -234,7 +234,7 @@
         </li>
         <li>
           <span class="badge-extra"><strong>Hit and Run Count (All Time):</strong>
-            <span class="text-red text-bold">{{ $user->hitandruns }}</span>
+            <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
         </li>
       </ul>
