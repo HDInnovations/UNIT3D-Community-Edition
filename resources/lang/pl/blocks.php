@@ -36,9 +36,4 @@ return [
     
     //Top torrents
     'new-torrents' => 'Nowe torrenty',
-    'top-seeded' => 'Top seedowane',
-    'top-leeched' => 'Top leechowane',
-    'dying-torrents' => 'Umierające torrenty',
-    'dead-torrents' => 'Umarłe torrenty',
-    'requires-reseed' => 'Wymagany reseed',
 ];

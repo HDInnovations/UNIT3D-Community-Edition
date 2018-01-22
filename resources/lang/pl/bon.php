@@ -19,6 +19,7 @@ return [
 	'active' => 'Aktywowano!',
 	'earning' => 'Zdobywasz',
 	'per-hour' => 'punktów na godzinę',
-	'item' => 'Przedmiot',
-	'total' => 'Otrzymywane punkty',
+    'item' => 'Przedmiot',
+    'total' => 'Otrzymywane punkty',
+    'activated' => 'Aktywowano',
 ];

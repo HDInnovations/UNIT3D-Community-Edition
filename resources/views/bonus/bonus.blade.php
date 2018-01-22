@@ -24,16 +24,16 @@
         <td class="col-sm-8">
             <tr>
                 <td>
-                    <strong>Dying {{ trans('torrent.torrent') }}</strong><br>
-                    <small>You Are The Last Remaining Seeder! (has been downloaded atleast 3 times)</small>
+                    <strong>{{ trans('torrent.dying-torrent') }}</strong><br>
+                    <small>{{ trans('torrent.last-seeder') }}</small>
                 </td>
                 <td><strong>{{ $dying }} x 2</strong></td>
                 <td>{{ $dying * 2 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Legendary {{ trans('torrent.torrents') }}</strong><br>
-                    <small>Older than 12 months</small>
+                    <strong>{{ trans('torrent.legendary-torrent') }}</strong><br>
+                    <small>{{ trans('common.older-than') }} 12 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $legendary }} x 1.5</strong></td>
                 <td>{{ $legendary * 1.5 }} {{ trans('bon.per-hour') }}</td>
@@ -41,31 +41,31 @@
             <tr>
                 <td>
                     <strong>Old {{ trans('torrent.torrents') }}</strong><br>
-                    <small>Older than 6 months</small>
+                    <small>{{ trans('common.older-than') }} 6 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $old }} x 1</strong></td>
                 <td>{{ $old * 1 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Huge {{ trans('torrent.torrents') }}</strong><br>
-                    <small>Torrents Size <span class="text-bold">'>'</span> 100GB</small>
+                    <strong>{{ trans('common.huge') }} {{ trans('torrent.torrents') }}</strong><br>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>'</span> 100GB</small>
                 </td>
                 <td><strong>{{ $huge }} x 0.75</strong></td>
                 <td>{{ $huge * 0.75 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Large {{ trans('torrent.torrents') }}</strong><br>
-                    <small>Torrents Size <span class="text-bold">'>='</span> 25GB but '<' 100GB</small>
+                    <strong>{{ trans('common.large') }} {{ trans('torrent.torrents') }}</strong><br>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>='</span> 25GB {{ strtolower(trans('common.but')) }} '<' 100GB</small>
                 </td>
                 <td><strong>{{ $large }} x 0.50</strong></td>
                 <td>{{ $large * 0.50 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Everyday {{ trans('torrent.torrents') }}</strong><br>
-                    <small>Torrents Size <span class="text-bold">'>='</span> 1GB but '<' 25GB</small>
+                    <strong>{{ trans('common.everyday') }} {{ trans('torrent.torrents') }}</strong><br>
+                    <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span class="text-bold">'>='</span> 1GB {{ strtolower(trans('common.but')) }} '<' 25GB</small>
                 </td>
                 <td><strong>{{ $regular }} x 0.25</strong></td>
                 <td>{{ $regular * 0.25 }} {{ trans('bon.per-hour') }}</td>
@@ -73,40 +73,40 @@
 
             <tr>
                 <td>
-                    <strong>Legendary {{ trans('torrent.seeder') }}</strong><br>
-                    <small>Seed Time <span class="text-bold">'>='</span> 1 year</small>
+                    <strong>{{ trans('torrent.legendary-seeder') }}</strong><br>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 1 {{ strtolower(trans('common.year')) }}</small>
                 </td>
                 <td><strong>{{ $legendary }} x 2</strong></td>
                 <td>{{ $legendary * 2 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>MVP {{ trans('torrent.seeder') }}</strong><br>
-                    <small>Seed Time <span class="text-bold">'>='</span> 6 months but '<' 1 year</small>
+                    <strong>{{ trans('torrent.mvp') }} {{ trans('torrent.seeder') }}</strong><br>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 6 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 1 {{ strtolower(trans('common.year')) }}</small>
                 </td>
                 <td><strong>{{ $mvp }} x 1</strong></td>
                 <td>{{ $mvp * 1 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Committed {{ trans('torrent.seeder') }}</strong><br>
-                    <small>Seed Time <span class="text-bold">'>='</span> 3 months but '<' 6 months</small>
+                    <strong>{{ trans('torrent.committed') }} {{ trans('torrent.seeder') }}</strong><br>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 6 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $commited }} x 0.75</strong></td>
                 <td>{{ $commited * 0.75 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Team Player {{ trans('torrent.seeder') }}</strong><br>
-                    <small>Seed Time <span class="text-bold">'>='</span> 2 months but '<' 3 months</small>
+                    <strong>{{ trans('torrent.team-player') }} {{ trans('torrent.seeder') }}</strong><br>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 2 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 3 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $teamplayer }} x 0.50</strong></td>
                 <td>{{ $teamplayer * 0.50 }} {{ trans('bon.per-hour') }}</td>
             </tr>
             <tr>
                 <td>
-                    <strong>Participant {{ trans('torrent.seeder') }}</strong><br>
-                    <small>Seed Time <span class="text-bold">'>='</span> 1 month but '<' 2 months</small>
+                    <strong>{{ trans('torrent.participant') }} {{ trans('torrent.seeder') }}</strong><br>
+                    <small>{{ trans('torrent.seed-time') }} <span class="text-bold">'>='</span> 1 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} '<' 2 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $participaint }} x 0.25</strong></td>
                 <td>{{ $participaint * 0.25 }} {{ trans('bon.per-hour') }}</td>
@@ -174,7 +174,7 @@
                     <td>{{ $pf['cost'] }}</td>
                     <td>
                         @if($activefl)
-                        <a href="{{ route('bonusexchange', array('id' => $pf['id'])) }}" role="button" class="btn btn-sm btn-success btn-exchange disabled">Activated!</a>
+                        <a href="{{ route('bonusexchange', array('id' => $pf['id'])) }}" role="button" class="btn btn-sm btn-success btn-exchange disabled">{{ trans('bon.activated') }}!</a>
                         @else
                         <a href="{{ route('bonusexchange', array('id' => $pf['id'])) }}" role="button" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
                         @endif
@@ -211,14 +211,14 @@
         <div class="form-group">
             <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
             <div class="col-sm-9">
-                <input class="form-control" placeholder="Enter username" name="to_username" type="text" id="to_username" required>
+                <input class="form-control" placeholder="{{ trans('common.enter') }} {{ strtolower(trans('common.username')) }}" name="to_username" type="text" id="to_username" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="bonus_points" class="col-sm-3 control-label">{{ trans('bon.bon') }} {{ trans('bon.points') }}</label>
             <div class="col-sm-9">
-                <input class="form-control" placeholder="Enter amount" name="bonus_points" type="number" id="bonus_points" required>
+                <input class="form-control" placeholder="{{ trans('common.enter') }} {{ strtolower(trans('common.amount')) }}" name="bonus_points" type="number" id="bonus_points" required>
             </div>
         </div>
 
