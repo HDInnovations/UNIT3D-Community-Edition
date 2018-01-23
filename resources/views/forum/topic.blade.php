@@ -187,6 +187,11 @@
           @else
           <a href="{{ route('forum_suggestion', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class='label label-sm label-primary'>Remove SUGGESTION</a>
           @endif
+          @if($topic->implemented == "0")
+          <a href="{{ route('forum_implemented', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class='label label-sm label-success'>Add IMPLEMENTED</a>
+          @else
+          <a href="{{ route('forum_implemented', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class='label label-sm label-success'>Remove IMPLEMENTED</a>
+          @endif
           @endif
         </center>
 

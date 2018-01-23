@@ -608,6 +608,19 @@ class ForumController extends Controller
         return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    public function implementedTopic($slug, $id)
+    {
+        $topic = Topic::findOrFail($id);
+        if ($topic->implemented == 0) {
+            $topic->implemented = "1";
+        } else {
+            $topic->implemented = "0";
+        }
+        $topic->save();
+
+        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+    }
+
     public function likePost($postId)
     {
         $post = Post::findOrFail($postId);

@@ -325,6 +325,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid');
         Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug');
         Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion');
+        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
 
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'ForumController@likePost')->name('like');
