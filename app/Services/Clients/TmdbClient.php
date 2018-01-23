@@ -43,7 +43,7 @@ class TmdbClient extends Client implements MovieTvInterface
 
         if ($type == 'movie') {
             if (isset($keys['imdb'])) {
-                $url = $this->apiUrl . 'find/' . $keys['imdb'] . '?api_key=' . $this->apiKey . '&external_source=imdb_id';
+                $url = $this->apiUrl . 'find/' . $keys['imdb'] . '?api_key=' . $this->apiKey . '&external_source=imdb_id&language=' . config('app.locale');
                 $results = $this->toArray($this->request($url));
 
                 if (isset($results['movie_results'][0]['id'])) {
@@ -84,7 +84,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl . $type . '/' . $id . '?append_to_response=alternative_titles,credits,videos,images,keywords,external_ids&api_key=' . $this->apiKey;
+        $url = $this->apiUrl . $type . '/' . $id . '?append_to_response=alternative_titles,credits,videos,images,keywords,external_ids&api_key=' . $this->apiKey .'&language=' . config('app.locale');
         $movie = $this->toArray($this->request($url));
 
 //        dump($movie);
@@ -105,7 +105,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl . 'person/' . $id . '?append_to_response=external_ids,images&api_key=' . $this->apiKey;
+        $url = $this->apiUrl . 'person/' . $id . '?append_to_response=external_ids,images&api_key=' . $this->apiKey .'&language=' . config('app.locale');
 
         return $this->formatPerson($this->toArray($this->request($url)));
     }
