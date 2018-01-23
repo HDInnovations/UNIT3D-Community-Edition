@@ -1,11 +1,11 @@
 @component('mail::message')
-# New bug report from {{ $input['username'] }}
+# {{ trans('email.bug-header') }} {{ $input['username'] }}
 
-**Bug Title:** {{ $input['title'] }}
+**{{ trans('email.bug-title') }}:** {{ $input['title'] }}
 
-**Problem:** {{ $input['problem'] }}
+**{{ trans('email.bug-description') }}:** {{ $input['problem'] }}
 
-**Priority:** {{ $input['priority'] }}
+**{{ trans('email.bug-priority') }}:** {{ $input['priority'] }}
 
-*Fix That Shit!!*
+*{{ trans('email.bug-footer') }}!!*
 @endcomponent

@@ -1,8 +1,8 @@
 @component('mail::message')
-# New contact mail from {{ $input['email'] }}
+# {{ trans('email.contact-header') }} {{ $input['email'] }}
 
-**Name:** {{ $input['contact-name'] }}
+**{{ trans('email.contact-name') }}:** {{ $input['contact-name'] }}
 
-**Message:** {{ $input['message'] }}
+**{{ trans('email.contact-message') }}:** {{ $input['message'] }}
 
 @endcomponent
