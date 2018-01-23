@@ -68,4 +68,5 @@ return [
     'but' => 'But',
     'enter' => 'Enter',
     'amount' => 'Amount',
+    'my' => 'My',
 ];

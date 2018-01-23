@@ -53,4 +53,7 @@ return [
     'requires-reseed' => 'Requires reseed',
     'last-seeder' => 'You Are The Last Remaining Seeder! (has been downloaded atleast 3 times)',
     'seed-time' => 'Seed time',
+    'downloaded' => 'Downloaded',
+    'delete-bookmark' => 'Delete this bookmark',
+    'no-bookmarks' => 'There are no bookmarks found.',
 ];

@@ -13,7 +13,7 @@
   <div class="block">
     <div class="header gradient orange">
       <div class="inner_content">
-        <h1>My {{ trans('torrent.bookmarks') }}</h1>
+        <h1>{{ trans('common.my') }} {{ strtolower(trans('torrent.bookmarks')) }}</h1>
       </div>
     </div>
   <div class="table-responsive">
@@ -22,14 +22,14 @@
       <thead>
         <tr>
           <th class="torrents-icon"></th>
-          <th class="torrents-filename">File</th>
+          <th class="torrents-filename">{{ trans('torrent.name') }}</th>
           <th><i class="fa fa-download"></i></th>
-          <th>Size</th>
-          <th>S</th>
-          <th>L</th>
-          <th>C</th>
-          <th>Added</th>
-          <th>Downloaded</th>
+          <th>{{ trans('torrent.size') }}</th>
+          <th>{{ trans('torrent.short-seeds') }}</th>
+          <th>{{ trans('torrent.short-leechs') }}</th>
+          <th>{{ trans('torrent.short-completed') }}</th>
+          <th>{{ trans('torrent.age') }}</th>
+          <th>{{ trans('torrent.downloaded') }}</th>
           <th><i class="fa fa-cogs"></i></th>
         </tr>
       </thead>
@@ -50,7 +50,7 @@
           </td>
           <td>
             <a href="{{ route('download', array('slug' => $t->slug, 'id' => $t->id)) }}">&nbsp;&nbsp;
-              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="DOWNLOAD!"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
+              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="{{ trans('common.download') }}"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
             </a>
           </td>
           <td>
@@ -62,11 +62,11 @@
           <td>{{$t->created_at->diffForHumans()}}</td>
           <td>-</td>
           <td>
-            <a href="{{ route('unbookmark', ['id' => $t->id]) }}"><button type="button" id="{{ $t->id }}" class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip" title="" data-original-title="Delete This Bookmark"><i class="fa fa-times"></i></button></a>
+            <a href="{{ route('unbookmark', ['id' => $t->id]) }}"><button type="button" id="{{ $t->id }}" class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.delete-bookmark') }}"><i class="fa fa-times"></i></button></a>
           </td>
         </tr>
         @empty
-            There are no bookmarks found.
+            {{ trans('torrent.no-bookmarks') }}
         @endforelse
       </tbody>
     </table>
