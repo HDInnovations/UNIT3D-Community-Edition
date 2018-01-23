@@ -38,7 +38,7 @@
         <tr class="">
           <td>
             <center>
-              <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} Torrent"></i>
+              <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
             </center>
           </td>
           <td>
@@ -50,7 +50,7 @@
           </td>
           <td>
             <a href="{{ route('download', array('slug' => $t->slug, 'id' => $t->id)) }}">&nbsp;&nbsp;
-              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="{{ trans('common.download') }}"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
+              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="{{ strttoupper(trans('common.download')) }}"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
             </a>
           </td>
           <td>
