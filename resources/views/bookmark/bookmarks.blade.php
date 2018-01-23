@@ -50,7 +50,7 @@
           </td>
           <td>
             <a href="{{ route('download', array('slug' => $t->slug, 'id' => $t->id)) }}">&nbsp;&nbsp;
-              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="{{ strttoupper(trans('common.download')) }}"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
+              <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title="" data-original-title="{{ strtoupper(trans('common.download')) }}"><i class="livicon" data-name="download" data-size="18" data-color="white" data-hc="white" data-l="true"></i></button>
             </a>
           </td>
           <td>
