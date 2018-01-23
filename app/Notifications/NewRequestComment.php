@@ -16,19 +16,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Request;
 
-class NewTipRecieved extends Notification
+use App\Comment;
+
+class NewRequestComment extends Notification
 {
     use Queueable;
+
+    public $comment;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Comment $comment)
     {
-        //
+        $this->comment = $comment;
     }
 
     /**
@@ -50,8 +55,19 @@ class NewTipRecieved extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        $appurl = config('app.url');
+        if ($this->comment->anon == 0) {
+            return [
+                'title' => "New Request Comment Recieved",
+                'body' => $this->comment->user->username . " has left you a comment on " . $this->comment->request->name,
+                'url' => $appurl . '/request/' . $this->comment->request->id
+            ];
+        } else {
+            return [
+                'title' => "New Request Comment Recieved",
+                'body' => "A anonymous member has left you a comment on " . $this->comment->request->name,
+                'url' => $appurl . '/request/' . $this->comment->request->id
+            ];
+        }
     }
 }

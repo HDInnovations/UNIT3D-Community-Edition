@@ -44,6 +44,7 @@ use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 
 use App\Notifications\NewTorrentComment;
+use App\Notifications\NewRequestComment;
 
 class CommentController extends Controller
 {
@@ -107,6 +108,7 @@ class CommentController extends Controller
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
             $user->addProgress(new UserMadeTenComments(), 1);
@@ -122,7 +124,9 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             //Notification
-            User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+            if ($user->id != $torrent->user_id) {
+                User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+            }
 
             // Auto Shout
             $appurl = config('app.url');
@@ -157,12 +161,14 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->content = Request::get('content');
+        $comment->anon = Request::get('anonymous');
         $comment->user_id = $user->id;
         $comment->requests_id = $request->id;
         $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
             $user->addProgress(new UserMadeTenComments(), 1);
@@ -176,12 +182,22 @@ class CommentController extends Controller
             $user->addProgress(new UserMade700Comments(), 1);
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
-            // Auto Shout
+
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
-            Cache::forget('shoutbox_messages');
+
             // Auto PM
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+            if ($user->id != $request->user_id) {
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+            }
+
+            // Auto Shout
+            if ($comment->anon == 0) {
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+                Cache::forget('shoutbox_messages');
+            } else {
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+                Cache::forget('shoutbox_messages');
+            }
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
@@ -215,6 +231,7 @@ class CommentController extends Controller
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
             $user->addProgress(new UserMadeTenComments(), 1);
@@ -230,7 +247,9 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             //Notification
-            User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+            if ($user->id != $torrent->user_id) {
+                User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+            }
 
             // Auto Shout
             $appurl = config('app.url');

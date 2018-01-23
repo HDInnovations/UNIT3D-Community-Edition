@@ -113,7 +113,7 @@ class RequestController extends Controller
         $user = Auth::user();
         $requestClaim = RequestsClaims::where('request_id', '=', $id)->first();
         $voters = $request->requestBounty()->get();
-        $comments = $request->comments()->orderBy('created_at', 'DESC')->get();
+        $comments = $request->comments()->orderBy('created_at', 'DESC')->paginate(6);
         $carbon = Carbon::now()->addDay();
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($request->category_id == 2) {
