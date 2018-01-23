@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ $catalog->name }} Catalog">
+<meta name="description" content="{{ $catalog->name }} {{ strtolower(trans('torrent.catalog')) }}">
 @stop
 
 @section('breadcrumb')
@@ -25,7 +25,7 @@
 <div class="container box">
   <div class="header gradient pink">
     <div class="inner_content">
-      <h1>Movies in {{ $catalog->name }} {{ trans('torrent.catalog') }}</h1>
+      <h1>{{ trans('torrent.torrents') }}: {{ $catalog->name }} {{ strtolower(trans('torrent.catalog')) }}</h1>
     </div>
   </div>
   @foreach($records as $r)
