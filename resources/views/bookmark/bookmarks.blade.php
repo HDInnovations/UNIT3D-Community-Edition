@@ -38,13 +38,7 @@
         <tr class="">
           <td>
             <center>
-              @if($t->category_id == "1")
-              <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-              @elseif($t->category_id == "2")
-              <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-              @else
-              <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-              @endif
+              <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} Torrent"></i>
             </center>
           </td>
           <td>
