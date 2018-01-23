@@ -17,7 +17,7 @@
     <div class="forum-category-childs">
       <div class="header gradient green">
         <div class="inner_content">
-          <h1>Our {{ trans('torrent.categories') }}</h1>
+          <h1>{{ trans('torrent.categories') }}</h1>
         </div>
       </div>
         @foreach($categories as $c)

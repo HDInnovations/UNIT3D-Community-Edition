@@ -1,10 +1,10 @@
 @component('mail::message')
-# Invitation to {{ Config::get('other.title') }} !
+# {{ trans('email.invite-header') }} {{ Config::get('other.title') }} !
 
-**Message:** You have been invited to {{ Config::get('other.title') }}
+**{{ trans('email.invite-message') }}:** {{ trans('email.invite-invited') }} {{ Config::get('other.title') }}
 
 @component('mail::button', ['url' => route('register', $invite->code), 'color' => 'blue'])
-Sign Up Now
+{{ trans('email.invite-signup') }}
 @endcomponent
 
 @endcomponent
