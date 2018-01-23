@@ -60,6 +60,7 @@ return [
     'active-warrning' => 'Active warrning',
     'global' => 'Global',
     'hot' => 'Hot!',
+    'new' => 'New!',
     'sticked' => 'Sticked',
     'high-speeds' => 'High speeds',
     'older-than' => 'Older than',
@@ -73,4 +74,5 @@ return [
     'enter' => 'Enter',
     'amount' => 'Amount',
     'my' => 'My',
+    'no-result' => 'There is no result in database for query',
 ];

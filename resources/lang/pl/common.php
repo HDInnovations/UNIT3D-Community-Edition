@@ -60,6 +60,7 @@ return [
     'active-warrning' => 'Aktywne ostrzeżenie',
     'global' => 'Globalny',
     'hot' => 'Hot!',
+    'new' => 'Nowość!',
     'sticked' => 'Przyklejony',
     'high-speeds' => 'Szybkie pobieranie',
     'older-than' => 'Starszy niż',
@@ -73,4 +74,5 @@ return [
     'enter' => 'Wprowadź',
     'amount' => 'Ilość',
     'my' => 'Moje',
+    'no-result' => 'Brak odpowiadających wyników w bazie danych',
 ];

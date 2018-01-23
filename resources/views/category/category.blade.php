@@ -50,13 +50,7 @@
       @endif
         <td><a href="{{ route('category', array('slug' => $t->category->slug, 'id' => $t->category->id)) }}">&nbsp;
       <center>
-        @if($t->category_id == "1")
-        <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-        @elseif($t->category_id == "2")
-        <i class="fa fa-tv torrent-icon" data-toggle="tooltip" title="" data-original-title="TV-Show Torrent"></i>
-        @else
-        <i class="fa fa-film torrent-icon" data-toggle="tooltip" title="" data-original-title="Movie Torrent"></i>
-        @endif
+        <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
       </center>
       </a></td>
         <td>
@@ -69,15 +63,15 @@
                   <span class='label label-success'>{{ $t->type }}</span> &nbsp;
                   <strong>
               <span class="badge-extra text-bold text-pink"><i class="fa fa-heart" data-toggle="tooltip" title="" data-original-title="Thanks Given"></i> {{ $t->thanks()->count() }}</span>
-              @if($t->stream == "1")<span class="badge-extra text-bold"><i class="fa fa-play text-red" data-toggle="tooltip" title="" data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-              @if($t->doubleup == "1")<span class="badge-extra text-bold"><i class="fa fa-diamond text-green" data-toggle="tooltip" title="" data-original-title="Double upload"></i> Double Upload</span> @endif
-              @if($t->free == "1")<span class="badge-extra text-bold"><i class="fa fa-star text-gold" data-toggle="tooltip" title="" data-original-title="100% Free"></i> 100% Free</span> @endif
-              @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-blue" data-toggle="tooltip" title="" data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-              @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-green" data-toggle="tooltip" title="" data-original-title="Double Upload"></i> Global Double Upload</span> @endif
-              @if($t->leechers >= "5") <span class="badge-extra text-bold"><i class="fa fa-fire text-orange" data-toggle="tooltip" title="" data-original-title="Hot!"></i> Hot!</span> @endif
-              @if($t->sticky == 1) <span class="badge-extra text-bold"><i class="fa fa-thumb-tack text-black" data-toggle="tooltip" title="" data-original-title="Sticky!"></i> Sticky!</span> @endif
-              @if($user->updated_at->getTimestamp() < $t->created_at->getTimestamp()) <span class="badge-extra text-bold"><i class="fa fa-magic text-black" data-toggle="tooltip" title="" data-original-title="NEW!"></i> NEW!</span> @endif
-              @if($t->highspeed == 1)<span class="badge-extra text-bold"><i class="fa fa-tachometer text-red" data-toggle="tooltip" title="" data-original-title="High Speeds!"></i> High Speeds!</span> @endif
+              @if($t->stream == "1")<span class="badge-extra text-bold"><i class="fa fa-play text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.stream-optimized') }}"></i> {{ trans('torrent.stream-optimized') }}</span> @endif
+              @if($t->doubleup == "1")<span class="badge-extra text-bold"><i class="fa fa-diamond text-green" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.double-upload') }}"></i> {{ trans('torrent.double-upload') }}</span> @endif
+              @if($t->free == "1")<span class="badge-extra text-bold"><i class="fa fa-star text-gold" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.freeleech') }}"></i> {{ trans('torrent.freeleech') }}</span> @endif
+              @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-blue" data-toggle="tooltip" title="" data-original-title="{{ trans('common.global') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.global') }} {{ trans('torrent.freeleech') }}</span> @endif
+              @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-green" data-toggle="tooltip" title="" data-original-title="{{ trans('common.global') }} {{ trans('torrent.double-upload') }}"></i> {{ trans('common.global') }} {{ trans('torrent.double-upload') }}</span> @endif
+              @if($t->leechers >= "5") <span class="badge-extra text-bold"><i class="fa fa-fire text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('common.hot') }}"></i> {{ trans('common.hot') }}</span> @endif
+              @if($t->sticky == 1) <span class="badge-extra text-bold"><i class="fa fa-thumb-tack text-black" data-toggle="tooltip" title="" data-original-title="{{ trans('common.sticked') }}"></i> {{ trans('common.sticked') }}</span> @endif
+              @if($user->updated_at->getTimestamp() < $t->created_at->getTimestamp()) <span class="badge-extra text-bold"><i class="fa fa-magic text-black" data-toggle="tooltip" title="" data-original-title="{{ trans('common.new') }}"></i> {{ trans('common.new') }}</span> @endif
+              @if($t->highspeed == 1)<span class="badge-extra text-bold"><i class="fa fa-tachometer text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('common.high-speeds') }}"></i> {{ trans('common.high-speeds') }}</span> @endif
               </strong>
                 </li>
               </ul>
