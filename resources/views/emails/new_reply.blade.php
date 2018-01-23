@@ -1,11 +1,11 @@
 @component('mail::message')
-# Your topic: {{ $topic->name }} has a new reply!
+# {{ trans('email.newreply-header') }}: {{ $topic->name }}
 
-**Message:** <a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a> has replied to your topic
+**{{ trans('email.newreply-message') }}:** <a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a> {{ strtolower(trans('email.newreply-replied')) }}
 <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}">{{ $topic->name }}</a>
 
 @component('mail::button', ['url' => route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]), 'color' => 'blue'])
-View It Now
+{{ trans('email.newreply-view') }}
 @endcomponent
 
 @endcomponent

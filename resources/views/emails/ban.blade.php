@@ -1,7 +1,7 @@
 @component('mail::message')
-# You Have Been Banned!
+# {{ trans('email.banned-header') }}!
 
-**Reason:** {{ $ban->ban_reason }}
+**{{ trans('email.ban-reason') }}:** {{ $ban->ban_reason }}
 
-*Thats what you get for not following the rules*
+*{{ trans('email.ban-footer') }}*
 @endcomponent
