@@ -60,6 +60,7 @@
                             @if($t->invalid == "1") <span class='label label-sm label-warning'>INVALID</span> @endif
                             @if($t->bug == "1") <span class='label label-sm label-danger'>BUG</span> @endif
                             @if($t->suggestion == "1") <span class='label label-sm label-primary'>SUGGESTION</span> @endif
+                            @if($t->implemented == "1") <span class='label label-sm label-success'>IMPLEMENTED</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a href="{{ route('profil', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a></td>
                         <td class="f-display-topic-stats">
