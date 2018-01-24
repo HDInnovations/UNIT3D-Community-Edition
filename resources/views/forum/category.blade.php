@@ -34,8 +34,8 @@
                     <tr>
                         <th></th>
                         <th>{{ trans('forum.forum') }}</th>
-                        <th>Stats</th>
-                        <th>Last message</th>
+                        <th>{{ trans('forum.stats') }}</th>
+                        <th>{{ trans('forum.last-message') }}</th>
                     </tr>
                 </thead>
                 <tbody>

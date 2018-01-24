@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-<meta name="description" content="Edit Topic">
+<meta name="description" content="{{ trans('forum.edit-topic') }}">
 @stop
 
 @section('breadcrumb')
@@ -32,14 +32,14 @@
 		<h2><span>{{ trans('forum.edit-topic') }}</span></h2>
 		{{ Form::open(array('route' => array('forum_edit_topic', 'slug' => $topic->slug, 'id' => $topic->id))) }}
 			<div class="form-group">
-                <label for="forum_name">Topic Name</label>
+                <label for="forum_name">{{ trans('forum.topic-name') }}</label>
 				<input id="name" type="text" name="name" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $topic->name }}" required>
 			</div>
 
             <div class="form-group">
-				<label for="forum_id">Forum</label>
+				<label for="forum_id">{{ trans('forum.forum') }}</label>
 				<select name="forum_id" class="form-control">
-                    <option value="{{ $topic->forum_id }}" selected>{{ $topic->forum->name  }} (Current)</option>
+                    <option value="{{ $topic->forum_id }}" selected>{{ $topic->forum->name  }} ({{ trans('forum.current') }})</option>
 					@foreach($categories as $c)
 						<option value="{{ $c->id }}">{{ $c->name }}</option>
 					@endforeach

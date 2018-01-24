@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ Config::get('other.title') . 'Forums' }}">
+<meta name="description" content="{{ Config::get('other.title') }} - {{ trans('forum.forums') }}">
 @stop
 
 
@@ -19,9 +19,9 @@
 
 @section('content')
 <div class="box container">
-<span class="badge-user" style="float: right;"><strong>{{ trans('forum.forums') }}:</strong> {{ $num_forums }} | <strong>Topics:</strong> {{ $num_topics }} | <strong>Posts:</strong> {{ $num_posts }}</span>
+<span class="badge-user" style="float: right;"><strong>{{ trans('forum.forums') }}:</strong> {{ $num_forums }} | <strong>{{ trans('forum.topics') }}:</strong> {{ $num_topics }} | <strong>{{ trans('forum.posts') }}:</strong> {{ $num_posts }}</span>
 {{ Form::open(array('route' => 'forum_search')) }}
-<input type="text" name="name" id="name" placeholder="Topic Name Quick Search" class="form-control">
+<input type="text" name="name" id="name" placeholder="{{ trans('forum.topic-quick-search') }}" class="form-control">
 {{ Form::close() }}
 	<div class="forum-categories">
 		@foreach($categories as $category)
@@ -36,10 +36,10 @@
           <thead class="head">
             <tr>
               <td> </td>
-              <td>NAME</td>
-              <td>POSTS</td>
-              <td>TOPICS</td>
-              <td>LATEST</td>
+              <td>{{ strtoupper(trans('forum.name')) }}</td>
+              <td>{{ strtoupper(trans('forum.posts')) }}</td>
+              <td>{{ strtoupper(trans('forum.topics')) }}</td>
+              <td>{{ strtoupper(trans('forum.latest')) }}</td>
             </tr>
 		       </thead>
 				<tbody>
@@ -53,9 +53,9 @@
             <td>{{ $categoryChild->num_post }}</td>
             <td>{{ $categoryChild->num_topic }}</td>
             <td>
-              <span>Last Post By <i class="fa fa-user"></i> <a href="{{ route('profil', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
+              <span>{{ trans('forum.last-message' }} - {{ strtolower(trans('forum.author')) }} <i class="fa fa-user"></i> <a href="{{ route('profil', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
               <br>
-              <span>In <i class="fa fa-chevron-right"></i><a href="{{ route('forum_topic', array('slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id)) }}"> {{ $categoryChild->last_topic_name }}</a></span>
+              <span>{{ trans('forum.topic' }} <i class="fa fa-chevron-right"></i><a href="{{ route('forum_topic', array('slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id)) }}"> {{ $categoryChild->last_topic_name }}</a></span>
               <br>
               <span><i class="fa fa-clock-o"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>
             </td>
