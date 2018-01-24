@@ -87,7 +87,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent') }}?</h2>
+                <h2><i class="fa fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent')) }}?</h2>
               </div>
 
               <div class="modal-body">
