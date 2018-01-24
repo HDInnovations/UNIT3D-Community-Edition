@@ -79,4 +79,5 @@ return [
     'search-results' => 'Search results',
     'search-results-desc' => 'Please see your results below',
     'permalink' => 'Permalink',
+    'cancel' => 'Cancel',
 ];
