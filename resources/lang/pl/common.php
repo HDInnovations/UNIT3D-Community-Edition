@@ -79,4 +79,5 @@ return [
     'search-results' => 'Wyniki wyszukiwania',
     'search-results-desc' => 'Poniżej znajdziesz wyniki wyszukiwanej frazy',
     'permalink' => 'Bezpośredni odnośnik',
+    'cancel' => 'Anuluj',
 ];
