@@ -5,7 +5,7 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Edit Post In ' . $forum->name }}">
+<meta name="description" content="{{ $forum->name . ' - ' . trans('forum.edit-post') }}">
 @stop
 
 @section('stylesheets')
@@ -49,7 +49,7 @@
 	@endif
 
 	<div class="col-md-12">
-		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} In: {{ $forum->name }}</h2>
+		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}: {{ $forum->name }}</h2>
 		{{ Form::open(array('route' => array('forum_post_edit', 'slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id))) }}
 		{{ csrf_field() }}
 

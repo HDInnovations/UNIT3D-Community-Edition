@@ -7,4 +7,5 @@
 
 return [
     'my-profile' => 'My Profile',
+    'member-since' => 'Member since',
 ];

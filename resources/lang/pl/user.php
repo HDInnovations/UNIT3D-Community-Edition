@@ -7,4 +7,5 @@
 
 return [
     'my-profile' => 'Mój profil',
+    'member-since' => 'Użytkownik od',
 ];
