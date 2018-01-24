@@ -12,6 +12,9 @@
 
 
 ## Table of Contents
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1287d427831a4da8998c76fdea56dfe0)](https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&utm_medium=referral&utm_content=UNIT3D/UNIT3D&utm_campaign=badger)
+
 1. [Introduction](#introduction)
 2. [Some Features](#features)
 3. [Requirements](#requirements)
