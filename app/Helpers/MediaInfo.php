@@ -75,7 +75,7 @@ class MediaInfo
                         switch ($property) {
                             case "complete name":
                             case "completename":
-                                $output['file_name'] = $this->stripPath($value);
+                                $output['file_name'] = self::stripPath($value);
                                 break;
                             case "format":
                                 $output['format'] = $value;
@@ -237,7 +237,7 @@ class MediaInfo
         return $output;
     }
 
-    private function stripPath($string)
+    public static function stripPath($string)
     {
         $string = str_replace("\\", "/", $string);
         $path_parts = pathinfo($string);

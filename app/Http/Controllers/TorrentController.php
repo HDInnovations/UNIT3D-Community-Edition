@@ -44,6 +44,7 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 
 use App\Helpers\TorrentViewHelper;
+use App\Helpers\MediaInfo;
 
 use App\Repositories\FacetedRepository;
 
@@ -175,6 +176,26 @@ class TorrentController extends Controller
         }
     }
 
+    private static function anonymizeMediainfo($mediainfo)
+    {
+        if ($mediainfo === null) {
+            return null;
+        }
+        $complete_name_i = strpos($mediainfo, "Complete name");
+        if ($complete_name_i !== false) {
+            $path_i = strpos($mediainfo, ": ", $complete_name_i);
+            if ($path_i !== false) {
+                $path_i += 2;
+                $end_i = strpos($mediainfo, "\n", $path_i);
+                $path = substr($mediainfo, $path_i, $end_i - $path_i);
+                $new_path = MediaInfo::stripPath($path);
+                return substr_replace($mediainfo, $new_path, $path_i, strlen($path));
+            }
+        }
+
+        return $mediainfo;
+    }
+
     /**
      * Upload A Torrent
      *
@@ -219,11 +240,12 @@ class TorrentController extends Controller
             $category = Category::findOrFail(Request::get('category_id'));
             // Create the torrent (DB)
             $name = Request::get('name');
+            $mediainfo = self::anonymizeMediainfo(Request::get('mediainfo'));
             $torrent = new Torrent([
                 'name' => $name,
                 'slug' => str_slug($name),
                 'description' => Request::get('description'),
-                'mediainfo' => Request::get('mediainfo'),
+                'mediainfo' => $mediainfo,
                 'info_hash' => $info['info_hash'],
                 'file_name' => $fileName,
                 'num_file' => $info['info']['filecount'],
