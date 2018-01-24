@@ -17,7 +17,7 @@
 <div class="well">
     <p class="text-red text-bold">{{ trans('graveyard.guidelines') }}</p>
     <p>
-      {{ trans('graveyard.guidelines-content') }}
+      {!! trans('graveyard.guidelines-content') !!}
     </p>
   </div>
 </div>
@@ -72,7 +72,7 @@
             @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $d->id)->first(); @endphp
             @if(!$resurrected)
             <button data-toggle="modal" data-target="#resurrect-{{ $d->id }}" class="btn btn-sm btn-default">
-              <span class="icon">@emojione(':zombie:') {{ strtolower(trans('graveyard.ressurect')) }}</span>
+              <span class="icon">@emojione(':zombie:') {{ trans('graveyard.ressurect') }}</span>
             </button>
             @else
             <button class="btn btn-sm btn-info" disabled>
@@ -95,7 +95,7 @@
                 <p class="text-center text-bold">{{ trans('graveyard.howto') }}</p>
                 <br>
                   <center>
-                    <p>{{ trans('graveyard.howto-desc1', ['name' => $d->name]) }}
+                    <p>{!! trans('graveyard.howto-desc1', ['name' => $d->name]) !!}
                       <span class="text-red text-bold">@if(!$history) 0 @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }} @endif</span> {{ strtolower(trans('graveyard.howto-hits')) }}
                       <span class="text-red text-bold">@if(!$history) {{ App\Helpers\StringHelper::timeElapsed($time) }} @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime + $time) }} @endif</span> {{ strtolower(trans('graveyard.howto-desc2')) }}
                       <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ $tokens }} {{ trans('torrent.freeleech') }} Token(s)!</span></p>
