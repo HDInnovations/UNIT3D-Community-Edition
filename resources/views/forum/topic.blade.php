@@ -65,7 +65,7 @@
               </a>
             <p><span class="badge-user text-bold" style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i class="{{ $p->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span></p>
             <p class="pre">{{ $p->user->title }}</p>
-            <p>{{ trans('forum.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
+            <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
             @if(Auth::check() && (Auth::user()->group->is_modo || $p->user_id == Auth::user()->id) && $topic->state == 'open')
             <button id="quote" class="btn btn-xs btn-xxs btn-info">{{ trans('forum.quote') }}</button>
