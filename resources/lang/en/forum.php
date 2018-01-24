@@ -53,4 +53,5 @@ return [
     'pin' => 'Pin',
     'unpin' => 'Unpin',
     'label-system' => 'Label system',
+	'permalink' => 'Permalink'
 ];
