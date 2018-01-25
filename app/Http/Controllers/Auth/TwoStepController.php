@@ -132,14 +132,15 @@ class TwoStepController extends Controller
 
         if (!$sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
-        } else {
-            $timeBuffer = config('auth.TwoStepTimeResetBufferSeconds');
-            $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
-            if ($now->gt($timeAllowedToSendCode)) {
-                $this->sendVerificationCodeNotification($twoStepAuth);
-                $twoStepAuth->requestDate = new Carbon();
-                $twoStepAuth->save();
-            }
+        }
+
+        $timeBuffer = config('auth.TwoStepTimeResetBufferSeconds');
+        $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
+
+        if ($now->gt($timeAllowedToSendCode)) {
+            $this->sendVerificationCodeNotification($twoStepAuth);
+            $twoStepAuth->requestDate = new Carbon();
+            $twoStepAuth->save();
         }
 
         return View('auth.twostep-verification')->with($data);
