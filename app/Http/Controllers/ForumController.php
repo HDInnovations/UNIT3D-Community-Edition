@@ -181,7 +181,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if ($category->getPermission()->reply_topic != true) {
+        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !Auth::user()->group->is_modo)) {
             return Redirect::route('forum_index')->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
         }
 
