@@ -109,4 +109,32 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Authentication Enabled
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepEnabled' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Email Settings
+    |--------------------------------------------------------------------------
+    */
+    
+    'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+    'verificationEmailFromName' => ' 2-Step Verification',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Timings Settings
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepExceededCount'             => 3,
+    'TwoStepExceededCountdownMinutes'  => 1440,
+    'TwoStepVerifiedLifetimeMinutes'   => 360,
+    'TwoStepTimeResetBufferSeconds'    => 360,
+
 ];
