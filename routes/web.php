@@ -275,18 +275,10 @@ Route::group(['middleware' => 'language'], function () {
 
 /*
 |------------------------------------------
-| Forums Route Redirect
-|------------------------------------------
-*/
-    Route::get('/forums', function () {
-        return redirect('/community');
-    });
-/*
-|------------------------------------------
 | Community Routes Group (when authorized)
 |------------------------------------------
 */
-    Route::group(['prefix' => 'community', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => 'auth'], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
         // Search Forums
