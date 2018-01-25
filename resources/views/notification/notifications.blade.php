@@ -17,7 +17,10 @@
 			</div>
 		</div>
         <div class="table-responsive">
-          <div class="pull-right"><a href="{{ route('massRead_notifications') }}"><button type="button" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Mark All As Read"><i class="fa fa-eye"></i> Mark All Read</button></a></div>
+          <div class="pull-right">
+              <a href="{{ route('massRead_notifications') }}"><button type="button" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Mark All As Read"><i class="fa fa-eye"></i> Mark All Read</button></a>
+              <a href="{{ route('delete_notifications') }}"><button type="button" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Delete All Notifications"><i class="fa fa-times"></i> Delete All</button></a>
+          </div>
           <table class="table table-condensed table-striped table-bordered">
             <thead>
               <tr>

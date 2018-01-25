@@ -35,4 +35,10 @@ class NotificationController extends Controller
         Auth::user()->notifications()->findOrFail($id)->delete();
         return Redirect::back()->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
     }
+
+    public function deleteAll()
+    {
+        Auth::user()->notifications()->delete();
+        return Redirect::back()->with(Toastr::success('All Notifications Deleted!', 'Yay!', ['options']));
+    }
 }
