@@ -13,6 +13,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Topic extends Model
 {
@@ -44,6 +45,15 @@ class Topic extends Model
     public function posts()
     {
         return $this->hasMany(\App\Post::class);
+    }
+
+    public function viewable()
+    {
+        if (Auth::user()->group->is_modo) {
+            return true;
+        }
+
+        return $this->forum->getPermission()->read_topic;
     }
 
     public function postNumberFromId($searchId)
