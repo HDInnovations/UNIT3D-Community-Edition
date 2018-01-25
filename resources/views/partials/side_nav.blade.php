@@ -99,13 +99,13 @@
         <span class="selected"></span>
       </a>
     </li>
-    <li>
+    {{--<li>
       <a href="{{ route('rss', array('passkey' => Auth::user()->passkey)) }}">
         <i class="livicon" data-name="rss" data-c="orange" data-hc="orange" data-size="18" data-loop="true"></i>
         <span class="menu-text">{{ trans('torrent.rss') }}</span>
         <span class="selected"></span>
       </a>
-    </li>
+    </li>--}}
     @if(Auth::user()->group->is_modo)
     <li>
       <a href="{{ route('staff_dashboard') }}">

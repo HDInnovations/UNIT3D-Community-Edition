@@ -55,14 +55,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
 
         // RSS
-        Route::get('/rss/{passkey}', function () {
-            return abort(307);
-        })->name('rss');
         //Route::get('/torrents/rss/{passkey}', 'RssController@getData')->name('rss');
-
-        Route::get('/rss/{passkey}/download/{id}', function () {
-            return abort(307);
-        })->name('rssDownload');
         //Route::get('/rss/{passkey}/download/{id}','RssController@download')->name('rssDownload');
     });
 
