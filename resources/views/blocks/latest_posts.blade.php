@@ -16,7 +16,7 @@
         </thead>
         <tbody>
           @foreach($posts as $p)
-          @if ($p->viewable())
+          @if ($p->topic->viewable())
           <tr class="">
             <td><a href="{{ route('forum_topic', array('slug' => $p->topic->slug, 'id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">{{ preg_replace('#\[[^\]]+\]#', '', str_limit($p->content), 75) }}...</a></td>
             <td>{{ $p->topic->name }}</td>
