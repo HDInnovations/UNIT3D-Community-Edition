@@ -13,6 +13,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use App\Helpers\Bbcode;
 
 /**
@@ -102,6 +103,15 @@ class Post extends Model
         }
 
         return $trimmed_text;
+    }
+
+    public function viewable()
+    {
+        if (Auth::user()->group->is_modo) {
+            return true;
+        }
+
+        return $this->topic->forum->getPermission()->read_topic;
     }
 
     public function getPostNumber()
