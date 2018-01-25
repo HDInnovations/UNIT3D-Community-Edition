@@ -78,6 +78,5 @@ return [
     'no-result' => 'Brak odpowiadających wyników w bazie danych',
     'search-results' => 'Wyniki wyszukiwania',
     'search-results-desc' => 'Poniżej znajdziesz wyniki wyszukiwanej frazy',
-    'permalink' => 'Bezpośredni odnośnik',
     'cancel' => 'Anuluj',
 ];

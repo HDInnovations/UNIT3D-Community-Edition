@@ -53,4 +53,5 @@ return [
     'pin' => 'Przypnij',
     'unpin' => 'Odepnij',
     'label-system' => 'System etykiet',
+    'permalink' => 'Bezpośredni odnośnik',
 ];
