@@ -64,7 +64,7 @@
           var timer;
 
           function formatUnit(text, v) {
-              let suffix = "s";
+              let suffix = "{{ trans('common.plural-suffix') }}";
               if (v === 1) {
                   suffix = "";
               }
@@ -77,7 +77,7 @@
             if (distance < 0) {
 
               clearInterval(timer);
-              document.getElementById(id).innerHTML = 'EXPIRED!';
+              document.getElementById(id).innerHTML = '{{ strtoupper(trans('common.expired')) }}!';
 
               return;
             }
@@ -86,10 +86,10 @@
             var minutes = Math.floor((distance % _hour) / _minute);
             var seconds = Math.floor((distance % _minute) / _second);
 
-            document.getElementById(id).innerHTML = formatUnit("day", days) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('hour', hours) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('minute', minutes) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('second', seconds);
+            document.getElementById(id).innerHTML = formatUnit("{{ strtolower(trans('common.day')) }}", days) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.hour')) }}', hours) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.minute')) }}', minutes) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.second')) }}', seconds);
           }
 
           timer = setInterval(showRemaining, 1000);
@@ -100,8 +100,8 @@
       @if(Session::has('achievement'))
       <script type="text/javascript">
         swal({
-          title: 'Awesome !',
-          text: 'You Unlocked "{{Session::get('achievement')}}" Achievment',
+          title: '{{ trans('common.achievement-title') }}!',
+          text: '{{ trans('common.achievement-unlocked', ['name' => Session::get('achievement')]) }}',
           type: 'success'
         });
       </script>
