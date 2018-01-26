@@ -859,7 +859,7 @@ class TorrentController extends Controller
         $user = Auth::user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $message = Request::get('message');
-        if ($user->group->is_modo || $user->id == $torrent->user_id) {
+        if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
             Peer::where('torrent_id', '=', $id)->delete();
             History::where('info_hash', '=', $torrent->info_hash)->delete();
             Warning::where('id', '=', $id)->delete();
