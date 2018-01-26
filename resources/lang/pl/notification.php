@@ -13,7 +13,7 @@ return [
     'title' => 'Tytuł',
     'message' => 'Treść',
     'date' => 'Data',
-    'Read' => 'Przeczytane',
+    'read' => 'Przeczytane',
     'delete' => 'Skasuj',
     'no-notifications' => 'Nie znaleziono żadnych powiadomień',
 ];

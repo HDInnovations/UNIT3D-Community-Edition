@@ -13,7 +13,7 @@ return [
     'title' => 'Title',
     'message' => 'Message',
     'date' => 'Date',
-    'Read' => 'Read',
+    'read' => 'Read',
     'delete' => 'Delete',
     'no-notifications' => 'There are no notifications found',
 ];
