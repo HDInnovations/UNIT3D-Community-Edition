@@ -38,10 +38,9 @@ trait TwoStep
 
             if ($twoStepAuthStatus->authStatus !== true) {
                 return false;
-            } else {
-                if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                    return false;
-                }
+            }
+            if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                return false;
             }
 
             return true;
