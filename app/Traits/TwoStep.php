@@ -28,26 +28,22 @@ trait TwoStep
      *
      * @return boolean
      */
-    public function twoStepVerification($request)
-    {
-        $user = Auth::User();
-
-        if ($user) {
-
-            $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
-
-            if ($twoStepAuthStatus->authStatus !== true) {
-                return false;
-            }
-            if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                return false;
-            }
-
-            return true;
-        }
-
-        return true;
-    }
+     public function twoStepVerification($request)
+     {
+         $user = Auth::User();
+         if ($user) {
+             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
+             if ($twoStepAuthStatus->authStatus !== true) {
+                 return false;
+             } else {
+                 if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                     return false;
+                 }
+             }
+             return true;
+         }
+         return true;
+     }
 
     /**
      * Check time since user was last verified and take apprpriate action

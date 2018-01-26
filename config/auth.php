@@ -122,7 +122,7 @@ return [
     | Verification Email Settings
     |--------------------------------------------------------------------------
     */
-    
+
     'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
     'verificationEmailFromName' => ' 2-Step Verification',
 
@@ -133,8 +133,8 @@ return [
     */
 
     'TwoStepExceededCount'             => 3,
-    'TwoStepExceededCountdownMinutes'  => 1440,
-    'TwoStepVerifiedLifetimeMinutes'   => 360,
-    'TwoStepTimeResetBufferSeconds'    => 360,
+    'TwoStepExceededCountdownMinutes'  => 60 * 24,
+    'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
+    'TwoStepTimeResetBufferSeconds'    => 6 * 60,
 
 ];

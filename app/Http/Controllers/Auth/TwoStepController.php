@@ -132,15 +132,14 @@ class TwoStepController extends Controller
 
         if (!$sentTimestamp) {
             $this->sendVerificationCodeNotification($twoStepAuth);
-        }
-
-        $timeBuffer = config('auth.TwoStepTimeResetBufferSeconds');
-        $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
-
-        if ($now->gt($timeAllowedToSendCode)) {
-            $this->sendVerificationCodeNotification($twoStepAuth);
-            $twoStepAuth->requestDate = new Carbon();
-            $twoStepAuth->save();
+        } else {
+            $timeBuffer = config('laravel2step.laravel2stepTimeResetBufferSeconds');
+            $timeAllowedToSendCode = $sentTimestamp->addSeconds($timeBuffer);
+            if ($now->gt($timeAllowedToSendCode)) {
+                $this->sendVerificationCodeNotification($twoStepAuth);
+                $twoStepAuth->requestDate = new Carbon();
+                $twoStepAuth->save();
+            }
         }
 
         return View('auth.twostep-verification')->with($data);
@@ -192,8 +191,10 @@ class TwoStepController extends Controller
                 'nextUri' => session('nextUri', '/'),
                 'message' => trans('auth.titlePassed'),
             ];
-
+            
             return response()->json($returnData, 200);
+        } else {
+            abort(404);
         }
     }
 

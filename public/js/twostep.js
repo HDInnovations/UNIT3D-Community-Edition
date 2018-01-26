@@ -40,7 +40,7 @@
       }
 
     });
-    // Check for cop and paste
+    // Check for copy and paste
     $("input").on("input", function() {
       var regexp = /[^a-zA-Z0-9]/g;
       if ($(this).val().match(regexp)) {
