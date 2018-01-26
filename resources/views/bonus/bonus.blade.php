@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>
-                    <strong>Old {{ trans('torrent.torrents') }}</strong><br>
+                    <strong>{{ trans('torrent.old-torrent') }}</strong><br>
                     <small>{{ trans('common.older-than') }} 6 {{ strtolower(trans('common.months')) }}</small>
                 </td>
                 <td><strong>{{ $old }} x 1</strong></td>

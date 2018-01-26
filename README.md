@@ -81,8 +81,9 @@ Traffic: Unlimited
 7. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 8. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
 9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab
+10. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times.
 10. Go to your sites URL.
-11. Login with the username `UNIT3D` and the password `UNIT3D`. (This is the default owner account.)
+11. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
 12. Enjoy using UNIT3D.
 
 ## <a name="packages"></a> Packages
@@ -111,12 +112,14 @@ UNIT3D is open-sourced software licensed under the [GNU General Public License v
 ## <a name="screenshots"></a> Screenshots
 
 <p align="center">
-Torrent Details (Light Theme)
-    <img src="https://i.imgur.com/l8DbExT.gif" alt="Torrent Details Page">
+User Profile (Galactic Theme)
+    <img src="https://i.imgur.com/NyLolmJ.gif" alt="User Profile Page">
 User Profile (Light Theme)
     <img src="https://i.imgur.com/94XCo3Q.gif" alt="User Profile Page">
 BON Store (Dark Theme)
     <img src="https://i.imgur.com/7PPEiNT.gif" alt="BON Store Page">
+Upload Page (Blur Theme)
+    <img src="https://i.imgur.com/U26SAAK.gif" alt="Upload Page">
 </p>
 
 ## <a name="homestead"></a> Homestead

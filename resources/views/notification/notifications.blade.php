@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('get_notifications') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Notifications</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('notification.notifications') }}</span>
     </a>
 </li>
 @stop
@@ -13,22 +13,22 @@
 	<div class="col-md-12 page">
 		<div class="header gradient teal">
 			<div class="inner_content">
-				<div class="page-title"><h1><i class="fa fa-bell-o"></i>Notifications</h1></div>
+				<div class="page-title"><h1><i class="fa fa-bell-o"></i>{{ trans('notification.notifications') }}</h1></div>
 			</div>
 		</div>
         <div class="table-responsive">
           <div class="pull-right">
-              <a href="{{ route('massRead_notifications') }}"><button type="button" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="Mark All As Read"><i class="fa fa-eye"></i> Mark All Read</button></a>
-              <a href="{{ route('delete_notifications') }}"><button type="button" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="Delete All Notifications"><i class="fa fa-times"></i> Delete All</button></a>
+              <a href="{{ route('massRead_notifications') }}"><button type="button" class="btn btn btn-success" data-toggle="tooltip" title="" data-original-title="{{ trans('notification.mark-all-read') }}"><i class="fa fa-eye"></i> {{ trans('notification.mark-all-read') }}</button></a>
+              <a href="{{ route('delete_notifications') }}"><button type="button" class="btn btn btn-danger" data-toggle="tooltip" title="" data-original-title="{{ trans('notification.delete-all') }}"><i class="fa fa-times"></i> {{ trans('notification.delete-all') }}</button></a>
           </div>
           <table class="table table-condensed table-striped table-bordered">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Message</th>
-                <th>Date</th>
-                <th>Read</th>
-                <th>Delete</th>
+                <th>{{ trans('notification.title') }}</th>
+                <th>{{ trans('notification.message') }}</th>
+                <th>{{ trans('notification.date') }}</th>
+                <th>{{ trans('notification.read') }}</th>
+                <th>{{ trans('notification.delete') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -46,14 +46,14 @@
                     <span class="notification-ago">{{ $n->created_at->diffForHumans() }}</span>
                 </td>
                 <td>
-                    <a href="{{ route('read_notification', array('id' => $n->id)) }}"><button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip" title="" data-original-title="Mark As Read" @if($n->read_at != null) disabled @endif><i class="fa fa-eye"></i></button></a>
+                    <a href="{{ route('read_notification', array('id' => $n->id)) }}"><button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip" title="" data-original-title="{{ trans('notification.mark-read') }}" @if($n->read_at != null) disabled @endif><i class="fa fa-eye"></i></button></a>
                 </td>
                 <td>
-                    <a href="{{ route('delete_notification', array('id' => $n->id)) }}"><button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-times"></i></button></a>
+                    <a href="{{ route('delete_notification', array('id' => $n->id)) }}"><button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip" title="" data-original-title="{{ trans('notification.delete') }}"><i class="fa fa-times"></i></button></a>
                 </td>
               </tr>
               @empty
-                  There are no notifications found.
+                  {{ trans('notification.no-notifications') }}.
               @endforelse
             </tbody>
           </table>
