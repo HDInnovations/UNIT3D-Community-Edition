@@ -23,6 +23,7 @@
 8. [License](#license)
 9. [Screenshots](#screenshots)
 10. [Homestead](#homestead)
+11. [Patreon](#patreon)
 
 
 ## <a name="introduction"></a> Introduction
@@ -160,3 +161,11 @@ databases:
 8. run `php artisan migrate:refresh --seed`
 9. visit <a href="http://unit3d.site">unit3d.site</a>
 10. Login u: `UNIT3D` p: `UNIT3D`
+
+## <a name="patreon"></a> Support me on patreon
+
+You can support me on patreon if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane.
+
+<p align="center">
+<a href="https://www.patreon.com/UNIT3D"><img src="https://i.imgur.com/ZTLPSt5.png"></a>
+</p>
