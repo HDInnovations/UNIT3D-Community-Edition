@@ -501,7 +501,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
           <img src="{{ url('img/deadpool.png') }}" width="902" height="298">
 
           <h3>{{ trans('page.aboutus-welcome') }} {{ Config::get('other.title') }}</h3>
-          <p>{! trans('page.aboutus-welcome-desc', ['title' => Config::get('other.title')]) !}</p>
+          <p>{!! trans('page.aboutus-welcome-desc', ['title' => Config::get('other.title')]) !!}</p>
 
           <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-advantage') }} {{ Config::get('other.title') }} <i class="fa fa-globe" aria-hidden="true"></i></h4>
           <div class="wrapper">
@@ -512,7 +512,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
             <div>
               <div>2</div>
-              <p>{! trans('page.aboutus-advantage2') !}</p>
+              <p>{!! trans('page.aboutus-advantage2') !!}</p>
             </div>
 
             <div>
