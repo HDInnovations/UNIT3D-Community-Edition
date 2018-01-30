@@ -6,7 +6,7 @@
 */
 
 return [
-    'aboutus-header' => 'Witaj na pokładzie',
+    'aboutus-header' => 'Witaj',
 	'aboutus-welcome' => 'Porozmawiajmy o',
     'aboutus-welcome-desc' => ':title jest <em>tworzoną przez społeczność</em> filmową bazą danych. Każdy fragment tej strony jest tworzony przez naszą społeczność istniejącą od 2018 roku. :title stawia nacisk na jakość HD materiałów, aktywność użytkowników, funkcjonalny i bezpieczny kod źródłowy oraz przyjazną załogę.',
     'aboutus-advantage' => 'Założenia',
