@@ -19,13 +19,13 @@ return [
     'aboutus-rules1' => 'Bądź aktywnym członkiem społeczności! To znaczy, że warto brać udział w dyskusjach, dodawać wartościowe wstawki i pomagać innym użytkownikom.',
     'aboutus-rules2' => 'Zapoznaj się z zasadami i ich przestrzegaj!',
     'aboutus-rules3' => 'Proponuj zmiany i ulepszenia! Chcemy tworzyć :title jeszcze lepszym każdego dnia. Być może nie każda sugestia będzie wdrożona, ale jej przedstawienie na prawdę będzie mile widziane.',
-    
+
     'blacklist-desc' => 'Poniższe przeglądarki i klienci BitTorrent są niedozwolonymi na :title',
     'blacklist-clients' => 'Klienci',
     'blacklist-btclient' => 'Klient BitTorrent',
     'blacklist-browsers' => 'Przeglądarki',
     'blacklist-webbrowser' => 'Przeglądarka',
-    
+
     'staff-group' => 'Grupa',
     'staff-title' => 'Tytuł',
 ];

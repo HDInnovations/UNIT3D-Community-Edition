@@ -19,13 +19,13 @@ return [
     'aboutus-rules1' => 'To be an active member of the community! This means to join in conversations productively, add approved content and help other users if you are able.',
     'aboutus-rules2' => 'To read the rules in full and please respect them!',
     'aboutus-rules3' => 'Make suggestions! We are striving to make :title better each day. We aren\'t saying that every suggestion will be used, but it never hurts to see new ideas.',
-    
+
     'blacklist-desc' => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
     'blacklist-clients' => 'Clients',
     'blacklist-btclient' => 'BitTorrent Client',
     'blacklist-browsers' => 'Browsers',
     'blacklist-webbrowser' => 'Web Browser',
-    
+
     'staff-group' => 'Group',
     'staff-title' => 'Title',
 ];
