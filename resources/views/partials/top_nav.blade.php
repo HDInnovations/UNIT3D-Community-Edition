@@ -11,7 +11,7 @@
         <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-envelope-o text-blue"></i>
           @if($pm > 0)
-          <span class="badge badge-danger">{{ $pm }}</span>
+          <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
           @endif
         </a>
       </li>
@@ -20,7 +20,7 @@
         <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-bell-o"></i>
           @if(Auth::user()->unreadNotifications->count() > 0)
-          <span class="badge badge-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
+          <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
           @endif
         </a>
       </li>
@@ -37,7 +37,7 @@
           <i class="fa fa-tasks text-red"></i>
           @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
           @if($modder > 0)
-          <span class="badge badge-danger">{{ $modder }}</span>
+          <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
           @endif
         </a>
         <ul class="dropdown-menu ">
