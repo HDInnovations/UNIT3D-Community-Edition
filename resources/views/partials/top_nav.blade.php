@@ -58,12 +58,12 @@
       </li>
       @endif
 
-      {{--<li>
+     <li>
         {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','role' => 'form','class'=>'hoe-searchbar']) }}
-        {{ Form::text('search',null,['id'=>'search','placeholder'=>'Quick Search...','class'=>'form-control']) }}
+        {{ Form::text('search',null,['id'=>'name','placeholder'=>'Quick Search...','class'=>'form-control']) }}
         <span class="search-icon"><i class="fa fa-search"></i></span>
         {{ Form::close() }}
-    </li>--}}
+    </li>
     </ul>
 
     <ul class="right-navbar">
