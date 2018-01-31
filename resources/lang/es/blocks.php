@@ -1,30 +1,29 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Blocks Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Blocks Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     // Chat
-	'chatbox' => 'Chat',
-
+    'chatbox' => 'Chat',
+    
     // Featured Torrents
-	'featured-torrents' => 'Torrents Destacados',
-
+    'featured-torrents' => 'Torrents Destacados',
+    
     // Latest Torrents
-	'latest-torrents' => 'Últimos Torrents',
-
+    'latest-torrents' => 'Últimos Torrents',
+    
     // Latest Posts
-	'latest-posts' => 'Últimos Mensajes',
-
+    'latest-posts' => 'Últimos Mensajes',
+    
     // Latest Topics
-	'latest-topics' => 'Últimos Temas',
-
+    'latest-topics' => 'Últimos Temas',
+    
     // Users Online
-	'users-online' => 'Usuarios En Línea',
-
+    'users-online' => 'Usuarios En Línea',
+    
     // News/Articles
-	'new-news' => 'Nuevas Noticias',
-    'check-news' => 'Noticias (Revisar Diariamente)',
+    'new-news' => 'Nuevas Noticias',
+    'check-news' => 'Noticias (Revisar Diariamente)'
 ];

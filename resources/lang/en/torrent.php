@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Torrent Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Torrent Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'bookmark' => 'Bookmark',
     'bookmarks' => 'Bookmarks',
@@ -62,5 +61,5 @@ return [
     'delete-bookmark' => 'Delete this bookmark',
     'no-bookmarks' => 'There are no bookmarks found.',
     'my-active-torrents' => 'My active torrents',
-    'hit-and-runs' => 'Hit and Run counts',
+    'hit-and-runs' => 'Hit and Run counts'
 ];

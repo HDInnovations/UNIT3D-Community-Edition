@@ -1,12 +1,11 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Forums Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Forums Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'forum' => 'Forum',
+    'forum' => 'Forum',
     'forums' => 'Fora',
     'topic' => 'Wątek',
     'topics' => 'Wątki',
@@ -14,15 +13,15 @@ return [
     'posts' => 'Posty',
     'author' => 'Autor',
     'created' => 'Utworzone',
-	'replies' => 'Odpowiedzi',
-	'views' => 'Wyświetlenia',
-	'meta-category' => 'Fora w kategorii',
-	'create-new-topic' => 'Stwórz nowy wątek',
-	'topic-title' => 'Tytuł wątku',
-	'send-new-topic' => 'Zapisz wątek',
-	'read-topic' => 'Przeczytaj wątek',
-	'mark-as-resolved' => 'Zablokuj wątek',
-	'delete-topic' => 'Usuń wątek',
+    'replies' => 'Odpowiedzi',
+    'views' => 'Wyświetlenia',
+    'meta-category' => 'Fora w kategorii',
+    'create-new-topic' => 'Stwórz nowy wątek',
+    'topic-title' => 'Tytuł wątku',
+    'send-new-topic' => 'Zapisz wątek',
+    'read-topic' => 'Przeczytaj wątek',
+    'mark-as-resolved' => 'Zablokuj wątek',
+    'delete-topic' => 'Usuń wątek',
     'display-forum' => 'Pokaż wątki w ',
     'edit-topic' => 'Edytuj wątek',
     'stats' => 'Statystyki',
@@ -53,5 +52,5 @@ return [
     'pin' => 'Przypnij',
     'unpin' => 'Odepnij',
     'label-system' => 'System etykiet',
-    'permalink' => 'Bezpośredni odnośnik',
+    'permalink' => 'Bezpośredni odnośnik'
 ];

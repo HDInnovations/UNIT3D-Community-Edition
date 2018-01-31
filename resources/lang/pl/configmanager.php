@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Config Manager Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Config Manager Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'title' => 'Menadżer konfiguracji',
     'info_choose' => 'Wybierz plik do edycji',
@@ -13,13 +12,13 @@ return [
     'header' => [
         'key' => 'Klucz',
         'value' => 'Wartość',
-        'actions' => 'Akcja',
+        'actions' => 'Akcja'
     ],
     'actions' => [
         'edit' => 'Edycja',
         'confirm' => 'Zapisz nowy klucz',
         'save' => 'Zapisz!',
-        'cancel' => 'Anuluj',
+        'cancel' => 'Anuluj'
     ],
-    'sure' => 'Na pewno?',
+    'sure' => 'Na pewno?'
 ];

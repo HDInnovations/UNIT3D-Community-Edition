@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Authentication Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Authentication Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
@@ -21,5 +20,5 @@ return [
     'login-now-on' => 'Login now on',
     'no-a-member' => 'Not yet member ? Signup in less than 30s.',
     'user-icon' => 'User icon',
-    'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
+    'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!'
 ];

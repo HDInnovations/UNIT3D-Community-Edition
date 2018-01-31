@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => '전체',
     'emergency' => '긴급',
@@ -9,5 +8,5 @@ return [
     'warning' => '주의',
     'notice' => '알림',
     'info' => '정보',
-    'debug' => '디버그',
+    'debug' => '디버그'
 ];

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Authentication Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Authentication Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'failed' => 'Ihre Zugangsdaten stimmen nicht mit unseren Unterlagen überein.',
     'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es nochmal in :seconds Sekunden.',
@@ -15,5 +14,5 @@ return [
     'password' => 'Passwort',
     'lost-password' => 'Passwort vergessen?',
     'recover-my-password' => 'Passwort zurücksetzen',
-    'remember-me' => 'Angemeldet bleiben',
+    'remember-me' => 'Angemeldet bleiben'
 ];

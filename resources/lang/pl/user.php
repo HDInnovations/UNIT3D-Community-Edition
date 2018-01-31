@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| User Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | User Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'my-profile' => 'Mój profil',
     'member-since' => 'Użytkownik od',
@@ -18,5 +17,5 @@ return [
     'top-seedtime' => 'Top czas seedowania',
     
     'my-bonus-points' => 'Moje punkty bonusowe',
-    'my-fl-tokens' => 'Moje tokeny Freeleech',
+    'my-fl-tokens' => 'Moje tokeny Freeleech'
 ];

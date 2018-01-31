@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Polls Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Polls Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'poll' => 'Encuesta',
     'polls' => 'Encuestas',
@@ -15,5 +14,5 @@ return [
     'multiple-choice' => 'Esta es una encuesta de elección múltiple. Selecciona todas las respuestas que desees.',
     'ip-checking' => 'Esta encuesta revisa las votaciones duplicadas. Solo puedes votar una vez.',
     'vote' => 'Votar',
-    'votes' => 'Votos',
+    'votes' => 'Votos'
 ];

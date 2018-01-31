@@ -1,13 +1,12 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Page Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Page Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'aboutus-header' => 'Witaj',
-	'aboutus-welcome' => 'Porozmawiajmy o',
+    'aboutus-welcome' => 'Porozmawiajmy o',
     'aboutus-welcome-desc' => ':title jest <em>tworzoną przez społeczność</em> filmową bazą danych. Każdy fragment tej strony jest tworzony przez naszą społeczność istniejącą od 2018 roku. :title stawia nacisk na jakość HD materiałów, aktywność użytkowników, funkcjonalny i bezpieczny kod źródłowy oraz przyjazną załogę.',
     'aboutus-advantage' => 'Założenia',
     'aboutus-advantage1' => 'Mamy świetny zespół użytkowników i załogę, którzy doskonale odnajdują się w świecie filmów HD i wsparciu technicznym.',
@@ -19,13 +18,13 @@ return [
     'aboutus-rules1' => 'Bądź aktywnym członkiem społeczności! To znaczy, że warto brać udział w dyskusjach, dodawać wartościowe wstawki i pomagać innym użytkownikom.',
     'aboutus-rules2' => 'Zapoznaj się z zasadami i ich przestrzegaj!',
     'aboutus-rules3' => 'Proponuj zmiany i ulepszenia! Chcemy tworzyć :title jeszcze lepszym każdego dnia. Być może nie każda sugestia będzie wdrożona, ale jej przedstawienie na prawdę będzie mile widziane.',
-
+    
     'blacklist-desc' => 'Poniższe przeglądarki i klienci BitTorrent są niedozwolonymi na :title',
     'blacklist-clients' => 'Klienci',
     'blacklist-btclient' => 'Klient BitTorrent',
     'blacklist-browsers' => 'Przeglądarki',
     'blacklist-webbrowser' => 'Przeglądarka',
-
+    
     'staff-group' => 'Grupa',
-    'staff-title' => 'Tytuł',
+    'staff-title' => 'Tytuł'
 ];

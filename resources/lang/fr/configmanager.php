@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Cofig Manager Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Cofig Manager Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'title' => 'Gestionnaire de configuration',
     'info_choose' => 'Choisissez un fichier pour commencer à éditer',
@@ -13,13 +12,13 @@ return [
     'header' => [
         'key' => 'Clé',
         'value' => 'Valeur',
-        'actions' => 'Actes',
+        'actions' => 'Actes'
     ],
     'actions' => [
         'edit' => 'Modifier',
         'confirm' => 'Enregistrer la nouvelle clé',
         'save' => 'Sauvegarder!',
-        'cancel' => 'Annuler',
+        'cancel' => 'Annuler'
     ],
-    'sure' => 'Êtes-vous sûr?',
+    'sure' => 'Êtes-vous sûr?'
 ];

@@ -1,12 +1,11 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Notification Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Notification Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'notifications' => 'Notifications',
+    'notifications' => 'Notifications',
     'mark-all-read' => 'Mark all as read',
     'mark-read' => 'Mark as read',
     'delete-all' => 'Delete all notifications',
@@ -15,5 +14,5 @@ return [
     'date' => 'Date',
     'read' => 'Read',
     'delete' => 'Delete',
-    'no-notifications' => 'There are no notifications found',
+    'no-notifications' => 'There are no notifications found'
 ];

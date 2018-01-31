@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Polls Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Polls Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'poll' => 'Umfrage',
     'polls' => 'Umfragen',
@@ -15,5 +14,5 @@ return [
     'multiple-choice' => 'Dies ist eine Multiple-Antworten-Umfrage. Sie können so viele Antworten auswählen wie wie Sie wollen.',
     'ip-checking' => 'Sie können auf diese Umfrage nur einmal antworten!',
     'vote' => 'Stimme',
-    'votes' => 'Stimmen',
+    'votes' => 'Stimmen'
 ];

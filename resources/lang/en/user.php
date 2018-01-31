@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| User Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | User Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'my-profile' => 'My Profile',
     'member-since' => 'Member since',
@@ -18,5 +17,5 @@ return [
     'top-seedtime' => 'Top seedtime',
     
     'my-bonus-points' => 'My bonus points',
-    'my-fl-tokens' => 'My FL tokens',
+    'my-fl-tokens' => 'My FL tokens'
 ];

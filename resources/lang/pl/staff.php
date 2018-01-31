@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Staff Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Staff Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'moderation' => 'Moderatorzy',
     'please-moderate' => 'Proszę sprawdzić ten torrent!',
@@ -42,5 +41,5 @@ return [
     'invites-log' => 'Logi zaproszeń',
     'laravel-log' => 'Logi Laravela',
     'reports-log' => 'Logi raportowań',
-    'warnings-log' => 'Logi ostrzeżeń',
+    'warnings-log' => 'Logi ostrzeżeń'
 ];

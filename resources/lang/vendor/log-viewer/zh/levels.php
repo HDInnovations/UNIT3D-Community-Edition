@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => '全部',
     'emergency' => '危急',
@@ -9,5 +8,5 @@ return [
     'warning' => '警告',
     'notice' => '注意',
     'info' => '信息',
-    'debug' => '调试',
+    'debug' => '调试'
 ];
