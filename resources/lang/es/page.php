@@ -1,13 +1,12 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Page Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Page Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'aboutus-header' => 'Hi there',
-	'aboutus-welcome' => 'Let\'s talk about',
+    'aboutus-welcome' => 'Let\'s talk about',
     'aboutus-welcome-desc' => ':title is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. :title\'s strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly Staff team.',
     'aboutus-advantage' => 'The advantage',
     'aboutus-advantage1' => 'We have experienced members and staff that are well versed in the world of HD video / audio and technical support.',
@@ -19,13 +18,13 @@ return [
     'aboutus-rules1' => 'To be an active member of the community! This means to join in conversations productively, add approved content and help other users if you are able.',
     'aboutus-rules2' => 'To read the rules in full and please respect them!',
     'aboutus-rules3' => 'Make suggestions! We are striving to make :title better each day. We aren\'t saying that every suggestion will be used, but it never hurts to see new ideas.',
-
+    
     'blacklist-desc' => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
     'blacklist-clients' => 'Clients',
     'blacklist-btclient' => 'BitTorrent Client',
     'blacklist-browsers' => 'Browsers',
     'blacklist-webbrowser' => 'Web Browser',
-
+    
     'staff-group' => 'Group',
-    'staff-title' => 'Title',
+    'staff-title' => 'Title'
 ];

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Private Message Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'unread' => 'Nieprzeczytane',
     'read' => 'Przeczytaj',
@@ -14,7 +13,7 @@ return [
     'messages' => 'Wiadomości',
     'private' => 'Prywatne',
     'new' => 'Nowa wiadomość',
-    'from' =>'Od',
+    'from' => 'Od',
     'to' => 'Do',
     'sent' => 'Wysłane',
     'sent-at' => 'Wysłane',
@@ -25,5 +24,5 @@ return [
     'send' => 'Wyślij',
     'create' => 'Utwórz',
     'select' => 'Wybierz użytkownika',
-    'mark-all-read' => 'Oznacz wszystkie jako przeczytane',
+    'mark-all-read' => 'Oznacz wszystkie jako przeczytane'
 ];

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Bug Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Bug Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'bug-report' => 'Zgłoś błąd',
     'bug-report-description' => 'Zgłoś błąd na stronie',
@@ -16,5 +15,5 @@ return [
     'priority-description' => 'Proszę wybierać krytyczny prorytet jedynie dla krytycznych przypadków!',
     'low' => 'Niski',
     'high' => 'Wysoki',
-    'very-high' => 'Krytyczny',
+    'very-high' => 'Krytyczny'
 ];

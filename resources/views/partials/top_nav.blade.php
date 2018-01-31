@@ -42,7 +42,7 @@
         </a>
         <ul class="dropdown-menu ">
           <li class="hoe-submenu-label">
-            <h3> {{ trans('staff.you-have') }} <span class="bold">{{ $modder }}  </span>{{ trans('common.pending') }} {{ trans('torrent.torrents') }} <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
+            <h3> {{ trans('staff.you-have') }} <span class="bold">{{ $modder }}  </span>{{ strtolower(trans('common.pending-torrents')) }} <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
           </li>
           <li>
             @php $pending = DB::table('torrents')->where('status', '=', '0')->get(); @endphp
@@ -60,7 +60,7 @@
 
      <li>
         {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','role' => 'form','class'=>'hoe-searchbar']) }}
-        {{ Form::text('search',null,['id'=>'name','placeholder'=>'Quick Search...','class'=>'form-control']) }}
+        {{ Form::text('search',null,['id'=>'name','placeholder'=>trans('common.quick-search') . '...','class'=>'form-control']) }}
         <span class="search-icon"><i class="fa fa-search"></i></span>
         {{ Form::close() }}
     </li>
@@ -78,7 +78,7 @@
             @foreach (App\Language::allowed() as $code => $name)
                 <li class="{{ config('language.flags.li_class') }}">
                     <a href="{{ route('back', ['local' => $code]) }}">
-                        <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">(Active!)</span>@endif
+                        <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">({{ trans('common.active') }}!)</span>@endif
                     </a>
                 </li>
             @endforeach
@@ -97,7 +97,7 @@
         </a>
         <ul class="dropdown-menu ">
           <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
-          <li><a href="{{ route('lock') }}"><i class="fa fa-lock"></i>Lock Account</a></li>
+          <li><a href="{{ route('lock') }}"><i class="fa fa-lock"></i>{{ trans('common.lock-account') }}</a></li>
           <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

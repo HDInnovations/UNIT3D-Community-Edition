@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Authentication Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Authentication Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'failed' => 'Ces informations d identification ne correspondent pas à nos enregistrements.',
     'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans secondes secondes.',
@@ -15,5 +14,5 @@ return [
     'password' => 'Password',
     'lost-password' => 'Forgot Your Password?',
     'recover-my-password' => 'Recover My Password',
-    'remember-me' => 'Remember Me',
+    'remember-me' => 'Remember Me'
 ];

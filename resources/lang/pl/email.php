@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Email Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Email Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'register-header' => 'Cześć! Dziękujemy za rejestrację na',
     'register-code' => 'Aby w pełni aktywować swoje konto kliknij poniższy link',
@@ -36,5 +35,5 @@ return [
     'report-comment' => 'Komentarz',
     'unban-header' => 'Zostałeś odblokowany',
     'unban-reason' => 'Powód',
-    'unban-footer' => 'Sprawa wyjaśniona, wracaj do nas',
+    'unban-footer' => 'Sprawa wyjaśniona, wracaj do nas'
 ];

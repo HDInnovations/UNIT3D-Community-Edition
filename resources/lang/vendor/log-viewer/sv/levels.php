@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => 'Alla',
     'emergency' => 'Akut',
@@ -9,5 +8,5 @@ return [
     'warning' => 'Varning',
     'notice' => 'Notis',
     'info' => 'Information',
-    'debug' => 'Debug',
+    'debug' => 'Debug'
 ];

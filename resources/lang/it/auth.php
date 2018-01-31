@@ -1,10 +1,10 @@
 
 <?php
 /*
-|--------------------------------------------------------------------------
-| Authentication Language Lines
-|--------------------------------------------------------------------------
-*/
+ * |--------------------------------------------------------------------------
+ * | Authentication Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'failed' => 'Queste credenziali non sono presenti nei nostri database.',
     'throttle' => 'Troppi tentativi di accesso. Per favore riprova in :seconds secondi.',
@@ -15,5 +15,5 @@ return [
     'password' => 'Password',
     'lost-password' => 'Hai dimenticato la tua Password?',
     'recover-my-password' => 'Recupera la Password',
-    'remember-me' => 'Ricordami',
+    'remember-me' => 'Ricordami'
 ];

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Cofig Manager Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Cofig Manager Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'title' => 'Yapılandırma Yöneticisi',
     'info_choose' => 'Düzenlemeye başlamak için bir dosya seç',
@@ -13,13 +12,13 @@ return [
     'header' => [
         'key' => 'Anahtar',
         'value' => 'Değer',
-        'actions' => 'Hareketler',
+        'actions' => 'Hareketler'
     ],
     'actions' => [
         'edit' => 'Düzenle',
         'confirm' => 'Yeni Anahtarı Kaydet',
         'save' => 'Kaydet!',
-        'cancel' => 'İptal',
+        'cancel' => 'İptal'
     ],
-    'sure' => 'Emin misin?',
+    'sure' => 'Emin misin?'
 ];

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Torrent Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Torrent Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'bookmark' => 'Zakładka',
     'bookmarks' => 'Zakładki',
@@ -22,6 +21,8 @@ return [
     'leecher' => 'Leeche',
     'seeders' => 'Seeder(ów)',
     'leechers' => 'Leech(ów)',
+    'seeding' => 'Seedowanie',
+    'leeching' => 'Leechowanie',
     'rss' => 'RSS',
     'name' => 'Nazwa',
     'age' => 'Wiek',
@@ -39,6 +40,9 @@ return [
     'stream-optimized' => 'Można streamować',
     'top-seeded' => 'Top seedowane',
     'top-leeched' => 'Top leechowane',
+    'top-completed' => 'Top ukończone',
+    'top-dying' => 'Top umierające',
+    'top-dead' => 'Top umarłe',
     'dying-torrents' => 'Umierające torrenty',
     'dead-torrents' => 'Umarłe torrenty',
     'dying-torrent' => 'Umierający torrent',
@@ -56,4 +60,6 @@ return [
     'downloaded' => 'Pobrania',
     'delete-bookmark' => 'Skasuj zakładkę',
     'no-bookmarks' => 'Nie znaleziono żadnych zakładek.',
+    'my-active-torrents' => 'Moje aktywne torrenty',
+    'hit-and-runs' => 'Hit and Run - licznik'
 ];

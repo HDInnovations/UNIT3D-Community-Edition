@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => 'Összes',
     'emergency' => 'Vészhelyzet',
@@ -9,5 +8,5 @@ return [
     'warning' => 'Figyelmeztetés',
     'notice' => 'Értesítés',
     'info' => 'Információ',
-    'debug' => 'Hibakeresés',
+    'debug' => 'Hibakeresés'
 ];

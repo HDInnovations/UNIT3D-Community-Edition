@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Private Message Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'unread' => 'Non lu',
     'read' => 'Lis',
@@ -14,15 +13,15 @@ return [
     'messages' => 'Messages',
     'private' => 'Privé',
     'new' => 'Nouveau Message',
-    'from' =>'De',
+    'from' => 'De',
     'to' => 'À',
     'sent' => 'Envoyé',
     'sent-at' => 'Envoyé à',
-    'subject' =>'Assujettir',
-    'recieved-at' =>'Reçu à',
+    'subject' => 'Assujettir',
+    'recieved-at' => 'Reçu à',
     'search' => 'Recherche par sujet',
     'reply' => 'Répondre',
     'send' => 'Envoyer',
     'create' => 'Créer',
-    'select' => 'Sélectionnez un utilisateur',
+    'select' => 'Sélectionnez un utilisateur'
 ];
