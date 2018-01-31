@@ -2,9 +2,9 @@
 <div class="alert alert-info" id="alert1">
   <center>
     <span>
-      @if(config('other.freeleech') == true) Global Freeleech Mode Activated! @endif
-      @if(config('other.invite-only') == false) Open Registration Activated! @endif
-      @if(config('other.doubleup') == true) Global Double Upload Activated! @endif
+      @if(config('other.freeleech') == true) {{ trans('common.freeleech_activated') }}! @endif
+      @if(config('other.invite-only') == false) {{ trans('common.openreg_activated') }}! @endif
+      @if(config('other.doubleup') == true) {{ trans('common.doubleup_activated') }}! @endif
     </span>
     <strong><div id="promotions"></div></strong></center>
 </div>

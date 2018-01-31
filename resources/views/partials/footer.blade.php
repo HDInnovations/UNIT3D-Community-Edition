@@ -13,9 +13,9 @@
       <h2 class="l-footer-section-title">{{ trans('common.account') }}</h2>
       <ul>
         @if(Auth::check())
-        <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">My Profile</a></li>
+        <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">{{ trans('user.my-profile') }}</a></li>
         <li>
-          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+          <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('common.logout') }}</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
         </li>
         @endif
@@ -25,36 +25,36 @@
     <div class="col-md-2 l-footer-section">
       <h2 class="l-footer-section-title">{{ trans('common.community') }}</h2>
       <ul>
-        <li><a href="{{ route('forum_index') }}">Forums</a></li>
+        <li><a href="{{ route('forum_index') }}">{{ trans('forum.forums') }}</a></li>
         <li><a href="{{ route('members') }}">{{ trans('common.members') }}</a></li>
-        <li><a href="{{ route('articles') }}">News</a></li>
-        <li><a href="{{ route('about') }}">About Us</a></li>
-        <li><a href="{{ route('staff') }}">Staff</a></li>
+        <li><a href="{{ route('articles') }}">{{ trans('common.news') }}</a></li>
+        <li><a href="{{ route('about') }}">{{ trans('common.about') }}</a></li>
+        <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
       </ul>
     </div>
 
     <div class="col-md-2 l-footer-section">
-      <h2 class="l-footer-section-title">Pages</h2>
+      <h2 class="l-footer-section-title">{{ trans('common.pages') }}</h2>
       <ul>
-        <li><a href="{{ route('home') }}/p/rules.1">Rules</a></li>
-        <li><a href="{{ route('home') }}/p/faq.3">FAQ</a></li>
-        <li><a href="{{ route('blacklist') }}">Blacklist</a></li>
-        <li><a href="{{ route('home') }}/p/tracker-codes.6">Tracker Codes</a></li>
-        <li><a href="{{ route('home') }}/p/upload-guide.5">Upload Guide</a></li>
+        <li><a href="{{ route('home') }}/p/rules.1">{{ trans('common.rules') }}</a></li>
+        <li><a href="{{ route('home') }}/p/faq.3">{{ trans('common.faq') }}</a></li>
+        <li><a href="{{ route('blacklist') }}">{{ trans('common.blacklist') }}</a></li>
+        <li><a href="{{ route('home') }}/p/tracker-codes.6">{{ trans('common.tracker-codes') }}</a></li>
+        <li><a href="{{ route('home') }}/p/upload-guide.5">{{ trans('common.upload-guide') }}</a></li>
       </ul>
     </div>
 
     <div class="col-md-2 l-footer-section">
-      <h2 class="l-footer-section-title">Legal</h2>
+      <h2 class="l-footer-section-title">{{ trans('common.legal') }}</h2>
       <ul>
-        <li><a href="{{ route('home') }}/p/terms_of_use.7">Terms Of Use</a></li>
+        <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
       </ul>
     </div>
 
     <div class="col-md-1 l-footer-section">
-      <h2 class="l-footer-section-title">Other</h2>
-      <a href="https://anon.to/?https://www.patreon.com/UNIT3D" class="btn btn-xs btn-primary">Become A Patron</a>
-      <a href="https://anon.to/?https://github.com/UNIT3D/UNIT3D" class="btn btn-xs btn-primary">Powered By UNIT3D</a>
+      <h2 class="l-footer-section-title">{{ trans('common.other') }}</h2>
+      <a href="https://anon.to/?https://www.patreon.com/UNIT3D" class="btn btn-xs btn-primary">{{ trans('common.patron') }}</a>
+      <a href="https://anon.to/?https://github.com/UNIT3D/UNIT3D" class="btn btn-xs btn-primary">{{ trans('common.powered-by') }}</a>
     </div>
   </div>
 </div>
