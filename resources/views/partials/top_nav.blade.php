@@ -42,7 +42,7 @@
         </a>
         <ul class="dropdown-menu ">
           <li class="hoe-submenu-label">
-            <h3> {{ trans('staff.you-have') }} <span class="bold">{{ $modder }}  </span>{{ strtolower(trans('common.pending')) }} {{ strtolower(trans('torrent.torrents')) }} <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
+            <h3> {{ trans('staff.you-have') }} <span class="bold">{{ $modder }}  </span>{{ strtolower(trans('common.pending-torrents')) }} <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
           </li>
           <li>
             @php $pending = DB::table('torrents')->where('status', '=', '0')->get(); @endphp

@@ -26,7 +26,7 @@ return [
 	'preview' => 'Aperçu',
 	'edit' => 'modifier',
 	'delete' => 'Effacer',
-	'pending' => 'en attendant',
+	'pending-torrents' => 'en attendant torrents',
 	'stats' => 'Statistiques',
 	'extra-stats' => 'Statistiques supplémentaires',
 	'rules' => 'Règles',

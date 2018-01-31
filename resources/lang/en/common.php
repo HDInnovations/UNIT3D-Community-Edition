@@ -27,7 +27,7 @@ return [
 	'preview' => 'Preview',
 	'edit' => 'Edit',
 	'delete' => 'Delete',
-	'pending' => 'Pending',
+	'pending-torrents' => 'Pending torrents',
 	'stats' => 'Stats',
 	'extra-stats' => 'Extra-Stats',
 	'rules' => 'Rules',
