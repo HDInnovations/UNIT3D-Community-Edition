@@ -24,5 +24,8 @@ return [
     'send' => 'Wyślij',
     'create' => 'Utwórz',
     'select' => 'Wybierz użytkownika',
-    'mark-all-read' => 'Oznacz wszystkie jako przeczytane'
+    'mark-all-read' => 'Oznacz wszystkie jako przeczytane',
+    'refresh' => 'Odśwież',
+    'delete' => 'Usuń',
+    'enter-subject' => 'Wprowadź temat'
 ];
