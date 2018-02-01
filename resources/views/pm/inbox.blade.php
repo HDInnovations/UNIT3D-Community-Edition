@@ -36,9 +36,9 @@
                           <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.mark-all-read') }}"><i class="fa fa-eye"></i></button>
                       </a>
                       <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
-                          <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Refresh"><i class="fa fa-refresh"></i></button>
+                          <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.refresh') }}"><i class="fa fa-refresh"></i></button>
                       </a>
-                      {{--<button type="button" id="btn_delete_messages" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash"></i></button>--}}
+                      {{--<button type="button" id="btn_delete_messages" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i></button>--}}
                       </div>
                       </div>
                       <div class="col-md-4 col-xs-7">

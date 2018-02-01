@@ -45,7 +45,7 @@
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.subject') }}</label>
-                    <input name="subject" class="form-control" placeholder="Enter subject" required>
+                    <input name="subject" class="form-control" placeholder="{{ trans('pm.enter-subject') }}" required>
                   </div>
 
                   <div class="form-group">
