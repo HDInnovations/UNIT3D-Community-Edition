@@ -20,14 +20,14 @@
               <td class="rowhead">{{ trans('common.reporter') }}:</td>
               <td>{{ trans('bug.enter-username') }}
                 <br>
-                <input type="text" class="form-control" name="{{ trans('common.username') }}" size="60" required>
+                <input type="text" class="form-control" name="username" value="{{ Auth::user()->username }}" size="60" required>
               </td>
             </tr>
             <tr>
               <td class="rowhead">{{ trans('common.email') }}:</td>
               <td>{{ trans('bug.enter-email') }}
                 <br>
-                <input type="email" class="form-control" name="email" size="60" required>
+                <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}" size="60" required>
               </td>
             </tr>
             <tr>
