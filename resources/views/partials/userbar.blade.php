@@ -3,7 +3,7 @@
     <ul class="list-inline">
       <li><i class="fa fa-user text-black"></i>
         <a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="l-header-user-data-link">
-          <span class="badge-user" style="color:{{ Auth::user()->group->color }}"><strong>{{ Auth::user()->username }}</strong>@if(Auth::user()->getWarning() > 0) <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warrning') }}"></i>@endif</span>
+          <span class="badge-user" style="color:{{ Auth::user()->group->color }}"><strong>{{ Auth::user()->username }}</strong>@if(Auth::user()->getWarning() > 0) <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>@endif</span>
         </a>
       </li>
       <li><i class="fa fa-group text-black"></i>

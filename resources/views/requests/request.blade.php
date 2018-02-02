@@ -7,12 +7,12 @@
 @section('breadcrumb')
 <li>
   <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Requests</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('request', ['id' => $request->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Request Details</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.request-details') }}</span>
   </a>
 </li>
 @stop
@@ -24,40 +24,40 @@
     <div class="jumbotron shadowed">
       <div class="container">
         <h1 class="mt-5 text-center">
-          <i class="fa fa-times text-danger"></i> Error: Your Request Rights Have Been Disabled
+          <i class="fa fa-times text-danger"></i> {{ trans('request.no-privileges') }}
         </h1>
         <div class="separator"></div>
-        <p class="text-center">If You Feel This Is In Error, Please Contact Staff!</p>
+        <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
       </div>
     </div>
   </div>
   @else
   <h1 class="title h2">
         {{ $request->name }}
-        <span class="text-green">for <i class="fa fa-star text-gold">
-            </i> <strong>{{ $request->bounty }}</strong> BON</span>
+        <span class="text-green">{{ trans('request.for') }} <i class="fa fa-star text-gold">
+            </i> <strong>{{ $request->bounty }}</strong> {{ trans('bon.bon') }}</span>
     </h1>
   <div class="block">
     <div class="row mb-10">
       <div class="col-sm-12">
         <div class="pull-right">
-          <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_request_report"><i class="fa fa-eye"></i> Report Request</button>
+          <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_request_report"><i class="fa fa-eye"></i> {{ trans('request.report') }}</button>
           @if($request->filled_hash == null)
           <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal" data-target="#vote"><i class="fa fa-thumbs-up">
-                        </i> Vote Up</button>
+                        </i> {{ trans('request.vote') }}</button>
           @if($request->claimed == 1 && $requestClaim->username == $user->username || $user->group->is_modo)
           <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal" data-target="#fill"><i class="fa fa-link">
-                        </i> Fulfill</button>
+                        </i> {{ trans('request.fulfill') }}</button>
           @elseif($request->claimed == 0)
           <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal" data-target="#fill"><i class="fa fa-link">
-                        </i> Fulfill</button>
+                        </i> {{ trans('request.fulfill') }}</button>
           @endif @endif @if($user->group->is_modo && $request->filled_hash != null)
           <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i class="fa fa-undo">
-                        </i> Reset</button>
+                        </i> {{ trans('request.reset-request') }}</button>
           @endif @if($user->group->is_modo || ($request->user->id == $user->id && $request->filled_hash == null))
-          <a class="btn btn-warning btn-xs" href="{{ route('edit_request', array('id' => $request->id)) }}" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>
+          <a class="btn btn-warning btn-xs" href="{{ route('edit_request', array('id' => $request->id)) }}" role="button"><i class="fa fa-pencil-square-o" aria-hidden="true"> {{ trans('request.edit-request') }}</i></a>
           <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o">
-                        </i> Delete</button>
+                        </i> {{ trans('common.delete') }}</button>
           @endif
         </div>
       </div>
@@ -75,11 +75,11 @@
           <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
             <h1 class="movie-heading">
               				<span class="text-bold">{{ $movie->title }}</span><span class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
-                        <span class="badge-extra text-bold text-gold">Rating:
+                        <span class="badge-extra text-bold text-gold">{{ trans('torrent.rating') }}:
                           <span class="movie-rating-stars">
                             <i class="fa fa-star"></i>
                           </span>
-                        {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
+                        {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ strtolower(trans('torrent.votes')) }})
                        </span>
               				</h1>
             <span class="movie-overview">
@@ -91,7 +91,7 @@
                 <span class="badge-extra text-bold text-green">{{ $genre }}</span> @endforeach @endif
               </li>
               <li>
-                <span class="badge-extra text-bold text-orange">Rated: {{ $movie->rated }} </span> <span class="badge-extra text-bold text-orange">Runtime: {{ $movie->runtime }} minutes</span>
+                <span class="badge-extra text-bold text-orange">{{ trans('torrent.rated') }}: {{ $movie->rated }} </span> <span class="badge-extra text-bold text-orange">{{ trans('torrent.runtime') }}: {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
               </li>
               <li>
                 <span class="badge-extra text-bold text-orange">
@@ -137,7 +137,7 @@
         <tbody>
           <tr>
             <td class="col-sm-2">
-              <strong>Category</strong>
+              <strong>{{ trans('torrent.category') }}</strong>
             </td>
             <td>
               <span class="label label-info" data-toggle="tooltip" title="" data-original-title="{{ $request->category->name }}">{{ $request->category->name }}</span>
@@ -145,7 +145,7 @@
           </tr>
           <tr>
             <td>
-              <strong>Title</strong>
+              <strong>{{ trans('torrent.title') }}</strong>
             </td>
             <td>
               {{ $request->name }}
@@ -153,7 +153,7 @@
           </tr>
           <tr>
             <td>
-              <strong>Type</strong>
+              <strong>{{ trans('torrent.type') }}</strong>
             </td>
             <td>
               <span class="badge-extra">{{ $request->type }}</span>
@@ -161,18 +161,18 @@
           </tr>
           <tr>
             <td>
-              <strong>Bonus Point Rewards</strong>
+              <strong>{{ trans('bon.bon') }}</strong>
             </td>
             <td>
               <i class="fa fa-star text-gold">
                 </i>
-              <strong>{{ $request->bounty }}</strong> BON from
-              <strong>{{ $request->requestBounty->count() }}</strong> Voters
+              <strong>{{ $request->bounty }}</strong> {{ trans('bon.bon') }} {{ strtolower(trans('request.reward-from')) }}
+              <strong>{{ $request->requestBounty->count() }}</strong> {{ strtolower(trans('request.voters')) }}
             </td>
           </tr>
           <tr>
             <td>
-              <strong>Description</strong>
+              <strong>{{ trans('torrent.description') }}</strong>
             </td>
             <td>
               <div class="panel-body torrent-desc">
@@ -184,7 +184,7 @@
           </tr>
           <tr>
             <td>
-              <strong>Requested By</strong>
+              <strong>{{ trans('request.requested-by') }}</strong>
             </td>
             <td>
               <span class="badge-user"><a href="{{ route('profil', ['username' => $request->user->username, 'id' => $request->user->id]) }}" title="">{{ $request->user->username }}</a></span>
@@ -193,7 +193,7 @@
           </tr>
           <tr>
             <td>
-              <strong>Claim</strong>
+              <strong>{{ trans('request.claim') }}</strong>
             </td>
             <td>
               @if($request->claimed == null && $request->filled_hash == null)

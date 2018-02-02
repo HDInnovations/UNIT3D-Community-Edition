@@ -57,7 +57,7 @@ return [
     'hidden' => 'Hidden',
     'previous' => 'Previous',
     'next' => 'Next',
-    'active-warrning' => 'Active warrning',
+    'active-warning' => 'Active warrning',
     'global' => 'Global',
     'hot' => 'Hot!',
     'new' => 'New!',
@@ -106,5 +106,6 @@ return [
     'groups' => 'Groups',
     'top-bountied' => 'Top bountied',
     'active' => 'Active',
-    'lock-account' => 'Lock account'
+    'lock-account' => 'Lock account',
+    'close' => 'Close'
 ];

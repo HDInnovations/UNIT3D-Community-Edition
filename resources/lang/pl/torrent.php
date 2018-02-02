@@ -61,5 +61,10 @@ return [
     'delete-bookmark' => 'Skasuj zakładkę',
     'no-bookmarks' => 'Nie znaleziono żadnych zakładek.',
     'my-active-torrents' => 'Moje aktywne torrenty',
-    'hit-and-runs' => 'Hit and Run - licznik'
+    'hit-and-runs' => 'Hit and Run - licznik',
+    'rating' => 'Ocena',
+    'votes' => 'Głosów',
+    'rated' => 'Klasyfikacja',
+    'runtime' => 'Długość',
+    'description' => 'Opis'
 ];
