@@ -191,7 +191,7 @@ class TwoStepController extends Controller
                 'nextUri' => session('nextUri', '/'),
                 'message' => trans('auth.titlePassed'),
             ];
-            
+
             return response()->json($returnData, 200);
         } else {
             abort(404);
