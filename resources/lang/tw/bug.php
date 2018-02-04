@@ -5,15 +5,15 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'bug-report' => 'Bug report',
-    'bug-report-description' => 'Report a site bug',
-    'enter-username' => 'Please enter your username',
-    'enter-email' => 'Please enter your e-mail',
-    'enter-title' => 'Please choose a proper title',
-    'enter-description' => 'Describe the problem as best as possible',
-    'priority' => 'Priority',
-    'priority-description' => 'Choose only very high if the bug really is a problem for using the site.',
-    'low' => 'Low',
-    'high' => 'High',
-    'very-high' => 'Very high'
+    'bug-report' => 'BUG舉報',
+    'bug-report-description' => '舉報站點BUG',
+    'enter-username' => '請輸入個人用戶名',
+    'enter-email' => '請輸入個人郵箱',
+    'enter-title' => '請選擇合適的主題',
+    'enter-description' => '詳細描述問題',
+    'priority' => '優先級',
+    'priority-description' => '衹有在BUG影響站點穩定的情況下才選擇很高等級',
+    'low' => '低',
+    'high' => '高',
+    'very-high' => '很高'
 ];
