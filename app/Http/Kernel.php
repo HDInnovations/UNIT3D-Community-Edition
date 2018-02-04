@@ -86,5 +86,6 @@ class Kernel extends HttpKernel
         'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'language' => \App\Http\Middleware\SetLanguage::class,
         'censor' => \App\Http\Middleware\LanguageCensor::class,
+        'twostep' => \App\Http\Middleware\TwoStepAuth::class,
     ];
 }
