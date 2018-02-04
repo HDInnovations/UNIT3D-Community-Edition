@@ -23,6 +23,7 @@
 8. [License](#license)
 9. [Screenshots](#screenshots)
 10. [Homestead](#homestead)
+11. [Patreon](#patreon)
 
 
 ## <a name="introduction"></a> Introduction
@@ -81,7 +82,7 @@ Traffic: Unlimited
 7. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 8. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
 9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab
-10. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times.
+10. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times).
 10. Go to your sites URL.
 11. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
 12. Enjoy using UNIT3D.
@@ -161,3 +162,11 @@ databases:
 8. run `php artisan migrate:refresh --seed`
 9. visit <a href="http://unit3d.site">unit3d.site</a>
 10. Login u: `UNIT3D` p: `UNIT3D`
+
+## <a name="patreon"></a> Support me on patreon
+
+You can support me on patreon if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane.
+
+<p align="center">
+<a href="https://www.patreon.com/UNIT3D"><img src="https://i.imgur.com/ZTLPSt5.png"></a>
+</p>

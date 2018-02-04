@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Authentication Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Authentication Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'failed' => 'Podane dane nie znajdują się w naszej bazie.',
     'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
@@ -21,5 +20,5 @@ return [
     'login-now-on' => 'Zaloguj się na',
     'no-a-member' => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
     'user-icon' => 'Ikona użytkownika',
-    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!',
+    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!'
 ];

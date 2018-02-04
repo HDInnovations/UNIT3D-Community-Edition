@@ -1,12 +1,11 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Forums Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Forums Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'forum' => 'Forum',
+    'forum' => 'Forum',
     'forums' => 'Forums',
     'topic' => 'Topic',
     'topics' => 'Topics',
@@ -14,15 +13,15 @@ return [
     'posts' => 'Posts',
     'author' => 'Author',
     'created' => 'Created',
-	'replies' => 'Replies',
-	'views' => 'Views',
-	'meta-category' => 'List of forums in the category',
-	'create-new-topic' => 'Create New Topic',
-	'topic-title' => 'Title of this topic',
-	'send-new-topic' => 'Save this topic',
-	'read-topic' => 'Read the topic',
-	'mark-as-resolved' => 'Lock Topic',
-	'delete-topic' => 'Delete this topic',
+    'replies' => 'Replies',
+    'views' => 'Views',
+    'meta-category' => 'List of forums in the category',
+    'create-new-topic' => 'Create New Topic',
+    'topic-title' => 'Title of this topic',
+    'send-new-topic' => 'Save this topic',
+    'read-topic' => 'Read the topic',
+    'mark-as-resolved' => 'Lock Topic',
+    'delete-topic' => 'Delete this topic',
     'display-forum' => 'Show topics in ',
     'edit-topic' => 'Edit Topic',
     'stats' => 'Stats',
@@ -53,5 +52,5 @@ return [
     'pin' => 'Pin',
     'unpin' => 'Unpin',
     'label-system' => 'Label system',
-	'permalink' => 'Permalink',
+    'permalink' => 'Permalink'
 ];

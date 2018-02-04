@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Email Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Email Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'register-header' => 'Hi! Thank you for signing up on',
     'register-code' => 'To complete your account activation click the link below',
@@ -36,5 +35,5 @@ return [
     'report-comment' => 'Comment',
     'unban-header' => 'You Have Been Unbanned',
     'unban-reason' => 'Reason',
-    'unban-footer' => 'Thats what you get for not following the rules',
+    'unban-footer' => 'Thats what you get for not following the rules'
 ];

@@ -31,7 +31,7 @@
       </div>
       @endif
 
-      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=05') }}"></script>
+      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=06') }}"></script>
       <script type="text/javascript" src="{{ url('js/hoe.js') }}"></script>
       <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
 
@@ -40,15 +40,6 @@
       @elseif(Auth::user()->style == 2)
       <link rel="stylesheet" href="{{ url('files/wysibb/theme/blur/wbbtheme.css') }}" />
       @endif
-
-      <script type="text/javascript">
-      $(document).ready(function(){
-           $("#myCarousel").carousel({
-               interval : 8000,
-               pause: 'hover'
-           });
-      });
-      </script>
 
       @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
       <script type="text/javascript">

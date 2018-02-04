@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Validation Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines contain the default error messages used by
+     * | the validator class. Some of these rules have multiple versions such
+     * | as the size rules. Feel free to tweak each of these messages here.
+     * |
+     */
+    
     'accepted' => 'Musisz zaakceptować :attribute.',
     'active_url' => ':attribute nie jest poprawnym adresem URL.',
     'after' => ':attribute musi być datą późniejszą niż :date.',
@@ -25,7 +24,7 @@ return [
         'numeric' => ':attribute musi być pomiędzy :min ,a :max.',
         'file' => ':attribute musi mieć pomiędzy :min ,a :max kB.',
         'string' => ':attribute musi być pomiędzy :min ,a :max znakami.',
-        'array' => ':attribute musi być pomiędzy :min ,a :max przedmiotów.',
+        'array' => ':attribute musi być pomiędzy :min ,a :max przedmiotów.'
     ],
     'boolean' => ':attribute pole musi być prawdą lub fałszem.',
     'confirmed' => 'Brak potwierdzenia :attribute.',
@@ -50,7 +49,7 @@ return [
         'numeric' => ':attribute nie może być większy niż :max.',
         'file' => ':attribute nie może mieć więcej  niż :max kB.',
         'string' => ':attribute nie może mieć więcej :max znaków.',
-        'array' => ':attribute nie może mieć więcej niż :max przedmiotów.',
+        'array' => ':attribute nie może mieć więcej niż :max przedmiotów.'
     ],
     'mimes' => ':attribute musi byc plikiem: :values.',
     'mimetypes' => ':attribute musi być plikiem: :values.',
@@ -58,7 +57,7 @@ return [
         'numeric' => ':attribute musi wynosić co najmniej :min.',
         'file' => ':attribute musi mieć co najmniej :min kB.',
         'string' => ':attribute musi być co najmniej :min znakowy.',
-        'array' => ':attribute musi mieć c najmniej :min przedmiotów.',
+        'array' => ':attribute musi mieć c najmniej :min przedmiotów.'
     ],
     'not_in' => ':attribute jest nieprawidłowy.',
     'numeric' => ':attribute musi być liczbą.',
@@ -76,7 +75,7 @@ return [
         'numeric' => ':attribute musi być :size.',
         'file' => ':attribute musi mieć :size kB.',
         'string' => ':attribute musi mieć :size znaków.',
-        'array' => ':attribute musi zawierać :size przedmiotów.',
+        'array' => ':attribute musi zawierać :size przedmiotów.'
     ],
     'string' => ':attribute musi być ciągiem znaków.',
     'timezone' => ':attribute musi być prawidłową strefa czasową.',
@@ -97,8 +96,8 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+            'rule-name' => 'custom-message'
+        ]
     ],
 
     /*
@@ -112,6 +111,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => []
 
 ];

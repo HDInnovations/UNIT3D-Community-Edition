@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Private Message Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'unread' => 'Okunmamış',
     'read' => 'Oku',
@@ -14,15 +13,15 @@ return [
     'messages' => 'Mesajlar',
     'private' => 'Özel',
     'new' => 'Yeni Mesaj',
-    'from' =>'den',
+    'from' => 'den',
     'to' => 'a',
     'sent' => 'Gönderildi',
     'sent-at' => 'da gönderildi',
-    'subject' =>'Konu',
-    'recieved-at' =>'da alındı',
+    'subject' => 'Konu',
+    'recieved-at' => 'da alındı',
     'search' => 'Konuya Göre Ara',
     'reply' => 'Cevapla',
     'send' => 'Yolla',
     'create' => 'Oluştur',
-    'select' => 'Bir Kullanıcı Seç',
+    'select' => 'Bir Kullanıcı Seç'
 ];

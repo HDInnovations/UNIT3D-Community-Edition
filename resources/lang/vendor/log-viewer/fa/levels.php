@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => 'همه',
     'emergency' => 'اورژانسی',
@@ -9,5 +8,5 @@ return [
     'warning' => 'هشدار',
     'notice' => 'اعلان',
     'info' => 'اطلاعات',
-    'debug' => 'دیباگ',
+    'debug' => 'دیباگ'
 ];

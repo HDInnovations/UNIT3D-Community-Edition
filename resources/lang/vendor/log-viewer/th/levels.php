@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => 'ทั้งหมด',
     'emergency' => 'ฉุกเฉิน',
@@ -9,5 +8,5 @@ return [
     'warning' => 'คำเตือน',
     'notice' => 'ประกาศ',
     'info' => 'ข้อมูล',
-    'debug' => 'ดีบัก',
+    'debug' => 'ดีบัก'
 ];

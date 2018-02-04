@@ -1,12 +1,11 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Notification Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Notification Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'notifications' => 'Powiadomienia',
+    'notifications' => 'Powiadomienia',
     'mark-all-read' => 'Oznacz wszystkie wszystkie jako przeczytane',
     'mark-read' => 'Oznacz jako przeczytane',
     'delete-all' => 'Skasuj wszystkie powiadomienia',
@@ -15,5 +14,5 @@ return [
     'date' => 'Data',
     'read' => 'Przeczytane',
     'delete' => 'Skasuj',
-    'no-notifications' => 'Nie znaleziono żadnych powiadomień',
+    'no-notifications' => 'Nie znaleziono żadnych powiadomień'
 ];
