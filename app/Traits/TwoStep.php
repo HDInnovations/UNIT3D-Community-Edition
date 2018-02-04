@@ -80,8 +80,8 @@ trait TwoStep
         $twoStepAuth->authCode    = $this->generateCode();
         $twoStepAuth->authCount   = 0;
         $twoStepAuth->authStatus  = 0;
-        $twoStepAuth->authDate    = NULL;
-        $twoStepAuth->requestDate = NULL;
+        $twoStepAuth->authDate    = null;
+        $twoStepAuth->requestDate = null;
 
         $twoStepAuth->save();
 
