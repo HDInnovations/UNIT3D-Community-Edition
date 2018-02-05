@@ -63,7 +63,7 @@
 			{{ Form::open(['route' => ['resetRequest', 'id' => $request->id], 'method' => 'post', 'role' => 'form']) }}
 			{{ csrf_field() }}
 			<div class="modal-body">
-				<p class="text-center">{{ trans(request.reset-confirmation') }}?</p>
+				<p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
 					<div class="btns">
 						<button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
 						<button type="submit" @if(!$user->group->is_modo || $request->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('common.cancel') }}</button>
