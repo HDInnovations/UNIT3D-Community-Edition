@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Edit Request - {{ Config::get('other.title') }}</title>
+<title>{{ trans('request.edit-request') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('stylesheets')
@@ -11,12 +11,12 @@
 @section('breadcrumb')
 <li>
     <a href="{{ url('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Requests</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
     </a>
 </li>
 <li>
     <a href="{{ url('edit_request') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Request</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.edit-request') }}</span>
     </a>
 </li>
 @stop
@@ -28,24 +28,24 @@
   <div class="jumbotron shadowed">
     <div class="container">
       <h1 class="mt-5 text-center">
-        <i class="fa fa-times text-danger"></i> Error: Your Request Rights Have Been Disabled
+        <i class="fa fa-times text-danger"></i> {{ trans('request.no-privileges') }}
       </h1>
     <div class="separator"></div>
-  <p class="text-center">If You Feel This Is In Error, Please Contact Staff!</p>
+  <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
 </div>
 </div>
 </div>
 @else
-<h1 class="upload-title">Edit Request</h1>
+<h1 class="upload-title">{{ trans('request.edit-request') }}</h1>
 {{ Form::open(array('route' => array('edit_request', 'id' => $request->id))) }}
 <div class="block">
             <div class="form-group">
-                <label for="name">Title</label>
+                <label for="name">{{ trans('request.title') }}</label>
                 <input type="text" name="name" class="form-control" value="{{ $request->name }}" required>
             </div>
 
             <div class="form-group">
-               <label for="name">IMDB ID (Required)</label>
+               <label for="name">IMDB ID ({{ trans('request.required') }})</label>
                <input type="number" name="imdb" value="{{ $request->imdb }}" class="form-control" required>
            </div>
 
@@ -65,9 +65,9 @@
            </div>
 
       <div class="form-group">
-        <label for="category_id">Category</label>
+        <label for="category_id">{{ trans('request.category') }}</label>
         <select name="category_id" class="form-control">
-          <option value="{{ $request->category->id }}" selected>{{ $request->category->name  }} (Current)</option>
+          <option value="{{ $request->category->id }}" selected>{{ $request->category->name  }} ({{ trans('request.current') }})</option>
           @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->name }}</option>
           @endforeach
@@ -75,9 +75,9 @@
       </div>
 
       <div class="form-group">
-        <label for="type">Type</label>
+        <label for="type">{{ trans('request.type') }}</label>
         <select name="type" class="form-control">
-        <option value="{{ $request->type }}" selected>{{ $request->type  }} (Current)</option>
+        <option value="{{ $request->type }}" selected>{{ $request->type  }} ({{ trans('request.current') }})</option>
         @foreach($types as $type)
           <option value="{{ $type->name }}">{{ $type->name }}</option>
         @endforeach
@@ -85,11 +85,11 @@
       </div>
 
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">{{ trans('request.description') }}</label>
         <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control">{{ $request->description }}</textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
       {{ Form::close() }}
     <br>
   </div>

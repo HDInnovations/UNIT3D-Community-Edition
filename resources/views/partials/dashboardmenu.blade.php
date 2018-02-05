@@ -38,7 +38,7 @@
     <li><a href="/staff/log-viewer">{{ trans('staff.laravel-log') }}</a></li>
     @endif
     <li><a href="{{ route('getReports') }}">{{ trans('staff.reports-log') }}</a></li>
-    <li><a href="{{ route('getWarnings') }}">{{ trans('staff.warrnings-log') }}</a></li>
+    <li><a href="{{ route('getWarnings') }}">{{ trans('staff.warnings-log') }}</a></li>
   </ul>
  </div>
 </div>

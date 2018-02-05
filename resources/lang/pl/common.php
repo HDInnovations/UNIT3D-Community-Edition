@@ -57,7 +57,7 @@ return [
     'hidden' => 'Ukryty',
     'previous' => 'Poprzednie',
     'next' => 'Następne',
-    'active-warrning' => 'Aktywne ostrzeżenie',
+    'active-warning' => 'Aktywne ostrzeżenie',
     'global' => 'Globalny',
     'hot' => 'Hot!',
     'new' => 'Nowość!',
@@ -106,5 +106,6 @@ return [
     'groups' => 'Grupy',
     'top-bountied' => 'Top nagradzane',
     'active' => 'Aktywny',
-    'lock-account' => 'Zablokuj konto'
+    'lock-account' => 'Zablokuj konto',
+    'close' => 'Zamknij'
 ];
