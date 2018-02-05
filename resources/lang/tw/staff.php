@@ -5,9 +5,9 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'moderation' => 'Moderation',
-    'please-moderate' => 'Please Moderate This Torrent!',
-    'you-have' => 'You Have',
-    'dashboard' => 'Dashboard',
-    'staff-dashboard' => 'Staff Dashboard'
+    'moderation' => '管理',
+    'please-moderate' => '請對種子進行調整!',
+    'you-have' => '擁有',
+    'dashboard' => '面板',
+    'staff-dashboard' => '員工面板'
 ];

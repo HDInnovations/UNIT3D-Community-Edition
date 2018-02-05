@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login' => 'Login',
-    'signup' => 'Signup',
-    'logout' => 'Logout',
-    'username' => 'Username',
-    'password' => 'Password',
-    'lost-password' => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
-    'remember-me' => 'Remember Me'
+    'failed' => '身份憑證與站點記錄不符合。',
+    'throttle' => '嘗試次數過多，請在 秒後重試',
+    'login' => '登陸',
+    'signup' => '注冊',
+    'logout' => '退出',
+    'username' => '用戶名',
+    'password' => '密碼',
+    'lost-password' => '忘記密碼?',
+    'recover-my-password' => '重設密碼',
+    'remember-me' => '記住我'
 ];
