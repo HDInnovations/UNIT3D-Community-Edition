@@ -43,6 +43,7 @@ class BonusController extends Controller
     public function bonus()
     {
         $user = Auth::user();
+        $users = User::orderBy('username', 'ASC')->get();
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
@@ -87,7 +88,7 @@ class BonusController extends Controller
             'dying' => $dying, 'legendary' => $legendary, 'old' => $old,
             'huge' => $huge, 'large' => $large, 'regular' => $regular,
             'participaint' => $participaint, 'teamplayer' => $teamplayer, 'commited' => $commited, 'mvp' => $mvp, 'legendary' => $legendary,
-            'total' => $total]);
+            'total' => $total, 'users' => $users]);
     }
 
     /**

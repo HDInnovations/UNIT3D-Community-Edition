@@ -211,7 +211,11 @@
         <div class="form-group">
             <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
             <div class="col-sm-9">
-                <input class="form-control" placeholder="{{ trans('common.enter') }} {{ strtolower(trans('common.username')) }}" name="to_username" type="text" id="to_username" required>
+                <select class="form-control user-select-placeholder-single" name="to_username">
+                  @foreach($users as $user)
+                    <option value="{{ $user->username }}">{{ $user->username }}</option>
+                  @endforeach
+                </select>
             </div>
         </div>
 
@@ -237,4 +241,14 @@
 
     {{ Form::close() }}
 </div>
+
+@section('javascripts')
+    <script type="text/javascript">
+        $('.user-select-placeholder-single').select2({
+            placeholder: "Select A User",
+            allowClear: true
+        });
+    </script>
+@endsection
+
 @stop
