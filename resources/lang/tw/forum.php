@@ -11,7 +11,7 @@ return [
     'post' => '帖子',
     'replies' => '回復',
     'views' => '查看',
-    'meta-category' => 'List of forums in the category',
+    'meta-category' => '論壇類目列表',
     'create-new-topic' => '新主題',
     'topic-title' => '主題標題',
     'send-new-topic' => '保存',
