@@ -105,6 +105,18 @@
             <label><input type="radio" name="ratings" @if($user->ratings == 0) checked @endif value="0">TMDB</label>
         </div>
         <br>
+        <br>
+
+        <h3>Security Preferences</h3>
+        <hr>
+        <label for="twostep" class="control-label">Use Two Step Auth?</label>
+        <div class="radio-inline">
+            <label><input type="radio" name="twostep" @if($user->twostep == 1) checked @endif value="1">YES</label>
+          </div>
+        <div class="radio-inline">
+            <label><input type="radio" name="twostep" @if($user->twostep == 0) checked @endif value="0">NO</label>
+        </div>
+        <br>
         <div class="form-group">
             <center><input class="btn btn-primary" type="submit" value="Save"></center>
         </div>

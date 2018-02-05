@@ -64,7 +64,12 @@ Route::group(['middleware' => 'language'], function () {
 | Website (When Authorized)
 |------------------------------------------
 */
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth', 'twostep']], function () {
+
+        // Two Step Auth
+        Route::get('/twostep/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
+        Route::post('/twostep/verify', 'Auth\TwoStepController@verify')->name('verify');
+        Route::post('/twostep/resend', 'Auth\TwoStepController@resend')->name('resend');
 
         // General
         Route::get('/', 'HomeController@home')->name('home');

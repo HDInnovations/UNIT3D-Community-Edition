@@ -45,6 +45,7 @@ UNIT3D currently offers the following features:
   - Extra-Stats
   - PM System
   - Multilingual Support
+  - TwoStep Auth System
   - and MUCH MORE!
 
 ## <a name="requirements"></a> Requirements
