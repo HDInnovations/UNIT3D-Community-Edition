@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
+    'title' => '配置項管理',
+    'info_choose' => '選擇文件並編輯',
+    'file' => '文件',
+    'path' => '路徑',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions'
+        'key' => '關鍵詞',
+        'value' => '值',
+        'actions' => '動作'
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel'
+        'edit' => '編輯',
+        'confirm' => '保存新值',
+        'save' => '保存!',
+        'cancel' => '取消'
     ],
-    'sure' => 'Are you sure?'
+    'sure' => '你是否確定?'
 ];
