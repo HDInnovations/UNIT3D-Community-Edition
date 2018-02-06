@@ -305,6 +305,7 @@ class ForumController extends Controller
                 if ($v->passes()) {
                     $post->save();
                     $topic->num_post = 1;
+                    $topic->last_reply_at = $post->created_at;
                     $topic->save();
                     $forum->num_topic = $forum->getTopicCount($forum->id);
                     $forum->num_post = $forum->getPostCount($forum->id);
