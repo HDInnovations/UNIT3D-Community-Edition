@@ -13,16 +13,16 @@
         "bepsvpt/secure-headers": "^3.0",
         "brian2694/laravel-toastr": "^1.0",
         "christofferok/laravel-emojione": "^2.1",
-        "fideloper/proxy": "~3.3",
+        "fideloper/proxy": "~4.0",
         "gstt/laravel-achievements": "^1.0",
         "guzzlehttp/guzzle": "6.*",
         "hootlex/laravel-moderation": "^1.0",
         "infinety-es/config-manager": "^1.1",
         "intervention/image": "dev-master",
         "kyslik/column-sortable": "5.5.*",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "dev-develop",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.5.*",
+        "laravelcollective/html": "5.6.*",
         "mjohnson/decoda": "6.*",
         "moinax/tvdb": "1.*",
         "paragonie/constant_time_encoding": "^2.0",
@@ -39,7 +39,8 @@
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "^2.0",
-        "filp/whoops": "~2.0"
+        "filp/whoops": "~2.0",
+        "nunomaduro/collision": "~1.1"
     },
     "autoload": {
         "classmap": [
