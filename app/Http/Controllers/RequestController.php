@@ -474,7 +474,7 @@ class RequestController extends Controller
         $user = Auth::user();
         $request = Requests::findOrFail($id);
 
-        if ($request->claimed == 0) {
+        if ($request->claimed == null) {
             $requestClaim = new RequestsClaims([
                 'request_id' => $id,
                 'username' => $user->username,
@@ -507,7 +507,7 @@ class RequestController extends Controller
                 $requestClaim = RequestsClaims::where('request_id', '=', $id)->firstOrFail();
                 $requestClaim->delete();
 
-                $request->claimed = 0;
+                $request->claimed = null;
                 $request->save();
 
                 return Redirect::route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Request Claimed', ['options']));
