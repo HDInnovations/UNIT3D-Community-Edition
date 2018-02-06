@@ -14,5 +14,13 @@ return [
     'multiple-choice' => '多選項調查，按個人喜好可投多票',
     'ip-checking' => '本次調查有重複性檢測，請勿重複投票',
     'vote' => '投票',
-    'votes' => '投票'
+    'votes' => '投票',
+     'title' => '標題',
+    'option' => '選項',
+    'add-option' => '添加選項',
+    'delete-option' => '刪除選項',
+    'ip-checking' => 'IP重複檢查',
+    'ip-checking-warrning' => 'Only needed if site in public mode',
+    'multiple-choice' => '允許多選',
+    'create-poll' => '創建調查'
 ];
