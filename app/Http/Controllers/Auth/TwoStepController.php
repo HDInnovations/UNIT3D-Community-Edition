@@ -39,8 +39,7 @@ class TwoStepController extends Controller
     {
         $this->middleware('auth');
 
-        $this->middleware(function ($request, $next)
-        {
+        $this->middleware(function ($request, $next) {
             $this->setUser2StepData();
 
             return $next($request);
@@ -113,7 +112,6 @@ class TwoStepController extends Controller
         ];
 
         if ($this->_authCount > config('auth.TwoStepExceededCount')) {
-
             $exceededTimeDetails = $this->exceededTimeParser($twoStepAuth->updated_at);
 
             $data['timeUntilUnlock']     = $exceededTimeDetails['tomorrow'];
@@ -158,8 +156,7 @@ class TwoStepController extends Controller
             abort(404);
         }
 
-        if($request->ajax()) {
-
+        if ($request->ajax()) {
             $validator = Validator::make($request->all(), [
                 'v_input_1' => 'required|min:1|max:1',
                 'v_input_2' => 'required|min:1|max:1',
@@ -168,18 +165,15 @@ class TwoStepController extends Controller
             ]);
 
             if ($validator->fails()) {
-
                 $returnData = $this->invalidCodeReturnData($validator->errors());
 
                 return response()->json($returnData, 418);
-
             }
 
             $code       = $request->v_input_1 . $request->v_input_2 . $request->v_input_3 . $request->v_input_4;
             $validCode  = $this->_twoStepAuth->authCode;
 
             if ($validCode != $code) {
-
                 $returnData = $this->invalidCodeReturnData();
 
                 return response()->json($returnData, 418);
@@ -218,7 +212,5 @@ class TwoStepController extends Controller
         ];
 
         return response()->json($returnData, 200);
-
     }
-
 }

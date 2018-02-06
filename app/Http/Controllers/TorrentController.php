@@ -436,7 +436,7 @@ class TorrentController extends Controller
             $torrent->where('seeders', $dying)->where('times_completed', '>=', 3);
         }
 
-        if ($request->has('dead') && $request->get('dead') != null)  {
+        if ($request->has('dead') && $request->get('dead') != null) {
             $torrent->where('seeders', $dead);
         }
 

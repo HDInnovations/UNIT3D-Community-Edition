@@ -28,22 +28,22 @@ trait TwoStep
      *
      * @return boolean
      */
-     public function twoStepVerification($request)
-     {
-         $user = Auth::User();
-         if ($user) {
-             $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
-             if ($twoStepAuthStatus->authStatus !== true) {
-                 return false;
-             } else {
-                 if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
-                     return false;
-                 }
-             }
-             return true;
-         }
-         return true;
-     }
+    public function twoStepVerification($request)
+    {
+        $user = Auth::User();
+        if ($user) {
+            $twoStepAuthStatus = $this->checkTwoStepAuthStatus($user->id);
+            if ($twoStepAuthStatus->authStatus !== true) {
+                return false;
+            } else {
+                if ($this->checkTimeSinceVerified($twoStepAuthStatus)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
+    }
 
     /**
      * Check time since user was last verified and take apprpriate action
@@ -99,8 +99,8 @@ trait TwoStep
      */
     private function generateCode(int $length = 4, string $prefix = '', string $suffix = '')
     {
-        for($i = 0; $i < $length; $i++){
-            $prefix .= random_int(0,1) ? chr(random_int(65, 90)) : random_int(0, 9);
+        for ($i = 0; $i < $length; $i++) {
+            $prefix .= random_int(0, 1) ? chr(random_int(65, 90)) : random_int(0, 9);
         }
 
         return $prefix . $suffix;
