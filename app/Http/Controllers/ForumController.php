@@ -124,7 +124,7 @@ class ForumController extends Controller
         }
 
         // Fetch topics->posts in descending order
-        $topics = $forum->topics()->orderBy('pinned', 'DESC')->orderBy('created_at', 'DESC')->paginate(25);
+        $topics = $forum->topics()->orderBy('pinned', 'DESC')->orderBy('last_reply_at', 'DESC')->orderBy('created_at', 'DESC')->paginate(25);
 
         return view('forum.display', ['forum' => $forum, 'topics' => $topics, 'category' => $category]);
     }
@@ -203,6 +203,8 @@ class ForumController extends Controller
             $topic->last_post_user_username = $user->username;
             // Count post in topic
             $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
+            // Update time
+            $topic->last_reply_at = $post->created_at;
             // Save
             $topic->save();
 
@@ -303,6 +305,7 @@ class ForumController extends Controller
                 if ($v->passes()) {
                     $post->save();
                     $topic->num_post = 1;
+                    $topic->last_reply_at = $post->created_at;
                     $topic->save();
                     $forum->num_topic = $forum->getTopicCount($forum->id);
                     $forum->num_post = $forum->getPostCount($forum->id);
