@@ -28,7 +28,7 @@
   </div>
   @else
     <div class="well">
-      <p class="lead text-orange text-center">{! trans('request.no-refunds') !}</p>
+      <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
     </div>
 <div class="well">
   <form action="{{route('request_search')}}" style="display: inline;" method="get">
