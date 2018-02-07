@@ -107,5 +107,13 @@ return [
     'top-bountied' => 'Top bountied',
     'active' => 'Active',
     'lock-account' => 'Lock account',
-    'close' => 'Close'
+    'close' => 'Close',
+    'user' => 'User',
+    'comments' => 'Comments',
+    'no-comments' => 'No Comments Yet',
+    'author' => 'Author',
+    'delete-your-comment' => 'Delete your comment',
+    'your-comment' => 'Your comment',
+    'yes' => 'Yes',
+    'no' => 'No'
 ];

@@ -198,21 +198,21 @@
             <td>
               @if($request->claimed == null && $request->filled_hash == null)
               <button class="btn btn-md btn-success btn-vote-request" data-toggle="modal" data-target="#claim"><i class="fa fa-suitcase">
-              </i> Claim Request
+              </i> {{ trans('request.claim') }}
               </button>
               @elseif($request->filled_hash != null && $request->approved_by == null)
-              <button class="btn btn-xs btn-info" disabled><i class="fa fa-question-circle"></i>Pending</button>
+              <button class="btn btn-xs btn-info" disabled><i class="fa fa-question-circle"></i>{{ trans('request.pending') }}</button>
               @elseif($request->filled_hash != null)
-              <button class="btn btn-xs btn-success" disabled><i class="fa fa-check-square-o"></i>Filled</button>
+              <button class="btn btn-xs btn-success" disabled><i class="fa fa-check-square-o"></i>{{ trans('request.filled') }}</button>
               @else @if($requestClaim->anon == 0)
               <span class="badge-user">{{ $requestClaim->username }}</span> @if($user->group->is_modo || $requestClaim->username == $user->username)
-              <a href="{{ route('unclaimRequest', ['id' => $request->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="Un-Claim This Request!">
-                <span class="icon"><i class="fa fa-times"></i> Reset Claim</span>
+              <a href="{{ route('unclaimRequest', ['id' => $request->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="{{ trans('request.unclaim') }}">
+                <span class="icon"><i class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
               </a>
               @endif @else
-              <span class="badge-user">ANONYMOUS</span> @if($user->group->is_modo || $requestClaim->username == $user->username)
-              <a href="{{ route('unclaimRequest', ['id' => $request->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="Un-Claim This Request!">
-                <span class="icon"><i class="fa fa-times"></i> Reset Claim</span>
+              <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}</span> @if($user->group->is_modo || $requestClaim->username == $user->username)
+              <a href="{{ route('unclaimRequest', ['id' => $request->id]) }}" class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title="" data-original-title="{{ trans('request.unclaim') }}">
+                <span class="icon"><i class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
               </a>
               @endif @endif @endif
             </td>
@@ -220,7 +220,7 @@
           @if($request->filled_hash != null && $request->approved_by != null)
           <tr>
             <td>
-              <strong>Filled By</strong>
+              <strong>{{ trans('request.filled-by') }}</strong>
             </td>
             <td>
               <span class="badge-user"><a href="{{ route('profil', ['username' => $request->FillUser->username, 'id' => $request->FillUser->id ]) }}" title="">{{ $request->FillUser->username }}</a></span>
@@ -229,7 +229,7 @@
           </tr>
           <tr>
             <td>
-              <strong>Torrent</strong>
+              <strong>{{ trans('torrent.torrent') }}</strong>
             </td>
             <td>
               <a href="{{ route('torrent', ['slug' => $request->torrent->slug, 'id' => $request->torrent->id]) }}">{{ $request->torrent->name }}</a>
@@ -238,18 +238,18 @@
           @endif @if($request->user_id == $user->id && $request->filled_hash != null && $request->approved_by == null || Auth::user()->group->is_modo && $request->filled_hash != null && $request->approved_by == null)
           <tr>
             <td>
-              <strong>Filled By</strong>
+              <strong>{{ trans('request.filled-by') }}</strong>
             </td>
             <td>
               <span class="badge-user"><a href="{{ route('profil', ['username' => $request->FillUser->username, 'id' => $request->FillUser->id ]) }}" title="">{{ $request->FillUser->username }}</a></span>
               <span class="badge-extra">{{ $request->filled_when->diffForHumans() }}</span>
-              <span class="badge-extra"><a href="{{ route('approveRequest', ['id' => $request->id]) }}">Approve</a></span>
-              <span class="badge-extra"><a href="{{ route('rejectRequest', ['id' => $request->id]) }}">Reject</a></span>
+              <span class="badge-extra"><a href="{{ route('approveRequest', ['id' => $request->id]) }}">{{ trans('request.approve') }}</a></span>
+              <span class="badge-extra"><a href="{{ route('rejectRequest', ['id' => $request->id]) }}">{{ trans('request.reject') }}</a></span>
             </td>
           </tr>
           <tr>
             <td>
-              <strong>Torrent</strong>
+              <strong>{{ trans('torrent.torrent') }}</strong>
             </td>
             <td>
               <a href="{{ route('torrent', ['slug' => $request->torrent->slug, 'id' => $request->torrent->id]) }}">{{ $request->torrent->name }}</a>
@@ -260,7 +260,7 @@
       </table>
       <div class="panel panel-default panel-collapse">
         <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapseVoters" aria-expanded="false">
-          <strong><a href="#">Voters</a></strong>
+          <strong><a href="#">{{ trans('request.voters') }}</a></strong>
         </div>
         <div id="collapseVoters" class="panel-body collapse" aria-expanded="false">
           <div class="pull-right">
@@ -269,13 +269,13 @@
             <thead>
               <tr>
                 <th>
-                  User
+                  {{ trans('common.user') }}
                 </th>
                 <th>
-                  Bonus Points
+                  {{ trans('bon.bonus') }} {{ strtolower(trans('bon.points')) }}
                 </th>
                 <th>
-                  Last Vote
+                  {{ trans('request.last-vote') }}
                 </th>
               </tr>
             </thead>
@@ -307,21 +307,21 @@
         <div class="panel panel-danger">
           <div class="panel-heading border-light">
             <h4 class="panel-title">
-              <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white" data-l="true"></i> Comments
+              <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white" data-l="true"></i> {{ trans('common.comments') }}
             </h4>
           </div>
           <div class="panel-body no-padding">
             <ul class="media-list comments-list">
               @if(count($comments) == 0)
               <center>
-                <h4 class="text-bold text-danger"><i class="fa fa-frown-o"></i> No Comments Yet!</h4></center>
+                <h4 class="text-bold text-danger"><i class="fa fa-frown-o"></i> {{ trans('common.no-comments') }}!</h4></center>
               @else @foreach($comments as $comment)
               <li class="media" style="border-left: 5px solid #01BC8C">
                 <div class="media-body">
                   @if($comment->anon == 1)
                   <a href="#" class="pull-left">
                 <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-                <strong>ANONYMOUS</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
+                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
                 @endif
                   @else
                   <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
@@ -330,12 +330,12 @@
                 @else
                   <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                   @endif
-                  <strong>By <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
+                  <strong>{{ trans('common.author') }} <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
                   @endif
                   <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                   @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
-                  <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
-                  <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
+                  <a title="{{ trans('common.delete-your-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+                  <a title="{{ trans('common.edit-your-comment') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
                   @endif
                   <div class="pt-5">
                     @emojione($comment->getContentHtml())
@@ -360,13 +360,13 @@
       <div class="col-md-12">
         {{ Form::open(array('route' => array('comment_request', 'id' => $request->id))) }}
         <div class="form-group">
-          <label for="content">Your comment:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
+          <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
           <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
         </div>
         <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
-        <label class="radio-inline"><strong>Anonymous Comment:</strong></label>
-        <input type="radio" value="1" name="anonymous"> Yes
-        <input type="radio" value="0" checked="checked" name="anonymous"> No {{ Form::close() }}
+        <label class="radio-inline"><strong>{{ trans('common.anonymous') }} {{ strtolower(trans('common.comment')) }}:</strong></label>
+        <input type="radio" value="1" name="anonymous"> {{ trans('common.yes') }}
+        <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }} {{ Form::close() }}
       </div>
       <!-- /Add comment -->
     </div>

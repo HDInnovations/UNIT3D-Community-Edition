@@ -53,7 +53,7 @@ return [
     'type' => 'Naciśnij',
     'for' => 'dla',
     'is-allowed' => 'jest dozwolone',
-    'anonymous' => 'Anonim',
+    'anonymous' => 'Anonimowy',
     'hidden' => 'Ukryty',
     'previous' => 'Poprzednie',
     'next' => 'Następne',
@@ -107,5 +107,13 @@ return [
     'top-bountied' => 'Top nagradzane',
     'active' => 'Aktywny',
     'lock-account' => 'Zablokuj konto',
-    'close' => 'Zamknij'
+    'close' => 'Zamknij',
+    'user' => 'Użytkownik',
+    'comments' => 'Komentarze',
+    'no-comments' => 'Brak komentarzy',
+    'author' => 'Autor',
+    'delete-your-comment' => 'Skasuj swój komentarz',
+    'your-comment' => 'Twój komentarz',
+    'yes' => 'Tak',
+    'no' => 'Nie'
 ];
