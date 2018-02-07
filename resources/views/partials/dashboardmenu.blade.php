@@ -16,7 +16,7 @@
     <li><a href="{{ route('staff_groups_index') }}"><i class="fa fa-users"></i> {{ trans('staff.groups') }}</a></li>
     @endif
     <li><a href="{{ route('staff_page_index') }}"><i class="fa fa-file"></i> {{ trans('staff.pages') }}</a></li>
-    <li><a href="{{ route('getPolls') }}"><i class="fa fa-pie-chart"></i> {{ trans('staff.pools') }}</a></li>
+    <li><a href="{{ route('getPolls') }}"><i class="fa fa-pie-chart"></i> {{ trans('staff.polls') }}</a></li>
     <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.torrent-tools') }}</li>
     <li><a href="{{ route('staff_torrent_index') }}"><i class="fa fa-file-movie-o"></i> {{ trans('staff.torrents') }}</a></li>
     <li><a href="{{ route('staff_category_index') }}"><i class="fa fa-columns"></i> {{ trans('staff.torrent-categories') }}</a></li>
