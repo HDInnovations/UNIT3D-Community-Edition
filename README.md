@@ -46,6 +46,7 @@ UNIT3D currently offers the following features:
   - PM System
   - Multilingual Support
   - TwoStep Auth System
+  - DB + Files Backup Manager
   - and MUCH MORE!
 
 ## <a name="requirements"></a> Requirements
@@ -55,6 +56,7 @@ UNIT3D currently offers the following features:
 - Dependencies for PHP, (Updated as issues spotted)
   -   php-gettext -> This is primarly for phpmyadmin, if you're going to use it, there has been cases where it does not install when installing phpmyadmin.
   -   php-curl -> This is specifically needed for the various APIs we have running.
+  -   php-zip -> This is required for the Backup Manager.
 - Crontab access
 - A Redis server
 - MySQL 5.7
