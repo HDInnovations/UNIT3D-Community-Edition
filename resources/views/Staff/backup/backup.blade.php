@@ -46,11 +46,11 @@
             <td class="text-right">{{ round((int)$b['file_size']/1048576, 2).' MB' }}</td>
             <td class="text-right">
                 @if ($b['download'])
-                <a class="btn btn-xs btn-default" href="#">
+                <a class="btn btn-xs btn-default" href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name'] }}">
                     <i class="fa fa-cloud-download"></i> {{ trans('backup.download') }}
                 </a>
                 @endif
-                <a class="btn btn-xs btn-danger" data-button-type="delete" href="#">
+                <a class="btn btn-xs btn-danger" data-button-type="delete" href="{{ url('staff_dashboard/backup/delete/'.$b['file_name'] }}?disk={{ $b['disk'] }}">
                     <i class="fa fa-trash-o"></i> {{ trans('backup.delete') }}
                 </a>
             </td>
@@ -84,24 +84,17 @@
         // do the backup through ajax
         $.ajax({
                 url: create_backup_url,
+                data: { _token: '{{csrf_token()}}' },
                 type: 'POST',
                 success: function(result) {
                     l.setProgress( 0.9 );
                     // Show an alert with the result
                     if (result.indexOf('failed') >= 0) {
-                        new Toastr({
-                            title: "{{ trans('backup.create_warning_title') }}",
-                            text: "{{ trans('backup.create_warning_message') }}",
-                            type: "warning"
-                        });
+                        toastr.warning("{{ trans('backup.create_warning_title') }}", "{{ trans('backup.create_warning_message') }}");
                     }
                     else
                     {
-                        new Toastr({
-                            title: "{{ trans('backup.create_confirmation_title') }}",
-                            text: "{{ trans('backup.create_confirmation_message') }}",
-                            type: "success"
-                        });
+                        toastr.success("{{ trans('backup.create_confirmation_title') }}", "{{ trans('backup.create_confirmation_message') }}");
                     }
 
                     // Stop loading
@@ -114,11 +107,7 @@
                 error: function(result) {
                     l.setProgress( 0.9 );
                     // Show an alert with the result
-                    new Toastr({
-                        title: "{{ trans('backup.create_error_title') }}",
-                        text: "{{ trans('backup.create_error_message') }}",
-                        type: "warning"
-                    });
+                    toastr.warning("{{ trans('backup.create_error_title') }}", "{{ trans('backup.create_error_message') }}");
                     // Stop loading
                     l.stop();
                 }
@@ -137,29 +126,17 @@
                 type: 'DELETE',
                 success: function(result) {
                     // Show an alert with the result
-                    new Toastr({
-                        title: "{{ trans('backup.delete_confirmation_title') }}",
-                        text: "{{ trans('backup.delete_confirmation_message') }}",
-                        type: "success"
-                    });
+                    toastr.success("{{ trans('backup.delete_confirmation_title') }}", "{{ trans('backup.delete_confirmation_message') }}");
                     // delete the row from the table
                     delete_button.parentsUntil('tr').parent().remove();
                 },
                 error: function(result) {
                     // Show an alert with the result
-                    new Toastr({
-                        title: "{{ trans('backup.delete_error_title') }}",
-                        text: "{{ trans('backup.delete_error_message') }}",
-                        type: "warning"
-                    });
+                    toastr.warning("{{ trans('backup.delete_error_message') }}", "{{ trans('backup.delete_error_title') }}");
                 }
             });
         } else {
-            new Toastr({
-                title: "{{ trans('backup.delete_cancel_title') }}",
-                text: "{{ trans('backup.delete_cancel_message') }}",
-                type: "info"
-            });
+            toastr.info("{{ trans('backup.delete_cancel_title') }}", "{{ trans('backup.delete_cancel_message') }}");
         }
       });
 
