@@ -31,7 +31,7 @@ return [
     
     // News/Articles
     'new-news' => '新新聞',
-    'check-news' => '新聞（每日必看）'
+    'check-news' => '新聞（每日必看）',
     
     // Top torrents
     'new-torrents' => '最新種子'
