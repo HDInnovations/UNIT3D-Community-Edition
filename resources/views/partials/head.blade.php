@@ -26,7 +26,7 @@
 @elseif(Auth::user()->style == 2)
 <link rel="stylesheet" href="{{ url('css/main/blur.css?v=02') }}">
 @elseif(Auth::user()->style == 3)
-<link rel="stylesheet" href="{{ url('css/main/advbuttons.css?v=03') }}">
+<link rel="stylesheet" href="{{ url('css/main/advbuttons.css?v=04') }}">
 <link rel="stylesheet" href="{{ url('css/main/galactic.css?v=02') }}">
 @endif
 @if(Auth::user()->style != 3)

@@ -451,5 +451,11 @@ Route::group(['middleware' => 'language'], function () {
         // MassPM
         Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
         Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+
+        // Backup Manager
+        Route::get('/backup', 'BackupController@index')->name('backupManager');
+        Route::post('/backup/create', 'BackupController@create');
+        Route::get('/backup/download/{file_name?}', 'BackupController@download');
+        Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
     });
 });
