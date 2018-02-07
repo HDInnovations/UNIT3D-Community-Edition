@@ -50,7 +50,7 @@ return [
     'pending' => 'W trakcie',
     'filled' => 'Wypełnione',
     'filled-by' => 'Wypełnione przez',
-    'unclaim' = 'Odłącz się od prośby',
+    'unclaim' => 'Odłącz się od prośby',
     'approve' => 'Zatwierdź',
     'reject' => 'Odrzuć',
     'voters' => 'Głosujący',

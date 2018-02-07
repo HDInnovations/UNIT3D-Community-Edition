@@ -50,7 +50,7 @@ return [
     'pending' => 'Pending',
     'filled' => 'Filled',
     'filled-by' => 'Filled by',
-    'unclaim' = 'Unclaim this request',
+    'unclaim' => 'Unclaim this request',
     'approve' => 'Approve',
     'reject' => 'Reject',
     'voters' => 'Voters',
