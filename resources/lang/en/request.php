@@ -66,5 +66,7 @@ return [
     'total-bounty' => 'Total bounty',
     'bounty-claimed' => 'Bounty claimed',
     'bounty-unclaimed' => 'Bounty unclaimed',
-    'age' => 'Age'
+    'age' => 'Age',
+    'claimed' => 'Claimed',
+    'votes' => 'Votes'
 ];

@@ -66,5 +66,7 @@ return [
     'total-bounty' => 'Wszystkie napiwki',
     'bounty-claimed' => 'Napiwki otrzymane',
     'bounty-unclaimed' => 'Napiwki nieotrzymane',
-    'age' => 'Wiek'
+    'age' => 'Wiek',
+    'claimed' => 'Ktoś dołączył',
+    'votes' => 'Głosy'
 ];
