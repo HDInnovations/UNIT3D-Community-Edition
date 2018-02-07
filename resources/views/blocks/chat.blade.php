@@ -16,7 +16,7 @@
         </ul>
       </div>
       <div class="panel-footer ">
-        <span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span> <span class="badge-extra text-red text-bold" style="float:right;">{{ trans('blocks.click') }} [BBCODE] {{ trans('blocks.to-enable-editor') }}</span>
+        <span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
           <div class="form-group">
             <textarea class="form-control" id="chat-message"></textarea>
             <p id="chat-error" class="hidden text-danger"></p>
@@ -32,7 +32,7 @@
 <script>
 $(document).ready(function() {
   var wbbOpt = {
-
+      onlyBBmode: true,
   }
     $("#chat-message").wysibb(wbbOpt);
 });
