@@ -7,6 +7,7 @@ return [
      * |--------------------------------------------------------------------------
      */
     'backup'                         => 'Backup',
+    'manager'                        => 'Manager',
     'create_a_new_backup'            => 'Create a new backup',
     'existing_backups'               => 'Existing backups',
     'date'                           => 'Date',

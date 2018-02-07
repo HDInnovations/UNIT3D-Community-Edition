@@ -453,7 +453,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
 
         // Backup Manager
-        Route::get('/backup', 'BackupController@index');
+        Route::get('/backup', 'BackupController@index')->name('backupManager');
         Route::put('/backup/create', 'BackupController@create');
         Route::get('/backup/download/{file_name?}', 'BackupController@download');
         Route::delete('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
