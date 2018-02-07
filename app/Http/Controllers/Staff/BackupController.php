@@ -15,7 +15,7 @@ namespace App\Http\Controllers\Staff;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;

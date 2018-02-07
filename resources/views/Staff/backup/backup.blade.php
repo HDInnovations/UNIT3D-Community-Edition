@@ -46,13 +46,9 @@
             <td class="text-right">{{ round((int)$b['file_size']/1048576, 2).' MB' }}</td>
             <td class="text-right">
                 @if ($b['download'])
-                <a class="btn btn-xs btn-default" href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name'] }}">
-                    <i class="fa fa-cloud-download"></i> {{ trans('backup.download') }}
-                </a>
+                <a class="btn btn-xs btn-default" href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i class="fa fa-cloud-download"></i> {{ trans('backup.download') }}</a>
                 @endif
-                <a class="btn btn-xs btn-danger" data-button-type="delete" href="{{ url('staff_dashboard/backup/delete/'.$b['file_name'] }}?disk={{ $b['disk'] }}">
-                    <i class="fa fa-trash-o"></i> {{ trans('backup.delete') }}
-                </a>
+                <a class="btn btn-xs btn-danger" data-button-type="delete" href="{{ url('staff_dashboard/backup/delete/'.$b['file_name']) }}?disk={{ $b['disk'] }}"><i class="fa fa-trash-o"></i> {{ trans('backup.delete') }}</a>
             </td>
           </tr>
           @endforeach
@@ -123,7 +119,8 @@
         if (confirm("{{ trans('backup.delete_confirm') }}") == true) {
             $.ajax({
                 url: delete_url,
-                type: 'DELETE',
+                data: { _token: '{{csrf_token()}}' },
+                type: 'POST',
                 success: function(result) {
                     // Show an alert with the result
                     toastr.success("{{ trans('backup.delete_confirmation_title') }}", "{{ trans('backup.delete_confirmation_message') }}");
