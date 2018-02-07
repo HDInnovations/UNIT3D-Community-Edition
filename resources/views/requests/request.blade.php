@@ -198,7 +198,7 @@
             <td>
               @if($request->claimed == null && $request->filled_hash == null)
               <button class="btn btn-md btn-success btn-vote-request" data-toggle="modal" data-target="#claim"><i class="fa fa-suitcase">
-              </i> Claim Request
+              </i> {{ trans('request.claim') }}
               </button>
               @elseif($request->filled_hash != null && $request->approved_by == null)
               <button class="btn btn-xs btn-info" disabled><i class="fa fa-question-circle"></i>{{ trans('request.pending') }}</button>

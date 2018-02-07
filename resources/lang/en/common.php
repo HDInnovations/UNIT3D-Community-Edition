@@ -115,6 +115,5 @@ return [
     'delete-your-comment' => 'Delete your comment',
     'your-comment' => 'Your comment',
     'yes' => 'Yes',
-    'no' => 'No',
-    'reset' => 'Reset'
+    'no' => 'No'
 ];

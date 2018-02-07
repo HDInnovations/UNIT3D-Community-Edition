@@ -64,8 +64,8 @@
   <span class="badge-user" style="float: right;"><a href="{{ route('requests') }}"><strong>{{ trans('request.requests') }}:</strong></a> {{ $num_req }} |
   <a href="{{ route('requests') }}" name="filled_requests" value="true" id="filled_requests"><strong>{{ trans('request.filled') }}:</strong></a> {{ $num_fil }} |
   <a href="{{ route('requests') }}" name="unfilled_requests" value="true" id="unfilled_requests"><strong>{{ trans('request.unfilled') }}:</strong></a> {{ $num_unfil }}
-  | <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} | <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} | <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} BON</span>
-  <a href="{{ route('request.add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">{{ trans('request.add-request') }}</a>
+  | <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} | <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} | <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}</span>
+  <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">{{ trans('request.add-request') }}</a>
   <div class="table-responsive">
     <table class="table table-condensed table-striped table-bordered">
       <thead>

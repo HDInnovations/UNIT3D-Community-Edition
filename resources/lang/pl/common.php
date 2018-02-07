@@ -53,7 +53,7 @@ return [
     'type' => 'Naciśnij',
     'for' => 'dla',
     'is-allowed' => 'jest dozwolone',
-    'anonymous' => 'Anonim',
+    'anonymous' => 'Anonimowy',
     'hidden' => 'Ukryty',
     'previous' => 'Poprzednie',
     'next' => 'Następne',
