@@ -83,7 +83,7 @@ window.setTimeout(updateMessages, 3000);
 
 var xhr = new XMLHttpRequest();
 function editorOnKeyDown(evt, sender = null) {
-  if (evt.which == 13) {
+  if (evt.key == "Enter" && !evt.shiftKey) {
     var message = $('#chat-message').bbcode();
     post_data = {
       'message': message
