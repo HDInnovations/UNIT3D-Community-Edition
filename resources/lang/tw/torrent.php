@@ -31,7 +31,7 @@ return [
     'completed' => '完成',
     'released' => '發佈',
     'title' => '標題',
-    'titles' => '標題'
+    'titles' => '標題',
     'freeleech' => '免費',
     'double-upload' => '雙倍上傳',
     'short-seeds' => 'S',
