@@ -190,7 +190,9 @@ class UserController extends Controller
             $user->peer_hidden = Request::get('peer_hidden');
             $user->show_poster = Request::get('show_poster');
             $user->ratings = Request::get('ratings');
+            if(config('auth.TwoStepEnabled') == true) {
             $user->twostep = Request::get('twostep');
+            }
             $user->save();
 
             // Activity Log
