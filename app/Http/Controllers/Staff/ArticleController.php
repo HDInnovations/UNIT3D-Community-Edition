@@ -73,7 +73,7 @@ class ArticleController extends Controller
                 if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
                     unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
-                Session::put('message', 'An error has occured');
+                return back()->with(Toastr::error('Validation Checks Have Failed', 'Error', ['options']));
             } else {
                 Auth::user()->articles()->save($post);
                 return Redirect::route('staff_article_index')->with('message', 'Your article has been published');
