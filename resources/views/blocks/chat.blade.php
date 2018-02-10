@@ -32,9 +32,10 @@
 <script>
 $(document).ready(function() {
   var wbbOpt = {
-      onlyBBmode: true,
   }
-    $("#chat-message").wysibb(wbbOpt);
+
+  $("#chat-message").wysibb(wbbOpt);
+  $(".wysibb-body").attr("onkeydown", "editorOnKeyDown(event, this);")
 });
 </script>
 @stop

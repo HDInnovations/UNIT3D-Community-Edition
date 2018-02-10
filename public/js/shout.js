@@ -81,11 +81,10 @@ function updateMessages() {
 }
 window.setTimeout(updateMessages, 3000);
 
-
 var xhr = new XMLHttpRequest();
-$("#chat-message").keypress(function(evt) {
-  if (evt.which == 13) {
-    var message = $('#chat-message').val();
+function editorOnKeyDown(evt, sender = null) {
+  if (evt.key == "Enter" && !evt.shiftKey) {
+    var message = $('#chat-message').bbcode();
     post_data = {
       'message': message
     };
@@ -102,6 +101,9 @@ $("#chat-message").keypress(function(evt) {
         $('#chat-error').addClass('hidden');
         $('#chat-message').removeClass('invalid');
         $('#chat-message').val('');
+        if (sender !== null && sender.classList.contains('wysibb-body')) {
+            $('.wysibb-body').html('');
+        }
         messages.animate({
           scrollTop: messages.prop('scrollHeight')
         }, 0);
@@ -113,4 +115,5 @@ $("#chat-message").keypress(function(evt) {
       }
     });
   }
-});
+}
+$("#chat-message").keypress(editorOnKeyDown);
