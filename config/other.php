@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker (BETA) v1.0',
+    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.5.5',
 
     /*
     |--------------------------------------------------------------------------
