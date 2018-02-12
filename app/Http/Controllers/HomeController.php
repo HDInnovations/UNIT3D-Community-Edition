@@ -94,17 +94,12 @@ class HomeController extends Controller
      */
     public function contact()
     {
-        // Fetch admin group
-        $group = Group::where('slug', '=', 'administrator')->first();
-        // grab the admins
-        $admins = User::where('group_id', '=', $group->id)->get();
+        // Fetch owner account
+        $user = User::where('id', '=', '3')->first();
 
         if (Request::getMethod() == 'POST') {
             $input = Request::all();
-            // Send The Mail
-            foreach ($admins as $user) {
-                Mail::to($user->email, $user->username)->send(new Contact($input));
-            }
+            Mail::to($user->email, $user->username)->send(new Contact($input));
             Toastr::success('Your Message Was Succefully Sent!', 'Success', ['options']);
         }
 
