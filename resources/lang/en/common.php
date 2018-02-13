@@ -57,7 +57,7 @@ return [
     'hidden' => 'Hidden',
     'previous' => 'Previous',
     'next' => 'Next',
-    'active-warning' => 'Active warrning',
+    'active-warning' => 'Active warning',
     'global' => 'Global',
     'hot' => 'Hot!',
     'new' => 'New!',
@@ -115,5 +115,7 @@ return [
     'delete-your-comment' => 'Delete your comment',
     'your-comment' => 'Your comment',
     'yes' => 'Yes',
-    'no' => 'No'
+    'no' => 'No',
+    'internal' => 'Internal',
+    'info' => 'Info'
 ];
