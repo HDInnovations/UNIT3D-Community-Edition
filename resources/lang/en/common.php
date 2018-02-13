@@ -117,5 +117,6 @@ return [
     'yes' => 'Yes',
     'no' => 'No',
     'internal' => 'Internal',
-    'info' => 'Info'
+    'info' => 'Info',
+    'rss-system' => 'RSS System'
 ];
