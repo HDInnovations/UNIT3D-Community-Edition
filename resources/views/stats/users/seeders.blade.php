@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('seeders') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Top Seeders</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-seeders') }}</span>
   </a>
 </li>
 @stop
@@ -22,16 +22,16 @@
 @include('partials.statsusermenu')
 
 <div class="block">
-  <h2>Top Seeders (COUNT)</h2>
+  <h2>{{ trans('stat.top-seeders') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-      <p class="text-green"><strong><i class="fa fa-arrow-up"></i> Top Seeders</strong> (COUNT)</p>
+      <p class="text-green"><strong><i class="fa fa-arrow-up"></i> {{ trans('stat.top-seeders') }}</strong></p>
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>
-            <th>User</th>
-            <th>Seeding</th>
+            <th>{{ trans('common.user') }}</th>
+            <th>{{ trans('torrent.seeding') }}</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
           <tr>
             <td>
               @if($s->user->private_profile == 1)
-              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>HIDDEN</span>@if(Auth::user()->id == $s->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $s->user->username, 'id' => $s->user->id]) }}">({{ $s->user->username }})</a></span>
+              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(Auth::user()->id == $s->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $s->user->username, 'id' => $s->user->id]) }}">({{ $s->user->username }})</a></span>
               @endif
               @else
               <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $s->user->username, 'id' => $s->user->id]) }}">{{ $s->user->username }}</a></span>

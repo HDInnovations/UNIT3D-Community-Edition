@@ -115,5 +115,11 @@ return [
     'delete-your-comment' => 'Skasuj swój komentarz',
     'your-comment' => 'Twój komentarz',
     'yes' => 'Tak',
-    'no' => 'Nie'
+    'no' => 'Nie',
+    'internal' => 'Wewnętrzne',
+    'info' => 'Info',
+    'rss-system' => 'System RSS',
+    'balance' => 'Balans',
+    'users' => 'Użytkownicy',
+    'teams' => 'Zespoły'
 ];

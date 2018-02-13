@@ -66,5 +66,8 @@ return [
     'votes' => 'Votes',
     'rated' => 'Rated',
     'runtime' => 'Runtime',
-    'description' => 'Description'
+    'description' => 'Description',
+    'seedsize' => 'Seedsize',
+    'seedtime' => 'Seedtime',
+    'uploaded' => 'Uploaded'
 ];

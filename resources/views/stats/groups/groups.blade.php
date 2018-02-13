@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('groups') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Groups</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.groups') }}</span>
   </a>
 </li>
 @stop
@@ -21,9 +21,9 @@
 <div class="container">
 @include('partials.statsgroupmenu')
 <div class="block">
-  <h2>Groups</h2>
+  <h2>{{ trans('stat.groups') }}</h2>
   <hr>
-    <p class="text-red"><strong><i class="fa fa-users"></i> Groups</strong> (Users Per Group)</p>
+    <p class="text-red"><strong><i class="fa fa-users"></i> {{ trans('stat.groups') }}</strong> ({{ trans('stat.users-per-group') }})</p>
       <div class="row col-md-offset-2">
         @foreach($groups as $group)
         <div class="well col-md-3" style="margin: 10px;">
