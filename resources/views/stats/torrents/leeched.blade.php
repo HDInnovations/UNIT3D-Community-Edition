@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('leeched') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Top Leeched</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-leeched') }}</span>
   </a>
 </li>
 @stop
@@ -22,18 +22,18 @@
 @include('partials.statstorrentmenu')
 
 <div class="block">
-  <h2>Top Leeched</h2>
+  <h2>{{ trans('stat.top-leeched') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-    <p class="text-warning"><strong><i class="fa fa-line-chart"></i> Top Leeched Torrents</strong> (most active leeches)</p>
+    <p class="text-warning"><strong><i class="fa fa-line-chart"></i> {{ trans('stat.top-leeched') }}</strong></p>
     <table class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>
-          <th>Torrent</th>
-          <th>Seeders</th>
-          <th>Leechers</th>
-          <th>Completed</th>
+          <th>{{ trans('torrent.torrent') }}</th>
+          <th>{{ trans('torrent.seeders') }}</th>
+          <th>{{ trans('torrent.leechers') }}</th>
+          <th>{{ trans('torrent.completed') }}</th>
         </tr>
       </thead>
       <tbody>

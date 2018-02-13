@@ -118,5 +118,8 @@ return [
     'no' => 'No',
     'internal' => 'Internal',
     'info' => 'Info',
-    'rss-system' => 'RSS System'
+    'rss-system' => 'RSS System',
+    'balance' => 'Balance',
+    'users' => 'Users',
+    'teams' => 'Teams'
 ];

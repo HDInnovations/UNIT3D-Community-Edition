@@ -118,5 +118,8 @@ return [
     'no' => 'Nie',
     'internal' => 'Wewnętrzne',
     'info' => 'Info',
-    'rss-system' => 'System RSS'
+    'rss-system' => 'System RSS',
+    'balance' => 'Balans',
+    'users' => 'Użytkownicy',
+    'teams' => 'Zespoły'
 ];
