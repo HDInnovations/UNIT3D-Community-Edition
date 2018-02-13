@@ -28,6 +28,7 @@ return [
     'top-dying' => 'Top dying',
     'top-leeched' => 'Top leeched',
     'top-leechers' => 'Top leechers',
+    'top-seeded' => 'Top seeded',
     'top-seeders' => 'Top seeders',
     'top-seedsize' => 'Top seedsize',
     'top-seedtime' => 'Top seedtime',

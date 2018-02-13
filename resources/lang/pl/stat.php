@@ -28,6 +28,7 @@ return [
     'top-dying' => 'Top umierające',
     'top-leeched' => 'Top leechowane',
     'top-leechers' => 'Top leecherzy',
+    'top-seeded' => 'Top seedowane',
     'top-seeders' => 'Top seederzy',
     'top-seedsize' => 'Top rozmiar seedowania',
     'top-seedtime' => 'Top czas seedowania',
