@@ -172,7 +172,6 @@ return [
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
