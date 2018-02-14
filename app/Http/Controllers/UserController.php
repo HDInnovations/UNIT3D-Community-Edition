@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -190,7 +190,9 @@ class UserController extends Controller
             $user->peer_hidden = Request::get('peer_hidden');
             $user->show_poster = Request::get('show_poster');
             $user->ratings = Request::get('ratings');
+            if(config('auth.TwoStepEnabled') == true) {
             $user->twostep = Request::get('twostep');
+            }
             $user->save();
 
             // Activity Log

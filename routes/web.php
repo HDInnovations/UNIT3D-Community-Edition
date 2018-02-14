@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -108,6 +108,9 @@ Route::group(['middleware' => 'language'], function () {
 
         // Staff List
         Route::any('/staff', 'PageController@staff')->name('staff');
+
+        // Internal List
+        Route::any('/internal', 'PageController@internal')->name('internal');
 
         // Black List
         Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
@@ -451,5 +454,11 @@ Route::group(['middleware' => 'language'], function () {
         // MassPM
         Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
         Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+
+        // Backup Manager
+        Route::get('/backup', 'BackupController@index')->name('backupManager');
+        Route::post('/backup/create', 'BackupController@create');
+        Route::get('/backup/download/{file_name?}', 'BackupController@download');
+        Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
     });
 });

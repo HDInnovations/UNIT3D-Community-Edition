@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -53,6 +53,7 @@ class GroupsController extends Controller
             $group->color = $request->get('group_color');
             $group->icon = $request->get('group_icon');
             $group->effect = $request->get('group_effect');
+            $group->is_internal = $request->get('group_internal');
             $group->is_modo = $request->get('group_modo');
             $group->is_admin = $request->get('group_admin');
             $group->is_trusted = $request->get('group_trusted');
@@ -85,6 +86,7 @@ class GroupsController extends Controller
             $group->color = $request->get('group_color');
             $group->icon = $request->get('group_icon');
             $group->effect = $request->get('group_effect');
+            $group->is_internal = $request->get('group_internal');
             $group->is_modo = $request->get('group_modo');
             $group->is_admin = $request->get('group_admin');
             $group->is_trusted = $request->get('group_trusted');

@@ -32,7 +32,8 @@
         "spatie/laravel-cookie-consent": "^2.1.0",
         "spatie/laravel-image-optimizer": "^1.1",
         "symfony/dom-crawler": "^2.7|^3.0",
-        "theodorejb/polycast": "^1.0"
+        "theodorejb/polycast": "^1.0",
+        "spatie/laravel-backup": "^5.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

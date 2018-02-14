@@ -32,7 +32,7 @@
   {{ Form::open(array('route' => array('staff_article_edit', 'slug' => $post->slug, 'id' => $post->id), 'files' => true)) }}
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" name="title" value="{{ $post->title }}">
+    <input type="text" class="form-control" name="title" value="{{ $post->title }}" required>
   </div>
 
   <div class="form-group">

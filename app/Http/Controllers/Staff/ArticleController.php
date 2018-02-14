@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -73,7 +73,7 @@ class ArticleController extends Controller
                 if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
                     unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
-                Session::put('message', 'An error has occured');
+                return back()->with(Toastr::error('Validation Checks Have Failed', 'Error', ['options']));
             } else {
                 Auth::user()->articles()->save($post);
                 return Redirect::route('staff_article_index')->with('message', 'Your article has been published');

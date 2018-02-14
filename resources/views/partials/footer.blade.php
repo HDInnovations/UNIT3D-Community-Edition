@@ -45,8 +45,10 @@
     </div>
 
     <div class="col-md-2 l-footer-section">
-      <h2 class="l-footer-section-title">{{ trans('common.legal') }}</h2>
+      <h2 class="l-footer-section-title">{{ trans('common.info') }}</h2>
       <ul>
+        <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
+        <li><a href="{{ route('internal') }}">{{ trans('common.internal') }}</a></li>
         <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
       </ul>
     </div>

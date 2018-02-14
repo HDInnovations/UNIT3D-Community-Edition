@@ -66,5 +66,8 @@ return [
     'votes' => 'Głosów',
     'rated' => 'Klasyfikacja',
     'runtime' => 'Długość',
-    'description' => 'Opis'
+    'description' => 'Opis',
+    'seedsize' => 'Rozmiar seedowania',
+    'seedtime' => 'Czas seedowania',
+    'uploaded' => 'Uploadowane'
 ];

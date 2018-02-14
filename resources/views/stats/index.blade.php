@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
 @stop
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
     </a>
 </li>
 @stop
@@ -16,78 +16,78 @@
 <div class="container box">
   <div class="header gradient red">
     <div class="inner_content">
-      <h1>Site Stats</h1>
+      <h1>{{ trans('stat.site-stats') }}</h1>
     </div>
   </div>
   <div class="stats">
     <div class="content">
       <div class="inner_content">
-        <h1>Nerd Stats</h1>
-        <p>We all love stats. Here are a few that we find important.</p>
+        <h1>{{ trans('stat.nerd-stats') }}</h1>
+        <p>{{ trans('stat.nerd-stats-desc') }}.</p>
 
         <div class="inner_stats">
           <div class="stat">
             <p>{{ $num_movies }}</p>
-            <span class="badge-extra">Movie Category</span>
+            <span class="badge-extra">Movie {{ trans('torrent.category') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_hdtv }}</p>
-            <span class="badge-extra">TV Category</span>
+            <span class="badge-extra">TV {{ trans('torrent.category') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_fan }}</p>
-            <span class="badge-extra">FANRES Category</span>
+            <span class="badge-extra">FANRES {{ trans('torrent.category') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_sd }}</p>
-            <span class="badge-extra">SD Category</span>
+            <span class="badge-extra">SD {{ trans('torrent.category') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_torrent }}</p>
-            <span class="badge-extra">Total Torrents</span>
+            <span class="badge-extra">{{ trans('stat.total-torrents') }}</span>
           </div>
 
           <br>
 
           <div class="stat">
             <p>{{ $num_user }}</p>
-            <span class="badge-extra">Users</span>
+            <span class="badge-extra">{{ trans('common.users') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_seeders }}</p>
-            <span class="badge-extra">Seeders</span>
+            <span class="badge-extra">{{ trans('torrent.seeders') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_leechers }}</p>
-            <span class="badge-extra">Leechers</span>
+            <span class="badge-extra">{{ trans('torrent.leechers') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ $num_peers }}</p>
-            <span class="badge-extra">Peers</span>
+            <span class="badge-extra">{{ trans('torrent.peers') }}</span>
           </div>
 
           <br>
 
           <div class="stat">
             <p>{{ \App\Helpers\StringHelper::formatBytes($tot_upload ,2) }}</p>
-            <span class="badge-extra">Total Upload</span>
+            <span class="badge-extra">{{ trans('stat.total-upload') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ \App\Helpers\StringHelper::formatBytes($tot_download ,2) }}</p>
-            <span class="badge-extra">Total Download</span>
+            <span class="badge-extra">{{ trans('stat.total-download') }}</span>
           </div>
 
           <div class="stat">
             <p>{{ \App\Helpers\StringHelper::formatBytes($tot_up_down ,2) }}</p>
-            <span class="badge-extra">Total Traffic</span>
+            <span class="badge-extra">{{ trans('stat.total-traffic') }}</span>
           </div>
         </div>
       </div>
@@ -95,46 +95,46 @@
     </div>
   </div>
   <br>
-<h3 class="text-center">Please Select A Category Below</h3>
+<h3 class="text-center">{{ trans('stat.select-category') }}</h3>
 <div class="row">
 <div class="col-sm-4">
   <div class="well well-sm mt-20">
     <a href="{{ route('uploaded') }}">
-      <p class="lead text-green text-center">Users</p>
+      <p class="lead text-green text-center">{{ trans('common.users') }}</p>
     </a>
   </div>
 </div>
 <div class="col-sm-4">
   <div class="well well-sm mt-20">
     <a href="{{ route('seeded') }}">
-      <p class="lead text-blue text-center">Torrents</p>
+      <p class="lead text-blue text-center">{{ trans('torrent.torrents') }}</p>
     </a>
   </div>
 </div>
 <div class="col-sm-4">
   <div class="well well-sm mt-20">
     <a href="{{ route('bountied') }}">
-      <p class="lead text-orange text-center">Requests</p>
+      <p class="lead text-orange text-center">{{ trans('request.requests') }}</p>
     </a>
   </div>
 </div>
 <div class="col-sm-4">
   <div class="well well-sm mt-20">
     <a href="{{ route('groups') }}">
-      <p class="lead text-red text-center">Groups</p>
+      <p class="lead text-red text-center">{{ trans('common.groups') }}</p>
     </a>
   </div>
 </div>
 {{--<div class="col-sm-4">
   <div class="well well-sm mt-20">
     <a href="#">
-      <p class="lead text-pink text-center">Teams</p>
+      <p class="lead text-pink text-center">{{ trans('commmon.teams') }}</p>
     </a>
   </div>
 </div>--}}
 </br>
 </br>
 </div>
-<p class="text-purple text-center text-mono">All Stats Displayed In Top 100 Format</p>
+<p class="text-purple text-center text-mono">{{ trans('stat.stats-format') }}</p>
 </div>
 @stop

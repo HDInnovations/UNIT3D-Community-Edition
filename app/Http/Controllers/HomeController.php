@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -94,17 +94,12 @@ class HomeController extends Controller
      */
     public function contact()
     {
-        // Fetch admin group
-        $group = Group::where('slug', '=', 'administrator')->first();
-        // grab the admins
-        $admins = User::where('group_id', '=', $group->id)->get();
+        // Fetch owner account
+        $user = User::where('id', '=', '3')->first();
 
         if (Request::getMethod() == 'POST') {
             $input = Request::all();
-            // Send The Mail
-            foreach ($admins as $user) {
-                Mail::to($user->email, $user->username)->send(new Contact($input));
-            }
+            Mail::to($user->email, $user->username)->send(new Contact($input));
             Toastr::success('Your Message Was Succefully Sent!', 'Success', ['options']);
         }
 

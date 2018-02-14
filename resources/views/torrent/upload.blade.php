@@ -103,12 +103,12 @@ function updateTorrentName() {
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()" required>
+        <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" onchange="updateTorrentName()" required>
       </div>
 
       <div class="form-group">
         <label for="nfo">NFO File (Optional)</label>
-        <input class="upload-form-file" type="file" name="nfo">
+        <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
       </div>
 
             <div class="form-group">
