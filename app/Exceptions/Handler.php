@@ -14,7 +14,6 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -53,7 +52,7 @@ class Handler extends ExceptionHandler
     {
         parent::report($exception);
     }
-    
+
     /**
      * Render an exception into an HTTP response.
      *

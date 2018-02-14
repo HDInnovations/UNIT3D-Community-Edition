@@ -57,6 +57,6 @@ class SendActivationMail implements ShouldQueue
             $this->delay(min(30 * $this->attempts(), 300));
         }
 
-        Mail::send(new ActivateUser($this->user, $this->code));
+        Mail::to($this->user)->send(new ActivateUser($this->user, $this->code));
     }
 }
