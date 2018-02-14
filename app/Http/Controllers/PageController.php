@@ -45,6 +45,18 @@ class PageController extends Controller
     }
 
     /**
+     * Internal Page
+     *
+     *
+     */
+    public function internal()
+    {
+        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_internal', '=', '1')->get();
+
+        return view('page.internal', ['internal' => $internal]);
+    }
+
+    /**
      * Blacklist Page
      *
      *

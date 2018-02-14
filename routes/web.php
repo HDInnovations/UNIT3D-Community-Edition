@@ -109,6 +109,9 @@ Route::group(['middleware' => 'language'], function () {
         // Staff List
         Route::any('/staff', 'PageController@staff')->name('staff');
 
+        // Internal List
+        Route::any('/internal', 'PageController@internal')->name('internal');
+
         // Black List
         Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
 

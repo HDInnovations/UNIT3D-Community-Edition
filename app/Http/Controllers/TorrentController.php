@@ -117,7 +117,7 @@ class TorrentController extends Controller
      */
     public function bumpTorrent($slug, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (Auth::user()->group->is_modo || Auth::user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $torrent->created_at = Carbon::now();
             $torrent->save();
@@ -158,7 +158,7 @@ class TorrentController extends Controller
      */
     public function sticky($slug, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (Auth::user()->group->is_modo || Auth::user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             if ($torrent->sticky == 0) {
                 $torrent->sticky = "1";
@@ -261,7 +261,7 @@ class TorrentController extends Controller
                 'type' => Request::get('type'),
                 'anon' => Request::get('anonymous'),
                 'stream' => Request::get('stream'),
-                'sd' => Request::get('sd'),
+                'sd' => Request::get('sd')
             ]);
             // Validation
             $v = Validator::make($torrent->toArray(), $torrent->rules);
@@ -580,7 +580,7 @@ class TorrentController extends Controller
      */
     public function grantFL($slug, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (Auth::user()->group->is_modo || Auth::user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $appurl = config('app.url');
             if ($torrent->free == 0) {
@@ -613,7 +613,7 @@ class TorrentController extends Controller
      */
     public function grantFeatured($slug, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (Auth::user()->group->is_modo || Auth::user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             if ($torrent->featured == 0) {
                 $torrent->free = "1";
@@ -652,7 +652,7 @@ class TorrentController extends Controller
      */
     public function grantDoubleUp($slug, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (Auth::user()->group->is_modo || Auth::user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $appurl = config('app.url');
             if ($torrent->doubleup == 0) {

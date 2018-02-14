@@ -145,7 +145,7 @@
 
         <tr>
           <td class="col-sm-2"><strong>Filename</strong></td>
-          <td>{{ $torrent->name }} &nbsp; &nbsp; &nbsp; @if(Auth::user()->group->is_modo)
+          <td>{{ $torrent->name }} &nbsp; &nbsp; &nbsp; @if(Auth::user()->group->is_modo || Auth::user()->group->is_internal)
             @if($torrent->free == 0)
             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">Grant FL</a>
             @else

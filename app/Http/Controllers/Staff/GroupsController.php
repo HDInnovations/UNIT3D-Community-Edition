@@ -53,6 +53,7 @@ class GroupsController extends Controller
             $group->color = $request->get('group_color');
             $group->icon = $request->get('group_icon');
             $group->effect = $request->get('group_effect');
+            $group->is_internal = $request->get('group_internal');
             $group->is_modo = $request->get('group_modo');
             $group->is_admin = $request->get('group_admin');
             $group->is_trusted = $request->get('group_trusted');
@@ -85,6 +86,7 @@ class GroupsController extends Controller
             $group->color = $request->get('group_color');
             $group->icon = $request->get('group_icon');
             $group->effect = $request->get('group_effect');
+            $group->is_internal = $request->get('group_internal');
             $group->is_modo = $request->get('group_modo');
             $group->is_admin = $request->get('group_admin');
             $group->is_trusted = $request->get('group_trusted');

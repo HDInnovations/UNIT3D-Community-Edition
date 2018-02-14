@@ -57,7 +57,7 @@ class Torrent extends Model
         'type' => 'required',
         'anon' => 'required',
         'stream' => 'required',
-        'sd' => 'required',
+        'sd' => 'required'
     ];
 
     public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];
