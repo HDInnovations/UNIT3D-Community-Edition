@@ -38,14 +38,14 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        if (!$user->active || $user->group_id == 1) {
-            $this->guard()->logout();
-
+        if ($user->active == 0 || $user->group_id == 1) {
+            auth()->logout();
+            $request->session()->flush();
             return redirect('login')->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
         if ($user->group_id == 5) {
-            $this->guard()->logout();
-
+            auth()->logout();
+            $request->session()->flush();
             return redirect('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
         return redirect('/');

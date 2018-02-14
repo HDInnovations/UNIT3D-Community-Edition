@@ -24,6 +24,9 @@ class Kernel extends HttpKernel
         //Secure Headers
         \Bepsvpt\SecureHeaders\SecureHeadersMiddleware::class,
 
+        //HTTP2ServerPush
+        \App\Http\Middleware\Http2ServerPush::class,
+
         //HtmlEncrypt
         //\App\Http\Middleware\HtmlEncrypt::class,
 
@@ -45,8 +48,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \App\Http\Middleware\CheckIfOnline::class,
-            \App\Http\Middleware\Http2ServerPush::class,
         ],
 
         'api' => [
@@ -74,10 +75,12 @@ class Kernel extends HttpKernel
         'private' => \App\Http\Middleware\CheckForPrivate::class,
         'modo' => \App\Http\Middleware\CheckForModo::class,
         'lock' => \App\Http\Middleware\LockAccount::class,
-        'immune' => \App\Http\Middleware\CheckForImmunity::class,
         'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'language' => \App\Http\Middleware\SetLanguage::class,
         'censor' => \App\Http\Middleware\LanguageCensor::class,
+        'banned' => \App\Http\Middleware\CheckIfBanned::class,
+        'active' => \App\Http\Middleware\CheckIfActive::class,
+        'online' => \App\Http\Middleware\CheckIfOnline::class,
         'twostep' => \App\Http\Middleware\TwoStepAuth::class,
     ];
 }

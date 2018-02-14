@@ -52,6 +52,12 @@ class autoBan extends Command
             if ($ban->warneduser->group_id != 5 && !$ban->warneduser->group->is_immune) {
                 // If User Has x or More Active Warnings Ban Set The Users Group To Banned
                 $ban->warneduser->group_id = 5;
+                $ban->warneduser->can_upload = 0;
+                $ban->warneduser->can_download = 0;
+                $ban->warneduser->can_comment = 0;
+                $ban->warneduser->can_invite = 0;
+                $ban->warneduser->can_request = 0;
+                $ban->warneduser->can_chat = 0;
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log
