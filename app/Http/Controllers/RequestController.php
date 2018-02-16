@@ -432,6 +432,8 @@ class RequestController extends Controller
         $request = Requests::findOrFail($id);
 
         if ($user->id == $request->user_id) {
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " . $request->name . " Has Been Declined!", 'message' => $user->username . " Has Declined Your Fullfillment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] It did not meet the requirements!"]);
+
             $request->filled_by = null;
             $request->filled_when = null;
             $request->filled_hash = null;
