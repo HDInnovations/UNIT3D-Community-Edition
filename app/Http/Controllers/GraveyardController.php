@@ -39,8 +39,8 @@ class GraveyardController extends Controller
         $user = Auth::user();
         $dead = Torrent::where('seeders', '=', '0')->orderBy('leechers', 'desc')->paginate(50);
         $deadcount = Torrent::where('seeders', '=', '0')->count();
-        $time = '2592000';
-        $tokens = '5';
+        $time = config('graveyard.time');
+        $tokens = config('graveyard.reward');
 
         return view('graveyard.index', compact('dead', 'deadcount', 'user', 'time', 'tokens'));
     }

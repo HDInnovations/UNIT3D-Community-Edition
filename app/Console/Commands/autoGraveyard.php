@@ -57,7 +57,7 @@ class autoGraveyard extends Command
                 $reward->rewarded = 1;
                 $reward->save();
 
-                $user->fl_tokens += "5";
+                $user->fl_tokens += config('graveyard.reward');
                 $user->save();
 
                 // Auto Announce Featured Expired
