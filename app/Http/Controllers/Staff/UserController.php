@@ -104,7 +104,7 @@ class UserController extends Controller
 
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 
@@ -132,7 +132,7 @@ class UserController extends Controller
 
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 
@@ -156,7 +156,7 @@ class UserController extends Controller
 
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 

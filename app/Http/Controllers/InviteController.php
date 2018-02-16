@@ -52,7 +52,7 @@ class InviteController extends Controller
         $exsist = Invite::where('email', '=', $request->get('email'))->first();
         $member = User::where('email', '=', $request->get('email'))->first();
         if ($exsist || $member) {
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
+            return Redirect::route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
         }
 
         if ($user->invites > 0) {
@@ -75,12 +75,10 @@ class InviteController extends Controller
             $user->invites -= 1;
             $user->save();
 
-            Toastr::success('Invitation Sent Successfully!', 'Yay!', ['options']);
+            return Redirect::route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         } else {
-            Toastr::warning('You Dont Have Enough Invites!', 'Umm!', ['options']);
+            return Redirect::route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
         }
-        // redirect back where we came from
-        return redirect()->back();
     }
 
     public function inviteTree($username, $id)

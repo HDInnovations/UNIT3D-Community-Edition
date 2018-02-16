@@ -179,7 +179,7 @@ class UserController extends Controller
             $user->style = (int)Request::get('theme');
             $css_url = Request::get('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-                return redirect()->back()->with(Toastr::warning('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Error', ['options']));
+                return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Error', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
@@ -200,7 +200,7 @@ class UserController extends Controller
 
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 
@@ -224,7 +224,7 @@ class UserController extends Controller
             ])->save();
             return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Success!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
         }
     }
 
@@ -251,7 +251,7 @@ class UserController extends Controller
 
                 return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             } else {
-                return redirect()->back()->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+                return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
             }
         }
     }
@@ -270,7 +270,7 @@ class UserController extends Controller
             $user->save();
             return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 

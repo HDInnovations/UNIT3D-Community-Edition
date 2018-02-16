@@ -73,10 +73,10 @@ class ArticleController extends Controller
                 if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
                     unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
-                return back()->with(Toastr::error('Validation Checks Have Failed', 'Error', ['options']));
+                return Redirect::route('staff_article_index')->with(Toastr::error('Your article has failed to published!', 'Error!', ['options']));
             } else {
                 Auth::user()->articles()->save($post);
-                return Redirect::route('staff_article_index')->with('message', 'Your article has been published');
+                return Redirect::route('staff_article_index')->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
             }
         }
         return view('Staff.article.add');
@@ -118,10 +118,10 @@ class ArticleController extends Controller
 
             $v = Validator::make($post->toArray(), $post->rules);
             if ($v->fails()) {
-                Session::put('message', 'An error has occured');
+                return Redirect::route('staff_article_index')->with(Toastr::error('Your article changes have failed to publish!', 'Error!', ['options']));
             } else {
                 $post->save();
-                return Redirect::route('staff_article_index')->with('message', 'Your article has been modified');
+                return Redirect::route('staff_article_index')->with(Toastr::success('Your article changes have successfully published!', 'Yay!', ['options']));
             }
         }
         return view('Staff.article.edit', ['post' => $post]);
@@ -139,6 +139,6 @@ class ArticleController extends Controller
     {
         $post = Article::findOrFail($id);
         $post->delete();
-        return Redirect::route('staff_article_index')->with('message', 'This article has been deleted');
+        return Redirect::route('staff_article_index')->with(Toastr::info('Article has successfully been deleted', 'Info!', ['options']));
     }
 }

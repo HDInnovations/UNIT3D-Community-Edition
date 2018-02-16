@@ -20,25 +20,25 @@ class NotificationController extends Controller
     public function read($id)
     {
         Auth::user()->unreadNotifications()->findOrFail($id)->markAsRead();
-        return Redirect::back()->with(Toastr::success('Notification Marked As Read!', 'Yay!', ['options']));
+        return Redirect::route('get_notifications')->with(Toastr::success('Notification Marked As Read!', 'Yay!', ['options']));
     }
 
     public function massRead()
     {
         $current = new Carbon();
         Auth::user()->unreadNotifications()->update(['read_at' => $current]);
-        return Redirect::back()->with(Toastr::success('All Notifications Marked As Read!', 'Yay!', ['options']));
+        return Redirect::route('get_notifications')->with(Toastr::success('All Notifications Marked As Read!', 'Yay!', ['options']));
     }
 
     public function delete($id)
     {
         Auth::user()->notifications()->findOrFail($id)->delete();
-        return Redirect::back()->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
+        return Redirect::route('get_notifications')->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
     }
 
     public function deleteAll()
     {
         Auth::user()->notifications()->delete();
-        return Redirect::back()->with(Toastr::success('All Notifications Deleted!', 'Yay!', ['options']));
+        return Redirect::route('get_notifications')->with(Toastr::success('All Notifications Deleted!', 'Yay!', ['options']));
     }
 }

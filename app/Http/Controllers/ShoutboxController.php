@@ -186,9 +186,9 @@ class ShoutboxController extends Controller
         if (Auth::user()->group->is_modo || Auth::user()->id == $shout->poster->id) {
             Shoutbox::where('id', '=', $id)->delete();
             Cache::forget('shoutbox_messages');
-            return redirect()->back()->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
+            return Redirect::route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::error('This is not your shout to delete.', 'Bro!', ['options']));
+            return Redirect::route('home')->with(Toastr::error('This is not your shout to delete.', 'Bro!', ['options']));
         }
     }
 }
