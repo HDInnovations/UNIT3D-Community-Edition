@@ -14,8 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -54,7 +52,7 @@ class CategoryController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Added', 'Yay!', ['options']));
+                return redirect()->route('staff_category_index')->with(Toastr::info('Category Sucessfully Added', 'Yay!', ['options']));
             }
         }
         return view('Staff.category.add');
@@ -78,7 +76,7 @@ class CategoryController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Modified', 'Yay!', ['options']));
+                return redirect()->route('staff_category_index')->with(Toastr::info('Category Sucessfully Modified', 'Yay!', ['options']));
             }
         }
 
@@ -94,6 +92,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return Redirect::route('staff_category_index')->with(Toastr::warning('Category Sucessfully Deleted', 'Yay!', ['options']));
+        return redirect()->route('staff_category_index')->with(Toastr::warning('Category Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

@@ -19,15 +19,12 @@ use App\Topic;
 use App\User;
 use App\Shoutbox;
 use App\Like;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-
 use Decoda\Decoda;
 use Cache;
 use \Toastr;
@@ -96,7 +93,7 @@ class ForumController extends Controller
     {
         $category = Forum::findOrFail($id);
         if ($category->getPermission()->show_forum != true) {
-            return Redirect::route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Category!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Category!', 'Sorry', ['options']));
         }
         return view('forum.category', ['c' => $category]);
     }
@@ -115,12 +112,12 @@ class ForumController extends Controller
         $forum = Forum::findOrFail($id);
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
-            return Redirect::route('forum_category', ['slug' => $forum->slug, 'id' => $forum->id]);
+            return redirect()->route('forum_category', ['slug' => $forum->slug, 'id' => $forum->id]);
         }
         $category = Forum::findOrFail($forum->parent_id);
         // Check if the user has permission to view the forum
         if ($category->getPermission()->show_forum != true) {
-            return Redirect::route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Forum!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Forum!', 'Sorry', ['options']));
         }
 
         // Fetch topics->posts in descending order
@@ -157,7 +154,7 @@ class ForumController extends Controller
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
-            return Redirect::route('forum_index')->with(Toastr::warning('You Do Not Have Access To Read This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To Read This Topic!', 'Sorry', ['options']));
         }
 
         // Increment view
@@ -182,7 +179,7 @@ class ForumController extends Controller
 
         // The user has the right to create a topic here?
         if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !Auth::user()->group->is_modo)) {
-            return Redirect::route('forum_index')->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
         }
 
         $post = new Post();
@@ -248,9 +245,9 @@ class ForumController extends Controller
             $user->addProgress(new UserMade800Posts(), 1);
             $user->addProgress(new UserMade900Posts(), 1);
 
-            return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
         } else {
-            return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
         }
     }
 
@@ -268,7 +265,7 @@ class ForumController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return Redirect::route('forum_index')->with(Toastr::warning('You Cannot Start A New Topic Here!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::warning('You Cannot Start A New Topic Here!', 'Sorry', ['options']));
         }
 
         // Preview The Post
@@ -335,7 +332,7 @@ class ForumController extends Controller
                     $user->addProgress(new UserMade800Posts(), 1);
                     $user->addProgress(new UserMade900Posts(), 1);
 
-                    return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
+                    return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
                 } else {
                     // Unable to save the first post doc delete the topic
                     $topic->delete();
@@ -368,7 +365,7 @@ class ForumController extends Controller
                 $topic->forum_id = $forum_id;
                 $topic->save();
 
-                return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Topic Successfully Edited', 'Yay!', ['options']));
+                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Topic Successfully Edited', 'Yay!', ['options']));
             } else {
                 return view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
             }
@@ -395,7 +392,7 @@ class ForumController extends Controller
 
         if ($user->group->is_modo == false) {
             if ($post->user_id != $user->id) {
-                return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Edit This!', 'Sorry', ['options']));
+                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Edit This!', 'Sorry', ['options']));
             }
         }
 
@@ -410,7 +407,7 @@ class ForumController extends Controller
         if (Request::isMethod('post') && Request::get('post') == true) {
             $post->content = Request::get('content');
             $post->save();
-            return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
         }
         return view('forum.post_edit', ['user' => $user, 'topic' => $topic, 'forum' => $forum, 'post' => $post, 'category' => $category, 'parsedContent' => $parsedContent]);
     }
@@ -430,11 +427,11 @@ class ForumController extends Controller
 
         if ($user->group->is_modo == false) {
             if ($post->user_id != $user->id) {
-                return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Delete This!', 'Sorry', ['options']));
+                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Delete This!', 'Sorry', ['options']));
             }
         }
         $post->delete();
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Post Is Now Deleted!', 'Success', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Post Is Now Deleted!', 'Success', ['options']));
     }
 
 
@@ -452,7 +449,7 @@ class ForumController extends Controller
         $topic->state = "close";
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('This Topic Is Now Closed!', 'Warning', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('This Topic Is Now Closed!', 'Warning', ['options']));
     }
 
     /**
@@ -468,7 +465,7 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->state = "open";
         $topic->save();
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Open!', 'Success', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Open!', 'Success', ['options']));
     }
 
     /**
@@ -487,9 +484,9 @@ class ForumController extends Controller
             $posts = $topic->posts();
             $posts->delete();
             $topic->delete();
-            return Redirect::route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])->with(Toastr::warning('This Topic Is Now Deleted!', 'Warning', ['options']));
+            return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])->with(Toastr::warning('This Topic Is Now Deleted!', 'Warning', ['options']));
         } else {
-            return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
         }
     }
 
@@ -506,7 +503,7 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->pinned = 1;
         $topic->save();
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Pinned!', 'Success', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Pinned!', 'Success', ['options']));
     }
 
     /**
@@ -522,7 +519,7 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
         $topic->pinned = 0;
         $topic->save();
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Unpinned!', 'Success', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('This Topic Is Now Unpinned!', 'Success', ['options']));
     }
 
     /**
@@ -543,7 +540,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function deniedTopic($slug, $id)
@@ -556,7 +553,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function solvedTopic($slug, $id)
@@ -569,7 +566,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function invalidTopic($slug, $id)
@@ -582,7 +579,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function bugTopic($slug, $id)
@@ -595,7 +592,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function suggestionTopic($slug, $id)
@@ -608,7 +605,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function implementedTopic($slug, $id)
@@ -621,7 +618,7 @@ class ForumController extends Controller
         }
         $topic->save();
 
-        return Redirect::route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
     public function likePost($postId)
@@ -632,9 +629,9 @@ class ForumController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
         } elseif ($user->id == $post->user_id) {
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -642,7 +639,7 @@ class ForumController extends Controller
             $new->like = 1;
             $new->save();
 
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
         }
     }
 
@@ -654,9 +651,9 @@ class ForumController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
         } elseif ($user->id == $post->user_id) {
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -664,7 +661,7 @@ class ForumController extends Controller
             $new->dislike = 1;
             $new->save();
 
-            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
         }
     }
 }

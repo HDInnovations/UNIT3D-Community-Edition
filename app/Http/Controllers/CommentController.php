@@ -19,14 +19,11 @@ use App\Torrent;
 use App\Requests;
 use App\Shoutbox;
 use App\PrivateMessage;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-
 use \Toastr;
 use Cache;
 
@@ -63,7 +60,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return Redirect::route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
         }
 
         $comment = new Comment();
@@ -80,7 +77,7 @@ class CommentController extends Controller
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
-        return Redirect::route('article', ['slug' => $article->slug, 'id' => $article->id]);
+        return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id]);
     }
 
     /**
@@ -96,7 +93,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
         }
 
         $comment = new Comment();
@@ -140,7 +137,7 @@ class CommentController extends Controller
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
-        return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
     }
 
     /**
@@ -156,7 +153,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return Redirect::route('request', ['id' => $request->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('request', ['id' => $request->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
         }
 
         $comment = new Comment();
@@ -201,7 +198,7 @@ class CommentController extends Controller
         } else {
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
-        return Redirect::route('request', ['id' => $request->id]);
+        return redirect()->route('request', ['id' => $request->id]);
     }
 
     /**
@@ -218,7 +215,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
         }
 
         $comment = new Comment();
@@ -259,7 +256,7 @@ class CommentController extends Controller
             Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
 
-        return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
     }
 
     /**

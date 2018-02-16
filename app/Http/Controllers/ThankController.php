@@ -14,11 +14,8 @@ namespace App\Http\Controllers;
 
 use App\Thank;
 use App\Torrent;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
-
 use \Toastr;
 
 class ThankController extends Controller
@@ -37,7 +34,7 @@ class ThankController extends Controller
 
         $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Have Already Thanked On This Torrent!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Have Already Thanked On This Torrent!', 'Whoops!', ['options']));
         }
 
         $thank = new Thank();
@@ -45,6 +42,6 @@ class ThankController extends Controller
         $thank->torrent_id = $torrent->id;
         $thank->save();
 
-        return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Thank Was Successfully Applied!', 'Yay!', ['options']));
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Thank Was Successfully Applied!', 'Yay!', ['options']));
     }
 }

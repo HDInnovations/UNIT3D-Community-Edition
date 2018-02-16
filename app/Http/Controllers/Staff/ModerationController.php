@@ -19,12 +19,9 @@ use App\Requests;
 use App\Category;
 use App\Peer;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
-
 use Carbon\Carbon;
 use \Toastr;
 
@@ -54,7 +51,7 @@ class ModerationController extends Controller
     {
         Torrent::approve($id);
 
-        return Redirect::route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
+        return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
     }
 
     /**
@@ -67,7 +64,7 @@ class ModerationController extends Controller
     {
         Torrent::reject($id);
 
-        return Redirect::route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
+        return redirect()->route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
     }
 
     /**
@@ -89,10 +86,10 @@ class ModerationController extends Controller
             $request->approved_when = null;
             $request->save();
 
-            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
         } else {
-            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
         }
-        return Redirect::route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
+        return redirect()->route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
     }
 }

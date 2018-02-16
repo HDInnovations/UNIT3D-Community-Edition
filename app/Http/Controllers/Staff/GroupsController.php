@@ -15,10 +15,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-
 use App\Group;
-
 use \Toastr;
 
 class GroupsController extends Controller
@@ -65,7 +62,7 @@ class GroupsController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $group->save();
-                return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
+                return redirect()->route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
             }
         }
         return view('Staff.groups.add');
@@ -98,7 +95,7 @@ class GroupsController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $group->save();
-                return Redirect::route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
+                return redirect()->route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
             }
         }
         return view('Staff.groups.edit', ['group' => $group]);

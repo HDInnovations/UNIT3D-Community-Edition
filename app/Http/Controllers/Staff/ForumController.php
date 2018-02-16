@@ -16,8 +16,6 @@ use App\Forum;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Permission;
-
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 
 class ForumController extends Controller
@@ -78,7 +76,7 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return Redirect::route('staff_forum_index');
+            return redirect()->route('staff_forum_index');
         }
         return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
     }
@@ -128,7 +126,7 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return Redirect::route('staff_forum_index');
+            return redirect()->route('staff_forum_index');
         }
         return view('Staff.forum.edit', ['categories' => $categories, 'groups' => $groups, 'forum' => $forum]);
     }
@@ -185,6 +183,6 @@ class ForumController extends Controller
             }
             $forum->delete();
         }
-        return Redirect::route('staff_forum_index');
+        return redirect()->route('staff_forum_index');
     }
 }

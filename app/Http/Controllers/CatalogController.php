@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 use App\CatalogTorrent;
 use App\Catalog;
 use App\Torrent;
-
 use Illuminate\Support\Facades\Auth;
 
 class CatalogController extends Controller

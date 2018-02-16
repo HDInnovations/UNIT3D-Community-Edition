@@ -15,17 +15,14 @@ namespace App\Http\Controllers;
 use App\Mail\InviteUser;
 use App\User;
 use App\Invite;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Requests\ValidateSecretRequest;
 use Illuminate\Support\Facades\Input;
-
 use \Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
@@ -52,7 +49,7 @@ class InviteController extends Controller
         $exsist = Invite::where('email', '=', $request->get('email'))->first();
         $member = User::where('email', '=', $request->get('email'))->first();
         if ($exsist || $member) {
-            return Redirect::route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
+            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
         }
 
         if ($user->invites > 0) {
@@ -75,9 +72,9 @@ class InviteController extends Controller
             $user->invites -= 1;
             $user->save();
 
-            return Redirect::route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
+            return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         } else {
-            return Redirect::route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
+            return redirect()->route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
         }
     }
 

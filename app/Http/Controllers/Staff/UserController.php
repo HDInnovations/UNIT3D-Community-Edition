@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -102,9 +101,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 
@@ -130,9 +129,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account permissions.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
         } else {
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 
@@ -154,9 +153,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has changed " . $user->username . " password.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
         }
     }
 

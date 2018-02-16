@@ -25,7 +25,6 @@ use Carbon\Carbon;
 use App\Services\Bencode;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Log;
 

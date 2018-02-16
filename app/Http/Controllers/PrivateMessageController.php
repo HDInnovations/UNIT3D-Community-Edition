@@ -14,12 +14,9 @@ namespace App\Http\Controllers;
 
 use App\PrivateMessage;
 use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-
 use \Toastr;
 use Carbon\Carbon;
 
@@ -144,7 +141,7 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -171,7 +168,7 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -187,6 +184,6 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
         $pm->delete();
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
     }
 }

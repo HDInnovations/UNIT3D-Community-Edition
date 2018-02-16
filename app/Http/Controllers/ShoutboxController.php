@@ -15,13 +15,10 @@ namespace App\Http\Controllers;
 use App\Shoutbox;
 use App\User;
 use App\Helpers\LanguageCensor;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
-
 use Cache;
 use Carbon\Carbon;
 use Decoda\Decoda;
@@ -186,9 +183,9 @@ class ShoutboxController extends Controller
         if (Auth::user()->group->is_modo || Auth::user()->id == $shout->poster->id) {
             Shoutbox::where('id', '=', $id)->delete();
             Cache::forget('shoutbox_messages');
-            return Redirect::route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
+            return redirect()->route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
         } else {
-            return Redirect::route('home')->with(Toastr::error('This is not your shout to delete.', 'Bro!', ['options']));
+            return redirect()->route('home')->with(Toastr::error('This is not your shout to delete.', 'Bro!', ['options']));
         }
     }
 }

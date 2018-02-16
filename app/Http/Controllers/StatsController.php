@@ -19,9 +19,7 @@ use App\History;
 use App\BonTransactions;
 use App\Requests;
 use App\Group;
-
 use Illuminate\Support\Facades\DB;
-
 use Carbon\Carbon;
 
 class StatsController extends Controller

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
-
 use App\Article;
 use App\Comment;
 use App\Group;
@@ -34,7 +33,6 @@ use App\Shoutbox;
 use App\Post;
 use App\FeaturedTorrent;
 use App\UserFreeleech;
-
 use Cache;
 use \Toastr;
 

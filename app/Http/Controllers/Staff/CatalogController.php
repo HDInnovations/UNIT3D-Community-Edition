@@ -14,13 +14,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-
 use App\User;
 use App\Catalog;
 use App\CatalogTorrent;
-
 use \Toastr;
 
 class CatalogController extends Controller

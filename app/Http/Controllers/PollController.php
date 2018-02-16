@@ -15,10 +15,8 @@ namespace App\Http\Controllers;
 use App\Poll;
 use App\Option;
 use App\Voter;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;

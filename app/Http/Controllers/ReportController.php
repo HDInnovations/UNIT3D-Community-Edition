@@ -13,12 +13,9 @@
 namespace App\Http\Controllers;
 
 use App\Report;
-
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-
 use \Toastr;
 
 class ReportController extends Controller

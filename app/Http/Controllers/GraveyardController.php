@@ -15,13 +15,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-
 use App\Torrent;
 use App\History;
 use App\Graveyard;
 use Carbon\Carbon;
-
 use \Toastr;
 
 class GraveyardController extends Controller
@@ -51,7 +48,7 @@ class GraveyardController extends Controller
         $torrent = Torrent::findOrFail($id);
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
         if ($resurrected) {
-            return Redirect::route('graveyard')->with(Toastr::warning('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Yay!', ['options']));
+            return redirect()->route('graveyard')->with(Toastr::warning('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Yay!', ['options']));
         }
         if ($user->id != $torrent->user_id) {
             $resurrection = Graveyard::create([
@@ -59,9 +56,9 @@ class GraveyardController extends Controller
                 'torrent_id' => $torrent->id,
                 'seedtime' => Request::get('seedtime')
             ]);
-            return Redirect::route('graveyard')->with(Toastr::success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
+            return redirect()->route('graveyard')->with(Toastr::success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         } else {
-            return Redirect::route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Yay!', ['options']));
+            return redirect()->route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Yay!', ['options']));
         }
     }
 }

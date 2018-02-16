@@ -15,10 +15,8 @@ namespace App\Http\Controllers;
 use App\Group;
 use App\User;
 use App\Mail\Bug;
-
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Mail;
-
 use \Toastr;
 
 class BugController extends Controller

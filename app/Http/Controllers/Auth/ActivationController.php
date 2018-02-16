@@ -33,9 +33,9 @@ class ActivationController extends Controller
             \LogActivity::addToLog("Member " . $activation->user->username . " has successfully activated his/her account.");
 
             $activation->delete();
-            return redirect('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
         } else {
-            return redirect('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
         }
     }
 }

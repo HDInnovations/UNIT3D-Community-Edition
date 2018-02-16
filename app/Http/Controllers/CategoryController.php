@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller

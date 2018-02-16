@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -60,7 +59,7 @@ class RegisterController extends Controller
             $v = Validator::make($input, $user->rules);
             if ($v->fails()) {
                 $errors = $v->messages();
-                return Redirect::route('register', ['code' => $code])->with(Toastr::warning('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Error', ['options']));
+                return redirect()->route('register', ['code' => $code])->with(Toastr::warning('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Error', ['options']));
             } else {
                 // Create The User
                 $group = Group::where('slug', '=', 'validating')->first();
@@ -100,7 +99,7 @@ class RegisterController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");
 
-                return Redirect::route('login')->with(Toastr::info('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
+                return redirect()->route('login')->with(Toastr::info('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
             }
         }
         return view('auth.register', ['code' => $code]);

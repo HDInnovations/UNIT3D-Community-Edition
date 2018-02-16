@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use \Toastr;
 
 class LockAccountController extends Controller

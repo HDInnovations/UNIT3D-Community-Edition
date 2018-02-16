@@ -14,8 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Page;
-
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -51,7 +49,7 @@ class PageController extends Controller
             $v = Validator::make($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
             if ($v->passes()) {
                 $page->save();
-                return Redirect::route('staff_page_index');
+                return redirect()->route('staff_page_index');
             } else {
                 Session::put('message', 'An error has occurred');
             }
@@ -75,7 +73,7 @@ class PageController extends Controller
             $v = Validator::make($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
             if ($v->passes()) {
                 $page->save();
-                return Redirect::route('staff_page_index')->with('message', 'Page edited successfully');
+                return redirect()->route('staff_page_index')->with('message', 'Page edited successfully');
             } else {
                 Session::put('message', 'An error has occurred');
             }
@@ -91,6 +89,6 @@ class PageController extends Controller
     public function delete($slug, $id)
     {
         Page::findOrFail($id)->delete();
-        return Redirect::route('staff_page_index')->with('message', 'Page successfully deleted');
+        return redirect()->route('staff_page_index')->with('message', 'Page successfully deleted');
     }
 }

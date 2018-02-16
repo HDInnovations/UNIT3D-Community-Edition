@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Note;
@@ -48,7 +47,7 @@ class NoteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member " . $staff->username . " has added a note on " . $user->username . " account.");
 
-        return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Staff Note Has Successfully Posted', 'Success!', ['options']));
+        return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Staff Note Has Successfully Posted', 'Success!', ['options']));
     }
 
     public function getNotes()
