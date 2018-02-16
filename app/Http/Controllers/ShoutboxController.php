@@ -61,7 +61,7 @@ class ShoutboxController extends Controller
                 }
             }
             $mentions = implode(',', $mentionIDs);
-            if (count($mentions) > 0) {
+            if (! is_null($mentions)) {
                 $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => Request::get('message'), 'mentions' => $mentions]);
             } else {
                 $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => Request::get('message')]);
