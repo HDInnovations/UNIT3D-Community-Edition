@@ -632,9 +632,9 @@ class ForumController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return back()->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
         } elseif ($user->id == $post->user_id) {
-            return back()->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -642,7 +642,7 @@ class ForumController extends Controller
             $new->like = 1;
             $new->save();
 
-            return back()->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Like Successfully Applied!', 'Yay', ['options']));
         }
     }
 
@@ -654,9 +654,9 @@ class ForumController extends Controller
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
-            return back()->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
         } elseif ($user->id == $post->user_id) {
-            return back()->with(Toastr::error('You cannot dislike your own post!', 'Umm', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You cannot like your own post!', 'Umm', ['options']));
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -664,7 +664,7 @@ class ForumController extends Controller
             $new->dislike = 1;
             $new->save();
 
-            return back()->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
+            return Redirect::route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::success('Dislike Successfully Applied!', 'Yay', ['options']));
         }
     }
 }
