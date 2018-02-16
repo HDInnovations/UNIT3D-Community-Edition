@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use \Toastr;
 
 class ArticleController extends Controller
 {
@@ -71,7 +72,7 @@ class ArticleController extends Controller
                 if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
                     unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
-                return redirect()->route('staff_article_index')->with(Toastr::error('Your article has failed to published!', 'Error!', ['options']));
+                return redirect()->route('staff_article_index')->with(Toastr::error('Your article has failed to published!', 'Whoops!', ['options']));
             } else {
                 Auth::user()->articles()->save($post);
                 return redirect()->route('staff_article_index')->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
@@ -116,7 +117,7 @@ class ArticleController extends Controller
 
             $v = Validator::make($post->toArray(), $post->rules);
             if ($v->fails()) {
-                return redirect()->route('staff_article_index')->with(Toastr::error('Your article changes have failed to publish!', 'Error!', ['options']));
+                return redirect()->route('staff_article_index')->with(Toastr::error('Your article changes have failed to publish!', 'Whoops!', ['options']));
             } else {
                 $post->save();
                 return redirect()->route('staff_article_index')->with(Toastr::success('Your article changes have successfully published!', 'Yay!', ['options']));
@@ -137,6 +138,6 @@ class ArticleController extends Controller
     {
         $post = Article::findOrFail($id);
         $post->delete();
-        return redirect()->route('staff_article_index')->with(Toastr::info('Article has successfully been deleted', 'Info!', ['options']));
+        return redirect()->route('staff_article_index')->with(Toastr::success('Article has successfully been deleted', 'Yay!', ['options']));
     }
 }

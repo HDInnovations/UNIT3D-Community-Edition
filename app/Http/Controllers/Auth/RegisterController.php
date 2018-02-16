@@ -43,13 +43,13 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and ivite code exsists and is not used or expired
         if (config('other.invite-only') == true && $code == null) {
-            return view('auth.login')->with(Toastr::warning('Open Reg Closed! You Must Be Invited To Register!', 'Error', ['options']));
+            return view('auth.login')->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register!', 'Whoops!', ['options']));
         }
 
         if (Request::isMethod('post')) {
             $key = Invite::where('code', '=', $code)->first();
             if (config('other.invite-only') == true && !$key) {
-                return view('auth.register', ['code' => $code])->with(Toastr::warning('Invalid or Expired Invite Key!', 'Error', ['options']));
+                return view('auth.register', ['code' => $code])->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
             }
 
             $current = Carbon::now();
@@ -59,7 +59,7 @@ class RegisterController extends Controller
             $v = Validator::make($input, $user->rules);
             if ($v->fails()) {
                 $errors = $v->messages();
-                return redirect()->route('register', ['code' => $code])->with(Toastr::warning('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Error', ['options']));
+                return redirect()->route('register', ['code' => $code])->with(Toastr::error('Either The Username/Email is already in use or you missed a field. Make sure password is also min 8 charaters!', 'Whoops!', ['options']));
             } else {
                 // Create The User
                 $group = Group::where('slug', '=', 'validating')->first();
@@ -99,7 +99,7 @@ class RegisterController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");
 
-                return redirect()->route('login')->with(Toastr::info('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
+                return redirect()->route('login')->with(Toastr::success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
             }
         }
         return view('auth.register', ['code' => $code]);

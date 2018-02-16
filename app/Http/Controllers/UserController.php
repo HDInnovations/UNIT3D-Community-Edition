@@ -176,7 +176,7 @@ class UserController extends Controller
             $user->style = (int)Request::get('theme');
             $css_url = Request::get('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Error', ['options']));
+                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
@@ -197,7 +197,7 @@ class UserController extends Controller
 
             return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -219,9 +219,9 @@ class UserController extends Controller
             $usr->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();
-            return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Success!', ['options']));
+            return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
     }
 
@@ -248,7 +248,7 @@ class UserController extends Controller
 
                 return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             } else {
-                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
             }
         }
     }
@@ -267,7 +267,7 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -298,7 +298,7 @@ class UserController extends Controller
         if ($v->passes()) {
             if (Hash::check(Request::get('password'), $user->password)) {
                 if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
-                    return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Sorry', ['options']));
+                    return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
                 $cli = new Client;
                 $cli->user_id = $user->id;
@@ -307,10 +307,10 @@ class UserController extends Controller
                 $cli->save();
                 return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
             } else {
-                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Sorry', ['options']));
+                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Whoops!', ['options']));
             }
         } else {
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Hmm!', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Whoops!', ['options']));
         }
     }
 
@@ -325,9 +325,9 @@ class UserController extends Controller
         if ($v->passes()) {
             $cli = Client::where('id', '=', Request::get('cliid'));
             $cli->delete();
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops, something went wrong', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops!', ['options']));
         }
     }
 

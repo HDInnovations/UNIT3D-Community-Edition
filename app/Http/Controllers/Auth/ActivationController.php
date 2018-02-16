@@ -35,7 +35,7 @@ class ActivationController extends Controller
             $activation->delete();
             return redirect()->route('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')->with(Toastr::error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
         }
     }
 }

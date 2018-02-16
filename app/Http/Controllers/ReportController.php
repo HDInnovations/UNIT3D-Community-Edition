@@ -45,6 +45,6 @@ class ReportController extends Controller
         $report->solved = 0;
         $report->save();
 
-        return redirect()->route('home')->with(Toastr::success('Your report has been successfully sent', 'Success!', ['options']));
+        return redirect()->route('home')->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
     }
 }

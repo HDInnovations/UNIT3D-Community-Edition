@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
@@ -45,7 +44,7 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = 5;
             $user->can_upload = 0;
@@ -72,7 +71,7 @@ class BanController extends Controller
         // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
 
-            return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
         }
     }
 
@@ -89,7 +88,7 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = Request::get('group_id');
             $user->can_upload = 1;
@@ -116,7 +115,7 @@ class BanController extends Controller
         // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
 
-            return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
         }
     }
 }

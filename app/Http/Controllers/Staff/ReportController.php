@@ -65,6 +65,6 @@ class ReportController extends Controller
         PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $report->reporter_id, 'subject' => "Your Report Has A New Verdict", 'message' => $report->verdict]);
         // End insert recipient notification here
 
-        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Success!', ['options']));
+        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }

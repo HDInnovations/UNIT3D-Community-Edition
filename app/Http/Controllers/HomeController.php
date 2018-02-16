@@ -98,7 +98,7 @@ class HomeController extends Controller
         if (Request::getMethod() == 'POST') {
             $input = Request::all();
             Mail::to($user->email, $user->username)->send(new Contact($input));
-            Toastr::success('Your Message Was Succefully Sent!', 'Success', ['options']);
+            Toastr::success('Your Message Was Succefully Sent!', 'Yay!', ['options']);
         }
 
         return view('home.contact');

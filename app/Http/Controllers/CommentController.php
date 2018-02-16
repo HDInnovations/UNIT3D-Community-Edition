@@ -60,7 +60,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -75,7 +75,7 @@ class CommentController extends Controller
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
         } else {
-            Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
         }
         return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id]);
     }
@@ -93,7 +93,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -135,7 +135,7 @@ class CommentController extends Controller
                 Cache::forget('shoutbox_messages');
             }
         } else {
-            Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
     }
@@ -153,7 +153,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('request', ['id' => $request->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('request', ['id' => $request->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -196,7 +196,7 @@ class CommentController extends Controller
                 Cache::forget('shoutbox_messages');
             }
         } else {
-            Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
         return redirect()->route('request', ['id' => $request->id]);
     }
@@ -215,7 +215,7 @@ class CommentController extends Controller
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::warning('Your Comment Rights Have Benn Revoked!!!', 'Error!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -253,7 +253,7 @@ class CommentController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
             Cache::forget('shoutbox_messages');
         } else {
-            Toastr::warning('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);

@@ -48,10 +48,10 @@ class TypeController extends Controller
             $type->position = Request::get('position');
             $v = Validator::make($type->toArray(), $type->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                Toastr::error('Something Went Wrong!', 'Whoops!', ['options']);
             } else {
                 $type->save();
-                return redirect()->route('staff_type_index')->with(Toastr::info('Type Sucessfully Added', 'Yay!', ['options']));
+                return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Added', 'Yay!', ['options']));
             }
         }
         return view('Staff.type.add');
@@ -71,10 +71,10 @@ class TypeController extends Controller
             $type->position = Request::get('position');
             $v = Validator::make($type->toArray(), $type->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                Toastr::error('Something Went Wrong!', 'Whoops!', ['options']);
             } else {
                 $type->save();
-                return redirect()->route('staff_type_index')->with(Toastr::info('Type Sucessfully Modified', 'Yay!', ['options']));
+                return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Modified', 'Yay!', ['options']));
             }
         }
 
@@ -90,6 +90,6 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->delete();
-        return redirect()->route('staff_type_index')->with(Toastr::warning('Type Sucessfully Deleted', 'Yay!', ['options']));
+        return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

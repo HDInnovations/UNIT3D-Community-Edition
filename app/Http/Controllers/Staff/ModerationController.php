@@ -51,7 +51,7 @@ class ModerationController extends Controller
     {
         Torrent::approve($id);
 
-        return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
+        return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
     }
 
     /**
@@ -64,7 +64,7 @@ class ModerationController extends Controller
     {
         Torrent::reject($id);
 
-        return redirect()->route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
+        return redirect()->route('moderation')->with(Toastr::error('Torrent Rejected', 'Whoops!', ['options']));
     }
 
     /**
@@ -86,10 +86,10 @@ class ModerationController extends Controller
             $request->approved_when = null;
             $request->save();
 
-            return redirect()->route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("The request has been reset!", 'Yay!', ['options']));
         } else {
-            return redirect()->route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to this operation!", 'Whoops!', ['options']));
         }
-        return redirect()->route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
+        return redirect()->route('requests')->with(Toastr::error("Unable to find request!", 'Whoops!', ['options']));
     }
 }

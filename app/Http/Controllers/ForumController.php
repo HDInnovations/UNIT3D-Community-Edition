@@ -28,7 +28,6 @@ use Illuminate\Support\Facades\DB;
 use Decoda\Decoda;
 use Cache;
 use \Toastr;
-
 use App\Achievements\UserMadeFirstPost;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -93,7 +92,7 @@ class ForumController extends Controller
     {
         $category = Forum::findOrFail($id);
         if ($category->getPermission()->show_forum != true) {
-            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Category!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::error('You Do Not Have Access To This Category!', 'Whoops!', ['options']));
         }
         return view('forum.category', ['c' => $category]);
     }
@@ -117,7 +116,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->parent_id);
         // Check if the user has permission to view the forum
         if ($category->getPermission()->show_forum != true) {
-            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To This Forum!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::error('You Do Not Have Access To This Forum!', 'Whoops!', ['options']));
         }
 
         // Fetch topics->posts in descending order
@@ -154,7 +153,7 @@ class ForumController extends Controller
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
-            return redirect()->route('forum_index')->with(Toastr::warning('You Do Not Have Access To Read This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::error('You Do Not Have Access To Read This Topic!', 'Whoops!', ['options']));
         }
 
         // Increment view
@@ -179,7 +178,7 @@ class ForumController extends Controller
 
         // The user has the right to create a topic here?
         if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !Auth::user()->group->is_modo)) {
-            return redirect()->route('forum_index')->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
         $post = new Post();
@@ -247,7 +246,7 @@ class ForumController extends Controller
 
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
         } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Reply To This Topic!', 'Sorry', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
     }
 
@@ -265,7 +264,7 @@ class ForumController extends Controller
 
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
-            return redirect()->route('forum_index')->with(Toastr::warning('You Cannot Start A New Topic Here!', 'Sorry', ['options']));
+            return redirect()->route('forum_index')->with(Toastr::error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
         }
 
         // Preview The Post
@@ -338,7 +337,7 @@ class ForumController extends Controller
                     $topic->delete();
                 }
             } else {
-                Toastr::warning('A Error Has Occured With This Topic! Please Try Again!', 'Sorry', ['options']);
+                Toastr::error('A Error Has Occured With This Topic! Please Try Again!', 'Whoops!', ['options']);
             }
         }
         return view('forum.new_topic', ['forum' => $forum, 'category' => $category, 'parsedContent' => $parsedContent, 'title' => Request::get('title'), 'content' => Request::get('content')]);
@@ -392,7 +391,7 @@ class ForumController extends Controller
 
         if ($user->group->is_modo == false) {
             if ($post->user_id != $user->id) {
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Edit This!', 'Sorry', ['options']));
+                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('You Cannot Edit This!', 'Whoops!', ['options']));
             }
         }
 
@@ -427,7 +426,7 @@ class ForumController extends Controller
 
         if ($user->group->is_modo == false) {
             if ($post->user_id != $user->id) {
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Cannot Delete This!', 'Sorry', ['options']));
+                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('You Cannot Delete This!', 'Whoops!', ['options']));
             }
         }
         $post->delete();
@@ -449,7 +448,7 @@ class ForumController extends Controller
         $topic->state = "close";
         $topic->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('This Topic Is Now Closed!', 'Warning', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('This Topic Is Now Closed!', 'Warning', ['options']));
     }
 
     /**
@@ -484,9 +483,9 @@ class ForumController extends Controller
             $posts = $topic->posts();
             $posts->delete();
             $topic->delete();
-            return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])->with(Toastr::warning('This Topic Is Now Deleted!', 'Warning', ['options']));
+            return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])->with(Toastr::error('This Topic Is Now Deleted!', 'Warning', ['options']));
         } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::warning('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
         }
     }
 

@@ -39,7 +39,7 @@ class BugController extends Controller
 
             Mail::to($user->email, $user->username)->send(new Bug($input));
 
-            Toastr::success('Your Bug Was Succefully Sent!', 'Success', ['options']);
+            Toastr::success('Your Bug Was Succefully Sent!', 'Yay!', ['options']);
         }
         return view('bug.bug');
     }

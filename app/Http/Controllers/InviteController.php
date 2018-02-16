@@ -34,10 +34,10 @@ class InviteController extends Controller
     {
         $user = Auth::user();
         if (config('other.invite-only') == false) {
-            Toastr::warning('Invitations Are Disabled Due To Open Registration!', 'Error!', ['options']);
+            Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
         }
         if ($user->can_invite == 0) {
-            Toastr::warning('Your Invite Rights Have Been Revoked!!!', 'Error!', ['options']);
+            Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']);
         }
         return view('user.invite', ['user' => $user]);
     }
@@ -49,7 +49,7 @@ class InviteController extends Controller
         $exsist = Invite::where('email', '=', $request->get('email'))->first();
         $member = User::where('email', '=', $request->get('email'))->first();
         if ($exsist || $member) {
-            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
+            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
         }
 
         if ($user->invites > 0) {

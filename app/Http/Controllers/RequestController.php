@@ -189,15 +189,15 @@ class RequestController extends Controller
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
                 Cache::forget('shoutbox_messages');
 
-                return redirect('/requests')->with(Toastr::success('Request Added.', 'Successful', ['options']));
+                return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
             } else {
-                return redirect('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Add request failed', ['options']));
+                return redirect('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Whoops!', ['options']));
             }
         } else {
             if ($user->seedbonus >= 100) {
                 return view('requests.add_request', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             } else {
-                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Error!', ['options']));
+                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Whoops!', ['options']));
             }
         }
     }
@@ -236,12 +236,12 @@ class RequestController extends Controller
                 $request->description = $description;
                 $request->save();
 
-                return redirect()->route('requests', ['id' => $request->id])->with(Toastr::success('Request Edited.', 'Successful', ['options']));
+                return redirect()->route('requests', ['id' => $request->id])->with(Toastr::success('Request Edited Successfuly.', 'Yay!', ['options']));
             } else {
                 return view('requests.edit_request', ['categories' => Category::all(), 'types' => Type::all(), 'user' => $user, 'request' => $request]);
             }
         } else {
-            return redirect()->route('requests', ['id' => $request->id])->with(Toastr::warning('You Dont Have Access To This Operation!', 'Error!', ['options']));
+            return redirect()->route('requests', ['id' => $request->id])->with(Toastr::error('You Dont Have Access To This Operation!', 'Whoops!', ['options']));
         }
     }
 
@@ -294,14 +294,14 @@ class RequestController extends Controller
                 Cache::forget('shoutbox_messages');
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " . $requests->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $requests->id . "]" . $requests->name . "[/url]"]);
 
-                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Bonus added', ['options']));
+                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Yay!', ['options']));
             } else {
-                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You failed to adhere to the requirements.', 'Rookie Mistake', ['options']));
+                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You failed to adhere to the requirements.', 'Whoops!', ['options']));
             }
         } else {
-            return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('The server doesnt unserstand your request.', 'Try again later', ['options']));
+            return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('The server doesnt unserstand your request.', 'Whoops!', ['options']));
         }
-        return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('Something went horribly wrong', 'Try again later', ['options']));
+        return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('Something went horribly wrong', 'Whoops!', ['options']));
     }
 
     /**
@@ -327,19 +327,19 @@ class RequestController extends Controller
                 if ($user->id == $torrent->user_id) {
                     $this->addRequestModeration(Request::get('request_id'), Request::get('info_hash'));
 
-                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Approval required', ['options']));
+                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
                 } elseif ($user->id != $torrent->user_id && Carbon::now()->addDay() > $torrent->created_at) {
                     $this->addRequestModeration(Request::get('request_id'), Request::get('info_hash'));
 
-                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Approval required', ['options']));
+                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
                 } else {
-                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You cannot fill this request for some weird reason', 'The request filling system', ['options']));
+                    return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You cannot fill this request for some weird reason', 'Whoops!', ['options']));
                 }
             } else {
-                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You failed to adhere to the requirements.', 'Rookie Mistake', ['options']));
+                return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('You failed to adhere to the requirements.', 'Whoops!', ['options']));
             }
         } else {
-            return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('The server doesnt understand your request.', 'Try again later', ['options']));
+            return redirect()->route('request', ['id' => Request::get('request_id')])->with(Toastr::error('The server doesnt understand your request.', 'Whoops!', ['options']));
         }
     }
 
@@ -410,9 +410,9 @@ class RequestController extends Controller
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             Cache::forget('shoutbox_messages');
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->filled_by, 'subject' => "Your Request Fullfill On " . $request->name . " Has Been Approved!", 'message' => $request->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url] Enjoy The " . $request->bounty . " Bonus Points!"]);
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$request->name} and the bounty has been awarded to {$fill_user->username}", "Request completed!", ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$request->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
         } else {
-            return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Permission denied', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Whoops!', ['options']));
         }
     }
 
@@ -436,9 +436,9 @@ class RequestController extends Controller
 
             $request->save();
 
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("This request has been reset.", 'Request Reset', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("This request has been reset.", 'Yay!', ['options']));
         } else {
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You don't have access to approve this request", 'Permission denied', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You don't have access to approve this request", 'Yay!', ['options']));
         }
     }
 
@@ -456,9 +456,9 @@ class RequestController extends Controller
             $name = $request->name;
             $request->delete();
 
-            return redirect()->route('requests')->with(Toastr::success("You have deleted {$name}", 'Request Deleted', ['options']));
+            return redirect()->route('requests')->with(Toastr::success("You have deleted {$name}", 'Yay!', ['options']));
         } else {
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You don't have access to delete this request.", 'Permission denied', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to delete this request.", 'Whoops!', ['options']));
         }
     }
 
@@ -483,7 +483,7 @@ class RequestController extends Controller
             $request->claimed = 1;
             $request->save();
 
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Claimed", 'Request Claimed', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Claimed", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])->with(Toastr::error("Someone else has already claimed this request buddy.", 'Whoops!', ['options']));
         }
@@ -508,7 +508,7 @@ class RequestController extends Controller
                 $request->claimed = null;
                 $request->save();
 
-                return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Request Claimed', ['options']));
+                return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Yay!', ['options']));
             } else {
                 return redirect()->route('request', ['id' => $id])->with(Toastr::error("Nothing To Unclaim.", 'Whoops!', ['options']));
             }

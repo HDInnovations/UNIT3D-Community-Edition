@@ -46,7 +46,7 @@ class ShoutboxController extends Controller
             'message' => 'required|min:1|regex:/^[(a-zA-Z\-)]+$/u'
         ]);
         if ($v->fails()) {
-            Toastr::error('There was a error with your input!', 'Error!', ['options']);
+            Toastr::error('There was a error with your input!', 'Whoops!', ['options']);
         }
         if (Request::ajax()) {
             preg_match_all('/(@\w+)/', Request::get('message'), $mentions);
@@ -185,7 +185,7 @@ class ShoutboxController extends Controller
             Cache::forget('shoutbox_messages');
             return redirect()->route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
         } else {
-            return redirect()->route('home')->with(Toastr::error('This is not your shout to delete.', 'Bro!', ['options']));
+            return redirect()->route('home')->with(Toastr::error('This is not your shout to delete.', 'Whoops!', ['options']));
         }
     }
 }

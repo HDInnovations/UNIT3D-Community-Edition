@@ -59,7 +59,7 @@ class GroupsController extends Controller
             $group->autogroup = $request->get('autogroup');
             $v = Validator::make($group->toArray(), $group->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                Toastr::error('Something Went Wrong!', 'Whoops!', ['options']);
             } else {
                 $group->save();
                 return redirect()->route('Staff.groups.index')->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
@@ -92,7 +92,7 @@ class GroupsController extends Controller
             $group->autogroup = $request->get('autogroup');
             $v = Validator::make($group->toArray(), $group->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                Toastr::error('Something Went Wrong!', 'Whoops!', ['options']);
             } else {
                 $group->save();
                 return redirect()->route('Staff.groups.index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));

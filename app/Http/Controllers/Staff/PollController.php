@@ -21,7 +21,6 @@ use App\Poll;
 use App\Option;
 use App\Shoutbox;
 use App\Http\Requests\StorePoll;
-
 use Cache;
 use \Toastr;
 
