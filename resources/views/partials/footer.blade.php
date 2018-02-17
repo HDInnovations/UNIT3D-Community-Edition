@@ -1,4 +1,4 @@
-@php $bg = rand(1, 8); $bgchange = $bg.".jpg"; @endphp
+@php $bg = rand(1, 13); $bgchange = $bg.".jpg"; @endphp
 
 <div id="l-footer" style="background-image: url('/img/footer/<?php echo $bgchange; ?>');">
   <div class="container">
