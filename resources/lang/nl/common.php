@@ -16,7 +16,7 @@ return [
     'members' => 'Leden',
     'navigation' => 'Navigatie',
     'notifications' => 'Notificaties',
-    'added_on' => 'Toegevoegd Op',
+    'added' => 'Toegevoegd',
     'search' => 'Zoeken',
     'quick-search' => 'Snel Zoeken',
     'submit' => 'Verzenden',

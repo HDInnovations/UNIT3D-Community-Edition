@@ -16,7 +16,7 @@ return [
     'members' => 'Members',
     'navigation' => 'Navigation',
     'notifications' => 'Notifications',
-    'added_on' => 'Added On',
+    'added' => 'Added',
     'search' => 'Search',
     'quick-search' => 'Quick Search',
     'submit' => 'Submit',

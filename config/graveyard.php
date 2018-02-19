@@ -43,4 +43,6 @@ return [
     |
     */
 
-    'reward' => '5',
+    'reward' => '5'
+    
+];

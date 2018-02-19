@@ -16,7 +16,7 @@ return [
     'members' => 'Μέλη',
     'navigation' => 'Navigation',
     'notifications' => 'Ειδοποίησεις',
-    'added_on' => 'Προστέθηκε στις',
+    'added' => 'Προστέθηκε',
     'search' => 'Αναζήτηση',
     'quick-search' => 'Γρήγορη αναζήτηση',
     'submit' => 'Υποβολή',

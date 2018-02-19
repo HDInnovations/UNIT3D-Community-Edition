@@ -8,7 +8,7 @@
 </li>
 <li>
   <a href="{{ route('poster') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Poster View</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.poster-view') }}</span>
   </a>
 </li>
 @stop
@@ -18,7 +18,7 @@
   <h1 class="torrents-title">{{ trans('torrent.torrents') }}</h1>
   <hr>
   <center>
-    <p class="text-danger">Search</p>
+    <p class="text-danger">{{ trans('common.search') }}</p>
   </center>
   <div class="row">
     <div class="col-md-12">
@@ -26,7 +26,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="form-group">
-              <label class="pull-left control-label" for="name">Name:</label>
+              <label class="pull-left control-label" for="name">{{ trans('common.name') }}:</label>
               <input type="text" id="name" name="name" value="{{Request::old('name')}}" class="form-control">
             </div>
           </div>
@@ -54,31 +54,31 @@
           </div>
           <div class="col-lg-3 col-lg-offset-1">
             <div class="form-group">
-              <label class="pull-left control-label" for="order">Order by:</label>
+              <label class="pull-left control-label" for="order">{{ trans('common.order-by') }}:</label>
               <select class="form-control" name="order" id="order" value="{{Request::old('order')}}">
-                <option value="created_at:desc" selected>Latest</option>
-                <option value="created_at:asc">Oldest</option>
-                <option value="seeders:desc">Seeders</option>
-                <option value="leechers:desc">Leechers</option>
-                <option value="times_completed:desc">Times Completed</option>
-                <option value="size:desc">Size</option>
+                <option value="created_at:desc" selected>{{ trans('common.latest') }}</option>
+                <option value="created_at:asc">{{ trans('common.oldest') }}</option>
+                <option value="seeders:desc">{{ trans('torrent.seeders') }}</option>
+                <option value="leechers:desc">{{ trans('torrent.leechers') }}</option>
+                <option value="times_completed:desc">{{ trans('torrent.completed') }} {{ strtolower(trans('common.times')) }}</option>
+                <option value="size:desc">{{ trans('torrent.size') }}</option>
               </select>
             </div>
             <div class="form-group">
-              <button class="pull-right btn btn btn-primary">Search</button>
+              <button class="pull-right btn btn btn-primary">{{ trans('common.search') }}</button>
             </div>
           </div>
         </div>
       </form>
       <div style="float:left;">
-        <strong>Extra:</strong>
+        <strong>{{ trans('common.extra') }}:</strong>
         <a href="{{ route('categories') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> {{ trans('torrent.categories') }}</a>
         <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> {{ trans('torrent.catalogs') }}</a>
       </div>
       <div style="float:right;">
-        <strong>View:</strong>
-        <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Lists</a>
-        <a href="{{ route('poster') }}" class="btn btn-xs btn-info"><i class="fa fa-image"></i> Posters</a>
+        <strong>{{ trans('common.view') }}:</strong>
+        <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> {{ trans('common.lists') }}</a>
+        <a href="{{ route('poster') }}" class="btn btn-xs btn-info"><i class="fa fa-image"></i> {{ trans('torrent.posters') }}</a>
       </div>
       <br>
     </div>
@@ -110,12 +110,12 @@
               <span class='label label-success'>{{ $t->type }}</span>
               <div class="separator mt-10"></div>
               <ul class="list-unstyled margin-clear">
-                <li><i class="fa fa-database"></i> Size: {{ $t->getSize() }}</li>
-                <li><i class="fa fa-arrow-up"></i> Seeds: {{ $t->seeders }}</li>
-                <li><i class="fa fa-arrow-down"></i> Leeches: {{ $t->leechers }}</li>
-                <li><i class="fa fa-check"></i> Completed: {{ $t->times_completed }}</li>
+                <li><i class="fa fa-database"></i> {{ trans('torrent.size') }}: {{ $t->getSize() }}</li>
+                <li><i class="fa fa-arrow-up"></i> {{ trans('torrent.seeds') }}: {{ $t->seeders }}</li>
+                <li><i class="fa fa-arrow-down"></i> {{ trans('torrent.leeches') }}: {{ $t->leechers }}</li>
+                <li><i class="fa fa-check"></i> {{ trans('torrent.completed') }}: {{ $t->times_completed }}</li>
                 <li>
-                  <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $t->imdb }}" title="IMDB" target="_blank"><span class='label label-success'>View IMDB</span></a>
+                  <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $t->imdb }}" title="IMDB" target="_blank"><span class='label label-success'>{{ trans('common.view') }} IMDB</span></a>
                 </li>
               </ul>
             </div>

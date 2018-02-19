@@ -17,7 +17,7 @@ return [
     'members' => '成員',
     'navigation' => '導航',
     'notifications' => '通知',
-    'added_on' => '添加',
+    'added' => '添加',
     'search' => '搜索',
     'quick-search' => '快速搜索',
     'submit' => '提交',

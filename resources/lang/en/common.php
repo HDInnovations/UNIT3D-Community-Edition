@@ -17,7 +17,7 @@ return [
     'members' => 'Members',
     'navigation' => 'Navigation',
     'notifications' => 'Notifications',
-    'added_on' => 'Added On',
+    'added' => 'Added',
     'search' => 'Search',
     'quick-search' => 'Quick Search',
     'submit' => 'Submit',
@@ -121,5 +121,16 @@ return [
     'rss-system' => 'RSS System',
     'balance' => 'Balance',
     'users' => 'Users',
-    'teams' => 'Teams'
+    'teams' => 'Teams',
+    'required' => 'Required',
+    'ip' => 'IP',
+    'port' => 'Port',
+    'status' => 'Status',
+    'error' => 'Error',
+    'order-by' => 'Order by',
+    'latest' => 'Latest',
+    'oldest' => 'Oldest',
+    'extra' => 'Extra',
+    'view' => 'View',
+    'lists' => 'Lists'
 ];
