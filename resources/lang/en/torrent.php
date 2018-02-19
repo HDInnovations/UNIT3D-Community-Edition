@@ -93,3 +93,4 @@ return [
     'last-update' => 'Last update',
     'poster-view' => 'Poster view',
     'posters' => 'Posters'
+];
