@@ -19,7 +19,7 @@ return [
     'description' => 'Opis',
     'reward' => 'Nagroda',
     'reward-desc' => 'Ile puntków chcesz przekazać na nagrodę? Wymagane minimum 100 punktów bonusowych',
-    'current' => 'Bieżące',
+    'current' => 'Aktualne',
     'vote-that' => 'Głosuj na prośbę',
     'enter-bp' => 'Wpradź ilość punktów bonusowych (minimum 100)',
     'dont-have-bps' => 'Nie masz wystarczającej ilośc punktów bonusowych',

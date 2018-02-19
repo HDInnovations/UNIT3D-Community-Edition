@@ -58,7 +58,7 @@
           </td>
           <td>{{ $t->seeders }}</td>
           <td>{{ $t->leechers }}</td>
-          <td>{{ $t->times_completed }} {{ trans('common.times') }}</td>
+          <td>{{ $t->times_completed }} {{ strtolower(trans('common.times')) }}</td>
           <td>{{$t->created_at->diffForHumans()}}</td>
           <td>-</td>
           <td>

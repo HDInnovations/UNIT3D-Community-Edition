@@ -36,7 +36,7 @@ return [
     'suggestion' => 'Propozycja',
     'implemented' => 'Wdrożone',
     'topic-name' => 'Nazwa wątku',
-    'current' => 'Bieżące',
+    'current' => 'Aktualne',
     'topic-quick-search' => 'Szybkie szukanie wątku',
     'name' => 'Nazwa',
     'latest' => 'Ostatnie',

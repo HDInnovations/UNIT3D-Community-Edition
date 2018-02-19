@@ -16,7 +16,7 @@ return [
     'members' => 'üyeler',
     'navigation' => 'Navigasyon',
     'notifications' => 'Bildirimler',
-    'added_on' => 'Eklendi',
+    'added' => 'Eklendi',
     'search' => 'Arama',
     'quick-search' => 'Hızlı Arama',
     'submit' => 'Gönder',

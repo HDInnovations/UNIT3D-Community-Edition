@@ -80,7 +80,7 @@
           <time datetime="{{ date('Y-m-d H:m:s', strtotime($t->created_at)) }}">{{$t->created_at->diffForHumans()}}</time>
         </td>
         <td><span class="badge-extra text-blue text-bold">{{ $t->getSize() }}</span></td>
-        <td><span class="badge-extra text-orange text-bold">{{ $t->times_completed }} {{ trans('common.times') }}</span></td>
+        <td><span class="badge-extra text-orange text-bold">{{ $t->times_completed }} {{ strtolower(trans('common.times')) }}</span></td>
         <td><span class="badge-extra text-green text-bold">{{ $t->seeders }}</span></td>
         <td><span class="badge-extra text-red text-bold">{{ $t->leechers }}</span></td>
       </tr>
