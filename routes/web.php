@@ -64,7 +64,7 @@ Route::group(['middleware' => 'language'], function () {
 | Website (When Authorized)
 |------------------------------------------
 */
-    Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active']], function () {
+    Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
 
         // Two Step Auth
         Route::get('/twostep/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
@@ -268,7 +268,7 @@ Route::group(['middleware' => 'language'], function () {
 | ShoutBox Routes Group (when authorized)
 |------------------------------------------
 */
-    Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active']], function () {
+    Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         Route::get('/', 'HomeController@home')->name('shoutbox-home');
         Route::get('/messages/{after?}', 'ShoutboxController@pluck')->name('shoutbox-fetch');
         Route::post('/send', 'ShoutboxController@send')->name('shoutbox-send');
@@ -280,7 +280,7 @@ Route::group(['middleware' => 'language'], function () {
 | Community Routes Group (when authorized)
 |------------------------------------------
 */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active']], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
         // Search Forums
@@ -332,7 +332,7 @@ Route::group(['middleware' => 'language'], function () {
 | Staff Dashboard Routes Group (when authorized and a staff group)
 |-----------------------------------------------------------------
 */
-    Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::any('/', 'HomeController@home')->name('staff_dashboard');
