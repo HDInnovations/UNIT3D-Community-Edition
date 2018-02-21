@@ -3,37 +3,37 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <meta charset="utf-8">
-      <title>Report Torrent: {{ $torrent->name }}</title>
+      <title>{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Report Torrent: {{ $torrent->name }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
           <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
             {{ csrf_field() }}
           <input id="type" name="type" type="hidden" value="Torrent">
-          <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+          <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
           <div class="col-sm-10">
             <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
             <p class="form-control-static">{{ $torrent->name }}</p>
           </div>
         </div>
         <div class="form-group">
-          <label for="report_reason" class="col-sm-2 control-label">Reason</label>
+          <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
           <div class="col-sm-10">
             <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-            <input class="btn btn-danger" type="submit" value="Report">
+            <input class="btn btn-danger" type="submit" value="{{ trans('common.report') }}">
           </div>
         </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
       </div>
     </div>
   </div>
@@ -44,49 +44,49 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <meta charset="utf-8">
-      <title>Delete Torrent: {{ $torrent->name }}</title>
+      <title>{{ trans('common.delete') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $torrent->name }}</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ trans('common.delete') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
           <form class="form-horizontal" role="form" method="POST" action="{{ route('delete', array('id' => $torrent->id)) }}">
             {{ csrf_field() }}
           <input id="type" name="type" type="hidden" value="Torrent">
-          <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+          <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
           <div class="col-sm-10">
             <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
             <p class="form-control-static">{{ $torrent->name }}</p>
           </div>
         </div>
         <div class="form-group">
-          <label for="report_reason" class="col-sm-2 control-label">Reason (sent to uploader)</label>
+          <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
           <div class="col-sm-10">
             <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-10 col-sm-offset-2">
-            <input class="btn btn-danger" type="submit" value="Delete">
+            <input class="btn btn-danger" type="submit" value="{{ trans('common.delete') }}">
           </div>
         </form>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Files Modal -->
+{{-- Files Modal --}}
   <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="myModalLabel">Files</h4>
+          <h4 class="modal-title" id="myModalLabel">{{ trans('common.files') }}</h4>
         </div>
         <div class="modal-body">
           <div class="table-responsive">
@@ -111,16 +111,13 @@
         </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
         </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal -->
 
-<!-- NFO Modal -->
+{{-- NFO Modal --}}
 @if($torrent->nfo != null)
 <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
   <div class="modal-dialog" role="document">
@@ -134,10 +131,9 @@
         </pre>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-info" data-dismiss="modal">Close me! </button>
+        <button class="btn btn-info" data-dismiss="modal">{{ trans('common.close') }}</button>
       </div>
     </div>
   </div>
 </div>
 @endif
-<!-- /NFO Modal -->

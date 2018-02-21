@@ -92,5 +92,10 @@ return [
     'started' => 'Rozpoczęto',
     'last-update' => 'Ostatnia aktualizacja',
     'poster-view' => 'Widok plakatu',
-    'posters' => 'Plakaty'
+    'posters' => 'Plakaty',
+    'meta-desc' => 'Pobierz :name z maksymalną prędkością',
+    'say-thanks' => 'Pamiętaj, aby <b>podziękować</b> oraz <b>seedować</b> po pobraniu',
+    'view-trailer' => 'Zobacz trailer',
+    'discounts' => 'Promocje',
+    'no-discounts' => 'Aktualnie brak promocji'
 ];
