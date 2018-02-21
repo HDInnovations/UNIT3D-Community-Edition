@@ -82,7 +82,7 @@ Traffic: Unlimited
 6. Run `php artisan key:generate` to generate your cipher key.
 7. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 8. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
-9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab
+9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab. `/path/to/artisan` becomes whatever directory you put the codebase on your server. Like `* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1` .
 10. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times).
 10. Go to your sites URL.
 11. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
