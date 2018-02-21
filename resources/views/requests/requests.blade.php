@@ -71,6 +71,7 @@
       <thead>
         <tr>
           <th class="torrents-icon">{{ trans('torrent.category') }}</th>
+          <th class="torrents-icon">{{ trans('torrent.type') }}</th>
           <th class="torrents-filename col-sm-6">{{ trans('request.request') }}</th>
           <th>{{ trans('common.author') }}</th>
           <th>{{ trans('request.votes') }}</th>
@@ -84,7 +85,10 @@
       @foreach($requests as $r)
         <tr>
           <td>
-            <span class="label label-info" data-toggle="tooltip" title="" data-original-title="{{ $r->category->name }}">{{ $r->category->name }}</span>
+            <i class="{{ $r->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $r->category->name }} Torrent"></i>
+          </td>
+          <td>
+            <span class="label label-success" data-toggle="tooltip" title="" data-original-title="{{ $r->type }}">{{ $r->type }}</span>
           </td>
           <td>
             <a class="view-torrent" data-id="{{ $r->id }}" href="{{ route('request', array('id' => $r->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $r->name }}">{{ $r->name }}</a>
