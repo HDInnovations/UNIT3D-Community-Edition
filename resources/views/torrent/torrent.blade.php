@@ -9,7 +9,7 @@
 @stop
 
 @section('meta')
-<meta name="description" content="{{ 'Download ' . $torrent->name . ' at maximum speed!' }}">
+<meta name="description" content="{{ trans('torrent.meta-desc', ['name' => $torrent->name]) }}!">
 @stop
 
 @section('breadcrumb')
@@ -28,7 +28,7 @@
 @section('content')
 <div class="torrent box container">
   <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
-    <br>Please remember to say <b>thanks</b> and <b>seed</b> for as long as you can!</div>
+    <br>{!! trans('torrent.say-thanks') !!}!</div>
     @if($torrent->category->meta == 1)
   <div class="movie-wrapper">
     <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
@@ -42,14 +42,14 @@
         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
         	<h1 class="movie-heading">
         				<span class="text-bold">{{ $movie->title }}</span><span class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
-                  <span class="badge-user text-bold text-gold">Rating:
+                  <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
                     <span class="movie-rating-stars">
                       <i class="fa fa-star"></i>
                     </span>
                   @if($user->ratings == 1)
-                  {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
+                  {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
                   @else
-                  {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
+                  {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
                   @endif
                  </span>
         				</h1>
@@ -63,7 +63,7 @@
                     <span class="badge-user text-bold text-green">{{ $genre }}</span>
                     @endforeach
                     @endif
-                    <span class="badge-user text-bold text-orange">Rated: {{ $movie->rated }} </span> <span class="badge-user text-bold text-orange">Runtime: {{ $movie->runtime }} minutes</span>
+                    <span class="badge-user text-bold text-orange">{{ trans('torrent.rated') }}: {{ $movie->rated }} </span> <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}: {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
                   </li>
                   <li>
                   <span class="badge-user text-bold text-orange">
@@ -89,7 +89,7 @@
                     </span>
                     @endif
                     <span class="badge-user text-bold text-pink">
-                    <a href="{{ $movie->videoTrailer }}" title="View Trailer">View Trailer <i class="fa fa-external-link"></i></a>
+                    <a href="{{ $movie->videoTrailer }}" title="View Trailer">{{ trans('torrent.view-trailer') }} <i class="fa fa-external-link"></i></a>
                     </span>
                   </li>
                 </ul>
@@ -108,7 +108,7 @@
       <tbody>
         @if($torrent->featured == 0)
         <tr class="success">
-          <td><strong>Discounts</strong></td>
+          <td><strong>{{ trans('torrent.discounts') }}</strong></td>
           <td>
             @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
             @if($freeleech_token)<span class="badge-extra text-bold"><i class="fa fa-viacoin text-bold" data-toggle="tooltip" title="" data-original-title="Freeleech Token"></i> Freeleech Token</span> @endif
@@ -119,7 +119,7 @@
             @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-blue" data-toggle="tooltip" title="" data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
             @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i class="fa fa-globe text-green" data-toggle="tooltip" title="" data-original-title="Double Upload"></i> Global Double Upload</span> @endif
             @else
-            <span class="text-bold text-danger"><i class="fa fa-frown-o"></i> Currently No Discounts</span>
+            <span class="text-bold text-danger"><i class="fa fa-frown-o"></i> {{ trans('torrent.no-discounts') }}</span>
             @endif
           </td>
         </tr>

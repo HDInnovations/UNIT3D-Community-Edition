@@ -92,5 +92,10 @@ return [
     'started' => 'Started',
     'last-update' => 'Last update',
     'poster-view' => 'Poster view',
-    'posters' => 'Posters'
+    'posters' => 'Posters',
+    'meta-desc' => 'Download :name at maximum speed',
+    'say-thanks' => 'Please remember to say <b>thanks</b> and <b>seed</b> for as long as you can',
+    'view-trailer' => 'View trailer',
+    'discounts' => 'Discounts',
+    'no-discounts' => 'Currently no discounts'
 ];

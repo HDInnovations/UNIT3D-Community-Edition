@@ -132,5 +132,7 @@ return [
     'oldest' => 'Oldest',
     'extra' => 'Extra',
     'view' => 'View',
-    'lists' => 'Lists'
+    'lists' => 'Lists',
+    'reason' => 'Reason',
+    'files' => 'Files'
 ];
