@@ -22,52 +22,6 @@
 @stop
 
 @section('content')
-<script>
-function updateTorrentName() {
-    let name = document.querySelector("#name");
-    let torrent = document.querySelector("#torrent");
-    let fileEndings = [".mkv.torrent", ".torrent"];
-    let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
-    let separators = ["-", " ", "."];
-    if (name !== null && torrent !== null) {
-        let value = torrent.value.split('\\').pop().split('/').pop();
-        fileEndings.forEach(function(e) {
-            if (value.endsWith(e)) {
-                value = value.substr(0, value.length - e.length);
-            }
-        });
-        value = value.replace(/\./g, " ");
-        allowed.forEach(function(a) {
-            search = a.replace(/\./g, " ");
-            let replaceIndexes = [];
-            let pos = value.indexOf(search);
-            while (pos !== -1) {
-                let start = pos > 0 ? value[pos - 1] : " ";
-                let end = pos + search.length < value.length  ? value[pos + search.length] : " ";
-                if (separators.includes(start) && separators.includes(end)) {
-                    replaceIndexes.push(pos);
-                }
-                pos = value.indexOf(search, pos + search.length);
-            }
-            newValue = "";
-            ignore = 0;
-            for (let i = 0; i < value.length; ++i) {
-                if (ignore > 0) {
-                    --ignore;
-                } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
-                    replaceIndexes.shift();
-                    newValue += a;
-                    ignore = a.length - 1;
-                } else {
-                    newValue += value[i];
-                }
-            }
-            value = newValue;
-        })
-        name.value = value;
-    }
-}
-</script>
 @if($user->can_upload == 0)
 <div class="container">
   <div class="jumbotron shadowed">
@@ -113,7 +67,7 @@ function updateTorrentName() {
 
             <div class="form-group">
                 <label for="name">Title</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+                <input type="text" name="name" id="title" class="form-control" required>
             </div>
 
              <div class="form-group">
@@ -223,5 +177,51 @@ $(document).ready(function() {
 		var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
 		$('.parser').append(optionHTML);
 	});
+</script>
+<script>
+function updateTorrentName() {
+    let name = document.querySelector("#title");
+    let torrent = document.querySelector("#torrent");
+    let fileEndings = [".mkv.torrent", ".torrent"];
+    let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
+    let separators = ["-", " ", "."];
+    if (name !== null && torrent !== null) {
+        let value = torrent.value.split('\\').pop().split('/').pop();
+        fileEndings.forEach(function(e) {
+            if (value.endsWith(e)) {
+                value = value.substr(0, value.length - e.length);
+            }
+        });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function(a) {
+            search = a.replace(/\./g, " ");
+            let replaceIndexes = [];
+            let pos = value.indexOf(search);
+            while (pos !== -1) {
+                let start = pos > 0 ? value[pos - 1] : " ";
+                let end = pos + search.length < value.length  ? value[pos + search.length] : " ";
+                if (separators.includes(start) && separators.includes(end)) {
+                    replaceIndexes.push(pos);
+                }
+                pos = value.indexOf(search, pos + search.length);
+            }
+            newValue = "";
+            ignore = 0;
+            for (let i = 0; i < value.length; ++i) {
+                if (ignore > 0) {
+                    --ignore;
+                } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
+                    replaceIndexes.shift();
+                    newValue += a;
+                    ignore = a.length - 1;
+                } else {
+                    newValue += value[i];
+                }
+            }
+            value = newValue;
+        })
+        name.value = value;
+    }
+}
 </script>
 @endsection
