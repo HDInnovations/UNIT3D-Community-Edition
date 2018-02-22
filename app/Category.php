@@ -23,8 +23,8 @@ class Category extends Model
      *
      */
     public $rules = [
-        'name' => 'required|unique:categories',
-        'slug' => 'required|unique:categories',
+        'name' => 'required',
+        'slug' => 'required',
         'icon' => 'required',
         'meta' => 'required'
     ];

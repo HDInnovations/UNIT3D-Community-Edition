@@ -24,7 +24,7 @@ class AddForeignKeysToTorrentsTable extends Migration
     public function up()
     {
         Schema::table('torrents', function (Blueprint $table) {
-            $table->foreign('category_id', 'category_id')->references('id')->on('categories')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('category_id', 'category_id')->references('id')->on('categories')->onUpdate('RESTRICT')->onDelete('CASCADE');
         });
     }
 
