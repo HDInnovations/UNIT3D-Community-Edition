@@ -23,7 +23,7 @@
     <div class="content">
       <div class="inner_content">
         <h1>{{ trans('stat.nerd-stats') }}</h1>
-        <p>{{ trans('stat.nerd-stats-desc') }}.</p>
+        <p>{{ trans('stat.nerd-stats-desc') }}. <b>(Updated Every 60 Minutes!)</b></p>
 
         <div class="inner_stats">
           <div class="stat">
@@ -76,19 +76,37 @@
           <br>
 
           <div class="stat">
-            <p>{{ \App\Helpers\StringHelper::formatBytes($tot_upload ,2) }}</p>
-            <span class="badge-extra">{{ trans('stat.total-upload') }}</span>
+            <p>{{ \App\Helpers\StringHelper::formatBytes($actual_upload ,2) }}</p>
+            <span class="badge-extra">Real {{ trans('stat.total-upload') }}</span>
           </div>
 
           <div class="stat">
-            <p>{{ \App\Helpers\StringHelper::formatBytes($tot_download ,2) }}</p>
-            <span class="badge-extra">{{ trans('stat.total-download') }}</span>
+            <p>{{ \App\Helpers\StringHelper::formatBytes($actual_download ,2) }}</p>
+            <span class="badge-extra">Real {{ trans('stat.total-download') }}</span>
           </div>
 
           <div class="stat">
-            <p>{{ \App\Helpers\StringHelper::formatBytes($tot_up_down ,2) }}</p>
-            <span class="badge-extra">{{ trans('stat.total-traffic') }}</span>
+            <p>{{ \App\Helpers\StringHelper::formatBytes($actual_up_down ,2) }}</p>
+            <span class="badge-extra">Real {{ trans('stat.total-traffic') }}</span>
           </div>
+
+          <br>
+
+          <div class="stat">
+            <p>{{ \App\Helpers\StringHelper::formatBytes($credited_upload ,2) }}</p>
+            <span class="badge-extra">Credited {{ trans('stat.total-upload') }}</span>
+          </div>
+
+          <div class="stat">
+            <p>{{ \App\Helpers\StringHelper::formatBytes($credited_download ,2) }}</p>
+            <span class="badge-extra">Credited {{ trans('stat.total-download') }}</span>
+          </div>
+
+          <div class="stat">
+            <p>{{ \App\Helpers\StringHelper::formatBytes($credited_up_down ,2) }}</p>
+            <span class="badge-extra">Credited {{ trans('stat.total-traffic') }}</span>
+          </div>
+
         </div>
       </div>
       <img src="{{ url('img/sheldon.png') }}" width="321" height="379">

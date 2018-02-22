@@ -21,6 +21,7 @@ use App\Requests;
 use App\Group;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Cache;
 
 class StatsController extends Controller
 {
@@ -35,21 +36,67 @@ class StatsController extends Controller
     public function index()
     {
         // Site Stats Block
-        $num_user = User::all()->count();     // Total Members Count
-        $num_torrent = Torrent::all()->count();     // Total Torrents Count
-        $num_movies = Torrent::where('category_id', '1')->count();      // Total Movies Count
-        $num_hdtv = Torrent::where('category_id', '2')->count();      // Total HDTV Count
-        $num_fan = Torrent::where('category_id', '3')->count();     // Total FANRES Count
-        $num_sd = Torrent::where('sd', '1')->count();      // Total SD Count
-        $num_seeders = Peer::where('seeder', '1')->count();     // Total Seeders
-        $num_leechers = Peer::where('seeder', '0')->count();      // Total Leechers
-        $num_peers = Peer::all()->count();      // Total Peers
-        $tot_upload = History::all()->sum('uploaded');      //Total Upload Traffic
-        $tot_download = History::all()->sum('downloaded');      //Total Download Traffic
-        $tot_up_down = $tot_upload + $tot_download;     //Total Up/Down Traffic
+
+        // Total Members Count
+        $num_user = Cache::remember('num_user', 60, function () {
+            return User::all()->count();
+        });
+        // Total Torrents Count
+        $num_torrent = Cache::remember('num_torrent', 60, function () {
+            return Torrent::all()->count();
+        });
+        // Total Movies Count
+        $num_movies = Cache::remember('num_movies', 60, function () {
+            return Torrent::where('category_id', '1')->count();
+        });
+        // Total HDTV Count
+        $num_hdtv = Cache::remember('num_hdtv', 60, function () {
+            return Torrent::where('category_id', '2')->count();
+        });
+        // Total FANRES Count
+        $num_fan = Cache::remember('num_fan', 60, function () {
+            return Torrent::where('category_id', '3')->count();
+        });
+        // Total SD Count
+        $num_sd = Cache::remember('num_sd', 60, function () {
+            return Torrent::where('sd', '1')->count();
+        });
+        // Total Seeders
+        $num_seeders = Cache::remember('num_seeders', 60, function () {
+            return Peer::where('seeder', '1')->count();
+        });
+        // Total Leechers
+        $num_leechers = Cache::remember('num_leechers', 60, function () {
+            return Peer::where('seeder', '0')->count();
+        });
+        // Total Peers
+        $num_peers = Cache::remember('num_peers', 60, function () {
+            return Peer::all()->count();
+        });
+        //Total Upload Traffic Without Double Upload
+        $actual_upload = Cache::remember('actual_upload', 60, function () {
+            return History::all()->sum('actual_uploaded');
+        });
+        //Total Upload Traffic With Double Upload
+        $credited_upload = Cache::remember('credited_upload', 60, function () {
+            return History::all()->sum('uploaded');
+        });
+        //Total Download Traffic Without Freeleech
+        $actual_download = Cache::remember('actual_download', 60, function () {
+            return History::all()->sum('actual_downloaded');
+        });
+        //Total Download Traffic With Freeleech
+        $credited_download = Cache::remember('credited_download', 60, function () {
+            return History::all()->sum('downloaded');
+        });
+        $actual_up_down = $actual_upload + $actual_download;     //Total Up/Down Traffic without perks
+        $credited_up_down = $credited_upload + $credited_download;     //Total Up/Down Traffic with perks
 
         return view('stats.index', ['num_user' => $num_user, 'num_torrent' => $num_torrent, 'num_movies' => $num_movies, 'num_hdtv' => $num_hdtv, 'num_sd' => $num_sd, 'num_fan' => $num_fan,
-            'num_seeders' => $num_seeders, 'num_leechers' => $num_leechers, 'num_peers' => $num_peers, 'tot_upload' => $tot_upload, 'tot_download' => $tot_download, 'tot_up_down' => $tot_up_down]);
+            'num_seeders' => $num_seeders, 'num_leechers' => $num_leechers, 'num_peers' => $num_peers,
+            'actual_upload' => $actual_upload, 'actual_download' => $actual_download, 'actual_up_down' => $actual_up_down,
+            'credited_upload' => $credited_upload, 'credited_download' => $credited_download, 'credited_up_down' => $credited_up_down,
+        ]);
     }
 
     // USER CATEGORY
