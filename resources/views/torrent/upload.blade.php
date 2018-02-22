@@ -48,7 +48,7 @@
   </div>
   <br>
 <center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
-<center><p class="text-danger">IMDB and or TVDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
+<center><p class="text-danger">TMDB and or IMDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
 <center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
 <center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 
@@ -71,22 +71,22 @@
             </div>
 
              <div class="form-group">
-                <label for="name">IMDB ID (Required)</label>
+                <label for="name">IMDB ID <b>(Required)</b></label>
                 <input type="number" name="imdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
-               <label for="name">TMDB ID </label>
+               <label for="name">TMDB ID <b>(Required)</b></label>
                <input type="number" name="tmdb" value="0" class="form-control" required>
            </div>
 
             <div class="form-group">
-                <label for="name">TVDB ID </label>
+                <label for="name">TVDB ID <b>(Optional)</b></label>
                 <input type="number" name="tvdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
-                <label for="name">MAL ID </label>
+                <label for="name">MAL ID <b>(Optional)</b></label>
                 <input type="number" name="mal" value="0" class="form-control" required>
             </div>
 

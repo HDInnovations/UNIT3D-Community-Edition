@@ -489,12 +489,20 @@ class TorrentController extends Controller
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', Auth::user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->orderBy('updated_at', 'DESC')->first();
-        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrent->category_id == 2) {
-            $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+            if ($torrent->tmdb || $torrent->tmdb != 0) {
+            $movie = $client->scrape('tv', null, $torrent->tmdb);
+            } else {
+            $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
+            }
         } else {
-            $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+            if ($torrent->tmdb || $torrent->tmdb != 0) {
+            $movie = $client->scrape('movie', null, $torrent->tmdb);
+            } else {
+            $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
+            }
         }
 
         if ($torrent->featured == 1) {

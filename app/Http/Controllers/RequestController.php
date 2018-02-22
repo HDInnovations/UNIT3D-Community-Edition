@@ -113,10 +113,19 @@ class RequestController extends Controller
         $carbon = Carbon::now()->addDay();
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($request->category_id == 2) {
-            $movie = $client->scrape('tv', 'tt' . $request->imdb);
+            if ($request->tmdb || $request->tmdb != 0) {
+            $movie = $client->scrape('tv', null, $request->tmdb);
+            } else {
+            $movie = $client->scrape('tv', 'tt'. $request->imdb);
+            }
         } else {
-            $movie = $client->scrape('movie', 'tt' . $request->imdb);
+            if ($request->tmdb || $request->tmdb != 0) {
+            $movie = $client->scrape('movie', null, $request->tmdb);
+            } else {
+            $movie = $client->scrape('movie', 'tt'. $request->imdb);
+            }
         }
+
         return view('requests.request', ['request' => $request, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'requestClaim' => $requestClaim]);
     }
 
