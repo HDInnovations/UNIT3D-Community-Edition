@@ -59,6 +59,9 @@ UNIT3D currently offers the following features:
 - Crontab access
 - A Redis server
 - MySQL 5.7
+- TheMovieDB API Key: https://www.themoviedb.org/documentation/api
+- TheTVDB API Key: https://api.thetvdb.com/swagger
+- OMDB API Key: http://www.omdbapi.com/
 - A decent dedicated server. Dont try running this on some crappy server!
 <pre>
 Processor: Intel  Xeon E3-1245v2 -
@@ -70,7 +73,6 @@ Bandwidth: 250 Mbps
 Traffic: Unlimited
 <b>Is Under $50 A Month</b>
 </pre>
-
 
 ## <a name="installation"></a> Installation
 
@@ -118,10 +120,6 @@ User Profile (Galactic Theme)
     <img src="https://i.imgur.com/NyLolmJ.gif" alt="User Profile Page">
 User Profile (Light Theme)
     <img src="https://i.imgur.com/94XCo3Q.gif" alt="User Profile Page">
-BON Store (Dark Theme)
-    <img src="https://i.imgur.com/7PPEiNT.gif" alt="BON Store Page">
-Upload Page (Blur Theme)
-    <img src="https://i.imgur.com/U26SAAK.gif" alt="Upload Page">
 </p>
 
 ## <a name="homestead"></a> Homestead
