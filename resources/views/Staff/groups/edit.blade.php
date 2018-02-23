@@ -16,7 +16,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Edit User Group</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <center><h3>{{ $group->name }} Permissions</h3></center>
@@ -96,4 +96,4 @@
 {{ Form::close() }}
 </div>
 </div>
-@stop
+@endsection

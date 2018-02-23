@@ -2,7 +2,7 @@
 
 @section('title')
 <title>Request - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -15,7 +15,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.request-details') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -357,4 +357,4 @@
 @endif
 </div>
 @include('requests.request_modals')
-@stop
+@endsection

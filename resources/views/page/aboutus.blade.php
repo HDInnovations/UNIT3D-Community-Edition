@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>{{ trans('common.about') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="{{ trans('common.about') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -14,7 +14,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.about') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <style>
@@ -554,4 +554,4 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
     </div>
   </div>
 </div>
-@stop
+@endsection

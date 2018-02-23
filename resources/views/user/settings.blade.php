@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ $user->username }} - {{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -15,7 +15,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Settings</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -176,4 +176,4 @@
     </div>
   </div>
 </div>
-@stop
+@endsection

@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ trans('graveyard.graveyard') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('graveyard.graveyard') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -122,4 +122,4 @@
   {{ $dead->links() }}
 </div>
 </div>
-@stop
+@endsection

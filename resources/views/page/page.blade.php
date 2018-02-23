@@ -6,7 +6,7 @@
 		<span itemprop="title" class="l-breadcrumb-item-link-title">{{ $page->name }}</span>
 	</a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -21,4 +21,4 @@
 		</article>
 	</div>
 </div>
-@stop
+@endsection

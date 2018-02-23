@@ -6,7 +6,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('bug.bug-report') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -66,4 +66,4 @@
         </table>
     </div>
 </div>
-@stop
+@endsection

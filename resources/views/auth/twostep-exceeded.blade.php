@@ -2,15 +2,15 @@
 
 @section('title')
 	<title>{{ trans('auth.exceededTitle') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="{{ trans('auth.exceededTitle') }} - {{ Config::get('other.title') }}">
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('css/main/twostep.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -18,7 +18,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('auth.exceededTitle') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">

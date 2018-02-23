@@ -58,4 +58,4 @@
 </center>
 </div>
 </div>
-@stop
+@endsection

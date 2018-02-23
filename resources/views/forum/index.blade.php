@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ Config::get('other.title') }} - {{ trans('forum.forums') }}">
-@stop
+@endsection
 
 
 @section('breadcrumb')
@@ -15,7 +15,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="box container">
@@ -67,4 +67,4 @@
 		@endforeach
 	</div>
 </div>
-@stop
+@endsection

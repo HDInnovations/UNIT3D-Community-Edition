@@ -6,7 +6,7 @@
 <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.bookmarks') }}</span>
 </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container-fluid">
@@ -73,4 +73,4 @@
   </div>
 </div>
 </div>
-@stop
+@endsection

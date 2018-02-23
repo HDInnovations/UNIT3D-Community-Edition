@@ -6,7 +6,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('notification.notifications') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -60,4 +60,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

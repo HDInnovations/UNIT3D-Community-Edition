@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ $topic->name }} - Forums - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -24,7 +24,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
   <div class="topic container-fluid">
@@ -212,7 +212,7 @@
      </div>
     </div>
   </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -226,4 +226,4 @@ $(document).ready(function() {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
 <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
-@stop
+@endsection

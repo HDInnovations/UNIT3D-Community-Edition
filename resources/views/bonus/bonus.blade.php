@@ -6,7 +6,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('bon.bonus') }} {{ trans('bon.points') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -251,4 +251,4 @@
     </script>
 @endsection
 
-@stop
+@endsection

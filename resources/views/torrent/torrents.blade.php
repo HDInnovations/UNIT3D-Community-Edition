@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ 'Torrents ' . Config::get('other.title') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">
@@ -14,7 +14,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <!-- Search -->
@@ -219,7 +219,7 @@
   <!-- /Results -->
 </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script>
@@ -387,4 +387,4 @@
             $("#a"+(parseInt(active))).addClass('active');
         }
     </script>
-@stop
+@endsection

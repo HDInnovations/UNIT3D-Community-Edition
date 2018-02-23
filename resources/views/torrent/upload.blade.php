@@ -2,11 +2,11 @@
 
 @section('title')
 <title>Upload - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Upload</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 @if($user->can_upload == 0)
@@ -160,7 +160,7 @@
   </div>
 </div>
 @endif
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>

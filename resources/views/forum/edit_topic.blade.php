@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('forum.create-new-topic') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ trans('forum.edit-topic') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -24,7 +24,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.edit-topic') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="forum box container">
@@ -50,4 +50,4 @@
 		{{ Form::close() }}
 	</div>
 </div>
-@stop
+@endsection

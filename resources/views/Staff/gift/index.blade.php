@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>Gifting - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="Gifting - Staff Dashboard">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Gifting</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -47,7 +47,7 @@
             <button type="submit" class="btn btn-default">Send</button>
         {{ Form::close() }}
 </div>
-@stop
+@endsection
 
 @section('javascripts')
     <script type="text/javascript">

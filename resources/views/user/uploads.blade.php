@@ -2,7 +2,7 @@
 
 @section('title')
     <title>Uploads Table - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Uploads Table</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container-fluid">
@@ -86,4 +86,4 @@
       {!! $torrents->appends(\Request::except('page'))->render() !!}
   </div>
 </div>
-@stop
+@endsection

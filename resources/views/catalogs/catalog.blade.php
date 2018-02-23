@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ $catalog->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ $catalog->name }} {{ strtolower(trans('torrent.catalog')) }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -56,4 +56,4 @@
 @endforeach
 </div>
 </div>
-@stop
+@endsection

@@ -2,7 +2,7 @@
 
 @section('title')
 <title>My Seedboxs - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -15,7 +15,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">My Seedboxs</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="row">
@@ -78,4 +78,4 @@
 		@endif
 	</div>
 </div>
-@stop
+@endsection

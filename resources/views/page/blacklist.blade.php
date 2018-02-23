@@ -6,7 +6,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ Config::get('other.title') }} {{ trans('common.blacklist') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -51,4 +51,4 @@
     </div>
 </div>
 </div>
-@stop
+@endsection

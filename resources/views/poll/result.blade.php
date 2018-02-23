@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ trans('poll.results') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -20,7 +20,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('poll.results') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">

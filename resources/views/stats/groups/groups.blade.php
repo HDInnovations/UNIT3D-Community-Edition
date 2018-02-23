@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">
@@ -15,7 +15,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.groups') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -36,4 +36,4 @@
       </div>
     </div>
   </div>
-@stop
+@endsection

@@ -2,15 +2,15 @@
 
 @section('title')
 <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -23,7 +23,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $article->title }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="box container">
@@ -86,7 +86,7 @@
       </ul>
     </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -96,4 +96,4 @@ $(document).ready(function() {
     $("#content").wysibb(wbbOpt);
 });
 </script>
-@stop
+@endsection

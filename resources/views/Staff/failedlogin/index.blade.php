@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>Failed Login Log - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="Invites Log - Staff Dashboard">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Failed Login Log</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -70,4 +70,4 @@
 {{ $attempts->links() }}
 </div>
 </div>
-@stop
+@endsection

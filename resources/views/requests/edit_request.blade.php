@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('request.edit-request') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.edit-request') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -95,7 +95,7 @@
   </div>
 @endif
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -105,4 +105,4 @@ $(document).ready(function() {
     $("#request-form-description").wysibb(wbbOpt);
 });
 </script>
-@stop
+@endsection

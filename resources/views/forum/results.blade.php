@@ -2,11 +2,11 @@
 
 @section('title')
 <title>Results - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="Forum Search Results">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.search-results') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="box container">
@@ -72,4 +72,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

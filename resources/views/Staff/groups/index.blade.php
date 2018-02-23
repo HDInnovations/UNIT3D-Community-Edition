@@ -11,7 +11,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -54,4 +54,4 @@
         </table>
       </div>
   </div>
-@stop
+@endsection

@@ -2,7 +2,7 @@
 
 @section('title')
     <title>My History Table - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">My History Table</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container-fluid">
@@ -74,4 +74,4 @@
       {!! $history->appends(\Request::except('page'))->render() !!}
   </div>
 </div>
-@stop
+@endsection

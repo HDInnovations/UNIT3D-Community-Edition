@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('torrent.history') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ trans('torrent.history') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.history') }}</span>
 </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -84,4 +84,4 @@
 </div>
 </div>
 </div>
-@stop
+@endsection

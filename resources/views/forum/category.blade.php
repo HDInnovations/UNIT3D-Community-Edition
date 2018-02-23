@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ trans('forum.meta-category') . ' ' . $c->name }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $c->name }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="box container">
@@ -82,4 +82,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

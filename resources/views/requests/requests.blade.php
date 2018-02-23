@@ -2,7 +2,7 @@
 
 @section('title')
 <title>Requests - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -126,4 +126,4 @@
 </div>
 @endif
 </div>
-@stop
+@endsection

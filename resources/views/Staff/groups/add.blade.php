@@ -16,7 +16,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Add User Group</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <center><h3>Add New Group</h3></center>
@@ -72,4 +72,4 @@
 {{ Form::close() }}
 </div>
 </div>
-@stop
+@endsection

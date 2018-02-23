@@ -1,6 +1,6 @@
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 <div class="col-md-10 col-sm-10 col-md-offset-1">
   <div class="clearfix visible-sm-block"></div>
@@ -38,4 +38,4 @@ $(document).ready(function() {
   $(".wysibb-body").attr("onkeydown", "editorOnKeyDown(event, this);")
 });
 </script>
-@stop
+@endsection

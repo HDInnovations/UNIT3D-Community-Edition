@@ -2,15 +2,15 @@
 
 @section('title')
 <title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ trans('torrent.meta-desc', ['name' => $torrent->name]) }}!">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -23,7 +23,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $torrent->name }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="torrent box container">
@@ -525,7 +525,7 @@
 </div>
 </div>
 @include('torrent.torrent_modals', ['user' => $user, 'torrent' => $torrent])
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -548,4 +548,4 @@ $(".slidingDiv").slideToggle();
 
 });
 </script>
-@stop
+@endsection

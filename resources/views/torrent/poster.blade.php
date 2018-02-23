@@ -11,7 +11,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.poster-view') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -136,4 +136,4 @@
   {{ $torrents->links() }}
 </div>
 </div>
-@stop
+@endsection

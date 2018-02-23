@@ -2,10 +2,10 @@
 
 @section('title')
 <title>{{ $user->username }} - {{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
-<meta name="description" content="{{ 'Profil de l\'utilisateur ' . $user->username . ' sur le site ' . Config::get('other.title') . '. Découvrer son profil RLM en intégralité en vous inscrivant.' }}"> @stop
+<meta name="description" content="{{ 'Profil de l\'utilisateur ' . $user->username . ' sur le site ' . Config::get('other.title') . '. Découvrer son profil RLM en intégralité en vous inscrivant.' }}"> @endsection
 
 @section('breadcrumb')
 <li>
@@ -13,7 +13,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -444,4 +444,4 @@
 @endif
 </div>
 
-@include('user.user_modals', ['user' => $user]) @stop
+@include('user.user_modals', ['user' => $user]) @endsection
