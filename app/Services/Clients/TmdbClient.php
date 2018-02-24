@@ -217,7 +217,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $movie_countries = [];
         if ($type == 'movie') {
-            if (count($countries)) {
+            if (! is_null($countries)) {
                 foreach ($countries as $country) {
                     $movie_countries[] = [
                         'code' => $country['iso_3166_1'],
@@ -228,7 +228,7 @@ class TmdbClient extends Client implements MovieTvInterface
         }
 
         if ($type == 'tv') {
-            if (count($countries)) {
+            if (! is_null($countries)) {
                 foreach ($countries as $country) {
                     $movie_countries[] = [
                         'code' => $country,
@@ -245,7 +245,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $movie_languages = [];
         if ($type == 'movie') {
-            if (count($languages)) {
+            if (! is_null($languages)) {
                 foreach ($languages as $language) {
                     $movie_languages[] = [
                         'code' => $language['iso_639_1'],
@@ -255,7 +255,7 @@ class TmdbClient extends Client implements MovieTvInterface
             }
         }
         if ($type == 'tv') {
-            if (count($languages)) {
+            if (! is_null($languages)) {
                 foreach ($languages as $language) {
                     $movie_languages[] = [
                         'code' => $language,
@@ -271,7 +271,7 @@ class TmdbClient extends Client implements MovieTvInterface
     private function formatGenres($genres)
     {
         $movie_genres = [];
-        if (count($genres)) {
+        if (! is_null($genres)) {
             foreach ($genres as $genre) {
                 $movie_genres[] = $genre['name'];
             }
