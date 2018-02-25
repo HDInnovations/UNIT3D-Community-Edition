@@ -48,7 +48,8 @@ class GiftController extends Controller
             $v = Validator::make(Request::all(), [
                 'username' => "required|exists:users,username|max:180",
                 'bonus_points' => "required|numeric|min:0",
-                'invites' => "required|numeric|min:0"
+                'invites' => "required|numeric|min:0",
+                'fl_tokens' => "required|numeric|min:0"
             ]);
 
             if ($v->passes()) {
@@ -60,8 +61,10 @@ class GiftController extends Controller
 
                 $bon = Request::get('bonus_points');
                 $invites = Request::get('invites');
+                $fl_tokens = Request::get('fl_tokens');
                 $recipient->seedbonus += $bon;
                 $recipient->invites += $invites;
+                $recipient->fl_tokens += $fl_tokens;
                 $recipient->save();
 
                 // Activity Log

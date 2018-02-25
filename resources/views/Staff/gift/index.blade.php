@@ -44,6 +44,11 @@
                 <input type="number" class="form-control" name="invites" value="0">
             </div>
 
+			<div class="form-group">
+				<label for="name">FL Tokens</label>
+				<input type="number" class="form-control" name="fl_tokens" value="0">
+			</div>
+
             <button type="submit" class="btn btn-default">Send</button>
         {{ Form::close() }}
 </div>
