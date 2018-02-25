@@ -60,10 +60,10 @@
         <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" onchange="updateTorrentName()" required>
       </div>
 
-      <div class="form-group">
+      {{--<div class="form-group">
         <label for="nfo">NFO File (Optional)</label>
         <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
-      </div>
+    </div>--}}
 
             <div class="form-group">
                 <label for="name">Title</label>
