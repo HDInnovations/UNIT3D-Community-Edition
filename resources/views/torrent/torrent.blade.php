@@ -88,9 +88,11 @@
                       <a rel="nofollow" href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}" title="TVDB" target="_blank">TVDB: {{ $torrent->tvdb }}</a>
                     </span>
                     @endif
-                    <span class="badge-user text-bold text-pink">
-                    <a href="{{ $movie->videoTrailer }}" title="View Trailer">{{ trans('torrent.view-trailer') }} <i class="fa fa-external-link"></i></a>
-                    </span>
+                    @if($movie->videoTrailer != '')
+                        <span onclick="showTrailer()" style="cursor: pointer;" class="badge-user text-bold">
+                            <a class="text-pink" title="View Trailer">{{ trans('torrent.view-trailer') }} <i class="fa fa-external-link"></i></a>
+                        </span>
+                    @endif
                   </li>
                 </ul>
       		</div>
@@ -548,4 +550,11 @@ $(".slidingDiv").slideToggle();
 
 });
 </script>
+
+<script type="text/javascript">
+    function showTrailer() {
+        swal({ showConfirmButton: false, showCloseButton: true, background: '#232323', width: 970, html:'<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>', title:'<i style="color: #a5a5a5;">{{ $movie->title }}</i>', text:''});
+    }
+</script>
+
 @endsection
