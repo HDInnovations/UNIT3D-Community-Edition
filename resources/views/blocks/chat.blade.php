@@ -38,4 +38,9 @@ $(document).ready(function() {
   $(".wysibb-body").attr("onkeydown", "editorOnKeyDown(event, this);")
 });
 </script>
+<script type="text/javascript">
+function addTextToChat(text) {
+	$( ".wysibb-text-editor" ).append( ' ' + text );
+}
+</script>
 @endsection

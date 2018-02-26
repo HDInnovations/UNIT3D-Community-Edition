@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use App\Shoutbox;
+use App\PrivateMessage;
 use App\User;
 use App\Helpers\LanguageCensor;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,9 @@ class ShoutboxController extends Controller
      *
      *
      */
-    public function send()
+   public function send()
     {
+		$string = Request::get('message');
         $checkSendRate = Shoutbox::where('user', '=', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(2))->first();
         if ($checkSendRate) {
             return 'Wait 2 Seconds Between Posts Please';
@@ -46,10 +48,10 @@ class ShoutboxController extends Controller
             'message' => 'required|min:1|regex:/^[(a-zA-Z\-)]+$/u'
         ]);
         if ($v->fails()) {
-            Toastr::error('There was a error with your input!', 'Whoops!', ['options']);
+            Toastr::error('There was a error with your input!', 'Error!', ['options']);
         }
         if (Request::ajax()) {
-            preg_match_all('/(@\w+)/', Request::get('message'), $mentions);
+            preg_match_all('/(@\w+)/', $string, $mentions);
             $mentionIDs = [];
             foreach ($mentions[0] as $mention) {
                 $findUser = User::where('username', 'LIKE', '%' . str_replace('@', '', $mention) . '%')->first();
@@ -59,9 +61,9 @@ class ShoutboxController extends Controller
             }
             $mentions = implode(',', $mentionIDs);
             if (! is_null($mentions)) {
-                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => Request::get('message'), 'mentions' => $mentions]);
+                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => $string, 'mentions' => $mentions]);
             } else {
-                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => Request::get('message')]);
+                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => $string]);
             }
 
             $flag = true;
@@ -86,7 +88,7 @@ class ShoutboxController extends Controller
       ' . ($flag ? $online : "") . '
       </span>&nbsp;<span class="text-muted"><small><em>' . Carbon::now()->diffForHumans() . '</em></small></span>
       </h4>
-      <p class="message-content">' . e(Request::get('message')) . '</p>
+      <p class="message-content">' . e($string) . '</p>
       </li>';
 
             Cache::forget('shoutbox_messages');
@@ -96,8 +98,8 @@ class ShoutboxController extends Controller
 
     public static function getMessages($after = null)
     {
-        $messages = Cache::remember('shoutbox_messages', 1440, function () {
-            return Shoutbox::orderBy('id', 'desc')->take(50)->get();
+        $messages = Cache::remember('shoutbox_messages', 7200, function () {
+            return Shoutbox::orderBy('id', 'desc')->take(150)->get();
         });
 
         $messages = $messages->reverse();
@@ -115,43 +117,68 @@ class ShoutboxController extends Controller
         $flag = false;
         foreach ($messages as $message) {
             $class = '';
-            if (in_array(Auth::user()->id, explode(',', $message->mentions))) {
-                $class = 'mentioned';
-            }
+			if (!empty($message->mentions)){
+				if (in_array(Auth::user()->id, explode(',', $message->mentions))) {
+					$class = 'mentioned';
+					$show = true;
+				} elseif (in_array(Auth::user()->id, explode(',', $message->user))){
+                    $class = 'mentions';
+                    $show = true;
+				} else {
+                    $show = false;
+                }
+			} elseif ($message->mentions == '1'){
+				$show = true;
+			} elseif ($message->mentions == '2'){
+				$show = true;
+			} else {
+				$show = true;
+			}
+			if ($message->user == Auth::user()->id){
+				$show = true;
+			}
+			if ($message->user == '1'){
+				$show = true;
+			}
+			if ($message->user == '2'){
+				$show = true;
+			}
+			if ($show){
+				$flag = true;
+				if ($message->poster->image != null) {
+					$avatar = '<img onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
+				} else {
+					$avatar = '<img onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profil.png">';
+				}
 
-            $flag = true;
-            if ($message->poster->image != null) {
-                $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
-            } else {
-                $avatar = '<img class="profile-avatar tiny pull-left" src="img/profil.png">';
-            }
+				$flag = true;
+				$delete = '';
+				if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
+					$appurl = config('app.url');
+					$delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
+				}
 
-            $flag = true;
-            $delete = '';
-            if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
-                $appurl = config('app.url');
-                $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
-            }
+				$flag = true;
+				if ($message->poster->isOnline()) {
+					$online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="Online!"></i>';
+				} else {
+					$online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="Offline!"></i>';
+				}
 
-            $flag = true;
-            if ($message->poster->isOnline()) {
-                $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
-            } else {
-                $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
-            }
-
-            $appurl = config('app.url');
-            $data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
-                   ' . ($flag ? $avatar : "") . '
-                   <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>&nbsp;<a style="color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>'
-                . e($message->poster->username) . '</a>
-                   ' . ($flag ? $online : "") . '
-                   </span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
-                   </h4>
-                   <p class="message-content">
-                   ' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
-                   ' . ($flag ? $delete : "") . '
-                   </p></li>';
+				$appurl = config('app.url');
+				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
+					' . ($flag ? $avatar : "") . '
+					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>
+                    &nbsp;<a style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')">'
+					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>Profile</a>
+					' . ($flag ? $online : "") . '
+					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
+					</h4>
+					<p class="message-content">
+					' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
+					' . ($flag ? $delete : "") . '
+					</p></li>';
+			}
         }
 
         return ['data' => $data, 'next_batch' => $next_batch];
