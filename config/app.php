@@ -240,6 +240,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'LogActivity' => App\Helpers\LogActivity::class,
+        'Irc' => App\Bots\IRCAnnounceBot::class,
     ],
 
 ];

@@ -323,9 +323,9 @@ class TorrentController extends Controller
 
                 // Announce To IRC
                 if ($torrent->anon == 0) {
-                    \IRCAnnounceBot::message("#announce", "User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
+                    \Irc::message("#announce", "User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
                 } else {
-                    \IRCAnnounceBot::message("#announce", "An anonymous user has uploaded " . $torrent->name . " grab it now!");
+                    \Irc::message("#announce", "An anonymous user has uploaded " . $torrent->name . " grab it now!");
                 }
 
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
