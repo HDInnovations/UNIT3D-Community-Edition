@@ -350,6 +350,23 @@ class GroupsTableSeeder extends Seeder
                     'is_internal' => 1,
                     'autogroup' => 0,
                 ],
+                19 =>
+                [
+                    'id' => 20,
+                    'name' => 'Supporter',
+                    'slug' => 'supporter',
+                    'position' => 17,
+                    'color' => '#FF69B4',
+                    'icon' => 'fa fa-heart',
+                    'effect' => 'url(https://i.imgur.com/F0UCb7A.gif)',
+                    'is_admin' => 0,
+                    'is_modo' => 0,
+                    'is_trusted' => 1,
+                    'is_immune' => 1,
+                    'is_freeleech' => 1,
+                    'is_internal' => 0,
+                    'autogroup' => 0,
+                ],
         ]);
     }
 }

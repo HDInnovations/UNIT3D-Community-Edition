@@ -261,6 +261,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
         Route::any('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
         Route::any('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
+
+        // Donation System
+        Route::get('/donation/packages', 'DonationController@packages')->name('packages');
+        Route::post('/donation/charge', 'DonationController@charge')->name('charge'); // Stripe
     });
 
 /*
