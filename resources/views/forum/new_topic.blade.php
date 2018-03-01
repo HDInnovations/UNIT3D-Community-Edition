@@ -39,7 +39,6 @@
 	<div class="col-md-12">
 		<h2><span>{{ trans('forum.create-new-topic') }}</span><span id="thread-title">{{ $title }}</span></h2>
 		{{ Form::open(array('route' => array('forum_new_topic', 'slug' => $forum->slug, 'id' => $forum->id))) }}
-        {{ csrf_field() }}
 			<div class="form-group">
 				<input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $title }}">
 			</div>
