@@ -41,6 +41,6 @@ class BanUser extends Mailable
     public function build()
     {
         return $this->markdown('emails.ban')
-            ->subject('You Have Been Banned ' . config('other.title'));
+            ->subject('You Have Been Banned - ' . config('other.title'));
     }
 }

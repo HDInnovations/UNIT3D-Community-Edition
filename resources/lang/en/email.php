@@ -35,5 +35,5 @@ return [
     'report-comment' => 'Comment',
     'unban-header' => 'You Have Been Unbanned',
     'unban-reason' => 'Reason',
-    'unban-footer' => 'Thats what you get for not following the rules'
+    'unban-footer' => 'Welcome back!'
 ];

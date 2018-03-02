@@ -16,9 +16,7 @@ use App\Mail\BanUser;
 use App\Warning;
 use App\User;
 use App\Ban;
-
 use Carbon\Carbon;
-
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -68,6 +66,9 @@ class autoBan extends Command
                     "unban_reason" => "",
                 ]);
                 $ban->save();
+
+                // Send Email
+                Mail::to($ban->warneduser->email)->send(new BanUser($ban->warneduser));
             }
         }
     }

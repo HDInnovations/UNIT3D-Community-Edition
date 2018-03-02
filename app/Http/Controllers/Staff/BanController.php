@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\BanUser;
+use App\Mail\UnbanUser;
 use App\User;
 use App\Ban;
 use Carbon\Carbon;
@@ -68,8 +70,11 @@ class BanController extends Controller
             $ban->ban_reason = Request::get('ban_reason');
             $ban->save();
 
-        // Activity Log
+            // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
+
+            // Send Email
+            Mail::to($user->email)->send(new BanUser($user));
 
             return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
         }
@@ -112,8 +117,11 @@ class BanController extends Controller
             $ban->removed_at = Carbon::now();
             $ban->save();
 
-        // Activity Log
+            // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
+
+            // Send Email
+            Mail::to($user->email)->send(new UnbanUser($user));
 
             return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
         }
