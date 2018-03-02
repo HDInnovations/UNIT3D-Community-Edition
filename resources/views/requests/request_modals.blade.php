@@ -66,7 +66,7 @@
 				<p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
 					<div class="btns">
 						<button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
-						<button type="submit" @if(!$user->group->is_modo || $request->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('common.cancel') }}</button>
+						<button type="submit" @if(!$user->group->is_modo || $request->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
 					</div>
 			</div>
 			{{ Form::close() }}
