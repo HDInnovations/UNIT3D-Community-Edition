@@ -28,7 +28,7 @@ class Post extends Model
      *
      */
     public $rules = [
-        'content' => 'required|min:100',
+        'content' => 'required',
         'user_id' => 'required',
         'topic_id' => 'required'
     ];

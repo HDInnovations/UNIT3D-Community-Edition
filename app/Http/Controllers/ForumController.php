@@ -334,6 +334,7 @@ class ForumController extends Controller
                     return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
                 } else {
                     // Unable to save the first post doc delete the topic
+                    Toastr::error('You Did Not Meet All The Requirments For Creating A Yopic!', 'Whoops!', ['options']);
                     $topic->delete();
                 }
             } else {
