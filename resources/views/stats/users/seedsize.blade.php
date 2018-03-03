@@ -30,14 +30,18 @@
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>
+            <th>#</th>
             <th>{{ trans('common.user') }}</th>
             <th>{{ trans('torrent.seedsize') }}</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($seedsize as $s)
+          @foreach($seedsize as $key => $s)
           <tr>
             <td>
+                {{ ++$key }}
+            </td>
+            <td @if(auth()->user()->username == $s->user->username) class="mentions" @endif>
               @if($s->private_profile == 1)
               <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(Auth::user()->id == $b->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $s->username, 'id' => $s->id]) }}">({{ $s->username }}</a></span>
               @endif

@@ -30,14 +30,18 @@
     <table class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>
+          <th>#</th>
           <th>{{ trans('request.request') }}</th>
           <th>{{ trans('request.bounty') }}</th>
           <th>{{ trans('request.filled') }}</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($bountied as $b)
+        @foreach($bountied as $key => $b)
         <tr>
+          <td>
+              {{ ++$key }}
+          </td>
           <td>
             <a class="view-torrent" data-id="{{ $b->id }}" href="{{ route('request', array('id' => $b->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $b->name }}">{{ $b->name }}</a>
           </td>

@@ -31,6 +31,7 @@
     <table class="table table-condensed table-striped table-bordered">
     <thead>
       <tr>
+        <th>#</th>
         <th>{{ trans('torrent.torrent') }}</th>
         <th>{{ trans('torrent.seeders') }}</th>
         <th>{{ trans('torrent.leechers') }}</th>
@@ -38,8 +39,11 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($completed as $c)
+      @foreach($completed as $key => $c)
       <tr>
+        <td>
+            {{ ++$key }}
+        </td>
         <td>
           <a class="view-torrent" data-id="{{ $c->id }}" data-slug="{{ $c->slug }}" href="{{ route('torrent', array('slug' => $c->slug, 'id' => $c->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $c->name }}">{{ $c->name }}</a>
         </td>

@@ -30,14 +30,18 @@
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>
+            <th>#</th>
             <th>{{ trans('common.user') }}</th>
             <th>{{ trans('torrent.uploaded') }}</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($uploaders as $u)
+          @foreach($uploaders as $key => $u)
           <tr>
             <td>
+                {{ ++$key }}
+            </td>
+            <td @if(auth()->user()->username == $u->user->username) class="mentions" @endif>
               @if($u->user->private_profile == 1)
               <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(Auth::user()->id == $u->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $u->user->username, 'id' => $u->user->id]) }}">({{ $u->user->username }})</a></span>
               @endif
