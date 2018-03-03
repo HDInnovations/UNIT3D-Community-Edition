@@ -51,10 +51,10 @@ class ShoutboxController extends Controller
             Toastr::error('There was a error with your input!', 'Error!', ['options']);
         }
         if (Request::ajax()) {
-            preg_match_all('/(@\w+)/', $string, $mentions);
+            preg_match_all('/(#\w+)/', $string, $mentions);
             $mentionIDs = [];
             foreach ($mentions[0] as $mention) {
-                $findUser = User::where('username', 'LIKE', '%' . str_replace('@', '', $mention) . '%')->first();
+                $findUser = User::where('username', 'LIKE', '%' . str_replace('#', '', $mention) . '%')->first();
                 if (!empty($findUser->id)) {
                     $mentionIDs[] = $findUser['id'];
                 }
@@ -146,9 +146,9 @@ class ShoutboxController extends Controller
 			if ($show){
 				$flag = true;
 				if ($message->poster->image != null) {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
+					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
 				} else {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profil.png">';
+					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profil.png">';
 				}
 
 				$flag = true;
@@ -169,7 +169,7 @@ class ShoutboxController extends Controller
 				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
 					' . ($flag ? $avatar : "") . '
 					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>
-                    &nbsp;<a style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '@'.$message->poster->username . "'" . ')">'
+                    &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
 					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>Profile</a>
 					' . ($flag ? $online : "") . '
 					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
