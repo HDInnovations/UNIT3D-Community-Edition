@@ -40,11 +40,11 @@
             <img src="{{ url($p['image']) }}">
           </div>
           <div class='card_inner__content'>
-            <div class='title' name='title'>{{ $p['name'] }}</div>
-            <div class='price' name='price'>${{ $p['price'] / 100 }}</div>
+            <div class='title' name='title' id='title' value='{{ $p["name"] }}'>{{ $p['name'] }}</div>
+            <div class='price' name='price' id='price' value='{{ $p["price"] }}'>${{ $p['price'] / 100 }}</div>
             <div class='text'>
             <ul class="list-unstyled">
-                <li>Supporter For <div name='time'>{{ $p['time'] }}</div> Days</li>
+                <li>Supporter For <div class='time' name='time' id='time' value='{{ $p["time"] }}'>{{ $p['time'] }}</div> Days</li>
             </ul>
             </div>
           </div>
@@ -57,7 +57,7 @@
         type="submit"
         class="btn btn-primary btn-lg"
         value="{{ trans('donation.get') }}"
-        data-key="pk_test_CVYw1q2ylpsDxghdm7YaKsj4"
+        data-key=""
         data-amount="{{ $p['price'] }}"
         data-currency="usd"
         data-locale="auto"
@@ -75,17 +75,41 @@
     <br>
     <br>
     <br>
-    <div class="well">
+    <div class="row">
+    <div class="well col-md-6">
     <h1 class="text-pink text-bold">
         <center>
+            Supporter Perks:
+        <h3 class="text-pink text-bold">
             Supporter Group includes the following benifits.
             Everything is Freeleech for you,
             You are hit and run immune,
-            You are immune to moderation meaning you uploads bypass staff checks before posting to site
-            and last but not least you get a cool badge letting the community you have supported the site through a donation.
+            You are immune to upload moderation, meaning your uploads bypass staff checks before posting to site.
+            Last but not least you get a cool badge letting the community know you have supported the site through a donation.
+            Thank you for supporting Blutopia!
+        </h3>
         </center>
+    </h1>
+    </div>
+
+    <div class="well col-md-6">
+    <h1 class="text-orange text-bold">
+        <center>
+            Info:
+        <h3 class="text-orange text-bold">
+            Payments are handeled securly via StripeCheckout.
+            We accept these cards:
+            Visa (credit and debit cards),
+            MasterCard (credit and debit cards),
+            American Express and Discover (US only).
+            This allows one to go buy a throw away visa gift card if you want to be more anonymous.
+            We do not store any card information. Everything payment wise is handeld via Stripe.
+        </h3>
+        </center>
+    </h1>
     </div>
     </div>
+</div>
   </div>
 @endsection
 

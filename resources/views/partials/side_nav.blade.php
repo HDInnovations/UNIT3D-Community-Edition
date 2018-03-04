@@ -99,6 +99,13 @@
         <span class="selected"></span>
       </a>
     </li>
+    <li>
+      <a href="{{ route('packages') }}">
+        <i class="livicon" data-name="money" data-c="#f1c40f" data-hc="#f1c40f" data-size="18" data-loop="true"></i>
+        <span class="menu-text">Donate</span>
+        <span class="selected"></span>
+      </a>
+    </li>
     {{--<li>
       <a href="{{ route('rss', array('passkey' => Auth::user()->passkey)) }}">
         <i class="livicon" data-name="rss" data-c="orange" data-hc="orange" data-size="18" data-loop="true"></i>

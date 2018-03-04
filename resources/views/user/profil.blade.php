@@ -169,6 +169,9 @@
     @if($user->getSeedbonus() >= 50000)
     <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip" title="" data-original-title="Has 50,000 Or More BON In Bank"><i class="fa fa-star"></i> Certified Banker!</span>
     @endif
+    @if($user->is_donor == 1)
+    <span class="badge-user" style="background-color:#FF69B4; color:white;" data-toggle="tooltip" title="" data-original-title="Has Donated To Blutopia!"><i class="fa fa-heart"></i> Certified Donor!</span>
+    @endif
     </td>
   </tr>
   <tr>
