@@ -27,6 +27,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\removePersonalFreeleech::class,
         \App\Console\Commands\removeFeaturedTorrent::class,
         \App\Console\Commands\autoGraveyard::class,
+        \App\Console\Commands\ircBroadcast::class,
+        \App\Console\Commands\ircMessage::class,
     ];
 
     /**
@@ -60,7 +62,7 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-        
+
         require base_path('routes/console.php');
     }
 }

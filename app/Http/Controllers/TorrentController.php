@@ -279,16 +279,7 @@ class TorrentController extends Controller
                 $user->addProgress(new UserMade700Uploads(), 1);
                 $user->addProgress(new UserMade800Uploads(), 1);
                 $user->addProgress(new UserMade900Uploads(), 1);
-                if ($torrent->sd == 0) {
-                    $appurl = config('app.url');
-                    if ($torrent->anon == 0) {
-                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                        Cache::forget('shoutbox_messages');
-                    } else {
-                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                        Cache::forget('shoutbox_messages');
-                    }
-                }
+
                 // check for trusted user and update torrent
                 if ($user->group->is_trusted) {
                     Torrent::approve($torrent->id);
@@ -317,6 +308,27 @@ class TorrentController extends Controller
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " .");
+
+                // Announce To Shoutbox
+                if ($torrent->sd == 0) {
+                    $appurl = config('app.url');
+                    if ($torrent->anon == 0) {
+                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+                        Cache::forget('shoutbox_messages');
+                    } else {
+                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+                        Cache::forget('shoutbox_messages');
+                    }
+                }
+
+                // Announce To IRC
+                if (config('irc-bot.enabled') == true) {
+                if ($torrent->anon == 0) {
+                    \Irc::message("#announce", "User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
+                } else {
+                    \Irc::message("#announce", "An anonymous user has uploaded " . $torrent->name . " grab it now!");
+                }
+                }
 
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
