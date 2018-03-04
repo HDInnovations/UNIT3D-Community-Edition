@@ -861,6 +861,21 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $message = Request::get('message');
         if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
+            $users = History::where('info_hash', '=', $torrent->info_hash)->get();
+                foreach ($users as $pm) {
+                    $pmuser = new PrivateMessage();
+                    $pmuser->sender_id = 1;
+                    $pmuser->reciever_id = $pm->user_id;
+                    $pmuser->subject = "Torrent Deleted!";
+                    $pmuser->message = "[b]Attention:[/b] Torrent " . $torrent->name . " has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
+                                        [b]Removal Reason:[/b] ". $message ."
+                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                    $pmuser->save();
+                }
+
+            // Activity Log
+            \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
+
             Peer::where('torrent_id', '=', $id)->delete();
             History::where('info_hash', '=', $torrent->info_hash)->delete();
             Warning::where('id', '=', $id)->delete();
@@ -869,9 +884,6 @@ class TorrentController extends Controller
                 FeaturedTorrent::where('torrent_id', '=', $id)->delete();
             }
             Torrent::where('id', '=', $id)->delete();
-            PrivateMessage::create(['sender_id' => 1, 'reciever_id' => $torrent->user_id, 'subject' => "Your Torrent Has Been Deleted!", 'message' => $torrent->name . " Has Been Deleted From Our Site. $message"]);
-            // Activity Log
-            \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
 
             return redirect('/torrents')->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
         } else {
