@@ -40,6 +40,9 @@
     @endif
     <li><a href="{{ route('getReports') }}"><i class="fa fa-file"></i> {{ trans('staff.reports-log') }}</a></li>
     <li><a href="{{ route('getWarnings') }}"><i class="fa fa-file"></i> {{ trans('staff.warnings-log') }}</a></li>
+    @if(Auth::user()->id == 3)
+    <li><a href="{{ route('getDonations') }}"><i class="fa fa-file"></i> {{ trans('staff.donations-log') }}</a></li>
+    @endif
   </ul>
  </div>
 </div>

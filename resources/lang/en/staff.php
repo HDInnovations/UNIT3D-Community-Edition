@@ -10,7 +10,7 @@ return [
     'you-have' => 'You Have',
     'dashboard' => 'Dashboard',
     'staff-dashboard' => 'Staff Dashboard',
-    
+
     'links' => 'Links',
     'frontend' => 'Frontend',
     'config-manager' => 'Config Manager',
@@ -41,5 +41,6 @@ return [
     'invites-log' => 'Invites Log',
     'laravel-log' => 'Laravel Log',
     'reports-log' => 'Reports Log',
-    'warnings-log' => 'Warnings Log'
+    'warnings-log' => 'Warnings Log',
+    'donations-log' => 'Donations Log'
 ];
