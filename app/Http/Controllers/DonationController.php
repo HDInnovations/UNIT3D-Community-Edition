@@ -43,7 +43,7 @@ class DonationController extends Controller
     public function charge(Request $request)
     {
         try {
-        // For initialize Stripe package
+        // For initialize Stripe package (LIVE API SECRET KEY HERE)
         Stripe::setApiKey("");
 
         //For creating a customer in Stripe system
@@ -57,21 +57,23 @@ class DonationController extends Controller
             'customer' => $customer->id,
             'amount' => $request->amount,
             'currency' => 'usd',
-            'description' => $request->title,
+            'description' => $request->title
         ));
 
         // For storing payment information locally
-        $storePayment = StripeDonation::create([
+        $storePayment = Donation::create([
             'stripe_payment_id' => $charge->id,
             'user_id' => auth()->user()->id,
             'amount' => $charge->amount,
             'plan' => $request->title,
             'time' => $request->time,
-            'status' => 1
+            'rank' => auth()->user()->group->name,
+            'status' => 1,
+            'active' => 1
         ]);
 
         // Lets find proper group
-        $group = Group::where('slug', '=', 'supporter')->first();
+        $group = Group::where('name', '=', 'Supporter')->first();
 
         // Lets change the users group now and mark as donor
         $user = User::findOrFail(auth()->user()->id);
