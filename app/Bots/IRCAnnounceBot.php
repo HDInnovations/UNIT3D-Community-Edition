@@ -21,13 +21,13 @@ class IRCAnnounceBot
 
 	public function __construct($app) {
 		$this->app = $app;
-		$this->username = config('irc.username');
-		$this->channels = config('irc.channels');
-		$this->server = config('irc.server');
-		$this->port = config('irc.port');
-		$this->hostname = config('irc.hostname');
-		$this->nickservpass = config('irc.nickservpass');
-		$this->joinchannels = config('irc.joinchannels');
+		$this->username = config('irc-bot.username');
+		$this->channels = config('irc-bot.channels');
+		$this->server = config('irc-bot.server');
+		$this->port = config('irc-bot.port');
+		$this->hostname = config('irc-bot.hostname');
+		$this->nickservpass = config('irc-bot.nickservpass');
+		$this->joinchannels = config('irc-bot.joinchannels');
 		$this->socket = fsockopen($this->server, $this->port);
 
 

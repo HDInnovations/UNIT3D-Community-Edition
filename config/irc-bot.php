@@ -21,6 +21,7 @@ return [
     |
     */
 
+	'enabled' => false,
 	'hostname' => 'example.com',
 	'server' => 'irc.example.com',
 	'port' => '6667',
