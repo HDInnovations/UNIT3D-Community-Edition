@@ -97,8 +97,8 @@
         <center>
             Info:
         <h3 class="text-orange text-bold">
-            Payments are handeled securly via StripeCheckout.
-            We accept these cards:
+            Payments are handled securely via StripeCheckout.
+            Stripe accepts the following methods:
             Visa (credit and debit cards),
             MasterCard (credit and debit cards),
             American Express and Discover (US only).
