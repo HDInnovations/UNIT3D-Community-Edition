@@ -327,11 +327,11 @@ class TorrentController extends Controller
                 if (config('irc-bot.enabled') == true) {
                 if ($torrent->anon == 0) {
                     $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
-                    $bot->message("#announce", "[Category:" . $torrent->category->name . "]" "[Type:" . $torrent->type . "]" "[Size:" . $torrent->getSize() . "]");
+                    $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
                     $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id "]");
                 } else {
                     $bot->message("#announce", "[" . config('app.name') . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
-                    $bot->message("#announce", "[Category:" . $torrent->category->name . "]" "[Type:" . $torrent->type . "]" "[Size:" . $torrent->getSize() . "]");
+                    $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
                     $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id "]");
                 }
                 }
