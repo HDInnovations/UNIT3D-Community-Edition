@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\autoNerdStat::class,
         \App\Console\Commands\bonAllocation::class,
         \App\Console\Commands\autoSeedbox::class,
-        \App\Console\Commands\autoPreWarning::class,
+        //\App\Console\Commands\autoPreWarning::class,
         \App\Console\Commands\autoWarning::class,
         \App\Console\Commands\deactivateWarning::class,
         \App\Console\Commands\revokePermissions::class,
@@ -42,7 +42,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('autoNerdStat')->hourly();
         $schedule->command('bonAllocation')->hourly();
         $schedule->command('autoSeedbox')->hourly();
-        $schedule->command('autoPreWarning')->hourly();
+        //$schedule->command('autoPreWarning')->hourly();
         $schedule->command('autoWarning')->hourly();
         $schedule->command('deactivateWarning')->hourly();
         $schedule->command('revokePermissions')->hourly();

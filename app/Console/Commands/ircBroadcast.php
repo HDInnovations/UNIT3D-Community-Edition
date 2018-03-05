@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use App\Bots\IRCAnnounceBot;
 
 class ircBroadcast extends Command {
 
@@ -47,10 +48,11 @@ class ircBroadcast extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
+	public function handle()
 	{
 		$this->info("Broadcasting: " . $this->argument('message'));
-		\Irc::broadcast($this->argument('message'));
+		$bot = new IRCAnnounceBot();
+		$bot->broadcast($this->argument('message'));
 	}
 
 	/**

@@ -19,8 +19,7 @@ class IRCAnnounceBot
 	private $username = null;
 	private $registered = false;
 
-	public function __construct($app) {
-		$this->app = $app;
+	public function __construct() {
 		$this->username = config('irc-bot.username');
 		$this->channels = config('irc-bot.channels');
 		$this->server = config('irc-bot.server');

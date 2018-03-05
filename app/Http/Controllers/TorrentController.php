@@ -47,6 +47,7 @@ use App\Repositories\FacetedRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Services\FanArt;
+use App\Bots\IRCAnnounceBot;
 use Carbon\Carbon;
 use Cache;
 use Decoda\Decoda;
@@ -322,11 +323,12 @@ class TorrentController extends Controller
                 }
 
                 // Announce To IRC
+                $bot = new IRCAnnounceBot();
                 if (config('irc-bot.enabled') == true) {
                 if ($torrent->anon == 0) {
-                    \Irc::message("#announce", "User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
+                    $bot->message("#announce", "User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
                 } else {
-                    \Irc::message("#announce", "An anonymous user has uploaded " . $torrent->name . " grab it now!");
+                    $bot->message("#announce", "An anonymous user has uploaded " . $torrent->name . " grab it now!");
                 }
                 }
 

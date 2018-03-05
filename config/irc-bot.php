@@ -26,7 +26,7 @@ return [
 	'server' => 'irc.example.com',
 	'port' => '6667',
 	'username' => 'UNIT3D',
-	'password' => '',
+	'password' => 'UNIT3D',
 	'channels' => ['#announce'],
 	'nickservpass' => false,
 	'joinchannels' => false
