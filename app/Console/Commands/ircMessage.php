@@ -51,7 +51,7 @@ class ircMessage extends Command {
 	public function handle()
 	{
 		$this->info('Messaging ' . $this->argument('channel') . ": " . $this->argument('message'));
-		$bot = new IRCAnnounceBot;
+		$bot = new IRCAnnounceBot();
 		$bot->message($this->argument('channel'), $this->argument('message'));
 	}
 
