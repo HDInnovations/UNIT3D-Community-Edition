@@ -75,20 +75,89 @@ Traffic: Unlimited
 </pre>
 
 ## <a name="installation"></a> Installation
+Prerequisites Example:
+1. Install OS
 
+    `Ubuntu Server 17.10 "Artful Aardvark" (64bits)`
+
+    or
+
+    `Ubuntu Server 16.04.4 LTS "Xenial Xerus" (64bits)`
+2. Install MySQL:
+
+    `sudo apt-get install mysql-server`
+
+    `mysql_secure_installation`
+3. Get repositories for the latest software:
+
+    `sudo add-apt-repository -y ppa:nginx/development`
+
+    `sudo add-apt-repository -y ppa:ondrej/php`
+
+    `sudo apt-get update`
+4. Then we'll install the needed software (Basics/NGINX/PHP):
+
+    #Basics `sudo apt-get install -y git tmux vim curl wget zip unzip htop`
+
+    #Nginx `sudo apt-get install -y nginx`
+
+    #PHP `apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm`
+5. Configure PHP:
+
+    `sudo nano /etc/php/7.2/fpm/php.ini`
+
+    FIND->`;cgi.fix_pathinfo=1` REPLACE WITH->`cgi.fix_pathinfo=0`
+
+    Save and close
+
+    `sudo systemctl restart php7.2-fpm`
+6. Configure Nginx:
+
+    `sudo nano /etc/nginx/sites-available/default`
+
+    ```
+    server {
+    listen 80 default_server;
+
+    root /var/www/html/public;
+
+    index index.html index.htm index.php;
+
+    server_name example.com;
+
+    location / {
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+       include snippets/fastcgi-php.conf;
+       fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+    }
+    }
+    ```
+    Save and close.
+
+    `sudo systemctl reload nginx`
+7. Secure Nginx with Let's Encrypt
+
+    https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+
+
+Main:
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
 2. Open a terminal and SSH into your server.
 3. cd to the sites root directory
-4. run `chmod +x composer-setup.sh && ./composer-setup.sh && php composer install`
+4. run `php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/bin/ --filename=composer`
 5. Edit your `.env` file with your APP, DB, REDIS and MAIL info.
 6. Run `php artisan key:generate` to generate your cipher key.
 7. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 8. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
 9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab. `/path/to/artisan` becomes whatever directory you put the codebase on your server. Like `* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1` .
 10. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times).
-10. Go to your sites URL.
-11. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
-12. Enjoy using UNIT3D.
+11. `sudo chown -R www-data: storage bootstrap public config`
+12. Go to your sites URL.
+13. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
+14. Enjoy using UNIT3D.
 
 ## <a name="packages"></a> Packages
 Here are some packages that are built for UNIT3D.
