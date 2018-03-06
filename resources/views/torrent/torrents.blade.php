@@ -163,7 +163,7 @@
       </div>
   <div class="block">
   <center>
-     <h1 class="filter-title">Results</h1>
+     <h1 class="filter-title" id="count"></h1>
   </center>
   <div class="form-horizontal">
     <div class="form-group">
@@ -313,6 +313,11 @@
                     $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function(e){
+            if(e['count'] == 0){
+                $("#count").html('0 Result(s)');
+            } else {
+                $("#count").html(e['count'] +' Result(s)');
+            }
                 $("#result").html(e['result']);
                 pagination(e['rows'],e['qty'],e['active']);
             });

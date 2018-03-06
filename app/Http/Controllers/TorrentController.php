@@ -323,8 +323,8 @@ class TorrentController extends Controller
                 }
 
                 // Announce To IRC
-                $bot = new IRCAnnounceBot();
                 if (config('irc-bot.enabled') == true) {
+                $bot = new IRCAnnounceBot();
                 if ($torrent->anon == 0) {
                     $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
                     $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
@@ -479,11 +479,12 @@ class TorrentController extends Controller
         }
 
         $listings = $torrent->get();
+        $count = $torrent->count();
 
         $helper = new TorrentViewHelper();
         $result = $helper->view($listings);
 
-        return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active];
+        return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active, 'count' => $count];
     }
 
     /**
