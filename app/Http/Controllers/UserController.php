@@ -29,6 +29,7 @@ use App\Follow;
 use App\History;
 use App\Warning;
 use App\Note;
+use App\Donation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as IlluminateRequest;
