@@ -64,17 +64,40 @@ class DonationController extends Controller
         // For storing payment information locally
         $current = new Carbon();
         $expires_on = $current->addDays($request->time);
-        $storePayment = Donation::create([
-            'stripe_payment_id' => $charge->id,
-            'user_id' => auth()->user()->id,
-            'amount' => $charge->amount,
-            'plan' => $request->title,
-            'time' => $request->time,
-            'rank' => auth()->user()->group->name,
-            'status' => 1,
-            'active' => 1,
-            'expires_on' => $expires_on
-        ]);
+        $supporter = Donation::where('user_id', '=', auth()->user()->id)->where('active', '=', 1)->first();
+        if ($supporter) {
+            $updatePayment = Donation::findOrFail($supporter->id);
+            $updatePayment->active = 0;
+            $updatePayment->save();
+
+            $oldTime = $supporter->expires_on;
+            $newTime = $expires_on;
+            $sumTime = $oldTime + $newTime;
+
+            $storePayment = Donation::create([
+                'stripe_payment_id' => $charge->id,
+                'user_id' => auth()->user()->id,
+                'amount' => $charge->amount,
+                'plan' => $request->title,
+                'time' => $request->time,
+                'rank' => auth()->user()->group->name,
+                'status' => 1,
+                'active' => 1,
+                'expires_on' => $sumTime
+            ]);
+        } else {
+            $storePayment = Donation::create([
+                'stripe_payment_id' => $charge->id,
+                'user_id' => auth()->user()->id,
+                'amount' => $charge->amount,
+                'plan' => $request->title,
+                'time' => $request->time,
+                'rank' => auth()->user()->group->name,
+                'status' => 1,
+                'active' => 1,
+                'expires_on' => $expires_on
+            ]);
+        }
 
         // Lets find proper group
         $group = Group::where('name', '=', 'Supporter')->first();
