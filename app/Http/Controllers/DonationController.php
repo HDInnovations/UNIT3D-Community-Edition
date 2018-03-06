@@ -22,6 +22,7 @@ use App\Shoutbox;
 use App\Group;
 use \Toastr;
 use Cache;
+use Carbon\Carbon;
 
 class DonationController extends Controller
 {
@@ -61,6 +62,8 @@ class DonationController extends Controller
         ));
 
         // For storing payment information locally
+        $current = new Carbon();
+        $expires_on = $current->addDays($request->time);
         $storePayment = Donation::create([
             'stripe_payment_id' => $charge->id,
             'user_id' => auth()->user()->id,
@@ -69,7 +72,8 @@ class DonationController extends Controller
             'time' => $request->time,
             'rank' => auth()->user()->group->name,
             'status' => 1,
-            'active' => 1
+            'active' => 1,
+            'expires_on' => $expires_on
         ]);
 
         // Lets find proper group

@@ -30,8 +30,11 @@ class CreateDonationsTable extends Migration
             $table->integer('amount')->comment('in cents');;
             $table->boolean('status')->default(0)->comment('0 - fail, 1 - success');
             $table->text('failure_reason')->nullable();
-            $table->text('plan')->nullable();
-            $table->text('time')->nullable();
+            $table->text('plan');
+            $table->text('time')->comment('In Days');
+            $table->text('rank')->comment('Old Rank');
+            $table->boolean('active');
+            $table->timestamp('expires_on');
             $table->timestamps();
         });
     }

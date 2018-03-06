@@ -28,5 +28,5 @@ class Donation extends Model
      *
      * @var array
      */
-    protected $fillable = ['stripe_payment_id','user_id','amount', 'status', 'plan', 'time', 'rank', 'active', 'failure_reason'];
+    protected $fillable = ['user_id', 'stripe_payment_id', 'amount', 'status', 'failure_reason', 'plan', 'time', 'rank', 'active', 'expires_on'];
 }

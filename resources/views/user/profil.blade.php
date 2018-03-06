@@ -355,6 +355,21 @@
         <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>Invite Tree</strong></span></a></td>
         @endif
       </tr>
+      <tr>
+        <td> Active Supporter</td>
+        @if($supporter)
+        <td><span class="text-success text-bold"> YES</span></td>
+        @else
+        <td><span class="text-danger text-bold"> NO</span></td>
+        @endif
+      </tr>
+      <tr>
+        <td> Supporter Expires</td>
+        @if($supporter)
+        <td><span class="text-success text-bold"> {{ $supporter->expires_on->toDayDateTimeString() }}</span></td>
+        @else
+        <td><span class="text-danger text-bold"> N/A</span></td>
+        @endif
     </tbody>
   </table>
   <br>

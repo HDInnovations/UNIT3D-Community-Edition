@@ -95,7 +95,7 @@ class UserController extends Controller
         $groups = Group::all();
         $hiscount = History::where('user_id', '=', $id)->count();
         $seedtime = History::where('user_id', '=', $id)->sum('seedtime');
-
+        $supporter = Donation::where('user_id', '=', $id)->where('active', '=', 1)->first();
         $num_uploads = Torrent::where('user_id', '=', $id)->count();
         $num_downloads = History::where('user_id', '=', $id)->where('actual_downloaded', '>', 0)->count();
         $achievements = $user->unlockedAchievements();
@@ -109,7 +109,7 @@ class UserController extends Controller
         $hitrun = Warning::where('user_id', '=', $id)->orderBy('created_at', 'DESC')->get();
         $notes = Note::where('user_id', '=', $id)->count();
 
-        return view('user.profil', ['user' => $user, 'groups' => $groups, 'num_uploads' => $num_uploads, 'num_downloads' => $num_downloads, 'achievements' => $achievements, 'followers' => $followers, 'notes' => $notes,
+        return view('user.profil', ['user' => $user, 'groups' => $groups, 'num_uploads' => $num_uploads, 'num_downloads' => $num_downloads, 'achievements' => $achievements, 'followers' => $followers, 'notes' => $notes, 'supporter' => $supporter,
             'seedtime' => $seedtime, 'hiscount' => $hiscount, 'tor_comments' => $tor_comments, 'art_comments' => $art_comments, 'req_comments' => $req_comments, 'topics' => $topics, 'posts' => $posts, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
 

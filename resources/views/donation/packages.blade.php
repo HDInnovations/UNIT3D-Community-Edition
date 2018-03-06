@@ -40,11 +40,13 @@
             <img src="{{ url($p['image']) }}">
           </div>
           <div class='card_inner__content'>
-            <div class='title' name='title' id='title' value='{{ $p["name"] }}'>{{ $p['name'] }}</div>
-            <div class='price' name='price' id='price' value='{{ $p["price"] }}'>${{ $p['price'] / 100 }}</div>
+            <div class='title'>{{ $p['name'] }}</div>
+            <input type="hidden" name="title" value="{{ $p['name'] }}">
+            <div class='price'>${{ $p['price'] / 100 }}</div>
             <div class='text'>
             <ul class="list-unstyled">
-                <li>Supporter For <div class='time' name='time' id='time' value='{{ $p["time"] }}'>{{ $p['time'] }}</div> Days</li>
+                <li>Supporter For <div class='time'>{{ $p['time'] }}</div> Days</li>
+                <input type="hidden" name="time" value="{{ $p['time'] }}">
             </ul>
             </div>
           </div>
