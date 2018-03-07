@@ -28,8 +28,6 @@
         <li><a href="{{ route('forum_index') }}">{{ trans('forum.forums') }}</a></li>
         <li><a href="{{ route('members') }}">{{ trans('common.members') }}</a></li>
         <li><a href="{{ route('articles') }}">{{ trans('common.news') }}</a></li>
-        <li><a href="{{ route('about') }}">{{ trans('common.about') }}</a></li>
-        <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
       </ul>
     </div>
 
@@ -49,6 +47,7 @@
       <ul>
         <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
         <li><a href="{{ route('internal') }}">{{ trans('common.internal') }}</a></li>
+        <li><a href="{{ route('about') }}">{{ trans('common.about') }}</a></li>
         <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
       </ul>
     </div>
