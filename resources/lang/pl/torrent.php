@@ -125,5 +125,10 @@ return [
     'torrent-tips' => '<span class="text-red text-bold">:total</span> BON napiwków otrzymał Uploader, z czego <span class="text-red text-bold">:user</span> było od Ciebie',
     'torrent-tips-desc' => 'Napiwki są odejmowane od całkowitej liczby dostępnych punktów bonusowych',
     'leave-tip' => 'Daj napiwek',
-    'quick-tip' => 'Szybkie kwoty napiwków'
+    'quick-tip' => 'Szybkie kwoty napiwków',
+    'show-files' => 'Pokaż pliki',
+    'bookmark' => 'Dodaj do zakładek',
+    'unbookmark' => 'Usuń z zakładek',
+    'request-reseed' => 'Poproś o seedowanie',
+    'similar' => 'Podobne torrenty do'
 ];

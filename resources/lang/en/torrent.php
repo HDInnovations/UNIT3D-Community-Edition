@@ -125,5 +125,10 @@ return [
     'torrent-tips' => 'In Total <span class="text-red text-bold">:total</span> BON has been tipped to the uploader, in which <span class="text-red text-bold">:user</span> are from you',
     'torrent-tips-desc' => 'This will be deducted from your available bonus points',
     'leave-tip' => 'Leave tip',
-    'quick-tip' => 'Quick tip amounts'
+    'quick-tip' => 'Quick tip amounts',
+    'show-files' => 'Show files',
+    'bookmark' => 'Bookmark',
+    'unbookmark' => 'Unbookmark',
+    'request-reseed' => 'Request reseed',
+    'similar' => 'Similar Torrents For'
 ];

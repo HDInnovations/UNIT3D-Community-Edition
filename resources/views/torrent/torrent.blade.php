@@ -404,24 +404,24 @@
         <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button" class="btn btn-labeled btn-success">
           <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
         <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
-          <span class='btn-label'><i class='fa fa-file'></i></span>View NFO</button>
+          <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.view') }} NFO</button>
         <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button" class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='fa fa-heart'></i></span>Quick Comment</a>
+          <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('common.comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='fa fa-file'></i></span>Show Files</a>
+          <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
         @if(Auth::user()->hasBookmarked($torrent->id))
         <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-danger" role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>Unbookmark</a>
+          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.bookmark') }}</a>
         @else
         <a href="{{ route('bookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-primary" role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>Bookmark</a>
+          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.unbookmark') }}</a>
         @endif
         @if($torrent->seeders <= 2)
           <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button" class="btn btn-labeled btn-warning">
-          <span class='btn-label'><i class='fa fa-envelope'></i></span>Request Reseed</a>
+          <span class='btn-label'><i class='fa fa-envelope'></i></span>{{ trans('torrent.request-reseed') }}</a>
         @endif
         <button class="btn btn-labeled btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
-          <span class="btn-label"><i class="fa fa-fw fa-eye"></i></span>Report Torrent</button>
+          <span class="btn-label"><i class="fa fa-fw fa-eye"></i></span>{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
       </span>
     </center>
   </div>
@@ -431,7 +431,7 @@
     <div class="panel-collapse">
     <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapseMovie" aria-expanded="false">
       <div class="movie-title">
-        <center><i class="fa fa-arrow-right" aria-hidden="true"></i><span class="text-bold"> Similar Torrents For {{ $torrent->name }} </span><i class="fa fa-arrow-left" aria-hidden="true"></i></center>
+        <center><i class="fa fa-arrow-right" aria-hidden="true"></i><span class="text-bold"> {{ trans('torrent.similar') }} {{ $torrent->name }} </span><i class="fa fa-arrow-left" aria-hidden="true"></i></center>
       </div>
       </div>
     <div id="collapseMovie" class="panel-body collapse" aria-expanded="false" style="height: 30px;">
@@ -443,11 +443,11 @@
         <div class="movie-details">
         </div>
         <ul class="list-inline">
-          <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>Size: </strong> {{ $s->getSize() }}</span>
-          <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>Released: </strong> {{ $s->created_at->diffForHumans() }}</span>
-          <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>Seeders: </strong> {{ $s->seeders }}</li></span>
-          <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>Leechers: </strong> {{ $s->leechers }}</li></span>
-          <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>Completed: </strong> {{ $s->times_completed }}</li></span>
+          <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}: </strong> {{ $s->getSize() }}</span>
+          <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}: </strong> {{ $s->created_at->diffForHumans() }}</span>
+          <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}: </strong> {{ $s->seeders }}</li></span>
+          <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}: </strong> {{ $s->leechers }}</li></span>
+          <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}: </strong> {{ $s->times_completed }}</li></span>
         </ul>
       </div>
       @endforeach
@@ -463,13 +463,13 @@
       <div class="panel panel-danger">
         <div class="panel-heading border-light">
           <h4 class="panel-title">
-          <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white" data-l="true"></i> Comments
+          <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white" data-l="true"></i> {{ trans('common.comments') }}
         </h4>
         </div>
         <div class="panel-body no-padding">
           <ul class="media-list comments-list">
           @if(count($comments) == 0)
-          <center><h4 class="text-bold text-danger"><i class="fa fa-frown-o"></i> No Comments Yet!</h4></center>
+          <center><h4 class="text-bold text-danger"><i class="fa fa-frown-o"></i> {{ trans('common.no-comments') }}!</h4></center>
           @else
           @foreach($comments as $comment)
           <li class="media" style="border-left: 5px solid #01BC8C">
@@ -477,7 +477,7 @@
             @if($comment->anon == 1)
             <a href="#" class="pull-left">
             <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-            <strong>ANONYMOUS</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
+            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
             @else
             <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
             @if($comment->user->image != null)
@@ -485,11 +485,11 @@
             @else
             <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
             @endif
-            <strong>By <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
+            <strong>{{ trans('common.author') }} <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
             @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
-            <a title="Delete your comment" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
-            <a title="Edit your comment" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
+            <a title="{{ trans('common.delete-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
+            <a title="{{ trans('common.edit-comment') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
             @endif
             <div class="pt-5">
             @emojione($comment->getContentHtml())
@@ -514,13 +514,13 @@
   <div class="col-md-12">
     {{ Form::open(array('route' => array('comment_torrent', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
     <div class="form-group">
-      <label for="content">Your comment:</label><span class="badge-extra">Type <strong>:</strong> for emoji</span> <span class="badge-extra">BBCode is allowed</span>
+      <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
       <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
     </div>
     <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
-    <label class="radio-inline"><strong>Anonymous Comment:</strong></label>
-      <input type="radio" value="1" name="anonymous"> Yes
-      <input type="radio" value="0" checked="checked" name="anonymous"> No
+    <label class="radio-inline"><strong>{{ trans('common.anonymous') }} {{ trans('common.comment') }}:</strong></label>
+      <input type="radio" value="1" name="anonymous"> {{ trans('common.yes') }}
+      <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }}
     {{ Form::close() }}
   </div>
   <!-- /Add comment -->
