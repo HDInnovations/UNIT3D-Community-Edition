@@ -138,5 +138,6 @@ return [
     'fl_token' => 'Freeleech Token',
     'special' => 'Special',
     'personal' => 'Personal',
-    'free' => 'Free'
+    'free' => 'Free',
+    'unknown' => 'Unknown'
 ];

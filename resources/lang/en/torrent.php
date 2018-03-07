@@ -111,5 +111,19 @@ return [
     'feature' => 'Feature',
     'uploader' => 'Uploader',
     'thank' => 'Thank',
-    'thanks' => 'Thanks'
+    'thanks' => 'Thanks',
+    'estimated-ratio' => 'Estimated Ratio after Download',
+    'last-seed-activity' => 'Last seed activity',
+    'file' => 'File',
+    'general' => 'General',
+    'video' => 'Video',
+    'audio' => 'Audio',
+    'subtitle' => 'Subtitle',
+    'encode-settings' => 'Encode settings',
+    'original-output' => 'Show / Hide original output',
+    'tip-jar' => 'Tip jar',
+    'torrent-tips' => 'In Total <span class="text-red text-bold">:total</span> BON has been tipped to the uploader, in which <span class="text-red text-bold">:user</span> are from you',
+    'torrent-tips-desc' => 'This will be deducted from your available bonus points',
+    'leave-tip' => 'Leave tip',
+    'quick-tip' => 'Quick tip amounts'
 ];

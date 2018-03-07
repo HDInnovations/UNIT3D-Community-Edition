@@ -111,5 +111,19 @@ return [
     'feature' => 'Wyróżnij',
     'uploader' => 'Uploader',
     'thank' => 'Podziękuj',
-    'thanks' => 'Podziękowania'
+    'thanks' => 'Podziękowania',
+    'estimated-ratio' => 'Szacowane ratio po pobraniu',
+    'last-seed-activity' => 'Aktywność ostatniego seed\'a',
+    'file' => 'Plik',
+    'general' => 'Ogólne',
+    'video' => 'Video',
+    'audio' => 'Audio',
+    'subtitle' => 'Napisy',
+    'encode-settings' => 'Kodek',
+    'original-output' => 'Pokaż / ukryj oryginalną treść',
+    'tip-jar' => 'Napiwki',
+    'torrent-tips' => '<span class="text-red text-bold">:total</span> BON napiwków otrzymał Uploader, z czego <span class="text-red text-bold">:user</span> było od Ciebie',
+    'torrent-tips-desc' => 'Napiwki są odejmowane od całkowitej liczby dostępnych punktów bonusowych',
+    'leave-tip' => 'Daj napiwek',
+    'quick-tip' => 'Szybkie kwoty napiwków'
 ];

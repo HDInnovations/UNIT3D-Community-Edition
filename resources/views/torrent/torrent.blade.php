@@ -146,7 +146,7 @@
         @endif
 
         <tr>
-          <td class="col-sm-2"><strong>{{ trans('torrent.filename') }}</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.name') }}</strong></td>
           <td>{{ $torrent->name }} &nbsp; &nbsp; &nbsp; @if(Auth::user()->group->is_modo || Auth::user()->group->is_internal)
             @if($torrent->free == 0)
             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">{{ trans('torrent.grant') }} {{ trans('torrent.freeleech') }}</a>
@@ -196,23 +196,23 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Uploaded On</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.uploaded') }}</strong></td>
           <td>{{ $torrent->created_at }} ({{ $torrent->created_at->diffForHumans() }})</td>
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>File Size</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.size') }}</strong></td>
           <td>{{ $torrent->getSize() }}</td>
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Estimated Ratio after Download</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.estimated-ratio') }}</strong></td>
           <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(Auth::user())) }}</td>
         </tr>
 
         <tr>
           <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
-          <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="{{ $torrent->category->name }} Torrent"></i> {{ $torrent->category->name }}</td>
+          <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip" title="" data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i> {{ $torrent->category->name }}</td>
         </tr>
 
         <tr>
@@ -221,9 +221,9 @@
         </tr>
 
         <tr>
-          <td class="col-sm-2"><strong>Stream Optimized?</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.stream-optimized') }}?</strong></td>
           <td>
-            @if($torrent->stream == "1") YES @else NO @endif
+            @if($torrent->stream == "1") {{ trans('common.yes') }} @else {{ trans('common.no') }} @endif
           </td>
         </tr>
 
@@ -237,20 +237,20 @@
           <td>
             <span class="badge-extra text-green"><i class="fa fa-fw fa-arrow-up"></i> {{ $torrent->seeders }}</span>
             <span class="badge-extra text-red"><i class="fa fa-fw fa-arrow-down"></i> {{ $torrent->leechers }}</span>
-            <span class="badge-extra text-info"><i class="fa fa-fw fa-check"></i>{{ $torrent->times_completed }} Times</span>
-            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">View {{ trans('torrent.peers') }}</a></span>
-            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">View {{ trans('torrent.history') }}</a></span>
+            <span class="badge-extra text-info"><i class="fa fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}</span>
+            <span class="badge-extra"><a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent Peers">{{ trans('common.view') }} {{ trans('torrent.peers') }}</a></span>
+            <span class="badge-extra"><a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="View Torrent History">{{ trans('common.view') }} {{ trans('torrent.history') }}</a></span>
           </td>
         </tr>
 
         @if($torrent->seeders == 0)
         <tr>
-          <td class="col-sm-2"><strong>Last Seed Activity</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.last-seed-activity') }}</strong></td>
           <td>
             @if($last_seed_activity)
             <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> {{ $last_seed_activity->updated_at->diffForHumans() }}</span>
             @else
-            <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> Unknown</span>
+            <span class="badge-extra text-orange"><i class="fa fa-fw fa-clock-o"></i> {{ trans('common.unknown') }}</span>
             @endif
           </td>
         </tr>
@@ -266,16 +266,16 @@
         <tr>
           <td>
             <div class="panel-body torrent-desc">
-                <center><span class="text-bold text-blue">@emojione(':blue_heart:') Media Info Output @emojione(':blue_heart:')</span></center>
+                <center><span class="text-bold text-blue">@emojione(':blue_heart:') {{ trans('torrent.media-info') }} @emojione(':blue_heart:')</span></center>
                 <br>
                 @if($general !== null && isset($general['file_name']))
-                  <span class="text-bold text-blue">@emojione(':name_badge:') FILE:</span>
+                  <span class="text-bold text-blue">@emojione(':name_badge:') {{ strtoupper(trans('torrent.file')) }}:</span>
                   <span class="text-bold"><em>{{ $general['file_name'] }}</em></span>
                   <br>
                   <br>
                 @endif
                 @if($general_crumbs !== null)
-                  <span class="text-bold text-blue">@emojione(':information_source:') GENERAL:</span>
+                  <span class="text-bold text-blue">@emojione(':information_source:') {{ strtoupper(trans('torrent.general')) }}:</span>
                   <span class="text-bold"><em>
                       @foreach($general_crumbs as $crumb)
                         {{ $crumb }}
@@ -289,7 +289,7 @@
                 @endif
                 @if($video_crumbs !== null)
                   @foreach($video_crumbs as $key => $v)
-                    <span class="text-bold text-blue">@emojione(':projector:') VIDEO:</span>
+                    <span class="text-bold text-blue">@emojione(':projector:') {{ strtoupper(trans('torrent.video')) }}:</span>
                     <span class="text-bold"><em>
                         @foreach($v as $crumb)
                           {{ $crumb }}
@@ -304,7 +304,7 @@
                 @endif
                 @if($audio_crumbs !== null)
                   @foreach($audio_crumbs as $key => $a)
-                  <span class="text-bold text-blue">@emojione(':loud_sound:') AUDIO {{ ++$key }}:</span>
+                  <span class="text-bold text-blue">@emojione(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}:</span>
                   <span class="text-bold"><em>
                       @foreach($a as $crumb)
                         {{ $crumb }}
@@ -319,7 +319,7 @@
                 <br>
                 @if($text_crumbs !== null)
                   @foreach($text_crumbs as $key => $s)
-                  <span class="text-bold text-blue">@emojione(':speech_balloon:') SUBTITLE {{ ++$key }}:</span>
+                  <span class="text-bold text-blue">@emojione(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}:</span>
                   <span class="text-bold"><em>
                       @foreach($s as $crumb)
                           {{ $crumb }}
@@ -333,7 +333,7 @@
                 @endif
                 @if($settings)
                 <br>
-                <span class="text-bold text-blue">@emojione(':gear:') ENCODE SETTINGS:</span>
+                <span class="text-bold text-blue">@emojione(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}:</span>
                 <br>
                 <div class="decoda-code text-black">{{ $settings }}</div>
                 @endif
@@ -341,7 +341,7 @@
                 <br>
                 <center>
                 <button class="show_hide btn btn-labeled btn-primary" href="#">
-                  <span class="btn-label">@emojione(':poop:')</span>Show/Hide Original Dump</button>
+                  <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}</button>
                 </center>
                 <div class="slidingDiv">
                   <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
@@ -372,16 +372,16 @@
         <table class="table table-condensed table-bordered table-striped">
         <tbody>
         <tr>
-          <td class="col-sm-2"><strong>Tip Jar</strong></td>
+          <td class="col-sm-2"><strong>{{ trans('torrent.tip-jar') }}</strong></td>
           <td>
-            <p>In Total <span class="text-red text-bold">{{ $total_tips }}</span> BON has been tipped to the uploader, in which <span class="text-red text-bold">{{ $user_tips }}</span> are from you.</p>
-              <span class="text-red text-bold">(This will be deducted from your available bonus points)</span>
+            <p>{!! trans('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}.</p>
+              <span class="text-red text-bold">({{ trans('torrent.torrent-tips-desc') }})</span>
             {{ Form::open(array('route' => array('tip_uploader', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
             <input type="number" name="tip" value="0" placeholder="0" class="form-control">
-            <button type="submit" class="btn btn-primary">Leave Tip</button>
+            <button type="submit" class="btn btn-primary">{{ trans('torrent.leave-tip') }}</button>
             <br>
             <br>
-            <span class="text-green text-bold">Quick Tip Amounts</span>
+            <span class="text-green text-bold">{{ trans('torrent.quick-tip') }}</span>
             <br>
             <button type="submit" value="10" name="tip" class="btn"><img src="/images/10coin.png"/></button>
             <button type="submit" value="20" name="tip" class="btn"><img src="/images/20coin.png"/></button>
