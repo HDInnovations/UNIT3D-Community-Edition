@@ -30,6 +30,7 @@
         <th>Color</th>
         <th>Icon</th>
         <th>Effect</th>
+        <th>Internal</th>
         <th>Modo</th>
         <th>Admin</th>
         <th>Trusted</th>
@@ -43,10 +44,17 @@
       <tr>
         {{ Form::open(array('route' => ['staff_groups_edit', 'group' => $group->name, 'id' => $group->id], 'method' => 'post')) }}
         <td><input type="text" name="group_name" value="{{ $group->name }}" class="form-control" /></td>
-        <td><input type="text" name="position" value="{{ $group->position }}" class="form-control" /></td>
+        <td><input type="text" name="group_postion" value="{{ $group->position }}" class="form-control" /></td>
         <td><input type="text" name="group_color" value="{{ $group->color }}" class="form-control" /></td>
         <td><input type="text" name="group_icon" value="{{ $group->icon }}" class="form-control" /></td>
         <td><input type="text" name="group_effect" value="{{ $group->effect }}" class="form-control" /></td>
+        <td>
+          @if($group->is_internal == 1)
+            {{ Form::checkbox('group_internal', '1', true) }}
+          @else
+            {{ Form::checkbox('group_internal', '0', false) }}
+          @endif
+        </td>
         <td>
           @if($group->is_modo == 1)
             {{ Form::checkbox('group_modo', '1', true) }}

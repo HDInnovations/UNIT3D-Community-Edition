@@ -27,7 +27,7 @@ class Group extends Model
         'slug' => 'required',
         'position' => 'required',
         'color' => 'required',
-        'icon' => 'required'
+        'icon' => 'required',
     ];
 
     /**

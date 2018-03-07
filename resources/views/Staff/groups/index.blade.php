@@ -26,6 +26,7 @@
                 <th>Color</th>
                 <th>Icon</th>
                 <th>Effect</th>
+                <th>Internal</th>
                 <th>Modo</th>
                 <th>Admin</th>
                 <th>Trusted</th>
@@ -42,6 +43,7 @@
               <td>{{ $group->color }}</td>
               <td>{{ $group->icon }}</td>
               <td>{{ $group->effect }}</td>
+              <td>{{ $group->is_internal }}</td>
               <td>{{ $group->is_modo }}</td>
               <td>{{ $group->is_admin }}</td>
               <td>{{ $group->is_trusted }}</td>
