@@ -104,7 +104,9 @@ class DonationController extends Controller
 
         // Lets change the users group now and mark as donor
         $user = User::findOrFail(auth()->user()->id);
+            if(!$user->group->is_modo) {
                 $user->group_id = $group->id;
+            }
                 $user->is_donor = 1;
                 $user->save();
 
