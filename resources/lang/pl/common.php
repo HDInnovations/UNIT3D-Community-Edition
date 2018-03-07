@@ -134,5 +134,9 @@ return [
     'view' => 'Zobacz',
     'lists' => 'Listy',
     'reason' => 'Powód',
-    'files' => 'Pliki'
+    'files' => 'Pliki',
+    'fl_token' => 'Token Freeleech',
+    'special' => 'Specjalny',
+    'personal' => 'Osobisty',
+    'free' => 'Darmowy'
 ];

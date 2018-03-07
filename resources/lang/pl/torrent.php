@@ -97,5 +97,19 @@ return [
     'say-thanks' => 'Pamiętaj, aby <b>podziękować</b> oraz <b>seedować</b> po pobraniu',
     'view-trailer' => 'Zobacz trailer',
     'discounts' => 'Promocje',
-    'no-discounts' => 'Aktualnie brak promocji'
+    'no-discounts' => 'Aktualnie brak promocji',
+    'use-fl-token' => 'Użyj tokenu Freelech',
+    'fl-tokens-left' => 'Pozostało <strong><i class="fa fa-viacoin"></i>:tokens</strong> tokenów',
+    'featured' => 'Wyróżniony',
+    'featured-until' => 'Torrent jest wyróżniony jeszcze przez',
+    'featured-desc' => 'Wyróżnione torrenty są <i class="fa fa-star text-gold"></i><strong>w 100% darmowe</strong> oraz dają <i class="fa fa-diamond text-green"></i><strong>podwójny upload</strong>!',
+    'grant' => 'Nadaj',
+    'revoke' => 'Odbierz'
+    'sticky' => 'Przyklej',
+    'unsticky' => 'Odklej',
+    'bump' => 'Podbij',
+    'feature' => 'Wyróżnij',
+    'uploader' => 'Uploader',
+    'thank' => 'Podziękuj',
+    'thanks' => 'Podziękowania'
 ];

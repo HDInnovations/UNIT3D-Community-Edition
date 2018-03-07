@@ -97,5 +97,19 @@ return [
     'say-thanks' => 'Please remember to say <b>thanks</b> and <b>seed</b> for as long as you can',
     'view-trailer' => 'View trailer',
     'discounts' => 'Discounts',
-    'no-discounts' => 'Currently no discounts'
+    'no-discounts' => 'Currently no discounts',
+    'use-fl-token' => 'Use A Freeleech Token',
+    'fl-tokens-left' => 'You have <strong><i class="fa fa-viacoin"></i>:tokens</strong> left',
+    'featured' => 'Featured',
+    'featured-until' => 'This Is A Featured Torrent Until',
+    'featured-desc' => 'Featured torrents are <i class="fa fa-star text-gold"></i><strong> 100% Free</strong> and <i class="fa fa-diamond text-green"></i><strong> Double Upload!</strong>',
+    'grant' => 'Grant',
+    'revoke' => 'Revoke',
+    'sticky' => 'Sticky',
+    'unsticky' => 'Unsticky',
+    'bump' => 'Bump',
+    'feature' => 'Feature',
+    'uploader' => 'Uploader',
+    'thank' => 'Thank',
+    'thanks' => 'Thanks'
 ];
