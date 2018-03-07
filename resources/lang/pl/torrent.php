@@ -104,7 +104,7 @@ return [
     'featured-until' => 'Torrent jest wyróżniony jeszcze przez',
     'featured-desc' => 'Wyróżnione torrenty są <i class="fa fa-star text-gold"></i><strong>w 100% darmowe</strong> oraz dają <i class="fa fa-diamond text-green"></i><strong>podwójny upload</strong>!',
     'grant' => 'Nadaj',
-    'revoke' => 'Odbierz'
+    'revoke' => 'Odbierz',
     'sticky' => 'Przyklej',
     'unsticky' => 'Odklej',
     'bump' => 'Podbij',
