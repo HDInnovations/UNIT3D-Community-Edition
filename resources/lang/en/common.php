@@ -134,5 +134,10 @@ return [
     'view' => 'View',
     'lists' => 'Lists',
     'reason' => 'Reason',
-    'files' => 'Files'
+    'files' => 'Files',
+    'fl_token' => 'Freeleech Token',
+    'special' => 'Special',
+    'personal' => 'Personal',
+    'free' => 'Free',
+    'unknown' => 'Unknown'
 ];
