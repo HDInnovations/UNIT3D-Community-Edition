@@ -72,7 +72,7 @@ class ModerationController extends Controller
 
         if ($v) {
             $user = Auth::user();
-            $torrent = Torrent::find($request->id)->get();
+            $torrent = Torrent::postponed()->find($request->id)->get();
             $torrent->markPostponed();
 
             PrivateMessage::create(['sender' => $user->id, 'receiver' => $torrent->user_id, 'subject' => "Your upload has been postponed by {$user->username}", 'message' => "Greating user, \n\n Your upload {$torrent->username} has been postponed. Please see below the message from the staff member. \n\n".$message]);
@@ -103,7 +103,7 @@ class ModerationController extends Controller
 
         if ($v) {
             $user = Auth::user();
-            $torrent = Torrent::find($request->id)->get();
+            $torrent = Torrent::rejected()->find($request->id)->get();
             $torrent->markPostponed();
 
             PrivateMessage::create(['sender' => $user->id, 'receiver' => $torrent->user_id, 'subject' => "Your upload has been rejected by {$user->username}", 'message' => "Greating user, \n\n Your upload {$torrent->username} has been rejected. Please see below the message from the staff member. \n\n".$request->message]);

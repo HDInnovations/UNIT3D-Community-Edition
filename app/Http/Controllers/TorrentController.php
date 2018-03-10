@@ -324,16 +324,16 @@ class TorrentController extends Controller
 
                 // Announce To IRC
                 if (config('irc-bot.enabled') == true) {
-                $bot = new IRCAnnounceBot();
-                if ($torrent->anon == 0) {
-                    $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
-                    $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                    $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
-                } else {
-                    $bot->message("#announce", "[" . config('app.name') . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
-                    $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                    $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
-                }
+                    $bot = new IRCAnnounceBot();
+                    if ($torrent->anon == 0) {
+                        $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
+                        $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
+                        $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
+                    } else {
+                        $bot->message("#announce", "[" . config('app.name') . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
+                        $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
+                        $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
+                    }
                 }
 
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
@@ -512,15 +512,15 @@ class TorrentController extends Controller
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrent->category_id == 2) {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-            $movie = $client->scrape('tv', null, $torrent->tmdb);
+                $movie = $client->scrape('tv', null, $torrent->tmdb);
             } else {
-            $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
+                $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
             }
         } else {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
-            $movie = $client->scrape('movie', null, $torrent->tmdb);
+                $movie = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-            $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
+                $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
             }
         }
 
@@ -872,41 +872,55 @@ class TorrentController extends Controller
      * Delete torrent
      *
      * @access public
-     * @param $id Id torrent
+     * @param $request Request containing torrent's id, slug and removal message
      */
-    public function deleteTorrent($id)
+    public function deleteTorrent(Request $request)
     {
-        $user = Auth::user();
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $message = Request::get('message');
-        if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
-            $users = History::where('info_hash', '=', $torrent->info_hash)->get();
+        $v = Validator::make($request->all(), [
+            'id' => "required|exists:torrents",
+            'slug' => "required|exists:torrents",
+            'message' => "required|alpha_num"
+        ]);
+
+        if ($v) {
+            $user = Auth::user();
+            $id = $request->id;
+            $torrent = Torrent::withAnyStatus()->findOrFail($id);
+
+            if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
+                $users = History::where('info_hash', '=', $torrent->info_hash)->get();
                 foreach ($users as $pm) {
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
                     $pmuser->reciever_id = $pm->user_id;
                     $pmuser->subject = "Torrent Deleted!";
                     $pmuser->message = "[b]Attention:[/b] Torrent " . $torrent->name . " has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
-                                        [b]Removal Reason:[/b] ". $message ."
-                                        [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                                            [b]Removal Reason:[/b] ". $request->message ."
+                                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                     $pmuser->save();
                 }
 
-            // Activity Log
-            \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
+                // Activity Log
+                \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
 
-            Peer::where('torrent_id', '=', $id)->delete();
-            History::where('info_hash', '=', $torrent->info_hash)->delete();
-            Warning::where('id', '=', $id)->delete();
-            TorrentFile::where('torrent_id', '=', $id)->delete();
-            if ($torrent->featured == 1) {
-                FeaturedTorrent::where('torrent_id', '=', $id)->delete();
+                Peer::where('torrent_id', '=', $id)->delete();
+                History::where('info_hash', '=', $torrent->info_hash)->delete();
+                Warning::where('id', '=', $id)->delete();
+                TorrentFile::where('torrent_id', '=', $id)->delete();
+                if ($torrent->featured == 1) {
+                    FeaturedTorrent::where('torrent_id', '=', $id)->delete();
+                }
+                Torrent::withAnyStatus()->where('id', '=', $id)->delete();
+
+                return redirect('/torrents')->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
             }
-            Torrent::where('id', '=', $id)->delete();
-
-            return redirect('/torrents')->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            $errors = "";
+            foreach ($v->errors()->all() as $error) {
+                $errors .= $error . "\n";
+            }
+            \Log::notice("Deletion of torrent failed due to: \n\n".$errors);
+            return redirect('/torrents')->with(Toastr::error('Unable to delete Torrent', 'Error', ['options']));
         }
     }
 
