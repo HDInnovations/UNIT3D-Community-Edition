@@ -66,11 +66,11 @@ Route::group(['middleware' => 'language'], function () {
         //Route::get('/rss/{passkey}/download/{id}','RssController@download')->name('rssDownload');
     });
 
-/*
-|------------------------------------------
-| Website (When Authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Website (When Authorized)
+    |------------------------------------------
+    */
     Route::group(['middleware' => 'auth'], function () {
 
         // General
@@ -261,11 +261,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
     });
 
-/*
-|------------------------------------------
-| ShoutBox Routes Group (when authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | ShoutBox Routes Group (when authorized)
+    |------------------------------------------
+    */
     Route::group(['prefix' => 'shoutbox', 'middleware' => 'auth'], function () {
         Route::get('/', 'HomeController@home')->name('shoutbox-home');
         Route::get('/messages/{after?}', 'ShoutboxController@pluck')->name('shoutbox-fetch');
@@ -273,19 +273,19 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/delete/{id}', 'ShoutboxController@deleteShout')->name('shout-delete');
     });
 
-/*
-|------------------------------------------
-| Forums Route Redirect
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Forums Route Redirect
+    |------------------------------------------
+    */
     Route::get('/forums', function () {
         return redirect('/community');
     });
-/*
-|------------------------------------------
-| Community Routes Group (when authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Community Routes Group (when authorized)
+    |------------------------------------------
+    */
     Route::group(['prefix' => 'community', 'middleware' => 'auth'], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
@@ -332,11 +332,11 @@ Route::group(['middleware' => 'language'], function () {
     });
 
 
-/*
-|-----------------------------------------------------------------
-| Staff Dashboard Routes Group (when authorized and a staff group)
-|-----------------------------------------------------------------
-*/
+    /*
+    |-----------------------------------------------------------------
+    | Staff Dashboard Routes Group (when authorized and a staff group)
+    |-----------------------------------------------------------------
+    */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'modo'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
@@ -362,8 +362,9 @@ Route::group(['middleware' => 'language'], function () {
         // Moderation
         Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');
         Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
-        Route::get('/modertaion/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
-        Route::get('/modertaion/{slug}.{id}/reject', 'ModerationController@reject')->name('moderation_reject');
+        Route::get('/moderation/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
+        Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
+        Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
         Route::any('/torrent_search', 'TorrentController@search')->name('torrent-search');
 
         // Request section

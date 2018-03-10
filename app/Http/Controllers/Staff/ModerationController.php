@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Validator;
 
 use Carbon\Carbon;
 use \Toastr;
@@ -38,10 +39,11 @@ class ModerationController extends Controller
     {
         $current = Carbon::now();
         $pending = Torrent::pending()->get(); //returns all Pending Torrents
+        $postponed = Torrent::postponed()->get();
         $rejected = Torrent::rejected()->get();
-        $modder = DB::table('torrents')->where('status', '=', '0')->count();
+        $modder = Torrent::where('status', '=', '0')->count(); //DB::table('torrents')->where('status', '=', '0')->count();
 
-        return view('Staff.torrent.moderation', ['current' => $current, 'pending' => $pending, 'rejected' => $rejected, 'modder' => $modder]);
+        return view('Staff.torrent.moderation', compact(['current', 'pending', 'postponed', 'rejected', 'modder']));
     }
 
     /**
@@ -58,16 +60,65 @@ class ModerationController extends Controller
     }
 
     /**
+     * Torrent Moderation -> postpone
+     *
+     * @param $request Request containing torrent's id, slug and rejection message
+     */
+    public function postpone(Request $request)
+    {
+        $v = Validator::make($request->all(), [
+            'id' => "required|exists:torrents",
+            'slug' => "required|exists:torrents",
+            'message' => "required|alpha_num"
+        ]);
+
+        if ($v) {
+            $user = Auth::user();
+            $torrent = Torrent::find($request->id)->get();
+            $torrent->markPostponed();
+
+            PrivateMessage::create(['sender' => $user->id, 'receiver' => $torrent->user_id, 'subject' => "Your upload has been postponed by {$user->username}", 'message' => "Greating user, \n\n Your upload {$torrent->username} has been postponed. Please see below the message from the staff member. \n\n".$message]);
+
+            return Redirect::route('moderation')->with(Toastr::success('Torrent Postpones', 'Postponed', ['options']));
+        } else {
+            $errors = "";
+            foreach ($v->errors()->all() as $error) {
+                $errors .= $error . "\n";
+            }
+            \Log::notice("Rejection of torrent failed due to: \n\n".$errors);
+            return Redirect::route('moderation')->with(Toastr::error('Unable to Reject torrent', 'Reject', ['options']));
+        }
+    }
+
+    /**
      * Torrent Moderation -> reject
      *
-     * @param $slug Slug of the torrent
-     * @param $id Id of the torrent
+     * @param $request Request containing torrent's id, slug and rejection message
      */
-    public function reject($slug, $id)
+    public function reject(Request $request)
     {
-        Torrent::reject($id);
+        $v = Validator::make($request->all(), [
+                'id' => "required|exists:torrents",
+                'slug' => "required|exists:torrents",
+                'message' => "required|alpha_num"
+            ]);
 
-        return Redirect::route('moderation')->with(Toastr::error('Torrent Rejected', 'Reject', ['options']));
+        if ($v) {
+            $user = Auth::user();
+            $torrent = Torrent::find($request->id)->get();
+            $torrent->markPostponed();
+
+            PrivateMessage::create(['sender' => $user->id, 'receiver' => $torrent->user_id, 'subject' => "Your upload has been rejected by {$user->username}", 'message' => "Greating user, \n\n Your upload {$torrent->username} has been rejected. Please see below the message from the staff member. \n\n".$request->message]);
+
+            return Redirect::route('moderation')->with(Toastr::success('Torrent Rejected', 'Reject', ['options']));
+        } else {
+            $errors = "";
+            foreach ($v->errors()->all() as $error) {
+                $errors .= $error . "\n";
+            }
+            \Log::notice("Rejection of torrent failed due to: \n\n".$errors);
+            return Redirect::route('moderation')->with(Toastr::error('Unable to Reject torrent', 'Reject', ['options']));
+        }
     }
 
     /**

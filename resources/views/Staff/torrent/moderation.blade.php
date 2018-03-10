@@ -31,6 +31,7 @@
           <th>Size</th>
           <th>Uploader</th>
           <th>Approve</th>
+          <th>Postpone</th>
           <th>Reject</th>
         </tr>
       </thead>
@@ -44,12 +45,116 @@
         <td>{{ $p->getSize() }}</td>
         <td>{{ $p->user->username }}</td>
         <td><a href="{{ route('moderation_approve', ['slug' => $p->slug, 'id' => $p->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
-        <td><a href="{{ route('moderation_reject', ['slug' => $p->slug, 'id' => $p->id]) }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Reject</a></td>
+        <td><a data-target="#postpone-{{ $p->id }}" role="button" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</a></td>
+        <td><a data-target="#reject-{{ $p->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Reject</a></td>
         </tr>
+        <!-- Torrent Postpone Modal-->
+        {{-- Torrent Postpone Modal --}}
+        <div class="modal fade" id="postpone-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <meta charset="utf-8">
+                    <title>Postpone Torrent: {{ $p->name }}</title>
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $p->name }}</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{ Form::open(['route' => ['moderation_postpone'], 'method' => 'post']) }}
+                        <div class="form-group">
+                            <input id="type" name="type" type="hidden" value="Torrent">
+                            <input id="id" name="id" type="hidden" value="{{ $p->id }}">
+                            <input id="slug" name="slug" type="hidden" value="{{ $p-slug }}">
+                            <label for="postpone_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                              <input class="btn btn-danger" type="submit" value="Postpone">
+                            </div>
+                        </div>
+                        {{ Form::close() }}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Torrent Postpone Modal -->
+
+        <!-- Torrent Reject Modal -->
+        {{-- Torrent Reject Modal --}}
+        <div class="modal fade" id="reject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <meta charset="utf-8">
+              <title>Reject Torrent: {{ $p->name }}</title>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Reject Torrent: {{ $p->name }}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                {{ Form::open(['route' => ['moderation_reject'] , 'method' => 'post']) }}
+                  <input id="type" type="hidden" name="type" value="Torrent">
+                  <input id="id" type="hidden" name="id" value="{{ $p->id }}">
+                  <input id="slug" type="hidden" name="slug" value="{{ $p->slug }}">
+                  <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+                  <div class="col-sm-10">
+                    <label id="title" name="title" type="hidden" value="{{ $p->name }}">
+                    <p class="form-control-static">{{ $p->name }}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-10 col-sm-offset-2">
+                    <input class="btn btn-danger" type="submit" value="Reject">
+                  </div>
+                {{ Form::close() }}
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Torrent Reject Modal -->
         @endforeach
       </tbody>
     </table>
   </div>
+</div>
+
+<center><h1>Postponed Torrents</h1></center>
+<div class="container box">
+<div class="torrents col-med-12">
+<table class="table table-bordered table-hover">
+<thead>
+    <th>Since</th>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Type</th>
+    <th>Size</th>
+    <th>Uploader</th>
+    <th>Approve</th>
+    <th>Edit</th>
+    <th>Reject</th>
+    <th>Delete</th>
+</thead>
+<tbody>
+
+</tbody>
+</table>
+</div>
 </div>
 
 <center><h1>Rejected Torrents</h1></center>
@@ -65,10 +170,8 @@
               <th>Size</th>
               <th>Uploader</th>
               <th>Approve</th>
-              @if(Auth::check() && Auth::user()->group->is_admin)
               <th>Edit</th>
               <th>Delete</th>
-              @endif
             </tr>
         </thead>
         <tbody>
