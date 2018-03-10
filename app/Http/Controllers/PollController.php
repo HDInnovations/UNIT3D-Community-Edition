@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -15,10 +15,8 @@ namespace App\Http\Controllers;
 use App\Poll;
 use App\Option;
 use App\Voter;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;

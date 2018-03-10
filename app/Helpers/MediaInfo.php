@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -75,7 +75,7 @@ class MediaInfo
                         switch ($property) {
                             case "complete name":
                             case "completename":
-                                $output['file_name'] = $this->stripPath($value);
+                                $output['file_name'] = self::stripPath($value);
                                 break;
                             case "format":
                                 $output['format'] = $value;
@@ -237,7 +237,7 @@ class MediaInfo
         return $output;
     }
 
-    private function stripPath($string)
+    public static function stripPath($string)
     {
         $string = str_replace("\\", "/", $string);
         $path_parts = pathinfo($string);

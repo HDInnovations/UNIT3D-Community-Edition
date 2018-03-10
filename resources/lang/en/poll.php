@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Polls Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Polls Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'poll' => 'Poll',
     'polls' => 'Polls',
@@ -16,4 +15,12 @@ return [
     'ip-checking' => 'This poll has duplicate vote checking. You can only vote once.',
     'vote' => 'Vote',
     'votes' => 'Votes',
+    'title' => 'Title',
+    'option' => 'Option',
+    'add-option' => 'Add option',
+    'delete-option' => 'Delete option',
+    'ip-checking' => 'Enable duplicate IP checking',
+    'ip-checking-warrning' => 'Only needed if site in public mode',
+    'multiple-choice' => 'Allow multiple answers',
+    'create-poll' => 'Create poll'
 ];

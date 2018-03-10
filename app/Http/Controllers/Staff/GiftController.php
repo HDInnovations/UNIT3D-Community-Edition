@@ -6,21 +6,17 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-
 use App\User;
-
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
-
 use \Toastr;
 
 class GiftController extends Controller
@@ -52,31 +48,34 @@ class GiftController extends Controller
             $v = Validator::make(Request::all(), [
                 'username' => "required|exists:users,username|max:180",
                 'bonus_points' => "required|numeric|min:0",
-                'invites' => "required|numeric|min:0"
+                'invites' => "required|numeric|min:0",
+                'fl_tokens' => "required|numeric|min:0"
             ]);
 
             if ($v->passes()) {
                 $recipient = User::where('username', 'LIKE', Request::get('username'))->first();
 
                 if (!$recipient) {
-                    return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
+                    return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
                 }
 
                 $bon = Request::get('bonus_points');
                 $invites = Request::get('invites');
+                $fl_tokens = Request::get('fl_tokens');
                 $recipient->seedbonus += $bon;
                 $recipient->invites += $invites;
+                $recipient->fl_tokens += $fl_tokens;
                 $recipient->save();
 
                 // Activity Log
                 \LogActivity::addToLog("Staff Member " . $user->username . " has sent a system gift to " . $recipient->username . " account.");
 
-                return redirect('/staff_dashboard/systemgift')->with(Toastr::info('Sent', 'Gift', ['options']));
+                return redirect('/staff_dashboard/systemgift')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
             } else {
-                return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Failed', 'Gifting', ['options']));
+                return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Gift Failed', 'Whoops!', ['options']));
             }
         } else {
-            return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+            return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
         }
     }
 }

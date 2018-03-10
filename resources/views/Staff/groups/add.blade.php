@@ -16,7 +16,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Add User Group</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <center><h3>Add New Group</h3></center>
@@ -30,6 +30,7 @@
         <th>Color</th>
         <th>Icon</th>
         <th>Effect</th>
+        <th>Internal</th>
         <th>Modo</th>
         <th>Admin</th>
         <th>Trusted</th>
@@ -42,11 +43,14 @@
   <tbody>
       <tr>
         {{ Form::open(['route' => 'staff_groups_add'])}}
-        <td><input type="text" name="group_name" placeholder="Name" class="form-control" /></td>
-        <td><input type="text" name="postion" placeholder="Position" class="form-control" /></td>
-        <td><input type="text" name="group_color" placeholder="HEX Color ID" class="form-control" /></td>
-        <td><input type="text" name="group_icon" placeholder="FontAwesome Icon" class="form-control" /></td>
-        <td><input type="text" name="group_effect" placeholder="GIF Effect" class="form-control" /></td>
+        <td><input type="text" name="group_name" value="" placeholder="Name" class="form-control" /></td>
+        <td><input type="number" name="group_postion" value="" placeholder="Position" class="form-control" /></td>
+        <td><input type="text" name="group_color" value="" placeholder="HEX Color ID" class="form-control" /></td>
+        <td><input type="text" name="group_icon" value="" placeholder="FontAwesome Icon" class="form-control" /></td>
+        <td><input type="text" name="group_effect" value="" placeholder="GIF Effect" class="form-control" /></td>
+        <td>
+            {{ Form::checkbox('group_internal', '1', false) }}
+        </td>
         <td>
             {{ Form::checkbox('group_modo', '1', false) }}
         </td>
@@ -72,4 +76,4 @@
 {{ Form::close() }}
 </div>
 </div>
-@stop
+@endsection

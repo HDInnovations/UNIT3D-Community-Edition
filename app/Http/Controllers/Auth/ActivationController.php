@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -33,9 +33,9 @@ class ActivationController extends Controller
             \LogActivity::addToLog("Member " . $activation->user->username . " has successfully activated his/her account.");
 
             $activation->delete();
-            return redirect('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
         } else {
-            return redirect('login')->with(Toastr::warning('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')->with(Toastr::error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
         }
     }
 }

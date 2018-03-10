@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -41,6 +41,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 1 =>
@@ -57,6 +58,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 2 =>
@@ -73,6 +75,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 3 =>
@@ -89,6 +92,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 4 =>
@@ -105,6 +109,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 5 =>
@@ -121,6 +126,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 6 =>
@@ -137,6 +143,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 1,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 7 =>
@@ -153,6 +160,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 1,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 8 =>
@@ -169,6 +177,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 9 =>
@@ -185,6 +194,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 0,
                 ],
                 10 =>
@@ -201,6 +211,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 11 =>
@@ -217,6 +228,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 12 =>
@@ -233,6 +245,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 13 =>
@@ -249,6 +262,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 14 =>
@@ -265,6 +279,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 0,
                     'is_immune' => 0,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 15 =>
@@ -281,6 +296,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 1,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 16 =>
@@ -297,6 +313,7 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 0,
+                    'is_internal' => 0,
                     'autogroup' => 1,
                 ],
                 17 =>
@@ -313,7 +330,25 @@ class GroupsTableSeeder extends Seeder
                     'is_trusted' => 1,
                     'is_immune' => 1,
                     'is_freeleech' => 1,
+                    'is_internal' => 0,
                     'autogroup' => 1,
+                ],
+                18 =>
+                [
+                    'id' => 19,
+                    'name' => 'Internal',
+                    'slug' => 'internal',
+                    'position' => 11,
+                    'color' => '#BAAF92',
+                    'icon' => 'fa fa-magic',
+                    'effect' => 'none',
+                    'is_admin' => 0,
+                    'is_modo' => 0,
+                    'is_trusted' => 1,
+                    'is_immune' => 1,
+                    'is_freeleech' => 1,
+                    'is_internal' => 1,
+                    'autogroup' => 0,
                 ],
         ]);
     }

@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,11 +14,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
-
 use \Toastr;
 
 class CategoryController extends Controller
@@ -54,7 +51,7 @@ class CategoryController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Added', 'Yay!', ['options']));
+                return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Added', 'Yay!', ['options']));
             }
         }
         return view('Staff.category.add');
@@ -78,7 +75,7 @@ class CategoryController extends Controller
                 Toastr::error('Something Went Wrong!', 'Error', ['options']);
             } else {
                 $category->save();
-                return Redirect::route('staff_category_index')->with(Toastr::info('Category Sucessfully Modified', 'Yay!', ['options']));
+                return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Modified', 'Yay!', ['options']));
             }
         }
 
@@ -94,6 +91,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return Redirect::route('staff_category_index')->with(Toastr::warning('Category Sucessfully Deleted', 'Yay!', ['options']));
+        return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

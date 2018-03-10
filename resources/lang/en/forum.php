@@ -1,12 +1,11 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Forums Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Forums Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'forum' => 'Forum',
+    'forum' => 'Forum',
     'forums' => 'Forums',
     'topic' => 'Topic',
     'topics' => 'Topics',
@@ -14,15 +13,44 @@ return [
     'posts' => 'Posts',
     'author' => 'Author',
     'created' => 'Created',
-	'replies' => 'Replies',
-	'views' => 'Views',
-	'meta-category' => 'List of forums in the category',
-	'create-new-topic' => 'Create New Topic',
-	'topic-title' => 'Title of this topic',
-	'send-new-topic' => 'Save this topic',
-	'read-topic' => 'Read the topic',
-	'mark-as-resolved' => 'Lock Topic',
-	'delete-topic' => 'Delete this topic',
-	'display-forum' => 'Show topics in ',
-	'edit-topic' => 'Edit Topic'
+    'replies' => 'Replies',
+    'views' => 'Views',
+    'meta-category' => 'List of forums in the category',
+    'create-new-topic' => 'Create New Topic',
+    'topic-title' => 'Title of this topic',
+    'send-new-topic' => 'Save this topic',
+    'read-topic' => 'Read the topic',
+    'mark-as-resolved' => 'Lock Topic',
+    'delete-topic' => 'Delete this topic',
+    'display-forum' => 'Show topics in ',
+    'edit-topic' => 'Edit Topic',
+    'stats' => 'Stats',
+    'last-message' => 'Last message',
+    'last-post-info' => 'Last post info',
+    'closed' => 'Closed',
+    'approved' => 'Approved',
+    'denied' => 'Denied',
+    'solved' => 'Solved',
+    'invalid' => 'Invalid',
+    'bug' => 'Bug',
+    'suggestion' => 'Suggestion',
+    'implemented' => 'Implemented',
+    'topic-name' => 'Topic name',
+    'current' => 'Current',
+    'topic-quick-search' => 'Topic name quick search',
+    'name' => 'Name',
+    'latest' => 'Latest',
+    'in' => 'In',
+    'edit-post' => 'Edycja posta',
+    'quote' => 'Quote',
+    'like-post' => 'Like this post',
+    'dislike-post' => 'Dislike this post',
+    'topic-closed' => 'This topic is closed',
+    'not-connected' => 'You must be connected',
+    'moderation' => 'Moderation',
+    'open-topic' => 'Open this topic',
+    'pin' => 'Pin',
+    'unpin' => 'Unpin',
+    'label-system' => 'Label system',
+    'permalink' => 'Permalink'
 ];

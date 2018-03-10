@@ -1,23 +1,22 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Forums Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Forums Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-	'forum' => 'Forum',
-	'forums' => 'Forums',
-	'topics' => 'Topics',
-	'post' => 'Post',
-	'replies' => 'Replies',
-	'views' => 'Views',
-	'meta-category' => 'List of forums in the category',
-	'create-new-topic' => 'Create New Topic',
-	'topic-title' => 'Title of this topic',
-	'send-new-topic' => 'Save this topic',
-	'read-topic' => 'Read the topic',
-	'mark-as-resolved' => 'Lock Topic',
-	'delete-topic' => 'Delete this topic',
-	'display-forum' => 'Show topics in ',
+    'forum' => '論壇',
+    'forums' => '論壇',
+    'topics' => '主題',
+    'post' => '帖子',
+    'replies' => '回復',
+    'views' => '查看',
+    'meta-category' => '論壇類目列表',
+    'create-new-topic' => '新主題',
+    'topic-title' => '主題標題',
+    'send-new-topic' => '保存',
+    'read-topic' => '閲讀主題',
+    'mark-as-resolved' => '鎖定主題',
+    'delete-topic' => '刪除主題',
+    'display-forum' => '展示主題 '
 ];

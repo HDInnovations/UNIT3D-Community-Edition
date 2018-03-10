@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ trans('torrent.categories') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,14 +10,14 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.categories') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
     <div class="forum-category-childs">
       <div class="header gradient green">
         <div class="inner_content">
-          <h1>Our {{ trans('torrent.categories') }}</h1>
+          <h1>{{ trans('torrent.categories') }}</h1>
         </div>
       </div>
         @foreach($categories as $c)
@@ -27,4 +27,4 @@
         @endforeach
     </div>
 </div>
-@stop
+@endsection

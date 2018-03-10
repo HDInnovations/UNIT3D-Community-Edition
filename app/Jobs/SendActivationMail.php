@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -57,6 +57,6 @@ class SendActivationMail implements ShouldQueue
             $this->delay(min(30 * $this->attempts(), 300));
         }
 
-        Mail::send(new ActivateUser($this->user, $this->code));
+        Mail::to($this->user)->send(new ActivateUser($this->user, $this->code));
     }
 }

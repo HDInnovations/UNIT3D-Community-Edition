@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,12 +14,9 @@ namespace App\Http\Controllers;
 
 use App\PrivateMessage;
 use App\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-
 use \Toastr;
 use Carbon\Carbon;
 
@@ -144,7 +141,7 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -171,7 +168,7 @@ class PrivateMessageController extends Controller
 
         $pm = PrivateMessage::create($attributes);
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -187,6 +184,6 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
         $pm->delete();
 
-        return Redirect::route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
     }
 }

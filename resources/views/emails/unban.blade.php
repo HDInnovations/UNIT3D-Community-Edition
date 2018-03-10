@@ -1,7 +1,5 @@
 @component('mail::message')
-# You Have Been Unbanned!
+# {{ trans('email.unban-header') }}!
 
-**Reason:** {{ $ban->unban_reason }}
-
-*Someone felt pitty for you*
+*{{ trans('email.unban-footer') }}*
 @endcomponent

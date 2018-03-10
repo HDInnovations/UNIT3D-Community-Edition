@@ -2,10 +2,10 @@
 
 @section('title')
 <title>Reports - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
-<meta name="description" content="Reports - Staff Dashboard"> @stop
+<meta name="description" content="Reports - Staff Dashboard"> @endsection
 
 @section('breadcrumb')
 <li>
@@ -23,7 +23,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Report</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -53,13 +53,14 @@
           <textarea name="message" class="form-control" disabled="true">{{ $report->message }}</textarea>
         </div>
       </div>
+    </div>
 
       <h2>Resolve Report</h2>
       <hr>
       <div class="row">
         <div class="col-sm-12">
-					<form class="form-horizontal" role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
-						{{ csrf_field() }}
+		<form role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
+		{{ csrf_field() }}
           @if($report->solved == 0)
           <div class="form-group">
             <label for="message">Verdict</label>
@@ -72,10 +73,10 @@
           </div>
           @endif
           <button type="submit" class="btn btn-primary">Submit</button>
-				</form>
+		</form>
         </div>
       </div>
     </div>
   </div>
 </div>
-@stop
+@endsection

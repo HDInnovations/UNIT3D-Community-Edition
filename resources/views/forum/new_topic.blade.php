@@ -2,15 +2,15 @@
 
 @section('title')
 <title>{{ trans('forum.create-new-topic') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
-<meta name="description" content="{{ 'Create a new topic in ' . $forum->name }}">
-@stop
+<meta name="description" content="{{ $forum->name . ' - ' . trans('forum.create-new-topic') }}">
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -28,7 +28,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.create-new-topic') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="forum box container">
@@ -39,7 +39,6 @@
 	<div class="col-md-12">
 		<h2><span>{{ trans('forum.create-new-topic') }}</span><span id="thread-title">{{ $title }}</span></h2>
 		{{ Form::open(array('route' => array('forum_new_topic', 'slug' => $forum->slug, 'id' => $forum->id))) }}
-        {{ csrf_field() }}
 			<div class="form-group">
 				<input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control" placeholder="{{ trans('forum.topic-title') }}" value="{{ $title }}">
 			</div>
@@ -53,7 +52,7 @@
 		{{ Form::close() }}
 	</div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -70,4 +69,4 @@ $(document).ready(function() {
     var wysibb = $("#new-thread-content").wysibb();
 });
 </script>
-@stop
+@endsection

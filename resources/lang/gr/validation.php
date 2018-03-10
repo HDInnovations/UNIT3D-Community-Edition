@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Validation Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines contain the default error messages used by
+     * | the validator class. Some of these rules have multiple versions such
+     * | as the size rules. Feel free to tweak each of these messages here.
+     * |
+     */
+    
     'accepted' => 'Το :attribute πρέπει να γίνει αποδεκτό',
     'active_url' => 'Το :attribute δεν είναι έγκυρο URL',
     'after' => 'Το :attribute πρέπει να είναι πριν τις :date.',
@@ -25,7 +24,7 @@ return [
         'numeric' => 'Το :attribute πρέπει να είναι μεταξύ :min και :max.',
         'file' => 'Το :attribute πρέπει να είναι μεταξύ :min και :max kilobytes.',
         'string' => 'Το :attribute πρέπει να είναι μεταξύ :min και :max χαρακτήρες.',
-        'array' => 'Το :attribute πρέπει να είναι μεταξύ :min και :max αντικείμενα.',
+        'array' => 'Το :attribute πρέπει να είναι μεταξύ :min και :max αντικείμενα.'
     ],
     'boolean' => 'Το πεδίο :attribute πρέπει να είναι σωστό ή λάθος.',
     'confirmed' => 'H :attribute επιβεβαίωση δεν ταιριάζει.',
@@ -50,7 +49,7 @@ return [
         'numeric' => 'Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max.',
         'file' => 'Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max kilobytes.',
         'string' => 'Το :attribute δεν πρέπει να είναι μεγαλύτερο από :max χαρακτήρες.',
-        'array' => 'Το :attribute δεν μπορεί να έχει περισσότερα απο :max αντικείμενα.',
+        'array' => 'Το :attribute δεν μπορεί να έχει περισσότερα απο :max αντικείμενα.'
     ],
     'mimes' => 'Το :attribute πρέπει να είναι ένα αρχείο type: :values.',
     'mimetypes' => 'Το :attribute πρέπει να είναι ένα αρχείο  type: :values.',
@@ -58,7 +57,7 @@ return [
         'numeric' => 'Το :attribute πρέπει να είναι τουλάχιστον :min.',
         'file' => 'Το :attribute ρέπει να είναι τουλάχιστον :min kilobytes.',
         'string' => 'Το :attribute ρέπει να είναι τουλάχιστον :min χαρακτήρες.',
-        'array' => 'Το :attribute ρέπει να έχει τουλάχιστον :min αντικείμενα.',
+        'array' => 'Το :attribute ρέπει να έχει τουλάχιστον :min αντικείμενα.'
     ],
     'not_in' => 'Το επιλεγμένο :attribute is δεν είναι έγκυρο.',
     'numeric' => 'Το :attribute πρέπει να είναι αριθμός.',
@@ -76,7 +75,7 @@ return [
         'numeric' => 'Το :attribute πρέπει να είναι μέγεθος :size.',
         'file' => 'Το :attribute πρέπει να έχει μέγεθος :size kilobytes.',
         'string' => 'Το :attribute πρέπει να έχει μέγεθος :size χαρακτήρες.',
-        'array' => 'Το :attribute mπρέπει να περιέχει :size αντικείμενα.',
+        'array' => 'Το :attribute mπρέπει να περιέχει :size αντικείμενα.'
     ],
     'string' => 'Το :attributeπρέπει να έχει μια συμβολοσειρά.',
     'timezone' => 'Το :attribute πρέπει να έχει μια έγκυρη ζώνη.',
@@ -97,8 +96,8 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+            'rule-name' => 'custom-message'
+        ]
     ],
 
     /*
@@ -112,6 +111,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => []
 
 ];

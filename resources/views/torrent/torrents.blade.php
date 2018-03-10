@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ 'Torrents ' . Config::get('other.title') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">
@@ -14,7 +14,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <!-- Search -->
@@ -163,7 +163,7 @@
       </div>
   <div class="block">
   <center>
-     <h1 class="filter-title">Results</h1>
+     <h1 class="filter-title" id="count"></h1>
   </center>
   <div class="form-horizontal">
     <div class="form-group">
@@ -219,7 +219,7 @@
   <!-- /Results -->
 </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script>
@@ -313,6 +313,11 @@
                     $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function(e){
+            if(e['count'] == 0){
+                $("#count").html('0 Result(s)');
+            } else {
+                $("#count").html(e['count'] +' Result(s)');
+            }
                 $("#result").html(e['result']);
                 pagination(e['rows'],e['qty'],e['active']);
             });
@@ -387,4 +392,4 @@
             $("#a"+(parseInt(active))).addClass('active');
         }
     </script>
-@stop
+@endsection

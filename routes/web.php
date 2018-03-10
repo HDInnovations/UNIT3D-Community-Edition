@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -55,14 +55,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
 
         // RSS
-        Route::get('/rss/{passkey}', function () {
-            return abort(307);
-        })->name('rss');
         //Route::get('/torrents/rss/{passkey}', 'RssController@getData')->name('rss');
-
-        Route::get('/rss/{passkey}/download/{id}', function () {
-            return abort(307);
-        })->name('rssDownload');
         //Route::get('/rss/{passkey}/download/{id}','RssController@download')->name('rssDownload');
     });
 
@@ -71,7 +64,12 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized)
     |------------------------------------------
     */
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+
+        // Two Step Auth
+        Route::get('/twostep/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
+        Route::post('/twostep/verify', 'Auth\TwoStepController@verify')->name('verify');
+        Route::post('/twostep/resend', 'Auth\TwoStepController@resend')->name('resend');
 
         // General
         Route::get('/', 'HomeController@home')->name('home');
@@ -110,6 +108,9 @@ Route::group(['middleware' => 'language'], function () {
 
         // Staff List
         Route::any('/staff', 'PageController@staff')->name('staff');
+
+        // Internal List
+        Route::any('/internal', 'PageController@internal')->name('internal');
 
         // Black List
         Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
@@ -201,7 +202,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // User
         Route::get('/lockscreen', 'LockAccountController@lockscreen')->name('lock');
-        Route::post('/lockscreen', 'LockAccountController@unlock')->name('unlock');
+        Route::post('/lockscreen/unlock', 'LockAccountController@unlock')->name('unlock');
         Route::get('/members', 'UserController@members')->name('members');
         Route::any('/members/results', 'UserController@userSearch')->name('userSearch');
         Route::get('/{username}.{id}', 'UserController@profil')->name('profil');
@@ -259,6 +260,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/notification/read/{id}', 'NotificationController@read')->name('read_notification');
         Route::any('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
         Route::any('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
+        Route::any('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
     });
 
     /*
@@ -266,7 +268,7 @@ Route::group(['middleware' => 'language'], function () {
     | ShoutBox Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'shoutbox', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         Route::get('/', 'HomeController@home')->name('shoutbox-home');
         Route::get('/messages/{after?}', 'ShoutboxController@pluck')->name('shoutbox-fetch');
         Route::post('/send', 'ShoutboxController@send')->name('shoutbox-send');
@@ -275,18 +277,10 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |------------------------------------------
-    | Forums Route Redirect
-    |------------------------------------------
-    */
-    Route::get('/forums', function () {
-        return redirect('/community');
-    });
-    /*
-    |------------------------------------------
     | Community Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'community', 'middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
         // Search Forums
@@ -325,6 +319,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid');
         Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug');
         Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion');
+        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
 
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'ForumController@likePost')->name('like');
@@ -337,7 +332,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (when authorized and a staff group)
     |-----------------------------------------------------------------
     */
-    Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'modo'], 'namespace' => 'Staff'], function () {
+    Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
         Route::any('/', 'HomeController@home')->name('staff_dashboard');
@@ -460,5 +455,11 @@ Route::group(['middleware' => 'language'], function () {
         // MassPM
         Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
         Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+
+        // Backup Manager
+        Route::get('/backup', 'BackupController@index')->name('backupManager');
+        Route::post('/backup/create', 'BackupController@create');
+        Route::get('/backup/download/{file_name?}', 'BackupController@download');
+        Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
     });
 });

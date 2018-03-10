@@ -6,7 +6,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ Config::get('other.title') }} {{ trans('common.blacklist') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -19,17 +19,17 @@
         <div class="alert alert-info" id="alert1">
             <center>
                 <span>
-                    The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To {{ Config::get('other.title') }}
+                    {{ trans('page.blacklist-desc', ['title' => Config::get('other.title')]) }}
                 </span>
             </center>
         </div>
     <div class="row black-list">
-        <h2>Clients</h2>
+        <h2>{{ trans('page.blacklist-clients') }}</h2>
         @foreach($clients as $client)
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="text-center black-item">
                 <h4>{{ $client }}</h4>
-                <span>Bittorrent Client</span>
+                <span>{{ trans('page.blacklist-btclient') }}</span>
                 <i class="fa fa-ban text-red black-icon"></i>
             </div>
         </div>
@@ -38,12 +38,12 @@
     <br>
     <hr>
     <div class="row black-list">
-        <h2>Browsers</h2>
+        <h2>{{ trans('page.blacklist-browsers') }}</h2>
         @foreach($browsers as $browser)
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="text-center black-item">
                 <h4>{{ $browser }}</h4>
-                <span>Web Browser</span>
+                <span>{{ trans('page.blacklist-webbrowser') }}</span>
                 <i class="fa fa-ban text-red black-icon"></i>
             </div>
         </div>
@@ -51,4 +51,4 @@
     </div>
 </div>
 </div>
-@stop
+@endsection

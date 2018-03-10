@@ -11,27 +11,23 @@
   <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
   @endif
     <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
-        @include('partials.top_nav')
+    @include('partials.top_nav')
       <div id="hoeapp-container" hoe-color-type="lpanel-bg5" hoe-lpanel-effect="shrink">
-          @include('partials.side_nav')
+        @include('partials.side_nav')
         <section id="main-content">
           <div class="inner-content">
             @include('partials.userbar')
             @include('partials.breadcrumb')
             @include('cookieConsent::index')
             @include('partials.alerts')
-
-            @if(Auth::check())
             @yield('content')
-
             @include('partials.footer')
           </div>
         </section>
       </div>
       </div>
-      @endif
 
-      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=05') }}"></script>
+      <script type="text/javascript" src="{{ url('js/vendor/app.js?v=10') }}"></script>
       <script type="text/javascript" src="{{ url('js/hoe.js') }}"></script>
       <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
 
@@ -40,15 +36,6 @@
       @elseif(Auth::user()->style == 2)
       <link rel="stylesheet" href="{{ url('files/wysibb/theme/blur/wbbtheme.css') }}" />
       @endif
-
-      <script type="text/javascript">
-      $(document).ready(function(){
-           $("#myCarousel").carousel({
-               interval : 8000,
-               pause: 'hover'
-           });
-      });
-      </script>
 
       @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
       <script type="text/javascript">
@@ -64,7 +51,7 @@
           var timer;
 
           function formatUnit(text, v) {
-              let suffix = "s";
+              let suffix = "{{ trans('common.plural-suffix') }}";
               if (v === 1) {
                   suffix = "";
               }
@@ -77,7 +64,7 @@
             if (distance < 0) {
 
               clearInterval(timer);
-              document.getElementById(id).innerHTML = 'EXPIRED!';
+              document.getElementById(id).innerHTML = '{{ strtoupper(trans('common.expired')) }}!';
 
               return;
             }
@@ -86,10 +73,10 @@
             var minutes = Math.floor((distance % _hour) / _minute);
             var seconds = Math.floor((distance % _minute) / _second);
 
-            document.getElementById(id).innerHTML = formatUnit("day", days) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('hour', hours) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('minute', minutes) + ", ";
-            document.getElementById(id).innerHTML += formatUnit('second', seconds);
+            document.getElementById(id).innerHTML = formatUnit("{{ strtolower(trans('common.day')) }}", days) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.hour')) }}', hours) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.minute')) }}', minutes) + ", ";
+            document.getElementById(id).innerHTML += formatUnit('{{ strtolower(trans('common.second')) }}', seconds);
           }
 
           timer = setInterval(showRemaining, 1000);
@@ -100,7 +87,7 @@
       @if(Session::has('achievement'))
       <script type="text/javascript">
         swal({
-          title: 'Awesome !',
+          title: '{{ trans('common.achievement-title') }}!',
           text: 'You Unlocked "{{Session::get('achievement')}}" Achievment',
           type: 'success'
         });
@@ -116,7 +103,6 @@
       @else
       <!-- INSERT DEBUG CODE HERE -->
       @endif
-    </div>
   </body>
 
 </html>

@@ -2,7 +2,7 @@
 
 @section('title')
 <title>Torrents - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -15,7 +15,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -47,4 +47,4 @@
 
   {{ $torrents->links() }}
 </div>
-@stop
+@endsection

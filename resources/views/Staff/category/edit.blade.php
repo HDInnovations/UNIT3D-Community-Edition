@@ -16,7 +16,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Category</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -42,4 +42,4 @@
             <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
         {{ Form::close() }}
 </div>
-@stop
+@endsection

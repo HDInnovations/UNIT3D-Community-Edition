@@ -2,11 +2,11 @@
 
 @section('title')
 <title>Upload - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,55 +19,9 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Upload</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
-<script>
-function updateTorrentName() {
-    let name = document.querySelector("#name");
-    let torrent = document.querySelector("#torrent");
-    let fileEndings = [".mkv.torrent", ".torrent"];
-    let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
-    let separators = ["-", " ", "."];
-    if (name !== null && torrent !== null) {
-        let value = torrent.value.split('\\').pop().split('/').pop();
-        fileEndings.forEach(function(e) {
-            if (value.endsWith(e)) {
-                value = value.substr(0, value.length - e.length);
-            }
-        });
-        value = value.replace(/\./g, " ");
-        allowed.forEach(function(a) {
-            search = a.replace(/\./g, " ");
-            let replaceIndexes = [];
-            let pos = value.indexOf(search);
-            while (pos !== -1) {
-                let start = pos > 0 ? value[pos - 1] : " ";
-                let end = pos + search.length < value.length  ? value[pos + search.length] : " ";
-                if (separators.includes(start) && separators.includes(end)) {
-                    replaceIndexes.push(pos);
-                }
-                pos = value.indexOf(search, pos + search.length);
-            }
-            newValue = "";
-            ignore = 0;
-            for (let i = 0; i < value.length; ++i) {
-                if (ignore > 0) {
-                    --ignore;
-                } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
-                    replaceIndexes.shift();
-                    newValue += a;
-                    ignore = a.length - 1;
-                } else {
-                    newValue += value[i];
-                }
-            }
-            value = newValue;
-        })
-        name.value = value;
-    }
-}
-</script>
 @if($user->can_upload == 0)
 <div class="container">
   <div class="jumbotron shadowed">
@@ -94,7 +48,7 @@ function updateTorrentName() {
   </div>
   <br>
 <center><p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a></p></center>
-<center><p class="text-danger">IMDB and or TVDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
+<center><p class="text-danger">TMDB and or IMDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo!</p></center>
 <center><p class="text-danger">Remember to set the source to {{config('other.source')}} if you want to use it directly without redownloading!</p></center>
 <center><p class="text-danger"><i>MAKE SURE TO FILL IN ALL FIELDS!</i></p></center>
 
@@ -103,36 +57,36 @@ function updateTorrentName() {
     {{ Form::open(['route' => 'upload', 'files' => true, 'class' => 'upload-form']) }}
       <div class="form-group">
         <label for="torrent">Torrent File</label>
-        <input class="upload-form-file" type="file" name="torrent" id="torrent" onchange="updateTorrentName()" required>
+        <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" onchange="updateTorrentName()" required>
       </div>
 
-      <div class="form-group">
+      {{--<div class="form-group">
         <label for="nfo">NFO File (Optional)</label>
-        <input class="upload-form-file" type="file" name="nfo">
-      </div>
+        <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
+    </div>--}}
 
             <div class="form-group">
                 <label for="name">Title</label>
-                <input type="text" name="name" id="name" class="form-control" required>
+                <input type="text" name="name" id="title" class="form-control" required>
             </div>
 
              <div class="form-group">
-                <label for="name">IMDB ID (Required)</label>
+                <label for="name">IMDB ID <b>(Required)</b></label>
                 <input type="number" name="imdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
-               <label for="name">TMDB ID </label>
+               <label for="name">TMDB ID <b>(Required)</b></label>
                <input type="number" name="tmdb" value="0" class="form-control" required>
            </div>
 
             <div class="form-group">
-                <label for="name">TVDB ID </label>
+                <label for="name">TVDB ID <b>(Optional)</b></label>
                 <input type="number" name="tvdb" value="0" class="form-control" required>
             </div>
 
             <div class="form-group">
-                <label for="name">MAL ID </label>
+                <label for="name">MAL ID <b>(Optional)</b></label>
                 <input type="number" name="mal" value="0" class="form-control" required>
             </div>
 
@@ -161,7 +115,7 @@ function updateTorrentName() {
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control" required></textarea>
+        <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control"></textarea>
       </div>
 
       <div class="parser"></div>
@@ -206,7 +160,7 @@ function updateTorrentName() {
   </div>
 </div>
 @endif
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -223,5 +177,51 @@ $(document).ready(function() {
 		var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
 		$('.parser').append(optionHTML);
 	});
+</script>
+<script>
+function updateTorrentName() {
+    let name = document.querySelector("#title");
+    let torrent = document.querySelector("#torrent");
+    let fileEndings = [".mkv.torrent", ".torrent"];
+    let allowed = ["1.0", "2.0", "5.1", "7.1", "H.264"];
+    let separators = ["-", " ", "."];
+    if (name !== null && torrent !== null) {
+        let value = torrent.value.split('\\').pop().split('/').pop();
+        fileEndings.forEach(function(e) {
+            if (value.endsWith(e)) {
+                value = value.substr(0, value.length - e.length);
+            }
+        });
+        value = value.replace(/\./g, " ");
+        allowed.forEach(function(a) {
+            search = a.replace(/\./g, " ");
+            let replaceIndexes = [];
+            let pos = value.indexOf(search);
+            while (pos !== -1) {
+                let start = pos > 0 ? value[pos - 1] : " ";
+                let end = pos + search.length < value.length  ? value[pos + search.length] : " ";
+                if (separators.includes(start) && separators.includes(end)) {
+                    replaceIndexes.push(pos);
+                }
+                pos = value.indexOf(search, pos + search.length);
+            }
+            newValue = "";
+            ignore = 0;
+            for (let i = 0; i < value.length; ++i) {
+                if (ignore > 0) {
+                    --ignore;
+                } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
+                    replaceIndexes.shift();
+                    newValue += a;
+                    ignore = a.length - 1;
+                } else {
+                    newValue += value[i];
+                }
+            }
+            value = newValue;
+        })
+        name.value = value;
+    }
+}
 </script>
 @endsection

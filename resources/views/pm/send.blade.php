@@ -2,7 +2,7 @@
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.send') }} {{ trans('pm.message') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -45,12 +45,12 @@
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.subject') }}</label>
-                    <input name="subject" class="form-control" placeholder="Enter subject" required>
+                    <input name="subject" class="form-control" placeholder="{{ trans('pm.enter-subject') }}" required>
                   </div>
 
                   <div class="form-group">
                     <label for="">{{ trans('pm.message') }}</label>
-                    <textarea id="message" name="message" cols="30" rows="10" class="form-control" required></textarea>
+                    <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
                   </div>
 
                   <button class="btn btn-primary">
@@ -61,7 +61,7 @@
     </div>
   </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
     <script type="text/javascript">

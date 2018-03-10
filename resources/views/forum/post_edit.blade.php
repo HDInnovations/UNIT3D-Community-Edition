@@ -2,15 +2,15 @@
 
 @section('title')
 <title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
-<meta name="description" content="{{ 'Edit Post In ' . $forum->name }}">
-@stop
+<meta name="description" content="{{ $forum->name . ' - ' . trans('forum.edit-post') }}">
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -38,7 +38,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.edit') }} {{ trans('forum.post') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="forum box container">
@@ -49,7 +49,7 @@
 	@endif
 
 	<div class="col-md-12">
-		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} In: {{ $forum->name }}</h2>
+		<h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}: {{ $forum->name }}</h2>
 		{{ Form::open(array('route' => array('forum_post_edit', 'slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id))) }}
 		{{ csrf_field() }}
 
@@ -63,7 +63,7 @@
 		{{ Form::close() }}
 	</div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -73,4 +73,4 @@ $(document).ready(function() {
     $("#content").wysibb();
 });
 </script>
-@stop
+@endsection

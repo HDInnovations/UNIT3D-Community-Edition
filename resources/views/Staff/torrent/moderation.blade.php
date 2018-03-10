@@ -2,7 +2,7 @@
 
 @section('title')
 <title>Moderation - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -15,7 +15,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Moderation</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <center><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1></center>
@@ -192,4 +192,4 @@
     </table>
 </div>
 </div>
-@stop
+@endsection

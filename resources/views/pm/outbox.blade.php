@@ -6,7 +6,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.outbox') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -54,4 +54,4 @@
       </div>
     </div>
     </div>
-  @stop
+  @endsection

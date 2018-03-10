@@ -2,11 +2,11 @@
 
 @section('title')
 <title>Articles - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -24,7 +24,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Article Edit</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -32,7 +32,7 @@
   {{ Form::open(array('route' => array('staff_article_edit', 'slug' => $post->slug, 'id' => $post->id), 'files' => true)) }}
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" name="title" value="{{ $post->title }}">
+    <input type="text" class="form-control" name="title" value="{{ $post->title }}" required>
   </div>
 
   <div class="form-group">
@@ -48,7 +48,7 @@
   <button type="submit" class="btn btn-default">Save</button>
   {{ Form::close() }}
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -58,4 +58,4 @@ $(document).ready(function() {
     $("#content").wysibb(wbbOpt);
 });
 </script>
-@stop
+@endsection

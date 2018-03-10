@@ -1,9 +1,21 @@
 @extends('vendor.installer.layouts.master')
 
-@section('title', trans('installer_messages.welcome.title'))
+@section('template_title')
+    {{ trans('installer_messages.welcome.templateTitle') }}
+@endsection
+
+@section('title')
+    {{ trans('installer_messages.welcome.title') }}
+@endsection
+
 @section('container')
-    <p class="paragraph">{{ trans('installer_messages.welcome.message') }}</p>
-    <div class="buttons">
-        <a href="{{ route('LaravelInstaller::environment') }}" class="button">{{ trans('installer_messages.next') }}</a>
-    </div>
-@stop
+    <p class="text-center">
+      {{ trans('installer_messages.welcome.message') }}
+    </p>
+    <p class="text-center">
+      <a href="{{ route('LaravelInstaller::requirements') }}" class="button">
+        {{ trans('installer_messages.welcome.next') }}
+        <i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+      </a>
+    </p>
+@endsection

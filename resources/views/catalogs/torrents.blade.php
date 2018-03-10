@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="Catalog">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -24,7 +24,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -34,11 +34,23 @@
     </div>
   </div>
   @if(count($torrents) == 0)
-  <p>The are no results in database for this film!</p>
+  <p>{{ trans('common.no-result') }}</p>
   @else
   @foreach($torrents as $t)
-  <?php $client = new \App\Services\MovieScrapper('aa8b43b8cbce9d1689bef3d0c3087e4d', '3DF2684FC0240D28', 'b8272f7d'); ?>
-  <?php $movie = $client->scrape('movie', 'tt'.$t->imdb); ?>
+  @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
+  @if ($t->category_id == 2)
+      @if ($t->tmdb || $t->tmdb != 0)
+      @php $movie = $client->scrape('tv', null, $t->tmdb); @endphp
+      @else
+      @php $movie = $client->scrape('tv', 'tt'. $t->imdb); @endphp
+      @endif
+  @else
+      @if ($t->tmdb || $t->tmdb != 0)
+      @php $movie = $client->scrape('movie', null, $t->tmdb); @endphp
+      @else
+      @php $movie = $client->scrape('movie', 'tt'. $t->imdb); @endphp
+      @endif
+  @endif
   <div class="col-sm-12 movie-list">
     <h3 class="movie-title">
       <a href="#" title="{{ $t->name }}">{{ $t->name }}</a>
@@ -54,4 +66,4 @@
   @endforeach
   @endif
 </div>
-@stop
+@endsection

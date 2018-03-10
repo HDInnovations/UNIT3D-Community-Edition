@@ -11,7 +11,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.edit') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -49,4 +49,4 @@
 
     </div>
 </div>
-@stop
+@endsection

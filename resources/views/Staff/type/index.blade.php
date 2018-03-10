@@ -11,7 +11,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Torrent Types</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -40,4 +40,4 @@
             </tbody>
         </table>
 </div>
-@stop
+@endsection

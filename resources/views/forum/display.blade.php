@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ $forum->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="{{ trans('forum.display-forum') . $forum->name }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -37,10 +37,10 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Topic</th>
-                        <th>Started by</th>
-                        <th>Stats</th>
-                        <th>Last Post Info</th>
+                        <th>{{ trans('forum.topic') }}</th>
+                        <th>{{ trans('forum.author') }}</th>
+                        <th>{{ trans('forum.stats') }}</th>
+                        <th>{{ trans('forum.last-post-info') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,13 +53,14 @@
                         @endif
                         <td class="f-display-topic-title">
                             <strong><a href="{{ route('forum_topic', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></strong>
-                            @if($t->state == "close") <span class='label label-sm label-default'>CLOSED</span> @endif
-                            @if($t->approved == "1") <span class='label label-sm label-success'>APPROVED</span> @endif
-                            @if($t->denied == "1") <span class='label label-sm label-danger'>DENIED</span> @endif
-                            @if($t->solved == "1") <span class='label label-sm label-info'>SOLVED</span> @endif
-                            @if($t->invalid == "1") <span class='label label-sm label-warning'>INVALID</span> @endif
-                            @if($t->bug == "1") <span class='label label-sm label-danger'>BUG</span> @endif
-                            @if($t->suggestion == "1") <span class='label label-sm label-primary'>SUGGESTION</span> @endif
+                            @if($t->state == "close") <span class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
+                            @if($t->approved == "1") <span class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
+                            @if($t->denied == "1") <span class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
+                            @if($t->solved == "1") <span class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
+                            @if($t->invalid == "1") <span class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
+                            @if($t->bug == "1") <span class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
+                            @if($t->suggestion == "1") <span class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
+                            @if($t->implemented == "1") <span class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a href="{{ route('profil', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a></td>
                         <td class="f-display-topic-stats">
@@ -81,4 +82,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

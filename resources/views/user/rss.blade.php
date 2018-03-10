@@ -2,7 +2,7 @@
 
 @section('title')
 <title>{{ $user->username }} - Rss Configuration - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">RSS Configuration</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="contrainer">
@@ -27,4 +27,4 @@
 
 
 </div>
-@stop
+@endsection

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Private Message Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'unread' => 'Sin Leer',
     'read' => 'Leídos',
@@ -24,5 +23,5 @@ return [
     'reply' => 'Responder',
     'send' => 'Enviar',
     'create' => 'Crear',
-    'select' => 'Seleccionar un Usuario',
+    'select' => 'Seleccionar un Usuario'
 ];

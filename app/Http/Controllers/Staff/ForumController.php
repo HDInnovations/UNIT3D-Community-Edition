@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -16,8 +16,6 @@ use App\Forum;
 use App\Group;
 use App\Http\Controllers\Controller;
 use App\Permission;
-
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 
 class ForumController extends Controller
@@ -78,7 +76,7 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return Redirect::route('staff_forum_index');
+            return redirect()->route('staff_forum_index');
         }
         return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
     }
@@ -128,7 +126,7 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return Redirect::route('staff_forum_index');
+            return redirect()->route('staff_forum_index');
         }
         return view('Staff.forum.edit', ['categories' => $categories, 'groups' => $groups, 'forum' => $forum]);
     }
@@ -185,6 +183,6 @@ class ForumController extends Controller
             }
             $forum->delete();
         }
-        return Redirect::route('staff_forum_index');
+        return redirect()->route('staff_forum_index');
     }
 }

@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Cofig Manager Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Cofig Manager Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'title' => 'Administración de Configuración',
     'info_choose' => 'Escoge un archivo para empezar la edición',
@@ -13,13 +12,13 @@ return [
     'header' => [
         'key' => 'Llave',
         'value' => 'Valor',
-        'actions' => 'Acciones',
+        'actions' => 'Acciones'
     ],
     'actions' => [
         'edit' => 'Editar',
         'confirm' => 'Guardar nueva llave',
         'save' => 'Guardar!',
-        'cancel' => 'Cancelar',
+        'cancel' => 'Cancelar'
     ],
-    'sure' => '¿Estás Seguro?',
+    'sure' => '¿Estás Seguro?'
 ];

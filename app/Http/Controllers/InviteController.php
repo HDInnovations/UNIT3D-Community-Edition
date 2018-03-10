@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -15,17 +15,14 @@ namespace App\Http\Controllers;
 use App\Mail\InviteUser;
 use App\User;
 use App\Invite;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Requests\ValidateSecretRequest;
 use Illuminate\Support\Facades\Input;
-
 use \Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
@@ -37,10 +34,10 @@ class InviteController extends Controller
     {
         $user = Auth::user();
         if (config('other.invite-only') == false) {
-            Toastr::warning('Invitations Are Disabled Due To Open Registration!', 'Error!', ['options']);
+            Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
         }
         if ($user->can_invite == 0) {
-            Toastr::warning('Your Invite Rights Have Been Revoked!!!', 'Error!', ['options']);
+            Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']);
         }
         return view('user.invite', ['user' => $user]);
     }
@@ -52,7 +49,7 @@ class InviteController extends Controller
         $exsist = Invite::where('email', '=', $request->get('email'))->first();
         $member = User::where('email', '=', $request->get('email'))->first();
         if ($exsist || $member) {
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'My Dude!', ['options']));
+            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
         }
 
         if ($user->invites > 0) {
@@ -75,12 +72,10 @@ class InviteController extends Controller
             $user->invites -= 1;
             $user->save();
 
-            Toastr::success('Invitation Sent Successfully!', 'Yay!', ['options']);
+            return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         } else {
-            Toastr::warning('You Dont Have Enough Invites!', 'Umm!', ['options']);
+            return redirect()->route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
         }
-        // redirect back where we came from
-        return redirect()->back();
     }
 
     public function inviteTree($username, $id)

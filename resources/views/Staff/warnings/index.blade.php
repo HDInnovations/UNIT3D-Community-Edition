@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>Warnings Log - Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="Warnings Log - Staff Dashboard">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -19,7 +19,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Warnings Log</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -82,4 +82,4 @@
 {{ $warnings->links() }}
 </div>
 </div>
-@stop
+@endsection

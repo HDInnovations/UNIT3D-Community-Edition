@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,10 +14,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Follow;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use \Toastr;
 
 class FollowController extends Controller
@@ -32,15 +30,15 @@ class FollowController extends Controller
     public function follow(User $user)
     {
         if (Auth::user()->id == $user->id) {
-            return back()->with(Toastr::error("Nice try, but sadly you can not follow yourself.", 'Error!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error("Nice try, but sadly you can not follow yourself.", 'Whoops!', ['options']));
         } elseif (!Auth::user()->isFollowing($user->id)) {
             // Create a new follow instance for the authenticated user
             Auth::user()->follows()->create([
                 'target_id' => $user->id,
             ]);
-            return back()->with(Toastr::success('You are now following ' . $user->username, 'Success!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('You are now following ' . $user->username, 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You are already following this user', 'Error!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('You are already following this user', 'Whoops!', ['options']));
         }
     }
 
@@ -56,9 +54,9 @@ class FollowController extends Controller
             $follow = Auth::user()->follows()->where('target_id', $user->id)->first();
             $follow->delete();
 
-            return back()->with(Toastr::success('You are no longer following ' . $user->username, 'Success!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('You are no longer following ' . $user->username, 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You are not following this user to begin with', 'Error!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('You are not following this user to begin with', 'Whoops!', ['options']));
         }
     }
 }

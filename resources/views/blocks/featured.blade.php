@@ -100,10 +100,18 @@
         </div>
         </div>
         @foreach($featured as $key => $feature)
-        @if($feature->torrent->category_id == 2)
-          @php $movie = $client->scrape('tv', 'tt'.$feature->torrent->imdb); @endphp
+        @if ($feature->torrent->category_id == 2)
+            @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
+            @php $movie = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
+            @else
+            @php $movie = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
+            @endif
         @else
-          @php $movie = $client->scrape('movie', 'tt'.$feature->torrent->imdb); @endphp
+            @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
+            @php $movie = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
+            @else
+            @php $movie = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
+            @endif
         @endif
           <div class="item">
             <div id="movie-card-list">

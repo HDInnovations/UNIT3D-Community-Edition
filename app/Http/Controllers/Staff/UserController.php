@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -102,9 +101,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -130,9 +129,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has edited " . $user->username . " account permissions.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -154,9 +153,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has changed " . $user->username . " password.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -172,7 +171,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $staff = Auth::user();
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
         // Removes UserID from Torrents if any and replaces with System UserID (0)
             foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
@@ -234,9 +233,9 @@ class UserController extends Controller
             \LogActivity::addToLog("Staff Member " . $staff->username . " has deleted " . $user->username . " account.");
 
             if ($user->delete()) {
-                return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Success!', ['options']));
+                return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Yay!', ['options']));
             } else {
-                return redirect('staff_dashboard')->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+                return redirect('staff_dashboard')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
             }
         }
     }

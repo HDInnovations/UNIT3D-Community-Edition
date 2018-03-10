@@ -2,7 +2,7 @@
 
 @section('title')
     <title>InviteTree - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Invite Tree</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -78,4 +78,4 @@ Invite Tree</h2>
 
 </div>
 </div>
-@stop
+@endsection

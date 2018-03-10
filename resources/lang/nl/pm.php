@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Private Message Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'unread' => 'Markeer als gelezen',
     'read' => 'Gelezen',
@@ -14,15 +13,15 @@ return [
     'messages' => 'Berichten',
     'private' => 'Privé',
     'new' => 'Nieuw Bericht',
-    'from' =>'Van',
+    'from' => 'Van',
     'to' => 'Naar',
     'sent' => 'Verzonden',
     'sent-at' => 'Verzonden Op',
-    'subject' =>'Onderwerp',
-    'recieved-at' =>'Ontvangen Op',
+    'subject' => 'Onderwerp',
+    'recieved-at' => 'Ontvangen Op',
     'search' => 'Zoeken Op Onderwerp',
     'reply' => 'Antwoord',
     'send' => 'Verzenden',
     'create' => 'Maak',
-    'select' => 'Selecteer een gebruiker',
+    'select' => 'Selecteer een gebruiker'
 ];

@@ -1,47 +1,51 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
-@stop
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
+@endsection
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('downloaded') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Top Downloaders</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-downloaders') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
 @include('partials.statsusermenu')
 
 <div class="block">
-  <h2>Top Downloaders (by volume)</h2>
+  <h2>{{ trans('stat.top-downloaders') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-      <p class="text-red"><strong><i class="fa fa-arrow-down"></i> Top Downloaders</strong> (by volume)</p>
+      <p class="text-red"><strong><i class="fa fa-arrow-down"></i> {{ trans('stat.top-downloaders') }}</strong></p>
       <table class="table table-condensed table-striped table-bordered">
         <thead>
           <tr>
-            <th>User</th>
-            <th>Upload</th>
-            <th>Download</th>
-            <th>Ratio</th>
+            <th>#</th>
+            <th>{{ trans('common.user') }}</th>
+            <th>{{ trans('common.upload') }}</th>
+            <th>{{ trans('common.download') }}</th>
+            <th>{{ trans('common.ratio') }}</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($downloaded as $d)
+          @foreach($downloaded as $key => $d)
           <tr>
             <td>
+                {{ ++$key }}
+            </td>
+            <td @if(auth()->user()->username == $d->username) class="mentions" @endif>
               @if($d->private_profile == 1)
-              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>HIDDEN</span>@if(Auth::user()->id == $d->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">({{ $d->username }}</a></span>
+              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(Auth::user()->id == $d->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">({{ $d->username }}</a></span>
               @endif
               @else
               <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">{{ $d->username }}</a></span>
@@ -60,4 +64,4 @@
   </div>
 </div>
 </div>
-@stop
+@endsection

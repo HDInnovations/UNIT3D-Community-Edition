@@ -449,6 +449,30 @@ class PermissionsTableSeeder extends Seeder
                 'upload' => 1,
                 'download' => 1,
             ),
+            36 =>
+            array (
+                'id' => 37,
+                'forum_id' => 1,
+                'group_id' => 19,
+                'show_forum' => 1,
+                'read_topic' => 1,
+                'reply_topic' => 1,
+                'start_topic' => 1,
+                'upload' => 1,
+                'download' => 1,
+            ),
+            37 =>
+            array (
+                'id' => 38,
+                'forum_id' => 2,
+                'group_id' => 19,
+                'show_forum' => 1,
+                'read_topic' => 1,
+                'reply_topic' => 1,
+                'start_topic' => 1,
+                'upload' => 1,
+                'download' => 1,
+            ),
         ));
     }
 }

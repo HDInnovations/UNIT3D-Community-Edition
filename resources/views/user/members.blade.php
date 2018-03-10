@@ -2,11 +2,11 @@
 
 @section('title')
 <title>{{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="List of users registered on {{ Config::get('other.title') }} with all groups. Find an user now.">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -14,7 +14,7 @@
 		<span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.members') }}</span>
 	</a>
 </li>
-@stop
+@endsection
 
 
 @section('content')
@@ -60,4 +60,4 @@
 		{{ $users->links() }}
 	</div>
 </div>
-@stop
+@endsection

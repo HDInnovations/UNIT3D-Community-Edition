@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -119,23 +119,6 @@ return [
     'cipher' => 'AES-256-CBC',
 
     /*
-    |--------------------------------------------------------------------------
-    | Logging Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Here you may configure the log settings for your application. Out of
-    | the box, Laravel uses the Monolog PHP logging library. This gives
-    | you a variety of powerful log handlers / formatters to utilize.
-    |
-    | Available Settings: "single", "daily", "syslog", "errorlog"
-    |
-    */
-
-    'log' => env('APP_LOG', 'daily'),
-
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
-
-    /*
 	|--------------------------------------------------------------------------
 	| Autoloaded Service Providers
 	|--------------------------------------------------------------------------
@@ -189,7 +172,6 @@ return [
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
@@ -258,6 +240,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 
         'LogActivity' => App\Helpers\LogActivity::class,
+        'Irc' => App\Bots\IRCAnnounceBot::class,
     ],
 
 ];

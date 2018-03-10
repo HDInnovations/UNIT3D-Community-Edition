@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -64,16 +64,7 @@ class MovieScrapper
         }
 
         if ($type == 'tv') {
-            $omdb_tv = $tmdb_tv = $tvdb_tv = new Tv();
-
-            if ($tvdb) {
-                $tvdb_tv = $this->tvdbClient->tv($tvdb);
-                $imdb = empty($imdb) ? $tvdb_tv->imdb : $imdb;
-
-                $tmdb_tv = $this->tmdbClient->find(['tvdb' => $tvdb], 'tv');
-                $imdb = empty($imdb) ? $tmdb_tv->imdb : $imdb;
-                $tmdb = empty($tmdb) ? $tmdb_tv->tmdb : $tmdb;
-            }
+            $omdb_tv = $tmdb_tv = new Tv();
 
             if ($tmdb) {
                 $tmdb_tv = $this->tmdbClient->tv($tmdb);
@@ -83,16 +74,11 @@ class MovieScrapper
             if ($imdb) {
                 if (!$tmdb_tv->title) {
                     $tmdb_tv = $this->tmdbClient->find(['imdb' => $imdb], 'tv');
-                    $tvdb = empty($tvdb) ? $tmdb_tv->tvdb : $tvdb;
                 }
-                $tvdb_tv = $this->tvdbClient->find(['imdb' => $imdb]);
                 $omdb_tv = $this->omdbClient->tv($imdb);
             }
-            if ($tvdb && !$tvdb_tv->title) {
-                $tvdb_tv = $this->tvdbClient->tv($tvdb);
-            }
 
-            return $tvdb_tv->merge($tmdb_tv, $omdb_tv);
+            return $tmdb_tv->merge($omdb_tv);
         }
     }
 

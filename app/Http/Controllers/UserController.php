@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -30,20 +30,17 @@ use App\History;
 use App\Warning;
 use App\Note;
 use Carbon\Carbon;
-
 use Illuminate\Support\Facades\Request;
 use Illuminate\Http\Request as IlluminateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Auth\Authenticatable;
 use App\Http\Requests\ValidateSecretRequest;
 use Illuminate\Support\Facades\Input;
-
 use Cache;
 use \Toastr;
 use Image;
@@ -148,7 +145,7 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has updated there profile.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
 
         return view('user.edit_profil', ['user' => $user]);
@@ -179,7 +176,7 @@ class UserController extends Controller
             $user->style = (int)Request::get('theme');
             $css_url = Request::get('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-                return redirect()->back()->with(Toastr::warning('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Error', ['options']));
+                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
@@ -190,14 +187,17 @@ class UserController extends Controller
             $user->peer_hidden = Request::get('peer_hidden');
             $user->show_poster = Request::get('show_poster');
             $user->ratings = Request::get('ratings');
+            if (config('auth.TwoStepEnabled') == true) {
+                $user->twostep = Request::get('twostep');
+            }
             $user->save();
 
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has changed there account settings.");
 
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -219,9 +219,9 @@ class UserController extends Controller
             $usr->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();
-            return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Success!', ['options']));
+            return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
     }
 
@@ -246,9 +246,9 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has changed there email address on file.");
 
-                return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
+                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             } else {
-                return redirect()->back()->with(Toastr::warning('Your Password Was Incorrect!', 'Error', ['options']));
+                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
             }
         }
     }
@@ -265,9 +265,9 @@ class UserController extends Controller
         if (Request::isMethod('post')) {
             $user->passkey = md5(uniqid() . time() . microtime());
             $user->save();
-            return Redirect::route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::warning('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -298,19 +298,19 @@ class UserController extends Controller
         if ($v->passes()) {
             if (Hash::check(Request::get('password'), $user->password)) {
                 if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
-                    return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Sorry', ['options']));
+                    return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
                 $cli = new Client;
                 $cli->user_id = $user->id;
                 $cli->name = Request::get('client_name');
                 $cli->ip = Request::get('ip');
                 $cli->save();
-                return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
+                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
             } else {
-                return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Sorry', ['options']));
+                return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Whoops!', ['options']));
             }
         } else {
-            return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Hmm!', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('All required values not received or IP is already registered by a member.', 'Whoops!', ['options']));
         }
     }
 
@@ -325,9 +325,9 @@ class UserController extends Controller
         if ($v->passes()) {
             $cli = Client::where('id', '=', Request::get('cliid'));
             $cli->delete();
-            return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         } else {
-            return Redirect::route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops, something went wrong', ['options']));
+            return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops!', ['options']));
         }
     }
 
@@ -354,7 +354,7 @@ class UserController extends Controller
             $warning->save();
             PrivateMessage::create(['sender_id' => $staff->id, 'reciever_id' => $warning->user_id, 'subject' => "Hit and Run Warning Deactivated", 'message' => $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
 
-            return Redirect::route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
+            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }

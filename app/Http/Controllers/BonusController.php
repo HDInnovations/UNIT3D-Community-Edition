@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
@@ -19,13 +19,10 @@ use App\Shoutbox;
 use App\PrivateMessage;
 use App\PersonalFreeleech;
 use App\Torrent;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
-
 use Carbon\Carbon;
 use \Toastr;
 use Cache;
@@ -43,6 +40,7 @@ class BonusController extends Controller
     public function bonus()
     {
         $user = Auth::user();
+        $users = User::orderBy('username', 'ASC')->get();
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
@@ -87,7 +85,7 @@ class BonusController extends Controller
             'dying' => $dying, 'legendary' => $legendary, 'old' => $old,
             'huge' => $huge, 'large' => $large, 'regular' => $regular,
             'participaint' => $participaint, 'teamplayer' => $teamplayer, 'commited' => $commited, 'mvp' => $mvp, 'legendary' => $legendary,
-            'total' => $total]);
+            'total' => $total, 'users' => $users]);
     }
 
     /**
@@ -113,16 +111,16 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (!$flag) {
-                return redirect('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
+                return redirect('/bonus')->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect('/bonus')->with(Toastr::info('Failed!', 'Bonus Exchange', ['options']));
+            return redirect('/bonus')->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
         }
 
-        return redirect('/bonus')->with(Toastr::info('Successful', 'Bonus Exchange', ['options']));
+        return redirect('/bonus')->with(Toastr::success('Bonus Exchange Successful', 'Yay!', ['options']));
     }
 
     /**
@@ -202,7 +200,7 @@ class BonusController extends Controller
                 $recipient = User::where('username', 'LIKE', Request::get('to_username'))->first();
 
                 if (!$recipient || $recipient->id == $user->id) {
-                    return redirect('/bonus')->with(Toastr::error('Unable to find specified user', 'Gifting Failed', ['options']));
+                    return redirect('/bonus')->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
                 }
 
                 $value = Request::get('bonus_points');
@@ -230,12 +228,12 @@ class BonusController extends Controller
 
                 PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $recipient->id, 'subject' => "You Have Recieved A Gift", 'message' => $transaction->comment]);
 
-                return redirect('/bonus')->with(Toastr::info('Sent', 'Gift', ['options']));
+                return redirect('/bonus')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
             } else {
-                return redirect('/bonus')->with(Toastr::error('Failed', 'Gifting', ['options']));
+                return redirect('/bonus')->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
             }
         } else {
-            return redirect('/bonus')->with(Toastr::error('Unknown error occurred', 'Error!', ['options']));
+            return redirect('/bonus')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
         }
     }
 
@@ -254,13 +252,13 @@ class BonusController extends Controller
 
         $tip_amount = Request::get('tip');
         if ($tip_amount > $user->seedbonus) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your To Broke To Tip The Uploader!', 'Bro!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
         }
         if ($user->id == $torrent->user_id) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Bro!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
         }
         if ($tip_amount < 0) {
-            return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Bro!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
@@ -283,7 +281,7 @@ class BonusController extends Controller
         PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
         // End insert recipient notification here
 
-        return Redirect::route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 
 

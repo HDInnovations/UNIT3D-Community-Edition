@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
@@ -38,14 +38,21 @@ class TorrentViewHelper
             }
 
             $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-
             if ($list->category_id == 2) {
-                $movie = $client->scrape('tv', 'tt' . $list->imdb);
+                if ($list->tmdb || $list->tmdb != 0) {
+                $movie = $client->scrape('tv', null, $list->tmdb);
+                } else {
+                $movie = $client->scrape('tv', 'tt'. $list->imdb);
+                }
             } else {
-                $movie = $client->scrape('movie', 'tt' . $list->imdb);
+                if ($list->tmdb || $list->tmdb != 0) {
+                $movie = $client->scrape('movie', null, $list->tmdb);
+                } else {
+                $movie = $client->scrape('movie', 'tt'. $list->imdb);
+                }
             }
 
-            if ($user->show_poster == 1) {
+            if ($user->show_poster == 1 && $list->category->meta == 1) {
                 $poster = "<div class='torrent-poster pull-left'><img src='{$movie->poster}' data-poster-mid='{$movie->poster}' class='img-tor-poster torrent-poster-img-small' alt='Poster' data-original-title='' title=''></div>";
             } else {
                 $poster = "";
@@ -73,6 +80,7 @@ class TorrentViewHelper
                 $anon = "<a href='{$user_link}'>{$list->user->username}</a>";
             }
 
+            if ($list->category->meta == 1) {
             if ($user->ratings == 1) {
                 $link = "https://anon.to?http://www.imdb.com/title/tt" . $list->imdb;
                 $rating = $movie->imdbRating;
@@ -86,6 +94,11 @@ class TorrentViewHelper
                     $link = "https://www.themoviedb.org/movie/" . $movie->tmdb;
                 }
             }
+        } else {
+            $link = "#";
+            $rating = "0";
+            $votes = "0";
+        }
 
             $thank_count = $list->thanks()->count();
 

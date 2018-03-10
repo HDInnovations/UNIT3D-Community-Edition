@@ -1,18 +1,17 @@
 <?php
-
 return [
-
+    
     /*
-    |--------------------------------------------------------------------------
-    | Validation Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
-    |
-    */
-
+     * |--------------------------------------------------------------------------
+     * | Validation Language Lines
+     * |--------------------------------------------------------------------------
+     * |
+     * | The following language lines contain the default error messages used by
+     * | the validator class. Some of these rules have multiple versions such
+     * | as the size rules. Feel free to tweak each of these messages here.
+     * |
+     */
+    
     'accepted' => 'El :attribute debe ser aceptado.',
     'active_url' => 'El :attribute no es una dirección válida.',
     'after' => 'El :attribute debe ser una fecha posterior a :date.',
@@ -25,7 +24,7 @@ return [
         'numeric' => 'El :attribute debe estar entre :min y :max.',
         'file' => 'El :attribute debe estar entre :min y :max kilobytes.',
         'string' => 'El :attribute debe estar entre :min y :max caracteres.',
-        'array' => 'El :attribute debe estar entre :min y :max artículos.',
+        'array' => 'El :attribute debe estar entre :min y :max artículos.'
     ],
     'boolean' => 'El campo :attribute debe ser verdadero o falso.',
     'confirmed' => 'La confirmación del :attribute no coincide.',
@@ -50,7 +49,7 @@ return [
         'numeric' => 'El :attribute no debe ser mayor que :max.',
         'file' => 'El :attribute no debe ser mayor que :max kilobytes.',
         'string' => 'El :attribute no debe contener más que :max caracteres.',
-        'array' => 'El :attribute no debe contener más que :max artículos.',
+        'array' => 'El :attribute no debe contener más que :max artículos.'
     ],
     'mimes' => 'El :attribute debe ser un archivo del tipo: :values.',
     'mimetypes' => 'El :attribute debe ser un archivo del tipo: :values.',
@@ -58,7 +57,7 @@ return [
         'numeric' => 'El :attribute debe ser menor que :min.',
         'file' => 'El :attribute debe tener al menos :min kilobytes.',
         'string' => 'El :attribute debe contener al menos :min caracteres.',
-        'array' => 'El :attribute debe contener al menos :min artículos.',
+        'array' => 'El :attribute debe contener al menos :min artículos.'
     ],
     'not_in' => 'El :attribute seleccionado es invalido.',
     'numeric' => 'El :attribute debe ser un número.',
@@ -76,7 +75,7 @@ return [
         'numeric' => 'El :attribute debe ser :size.',
         'file' => 'El :attribute debe tener :size kilobytes.',
         'string' => 'El :attribute debe tener :size caracteres.',
-        'array' => 'El :attribute debe tener :size artículos.',
+        'array' => 'El :attribute debe tener :size artículos.'
     ],
     'string' => 'El :attribute debe ser una cadena.',
     'timezone' => 'La :attribute debe ser una zona válida.',
@@ -97,8 +96,8 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
-        ],
+            'rule-name' => 'custom-message'
+        ]
     ],
 
     /*
@@ -112,6 +111,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => []
 
 ];

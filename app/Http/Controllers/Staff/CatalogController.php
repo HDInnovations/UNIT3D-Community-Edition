@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,13 +14,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-
 use App\User;
 use App\Catalog;
 use App\CatalogTorrent;
-
 use \Toastr;
 
 class CatalogController extends Controller
@@ -50,7 +47,7 @@ class CatalogController extends Controller
         $catalog->name = Request::get('catalog');
         $catalog->slug = str_slug(Request::get('catalog'));
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully added', 'Success!', ['options']));
+        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     //Delete Catalog
@@ -61,7 +58,7 @@ class CatalogController extends Controller
             return redirect()->route('getCatalog')->with(Toastr::error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
         }
         $catalog->delete();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Success!', ['options']));
+        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
     }
 
     //Edit Catalog
@@ -76,7 +73,7 @@ class CatalogController extends Controller
         }
         $catalog->name = Request::get('catalog');
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully edited', 'Success!', ['options']));
+        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully edited', 'Yay!', ['options']));
     }
 
     /**
@@ -102,7 +99,7 @@ class CatalogController extends Controller
         ]);
         $torrent = CatalogTorrent::where('imdb', '=', Request::get('imdb'))->first();
         if ($torrent) {
-            return redirect()->route('getCatalogTorrent')->with(Toastr::error('IMDB# ' . $torrent->imdb . ' is already in database', 'Fail!', ['options']));
+            return redirect()->route('getCatalogTorrent')->with(Toastr::error('IMDB# ' . $torrent->imdb . ' is already in database', 'Whoops!', ['options']));
         }
         $torrent = new CatalogTorrent();
         $torrent->imdb = Request::get('imdb');
@@ -111,7 +108,7 @@ class CatalogController extends Controller
         // Count and save the torrent number in this catalog
         $catalog->num_torrent = CatalogTorrent::where('catalog_id', '=', $catalog->id)->count();
         $catalog->save();
-        return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . Request::get('imdb') . ' has been successfully added', 'Success!', ['options']));
+        return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . Request::get('imdb') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     // Get Catalogs Records

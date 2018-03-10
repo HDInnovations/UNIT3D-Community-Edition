@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -19,10 +19,8 @@ use App\Requests;
 use App\Category;
 use App\Peer;
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -56,7 +54,7 @@ class ModerationController extends Controller
     {
         Torrent::approve($id);
 
-        return Redirect::route('moderation')->with(Toastr::success('Torrent Approved', 'Approve', ['options']));
+        return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
     }
 
     /**
@@ -140,10 +138,10 @@ class ModerationController extends Controller
             $request->approved_when = null;
             $request->save();
 
-            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("The request has been reset!", 'Request reset!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("The request has been reset!", 'Yay!', ['options']));
         } else {
-            return Redirect::route('request', ['id' => $id])->with(Toastr::warning("You don't have access to this operation!", 'Error!', ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to this operation!", 'Whoops!', ['options']));
         }
-        return Redirect::route('requests')->with(Toastr::success("Unable to find request", 'Request not found', ['options']));
+        return redirect()->route('requests')->with(Toastr::error("Unable to find request!", 'Whoops!', ['options']));
     }
 }

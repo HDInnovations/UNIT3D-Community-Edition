@@ -1,10 +1,9 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Polls Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Polls Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     'poll' => 'Anket',
     'polls' => 'Anketler',
@@ -15,5 +14,5 @@ return [
     'multiple-choice' => 'Bu anket çoklu seçmelidir. İstediğin kadar cevap seçebilirsiniz.',
     'ip-checking' => 'Bu anket ikinci oy kontrolüne sahiptir. Sadece bir kereliğine oy verebilirsin !',
     'vote' => 'Oy Ver',
-    'votes' => 'Oylar',
+    'votes' => 'Oylar'
 ];

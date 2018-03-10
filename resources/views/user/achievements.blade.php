@@ -6,7 +6,7 @@
     <span itemprop="title" class="l-breadcrumb-item-link-title">Achievements</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
     <div class="container">

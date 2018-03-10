@@ -1,44 +1,48 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
-@stop
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
+@endsection
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('seeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Top Seeded</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-seeded') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
 @include('partials.statstorrentmenu')
 
 <div class="block">
-  <h2>Top Seeded</h2>
+  <h2>{{ trans('stat.top-seeded') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-    <p class="text-success"><strong><i class="fa fa-trophy"></i> Top Torrents</strong> (best seeded)</p>
+    <p class="text-success"><strong><i class="fa fa-trophy"></i> {{ trans('stat.top-seeded') }}</strong></p>
     <table class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>
-          <th>Torrent</th>
-          <th>Seeders</th>
-          <th>Leechers</th>
-          <th>Completed</th>
+          <th>#</th>
+          <th>{{ trans('torrent.torrent') }}</th>
+          <th>{{ trans('torrent.seeders') }}</th>
+          <th>{{ trans('torrent.leechers') }}</th>
+          <th>{{ trans('torrent.completed') }}</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($seeded as $s)
+        @foreach($seeded as $key => $s)
         <tr>
+          <td>
+              {{ ++$key }}
+          </td>
           <td>
             <a class="view-torrent" data-id="{{ $s->id }}" data-slug="{{ $s->slug }}" href="{{ route('torrent', array('slug' => $s->slug, 'id' => $s->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $s->name }}">{{ $s->name }}</a>
           </td>
@@ -55,4 +59,4 @@
   </div>
 </div>
 </div>
-@stop
+@endsection

@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>{{ trans('common.about') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="{{ trans('common.about') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -14,7 +14,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.about') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <style>
@@ -497,55 +497,54 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
     <div class="header gradient">
       <div class="inner_content">
         <div class="content">
-          <h2>Hey There</h2>
+          <h2>{{ trans('page.aboutus-header') }}</h2>
           <img src="{{ url('img/deadpool.png') }}" width="902" height="298">
 
-          <h3>Let's Talk About {{ Config::get('other.title') }}</h3>
-          <p>{{ Config::get('other.title') }} is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. {{ Config::get('other.title') }}'s strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure
-            codebase and a helpful and friendly Staff team.</p>
+          <h3>{{ trans('page.aboutus-welcome') }} {{ Config::get('other.title') }}</h3>
+          <p>{!! trans('page.aboutus-welcome-desc', ['title' => Config::get('other.title')]) !!}</p>
 
-          <h4><i class="fa fa-globe" aria-hidden="true"></i> The {{ Config::get('other.title') }} Advantage <i class="fa fa-globe" aria-hidden="true"></i></h4>
+          <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-advantage') }} {{ Config::get('other.title') }} <i class="fa fa-globe" aria-hidden="true"></i></h4>
           <div class="wrapper">
             <div>
               <div>1</div>
-              <p>We have experienced members and staff that are well versed in the world of HD video / audio and technical support.</p>
+              <p>{{ trans('page.aboutus-advantage1') }}</p>
             </div>
 
             <div>
               <div>2</div>
-              <p>Along with our extensive passion for movies and TV shows, we also offer one of the best selections of something that most don't - FANRES! <em>A BIG THANK YOU</em> to our content bringers.</p>
+              <p>{!! trans('page.aboutus-advantage2') !!}</p>
             </div>
 
             <div>
               <div>3</div>
-              <p>We don't accept donations to keep the site up and running. We feel that is our responsibility. That means no pestering PM's or banners on site. No begging from us.</p>
+              <p>{{ trans('page.aboutus-advantage3') }}</p>
             </div>
 
             <div>
               <div>4</div>
-              <p>Our community is second to none for its early age. Between our staff and userbase, we're always here to help. We're passionate about making sure your experience on {{ Config::get('other.title') }} is nothing short of amazing.</p>
+              <p>{{ trans('page.aboutus-advantage4', ['title' => Config::get('other.title')]) }}</p>
             </div>
 
             <div>
               <div>5</div>
-              <p>Our service is used daily by many people across the globe. We've proven that we care about the functionality and security of our codebase and it can be trusted and relied on. Our developers work daily to provide a truly nex-gen codebase.</p>
+              <p>{{ trans('page.aboutus-advantage5') }}</p>
             </div>
 
 
-            <h4><i class="fa fa-globe" aria-hidden="true"></i> What We Need From You <i class="fa fa-globe" aria-hidden="true"></i></h4>
+            <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-rules') }} <i class="fa fa-globe" aria-hidden="true"></i></h4>
             <div>
               <div>1</div>
-              <p>To be an active member of the community! This means to join in conversations productively, add approved content and help other users if you are able. </p>
+              <p>{{ trans('page.aboutus-rules1') }}</p>
             </div>
 
             <div>
               <div>2</div>
-              <p>To read the rules in full and please respect them!</p>
+              <p>{{ trans('page.aboutus-rules2') }}</p>
             </div>
 
             <div>
               <div>3</div>
-              <p>Make suggestions! We are striving to make {{ Config::get('other.title') }} better each day. We aren't saying that every suggestion will be used, but it never hurts to see new ideas.</p>
+              <p>{{ trans('page.aboutus-rules3', ['title' => Config::get('other.title')]) }}</p>
             </div>
           </div>
 
@@ -555,4 +554,4 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
     </div>
   </div>
 </div>
-@stop
+@endsection

@@ -2,11 +2,11 @@
 
 @section('title')
 	<title>Staff Dashboard - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 	<meta name="description" content="Moderation Dashboard">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -14,7 +14,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container box">
@@ -226,7 +226,7 @@
 
   </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <!--   Realtime Server Load  -->
@@ -353,4 +353,4 @@ var useOnComplete = false,
 		var demo = new CountUp("myTargetElement6", 0, {{ $pollCount }}, 0, 4, options);
 		 demo.start();
 </script>
-@stop
+@endsection

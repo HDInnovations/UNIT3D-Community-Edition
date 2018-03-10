@@ -1,56 +1,60 @@
 @extends('layout.default')
 
 @section('title')
-<title>Stats - {{ Config::get('other.title') }}</title>
-@stop
+<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
+@endsection
 
 @section('breadcrumb')
 <li class="active">
   <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Stats</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
   </a>
 </li>
 <li>
   <a href="{{ route('bountied') }}" itemprop="url" class="l-breadcrumb-item-link">
-    <span itemprop="title" class="l-breadcrumb-item-link-title">Top Bountied</span>
+    <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-bountied') }}</span>
   </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
 @include('partials.statsrequestmenu')
 
 <div class="block">
-  <h2>Top Bountied</h2>
+  <h2>{{ trans('stat.top-bountied') }}</h2>
   <hr>
   <div class="row">
     <div class="col-md-12">
-    <p class="text-success"><strong><i class="fa fa-trophy"></i> Top Bountied</strong> (Highest BON Bounties)</p>
+    <p class="text-success"><strong><i class="fa fa-trophy"></i> {{ trans('stat.top-bountied') }}</strong></p>
     <table class="table table-condensed table-striped table-bordered">
       <thead>
         <tr>
-          <th>Request</th>
-          <th>Bounty</th>
-          <th>Filled</th>
+          <th>#</th>
+          <th>{{ trans('request.request') }}</th>
+          <th>{{ trans('request.bounty') }}</th>
+          <th>{{ trans('request.filled') }}</th>
         </tr>
       </thead>
       <tbody>
-        @foreach($bountied as $b)
+        @foreach($bountied as $key => $b)
         <tr>
+          <td>
+              {{ ++$key }}
+          </td>
           <td>
             <a class="view-torrent" data-id="{{ $b->id }}" href="{{ route('request', array('id' => $b->id)) }}" data-toggle="tooltip" title="" data-original-title="{{ $b->name }}">{{ $b->name }}</a>
           </td>
           <td><span class="text-green">{{ $b->bounty }}</span></td>
           <td>
             @if($b->filled_hash == null)
-            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="Request Not Fulfilled">
+            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="{{ trans('stat.request-not-fulfilled') }}">
               <i class="fa fa-times-circle text-danger"></i></button>
             @elseif($b->filled_hash != null && $b->approved_by == null)
-            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="Request Pending Approval">
+            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="{{ trans('stat.request-pending-aproval') }}">
               <i class="fa fa-question-circle text-info"></i></button>
             @else
-            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="Request Fulfilled">
+            <button class="btn btn-xxs" data-toggle="tooltip" title="" data-original-title="{{ trans('stat.request-fulfilled') }}">
               <i class="fa fa-check-circle text-success"></i></button>
             @endif
           </td>
@@ -62,4 +66,4 @@
   </div>
 </div>
 </div>
-@stop
+@endsection

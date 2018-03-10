@@ -1,22 +1,26 @@
 @extends('vendor.installer.layouts.master')
 
-@section('title', trans('installer_messages.environment.title'))
+@section('template_title')
+    {{ trans('installer_messages.environment.menu.templateTitle') }}
+@endsection
+
+@section('title')
+    <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+    {!! trans('installer_messages.environment.menu.title') !!}
+@endsection
+
 @section('container')
-    @if (session('message'))
-        <p class="alert">{{ session('message') }}</p>
-    @endif
-    <form method="post" action="{{ route('LaravelInstaller::environmentSave') }}">
-        {!! csrf_field() !!}
-        <textarea class="textarea" name="envConfig">{{ $envConfig }}</textarea>
-        <div class="buttons buttons--right">
-             <button class="button button--light" type="submit">{{ trans('installer_messages.environment.save') }}</button>
-        </div>
-    </form>
-    @if( ! isset($environment['errors']))
-        <div class="buttons">
-            <a class="button" href="{{ route('LaravelInstaller::requirements') }}">
-                {{ trans('installer_messages.next') }}
-            </a>
-        </div>
-    @endif
-@stop
+
+    <p class="text-center">
+        {!! trans('installer_messages.environment.menu.desc') !!}
+    </p>
+    <div class="buttons">
+        <a href="{{ route('LaravelInstaller::environmentWizard') }}" class="button button-wizard">
+            <i class="fa fa-sliders fa-fw" aria-hidden="true"></i> {{ trans('installer_messages.environment.menu.wizard-button') }}
+        </a>
+        <a href="{{ route('LaravelInstaller::environmentClassic') }}" class="button button-classic">
+            <i class="fa fa-code fa-fw" aria-hidden="true"></i> {{ trans('installer_messages.environment.menu.classic-button') }}
+        </a>
+    </div>
+
+@endsection

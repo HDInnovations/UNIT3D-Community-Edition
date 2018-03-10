@@ -1,5 +1,4 @@
 <?php
-
 return [
     'all' => 'Tümü',
     'emergency' => 'Acil',
@@ -9,5 +8,5 @@ return [
     'warning' => 'Uyarı',
     'notice' => 'Bildirim',
     'info' => 'Bilgi',
-    'debug' => 'Hata ayıklama',
+    'debug' => 'Hata ayıklama'
 ];

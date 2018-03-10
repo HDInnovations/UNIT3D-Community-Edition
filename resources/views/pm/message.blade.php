@@ -2,7 +2,7 @@
 
 @section('stylesheets')
 <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li class="active">
@@ -10,7 +10,7 @@
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="container">
@@ -54,7 +54,7 @@
           </div>
           {{ Form::open(array('route' => array('delete-pm', 'pmid' => $pm->id))) }}
           <div class="col-sm-1">
-            <button type="submit" class="btn btn-sm btn-danger pull-right" title="Delete"><i class="fa fa-trash"></i></button>
+            <button type="submit" class="btn btn-sm btn-danger pull-right" title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i></button>
           </div>
           {{ Form::close() }}
         </div>
@@ -74,7 +74,7 @@
   </div>
 </div>
 </div>
-@stop
+@endsection
 
 @section('javascripts')
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
@@ -84,4 +84,4 @@ $(document).ready(function() {
     $("#message").wysibb(wbbOpt);
 });
 </script>
-@stop
+@endsection

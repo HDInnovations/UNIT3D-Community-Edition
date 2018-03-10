@@ -2,11 +2,11 @@
 
 @section('title')
 <title>Results - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
-@stop
+@endsection
 
 @section('meta')
 <meta name="description" content="Forum Search Results">
-@stop
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -16,27 +16,27 @@
 </li>
 <li>
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Search Results</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.search-results') }}</span>
     </a>
 </li>
-@stop
+@endsection
 
 @section('content')
 <div class="box container">
     <div class="f-display">
         <div class="f-display-info col-md-12">
-            <h1 class="f-display-info-title">Search Results</h1>
-            <p class="f-display-info-description">Please See Your Results Below</p>
+            <h1 class="f-display-info-title">{{ trans('common.search-results') }}</h1>
+            <p class="f-display-info-description">{{ trans('common.search-results-desc') }}</p>
         </div>
         <div class="f-display-table-wrapper col-md-12">
             <table class="f-display-topics table col-md-12">
                 <thead>
                     <tr>
-                        <th>Forum</th>
-                        <th>Topic</th>
-                        <th>Started by</th>
-                        <th>Stats</th>
-                        <th>Last Post Info</th>
+                        <th>{{ trans('forum.forum') }}</th>
+                        <th>{{ trans('forum.topic') }}</th>
+                        <th>{{ trans('forum.author') }}</th>
+                        <th>{{ trans('forum.stats') }}</th>
+                        <th>{{ trans('forum.last-post-info') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,20 +45,20 @@
                         <td class="f-display-topic-icon"><span class="badge-extra text-bold">{{ $r->forum->name }}</span></td>
                         <td class="f-display-topic-title">
                             <strong><a href="{{ route('forum_topic', array('slug' => $r->slug, 'id' => $r->id)) }}">{{ $r->name }}</a></strong>
-                            @if($r->state == "close") <span class='label label-sm label-default'>CLOSED</span> @endif
-                            @if($r->approved == "1") <span class='label label-sm label-success'>APPROVED</span> @endif
-                            @if($r->denied == "1") <span class='label label-sm label-danger'>DENIED</span> @endif
-                            @if($r->solved == "1") <span class='label label-sm label-info'>SOLVED</span> @endif
-                            @if($r->invalid == "1") <span class='label label-sm label-warning'>INVALID</span> @endif
-                            @if($r->bug == "1") <span class='label label-sm label-danger'>BUG</span> @endif
-                            @if($r->suggestion == "1") <span class='label label-sm label-primary'>SUGGESTION</span> @endif
+                            @if($r->state == "close") <span class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
+                            @if($r->approved == "1") <span class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
+                            @if($r->denied == "1") <span class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
+                            @if($r->solved == "1") <span class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
+                            @if($r->invalid == "1") <span class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                            @if($r->bug == "1") <span class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
+                            @if($r->suggestion == "1") <span class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a href="{{ route('profil', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a></td>
                         <td class="f-display-topic-stats">
                             {{ $r->num_post - 1 }} {{ trans('forum.replies') }} \ {{ $r->views }} {{ trans('forum.views') }}
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profil', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a> on <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
+                            <a href="{{ route('profil', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>, <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
                                 {{ date('M d Y', strtotime($r->updated_at)) }}
                              </time>
                         </td>
@@ -72,4 +72,4 @@
         </div>
     </div>
 </div>
-@stop
+@endsection

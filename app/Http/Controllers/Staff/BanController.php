@@ -6,20 +6,20 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\BanUser;
+use App\Mail\UnbanUser;
 use App\User;
 use App\Ban;
 use Carbon\Carbon;
@@ -46,7 +46,7 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = 5;
             $user->can_upload = 0;
@@ -70,10 +70,13 @@ class BanController extends Controller
             $ban->ban_reason = Request::get('ban_reason');
             $ban->save();
 
-        // Activity Log
+            // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
 
-            return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Alert', ['options']));
+            // Send Email
+            Mail::to($user->email)->send(new BanUser($user));
+
+            return redirect()->route('home')->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
         }
     }
 
@@ -90,7 +93,7 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->group->is_modo || Auth::user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff', 'Alert', ['options']));
+            return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = Request::get('group_id');
             $user->can_upload = 1;
@@ -114,10 +117,13 @@ class BanController extends Controller
             $ban->removed_at = Carbon::now();
             $ban->save();
 
-        // Activity Log
+            // Activity Log
             \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
 
-            return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Alert', ['options']));
+            // Send Email
+            Mail::to($user->email)->send(new UnbanUser($user));
+
+            return redirect()->route('home')->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
         }
     }
 }

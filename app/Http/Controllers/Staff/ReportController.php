@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\PrivateMessage;
@@ -66,6 +65,6 @@ class ReportController extends Controller
         PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $report->reporter_id, 'subject' => "Your Report Has A New Verdict", 'message' => $report->verdict]);
         // End insert recipient notification here
 
-        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Success!', ['options']));
+        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }

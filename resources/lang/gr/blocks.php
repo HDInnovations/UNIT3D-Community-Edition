@@ -1,30 +1,29 @@
 <?php
 /*
-|--------------------------------------------------------------------------
-| Blocks Language Lines
-|--------------------------------------------------------------------------
-*/
-
+ * |--------------------------------------------------------------------------
+ * | Blocks Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
     // Chat
-	'chatbox' => 'Chat Box',
-
+    'chatbox' => 'Chat Box',
+    
     // Featured Torrents
-	'featured-torrents' => 'Προτεινόμενα Torrent',
-
+    'featured-torrents' => 'Προτεινόμενα Torrent',
+    
     // Latest Torrents
-	'latest-torrents' => 'Τελευταία Torrent',
-
+    'latest-torrents' => 'Τελευταία Torrent',
+    
     // Latest Posts
-	'latest-posts' => 'Τελευταία Posts',
-
+    'latest-posts' => 'Τελευταία Posts',
+    
     // Latest Topics
-	'latest-topics' => 'Τελευταία Topics',
-
+    'latest-topics' => 'Τελευταία Topics',
+    
     // Users Online
-	'users-online' => 'Χρήστες ονλάιν',
-
+    'users-online' => 'Χρήστες ονλάιν',
+    
     // News/Articles
-	'new-news' => 'Καινούργια νέα',
-    'check-news' => 'Νέα(Τσεκάρετε καθημερινά!)',
+    'new-news' => 'Καινούργια νέα',
+    'check-news' => 'Νέα(Τσεκάρετε καθημερινά!)'
 ];

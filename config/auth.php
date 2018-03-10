@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * @license    https://choosealicense.com/licenses/gpl-3.0/  GNU General Public License v3.0
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
@@ -108,5 +108,33 @@ return [
             'expire' => 60,
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Authentication Enabled
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepEnabled' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Email Settings
+    |--------------------------------------------------------------------------
+    */
+
+    'verificationEmailFrom'     => env('MAIL_FROM_ADDRESS', env('MAIL_FROM_NAME')),
+    'verificationEmailFromName' => ' 2-Step Verification',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Verification Timings Settings
+    |--------------------------------------------------------------------------
+    */
+
+    'TwoStepExceededCount'             => 3,
+    'TwoStepExceededCountdownMinutes'  => 60 * 24,
+    'TwoStepVerifiedLifetimeMinutes'   => 6 * 60,
+    'TwoStepTimeResetBufferSeconds'    => 6 * 60,
 
 ];
