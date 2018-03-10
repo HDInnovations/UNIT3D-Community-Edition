@@ -56,16 +56,16 @@
                     <meta charset="utf-8">
                     <title>Postpone Torrent: {{ $p->name }}</title>
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $p->name }}</h4>
                     </div>
                     <div class="modal-body">
                         {{ Form::open(['route' => ['moderation_postpone'], 'method' => 'post']) }}
                         <div class="form-group">
-                            <input id="type" name="type" type="hidden" value="Torrent">
+                            <input id="type" name="type" type="hidden" value="{{ trans('torrent.torrent') }}">
                             <input id="id" name="id" type="hidden" value="{{ $p->id }}">
                             <input id="slug" name="slug" type="hidden" value="{{ $p-slug }}">
-                            <label for="postpone_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                            <label for="postpone_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                             <div class="col-sm-10">
                               <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                             </div>
@@ -78,7 +78,7 @@
                         {{ Form::close() }}
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
                     </div>
                 </div>
             </div>
@@ -93,13 +93,13 @@
               <meta charset="utf-8">
               <title>Reject Torrent: {{ $p->name }}</title>
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
                 <h4 class="modal-title" id="myModalLabel">Reject Torrent: {{ $p->name }}</h4>
               </div>
               <div class="modal-body">
                 <div class="form-group">
                 {{ Form::open(['route' => ['moderation_reject'] , 'method' => 'post']) }}
-                  <input id="type" type="hidden" name="type" value="Torrent">
+                  <input id="type" type="hidden" name="type" value="{{ trans('torrent.torrent') }}">
                   <input id="id" type="hidden" name="id" value="{{ $p->id }}">
                   <input id="slug" type="hidden" name="slug" value="{{ $p->slug }}">
                   <label for="file_name" class="col-sm-2 control-label">Torrent</label>
@@ -109,7 +109,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                  <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                   <div class="col-sm-10">
                     <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                   </div>
@@ -122,7 +122,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
               </div>
             </div>
           </div>
@@ -172,36 +172,36 @@
           <meta charset="utf-8">
           <title>Delete Torrent: {{ $post->name }}</title>
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $post->name }}</h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
             {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
-              <input id="type" type="hidden" name="type" value="Torrent">
+              <input id="type" type="hidden" name="type" value="{{ trans('torrent.torrent') }}">
               <input id="id" type="hidden" name="id" value="{{ $post->id }}">
               <input id="slug" type="hidden" name="slug" value="{{ $post->slug }}">
-              <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+              <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
               <div class="col-sm-10">
                 <label id="title" name="title" type="hidden" value="{{ $post->name }}">
                 <p class="form-control-static">{{ $post->name }}</p>
               </div>
             </div>
             <div class="form-group">
-              <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+              <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
               <div class="col-sm-10">
                 <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-10 col-sm-offset-2">
-                <input class="btn btn-danger" type="submit" value="Delete">
+                <input class="btn btn-danger" type="submit" value="{{ trans('common.delete') }}">
               </div>
             {{ Form::close() }}
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
           </div>
         </div>
       </div>
@@ -255,16 +255,16 @@
                         <meta charset="utf-8">
                         <title>Postpone Torrent: {{ $reject->name }}</title>
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
                             <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $reject->name }}</h4>
                         </div>
                         <div class="modal-body">
                             {{ Form::open(['route' => ['moderation_postpone'], 'method' => 'post']) }}
                             <div class="form-group">
-                                <input id="type" name="type" type="hidden" value="Torrent">
+                                <input id="type" name="type" type="hidden" value="{{ trans('torrent.torrent') }}">
                                 <input id="id" name="id" type="hidden" value="{{ $reject->id }}">
                                 <input id="slug" name="slug" type="hidden" value="{{ $reject-slug }}">
-                                <label for="postpone_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                                <label for="postpone_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                                 <div class="col-sm-10">
                                   <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                                 </div>
@@ -277,7 +277,7 @@
                             {{ Form::close() }}
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
                         </div>
                     </div>
                 </div>
@@ -292,36 +292,36 @@
                   <meta charset="utf-8">
                   <title>Delete Torrent: {{ $reject->name }}</title>
                   <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span></button>
                     <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $reject->name }}</h4>
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
                     {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
-                      <input id="type" type="hidden" name="type" value="Torrent">
+                      <input id="type" type="hidden" name="type" value="{{ trans('torrent.torrent') }}">
                       <input id="id" type="hidden" name="id" value="{{ $reject->id }}">
                       <input id="slug" type="hidden" name="slug" value="{{ $reject->slug }}">
-                      <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+                      <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
                       <div class="col-sm-10">
                         <label id="title" name="title" type="hidden" value="{{ $post->name }}">
                         <p class="form-control-static">{{ $reject->name }}</p>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                      <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                       <div class="col-sm-10">
                         <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-10 col-sm-offset-2">
-                        <input class="btn btn-danger" type="submit" value="Delete">
+                        <input class="btn btn-danger" type="submit" value="{{ trans('common.delete') }}">
                       </div>
                     {{ Form::close() }}
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">{{ trans('common.close') }}</button>
                   </div>
                 </div>
               </div>
