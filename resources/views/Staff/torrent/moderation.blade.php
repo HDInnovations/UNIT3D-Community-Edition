@@ -43,14 +43,14 @@
         <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $p->category->name }} Torrent"></i></td>
         <td>{{ $p->type }}</td>
         <td>{{ $p->getSize() }}</td>
-        <td>{{ $p->user->username }}</td>
+        <td><a href="{{ route('profil', ['username' => $p->user->username, 'id' => $p->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $p->user->username }} ({{ $p->user->group->name }})</span><a></td>
         <td><a href="{{ route('moderation_approve', ['slug' => $p->slug, 'id' => $p->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
-        <td><a data-target="#postpone-{{ $p->id }}" role="button" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</a></td>
-        <td><a data-target="#reject-{{ $p->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Reject</a></td>
+        <td><div data-target="#pendpostpone-{{ $p->id }}" role="button" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</div></td>
+        <td><div data-target="#pendreject-{{ $p->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Reject</div></td>
         </tr>
         <!-- Torrent Postpone Modal-->
         {{-- Torrent Postpone Modal --}}
-        <div class="modal fade" id="postpone-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="pendpostpone-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <meta charset="utf-8">
@@ -87,7 +87,7 @@
 
         <!-- Torrent Reject Modal -->
         {{-- Torrent Reject Modal --}}
-        <div class="modal fade" id="reject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="pendreject-{{ $p->id }}" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <meta charset="utf-8">
@@ -145,13 +145,69 @@
     <th>Type</th>
     <th>Size</th>
     <th>Uploader</th>
+    <th>Staff</th>
     <th>Approve</th>
     <th>Edit</th>
-    <th>Reject</th>
     <th>Delete</th>
 </thead>
 <tbody>
-
+@foreach($postponed as post)
+    <tr>
+        <td><span class="text-red text-bold">{{ $post->moderated_at->diffForHumans() }}</span></td>
+        <td><a href="{{ route('torrent', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->name }}</span></a></td>
+        <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $post->category->name }} Torrent"></i></td>
+        <td>{{ $post->type }}</td>
+        <td>{{ $post->getSize() }}</td>
+        <td><a href="{{ route('profil', ['username' => $post->user->username, 'id' => $post->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->user->username }} ({{ $post->user->group->name }})</span><a></td>
+        <td><a href="{{ route('profil', ['username' => $post->moderated_by->username, 'id' => $post->moderated_by->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->moderated_by->username }} ({{ $post->moderated_by->group->name }})</span><a></td>
+        <td><a href="{{ route('moderation_approve', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
+        <td><a href="{{ route('edit', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
+        <td><div data-target="#postdelete-{{ $post->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Delete</div></td>
+    </tr>
+    <!-- Torrent Delete Modal -->
+    {{-- Torrent Delete Modal --}}
+    <div class="modal fade" id="postdelete-{{ $post->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <meta charset="utf-8">
+          <title>Delete Torrent: {{ $post->name }}</title>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $post->name }}</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+            {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+              <input id="type" type="hidden" name="type" value="Torrent">
+              <input id="id" type="hidden" name="id" value="{{ $post->id }}">
+              <input id="slug" type="hidden" name="slug" value="{{ $post->slug }}">
+              <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+              <div class="col-sm-10">
+                <label id="title" name="title" type="hidden" value="{{ $post->name }}">
+                <p class="form-control-static">{{ $post->name }}</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-2">
+                <input class="btn btn-danger" type="submit" value="Delete">
+              </div>
+            {{ Form::close() }}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Torrent Delete Modal -->
+@endforeach
 </tbody>
 </table>
 </div>
@@ -169,7 +225,9 @@
               <th>Type</th>
               <th>Size</th>
               <th>Uploader</th>
+              <th>Staff</th>
               <th>Approve</th>
+              <th>Postpone</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -182,11 +240,93 @@
                 <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip" title="" data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                 <td>{{ $reject->type }}</td>
                 <td>{{ $reject->getSize() }}</td>
-                <td>{{ $reject->user ? $reject->user->username : "System" }}</td>
+                <td>@if($reject->user) <a href="{{ route('profil', ['username' => $reject->user->username, 'id' => $reject->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->user->username }} ({{ $reject->user->group->name }})</span><a> @else System @endif </td>
+                <td><a href="{{ route('profil', ['username' => $reject->moderated_by->username, 'id' => $reject->moderated_by->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->moderated_by->username }} ({{ $reject->moderated_by->group->name }})</span><a></td>
                 <td><a href="{{ route('moderation_approve', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
-                <td><a href="{{ route('edit', array('slug' => $reject->slug, 'id' => $reject->id)) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
-                <td><a href="{{ action('TorrentController@deleteTorrent', array('id' => $reject->id)) }}" role='button' class='btn btn-labeled btn-danger'><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Delete</a></td>
+                <td><div data-target="#rejectpost-{{ $reject->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</div></td>
+                <td><a href="{{ route('edit', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
+                <td><div data-target="#rejectdelete-{{ $reject->id }}" role='button' class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Delete</div></td>
             </tr>
+            <!-- Torrent Postpone Modal-->
+            {{-- Torrent Postpone Modal --}}
+            <div class="modal fade" id="rejectpost-{{ $reject->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <meta charset="utf-8">
+                        <title>Postpone Torrent: {{ $reject->name }}</title>
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $reject->name }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{ Form::open(['route' => ['moderation_postpone'], 'method' => 'post']) }}
+                            <div class="form-group">
+                                <input id="type" name="type" type="hidden" value="Torrent">
+                                <input id="id" name="id" type="hidden" value="{{ $reject->id }}">
+                                <input id="slug" name="slug" type="hidden" value="{{ $reject-slug }}">
+                                <label for="postpone_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                                <div class="col-sm-10">
+                                  <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                  <input class="btn btn-danger" type="submit" value="Postpone">
+                                </div>
+                            </div>
+                            {{ Form::close() }}
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Torrent Postpone Modal -->
+
+            <!-- Torrent Delete Modal -->
+            {{-- Torrent Delete Modal --}}
+            <div class="modal fade" id="rejectdelete-{{ $reject->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <meta charset="utf-8">
+                  <title>Delete Torrent: {{ $reject->name }}</title>
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $reject->name }}</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                    {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+                      <input id="type" type="hidden" name="type" value="Torrent">
+                      <input id="id" type="hidden" name="id" value="{{ $reject->id }}">
+                      <input id="slug" type="hidden" name="slug" value="{{ $reject->slug }}">
+                      <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+                      <div class="col-sm-10">
+                        <label id="title" name="title" type="hidden" value="{{ $post->name }}">
+                        <p class="form-control-static">{{ $reject->name }}</p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="report_reason" class="col-sm-2 control-label">Reason (Sent To Uploader Via PM)</label>
+                      <div class="col-sm-10">
+                        <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-10 col-sm-offset-2">
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                      </div>
+                    {{ Form::close() }}
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Torrent Delete Modal -->
             @endforeach
         </tbody>
     </table>
