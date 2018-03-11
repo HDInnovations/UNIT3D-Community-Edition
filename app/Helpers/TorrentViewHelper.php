@@ -12,12 +12,12 @@
 
 namespace App\Helpers;
 
-use \App\Services\MovieScrapper;
-use \App\PersonalFreeleech;
-use \App\FreeleechToken;
-use \App\Group;
-use \App\User;
-use \App\History;
+use App\Services\MovieScrapper;
+use App\PersonalFreeleech;
+use App\FreeleechToken;
+use App\Group;
+use App\User;
+use App\History;
 
 use Illuminate\Support\Facades\Auth;
 
