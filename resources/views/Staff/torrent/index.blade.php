@@ -38,8 +38,7 @@
         </td>
         <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></td>
         <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}" class="btn btn-warning">Edit</a>
-          <div data-target="#staffdelete-{{ $t->id }}" class="btn btn-danger">Delete</div>
-        </td>
+          <button data-target="#staffdelete-{{ $t->id }}" data-toggle="modal" class="btn btn-danger">Delete</button>
         <!-- Torrent Delete Modal -->
         {{-- Torrent Delete Modal --}}
         <div class="modal fade" id="staffdelete-{{ $t->id }}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -83,6 +82,7 @@
           </div>
         </div>
         <!-- Torrent Delete Modal -->
+        </td>
       </tr>
       @endforeach
     </tbody>

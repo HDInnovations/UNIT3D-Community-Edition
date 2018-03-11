@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use App\Bookmark;
 use App\Category;
 use App\Client;
+use App\Comment;
 use App\History;
 use App\Shoutbox;
 use App\Torrent;
@@ -23,12 +24,15 @@ use App\Type;
 use App\Peer;
 use App\Page;
 use App\PrivateMessage;
+use App\Requests;
+use App\RequestsBounty;
 use App\Warning;
 use App\User;
 use App\BonTransactions;
 use App\FeaturedTorrent;
 use App\PersonalFreeleech;
 use App\FreeleechToken;
+
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -52,9 +56,8 @@ use Carbon\Carbon;
 use Cache;
 use Decoda\Decoda;
 use \Toastr;
-use Illuminate\Http\Request as IlluminateRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +76,13 @@ class TorrentController extends Controller
      */
     private $repository;
 
+    /**
+    * Constructs a object of type TorrentController
+    *
+    * @param $repository
+    *
+    * @return View
+    */
     public function __construct(FacetedRepository $repository)
     {
         $this->repository = $repository;
@@ -83,21 +93,27 @@ class TorrentController extends Controller
      * Poster Torrent Search
      *
      * @access public
+     *
+     * @param $request Request from view
+     *
      * @return View torrent.poster
      *
      */
-    public function posterSearch()
+    public function posterSearch(Request $request)
     {
         $user = Auth::user();
-        $order = explode(":", Request::get('order'));
-        $search = Request::get('search');
+        $order = explode(":", $request->order);
+        $search = $request->search;
+        $name = $request->name;
+        $category_id = $request->category_id;
+        $type = $request->type;
         $torrents = Torrent::where([
-            ['name', 'like', '%' . Request::get('name') . '%'],
-            ['category_id', '=', Request::get('category_id')],
-            ['type', '=', Request::get('type')],
+            ['name', 'like', '%' . $name . '%'],
+            ['category_id', '=', $category_id],
+            ['type', '=', $type],
         ])->orderBy($order[0], $order[1])->paginate(25);
 
-        $torrents->setPath('?name=' . Request::get('name') . '&category_id=' . Request::get('category_id') . '&type=' . Request::get('type') . '&order=' . $order[0] . '%3A' . $order[1]);
+        $torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
 
         return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all(), 'types' => Type::all()]);
     }
@@ -106,6 +122,10 @@ class TorrentController extends Controller
      * Bump A Torrent
      *
      * @access public
+     *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
      * @return View torrent.torrent
      *
      */
@@ -128,7 +148,10 @@ class TorrentController extends Controller
     /**
      * Bookmark a particular torrent
      *
-     * @param  Torrent $torrent
+     * @access public
+     *
+     * @param $id Id of torrent
+     *
      * @return Response
      */
     public function bookmark($id)
@@ -146,9 +169,11 @@ class TorrentController extends Controller
      * Sticky Torrent
      *
      * @access public
-     * @param $slug Slug
-     * @param $id Id
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to a view
      */
     public function sticky($slug, $id)
     {
@@ -194,17 +219,18 @@ class TorrentController extends Controller
      * Upload A Torrent
      *
      * @access public
-     * @return View torrent.upload
+     * @param $request Request from view
      *
+     * @return View torrent.upload
      */
-    public function upload()
+    public function upload(Request $request)
     {
         // Current user is the logged in user
         $user = Auth::user();
         $parsedContent = null;
         // Preview The Post
-        if (Request::getMethod() == 'POST' && Request::get('preview') == true) {
-            $code = new Decoda(Request::get('description'));
+        if ($request->isMethod('post') && $request->preview == true) {
+            $code = new Decoda($request->description);
             $code->defaults();
             $code->removeHook('Censor');
             $code->setXhtml(false);
@@ -213,17 +239,18 @@ class TorrentController extends Controller
             $parsedContent = $code->parse();
         }
         // Post and Upload
-        if (Request::getMethod() == 'POST' && Request::get('post') == true) {
+        if ($request->isMethod('post') && $request->post == true) {
+            $Reqfile = $request->file('torrent');
             // No torrent file uploaded OR an Error has occurred
-            if (Request::hasFile('torrent') == false) {
+            if ($request->hasFile('torrent') == false) {
                 Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
                 return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
-            } elseif (Request::file('torrent')->getError() != 0 && Request::file('torrent')->getClientOriginalExtension() != 'torrent') {
+            } elseif ($Reqfile->getError() != 0 && $Reqfile->getClientOriginalExtension() != 'torrent') {
                 Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
                 return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             }
             // Deplace and decode the torrent temporarily
-            TorrentTools::moveAndDecode(Request::file('torrent'));
+            TorrentTools::moveAndDecode($Reqfile);
             // Array decoded from torrent
             $decodedTorrent = TorrentTools::$decodedTorrent;
             // Tmp filename
@@ -231,31 +258,31 @@ class TorrentController extends Controller
             // Torrent Info
             $info = Bencode::bdecode_getinfo(getcwd() . '/files/torrents/' . $fileName, true);
             // Find the right category
-            $category = Category::findOrFail(Request::get('category_id'));
+            $category = Category::findOrFail($request->category_id);
             // Create the torrent (DB)
-            $name = Request::get('name');
-            $mediainfo = self::anonymizeMediainfo(Request::get('mediainfo'));
+            $name = $request->name;
+            $mediainfo = self::anonymizeMediainfo($request->mediainfo);
             $torrent = new Torrent([
                 'name' => $name,
                 'slug' => str_slug($name),
-                'description' => Request::get('description'),
+                'description' => $request->description,
                 'mediainfo' => $mediainfo,
                 'info_hash' => $info['info_hash'],
                 'file_name' => $fileName,
                 'num_file' => $info['info']['filecount'],
                 'announce' => $decodedTorrent['announce'],
                 'size' => $info['info']['size'],
-                'nfo' => (Request::hasFile('nfo')) ? TorrentTools::getNfo(Request::file('nfo')) : '',
+                'nfo' => ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '',
                 'category_id' => $category->id,
                 'user_id' => $user->id,
-                'imdb' => Request::get('imdb'),
-                'tvdb' => Request::get('tvdb'),
-                'tmdb' => Request::get('tmdb'),
-                'mal' => Request::get('mal'),
-                'type' => Request::get('type'),
-                'anon' => Request::get('anonymous'),
-                'stream' => Request::get('stream'),
-                'sd' => Request::get('sd')
+                'imdb' => $request->imdb,
+                'tvdb' => $request->tvdb,
+                'tmdb' => $request->tmdb,
+                'mal' => $request->mal,
+                'type' => $request->type,
+                'anon' => $request->anonymous,
+                'stream' => $request->stream,
+                'sd' => $request->sd
             ]);
             // Validation
             $v = Validator::make($torrent->toArray(), $torrent->rules);
@@ -347,6 +374,7 @@ class TorrentController extends Controller
      * Displays the torrent list
      *
      * @access public
+     *
      * @return page.torrents
      */
     public function torrents()
@@ -359,7 +387,17 @@ class TorrentController extends Controller
         return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead'));
     }
 
-    public function faceted(IlluminateRequest $request, Torrent $torrent)
+    /**
+    * uses input to put together a search
+    *
+    * @access public
+    *
+    * @param $request Request from view
+    * @param $torrent Torrent a search is based on
+    *
+    * @return array
+    */
+    public function faceted(Request $request, Torrent $torrent)
     {
         $user = Auth::user();
         $search = $request->get('search');
@@ -491,9 +529,11 @@ class TorrentController extends Controller
      * Display The Torrent
      *
      * @access public
-     * @param $slug
-     * @param $id
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return View of Torrent details
      */
     public function torrent($slug, $id)
     {
@@ -564,10 +604,14 @@ class TorrentController extends Controller
     }
 
     /**
-     * Peers
+     * Shows all peers relating to a specific torrentThank
      *
      * @access public
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return View of Torrent peers
      */
     public function peers($slug, $id)
     {
@@ -577,10 +621,14 @@ class TorrentController extends Controller
     }
 
     /**
-     * History
+     * Shows all history relating to a specific torrent
      *
      * @access public
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return View of Torrent history
      */
     public function history($slug, $id)
     {
@@ -594,9 +642,11 @@ class TorrentController extends Controller
      * Grant Torrent FL
      *
      * @access public
-     * @param $slug Slug
-     * @param $id Id
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to details page of modified torrent
      */
     public function grantFL($slug, $id)
     {
@@ -627,9 +677,11 @@ class TorrentController extends Controller
      * Grant Torrent Featured
      *
      * @access public
-     * @param $slug Slug
-     * @param $id Id
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to details page of modified torrent
      */
     public function grantFeatured($slug, $id)
     {
@@ -666,9 +718,11 @@ class TorrentController extends Controller
      * Grant Double Upload
      *
      * @access public
-     * @param $slug Slug
-     * @param $id Id
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to details page of modified torrent
      */
     public function grantDoubleUp($slug, $id)
     {
@@ -700,6 +754,10 @@ class TorrentController extends Controller
      *
      * @access public
      *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to download check page
      */
     public function downloadCheck($slug, $id)
     {
@@ -715,8 +773,10 @@ class TorrentController extends Controller
      * Download torrent
      *
      * @access public
-     * @param string $slug
-     * @param int $id
+     *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
      * @return file
      */
     public function download($slug, $id)
@@ -774,7 +834,11 @@ class TorrentController extends Controller
      * Reseed Request
      *
      * @access public
-     * @param $id Id torrent
+     *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to details page of modified torrent
      */
     public function reseedTorrent($slug, $id)
     {
@@ -805,8 +869,8 @@ class TorrentController extends Controller
     /**
      * Poster View
      *
-     *
      * @access public
+     *
      * @return view::make poster.poster
      */
     public function poster()
@@ -817,30 +881,33 @@ class TorrentController extends Controller
     }
 
     /**
-     * Edite un torrent
+     * Edit a torrent
      *
      * @access public
-     * @param $slug Slug du torrent
-     * @param $id Id du torrent
+     *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     * @param $request Request from view
+     *
+     * @return View
      */
-    public function edit($slug, $id)
+    public function edit($slug, $id, Request $request)
     {
         $user = Auth::user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-
         if ($user->group->is_modo || $user->id == $torrent->user_id) {
-            if (Request::isMethod('post')) {
-                $name = Request::get('name');
-                $imdb = Request::get('imdb');
-                $tvdb = Request::get('tvdb');
-                $tmdb = Request::get('tmdb');
-                $mal = Request::get('mal');
-                $category = Request::get('category_id');
-                $type = Request::get('type');
-                $anon = Request::get('anonymous');
-                $stream = Request::get('stream');
-                $sd = Request::get('sd');
+            if ($request->isMethod('post')) {
+                $name = $request->get('name');
+                $imdb = $request->get('imdb');
+                $tvdb = $request->get('tvdb');
+                $tmdb = $request->get('tmdb');
+                $mal = $request->get('mal');
+                $category = $request->get('category_id');
+                $type = $request->get('type');
+                $anon = $request->get('anonymous');
+                $stream = $request->get('stream');
+                $sd = $request->get('sd');
 
                 $torrent->name = $name;
                 $torrent->imdb = $imdb;
@@ -849,8 +916,8 @@ class TorrentController extends Controller
                 $torrent->mal = $mal;
                 $torrent->category_id = $category;
                 $torrent->type = $type;
-                $torrent->description = Request::get('description');
-                $torrent->mediainfo = Request::get('mediainfo');
+                $torrent->description = $request->get('description');
+                $torrent->mediainfo = $request->get('mediainfo');
                 $torrent->anon = $anon;
                 $torrent->stream = $stream;
                 $torrent->sd = $sd;
@@ -872,14 +939,17 @@ class TorrentController extends Controller
      * Delete torrent
      *
      * @access public
-     * @param $request Request containing torrent's id, slug and removal message
+     *
+     * @param $request Request from view
+     *
+     * @return View Torrent list page
      */
     public function deleteTorrent(Request $request)
     {
         $v = Validator::make($request->all(), [
             'id' => "required|exists:torrents",
             'slug' => "required|exists:torrents",
-            'message' => "required|alpha_num"
+            'message' => "required|alpha_dash|min:0"
         ]);
 
         if ($v) {
@@ -903,6 +973,16 @@ class TorrentController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
 
+                //Remove requests
+                $reqs = Requests::where('filled_hash', '=', $torrent->info_hash)->get();
+                foreach ($reqs as $req) {
+                    if ($req) {
+                        Comment::where('requests_id', '=', $req->id)->delete();
+                        RequestsBounty::where('requests_id', '=', $req->id)->delete();
+                        $req->delete();
+                    }
+                }
+                //Remove Torrent related info
                 Peer::where('torrent_id', '=', $id)->delete();
                 History::where('info_hash', '=', $torrent->info_hash)->delete();
                 Warning::where('id', '=', $id)->delete();
@@ -928,7 +1008,11 @@ class TorrentController extends Controller
      * Use Freeleech Token
      *
      * @access public
-     * @param $id Id torrent
+     *
+     * @param $slug Slug of torrent
+     * @param $id Id of torrent
+     *
+     * @return Redirect to details page of modified torrent
      */
     public function freeleechToken($slug, $id)
     {
