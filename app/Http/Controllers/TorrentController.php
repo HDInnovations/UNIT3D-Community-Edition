@@ -135,10 +135,10 @@ class TorrentController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         if (Auth::user()->hasBookmarked($torrent->id)) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Torrent has already been bookmarked.', 'Whoops!', ['options']));
+            return redirect()->back()->with(Toastr::error('Torrent has already been bookmarked.', 'Whoops!', ['options']));
         } else {
             Auth::user()->bookmarks()->attach($torrent->id);
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bookmarked Successfully!', 'Yay!', ['options']));
+            return redirect()->back()->with(Toastr::success('Torrent Has Been Bookmarked Successfully!', 'Yay!', ['options']));
         }
     }
 
