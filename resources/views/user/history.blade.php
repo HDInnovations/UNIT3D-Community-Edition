@@ -14,19 +14,17 @@
 
 @section('content')
 <div class="container-fluid">
+    <span class="badge-user" style="float: right;"><strong>Total Download:</strong>
+        <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl,2) }}</span>
+        <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="Credited Download">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre,2) }}</span>
+    </span>
+    <span class="badge-user" style="float: right;"><strong>Total Upload:</strong>
+        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl,2) }}</span>
+        <span class="badge-extra text-blue" data-toggle="tooltip" title="" data-original-title="Credited Upload">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre,2) }}</span>
+    </span>
   <h1 class="title">My History Table</h1>
     <div class="block">
       <!-- History -->
-      <span class="badge-user" style="float: right;"><strong>Total Download:</strong>
-          <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl,2) }}</span>
-          <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="Credited Download">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre,2) }}</span>
-     </span>
-      <span class="badge-user" style="float: right;"><strong>Total Upload:</strong>
-        <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl,2) }}</span>
-        <span class="badge-extra text-blue" data-toggle="tooltip" title="" data-original-title="Credited Upload">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre,2) }}</span>
-      </span>
-      <br>
-      <br>
       <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
         <div class="head"><strong>Torrents History</strong></div>
