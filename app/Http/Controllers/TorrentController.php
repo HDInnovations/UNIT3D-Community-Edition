@@ -39,7 +39,6 @@ use App\Repositories\FacetedRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Services\FanArt;
-use App\Bots\IRCAnnounceBot;
 use Carbon\Carbon;
 use Cache;
 use Decoda\Decoda;
