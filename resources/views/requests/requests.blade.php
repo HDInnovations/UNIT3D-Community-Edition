@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-<div class="container">
   @if($user->can_request == 0)
   <div class="container">
     <div class="jumbotron shadowed">
@@ -27,11 +26,11 @@
   </div>
   </div>
   @else
-  <div class="well">
-    <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
-  </div>
   <!-- Search -->
-  <div class="block">
+  <div class="container box">
+      <div class="well">
+        <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
+      </div>
     <center>
       <h3 class="filter-title">Current Filters</h3>
       <span id="filter-item-category"></span>
@@ -81,6 +80,36 @@
         @endforeach
       </div>
     </div>
+    <div class="form-group">
+      <label for="type" class="col-sm-1 label label-default">Extra</label>
+      <div class="col-sm-10">
+        <span class="badge-user">
+        <label class="inline">
+            {{ Form::checkbox('myrequests',$user->id,false,['id'=>'myrequests']) }}   <span class="fa fa-user text-blue"></span> My Requests
+        </label>
+        </span>
+        <span class="badge-user">
+        <label class="inline">
+            {{ Form::checkbox('unfilled','1',false,['id'=>'unfilled']) }}   <span class="fa fa-times-circle text-blue"></span> Unfilled
+        </label>
+        </span>
+        <span class="badge-user">
+        <label class="inline">
+            {{ Form::checkbox('claimed','1',false,['id'=>'claimed']) }}   <span class="fa fa-suitcase text-blue"></span> Claimed
+        </label>
+        </span>
+        <span class="badge-user">
+        <label class="inline">
+            {{ Form::checkbox('pending','1',false,['id'=>'pending']) }}   <span class="fa fa-question-circle text-blue"></span> Pending
+        </label>
+        </span>
+        <span class="badge-user">
+        <label class="inline">
+            {{ Form::checkbox('filled','1',false,['id'=>'filled']) }}   <span class="fa fa-check-circle text-blue"></span> Filled
+        </label>
+        </span>
+      </div>
+    </div>
   {{ Form::close() }}
   <br>
   <br>
@@ -98,10 +127,11 @@
         {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
       </div>
     </div>
-  </div>
-  <!-- /Search -->
 </div>
+</div>
+  <!-- /Search -->
 
+<div class="container-fluid">
 <div class="block">
   <div class="header gradient light_blue">
     <div class="inner_content">
@@ -148,9 +178,8 @@
     <!-- /Pagination -->
   </div>
 </div>
+</div>
 @endif
-</div>
-</div>
 @endsection
 
 @section('javascripts')
@@ -170,6 +199,31 @@
             var qty = $("#qty").val();
             var categoryName = [];
             var typeName = [];
+            var myrequests = (function() {
+            if($("#myrequests").is(":checked")) {
+              return $("#myrequests").val();
+            }
+            })();
+            var unfilled = (function() {
+            if($("#unfilled").is(":checked")) {
+              return $("#unfilled").val();
+            }
+            })();
+            var claimed = (function() {
+            if($("#claimed").is(":checked")) {
+              return $("#claimed").val();
+            }
+            })();
+            var pending = (function() {
+            if($("#pending").is(":checked")) {
+              return $("#pending").val();
+            }
+            })();
+            var filled = (function() {
+            if($("#filled").is(":checked")) {
+              return $("#filled").val();
+            }
+            })();
             $(".category:checked").each(function(){
                 categories.push($(this).val());
                 categoryName.push(this.name);
@@ -194,7 +248,7 @@
 
             xhr = $.ajax({
                 url: 'filterRequests',
-                data: {_token:csrf,search:search,imdb:imdb,tvdb:tvdb,tmdb:tmdb,mal:mal,categories:categories,types:types,sorting:sorting,direction:direction,page:page,qty:qty},
+                data: {_token:csrf,search:search,imdb:imdb,tvdb:tvdb,tmdb:tmdb,mal:mal,categories:categories,types:types,myrequests:myrequests,unfilled:unfilled,claimed:claimed,pending:pending,filled:filled,sorting:sorting,direction:direction,page:page,qty:qty},
                 type: 'get',
                 beforeSend:function(){
                     $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
@@ -235,6 +289,11 @@
     </script>
     <script>
         $(".category,.type").on("click",function(){
+            faceted();
+        });
+    </script>
+    <script>
+        $("#myrequests,#unfilled,#claimed,#pending,#filled").on("click",function(){
             faceted();
         });
     </script>

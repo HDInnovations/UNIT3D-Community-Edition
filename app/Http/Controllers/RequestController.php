@@ -84,6 +84,11 @@ class RequestController extends Controller
         $mal = $request->get('mal');
         $categories = $request->get('categories');
         $types = $request->get('types');
+        $myrequests = $request->get('myrequests');
+        $unfilled = $request->get('unfilled');
+        $claimed = $request->get('claimed');
+        $pending = $request->get('pending');
+        $filled = $request->get('filled');
 
         $terms = explode(' ', $search);
         $search = '';
@@ -119,6 +124,26 @@ class RequestController extends Controller
 
         if ($request->has('types') && $request->get('types') != null) {
             $requests->whereIn('type', $types);
+        }
+
+        if ($request->has('myrequests') && $request->get('myrequests') != null) {
+            $requests->where('user_id', $myrequests);
+        }
+
+        if ($request->has('unfilled') && $request->get('unfilled') != null) {
+            $requests->where('filled_hash', null);
+        }
+
+        if ($request->has('claimed') && $request->get('claimed') != null) {
+            $requests->where('claimed', '!=', null)->where('filled_hash', null);
+        }
+
+        if ($request->has('pending') && $request->get('pending') != null) {
+            $requests->where('filled_hash', '!=', null)->where('approved_by', null);
+        }
+
+        if ($request->has('filled') && $request->get('filled') != null) {
+            $requests->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
         }
 
         // pagination query starts
