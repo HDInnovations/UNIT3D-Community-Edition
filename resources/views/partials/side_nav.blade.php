@@ -46,7 +46,7 @@
     <li>
       <a href="{{ route('bookmarks') }}">
         <i class="livicon" data-name="bookmark" data-c="silver" data-hc="silver" data-size="18" data-loop="true"></i>
-        <span class="menu-text">{{ trans('torrent.bookmark') }}</span>
+        <span class="menu-text">{{ trans('torrent.bookmarks') }}</span>
         <span class="selected"></span>
       </a>
     </li>
