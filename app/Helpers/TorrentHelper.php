@@ -21,7 +21,7 @@ use \App\History;
 
 use Illuminate\Support\Facades\Auth;
 
-class TorrentViewHelper
+class TorrentHelper
 {
     public static function view($results)
     {
@@ -40,15 +40,15 @@ class TorrentViewHelper
             $client = new MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             if ($list->category_id == 2) {
                 if ($list->tmdb || $list->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $list->tmdb);
+                    $movie = $client->scrape('tv', null, $list->tmdb);
                 } else {
-                $movie = $client->scrape('tv', 'tt'. $list->imdb);
+                    $movie = $client->scrape('tv', 'tt'. $list->imdb);
                 }
             } else {
                 if ($list->tmdb || $list->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $list->tmdb);
+                    $movie = $client->scrape('movie', null, $list->tmdb);
                 } else {
-                $movie = $client->scrape('movie', 'tt'. $list->imdb);
+                    $movie = $client->scrape('movie', 'tt'. $list->imdb);
                 }
             }
 
@@ -81,24 +81,24 @@ class TorrentViewHelper
             }
 
             if ($list->category->meta == 1) {
-            if ($user->ratings == 1) {
-                $link = "https://anon.to?http://www.imdb.com/title/tt" . $list->imdb;
-                $rating = $movie->imdbRating;
-                $votes = $movie->imdbVotes;
-            } else {
-                $rating = $movie->tmdbRating;
-                $votes = $movie->tmdbVotes;
-                if ($list->category_id == '2') {
-                    $link = "https://www.themoviedb.org/tv/" . $movie->tmdb;
+                if ($user->ratings == 1) {
+                    $link = "https://anon.to?http://www.imdb.com/title/tt" . $list->imdb;
+                    $rating = $movie->imdbRating;
+                    $votes = $movie->imdbVotes;
                 } else {
-                    $link = "https://www.themoviedb.org/movie/" . $movie->tmdb;
+                    $rating = $movie->tmdbRating;
+                    $votes = $movie->tmdbVotes;
+                    if ($list->category_id == '2') {
+                        $link = "https://www.themoviedb.org/tv/" . $movie->tmdb;
+                    } else {
+                        $link = "https://www.themoviedb.org/movie/" . $movie->tmdb;
+                    }
                 }
+            } else {
+                $link = "#";
+                $rating = "0";
+                $votes = "0";
             }
-        } else {
-            $link = "#";
-            $rating = "0";
-            $votes = "0";
-        }
 
             $thank_count = $list->thanks()->count();
 
