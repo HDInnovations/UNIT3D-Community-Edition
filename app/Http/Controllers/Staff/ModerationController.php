@@ -18,10 +18,13 @@ use App\Torrent;
 use App\Requests;
 use App\Category;
 use App\Peer;
+
+use App\Helpers\TorrentHelper;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
 use Carbon\Carbon;
@@ -52,7 +55,7 @@ class ModerationController extends Controller
      */
     public function approve($slug, $id)
     {
-        Torrent::approve($id);
+        TorrentHelper::approveHelper($slug, $id);
 
         return redirect()->route('moderation')->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
     }

@@ -33,19 +33,7 @@ use App\FeaturedTorrent;
 use App\PersonalFreeleech;
 use App\FreeleechToken;
 
-use App\Achievements\UserMadeUpload;
-use App\Achievements\UserMade25Uploads;
-use App\Achievements\UserMade50Uploads;
-use App\Achievements\UserMade100Uploads;
-use App\Achievements\UserMade200Uploads;
-use App\Achievements\UserMade300Uploads;
-use App\Achievements\UserMade400Uploads;
-use App\Achievements\UserMade500Uploads;
-use App\Achievements\UserMade600Uploads;
-use App\Achievements\UserMade700Uploads;
-use App\Achievements\UserMade800Uploads;
-use App\Achievements\UserMade900Uploads;
-use App\Helpers\TorrentViewHelper;
+use App\Helpers\TorrentHelper;
 use App\Helpers\MediaInfo;
 use App\Repositories\FacetedRepository;
 use App\Services\Bencode;
@@ -294,24 +282,6 @@ class TorrentController extends Controller
             } else {
                 // Save The Torrent
                 $torrent->save();
-                // Auto Shout and Achievements
-                $user->unlock(new UserMadeUpload(), 1);
-                $user->addProgress(new UserMade25Uploads(), 1);
-                $user->addProgress(new UserMade50Uploads(), 1);
-                $user->addProgress(new UserMade100Uploads(), 1);
-                $user->addProgress(new UserMade200Uploads(), 1);
-                $user->addProgress(new UserMade300Uploads(), 1);
-                $user->addProgress(new UserMade400Uploads(), 1);
-                $user->addProgress(new UserMade500Uploads(), 1);
-                $user->addProgress(new UserMade600Uploads(), 1);
-                $user->addProgress(new UserMade700Uploads(), 1);
-                $user->addProgress(new UserMade800Uploads(), 1);
-                $user->addProgress(new UserMade900Uploads(), 1);
-
-                // check for trusted user and update torrent
-                if ($user->group->is_trusted) {
-                    Torrent::approve($torrent->id);
-                }
 
                 // Count and save the torrent number in this category
                 $category->num_torrent = Torrent::where('category_id', '=', $category->id)->count();
@@ -335,32 +305,12 @@ class TorrentController extends Controller
                 }
 
                 // Activity Log
-                \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " .");
+                \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " . \n" +
+                    "This torrent is pending approval.");
 
-                // Announce To Shoutbox
-                if ($torrent->sd == 0) {
-                    $appurl = config('app.url');
-                    if ($torrent->anon == 0) {
-                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                        Cache::forget('shoutbox_messages');
-                    } else {
-                        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                        Cache::forget('shoutbox_messages');
-                    }
-                }
-
-                // Announce To IRC
-                if (config('irc-bot.enabled') == true) {
-                    $bot = new IRCAnnounceBot();
-                    if ($torrent->anon == 0) {
-                        $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
-                        $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                        $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
-                    } else {
-                        $bot->message("#announce", "[" . config('app.name') . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
-                        $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                        $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
-                    }
+                // check for trusted user and update torrent
+                if ($user->group->is_trusted) {
+                    TorrentHelper::approveHelper($torrent->slug, $torrent->id);
                 }
 
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
@@ -519,7 +469,7 @@ class TorrentController extends Controller
         $listings = $torrent->get();
         $count = $torrent->count();
 
-        $helper = new TorrentViewHelper();
+        $helper = new TorrentHelper();
         $result = $helper->view($listings);
 
         return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active, 'count' => $count];
