@@ -268,48 +268,54 @@ class TorrentHelper
 
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->findOrFail();
         $user = $torrent->user;
+        $user_id = $user->id;
+        $username = $user->username;
+        $anon = $torrent->anon;
 
-        // Auto Shout and Achievements
-        $user->unlock(new UserMadeUpload(), 1);
-        $user->addProgress(new UserMade25Uploads(), 1);
-        $user->addProgress(new UserMade50Uploads(), 1);
-        $user->addProgress(new UserMade100Uploads(), 1);
-        $user->addProgress(new UserMade200Uploads(), 1);
-        $user->addProgress(new UserMade300Uploads(), 1);
-        $user->addProgress(new UserMade400Uploads(), 1);
-        $user->addProgress(new UserMade500Uploads(), 1);
-        $user->addProgress(new UserMade600Uploads(), 1);
-        $user->addProgress(new UserMade700Uploads(), 1);
-        $user->addProgress(new UserMade800Uploads(), 1);
-        $user->addProgress(new UserMade900Uploads(), 1);
+        if ($anon == 0) {
+            // Auto Shout and Achievements
+            $user->unlock(new UserMadeUpload(), 1);
+            $user->addProgress(new UserMade25Uploads(), 1);
+            $user->addProgress(new UserMade50Uploads(), 1);
+            $user->addProgress(new UserMade100Uploads(), 1);
+            $user->addProgress(new UserMade200Uploads(), 1);
+            $user->addProgress(new UserMade300Uploads(), 1);
+            $user->addProgress(new UserMade400Uploads(), 1);
+            $user->addProgress(new UserMade500Uploads(), 1);
+            $user->addProgress(new UserMade600Uploads(), 1);
+            $user->addProgress(new UserMade700Uploads(), 1);
+            $user->addProgress(new UserMade800Uploads(), 1);
+            $user->addProgress(new UserMade900Uploads(), 1);
+        }
 
         // Announce To Shoutbox
         $appurl = config('app.url');
         if ($torrent->sd == 0) {
-            if ($torrent->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+            if ($anon == 0) {
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
                 Cache::forget('shoutbox_messages');
             } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
                 Cache::forget('shoutbox_messages');
             }
         }
 
         // Announce To IRC
         if (config('irc-bot.enabled') == true) {
+            $appname = config('app.name');
             $bot = new IRCAnnounceBot();
-            if ($torrent->anon == 0) {
-                $bot->message("#announce", "[" . config('app.name') . "] User " . $user->username . " has uploaded " . $torrent->name . " grab it now!");
-                $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
+            if ($anon == 0) {
+                $bot->message("#announce", "[" . $appname . "] User " . $username . " has uploaded " . $torrent->name . " grab it now!");
+                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
+                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
             } else {
-                $bot->message("#announce", "[" . config('app.name') . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
-                $bot->message("#announce", "[Category:" . $torrent->category->name . "] [Type:" . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]");
+                $bot->message("#announce", "[" . $appname . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
+                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size: " . $torrent->getSize() . "]");
+                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
             }
         }
 
         // Activity Log
-        \LogActivity::addToLog("Torrent " . $torrent->name . " uploaded by " . $user->username . " has been approved.");
+        \LogActivity::addToLog("Torrent " . $torrent->name . " uploaded by " . $username . " has been approved.");
     }
 }
