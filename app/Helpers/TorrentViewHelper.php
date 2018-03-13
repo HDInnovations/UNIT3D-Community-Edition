@@ -68,6 +68,14 @@ class TorrentViewHelper
             $peers_link = route('peers', ['slug' => $list->slug, 'id' => $list->id]);
             $history_link = route('history', ['slug' => $list->slug, 'id' => $list->id]);
 
+            $unbookmark_link = route('unbookmark', ['id' => $list->id]);
+            $bookmark_link = route('bookmark', ['id' => $list->id]);
+            if ($user->hasBookmarked($list->id)) {
+                $bookmark = "<a href='{$unbookmark_link}'><button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.unbookmark')!'><i class='fa fa-bookmark'></i></button></a>";
+            } else {
+                $bookmark = "<a href='{$bookmark_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.bookmark')!'><i class='fa fa-bookmark'></i></button></a>";
+            }
+
             if ($list->anon == 1) {
                 if ($user->id == $list->user->id || $user->group->is_modo) {
                     $staff_anon = "<a href='{$user_link}'>({$list->user->username})</a>";
@@ -198,8 +206,10 @@ class TorrentViewHelper
               <span class='label label-success'>{$list->type}</span>
               </center>
             </td>
-            <td><a class='view-torrent' data-id='{$list->id}' data-slug='{$list->slug}' href='{$torrent_link}' data-toggle='tooltip' title='' data-original-title='{$list->name}'>{$list->name}</a>
+            <td>
+                <a class='view-torrent' data-id='{$list->id}' data-slug='{$list->slug}' href='{$torrent_link}' data-toggle='tooltip' title='' data-original-title='{$list->name}'>{$list->name}</a>
                 <a href='{$download_check_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='DOWNLOAD!'><i class='fa fa-download'></i></button></a>
+                {$bookmark}
                 {$status}
                 <br>
                 <strong>

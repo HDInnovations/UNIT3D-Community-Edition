@@ -61,8 +61,26 @@
     <!-- SignUp Form -->
     {{ Form::open(array('route' => array('register', 'code' => $code))) }}
       <input type="text" id="username" class="fadeIn second" name="username" placeholder="{{ trans('auth.username') }}" required autofocus>
+      @if ($errors->has('username'))
+      <br>
+          <span class="help-block text-red">
+              <strong>{{ $errors->first('username') }}</strong>
+          </span>
+      @endif
       <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('auth.email') }}" required>
+      @if ($errors->has('email'))
+      <br>
+          <span class="help-block text-red">
+              <strong>{{ $errors->first('email') }}</strong>
+          </span>
+      @endif
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="{{ trans('auth.password') }}" required>
+      @if ($errors->has('password'))
+      <br>
+          <span class="help-block text-red">
+              <strong>{{ $errors->first('password') }}</strong>
+          </span>
+      @endif
       <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
     {{ Form::close() }}
 
