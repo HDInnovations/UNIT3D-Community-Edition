@@ -149,14 +149,14 @@ Main:
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
 2. Open a terminal and SSH into your server.
 3. cd to the sites root directory
-4. Run `sudo chown -R www-data: storage bootstrap public config`
+4. Run `sudo chown -R www-data: storage bootstrap public config` and `sudo find . -type d -exec chmod 0755 '{}' + -or -type f -exec chmod 0644 '{}' +`
 5. Run `php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/bin/ --filename=composer`
-6. Edit your `.env` file with your APP, DB, REDIS and MAIL info.
-7. Run `php artisan key:generate` to generate your cipher key.
+6. Edit `.env.example` to `.env` and fill it with your APP, DB, REDIS and MAIL info.
+7. Run `composer install` to install dependencies.
 8. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab. `/path/to/artisan` becomes whatever directory you put the codebase on your server. Like `* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1` .
-10. Run `composer install`
-11. Run  `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
+10. Run `php artisan key:generate` to generate your cipher key.
+11. Run `php artisan migrate --seed` (Migrates All Tables And Foreign Keys)
 12. Suggest that you run `php artisan route:cache`. (Keep in mind you will have to re-run it anytime changes are made to the `routes/web.php` but it is beneficial with page load times).
 13. `sudo chown -R www-data: storage bootstrap public config`
 14. Go to your sites URL.

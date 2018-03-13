@@ -21,47 +21,34 @@ use App\RequestsClaims;
 use App\Torrent;
 use App\Shoutbox;
 use App\User;
-use Carbon\Carbon;
-use Decoda\Decoda;
 use App\PrivateMessage;
+use App\Helpers\RequestViewHelper;
+use App\Repositories\RequestFacetedRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request as IlluminateRequest;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
 use App\Achievements\UserFilled100Requests;
+use Carbon\Carbon;
+use Decoda\Decoda;
 use \Toastr;
 use Cache;
 
 class RequestController extends Controller
 {
     /**
-     * Search for requests
-     *
-     * @access public
-     * @return View page.requests
-     *
+     * @var RequestFacetedRepository
      */
-    public function search()
+    private $repository;
+
+    public function __construct(RequestFacetedRepository $repository)
     {
-        $user = Auth::user();
-        $num_req = Requests::count();
-        $num_fil = Requests::whereNotNull('filled_by')->count();
-        $num_unfil = Requests::whereNull('filled_by')->count();
-        $total_bounty = Requests::all()->sum('bounty');
-        $claimed_bounty = Requests::whereNotNull('filled_by')->sum('bounty');
-        $unclaimed_bounty = Requests::whereNull('filled_by')->sum('bounty');
-        $requests = Requests::where([
-            ['name', 'like', '%' . Request::get('name') . '%'],
-            ['category_id', '=', Request::get('category_id')],
-        ])->orderBy('created_at', 'DESC')->paginate(25);
-
-        $requests->setPath('?name=' . Request::get('name') . '&category_id=' . Request::get('category_id'));
-
-        return view('requests.requests', ['requests' => $requests, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty, 'categories' => Category::all()]);
+        $this->repository = $repository;
     }
 
     /**
@@ -80,19 +67,118 @@ class RequestController extends Controller
         $total_bounty = Requests::all()->sum('bounty');
         $claimed_bounty = Requests::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = Requests::whereNull('filled_by')->sum('bounty');
-        if (Request::get('filled_requests') == true) {
-            $requests = Requests::whereNotNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
-            $requests->setPath('?filled_requests=true');
-        } elseif (Request::get('unfilled_requests') == true) {
-            $requests = Requests::whereNull('filled_by')->orderBy('created_at', 'DESC')->paginate(20);
-            $requests->setPath('?unfilled_requests=true');
-        } elseif (Request::get('my_requests') == true) {
-            $requests = Requests::where('user_id', '=', $user->id)->orderBy('created_at', 'DESC')->paginate(20);
-            $requests->setPath('?my_requests=true');
-        } else {
-            $requests = Requests::orderBy('created_at', 'DESC')->paginate(20);
+
+        $requests = Requests::query();
+        $repository = $this->repository;
+
+        return view('requests.requests', ['requests' => $requests, 'repository' => $repository, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty]);
+    }
+
+    public function faceted(IlluminateRequest $request, Requests $requests)
+    {
+        $user = Auth::user();
+        $search = $request->get('search');
+        $imdb = $request->get('imdb');
+        $tvdb = $request->get('tvdb');
+        $tmdb = $request->get('tmdb');
+        $mal = $request->get('mal');
+        $categories = $request->get('categories');
+        $types = $request->get('types');
+        $myrequests = $request->get('myrequests');
+        $unfilled = $request->get('unfilled');
+        $claimed = $request->get('claimed');
+        $pending = $request->get('pending');
+        $filled = $request->get('filled');
+
+        $terms = explode(' ', $search);
+        $search = '';
+        foreach ($terms as $term) {
+            $search .= '%' . $term . '%';
         }
-        return view('requests.requests', ['requests' => $requests, 'user' => $user, 'num_req' => $num_req, 'num_fil' => $num_fil, 'num_unfil' => $num_unfil, 'total_bounty' => $total_bounty, 'claimed_bounty' => $claimed_bounty, 'unclaimed_bounty' => $unclaimed_bounty, 'categories' => Category::all()]);
+
+        $requests = $requests->newQuery();
+
+        if ($request->has('search') && $request->get('search') != null) {
+            $requests->where('name', 'like', $search);
+        }
+
+        if ($request->has('imdb') && $request->get('imdb') != null) {
+            $requests->where('imdb', $imdb);
+        }
+
+        if ($request->has('tvdb') && $request->get('tvdb') != null) {
+            $requests->where('tvdb', $tvdb);
+        }
+
+        if ($request->has('tmdb') && $request->get('tmdb') != null) {
+            $requests->where('tmdb', $tmdb);
+        }
+
+        if ($request->has('mal') && $request->get('mal') != null) {
+            $requests->where('mal', $mal);
+        }
+
+        if ($request->has('categories') && $request->get('categories') != null) {
+            $requests->whereIn('category_id', $categories);
+        }
+
+        if ($request->has('types') && $request->get('types') != null) {
+            $requests->whereIn('type', $types);
+        }
+
+        if ($request->has('myrequests') && $request->get('myrequests') != null) {
+            $requests->where('user_id', $myrequests);
+        }
+
+        if ($request->has('unfilled') && $request->get('unfilled') != null) {
+            $requests->where('filled_hash', null);
+        }
+
+        if ($request->has('claimed') && $request->get('claimed') != null) {
+            $requests->where('claimed', '!=', null)->where('filled_hash', null);
+        }
+
+        if ($request->has('pending') && $request->get('pending') != null) {
+            $requests->where('filled_hash', '!=', null)->where('approved_by', null);
+        }
+
+        if ($request->has('filled') && $request->get('filled') != null) {
+            $requests->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
+        }
+
+        // pagination query starts
+        $rows = $requests->count();
+
+        if($request->has('page')){
+            $page = $request->get('page');
+            $qty = $request->get('qty');
+            $requests->skip(($page-1)*$qty);
+            $active = $page;
+        }else{
+            $active = 1;
+        }
+
+        if($request->has('qty')){
+            $qty = $request->get('qty');
+            $requests->take($qty);
+        }else{
+            $qty = 6;
+            $requests->take($qty);
+        }
+        // pagination query ends
+
+        if($request->has('sorting')){
+            $sorting = $request->get('sorting');
+            $order = $request->get('direction');
+            $requests->orderBy($sorting,$order);
+        }
+
+        $listings = $requests->get();
+
+        $helper = new RequestViewHelper();
+        $result = $helper->view($listings);
+
+        return ['result'=>$result,'rows'=>$rows,'qty'=>$qty,'active'=>$active];
     }
 
     /**

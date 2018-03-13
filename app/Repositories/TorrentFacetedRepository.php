@@ -16,7 +16,7 @@ use App\Torrent;
 use App\Category;
 use App\Type;
 
-class FacetedRepository
+class TorrentFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage

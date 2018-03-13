@@ -35,7 +35,7 @@ use App\FreeleechToken;
 
 use App\Helpers\TorrentHelper;
 use App\Helpers\MediaInfo;
-use App\Repositories\FacetedRepository;
+use App\Repositories\TorrentFacetedRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Services\FanArt;
@@ -59,7 +59,7 @@ class TorrentController extends Controller
 {
 
     /**
-     * @var FacetedRepository
+     * @var TorrentFacetedRepository
      */
     private $repository;
 
