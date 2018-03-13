@@ -27,6 +27,10 @@
                 <input type="text" class="form-control" name="name">
             </div>
             <div class="form-group">
+                <label for="name">Position</label>
+                <input type="text" class="form-control" name="position">
+            </div>
+            <div class="form-group">
                 <label for="name">Icon (FontAwesome)</label>
                 <input type="text" class="form-control" name="icon" placeholder="Example: fa fa-rocket">
             </div>

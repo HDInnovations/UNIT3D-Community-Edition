@@ -99,7 +99,7 @@ class TorrentController extends Controller
 
         $torrents->setPath('?name=' . Request::get('name') . '&category_id=' . Request::get('category_id') . '&type=' . Request::get('type') . '&order=' . $order[0] . '%3A' . $order[1]);
 
-        return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all(), 'types' => Type::all()]);
+        return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
 
     /**
@@ -217,10 +217,10 @@ class TorrentController extends Controller
             // No torrent file uploaded OR an Error has occurred
             if (Request::hasFile('torrent') == false) {
                 Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
+                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             } elseif (Request::file('torrent')->getError() != 0 && Request::file('torrent')->getClientOriginalExtension() != 'torrent') {
                 Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
+                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             }
             // Deplace and decode the torrent temporarily
             TorrentTools::moveAndDecode(Request::file('torrent'));
@@ -339,7 +339,7 @@ class TorrentController extends Controller
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
-        return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
+        return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
     }
 
 
@@ -813,7 +813,7 @@ class TorrentController extends Controller
     {
         $user = Auth::user();
         $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(20);
-        return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all(), 'types' => Type::all()]);
+        return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
 
     /**
@@ -861,7 +861,7 @@ class TorrentController extends Controller
 
                 return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
             } else {
-                return view('torrent.edit_tor', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
+                return view('torrent.edit_tor', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
             }
         } else {
             abort(403, 'Unauthorized action.');

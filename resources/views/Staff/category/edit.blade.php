@@ -27,6 +27,10 @@
                 <input type="text" class="form-control" name="name" value="{{ $category->name }}">
             </div>
             <div class="form-group">
+                <label for="name">Position</label>
+                <input type="text" class="form-control" name="position" value="{{ $category->position }}">
+            </div>
+            <div class="form-group">
                 <label for="name">Icon (FontAwesome)</label>
                 <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
             </div>

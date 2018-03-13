@@ -21,6 +21,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th>Position</th>
                     <th>Name</th>
                     <th>Icon</th>
                     <th>Meta?</th>
@@ -30,6 +31,7 @@
             <tbody>
                 @foreach($categories as $c)
                     <tr>
+                        <td>{{ $c->position }}</td>
                         <td><a href="{{ route('staff_category_edit', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></td>
                         <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
                         <td>@if($c->meta == 1) YES @else NO @endif</td>
