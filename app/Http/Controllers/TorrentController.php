@@ -363,6 +363,7 @@ class TorrentController extends Controller
     {
         $user = Auth::user();
         $search = $request->get('search');
+        $uploader = $request->get('uploader');
         $imdb = $request->get('imdb');
         $tvdb = $request->get('tvdb');
         $tmdb = $request->get('tmdb');
@@ -385,10 +386,21 @@ class TorrentController extends Controller
             $search .= '%' . $term . '%';
         }
 
+        $usernames = explode(' ', $uploader);
+        $uploader = '';
+        foreach ($usernames as $username) {
+            $uploader .= '%' . $username . '%';
+        }
+
         $torrent = $torrent->newQuery();
 
         if ($request->has('search') && $request->get('search') != null) {
             $torrent->where('name', 'like', $search);
+        }
+
+        if ($request->has('uploader') && $request->get('uploader') != null) {
+            $match = User::where('username', 'like', $uploader)->firstOrFail();
+            $torrent->where('user_id', $match->id)->where('anon', 0);
         }
 
         if ($request->has('imdb') && $request->get('imdb') != null) {
