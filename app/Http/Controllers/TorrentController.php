@@ -43,7 +43,7 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Helpers\TorrentViewHelper;
 use App\Helpers\MediaInfo;
-use App\Repositories\FacetedRepository;
+use App\Repositories\TorrentFacetedRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Services\FanArt;
@@ -69,11 +69,11 @@ class TorrentController extends Controller
 {
 
     /**
-     * @var FacetedRepository
+     * @var TorrentFacetedRepository
      */
     private $repository;
 
-    public function __construct(FacetedRepository $repository)
+    public function __construct(TorrentFacetedRepository $repository)
     {
         $this->repository = $repository;
         View::share('pages', Page::all());

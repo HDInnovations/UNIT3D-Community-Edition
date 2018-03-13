@@ -306,7 +306,7 @@
             }
 
             xhr = $.ajax({
-                url: 'filter',
+                url: 'filterTorrents',
                 data: {_token:csrf,search:search,imdb:imdb,tvdb:tvdb,tmdb:tmdb,mal:mal,categories:categories,types:types,freeleech:freeleech,doubleupload:doubleupload,featured:featured,stream:stream,highspeed:highspeed,sd:sd,alive:alive,dying:dying,dead:dead,sorting:sorting,direction:direction,page:page,qty:qty},
                 type: 'get',
                 beforeSend:function(){
