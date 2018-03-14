@@ -6,24 +6,24 @@
  */
 return [
     // Chat
-    'chatbox' => 'Chat Box',
+    'chatbox' => 'صندوق المحادثة',
     
     // Featured Torrents
-    'featured-torrents' => 'Featured Torrents',
+    'featured-torrents' => 'التورينتات المميزة',
     
     // Latest Torrents
-    'latest-torrents' => 'Latest Torrents',
+    'latest-torrents' => 'أحدث التورينتات',
     
     // Latest Posts
-    'latest-posts' => 'Latest Posts',
+    'latest-posts' => 'أحدث التعليقات',
     
     // Latest Topics
-    'latest-topics' => 'Latest Topics',
+    'latest-topics' => 'أحدث الموضوعات',
     
     // Users Online
-    'users-online' => 'Users Online',
+    'users-online' => 'الأعضاء الموجودون حاليا',
     
     // News/Articles
-    'new-news' => 'New News',
-    'check-news' => 'News (Check Daily)'
+    'new-news' => 'آخر الأخبار',
+    'check-news' => 'الأخبار (الأحداث اليومية)'
 ];

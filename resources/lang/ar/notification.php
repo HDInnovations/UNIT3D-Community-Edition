@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'notifications' => 'Notifications',
-    'mark-all-read' => 'Mark all as read',
-    'mark-read' => 'Mark as read',
-    'delete-all' => 'Delete all notifications',
-    'title' => 'Title',
-    'message' => 'Message',
-    'date' => 'Date',
-    'read' => 'Read',
-    'delete' => 'Delete',
-    'no-notifications' => 'There are no notifications found'
+    'notifications' => 'التنبيهات',
+    'mark-all-read' => 'اجعل الكل مقروءا',
+    'mark-read' => 'اجعله مقروءا',
+    'delete-all' => 'حذف جميع التنبيهات',
+    'title' => 'العنوان',
+    'message' => 'الرسالة',
+    'date' => 'التاريخ',
+    'read' => 'قراءة',
+    'delete' => 'حذف',
+    'no-notifications' => 'لا توجد تنبيهات'
 ];

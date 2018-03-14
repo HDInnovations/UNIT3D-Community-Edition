@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'poll' => 'Poll',
-    'polls' => 'Polls',
-    'current' => 'Current Poll(s)',
-    'total' => 'Total Votes Ever',
-    'vote-now' => 'Get Your Vote In Now!',
-    'results' => 'Poll Results',
-    'multiple-choice' => 'This is a multiple choice poll. Select as many answers as you like.',
-    'ip-checking' => 'This poll has duplicate vote checking. You can only vote once.',
-    'vote' => 'Vote',
-    'votes' => 'Votes'
+    'poll' => 'تصويت',
+    'polls' => 'تصويتات',
+    'current' => 'التصويتات الحالية',
+    'total' => 'مجموع الأصوات على أية حال',
+    'vote-now' => 'احصل على صوتك الآن!',
+    'results' => 'قوانين التصويت',
+    'multiple-choice' => 'هذا هو استطلاع متعدد الخيارات. حدد العديد من الإجابات حسب رغبتك.',
+    'ip-checking' => 'يحتوي هذا الاستطلاع على فحص متكرر للتصويت. يمكنك التصويت مرة واحدة فقط.',
+    'vote' => 'تصويت',
+    'votes' => 'تصويتات'
 ];

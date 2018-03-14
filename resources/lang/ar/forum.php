@@ -5,18 +5,18 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'forum' => 'Forum',
-    'forums' => 'Forums',
-    'topics' => 'Topics',
-    'post' => 'Post',
-    'replies' => 'Replies',
-    'views' => 'Views',
-    'meta-category' => 'List of forums in the category',
-    'create-new-topic' => 'Create New Topic',
-    'topic-title' => 'Title of this topic',
-    'send-new-topic' => 'Save this topic',
-    'read-topic' => 'Read the topic',
-    'mark-as-resolved' => 'Lock Topic',
-    'delete-topic' => 'Delete this topic',
-    'display-forum' => 'Show topics in '
+    'forum' => 'المنتدى',
+    'forums' => 'المنتديات',
+    'topics' => 'الموضوعات',
+    'post' => 'التعليق',
+    'replies' => 'الردود',
+    'views' => 'المشاهدات',
+    'meta-category' => 'قائمة المنتديات بالقائمة',
+    'create-new-topic' => 'إنشاء موضوع جديد',
+    'topic-title' => 'عنوان هذا الموضوع',
+    'send-new-topic' => 'حفظ هذا الموضوع',
+    'read-topic' => 'قراءة الموضوع',
+    'mark-as-resolved' => 'قفل الموضوع',
+    'delete-topic' => 'حذف هذا الموضوع',
+    'display-forum' => 'مشاهدة الموضوعات في '
 ];

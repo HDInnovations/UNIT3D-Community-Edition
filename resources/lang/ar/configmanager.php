@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Config Manager',
-    'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
+    'title' => 'إدارة الإعدادات',
+    'info_choose' => 'حدد الملف للبدء في تعديله',
+    'file' => 'ملف',
+    'path' => 'المسار',
     'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions'
+        'key' => 'مفتاح',
+        'value' => 'قيمة',
+        'actions' => 'الأحداث'
     ],
     'actions' => [
-        'edit' => 'Edit',
-        'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel'
+        'edit' => 'تعديل',
+        'confirm' => 'حفظ المفتاح الجديد',
+        'save' => '! حفظ',
+        'cancel' => 'إلغاء'
     ],
-    'sure' => 'Are you sure?'
+    'sure' => 'هل أنت متأكد؟'
 ];

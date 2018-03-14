@@ -5,9 +5,9 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'moderation' => 'Moderation',
-    'please-moderate' => 'Please Moderate This Torrent!',
-    'you-have' => 'You Have',
-    'dashboard' => 'Dashboard',
-    'staff-dashboard' => 'Staff Dashboard'
+    'moderation' => 'المراقبة',
+    'please-moderate' => '! من فضلك راقب هذا التورينت',
+    'you-have' => 'لديك',
+    'dashboard' => 'لوحة الإدارة',
+    'staff-dashboard' => 'اللوحة الإدارية'
 ];

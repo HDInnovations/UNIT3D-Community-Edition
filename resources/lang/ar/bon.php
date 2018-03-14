@@ -6,18 +6,18 @@
  */
 return [
     'bon' => 'BON',
-    'bonus' => 'Bonus',
-    'points' => 'Points',
-    'your-points' => 'Your Points',
-    'store' => 'Store',
-    'gift-to' => 'Gift Bonus Points To?',
-    'gift' => 'Gift Bonus Points',
-    'exchange' => 'Exchange',
-    'exchange-warning' => 'Exchanges are final, Please double check your choices before making an exchange.',
-    'no-refund' => 'NO REFUNDS!',
-    'active' => 'Activated!',
-    'earning' => 'Earning',
-    'per-hour' => 'Points Per Hour',
-    'item' => 'Item',
-    'total' => 'Total Earnings'
+    'bonus' => 'نقاط المكافأة',
+    'points' => 'النقاط',
+    'your-points' => 'نقاطك',
+    'store' => 'المتجر',
+    'gift-to' => 'إهداء نقاط مكافأة إلى ؟',
+    'gift' => 'إهداء نقاط المكافآت',
+    'exchange' => 'التبادل',
+    'exchange-warning' => 'التبادلات النهائية، من فضلك تأكد من معلومات التبادل مرة أخرى قبل تنفيذ التبادل',
+    'no-refund' => ' ! غير مسترجع',
+    'active' => '! منشط',
+    'earning' => 'الاستحقاقات',
+    'per-hour' => 'النقاط بحسب الساعة',
+    'item' => 'العنصر',
+    'total' => 'مجموع الاستحقاقات'
 ];
