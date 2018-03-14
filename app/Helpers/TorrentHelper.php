@@ -266,7 +266,7 @@ class TorrentHelper
     {
         Torrent::approve($id);
 
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->findOrFail();
+        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
         $user = $torrent->user;
         $user_id = $user->id;
         $username = $user->username;

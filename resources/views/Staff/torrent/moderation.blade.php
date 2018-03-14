@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <input id="type" name="type" type="hidden" value="{{ trans('torrent.torrent') }}">
                             <input id="id" name="id" type="hidden" value="{{ $p->id }}">
-                            <input id="slug" name="slug" type="hidden" value="{{ $p-slug }}">
+                            <input id="slug" name="slug" type="hidden" value="{{ $p->slug }}">
                             <label for="postpone_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                             <div class="col-sm-10">
                               <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
@@ -159,7 +159,7 @@
         <td>{{ $post->type }}</td>
         <td>{{ $post->getSize() }}</td>
         <td><a href="{{ route('profil', ['username' => $post->user->username, 'id' => $post->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->user->username }} ({{ $post->user->group->name }})</span><a></td>
-        <td><a href="{{ route('profil', ['username' => $post->moderated_by->username, 'id' => $post->moderated_by->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->moderated_by->username }} ({{ $post->moderated_by->group->name }})</span><a></td>
+        <td><a href="{{ route('profil', ['username' => $post->moderated->username, 'id' => $post->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $post->moderated->username }} ({{ $post->moderated->group->name }})</span><a></td>
         <td><a href="{{ route('moderation_approve', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
         <td><a href="{{ route('edit', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
         <td><button data-target="#postdelete-{{ $post->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Delete</button></td>
@@ -241,7 +241,7 @@
                 <td>{{ $reject->type }}</td>
                 <td>{{ $reject->getSize() }}</td>
                 <td>@if($reject->user) <a href="{{ route('profil', ['username' => $reject->user->username, 'id' => $reject->user->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->user->username }} ({{ $reject->user->group->name }})</span><a> @else System @endif </td>
-                <td><a href="{{ route('profil', ['username' => $reject->moderated_by->username, 'id' => $reject->moderated_by->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->moderated_by->username }} ({{ $reject->moderated_by->group->name }})</span><a></td>
+                <td><a href="{{ route('profil', ['username' => $reject->moderated->username, 'id' => $reject->moderated->id]) }}" itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title" class="l-breadcrumb-item-link-title">{{ $reject->moderated->username }} ({{ $reject->moderated->group->name }})</span><a></td>
                 <td><a href="{{ route('moderation_approve', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i class="fa fa-thumbs-up"></i></span>Approve</a></td>
                 <td><button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger"><span class="btn-label"><i class="fa fa-thumbs-down"></i></span>Postpone</button></td>
                 <td><a href="{{ route('edit', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button' class='btn btn-labeled btn-info'><span class="btn-label"><i class="fa fa-pencil"></i></span>Edit</a></td>
@@ -263,7 +263,7 @@
                             <div class="form-group">
                                 <input id="type" name="type" type="hidden" value="{{ trans('torrent.torrent') }}">
                                 <input id="id" name="id" type="hidden" value="{{ $reject->id }}">
-                                <input id="slug" name="slug" type="hidden" value="{{ $reject-slug }}">
+                                <input id="slug" name="slug" type="hidden" value="{{ $reject->slug }}">
                                 <label for="postpone_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                                 <div class="col-sm-10">
                                   <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
@@ -303,7 +303,7 @@
                       <input id="slug" type="hidden" name="slug" value="{{ $reject->slug }}">
                       <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
                       <div class="col-sm-10">
-                        <label id="title" name="title" type="hidden" value="{{ $post->name }}">
+                        <label id="title" name="title" type="hidden" value="{{ $reject->name }}">
                         <p class="form-control-static">{{ $reject->name }}</p>
                       </div>
                     </div>

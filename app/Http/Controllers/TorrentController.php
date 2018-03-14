@@ -124,7 +124,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has bumped " . $torrent->name . " .");
+            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has bumped {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
         } else {
@@ -174,7 +174,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has stickied " . $torrent->name . " .");
+            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has stickied {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -304,8 +304,7 @@ class TorrentController extends Controller
                 }
 
                 // Activity Log
-                \LogActivity::addToLog("Member " . $user->username . " has uploaded " . $torrent->name . " . \n" +
-                    "This torrent is pending approval.");
+                \LogActivity::addToLog("Member {$user->username} has uploaded {$torrent->name} . \nThis torrent is pending approval.");
 
                 // check for trusted user and update torrent
                 if ($user->group->is_trusted) {
@@ -349,22 +348,22 @@ class TorrentController extends Controller
     public function faceted(Request $request, Torrent $torrent)
     {
         $user = Auth::user();
-        $search = $request->get('search');
-        $imdb = $request->get('imdb');
-        $tvdb = $request->get('tvdb');
-        $tmdb = $request->get('tmdb');
-        $mal = $request->get('mal');
-        $categories = $request->get('categories');
-        $types = $request->get('types');
-        $freeleech = $request->get('freeleech');
-        $doubleupload = $request->get('doubleupload');
-        $featured = $request->get('featured');
-        $stream = $request->get('stream');
-        $highspeed = $request->get('highspeed');
-        $sd = $request->get('sd');
-        $alive = $request->get('alive');
-        $dying = $request->get('dying');
-        $dead = $request->get('dead');
+        $search = $request->input('search');
+        $imdb = $request->input('imdb');
+        $tvdb = $request->input('tvdb');
+        $tmdb = $request->input('tmdb');
+        $mal = $request->input('mal');
+        $categories = $request->input('categories');
+        $types = $request->input('types');
+        $freeleech = $request->input('freeleech');
+        $doubleupload = $request->input('doubleupload');
+        $featured = $request->input('featured');
+        $stream = $request->input('stream');
+        $highspeed = $request->input('highspeed');
+        $sd = $request->input('sd');
+        $alive = $request->input('alive');
+        $dying = $request->input('dying');
+        $dead = $request->input('dead');
 
         $terms = explode(' ', $search);
         $search = '';
@@ -374,67 +373,67 @@ class TorrentController extends Controller
 
         $torrent = $torrent->newQuery();
 
-        if ($request->has('search') && $request->get('search') != null) {
+        if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
         }
 
-        if ($request->has('imdb') && $request->get('imdb') != null) {
+        if ($request->has('imdb') && $request->input('imdb') != null) {
             $torrent->where('imdb', $imdb);
         }
 
-        if ($request->has('tvdb') && $request->get('tvdb') != null) {
+        if ($request->has('tvdb') && $request->input('tvdb') != null) {
             $torrent->where('tvdb', $tvdb);
         }
 
-        if ($request->has('tmdb') && $request->get('tmdb') != null) {
+        if ($request->has('tmdb') && $request->input('tmdb') != null) {
             $torrent->where('tmdb', $tmdb);
         }
 
-        if ($request->has('mal') && $request->get('mal') != null) {
+        if ($request->has('mal') && $request->input('mal') != null) {
             $torrent->where('mal', $mal);
         }
 
-        if ($request->has('categories') && $request->get('categories') != null) {
+        if ($request->has('categories') && $request->input('categories') != null) {
             $torrent->whereIn('category_id', $categories);
         }
 
-        if ($request->has('types') && $request->get('types') != null) {
+        if ($request->has('types') && $request->input('types') != null) {
             $torrent->whereIn('type', $types);
         }
 
-        if ($request->has('freeleech') && $request->get('freeleech') != null) {
+        if ($request->has('freeleech') && $request->input('freeleech') != null) {
             $torrent->where('free', $freeleech);
         }
 
-        if ($request->has('doubleupload') && $request->get('doubleupload') != null) {
+        if ($request->has('doubleupload') && $request->input('doubleupload') != null) {
             $torrent->where('doubleup', $doubleupload);
         }
 
-        if ($request->has('featured') && $request->get('featured') != null) {
+        if ($request->has('featured') && $request->input('featured') != null) {
             $torrent->where('featured', $featured);
         }
 
-        if ($request->has('stream') && $request->get('stream') != null) {
+        if ($request->has('stream') && $request->input('stream') != null) {
             $torrent->where('stream', $stream);
         }
 
-        if ($request->has('highspeed') && $request->get('highspeed') != null) {
+        if ($request->has('highspeed') && $request->input('highspeed') != null) {
             $torrent->where('highspeed', $highspeed);
         }
 
-        if ($request->has('sd') && $request->get('sd') != null) {
+        if ($request->has('sd') && $request->input('sd') != null) {
             $torrent->where('sd', $sd);
         }
 
-        if ($request->has('alive') && $request->get('alive') != null) {
+        if ($request->has('alive') && $request->input('alive') != null) {
             $torrent->where('seeders', '>=', $alive);
         }
 
-        if ($request->has('dying') && $request->get('dying') != null) {
+        if ($request->has('dying') && $request->input('dying') != null) {
             $torrent->where('seeders', $dying)->where('times_completed', '>=', 3);
         }
 
-        if ($request->has('dead') && $request->get('dead') != null) {
+        if ($request->has('dead') && $request->input('dead') != null) {
             $torrent->where('seeders', $dead);
         }
 
@@ -442,8 +441,8 @@ class TorrentController extends Controller
         $rows = $torrent->count();
 
         if ($request->has('page')) {
-            $page = $request->get('page');
-            $qty = $request->get('qty');
+            $page = $request->input('page');
+            $qty = $request->input('qty');
             $torrent->skip(($page - 1) * $qty);
             $active = $page;
         } else {
@@ -451,7 +450,7 @@ class TorrentController extends Controller
         }
 
         if ($request->has('qty')) {
-            $qty = $request->get('qty');
+            $qty = $request->input('qty');
             $torrent->take($qty);
         } else {
             $qty = 25;
@@ -459,9 +458,9 @@ class TorrentController extends Controller
         }
         // pagination query ends
 
-        if ($request->has('sorting') && $request->get('sorting') != null) {
-            $sorting = $request->get('sorting');
-            $order = $request->get('direction');
+        if ($request->has('sorting') && $request->input('sorting') != null) {
+            $sorting = $request->input('sorting');
+            $order = $request->input('direction');
             $torrent->orderBy($sorting, $order);
         }
 
@@ -604,17 +603,17 @@ class TorrentController extends Controller
             $appurl = config('app.url');
             if ($torrent->free == 0) {
                 $torrent->free = "1";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
                 $torrent->free = "0";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been revoked of its 100% FreeLeech! :poop:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
                 Cache::forget('shoutbox_messages');
             }
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted freeleech on " . $torrent->name . " .");
+            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted freeleech on {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -646,7 +645,7 @@ class TorrentController extends Controller
                 ]);
                 $featured->save();
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->nane}[/url]
             has been added to the Featured Torrents Slider by [url={$appurl}/" . Auth::user()->username . "." . Auth::user()->id . "]" . Auth::user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
@@ -655,7 +654,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has featured " . $torrent->name . " .");
+            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has featured {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Is Now Featured!', 'Yay!', ['options']));
         } else {
@@ -680,17 +679,17 @@ class TorrentController extends Controller
             $appurl = config('app.url');
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
                 $torrent->doubleup = "0";
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] has been revoked of its Double Upload! :poop:"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
                 Cache::forget('shoutbox_messages');
             }
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted double upload on " . $torrent->name . " .");
+            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted double upload on {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -796,15 +795,15 @@ class TorrentController extends Controller
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
         if ($torrent->seeders <= 2) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has requested a reseed on [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] can you help out :question:"]);
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
             Cache::forget('shoutbox_messages');
             foreach ($reseed as $pm) {
                 $pmuser = new PrivateMessage();
                 $pmuser->sender_id = 1;
                 $pmuser->reciever_id = $pm->user_id;
                 $pmuser->subject = "New Reseed Request!";
-                $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]
-                                        Now, it has no seeds, and " . $user->username . " would still like to download it.
+                $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]
+                                        Now, it has no seeds, and {$user->username} would still like to download it.
                                         If you still have this torrent in storage, please consider reseeding it! Thanks!
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                 $pmuser->save();
@@ -847,16 +846,16 @@ class TorrentController extends Controller
 
         if ($user->group->is_modo || $user->id == $torrent->user_id) {
             if ($request->isMethod('post')) {
-                $name = $request->get('name');
-                $imdb = $request->get('imdb');
-                $tvdb = $request->get('tvdb');
-                $tmdb = $request->get('tmdb');
-                $mal = $request->get('mal');
-                $category = $request->get('category_id');
-                $type = $request->get('type');
-                $anon = $request->get('anonymous');
-                $stream = $request->get('stream');
-                $sd = $request->get('sd');
+                $name = $request->input('name');
+                $imdb = $request->input('imdb');
+                $tvdb = $request->input('tvdb');
+                $tmdb = $request->input('tmdb');
+                $mal = $request->input('mal');
+                $category = $request->input('category_id');
+                $type = $request->input('type');
+                $anon = $request->input('anonymous');
+                $stream = $request->input('stream');
+                $sd = $request->input('sd');
 
                 $torrent->name = $name;
                 $torrent->imdb = $imdb;
@@ -865,15 +864,15 @@ class TorrentController extends Controller
                 $torrent->mal = $mal;
                 $torrent->category_id = $category;
                 $torrent->type = $type;
-                $torrent->description = $request->get('description');
-                $torrent->mediainfo = $request->get('mediainfo');
+                $torrent->description = $request->input('description');
+                $torrent->mediainfo = $request->input('mediainfo');
                 $torrent->anon = $anon;
                 $torrent->stream = $stream;
                 $torrent->sd = $sd;
                 $torrent->save();
 
                 // Activity Log
-                \LogActivity::addToLog("Staff Member " . $user->username . " has edited torrent " . $torrent->name . " .");
+                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent {$torrent->name} .");
 
                 return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
             } else {
@@ -913,14 +912,14 @@ class TorrentController extends Controller
                     $pmuser->sender_id = 1;
                     $pmuser->reciever_id = $pm->user_id;
                     $pmuser->subject = "Torrent Deleted!";
-                    $pmuser->message = "[b]Attention:[/b] Torrent " . $torrent->name . " has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
-                                            [b]Removal Reason:[/b] ". $request->message ."
+                    $pmuser->message = "[b]Attention:[/b] Torrent {$torrent->name} has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safley remove it from your client.
+                                            [b]Removal Reason:[/b] {$request->message}
                                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                     $pmuser->save();
                 }
 
                 // Activity Log
-                \LogActivity::addToLog("Member " . $user->username . " has deleted torrent " . $torrent->name . " .");
+                \LogActivity::addToLog("Member {$user->username} has deleted torrent {$torrent->name} .");
 
                 //Remove requests
                 $reqs = Requests::where('filled_hash', '=', $torrent->info_hash)->get();
@@ -948,7 +947,7 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error . "\n";
             }
-            \Log::notice("Deletion of torrent failed due to: \n\n".$errors);
+            \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
             return redirect('/torrents')->with(Toastr::error('Unable to delete Torrent', 'Error', ['options']));
         }
     }
