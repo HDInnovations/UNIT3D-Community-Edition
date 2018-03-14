@@ -102,7 +102,7 @@ class TorrentController extends Controller
 
         $torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
 
-        return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all(), 'types' => Type::all()]);
+        return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
 
     /**
@@ -231,10 +231,10 @@ class TorrentController extends Controller
             // No torrent file uploaded OR an Error has occurred
             if ($request->hasFile('torrent') == false) {
                 Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
+                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             } elseif ($Reqfile->getError() != 0 && $Reqfile->getClientOriginalExtension() != 'torrent') {
                 Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
+                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             }
             // Deplace and decode the torrent temporarily
             TorrentTools::moveAndDecode($Reqfile);
@@ -314,7 +314,7 @@ class TorrentController extends Controller
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
-        return view('torrent.upload', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
+        return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
     }
 
 
@@ -371,10 +371,21 @@ class TorrentController extends Controller
             $search .= '%' . $term . '%';
         }
 
+        $usernames = explode(' ', $uploader);
+        $uploader = '';
+        foreach ($usernames as $username) {
+            $uploader .= '%' . $username . '%';
+        }
+
         $torrent = $torrent->newQuery();
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
+        }
+
+        if ($request->has('uploader') && $request->input('uploader') != null) {
+            $match = User::where('username', 'like', $uploader)->firstOrFail();
+            $torrent->where('user_id', $match->id)->where('anon', 0);
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
@@ -825,7 +836,7 @@ class TorrentController extends Controller
     {
         $user = Auth::user();
         $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(20);
-        return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all(), 'types' => Type::all()]);
+        return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
 
     /**
@@ -876,7 +887,7 @@ class TorrentController extends Controller
 
                 return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
             } else {
-                return view('torrent.edit_tor', ['categories' => Category::all(), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
+                return view('torrent.edit_tor', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
             }
         } else {
             abort(403, 'Unauthorized action.');

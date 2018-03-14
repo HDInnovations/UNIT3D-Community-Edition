@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $torrents = $category->torrents()->orderBy('created_at', 'DESC')->paginate(20);
 
-        return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category, 'categories' => Category::all()]);
+        return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category, 'categories' => Category::all()->sortBy('position')]);
     }
 
     /**
@@ -43,7 +43,7 @@ class CategoryController extends Controller
      */
     public function categories()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy('position');
 
         return view('category.categories', ['categories' => $categories]);
     }

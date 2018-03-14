@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::all()->sortBy('position');
 
         return view('Staff.category.index', ['categories' => $categories]);
     }
@@ -44,6 +44,7 @@ class CategoryController extends Controller
             $category = new Category();
             $category->name = Request::get('name');
             $category->slug = str_slug($category->name);
+            $category->position = Request::get('position');
             $category->icon = Request::get('icon');
             $category->meta = Request::get('meta');
             $v = Validator::make($category->toArray(), $category->rules);

@@ -25,6 +25,7 @@ class Category extends Model
     public $rules = [
         'name' => 'required',
         'slug' => 'required',
+        'position' => 'required',
         'icon' => 'required',
         'meta' => 'required'
     ];

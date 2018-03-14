@@ -32,6 +32,12 @@
     </div>
   </div>
   <div class="form-group">
+    <label for="uploader" class="col-sm-1 label label-default">Uploader</label>
+    <div class="col-sm-9">
+      {{ Form::text('uploader',null,['id'=>'uploader','placeholder'=>'Uploader Username','class'=>'form-control']) }}
+    </div>
+  </div>
+  <div class="form-group">
     <label for="imdb" class="col-sm-1 label label-default">Number</label>
     <div class="col-sm-2">
       {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
@@ -227,6 +233,7 @@
         function faceted(page){
             var csrf = "{{ csrf_token() }}";
             var search = $("#search").val();
+            var uploader = $("#uploader").val();
             var imdb = $("#imdb").val();
             var tvdb = $("#tvdb").val();
             var tmdb = $("#tmdb").val();
@@ -307,7 +314,7 @@
 
             xhr = $.ajax({
                 url: 'filterTorrents',
-                data: {_token:csrf,search:search,imdb:imdb,tvdb:tvdb,tmdb:tmdb,mal:mal,categories:categories,types:types,freeleech:freeleech,doubleupload:doubleupload,featured:featured,stream:stream,highspeed:highspeed,sd:sd,alive:alive,dying:dying,dead:dead,sorting:sorting,direction:direction,page:page,qty:qty},
+                data: {_token:csrf,search:search,uploader:uploader,imdb:imdb,tvdb:tvdb,tmdb:tmdb,mal:mal,categories:categories,types:types,freeleech:freeleech,doubleupload:doubleupload,featured:featured,stream:stream,highspeed:highspeed,sd:sd,alive:alive,dying:dying,dead:dead,sorting:sorting,direction:direction,page:page,qty:qty},
                 type: 'get',
                 beforeSend:function(){
                     $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
@@ -328,6 +335,11 @@
     </script>
     <script>
       $("#search").keyup(function(){
+        faceted();
+      })
+    </script>
+    <script>
+      $("#uploader").keyup(function(){
         faceted();
       })
     </script>
