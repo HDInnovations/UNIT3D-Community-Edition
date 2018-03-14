@@ -70,7 +70,7 @@ class TorrentController extends Controller
     *
     * @return View
     */
-    public function __construct(FacetedRepository $repository)
+    public function __construct(TorrentFacetedRepository $repository)
     {
         $this->repository = $repository;
         View::share('pages', Page::all());
