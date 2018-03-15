@@ -14,8 +14,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use \Toastr;
 
 class CategoryController extends Controller
@@ -38,18 +37,18 @@ class CategoryController extends Controller
      *
      *
      */
-    public function add()
+    public function add(Request $request)
     {
-        if (Request::isMethod('post')) {
+        if ($request->isMethod('POST')) {
             $category = new Category();
-            $category->name = Request::get('name');
+            $category->name = $request->input('name');
             $category->slug = str_slug($category->name);
-            $category->position = Request::get('position');
-            $category->icon = Request::get('icon');
-            $category->meta = Request::get('meta');
-            $v = Validator::make($category->toArray(), $category->rules);
+            $category->position = $request->input('position');
+            $category->icon = $request->input('icon');
+            $category->meta = $request->input('meta');
+            $v = validator($category->toArray(), $category->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
             } else {
                 $category->save();
                 return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Added', 'Yay!', ['options']));
@@ -63,17 +62,17 @@ class CategoryController extends Controller
      *
      *
      */
-    public function edit($slug, $id)
+    public function edit(Request $request, $slug, $id)
     {
         $category = Category::findOrFail($id);
-        if (Request::isMethod('post')) {
-            $category->name = Request::get('name');
+        if ($request->isMethod('POST')) {
+            $category->name = $request->input('name');
             $category->slug = str_slug($category->name);
-            $category->icon = Request::get('icon');
-            $category->meta = Request::get('meta');
-            $v = Validator::make($category->toArray(), $category->rules);
+            $category->icon = $request->input('icon');
+            $category->meta = $request->input('meta');
+            $v = validator($category->toArray(), $category->rules);
             if ($v->fails()) {
-                Toastr::error('Something Went Wrong!', 'Error', ['options']);
+                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
             } else {
                 $category->save();
                 return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Modified', 'Yay!', ['options']));

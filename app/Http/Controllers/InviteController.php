@@ -12,17 +12,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\InviteUser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Invite;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Http\Requests\ValidateSecretRequest;
-use Illuminate\Support\Facades\Input;
+use App\Mail\InviteUser;
 use \Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
@@ -32,7 +26,7 @@ class InviteController extends Controller
 
     public function invite()
     {
-        $user = Auth::user();
+        $user = auth()->user();
         if (config('other.invite-only') == false) {
             Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
         }
@@ -45,9 +39,9 @@ class InviteController extends Controller
     public function process(Request $request)
     {
         $current = new Carbon();
-        $user = Auth::user();
-        $exsist = Invite::where('email', '=', $request->get('email'))->first();
-        $member = User::where('email', '=', $request->get('email'))->first();
+        $user = auth()->user();
+        $exsist = Invite::where('email', '=', $request->input('email'))->first();
+        $member = User::where('email', '=', $request->input('email'))->first();
         if ($exsist || $member) {
             return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
         }
@@ -59,14 +53,14 @@ class InviteController extends Controller
             //create a new invite record
             $invite = Invite::create([
                 'user_id' => $user->id,
-                'email' => $request->get('email'),
+                'email' => $request->input('email'),
                 'code' => $code,
                 'expires_on' => $current->copy()->addDays(14),
-                'custom' => $request->get('message'),
+                'custom' => $request->input('message'),
             ]);
 
             // send the email
-            Mail::to($request->get('email'))->send(new InviteUser($invite));
+            Mail::to($request->input('email'))->send(new InviteUser($invite));
 
             // subtract 1 invite
             $user->invites -= 1;
@@ -80,11 +74,11 @@ class InviteController extends Controller
 
     public function inviteTree($username, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);
             $records = Invite::with('sender')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         } else {
-            $user = Auth::user();
+            $user = auth()->user();
             $records = Invite::with('sender')->where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         }
         return view('user.invitetree', ['user' => $user, 'records' => $records]);

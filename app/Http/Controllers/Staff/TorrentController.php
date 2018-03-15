@@ -13,8 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use App\Torrent;
 
 class TorrentController extends Controller
@@ -27,7 +26,7 @@ class TorrentController extends Controller
      */
     public function index()
     {
-        $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(20);
+        $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(25);
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }
 
@@ -38,14 +37,14 @@ class TorrentController extends Controller
      * @return View page.torrents
      *
      */
-    public function search()
+    public function search(Request $request)
     {
-        $search = Request::get('name');
+        $search = $request->input('name');
         $torrents = Torrent::where([
-            ['name', 'like', '%' . Request::get('name') . '%'],
+            ['name', 'like', '%' . $request->input('name') . '%'],
         ])->orderBy('created_at', 'DESC')->paginate(25);
 
-        $torrents->setPath('?name=' . Request::get('name'));
+        $torrents->setPath('?name=' . $request->input('name'));
 
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }

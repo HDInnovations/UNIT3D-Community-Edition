@@ -13,9 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\PrivateMessage;
 use App\Report;
 use \Toastr;
@@ -41,11 +39,11 @@ class ReportController extends Controller
         return view('Staff.reports.report', ['report' => $report]);
     }
 
-    public function solveReport($report_id)
+    public function solveReport(Request $request, $report_id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'verdict' => 'required|min:3',
             'staff_id' => 'required'
         ]);
@@ -56,7 +54,7 @@ class ReportController extends Controller
             return redirect()->route('getReports')->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
         }
 
-        $report->verdict = Request::get('verdict');
+        $report->verdict = $request->input('verdict');
         $report->staff_id = $user->id;
         $report->solved = 1;
         $report->save();

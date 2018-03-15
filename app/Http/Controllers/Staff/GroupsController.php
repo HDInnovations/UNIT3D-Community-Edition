@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Group;
 use \Toastr;
@@ -57,7 +56,7 @@ class GroupsController extends Controller
             $group->is_immune = $request->get('group_immune', 0);
             $group->is_freeleech = $request->get('group_freeleech', 0);
             $group->autogroup = $request->get('autogroup', 0);
-            $v = Validator::make($group->toArray(), $group->rules);
+            $v = validator($group->toArray(), $group->rules);
             if ($v->fails()) {
                 return redirect()->route('staff_groups_index')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
             } else {
@@ -90,7 +89,7 @@ class GroupsController extends Controller
             $group->is_immune = $request->get('group_immune', 0);
             $group->is_freeleech = $request->get('group_freeleech', 0);
             $group->autogroup = $request->get('autogroup', 0);
-            $v = Validator::make($group->toArray(), $group->rules);
+            $v = validator($group->toArray(), $group->rules);
             if ($v->fails()) {
                 return redirect()->route('staff_groups_index')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
             } else {

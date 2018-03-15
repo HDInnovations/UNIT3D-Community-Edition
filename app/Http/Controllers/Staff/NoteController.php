@@ -13,9 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Note;
 use App\User;
 use \Toastr;
@@ -27,12 +25,12 @@ class NoteController extends Controller
      *
      *
      */
-    public function postNote($username, $id)
+    public function postNote(Request $request, $username, $id)
     {
-        $staff = Auth::user();
+        $staff = auth()->user();
         $user = User::findOrFail($id);
 
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'user_id' => 'required',
             'staff_id' => 'required|numeric',
             'message' => 'required',
@@ -41,11 +39,11 @@ class NoteController extends Controller
         $note = new Note();
         $note->user_id = $user->id;
         $note->staff_id = $staff->id;
-        $note->message = Request::get('message');
+        $note->message = $request->input('message');
         $note->save();
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . $staff->username . " has added a note on " . $user->username . " account.");
+        \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
         return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Staff Note Has Successfully Posted', 'Yay!', ['options']));
     }

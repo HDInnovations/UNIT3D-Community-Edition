@@ -12,16 +12,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\User;
-use App\Group;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Torrent;
 use App\Requests;
-use App\Category;
-use App\Peer;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 use Carbon\Carbon;
 use \Toastr;
 
@@ -74,11 +68,10 @@ class ModerationController extends Controller
      */
     public function resetRequest($id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         // reset code here
         if ($user->group->is_modo) {
             $request = Requests::findOrFail($id);
-
             $request->filled_by = null;
             $request->filled_when = null;
             $request->filled_hash = null;

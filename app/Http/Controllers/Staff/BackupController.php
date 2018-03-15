@@ -12,11 +12,9 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\Adapter\Local;
 use Exception;
@@ -68,7 +66,7 @@ class BackupController extends Controller
             $output = Artisan::output();
 
             // log the results
-            Log::info("A new backup was initiated from the staff dashboard ".$output);
+            info("A new backup was initiated from the staff dashboard ".$output);
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $e) {
@@ -81,10 +79,10 @@ class BackupController extends Controller
     /**
      * Downloads a backup zip file.
      */
-    public function download()
+    public function download(Request $request)
     {
-        $disk = Storage::disk(Request::input('disk'));
-        $file_name = Request::input('file_name');
+        $disk = Storage::disk($request->input('disk'));
+        $file_name = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
 
         if ($adapter instanceof Local) {
@@ -103,9 +101,9 @@ class BackupController extends Controller
     /**
      * Deletes a backup file.
      */
-    public function delete($file_name)
+    public function delete(Request $request, $file_name)
     {
-        $disk = Storage::disk(Request::input('disk'));
+        $disk = Storage::disk($request->input('disk'));
 
         if ($disk->exists($file_name)) {
             $disk->delete($file_name);

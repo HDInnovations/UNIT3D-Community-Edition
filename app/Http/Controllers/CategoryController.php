@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -28,9 +27,9 @@ class CategoryController extends Controller
      */
     public function category($slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $category = Category::findOrFail($id);
-        $torrents = $category->torrents()->orderBy('created_at', 'DESC')->paginate(20);
+        $torrents = $category->torrents()->orderBy('created_at', 'DESC')->paginate(25);
 
         return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category, 'categories' => Category::all()->sortBy('position')]);
     }

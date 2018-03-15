@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
@@ -28,7 +27,7 @@ class PollController extends Controller
 {
     public function polls()
     {
-        $polls = Poll::orderBy('created_at', 'desc')->paginate(20);
+        $polls = Poll::orderBy('created_at', 'desc')->paginate(25);
         return view('Staff.poll.polls', compact('polls'));
     }
 
@@ -56,8 +55,8 @@ class PollController extends Controller
      */
     public function store(StorePoll $request)
     {
-        if (\Auth::check()) {
-            $poll = \Auth::user()->polls()->create($request->all());
+        if (auth()->check() {
+            $poll = auth()->user()->polls()->create($request->all());
         } else {
             $poll = Poll::create($request->all());
         }
@@ -68,11 +67,11 @@ class PollController extends Controller
         $poll->options()->saveMany($options);
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has created a new poll " . $poll->title . " .");
+        \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has created a new poll {$poll->title}.");
 
         // Auto Shout
         $appurl = config('app.url');
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/" . $poll->slug . "]" . $poll->title . "[/url] vote on it now! :slight_smile:"]);
+        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]"{$poll->title}"[/url] vote on it now! :slight_smile:"]);
         Cache::forget('shoutbox_messages');
 
         Toastr::success('Your poll has been created.', 'Yay!', ['options']);
