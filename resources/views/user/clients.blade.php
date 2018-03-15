@@ -49,7 +49,8 @@
 	<div class="container box">
 		<h3 class="text-center">My High Speed Seedboxes</h3>
 	@if(count($clients) > 0)
-    <table class="table table-bordered table-striped">
+    <div class="table-responsive">
+    <table class="table table-condensed table-bordered table-striped table-hover">
       <tr>
         <th>Client</th>
         <th>IP</th>
@@ -71,6 +72,7 @@
         </tr>
 		@endforeach
 	</table>
+    </div>
 		@else
 		<li class="list-group-item">
 			<h4 class="text-center">No Seedboxes :(</h4>

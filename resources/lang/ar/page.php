@@ -5,26 +5,27 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'aboutus-header' => 'Hi there',
-    'aboutus-welcome' => 'Let\'s talk about',
-    'aboutus-welcome-desc' => ':title is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. :title\'s strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly Staff team.',
-    'aboutus-advantage' => 'The advantage',
-    'aboutus-advantage1' => 'We have experienced members and staff that are well versed in the world of HD video / audio and technical support.',
-    'aboutus-advantage2' => 'Along with our extensive passion for movies and TV shows, we also offer one of the best selections of something that most don\'t - FANRES! <em>A BIG THANK YOU</em> to our content bringers.',
-    'aboutus-advantage3' => 'We don\'t accept donations to keep the site up and running. We feel that is our responsibility. That means no pestering PM\'s or banners on site. No begging from us.',
-    'aboutus-advantage4' => 'Our community is second to none for its early age. Between our staff and userbase, we\'re always here to help. We\'re passionate about making sure your experience on :title is nothing short of amazing.',
-    'aboutus-advantage5' => 'Our service is used daily by many people across the globe. We\'ve proven that we care about the functionality and security of our codebase and it can be trusted and relied on. Our developers work daily to provide a truly nex-gen codebase.',
-    'aboutus-rules' => 'What we need from you',
-    'aboutus-rules1' => 'To be an active member of the community! This means to join in conversations productively, add approved content and help other users if you are able.',
-    'aboutus-rules2' => 'To read the rules in full and please respect them!',
-    'aboutus-rules3' => 'Make suggestions! We are striving to make :title better each day. We aren\'t saying that every suggestion will be used, but it never hurts to see new ideas.',
+    'aboutus-header' => 'أهلا بك',
+    'aboutus-welcome' => 'دعنا نتحدث عن',
+    'aboutus-welcome-desc' => ': العنوان عبارة عن قاعدة بيانات <em> تابعة للفيلم / تلفزيون / FANRES من نوع Community / TV / FANRES.
+تمت إضافة كل جزء من البيانات من قبل مجتمعنا المذهل منذ عام 2017.: العنوان <em> التركيز </ em> قوي & nbsp؛ على محتوى عالي الدقة ، وقاعدة مستخدم استباقية ، ومكون أساسي رائع / آمن وموظفون مفيدون وودودون الفريق.',
+    'aboutus-advantage' => 'الفائدة',
+    'aboutus-advantage1' => 'لدينا أعضاء وموظفون ذوو خبرة في عالم الفيديو / الصوت والدعم الفني عالي الدقة.',
+    'aboutus-advantage2' => 'إلى جانب شغفنا الكبير بالأفلام والبرامج التلفزيونية ، نقدم أيضًا أفضل الاختيارات من شيء لا يفكر فيه معظم الناس! <em> شكراً جزيلاً لكم </ em> على مقدمي المحتوى الخاص بنا.',
+    'aboutus-advantage3' => 'نحن لا نقبل التبرعات من أجل الإبقاء على الموقع ، لأننا نشعر أننا مسؤولون عن هذا، لا مجال للإعلانات التجارية والدعايات الرخيصة',
+    'aboutus-advantage4' => 'مجتمعنا لا يعلى عليه في سن مبكرة. بين موظفينا وقاعدة المستخدمين ، نحن دائما هنا للمساعدة. نحن متحمسون للتاكد من خبرتك في: العنوان ليس مدهشًا.',
+    'aboutus-advantage5' => 'يتم استخدام خدمتنا يوميًا من قبل العديد من الأشخاص في جميع أنحاء العالم. لقد أثبتنا أننا نهتم بوظائف وأمن مصدر الشفرة ويمكن الوثوق بها والاعتماد عليها. يعمل مطورو البرامج لدينا يوميًا لتوفير مصدر برمجي أكيد.',
+    'aboutus-rules' => 'ماذا نحتاج منك ؟',
+    'aboutus-rules1' => 'أن تكون عضوا نشطا في المجتمع! وهذا يعني الانضمام إلى المحادثات بشكل منتج وإضافة محتوى معتمد ومساعدة المستخدمين الآخرين إذا كنت قادراً على ذلك.',
+    'aboutus-rules2' => 'لقراءة القوانين التي ينبغي الانتباه لها ',
+    'aboutus-rules3' => 'قدم لنا مقترحاتك ! نحن نسعى جاهدين لجعل: هذا الموضوع أفضل كل يوم. نحن لا نقول أن كل اقتراح سيتم تطبيقها ، ولكن لا ضرر من رؤية الأفكار الجديدة.',
     
-    'blacklist-desc' => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
-    'blacklist-clients' => 'Clients',
-    'blacklist-btclient' => 'BitTorrent Client',
-    'blacklist-browsers' => 'Browsers',
-    'blacklist-webbrowser' => 'Web Browser',
+    'blacklist-desc' => 'إن المتصفحات الآتية وبرامج التورينت مدرجون في القائمة السوداء/ والممنوعة من تلقيم التورينت',
+    'blacklist-clients' => 'العملاء',
+    'blacklist-btclient' => 'برنامج التورينت',
+    'blacklist-browsers' => 'المتصفحات',
+    'blacklist-webbrowser' => 'متصفح الويب',
     
-    'staff-group' => 'Group',
-    'staff-title' => 'Title'
+    'staff-group' => 'المجموعة',
+    'staff-title' => 'العنوان'
 ];

@@ -13,23 +13,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Encryptable;
 
 class Client extends Model
 {
-    use Encryptable;
-
     /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'clients';
-
-    /**
-    * The attributes that should be encrypted on save.
-    *
-    * @var array
-    */
-    protected $encrypts = ['ip'];
 }

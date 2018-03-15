@@ -69,19 +69,19 @@ return [
     'required_with' => 'The :attribute field is required when :values is present.',
     'required_with_all' => 'The :attribute field is required when :values is present.',
     'required_without' => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same' => 'The :attribute and :other must match.',
+    'required_without_all' => 'حقل السمة مطلوب عند عدم وجود أي من: القيم.',
+    'same' => 'السمة: و: يجب أن يتطابق الآخرون.',
     'size' => [
-        'numeric' => 'The :attribute must be :size.',
-        'file' => 'The :attribute must be :size kilobytes.',
-        'string' => 'The :attribute must be :size characters.',
-        'array' => 'The :attribute must contain :size items.'
+        'numeric' => 'يجب أن تكون السمة: الحجم.',
+        'file' => 'يجب أن تكون السمة: حجم الكيلوبايت.',
+        'string' => 'السمة يجب أن تكون: حجم الحروف.',
+        'array' => 'يجب أن تحتوي السمة: على عناصر حجم.'
     ],
-    'string' => 'The :attribute must be a string.',
-    'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'The :attribute has already been taken.',
-    'uploaded' => 'The :attribute failed to upload.',
-    'url' => 'The :attribute format is invalid.',
+    'string' => 'يجب أن تكون السمة: سلسلة.',
+    'timezone' => 'يجب أن تكون السمة: منطقة صالحة.',
+    'unique' => 'لقد تم بالفعل اتخاذ الخاصية المميزة:',
+    'uploaded' => 'فشل في تحميل السمة',
+    'url' => 'شكل السمة: غير صالح.',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message'
+            'rule-name' => 'رسالة مخصصة'
         ]
     ],
 

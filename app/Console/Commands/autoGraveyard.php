@@ -51,21 +51,21 @@ class autoGraveyard extends Command
         foreach ($rewardable as $reward) {
             $user = User::where('id', '=', $reward->user_id)->first();
             $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();
-            $history = History::where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->where('seedtime', '>=', $reward->seedtime)->first();
+            $history = History::where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->first();
 
-            if ($history) {
+            if ($history && $history->seedtime >= $reward->seedtime) {
                 $reward->rewarded = 1;
                 $reward->save();
 
                 $user->fl_tokens += config('graveyard.reward');
                 $user->save();
 
-                // Auto Announce Featured Expired
+                // Auto Shout
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has succesfully ressurected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]. :zombie:"]);
                 Cache::forget('shoutbox_messages');
 
-                // PM User That Warning Has Expired
+                // PM User
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => "Successful Graveyard Ressurection", 'message' => "You have successfully ressurected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
             }

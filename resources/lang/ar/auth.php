@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login' => 'Login',
-    'signup' => 'Signup',
-    'logout' => 'Logout',
-    'username' => 'Username',
-    'password' => 'Password',
-    'lost-password' => 'Forgot Your Password?',
-    'recover-my-password' => 'Recover My Password',
-    'remember-me' => 'Remember Me'
+    'failed' => 'بيانات الاعتماد هذه لا توافق سجلاتنا في النظام',
+    'throttle' => 'جرت محاولات متكررة للدخول، الرجاء المحاول في وقت لاحق',
+    'login' => 'دخول',
+    'signup' => 'التسجيل',
+    'logout' => 'تسجيل الخروج',
+    'username' => 'اسم العضو',
+    'password' => 'الرقم السري',
+    'lost-password' => 'هل نسيت الرقم السري؟',
+    'recover-my-password' => 'استعادة رقمي السري',
+    'remember-me' => 'تذكرني'
 ];

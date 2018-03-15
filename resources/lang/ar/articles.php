@@ -5,8 +5,8 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more' => 'Read More',
-    'published-at' => 'Published At ',
-    'articles' => 'Articles'
+    'meta-articles' => 'المقالات والأخبار المتصلة بمتتبع التورينت ومجتمع الأعضاء',
+    'read-more' => 'لقراءة المزيد',
+    'published-at' => 'نُشِرَ في ',
+    'articles' => 'المقالات'
 ];
