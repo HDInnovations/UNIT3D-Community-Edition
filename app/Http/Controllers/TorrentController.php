@@ -605,7 +605,7 @@ class TorrentController extends Controller
      */
     public function grantFL($slug, $id)
     {
-        if (Aauth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $appurl = config('app.url');
             if ($torrent->free == 0) {
