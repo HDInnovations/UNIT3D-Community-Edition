@@ -79,7 +79,8 @@ class ShoutboxController extends Controller
             $appurl = config('app.url');
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
-      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (Auth::user()->group->name) . '"></i>&nbsp;<a style="color:' . (Auth::user()->group->color) . '; background-image:' . (Auth::user()->group->effect) . ';" href=\'' . $appurl . '/' . Auth::user()->username . '.' . Auth::user()->id . '\'>'
+      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->group->name) . '"></i>&nbsp;
+      <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $appurl . '/' . auth()->user()->username . '.' . auth()->user()->id . '\'>'
                 . auth()->user()->username . '</a>
       ' . ($flag ? $online : "") . '
       </span>&nbsp;<span class="text-muted"><small><em>' . Carbon::now()->diffForHumans() . '</em></small></span>
