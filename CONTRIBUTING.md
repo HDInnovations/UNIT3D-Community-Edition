@@ -15,6 +15,8 @@ We accept contributions via Pull Requests on [Github](https://github.com/UNIT3D/
 
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
+- **Use Laravel helpers when possible and not facades** - auth(), info(), cache(), response(), ext. [Laravel Helpers](https://laravel.com/docs/5.6/helpers)
+
 
 
 **Happy coding**!
