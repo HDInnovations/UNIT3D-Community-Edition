@@ -5,6 +5,7 @@
   <title>{{ trans('auth.login') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
     <meta name="description" content="{{ trans('auth.login-now-on') }} {{ Config::get('other.title') }} . {{ trans('auth.not-a-member') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">

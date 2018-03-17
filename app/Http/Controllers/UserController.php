@@ -12,16 +12,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Group;
-use App\Mail\InviteUser;
 use App\User;
-use App\Category;
 use App\Peer;
 use App\Torrent;
-use App\TorrentFile;
 use App\Comment;
 use App\Client;
-use App\Shoutbox;
 use App\Post;
 use App\Topic;
 use App\PrivateMessage;
@@ -29,19 +28,7 @@ use App\Follow;
 use App\History;
 use App\Warning;
 use App\Note;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Request as IlluminateRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Http\Requests\ValidateSecretRequest;
-use Illuminate\Support\Facades\Input;
-use Cache;
+use App\Mail\InviteUser;
 use \Toastr;
 use Image;
 use Carbon\Cabon;
@@ -73,13 +60,13 @@ class UserController extends Controller
      * @access public
      *
      */
-    public function userSearch()
+    public function userSearch(Request $request)
     {
-        $search = Request::get('search');
+        $search = $request->input('search');
         $users = User::where([
-            ['username', 'like', '%' . Request::get('username') . '%'],
+            ['username', 'like', '%' . $request->input('username') . '%'],
         ])->paginate(25);
-        $users->setPath('?username=' . Request::get('username'));
+        $users->setPath('?username=' . $request->input('username'));
         return view('user.members')->with('users', $users);
     }
 
@@ -120,14 +107,14 @@ class UserController extends Controller
      * @return void
      *
      */
-    public function editProfil($username, $id)
+    public function editProfil(Request $request, $username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         // Requetes post only
-        if (Request::isMethod('post')) {
+        if ($request->isMethod('POST')) {
             // Avatar
-            if (Request::hasFile('image')) {
-                $image = Request::file('image');
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
                 if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif', 'GIF']) && preg_match('#image/*#', $image->getMimeType())) {
                     $filename = $user->username . '.' . $image->getClientOriginalExtension();
                     $path = public_path('/files/img/' . $filename);
@@ -136,9 +123,9 @@ class UserController extends Controller
                 }
             }
             // Define data
-            $user->title = Request::get('title');
-            $user->about = Request::get('about');
-            $user->signature = Request::get('signature');
+            $user->title = $request->input('title');
+            $user->about = $request->input('about');
+            $user->signature = $request->input('signature');
             // Save the user
             $user->save();
 
@@ -159,7 +146,7 @@ class UserController extends Controller
      */
     public function settings($username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         return view('user.settings', ['user' => $user]);
     }
 
@@ -169,26 +156,26 @@ class UserController extends Controller
      * @access public
      * @return view user.settings
      */
-    public function changeSettings($username, $id)
+    public function changeSettings(Request $request, $username, $id)
     {
-        $user = Auth::user();
-        if (Request::isMethod('post')) {
-            $user->style = (int)Request::get('theme');
-            $css_url = Request::get('custom_css');
+        $user = auth()->user();
+        if ($request->isMethod('POST')) {
+            $user->style = (int)$request->input('theme');
+            $css_url = $request->input('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
                 return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
 
-            $user->nav = Request::get('sidenav');
-            $user->hidden = Request::get('onlinehide');
-            $user->private_profile = Request::get('private_profile');
-            $user->peer_hidden = Request::get('peer_hidden');
-            $user->show_poster = Request::get('show_poster');
-            $user->ratings = Request::get('ratings');
+            $user->nav = $request->input('sidenav');
+            $user->hidden = $request->input('onlinehide');
+            $user->private_profile = $request->input('private_profile');
+            $user->peer_hidden = $request->input('peer_hidden');
+            $user->show_poster = $request->input('show_poster');
+            $user->ratings = $request->input('ratings');
             if (config('auth.TwoStepEnabled') == true) {
-                $user->twostep = Request::get('twostep');
+                $user->twostep = $request->input('twostep');
             }
             $user->save();
 
@@ -207,14 +194,14 @@ class UserController extends Controller
      * @access protected
      *
      */
-    protected function changePassword(IlluminateRequest $request)
+    protected function changePassword(Request $request)
     {
         $this->validate($request, [
             'current_password' => 'required',
             'new_password' => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
         ]);
-        $usr = User::findOrFail(Auth::user()->id);
+        $usr = User::findOrFail(auth()->user()->id);
         if (Hash::check($request->current_password, $usr->password)) {
             $usr->fill([
                 'password' => Hash::make($request->new_password)
@@ -231,16 +218,16 @@ class UserController extends Controller
      * @access protected
      *
      */
-    protected function changeEmail($username, $id)
+    protected function changeEmail(Request $request, $username, $id)
     {
-        $user = Auth::user();
-        $v = Validator::make(Request::all(), [
+        $user = auth()->user();
+        $v = validator($request->all(), [
             'current_password' => 'required',
             'new_email' => 'required',
         ]);
         if ($v->passes()) {
-            if (Request::isMethod('post')) {
-                $user->email = Request::get('new_email');
+            if ($request->isMethod('POST')) {
+                $user->email = $request->input('new_email');
                 $user->save();
 
                 // Activity Log
@@ -259,10 +246,10 @@ class UserController extends Controller
      * @access public
      * @return view user.settings
      */
-    public function changePID($username, $id)
+    public function changePID(Request $request, $username, $id)
     {
-        $user = Auth::user();
-        if (Request::isMethod('post')) {
+        $user = auth()->user();
+        if ($request->isMethod('post')) {
             $user->passkey = md5(uniqid() . time() . microtime());
             $user->save();
             return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
@@ -281,29 +268,29 @@ class UserController extends Controller
      */
     public function clients($username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $cli = Client::where('user_id', '=', $user->id)->get();
         return view('user.clients', ['user' => $user, 'clients' => $cli]);
     }
 
-    protected function authorizeClient($username, $id)
+    protected function authorizeClient(Request $request, $username, $id)
     {
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'password' => 'required',
             'ip' => 'required|ipv4|unique:clients,ip',
             'client_name' => 'required|alpha_num',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
         if ($v->passes()) {
-            if (Hash::check(Request::get('password'), $user->password)) {
+            if (Hash::check($request->input('password'), $user->password)) {
                 if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
                     return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
                 $cli = new Client;
                 $cli->user_id = $user->id;
-                $cli->name = Request::get('client_name');
-                $cli->ip = Request::get('ip');
+                $cli->name = $request->input('client_name');
+                $cli->ip = $request->input('ip');
                 $cli->save();
                 return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
             } else {
@@ -314,16 +301,16 @@ class UserController extends Controller
         }
     }
 
-    protected function removeClient($username, $id)
+    protected function removeClient(Request $request, $username, $id)
     {
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'cliid' => 'required|exists:clients,id',
             'userid' => 'required|exists:users,id',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
         if ($v->passes()) {
-            $cli = Client::where('id', '=', Request::get('cliid'));
+            $cli = Client::where('id', '=', $request->input('cliid'));
             $cli->delete();
             return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         } else {
@@ -333,7 +320,7 @@ class UserController extends Controller
 
     public function getWarnings($username, $id)
     {
-        if (Auth::user()->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);
             $warnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->orderBy('active', 'DESC')->paginate(25);
             $warningcount = Warning::where('user_id', '=', $id)->count();
@@ -346,8 +333,8 @@ class UserController extends Controller
 
     public function deactivateWarning($id)
     {
-        if (Auth::user()->group->is_modo) {
-            $staff = Auth::user();
+        if (auth()->user()->group->is_modo) {
+            $staff = auth()->user();
             $warning = Warning::findOrFail($id);
             $warning->expires_on = Carbon::now();
             $warning->active = 0;
@@ -363,7 +350,7 @@ class UserController extends Controller
     public function myUploads($username, $id)
     {
         $user = User::findOrFail($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
             $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
         } else {
@@ -374,7 +361,7 @@ class UserController extends Controller
     public function myActive($username, $id)
     {
         $user = User::findOrFail($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
             $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->with('torrent')->distinct('hash')->paginate(50);
             return view('user.active', ['user' => $user, 'active' => $active]);
         } else {
@@ -385,7 +372,7 @@ class UserController extends Controller
     public function myHistory($username, $id)
     {
         $user = User::findOrFail($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $user->id) {
+        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
             $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
             $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
             $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');

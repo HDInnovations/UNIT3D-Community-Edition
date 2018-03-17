@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Torrent;
 use App\Peer;
@@ -19,9 +20,7 @@ use App\History;
 use App\BonTransactions;
 use App\Requests;
 use App\Group;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use Cache;
 
 class StatsController extends Controller
 {
@@ -38,55 +37,55 @@ class StatsController extends Controller
         // Site Stats Block
 
         // Total Members Count
-        $num_user = Cache::remember('num_user', 60, function () {
+        $num_user = cache()->remember('num_user', 60, function () {
             return User::all()->count();
         });
         // Total Torrents Count
-        $num_torrent = Cache::remember('num_torrent', 60, function () {
+        $num_torrent = cache()->remember('num_torrent', 60, function () {
             return Torrent::all()->count();
         });
         // Total Movies Count
-        $num_movies = Cache::remember('num_movies', 60, function () {
+        $num_movies = cache()->remember('num_movies', 60, function () {
             return Torrent::where('category_id', '1')->count();
         });
         // Total HDTV Count
-        $num_hdtv = Cache::remember('num_hdtv', 60, function () {
+        $num_hdtv = cache()->remember('num_hdtv', 60, function () {
             return Torrent::where('category_id', '2')->count();
         });
         // Total FANRES Count
-        $num_fan = Cache::remember('num_fan', 60, function () {
+        $num_fan = cache()->remember('num_fan', 60, function () {
             return Torrent::where('category_id', '3')->count();
         });
         // Total SD Count
-        $num_sd = Cache::remember('num_sd', 60, function () {
+        $num_sd = cache()->remember('num_sd', 60, function () {
             return Torrent::where('sd', '1')->count();
         });
         // Total Seeders
-        $num_seeders = Cache::remember('num_seeders', 60, function () {
+        $num_seeders = cache()->remember('num_seeders', 60, function () {
             return Peer::where('seeder', '1')->count();
         });
         // Total Leechers
-        $num_leechers = Cache::remember('num_leechers', 60, function () {
+        $num_leechers = cache()->remember('num_leechers', 60, function () {
             return Peer::where('seeder', '0')->count();
         });
         // Total Peers
-        $num_peers = Cache::remember('num_peers', 60, function () {
+        $num_peers = cache()->remember('num_peers', 60, function () {
             return Peer::all()->count();
         });
         //Total Upload Traffic Without Double Upload
-        $actual_upload = Cache::remember('actual_upload', 60, function () {
+        $actual_upload = cache()->remember('actual_upload', 60, function () {
             return History::all()->sum('actual_uploaded');
         });
         //Total Upload Traffic With Double Upload
-        $credited_upload = Cache::remember('credited_upload', 60, function () {
+        $credited_upload = cache()->remember('credited_upload', 60, function () {
             return History::all()->sum('uploaded');
         });
         //Total Download Traffic Without Freeleech
-        $actual_download = Cache::remember('actual_download', 60, function () {
+        $actual_download = cache()->remember('actual_download', 60, function () {
             return History::all()->sum('actual_downloaded');
         });
         //Total Download Traffic With Freeleech
-        $credited_download = Cache::remember('credited_download', 60, function () {
+        $credited_download = cache()->remember('credited_download', 60, function () {
             return History::all()->sum('downloaded');
         });
         $actual_up_down = $actual_upload + $actual_download;     //Total Up/Down Traffic without perks

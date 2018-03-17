@@ -12,10 +12,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Bookmark;
-use App\Torrent;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 use \Toastr;
 
 class BookmarkController extends Controller
@@ -30,7 +26,7 @@ class BookmarkController extends Controller
      */
     public function bookmarks()
     {
-        $myBookmarks = Auth::user()->bookmarks;
+        $myBookmarks = auth()->user()->bookmarks;
 
         return view('bookmark.bookmarks', ['myBookmarks' => $myBookmarks]);
     }
@@ -43,7 +39,7 @@ class BookmarkController extends Controller
      */
     public function unBookmark($id)
     {
-        Auth::user()->bookmarks()->detach($id);
+        auth()->user()->bookmarks()->detach($id);
         return redirect()->back()->with(Toastr::success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
     }
 }

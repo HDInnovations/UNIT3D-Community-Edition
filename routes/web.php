@@ -409,9 +409,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
         Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
 
-        // Settings
-        Route::any('/settings', 'SettingsController@index')->name('staff_settings_index');
-
         // Articles
         Route::any('/articles', 'ArticleController@index')->name('staff_article_index');
         Route::any('/articles/new', 'ArticleController@add')->name('staff_article_add');
@@ -420,9 +417,6 @@ Route::group(['middleware' => 'language'], function () {
 
         // Bugs
         Route::any('/bug', 'BugController@index')->name('staff_bug_index');
-
-        // Blocks
-        Route::any('/blocks', 'BlockController@index')->name('staff_blocks_index');
 
         // Groups
         Route::any('/groups', 'GroupsController@index')->name('staff_groups_index');

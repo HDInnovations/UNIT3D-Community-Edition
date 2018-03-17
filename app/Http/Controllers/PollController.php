@@ -16,7 +16,6 @@ use App\Poll;
 use App\Option;
 use App\Voter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;
@@ -28,7 +27,7 @@ class PollController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     *
      */
     public function index()
     {
@@ -40,10 +39,10 @@ class PollController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param  int $slug
+     *
      */
-    public function show(Request $request, $slug)
+    public function show($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
 
@@ -52,7 +51,7 @@ class PollController extends Controller
 
     public function vote(VoteOnPoll $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $poll = Option::findOrFail($request->input('option.0'))->poll;
 
         foreach ($request->input('option') as $option) {

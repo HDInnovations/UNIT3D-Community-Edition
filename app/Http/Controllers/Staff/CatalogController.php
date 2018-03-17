@@ -13,8 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use App\User;
 use App\Catalog;
 use App\CatalogTorrent;
@@ -34,20 +33,20 @@ class CatalogController extends Controller
     }
 
     //Add New Catalog
-    public function postCatalog()
+    public function postCatalog(Request $request)
     {
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u'
         ]);
-        $catalog = Catalog::where('name', '=', Request::get('catalog'))->first();
+        $catalog = Catalog::where('name', '=', $request->input('catalog'))->first();
         if ($catalog) {
-            return redirect()->route('catalogs')->with(['fail' => 'Catalog ' . $catalog->name . ' is already in database']);
+            return redirect()->route('catalogs')->with(Toastr::error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
         }
         $catalog = new Catalog();
-        $catalog->name = Request::get('catalog');
-        $catalog->slug = str_slug(Request::get('catalog'));
+        $catalog->name = $request->input('catalog');
+        $catalog->slug = str_slug($request->input('catalog'));
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully added', 'Yay!', ['options']));
+        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     //Delete Catalog
@@ -62,18 +61,18 @@ class CatalogController extends Controller
     }
 
     //Edit Catalog
-    public function editCatalog($catalog_id)
+    public function editCatalog(Request $request, $catalog_id)
     {
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u'
         ]);
         $catalog = Catalog::findOrFail($catalog_id);
         if (!$catalog) {
-            return redirect()->route('getCatalog')->with(Toastr::error('Catalog ' . Request::get('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
+            return redirect()->route('getCatalog')->with(Toastr::error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
         }
-        $catalog->name = Request::get('catalog');
+        $catalog->name = $request->input('catalog');
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . Request::get('catalog') . ' has been successfully edited', 'Yay!', ['options']));
+        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
     }
 
     /**
@@ -88,27 +87,27 @@ class CatalogController extends Controller
     }
 
     //Add New Catalog Torrent
-    public function postCatalogTorrent()
+    public function postCatalogTorrent(Request $request)
     {
         // Find the right catalog
-        $catalog = Catalog::findOrFail(Request::get('catalog_id'));
-        $v = Validator::make(Request::all(), [
+        $catalog = Catalog::findOrFail($request->input('catalog_id'));
+        $v = validator($request->all(), [
             'imdb' => 'required|numeric',
             'tvdb' => 'required|numeric',
             'catalog_id' => 'required|numeric|exists:catalog_id'
         ]);
-        $torrent = CatalogTorrent::where('imdb', '=', Request::get('imdb'))->first();
+        $torrent = CatalogTorrent::where('imdb', '=', $request->input('imdb'))->first();
         if ($torrent) {
             return redirect()->route('getCatalogTorrent')->with(Toastr::error('IMDB# ' . $torrent->imdb . ' is already in database', 'Whoops!', ['options']));
         }
         $torrent = new CatalogTorrent();
-        $torrent->imdb = Request::get('imdb');
-        $torrent->catalog_id = Request::get('catalog_id');
+        $torrent->imdb = $request->input('imdb');
+        $torrent->catalog_id = $request->input('catalog_id');
         $torrent->save();
         // Count and save the torrent number in this catalog
         $catalog->num_torrent = CatalogTorrent::where('catalog_id', '=', $catalog->id)->count();
         $catalog->save();
-        return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . Request::get('imdb') . ' has been successfully added', 'Yay!', ['options']));
+        return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . $request->input('imdb') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     // Get Catalogs Records

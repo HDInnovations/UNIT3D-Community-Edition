@@ -5,12 +5,10 @@
     <li><a href="{{ route('home') }}"><i class="fa fa-columns"></i> {{ trans('staff.frontend') }}</a></li>
     <li><a href="{{ route('staff_dashboard') }}"><i class="fa fa-columns"></i> {{ trans('staff.staff-dashboard') }}</a></li>
     @if(Auth::user()->group->is_admin)
-    <li><a href="staff_dashboard/config_settings"><i class="fa fa-code"></i> {{ trans('staff.config-manager') }}</a></li>
     <li><a href="{{ route('backupManager') }}"><i class="fa fa-hdd-o"></i> {{ trans('backup.backup') }} {{ trans('backup.manager') }}</a></li>
     @endif
     <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.general-tools') }}</li>
     <li><a href="{{ route('staff_article_index') }}"><i class="fa fa-newspaper-o"></i> {{ trans('staff.articles') }}</a></li>
-    <li><a href="{{ route('staff_blocks_index') }}"><i class="fa fa-sitemap"></i> {{ trans('staff.blocks') }}</a></li>
     @if(Auth::user()->group->is_admin)
     <li><a href="{{ route('staff_forum_index') }}"><i class="fa fa-wpforms"></i> {{ trans('staff.forums') }}</a></li>
     <li><a href="{{ route('staff_groups_index') }}"><i class="fa fa-users"></i> {{ trans('staff.groups') }}</a></li>

@@ -12,12 +12,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Article;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use App\Article;
 use \Toastr;
 
 class ArticleController extends Controller
@@ -41,22 +38,22 @@ class ArticleController extends Controller
      * @access public
      * @return Staff.article.add
      */
-    public function add()
+    public function add(Request $request)
     {
-        if (Request::isMethod('post')) {
-            $input = Request::all();
+        if ($request->isMethod('POST')) {
+            $input = $request->all();
             $post = new Article();
             $post->title = $input['title'];
             $post->slug = str_slug($post->title);
             $post->content = $input['content'];
-            $post->user_id = Auth::user()->id;
+            $post->user_id = auth()->user()->id;
             // Verify that an image was upload
-            if (Request::hasFile('image') && Request::file('image')->getError() == 0) {
+            if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
                 // The file is an image
-                if (in_array(Request::file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
+                if (in_array($request->file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
                     // Move and add the name to the object that will be saved
-                    $post->image = 'article-' . uniqid() . '.' . Request::file('image')->getClientOriginalExtension();
-                    Request::file('image')->move(getcwd() . '/files/img/', $post->image);
+                    $post->image = 'article-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+                    $request->file('image')->move(getcwd() . '/files/img/', $post->image);
                 } else {
                     // Image null or wrong format
                     $post->image = null;
@@ -66,15 +63,15 @@ class ArticleController extends Controller
                 $post->image = null;
             }
 
-            $v = Validator::make($post->toArray(), $post->rules);
+            $v = validator($post->toArray(), $post->rules);
             if ($v->fails()) {
                 // Delete the image because the validation failed
-                if (file_exists(Request::file('image')->move(getcwd() . '/files/img/' . $post->image))) {
-                    unlink(Request::file('image')->move(getcwd() . '/files/img/' . $post->image));
+                if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $post->image))) {
+                    unlink($request->file('image')->move(getcwd() . '/files/img/' . $post->image));
                 }
                 return redirect()->route('staff_article_index')->with(Toastr::error('Your article has failed to published!', 'Whoops!', ['options']));
             } else {
-                Auth::user()->articles()->save($post);
+                auth()->user()->articles()->save($post);
                 return redirect()->route('staff_article_index')->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
             }
         }
@@ -89,23 +86,23 @@ class ArticleController extends Controller
      * @param $id Id of article
      * @return Staff.article.edit
      */
-    public function edit($slug, $id)
+    public function edit(Request $request, $slug, $id)
     {
         $post = Article::findOrFail($id);
-        if (Request::isMethod('post')) {
-            $input = Request::all();
+        if ($request->isMethod('POST')) {
+            $input = $request->all();
             $post->title = $input['title'];
             $post->slug = str_slug($post->title);
             $post->content = $input['content'];
-            $post->user_id = Auth::user()->id;
+            $post->user_id = auth()->user()->id;
 
             // Verify that an image was upload
-            if (Request::hasFile('image') && Request::file('image')->getError() == 0) {
+            if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
                 // The file is an image
-                if (in_array(Request::file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
+                if (in_array($request->file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
                     // Move and add the name to the object that will be saved
-                    $post->image = 'article-' . uniqid() . '.' . Request::file('image')->getClientOriginalExtension();
-                    Request::file('image')->move(getcwd() . '/files/img/', $post->image);
+                    $post->image = 'article-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
+                    $request->file('image')->move(getcwd() . '/files/img/', $post->image);
                 } else {
                     // Image null or wrong format
                     $post->image = null;
@@ -115,7 +112,7 @@ class ArticleController extends Controller
                 $post->image = null;
             }
 
-            $v = Validator::make($post->toArray(), $post->rules);
+            $v = validator($post->toArray(), $post->rules);
             if ($v->fails()) {
                 return redirect()->route('staff_article_index')->with(Toastr::error('Your article changes have failed to publish!', 'Whoops!', ['options']));
             } else {

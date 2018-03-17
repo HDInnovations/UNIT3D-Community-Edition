@@ -134,11 +134,10 @@ class ModerationController extends Controller
      */
     public function resetRequest($id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         // reset code here
         if ($user->group->is_modo) {
             $request = Requests::findOrFail($id);
-
             $request->filled_by = null;
             $request->filled_when = null;
             $request->filled_hash = null;

@@ -13,10 +13,8 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
 use \Toastr;
 
 class GiftController extends Controller
@@ -40,12 +38,12 @@ class GiftController extends Controller
      *
      * @return void
      */
-    public function gift()
+    public function gift(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        if (Request::isMethod('post')) {
-            $v = Validator::make(Request::all(), [
+        if ($request->isMethod('POST')) {
+            $v = validator($request->all(), [
                 'username' => "required|exists:users,username|max:180",
                 'bonus_points' => "required|numeric|min:0",
                 'invites' => "required|numeric|min:0",
@@ -53,22 +51,22 @@ class GiftController extends Controller
             ]);
 
             if ($v->passes()) {
-                $recipient = User::where('username', 'LIKE', Request::get('username'))->first();
+                $recipient = User::where('username', 'LIKE', $request->input('username'))->first();
 
                 if (!$recipient) {
                     return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
                 }
 
-                $bon = Request::get('bonus_points');
-                $invites = Request::get('invites');
-                $fl_tokens = Request::get('fl_tokens');
+                $bon = $request->input('bonus_points');
+                $invites = $request->input('invites');
+                $fl_tokens = $request->input('fl_tokens');
                 $recipient->seedbonus += $bon;
                 $recipient->invites += $invites;
                 $recipient->fl_tokens += $fl_tokens;
                 $recipient->save();
 
                 // Activity Log
-                \LogActivity::addToLog("Staff Member " . $user->username . " has sent a system gift to " . $recipient->username . " account.");
+                \LogActivity::addToLog("Staff Member {$user->username} has sent a system gift to {$recipient->username} account.");
 
                 return redirect('/staff_dashboard/systemgift')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
             } else {

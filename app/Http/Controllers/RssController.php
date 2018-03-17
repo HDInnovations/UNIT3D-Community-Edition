@@ -67,7 +67,7 @@ class RssController extends Controller
         if ($this->auth($passkey)) {
             $torrents = $this->getTorrents();
 
-            return Response::view('rss.default', ['passkey' => $passkey, 'torrents' => $torrents])->header('Content-Type', 'text/xml');
+            return view('rss.default', ['passkey' => $passkey, 'torrents' => $torrents])->header('Content-Type', 'text/xml');
         }
 
         return abort(404);
@@ -88,7 +88,7 @@ class RssController extends Controller
 
     public function getView()
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $rssData = RSS::select('category')->where('user_id', '=', $user->id)->first();
 

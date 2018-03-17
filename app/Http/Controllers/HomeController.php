@@ -12,28 +12,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\View;
 use App\Article;
-use App\Comment;
 use App\Group;
-use App\History;
-use App\Mail\Contact;
 use App\Topic;
 use App\Torrent;
-use App\Category;
-use App\Type;
 use App\User;
-use App\Peer;
 use App\Shoutbox;
 use App\Post;
 use App\FeaturedTorrent;
-use App\UserFreeleech;
-use Cache;
+use App\Mail\Contact;
 use \Toastr;
 
 class HomeController extends Controller
@@ -83,13 +72,13 @@ class HomeController extends Controller
      * @access public
      * @return View home.contact
      */
-    public function contact()
+    public function contact(Request $request)
     {
         // Fetch owner account
         $user = User::where('id', '=', '3')->first();
 
-        if (Request::getMethod() == 'POST') {
-            $input = Request::all();
+        if ($request->isMethod('POST')) {
+            $input = $request->all();
             Mail::to($user->email, $user->username)->send(new Contact($input));
             Toastr::success('Your Message Was Succefully Sent!', 'Yay!', ['options']);
         }

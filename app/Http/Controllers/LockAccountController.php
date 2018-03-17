@@ -42,7 +42,7 @@ class LockAccountController extends Controller
             'password' => 'required|string',
         ]);
 
-        if (\Hash::check($password, \Auth::user()->password)) {
+        if (\Hash::check($password, auth()->user()->password)) {
             $request->session()->forget('locked');
             return redirect()->route('home')->with(Toastr::success('Your Account Has Been Unlocked Successfully!', 'Yay!', ['options']));
         }
