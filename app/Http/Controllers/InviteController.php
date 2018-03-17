@@ -14,6 +14,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Config;
 use App\User;
 use App\Invite;
 use App\Mail\InviteUser;
@@ -40,6 +41,11 @@ class InviteController extends Controller
     {
         $current = new Carbon();
         $user = auth()->user();
+        $invites_restricted = Config::get('config.invites_restriced', false);
+        $invite_groups = Config::get('config.invite_groups', []);
+        if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
+            return redirect()->route('invite')->with(Toastr::error('Invites are currently disabled for your userclass.', 'Whoops!', ['options']));
+        }
         $exsist = Invite::where('email', '=', $request->input('email'))->first();
         $member = User::where('email', '=', $request->input('email'))->first();
         if ($exsist || $member) {

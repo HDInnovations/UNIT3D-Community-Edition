@@ -150,4 +150,7 @@ return [
     */
     'default_upload' => '53687091200',
     'default_download' => '1073741824',
+
+    'invites_restriced' => false,
+    'invite_groups' => [],
 ];
