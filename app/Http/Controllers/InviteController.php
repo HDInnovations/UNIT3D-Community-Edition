@@ -40,6 +40,11 @@ class InviteController extends Controller
     {
         $current = new Carbon();
         $user = auth()->user();
+        $invites_restricted = config('config.invites_restriced', false);
+        $invite_groups = config('config.invite_groups', []);
+        if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
+            return redirect()->route('invite')->with(Toastr::error('Invites are currently disabled for your userclass.', 'Whoops!', ['options']));
+        }
         $exsist = Invite::where('email', '=', $request->input('email'))->first();
         $member = User::where('email', '=', $request->input('email'))->first();
         if ($exsist || $member) {
