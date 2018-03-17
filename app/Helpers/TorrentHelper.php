@@ -44,7 +44,7 @@ class TorrentHelper
 {
     public static function view($results)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         $data = [];

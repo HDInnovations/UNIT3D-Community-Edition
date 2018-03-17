@@ -75,7 +75,7 @@ class ModerationController extends Controller
         ]);
 
         if ($v) {
-            $user = Auth::user();
+            $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
             $torrent->markPostponed();
 
@@ -110,7 +110,7 @@ class ModerationController extends Controller
             ]);
 
         if ($v) {
-            $user = Auth::user();
+            $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
             $torrent->markRejected();
 

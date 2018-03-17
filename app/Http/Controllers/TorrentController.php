@@ -88,7 +88,7 @@ class TorrentController extends Controller
      */
     public function posterSearch(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $order = explode(":", $request->input('order'));
         $search = $request->input('search');
         $name = $request->input('name');
@@ -124,7 +124,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has bumped {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has bumped {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
         } else {
@@ -174,7 +174,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has stickied {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has stickied {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -347,7 +347,7 @@ class TorrentController extends Controller
     */
     public function faceted(Request $request, Torrent $torrent)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $search = $request->input('search');
         $uploader = $request->input('uploader');
         $imdb = $request->input('imdb');
@@ -625,7 +625,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted freeleech on {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted freeleech on {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -658,7 +658,7 @@ class TorrentController extends Controller
                 $featured->save();
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->nane}[/url]
-            has been added to the Featured Torrents Slider by [url={$appurl}/" . Auth::user()->username . "." . Auth::user()->id . "]" . Auth::user()->username . "[/url]! Grab It While You Can! :fire:"]);
+            has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
                 Cache::forget('shoutbox_messages');
             } else {
                 return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Whoops!', ['options']));
@@ -666,7 +666,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has featured {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Is Now Featured!', 'Yay!', ['options']));
         } else {
@@ -701,7 +701,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . Auth::user()->username . " has granted double upload on {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted double upload on {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -913,7 +913,7 @@ class TorrentController extends Controller
         ]);
 
         if ($v) {
-            $user = Auth::user();
+            $user = auth()->user();
             $id = $request->id;
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
