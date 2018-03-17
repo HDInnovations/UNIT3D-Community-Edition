@@ -139,7 +139,7 @@ class CommentController extends Controller
      * @param $slug
      * @param $id
      */
-    public function request(Request $request, $id)
+    public function request(Request $req, $id)
     {
         $request = Requests::findOrFail($id);
         $user = auth()->user();
@@ -150,8 +150,8 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = $request->input('content');
-        $comment->anon = $request->input('anonymous');
+        $comment->content = $req->input('content');
+        $comment->anon = $req->input('anonymous');
         $comment->user_id = $user->id;
         $comment->requests_id = $request->id;
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
