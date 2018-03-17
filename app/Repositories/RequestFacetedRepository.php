@@ -24,7 +24,7 @@ class RequestFacetedRepository
      */
     public function categories()
     {
-        return Category::all()->pluck('name', 'id');
+        return Category::all()->sortBy('position')->pluck('name', 'id');
     }
 
     /**
