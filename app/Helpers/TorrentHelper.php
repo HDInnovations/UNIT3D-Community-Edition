@@ -38,8 +38,6 @@ use App\Services\MovieScrapper;
 
 use Illuminate\Support\Facades\Auth;
 
-use Cache;
-
 class TorrentHelper
 {
     public static function view($results)
@@ -293,10 +291,10 @@ class TorrentHelper
         if ($torrent->sd == 0) {
             if ($anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             }
         }
 
