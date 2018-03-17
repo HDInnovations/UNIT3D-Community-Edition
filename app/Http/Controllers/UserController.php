@@ -31,7 +31,7 @@ use App\Note;
 use App\Mail\InviteUser;
 use \Toastr;
 use Image;
-use Carbon\Cabon;
+use Carbon\Carbon;
 
 /**
  * User Management
