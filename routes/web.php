@@ -59,11 +59,11 @@ Route::group(['middleware' => 'language'], function () {
         //Route::get('/rss/{passkey}/download/{id}','RssController@download')->name('rssDownload');
     });
 
-/*
-|------------------------------------------
-| Website (When Authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Website (When Authorized)
+    |------------------------------------------
+    */
     Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
 
         // Two Step Auth
@@ -187,8 +187,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
         Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
         Route::get('/poster', 'TorrentController@poster')->name('poster');
-        Route::post('/torrents/{id}/delete', 'TorrentController@deleteTorrent')->name('delete');
-        Route::get('/torrents/{id}/delete', 'TorrentController@deleteTorrent')->name('delete');
+        Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
         Route::any('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
         Route::any('/torrents/{slug}.{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
         Route::any('/torrents/{slug}.{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
@@ -263,11 +262,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
     });
 
-/*
-|------------------------------------------
-| ShoutBox Routes Group (when authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | ShoutBox Routes Group (when authorized)
+    |------------------------------------------
+    */
     Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         Route::get('/', 'HomeController@home')->name('shoutbox-home');
         Route::get('/messages/{after?}', 'ShoutboxController@pluck')->name('shoutbox-fetch');
@@ -275,11 +274,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/delete/{id}', 'ShoutboxController@deleteShout')->name('shout-delete');
     });
 
-/*
-|------------------------------------------
-| Community Routes Group (when authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Community Routes Group (when authorized)
+    |------------------------------------------
+    */
     Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
@@ -327,11 +326,11 @@ Route::group(['middleware' => 'language'], function () {
     });
 
 
-/*
-|-----------------------------------------------------------------
-| Staff Dashboard Routes Group (when authorized and a staff group)
-|-----------------------------------------------------------------
-*/
+    /*
+    |-----------------------------------------------------------------
+    | Staff Dashboard Routes Group (when authorized and a staff group)
+    |-----------------------------------------------------------------
+    */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
@@ -357,8 +356,9 @@ Route::group(['middleware' => 'language'], function () {
         // Moderation
         Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');
         Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
-        Route::get('/modertaion/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
-        Route::get('/modertaion/{slug}.{id}/reject', 'ModerationController@reject')->name('moderation_reject');
+        Route::get('/moderation/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
+        Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
+        Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
         Route::any('/torrent_search', 'TorrentController@search')->name('torrent-search');
 
         // Request section
