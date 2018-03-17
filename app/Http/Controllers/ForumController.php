@@ -12,22 +12,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Forum;
-use App\Mail\NewReply;
 use App\Post;
 use App\Topic;
 use App\User;
 use App\Shoutbox;
 use App\Like;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
-use Decoda\Decoda;
-use Cache;
-use \Toastr;
 use App\Achievements\UserMadeFirstPost;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -40,6 +32,9 @@ use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
+use App\Mail\NewReply;
+use Decoda\Decoda;
+use \Toastr;
 
 class ForumController extends Controller
 {
@@ -51,15 +46,15 @@ class ForumController extends Controller
      * @return View page.torrents
      *
      */
-    public function search()
+    public function search(Request $request)
     {
-        $user = Auth::user();
-        $search = Request::get('name');
+        $user = auth()->user();
+        $search = $request->input('name');
         $results = Topic::where([
-            ['name', 'like', '%' . Request::get('name') . '%'],
+            ['name', 'like', '%' . $request->input('name') . '%'],
         ])->orderBy('created_at', 'DESC')->paginate(25);
 
-        $results->setPath('?name=' . Request::get('name'));
+        $results->setPath('?name=' . $request->input('name'));
 
         return view('forum.results', ['results' => $results, 'user' => $user]);
     }
@@ -72,11 +67,11 @@ class ForumController extends Controller
     {
         $categories = Forum::orderBy('position', 'ASC')->get();
         // Total Forums Count
-        $num_forums = DB::table('forums')->count();
+        $num_forums = Forum::all()->count();
         // Total Posts Count
-        $num_posts = DB::table('posts')->count();
+        $num_posts = Post::all()->count();
         // Total Topics Count
-        $num_topics = DB::table('topics')->count();
+        $num_topics = Topic::all()->count();
         return view('forum.index', ['categories' => $categories, 'num_posts' => $num_posts, 'num_forums' => $num_forums, 'num_topics' => $num_topics]);
     }
 
@@ -145,7 +140,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // Get all posts
-        $posts = $topic->posts()->paginate(15);
+        $posts = $topic->posts()->paginate(25);
 
         // First post
         $firstPost = Post::where('topic_id', '=', $topic->id)->first();
@@ -169,24 +164,24 @@ class ForumController extends Controller
      * @param $slug
      * @param $id
      */
-    public function reply($slug, $id)
+    public function reply(Request $request, $slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !Auth::user()->group->is_modo)) {
+        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !auth()->user()->group->is_modo)) {
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
         $post = new Post();
-        $post->content = Request::get('content');
+        $post->content = $request->input('content');
         $post->user_id = $user->id;
         $post->topic_id = $topic->id;
 
-        $v = Validator::make($post->toArray(), [
+        $v = validator($post->toArray(), [
             'content' => 'required',
             'user_id' => 'required',
             'topic_id' => 'required'
@@ -223,7 +218,7 @@ class ForumController extends Controller
             // Post To ShoutBox
             $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
 
             // Mail Topic Creator Of New Reply
             if ($post->user_id != $topic->first_post_user_id) {
@@ -256,9 +251,9 @@ class ForumController extends Controller
      * @param $slug
      * @param $id
      */
-    public function newTopic($slug, $id)
+    public function newTopic(Request $request, $slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $forum = Forum::findOrFail($id);
         $category = $forum->getCategory();
 
@@ -269,8 +264,8 @@ class ForumController extends Controller
 
         // Preview The Post
         $parsedContent = null;
-        if (Request::getMethod() == 'POST' && Request::get('preview') == true) {
-            $code = new Decoda(Request::get('content'));
+        if ($request->isMethod('POST') && $request->input('preview') == true) {
+            $code = new Decoda($request->input('content'));
             $code->defaults();
             $code->setXhtml(false);
             $code->setStrict(false);
@@ -278,26 +273,26 @@ class ForumController extends Controller
             $parsedContent = $code->parse();
         }
 
-        if (Request::getMethod() == 'POST' && Request::get('post') == true) {
+        if ($request->isMethod('POST') && $request->input('post') == true) {
             // Create The Topic
             $topic = new Topic();
-            $topic->name = Request::get('title');
-            $topic->slug = str_slug(Request::get('title'));
+            $topic->name = $request->input('title');
+            $topic->slug = str_slug($request->input('title'));
             $topic->state = 'open';
             $topic->first_post_user_id = $topic->last_post_user_id = $user->id;
             $topic->first_post_user_username = $topic->last_post_user_username = $user->username;
             $topic->views = 0;
             $topic->pinned = false;
             $topic->forum_id = $forum->id;
-            $v = Validator::make($topic->toArray(), $topic->rules);
+            $v = validator($topic->toArray(), $topic->rules);
             if ($v->passes()) {
                 $topic->save();
 
                 $post = new Post();
-                $post->content = Request::get('content');
+                $post->content = $request->input('content');
                 $post->user_id = $user->id;
                 $post->topic_id = $topic->id;
-                $v = Validator::make($post->toArray(), $post->rules);
+                $v = validator($post->toArray(), $post->rules);
                 if ($v->passes()) {
                     $post->save();
                     $topic->num_post = 1;
@@ -315,7 +310,7 @@ class ForumController extends Controller
                     // Post To ShoutBox
                     $appurl = config('app.url');
                     Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
-                    Cache::forget('shoutbox_messages');
+                    cache()->forget('shoutbox_messages');
 
                     //Achievements
                     $user->unlock(new UserMadeFirstPost(), 1);
@@ -341,7 +336,7 @@ class ForumController extends Controller
                 Toastr::error('A Error Has Occured With This Topic! Please Try Again!', 'Whoops!', ['options']);
             }
         }
-        return view('forum.new_topic', ['forum' => $forum, 'category' => $category, 'parsedContent' => $parsedContent, 'title' => Request::get('title'), 'content' => Request::get('content')]);
+        return view('forum.new_topic', ['forum' => $forum, 'category' => $category, 'parsedContent' => $parsedContent, 'title' => $request->input('title'), 'content' => $request->input('content')]);
     }
 
     /**
@@ -350,16 +345,16 @@ class ForumController extends Controller
      * @param $slug
      * @param $id
      */
-    public function editTopic($slug, $id)
+    public function editTopic(Request $request, $slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $topic = Topic::findOrFail($id);
         $categories = Forum::where('parent_id', '!=', 0)->get();
 
         if ($user->group->is_modo) {
-            if (Request::isMethod('post')) {
-                $name = Request::get('name');
-                $forum_id = Request::get('forum_id');
+            if ($request->isMethod('POST')) {
+                $name = $request->input('name');
+                $forum_id = $request->input('forum_id');
 
                 $topic->name = $name;
                 $topic->forum_id = $forum_id;
@@ -381,9 +376,9 @@ class ForumController extends Controller
      * @param $id
      * @param $postId
      */
-    public function postEdit($slug, $id, $postId)
+    public function postEdit(Request $request, $slug, $id, $postId)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $topic = Topic::findOrFail($id);
         $forum = $topic->forum;
         $category = $forum->getCategory();
@@ -397,15 +392,15 @@ class ForumController extends Controller
         }
 
         // Post preview
-        if (Request::getMethod() == 'POST' && Request::get('preview') == true) {
-            $post->content = Request::get('content');
+        if ($request->isMethod('POST') && $request->input('preview') == true) {
+            $post->content = $request->input('content');
             $code = new Decoda($post->content);
             $code->defaults();
             $parsedContent = $code->parse();
         }
 
-        if (Request::isMethod('post') && Request::get('post') == true) {
-            $post->content = Request::get('content');
+        if ($request->isMethod('POST') && $request->input('post') == true) {
+            $post->content = $request->input('content');
             $post->save();
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]);
         }
@@ -421,7 +416,7 @@ class ForumController extends Controller
      */
     public function postDelete($slug, $id, $postId)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $topic = Topic::findOrFail($id);
         $post = Post::findOrFail($postId);
 
@@ -478,7 +473,7 @@ class ForumController extends Controller
      */
     public function deleteTopic($slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $topic = Topic::findOrFail($id);
         if ($user->group->is_modo == true) {
             $posts = $topic->posts();
@@ -624,7 +619,7 @@ class ForumController extends Controller
     public function likePost($postId)
     {
         $post = Post::findOrFail($postId);
-        $user = Auth::user();
+        $user = auth()->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
@@ -646,7 +641,7 @@ class ForumController extends Controller
     public function dislikePost($postId)
     {
         $post = Post::findOrFail($postId);
-        $user = Auth::user();
+        $user = auth()->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 

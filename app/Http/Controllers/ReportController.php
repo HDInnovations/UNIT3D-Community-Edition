@@ -13,9 +13,7 @@
 namespace App\Http\Controllers;
 
 use App\Report;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use \Toastr;
 
 class ReportController extends Controller
@@ -25,11 +23,11 @@ class ReportController extends Controller
      *
      *
      */
-    public function postReport()
+    public function postReport(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'type' => 'required',
             'reporter_id' => 'required|numeric',
             'title' => 'required',
@@ -38,10 +36,10 @@ class ReportController extends Controller
         ]);
 
         $report = new Report();
-        $report->type = Request::get('type');
+        $report->type = $request->input('type');
         $report->reporter_id = $user->id;
-        $report->title = Request::get('title');
-        $report->message = Request::get('message');
+        $report->title = $request->input('title');
+        $report->message = $request->input('message');
         $report->solved = 0;
         $report->save();
 

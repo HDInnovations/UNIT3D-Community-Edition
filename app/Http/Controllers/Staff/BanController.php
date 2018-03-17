@@ -13,10 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
@@ -42,10 +39,10 @@ class BanController extends Controller
      * @param $id
      *
      */
-    public function ban($username, $id)
+    public function ban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        if ($user->group->is_modo || Auth::user()->id == $user->id) {
+        if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = 5;
@@ -57,8 +54,8 @@ class BanController extends Controller
             $user->can_chat = 0;
             $user->save();
 
-            $staff = Auth::user();
-            $v = Validator::make(Request::all(), [
+            $staff = auth()->user();
+            $v = validator($request->all(), [
             'owned_by' => 'required',
             'created_by' => 'required|numeric',
             'ban_reason' => 'required',
@@ -67,11 +64,11 @@ class BanController extends Controller
             $ban = new Ban();
             $ban->owned_by = $user->id;
             $ban->created_by = $staff->id;
-            $ban->ban_reason = Request::get('ban_reason');
+            $ban->ban_reason = $request->input('ban_reason');
             $ban->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . $staff->username . " has banned member " . $user->username . ".");
+            \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
 
             // Send Email
             Mail::to($user->email)->send(new BanUser($user));
@@ -89,13 +86,13 @@ class BanController extends Controller
      * @param $id
      *
      */
-    public function unban($username, $id)
+    public function unban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        if ($user->group->is_modo || Auth::user()->id == $user->id) {
+        if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('home')->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
-            $user->group_id = Request::get('group_id');
+            $user->group_id = $request->input('group_id');
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
@@ -104,8 +101,8 @@ class BanController extends Controller
             $user->can_chat = 1;
             $user->save();
 
-            $staff = Auth::user();
-            $v = Validator::make(Request::all(), [
+            $staff = auth()->user();
+            $v = validator($request->all(), [
             'unban_reason' => 'required',
             'removed_at' => 'required'
             ]);
@@ -113,12 +110,12 @@ class BanController extends Controller
             $ban = new Ban();
             $ban->owned_by = $user->id;
             $ban->created_by = $staff->id;
-            $ban->unban_reason = Request::get('unban_reason');
+            $ban->unban_reason = $request->input('unban_reason');
             $ban->removed_at = Carbon::now();
             $ban->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . $staff->username . " has unbanned member " . $user->username . ".");
+            \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
 
             // Send Email
             Mail::to($user->email)->send(new UnbanUser($user));

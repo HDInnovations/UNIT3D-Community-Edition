@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\User;
 use App\Article;
 use App\Comment;
@@ -19,14 +20,6 @@ use App\Torrent;
 use App\Requests;
 use App\Shoutbox;
 use App\PrivateMessage;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
-use \Toastr;
-use Cache;
-
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
 use App\Achievements\UserMade50Comments;
@@ -39,9 +32,9 @@ use App\Achievements\UserMade600Comments;
 use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
-
 use App\Notifications\NewTorrentComment;
 use App\Notifications\NewRequestComment;
+use \Toastr;
 
 class CommentController extends Controller
 {
@@ -53,10 +46,10 @@ class CommentController extends Controller
      * @param $id
      *
      */
-    public function article($slug, $id)
+    public function article(Request $request, $slug, $id)
     {
         $article = Article::findOrFail($id);
-        $user = Auth::user();
+        $user = auth()->user();
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
@@ -64,14 +57,14 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = Request::get('content');
+        $comment->content = $request->input('content');
         $comment->user_id = $user->id;
         $comment->article_id = $article->id;
-        $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
+        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
         $appurl = config('app.url');
         if ($v->passes()) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
         } else {
@@ -86,10 +79,10 @@ class CommentController extends Controller
      * @param $slug
      * @param $id
      */
-    public function torrent($slug, $id)
+    public function torrent(Request $request, $slug, $id)
     {
         $torrent = Torrent::findOrFail($id);
-        $user = Auth::user();
+        $user = auth()->user();
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
@@ -97,11 +90,11 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = Request::get('content');
-        $comment->anon = Request::get('anonymous');
+        $comment->content = $request->input('content');
+        $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
-        $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required', 'anon' => 'required']);
+        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required', 'anon' => 'required']);
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
@@ -129,10 +122,10 @@ class CommentController extends Controller
             $appurl = config('app.url');
             if ($comment->anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             }
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
@@ -146,10 +139,10 @@ class CommentController extends Controller
      * @param $slug
      * @param $id
      */
-    public function request($id)
+    public function request(Request $request, $id)
     {
         $request = Requests::findOrFail($id);
-        $user = Auth::user();
+        $user = auth()->user();
 
         // User's comment rights disbabled?
         if ($user->can_comment == 0) {
@@ -157,11 +150,11 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = Request::get('content');
-        $comment->anon = Request::get('anonymous');
+        $comment->content = $request->input('content');
+        $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->requests_id = $request->id;
-        $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
+        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
@@ -190,10 +183,10 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             }
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
@@ -210,7 +203,7 @@ class CommentController extends Controller
     public function quickthanks($id)
     {
         $torrent = Torrent::findOrFail($id);
-        $user = Auth::user();
+        $user = auth()->user();
         $uploader = $torrent->user;
 
         // User's comment rights disbabled?
@@ -224,7 +217,7 @@ class CommentController extends Controller
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
-        $v = Validator::make($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required']);
+        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
             Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
@@ -251,7 +244,7 @@ class CommentController extends Controller
             // Auto Shout
             $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
         }
@@ -265,13 +258,13 @@ class CommentController extends Controller
      *
      * @param $comment_id
      */
-    public function editComment($comment_id)
+    public function editComment(Request $request, $comment_id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
         if ($user->group->is_modo || $user->id == $comment->user_id) {
-            $content = Request::get('comment-edit');
+            $content = $request->input('comment-edit');
             $comment->content = $content;
             $comment->save();
 
@@ -289,7 +282,7 @@ class CommentController extends Controller
      */
     public function deleteComment($comment_id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
         if ($user->group->is_modo || $user->id == $comment->user_id) {

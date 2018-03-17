@@ -12,11 +12,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\PrivateMessage;
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Auth;
 use \Toastr;
 use Carbon\Carbon;
 
@@ -32,7 +30,7 @@ class PrivateMessageController extends Controller
      */
     public function searchPM(Request $request, $username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $search = $request->input('subject');
         $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->where([
             ['subject', 'like', '%' . $search . '%'],
@@ -50,15 +48,15 @@ class PrivateMessageController extends Controller
      */
     public function getPrivateMessages(Request $request, $username, $id)
     {
-        $user = Auth::user();
-        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->orderBy('created_at', 'desc')->paginate(20);
+        $user = auth()->user();
+        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->orderBy('created_at', 'desc')->paginate(25);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
 
     public function markAllAsRead(Request $request, $username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->get();
         foreach ($pms as $pm) {
             $pm->read = 1;
@@ -75,9 +73,9 @@ class PrivateMessageController extends Controller
      * @return View pm.message
      *
      */
-    public function getPrivateMessageById(Request $request, $username, $id, $pmid)
+    public function getPrivateMessageById($username, $id, $pmid)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
         // If the message is not read, change the the status
@@ -97,7 +95,7 @@ class PrivateMessageController extends Controller
      */
     public function getPrivateMessagesSent(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $pms = PrivateMessage::where('sender_id', $request->user()->id)
             ->orderBy('created_at', 'desc')
             ->paginate(20);
@@ -114,7 +112,7 @@ class PrivateMessageController extends Controller
      */
     public function makePrivateMessage($username, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $usernames = User::orderBy('username', 'ASC')->get();
 
         return view('pm.send', ['usernames' => $usernames, 'user' => $user]);
@@ -129,7 +127,7 @@ class PrivateMessageController extends Controller
      */
     public function sendPrivateMessage(Request $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $attributes = [
             'sender_id' => $user->id,
@@ -153,7 +151,7 @@ class PrivateMessageController extends Controller
      */
     public function replyPrivateMessage(Request $request, $pmid)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
 
@@ -178,9 +176,9 @@ class PrivateMessageController extends Controller
      * @return View pm.inbox
      *
      */
-    public function deletePrivateMessage(Request $request, $pmid)
+    public function deletePrivateMessage($pmid)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $pm = PrivateMessage::where('id', $pmid)->firstOrFail();
         $pm->delete();
 

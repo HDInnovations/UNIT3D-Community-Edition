@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
 use App\Language;
 
 class LanguageController extends Controller
@@ -31,8 +30,8 @@ class LanguageController extends Controller
             $locale = config('app.locale');
         }
 
-        if (Auth::check()) {
-            Auth::user()->setAttribute('locale', $locale)->save();
+        if (auth()->check()) {
+            auth()->user()->setAttribute('locale', $locale)->save();
         } else {
             $request->session()->put('locale', $locale);
         }

@@ -13,22 +13,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
 use App\Torrent;
 use App\Peer;
-use App\History;
 use App\User;
-use App\Group;
 use App\Client;
-use App\Comment;
-use App\Post;
-use App\Topic;
-use App\PrivateMessage;
-use App\Catalog;
-use App\CatalogTorrent;
 use App\Report;
-use App\Note;
 use App\Poll;
 use \Toastr;
 
@@ -63,7 +52,6 @@ class HomeController extends Controller
         $solved = Report::where('solved', '=', '1')->count();
         //Polls
         $pollCount = Poll::count();
-        //System Specs
 
         return view('Staff.home.index', ['num_user' => $num_user, 'banned' => $banned, 'validating' => $validating, 'num_torrent' => $num_torrent, 'pending' => $pending, 'rejected' => $rejected, 'peers' => $peers, 'seeders' => $seeders,
             'leechers' => $leechers, 'seedboxes' => $seedboxes, 'highspeed_users' => $highspeed_users, 'highspeed_torrents' => $highspeed_torrents, 'reports' => $reports, 'unsolved' => $unsolved, 'solved' => $solved, 'pollCount' => $pollCount]);

@@ -15,7 +15,6 @@ namespace App\Http\Controllers;
 use App\CatalogTorrent;
 use App\Catalog;
 use App\Torrent;
-use Illuminate\Support\Facades\Auth;
 
 class CatalogController extends Controller
 {
@@ -43,7 +42,7 @@ class CatalogController extends Controller
      */
     public function catalog($slug, $id)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $catalog = Catalog::findOrFail($id);
         $records = CatalogTorrent::where('catalog_id', '=', $id)->orderBy('imdb', 'DESC')->get();
 
@@ -60,7 +59,7 @@ class CatalogController extends Controller
      */
     public function torrents($imdb)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $torrents = Torrent::where('imdb', '=', $imdb)->orderBy('size', 'DESC')->get();
 
         return view('catalogs.torrents', ['torrents' => $torrents, 'user' => $user]);

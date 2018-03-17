@@ -12,15 +12,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Shoutbox;
 use App\PrivateMessage;
 use App\User;
 use App\Helpers\LanguageCensor;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Response;
-use Cache;
 use Carbon\Carbon;
 use Decoda\Decoda;
 use \Toastr;
@@ -32,25 +28,25 @@ class ShoutboxController extends Controller
      *
      *
      */
-   public function send()
+   public function send(Request $request)
     {
-		$string = Request::get('message');
-        $checkSendRate = Shoutbox::where('user', '=', Auth::user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(2))->first();
+		$string = $request->input('message');
+        $checkSendRate = Shoutbox::where('user', '=', auth()->user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(1))->first();
         if ($checkSendRate) {
-            return 'Wait 2 Seconds Between Posts Please';
+            return 'Wait 1 Seconds Between Posts Please';
         }
 
-        if (Auth::user()->can_chat == 0) {
+        if (auth()->user()->can_chat == 0) {
             return 'Your Chat Banned';
         }
 
-        $v = Validator::make(Request::all(), [
+        $v = validator($request->all(), [
             'message' => 'required|min:1|regex:/^[(a-zA-Z\-)]+$/u'
         ]);
         if ($v->fails()) {
             Toastr::error('There was a error with your input!', 'Error!', ['options']);
         }
-        if (Request::ajax()) {
+        if ($request->ajax()) {
             preg_match_all('/(#\w+)/', $string, $mentions);
             $mentionIDs = [];
             foreach ($mentions[0] as $mention) {
@@ -61,20 +57,20 @@ class ShoutboxController extends Controller
             }
             $mentions = implode(',', $mentionIDs);
             if (! is_null($mentions)) {
-                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => $string, 'mentions' => $mentions]);
+                $insertMessage = Shoutbox::create(['user' => auth()->user()->id, 'message' => $string, 'mentions' => $mentions]);
             } else {
-                $insertMessage = Shoutbox::create(['user' => Auth::user()->id, 'message' => $string]);
+                $insertMessage = Shoutbox::create(['user' => auth()->user()->id, 'message' => $string]);
             }
 
             $flag = true;
-            if (Auth::user()->image != null) {
-                $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . Auth::user()->image . '">';
+            if (auth()->user()->image != null) {
+                $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . auth()->user()->image . '">';
             } else {
                 $avatar = '<img class="profile-avatar tiny pull-left" src="/img/profil.png">';
             }
 
             $flag = true;
-            if (Auth::user()->isOnline()) {
+            if (auth()->user()->isOnline()) {
                 $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>';
             } else {
                 $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>';
@@ -83,22 +79,23 @@ class ShoutboxController extends Controller
             $appurl = config('app.url');
             $data = '<li class="list-group-item">
       ' . ($flag ? $avatar : "") . '
-      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (Auth::user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (Auth::user()->group->name) . '"></i>&nbsp;<a style="color:' . (Auth::user()->group->color) . '; background-image:' . (Auth::user()->group->effect) . ';" href=\'' . $appurl . '/' . Auth::user()->username . '.' . Auth::user()->id . '\'>'
-                . Auth::user()->username . '</a>
+      <h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . (auth()->user()->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . (auth()->user()->group->name) . '"></i>&nbsp;
+      <a style="color:' . (auth()->user()->group->color) . '; background-image:' . (auth()->user()->group->effect) . ';" href=\'' . $appurl . '/' . auth()->user()->username . '.' . auth()->user()->id . '\'>'
+                . auth()->user()->username . '</a>
       ' . ($flag ? $online : "") . '
       </span>&nbsp;<span class="text-muted"><small><em>' . Carbon::now()->diffForHumans() . '</em></small></span>
       </h4>
       <p class="message-content">' . e($string) . '</p>
       </li>';
 
-            Cache::forget('shoutbox_messages');
-            return Response::json(['success' => true, 'data' => $data]);
+            cache()->forget('shoutbox_messages');
+            return response()->json(['success' => true, 'data' => $data]);
         }
     }
 
     public static function getMessages($after = null)
     {
-        $messages = Cache::remember('shoutbox_messages', 7200, function () {
+        $messages = cache()->remember('shoutbox_messages', 7200, function () {
             return Shoutbox::orderBy('id', 'desc')->take(150)->get();
         });
 
@@ -118,10 +115,10 @@ class ShoutboxController extends Controller
         foreach ($messages as $message) {
             $class = '';
 			if (!empty($message->mentions)){
-				if (in_array(Auth::user()->id, explode(',', $message->mentions))) {
+				if (in_array(auth()->user()->id, explode(',', $message->mentions))) {
 					$class = 'mentioned';
 					$show = true;
-				} elseif (in_array(Auth::user()->id, explode(',', $message->user))){
+				} elseif (in_array(auth()->user()->id, explode(',', $message->user))){
                     $class = 'mentions';
                     $show = true;
 				} else {
@@ -134,7 +131,7 @@ class ShoutboxController extends Controller
 			} else {
 				$show = true;
 			}
-			if ($message->user == Auth::user()->id){
+			if ($message->user == auth()->user()->id){
 				$show = true;
 			}
 			if ($message->user == '1'){
@@ -153,7 +150,7 @@ class ShoutboxController extends Controller
 
 				$flag = true;
 				$delete = '';
-				if (Auth::user()->group->is_modo || $message->poster->id == Auth::user()->id) {
+				if (auth()->user()->group->is_modo || $message->poster->id == auth()->user()->id) {
 					$appurl = config('app.url');
 					$delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
 				}
@@ -189,13 +186,13 @@ class ShoutboxController extends Controller
      *
      *
      */
-    public function pluck($after = null)
+    public function pluck(Request $request, $after = null)
     {
-        if (Request::ajax()) {
+        if ($request->ajax()) {
             $messagesNext = self::getMessages($after);
             $data = $messagesNext['data'];
             $next_batch = $messagesNext['next_batch'];
-            return Response::json(['success' => true, 'data' => $data, 'next_batch' => $next_batch]);
+            return response()->json(['success' => true, 'data' => $data, 'next_batch' => $next_batch]);
         }
     }
 
@@ -207,9 +204,9 @@ class ShoutboxController extends Controller
     public function deleteShout($id)
     {
         $shout = Shoutbox::find($id);
-        if (Auth::user()->group->is_modo || Auth::user()->id == $shout->poster->id) {
+        if (auth()->user()->group->is_modo || auth()->user()->id == $shout->poster->id) {
             Shoutbox::where('id', '=', $id)->delete();
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
             return redirect()->route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
         } else {
             return redirect()->route('home')->with(Toastr::error('This is not your shout to delete.', 'Whoops!', ['options']));

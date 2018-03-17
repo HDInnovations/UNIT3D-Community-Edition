@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Notifications;
 use \Toastr;
 use Carbon\Carbon;
@@ -12,32 +11,32 @@ class NotificationController extends Controller
 {
     public function get()
     {
-        $notification = Auth::user()->notifications;
+        $notification = auth()->user()->notifications;
         return view('notification.notifications', ['notification' => $notification]);
     }
 
     public function read($id)
     {
-        Auth::user()->unreadNotifications()->findOrFail($id)->markAsRead();
+        auth()->user()->unreadNotifications()->findOrFail($id)->markAsRead();
         return redirect()->route('get_notifications')->with(Toastr::success('Notification Marked As Read!', 'Yay!', ['options']));
     }
 
     public function massRead()
     {
         $current = new Carbon();
-        Auth::user()->unreadNotifications()->update(['read_at' => $current]);
+        auth()->user()->unreadNotifications()->update(['read_at' => $current]);
         return redirect()->route('get_notifications')->with(Toastr::success('All Notifications Marked As Read!', 'Yay!', ['options']));
     }
 
     public function delete($id)
     {
-        Auth::user()->notifications()->findOrFail($id)->delete();
+        auth()->user()->notifications()->findOrFail($id)->delete();
         return redirect()->route('get_notifications')->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
     }
 
     public function deleteAll()
     {
-        Auth::user()->notifications()->delete();
+        auth()->user()->notifications()->delete();
         return redirect()->route('get_notifications')->with(Toastr::success('All Notifications Deleted!', 'Yay!', ['options']));
     }
 }
