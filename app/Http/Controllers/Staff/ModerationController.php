@@ -13,21 +13,14 @@
 namespace App\Http\Controllers\Staff;
 
 use App\User;
-use App\Group;
 use App\Torrent;
 use App\Requests;
 use App\Category;
 use App\Peer;
 use App\PrivateMessage;
-
 use App\Helpers\TorrentHelper;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
-
 use Carbon\Carbon;
 use \Toastr;
 
@@ -40,10 +33,10 @@ class ModerationController extends Controller
     public function moderation()
     {
         $current = Carbon::now();
-        $pending = Torrent::pending()->get(); //returns all Pending Torrents
+        $pending = Torrent::pending()->get();
         $postponed = Torrent::postponed()->get();
         $rejected = Torrent::rejected()->get();
-        $modder = Torrent::where('status', '=', '0')->count(); //DB::table('torrents')->where('status', '=', '0')->count();
+        $modder = Torrent::where('status', '=', '0')->count();
 
         return view('Staff.torrent.moderation', compact(['current', 'pending', 'postponed', 'rejected', 'modder']));
     }
@@ -68,7 +61,7 @@ class ModerationController extends Controller
      */
     public function postpone(Request $request)
     {
-        $v = Validator::make($request->all(), [
+        $v = validator($request->all(), [
             'id' => "required|exists:torrents",
             'slug' => "required|exists:torrents",
             'message' => "required|alpha_dash"
@@ -103,7 +96,7 @@ class ModerationController extends Controller
      */
     public function reject(Request $request)
     {
-        $v = Validator::make($request->all(), [
+        $v = validator($request->all(), [
                 'id' => "required|exists:torrents",
                 'slug' => "required|exists:torrents",
                 'message' => "required|alpha_dash"
