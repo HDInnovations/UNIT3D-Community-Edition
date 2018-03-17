@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Bookmark;
 use App\Category;
 use App\Client;
@@ -32,7 +33,6 @@ use App\BonTransactions;
 use App\FeaturedTorrent;
 use App\PersonalFreeleech;
 use App\FreeleechToken;
-
 use App\Helpers\TorrentHelper;
 use App\Helpers\MediaInfo;
 use App\Repositories\TorrentFacetedRepository;
@@ -42,13 +42,6 @@ use App\Services\FanArt;
 use Carbon\Carbon;
 use Decoda\Decoda;
 use \Toastr;
-
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\View;
 
 /**
  * Torrent Management
@@ -100,7 +93,7 @@ class TorrentController extends Controller
             ['type', '=', $type],
         ])->orderBy($order[0], $order[1])->paginate(25);
 
-        $$torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
+        $torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
 
         return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
@@ -227,17 +220,17 @@ class TorrentController extends Controller
         }
         // Post and Upload
         if ($request->isMethod('POST') && $request->input('post') == true) {
-            $Reqfile = $request->file('torrent');
+            $requestFile = $request->file('torrent');
             // No torrent file uploaded OR an Error has occurred
             if ($request->hasFile('torrent') == false) {
                 Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
                 return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
-            } elseif ($Reqfile->getError() != 0 && $Reqfile->getClientOriginalExtension() != 'torrent') {
+            } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
                 Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
                 return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
             }
             // Deplace and decode the torrent temporarily
-            TorrentTools::moveAndDecode($Reqfile);
+            TorrentTools::moveAndDecode($requestFile);
             // Array decoded from torrent
             $decodedTorrent = TorrentTools::$decodedTorrent;
             // Tmp filename
@@ -616,11 +609,11 @@ class TorrentController extends Controller
             if ($torrent->free == 0) {
                 $torrent->free = "1";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 $torrent->free = "0";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             }
             $torrent->save();
 
@@ -659,7 +652,7 @@ class TorrentController extends Controller
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->nane}[/url]
             has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Torrent Is Already Featured!', 'Whoops!', ['options']));
             }
@@ -692,11 +685,11 @@ class TorrentController extends Controller
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             } else {
                 $torrent->doubleup = "0";
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
             }
             $torrent->save();
 
@@ -808,7 +801,7 @@ class TorrentController extends Controller
         $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
         if ($torrent->seeders <= 2) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
             foreach ($reseed as $pm) {
                 $pmuser = new PrivateMessage();
                 $pmuser->sender_id = 1;
@@ -906,7 +899,7 @@ class TorrentController extends Controller
      */
     public function deleteTorrent(Request $request)
     {
-        $v = Validator::make($request->all(), [
+        $v = validator($request->all(), [
             'id' => "required|exists:torrents",
             'slug' => "required|exists:torrents",
             'message' => "required|alpha_dash|min:0"
