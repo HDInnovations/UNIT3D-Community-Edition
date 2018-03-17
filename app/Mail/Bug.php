@@ -40,8 +40,6 @@ class Bug extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.bug')
-            ->from($this->input['email'], config('other.title'))
-            ->subject('New Bug Report!');
+        return $this->markdown('emails.bug')->subject('New Bug Report!');
     }
 }
