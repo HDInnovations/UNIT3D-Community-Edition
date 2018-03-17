@@ -15,8 +15,6 @@ namespace App\Http\Controllers\Staff;
 use App\User;
 use App\Torrent;
 use App\Requests;
-use App\Category;
-use App\Peer;
 use App\PrivateMessage;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
