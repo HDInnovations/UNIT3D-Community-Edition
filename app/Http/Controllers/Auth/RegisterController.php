@@ -70,6 +70,7 @@ class RegisterController extends Controller
                 $user->rsskey = md5(uniqid() . time() . microtime() . $user->password);
                 $user->uploaded = config('other.default_upload');
                 $user->downloaded = config('other.default_download');
+                $user->style = config('other.default_style', 0);
                 $user->group_id = $group->id;
                 $user->save();
 
