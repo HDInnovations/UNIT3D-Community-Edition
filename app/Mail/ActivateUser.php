@@ -54,7 +54,6 @@ class ActivateUser extends Mailable
 
         return $this->to($this->user->email, $this->user->username)
             ->view('emails.activate')
-            ->text('emails.activate-plain')
             ->with([
                 'to' => $this->user->email,
                 'subject' => $this->subject,
