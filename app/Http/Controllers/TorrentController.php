@@ -945,7 +945,7 @@ class TorrentController extends Controller
                 }
                 Torrent::withAnyStatus()->where('id', '=', $id)->delete();
 
-                return redirect('/torrents')->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
+                return redirect()->back()->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
             }
         } else {
             $errors = "";
@@ -953,7 +953,7 @@ class TorrentController extends Controller
                 $errors .= $error . "\n";
             }
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
-            return redirect('/torrents')->with(Toastr::error('Unable to delete Torrent', 'Error', ['options']));
+            return redirect()->back()->with(Toastr::error('Unable to delete Torrent', 'Error', ['options']));
         }
     }
 
