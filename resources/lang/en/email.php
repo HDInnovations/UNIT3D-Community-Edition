@@ -6,8 +6,8 @@
  */
 return [
     'register-header' => 'Hi! Thank you for signing up on',
-    'register-code' => 'To complete your account activation click the link below',
-    'register-footer' => 'If the link above does not work, copy and paste it into your browser\'s address bar',
+    'register-code' => 'To complete your account activation click the button below',
+    'register-footer' => 'If the button above does not work, copy and paste the URL into your browser\'s address bar',
     'activate-account' => 'Activate account',
     'banned-header' => 'You Have Been Banned',
     'ban-reason' => 'Reason',
