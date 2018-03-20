@@ -52,7 +52,7 @@
             <span class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
           </td>
           <td>
-            <span class="badge-extra text-purple text-bold">{{ $p->agent ? $p->agent : "{{ trans('common.unknown') }}" }}</span>
+            <span class="badge-extra text-purple text-bold">{{ $p->agent ? $p->agent : trans('common.unknown') }}</span>
           </td>
           @if ($p->seeder == 0)
           <td>
