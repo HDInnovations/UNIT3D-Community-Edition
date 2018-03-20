@@ -131,5 +131,5 @@ return [
     'unbookmark' => 'Usuń z zakładek',
     'request-reseed' => 'Poproś o seedowanie',
     'similar' => 'Podobne torrenty do',
-    'agent' => 'Agent'
+    'agent' => 'Klient'
 ];

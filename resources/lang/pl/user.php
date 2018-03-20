@@ -28,5 +28,15 @@ return [
     
     'active-table' => 'Tabela moich aktywności',
     'active-torrents' => 'Aktywne torrenty',
-    'moderated-by' => 'Moderowane przez :mod dnia'
+    'moderated-by' => 'Moderowane przez :mod dnia',
+    
+    'my-seedboxs' => 'Moje Seedboxy',
+    'add-seedbox' => 'Dodaj Seedboxa',
+    'current-password' => 'Obecne hasło',
+    'client-ip-address' => 'Adres IP',
+    'username-seedbox' => 'Login Seedboxa',
+    'disclaimer' => 'Ostrzeżenie',
+    'disclaimer-info' => 'Domyślnie adresy IP na trackerze nie są rejestrowane tak, jak na większości trackerów. Po dodaniu poniżej adresu IP Seedboxa pamiętaj, że znajdzie się i będzie przechowywany on w bazie danych aż dopóki nie usuniesz ich samodzielnie.',
+    'disclaimer-info-bordered' => 'Po dodaniu Seedboxa wszystkie torrenty seedowane z jego IP będą otagowane jako torrenty wysokich prędkości.',
+    'no-seedboxes' => 'Brak Seedboxów 😔'
 ];

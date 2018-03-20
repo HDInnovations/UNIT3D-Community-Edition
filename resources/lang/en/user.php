@@ -28,5 +28,15 @@ return [
     
     'active-table' => 'My active table',
     'active-torrents' => 'Active torrents',
-    'moderated-by' => 'Moderated by :mod on'
+    'moderated-by' => 'Moderated by :mod on',
+    
+    'my-seedboxs' => 'My Seedboxs',
+    'add-seedbox' => 'Add Seedbox',
+    'current-password' => 'Current password',
+    'client-ip-address' => 'Client IP Address',
+    'username-seedbox' => 'Username Seedbox',
+    'disclaimer' => 'Disclaimer',
+    'disclaimer-info' => 'We by default do not log users IP addresses like most trackers. By adding your seedbox IP below it is expected that you know your IP\'s listed below are now stored in our database unless you delete the records.',
+    'disclaimer-info-bordered' => 'Seedbox IP\'s added will then trigger high speed torrent tag on torrents seeded from IP\'s listed below',
+    'no-seedboxes' => 'No seedboxes 😔'
 ];

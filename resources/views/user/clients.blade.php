@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>My Seedboxs - {{ Config::get('other.title') }}</title>
+<title>{{ trans('user.my-seedboxs') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
 </li>
 <li>
     <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">My Seedboxs</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.my-seedboxs') }}</span>
     </a>
 </li>
 @endsection
@@ -21,16 +21,16 @@
 <div class="row">
   <div class="col-sm-2 col-sm-offset-1">
     <div class="well well-sm mt-0">
-		<h3>Add Seedbox</h3>
+		<h3>{{ trans('user.add-seedbox') }}</h3>
     {{ Form::open(['route' => ['addcli', 'username' => $user->username, 'id' => $user->id], 'method' => 'post' , 'role' => 'form', 'class' => 'login-frm']) }}
 			<div class="form-group input-group">
-				<input type="password" name="password" class="form-control" placeholder="Current Password" required>
+				<input type="password" name="password" class="form-control" placeholder="{{ trans('user.current-password') }}" required>
 			</div>
 			<div class="form-group input-group">
-				<input type="text" name="ip" class="form-control" placeholder="Client IP Address" required>
+				<input type="text" name="ip" class="form-control" placeholder="{{ trans('user.client-ip-address') }}" required>
 			</div>
 			<div class="form-group input-group">
-				<input type="text" name="client_name" class="form-control" placeholder="UsernameSeebox1" required>
+				<input type="text" name="client_name" class="form-control" placeholder="{{ trans('user.username-seedbox') }}" required>
 			</div>
 			<center><button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</a></center>
 		{{ Form::close() }}
@@ -38,8 +38,8 @@
 </div>
 <div class="col-sm-8">
     <div class="well well-sm mt-0">
-      <p class="lead text-orange text-center"><i class="fa fa-exclamation-triangle"></i> <strong>DISCLAIMER</strong> <i class="fa fa-exclamation-triangle"></i></p>
-      <p class="lead text-orange text-center">We by default do not log users IP addresses like most trackers. By adding your seedbox IP below it is expected that you know your IP's listed below are now stored in our database unless you delete the records. &nbsp;<br><strong>Seedbox IP's added will then trigger high speed torrent tag on torrents seeded from IP's listed below</strong></p>
+      <p class="lead text-orange text-center"><i class="fa fa-exclamation-triangle"></i> <strong>{{ strtoupper(trans('user.disclaimer')) }}</strong> <i class="fa fa-exclamation-triangle"></i></p>
+      <p class="lead text-orange text-center">{{ trans('user.disclaimer-info') }} &nbsp;<br><strong>{{ trans('user.disclaimer-info-bordered') }}</strong></p>
     </div>
 </div>
 </div>
@@ -47,15 +47,15 @@
 
 <div class="row">
 	<div class="container box">
-		<h3 class="text-center">My High Speed Seedboxes</h3>
+		<h3 class="text-center">{{ trans('user.my-seedboxs') }}</h3>
 	@if(count($clients) > 0)
     <div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped table-hover">
       <tr>
-        <th>Client</th>
+        <th>{{ trans('user.agent') }}</th>
         <th>IP</th>
-        <th>Added</th>
-        <th>Remove</th>
+        <th>{{ trans('common.added') }}</th>
+        <th>{{ trans('common.remove') }}</th>
       </tr>
 		@foreach($clients as $client)
 		<tr>
@@ -75,7 +75,7 @@
     </div>
 		@else
 		<li class="list-group-item">
-			<h4 class="text-center">No Seedboxes :(</h4>
+			<h4 class="text-center">{{ trans('user.no-seedboxes') }}</h4>
 		</li>
 		@endif
 	</div>
