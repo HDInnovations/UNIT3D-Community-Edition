@@ -24,5 +24,9 @@ return [
     'locked-achievements' => 'Zablokowane osiągnięcia',
     'pending-achievements' => 'Trwające osiągnięcia',
     'unlocked' => 'Odblokowane',
-    'locked' => 'Zablokowane'
+    'locked' => 'Zablokowane',
+    
+    'active-table' => 'Tabela moich aktywności',
+    'active-torrents' => 'Aktywne torrenty',
+    'moderated-by' => 'Moderowane przez :mod dnia'
 ];

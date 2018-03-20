@@ -24,5 +24,9 @@ return [
     'locked-achievements' => 'Locked achievements',
     'pending-achievements' => 'Pending achievements',
     'unlocked' => 'Unlocked',
-    'locked' => 'Locked'
+    'locked' => 'Locked',
+    
+    'active-table' => 'My active table',
+    'active-torrents' => 'Active torrents',
+    'moderated-by' => 'Moderated by :mod on'
 ];
