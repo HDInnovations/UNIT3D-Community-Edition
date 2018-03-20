@@ -130,5 +130,9 @@ return [
     'bookmark' => 'Dodaj do zakładek',
     'unbookmark' => 'Usuń z zakładek',
     'request-reseed' => 'Poproś o seedowanie',
-    'similar' => 'Podobne torrenty do'
+    'similar' => 'Podobne torrenty do',
+    'agent' => 'Klient',
+    'created_at' => 'Utworzono',
+    'updated_at' => 'Zaktualizowano',
+    'completed_at' => 'Ukończono'
 ];

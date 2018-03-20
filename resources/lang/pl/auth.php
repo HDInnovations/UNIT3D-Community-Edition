@@ -20,5 +20,6 @@ return [
     'login-now-on' => 'Zaloguj się na',
     'no-a-member' => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
     'user-icon' => 'Ikona użytkownika',
-    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!'
+    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!',
+    'unlock' => 'Odblokuj'
 ];

@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Invites - {{ Config::get('other.title') }}</title>
+    <title>{{ trans('user.invites') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('invite') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Invites</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invites') }}</span>
     </a>
 </li>
 @endsection
@@ -19,10 +19,10 @@
     <div class="jumbotron shadowed">
     <div class="container">
       <h1 class="mt-5 text-center">
-        <i class="fa fa-times text-danger"></i> Attention: Invites Are Disabled Due To Open Registration!
+        <i class="fa fa-times text-danger"></i> {{ trans('user.invites-disabled') }}
       </h1>
     <div class="separator"></div>
-  <p class="text-center">Please Check Back Soon!</p>
+  <p class="text-center">{{ trans('user.invites-disabled-desc') }}</p>
 </div>
 </div>
 </div>
@@ -31,33 +31,29 @@
   <div class="jumbotron shadowed">
     <div class="container">
       <h1 class="mt-5 text-center">
-        <i class="fa fa-times text-danger"></i> Error: Your Invite Rights Have Been Disabled
+        <i class="fa fa-times text-danger"></i> {{ trans('user.invites-banned') }}
       </h1>
     <div class="separator"></div>
-  <p class="text-center">If You Feel This Is In Error, Please Contact Staff!</p>
+  <p class="text-center">{{ trans('user.invites-banned-desc') }}</p>
 </div>
 </div>
 </div>
 @else
 <div class="block block-titled">
-<h2>You Have {{ $user->invites }} Invite Tokens</h2>
-<p class="text-danger text-bold">Important</p>
+<h2>{{ trans('user.invites-count', ['count' => $user->invites]) }}</h2>
+<p class="text-danger text-bold">{{ trans('user.important') }}</p>
 <ul>
-<li class="text-success">Only invite people you know and trust.</li>
-<li class="text-danger">You will be held personally responsible for those you invite.</li>
-<li class="text-danger">Don't invite yourself, we check every invited user.</li>
-<li class="text-danger">Don't trade or sell Invites.</li>
-<li class="text-danger">If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.</li>
+{!! trans('user.invites-rules') !!}
 </ul>
 </div>
 
-<h3>Invite your friend (Email + Message Required)</h3>
+<h3>{{ trans('user.invite-friend') }}</h3>
 <div class="block block-form">
 <form action="{{ route('invite') }}" method="post">
 {{ csrf_field() }}
-<label for="email" class="col-sm-2 control-label">Email Address</label>
+<label for="email" class="col-sm-2 control-label">{{ trans('common.email') }}</label>
 <input class="form-control" name="email" type="email" id="email" size="10" required>
-<label for="message" class="col-sm-2 control-label">Message</label>
+<label for="message" class="col-sm-2 control-label">{{ trans('common.message') }}</label>
 <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea>
 <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
 </form>

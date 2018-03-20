@@ -1,40 +1,40 @@
 @extends('layout.default')
 
 @section('title')
-    <title>My Active Table - {{ Config::get('other.title') }}</title>
+    <title>{{ trans('user.active-table') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
 <li>
     <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">My Active Table</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.active-table') }}</span>
     </a>
 </li>
 @endsection
 
 @section('content')
 <div class="container-fluid">
-  <h1 class="title">My Active Table</h1>
+  <h1 class="title">{{ trans('user.active-table') }}</h1>
     <div class="block">
       <!-- Active -->
       <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
-        <div class="head"><strong>Active Torrents</strong></div>
+        <div class="head"><strong>{{ trans('user.active-torrents') }}</strong></div>
         <thead>
-          <th>@sortablelink('name')</th>
-          <th>Category</th>
-          <th>@sortablelink('size')</th>
-          <th>@sortablelink('uploaded')</th>
-          <th>@sortablelink('downloaded')</th>
-          <th>@sortablelink('left')</th>
-          <th>@sortablelink('agent')</th>
-          <th>@sortablelink('seeder')</th>
+          <th>@sortablelink(trans('torrent.name'))</th>
+          <th>{{ trans('torrent.category') }}</th>
+          <th>@sortablelink(trans('torrent.size'))</th>
+          <th>@sortablelink(trans('torrent.uploaded'))</th>
+          <th>@sortablelink(trans('torrent.downloaded'))</th>
+          <th>@sortablelink(trans('torrent.left'))</th>
+          <th>@sortablelink(trans('torrent.agent'))</th>
+          <th>@sortablelink(trans('torrent.seeder'))</th>
         </thead>
         <tbody>
         @foreach ($active as $p)
         <tr>
           <td>
-            <a class="view-torrent" data-id="{{ $p->torrent_id }}" data-slug="{{ $p->torrent->slug }}" href="{{ route('torrent', array('slug' => $p->torrent->slug, 'id' => $p->torrent_id)) }}" data-toggle="tooltip" title="{{ $p->torrent->name }}" data-original-title="Moderated By {{ App\User::find($p->torrent->moderated_by)->username }} on {{ $p->torrent->moderated_at->diffForHumans() }}">{{ $p->torrent->name }}</a>
+            <a class="view-torrent" data-id="{{ $p->torrent_id }}" data-slug="{{ $p->torrent->slug }}" href="{{ route('torrent', array('slug' => $p->torrent->slug, 'id' => $p->torrent_id)) }}" data-toggle="tooltip" title="{{ $p->torrent->name }}" data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($p->torrent->moderated_by)->username]) }} {{ $p->torrent->moderated_at->diffForHumans() }}">{{ $p->torrent->name }}</a>
           </td>
           <td>
             <a href="{{ route('category', array('slug' => $p->torrent->category->slug, 'id' => $p->torrent->category->id)) }}">{{ $p->torrent->category->name }}</a>
@@ -52,7 +52,7 @@
             <span class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
           </td>
           <td>
-            <span class="badge-extra text-purple text-bold">{{ $p->agent ? $p->agent : "Unknown" }}</span>
+            <span class="badge-extra text-purple text-bold">{{ $p->agent ? $p->agent : trans('common.unknown') }}</span>
           </td>
           @if ($p->seeder == 0)
           <td>

@@ -2,10 +2,10 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>{{ trans('common.login') }} - {{ Config::get('other.title') }}</title>
+  <title>{{ trans('auth.login') }} - {{ Config::get('other.title') }}</title>
   <!-- Meta -->
   @section('meta')
-    <meta name="description" content="Login now on {{ Config::get('other.title') }}. Not yet member ? Signup in less than 30s.">
+    <meta name="description" content="{{ trans('auth.login-now-on') }} {{ Config::get('other.title') }} . {{ trans('auth.not-a-member') }}">
     <meta property="og:title" content="{{ Config::get('other.title') }}">
     <meta property="og:type" content="website">
     <meta property="og:image" content="{{ url('/img/rlm.png') }}">
@@ -27,7 +27,7 @@
       <symbol id="s-text">
         <text text-anchor="middle"
               x="50%" y="50%" dy=".35em">
-          Blutopia
+          {{ Config::get('other.title') }}
         </text>
       </symbol>
 
@@ -48,13 +48,13 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="User Icon" />
+      <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}" />
     </div>
 
     <!-- Unlock Form -->
     {{ Form::open(array('route' => 'unlock')) }}
       <input type="password" name="password" class="form-control" placeholder="{{ trans('common.password') }}">
-      <button type="submit" class="fadeIn fourth">Unlock</button>
+      <button type="submit" class="fadeIn fourth">{{ trans('auth.unlock') }}</button>
     {{ Form::close() }}
 
   </div>

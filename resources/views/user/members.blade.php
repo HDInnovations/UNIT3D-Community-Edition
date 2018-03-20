@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-<meta name="description" content="List of users registered on {{ Config::get('other.title') }} with all groups. Find an user now.">
+<meta name="description" content="{{ trans('user.members-desc', ['title' => Config::get('other.title')]) }}">
 @endsection
 
 @section('breadcrumb')
@@ -26,15 +26,15 @@
 			</div>
 		</div>
 		<form action="{{route('userSearch')}}" method="any">
-		<input type="text" name="username" id="username" size="25" placeholder="Quick Search by Username" class="form-control" style="float:right;">
+		<input type="text" name="username" id="username" size="25" placeholder="{{ trans('user.search') }}" class="form-control" style="float:right;">
 		</form>
 		  <table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>Image</th>
-					<th>Username</th>
-					<th>Group</th>
-					<th>Registration date</th>
+					<th>{{ trans('user.image') }}</th>
+					<th>{{ trans('common.username') }}</th>
+					<th>{{ trans('common.group') }}</th>
+					<th>{{ trans('user.registration-date') }}</th>
 				</tr>
 			</thead>
 			<tbody>
