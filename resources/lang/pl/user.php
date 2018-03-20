@@ -17,5 +17,12 @@ return [
     'top-seedtime' => 'Top czas seedowania',
     
     'my-bonus-points' => 'Moje punkty bonusowe',
-    'my-fl-tokens' => 'Moje tokeny Freeleech'
+    'my-fl-tokens' => 'Moje tokeny Freeleech',
+    
+    'achievements' => 'Osiągnięcia',
+    'unlocked-achievements' => 'Odblokowane osiągnięcia',
+    'locked-achievements' => 'Zablokowane osiągnięcia',
+    'pending-achievements' => 'Trwające osiągnięcia',
+    'unlocked' => 'Odblokowane',
+    'locked' => 'Zablokowane'
 ];

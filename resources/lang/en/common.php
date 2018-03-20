@@ -139,5 +139,6 @@ return [
     'special' => 'Special',
     'personal' => 'Personal',
     'free' => 'Free',
-    'unknown' => 'Unknown'
+    'unknown' => 'Unknown',
+    'progress' => 'Progress'
 ];

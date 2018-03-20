@@ -17,5 +17,12 @@ return [
     'top-seedtime' => 'Top seedtime',
     
     'my-bonus-points' => 'My bonus points',
-    'my-fl-tokens' => 'My FL tokens'
+    'my-fl-tokens' => 'My FL tokens',
+    
+    'achievements' => 'Achievements',
+    'unlocked-achievements' => 'Unlocked achievements',
+    'locked-achievements' => 'Locked achievements',
+    'pending-achievements' => 'Pending achievements',
+    'unlocked' => 'Unlocked',
+    'locked' => 'Locked'
 ];

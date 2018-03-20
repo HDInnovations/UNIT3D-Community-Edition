@@ -139,5 +139,6 @@ return [
     'special' => 'Specjalny',
     'personal' => 'Osobisty',
     'free' => 'Darmowy',
-    'unknown' => 'Nieznane'
+    'unknown' => 'Nieznane',
+    'progress' => 'Postęp'
 ];
