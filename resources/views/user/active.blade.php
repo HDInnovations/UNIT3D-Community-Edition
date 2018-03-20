@@ -22,13 +22,13 @@
         <div class="head"><strong>{{ trans('user.active-torrents') }}</strong></div>
         <thead>
           <th>@sortablelink(trans('torrent.name'))</th>
-          <th>Category</th>
-          <th>@sortablelink('size')</th>
-          <th>@sortablelink('uploaded')</th>
-          <th>@sortablelink('downloaded')</th>
-          <th>@sortablelink('left')</th>
-          <th>@sortablelink('agent')</th>
-          <th>@sortablelink('seeder')</th>
+          <th>{{ trans('torrent.category') }}</th>
+          <th>@sortablelink(trans('torrent.size'))</th>
+          <th>@sortablelink(trans('torrent.uploaded'))</th>
+          <th>@sortablelink(trans('torrent.downloaded'))</th>
+          <th>@sortablelink(trans('torrent.left'))</th>
+          <th>@sortablelink(trans('torrent.agent'))</th>
+          <th>@sortablelink(trans('torrent.seeder'))</th>
         </thead>
         <tbody>
         @foreach ($active as $p)
