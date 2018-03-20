@@ -21,7 +21,7 @@
         <table class="table table-condensed table-striped table-bordered">
         <div class="head"><strong>{{ trans('user.active-torrents') }}</strong></div>
         <thead>
-          <th>@sortablelink('name')</th>
+          <th>@sortablelink(trans('torrent.name'))</th>
           <th>Category</th>
           <th>@sortablelink('size')</th>
           <th>@sortablelink('uploaded')</th>
