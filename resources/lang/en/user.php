@@ -62,5 +62,20 @@ return [
     'invites-count' => 'You Have :count Invite Tokens',
     'important' => 'Important',
     'invites-rules' => '<li class="text-success">Only invite people you know and trust.</li><li class="text-danger">You will be held personally responsible for those you invite.</li><li class="text-danger">Don\'t invite yourself, we check every invited user.</li><li class="text-danger">Don\'t trade or sell Invites.</li><li class="text-danger">If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.</li>',
-    'invite-friend' => 'Invite your friend (Email + Message Required)'
+    'invite-friend' => 'Invite your friend (Email + Message Required)',
+    
+    'invitetree' => 'Invite Tree',
+    'invites-send' => 'Invites Send',
+    'sender' => 'Sender',
+    'code' => 'Code',
+    'created-on' => 'Created on',
+    'expires-on' => 'Expires on',
+    'accepted-by' => 'Accepted by',
+    'accepted-at' => 'Accepted at',
+    'no-logs' => 'The are no invite logs in the database for this user!',
+    
+    'members-desc' => 'List of users registered on :title with all groups. Find an user now.',
+    'search' => 'Quick search by username',
+    'image' => 'Image',
+    'registration-date' => 'Registration date'
 ];

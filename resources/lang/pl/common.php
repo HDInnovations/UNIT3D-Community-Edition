@@ -140,5 +140,6 @@ return [
     'personal' => 'Osobisty',
     'free' => 'Darmowy',
     'unknown' => 'Nieznane',
-    'progress' => 'Postęp'
+    'progress' => 'Postęp',
+    'group' => 'Grupa'
 ];

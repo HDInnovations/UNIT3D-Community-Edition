@@ -62,5 +62,20 @@ return [
     'invites-count' => 'Ilość dostępnych zaproszeń: :count',
     'important' => 'Ważne',
     'invites-rules' => '<li class="text-success">Zapraszaj osoby tylko te, które znasz i im ufasz.</li><li class="text-danger">Ponosisz odpowiedzialność za zaproszone osoby.</li><li class="text-danger">Każde wysłane zaproszenie jest weryfikowane.</li><li class="text-danger">Nie wymieniaj i nie handluj zaproszeniami.</li><li class="text-danger">Jeśli osoba, którą zaprosiłeś dostanie bana za oszukiwanie, handel kontem lub sprzedaż/wymianę zaproszeń, dostaniesz ostrzeżenie.</li>',
-    'invite-friend' => 'Zaproś znajomego (E-mail + wiadomość wymagane)'
+    'invite-friend' => 'Zaproś znajomego (E-mail + wiadomość wymagane)',
+    
+    'invitetree' => 'Drzewo relacji zaproszeń',
+    'invites-send' => 'Zaproszenia wysłane',
+    'sender' => 'Wysyłający',
+    'code' => 'Kod',
+    'created-on' => 'Utworzone',
+    'expires-on' => 'Wygasa',
+    'accepted-by' => 'Zaakceptowane przez',
+    'accepted-at' => 'Zaakceptowane',
+    'no-logs' => 'Brak logów zaproszeń dla tego użytkownika!',
+    
+    'members-desc' => 'Lista użytkowników zarejestrowanych na :title ze wszystkich grup.',
+    'search' => 'Szybkie szukanie po loginie',
+    'image' => 'Obraz',
+    'registration-date' => 'Data rejestracji'
 ];

@@ -22,6 +22,7 @@ return [
     'no-a-member' => 'Not yet member ? Signup in less than 30s.',
     'user-icon' => 'User icon',
     'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
+    'unlock' => 'Unlock',
 
     /*
     |--------------------------------------------------------------------------

@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>InviteTree - {{ Config::get('other.title') }}</title>
+    <title>{{ trans('user.invitetree') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
 <li>
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">Invite Tree</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invitetree') }}</span>
     </a>
 </li>
 @endsection
@@ -16,26 +16,26 @@
 <div class="container">
 <div class="block">
   <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}" href="{{ route('profil', ['username' =>  $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
-Invite Tree</h2>
+{{ trans('user.invitetree') }}</h2>
   <hr>
   <div class="row">
   <div class="col-sm-12">
-  <h2>Invites Sent</h2>
+  <h2>{{ trans('user.invites-send') }}</h2>
   <table class="table table-condensed table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Sender</th>
-        <th>Email</th>
-        <th>Code</th>
-        <th>Created On</th>
-        <th>Expires On</th>
-        <th>Accepted By</th>
-        <th>Accepted At</th>
+        <th>{{ trans('user.sender') }}</th>
+        <th>{{ trans('common.email') }}</th>
+        <th>{{ trans('user.code') }}</th>
+        <th>{{ trans('user.created-on') }}</th>
+        <th>{{ trans('user.expires-on') }}</th>
+        <th>{{ trans('user.accepted-by') }}</th>
+        <th>{{ trans('user.accepted-at') }}</th>
       </tr>
     </thead>
     <tbody>
       @if(count($records) == 0)
-      <p>The are no invite logs in the database for this user!</p>
+      <p>{{ trans('user.no-logs') }}</p>
       @else
     @foreach($records as $record)
       <tr>
