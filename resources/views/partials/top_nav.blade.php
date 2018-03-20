@@ -97,7 +97,6 @@
         </a>
         <ul class="dropdown-menu ">
           <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
-          <li><a href="{{ route('lock') }}"><i class="fa fa-lock"></i>{{ trans('common.lock-account') }}</a></li>
           <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

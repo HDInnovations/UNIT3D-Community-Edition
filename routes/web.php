@@ -200,8 +200,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
 
         // User
-        Route::get('/lockscreen', 'LockAccountController@lockscreen')->name('lock');
-        Route::post('/lockscreen/unlock', 'LockAccountController@unlock')->name('unlock');
         Route::get('/members', 'UserController@members')->name('members');
         Route::any('/members/results', 'UserController@userSearch')->name('userSearch');
         Route::get('/{username}.{id}', 'UserController@profil')->name('profil');

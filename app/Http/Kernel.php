@@ -74,7 +74,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\CheckForAdmin::class,
         'private' => \App\Http\Middleware\CheckForPrivate::class,
         'modo' => \App\Http\Middleware\CheckForModo::class,
-        'lock' => \App\Http\Middleware\LockAccount::class,
         'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'language' => \App\Http\Middleware\SetLanguage::class,
         'censor' => \App\Http\Middleware\LanguageCensor::class,
