@@ -1,9 +1,13 @@
-@extends('layout.default') @section('breadcrumb')
+@extends('layout.default')
+
+@section('breadcrumb')
 <li class="active"><a href="{{ route('achievements') }}" itemprop="url"
 	class="l-breadcrumb-item-link"> <span itemprop="title"
 		class="l-breadcrumb-item-link-title">{{ trans('user.achievements') }}</span>
 </a></li>
-@endsection @section('content')
+@endsection
+
+@section('content')
 <div class="container">
 	<div class="row">
 		<div class="col-md-8">
