@@ -45,5 +45,12 @@ return [
     'formats-are-supported' => ':formats are supported',
     'custom-title' => 'Custom title',
     'about-me' => 'About Me (500 Characters Max!)',
-    'forum-signature' => 'Forum signature'
+    'forum-signature' => 'Forum signature',
+    
+    'history-table' => 'My history table',
+    'total-download' => 'Total download',
+    'total-upload' => 'Total upload',
+    'credited-download' => 'Credited download',
+    'credited-upload' => 'Credited upload',
+    'torrents-history' => 'Torrents history'
 ];

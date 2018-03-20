@@ -131,5 +131,8 @@ return [
     'unbookmark' => 'Usuń z zakładek',
     'request-reseed' => 'Poproś o seedowanie',
     'similar' => 'Podobne torrenty do',
-    'agent' => 'Klient'
+    'agent' => 'Klient',
+    'created_at' => 'Utworzono',
+    'updated_at' => 'Zaktualizowano',
+    'completed_at' => 'Ukończono'
 ];

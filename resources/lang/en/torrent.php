@@ -131,5 +131,8 @@ return [
     'unbookmark' => 'Unbookmark',
     'request-reseed' => 'Request reseed',
     'similar' => 'Similar Torrents For',
-    'agent' => 'Agent'
+    'agent' => 'Agent',
+    'created_at' => 'Created at',
+    'updated_at' => 'Updated at',
+    'completed_at' => 'Completed at'
 ];

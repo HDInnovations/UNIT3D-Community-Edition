@@ -45,5 +45,12 @@ return [
     'formats-are-supported' => ':formats są dozwolone',
     'custom-title' => 'Własny tytuł',
     'about-me' => 'O mnie (maksymalnie 500 znaków!)',
-    'forum-signature' => 'Sygnatura forum'
+    'forum-signature' => 'Sygnatura forum',
+    
+    'history-table' => 'Moja historia',
+    'total-download' => 'Całkowity download',
+    'total-upload' => 'Całkowity upload',
+    'credited-download' => 'Zaliczony download',
+    'credited-upload' => 'Zaliczony upload',
+    'torrents-history' => 'Historia torrentów'
 ];
