@@ -38,5 +38,12 @@ return [
     'disclaimer' => 'Disclaimer',
     'disclaimer-info' => 'We by default do not log users IP addresses like most trackers. By adding your seedbox IP below it is expected that you know your IP\'s listed below are now stored in our database unless you delete the records.',
     'disclaimer-info-bordered' => 'Seedbox IP\'s added will then trigger high speed torrent tag on torrents seeded from IP\'s listed below',
-    'no-seedboxes' => 'No seedboxes 😔'
+    'no-seedboxes' => 'No seedboxes 😔',
+
+    'edit-profile' => 'Edit profile',
+    'avatar' => 'Avatar',
+    'formats-are-supported' => ':formats are supported',
+    'custom-title' => 'Custom title',
+    'about-me' => 'About Me (500 Characters Max!)',
+    'forum-signature' => 'Forum signature'
 ];

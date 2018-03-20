@@ -32,11 +32,18 @@ return [
     
     'my-seedboxs' => 'Moje Seedboxy',
     'add-seedbox' => 'Dodaj Seedboxa',
-    'current-password' => 'Obecne hasło',
+    'current-password' => 'Aktualne hasło',
     'client-ip-address' => 'Adres IP',
     'username-seedbox' => 'Login Seedboxa',
     'disclaimer' => 'Ostrzeżenie',
     'disclaimer-info' => 'Domyślnie adresy IP na trackerze nie są rejestrowane tak, jak na większości trackerów. Po dodaniu poniżej adresu IP Seedboxa pamiętaj, że znajdzie się i będzie przechowywany on w bazie danych aż dopóki nie usuniesz ich samodzielnie.',
     'disclaimer-info-bordered' => 'Po dodaniu Seedboxa wszystkie torrenty seedowane z jego IP będą otagowane jako torrenty wysokich prędkości.',
-    'no-seedboxes' => 'Brak Seedboxów 😔'
+    'no-seedboxes' => 'Brak Seedboxów 😔',
+    
+    'edit-profile' => 'Edycja profilu',
+    'avatar' => 'Avatar',
+    'formats-are-supported' => ':formats są dozwolone',
+    'custom-title' => 'Własny tytuł',
+    'about-me' => 'O mnie (maksymalnie 500 znaków!)',
+    'forum-signature' => 'Sygnatura forum'
 ];
