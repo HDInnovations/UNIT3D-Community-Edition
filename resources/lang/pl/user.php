@@ -52,5 +52,15 @@ return [
     'total-upload' => 'Całkowity upload',
     'credited-download' => 'Zaliczony download',
     'credited-upload' => 'Zaliczony upload',
-    'torrents-history' => 'Historia torrentów'
+    'torrents-history' => 'Historia torrentów',
+    
+    'invites' => 'Zaproszenia',
+    'invites-disabled' => 'Uwaga: Zaproszenia są wyłączone aż do czasu otwartej rejestracji!',
+    'invites-disabled-desc' => 'Sprawdź wkrótce!',
+    'invites-banned' => 'Błąd: Twoje uprawnienia nie pozwalają na wysyłkę zaproszeń',
+    'invites-banned-desc' => 'Jeśli uważasz, że jest to błędem zgłoś to w formularzu kontaktowym!',
+    'invites-count' => 'Ilość dostępnych zaproszeń: :count',
+    'important' => 'Ważne',
+    'invites-rules' => '<li class="text-success">Zapraszaj osoby tylko te, które znasz i im ufasz.</li><li class="text-danger">Ponosisz odpowiedzialność za zaproszone osoby.</li><li class="text-danger">Każde wysłane zaproszenie jest weryfikowane.</li><li class="text-danger">Nie wymieniaj i nie handluj zaproszeniami.</li><li class="text-danger">Jeśli osoba, którą zaprosiłeś dostanie bana za oszukiwanie, handel kontem lub sprzedaż/wymianę zaproszeń, dostaniesz ostrzeżenie.</li>',
+    'invite-friend' => 'Zaproś znajomego (E-mail + wiadomość wymagane)'
 ];
