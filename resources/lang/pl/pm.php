@@ -6,7 +6,7 @@
  */
 return [
     'unread' => 'Nieprzeczytane',
-    'read' => 'Przeczytaj',
+    'read' => 'Przeczytane',
     'inbox' => 'Przychodzące',
     'outbox' => 'Wychodzące',
     'message' => 'Wiadomość',

@@ -5,7 +5,8 @@
 @endsection
 
 @section('meta')
-<meta name="description" content="{{ 'Profil de l\'utilisateur ' . $user->username . ' sur le site ' . Config::get('other.title') . '. Découvrer son profil RLM en intégralité en vous inscrivant.' }}"> @endsection
+<meta name="description" content="{{ trans('user.profile-desc', ['user' => $user->username, 'title' => Config::get('other.title')]) }}">
+@endsection
 
 @section('breadcrumb')
 <li>
@@ -22,10 +23,10 @@
     <div class="jumbotron shadowed">
       <div class="container">
         <h1 class="mt-5 text-center">
-        <i class="fa fa-times text-danger"></i> Attention: This Profile Has Been Set To PRIVATE!
+        <i class="fa fa-times text-danger"></i>{{ trans('user.private-profile') }}
       </h1>
         <div class="separator"></div>
-        <p class="text-center">You are not authorized to view this page. This member prefers to be hidden like a ninja!</p>
+        <p class="text-center">{{ trans('user.not-authorized') }}</p>
       </div>
     </div>
   </div>
@@ -33,7 +34,7 @@
   <div class="well">
     <div class="row">
       <div class="col-md-12 profile-footer">
-        {{ $user->username }}'s Recent Achievements:
+        {{ $user->username }} - {{ trans('user.recent-achievements') }}:
           @foreach($achievements as $a)
           <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title="" height="50px" data-original-title="{{ $a->details->name }}">
           @endforeach
@@ -44,7 +45,7 @@
   <div class="well">
     <div class="row">
       <div class="col-md-12 profile-footer">
-        {{ $user->username }}'s Follower's:
+        {{ $user->username }} - {{ trans('user.followers') }}:
           @foreach($followers as $f)
           @if($f->user->image != null)
           <a href="{{ route('profil', ['username' => $f->user->username, 'id' => $f->user_id]) }}">
@@ -74,33 +75,33 @@
         <div class="col-md-10">
         <h2>{{ $user->username }}
           @if($user->isOnline())
-          <i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="User Is Online!"></i>
+          <i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="{{ trans('user.online') }}"></i>
           @else
-          <i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="User Is Offline!"></i>
+          <i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('user.offline') }}"></i>
           @endif
-          @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Active Warning"></i>@endif
-          @if($notes > 0 && Auth::user()->group->is_modo)<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="Staff Noted Account"></i>@endif
+          @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}"></i>@endif
+          @if($notes > 0 && Auth::user()->group->is_modo)<i class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('user.staff-noted') }}"></i>@endif
         </h2>
-        <h4>Group: <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i class="{{ $user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
-        <h4>Member Since {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
+        <h4>{{ trans('common.group') }}: <span class="badge-user text-bold" style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i class="{{ $user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $user->group->name }}"></i> {{ $user->group->name }}</span></h4>
+        <h4>{{ trans('user.registration-date') }} {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
         <span style="float:left;">
         @if(Auth::user()->id != $user->id)
         @if(Auth::user()->isFollowing($user->id))
-        <a href="{{ route('unfollow', ['user' => $user->id]) }}" id="delete-follow-{{ $user->target_id }}" class="btn btn-xs btn-info" title="Unfollow"><i class="fa fa-user"></i> Unfollow {{ $user->username }}</a>
+        <a href="{{ route('unfollow', ['user' => $user->id]) }}" id="delete-follow-{{ $user->target_id }}" class="btn btn-xs btn-info" title="{{ trans('user.unfollow') }}"><i class="fa fa-user"></i> {{ trans('user.unfollow') }} {{ $user->username }}</a>
         @else
-        <a href="{{ route('follow', ['user' => $user->id]) }}" id="follow-user-{{ $user->id }}" class="btn btn-xs btn-success" title="Follow"><i class="fa fa-user"></i> Follow {{ $user->username }}</a>
+        <a href="{{ route('follow', ['user' => $user->id]) }}" id="follow-user-{{ $user->id }}" class="btn btn-xs btn-success" title="{{ trans('user.follow') }}"><i class="fa fa-user"></i> {{ trans('user.follow') }} {{ $user->username }}</a>
         @endif
-        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_report"><i class="fa fa-eye"></i> Report User</button>
+        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_report"><i class="fa fa-eye"></i> {{ trans('user.report') }}</button>
         </span>
         <span style="float:right;">
         @if(Auth::check() && Auth::user()->group->is_modo)
         @if($user->group->id == 5)
-        <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal_user_unban"><span class="fa fa-undo"></span> Unban User </button>
+        <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal_user_unban"><span class="fa fa-undo"></span> {{ trans('user.unban') }} </button>
         @else
-        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_ban"><span class="fa fa-ban"></span> Ban User</button>
+        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_ban"><span class="fa fa-ban"></span> {{ trans('user.ban') }}</button>
         @endif
-        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span> Edit User </a>
-        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_delete"><span class="fa fa-trash"></span> Delete User </button>
+        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span> {{ trans('user.edit') }} </a>
+        <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modal_user_delete"><span class="fa fa-trash"></span> {{ trans('user.delete') }} </button>
         @endif
         @endif
         </span>
@@ -109,86 +110,86 @@
   </div>
 </div>
 
-    <h3><i class="fa fa-unlock"></i> Public Info</h3>
+    <h3><i class="fa fa-unlock"></i> {{ trans('user.public-info') }}</h3>
     <table class="table table-condensed table-bordered table-striped">
       <tbody>
         <tr>
           <td colspan="2">
             <ul class="list-inline mb-0">
               <li>
-                <span class="badge-extra text-green text-bold"><i class="fa fa-upload"></i> Total Uploads: {{ $num_uploads }}</span>
+                <span class="badge-extra text-green text-bold"><i class="fa fa-upload"></i> {{ trans('user.total-uploads') }}: {{ $num_uploads }}</span>
               </li>
               <li>
-                <span class="badge-extra text-red text-bold"><i class="fa fa-download"></i> Total Downloads: {{ $num_downloads }}</span>
+                <span class="badge-extra text-red text-bold"><i class="fa fa-download"></i> {{ trans('user.total-downloads') }}: {{ $num_downloads }}</span>
               </li>
               <li>
-                <span class="badge-extra text-green text-bold"><i class="fa fa-cloud-upload"></i> Total Seeding: {{ $user->getSeeding() }}</span>
+                <span class="badge-extra text-green text-bold"><i class="fa fa-cloud-upload"></i> {{ trans('user.total-seeding') }}: {{ $user->getSeeding() }}</span>
               </li>
               <li>
-                <span class="badge-extra text-red text-bold"><i class="fa fa-cloud-download"></i> Total Leeching: {{ $user->getLeeching() }}</span>
+                <span class="badge-extra text-red text-bold"><i class="fa fa-cloud-download"></i> {{ trans('user.total-leeching') }}: {{ $user->getLeeching() }}</span>
               </li>
             </ul>
           </td>
         </tr>
   </div>
   <tr>
-    <td>Downloaded</td>
+    <td>{{ trans('torrent.downloaded') }}</td>
     <td>
-      <span class="badge-extra text-red" data-toggle="tooltip" title="" data-original-title="Recorded Download">{{ $user->getDownloaded() }}</span> -
-      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Download Removed From BON Store">N/A</span> =
-      <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="True Download">N/A</span></td>
+      <span class="badge-extra text-red" data-toggle="tooltip" title="" data-original-title="{{ trans('user.download-recorded') }}">{{ $user->getDownloaded() }}</span> -
+      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="{{ trans('user.download-bon') }}">N/A</span> =
+      <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('user.download-true') }}">N/A</span></td>
   </tr>
   <tr>
-    <td>Uploaded</td>
+    <td>{{ trans('torrent.uploaded') }}</td>
     <td>
-      <span class="badge-extra text-green" data-toggle="tooltip" title="" data-original-title="Recorded Upload">{{ $user->getUploaded() }}</span> -
-      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="Upload Added From BON Store">N/A</span> =
-      <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="True Upload">N/A</span></td>
+      <span class="badge-extra text-green" data-toggle="tooltip" title="" data-original-title="{{ trans('user.upload-recorded') }}">{{ $user->getUploaded() }}</span> -
+      <span class="badge-extra text-yellow" data-toggle="tooltip" title="" data-original-title="{{ trans('user.upload-bon') }}">N/A</span> =
+      <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('user.upload-true') }}">N/A</span></td>
   </tr>
   <tr>
-    <td>Ratio</td>
+    <td>{{ trans('common.ratio') }}</td>
     <td><span class="badge-user group-member">{{ $user->getRatioString() }}</span></td>
   </tr>
   <tr>
-    <td>Total Seedtime (All Torrents)</td>
+    <td>{{ trans('user.total-seedtime-all') }}</td>
     <td><span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed($seedtime) }}</span></td>
   </tr>
   <tr>
-    <td>Average Seedtime (Per Torrent)</td>
+    <td>{{ trans('user.avg-seedtime') }}</td>
     <td><span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed(round($seedtime / max(1, $hiscount))) }}</span></td>
   </tr>
   <tr>
-    <td>Badges</td>
+    <td>{{ trans('user.badges') }}</td>
     <td>
     @if($user->getSeeding() >= 150)
-    <span class="badge-user" style="background-color:#3fb618; color:white;" data-toggle="tooltip" title="" data-original-title="Seeding 150 Or More Torrents!"><i class="fa fa-upload"></i> Certified Seeder!</span>
+    <span class="badge-user" style="background-color:#3fb618; color:white;" data-toggle="tooltip" title="" data-original-title="{{ trans('user.certified-seeder-desc') }}"><i class="fa fa-upload"></i> {{ trans('user.certified-seeder') }}!</span>
     @endif
     @if($num_downloads >= 100)
-    <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip" title="" data-original-title="Downloaded 100 Or More Torrents!"><i class="fa fa-download"></i> Certified Downloader!</span>
+    <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip" title="" data-original-title="{{ trans('user.certified-downloader-desc') }}"><i class="fa fa-download"></i> {{ trans('user.certified-downloader') }}!</span>
     @endif
     @if($user->getSeedbonus() >= 50000)
-    <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip" title="" data-original-title="Has 50,000 Or More BON In Bank"><i class="fa fa-star"></i> Certified Banker!</span>
+    <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip" title="" data-original-title="{{ trans('user.certified-banker-desc') }}"><i class="fa fa-star"></i> {{ trans('user.certified-banker') }}!</span>
     @endif
     </td>
   </tr>
   <tr>
-    <td>Title</td>
+    <td>{{ trans('user.title') }}</td>
     <td>
       <span class="badge-extra">{{ $user->title }}</span>
     </td>
   </tr>
   <tr>
-    <td>About Me</td>
+    <td>{{ trans('user.about-me') }}</td>
     <td>
       <span class="badge-extra">@emojione($user->getAboutHtml())</span>
     </td>
   </tr>
   <tr>
-    <td>Extra</td>
+    <td>{{ trans('user.extra') }}</td>
     <td>
       <ul class="list-inline mb-0">
         <li>
-          <span class="badge-extra"><strong>BON:</strong>
+          <span class="badge-extra"><strong>{{ trans('bon.bon') }}:</strong>
             <span class="text-green text-bold">{{ $user->getSeedbonus() }}</span>
           </span>
         </li>
@@ -198,42 +199,42 @@
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Thanks Received:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.thanks-received') }}:</strong>
             <span class="text-pink text-bold">{{ $user->thanksReceived->count() }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Thanks Given:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.thanks-given') }}:</strong>
             <span class="text-pink text-bold"> {{ $user->thanksGiven->count() }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Article Comments Made:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.article-comments') }}:</strong>
             <span class="text-green text-bold">{{ $art_comments }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Torrent Comments Made:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.torrent-comments') }}:</strong>
             <span class="text-green text-bold">{{ $tor_comments }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Request Comments Made:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.request-comments') }}:</strong>
             <span class="text-green text-bold">{{ $req_comments }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Forum Topics Made:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.topics') }}:</strong>
             <span class="text-green text-bold">{{ $topics }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Forum Posts Made:</strong>
+          <span class="badge-extra"><strong>{{ trans('user.posts') }}:</strong>
             <span class="text-green text-bold">{{ $posts }}</span>
           </span>
         </li>
         <li>
-          <span class="badge-extra"><strong>Hit and Run Count (All Time):</strong>
+          <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
         </li>
@@ -243,16 +244,16 @@
   <tr>
     <td>Warnings</td>
     <td>
-      <span class="badge-extra text-red text-bold"><strong>Active Warnings: {{ $warnings->count() }} / {!! Config::get('hitrun.max_warnings') !!}</strong></span>
+      <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}: {{ $warnings->count() }} / {!! Config::get('hitrun.max_warnings') !!}</strong></span>
       @if(Auth::check() && Auth::user()->group->is_modo)
-      <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>Warning Log</strong></span></a>
+      <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
       @endif
       <div class="progress">
         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:.1%;border-bottom-color: #8c0408">
         </div>
         @foreach($warnings as $warning)
         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" style="width:33.3%;border-bottom-color: #8c0408">
-          WARNING
+          {{ strtoupper(trans('user.warning')) }}
         </div>
         @endforeach
       </div>
@@ -264,92 +265,92 @@
 
   @if(Auth::check() && (Auth::user()->id == $user->id || Auth::user()->group->is_modo))
   <div class="block">
-  <h3><i class="fa fa-lock"></i> Private Info</h3>
+  <h3><i class="fa fa-lock"></i> {{ trans('user.private-info') }}</h3>
   <table class="table table-condensed table-bordered table-striped">
     <tbody>
       <tr>
-        <td class="col-sm-3"> PID</td>
+        <td class="col-sm-3"> {{ trans('user.passkey') }}</td>
         <td>
           <div class="row">
             <div class="col-sm-2">
-              <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse" data-target="#pid_block" aria-expanded="false">Show PID</button>
+              <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse" data-target="#pid_block" aria-expanded="false">{{ trans('user.show-passkey') }}</button>
             </div>
             <div class="col-sm-10">
               <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
                 <span class="text-monospace">{{ $user->passkey }}</span>
                 <br>
               </div>
-              <span class="small text-red">PID is like your password, you must keep it safe!</span>
+              <span class="small text-red">{{ trans('user.passkey-warning') }}</span>
             </div>
           </div>
         </td>
       </tr>
       <tr>
-        <td> User ID</td>
+        <td> {{ trans('user.user-id') }}</td>
         <td>{{ $user->id }}</td>
       </tr>
       <tr>
-        <td> Email</td>
+        <td> {{ trans('common.email') }}</td>
         <td>{{ $user->email }}</td>
       </tr>
       <tr>
-        <td> Last Login</td>
+        <td> {{ trans('user.last-login') }}</td>
         <td>@if($user->last_login != null){{ $user->last_login->toDayDateTimeString() }} ({{ $user->last_login->diffForHumans() }})@else N/A @endif</td>
       </tr>
       <tr>
-        <td> Can Upload</td>
+        <td> {{ trans('user.can-upload') }}</td>
         @if($user->can_upload == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Can Download</td>
+        <td> {{ trans('user.can-download') }}</td>
         @if($user->can_download == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Can Comment</td>
+        <td> {{ trans('user.can-comment') }}</td>
         @if($user->can_comment == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Can Request</td>
+        <td> {{ trans('user.can-request') }}</td>
         @if($user->can_request == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Can Chat</td>
+        <td> {{ trans('user.can-chat') }}</td>
         @if($user->can_chat == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Can Invite</td>
+        <td> {{ trans('user.can-invite') }}</td>
         @if($user->can_invite == 1)
-        <td><span class="text-success text-bold"> YES</span></td>
+        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
         @else
-        <td><span class="text-danger text-bold"> NO</span></td>
+        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
         @endif
       </tr>
       <tr>
-        <td> Invites</td>
+        <td> {{ trans('user.invites') }}</td>
         @if($user->invites > 0)
-        <td><span class="text-success text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>Invite Tree</strong></span></a></td>
+        <td><span class="text-success text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
         @else
-        <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>Invite Tree</strong></span></a></td>
+        <td><span class="text-danger text-bold"> {{ $user->invites }}</span><a href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a></td>
         @endif
       </tr>
     </tbody>
@@ -361,16 +362,16 @@
 <div class="block">
   <center>
     <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-primary"><span class="fa fa-cog"></span> Account Settings</button>
+      <button class="btn btn-primary"><span class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
     </a>
     <a href="{{ route('user_edit_profil', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-primary"><span class="fa fa-user"></span> Edit Profile </button>
+      <button class="btn btn-primary"><span class="fa fa-user"></span> {{ trans('user.edit-profile') }}</button>
     </a>
     <a href="{{ route('invite') }}">
-      <button class="btn btn-primary"><span class="fa fa-plus"></span> Invites </button>
+      <button class="btn btn-primary"><span class="fa fa-plus"></span> {{ trans('user.invites') }}</button>
     </a>
     <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-primary"><span class="fa fa-server"></span> My Seedboxes </button>
+      <button class="btn btn-primary"><span class="fa fa-server"></span> {{ trans('user.my-seedboxes') }}</button>
     </a>
   </center>
 </div>
@@ -380,13 +381,13 @@
 <div class="block">
   <center>
     <a href="{{ route('myuploads', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-success"><span class="fa fa-upload"></span> Uploads Table </button>
+      <button class="btn btn-success"><span class="fa fa-upload"></span> {{ trans('user.uploads-table') }} </button>
     </a>
     <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-success"><span class="fa fa-clock-o"></span> Active Table </button>
+      <button class="btn btn-success"><span class="fa fa-clock-o"></span> {{ trans('user.active-table') }} </button>
     </a>
     <a href="{{ route('myhistory', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-success"><span class="fa fa-history"></span> History Table </button>
+      <button class="btn btn-success"><span class="fa fa-history"></span> {{ trans('user.history-table') }} </button>
     </a>
   </center>
 </div>
@@ -395,7 +396,7 @@
 <div class="block">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation"><a href="#hr" aria-controls="hitrun" role="tab" data-toggle="tab">H&amp;R's</a></li>
+    <li role="presentation"><a href="#hr" aria-controls="hitrun" role="tab" data-toggle="tab">{{ trans('user.hit-n-runs') }}</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -404,12 +405,12 @@
     <div role="tabpanel" class="tab-pane active" id="hr">
       <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
-          <div class="head"><strong>Torrent H&amp;R History</strong></div>
+          <div class="head"><strong>{{ trans('user.hit-n-runs-history') }}</strong></div>
           <thead>
-            <th>Torrent</th>
-            <th>Warned on</th>
-            <th>Expires on</th>
-            <th>Active</th>
+            <th>{{ trans('torrent.torrent') }}</th>
+            <th>{{ trans('user.warned-on') }}</th>
+            <th>{{ trans('user.expires-on') }}</th>
+            <th>{{ trans('user.active') }}</th>
         </thead>
         <tbody>
           @foreach($hitrun as $hr)
@@ -425,9 +426,9 @@
             </td>
             <td>
               @if($hr->active == 1)
-              <span class='label label-success'>Yes</span>
+              <span class='label label-success'>{{ trans('common.yes') }}</span>
               @else
-              <span class='label label-danger'>Expired</span>
+              <span class='label label-danger'>{{ trans('user.expired') }}</span>
               @endif
             </td>
           </tr>
