@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('user.my-seedboxs') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('user.my-seedboxes') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
@@ -12,7 +12,7 @@
 </li>
 <li>
     <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.my-seedboxs') }}</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.my-seedboxes') }}</span>
     </a>
 </li>
 @endsection
@@ -47,7 +47,7 @@
 
 <div class="row">
 	<div class="container box">
-		<h3 class="text-center">{{ trans('user.my-seedboxs') }}</h3>
+		<h3 class="text-center">{{ trans('user.my-seedboxes') }}</h3>
 	@if(count($clients) > 0)
     <div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped table-hover">
