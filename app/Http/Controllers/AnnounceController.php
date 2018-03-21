@@ -111,25 +111,25 @@ class AnnounceController extends Controller
         }
 
         // Standard Information Fields
-        $event = $request->get('event');
-        $hash = bin2hex($request->get('info_hash'));
-        $peer_id = bin2hex($request->get('peer_id'));
+        $event = $request->input('event');
+        $hash = bin2hex($request->input('info_hash'));
+        $peer_id = bin2hex($request->input('peer_id'));
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
-        $port = (int)$request->get('port');
-        $left = (float)$request->get('left');
-        $uploaded = (float)$request->get('uploaded');
+        $port = (int)$request->input('port');
+        $left = (float)$request->input('left');
+        $uploaded = (float)$request->input('uploaded');
         $real_uploaded = $uploaded;
-        $downloaded = (float )$request->get('downloaded');
+        $downloaded = (float )$request->input('downloaded');
         $real_downloaded = $downloaded;
 
         //Extra Information Fields
-        $tracker_id = $request->has('trackerid') ? bin2hex($request->get('tracker_id')) : null;
-        $compact = ($request->has('compact') && $request->get('compact') == 1) ? true : false;
-        $key = $request->has('key') ? bin2hex($request->get('key')) : null;
-        $corrupt = $request->has('corrupt') ? $request->get('corrupt') : null;
-        $ipv6 = $request->has('ipv6') ? bin2hex($request->get('ipv6')) : null;
-        $no_peer_id = ($request->has('no_peer_id') && $request->get('no_peer_id') == 1) ? true : false;
+        $tracker_id = $request->has('trackerid') ? bin2hex($request->input('tracker_id')) : null;
+        $compact = ($request->has('compact') && $request->input('compact') == 1) ? true : false;
+        $key = $request->has('key') ? bin2hex($request->input('key')) : null;
+        $corrupt = $request->has('corrupt') ? $request->input('corrupt') : null;
+        $ipv6 = $request->has('ipv6') ? bin2hex($request->input('ipv6')) : null;
+        $no_peer_id = ($request->has('no_peer_id') && $request->input('no_peer_id') == 1) ? true : false;
 
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
