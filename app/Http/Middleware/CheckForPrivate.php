@@ -9,11 +9,10 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 class CheckForPrivate
 {
@@ -26,7 +25,7 @@ class CheckForPrivate
      */
     public function handle($request, Closure $next)
     {
-        if (config('other.private') && !Auth::check()) {
+        if (config('other.private') && !auth()->check()) {
             return redirect('/login');
         }
 

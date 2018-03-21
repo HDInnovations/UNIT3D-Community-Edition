@@ -9,13 +9,11 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Cache;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class CheckIfOnline
 {
@@ -28,9 +26,9 @@ class CheckIfOnline
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $expiresAt = Carbon::now()->addMinutes(60);
-            Cache::put('user-is-online-' . Auth::user()->id, true, $expiresAt);
+            cache()->put('user-is-online-' . auth()->user()->id, true, $expiresAt);
         }
         return $next($request);
     }

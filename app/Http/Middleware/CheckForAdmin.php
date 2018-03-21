@@ -9,11 +9,10 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CheckForAdmin
@@ -27,7 +26,7 @@ class CheckForAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || !Auth::user()->group->is_admin) {
+        if (!auth()->check() || !auth()->user()->group->is_admin) {
             throw new NotFoundHttpException;
         }
 

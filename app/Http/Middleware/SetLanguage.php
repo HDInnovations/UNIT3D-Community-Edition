@@ -13,11 +13,8 @@
 namespace App\Http\Middleware;
 
 use App;
-use Auth;
 use Closure;
-
 use App\Language;
-
 use Carbon\Carbon;
 
 class SetLanguage
@@ -65,7 +62,7 @@ class SetLanguage
 
     public function setUserLocale()
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         if ($user->locale) {
             $this->setLocale($user->locale);
@@ -93,7 +90,7 @@ class SetLanguage
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
+        if (auth()->check()) {
             $this->setUserLocale();
         } else {
             $this->setSystemLocale($request);

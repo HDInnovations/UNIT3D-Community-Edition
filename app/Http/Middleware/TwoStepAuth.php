@@ -15,7 +15,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Traits\TwoStep;
 
 class TwoStepAuth
@@ -35,7 +34,7 @@ class TwoStepAuth
         $response   = $next($request);
         $uri        = $request->path();
         $nextUri    = config('app.url') . '/' .  $uri;
-        $user = Auth::user();
+        $user = auth()->user();
 
         switch ($uri) {
             case 'verification/needed':

@@ -9,7 +9,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -27,7 +27,7 @@ class CheckForModo
      */
     public function handle($request, Closure $next)
     {
-        if (!Auth::check() || !Auth::user()->group->is_modo) {
+        if (!auth()->check() || !auth()->user()->group->is_modo) {
             throw new NotFoundHttpException;
         }
 
