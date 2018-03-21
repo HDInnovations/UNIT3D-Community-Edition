@@ -147,7 +147,7 @@
 
         <tr>
           <td class="col-sm-2"><strong>{{ trans('torrent.name') }}</strong></td>
-          <td>{{ $torrent->name }} &nbsp; &nbsp; &nbsp; @if(Auth::user()->group->is_modo || Auth::user()->group->is_internal)
+          <td>{{ $torrent->name }} &nbsp; &nbsp; &nbsp; @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
             @if($torrent->free == 0)
             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">{{ trans('torrent.grant') }} {{ trans('torrent.freeleech') }}</a>
             @else
@@ -170,10 +170,10 @@
             <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-default btn-xs disabled" role="button">{{ trans('torrent.featured') }}</a>
             @endif
             @endif
-            @if(Auth::user()->group->is_modo || Auth::user()->id == $uploader->id)
+            @if(auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
             <a class="btn btn-warning btn-xs" href="{{ route('edit', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button">{{ trans('common.edit') }}</a>
             @endif
-            @if(Auth::user()->group->is_modo || ( Auth::user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+            @if(auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
             <button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal_torrent_delete">
               <span class="icon"><i class="fa fa-fw fa-times"></i> {{ trans('common.delete') }}</span>
             </button>
@@ -185,7 +185,7 @@
           <td class="col-sm-2"><strong>{{ trans('torrent.uploader') }}</strong></td>
           <td>
             @if($torrent->anon == 1)
-            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(Auth::user()->id == $uploader->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
+            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
             @else
             <a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i class="{{ $uploader->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
             @endif
@@ -207,7 +207,7 @@
 
         <tr>
           <td class="col-sm-2"><strong>{{ trans('torrent.estimated-ratio') }}</strong></td>
-          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(Auth::user())) }}</td>
+          <td>{{ $user->ratioAfterSizeString($torrent->size, $torrent->isFreeleech(auth()->user())) }}</td>
         </tr>
 
         <tr>
@@ -409,7 +409,7 @@
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('common.comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
-        @if(Auth::user()->hasBookmarked($torrent->id))
+        @if(auth()->user()->hasBookmarked($torrent->id))
         <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-danger" role="button">
           <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.unbookmark') }}</a>
         @else
@@ -477,7 +477,7 @@
             @if($comment->anon == 1)
             <a href="#" class="pull-left">
             <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
+            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
             @else
             <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
             @if($comment->user->image != null)
@@ -487,7 +487,7 @@
             @endif
             <strong>{{ trans('common.author') }} <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-            @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
+            @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
             <a title="{{ trans('common.delete-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
             <a title="{{ trans('common.edit-comment') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
             @endif

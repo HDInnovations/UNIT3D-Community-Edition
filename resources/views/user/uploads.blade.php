@@ -39,7 +39,7 @@
               <a href="{{ route('download', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">
                 <button class="btn btn-primary btn-circle" type="button"><i class="fa fa-download"></i></button>
               </a>
-              @if(Auth::check() && Auth::user()->id == $user->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay()))
+              @if(auth()->check() && auth()->user()->id == $user->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay()))
               <a class="btn btn-danger btn-xs" href="{{ action('TorrentController@deleteTorrent', array('id' => $torrent->id)) }}" role="button">Delete</a>
               @endif
             </div>

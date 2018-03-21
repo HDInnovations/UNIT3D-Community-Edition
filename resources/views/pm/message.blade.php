@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
 <li class="active">
-    <a href="{{ route('message', array('username' => Auth::user()->username, 'id' => Auth::user()->id, 'pmid' => $pm->id)) }}">
+    <a href="{{ route('message', array('username' => auth()->user()->username, 'id' => auth()->user()->id, 'pmid' => $pm->id)) }}">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
     </a>
 </li>
@@ -22,11 +22,11 @@
 <div class="row">
   <div class="col-md-2">
     <div class="block">
-      <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
+      <a href="{{ route('create', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
       <div class="separator"></div>
       <div class="list-group">
-        <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
-        <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
+        <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
+        <a href="{{ route('outbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
   <div class="col-md-10">
     <div class="block">
       <h3>Re: {{ $pm->subject }}</h3>
-      @if ($pm->sender_id == Auth::user()->id)
+      @if ($pm->sender_id == auth()->user()->id)
       <div class="mt-10 message message-unread message-sent">
       @else
       <div class="mt-10 message message-read">

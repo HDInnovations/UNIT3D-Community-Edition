@@ -5,7 +5,7 @@
       @include('partials.head')
   </head>
 
-  @if(Auth::user()->nav == 0)
+  @if(auth()->user()->nav == 0)
   <body hoe-navigation-type="vertical-compact" hoe-nav-placement="left" theme-layout="wide-layout">
   @else
   <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
@@ -31,9 +31,9 @@
       <script type="text/javascript" src="{{ url('js/hoe.js') }}"></script>
       <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
 
-      @if(Auth::user()->style == 1)
+      @if(auth()->user()->style == 1)
       <link rel="stylesheet" href="{{ url('files/wysibb/theme/dark/wbbtheme.css') }}" />
-      @elseif(Auth::user()->style == 2)
+      @elseif(auth()->user()->style == 2)
       <link rel="stylesheet" href="{{ url('files/wysibb/theme/blur/wbbtheme.css') }}" />
       @endif
 

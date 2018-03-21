@@ -48,14 +48,14 @@
 		</div>
 		<div class="col-sm-4 text-center">
 			<div class="text-green well well-sm">
-                <?php $unlocked = Auth::user()->unlockedAchievements()->count() ?>
+                <?php $unlocked = auth()->user()->unlockedAchievements()->count() ?>
                     <h3>
 					<strong>{{ trans('user.unlocked-achievements') }}:</strong>{{
 					$unlocked }}
 				</h3>
 			</div>
 			<div class="text-red well well-sm">
-                <?php $lock = Auth::user()->lockedAchievements()->count() ?>
+                <?php $lock = auth()->user()->lockedAchievements()->count() ?>
                     <h3>
 					<strong>{{ trans('user.locked-achievements') }}:</strong>{{ $lock
 					}}

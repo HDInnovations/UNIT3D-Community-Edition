@@ -67,7 +67,7 @@
             <p class="pre">{{ $p->user->title }}</p>
             <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
-            @if(Auth::check() && (Auth::user()->group->is_modo || $p->user_id == Auth::user()->id) && $topic->state == 'open')
+            @if(auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
             <button id="quote" class="btn btn-xs btn-xxs btn-info">{{ trans('forum.quote') }}</button>
             <a href="{{ route('forum_post_edit', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-warning">{{ trans('common.edit') }}</button></a>
             <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-danger">{{ trans('common.delete') }}</button></a>
@@ -83,14 +83,14 @@
           @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=', 1)->count(); @endphp
           <div class="likes">
           <span class="badge-extra">
-            @if(Auth::user()->likes()->where('post_id', $p->id)->where('like', '=', 1)->first())
+            @if(auth()->user()->likes()->where('post_id', $p->id)->where('like', '=', 1)->first())
             <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip" style="margin-right: 16px;" data-original-title="{{ trans('forum.like-post') }}"><i class="icon-like fa fa-thumbs-up fa-2x fa-beat"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
             @else
             <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip" style="margin-right: 16px;" data-original-title="{{ trans('forum.like-post') }}"><i class="icon-like fa fa-thumbs-up fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
             @endif
-            @if(Auth::user()->likes()->where('post_id', $p->id)->where('dislike', '=', 1)->first())
+            @if(auth()->user()->likes()->where('post_id', $p->id)->where('dislike', '=', 1)->first())
             <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red" data-toggle="tooltip" data-original-title="{{ trans('forum.dislike-post') }}"><i class="icon-dislike fa fa-thumbs-down fa-2x fa-beat"></i>
               <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
             @else
@@ -117,13 +117,13 @@
       <br>
       <div class="block">
       <div class="topic-new-post">
-        @if($topic->state == "close" && Auth::user()->group->is_modo)
+        @if($topic->state == "close" && auth()->user()->group->is_modo)
         {{ Form::open(array('route' => array('forum_reply', 'slug' => $topic->slug, 'id' => $topic->id))) }}
-        <div class="text-danger">This topic is closed, but you can still reply due to you being {{Auth::user()->group->name}}.</div>
+        <div class="text-danger">This topic is closed, but you can still reply due to you being {{auth()->user()->group->name}}.</div>
         <div class="from-group">
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
         </div>
-        @if(Auth::check())
+        @if(auth()->check())
         <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         @else
         <button type="submit" class="btn btn-default disabled">{{ trans('forum.not-connected') }}</button>
@@ -136,7 +136,7 @@
         <div class="from-group">
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
         </div>
-        @if(Auth::check())
+        @if(auth()->check())
         <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
         @else
         <button type="submit" class="btn btn-default disabled">{{ trans('forum.not-connected') }}</button>
@@ -145,7 +145,7 @@
         @endif
 
         <center>
-          @if(Auth::check() && (Auth::user()->group->is_modo || $topic->user_id == Auth::user()->id))
+          @if(auth()->check() && (auth()->user()->group->is_modo || $topic->user_id == auth()->user()->id))
           <h3>{{ trans('forum.moderation') }}</h3>
           @if($topic->state == "close")
           <a href="{{ route('forum_open', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class="btn btn-success">{{ trans('forum.open-topic') }}</a>
@@ -153,11 +153,11 @@
           <a href="{{ route('forum_close', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class="btn btn-info">{{ trans('forum.mark-as-resolved') }}</a>
           @endif
           @endif
-          @if(Auth::check() && Auth::user()->group->is_modo)
+          @if(auth()->check() && auth()->user()->group->is_modo)
           <a href="{{ route('forum_edit_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" class="btn btn-warning">{{ trans('forum.edit-topic') }}</a>
           <a href="{{ route('forum_delete_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" class="btn btn-danger">{{ trans('forum.delete-topic') }}</a>
           @endif
-          @if(Auth::check() && Auth::user()->group->is_modo)
+          @if(auth()->check() && auth()->user()->group->is_modo)
           @if($topic->pinned == 0)
           <a href="{{ route('forum_pin_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" class="btn btn-primary">{{ trans('forum.pin') }} {{ strtolower(trans('forum.topic')) }}</a>
           @else
@@ -167,7 +167,7 @@
 
           <br>
 
-          @if(Auth::check() && Auth::user()->group->is_modo)
+          @if(auth()->check() && auth()->user()->group->is_modo)
           <h3>{{ trans('forum.label-system') }}</h3>
           @if($topic->approved == "0")
           <a href="{{ route('forum_approved', ['slug' => $topic->slug, 'id' => $topic->id, ])}}" class='label label-sm label-success'>{{ trans('common.add') }} {{ strtoupper(trans('forum.approved')) }}</a>

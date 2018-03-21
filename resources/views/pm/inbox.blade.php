@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
 <li class="active">
-    <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+    <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
         <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.inbox') }}</span>
     </a>
 </li>
@@ -18,11 +18,11 @@
         <div class="row">
           <div class="col-md-2">
             <div class="block">
-              <a href="{{ route('create', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
+              <a href="{{ route('create', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
               <div class="separator"></div>
               <div class="list-group">
-                <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
-                <a href="{{ route('outbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
+                <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
+                <a href="{{ route('outbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
               </div>
             </div>
           </div>
@@ -32,10 +32,10 @@
                 <div class="row">
                   <div class="col-md-8 col-xs-5">
                     <div class="btn-group">
-                      <a href="{{ route('mark-all-read', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+                      <a href="{{ route('mark-all-read', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
                           <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.mark-all-read') }}"><i class="fa fa-eye"></i></button>
                       </a>
-                      <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+                      <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
                           <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.refresh') }}"><i class="fa fa-refresh"></i></button>
                       </a>
                       {{--<button type="button" id="btn_delete_messages" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i></button>--}}

@@ -23,11 +23,11 @@
 		{{ Form::open(array('route' => 'contact')) }}
 		{{ csrf_field() }}
 			<div class="form-group">
-				<input type="text" name="contact-name" placeholder="{{ trans('common.name') }}" value="{{ Auth::user()->username }}" class="form-control" required>
+				<input type="text" name="contact-name" placeholder="{{ trans('common.name') }}" value="{{ auth()->user()->username }}" class="form-control" required>
 			</div>
 
 			<div class="form-group">
-				<input type="email" name="email" placeholder="{{ trans('common.email') }}" value="{{ Auth::user()->email }}" class="form-control" required>
+				<input type="email" name="email" placeholder="{{ trans('common.email') }}" value="{{ auth()->user()->email }}" class="form-control" required>
 			</div>
 
 			<div class="form-group">

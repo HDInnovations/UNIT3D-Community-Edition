@@ -7,8 +7,8 @@
     <span class="hoe-sidebar-toggle"><a href="#"></a></span>
     <ul class="left-navbar">
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-        @php $pm = DB::table('private_messages')->where('reciever_id', '=', Auth::user()->id)->where('read', '=', '0')->count(); @endphp
-        <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}" class="dropdown-toggle icon-circle">
+        @php $pm = DB::table('private_messages')->where('reciever_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
+        <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-envelope-o text-blue"></i>
           @if($pm > 0)
           <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -19,7 +19,7 @@
       <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
         <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
           <i class="fa fa-bell-o"></i>
-          @if(Auth::user()->unreadNotifications->count() > 0)
+          @if(auth()->user()->unreadNotifications->count() > 0)
           <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
           @endif
         </a>
@@ -31,7 +31,7 @@
         </a>
       </li>
 
-      @if(Auth::user()->group->is_modo)
+      @if(auth()->user()->group->is_modo)
       <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
         <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-tasks text-red"></i>
@@ -70,7 +70,7 @@
         <li class="dropdown hoe-rheader-submenu hoe-header-profile">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span>
-                <img src="{{ url('img/flags/'.strtolower(Auth::user()->locale).'.png') }}" class="img-circle" />
+                <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle" />
             </span>
           <span>Language <i class=" fa fa-angle-down"></i></span>
         </a>
@@ -78,7 +78,7 @@
             @foreach (App\Language::allowed() as $code => $name)
                 <li class="{{ config('language.flags.li_class') }}">
                     <a href="{{ route('back', ['local' => $code]) }}">
-                        <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(Auth::user()->locale == $code)<span class="text-orange text-bold">({{ trans('common.active') }}!)</span>@endif
+                        <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}" width="{{ config('language.flags.width') }}" /> &nbsp;{{ $name }} @if(auth()->user()->locale == $code)<span class="text-orange text-bold">({{ trans('common.active') }}!)</span>@endif
                     </a>
                 </li>
             @endforeach
@@ -87,16 +87,16 @@
       <li class="dropdown hoe-rheader-submenu hoe-header-profile">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <span>
-            @if(Auth::user()->image != null)
-              <img src="{{ url('files/img/' . Auth::user()->image) }}" alt="{{ Auth::user()->username }}" class="img-circle">
+            @if(auth()->user()->image != null)
+              <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}" class="img-circle">
             @else
-              <img src="{{ url('img/profil.png') }}" alt="{{ Auth::user()->username }}" class="img-circle">
+              <img src="{{ url('img/profil.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
             @endif
           </span>
-          <span>{{ Auth::user()->username }} <i class=" fa fa-angle-down"></i></span>
+          <span>{{ auth()->user()->username }} <i class=" fa fa-angle-down"></i></span>
         </a>
         <ul class="dropdown-menu ">
-          <li><a href="{{ route('profil', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
+          <li><a href="{{ route('profil', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
           <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

@@ -45,7 +45,7 @@
             </td>
             <td @if(auth()->user()->username == $d->username) class="mentions" @endif>
               @if($d->private_profile == 1)
-              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(Auth::user()->id == $d->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">({{ $d->username }}</a></span>
+              <span class="badge-user text-bold"><span class="text-orange"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(auth()->user()->id == $d->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">({{ $d->username }}</a></span>
               @endif
               @else
               <span class="badge-user text-bold"><a href="{{ route('profil', ['username' => $d->username, 'id' => $d->id]) }}">{{ $d->username }}</a></span>

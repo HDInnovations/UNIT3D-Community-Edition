@@ -217,7 +217,7 @@
               <a href="{{ route('torrent', ['slug' => $request->torrent->slug, 'id' => $request->torrent->id]) }}">{{ $request->torrent->name }}</a>
             </td>
           </tr>
-          @endif @if($request->user_id == $user->id && $request->filled_hash != null && $request->approved_by == null || Auth::user()->group->is_modo && $request->filled_hash != null && $request->approved_by == null)
+          @endif @if($request->user_id == $user->id && $request->filled_hash != null && $request->approved_by == null || auth()->user()->group->is_modo && $request->filled_hash != null && $request->approved_by == null)
           <tr>
             <td>
               <strong>{{ trans('request.filled-by') }}</strong>
@@ -303,7 +303,7 @@
                   @if($comment->anon == 1)
                   <a href="#" class="pull-left">
                 <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(Auth::user()->id == $comment->user->id || Auth::user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
+                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
                 @endif
                   @else
                   <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
@@ -315,7 +315,7 @@
                   <strong>{{ trans('common.author') }} <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong>
                   @endif
                   <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                  @if($comment->user_id == Auth::id() || Auth::user()->group->is_modo)
+                  @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                   <a title="{{ trans('common.delete-your-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
                   <a title="{{ trans('common.edit-your-comment') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
                   @endif

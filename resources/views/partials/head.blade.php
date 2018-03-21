@@ -21,18 +21,18 @@
 <link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=05') }}" />
 <link rel="stylesheet" href="{{ url('css/nav/hoe.css?v=07') }}">
 <link rel="stylesheet" href="{{ url('css/main/custom.css?v=55') }}">
-@if(Auth::user()->style == 1)
+@if(auth()->user()->style == 1)
 <link rel="stylesheet" href="{{ url('css/main/dark.css?v=03') }}">
-@elseif(Auth::user()->style == 2)
+@elseif(auth()->user()->style == 2)
 <link rel="stylesheet" href="{{ url('css/main/blur.css?v=02') }}">
-@elseif(Auth::user()->style == 3)
+@elseif(auth()->user()->style == 3)
 <link rel="stylesheet" href="{{ url('css/main/advbuttons.css?v=04') }}">
 <link rel="stylesheet" href="{{ url('css/main/galactic.css?v=02') }}">
 @endif
-@if(Auth::user()->style != 3)
+@if(auth()->user()->style != 3)
 <link rel="stylesheet" href="{{ url('css/main/advbuttons.css?v=03') }}">
 @endif
-@if(isset(Auth::user()->custom_css))
-<link rel="stylesheet" href="{{Auth::user()->custom_css}}"/>
+@if(isset(auth()->user()->custom_css))
+<link rel="stylesheet" href="{{auth()->user()->custom_css}}"/>
 @endif
 @yield('stylesheets')

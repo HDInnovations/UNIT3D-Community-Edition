@@ -1,6 +1,6 @@
 @foreach($articles as $a)
 <div class="col-md-10 col-sm-10 col-md-offset-1">
-@if(Auth::user()->updated_at->getTimestamp() < $a->created_at->getTimestamp())
+@if(auth()->user()->updated_at->getTimestamp() < $a->created_at->getTimestamp())
 <div class="panel panel-danger">
 <div class="panel-heading">
   <h4 class="text-center">

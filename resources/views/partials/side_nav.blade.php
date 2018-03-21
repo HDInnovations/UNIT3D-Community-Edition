@@ -72,7 +72,7 @@
       </a>
     </li>
     <li>
-      <a href="{{ route('inbox', array('username' => Auth::user()->username, 'id' => Auth::user()->id)) }}">
+      <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
         <i class="livicon" data-name="mail" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
         <span class="menu-text">{{ trans('pm.inbox') }}</span>
         <span class="selected"></span>
@@ -100,13 +100,13 @@
       </a>
     </li>
     {{--<li>
-      <a href="{{ route('rss', array('passkey' => Auth::user()->passkey)) }}">
+      <a href="{{ route('rss', array('passkey' => auth()->user()->passkey)) }}">
         <i class="livicon" data-name="rss" data-c="orange" data-hc="orange" data-size="18" data-loop="true"></i>
         <span class="menu-text">{{ trans('torrent.rss') }}</span>
         <span class="selected"></span>
       </a>
     </li>--}}
-    @if(Auth::user()->group->is_modo)
+    @if(auth()->user()->group->is_modo)
     <li>
       <a href="{{ route('staff_dashboard') }}">
         <i class="livicon" data-name="gears" data-c="#E74C3C" data-hc="#E74C3C" data-size="18" data-loop="true"></i>
