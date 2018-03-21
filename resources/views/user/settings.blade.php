@@ -31,7 +31,20 @@
     <div role="tabpanel" class="tab-pane active" id="welcome">
 
         {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
-        <h3>Style Settings</h3>
+        <br>
+        <h2>General Settings</h2>
+        <hr>
+        <label for="hidden" class="control-label">Language Censor Chat?</label>
+        <div class="radio-inline">
+            <label><input type="radio" name="censor" @if($user->censor == 1) checked @endif value="1">YES</label>
+          </div>
+        <div class="radio-inline">
+            <label><input type="radio" name="censor" @if($user->censor == 0) checked @endif value="0">NO</label>
+        </div>
+        <br>
+        <br>
+
+        <h2>Style Settings</h2>
         <hr>
         <div class="form-group">
           <label for="theme" class="control-label">Theme</label>
@@ -56,7 +69,7 @@
         <br>
         <br>
 
-        <h3>Privacy Settings</h3>
+        <h2>Privacy Settings</h2>
         <hr>
         <label for="hidden" class="control-label">Hidden From Online Block?</label>
         <div class="radio-inline">
@@ -86,7 +99,7 @@
         <br>
         <br>
 
-        <h3>Torrent Preferences</h3>
+        <h2>Torrent Preferences</h2>
         <hr>
         <label for="poster" class="control-label">Show Posters On Torrent List View?</label>
         <div class="radio-inline">
@@ -107,7 +120,7 @@
         <br>
         <br>
 
-        <h3>Security Preferences</h3>
+        <h2>Security Preferences</h2>
         <hr>
         @if(config('auth.TwoStepEnabled') == true)
         <label for="twostep" class="control-label">Use Two Step Auth?</label>

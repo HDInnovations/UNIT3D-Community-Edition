@@ -162,6 +162,13 @@ class ShoutboxController extends Controller
 					$online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="Offline!"></i>';
 				}
 
+                $flag = true;
+                if (auth()->user()->censor == 1) {
+                    $censorMessage = \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message)));
+                } else {
+                    $censorMessage = \LaravelEmojiOne::toImage(Shoutbox::getMessageHtml($message->message));
+                }
+
 				$appurl = config('app.url');
 				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
 					' . ($flag ? $avatar : "") . '
@@ -172,7 +179,7 @@ class ShoutboxController extends Controller
 					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
 					</h4>
 					<p class="message-content">
-					' . \LaravelEmojiOne::toImage(LanguageCensor::censor(Shoutbox::getMessageHtml($message->message))) . '
+					' . ($flag ? $censorMessage : "") . '
 					' . ($flag ? $delete : "") . '
 					</p></li>';
 			}

@@ -160,6 +160,10 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if ($request->isMethod('POST')) {
+            // General Settings
+            $user->censor = $request->input('censor');
+
+            // Style Settings
             $user->style = (int)$request->input('theme');
             $css_url = $request->input('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
@@ -167,13 +171,18 @@ class UserController extends Controller
             } else {
                 $user->custom_css = $css_url;
             }
-
             $user->nav = $request->input('sidenav');
+
+            // Privacy Settings
             $user->hidden = $request->input('onlinehide');
             $user->private_profile = $request->input('private_profile');
             $user->peer_hidden = $request->input('peer_hidden');
+
+            // Torrent Settings
             $user->show_poster = $request->input('show_poster');
             $user->ratings = $request->input('ratings');
+
+            // Security Settings
             if (config('auth.TwoStepEnabled') == true) {
                 $user->twostep = $request->input('twostep');
             }
