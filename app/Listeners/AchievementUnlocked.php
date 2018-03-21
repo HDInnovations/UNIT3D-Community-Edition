@@ -12,12 +12,9 @@
 
 namespace App\Listeners;
 
-use Session;
 use Gstt\Achievements\Event\Unlocked;
 use App\Shoutbox;
 use App\User;
-
-use Cache;
 
 class AchievementUnlocked
 {
@@ -41,12 +38,12 @@ class AchievementUnlocked
     {
         // There's an AchievementProgress instance located on $event->progress
         $user = User::where('id', '=', $event->progress->achiever_id)->first();
-        Session::flash('achievement', $event->progress->details->name);
+        session()->flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
             $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
-            Cache::forget('shoutbox_messages');
+            cache()->forget('shoutbox_messages');
         }
     }
 }
