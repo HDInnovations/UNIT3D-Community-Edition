@@ -30,7 +30,7 @@ return [
     'active-torrents' => 'Aktywne torrenty',
     'moderated-by' => 'Moderowane przez :mod dnia',
     
-    'my-seedboxs' => 'Moje Seedboxy',
+    'my-seedboxes' => 'Moje Seedboxy',
     'add-seedbox' => 'Dodaj Seedboxa',
     'current-password' => 'Aktualne hasło',
     'client-ip-address' => 'Adres IP',
