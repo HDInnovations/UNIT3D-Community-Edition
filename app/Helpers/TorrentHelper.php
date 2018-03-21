@@ -19,7 +19,6 @@ use App\User;
 use App\History;
 use App\Torrent;
 use App\Shoutbox;
-
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -32,11 +31,8 @@ use App\Achievements\UserMade600Uploads;
 use App\Achievements\UserMade700Uploads;
 use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
-
 use App\Bots\IRCAnnounceBot;
 use App\Services\MovieScrapper;
-
-use Illuminate\Support\Facades\Auth;
 
 class TorrentHelper
 {

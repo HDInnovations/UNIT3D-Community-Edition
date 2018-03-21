@@ -12,8 +12,6 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Auth;
-
 class RequestViewHelper
 {
     public static function view($results)
