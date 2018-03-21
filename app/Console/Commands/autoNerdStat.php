@@ -12,15 +12,11 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Shoutbox;
 use App\User;
 use App\Torrent;
-
 use Carbon\Carbon;
-use Cache;
-
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class autoNerdStat extends Command
 {
@@ -84,6 +80,6 @@ class autoNerdStat extends Command
 
         // Auto Shout Nerd Stat
         Shoutbox::create(['user' => "2", 'mentions' => "2", 'message' => ":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:"]);
-        Cache::forget('shoutbox_messages');
+        cache()->forget('shoutbox_messages');
     }
 }

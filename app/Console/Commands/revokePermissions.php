@@ -12,12 +12,11 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use App\PrivateMessage;
 use App\Warning;
 use App\User;
-
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class revokePermissions extends Command
 {

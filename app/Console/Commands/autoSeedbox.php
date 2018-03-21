@@ -12,12 +12,10 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\Torrent;
 use App\Peer;
 use App\Client;
-
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class autoSeedbox extends Command
 {

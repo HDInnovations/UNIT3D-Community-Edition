@@ -12,10 +12,9 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\History;
 use App\Peer;
-
-use Illuminate\Console\Command;
 
 class FlushPeers extends Command
 {

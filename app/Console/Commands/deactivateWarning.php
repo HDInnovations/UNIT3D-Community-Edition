@@ -12,12 +12,10 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\PrivateMessage;
 use App\Warning;
 use Carbon\Carbon;
-
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class deactivateWarning extends Command
 {

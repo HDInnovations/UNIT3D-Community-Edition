@@ -12,15 +12,11 @@
 
 namespace App\Console\Commands;
 
-use App\Torrent;
+use Illuminate\Console\Command;
 use App\History;
 use App\PrivateMessage;
-use App\User;
 use App\Warning;
 use Carbon\Carbon;
-
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class autoWarning extends Command
 {

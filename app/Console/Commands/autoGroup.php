@@ -12,15 +12,12 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Console\Command;
 use App\PrivateMessage;
 use App\User;
 use App\Group;
 use App\History;
 use Carbon\Carbon;
-
-use Illuminate\Support\Facades\Config;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class autoGroup extends Command
 {
