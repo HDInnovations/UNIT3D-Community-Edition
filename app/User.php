@@ -160,6 +160,15 @@ class User extends Authenticatable
     }
 
     /**
+    * Has Many Topics
+    *
+    */
+    public function topics()
+    {
+        return $this->hasMany(Topic::class, 'first_post_user_id', 'id');
+    }
+
+    /**
      * Has many posts
      *
      */

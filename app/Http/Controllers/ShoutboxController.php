@@ -66,7 +66,7 @@ class ShoutboxController extends Controller
             if (auth()->user()->image != null) {
                 $avatar = '<img class="profile-avatar tiny pull-left" src="/files/img/' . auth()->user()->image . '">';
             } else {
-                $avatar = '<img class="profile-avatar tiny pull-left" src="/img/profil.png">';
+                $avatar = '<img class="profile-avatar tiny pull-left" src="/img/profile.png">';
             }
 
             $flag = true;
@@ -145,7 +145,7 @@ class ShoutboxController extends Controller
 				if ($message->poster->image != null) {
 					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
 				} else {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profil.png">';
+					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profile.png">';
 				}
 
 				$flag = true;

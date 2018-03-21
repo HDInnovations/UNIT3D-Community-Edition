@@ -76,28 +76,16 @@ class UserController extends Controller
      * @access public
      * @return view user.profile
      */
-    public function profil($username, $id)
+    public function profile($username, $id)
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $hiscount = History::where('user_id', '=', $id)->count();
-        $seedtime = History::where('user_id', '=', $id)->sum('seedtime');
-
-        $num_uploads = Torrent::where('user_id', '=', $id)->count();
-        $num_downloads = History::where('user_id', '=', $id)->where('actual_downloaded', '>', 0)->count();
-        $achievements = $user->unlockedAchievements();
         $followers = Follow::where('target_id', '=', $id)->get();
-        $tor_comments = Comment::where('user_id', '=', $id)->where('torrent_id', '>', 0)->count();
-        $art_comments = Comment::where('user_id', '=', $id)->where('article_id', '>', 0)->count();
-        $req_comments = Comment::where('user_id', '=', $id)->where('requests_id', '>', 0)->count();
-        $topics = Topic::where('first_post_user_id', '=', $id)->count();
-        $posts = Post::where('user_id', '=', $id)->count();
+        $history = $user->history;
         $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', '1')->take(3)->get();
-        $hitrun = Warning::where('user_id', '=', $id)->orderBy('created_at', 'DESC')->get();
-        $notes = Note::where('user_id', '=', $id)->count();
+        $hitrun = Warning::where('user_id', '=', $id)->orderBy('created_at', 'DESC')->paginate(10);
 
-        return view('user.profil', ['user' => $user, 'groups' => $groups, 'num_uploads' => $num_uploads, 'num_downloads' => $num_downloads, 'achievements' => $achievements, 'followers' => $followers, 'notes' => $notes,
-            'seedtime' => $seedtime, 'hiscount' => $hiscount, 'tor_comments' => $tor_comments, 'art_comments' => $art_comments, 'req_comments' => $req_comments, 'topics' => $topics, 'posts' => $posts, 'warnings' => $warnings, 'hitrun' => $hitrun]);
+        return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
 
     /**
@@ -107,7 +95,7 @@ class UserController extends Controller
      * @return void
      *
      */
-    public function editProfil(Request $request, $username, $id)
+    public function editProfile(Request $request, $username, $id)
     {
         $user = auth()->user();
         // Requetes post only
@@ -132,10 +120,10 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has updated there profile.");
 
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
 
-        return view('user.edit_profil', ['user' => $user]);
+        return view('user.edit_profile', ['user' => $user]);
     }
 
     /**
@@ -167,7 +155,7 @@ class UserController extends Controller
             $user->style = (int)$request->input('theme');
             $css_url = $request->input('custom_css');
             if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
-                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
+                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.', 'Whoops!', ['options']));
             } else {
                 $user->custom_css = $css_url;
             }
@@ -191,9 +179,9 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member " . $user->username . " has changed there account settings.");
 
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 
@@ -217,7 +205,7 @@ class UserController extends Controller
             ])->save();
             return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
     }
 
@@ -242,9 +230,9 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has changed there email address on file.");
 
-                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
+                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             } else {
-                return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
             }
         }
     }
@@ -261,9 +249,9 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             $user->passkey = md5(uniqid() . time() . microtime());
             $user->save();
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('profil', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 

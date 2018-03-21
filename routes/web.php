@@ -202,8 +202,8 @@ Route::group(['middleware' => 'language'], function () {
         // User
         Route::get('/members', 'UserController@members')->name('members');
         Route::any('/members/results', 'UserController@userSearch')->name('userSearch');
-        Route::get('/{username}.{id}', 'UserController@profil')->name('profil');
-        Route::any('/{username}.{id}/edit', 'UserController@editProfil')->name('user_edit_profil');
+        Route::get('/{username}.{id}', 'UserController@profile')->name('profile');
+        Route::any('/{username}.{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
         Route::post('/{username}.{id}/photo', 'UserController@changePhoto')->name('user_change_photo');
         Route::get('/{username}.{id}/activate/{token}', 'UserController@activate')->name('user_activate');
         Route::post('/{username}.{id}/about', 'UserController@changeAbout')->name('user_change_about');

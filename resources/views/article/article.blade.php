@@ -72,7 +72,7 @@
         @endif
         <strong>By <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
         <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-        @if($comment->user_id == auth()->user()->id() || auth()->user()->group->is_modo)
+        @if($comment->user_id == auth()->user()->id || auth()->user()->group->is_modo)
         <a title="{{ trans('common.delete') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
         <a title="{{ trans('common.edit') }}" data-toggle="modal" data-target="#modal-comment-edit-{{ $comment->id }}"><i class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
         @endif
