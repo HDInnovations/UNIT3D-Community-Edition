@@ -362,7 +362,7 @@
 <div class="block">
   <center>
     <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}">
-      <button class="btn btn-primary"><span class="fa fa-cog"></span> {{ trans('user.account-setting') }}</button>
+      <button class="btn btn-primary"><span class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
     </a>
     <a href="{{ route('user_edit_profil', ['username' => $user->username, 'id' => $user->id]) }}">
       <button class="btn btn-primary"><span class="fa fa-user"></span> {{ trans('user.edit-profile') }}</button>

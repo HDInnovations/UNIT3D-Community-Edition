@@ -64,7 +64,7 @@ return [
     'invites-rules' => '<li class="text-success">Zapraszaj osoby tylko te, które znasz i im ufasz.</li><li class="text-danger">Ponosisz odpowiedzialność za zaproszone osoby.</li><li class="text-danger">Każde wysłane zaproszenie jest weryfikowane.</li><li class="text-danger">Nie wymieniaj i nie handluj zaproszeniami.</li><li class="text-danger">Jeśli osoba, którą zaprosiłeś dostanie bana za oszukiwanie, handel kontem lub sprzedaż/wymianę zaproszeń, dostaniesz ostrzeżenie.</li>',
     'invite-friend' => 'Zaproś znajomego (E-mail + wiadomość wymagane)',
     
-    'invitetree' => 'Drzewo relacji zaproszeń',
+    'invite-tree' => 'Drzewo relacji zaproszeń',
     'invites-send' => 'Zaproszenia wysłane',
     'sender' => 'Wysyłający',
     'code' => 'Kod',

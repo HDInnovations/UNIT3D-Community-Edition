@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.invitetree') }} - {{ Config::get('other.title') }}</title>
+    <title>{{ trans('user.invite-tree') }} - {{ Config::get('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
 <li>
     <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invitetree') }}</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invite-tree') }}</span>
     </a>
 </li>
 @endsection
@@ -16,7 +16,7 @@
 <div class="container">
 <div class="block">
   <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}" href="{{ route('profil', ['username' =>  $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
-{{ trans('user.invitetree') }}</h2>
+{{ trans('user.invite-tree') }}</h2>
   <hr>
   <div class="row">
   <div class="col-sm-12">

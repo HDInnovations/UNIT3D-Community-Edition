@@ -64,7 +64,7 @@ return [
     'invites-rules' => '<li class="text-success">Only invite people you know and trust.</li><li class="text-danger">You will be held personally responsible for those you invite.</li><li class="text-danger">Don\'t invite yourself, we check every invited user.</li><li class="text-danger">Don\'t trade or sell Invites.</li><li class="text-danger">If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.</li>',
     'invite-friend' => 'Invite your friend (Email + Message Required)',
     
-    'invitetree' => 'Invite Tree',
+    'invite-tree' => 'Invite Tree',
     'invites-send' => 'Invites Send',
     'sender' => 'Sender',
     'code' => 'Code',
