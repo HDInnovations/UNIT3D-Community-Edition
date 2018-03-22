@@ -12,7 +12,6 @@
 
 namespace App\Traits;
 
-use Illuminate\Http\Request;
 use App\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
 use Carbon\Carbon;
@@ -22,11 +21,9 @@ trait TwoStep
     /**
      * Check if the user is authorized
      *
-     * @param  Request $request
-     *
      * @return boolean
      */
-    public function twoStepVerification($request)
+    private function twoStepVerification()
     {
         $user = auth()->user();
         if ($user) {

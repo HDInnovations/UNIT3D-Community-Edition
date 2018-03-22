@@ -29,7 +29,7 @@ class TwoStepAuth
      *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $response   = $next($request);
         $uri        = $request->path();
