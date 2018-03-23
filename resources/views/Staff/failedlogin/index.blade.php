@@ -52,7 +52,7 @@
         {{ $attempt->user_id }}
       </td>
       <td>
-        <a class="view-user" data-id="{{ $attempt->user_id }}" data-slug="{{ $attempt->username }}" href="{{ route('profil', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">{{ $attempt->username }}</a>
+        <a class="view-user" data-id="{{ $attempt->user_id }}" data-slug="{{ $attempt->username }}" href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">{{ $attempt->username }}</a>
       </td>
       <td>
         {{ $attempt->ip_address }}

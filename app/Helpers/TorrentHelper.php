@@ -77,7 +77,7 @@ class TorrentHelper
 
             $torrent_link = route('torrent', ['slug' => $list->slug, 'id' => $list->id]);
             $download_check_link = route('download_check', ['slug' => $list->slug, 'id' => $list->id]);
-            $user_link = route('profil', ['username' => $list->user->username, 'id' => $list->user->id]);
+            $user_link = route('profile', ['username' => $list->user->username, 'id' => $list->user->id]);
             $peers_link = route('peers', ['slug' => $list->slug, 'id' => $list->id]);
             $history_link = route('history', ['slug' => $list->slug, 'id' => $list->id]);
 

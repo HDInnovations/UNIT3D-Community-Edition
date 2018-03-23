@@ -56,10 +56,10 @@
             <a href="{{ route('getReport',['report_id'=>$r->id]) }}">{{ $r->title }}</a>
           </td>
           <td class="user-name">
-            <a class="name" href="{{ route('profil', ['username' => $r->reportuser->username, 'id' => $r->reporter_id ]) }}">{{ $r->reportuser->username }}</a>
+            <a class="name" href="{{ route('profile', ['username' => $r->reportuser->username, 'id' => $r->reporter_id ]) }}">{{ $r->reportuser->username }}</a>
           </td>
           <td class="user-name">
-            <a class="name" href="{{ $r->staff_id ? route('profil', ['username' => $r->staffuser->username, 'id' => $r->staff_id ]) : route('home')}}">{{ $r->staff_id ? $r->staffuser->username : "" }}</a>
+            <a class="name" href="{{ $r->staff_id ? route('profile', ['username' => $r->staffuser->username, 'id' => $r->staff_id ]) : route('home')}}">{{ $r->staff_id ? $r->staffuser->username : "" }}</a>
           </td>
           <td>
 						@if($r->solved == 0)

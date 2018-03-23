@@ -32,7 +32,7 @@
     <h2>{{ $topic->name }}</h2>
 
     <div class="topic-info">
-        {{ trans('forum.author') }} <a href="{{ route('profil', ['username' => $topic->first_post_user_username, 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+        {{ trans('forum.author') }} <a href="{{ route('profile', ['username' => $topic->first_post_user_username, 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
         <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
         <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
       <span style="float: right;"> {{ $posts->links() }}</span>
@@ -50,9 +50,9 @@
             @if($p->user->image != null)
             <img src="{{ url('files/img/' . $p->user->image) }}" alt="{{ $p->user->username }}" class="img-thumbnail post-info-image">
             @else
-            <img src="{{ url('img/profil.png') }}" alt="{{ $p->user->username }}" class="img-thumbnail post-info-image">
+            <img src="{{ url('img/profile.png') }}" alt="{{ $p->user->username }}" class="img-thumbnail post-info-image">
             @endif
-              <a href="{{ route('profil', ['username' => $p->user->username, 'id' => $p->user->id]) }}" class="post-info-username">
+              <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}" class="post-info-username">
                 <p>
                 <span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->username }}
                   @if($p->user->isOnline())

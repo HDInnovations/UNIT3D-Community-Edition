@@ -48,7 +48,7 @@
   @foreach($invites as $invite)
     <tr>
       <td>
-         <a class="view-user" data-id="{{ $invite->sender->id }}" data-slug="{{ $invite->sender->username }}" href="{{ route('profil', ['username' =>  $invite->sender->username, 'id' => $invite->sender->id]) }}">{{ $invite->sender->username }}</a>
+         <a class="view-user" data-id="{{ $invite->sender->id }}" data-slug="{{ $invite->sender->username }}" href="{{ route('profile', ['username' =>  $invite->sender->username, 'id' => $invite->sender->id]) }}">{{ $invite->sender->username }}</a>
       </td>
       <td>
         {{ $invite->email }}
@@ -64,7 +64,7 @@
       </td>
       <td>
 				@if($invite->accepted_by != null)
-				<a class="view-user" data-id="{{ $invite->reciever->id }}" data-slug="{{ $invite->reciever->username }}" href="{{ route('profil', ['username' =>  $invite->reciever->username, 'id' => $invite->reciever->id]) }}">{{ $invite->reciever->username }}</a>
+				<a class="view-user" data-id="{{ $invite->reciever->id }}" data-slug="{{ $invite->reciever->username }}" href="{{ route('profile', ['username' =>  $invite->reciever->username, 'id' => $invite->reciever->id]) }}">{{ $invite->reciever->username }}</a>
 				@else
 				N/A
 				@endif

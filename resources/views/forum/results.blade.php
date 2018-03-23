@@ -53,12 +53,12 @@
                             @if($r->bug == "1") <span class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                             @if($r->suggestion == "1") <span class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                         </td>
-                        <td class="f-display-topic-started"><a href="{{ route('profil', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a></td>
+                        <td class="f-display-topic-started"><a href="{{ route('profile', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a></td>
                         <td class="f-display-topic-stats">
                             {{ $r->num_post - 1 }} {{ trans('forum.replies') }} \ {{ $r->views }} {{ trans('forum.views') }}
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profil', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>, <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
+                            <a href="{{ route('profile', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>, <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
                                 {{ date('M d Y', strtotime($r->updated_at)) }}
                              </time>
                         </td>

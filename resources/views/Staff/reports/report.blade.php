@@ -32,7 +32,7 @@
   @if($report->solved == 0)
   <span class="text-red"><strong><i class="fa fa-times"></i> UNSOLVED </strong></span>
   @else
-  <span class="text-green"><strong><i class="fa fa-check"></i> SOLVED BY <a class="name" href="{{ route('profil', ['username' => $report->staffuser->username, 'id' => $report->staff_id ]) }}">{{ $report->staffuser->username }}</a></strong></span>
+  <span class="text-green"><strong><i class="fa fa-check"></i> SOLVED BY <a class="name" href="{{ route('profile', ['username' => $report->staffuser->username, 'id' => $report->staff_id ]) }}">{{ $report->staffuser->username }}</a></strong></span>
   @endif
   </h2>
     <hr>

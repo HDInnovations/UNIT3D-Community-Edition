@@ -44,10 +44,10 @@
     @foreach($notes as $n)
       <tr>
         <td>
-					<a class="name" href="{{ route('profil', ['username' => $n->noteduser->username, 'id' => $n->user_id ]) }}">{{ $n->noteduser->username }}</a>
+			<a class="name" href="{{ route('profile', ['username' => $n->noteduser->username, 'id' => $n->user_id ]) }}">{{ $n->noteduser->username }}</a>
         </td>
         <td>
-					<a class="name" href="{{ route('profil', ['username' => $n->staffuser->username, 'id' => $n->staff_id ]) }}">{{ $n->staffuser->username }}</a>
+			<a class="name" href="{{ route('profile', ['username' => $n->staffuser->username, 'id' => $n->staff_id ]) }}">{{ $n->staffuser->username }}</a>
         </td>
         <td>
           {{ $n->message }}

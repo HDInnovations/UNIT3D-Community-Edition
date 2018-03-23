@@ -64,7 +64,7 @@
               {{ Form::hidden('invisible', 'id', array('id' => 'id')) }}
               <tr>
                 <td class="col-sm-1"><input id="check" type="checkbox" name="pm_id" class="selector"></td>
-                <td class="col-sm-2"><a href="{{ route('profil', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}" title="">{{ $p->sender->username}}</a></td>
+                <td class="col-sm-2"><a href="{{ route('profile', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}" title="">{{ $p->sender->username}}</a></td>
                 <td class="col-sm-5"><a href="{{ route('message', ['username' => $user->username , 'id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
                 <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
                 @if ($p->read == 0)

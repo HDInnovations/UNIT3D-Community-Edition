@@ -54,9 +54,9 @@
                   <td class="user-image hidden-xs hidden-sm">
                     @if($user->image != null)
                     <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}" class="img-circle"> @else
-                    <img src="{{ url('img/profil.png') }}" alt="{{ $user->username }}" class="img-circle"> @endif
+                    <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profil', ['username' => $user->username, 'id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span> </td>
                   @if(auth()->user()->group->is_modo)
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $user->email }}</span> </td>
                   <td class="user-id">
@@ -95,9 +95,9 @@
 									<td class="user-image hidden-xs hidden-sm">
 										@if($uploader->image != null)
 										<img src="{{ url('files/img/' . $uploader->image) }}" alt="{{ $uploader->username }}" class="img-circle"> @else
-										<img src="{{ url('img/profil.png') }}" alt="{{ $uploader->username }}" class="img-circle"> @endif
+										<img src="{{ url('img/profile.png') }}" alt="{{ $uploader->username }}" class="img-circle"> @endif
 									</td>
-									<td class="user-name"> <a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}" class="name">{{ $uploader->username }}</a> <span>{{ $uploader->group->name }}</span> </td>
+									<td class="user-name"> <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}" class="name">{{ $uploader->username }}</a> <span>{{ $uploader->group->name }}</span> </td>
 									@if(auth()->user()->group->is_modo)
 									<td class="hidden-xs hidden-sm"> <span class="email">{{ $uploader->email }}</span> </td>
 									<td class="user-id">
@@ -131,9 +131,9 @@
                   <td class="user-image hidden-xs hidden-sm">
                     @if($mod->image != null)
                     <img src="{{ url('files/img/' . $mod->image) }}" alt="{{ $mod->username }}" class="img-circle"> @else
-                    <img src="{{ url('img/profil.png') }}" alt="{{ $mod->username }}" class="img-circle"> @endif
+                    <img src="{{ url('img/profile.png') }}" alt="{{ $mod->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profil', ['username' => $mod->username, 'id' => $mod->id]) }}" class="name">{{ $mod->username }}</a> <span>{{ $mod->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['username' => $mod->username, 'id' => $mod->id]) }}" class="name">{{ $mod->username }}</a> <span>{{ $mod->group->name }}</span> </td>
                   @if(auth()->user()->group->is_modo)
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $mod->email }}</span> </td>
                   <td class="user-id">
@@ -167,9 +167,9 @@
                   <td class="user-image hidden-xs hidden-sm">
                     @if($admin->image != null)
                     <img src="{{ url('files/img/' . $admin->image) }}" alt="{{ $admin->username }}" class="img-circle"> @else
-                    <img src="{{ url('img/profil.png') }}" alt="{{ $admin->username }}" class="img-circle"> @endif
+                    <img src="{{ url('img/profile.png') }}" alt="{{ $admin->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profil', ['username' => $admin->username, 'id' => $admin->id]) }}" class="name">{{ $admin->username }}</a> <span>{{ $admin->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['username' => $admin->username, 'id' => $admin->id]) }}" class="name">{{ $admin->username }}</a> <span>{{ $admin->group->name }}</span> </td>
                   @if(auth()->user()->group->is_modo)
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $admin->email }}</span> </td>
                   <td class="user-id">
@@ -203,9 +203,9 @@
                   <td class="user-image hidden-xs hidden-sm">
                     @if($coder->image != null)
                     <img src="{{ url('files/img/' . $coder->image) }}" alt="{{ $coder->username }}" class="img-circle"> @else
-                    <img src="{{ url('img/profil.png') }}" alt="{{ $coder->username }}" class="img-circle"> @endif
+                    <img src="{{ url('img/profile.png') }}" alt="{{ $coder->username }}" class="img-circle"> @endif
                   </td>
-                  <td class="user-name"> <a href="{{ route('profil', ['username' => $coder->username, 'id' => $coder->id]) }}" class="name">{{ $coder->username }}</a> <span>{{ $coder->group->name }}</span> </td>
+                  <td class="user-name"> <a href="{{ route('profile', ['username' => $coder->username, 'id' => $coder->id]) }}" class="name">{{ $coder->username }}</a> <span>{{ $coder->group->name }}</span> </td>
                   @if(auth()->user()->group->is_modo)
                   <td class="hidden-xs hidden-sm"> <span class="email">{{ $coder->email }}</span> </td>
                   <td class="user-id">

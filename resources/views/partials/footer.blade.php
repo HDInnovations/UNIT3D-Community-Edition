@@ -13,7 +13,7 @@
       <h2 class="l-footer-section-title">{{ trans('common.account') }}</h2>
       <ul>
         @if(auth()->check())
-        <li><a href="{{ route('profil', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">{{ trans('user.my-profile') }}</a></li>
+        <li><a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">{{ trans('user.my-profile') }}</a></li>
         <li>
           <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('common.logout') }}</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

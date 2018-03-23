@@ -62,13 +62,13 @@
                             @if($t->suggestion == "1") <span class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                             @if($t->implemented == "1") <span class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
-                        <td class="f-display-topic-started"><a href="{{ route('profil', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a></td>
+                        <td class="f-display-topic-started"><a href="{{ route('profile', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a></td>
                         <td class="f-display-topic-stats">
                             {{ $t->num_post - 1 }} {{ trans('forum.replies') }} \ {{ $t->views }} {{ trans('forum.views') }}
                         </td>
                         @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id', 'desc')->first(); @endphp
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profil', ['username' => $t->last_post_user_username, 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a> on <time datetime="{{ date('M d Y', strtotime($last_post->created_at)) }}">
+                            <a href="{{ route('profile', ['username' => $t->last_post_user_username, 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a> on <time datetime="{{ date('M d Y', strtotime($last_post->created_at)) }}">
                                 {{ date('M d Y', strtotime($last_post->created_at)) }}
                              </time>
                         </td>

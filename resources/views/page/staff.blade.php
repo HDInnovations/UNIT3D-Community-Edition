@@ -20,7 +20,7 @@
         @foreach($staff as $s)
         <div class="col-xs-6 col-sm-4 col-md-3">
             <div class="text-center oper-item" style="background-color: {{ $s->color }};">
-                <a href="{{ route('profil', ['username' => $s->username, 'id' => $s->id]) }}" style="color:#fff;"><h1>{{ $s->username }}</h1></a>
+                <a href="{{ route('profile', ['username' => $s->username, 'id' => $s->id]) }}" style="color:#fff;"><h1>{{ $s->username }}</h1></a>
                 <span class="badge-user">{{ trans('page.staff-group') }}: {{ $s->name }}</span>
                 <br>
                 <span class="badge-user">{{ trans('page.staff-title') }}: {{ $s->title }}</span>

@@ -22,7 +22,7 @@ class RequestViewHelper
 
             $category = "<i class='{$list->category->icon} torrent-icon' data-toggle='tooltip' title='' data-original-title='{$list->category->name} Torrent'></i>";
             $request_link = route('request', ['id' => $list->id]);
-            $user_link = route('profil', ['username' => $list->user->username, 'id' => $list->user->id]);
+            $user_link = route('profile', ['username' => $list->user->username, 'id' => $list->user->id]);
             $user = "<a href='{$user_link}'>{$list->user->username}</a>";
             $datetime = date('Y-m-d H:m:s', strtotime($list->created_at));
             $datetime_inner = $list->created_at->diffForHumans();

@@ -185,9 +185,9 @@
           <td class="col-sm-2"><strong>{{ trans('torrent.uploader') }}</strong></td>
           <td>
             @if($torrent->anon == 1)
-            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
+            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }})</a>@endif</span>
             @else
-            <a href="{{ route('profil', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i class="{{ $uploader->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
+            <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span class="badge-user text-bold" style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i class="{{ $uploader->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
             @endif
             <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-xs btn-success pro-ajax" data-id="" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.thank') }}">
               <i class="fa fa-thumbs-up"></i> {{ trans('torrent.thank') }}</a>
@@ -476,16 +476,16 @@
             <div class="media-body">
             @if($comment->anon == 1)
             <a href="#" class="pull-left">
-            <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
+            <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
+            <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>@endif
             @else
-            <a href="{{ route('profil', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
+            <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
             @if($comment->user->image != null)
             <img src="{{ url('files/img/' . $comment->user->image) }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
             @else
-            <img src="{{ url('img/profil.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+            <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
             @endif
-            <strong>{{ trans('common.author') }} <a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
+            <strong>{{ trans('common.author') }} <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
             @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
             <a title="{{ trans('common.delete-comment') }}" href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>

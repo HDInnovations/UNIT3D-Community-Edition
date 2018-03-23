@@ -90,13 +90,13 @@
             @if(auth()->user()->image != null)
               <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}" class="img-circle">
             @else
-              <img src="{{ url('img/profil.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
+              <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
             @endif
           </span>
           <span>{{ auth()->user()->username }} <i class=" fa fa-angle-down"></i></span>
         </a>
         <ul class="dropdown-menu ">
-          <li><a href="{{ route('profil', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
+          <li><a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"><i class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
           <li>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>

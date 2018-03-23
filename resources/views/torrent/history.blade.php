@@ -51,12 +51,12 @@
         <td>
             <span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash" aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
             @if(auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
-            <a href="{{ route('profil', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}">{{ $hpeers->user->username }}</span></a>
+            <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}">{{ $hpeers->user->username }}</span></a>
             @endif
         </td>
         @else
         <td>
-            <a href="{{ route('profil', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $hpeers->user->group->name }}"></i> {{ $hpeers->user->username }}</span></a>
+            <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span class="badge-user text-bold" style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip" title="" data-original-title="{{ $hpeers->user->group->name }}"></i> {{ $hpeers->user->username }}</span></a>
         </td>
         @endif
         @if($hpeers->active == 1) <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif

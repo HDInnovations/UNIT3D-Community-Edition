@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <ul class="list-inline">
       <li><i class="fa fa-user text-black"></i>
-        <a href="{{ route('profil', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="l-header-user-data-link">
+        <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" class="l-header-user-data-link">
           <span class="badge-user" style="color:{{ auth()->user()->group->color }}"><strong>{{ auth()->user()->username }}</strong>@if(auth()->user()->getWarning() > 0) <i class="fa fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip" title="" data-original-title="{{ trans('common.active-warning') }}"></i>@endif</span>
         </a>
       </li>
@@ -26,7 +26,7 @@
         <a href="{{ route('bonus') }}" title="{{ trans('user.my-bonus-points') }}"><span class="text-blue"> {{ trans('bon.bon') }}:</span></a> {{ auth()->user()->getSeedbonus() }}
       </li>
       <li><i class="fa fa-viacoin text-bold"></i>
-        <a href="{{ route('profil', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" title="{{ trans('user.my-fl-tokens') }}"><span class="text-blue"> {{ trans('common.fl_tokens') }}:</span></a> {{ auth()->user()->fl_tokens }}
+        <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}" title="{{ trans('user.my-fl-tokens') }}"><span class="text-blue"> {{ trans('common.fl_tokens') }}:</span></a> {{ auth()->user()->fl_tokens }}
       </li>
     </ul>
   </div>
