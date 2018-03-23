@@ -192,7 +192,7 @@ class User extends Authenticatable
      */
     public function requests()
     {
-        return $this->hasMany(\App\Requests::class);
+        return $this->hasMany(\App\TorrentRequest::class);
     }
 
     /**
@@ -201,7 +201,7 @@ class User extends Authenticatable
      */
     public function ApprovedRequests()
     {
-        return $this->hasMany(\App\Requests::class, 'approved_by');
+        return $this->hasMany(\App\TorrentRequest::class, 'approved_by');
     }
 
     /**
@@ -210,7 +210,7 @@ class User extends Authenticatable
      */
     public function FilledRequests()
     {
-        return $this->hasMany(\App\Requests::class, 'filled_by');
+        return $this->hasMany(\App\TorrentRequest::class, 'filled_by');
     }
 
     /**
@@ -219,7 +219,7 @@ class User extends Authenticatable
      */
     public function requestBounty()
     {
-        return $this->hasMany(\App\RequestsBounty::class);
+        return $this->hasMany(\App\TorrentRequestBounty::class);
     }
 
     /**

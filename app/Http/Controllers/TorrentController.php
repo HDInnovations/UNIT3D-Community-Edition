@@ -25,8 +25,8 @@ use App\Type;
 use App\Peer;
 use App\Page;
 use App\PrivateMessage;
-use App\Requests;
-use App\RequestsBounty;
+use App\TorrentRequest;
+use App\TorrentRequestBounty;
 use App\Warning;
 use App\User;
 use App\BonTransactions;
@@ -927,11 +927,11 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has deleted torrent {$torrent->name} .");
 
                 //Remove requests
-                $reqs = Requests::where('filled_hash', '=', $torrent->info_hash)->get();
-                foreach ($reqs as $req) {
+                $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
+                foreach ($torrentRequest as $req) {
                     if ($req) {
                         Comment::where('requests_id', '=', $req->id)->delete();
-                        RequestsBounty::where('requests_id', '=', $req->id)->delete();
+                        TorrentRequestBounty::where('requests_id', '=', $req->id)->delete();
                         $req->delete();
                     }
                 }

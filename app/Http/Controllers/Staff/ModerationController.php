@@ -14,7 +14,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\User;
 use App\Torrent;
-use App\Requests;
+use App\TorrentRequest;
 use App\PrivateMessage;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
@@ -128,13 +128,13 @@ class ModerationController extends Controller
         $user = auth()->user();
         // reset code here
         if ($user->group->is_modo) {
-            $request = Requests::findOrFail($id);
-            $request->filled_by = null;
-            $request->filled_when = null;
-            $request->filled_hash = null;
-            $request->approved_by = null;
-            $request->approved_when = null;
-            $request->save();
+            $torrentRequest = TorrentRequest::findOrFail($id);
+            $torrentRequest->filled_by = null;
+            $torrentRequest->filled_when = null;
+            $torrentRequest->filled_hash = null;
+            $torrentRequest->approved_by = null;
+            $torrentRequest->approved_when = null;
+            $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])->with(Toastr::success("The request has been reset!", 'Yay!', ['options']));
         } else {

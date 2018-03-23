@@ -37,37 +37,37 @@
 </div>
 @else
 <h1 class="upload-title">{{ trans('request.edit-request') }}</h1>
-{{ Form::open(array('route' => array('edit_request', 'id' => $request->id))) }}
+{{ Form::open(array('route' => array('edit_request', 'id' => $torrentRequest->id))) }}
 <div class="block">
             <div class="form-group">
                 <label for="name">{{ trans('request.title') }}</label>
-                <input type="text" name="name" class="form-control" value="{{ $request->name }}" required>
+                <input type="text" name="name" class="form-control" value="{{ $torrentRequest->name }}" required>
             </div>
 
             <div class="form-group">
                <label for="name">IMDB ID ({{ trans('request.required') }})</label>
-               <input type="number" name="imdb" value="{{ $request->imdb }}" class="form-control" required>
+               <input type="number" name="imdb" value="{{ $torrentRequest->imdb }}" class="form-control" required>
            </div>
 
            <div class="form-group">
               <label for="name">TMDB ID </label>
-              <input type="number" name="tmdb" value="{{ $request->tmdb }}" class="form-control" required>
+              <input type="number" name="tmdb" value="{{ $torrentRequest->tmdb }}" class="form-control" required>
           </div>
 
            <div class="form-group">
                <label for="name">TVDB ID </label>
-               <input type="number" name="tvdb" value="{{ $request->tvdb }}" class="form-control" required>
+               <input type="number" name="tvdb" value="{{ $torrentRequest->tvdb }}" class="form-control" required>
            </div>
 
            <div class="form-group">
                <label for="name">MAL ID </label>
-               <input type="number" name="mal" value="{{ $request->mal }}" class="form-control" required>
+               <input type="number" name="mal" value="{{ $torrentRequest->mal }}" class="form-control" required>
            </div>
 
       <div class="form-group">
         <label for="category_id">{{ trans('request.category') }}</label>
         <select name="category_id" class="form-control">
-          <option value="{{ $request->category->id }}" selected>{{ $request->category->name  }} ({{ trans('request.current') }})</option>
+          <option value="{{ $torrentRequest->category->id }}" selected>{{ $torrentRequest->category->name  }} ({{ trans('request.current') }})</option>
           @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->name }}</option>
           @endforeach
@@ -77,7 +77,7 @@
       <div class="form-group">
         <label for="type">{{ trans('request.type') }}</label>
         <select name="type" class="form-control">
-        <option value="{{ $request->type }}" selected>{{ $request->type  }} ({{ trans('request.current') }})</option>
+        <option value="{{ $torrentRequest->type }}" selected>{{ $torrentRequest->type  }} ({{ trans('request.current') }})</option>
         @foreach($types as $type)
           <option value="{{ $type->name }}">{{ $type->name }}</option>
         @endforeach
@@ -86,7 +86,7 @@
 
       <div class="form-group">
         <label for="description">{{ trans('request.description') }}</label>
-        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control">{{ $request->description }}</textarea>
+        <textarea id="request-form-description" name="description" cols="30" rows="10" class="form-control">{{ $torrentRequest->description }}</textarea>
       </div>
 
       <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>

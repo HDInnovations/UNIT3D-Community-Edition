@@ -18,7 +18,7 @@ use App\Torrent;
 use App\Peer;
 use App\History;
 use App\BonTransactions;
-use App\Requests;
+use App\TorrentRequest;
 use App\Group;
 use Carbon\Carbon;
 
@@ -208,7 +208,7 @@ class StatsController extends Controller
     public function bountied()
     {
         // Fetch Top Bountied
-        $bountied = Requests::orderBy('bounty', 'DESC')->take(100)->get();
+        $bountied = TorrentRequest::orderBy('bounty', 'DESC')->take(100)->get();
 
         return view('stats.requests.bountied', ['bountied' => $bountied]);
     }

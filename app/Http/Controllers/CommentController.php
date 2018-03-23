@@ -17,7 +17,7 @@ use App\User;
 use App\Article;
 use App\Comment;
 use App\Torrent;
-use App\Requests;
+use App\TorrentRequest;
 use App\Shoutbox;
 use App\PrivateMessage;
 use App\Achievements\UserMadeComment;
@@ -139,9 +139,9 @@ class CommentController extends Controller
      * @param $slug
      * @param $id
      */
-    public function request(Request $req, $id)
+    public function request(Request $request, $id)
     {
-        $request = Requests::findOrFail($id);
+        $torrentRequest = TorrentRequest::findOrFail($id);
         $user = auth()->user();
 
         // User's comment rights disbabled?
@@ -150,10 +150,10 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = $req->input('content');
-        $comment->anon = $req->input('anonymous');
+        $comment->content = $request->input('content');
+        $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
-        $comment->requests_id = $request->id;
+        $comment->requests_id = $torrentRequest->id;
         $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
         if ($v->passes()) {
             $comment->save();
@@ -177,21 +177,21 @@ class CommentController extends Controller
 
             // Auto PM
             if ($user->id != $request->user_id) {
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
             }
 
             // Auto Shout
             if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $request->id . "]" . $request->name . "[/url]"]);
+                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
             }
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
         }
-        return redirect()->route('request', ['id' => $request->id]);
+        return redirect()->route('request', ['id' => $torrentRequest->id]);
     }
 
     /**

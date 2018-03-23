@@ -42,7 +42,7 @@ class Comment extends Model
      */
     public function request()
     {
-        return $this->belongsTo(\App\Requests::class);
+        return $this->belongsTo(\App\TorrentRequest::class);
     }
 
     /**

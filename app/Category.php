@@ -46,6 +46,6 @@ class Category extends Model
      */
     public function requests()
     {
-        return $this->hasMany(\App\Requests::class);
+        return $this->hasMany(\App\TorrentRequest::class);
     }
 }

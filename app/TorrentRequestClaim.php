@@ -7,43 +7,25 @@
  *
  * @project    UNIT3D
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Mr.G
+ * @author     HDVinnie
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RequestsBounty extends Model
+class TorrentRequestClaim extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'request_bounty';
+    protected $table = 'request_claims';
 
     /**
      * Mass assignment fields
      *
      */
-    protected $fillable = ['user_id', 'seedbonus', 'requests_id'];
-
-    /**
-     * Belongs to This User
-     *
-     */
-    public function user()
-    {
-        return $this->belongsTo(\App\User::class);
-    }
-
-    /**
-     * Belongs to Request
-     *
-     */
-    public function request()
-    {
-        return $this->belongsTo(\App\Requests::class);
-    }
+    protected $fillable = ['username', 'anon', 'request_id'];
 }
