@@ -36,20 +36,20 @@ class HomeController extends Controller
     public function home()
     {
         // Latest Articles Block
-        $articles = Article::orderBy('created_at', 'desc')->take(1)->get();      // Fetch latest articles
+        $articles = Article::latest()->take(1)->get();      // Fetch latest articles
 
         // Latest Torrents Block
-        $torrents = Torrent::where('sd', '=', 0)->orderBy('created_at', 'desc')->take(5)->get();     // Fetch latest torrents
+        $torrents = Torrent::where('sd', '=', 0)->latest()->take(5)->get();     // Fetch latest torrents
         $best = Torrent::where('sd', '=', 0)->orderBy('seeders', 'desc')->take(5)->get();              // Fetch Top Seeded Torrents
         $leeched = Torrent::where('sd', '=', 0)->orderBy('leechers', 'desc')->take(5)->get();      // Fetch Top Leeched Torrents
         $dying = Torrent::where('sd', '=', 0)->where('seeders', '=', '1')->where('times_completed', '>=', '1')->orderBy('leechers', 'desc')->take(5)->get();     // Fetch Top Dying Torrents
         $dead = Torrent::where('sd', '=', 0)->where('seeders', '=', '0')->orderBy('leechers', 'desc')->take(5)->get();     // Fetch Top Dead Torrents
 
         // Latest Topics Block
-        $topics = Topic::orderBy('created_at', 'desc')->take(5)->get();     // Fetch latest topics
+        $topics = Topic::latest()->take(5)->get();     // Fetch latest topics
 
         // Latest Posts Block
-        $posts = Post::orderBy('created_at', 'desc')->take(5)->get();     // Fetch Latest Forum Posts
+        $posts = Post::latest()->take(5)->get();     // Fetch Latest Forum Posts
 
         //ShoutBox Block
         $shoutboxMessages = ShoutboxController::getMessages()['data'];

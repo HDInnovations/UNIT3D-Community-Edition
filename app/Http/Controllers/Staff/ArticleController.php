@@ -28,7 +28,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $posts = Article::orderBy('created_at', 'DESC')->paginate(20);
+        $posts = Article::latest()->paginate(25);
         return view('Staff.article.index', ['posts' => $posts]);
     }
 

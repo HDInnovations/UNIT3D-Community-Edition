@@ -50,7 +50,7 @@ class NoteController extends Controller
 
     public function getNotes()
     {
-        $notes = Note::orderBy('created_at', 'DESC')->get();
+        $notes = Note::latest()->get();
 
         return view('Staff.notes.index', ['notes' => $notes]);
     }

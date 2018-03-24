@@ -27,7 +27,7 @@ class PollController extends Controller
 {
     public function polls()
     {
-        $polls = Poll::orderBy('created_at', 'desc')->paginate(25);
+        $polls = Poll::latest()->paginate(25);
         return view('Staff.poll.polls', compact('polls'));
     }
 

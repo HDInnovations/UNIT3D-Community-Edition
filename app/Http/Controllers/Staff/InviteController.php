@@ -24,7 +24,7 @@ class InviteController extends Controller
      */
     public function getInvites()
     {
-        $invites = Invite::orderBy('created_at', 'DESC')->paginate(25);
+        $invites = Invite::latest()->paginate(25);
         $invitecount = Invite::count();
 
         return view('Staff.invites.index', ['invites' => $invites, 'invitecount' => $invitecount]);

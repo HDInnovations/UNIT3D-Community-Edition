@@ -29,7 +29,7 @@ class CategoryController extends Controller
     {
         $user = auth()->user();
         $category = Category::findOrFail($id);
-        $torrents = $category->torrents()->orderBy('created_at', 'DESC')->paginate(25);
+        $torrents = $category->torrents()->latest()->paginate(25);
 
         return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category, 'categories' => Category::all()->sortBy('position')]);
     }

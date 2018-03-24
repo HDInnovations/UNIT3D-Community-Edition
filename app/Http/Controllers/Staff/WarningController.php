@@ -24,7 +24,7 @@ class WarningController extends Controller
      */
     public function getWarnings()
     {
-        $warnings = Warning::with(['torrenttitle', 'warneduser'])->orderBy('created_at', 'DESC')->paginate(25);
+        $warnings = Warning::with(['torrenttitle', 'warneduser'])->latest()->paginate(25);
         $warningcount = Warning::where('active', '=', 1)->count();
 
         return view('Staff.warnings.index', ['warnings' => $warnings, 'warningcount' => $warningcount]);

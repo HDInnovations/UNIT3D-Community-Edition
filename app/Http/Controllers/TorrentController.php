@@ -496,7 +496,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->orderBy('created_at', 'DESC')->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(6);
         $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', auth()->user()->id)->sum('cost');
@@ -586,7 +586,7 @@ class TorrentController extends Controller
     public function history($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::where('info_hash', '=', $torrent->info_hash)->orderBy('created_at', 'desc')->paginate(25);
+        $history = History::where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
 
         return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -828,7 +828,7 @@ class TorrentController extends Controller
     public function poster()
     {
         $user = auth()->user();
-        $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(25);
+        $torrents = Torrent::latest()->paginate(25);
         return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
     }
 

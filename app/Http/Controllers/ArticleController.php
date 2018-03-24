@@ -26,7 +26,7 @@ class ArticleController extends Controller
     public function articles()
     {
         // Fetch posts by created_at DESC order
-        $articles = Article::orderBy('created_at', 'DESC')->paginate(6);
+        $articles = Article::latest()->paginate(6);
 
         return view('article.articles', ['articles' => $articles]);
     }
@@ -42,7 +42,7 @@ class ArticleController extends Controller
         // Find de right post
         $article = Article::findOrFail($id);
         // Get comments on this post
-        $comments = $article->comments()->orderBy('created_at', 'DESC')->get();
+        $comments = $article->comments()->latest()->get();
 
         return view('article.article', ['article' => $article, 'comments' => $comments]);
     }

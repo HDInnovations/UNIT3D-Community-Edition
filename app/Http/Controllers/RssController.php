@@ -56,8 +56,9 @@ class RssController extends Controller
         $torrents = Torrent::select('id', 'name', 'slug', 'size', 'seeders', 'leechers', 'info_hash', 'created_at')
             ->whereIn('category', $catArray)
             ->with('category')
-            ->orderBy('created_at', 'DESC')
-            ->take(25)->toArray();
+            ->latest()
+            ->take(25)
+            ->toArray();
 
         return $torrents;
     }

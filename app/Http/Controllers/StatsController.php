@@ -226,7 +226,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::where('group_id', '=', $group->id)->orderBy('created_at', 'DESC')->paginate(100);
+        $users = User::where('group_id', '=', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }

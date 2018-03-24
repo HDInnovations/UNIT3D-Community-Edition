@@ -49,7 +49,7 @@ class UserController extends Controller
      */
     public function members()
     {
-        $users = User::orderBy('created_at', 'DESC')->paginate(50);
+        $users = User::latest()->paginate(50);
 
         return view('user.members', ['users' => $users]);
     }
@@ -83,7 +83,7 @@ class UserController extends Controller
         $followers = Follow::where('target_id', '=', $id)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', '1')->take(3)->get();
-        $hitrun = Warning::where('user_id', '=', $id)->orderBy('created_at', 'DESC')->paginate(10);
+        $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
 
         return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }

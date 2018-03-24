@@ -34,7 +34,7 @@ class PrivateMessageController extends Controller
         $search = $request->input('subject');
         $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->where([
             ['subject', 'like', '%' . $search . '%'],
-        ])->orderBy('created_at', 'DESC')->paginate(20);
+        ])->latest()->paginate(20);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
@@ -49,7 +49,7 @@ class PrivateMessageController extends Controller
     public function getPrivateMessages(Request $request, $username, $id)
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->orderBy('created_at', 'desc')->paginate(25);
+        $pms = PrivateMessage::where('reciever_id', '=', $request->user()->id)->latest()->paginate(25);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
@@ -97,7 +97,7 @@ class PrivateMessageController extends Controller
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('sender_id', $request->user()->id)
-            ->orderBy('created_at', 'desc')
+            ->latest()
             ->paginate(20);
 
         return view('pm.outbox', ['pms' => $pms, 'user' => $user]);

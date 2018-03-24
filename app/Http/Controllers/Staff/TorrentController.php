@@ -26,7 +26,7 @@ class TorrentController extends Controller
      */
     public function index()
     {
-        $torrents = Torrent::orderBy('created_at', 'DESC')->paginate(25);
+        $torrents = Torrent::latest()->paginate(25);
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }
 
@@ -42,7 +42,7 @@ class TorrentController extends Controller
         $search = $request->input('name');
         $torrents = Torrent::where([
             ['name', 'like', '%' . $request->input('name') . '%'],
-        ])->orderBy('created_at', 'DESC')->paginate(25);
+        ])->latest()->paginate(25);
 
         $torrents->setPath('?name=' . $request->input('name'));
 

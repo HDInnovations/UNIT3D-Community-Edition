@@ -24,7 +24,7 @@ class FailedLoginController extends Controller
      */
     public function getFailedAttemps()
     {
-        $attempts = FailedLoginAttempt::orderBy('created_at', 'DESC')->paginate(25);
+        $attempts = FailedLoginAttempt::latest()->paginate(25);
 
         return view('Staff.failedlogin.index', ['attempts' => $attempts]);
     }

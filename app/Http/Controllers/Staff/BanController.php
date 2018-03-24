@@ -26,7 +26,7 @@ class BanController extends Controller
 {
     public function getBans()
     {
-        $bans = Ban::orderBy('created_at', 'DESC')->get();
+        $bans = Ban::latest()->get();
 
         return view('Staff.bans.index', ['bans' => $bans]);
     }

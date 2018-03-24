@@ -38,11 +38,11 @@ class UserController extends Controller
      */
     public function members()
     {
-        $users = User::orderBy('created_at', 'DESC')->paginate(25);
-        $uploaders = User::where('group_id', '=', 7)->orderBy('created_at', 'DESC')->paginate(25);
-        $mods = User::where('group_id', '=', 6)->orderBy('created_at', 'DESC')->paginate(25);
-        $admins = User::where('group_id', '=', 4)->orderBy('created_at', 'DESC')->paginate(25);
-        $coders = User::where('group_id', '=', 10)->orderBy('created_at', 'DESC')->paginate(25);
+        $users = User::latest()->paginate(25);
+        $uploaders = User::where('group_id', '=', 7)->latest()->paginate(25);
+        $mods = User::where('group_id', '=', 6)->latest()->paginate(25);
+        $admins = User::where('group_id', '=', 4)->latest()->paginate(25);
+        $coders = User::where('group_id', '=', 10)->latest()->paginate(25);
         return view('Staff.user.user_search', ['users' => $users, 'uploaders' => $uploaders, 'mods' => $mods, 'admins' => $admins, 'coders' => $coders]);
     }
 
@@ -73,7 +73,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $notes = Note::where('user_id', '=', $id)->orderBy('created_at', 'desc')->paginate(25);
+        $notes = Note::where('user_id', '=', $id)->latest()->paginate(25);
         return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
     }
 

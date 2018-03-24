@@ -27,7 +27,7 @@ class ReportController extends Controller
      */
     public function getReports()
     {
-        $reports = Report::orderBy('created_at', 'DESC')->get();
+        $reports = Report::latest()->get();
 
         return view('Staff.reports.index', ['reports' => $reports]);
     }
