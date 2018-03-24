@@ -89,8 +89,8 @@ class TorrentController extends Controller
         $type = $request->input('type');
         $torrents = Torrent::where([
             ['name', 'like', '%' . $name . '%'],
-            ['category_id', '=', $category_id],
-            ['type', '=', $type],
+            ['category_id', $category_id],
+            ['type', $type],
         ])->orderBy($order[0], $order[1])->paginate(25);
 
         $torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
@@ -276,7 +276,7 @@ class TorrentController extends Controller
                 $torrent->save();
 
                 // Count and save the torrent number in this category
-                $category->num_torrent = Torrent::where('category_id', '=', $category->id)->count();
+                $category->num_torrent = Torrent::where('category_id', $category->id)->count();
                 $category->save();
 
                 // Torrent Tags System
@@ -323,7 +323,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrents = Torrent::query();
         $alive = Torrent::where('seeders', '>=', 1)->count();
-        $dead = Torrent::where('seeders', '=', 0)->count();
+        $dead = Torrent::where('seeders', 0)->count();
         $repository = $this->repository;
         return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead'));
     }
@@ -491,16 +491,16 @@ class TorrentController extends Controller
     public function torrent($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $similar = Torrent::where('imdb', '=', $torrent->imdb)->where('status', '=', 1)->orderBy('seeders', 'DESC')->get();
+        $similar = Torrent::where('imdb', $torrent->imdb)->where('status', 1)->latest('seeders')->get();
         $uploader = $torrent->user;
         $user = auth()->user();
-        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
         $comments = $torrent->comments()->latest()->paginate(6);
         $thanks = $torrent->thanks()->count();
-        $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
-        $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', auth()->user()->id)->sum('cost');
-        $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->orderBy('updated_at', 'DESC')->first();
+        $total_tips = BonTransactions::where('torrent_id', $id)->sum('cost');
+        $user_tips = BonTransactions::where('torrent_id', $id)->where('sender', auth()->user()->id)->sum('cost');
+        $last_seed_activity = History::where('info_hash', $torrent->info_hash)->where('seeder', 1)->latest('updated_at')->first();
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrent->category_id == 2) {
@@ -518,7 +518,7 @@ class TorrentController extends Controller
         }
 
         if ($torrent->featured == 1) {
-            $featured = FeaturedTorrent::where('torrent_id', '=', $id)->first();
+            $featured = FeaturedTorrent::where('torrent_id', $id)->first();
         } else {
             $featured = null;
         }
@@ -569,7 +569,7 @@ class TorrentController extends Controller
     public function peers($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $peers = Peer::where('torrent_id', '=', $id)->orderBy('seeder', 'DESC')->paginate(25); // list the peers
+        $peers = Peer::where('torrent_id', $id)->latest('seeder')->paginate(25); // list the peers
         return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
 
@@ -586,7 +586,7 @@ class TorrentController extends Controller
     public function history($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
+        $history = History::where('info_hash', $torrent->info_hash)->latest()->paginate(25);
 
         return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -797,7 +797,7 @@ class TorrentController extends Controller
         $appurl = config('app.url');
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
-        $reseed = History::where('info_hash', '=', $torrent->info_hash)->where('active', '=', 0)->get();
+        $reseed = History::where('info_hash', $torrent->info_hash)->where('active', 0)->get();
         if ($torrent->seeders <= 2) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
             cache()->forget('shoutbox_messages');
@@ -910,7 +910,7 @@ class TorrentController extends Controller
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
             if ($user->group->is_modo || ($user->id == $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay()))) {
-                $users = History::where('info_hash', '=', $torrent->info_hash)->get();
+                $users = History::where('info_hash', $torrent->info_hash)->get();
                 foreach ($users as $pm) {
                     $pmuser = new PrivateMessage();
                     $pmuser->sender_id = 1;
@@ -926,23 +926,23 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has deleted torrent {$torrent->name} .");
 
                 //Remove requests
-                $torrentRequest = TorrentRequest::where('filled_hash', '=', $torrent->info_hash)->get();
+                $torrentRequest = TorrentRequest::where('filled_hash', $torrent->info_hash)->get();
                 foreach ($torrentRequest as $req) {
                     if ($req) {
-                        Comment::where('requests_id', '=', $req->id)->delete();
-                        TorrentRequestBounty::where('requests_id', '=', $req->id)->delete();
+                        Comment::where('requests_id', $req->id)->delete();
+                        TorrentRequestBounty::where('requests_id', $req->id)->delete();
                         $req->delete();
                     }
                 }
                 //Remove Torrent related info
-                Peer::where('torrent_id', '=', $id)->delete();
-                History::where('info_hash', '=', $torrent->info_hash)->delete();
-                Warning::where('id', '=', $id)->delete();
-                TorrentFile::where('torrent_id', '=', $id)->delete();
+                Peer::where('torrent_id', $id)->delete();
+                History::where('info_hash', $torrent->info_hash)->delete();
+                Warning::where('id', $id)->delete();
+                TorrentFile::where('torrent_id', $id)->delete();
                 if ($torrent->featured == 1) {
-                    FeaturedTorrent::where('torrent_id', '=', $id)->delete();
+                    FeaturedTorrent::where('torrent_id', $id)->delete();
                 }
-                Torrent::withAnyStatus()->where('id', '=', $id)->delete();
+                Torrent::withAnyStatus()->where('id', $id)->delete();
 
                 return redirect()->back()->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
             }
@@ -970,7 +970,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $active_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
+        $active_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         if ($user->fl_tokens >= 1 && !$active_token) {
             $token = new FreeleechToken();
             $token->user_id = $user->id;

@@ -58,7 +58,7 @@ class PollController extends Controller
             Option::findOrFail($option)->increment('votes');
         }
 
-        if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
+        if (Voter::where('user_id', $user->id)->where('poll_id', $poll->id)->exists()) {
             Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']);
 
             return redirect('poll/' . $poll->slug . '/result');

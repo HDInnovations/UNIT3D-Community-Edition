@@ -49,7 +49,7 @@ class autoSeedbox extends Command
             $torid = Peer::select('torrent_id')->whereIn('ip', $seedboxips)->where('seeder', 1)->get()->toArray();
 
             foreach ($torid as $id) {
-                $torrent = Torrent::where('id', '=', $id)->first();
+                $torrent = Torrent::where('id', $id)->first();
                 $torrent->highspeed = 1;
                 $torrent->save();
 

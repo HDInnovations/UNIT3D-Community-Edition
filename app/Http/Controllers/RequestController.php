@@ -187,9 +187,9 @@ class RequestController extends Controller
         // Find the torrent in the database
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = auth()->user();
-        $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
+        $requestClaim = TorrentRequestClaim::where('request_id', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
-        $comments = $torrentRequest->comments()->orderBy('created_at', 'DESC')->paginate(6);
+        $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrentRequest->category_id == 2) {
@@ -410,7 +410,7 @@ class RequestController extends Controller
             ]);
 
             if ($v->passes()) {
-                $torrent = Torrent::where('info_hash', '=', $request->input('info_hash'))->firstOrFail();
+                $torrent = Torrent::where('info_hash', $request->input('info_hash'))->firstOrFail();
 
                 if ($user->id == $torrent->user_id) {
                     $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
@@ -586,11 +586,11 @@ class RequestController extends Controller
     {
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
+        $claimer = TorrentRequestClaim::where('request_id', $id)->first();
 
         if ($user->group->is_modo || $user->username == $claimer->username) {
             if ($torrentRequest->claimed == 1) {
-                $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
+                $requestClaim = TorrentRequestClaim::where('request_id', $id)->firstOrFail();
                 $requestClaim->delete();
 
                 $torrentRequest->claimed = null;

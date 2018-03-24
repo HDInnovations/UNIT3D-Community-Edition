@@ -42,11 +42,11 @@ class revokePermissions extends Command
     public function handle()
     {
         User::where('group_id', '!=', '5')->where('group_id', '!=', '1')->where('group_id', '!=', '15')->update(['can_download' => '1', 'can_request' => '1']);
-        User::where('group_id', '=', '1')->update(['can_download' => '0', 'can_request' => '0']);
-        User::where('group_id', '=', '5')->update(['can_download' => '0', 'can_request' => '0']);
-        User::where('group_id', '=', '15')->update(['can_download' => '0', 'can_request' => '0']);
+        User::where('group_id', 1)->update(['can_download' => '0', 'can_request' => '0']);
+        User::where('group_id', 5)->update(['can_download' => '0', 'can_request' => '0']);
+        User::where('group_id', 15)->update(['can_download' => '0', 'can_request' => '0']);
 
-        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', '1')->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
+        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
 
         foreach ($warning as $deny) {
             if ($deny->warneduser->can_download == 1 && $deny->warneduser->can_request == 1) {

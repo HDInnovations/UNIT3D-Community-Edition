@@ -38,7 +38,7 @@ class PageController extends Controller
      */
     public function staff()
     {
-        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_admin', '=', '1')->orWhere('groups.is_modo', '=', '1')->get();
+        $staff = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_admin', 1)->orWhere('groups.is_modo', 1)->get();
 
         return view('page.staff', ['staff' => $staff]);
     }
@@ -50,7 +50,7 @@ class PageController extends Controller
      */
     public function internal()
     {
-        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_internal', '=', '1')->get();
+        $internal = DB::table('users')->leftJoin('groups', 'users.group_id', '=', 'groups.id')->select('users.id', 'users.title', 'users.username', 'groups.name', 'groups.color', 'groups.icon')->where('groups.is_internal', 1)->get();
 
         return view('page.internal', ['internal' => $internal]);
     }

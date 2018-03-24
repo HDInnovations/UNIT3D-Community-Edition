@@ -45,8 +45,8 @@ class InviteController extends Controller
         if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
             return redirect()->route('invite')->with(Toastr::error('Invites are currently disabled for your userclass.', 'Whoops!', ['options']));
         }
-        $exsist = Invite::where('email', '=', $request->input('email'))->first();
-        $member = User::where('email', '=', $request->input('email'))->first();
+        $exsist = Invite::where('email', $request->input('email'))->first();
+        $member = User::where('email', $request->input('email'))->first();
         if ($exsist || $member) {
             return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
         }

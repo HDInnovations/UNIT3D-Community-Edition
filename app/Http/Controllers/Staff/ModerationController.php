@@ -34,7 +34,7 @@ class ModerationController extends Controller
         $pending = Torrent::pending()->get();
         $postponed = Torrent::postponed()->get();
         $rejected = Torrent::rejected()->get();
-        $modder = Torrent::where('status', '=', '0')->count();
+        $modder = Torrent::where('status', 0)->count();
 
         return view('Staff.torrent.moderation', compact(['current', 'pending', 'postponed', 'rejected', 'modder']));
     }

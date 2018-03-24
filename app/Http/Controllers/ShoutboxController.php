@@ -31,7 +31,7 @@ class ShoutboxController extends Controller
    public function send(Request $request)
     {
 		$string = $request->input('message');
-        $checkSendRate = Shoutbox::where('user', '=', auth()->user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(1))->first();
+        $checkSendRate = Shoutbox::where('user', auth()->user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(1))->first();
         if ($checkSendRate) {
             return 'Wait 1 Seconds Between Posts Please';
         }
@@ -96,7 +96,7 @@ class ShoutboxController extends Controller
     public static function getMessages($after = null)
     {
         $messages = cache()->remember('shoutbox_messages', 7200, function () {
-            return Shoutbox::orderBy('id', 'desc')->take(150)->get();
+            return Shoutbox::latest('id')->take(150)->get();
         });
 
         $messages = $messages->reverse();
@@ -212,7 +212,7 @@ class ShoutboxController extends Controller
     {
         $shout = Shoutbox::find($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $shout->poster->id) {
-            Shoutbox::where('id', '=', $id)->delete();
+            Shoutbox::where('id', $id)->delete();
             cache()->forget('shoutbox_messages');
             return redirect()->route('home')->with(Toastr::success('Shout Has Been Deleted.', 'Yay!', ['options']));
         } else {

@@ -65,7 +65,7 @@ class ForumController extends Controller
      */
     public function index()
     {
-        $categories = Forum::orderBy('position', 'ASC')->get();
+        $categories = Forum::oldest('position')->get();
         // Total Forums Count
         $num_forums = Forum::all()->count();
         // Total Posts Count
@@ -115,7 +115,7 @@ class ForumController extends Controller
         }
 
         // Fetch topics->posts in descending order
-        $topics = $forum->topics()->orderBy('pinned', 'DESC')->orderBy('last_reply_at', 'DESC')->latest()->paginate(25);
+        $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return view('forum.display', ['forum' => $forum, 'topics' => $topics, 'category' => $category]);
     }
@@ -143,7 +143,7 @@ class ForumController extends Controller
         $posts = $topic->posts()->paginate(25);
 
         // First post
-        $firstPost = Post::where('topic_id', '=', $topic->id)->first();
+        $firstPost = Post::where('topic_id', $topic->id)->first();
 
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
@@ -193,7 +193,7 @@ class ForumController extends Controller
             $topic->last_post_user_id = $user->id;
             $topic->last_post_user_username = $user->username;
             // Count post in topic
-            $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
+            $topic->num_post = Post::where('topic_id', $topic->id)->count();
             // Update time
             $topic->last_reply_at = $post->created_at;
             // Save
@@ -620,8 +620,8 @@ class ForumController extends Controller
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
-        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
+        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
+        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));
@@ -642,8 +642,8 @@ class ForumController extends Controller
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
-        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
+        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
+        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])->with(Toastr::error('You have already liked/disliked this post!', 'Bro', ['options']));

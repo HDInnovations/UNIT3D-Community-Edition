@@ -44,7 +44,7 @@ class CatalogController extends Controller
     {
         $user = auth()->user();
         $catalog = Catalog::findOrFail($id);
-        $records = CatalogTorrent::where('catalog_id', '=', $id)->orderBy('imdb', 'DESC')->get();
+        $records = CatalogTorrent::where('catalog_id', $id)->latest('imdb')->get();
 
         return view('catalogs.catalog', ['user' => $user, 'catalog' => $catalog, 'records' => $records]);
     }
@@ -60,7 +60,7 @@ class CatalogController extends Controller
     public function torrents($imdb)
     {
         $user = auth()->user();
-        $torrents = Torrent::where('imdb', '=', $imdb)->orderBy('size', 'DESC')->get();
+        $torrents = Torrent::where('imdb', $imdb)->latest('size')->get();
 
         return view('catalogs.torrents', ['torrents' => $torrents, 'user' => $user]);
     }

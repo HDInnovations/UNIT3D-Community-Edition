@@ -39,10 +39,10 @@ class UserController extends Controller
     public function members()
     {
         $users = User::latest()->paginate(25);
-        $uploaders = User::where('group_id', '=', 7)->latest()->paginate(25);
-        $mods = User::where('group_id', '=', 6)->latest()->paginate(25);
-        $admins = User::where('group_id', '=', 4)->latest()->paginate(25);
-        $coders = User::where('group_id', '=', 10)->latest()->paginate(25);
+        $uploaders = User::where('group_id', 7)->latest()->paginate(25);
+        $mods = User::where('group_id', 6)->latest()->paginate(25);
+        $admins = User::where('group_id', 4)->latest()->paginate(25);
+        $coders = User::where('group_id', 10)->latest()->paginate(25);
         return view('Staff.user.user_search', ['users' => $users, 'uploaders' => $uploaders, 'mods' => $mods, 'admins' => $admins, 'coders' => $coders]);
     }
 
@@ -73,7 +73,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $notes = Note::where('user_id', '=', $id)->latest()->paginate(25);
+        $notes = Note::where('user_id', $id)->latest()->paginate(25);
         return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
     }
 
@@ -173,58 +173,58 @@ class UserController extends Controller
             return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
         // Removes UserID from Torrents if any and replaces with System UserID (0)
-            foreach (Torrent::where('user_id', '=', $user->id)->get() as $tor) {
+            foreach (Torrent::where('user_id', $user->id)->get() as $tor) {
                 $tor->user_id = 1;
                 $tor->save();
             }
         // Removes UserID from Comments if any and replaces with System UserID (0)
-            foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
+            foreach (Comment::where('user_id', $user->id)->get() as $com) {
                 $com->user_id = 1;
                 $com->save();
             }
         // Removes UserID from Posts if any and replaces with System UserID (0)
-            foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
+            foreach (Post::where('user_id', $user->id)->get() as $post) {
                 $post->user_id = 1;
                 $post->save();
             }
         // Removes UserID from Topic Creators if any and replaces with System UserID (0)
-            foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
+            foreach (Topic::where('first_post_user_id', $user->id)->get() as $topic) {
                 $topic->first_post_user_id = 1;
                 $topic->save();
             }
         // Removes UserID from Topic if any and replaces with System UserID (0)
-            foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
+            foreach (Topic::where('last_post_user_id', $user->id)->get() as $topic) {
                 $topic->last_post_user_id = 1;
                 $topic->save();
             }
         // Removes UserID from PM if any and replaces with System UserID (0)
-            foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
+            foreach (PrivateMessage::where('sender_id', $user->id)->get() as $sent) {
                 $sent->sender_id = 1;
                 $sent->save();
             }
         // Removes UserID from PM if any and replaces with System UserID (0)
-            foreach (PrivateMessage::where('reciever_id', '=', $user->id)->get() as $recieved) {
+            foreach (PrivateMessage::where('reciever_id', $user->id)->get() as $recieved) {
                 $recieved->reciever_id = 1;
                 $recieved->save();
             }
         // Removes all Posts made by User from the shoutbox
-            foreach (Shoutbox::where('user', '=', $user->id)->get() as $shout) {
+            foreach (Shoutbox::where('user', $user->id)->get() as $shout) {
                 $shout->delete();
             }
         // Removes all notes for user
-            foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
+            foreach (Note::where('user_id', $user->id)->get() as $note) {
                 $note->delete();
             }
         // Removes all likes for user
-            foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
+            foreach (Like::where('user_id', $user->id)->get() as $like) {
                 $like->delete();
             }
         // Removes all thanks for user
-            foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
+            foreach (Thank::where('user_id', $user->id)->get() as $thank) {
                 $thank->delete();
             }
         // Removes all follows for user
-            foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
+            foreach (Follow::where('user_id', $user->id)->get() as $follow) {
                 $follow->delete();
             }
 

@@ -28,7 +28,7 @@ class RssController extends Controller
 
     private function auth($passkey)
     {
-        $id = User::select('id')->where('rsskey', '=', $passkey)->first();
+        $id = User::select('id')->where('rsskey', $passkey)->first();
 
         if ($user) {
             $this->userID = $id;
@@ -40,7 +40,7 @@ class RssController extends Controller
 
     private function getUserData()
     {
-        $catArray = Rss::select('category')->where('user_id', '=', $this->userID)->first();
+        $catArray = Rss::select('category')->where('user_id', $this->userID)->first();
 
         if ($catArray) {
             return explode(',', $catArray);
@@ -91,7 +91,7 @@ class RssController extends Controller
     {
         $user = auth()->user();
 
-        $rssData = RSS::select('category')->where('user_id', '=', $user->id)->first();
+        $rssData = RSS::select('category')->where('user_id', $user->id)->first();
 
         $category = Category::select('id', 'name')->get();
     }

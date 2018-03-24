@@ -39,11 +39,11 @@ class HomeController extends Controller
         $articles = Article::latest()->take(1)->get();      // Fetch latest articles
 
         // Latest Torrents Block
-        $torrents = Torrent::where('sd', '=', 0)->latest()->take(5)->get();     // Fetch latest torrents
-        $best = Torrent::where('sd', '=', 0)->orderBy('seeders', 'desc')->take(5)->get();              // Fetch Top Seeded Torrents
-        $leeched = Torrent::where('sd', '=', 0)->orderBy('leechers', 'desc')->take(5)->get();      // Fetch Top Leeched Torrents
-        $dying = Torrent::where('sd', '=', 0)->where('seeders', '=', '1')->where('times_completed', '>=', '1')->orderBy('leechers', 'desc')->take(5)->get();     // Fetch Top Dying Torrents
-        $dead = Torrent::where('sd', '=', 0)->where('seeders', '=', '0')->orderBy('leechers', 'desc')->take(5)->get();     // Fetch Top Dead Torrents
+        $torrents = Torrent::where('sd', 0)->latest()->take(5)->get();     // Fetch latest torrents
+        $best = Torrent::where('sd', 0)->latest('seeders')->take(5)->get();              // Fetch Top Seeded Torrents
+        $leeched = Torrent::where('sd', 0)->latest('leechers')->take(5)->get();      // Fetch Top Leeched Torrents
+        $dying = Torrent::where('sd', 0)->where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();     // Fetch Top Dying Torrents
+        $dead = Torrent::where('sd', 0)->where('seeders', 0)->latest('leechers')->take(5)->get();     // Fetch Top Dead Torrents
 
         // Latest Topics Block
         $topics = Topic::latest()->take(5)->get();     // Fetch latest topics
@@ -55,8 +55,8 @@ class HomeController extends Controller
         $shoutboxMessages = ShoutboxController::getMessages()['data'];
 
         //Online Block
-        $user = User::orderBy('username', 'asc')->get();
-        $groups = Group::orderBy('position', 'asc')->get();
+        $user = User::oldest('username')->get();
+        $groups = Group::oldest('position')->get();
 
         //Featured Torrents
         $featured = FeaturedTorrent::with('torrent')->get();
@@ -75,7 +75,7 @@ class HomeController extends Controller
     public function contact(Request $request)
     {
         // Fetch owner account
-        $user = User::where('id', '=', '3')->first();
+        $user = User::where('id', 3)->first();
 
         if ($request->isMethod('POST')) {
             $input = $request->all();

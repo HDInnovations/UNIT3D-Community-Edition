@@ -27,7 +27,7 @@ class GiftController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('username', 'ASC')->get();
+        $users = User::oldest('username')->get();
         return view('Staff.gift.index', compact('users'));
     }
 

@@ -52,7 +52,7 @@ class FlushPeers extends Command
         Peer::chunk(250, function ($section) {
             foreach ($section as $data) {
                 if ((time() - strtotime($data->updated_at)) > (60 * 60 * 2)) {
-                    History::where("info_hash", "=", $data->hash)->where("user_id", "=", $data->user_id)->update(['active' => false]);
+                    History::where("info_hash", $data->hash)->where("user_id", $data->user_id)->update(['active' => false]);
                     $data->delete();
                 }
             }

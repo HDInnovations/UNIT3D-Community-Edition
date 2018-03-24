@@ -44,11 +44,11 @@ class autoGroup extends Command
     {
         // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();
-        $groups = Group::select('id')->where('autogroup', '=', 1)->get()->toArray();
+        $groups = Group::select('id')->where('autogroup', 1)->get()->toArray();
         $users = User::whereIn('group_id', $groups)->get();
 
         foreach ($users as $user) {
-            $hiscount = History::where('user_id', '=', $user->id)->count();
+            $hiscount = History::where('user_id', $user->id)->count();
 
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
 

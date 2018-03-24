@@ -32,8 +32,8 @@ class GraveyardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $dead = Torrent::where('seeders', '=', '0')->orderBy('leechers', 'desc')->paginate(50);
-        $deadcount = Torrent::where('seeders', '=', '0')->count();
+        $dead = Torrent::where('seeders', 0)->latest('leechers')->paginate(50);
+        $deadcount = Torrent::where('seeders', 0)->count();
         $time = config('graveyard.time');
         $tokens = config('graveyard.reward');
 
@@ -44,7 +44,7 @@ class GraveyardController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
-        $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
+        $resurrected = Graveyard::where('torrent_id', $torrent->id)->first();
         if ($resurrected) {
             return redirect()->route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }

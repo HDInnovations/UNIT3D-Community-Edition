@@ -52,17 +52,17 @@ class autoNerdStat extends Command
         // New Users Count Last 24hours
         $users = User::where('created_at', '>', $current->subDay())->count();
         // Top Banker
-        $banker = User::orderBy('seedbonus', 'DESC')->first();
+        $banker = User::latest('seedbonus')->first();
         // Most Snatched Torrent
-        $snatched = Torrent::orderBy('times_completed', 'DESC')->first();
+        $snatched = Torrent::latest('times_completed')->first();
         // Most Seeded Torrent
-        $seeders = Torrent::orderBy('seeders', 'DESC')->first();
+        $seeders = Torrent::latest('seeders')->first();
         // Most Leeched Torrent
-        $leechers = Torrent::orderBy('leechers', 'DESC')->first();
+        $leechers = Torrent::latest('leechers')->first();
         // FL Torrents
-        $fl = Torrent::where('free', '=', 1)->count();
+        $fl = Torrent::where('free', 1)->count();
         // DU Torrents
-        $du = Torrent::where('doubleup', '=', 1)->count();
+        $du = Torrent::where('doubleup', 1)->count();
 
         // Select A Random Nerd Stat
         $statArray = ["In The Last 24 Hours " . $logins . " Unique Users Have Logged Into " . config('other.title') . "!",

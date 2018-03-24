@@ -31,7 +31,7 @@ class BugController extends Controller
     public function bug(Request $request)
     {
         // Fetch owner account
-        $user = User::where('id', '=', '3')->first();
+        $user = User::where('id', 3)->first();
 
         if ($request->isMethod('POST')) {
             $input = $request->all();

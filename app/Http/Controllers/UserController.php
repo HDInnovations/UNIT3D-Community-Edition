@@ -80,10 +80,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $followers = Follow::where('target_id', '=', $id)->get();
+        $followers = Follow::where('target_id', $id)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', '1')->take(3)->get();
-        $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
+        $warnings = Warning::where('user_id', $id)->whereNotNull('torrent')->where('active', 1)->take(3)->get();
+        $hitrun = Warning::where('user_id', $id)->latest()->paginate(10);
 
         return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
     }
@@ -266,7 +266,7 @@ class UserController extends Controller
     public function clients($username, $id)
     {
         $user = auth()->user();
-        $cli = Client::where('user_id', '=', $user->id)->get();
+        $cli = Client::where('user_id', $user->id)->get();
         return view('user.clients', ['user' => $user, 'clients' => $cli]);
     }
 
@@ -281,7 +281,7 @@ class UserController extends Controller
         $user = auth()->user();
         if ($v->passes()) {
             if (Hash::check($request->input('password'), $user->password)) {
-                if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
+                if (Client::where('user_id', $user->id)->get()->count() >= config('other.max_cli')) {
                     return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
                 $cli = new Client;
@@ -307,7 +307,7 @@ class UserController extends Controller
 
         $user = auth()->user();
         if ($v->passes()) {
-            $cli = Client::where('id', '=', $request->input('cliid'));
+            $cli = Client::where('id', $request->input('cliid'));
             $cli->delete();
             return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         } else {
@@ -319,8 +319,8 @@ class UserController extends Controller
     {
         if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);
-            $warnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->orderBy('active', 'DESC')->paginate(25);
-            $warningcount = Warning::where('user_id', '=', $id)->count();
+            $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
+            $warningcount = Warning::where('user_id', $id)->count();
 
             return view('user.warninglog', ['warnings' => $warnings, 'warningcount' => $warningcount, 'user' => $user]);
         } else {
@@ -348,7 +348,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->paginate(50);
+            $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
         } else {
             abort(403, 'Unauthorized action.');
@@ -359,7 +359,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->with('torrent')->distinct('hash')->paginate(50);
+            $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->with('torrent')->distinct('hash')->paginate(50);
             return view('user.active', ['user' => $user, 'active' => $active]);
         } else {
             abort(403, 'Unauthorized action.');
@@ -370,11 +370,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
-            $history = History::sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->paginate(50);
+            $his_upl = History::where('user_id', $id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
+            $his_downl = History::where('user_id', $id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', $id)->sum('downloaded');
+            $history = History::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
             return view('user.history', ['user' => $user, 'history' => $history, 'his_upl' => $his_upl, 'his_upl_cre' => $his_upl_cre, 'his_downl' => $his_downl, 'his_downl_cre' => $his_downl_cre]);
         } else {
             abort(403, 'Unauthorized action.');

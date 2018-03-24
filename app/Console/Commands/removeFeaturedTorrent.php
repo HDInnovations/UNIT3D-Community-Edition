@@ -46,7 +46,7 @@ class removeFeaturedTorrent extends Command
 
         foreach ($featured_torrents as $featured_torrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featured_torrent->torrent_id)->first();
+            $torrent = Torrent::where('featured', 1)->where('id', $featured_torrent->torrent_id)->first();
             $torrent->free = 0;
             $torrent->doubleup = 0;
             $torrent->featured = 0;
