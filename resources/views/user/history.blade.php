@@ -29,16 +29,16 @@
         <table class="table table-condensed table-striped table-bordered">
         <div class="head"><strong>{{ trans('user.torrents-history') }}</strong></div>
         <thead>
-          <th>@sortablelink(trans('torrent.name'))</th>
-          <th>@sortablelink(trans('torrent.agent'))</th>
-          <th>@sortablelink(trans('common.active'))</th>
-          <th>@sortablelink(trans('torrent.seeder'))</th>
-          <th>@sortablelink(trans('torrent.uploaded'))</th>
-          <th>@sortablelink(trans('torrent.downloaded'))</th>
-          <th>@sortablelink(trans('torrent.seedtime'))</th>
-          <th>@sortablelink(trans('torrent.created_at'))</th>
-          <th>@sortablelink(trans('torrent.updated_at'))</th>
-          <th>@sortablelink(trans('torrent.completed_at'))</th>
+          <th>@sortablelink('name', trans('torrent.name'))</th>
+          <th>@sortablelink('agent', trans('torrent.agent'))</th>
+          <th>@sortablelink('active', trans('common.active'))</th>
+          <th>@sortablelink('seeder', trans('torrent.seeder'))</th>
+          <th>@sortablelink('uploaded', trans('torrent.uploaded'))</th>
+          <th>@sortablelink('downloaded', trans('torrent.downloaded'))</th>
+          <th>@sortablelink('seedtime', trans('torrent.seedtime'))</th>
+          <th>@sortablelink('created_at', trans('torrent.created_at'))</th>
+          <th>@sortablelink('updated_at', trans('torrent.updated_at'))</th>
+          <th>@sortablelink('completed_at', trans('torrent.completed_at'))</th>
       </thead>
       <tbody>
           @foreach($history as $his)

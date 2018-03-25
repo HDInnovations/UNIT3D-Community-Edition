@@ -21,12 +21,12 @@
         <table class="table table-condensed table-striped table-bordered">
         <div class="head"><strong>Uploaded Torrents</strong></div>
         <thead>
-          <th>@sortablelink('name')</th>
+          <th>@sortablelink('name', trans('torrent.name'))</th>
           <th>Category</th>
-          <th>@sortablelink('size')</th>
-          <th>@sortablelink('seeders')</th>
-          <th>@sortablelink('leechers')</th>
-          <th>@sortablelink('times_completed')</th>
+          <th>@sortablelink('size', trans('torrent.size'))</th>
+          <th>@sortablelink('seeders', trans('torrent.seeders'))</th>
+          <th>@sortablelink('leechers', trans('torrent.leechers'))</th>
+          <th>@sortablelink('times_completed', trans('torrent.times_completed'))</th>
           <th>Moderation</th>
           <th>Status</th>
       </thead>
