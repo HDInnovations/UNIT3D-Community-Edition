@@ -512,7 +512,7 @@ class RequestController extends Controller
     public function rejectRequest($id)
     {
         $user = auth()->user();
-
+        $appurl = config('app.url');
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         if ($user->id == $torrentRequest->user_id) {
