@@ -187,7 +187,7 @@ class RequestController extends Controller
         // Find the torrent in the database
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = auth()->user();
-        $requestClaim = TorrentRequestClaim::where('request_id', $id)->first();
+        $torrentRequestClaim = TorrentRequestClaim::where('request_id', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
@@ -206,7 +206,7 @@ class RequestController extends Controller
             }
         }
 
-        return view('requests.request', ['torrentRequest' => $torrentRequest, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'requestClaim' => $requestClaim]);
+        return view('requests.request', ['torrentRequest' => $torrentRequest, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'torrentRequestClaim' => $torrentRequestClaim]);
     }
 
     /**
@@ -380,7 +380,7 @@ class RequestController extends Controller
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $requests->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
 
                 return redirect()->route('request', ['id' => $request->input('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Yay!', ['options']));
             } else {
@@ -444,14 +444,14 @@ class RequestController extends Controller
 
         $torrentRequest = TorrentRequest::findOrFail($request_id);
 
-        $request->filled_by = $user->id;
-        $request->filled_hash = $info_hash;
-        $request->filled_when = Carbon::now();
+        $torrentRequest->filled_by = $user->id;
+        $torrentRequest->filled_hash = $info_hash;
+        $torrentRequest->filled_when = Carbon::now();
 
-        $request->save();
+        $torrentRequest->save();
 
         $appurl = config('app.url');
-        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $request->user_id, 'subject' => "Your Request " . $request->name . " Has Been Filled!", 'message' => $request->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
+        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has Been Filled!", 'message' => $torrentRequest->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
     }
 
     /**

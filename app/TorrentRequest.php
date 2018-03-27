@@ -124,7 +124,7 @@ class TorrentRequest extends Model
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(\App\Comment::class, "requests_id", "id");
     }
 
     /**
@@ -133,7 +133,7 @@ class TorrentRequest extends Model
      */
     public function requestBounty()
     {
-        return $this->hasMany(\App\TorrentRequestBounty::class);
+        return $this->hasMany(\App\TorrentRequestBounty::class, "requests_id", "id");
     }
 
     /**
