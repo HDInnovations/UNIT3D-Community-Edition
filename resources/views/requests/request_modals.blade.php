@@ -7,7 +7,6 @@
 				<h2><i class="fa fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
 			</div>
 			{{ Form::open(['route' => ['add_votes', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
-			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.enter-bp') }}.</p>
 					<fieldset>
@@ -34,7 +33,6 @@
 				<h2><i class="fa fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
 			</div>
 			{{ Form::open(['route' => ['fill_request', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
-			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.enter-hash') }}.</p>
 					<fieldset>
@@ -61,7 +59,6 @@
 				<h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
 			</div>
 			{{ Form::open(['route' => ['resetRequest', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
-			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
 					<div class="btns">
@@ -83,7 +80,6 @@
 				<h2><i class="fa fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
 			</div>
 			{{ Form::open(['route' => ['deleteRequest', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
-			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.delete-confirmation') }}?</p>
 					<fieldset>

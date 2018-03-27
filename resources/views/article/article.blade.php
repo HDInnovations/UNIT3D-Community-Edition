@@ -44,7 +44,6 @@
 
     <div class="col-md-12">
         {{ Form::open(array('route' => array('comment_article', 'slug' => $article->slug, 'id' => $article->id))) }}
-        {{ csrf_field() }}
             <div class="form-group">
                 <label for="content">{{ trans('common.your') }} {{ strtolower(trans('common.comment')) }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ trans('common.for') }} emoji</span> <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
                 <textarea name="content" id="content" cols="30" rows="5" class="form-control"></textarea>

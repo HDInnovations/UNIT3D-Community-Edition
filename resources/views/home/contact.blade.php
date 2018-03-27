@@ -21,7 +21,6 @@
 <div class="row">
 	<div class="col-md-4 box centered-form">
 		{{ Form::open(array('route' => 'contact')) }}
-		{{ csrf_field() }}
 			<div class="form-group">
 				<input type="text" name="contact-name" placeholder="{{ trans('common.name') }}" value="{{ auth()->user()->username }}" class="form-control" required>
 			</div>
