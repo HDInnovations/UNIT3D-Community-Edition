@@ -43,6 +43,15 @@
         </div>
         <br>
         <br>
+        <label for="hidden" class="control-label">Hide Chat?</label>
+        <div class="radio-inline">
+            <label><input type="radio" name="chat_hidden" @if($user->chat_hidden == 1) checked @endif value="1">YES</label>
+          </div>
+        <div class="radio-inline">
+            <label><input type="radio" name="chat_hidden" @if($user->chat_hidden == 0) checked @endif value="0">NO</label>
+        </div>
+        <br>
+        <br>
 
         <h2>Style Settings</h2>
         <hr>
