@@ -133,7 +133,7 @@ class Torrent extends Model
      */
     public function request()
     {
-        return $this->hasOne(\App\Request::class, 'filled_hash', 'info_hash');
+        return $this->hasOne(\App\TorrentRequest::class, 'filled_hash', 'info_hash');
     }
 
     /**
