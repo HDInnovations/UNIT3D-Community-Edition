@@ -12,7 +12,7 @@
 
 namespace App\Listeners;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,17 +22,17 @@ use App\FailedLoginAttempt;
 
 class RecordFailedLoginAttempt
 {
-    public function handle(Request $request, Failed $event)
+    public function handle(Failed $event)
     {
         FailedLoginAttempt::record(
             $event->user,
-            $request->input('username'),
-            $request->getClientIp()
+            Request::input('username'),
+            Request::getClientIp()
         );
 
         if (isset($event->user) && is_a($event->user, 'Illuminate\Database\Eloquent\Model')) {
             $event->user->notify(new FailedLogin(
-                $request->getClientIp()
+                Request::getClientIp()
             ));
         }
     }
