@@ -303,7 +303,7 @@
                   @if($comment->anon == 1)
                   <a href="#" class="pull-left">
                 <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}" class="img-avatar-48">
-                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profil', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
+                <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)<a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }})</a>
                 @endif
                   @else
                   <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}" class="pull-left">
