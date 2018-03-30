@@ -15,14 +15,12 @@
       <div id="hoeapp-container" hoe-color-type="lpanel-bg5" hoe-lpanel-effect="shrink">
         @include('partials.side_nav')
         <section id="main-content">
-          <div class="inner-content">
             @include('partials.userbar')
             @include('partials.breadcrumb')
             @include('cookieConsent::index')
             @include('partials.alerts')
             @yield('content')
             @include('partials.footer')
-          </div>
         </section>
       </div>
       </div>

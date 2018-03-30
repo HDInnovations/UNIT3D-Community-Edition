@@ -14,9 +14,4 @@
   @include('blocks.latest_posts')
   @include('blocks.online')
 </div>
-
-</div>
-</div>
-</div>
-
 @endsection
