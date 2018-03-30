@@ -55,7 +55,7 @@ class PollController extends Controller
      */
     public function store(StorePoll $request)
     {
-        if (auth()->check() {
+        if (auth()->check()) {
             $poll = auth()->user()->polls()->create($request->all());
         } else {
             $poll = Poll::create($request->all());
@@ -71,7 +71,7 @@ class PollController extends Controller
 
         // Auto Shout
         $appurl = config('app.url');
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]"{$poll->title}"[/url] vote on it now! :slight_smile:"]);
+        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]{$poll->title}[/url] vote on it now! :slight_smile:"]);
         Cache::forget('shoutbox_messages');
 
         Toastr::success('Your poll has been created.', 'Yay!', ['options']);

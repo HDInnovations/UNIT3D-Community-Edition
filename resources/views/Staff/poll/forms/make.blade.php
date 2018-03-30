@@ -37,7 +37,7 @@
 
 	<div class="checkbox">
     	<label>
-      		<input type="checkbox" name="ip_checking" value="1">Enable duplicate IP checking <span class="text-red">(ONLY NEEDED IF SITE IN PUBLIC MODE)</span>
+      		<input type="checkbox" name="ip_checking" value="1">Enable duplicate IP checking <span class="text-red">(NEEDED TO PREVENT DUPLICATE VOTING FROM USERS!)</span>
     	</label>
   	</div>
 
