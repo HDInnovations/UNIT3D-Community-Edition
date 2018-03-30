@@ -944,7 +944,7 @@ class TorrentController extends Controller
                 }
                 Torrent::withAnyStatus()->where('id', $id)->delete();
 
-                return redirect()->back()->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
+                return redirect('/torrents')->with(Toastr::success('Torrent Has Been Deleted!', 'Yay!', ['options']));
             }
         } else {
             $errors = "";
