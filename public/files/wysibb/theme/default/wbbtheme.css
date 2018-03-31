@@ -510,14 +510,17 @@ html{height:100% !important;}
   min-height:50px;
   max-height:100%;
 }
-
 #wbbmodal .div-modal-text{
-  border:1px solid #aaa;
-  padding:2px 5px;
-  line-height: 28px;
-  max-height:100px;
-  overflow:auto;
-  font-size:14px;
+    display: block;
+    height: 34px;
+    padding: 2px 5px;
+    line-height: 1.42857143;
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #aaa;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 0;
 }
 #wbbmodal  .wbbm-bottom{
 
