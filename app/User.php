@@ -16,9 +16,7 @@ use App\Ban;
 use App\Warning;
 use App\Peer;
 use App\History;
-
 use Cache;
-
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
@@ -35,12 +33,6 @@ class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
-
-    public $rules = [
-        'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-        'email' => 'required|email|max:255|unique:users',
-        'password' => 'required|min:6',
-    ];
 
     /**
      * The database table used by the model.
