@@ -206,7 +206,8 @@
 
 <div class="container box">
   <h3>{{ trans('bon.gift') }}</h3>
-        {{ Form::open(['route' => 'bongift' , 'method' => 'post' , 'role' => 'form' , 'id' => 'send_bonus' , 'class' => 'form-horizontal']) }}
+    <form role="form" method="POST" action="{{ route('bongift') }}" id="send_bonus">
+        {{ csrf_field() }}
 
         <div class="form-group">
             <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
@@ -239,7 +240,7 @@
             </div>
         </div>
 
-    {{ Form::close() }}
+    </form>
 </div>
 
 @section('javascripts')

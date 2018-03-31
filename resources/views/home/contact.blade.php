@@ -20,7 +20,8 @@
 <div class="container box">
 <div class="row">
 	<div class="col-md-4 box centered-form">
-		{{ Form::open(array('route' => 'contact')) }}
+		<form role="form" method="POST" action="{{ route('contact') }}">
+		{{ csrf_field() }}
 			<div class="form-group">
 				<input type="text" name="contact-name" placeholder="{{ trans('common.name') }}" value="{{ auth()->user()->username }}" class="form-control" required>
 			</div>
@@ -34,7 +35,7 @@
 			</div>
 
 			<button type="submit" class="btn btn-lg btn-primary btn-block">{{ trans('common.submit') }}</button>
-		{{ Form::close() }}
+		</form>
 	</div>
 
 	<div class="col-sm-8">

@@ -44,6 +44,7 @@
            ></use>
 
     </svg>
+
   <div id="formContent">
     <!-- Tabs Titles -->
     <a href="{{ route('login') }}"><h2 class="active">{{ trans('auth.login') }} </h2></a>
@@ -55,7 +56,8 @@
     </div>
 
     <!-- Login Form -->
-    {{ Form::open(array('route' => 'login')) }}
+    <form role="form" method="POST" action="{{ route('login') }}">
+    {{ csrf_field() }}
     <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
         <label for="username" class="col-md-4 control-label">{{ trans('auth.username') }}</label>
 
@@ -94,7 +96,7 @@
         </div>
     </div>
     <button type="submit" class="fadeIn fourth" id="login-button">{{ trans('auth.login') }}</button>
-    {{ Form::close() }}
+    </form>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">

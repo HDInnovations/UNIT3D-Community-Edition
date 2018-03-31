@@ -118,7 +118,8 @@
       <div class="block">
       <div class="topic-new-post">
         @if($topic->state == "close" && auth()->user()->group->is_modo)
-        {{ Form::open(array('route' => array('forum_reply', 'slug' => $topic->slug, 'id' => $topic->id))) }}
+        <form role="form" method="POST" action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
+        {{ csrf_field() }}
         <div class="text-danger">This topic is closed, but you can still reply due to you being {{auth()->user()->group->name}}.</div>
         <div class="from-group">
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
@@ -128,11 +129,12 @@
         @else
         <button type="submit" class="btn btn-default disabled">{{ trans('forum.not-connected') }}</button>
         @endif
-        {{ Form::close() }}
+        </form>
         @elseif($topic->state == "close")
         <div class="col-md-12 alert alert-danger">{{ trans('forum.topic-closed') }}</div>
         @else
-        {{ Form::open(array('route' => array('forum_reply', 'slug' => $topic->slug, 'id' => $topic->id))) }}
+        <form role="form" method="POST" action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
+        {{ csrf_field() }}
         <div class="from-group">
           <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
         </div>
@@ -141,7 +143,7 @@
         @else
         <button type="submit" class="btn btn-default disabled">{{ trans('forum.not-connected') }}</button>
         @endif
-        {{ Form::close() }}
+        </form>
         @endif
 
         <center>

@@ -15,7 +15,8 @@
         <h4 class="text-center">{{ trans('bug.bug-report-description') }}</h4></div>
         <table class="table table-bordered">
           <tbody>
-            {{ Form::open(array('route' => 'bug')) }}
+            <form role="form" method="POST" action="{{ route('bug') }}">
+            {{ csrf_field() }}
             <tr>
               <td class="rowhead">{{ trans('common.reporter') }}:</td>
               <td>{{ trans('bug.enter-username') }}
@@ -61,7 +62,7 @@
                 <button class="btn btn-labeled btn-danger" type="submit"><span class="btn-label"><i class="fa fa-bug"></i></span>{{ trans('common.submit') }}</button>
               </td>
             </tr>
-            {{ Form::close() }}
+            </form>
           </tbody>
         </table>
     </div>
