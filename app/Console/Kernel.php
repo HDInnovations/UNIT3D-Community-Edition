@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\autoGraveyard::class,
         \App\Console\Commands\ircBroadcast::class,
         \App\Console\Commands\ircMessage::class,
+        \App\Console\Commands\recycleInvites::class,
     ];
 
     /**
@@ -52,6 +53,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('removePersonalFreeleech')->hourly();
         $schedule->command('removeFeaturedTorrent')->hourly();
         $schedule->command('autoGraveyard')->daily();
+        $schedule->command('recycleInvites')->daily();
     }
 
     /**

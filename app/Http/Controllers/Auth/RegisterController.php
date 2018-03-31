@@ -35,6 +35,9 @@ class RegisterController extends Controller
 {
     public function register(Request $request, $code = null)
     {
+        $current = Carbon::now();
+        $user = new User();
+
         // Make sure open reg is off and ivite code exsists and is not used or expired
         if (config('other.invite-only') == true && $code == null) {
             return view('auth.login')->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register!', 'Whoops!', ['options']));
@@ -45,9 +48,6 @@ class RegisterController extends Controller
             if (config('other.invite-only') == true && !$key) {
                 return view('auth.register', ['code' => $code])->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
             }
-
-            $current = Carbon::now();
-            $user = new User();
 
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',

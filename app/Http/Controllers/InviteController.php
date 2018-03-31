@@ -60,7 +60,7 @@ class InviteController extends Controller
                 'user_id' => $user->id,
                 'email' => $request->input('email'),
                 'code' => $code,
-                'expires_on' => $current->copy()->addDays(14),
+                'expires_on' => $current->copy()->addDays(config('other.invite_expire')),
                 'custom' => $request->input('message'),
             ]);
 
