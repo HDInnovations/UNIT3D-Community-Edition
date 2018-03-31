@@ -1,7 +1,7 @@
 @extends('emails.template-plain')
 
 @section('content')
-{{ trans('email.register-header') }} {{ env('SITE_NAME') }}.
+{{ trans('email.register-header') }} {{ config('other.title') }}.
 {{ trans('email.register-code') }}:
 
 {{ url('/activate/'.$code) }}
