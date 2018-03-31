@@ -39,6 +39,7 @@ use App\Repositories\TorrentFacetedRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Services\FanArt;
+use App\Bots\IRCAnnounceBot;
 use Carbon\Carbon;
 use Decoda\Decoda;
 use \Toastr;
@@ -118,6 +119,20 @@ class TorrentController extends Controller
 
             // Activity Log
             \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has bumped {$torrent->name} .");
+
+            // Announce To Chat
+            $appurl = config('app.url');
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => ":warning: Attention, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
+            cache()->forget('shoutbox_messages');
+
+            // Announce To IRC
+            if (config('irc-bot.enabled') == true) {
+                $appname = config('app.name');
+                $bot = new IRCAnnounceBot();
+                $bot->message("#announce", "[" . $appname . "] User " . auth()->user()->username . " has bumped " . $torrent->name . " , it could use more seeds!");
+                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
+                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
+            }
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
         } else {
