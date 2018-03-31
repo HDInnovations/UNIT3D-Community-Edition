@@ -60,7 +60,8 @@
     </div>
 
     <!-- SignUp Form -->
-    {{ Form::open(array('route' => array('register', 'code' => $code))) }}
+    <form role="form" method="POST" action="{{ route('register',['code' => $code]) }}">
+    {{ csrf_field() }}
       <input type="text" id="username" class="fadeIn second" name="username" placeholder="{{ trans('auth.username') }}" required autofocus>
       @if ($errors->has('username'))
       <br>
@@ -82,8 +83,22 @@
               <strong>{{ $errors->first('password') }}</strong>
           </span>
       @endif
+      @if (config('captcha.enabled') == true)
+      <center>
+      <div class="form-group row">
+      <div class="col-md-6 offset-md-4">
+          <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
+          @if ($errors->has('g-recaptcha-response'))
+            <span class="invalid-feedback" style="display: block;">
+                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+            </span>
+          @endif
+          </div>
+      </div>
+      </center>
+      @endif
       <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
-    {{ Form::close() }}
+    </form>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
@@ -94,6 +109,7 @@
   </div>
 </div>
 <script type="text/javascript" src="{{ url('js/vendor/app.js?v=04') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 {!! Toastr::message() !!}
 </body>
 </html>
