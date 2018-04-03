@@ -71,7 +71,7 @@
         </td>
         <td>{{ $hpeers->created_at->diffForHumans() }}</td>
         <td>{{ $hpeers->updated_at->diffForHumans() }}</td>
-        @if($hpeers->seedtime < 604800)
+        @if($hpeers->seedtime < config(hitrun.seedtime))
           <td><span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span></td>
         @else
           <td><span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span></td>

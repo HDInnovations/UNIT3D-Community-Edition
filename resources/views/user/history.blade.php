@@ -57,7 +57,7 @@
             <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his->actual_downloaded , 2) }}</span>
             <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his->downloaded , 2) }}</span>
           </td>
-          @if($his->seedtime < 604800)
+          @if($his->seedtime < config(hitrun.seedtime))
             <td><span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span></td>
           @else
             <td><span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span></td>
