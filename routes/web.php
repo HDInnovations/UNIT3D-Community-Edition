@@ -413,9 +413,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
         Route::any('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
 
-        // Bugs
-        Route::any('/bug', 'BugController@index')->name('staff_bug_index');
-
         // Groups
         Route::any('/groups', 'GroupsController@index')->name('staff_groups_index');
         Route::any('/groups/add', 'GroupsController@add')->name('staff_groups_add');
