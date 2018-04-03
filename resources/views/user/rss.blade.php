@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $user->username }} - Rss Configuration - {{ Config::get('other.title') }}</title>
+<title>{{ $user->username }} - Rss Configuration - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

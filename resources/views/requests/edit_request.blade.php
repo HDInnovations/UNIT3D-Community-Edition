@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('request.edit-request') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('request.edit-request') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('stylesheets')

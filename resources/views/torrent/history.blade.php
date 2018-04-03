@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('torrent.history') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.history') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -71,7 +71,7 @@
         </td>
         <td>{{ $hpeers->created_at->diffForHumans() }}</td>
         <td>{{ $hpeers->updated_at->diffForHumans() }}</td>
-        @if($hpeers->seedtime < config(hitrun.seedtime))
+        @if($hpeers->seedtime < config('hitrun.seedtime'))
           <td><span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span></td>
         @else
           <td><span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span></td>

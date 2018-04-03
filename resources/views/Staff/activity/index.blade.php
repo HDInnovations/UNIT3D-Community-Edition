@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-	<title>Activity Log - Staff Dashboard - {{ Config::get('other.title') }}</title>
+	<title>Activity Log - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

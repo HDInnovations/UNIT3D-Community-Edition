@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('forum.create-new-topic') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('forum.create-new-topic') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

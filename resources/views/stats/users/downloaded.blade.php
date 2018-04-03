@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('stat.stats') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('stat.stats') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

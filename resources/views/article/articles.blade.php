@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('articles.articles') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

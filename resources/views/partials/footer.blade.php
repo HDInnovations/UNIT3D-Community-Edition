@@ -3,8 +3,8 @@
 <div id="l-footer" style="background-image: url('/img/footer/<?php echo $bgchange; ?>');">
   <div class="container">
     <div class="col-md-3 l-footer-section">
-      <h2 class="l-footer-section-title"><span class="text-bold">{{ Config::get('other.title') }}</span></h2>
-      <footer>{{ Config::get('other.meta_description') }}</footer>
+      <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
+      <footer>{{ config('other.meta_description') }}</footer>
       <br>
       <i class="fa fa-tv disk-good" style="font-size: 90px;"></i>
     </div>

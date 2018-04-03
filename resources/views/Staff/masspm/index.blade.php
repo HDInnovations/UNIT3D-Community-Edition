@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-	<title>MassPM - Staff Dashboard - {{ Config::get('other.title') }}</title>
+	<title>MassPM - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

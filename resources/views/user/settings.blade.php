@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $user->username }} - {{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
+<title>{{ $user->username }} - {{ trans('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

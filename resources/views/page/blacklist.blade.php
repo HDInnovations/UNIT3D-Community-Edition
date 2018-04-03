@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('blacklist') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ Config::get('other.title') }} {{ trans('common.blacklist') }}</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }} {{ trans('common.blacklist') }}</span>
     </a>
 </li>
 @endsection
@@ -13,13 +13,13 @@
 	<div class="col-md-12 page">
 		<div class="header gradient red">
 			<div class="inner_content">
-				<div class="page-title"><h1>{{ Config::get('other.title') }} {{ trans('common.blacklist') }}</h1></div>
+				<div class="page-title"><h1>{{ config('other.title') }} {{ trans('common.blacklist') }}</h1></div>
 			</div>
 		</div>
         <div class="alert alert-info" id="alert1">
             <center>
                 <span>
-                    {{ trans('page.blacklist-desc', ['title' => Config::get('other.title')]) }}
+                    {{ trans('page.blacklist-desc', ['title' => config('other.title')]) }}
                 </span>
             </center>
         </div>

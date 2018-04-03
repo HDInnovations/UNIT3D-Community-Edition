@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $user->username }} - {{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
+<title>{{ $user->username }} - {{ trans('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-<meta name="description" content="{{ trans('user.profile-desc', ['user' => $user->username, 'title' => Config::get('other.title')]) }}">
+<meta name="description" content="{{ trans('user.profile-desc', ['user' => $user->username, 'title' => config('other.title')]) }}">
 @endsection
 
 @section('breadcrumb')
@@ -244,7 +244,7 @@
   <tr>
     <td>Warnings</td>
     <td>
-      <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}: {{ $warnings->count() }} / {!! Config::get('hitrun.max_warnings') !!}</strong></span>
+      <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}: {{ $warnings->count() }} / {!! config('hitrun.max_warnings') !!}</strong></span>
       @if(auth()->check() && auth()->user()->group->is_modo)
       <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
       @endif

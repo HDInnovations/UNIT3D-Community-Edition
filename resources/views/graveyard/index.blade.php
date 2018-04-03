@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('graveyard.graveyard') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('graveyard.graveyard') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

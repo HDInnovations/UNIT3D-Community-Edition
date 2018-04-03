@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('poll.polls') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('poll.polls') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

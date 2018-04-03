@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-<meta name="description" content="{{ 'Torrents ' . Config::get('other.title') }}">
+<meta name="description" content="{{ 'Torrents ' . config('other.title') }}">
 @endsection
 
 @section('breadcrumb')

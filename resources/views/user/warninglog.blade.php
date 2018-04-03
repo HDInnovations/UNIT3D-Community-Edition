@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>WarningLog - {{ Config::get('other.title') }}</title>
+    <title>WarningLog - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

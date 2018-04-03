@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Requests - {{ Config::get('other.title') }}</title>
+<title>Requests - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

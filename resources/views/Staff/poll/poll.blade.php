@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Poll Results - {{ Config::get('other.title') }}</title>
+<title>Poll Results - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

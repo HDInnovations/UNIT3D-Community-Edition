@@ -1,13 +1,13 @@
 <meta charset="UTF-8">
 @section('title')
-<title>{{ Config::get('other.title') }} - {{ Config::get('other.subTitle') }}</title>
+<title>{{ config('other.title') }} - {{ config('other.subTitle') }}</title>
 @show
 
 @section('meta')
-<meta name="description" content="{{ Config::get('other.meta_description') }}">
+<meta name="description" content="{{ config('other.meta_description') }}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="{{ Config::get('other.title') }}">
+<meta property="og:title" content="{{ config('other.title') }}">
 <meta property="og:type" content="website">
 <meta property="og:image" content="{{ url('/img/rlm.png') }}">
 <meta property="og:url" content="{{ url('/') }}">

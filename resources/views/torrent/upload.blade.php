@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Upload - {{ Config::get('other.title') }}</title>
+<title>Upload - {{ config('other.title') }}</title>
 @endsection
 
 @section('stylesheets')

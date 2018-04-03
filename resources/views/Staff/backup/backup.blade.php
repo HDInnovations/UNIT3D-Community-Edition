@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-	<title>{{ trans('backup.backup') }} {{ trans('backup.manager') }} - Staff Dashboard - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('backup.backup') }} {{ trans('backup.manager') }} - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

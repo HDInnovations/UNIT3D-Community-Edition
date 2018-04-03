@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>Results - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
+<title>Results - {{ trans('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

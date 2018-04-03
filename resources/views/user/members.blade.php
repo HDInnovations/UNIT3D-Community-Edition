@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('common.members') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('common.members') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-<meta name="description" content="{{ trans('user.members-desc', ['title' => Config::get('other.title')]) }}">
+<meta name="description" content="{{ trans('user.members-desc', ['title' => config('other.title')]) }}">
 @endsection
 
 @section('breadcrumb')

@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-	<title>{{ trans('auth.exceededTitle') }} - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('auth.exceededTitle') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-	<meta name="description" content="{{ trans('auth.exceededTitle') }} - {{ Config::get('other.title') }}">
+	<meta name="description" content="{{ trans('auth.exceededTitle') }} - {{ config('other.title') }}">
 @endsection
 
 @section('stylesheets')

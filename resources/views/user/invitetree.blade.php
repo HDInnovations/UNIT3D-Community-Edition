@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.invite-tree') }} - {{ Config::get('other.title') }}</title>
+    <title>{{ trans('user.invite-tree') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

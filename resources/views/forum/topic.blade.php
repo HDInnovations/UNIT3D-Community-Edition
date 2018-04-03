@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $topic->name }} - Forums - {{ Config::get('other.title') }}</title>
+<title>{{ $topic->name }} - Forums - {{ config('other.title') }}</title>
 @endsection
 
 @section('stylesheets')

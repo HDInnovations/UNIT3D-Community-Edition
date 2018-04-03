@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-	<title>{{ trans('common.about') }} - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('common.about') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -500,10 +500,10 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
           <h2>{{ trans('page.aboutus-header') }}</h2>
           <img src="{{ url('img/deadpool.png') }}" width="902" height="298">
 
-          <h3>{{ trans('page.aboutus-welcome') }} {{ Config::get('other.title') }}</h3>
-          <p>{!! trans('page.aboutus-welcome-desc', ['title' => Config::get('other.title')]) !!}</p>
+          <h3>{{ trans('page.aboutus-welcome') }} {{ config('other.title') }}</h3>
+          <p>{!! trans('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>
 
-          <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-advantage') }} {{ Config::get('other.title') }} <i class="fa fa-globe" aria-hidden="true"></i></h4>
+          <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-advantage') }} {{ config('other.title') }} <i class="fa fa-globe" aria-hidden="true"></i></h4>
           <div class="wrapper">
             <div>
               <div>1</div>
@@ -522,7 +522,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
             <div>
               <div>4</div>
-              <p>{{ trans('page.aboutus-advantage4', ['title' => Config::get('other.title')]) }}</p>
+              <p>{{ trans('page.aboutus-advantage4', ['title' => config('other.title')]) }}</p>
             </div>
 
             <div>
@@ -544,11 +544,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
             <div>
               <div>3</div>
-              <p>{{ trans('page.aboutus-rules3', ['title' => Config::get('other.title')]) }}</p>
+              <p>{{ trans('page.aboutus-rules3', ['title' => config('other.title')]) }}</p>
             </div>
           </div>
 
-          <a href="{{ route('contact') }}" class="contact button white">{{ trans('common.contact') }} {{ Config::get('other.title') }}</a>
+          <a href="{{ route('contact') }}" class="contact button white">{{ trans('common.contact') }} {{ config('other.title') }}</a>
         </div>
       </div>
     </div>

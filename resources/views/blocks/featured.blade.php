@@ -82,7 +82,7 @@
             <div class="color-overlay">
               <div class="movie-content">
                 <div class="movie-header">
-                  <h1 class="movie-title">{{ Config::get('other.title') }} - {{ trans('blocks.featured-torrents') }}</h1>
+                  <h1 class="movie-title">{{ config('other.title') }} - {{ trans('blocks.featured-torrents') }}</h1>
                   <h4 class="movie-info">
                     {{ trans('blocks.featured-torrents-intro') }}
                     <br>

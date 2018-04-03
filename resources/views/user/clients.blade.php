@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('user.my-seedboxes') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('user.my-seedboxes') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

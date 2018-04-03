@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $catalog->name }} - {{ trans('torrent.torrents') }} - {{ Config::get('other.title') }}</title>
+<title>{{ $catalog->name }} - {{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

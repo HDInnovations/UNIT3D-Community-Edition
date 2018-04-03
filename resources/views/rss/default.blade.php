@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
-    <title>{{ Config::get('other.title') }}</title>
-    <description>{{ Config::get('other.title') }} {{ trans('common.rss-system') }}</description>
+    <title>{{ config('other.title') }}</title>
+    <description>{{ config('other.title') }} {{ trans('common.rss-system') }}</description>
     <link>{{ url('/') }}</link>
-    <language>{{ Config::get('app.locale') }}</language>
+    <language>{{ config('app.locale') }}</language>
     @foreach ($torrents as $data)
     <item>
       <title>{{ $data->name }}</title>

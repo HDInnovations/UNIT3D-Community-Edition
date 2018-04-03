@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('torrent.categories') }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('torrent.categories') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

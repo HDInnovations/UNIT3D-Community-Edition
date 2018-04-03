@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-	<title>{{ trans('common.contact') }} - {{ Config::get('other.title') }}</title>
+	<title>{{ trans('common.contact') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-	<meta name="description" content="{{ trans('common.contact') }} {{ Config::get('other.title') }}.">
+	<meta name="description" content="{{ trans('common.contact') }} {{ config('other.title') }}.">
 @endsection
 
 @section('breadcrumb')

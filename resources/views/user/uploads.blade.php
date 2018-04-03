@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Uploads Table - {{ Config::get('other.title') }}</title>
+    <title>Uploads Table - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')

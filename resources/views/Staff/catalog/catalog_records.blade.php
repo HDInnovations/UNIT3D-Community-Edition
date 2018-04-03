@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-	<title>Catalog Torrents - Staff Dashboard - {{ Config::get('other.title') }}</title>
+	<title>Catalog Torrents - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

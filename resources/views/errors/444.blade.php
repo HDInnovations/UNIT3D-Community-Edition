@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Error 444 - {{ Config::get('other.title') }}</title>
+  <title>Error 444 - {{ config('other.title') }}</title>
 
   <!-- Meta -->
   @section('meta')
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="{{ $exception->getMessage() }}">
-      <meta property="og:title" content="{{ Config::get('other.title') }}">
+      <meta property="og:title" content="{{ config('other.title') }}">
       <meta property="og:type" content="website">
       <meta property="og:image" content="{{ url('/img/rlm.png') }}">
       <meta property="og:url" content="{{ url('/') }}">

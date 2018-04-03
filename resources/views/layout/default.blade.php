@@ -96,7 +96,7 @@
       @yield('javascripts')
       @yield('scripts')
 
-      @if(Config::get('app.debug') == false)
+      @if(config('app.debug') == false)
       <!-- INSERT YOUR ANALYTICS CODE HERE -->
       @else
       <!-- INSERT DEBUG CODE HERE -->

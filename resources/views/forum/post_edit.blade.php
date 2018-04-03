@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ Config::get('other.title') }}</title>
+<title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

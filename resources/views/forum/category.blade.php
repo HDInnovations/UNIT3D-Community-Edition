@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
+<title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')

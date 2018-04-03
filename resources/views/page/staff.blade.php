@@ -3,7 +3,7 @@
 @section('breadcrumb')
 <li>
     <a href="{{ route('staff') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ Config::get('other.title') }} {{ trans('common.staff') }}</span>
+        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ config('other.title') }} {{ trans('common.staff') }}</span>
     </a>
 </li>
 @endsection
@@ -13,7 +13,7 @@
 	<div class="col-md-12 page">
 		<div class="header gradient red">
 			<div class="inner_content">
-				<div class="page-title"><h1>{{ Config::get('other.title') }} {{ trans('common.staff') }}</h1></div>
+				<div class="page-title"><h1>{{ config('other.title') }} {{ trans('common.staff') }}</h1></div>
 			</div>
 		</div>
     <div class="row oper-list">

@@ -1,6 +1,6 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
   <div class="hoe-left-header" hoe-position-type="fixed">
-    <a href="{{ route('home') }}"><div class="banner"><i class="fa fa-rocket" style="display: inline;"></i> <span>{{ Config::get('other.title') }}</span></div></a>
+    <a href="{{ route('home') }}"><div class="banner"><i class="fa fa-rocket" style="display: inline;"></i> <span>{{ config('other.title') }}</span></div></a>
     <span class="hoe-sidebar-toggle"><a href="#"></a></span>
   </div>
   <div class="hoe-right-header" hoe-position-type="relative" hoe-color-type="header-bg5">
