@@ -194,20 +194,24 @@ class UserController extends Controller
      */
     protected function changePassword(Request $request)
     {
-        $this->validate($request, [
+        $user = auth()->user();
+        $v = validator($request->all(), [
             'current_password' => 'required',
             'new_password' => 'required|min:6|confirmed',
             'new_password_confirmation' => 'required|min:6',
         ]);
-        $usr = User::findOrFail(auth()->user()->id);
-        if (Hash::check($request->current_password, $usr->password)) {
-            $usr->fill([
+        if ($v->passes()) {
+        if (Hash::check($request->current_password, $user->password)) {
+            $user->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();
-            return redirect('/login')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
+            return redirect('/')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
         }
+    } else {
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your New Password Is To Weak!', 'Whoops!', ['options']));
+    }
     }
 
     /**
