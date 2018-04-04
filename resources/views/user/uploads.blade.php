@@ -26,7 +26,7 @@
           <th>@sortablelink('size', trans('torrent.size'))</th>
           <th>@sortablelink('seeders', trans('torrent.seeders'))</th>
           <th>@sortablelink('leechers', trans('torrent.leechers'))</th>
-          <th>@sortablelink('times_completed', trans('torrent.times_completed'))</th>
+          <th>@sortablelink('times_completed', trans('torrent.completed'))</th>
           <th>Moderation</th>
           <th>Status</th>
       </thead>

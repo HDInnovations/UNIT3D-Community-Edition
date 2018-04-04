@@ -52,7 +52,7 @@
     <div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped table-hover">
       <tr>
-        <th>{{ trans('user.agent') }}</th>
+        <th>{{ trans('torrent.agent') }}</th>
         <th>IP</th>
         <th>{{ trans('common.added') }}</th>
         <th>{{ trans('common.remove') }}</th>

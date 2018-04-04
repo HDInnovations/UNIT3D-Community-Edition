@@ -39,7 +39,7 @@
         <th>{{ trans('torrent.completed') }}</th>
         <th>{{ trans('common.upload') }}</th>
         <th>{{ trans('common.download') }}</th>
-        <th>{{ trans('torrent.added') }}</th>
+        <th>{{ trans('common.added') }}</th>
         <th>{{ trans('torrent.updated') }}</th>
         <th>{{ trans('torrent.seedtime') }}</th>
     </tr>
@@ -63,11 +63,11 @@
         @if($hpeers->seeder == 1) <td class="text-green">{{ strtolower(trans('common.yes')) }}</td> @else <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
         <td>
             <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded,2) }}</span>
-            <span class="badge-extra text-blue" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.seedtime') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded,2) }}</span>
+            <span class="badge-extra text-blue" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.credited') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded,2) }}</span>
         </td>
         <td>
             <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded,2) }}</span>
-            <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.seedtime') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded,2) }}</span>
+            <span class="badge-extra text-orange" data-toggle="tooltip" title="" data-original-title="{{ trans('torrent.credited') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded,2) }}</span>
         </td>
         <td>{{ $hpeers->created_at->diffForHumans() }}</td>
         <td>{{ $hpeers->updated_at->diffForHumans() }}</td>
