@@ -103,7 +103,7 @@ Prerequisites Example:
 
     #Nginx `sudo apt-get install -y nginx`
 
-    #PHP `apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm`
+    #PHP `sudo apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm`
 5. Configure PHP:
 
     `sudo nano /etc/php/7.2/fpm/php.ini`
