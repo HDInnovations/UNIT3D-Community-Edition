@@ -43,7 +43,8 @@
       </div>
   </div>
 <h1 class="upload-title">{{ trans('request.add-request') }}</h1>
-{{ Form::open(['route' => 'add_request', 'method' => 'post', 'role' => 'form', 'class' => 'upload-form']) }}
+<form role="form" method="POST" action="{{ route('add_request') }}">
+{{ csrf_field() }}
 <div class="block">
   <div class="upload col-md-12">
             <div class="form-group">
@@ -102,7 +103,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-      {{ Form::close() }}
+  </form>
     <br>
   </div>
 </div>

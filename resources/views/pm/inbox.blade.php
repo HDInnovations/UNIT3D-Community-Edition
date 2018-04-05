@@ -43,9 +43,10 @@
                       </div>
                       <div class="col-md-4 col-xs-7">
                     <div class="input-group">
-                  {{ Form::open(array('route' => array('searchPM', 'username' => $user->username, 'id' => $user->id))) }}
+                  <form role="form" method="POST" action="{{ route('searchPM',['username' => $user->username, 'id' => $user->id]) }}">
+                  {{ csrf_field() }}
                   <input type="text" name="subject" id="subject" class="form-control" placeholder="{{ trans('pm.search') }}">
-                {{ Form::close() }}
+              </form>
             </div>
           </div>
         </div>

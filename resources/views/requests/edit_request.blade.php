@@ -37,7 +37,8 @@
 </div>
 @else
 <h1 class="upload-title">{{ trans('request.edit-request') }}</h1>
-{{ Form::open(array('route' => array('edit_request', 'id' => $torrentRequest->id))) }}
+<form role="form" method="POST" action="{{ route('edit_request',['id' => $torrentRequest->id]) }}">
+{{ csrf_field() }}
 <div class="block">
             <div class="form-group">
                 <label for="name">{{ trans('request.title') }}</label>
@@ -90,7 +91,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-      {{ Form::close() }}
+  </form>
     <br>
   </div>
 @endif

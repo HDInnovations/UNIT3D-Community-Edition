@@ -52,11 +52,12 @@
               <strong>{{ trans('pm.sent') }}:</strong> {{ $pm->created_at }}
             </div>
           </div>
-          {{ Form::open(array('route' => array('delete-pm', 'pmid' => $pm->id))) }}
+          <form role="form" method="POST" action="{{ route('delete-pm',['pmid' => $pm->id]) }}">
+          {{ csrf_field() }}
           <div class="col-sm-1">
             <button type="submit" class="btn btn-sm btn-danger pull-right" title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i></button>
           </div>
-          {{ Form::close() }}
+          </form>
         </div>
         <div class="row message-body">
           <div class="col-sm-12">
@@ -64,12 +65,13 @@
           </div>
         </div>
       </div>
-      {{ Form::open(array('route' => array('reply-pm', 'pmid' => $pm->id))) }}
+      <form role="form" method="POST" action="{{ route('reply-pm',['pmid' => $pm->id]) }}">
+      {{ csrf_field() }}
       <div class="form-group">
         <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
         <button type="submit" class="btn btn-primary" style="float:right;">{{ trans('pm.reply') }}</button>
       </div>
-      {{ Form::close() }}
+      </form>
     </div>
   </div>
 </div>

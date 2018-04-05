@@ -6,7 +6,8 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">&times;</span></button>
 				<h2><i class="fa fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
 			</div>
-			{{ Form::open(['route' => ['add_votes', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
+			<form role="form" method="POST" action="{{ route('add_votes',['id' => $torrentRequest->id]) }}">
+			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.enter-bp') }}.</p>
 					<fieldset>
@@ -19,7 +20,7 @@
 						<button type="submit" @if($user->seedbonus < 100) disabled title='{{ trans('request.dont-have-bps') }}'@endif class="btn btn-success">{{ trans('request.vote') }}</button>
 					</div>
 			</div>
-			{{ Form::close() }}
+		</form>
 		</div>
 	</div>
 </div>
@@ -32,7 +33,8 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">&times;</span></button>
 				<h2><i class="fa fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
 			</div>
-			{{ Form::open(['route' => ['fill_request', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
+			<form role="form" method="POST" action="{{ route('fill_request',['id' => $torrentRequest->id]) }}">
+			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.enter-hash') }}.</p>
 					<fieldset>
@@ -45,7 +47,7 @@
 						<button type="submit" class="btn btn-success">{{ trans('request.fill') }}</button>
 					</div>
 			</div>
-			{{ Form::close() }}
+		</form>
 		</div>
 	</div>
 </div>
@@ -58,7 +60,8 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">&times;</span></button>
 				<h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
 			</div>
-			{{ Form::open(['route' => ['resetRequest', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
+			<form role="form" method="POST" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
+			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
 					<div class="btns">
@@ -66,7 +69,7 @@
 						<button type="submit" @if(!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
 					</div>
 			</div>
-			{{ Form::close() }}
+		</form>
 		</div>
 	</div>
 </div>
@@ -79,7 +82,8 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">&times;</span></button>
 				<h2><i class="fa fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
 			</div>
-			{{ Form::open(['route' => ['deleteRequest', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
+			<form role="form" method="POST" action="{{ route('deleteRequest',['id' => $torrentRequest->id]) }}">
+			{{ csrf_field() }}
 			<div class="modal-body">
 				<p class="text-center">{{ trans('request.delete-confirmation') }}?</p>
 					<fieldset>
@@ -90,7 +94,7 @@
 						<button type="submit" @if($torrentRequest->filled_hash != null) disabled @endif class="btn btn-warning">{{ trans('common.delete') }}</button>
 					</div>
 			</div>
-			{{ Form::close() }}
+		</form>
 		</div>
 	</div>
 </div>
@@ -103,7 +107,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span aria-hidden="true">&times;</span></button>
         <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.claim') }}</h2>
       </div>
-      {{ Form::open(['route' => ['claimRequest', 'id' => $torrentRequest->id], 'method' => 'post', 'role' => 'form']) }}
+	  <form role="form" method="POST" action="{{ route('claimRequest',['id' => $torrentRequest->id]) }}">
+	  {{ csrf_field() }}
       <div class="modal-body">
         <p class="text-center">{{ trans('request.claim-as-anon') }}?</p>
         <br>
@@ -124,7 +129,7 @@
           </div>
         </center>
       </div>
-      {{ Form::close() }}
+  </form>
     </div>
   </div>
 </div>

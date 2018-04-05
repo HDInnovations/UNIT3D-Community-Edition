@@ -33,7 +33,8 @@
 
           <div class="col-md-10">
             <div class="block">
-                  {{ Form::open(array('route' => array('send-pm'))) }}
+                  <form role="form" method="POST" action="{{ route('send-pm') }}">
+                  {{ csrf_field() }}
                   <div class="form-group">
                     <label for="users">{{ trans('pm.select') }}</label>
                     <select class="js-example-basic-single form-control" name="reciever_id">
@@ -56,7 +57,7 @@
                   <button class="btn btn-primary">
                     <i class="fa fa-save"></i> {{ trans('pm.send') }}
                   </button>
-                {{ Form::close() }}
+              </form>
       </div>
     </div>
   </div>

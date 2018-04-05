@@ -340,7 +340,8 @@
 
       <!-- Add comment -->
       <div class="col-md-12">
-        {{ Form::open(array('route' => array('comment_request', 'id' => $torrentRequest->id))) }}
+        <form role="form" method="POST" action="{{ route('comment_request',['id' => $torrentRequest->id]) }}">
+        {{ csrf_field() }}
         <div class="form-group">
           <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }} <strong>:</strong> {{ strtolower(trans('common.for')) }} emoji</span> <span class="badge-extra">BBCode {{ strtolower(trans('common.is-allowed')) }}</span>
           <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
@@ -348,7 +349,8 @@
         <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
         <label class="radio-inline"><strong>{{ trans('common.anonymous') }} {{ strtolower(trans('common.comment')) }}:</strong></label>
         <input type="radio" value="1" name="anonymous"> {{ trans('common.yes') }}
-        <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }} {{ Form::close() }}
+        <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }}
+        </form>
       </div>
       <!-- /Add comment -->
     </div>

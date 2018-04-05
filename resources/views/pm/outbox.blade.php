@@ -39,13 +39,11 @@
             </thead>
             <tbody>
               @foreach($pms as $p)
-              {{ Form::hidden('invisible', 'id', array('id' => 'id')) }}
               <tr>
                 <td class="col-sm-2"><a href="{{ route('profile', ['username' => $p->receiver->username, 'id' => $p->receiver->id]) }}" title="">{{ $p->receiver->username}}</a></td>
                 <td class="col-sm-5"><a href="{{ route('message', ['username' => $user->username , 'id' => $user->id , 'pmid' => $p->id]) }}">{{ $p->subject }}</a></td>
                 <td class="col-sm-2">{{ $p->created_at->diffForHumans() }}</td>
               </tr>
-              {{ Form::close() }}
               @endforeach
             </tbody>
           </table>

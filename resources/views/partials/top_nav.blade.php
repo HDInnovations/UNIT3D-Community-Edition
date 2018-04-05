@@ -59,10 +59,11 @@
       @endif
 
      <li>
-        {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','role' => 'form','class'=>'hoe-searchbar']) }}
-        {{ Form::text('search',null,['id'=>'name','placeholder'=>trans('common.quick-search') . '...','class'=>'form-control']) }}
+        <form class="hoe-searchbar" role="form" method="GET" action="{{ action('TorrentController@torrents') }}">
+        {{ csrf_field() }}
+        <input name="search" type="text" id="name" placeholder="{{ trans('common.quick-search') }}" class="form-control">
         <span class="search-icon"><i class="fa fa-search"></i></span>
-        {{ Form::close() }}
+        </form>
     </li>
     </ul>
 
