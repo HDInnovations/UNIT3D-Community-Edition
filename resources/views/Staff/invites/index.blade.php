@@ -83,7 +83,7 @@
 </table>
   </div>
 </div>
-{{ $invites->links() }}
+<center>{{ $invites->links() }}</center>
 </div>
 </div>
 @endsection

@@ -25,6 +25,14 @@ class NoteController extends Controller
      *
      *
      */
+
+    public function getNotes()
+    {
+        $notes = Note::latest()->paginate(25);
+
+        return view('Staff.notes.index', ['notes' => $notes]);
+    }
+
     public function postNote(Request $request, $username, $id)
     {
         $staff = auth()->user();
@@ -48,10 +56,4 @@ class NoteController extends Controller
         return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Staff Note Has Successfully Posted', 'Yay!', ['options']));
     }
 
-    public function getNotes()
-    {
-        $notes = Note::latest()->get();
-
-        return view('Staff.notes.index', ['notes' => $notes]);
-    }
 }

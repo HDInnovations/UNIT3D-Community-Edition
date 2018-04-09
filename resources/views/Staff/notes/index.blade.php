@@ -59,6 +59,7 @@
   </table>
   </div>
 </div>
+<center>{{ $notes->links() }}</center>
 </div>
 </div>
 @endsection

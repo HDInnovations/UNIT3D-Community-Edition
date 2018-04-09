@@ -75,6 +75,7 @@
     </table>
   </div>
 </div>
+<center>{{ $bans->links() }}</center>
 </div>
 </div>
 @endsection

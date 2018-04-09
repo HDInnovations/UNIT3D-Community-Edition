@@ -75,6 +75,7 @@
     </table>
   </div>
 </div>
+<center>{{ $reports->links() }}</center>
 </div>
 </div>
 @endsection

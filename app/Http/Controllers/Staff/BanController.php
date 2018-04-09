@@ -26,7 +26,7 @@ class BanController extends Controller
 {
     public function getBans()
     {
-        $bans = Ban::latest()->get();
+        $bans = Ban::latest()->paginate(25);
 
         return view('Staff.bans.index', ['bans' => $bans]);
     }

@@ -79,7 +79,7 @@
   </table>
   </div>
 </div>
-{{ $warnings->links() }}
+<center>{{ $warnings->links() }}</center>
 </div>
 </div>
 @endsection

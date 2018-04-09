@@ -27,7 +27,7 @@ class ReportController extends Controller
      */
     public function getReports()
     {
-        $reports = Report::latest()->get();
+        $reports = Report::latest()->paginate(25);
 
         return view('Staff.reports.index', ['reports' => $reports]);
     }
