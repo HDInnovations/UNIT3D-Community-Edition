@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;
+use App\Shoutbox;
 
 use \Toastr;
 
@@ -45,6 +46,12 @@ class PollController extends Controller
     public function show($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
+        $user = auth()->user();
+        $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
+
+        if ($user_has_voted) {
+            return $this->result($slug);
+        }
 
         return view('poll.show', compact('poll'));
     }
@@ -72,6 +79,11 @@ class PollController extends Controller
             ]);
         }
 
+        $slug = $poll->slug;
+        $url = config('app.url');
+        $title = $poll->title;
+        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "An user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
+        cache()->forget("shoutbox_messages");
         Toastr::success('Your vote has been counted.', 'Yay!', ['options']);
 
         return redirect('poll/' . $poll->slug . '/result');
@@ -80,7 +92,11 @@ class PollController extends Controller
     public function result($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
+        $map = [
+            'poll' => $poll,
+            'total_votes' => $poll->totalVotes()
+        ];
 
-        return view('poll.result', compact('poll'));
+        return view('poll.result', $map);
     }
 }
