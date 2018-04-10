@@ -45,6 +45,12 @@ class PollController extends Controller
     public function show($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
+        $user = auth()->user();
+        $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
+
+        if ($user_has_voted) {
+            return $this->result($slug);
+        }
 
         return view('poll.show', compact('poll'));
     }
