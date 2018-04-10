@@ -12,15 +12,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Poll;
-use App\Option;
-use App\Voter;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;
+use App\Poll;
+use App\Option;
+use App\Voter;
 use App\Shoutbox;
-
 use \Toastr;
 
 class PollController extends Controller
@@ -50,8 +49,7 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']);
-            return $this->result($slug);
+            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']));
         }
 
         return view('poll.show', compact('poll'));
@@ -67,9 +65,7 @@ class PollController extends Controller
         }
 
         if (Voter::where('user_id', $user->id)->where('poll_id', $poll->id)->exists()) {
-            Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']);
-
-            return redirect('poll/' . $poll->slug . '/result');
+            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
         }
 
         if ($poll->ip_checking == 1) {
@@ -83,11 +79,11 @@ class PollController extends Controller
         $slug = $poll->slug;
         $url = config('app.url');
         $title = $poll->title;
+
         Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
         cache()->forget("shoutbox_messages");
-        Toastr::success('Your vote has been counted.', 'Yay!', ['options']);
 
-        return redirect('poll/' . $poll->slug . '/result');
+        return redirect('poll/' . $poll->slug . '/result')->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
     }
 
     public function result($slug)
