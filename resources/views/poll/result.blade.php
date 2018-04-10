@@ -36,6 +36,7 @@
           @foreach ($poll->options as $option)
           @php
             $vote_value = $total_votes !== 0 ? ($option->votes / $total_votes) * 100 : 0;
+            $vote_value = round($vote_value, 2);
           @endphp
           <strong>{{ $option->name }}</strong><span class="pull-right">{{ $option->votes }} {{ trans('poll.votes') }}</span>
           <div class="progress">
