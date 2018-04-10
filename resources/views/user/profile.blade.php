@@ -300,49 +300,49 @@
       <tr>
         <td> {{ trans('user.can-upload') }}</td>
         @if($user->can_upload == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
         <td> {{ trans('user.can-download') }}</td>
         @if($user->can_download == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
         <td> {{ trans('user.can-comment') }}</td>
         @if($user->can_comment == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
         <td> {{ trans('user.can-request') }}</td>
         @if($user->can_request == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
         <td> {{ trans('user.can-chat') }}</td>
         @if($user->can_chat == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
         <td> {{ trans('user.can-invite') }}</td>
         @if($user->can_invite == 1)
-        <td><span class="text-success text-bold"> {{ strtoupper(trans('common.yes')) }}</span></td>
+        <td><i class="fa fa-check text-green"></i></td>
         @else
-        <td><span class="text-danger text-bold"> {{ strtoupper(trans('common.no')) }}</span></td>
+        <td><i class="fa fa-times text-red"></i></td>
         @endif
       </tr>
       <tr>
