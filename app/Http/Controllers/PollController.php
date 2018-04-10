@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;
+use App\Shoutbox;
 
 use \Toastr;
 
@@ -78,6 +79,11 @@ class PollController extends Controller
             ]);
         }
 
+        $slug = $poll->slug;
+        $url = config('app.url');
+        $title = $poll->title;
+        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "An user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
+        cache()->forget("shoutbox_messages");
         Toastr::success('Your vote has been counted.', 'Yay!', ['options']);
 
         return redirect('poll/' . $poll->slug . '/result');
