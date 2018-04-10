@@ -50,6 +50,7 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
+            Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']);
             return $this->result($slug);
         }
 
@@ -82,7 +83,7 @@ class PollController extends Controller
         $slug = $poll->slug;
         $url = config('app.url');
         $title = $poll->title;
-        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "An user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
+        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
         cache()->forget("shoutbox_messages");
         Toastr::success('Your vote has been counted.', 'Yay!', ['options']);
 
