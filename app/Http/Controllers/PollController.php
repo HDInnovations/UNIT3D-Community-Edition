@@ -80,7 +80,11 @@ class PollController extends Controller
     public function result($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
+        $map = [
+            'poll' => $poll,
+            'total_votes' => $poll->totalVotes()
+        ];
 
-        return view('poll.result', compact('poll'));
+        return view('poll.result', $map);
     }
 }

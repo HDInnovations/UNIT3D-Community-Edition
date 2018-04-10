@@ -76,4 +76,13 @@ class Poll extends Model
         $count = $this->where('slug', 'LIKE', "%$slug%")->count();
         return $count ? "{$slug}-{$count}" : $slug;
     }
+
+    public function totalVotes()
+    {
+        $result = 0;
+        foreach ($this->options as $option) {
+            $result += $option->votes;
+        }
+        return $result;
+    }
 }
