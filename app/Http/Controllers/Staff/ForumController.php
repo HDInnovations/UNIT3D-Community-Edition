@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use App\Forum;
 use App\Group;
 use App\Permission;
+use \Toastr;
 
 class ForumController extends Controller
 {
