@@ -24,11 +24,13 @@
 @section('content')
 <div class="container box">
 		<h2>Forums</h2>
-		<a href="{{ route('staff_forum_add') }}" class="btn btn-primary">Add new forum</a>
+		<a href="{{ route('staff_forum_add') }}" class="btn btn-primary">Add New Category/Forum</a>
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
 					<th>Name</th>
+					<th>Type</th>
+					<th>Position</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -36,11 +38,15 @@
 				@foreach($categories as $c)
 					<tr class="success">
 						<td><a href="{{ route('staff_forum_edit', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></td>
+						<td>Category</td>
+						<td>{{ $c->position }}</td>
 						<td><a href="{{ route('staff_forum_delete', ['slug' => $c->slug, 'id' => $c->id]) }}" class="btn btn-danger">Delete</a></td>
 					</tr>
 					@foreach($c->getForumsInCategory() as $f)
 						<tr>
 							<td><a href="{{ route('staff_forum_edit', array('slug' => $f->slug, 'id' => $f->id)) }}">---- {{ $f->name }}</a></td>
+							<td>Forum</td>
+							<td>{{ $f->position }}</td>
 							<td><a href="{{ route('staff_forum_delete', ['slug' => $f->slug, 'id' => $f->id]) }}" class="btn btn-danger">Delete</a></td>
 						</tr>
 					@endforeach

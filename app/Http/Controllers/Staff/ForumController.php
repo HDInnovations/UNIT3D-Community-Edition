@@ -64,15 +64,11 @@ class ForumController extends Controller
                     $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
                     $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
                     $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                    $perm->upload = (isset($request->input('permissions')[$group->id]['upload'])) ? true : false;
-                    $perm->download = (isset($request->input('permissions')[$group->id]['download'])) ? true : false;
                 } else {
                     $perm->show_forum = false;
                     $perm->read_topic = false;
                     $perm->reply_topic = false;
                     $perm->start_topic = false;
-                    $perm->upload = false;
-                    $perm->download = false;
                 }
                 $perm->save();
             }
@@ -114,15 +110,11 @@ class ForumController extends Controller
                     $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
                     $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
                     $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                    $perm->upload = (isset($request->input('permissions')[$group->id]['upload'])) ? true : false;
-                    $perm->download = (isset($request->input('permissions')[$group->id]['download'])) ? true : false;
                 } else {
                     $perm->show_forum = false;
                     $perm->read_topic = false;
                     $perm->reply_topic = false;
                     $perm->start_topic = false;
-                    $perm->upload = false;
-                    $perm->download = false;
                 }
                 $perm->save();
             }

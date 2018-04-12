@@ -31,8 +31,6 @@ class CreatePermissionsTable extends Migration
             $table->boolean('read_topic');
             $table->boolean('reply_topic');
             $table->boolean('start_topic');
-            $table->boolean('upload');
-            $table->boolean('download');
         });
     }
 
