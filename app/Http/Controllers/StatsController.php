@@ -17,9 +17,10 @@ use App\User;
 use App\Torrent;
 use App\Peer;
 use App\History;
+use App\Category;
+use App\Group;
 use App\BonTransactions;
 use App\TorrentRequest;
-use App\Group;
 use Carbon\Carbon;
 
 class StatsController extends Controller
@@ -44,17 +45,11 @@ class StatsController extends Controller
         $num_torrent = cache()->remember('num_torrent', 60, function () {
             return Torrent::all()->count();
         });
-        // Total Movies Count
-        $num_movies = cache()->remember('num_movies', 60, function () {
-            return Torrent::where('category_id', 1)->count();
-        });
-        // Total HDTV Count
-        $num_hdtv = cache()->remember('num_hdtv', 60, function () {
-            return Torrent::where('category_id', 2)->count();
-        });
-        // Total FANRES Count
-        $num_fan = cache()->remember('num_fan', 60, function () {
-            return Torrent::where('category_id', 3)->count();
+        // Total Categories With Torrent Count
+        $categories = Category::select('name', 'position', 'num_torrent')->oldest('position')->get();
+        // Total HD Count
+        $num_hd = cache()->remember('num_hd', 60, function () {
+            return Torrent::where('sd', 0)->count();
         });
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
@@ -91,7 +86,7 @@ class StatsController extends Controller
         $actual_up_down = $actual_upload + $actual_download;     //Total Up/Down Traffic without perks
         $credited_up_down = $credited_upload + $credited_download;     //Total Up/Down Traffic with perks
 
-        return view('stats.index', ['num_user' => $num_user, 'num_torrent' => $num_torrent, 'num_movies' => $num_movies, 'num_hdtv' => $num_hdtv, 'num_sd' => $num_sd, 'num_fan' => $num_fan,
+        return view('stats.index', ['num_user' => $num_user, 'num_torrent' => $num_torrent, 'categories' => $categories, 'num_hd' => $num_hd, 'num_sd' => $num_sd,
             'num_seeders' => $num_seeders, 'num_leechers' => $num_leechers, 'num_peers' => $num_peers,
             'actual_upload' => $actual_upload, 'actual_download' => $actual_download, 'actual_up_down' => $actual_up_down,
             'credited_upload' => $credited_upload, 'credited_download' => $credited_download, 'credited_up_down' => $credited_up_down,

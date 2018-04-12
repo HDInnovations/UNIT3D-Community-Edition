@@ -26,29 +26,26 @@
         <p>{{ trans('stat.nerd-stats-desc') }}. <b>(Updated Every 60 Minutes!)</b></p>
 
         <div class="inner_stats">
+        @foreach($categories as $category)
           <div class="stat">
-            <p>{{ $num_movies }}</p>
-            <span class="badge-extra">Movie {{ trans('torrent.category') }}</span>
+            <p>{{ $category->num_torrent }}</p>
+            <span class="badge-extra">{{ $category->name }} {{ trans('torrent.category') }}</span>
           </div>
-
-          <div class="stat">
-            <p>{{ $num_hdtv }}</p>
-            <span class="badge-extra">TV {{ trans('torrent.category') }}</span>
-          </div>
-
-          <div class="stat">
-            <p>{{ $num_fan }}</p>
-            <span class="badge-extra">FANRES {{ trans('torrent.category') }}</span>
-          </div>
-
-          <div class="stat">
-            <p>{{ $num_sd }}</p>
-            <span class="badge-extra">SD {{ trans('torrent.category') }}</span>
-          </div>
+        @endforeach
 
           <div class="stat">
             <p>{{ $num_torrent }}</p>
             <span class="badge-extra">{{ trans('stat.total-torrents') }}</span>
+          </div>
+
+          <div class="stat">
+            <p>{{ $num_hd }}</p>
+            <span class="badge-extra">HD {{ trans('torrent.torrents') }}</span>
+          </div>
+
+          <div class="stat">
+            <p>{{ $num_sd }}</p>
+            <span class="badge-extra">SD {{ trans('torrent.torrents') }}</span>
           </div>
 
           <br>
