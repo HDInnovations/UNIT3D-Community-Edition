@@ -97,7 +97,7 @@ Prerequisites Example:
     `sudo apt-get update`
 4. Then we'll install the needed software (Basics/Redis/NGINX/PHP):
 
-    #Basics `sudo apt-get install -y git tmux vim curl wget zip unzip htop`
+    #Basics `sudo apt-get install -y git tmux vim curl wget zip unzip htop nano`
 
     #Redis `sudo apt-get install redis-server`
 
