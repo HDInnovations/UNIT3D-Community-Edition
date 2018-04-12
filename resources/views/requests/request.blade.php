@@ -62,58 +62,99 @@
         </div>
       </div>
     </div>
-    @if($torrentRequest->category->meta == 1)
-    <div class="movie-wrapper">
-      <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
-        <div class="tags">
-          {{ $torrentRequest->category->name }}
-        </div>
+@if($torrentRequest->category->meta == 1)
+  <div class="movie-wrapper">
+    <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
+      <div class="tags">
+        {{ $torrentRequest->category->name }}
       </div>
-      <div class="movie-overlay"></div>
-      <div class="container movie-container">
-        <div class="row movie-row ">
-          <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
-            <h1 class="movie-heading">
-              				<span class="text-bold">{{ $movie->title }}</span><span class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
-                        <span class="badge-extra text-bold text-gold">{{ trans('torrent.rating') }}:
-                          <span class="movie-rating-stars">
-                            <i class="fa fa-star"></i>
-                          </span>
-                        {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ strtolower(trans('torrent.votes')) }})
-                       </span>
-              				</h1>
-            <span class="movie-overview">
-                        {{ $movie->plot }}
-              				</span>
-            <ul class="movie-details">
-              <li>
-                @if($movie->genres) @foreach($movie->genres as $genre)
-                <span class="badge-extra text-bold text-green">{{ $genre }}</span> @endforeach @endif
-              </li>
-              <li>
-                <span class="badge-extra text-bold text-orange">{{ trans('torrent.rated') }}: {{ $movie->rated }} </span> <span class="badge-extra text-bold text-orange">{{ trans('torrent.runtime') }}: {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
-              </li>
-              <li>
-                <span class="badge-extra text-bold text-orange">
-                          <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $movie->imdb }}" title="IMDB" target="_blank">IMDB: {{ $movie->imdb }}</a>
-                        </span> @if($torrentRequest->category_id == "2")
-                <span class="badge-extra text-bold text-orange">
-                            <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}" title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
-                          </span> @else
-                <span class="badge-extra text-bold text-orange">
-                            <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}" title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
-                          </span> @endif
-              </li>
-            </ul>
-          </div>
+    </div>
+    <div class="movie-overlay"></div>
+    <div class="container movie-container">
+      <div class="row movie-row ">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
+        	<h1 class="movie-heading">
+        				<span class="text-bold">{{ $movie->title }}</span><span class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
+                  <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
+                    <span class="movie-rating-stars">
+                      <i class="fa fa-star"></i>
+                    </span>
+                  @if($user->ratings == 1)
+                  {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
+                  @else
+                  {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
+                  @endif
+                 </span>
+        				</h1>
+                        <br>
+                        <span class="movie-overview">
+                            {{ $movie->plot }}
+                        </span>
+        				<ul class="movie-details">
+                  <li>
+                    @if($movie->genres)
+                    @foreach($movie->genres as $genre)
+                    <span class="badge-user text-bold text-green">{{ $genre }}</span>
+                    @endforeach
+                    @endif
+                    <span class="badge-user text-bold text-orange">{{ trans('torrent.rated') }}: {{ $movie->rated }} </span> <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}: {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
+                  </li>
+                  <li>
+                  <span class="badge-user text-bold text-orange">
+                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $movie->imdb }}" title="IMDB" target="_blank">IMDB: {{ $movie->imdb }}</a>
+                  </span>
+                    @if($torrentRequest->category_id == "2")
+                    <span class="badge-user text-bold text-orange">
+                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}" title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                    </span>
+                    @else
+                    <span class="badge-user text-bold text-orange">
+                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}" title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                    </span>
+                    @endif
+                    @if($torrentRequest->mal != 0 && $torrentRequest->mal != null)
+                    <span class="badge-user text-bold text-pink">
+                      <a rel="nofollow" href="https://anon.to?https://myanimelist.net/anime/{{ $torrentRequest->mal }}" title="MAL" target="_blank">MAL: {{ $torrentRequest->mal }}</a>
+                    </span>
+                    @endif
+                    @if($torrentRequest->category_id == "2" && $torrentRequest->tvdb != 0 && $torrentRequest->tvdb != null)
+                    <span class="badge-user text-bold text-pink">
+                      <a rel="nofollow" href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrentRequest->tvdb }}" title="TVDB" target="_blank">TVDB: {{ $torrentRequest->tvdb }}</a>
+                    </span>
+                    @endif
+                    @if($movie->videoTrailer != '')
+                        <span onclick="showTrailer()" style="cursor: pointer;" class="badge-user text-bold">
+                            <a class="text-pink" title="View Trailer">{{ trans('torrent.view-trailer') }} <i class="fa fa-external-link"></i></a>
+                        </span>
+                    @endif
+                  </li>
+                  <br>
+                    <li>
+                      <div class="row cast-list">
+                      @if($movie->actors)
+                      @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
+                        @foreach(array_slice($movie->actors, 0,6) as $actor)
+                        @php $person = $client->person($actor->tmdb); @endphp
+                        <div class="col-xs-4 col-md-2 text-center">
+                            <img class="img-circle" style="height:50px; width:50px;" src="{{ $person->photo }}">
+                          <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase" target="_blank">
+                            <span class="badge-user" style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
+                          </a>
+                        </div>
+                        @endforeach
+                        @endif
+                        </div>
+                      </li>
+                </ul>
+      		</div>
 
-          <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-            <img src="{{ $movie->poster }}" class="movie-poster img-responsive hidden-xs">
-          </div>
+      <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
+        <img src="{{ $movie->poster }}" class="movie-poster img-responsive hidden-xs">
         </div>
       </div>
     </div>
-    @endif
+  </div>
+  @endif
     <div class="table-responsive">
       <table class="table table-condensed table-bordered table-striped">
         <tbody>

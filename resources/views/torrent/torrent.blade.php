@@ -53,9 +53,10 @@
                   @endif
                  </span>
         				</h1>
-        				<span class="movie-overview">
-                  {{ $movie->plot }}
-        				</span>
+                        <br>
+                        <span class="movie-overview">
+                            {{ $movie->plot }}
+                        </span>
         				<ul class="movie-details">
                   <li>
                     @if($movie->genres)
@@ -94,6 +95,22 @@
                         </span>
                     @endif
                   </li>
+                      <li>
+                              <div class="row cast-list">
+                              @if($movie->actors)
+                              @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
+                                @foreach(array_slice($movie->actors, 0,6) as $actor)
+                                @php $person = $client->person($actor->tmdb); @endphp
+                                  <div class="col-xs-4 col-md-2 text-center">
+                                      <img class="img-circle" style="height:50px; width:50px;" src="{{ $person->photo }}">
+                                    <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}" title="TheMovieDatabase" target="_blank">
+                                      <span class="badge-user" style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
+                                    </a>
+                                  </div>
+                                @endforeach
+                                @endif
+                                </div>
+                        </li>
                 </ul>
       		</div>
 
@@ -406,7 +423,7 @@
         <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.view') }} NFO</button>
         <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button" class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('common.comment') }}</a>
+          <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
         @if(auth()->user()->hasBookmarked($torrent->id))

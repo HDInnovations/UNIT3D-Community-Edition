@@ -134,5 +134,6 @@ return [
     'agent' => 'Agent',
     'created_at' => 'Created at',
     'updated_at' => 'Updated at',
-    'completed_at' => 'Completed at'
+    'completed_at' => 'Completed at',
+    'quick-comment' => 'Quick Comment'
 ];

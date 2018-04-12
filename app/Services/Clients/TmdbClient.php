@@ -204,7 +204,7 @@ class TmdbClient extends Client implements MovieTvInterface
             'deathday' => $person['deathday'],
             'placeOfBirth' => $person['place_of_birth'],
             'biography' => $person['biography'],
-            'photo' => !empty($person['profile_path']) ? $this->imageProfilePath . $person['profile_path'] : null,
+            'photo' => !empty($person['profile_path']) ? $this->imageProfilePath . $person['profile_path'] : 'https://via.placeholder.com/100x100',
             'photos' => !empty($person['images']['profiles']) ? $this->formatImages(
                 $person['images']['profiles'],
                 $this->imageProfilePath,
