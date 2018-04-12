@@ -45,7 +45,7 @@ class RegisterController extends Controller
 
         if ($request->isMethod('post')) {
             $key = Invite::where('code', '=', $code)->first();
-            if (config('other.invite-only') == true && !$key) {
+            if (config('other.invite-only') && (!$key || $key->accepted_by !== null)) {
                 return view('auth.register', ['code' => $code])->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
             }
 
