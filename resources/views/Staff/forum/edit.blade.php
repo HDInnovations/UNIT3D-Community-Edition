@@ -66,8 +66,6 @@
 						<th>Read topics</th>
 						<th>Start new topic</th>
 						<th>Reply to topics</th>
-						<th>Upload</th>
-						<th>Download</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -100,20 +98,6 @@
 									<input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
 								@else
 									<input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">
-								@endif
-							</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->upload == true)
-									<input type="checkbox" checked checked name="permissions[{{ $g->id }}][upload]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][upload]" value="1">
-								@endif
-							</td>
-							<td>
-								@if($g->getPermissionsByForum($forum)->download == true)
-									<input type="checkbox" checked checked name="permissions[{{ $g->id }}][download]" value="1">
-								@else
-									<input type="checkbox" name="permissions[{{ $g->id }}][download]" value="1">
 								@endif
 							</td>
 						</tr>
