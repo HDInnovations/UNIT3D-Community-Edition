@@ -118,7 +118,7 @@ class UserController extends Controller
             $user->save();
 
             // Activity Log
-            \LogActivity::addToLog("Member " . $user->username . " has updated there profile.");
+            \LogActivity::addToLog("Member {$user->username} has updated there profile.");
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
@@ -178,7 +178,7 @@ class UserController extends Controller
             $user->save();
 
             // Activity Log
-            \LogActivity::addToLog("Member " . $user->username . " has changed there account settings.");
+            \LogActivity::addToLog("Member {$user->username} has changed there account settings.");
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         } else {
@@ -205,6 +205,10 @@ class UserController extends Controller
             $user->fill([
                 'password' => Hash::make($request->new_password)
             ])->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has changed there account password.");
+
             return redirect('/')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
@@ -233,7 +237,7 @@ class UserController extends Controller
                 $user->save();
 
                 // Activity Log
-                \LogActivity::addToLog("Member " . $user->username . " has changed there email address on file.");
+                \LogActivity::addToLog("Member {$user->username} has changed there email address on file.");
 
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
             } else {
@@ -254,6 +258,10 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             $user->passkey = md5(uniqid() . time() . microtime());
             $user->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has changed there account PID.");
+
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
@@ -294,6 +302,10 @@ class UserController extends Controller
                 $cli->name = $request->input('client_name');
                 $cli->ip = $request->input('ip');
                 $cli->save();
+
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has added a new seedbox to there account.");
+
                 return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Added!', 'Yay', ['options']));
             } else {
                 return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Password Invalid!', 'Whoops!', ['options']));
@@ -314,6 +326,10 @@ class UserController extends Controller
         if ($v->passes()) {
             $cli = Client::where('id', $request->input('cliid'));
             $cli->delete();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has removed a seedbox from there account.");
+
             return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Client Has Been Removed!', 'Yay!', ['options']));
         } else {
             return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Unable to remove this client.', 'Whoops!', ['options']));
@@ -341,7 +357,12 @@ class UserController extends Controller
             $warning->expires_on = Carbon::now();
             $warning->active = 0;
             $warning->save();
+
+            // Send Private Message
             PrivateMessage::create(['sender_id' => $staff->id, 'reciever_id' => $warning->user_id, 'subject' => "Hit and Run Warning Deactivated", 'message' => $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");
 
             return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
         } else {

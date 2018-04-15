@@ -273,9 +273,13 @@ class RequestController extends Controller
                 $user->seedbonus -= $request->input('bounty');
                 $user->save();
 
+                // Announce To Chat
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
+
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
                 return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
             } else {
@@ -323,6 +327,14 @@ class RequestController extends Controller
                 $torrentRequest->type = $type;
                 $torrentRequest->description = $description;
                 $torrentRequest->save();
+
+                if ($user->group->is_modo) {
+                    // Activity Log
+                    \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+                } else {
+                    // Activity Log
+                    \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+                }
 
                 return redirect()->route('requests', ['id' => $torrentRequest->id])->with(Toastr::success('Request Edited Successfuly.', 'Yay!', ['options']));
             } else {
@@ -377,10 +389,16 @@ class RequestController extends Controller
                 $user->seedbonus -= $request->input('bonus_value');
                 $user->save();
 
+                // Announce To Chat
                 $appurl = config('app.url');
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
                 cache()->forget('shoutbox_messages');
+
+                // Send Private Message
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
                 return redirect()->route('request', ['id' => $request->input('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Yay!', ['options']));
             } else {
@@ -450,8 +468,12 @@ class RequestController extends Controller
 
         $torrentRequest->save();
 
+        // Send Private Message
         $appurl = config('app.url');
         PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has Been Filled!", 'message' => $torrentRequest->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
+
+        // Activity Log
+        \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
     }
 
     /**
@@ -494,10 +516,17 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
+            // Announce To Chat
             $appurl = config('app.url');
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
             cache()->forget('shoutbox_messages');
+
+            // Send Private Message
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Approved!", 'message' => $torrentRequest->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] Enjoy The " . $torrentRequest->bounty . " Bonus Points!"]);
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+
             return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$torrentRequest->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Whoops!', ['options']));
@@ -516,12 +545,15 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         if ($user->id == $torrentRequest->user_id) {
+            // Send Private Message
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Declined!", 'message' => $user->username . " Has Declined Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] It did not meet the requirements!"]);
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has declined {$torrentRequest->filled_by} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             $torrentRequest->filled_by = null;
             $torrentRequest->filled_when = null;
             $torrentRequest->filled_hash = null;
-
             $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])->with(Toastr::success("This request has been reset.", 'Yay!', ['options']));
@@ -543,6 +575,9 @@ class RequestController extends Controller
         if ($user->group->is_modo || $torrentRequest->user_id == $user->id) {
             $name = $torrentRequest->name;
             $torrentRequest->delete();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has deleted torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('requests')->with(Toastr::success("You have deleted {$name}", 'Yay!', ['options']));
         } else {
@@ -571,6 +606,9 @@ class RequestController extends Controller
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
 
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+
             return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Claimed", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])->with(Toastr::error("Someone else has already claimed this request buddy.", 'Whoops!', ['options']));
@@ -595,6 +633,9 @@ class RequestController extends Controller
 
                 $torrentRequest->claimed = null;
                 $torrentRequest->save();
+
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
                 return redirect()->route('request', ['id' => $id])->with(Toastr::success("Request Successfuly Un-Claimed", 'Yay!', ['options']));
             } else {

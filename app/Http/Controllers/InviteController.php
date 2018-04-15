@@ -71,6 +71,9 @@ class InviteController extends Controller
             $user->invites -= 1;
             $user->save();
 
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
+
             return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         } else {
             return redirect()->route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));

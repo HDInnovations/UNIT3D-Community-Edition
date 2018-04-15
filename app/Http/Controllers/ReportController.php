@@ -43,6 +43,9 @@ class ReportController extends Controller
         $report->solved = 0;
         $report->save();
 
+        // Activity Log
+        \LogActivity::addToLog("Member {$user->username} has made a new {$report->type} report.");
+
         return redirect()->route('home')->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
     }
 }
