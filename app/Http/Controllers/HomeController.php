@@ -39,11 +39,11 @@ class HomeController extends Controller
         $articles = Article::latest()->take(1)->get();      // Fetch latest articles
 
         // Latest Torrents Block
-        $torrents = Torrent::where('sd', 0)->latest()->take(5)->get();     // Fetch latest torrents
-        $best = Torrent::where('sd', 0)->latest('seeders')->take(5)->get();              // Fetch Top Seeded Torrents
-        $leeched = Torrent::where('sd', 0)->latest('leechers')->take(5)->get();      // Fetch Top Leeched Torrents
-        $dying = Torrent::where('sd', 0)->where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();     // Fetch Top Dying Torrents
-        $dead = Torrent::where('sd', 0)->where('seeders', 0)->latest('leechers')->take(5)->get();     // Fetch Top Dead Torrents
+        $torrents = Torrent::latest()->take(5)->get();     // Fetch latest torrents
+        $best = Torrent::latest('seeders')->take(5)->get();              // Fetch Top Seeded Torrents
+        $leeched = Torrent::latest('leechers')->take(5)->get();      // Fetch Top Leeched Torrents
+        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();     // Fetch Top Dying Torrents
+        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(5)->get();     // Fetch Top Dead Torrents
 
         // Latest Topics Block
         $topics = Topic::latest()->take(5)->get();     // Fetch latest topics
