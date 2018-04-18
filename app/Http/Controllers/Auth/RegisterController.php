@@ -21,7 +21,6 @@ use App\Http\Requests\ValidateSecretRequest;
 use App\Jobs\SendActivationMail;
 use App\UserActivation;
 use App\User;
-use App\Mail\WelcomeUser;
 use App\Shoutbox;
 use App\PrivateMessage;
 use App\Group;
