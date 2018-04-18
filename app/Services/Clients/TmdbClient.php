@@ -124,7 +124,7 @@ class TmdbClient extends Client implements MovieTvInterface
             'plot' => $movie['overview'],
             'aka' => $this->formatAlternativeTitles($movie),
             'countries' => $this->formatCountries($movie['production_countries']),
-            'language' => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : null,
+            'language' => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
             'languages' => $this->formatLanguages($movie['spoken_languages']),
             'genres' => $this->formatGenres($movie['genres']),
             'videoTrailer' => $this->formatVideoTrailers($movie),
@@ -133,18 +133,18 @@ class TmdbClient extends Client implements MovieTvInterface
             'directors' => $this->formatCasts($movie['credits'], 'directors'),
             'writers' => $this->formatCasts($movie['credits'], 'writers'),
             'producers' => $this->formatCasts($movie['credits'], 'producers'),
-            'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : null,
+            'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : 'https://via.placeholder.com/600x900',
             'posters' => !empty($movie['images']['posters']) ? $this->formatImages(
                 $movie['images']['posters'],
                 $this->imagePath,
                 $movie['poster_path']
-            ) : null,
-            'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : null,
+            ) : 'https://via.placeholder.com/600x900',
+            'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
             'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                 $movie['images']['backdrops'],
                 $this->imageBackdropPath,
                 $movie['backdrop_path']
-            ) : null,
+            ) : 'https://via.placeholder.com/1400x800',
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes' => $movie['vote_count'],
         ]);
@@ -154,8 +154,8 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         return new Tv([
             'tmdb' => $movie['id'],
-            'imdb' => !empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : null,
-            'tvdb' => !empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : null,
+            'imdb' => !empty($movie['external_ids']['imdb_id']) ? $movie['external_ids']['imdb_id'] : 'Not Defined',
+            'tvdb' => !empty($movie['external_ids']['tvdb_id']) ? $movie['external_ids']['tvdb_id'] : 'Not Defined',
             'title' => $movie['name'],
             'releaseDate' => $movie['first_air_date'],
             'endDate' => ($movie['status'] == 'Ended') ? $movie['last_air_date'] : null,
@@ -167,22 +167,22 @@ class TmdbClient extends Client implements MovieTvInterface
             'creators' => $this->formatCasts($movie['created_by'], 'creators'),
             'aka' => $this->formatAlternativeTitles($movie),
             'countries' => $this->formatCountries($movie['origin_country'], 'tv'),
-            'language' => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : null,
+            'language' => !empty($movie['original_language']) ? ['code' => $movie['original_language'], 'language' => null] : 'Not Defined',
             'languages' => $this->formatLanguages($movie['languages'], 'tv'),
             'genres' => $this->formatGenres($movie['genres']),
             'videoTrailer' => $this->formatVideoTrailers($movie),
-            'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : null,
+            'poster' => !empty($movie['poster_path']) ? $this->imagePath . $movie['poster_path'] : 'https://via.placeholder.com/600x900',
             'posters' => !empty($movie['images']['posters']) ? $this->formatImages(
                 $movie['images']['posters'],
                 $this->imagePath,
                 $movie['poster_path']
-            ) : null,
-            'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : null,
+            ) : 'https://via.placeholder.com/600x900',
+            'backdrop' => !empty($movie['backdrop_path']) ? $this->imageBackdropPath . $movie['backdrop_path'] : 'https://via.placeholder.com/1400x800',
             'backdrops' => !empty($movie['images']['backdrops']) ? $this->formatImages(
                 $movie['images']['backdrops'],
                 $this->imageBackdropPath,
                 $movie['backdrop_path']
-            ) : null,
+            ) : 'https://via.placeholder.com/1400x800',
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes' => $movie['vote_count'],
         ]);
