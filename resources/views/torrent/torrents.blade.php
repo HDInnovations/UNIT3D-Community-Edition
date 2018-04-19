@@ -144,8 +144,9 @@
 </div>
 <div style="float:right;">
   <strong>View:</strong>
-  <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Lists</a>
-  <a href="{{ route('poster') }}" class="btn btn-xs btn-primary"><i class="fa fa-image"></i> Posters</a>
+  <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> List</a>
+  <a href="{{ route('poster') }}" class="btn btn-xs btn-primary"><i class="fa fa-image"></i> Poster</a>
+  <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Group</a>
 </div>
 </div>
 <!-- /Search -->

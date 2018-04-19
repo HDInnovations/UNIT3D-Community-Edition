@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \DB;
 use App\Bookmark;
 use App\Category;
 use App\Client;
@@ -859,6 +860,59 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrents = Torrent::latest()->paginate(32);
         return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
+    }
+
+    /**
+    * Torrent Grouping Categories
+    *
+    * @access public
+    *
+    */
+    public function groupingCategories()
+    {
+        $user = auth()->user();
+        $categories = Category::where('meta', 1)->get()->sortBy('position');
+
+        return view('torrent.grouping_categories', ['user' => $user, 'categories' => $categories]);
+    }
+
+    /**
+    * Torrent Grouping
+    *
+    * @access public
+    *
+    */
+    public function groupingLayout($category_id)
+    {
+        $user = auth()->user();
+        $category = Category::where('id', $category_id)->first();
+
+        $torrents = DB::table('torrents')
+            ->select('*')
+            ->join(DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
+                function($join)
+                {
+                    $join->on('torrents.id', '=', 'unique_torrents.id');
+                })
+            ->orderBy('torrents.created_at', 'DESC')
+            ->paginate(25);
+
+        return view('torrent.grouping', ['user' => $user, 'torrents' => $torrents, 'category' => $category]);
+    }
+
+    /**
+    * Torrent Grouping Results
+    *
+    * @access public
+    *
+    */
+    public function groupingResults($category_id, $imdb)
+    {
+        $user = auth()->user();
+        $category = Category::where('id', $category_id)->first();
+        $torrents = Torrent::where('category_id', $category_id)->where('imdb', $imdb)->latest()->get();
+
+        return view('torrent.grouping_results', ['user' => $user, 'torrents' => $torrents, 'imdb' => $imdb, 'category' => $category]);
     }
 
     /**
