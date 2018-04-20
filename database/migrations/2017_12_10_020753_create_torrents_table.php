@@ -25,8 +25,8 @@ class CreateTorrentsTable extends Migration
     {
         Schema::create('torrents', function (Blueprint $table) {
             $table->bigInteger('id', true)->unsigned();
-            $table->string('name')->nullable()->index('name');
-            $table->string('slug')->nullable();
+            $table->string('name')->index('name');
+            $table->string('slug');
             $table->text('description');
             $table->text('mediainfo')->nullable();
             $table->string('info_hash')->index('info_hash');
@@ -37,15 +37,14 @@ class CreateTorrentsTable extends Migration
             $table->integer('leechers')->default(0);
             $table->integer('seeders')->default(0);
             $table->integer('times_completed')->default(0);
-            $table->timestamps();
             $table->integer('category_id')->nullable()->index('fk_table1_categories1_idx');
             $table->string('announce');
             $table->integer('user_id')->index('fk_torrents_users1_idx');
-            $table->string('imdb')->nullable()->index('imdb');
-            $table->string('tvdb')->nullable()->index('tvdb');
-            $table->string('tmdb')->nullable()->index('tmdb');
-            $table->string('mal')->nullable()->index('mal');
-            $table->string('type')->nullable()->index('type');
+            $table->string('imdb')->default(0)->index('imdb');
+            $table->string('tvdb')->default(0)->index('tvdb');
+            $table->string('tmdb')->default(0)->index('tmdb');
+            $table->string('mal')->default(0)->index('mal');
+            $table->string('type')->index('type');
             $table->boolean('stream')->default(0);
             $table->boolean('free')->default(0);
             $table->boolean('doubleup')->default(0);
@@ -57,6 +56,7 @@ class CreateTorrentsTable extends Migration
             $table->smallInteger('anon')->default(0);
             $table->smallInteger('sticky')->default(0);
             $table->boolean('sd')->default(0);
+            $table->timestamps();
         });
     }
 
