@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\ircBroadcast::class,
         \App\Console\Commands\ircMessage::class,
         \App\Console\Commands\recycleInvites::class,
+        \App\Console\Commands\demoSeed::class,
     ];
 
     /**
