@@ -24,7 +24,7 @@ class AddIsInternalToGroupsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->boolean("is_internal")->after("effect");
+            $table->boolean("is_internal")->after("effect")->default(0);
         });
     }
 
