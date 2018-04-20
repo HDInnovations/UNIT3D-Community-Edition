@@ -74,20 +74,22 @@
   </div>
 </div>
 <div class="container">
+<div class="block">
   <div class="row">
     <h2>List of Catalogs:</h2>
     <hr>
-    <ul class="list-group col-md-8 col-md-offset-2">
+    <ul class="list-group col-md-8 col-md-offset-2 well">
       @if(count($catalogs) == 0)
       <p>The are no catalogs in database</p>
       @else
       @foreach($catalogs as $catalog)
       <li class="catalog-list list-group-item"><a href="{{route('getCatalogRecords',['catalog_id'=>$catalog->id])}}" title="Catalog Records">{{$catalog->name}}</a>
-        <span class="text-green" style="float:right;"><i class="fa fa-lg fa-list list-icons" aria-hidden="true"></i> {{ $catalog->num_torrent }} Titles</span>
+        <span class="text-green" style="float:right;"> {{ $catalog->num_torrent }} Titles</span>
       </li>
       @endforeach
       @endif
     </ul>
   </div>
+</div>
 </div>
 @endsection
