@@ -84,7 +84,7 @@ return [
     'not-authorized' => 'You are not authorized to view this page. This member prefers to be hidden like a ninja!',
     'recent-achievements' => 'Recent Achievements',
     'followers' => 'Followers',
-    'offline' => 'User Is Online!',
+    'offline' => 'User Is Offline!',
     'online' => 'User Is Online!',
     'active-warning' => 'Active Warning',
     'staff-noted' => 'Staff Noted Account',
