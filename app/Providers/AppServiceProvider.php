@@ -12,6 +12,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\WishInterface;
+use App\Repositories\WishRepository;
+use App\Services\Clients\OmdbClient;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -38,5 +41,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // we can now inject this class and it will auto resolve for us
+        $this->app->bind(OmdbClient::class, function ($app) {
+            $key = env('OMDB_API_KEY', config('api-keys.omdb'));
+            return new OmdbClient($key);
+        });
+
+        // registering a interface to a concrete class, so we can inject the interface
+        $this->app->bind(WishInterface::class, WishRepository::class);
     }
 }

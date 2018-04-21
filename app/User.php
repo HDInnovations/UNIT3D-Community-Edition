@@ -529,4 +529,14 @@ class User extends Authenticatable
         return History::where('user_id', '=', $this->id)
             ->sum('seedtime');
     }
+
+    /**
+     * Gets the users wishes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function wishes()
+    {
+        return $this->hasMany(Wish::class);
+    }
 }
