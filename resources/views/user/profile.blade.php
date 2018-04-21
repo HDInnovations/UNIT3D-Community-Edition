@@ -373,6 +373,9 @@
     <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}">
       <button class="btn btn-primary"><span class="fa fa-server"></span> {{ trans('user.my-seedboxes') }}</button>
     </a>
+    <a href="{{ route('wishlist', ['uid' => $user->id]) }}">
+      <button class="btn btn-primary"><span class="fa fa-list"></span> {{ trans('user.my-wishlist') }}</button>
+    </a>
   </center>
 </div>
 @endif

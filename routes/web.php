@@ -218,6 +218,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
 
+        // User Wishlist
+        Route::get('/wishlist/{uid}', 'WishController@index')->name('wishlist');
+        Route::post('/wish/{uid}', 'WishController@store')->name('wish-store');
+        Route::get('/wish/{uid}/delete/{id}', 'WishController@destroy')->name('wish-delete');
+
         // Follow System
         Route::any('/follow/{user}', 'FollowController@follow')->name('follow');
         Route::any('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');

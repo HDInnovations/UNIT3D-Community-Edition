@@ -31,6 +31,7 @@ return [
     'moderated-by' => 'Moderated by :mod on',
     
     'my-seedboxes' => 'My Seedboxes',
+    'my-wishlist' => 'My Wishlist',
     'add-seedbox' => 'Add Seedbox',
     'current-password' => 'Current password',
     'client-ip-address' => 'Client IP Address',
