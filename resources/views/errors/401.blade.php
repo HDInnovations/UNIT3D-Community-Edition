@@ -34,7 +34,9 @@
 
 <body>
   <section class="container content" id="content-area" style="min-height: 344px;">
-   <h2>{{ $exception->getMessage() }}</h2>
+    @if(auth()->user()->group->is_modo)
+    <h2>{{ $exception->getMessage() }}</h2>
+    @endif
     <div class="jumbotron shadowed">
       <div class="container">
         <h1 class="mt-5 text-center">
