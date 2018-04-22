@@ -17,14 +17,11 @@
     <div class="container">
 
         <div class="block">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h1 class="text-blue">Wishes</h1>
+            <div class="header gradient pink">
+                <div class="inner_content">
+                    <h1>Wishes</h1>
                 </div>
             </div>
-        </div>
-
-        <div class="block">
             <div class="row mb-20">
                 <div class="col-md-12">
                     <form action="{{ route('wish-store', ['uid' => auth()->user()->id]) }}"
