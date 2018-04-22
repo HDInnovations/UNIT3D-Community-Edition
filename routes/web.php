@@ -91,7 +91,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/torrents/unbookmark/{id}', 'BookmarkController@unBookmark')->name('unbookmark');
 
         // User/Torrent Report
-        Route::any('/report', 'ReportController@postReport')->name('postReport');
+        Route::post('/report', 'ReportController@postReport')->name('postReport');
 
         // Bug Report
         Route::get('/bug', 'BugController@bug')->name('bug');

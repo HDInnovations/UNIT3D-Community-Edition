@@ -27,21 +27,25 @@ class Report extends Model
      * Mass assignment fields
      *
      */
-    protected $fillable = [
-        'type', 'reporter_id', 'staff_id', 'title', 'message', 'solved'
-    ];
+    protected $guarded = ['id'];
 
-    /**
-     * Belongs to User
-     *
-     */
-    public function reportuser()
+    public function torrent()
     {
-        return $this->belongsTo(\App\User::class, "reporter_id");
+        return $this->belongsTo(Torrent::class, 'torrent_id');
     }
 
-    public function staffuser()
+    public function reporter()
     {
-        return $this->belongsTo(\App\User::class, "staff_id");
+        return $this->belongsTo(User::class, 'reporter_id');
+    }
+
+    public function reported()
+    {
+        return $this->belongsTo(User::class, 'reported_user');
+    }
+
+    public function staff()
+    {
+        return $this->belongsTo(User::class, 'staff_id');
     }
 }

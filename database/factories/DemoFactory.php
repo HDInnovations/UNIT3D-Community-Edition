@@ -44,7 +44,7 @@ $factory->define(App\Torrent::class, function (Faker\Generator $faker) {
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'username' => $faker->userName,
+        'username' => $faker->firstName,
         'email' => $faker->safeEmail,
         'password' => bcrypt('secret'),
         'passkey' => str_random(16),

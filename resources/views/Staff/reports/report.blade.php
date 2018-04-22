@@ -38,23 +38,36 @@
     <hr>
     <div class="row">
       <div class="col-sm-12">
+        <h3>Reported User:</h3>
+        <p class="well well-sm">
+          <a href="{{ route('profile', ['username' => $report->reported->username, 'id' => $report->reported->id]) }}">
+            {{ $report->reported->username }}
+          </a>
+        </p>
         <h3>Reported By:</h3>
         <p class="well well-sm">
-          <a href="{{ route('profile', ['username' => $report->reportuser->username, 'id' => $report->reportuser->id]) }}">
-            {{ $report->reportuser->username }}
+          <a href="{{ route('profile', ['username' => $report->reporter->username, 'id' => $report->reporter->id]) }}">
+            {{ $report->reporter->username }}
           </a>
         </p>
 
         <h3>Title:</h3>
         <p class="well well-sm">
-          {{-- <a href="{{ route('torrent', ['slug' => str_slug($torrent->name), 'id' => $torrent->id]) }}"> --}}
+          <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent_id]) }}">
             {{ $report->title }}
-          {{-- </a> --}}
+          </a>
         </p>
 
         <h3>Message:</h3>
         <p class="well well-lg">
           {{ $report->message }}
+        </p>
+
+        <h3>Referenced Links:</h3>
+        <p class="well">
+          @foreach($urls as $url)
+            <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
+          @endforeach
         </p>
       </div>
     </div>
