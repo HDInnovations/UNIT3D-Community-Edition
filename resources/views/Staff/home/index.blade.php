@@ -241,125 +241,125 @@
     <script src="{{ url('js/vendor/flotchart/js/jquery.flot.js') }}" type="text/javascript"></script>
     <script src="{{ url('js/vendor/flotchart/js/jquery.flot.resize.js') }}" type="text/javascript"></script>
     <script>
-      /* realtime chart */
-      var data = [], totalPoints = 300
+        /* realtime chart */
+        var data = [], totalPoints = 300
 
-      function getRandomData () {
-        if (data.length > 0)
-          data = data.slice(1)
+        function getRandomData() {
+            if (data.length > 0)
+                data = data.slice(1)
 
-        // do a random walk
-        while (data.length < totalPoints) {
-          var prev = data.length > 0 ? data[data.length - 1] : 50
-          var y = prev + Math.random() * 10 - 5
-          if (y < 0)
-            y = 0
-          if (y > 100)
-            y = 100
-          data.push(y)
+            // do a random walk
+            while (data.length < totalPoints) {
+                var prev = data.length > 0 ? data[data.length - 1] : 50
+                var y = prev + Math.random() * 10 - 5
+                if (y < 0)
+                    y = 0
+                if (y > 100)
+                    y = 100
+                data.push(y)
+            }
+
+            // zip the generated y values with the x values
+            var res = []
+            for (var i = 0; i < data.length; ++i)
+                res.push([i, data[i]])
+            return res
         }
 
-        // zip the generated y values with the x values
-        var res = []
-        for (var i = 0; i < data.length; ++i)
-          res.push([i, data[i]])
-        return res
-      }
+        // setup control widget
+        var updateInterval = 30
+        $('#updateInterval').val(updateInterval).change(function () {
+            var v = $(this).val()
+            if (v && !isNaN(+v)) {
+                updateInterval = +v
+                if (updateInterval < 1)
+                    updateInterval = 1
+                if (updateInterval > 2000)
+                    updateInterval = 2000
+                $(this).val('' + updateInterval)
+            }
+        })
 
-      // setup control widget
-      var updateInterval = 30
-      $('#updateInterval').val(updateInterval).change(function () {
-        var v = $(this).val()
-        if (v && !isNaN(+v)) {
-          updateInterval = +v
-          if (updateInterval < 1)
-            updateInterval = 1
-          if (updateInterval > 2000)
-            updateInterval = 2000
-          $(this).val('' + updateInterval)
+        if ($('#realtimechart').length) {
+            var options = {
+                series: {shadowSize: 1},
+                lines: {fill: true, fillColor: {colors: [{opacity: 1}, {opacity: 0.1}]}},
+                yaxis: {min: 0, max: 100},
+                xaxis: {show: false},
+                colors: ['rgba(65,139,202,0.5)'],
+                grid: {
+                    tickColor: '#dddddd',
+                    borderWidth: 0
+                }
+            }
+            var plot = $.plot($('#realtimechart'), [getRandomData()], options)
+
+            function update() {
+                plot.setData([getRandomData()])
+                // since the axes don't change, we don't need to call plot.setupGrid()
+                plot.draw()
+
+                setTimeout(update, updateInterval)
+            }
+
+            update()
         }
-      })
-
-      if ($('#realtimechart').length) {
-        var options = {
-          series: {shadowSize: 1},
-          lines: {fill: true, fillColor: {colors: [{opacity: 1}, {opacity: 0.1}]}},
-          yaxis: {min: 0, max: 100},
-          xaxis: {show: false},
-          colors: ['rgba(65,139,202,0.5)'],
-          grid: {
-            tickColor: '#dddddd',
-            borderWidth: 0
-          }
-        }
-        var plot = $.plot($('#realtimechart'), [getRandomData()], options)
-
-        function update () {
-          plot.setData([getRandomData()])
-          // since the axes don't change, we don't need to call plot.setupGrid()
-          plot.draw()
-
-          setTimeout(update, updateInterval)
-        }
-
-        update()
-      }
     </script>
 
     <script type="text/javascript" src="{{ url('js/vendor/countUp.js') }}"></script>
     <script>
-      var useOnComplete = false,
-        useEasing = false,
-        useGrouping = false,
-        options = {
-          useEasing: useEasing, // toggle easing
-          useGrouping: useGrouping, // 1,000,000 vs 1000000
-          separator: ',', // character to use as a separator
-          decimal: '.' // character to use as a decimal
-        }
+        var useOnComplete = false,
+            useEasing = false,
+            useGrouping = false,
+            options = {
+                useEasing: useEasing, // toggle easing
+                useGrouping: useGrouping, // 1,000,000 vs 1000000
+                separator: ',', // character to use as a separator
+                decimal: '.' // character to use as a decimal
+            }
 
-      // Torrents
-      var demo = new CountUp('myTargetElement1', 0, {{ $num_torrent }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement1.1', 0, {{ $pending }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement1.2', 0, {{ $rejected }}, 0, 4, options)
-      demo.start()
+        // Torrents
+        var demo = new CountUp('myTargetElement1', 0, {{ $num_torrent }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement1.1', 0, {{ $pending }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement1.2', 0, {{ $rejected }}, 0, 4, options)
+        demo.start()
 
-      // Peers
-      var demo = new CountUp('myTargetElement2', 0, {{ $peers }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement2.1', 0, {{ $seeders }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement2.2', 0, {{ $leechers }}, 0, 4, options)
-      demo.start()
+        // Peers
+        var demo = new CountUp('myTargetElement2', 0, {{ $peers }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement2.1', 0, {{ $seeders }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement2.2', 0, {{ $leechers }}, 0, 4, options)
+        demo.start()
 
-      // Seedboxes
-      var demo = new CountUp('myTargetElement3', 0, {{ $seedboxes }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement3.1', 0, {{ $highspeed_users }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement3.2', 0, {{ $highspeed_torrents }}, 0, 4, options)
-      demo.start()
+        // Seedboxes
+        var demo = new CountUp('myTargetElement3', 0, {{ $seedboxes }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement3.1', 0, {{ $highspeed_users }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement3.2', 0, {{ $highspeed_torrents }}, 0, 4, options)
+        demo.start()
 
-      // Users
-      var demo = new CountUp('myTargetElement4', 0, {{ $num_user }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement4.1', 0, {{ $validating }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement4.2', 0, {{ $banned }}, 0, 4, options)
-      demo.start()
+        // Users
+        var demo = new CountUp('myTargetElement4', 0, {{ $num_user }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement4.1', 0, {{ $validating }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement4.2', 0, {{ $banned }}, 0, 4, options)
+        demo.start()
 
-      // Reports
-      var demo = new CountUp('myTargetElement5', 0, {{ $reports }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement5.1', 0, {{ $solved }}, 0, 4, options)
-      demo.start()
-      var demo = new CountUp('myTargetElement5.2', 0, {{ $unsolved }}, 0, 4, options)
-      demo.start()
+        // Reports
+        var demo = new CountUp('myTargetElement5', 0, {{ $reports }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement5.1', 0, {{ $solved }}, 0, 4, options)
+        demo.start()
+        var demo = new CountUp('myTargetElement5.2', 0, {{ $unsolved }}, 0, 4, options)
+        demo.start()
 
-      // Reports
-      var demo = new CountUp('myTargetElement6', 0, {{ $pollCount }}, 0, 4, options)
-      demo.start()
+        // Reports
+        var demo = new CountUp('myTargetElement6', 0, {{ $pollCount }}, 0, 4, options)
+        demo.start()
     </script>
 @endsection
