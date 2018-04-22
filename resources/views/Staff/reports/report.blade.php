@@ -38,20 +38,24 @@
     <hr>
     <div class="row">
       <div class="col-sm-12">
-        <div class="form-group">
-          <label for="user">Reported By:</label>
-          <input type="text" name="reporter_id" class="form-control" disabled="true" value="{{ $report->reportuser->username }}">
-        </div>
+        <h3>Reported By:</h3>
+        <p class="well well-sm">
+          <a href="{{ route('profile', ['username' => $report->reportuser->username, 'id' => $report->reportuser->id]) }}">
+            {{ $report->reportuser->username }}
+          </a>
+        </p>
 
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input type="text" name="title" class="form-control" disabled="true" value="{{ $report->title }}">
-        </div>
+        <h3>Title:</h3>
+        <p class="well well-sm">
+          {{-- <a href="{{ route('torrent', ['slug' => str_slug($torrent->name), 'id' => $torrent->id]) }}"> --}}
+            {{ $report->title }}
+          {{-- </a> --}}
+        </p>
 
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea name="message" class="form-control" disabled="true">{{ $report->message }}</textarea>
-        </div>
+        <h3>Message:</h3>
+        <p class="well well-lg">
+          {{ $report->message }}
+        </p>
       </div>
     </div>
 
