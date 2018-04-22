@@ -161,8 +161,8 @@ class WishRepository implements WishInterface
      * @param string $type
      * @return array|mixed|null
      */
-    public function omdbRequest($imdb, $type = 'movie')
+    public function omdbRequest($imdb)
     {
-        return $this->client->find(['imdb' => $imdb], $type);
+        return $this->client->find(['imdb' => $imdb]);
     }
 }

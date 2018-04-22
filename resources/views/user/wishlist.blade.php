@@ -37,13 +37,6 @@
                             <input type="text" class="form-control" name="imdb" id="imdb" placeholder="IMDB ID">
                         </div>
 
-                        <div class="form-group">
-                            <select title="Type" class="form-control" name="type" id="type">
-                                <option value="movie" selected>Movie</option>
-                                <option value="series">TV</option>
-                            </select>
-                        </div>
-
                         <button type="submit" class="btn btn-success mt-10">
                             <span class="fa fa-plus"></span> {{ trans('common.add') }}
                         </button>

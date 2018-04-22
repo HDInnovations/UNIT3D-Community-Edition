@@ -61,7 +61,6 @@ class WishController extends Controller
     public function store(Request $request, $uid)
     {
         $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
-        $type = $request->get('type');
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
@@ -69,7 +68,7 @@ class WishController extends Controller
                 ->with($this->toastr->error('Wish already exists!', 'Whoops!', ['options']));
         }
 
-        $omdb = $this->wish->omdbRequest($imdb, $type);
+        $omdb = $this->wish->omdbRequest($imdb);
         if($omdb === null || $omdb === false) {
             return redirect()
                 ->route('wishlist', ['id' => $uid])
@@ -80,7 +79,7 @@ class WishController extends Controller
 
         $this->wish->create([
             'title' => $omdb['Title'] . ' (' . $omdb['Year'] . ')',
-            'type' => $type,
+            'type' => $omdb['Type'],
             'imdb' => $imdb,
             'source' => $source,
             'user_id' => $uid
