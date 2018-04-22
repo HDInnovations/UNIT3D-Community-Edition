@@ -25,6 +25,12 @@ html{height:100% !important;}
   font-size: 100%;
 }
 
+.wbbquote {
+  padding: 15px;
+  border-left: 3px solid #00b6bb;
+  color: #777777;
+}
+
 .wysibb button:focus,.wysibb button:active,#wbbmodal button:focus, #wbbmodal button:active{
     outline: 0;
 }

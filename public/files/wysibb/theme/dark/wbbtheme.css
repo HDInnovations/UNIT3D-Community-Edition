@@ -44,3 +44,9 @@
   overflow:auto;
   color: #111;
 }
+
+.wbbquote {
+    padding: 15px;
+    border-left: 3px solid #85131d;
+    color: #b6d7da;
+}

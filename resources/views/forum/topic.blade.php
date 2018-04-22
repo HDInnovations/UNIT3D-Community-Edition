@@ -220,10 +220,24 @@
 <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
 <script>
 $(document).ready(function() {
- var wbbOpt = {
-
+ let wbbOpt = {
+   allButtons: {
+     quote: {
+       transform: {
+         '<div class="wbbquote"><cite><b>{AUTHOR}</b> wrote:</cite> <br /> <br />{SELTEXT}</div>' :'[quote={AUTHOR}]{SELTEXT}[/quote]'
+       }
+     }
+   }
  }
- $("#topic-response").wysibb(wbbOpt);
+
+ let editor = $("#topic-response").wysibb(wbbOpt);
+
+ $('.profil').on('click', 'button#quote', function () {
+   let author = $(this).closest('.post-info').find('.badge-user').first().text();
+   let text = $(this).closest('.profil').find('.post-content').first().text();
+
+   editor.execCommand('quote', {author: author, seltext: text});
+ });
 });
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
