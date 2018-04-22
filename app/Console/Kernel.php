@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\removePersonalFreeleech::class,
         \App\Console\Commands\removeFeaturedTorrent::class,
         \App\Console\Commands\autoGraveyard::class,
+        \App\Console\Commands\removeSupporters::class,
     ];
 
     /**
@@ -50,6 +51,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('removePersonalFreeleech')->hourly();
         $schedule->command('removeFeaturedTorrent')->hourly();
         $schedule->command('autoGraveyard')->daily();
+        $schedule->command('removeSupporters')->daily();
     }
 
     /**
