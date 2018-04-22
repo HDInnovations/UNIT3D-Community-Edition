@@ -38,7 +38,10 @@ class Invite extends Model
      */
     public function sender()
     {
-        return $this->belongsTo(\App\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
@@ -48,6 +51,9 @@ class Invite extends Model
      */
     public function reciever()
     {
-        return $this->belongsTo(\App\User::class, 'accepted_by');
+        return $this->belongsTo(\App\User::class, 'accepted_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }
