@@ -70,7 +70,10 @@ class TorrentRequest extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
@@ -79,7 +82,10 @@ class TorrentRequest extends Model
      */
     public function approveUser()
     {
-        return $this->belongsTo(\App\User::class, 'approved_by');
+        return $this->belongsTo(\App\User::class, 'approved_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
@@ -88,7 +94,10 @@ class TorrentRequest extends Model
      */
     public function FillUser()
     {
-        return $this->belongsTo(\App\User::class, 'filled_by');
+        return $this->belongsTo(\App\User::class, 'filled_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**

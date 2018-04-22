@@ -42,11 +42,17 @@ class Warning extends Model
 
     public function warneduser()
     {
-        return $this->belongsTo(\App\User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, 'warned_by');
+        return $this->belongsTo(\App\User::class, 'warned_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }

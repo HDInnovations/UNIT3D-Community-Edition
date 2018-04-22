@@ -29,7 +29,10 @@ class PrivateMessage extends Model
      */
     public function sender()
     {
-        return $this->belongsTo(\App\User::class, "sender_id");
+        return $this->belongsTo(\App\User::class, "sender_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
@@ -38,7 +41,10 @@ class PrivateMessage extends Model
      */
     public function receiver()
     {
-        return $this->belongsTo(\App\User::class, "reciever_id");
+        return $this->belongsTo(\App\User::class, "reciever_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**

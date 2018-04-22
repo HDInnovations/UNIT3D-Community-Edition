@@ -55,11 +55,17 @@ class Ban extends Model
 
     public function banneduser()
     {
-        return $this->belongsTo(\App\User::class, "owned_by");
+        return $this->belongsTo(\App\User::class, "owned_by")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, "created_by");
+        return $this->belongsTo(\App\User::class, "created_by")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }

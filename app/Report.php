@@ -36,16 +36,25 @@ class Report extends Model
 
     public function reporter()
     {
-        return $this->belongsTo(User::class, 'reporter_id');
+        return $this->belongsTo(User::class, 'reporter_id')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     public function reported()
     {
-        return $this->belongsTo(User::class, 'reported_user');
+        return $this->belongsTo(User::class, 'reported_user')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     public function staff()
     {
-        return $this->belongsTo(User::class, 'staff_id');
+        return $this->belongsTo(User::class, 'staff_id')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }

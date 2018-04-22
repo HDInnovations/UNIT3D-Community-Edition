@@ -68,7 +68,10 @@ class Torrent extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
@@ -142,7 +145,10 @@ class Torrent extends Model
      */
     public function moderated()
     {
-        return $this->belongsTo(\App\User::class, 'moderated_by');
+        return $this->belongsTo(\App\User::class, 'moderated_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**

@@ -37,11 +37,17 @@ class Note extends Model
      */
     public function noteduser()
     {
-        return $this->belongsTo(\App\User::class, "user_id");
+        return $this->belongsTo(\App\User::class, "user_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, "staff_id");
+        return $this->belongsTo(\App\User::class, "staff_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }
