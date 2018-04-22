@@ -9,7 +9,7 @@
     @section('meta')
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ $exception->getMessage() }}">
+        <meta name="description" content="Error">
         <meta property="og:title" content="{{ config('other.title') }}">
         <meta property="og:type" content="website">
         <meta property="og:image" content="{{ url('/img/rlm.png') }}">
@@ -34,9 +34,6 @@
 
 <body>
 <section class="container content" id="content-area" style="min-height: 344px;">
-    @if(auth()->user()->group->is_modo)
-        <h2>{{ $exception->getMessage() }}</h2>
-    @endif
     <div class="jumbotron shadowed">
         <div class="container">
             <h1 class="mt-5 text-center">
