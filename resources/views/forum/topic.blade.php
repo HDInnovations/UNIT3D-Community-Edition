@@ -67,8 +67,10 @@
             <p class="pre">{{ $p->user->title }}</p>
             <p>{{ trans('user.member-since') }}: {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
             <span class="inline">
-            @if(auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
+            @if($topic->state == 'open')
             <button id="quote" class="btn btn-xs btn-xxs btn-info">{{ trans('forum.quote') }}</button>
+            @endif
+            @if(auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
             <a href="{{ route('forum_post_edit', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-warning">{{ trans('common.edit') }}</button></a>
             <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button class="btn btn-xs btn-xxs btn-danger">{{ trans('common.delete') }}</button></a>
             @endif
