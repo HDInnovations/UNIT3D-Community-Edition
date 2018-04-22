@@ -60,6 +60,8 @@ class demoSeed extends Command
 
         sleep(5);
 
+        $abort = false;
+
         foreach ($this->ids() as $key => $value) {
             // Users
             $this->info('Creating User Account');
@@ -76,19 +78,33 @@ class demoSeed extends Command
                     // Torrents
                     $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
-                    factory(Torrent::class)->create([
-                        'user_id' => $uid,
-                        'imdb' => $id,
-                        'name' => $r['Title'],
-                        'slug' => str_slug($r['Title']),
-                        'description' => $r['Plot'],
-                        'category_id' => 1,
-                    ]);
+                    try {
+                        factory(Torrent::class)->create([
+                            'user_id' => $uid,
+                            'imdb' => $id,
+                            'name' => $r['Title'],
+                            'slug' => str_slug($r['Title']),
+                            'description' => $r['Plot'],
+                            'category_id' => 1,
+                        ]);
+                    } catch (\Exception $e) {
+                        $abort = true;
+                        break;
+                    }
                 }
+            }
+
+            if ($abort) {
+                break;
             }
         }
 
-        $this->alert('Demo data has been successfully seeded!');
+        if ($abort) {
+            $this->error('Aborted ...');
+            $this->alert('Demo data was only PARTIALLY seeded! This is likely due to an API Request timeout.');
+        } else {
+            $this->alert('Demo data has been successfully seeded!');
+        }
     }
 
     /**
