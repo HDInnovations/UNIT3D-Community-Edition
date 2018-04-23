@@ -516,12 +516,12 @@
         <span class="badge-user">
         <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
            class="btn btn-labeled btn-success">
-                <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.download') }}</a>
+                <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
             @if($torrent->imdb != 0)
                 <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
                    role="button"
                    class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='fa fa-download'></i></span>Similar Torrents</a>
+          <span class='btn-label'><i class='fa fa-file'></i></span>Similar Torrents</a>
             @endif
             @if($torrent->nfo != null)
                 <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
