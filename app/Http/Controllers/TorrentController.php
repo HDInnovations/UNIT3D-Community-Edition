@@ -220,7 +220,7 @@ class TorrentController extends Controller
      *
      * @return View torrent.upload
      */
-    public function upload(Request $request, $title = '', $imdb = '', $tmdb = '')
+    public function upload(Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
         // Current user is the logged in user
         $user = auth()->user();
