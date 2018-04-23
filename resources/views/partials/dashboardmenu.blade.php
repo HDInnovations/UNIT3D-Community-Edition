@@ -9,7 +9,8 @@
                 <li><a href="{{ route('backupManager') }}"><i
                                 class="fa fa-hdd-o"></i> {{ trans('backup.backup') }} {{ trans('backup.manager') }}</a>
                 </li>
-                <li><a href="staff_dashboard/config_settings"> {{ trans('staff.config-manager') }}</a></li>
+                <li><a href="staff_dashboard/config_settings"><i
+                                class="fa fa-copy"></i> {{ trans('staff.config-manager') }}</a></li>
             @endif
             <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.general-tools') }}</li>
             <li><a href="{{ route('staff_article_index') }}"><i
