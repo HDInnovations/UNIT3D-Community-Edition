@@ -516,11 +516,19 @@
         <span class="badge-user">
         <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
            class="btn btn-labeled btn-success">
-          <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
-        <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
+                <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
+            @if($torrent->imdb != 0)
+                <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
+                   role="button"
+                   class="btn btn-labeled btn-primary">
+          <span class='btn-label'><i class='fa fa-file'></i></span>Similar Torrents</a>
+            @endif
+            @if($torrent->nfo != null)
+                <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.view') }} NFO</button>
-        <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button"
-           class="btn btn-labeled btn-primary">
+            @endif
+            <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button"
+               class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
@@ -543,44 +551,6 @@
                       class="fa fa-fw fa-eye"></i></span>{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
       </span>
             </center>
-        </div>
-    </div>
-
-    <div class="torrent box container">
-        <div class="panel-collapse">
-            <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapseMovie"
-                 aria-expanded="false">
-                <div class="movie-title">
-                    <center><i class="fa fa-arrow-right" aria-hidden="true"></i><span
-                                class="text-bold"> {{ trans('torrent.similar') }} {{ $torrent->name }} </span><i
-                                class="fa fa-arrow-left" aria-hidden="true"></i></center>
-                </div>
-            </div>
-            <div id="collapseMovie" class="panel-body collapse" aria-expanded="false" style="height: 30px;">
-                @foreach($similar as $s)
-                    <div class="col-sm-12 movie-list">
-                        <h3 class="movie-title">
-                            <a href="{{ route('torrent', array('slug' => $s->slug, 'id' => $s->id)) }}"
-                               data-toggle="tooltip" title="" data-original-title="{{ $s->name }}""
-                            title="{{ $s->name }}">{{ $s->name }}</a>
-                        </h3>
-                        <div class="movie-details">
-                        </div>
-                        <ul class="list-inline">
-                            <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}
-                                    : </strong> {{ $s->getSize() }}</span>
-                            <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}
-                                    : </strong> {{ $s->created_at->diffForHumans() }}</span>
-                            <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}
-                                        : </strong> {{ $s->seeders }}</li></span>
-                            <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}
-                                        : </strong> {{ $s->leechers }}</li></span>
-                            <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}
-                                        : </strong> {{ $s->times_completed }}</li></span>
-                        </ul>
-                    </div>
-                @endforeach
-            </div>
         </div>
     </div>
 
@@ -679,37 +649,37 @@
 @section('javascripts')
     <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
     <script>
-      $(document).ready(function () {
-        var wbbOpt = {}
-        $('#content').wysibb(wbbOpt)
-      })
+        $(document).ready(function () {
+            var wbbOpt = {}
+            $('#content').wysibb(wbbOpt)
+        })
     </script>
 
     <script>
-      $(document).ready(function () {
+        $(document).ready(function () {
 
-        $('.slidingDiv').hide()
-        $('.show_hide').show()
+            $('.slidingDiv').hide()
+            $('.show_hide').show()
 
-        $('.show_hide').click(function () {
-          $('.slidingDiv').slideToggle()
+            $('.show_hide').click(function () {
+                $('.slidingDiv').slideToggle()
+            })
+
         })
-
-      })
     </script>
 
     <script type="text/javascript">
-      function showTrailer () {
-        swal({
-          showConfirmButton: false,
-          showCloseButton: true,
-          background: '#232323',
-          width: 970,
-          html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-          title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
-          text: ''
-        })
-      }
+        function showTrailer() {
+            swal({
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: '#232323',
+                width: 970,
+                html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
+                text: ''
+            })
+        }
     </script>
 
 @endsection
