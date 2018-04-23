@@ -98,6 +98,8 @@ Prerequisites Example:
 4. Then we'll install the needed software (Basics/Redis/NGINX/PHP):
 
     #Basics `sudo apt-get install -y git tmux vim curl wget zip unzip htop nano`
+    
+    #Supervisor `sudo apt-get install supervisor`
 
     #Redis `sudo apt-get install redis-server`
 
@@ -143,7 +145,38 @@ Prerequisites Example:
 7. Secure Nginx with Let's Encrypt
 
     https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+8. Configure and start supervision to handle job processing
 
+    `nano /etc/supervisor/conf.d/unit3d.conf`
+    
+    Example:
+    
+    ```
+    [program:unit3d-queue]
+    process_name=%(program_name)s_%(process_num)02d
+    command=php /var/www/html/artisan queue:work --sleep=3 --tries=3
+    autostart=true
+    autorestart=true
+    user=www-data
+    numprocs=2
+    ```
+    
+    Note: Change the command path to that of your particular app. User you will probably want to change to something like your web server be it apache or www-data. All of these things are up to you. Once this is done, save and close!
+    
+    Next lets load new config and start the process. 
+    
+    Run: `supervisorctl reread` and `supervisorctl update`
+    
+    Make sure there running and all is good!
+    
+    Run: `supervisorctl`
+    
+    If you see something like following your good to go!
+    ```
+    unit3d-queue:unit3d-queue_00     RUNNING   pid 7946, uptime 0:00:12
+    unit3d-queue:unit3d-queue_01     RUNNING   pid 7945, uptime 0:00:12
+    ```
+    
 
 Main:
 1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
