@@ -63,7 +63,7 @@ class HomeController extends Controller
         $featured = FeaturedTorrent::with('torrent')->get();
 
         //Latest Poll
-        $poll = Poll::first();
+        $poll = Poll::latest()->first();
 
 
         return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
