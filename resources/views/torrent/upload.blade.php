@@ -75,17 +75,17 @@
 
                 <div class="form-group">
                     <label for="name">Title</label>
-                    <input type="text" name="name" id="title" class="form-control" required>
+                    <input type="text" name="name" id="title" class="form-control" value="{{$title}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">IMDB ID <b>(Required)</b></label>
-                    <input type="number" name="imdb" value="0" class="form-control" required>
+                    <input type="number" name="imdb" class="form-control" value="{{$imdb}}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">TMDB ID <b>(Required)</b></label>
-                    <input type="number" name="tmdb" value="0" class="form-control" required>
+                    <input type="number" name="tmdb" class="form-control" value="{{$tmdb}}" required>
                 </div>
 
                 <div class="form-group">

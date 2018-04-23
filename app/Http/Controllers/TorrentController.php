@@ -220,7 +220,7 @@ class TorrentController extends Controller
      *
      * @return View torrent.upload
      */
-    public function upload(Request $request)
+    public function upload(Request $request, $title = '', $imdb = '', $tmdb = '')
     {
         // Current user is the logged in user
         $user = auth()->user();
@@ -324,7 +324,15 @@ class TorrentController extends Controller
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
-        return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
+
+        return view('torrent.upload', [
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'user' => $user, 'parsedContent' => $parsedContent,
+            'title' => $title,
+            'imdb' => str_replace('tt', '', $imdb),
+            'tmdb' => $tmdb
+        ]);
     }
 
 

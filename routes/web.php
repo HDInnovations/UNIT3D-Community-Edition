@@ -183,7 +183,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
         Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
-        Route::any('/upload', 'TorrentController@upload')->name('upload');
+        Route::any('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@upload')->name('upload');
         Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
         Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
         Route::get('/poster', 'TorrentController@poster')->name('poster');
