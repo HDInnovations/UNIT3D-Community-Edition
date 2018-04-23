@@ -523,8 +523,10 @@
                    class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-download'></i></span>Similar Torrents</a>
             @endif
-            <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
+            @if($torrent->nfo != null)
+                <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.view') }} NFO</button>
+            @endif
             <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button"
                class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
