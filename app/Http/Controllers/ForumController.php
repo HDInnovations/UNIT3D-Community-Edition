@@ -211,6 +211,8 @@ class ForumController extends Controller
 
         $appurl = config('app.url');
 
+        $this->tag->setDebug(true);
+
         $this->tag->messageTaggedUsers($content,
             "You have been tagged by {$user->username}",
             "The following user, {$user->username}, has tagged you in a forum post. You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}] HERE [/url]"

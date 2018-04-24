@@ -8,6 +8,15 @@ use App\User;
 class TaggedUserRepository
 {
     /**
+     * Enables various debugging options:
+     *
+     * 1. Allows you to tag yourself while testing and debugging
+     *
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
      * @var User
      */
     private $user;
@@ -30,13 +39,13 @@ class TaggedUserRepository
      */
     public function messageTaggedUsers(string $content, string $subject, string $message)
     {
-        preg_match_all('/(?<!\S)@\S+/m', $content, $tagged);
+        preg_match_all('/@\w[a-zA-Z0-9-_]+/m', $content, $tagged);
 
         foreach ($tagged[0] as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
 
             if ($tagged_user) {
-                if ($tagged_user->id !== auth()->user()->id) {
+                if ($this->debug || $tagged_user->id !== auth()->user()->id) {
                     $this->message->create([
                         'sender_id' => 1,
                         'reciever_id' => $tagged_user->id,
@@ -46,5 +55,21 @@ class TaggedUserRepository
                 }
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDebug(): bool
+    {
+        return $this->debug;
+    }
+
+    /**
+     * @param bool $debug
+     */
+    public function setDebug(bool $debug): void
+    {
+        $this->debug = $debug;
     }
 }
