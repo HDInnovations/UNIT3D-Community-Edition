@@ -1,51 +1,21 @@
-<!DOCTYPE html>
-<html class="no-js" lang="{{ config('app.locale') }}">
+@extends('errors.layout')
 
-<head>
-    <meta charset="utf-8">
-    <title>Error 307: Temporary Redirect! - {{ config('other.title') }}</title>
+@section('title')
+    Error 307: Temporary Redirect!
+@stop
 
-    <!-- Meta -->
-    @section('meta')
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Error">
-        <meta property="og:title" content="{{ config('other.title') }}">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="{{ url('/img/rlm.png') }}">
-        <meta property="og:url" content="{{ url('/') }}">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-    @show
-<!-- /Meta -->
+@section('container')
+    <h1 class="mt-5 text-center">
+        <i class="fa fa-exclamation-circle text-warning"></i> Error 307: Temporary Redirect!
+    </h1>
 
-    <!--icons -->
-    <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <!--icons -->
+    <div class="separator"></div>
 
-    <!--css -->
-    <link rel="stylesheet" href="{{ url('css/main/custom.css') }}">
-    <link rel="stylesheet" href="{{ url('css/main/advbuttons.css') }}">
-    <link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css') }}"/>
-    <!--css -->
-    @yield('stylesheets')
-
-</head>
-
-<body>
-<section class="container content" id="content-area" style="min-height: 344px;">
-    <div class="jumbotron shadowed">
-        <div class="container">
-            <h1 class="mt-5 text-center">
-                <i class="fa fa-exclamation-circle text-warning"></i> Error 307: Temporary Redirect!
-            </h1>
-            <div class="separator"></div>
-            <center>
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-                     y="0px" width="100.001px" height="70px" viewBox="0 0 100 68">
-                    <g id="large">
-                        <g>
-                            <path d="M55.777,38.473l6.221-1.133c0.017-1.791-0.123-3.573-0.41-5.324l-6.321-0.19c-0.438-2.053-1.135-4.048-2.076-5.931
+    <div class="text-center">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+             y="0px" width="100.001px" height="70px" viewBox="0 0 100 68">
+            <g id="large">
+                <path d="M55.777,38.473l6.221-1.133c0.017-1.791-0.123-3.573-0.41-5.324l-6.321-0.19c-0.438-2.053-1.135-4.048-2.076-5.931
 		l4.82-4.094c-0.868-1.552-1.874-3.028-3.005-4.417l-5.569,2.999c-1.385-1.54-2.98-2.921-4.771-4.099l2.124-5.954
 		c-0.759-0.452-1.543-0.878-2.357-1.269c-0.811-0.39-1.625-0.732-2.449-1.046l-3.325,5.381c-2.038-0.665-4.113-1.052-6.183-1.174
 		L31.34,6.002c-1.792-0.02-3.571,0.119-5.32,0.406l-0.191,6.32c-2.056,0.439-4.051,1.137-5.936,2.08l-4.097-4.82
@@ -59,13 +29,18 @@
 		c1.537-1.385,2.914-2.98,4.093-4.772l5.953,2.127c0.448-0.761,0.878-1.545,1.268-2.356c0.388-0.808,0.729-1.631,1.047-2.458
 		l-5.378-3.324C55.268,42.615,55.655,40.542,55.777,38.473z M42.302,42.435c-3.002,6.243-10.495,8.872-16.737,5.866
 		c-6.244-2.999-8.872-10.493-5.867-16.736c3.002-6.244,10.495-8.873,16.736-5.869C42.676,28.698,45.306,36.19,42.302,42.435z"
-                                  fill="none" stroke="#E43"/>
-                            <animateTransform attributeName="transform" begin="0s" dur="3s" type="rotate" from="0 31 37"
-                                              to="360 31 37" repeatCount="indefinite"
-                            </animateTransform>
-                        </g>
-                        <g id="small">
-                            <path d="M93.068,19.253L99,16.31c-0.371-1.651-0.934-3.257-1.679-4.776l-6.472,1.404c-0.902-1.436-2.051-2.735-3.42-3.819
+                      fill="none" stroke="#E43"/>
+                <animateTransform attributeName="transform"
+                                  begin="0s"
+                                  dur="3s"
+                                  type="rotate"
+                                  from="0 31 37"
+                                  to="360 31 37"
+                                  repeatCount="indefinite">
+                </animateTransform>
+            </g>
+            <g id="small">
+                <path d="M93.068,19.253L99,16.31c-0.371-1.651-0.934-3.257-1.679-4.776l-6.472,1.404c-0.902-1.436-2.051-2.735-3.42-3.819
 		l2.115-6.273c-0.706-0.448-1.443-0.867-2.213-1.238c-0.774-0.371-1.559-0.685-2.351-0.958l-3.584,5.567
 		c-1.701-0.39-3.432-0.479-5.118-0.284L73.335,0c-1.652,0.367-3.256,0.931-4.776,1.672l1.404,6.47
 		c-1.439,0.899-2.744,2.047-3.835,3.419c-2.208-0.746-4.38-1.476-6.273-2.114c-0.451,0.71-0.874,1.448-1.244,2.229
@@ -77,21 +52,23 @@
 		c0.372-0.777,0.691-1.569,0.963-2.361l-5.568-3.586C93.181,22.677,93.269,20.939,93.068,19.253z M84.365,24.062
 		c-1.693,3.513-5.908,4.991-9.418,3.302c-3.513-1.689-4.99-5.906-3.301-9.419c1.688-3.513,5.906-4.991,9.417-3.302
 		C84.573,16.331,86.05,20.549,84.365,24.062z" fill="none" stroke="#E43"/>
-                            <animateTransform attributeName="transform" begin="0s" dur="2s" type="rotate" from="0 78 21"
-                                              to="-360 78 21" repeatCount="indefinite"
-                            </animateTransform>
-                        </g>
-                </svg>
-                <p>
-                    Please forgive the inconvenience.
-                    <br/> We are currently building or revamping this feature.
-                </p>
-                <p>
-                    It's okay, we're excited too!
-                </p>
-            </center>
-        </div>
+
+                <animateTransform attributeName="transform"
+                                  begin="0s"
+                                  dur="2s"
+                                  type="rotate"
+                                  from="0 78 21"
+                                  to="-360 78 21"
+                                  repeatCount="indefinite">
+                </animateTransform>
+            </g>
+        </svg>
+        <p>
+            Please forgive the inconvenience.
+            <br/> We are currently building or revamping this feature.
+        </p>
+        <p>
+            It's okay, we're excited too!
+        </p>
     </div>
-</section>
-</body>
-</html>
+@stop
