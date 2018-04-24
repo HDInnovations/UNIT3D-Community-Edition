@@ -11,7 +11,7 @@
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 @php $pm = DB::table('private_messages')->where('reciever_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
-                <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
+                <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    class="dropdown-toggle icon-circle">
                     <i class="fa fa-envelope-o text-blue"></i>
                     @if($pm > 0)
@@ -110,14 +110,32 @@
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
-                        <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"><i
-                                    class="fa fa-user"></i>{{ trans('user.my-profile') }}</a></li>
+                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+                            <i class="fa fa-user"></i> {{ trans('user.my-profile') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_settings', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+                            <i class="fa fa-cogs"></i> {{ trans('user.account-settings') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
+                            <i class="fa fa-user"></i> {{ trans('user.my-wishlist') }}
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
-                                    class="fa fa-sign-out"></i>{{ trans('auth.logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                              style="display: none;">{{ csrf_field() }}</form>
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="fa fa-sign-out"></i> {{ trans('auth.logout') }}
+                        </a>
+
+                        <form id="logout-form"
+                              action="{{ route('logout') }}"
+                              method="POST"
+                              style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                 </ul>
             </li>
