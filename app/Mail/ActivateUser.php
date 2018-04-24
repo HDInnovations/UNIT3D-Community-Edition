@@ -43,21 +43,9 @@ class ActivateUser extends Mailable
         $this->code = $code;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        $this->subject = config('app.name') . ' - Account Activation Link';
-
-        return $this->to($this->user->email, $this->user->username)
-            ->view('emails.activate')
-            ->with([
-                'to' => $this->user->email,
-                'subject' => $this->subject,
-                'code' => $this->code,
-            ]);
+        return $this->markdown('emails.activate')
+            ->subject('Activation Required ' . config('other.title'));
     }
 }
