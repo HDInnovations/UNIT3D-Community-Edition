@@ -35,10 +35,18 @@
         </div>
         @foreach($torrents as $t)
             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
-            @if($t->category_id == 2)
-                @php $movie = $client->scrape('tv', 'tt'. $t->imdb); @endphp
+            @if ($t->category_id == 2)
+                @if ($t->tmdb || $t->tmdb != 0)
+                    @php $movie = $client->scrape('tv', null, $t->tmdb); @endphp
+                @else
+                    @php $movie = $client->scrape('tv', 'tt'. $t->imdb); @endphp
+                @endif
             @else
-                @php $movie = $client->scrape('movie', 'tt'. $t->imdb); @endphp
+                @if ($t->tmdb || $t->tmdb != 0)
+                    @php $movie = $client->scrape('movie', null, $t->tmdb); @endphp
+                @else
+                    @php $movie = $client->scrape('movie', 'tt'. $t->imdb); @endphp
+                @endif
             @endif
             <div class="row">
                 <div class="col-sm-12 movie-list">

@@ -901,6 +901,7 @@ class TorrentController extends Controller
                 {
                     $join->on('torrents.id', '=', 'unique_torrents.id');
                 })
+            ->where('imdb', '!=', 0)
             ->orderBy('torrents.created_at', 'DESC')
             ->paginate(25);
 

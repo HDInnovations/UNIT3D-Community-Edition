@@ -22,19 +22,23 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="block block-titled">
-            <h2 class="h3">What category would you like to group?</h2>
-            <div class="row">
-                @foreach($categories as $category)
-                    <div class="col-xs-4 text-center">
-                        <a href="{{ route('grouping', ['category_id' => $category->id]) }}"
-                           title="{{ $category->name }}">
-                            <i class="{{ $category->icon }} fa-3x"></i><br>{{ $category->name }}
-                        </a>
-                    </div>
-                @endforeach
+    <div class="container box">
+        <div class="header gradient blue">
+            <div class="inner_content">
+                <h1>What category would you like to group?</h1>
             </div>
+        </div>
+        <div class="blocks">
+            @foreach($categories as $category)
+                <a href="{{ route('grouping', ['category_id' => $category->id]) }}"
+                   title="{{ $category->name }}">
+                    <div class="blu media_blocks">
+                        <h2><i class="{{ $category->icon }}"></i> {{ $category->name }}</h2>
+                        <span></span>
+                        <h2>{{ $category->num_torrent }} {{ trans('torrent.torrents') }}</h2>
+                    </div>
+                </a>
+            @endforeach
         </div>
     </div>
 @endsection
