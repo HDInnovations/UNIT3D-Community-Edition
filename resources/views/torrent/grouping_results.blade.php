@@ -69,9 +69,9 @@
                     <p class="movie-plot">{{ $movie->plot }}</p>
                     <strong>ID:</strong>
                     <span class="badge-user"><a rel="nofollow"
-                                                href="http://www.imdb.com/title/tt{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
+                                                href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                     <span class="badge-user"><a rel="nofollow"
-                                                href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">{{ $movie->imdb }}</a></span>
+                                                href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     <strong>Genre: </strong>
                     @if($movie->genres)
                         @foreach($movie->genres as $genre)
@@ -117,8 +117,8 @@
                             </td>
                             <td>
                                 <center>
-                                        <i class="{{ $t->category->icon }}" data-toggle="tooltip" title=""
-                                           data-original-title="{{ $t->category->name }} Torrent"></i>
+                                    <i class="{{ $t->category->icon }}" data-toggle="tooltip" title=""
+                                       data-original-title="{{ $t->category->name }} Torrent"></i>
                                     <br>
                                     <br>
                                     <span class="label label-success">{{ $t->type }}</span>
