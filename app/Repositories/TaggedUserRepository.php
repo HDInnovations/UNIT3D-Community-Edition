@@ -39,7 +39,7 @@ class TaggedUserRepository
      */
     public function messageTaggedUsers(string $content, string $subject, string $message)
     {
-        preg_match_all('/@\w[a-zA-Z0-9-_]+/m', $content, $tagged);
+        preg_match_all('/@[a-zA-Z0-9-_]+/m', $content, $tagged);
 
         foreach ($tagged[0] as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
