@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use App\User;
 use App\Article;
@@ -40,6 +41,16 @@ class CommentController extends Controller
 {
 
     /**
+     * @var TaggedUserRepository
+     */
+    private $tag;
+
+    public function __construct(TaggedUserRepository $tag)
+    {
+        $this->tag = $tag;
+    }
+
+    /**
      * Add a comment on a artical
      *
      * @param $slug
@@ -51,26 +62,47 @@ class CommentController extends Controller
         $article = Article::findOrFail($id);
         $user = auth()->user();
 
-        // User's comment rights disbabled?
-        if ($user->can_comment == 0) {
-            return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        $v = validator($request->all(), [
+            'content' => 'required',
+            'user_id' => 'required',
+            'article_id' => 'required'
+        ]);
+
+        if ($v->failed()) {
+            return redirect()->route('article', [
+                'slug' => $article->slug,
+                'id' => $article->id])->with(Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']));
         }
 
+        // User's comment rights disbabled?
+        if ($user->can_comment == 0) {
+            return redirect()->route('article', [
+                'slug' => $article->slug,
+                'id' => $article->id
+            ])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        }
+
+        $content = $request->input('content');
+
         $comment = new Comment();
-        $comment->content = $request->input('content');
+        $comment->content = $content;
         $comment->user_id = $user->id;
         $comment->article_id = $article->id;
-        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'article_id' => 'required']);
+        $comment->save();
+
         $appurl = config('app.url');
-        if ($v->passes()) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
-            cache()->forget('shoutbox_messages');
-            $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
-        } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
-        }
-        return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id]);
+
+        $this->tag->messageTaggedUsers($content,
+            "You have been tagged by {$user->username}",
+            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/articles/{$article->slug}.{$article->id}] HERE [/url]"
+        );
+
+        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
+        cache()->forget('shoutbox_messages');
+
+        return redirect()->route('article', [
+            'slug' => $article->slug,
+            'id' => $article->id])->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
     }
 
     /**
@@ -84,53 +116,76 @@ class CommentController extends Controller
         $torrent = Torrent::findOrFail($id);
         $user = auth()->user();
 
-        // User's comment rights disbabled?
-        if ($user->can_comment == 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        $v = validator($request->all(), [
+            'content' => 'required',
+            'user_id' => 'required',
+            'torrent_id' => 'required',
+            'anon' => 'required'
+        ]);
+
+        if ($v->failed()) {
+            return redirect()->route('torrent', [
+                'slug' => $torrent->slug,
+                'id' => $torrent->id
+            ])->with(Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']));
         }
 
+        // User's comment rights disbabled?
+        if ($user->can_comment == 0) {
+            return redirect()->route('torrent', [
+                'slug' => $torrent->slug,
+                'id' => $torrent->id
+            ])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        }
+
+        $content = $request->input('content');
+
         $comment = new Comment();
-        $comment->content = $request->input('content');
+        $comment->content = $content;
         $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
-        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'torrent_id' => 'required', 'anon' => 'required']);
-        if ($v->passes()) {
-            $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+        $comment->save();
 
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
+        $appurl = config('app.url');
 
-            //Notification
-            if ($user->id != $torrent->user_id) {
-                User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
-            }
+        $this->tag->messageTaggedUsers($content,
+            "You have been tagged by {$user->username}",
+            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}] HERE [/url]"
+        );
 
-            // Auto Shout
-            $appurl = config('app.url');
-            if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
-            } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
-            }
-        } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
+
+        //Notification
+        if ($user->id != $torrent->user_id) {
+            User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
         }
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]);
+
+        // Auto Shout
+        if ($comment->anon == 0) {
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
+            cache()->forget('shoutbox_messages');
+        } else {
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
+            cache()->forget('shoutbox_messages');
+        }
+
+        return redirect()->route('torrent', [
+            'slug' => $torrent->slug,
+            'id' => $torrent->id
+        ])->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
     }
 
     /**
@@ -144,54 +199,72 @@ class CommentController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = auth()->user();
 
-        // User's comment rights disbabled?
-        if ($user->can_comment == 0) {
-            return redirect()->route('request', ['id' => $request->id])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        $v = validator($request->all(), [
+            'content' => 'required',
+            'user_id' => 'required',
+            'requests_id' => 'required'
+        ]);
+
+        if ($v->failed()) {
+            return redirect()->route('request', [
+                'id' => $request->id
+            ])->with(Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']));
         }
 
+        // User's comment rights disbabled?
+        if ($user->can_comment == 0) {
+            return redirect()->route('request', [
+                'id' => $request->id
+            ])->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+        }
+
+        $content = $request->input('content');
+
         $comment = new Comment();
-        $comment->content = $request->input('content');
+        $comment->content = $content;
         $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->requests_id = $torrentRequest->id;
-        $v = validator($comment->toArray(), ['content' => 'required', 'user_id' => 'required', 'requests_id' => 'required']);
-        if ($v->passes()) {
-            $comment->save();
-            Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']);
+        $comment->save();
 
-            // Achievements
-            $user->unlock(new UserMadeComment(), 1);
-            $user->addProgress(new UserMadeTenComments(), 1);
-            $user->addProgress(new UserMade50Comments(), 1);
-            $user->addProgress(new UserMade100Comments(), 1);
-            $user->addProgress(new UserMade200Comments(), 1);
-            $user->addProgress(new UserMade300Comments(), 1);
-            $user->addProgress(new UserMade400Comments(), 1);
-            $user->addProgress(new UserMade500Comments(), 1);
-            $user->addProgress(new UserMade600Comments(), 1);
-            $user->addProgress(new UserMade700Comments(), 1);
-            $user->addProgress(new UserMade800Comments(), 1);
-            $user->addProgress(new UserMade900Comments(), 1);
+        $appurl = config('app.url');
 
-            $appurl = config('app.url');
+        $this->tag->messageTaggedUsers($content,
+            "You have been tagged by {$user->username}",
+            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/request/{$torrentRequest->id}] HERE [/url]"
+        );
 
-            // Auto PM
-            if ($user->id != $request->user_id) {
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-            }
+        // Achievements
+        $user->unlock(new UserMadeComment(), 1);
+        $user->addProgress(new UserMadeTenComments(), 1);
+        $user->addProgress(new UserMade50Comments(), 1);
+        $user->addProgress(new UserMade100Comments(), 1);
+        $user->addProgress(new UserMade200Comments(), 1);
+        $user->addProgress(new UserMade300Comments(), 1);
+        $user->addProgress(new UserMade400Comments(), 1);
+        $user->addProgress(new UserMade500Comments(), 1);
+        $user->addProgress(new UserMade600Comments(), 1);
+        $user->addProgress(new UserMade700Comments(), 1);
+        $user->addProgress(new UserMade800Comments(), 1);
+        $user->addProgress(new UserMade900Comments(), 1);
 
-            // Auto Shout
-            if ($comment->anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
-            } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
-            }
-        } else {
-            Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Sorry', ['options']);
+        // Auto PM
+        if ($user->id != $request->user_id) {
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
         }
-        return redirect()->route('request', ['id' => $torrentRequest->id]);
+
+        // Auto Shout
+        if ($comment->anon == 0) {
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+            cache()->forget('shoutbox_messages');
+        } else {
+            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+            cache()->forget('shoutbox_messages');
+        }
+
+        return redirect()->route('request', [
+            'id' => $torrentRequest->id
+        ])->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
     }
 
     /**
