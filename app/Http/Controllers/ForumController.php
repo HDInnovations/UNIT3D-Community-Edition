@@ -205,13 +205,15 @@ class ForumController extends Controller
             $tagged_user = User::where('username', str_replace('@', '', $username))->first();
 
             if ($tagged_user) {
-                PrivateMessage::create([
-                    'sender_id' => 1,
-                    'reciever_id' => $tagged_user->id,
-                    'subject' => "You have been tagged by {$user->username}",
-                    'message' => "The following user, {$user->username}, has tagged you in a forum post. 
+                if ($tagged_user->id !== $user->id) {
+                    PrivateMessage::create([
+                        'sender_id' => 1,
+                        'reciever_id' => $tagged_user->id,
+                        'subject' => "You have been tagged by {$user->username}",
+                        'message' => "The following user, {$user->username}, has tagged you in a forum post. 
                     You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}] HERE [/url]"
-                ]);
+                    ]);
+                }
             }
         }
 
