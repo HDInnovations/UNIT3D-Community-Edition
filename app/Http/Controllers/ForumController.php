@@ -210,7 +210,7 @@ class ForumController extends Controller
                     'reciever_id' => $tagged_user->id,
                     'subject' => "You have been tagged by {$user->username}",
                     'message' => "The following user, {$user->username}, has tagged you in a forum post. 
-                    You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}] HERE [/url]"
+                    You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}] HERE [/url]"
                 ]);
             }
         }
