@@ -14,11 +14,11 @@ namespace App\Helpers;
 
 use App\PersonalFreeleech;
 use App\FreeleechToken;
-use App\Group;
-use App\User;
 use App\History;
 use App\Torrent;
 use App\Shoutbox;
+use App\PrivateMessage;
+use App\Wish;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -258,9 +258,21 @@ class TorrentHelper
 
     public static function approveHelper($slug, $id)
     {
-        Torrent::approve($id);
+        $appurl = config('app.url');
+        $appname = config('app.name');
 
+        Torrent::approve($id);
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+
+        $wishes = Wish::where('imdb', 'tt'.$torrent->imdb)->whereNull('source')->get();
+        if ($wishes) {
+            foreach ($wishes as $wish) {
+                $wish->source = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
+                $wish->save();
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $wish->user_id, 'subject' => "Wish List Notice!", 'message' => "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]"]);
+            }
+        }
+
         $user = $torrent->user;
         $user_id = $user->id;
         $username = $user->username;
@@ -283,7 +295,6 @@ class TorrentHelper
         }
 
         // Announce To Shoutbox
-        $appurl = config('app.url');
         if ($anon == 0) {
             Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
             cache()->forget('shoutbox_messages');

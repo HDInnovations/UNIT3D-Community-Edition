@@ -14,6 +14,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Poll;
 use App\Article;
 use App\Group;
 use App\Topic;
@@ -36,20 +37,20 @@ class HomeController extends Controller
     public function home()
     {
         // Latest Articles Block
-        $articles = Article::latest()->take(1)->get();      // Fetch latest articles
+        $articles = Article::latest()->take(1)->get();
 
         // Latest Torrents Block
-        $torrents = Torrent::latest()->take(5)->get();     // Fetch latest torrents
-        $best = Torrent::latest('seeders')->take(5)->get();              // Fetch Top Seeded Torrents
-        $leeched = Torrent::latest('leechers')->take(5)->get();      // Fetch Top Leeched Torrents
-        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();     // Fetch Top Dying Torrents
-        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(5)->get();     // Fetch Top Dead Torrents
+        $torrents = Torrent::latest()->take(5)->get();
+        $best = Torrent::latest('seeders')->take(5)->get();
+        $leeched = Torrent::latest('leechers')->take(5)->get();
+        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();
+        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(5)->get();
 
         // Latest Topics Block
-        $topics = Topic::latest()->take(5)->get();     // Fetch latest topics
+        $topics = Topic::latest()->take(5)->get();
 
         // Latest Posts Block
-        $posts = Post::latest()->take(5)->get();     // Fetch Latest Forum Posts
+        $posts = Post::latest()->take(5)->get();
 
         //ShoutBox Block
         $shoutboxMessages = ShoutboxController::getMessages()['data'];
@@ -61,9 +62,13 @@ class HomeController extends Controller
         //Featured Torrents
         $featured = FeaturedTorrent::with('torrent')->get();
 
+        //Latest Poll
+        $poll = Poll::latest()->first();
+
+
         return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
-            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured]);
+            'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured, 'poll' => $poll]);
     }
 
     /**

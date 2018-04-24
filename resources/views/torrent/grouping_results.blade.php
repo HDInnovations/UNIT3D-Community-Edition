@@ -82,7 +82,11 @@
                 <br>
                 <ul class="list-inline">
                     <li><i class="fa fa-files-o"></i> <strong>Torrents: </strong> {{ $torrents->count() }}</li>
-                    <li><a href="{{ route('upload') }}" class="btn btn-xs btn-danger">Upload {{ $movie->title }}</a>
+                    <li>
+                        <a href="{{ route('upload', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
+                           class="btn btn-xs btn-danger">
+                            Upload {{ $movie->title }}
+                        </a>
                     </li>
                 </ul>
             </div>

@@ -220,7 +220,7 @@ class TorrentController extends Controller
      *
      * @return View torrent.upload
      */
-    public function upload(Request $request)
+    public function upload(Request $request, $title = '', $imdb = 0, $tmdb = 0)
     {
         // Current user is the logged in user
         $user = auth()->user();
@@ -324,7 +324,15 @@ class TorrentController extends Controller
                 return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
             }
         }
-        return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'parsedContent' => $parsedContent]);
+
+        return view('torrent.upload', [
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'user' => $user, 'parsedContent' => $parsedContent,
+            'title' => $title,
+            'imdb' => str_replace('tt', '', $imdb),
+            'tmdb' => $tmdb
+        ]);
     }
 
 
@@ -508,7 +516,6 @@ class TorrentController extends Controller
     public function torrent($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $similar = Torrent::where('imdb', $torrent->imdb)->where('status', 1)->latest('seeders')->get();
         $uploader = $torrent->user;
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
@@ -568,7 +575,7 @@ class TorrentController extends Controller
             $text_crumbs = $view_crumbs['text'];
         }
 
-        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'similar' => $similar, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
+        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks, 'user' => $user, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
             'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client, 'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs, 'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
             'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings, 'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
     }
