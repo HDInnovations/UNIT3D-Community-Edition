@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PrivateMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Forum;
@@ -176,73 +177,101 @@ class ForumController extends Controller
             return redirect()->route('forum_index')->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
-        $post = new Post();
-        $post->content = $request->input('content');
-        $post->user_id = $user->id;
-        $post->topic_id = $topic->id;
-
-        $v = validator($post->toArray(), [
+        $v = validator($request->all(), [
             'content' => 'required',
             'user_id' => 'required',
             'topic_id' => 'required'
         ]);
-        if ($v->passes()) {
-            // Save the reply
-            $post->save();
-            // Save last post user data to topic table
-            $topic->last_post_user_id = $user->id;
-            $topic->last_post_user_username = $user->username;
-            // Count post in topic
-            $topic->num_post = Post::where('topic_id', $topic->id)->count();
-            // Update time
-            $topic->last_reply_at = $post->created_at;
-            // Save
-            $topic->save();
 
-            // Count posts
-            $forum->num_post = $forum->getPostCount($forum->id);
-            // Count topics
-            $forum->num_topic = $forum->getTopicCount($forum->id);
-            // Save last post user data to the forum table
-            $forum->last_post_user_id = $user->id;
-            $forum->last_post_user_username = $user->username;
-            // Save last topic data to the forum table
-            $forum->last_topic_id = $topic->id;
-            $forum->last_topic_name = $topic->name;
-            // Save
-            $forum->save();
-
-            // Find the user who initated the topic
-            $topicCreator = User::findOrFail($topic->first_post_user_id);
-
-            // Post To ShoutBox
-            $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
-
-            // Mail Topic Creator Of New Reply
-            if ($post->user_id != $topic->first_post_user_id) {
-                Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
-            }
-
-            //Achievements
-            $user->unlock(new UserMadeFirstPost(), 1);
-            $user->addProgress(new UserMade25Posts(), 1);
-            $user->addProgress(new UserMade50Posts(), 1);
-            $user->addProgress(new UserMade100Posts(), 1);
-            $user->addProgress(new UserMade200Posts(), 1);
-            $user->addProgress(new UserMade300Posts(), 1);
-            $user->addProgress(new UserMade400Posts(), 1);
-            $user->addProgress(new UserMade500Posts(), 1);
-            $user->addProgress(new UserMade600Posts(), 1);
-            $user->addProgress(new UserMade700Posts(), 1);
-            $user->addProgress(new UserMade800Posts(), 1);
-            $user->addProgress(new UserMade900Posts(), 1);
-
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
+        if ($v->failed()) {
+            return redirect()->route('forum_topic', [
+                    'slug' => $topic->slug,
+                    'id' => $topic->id
+                ])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
+
+        $content = $request->input('content');
+
+        $post = new Post();
+        $post->content = $content;
+        $post->user_id = $user->id;
+        $post->topic_id = $topic->id;
+        $post->save();
+
+        preg_match_all('/(?<!\S)@\S+/m', $content, $tagged);
+        $appurl = config('app.url');
+
+        foreach ($tagged[0] as $username) {
+            $tagged_user = User::where('username', str_replace('@', '', $username))->first();
+
+            if ($tagged_user) {
+                PrivateMessage::create([
+                    'sender_id' => 1,
+                    'reciever_id' => $tagged_user->id,
+                    'subject' => "You have been tagged by {$user->username}",
+                    'message' => "The following user, {$user->username}, has tagged you in a forum post. 
+                    You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}] HERE [/url]"
+                ]);
+            }
+        }
+
+        // Save last post user data to topic table
+        $topic->last_post_user_id = $user->id;
+        $topic->last_post_user_username = $user->username;
+
+        // Count post in topic
+        $topic->num_post = Post::where('topic_id', $topic->id)->count();
+
+        // Update time
+        $topic->last_reply_at = $post->created_at;
+
+        // Save
+        $topic->save();
+
+        // Count posts
+        $forum->num_post = $forum->getPostCount($forum->id);
+        // Count topics
+        $forum->num_topic = $forum->getTopicCount($forum->id);
+        // Save last post user data to the forum table
+        $forum->last_post_user_id = $user->id;
+        $forum->last_post_user_username = $user->username;
+        // Save last topic data to the forum table
+        $forum->last_topic_id = $topic->id;
+        $forum->last_topic_name = $topic->name;
+        // Save
+        $forum->save();
+
+        // Find the user who initated the topic
+        $topicCreator = User::findOrFail($topic->first_post_user_id);
+
+        // Post To ShoutBox
+        $appurl = config('app.url');
+        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
+        cache()->forget('shoutbox_messages');
+
+        // Mail Topic Creator Of New Reply
+        if ($post->user_id != $topic->first_post_user_id) {
+            Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
+        }
+
+        //Achievements
+        $user->unlock(new UserMadeFirstPost(), 1);
+        $user->addProgress(new UserMade25Posts(), 1);
+        $user->addProgress(new UserMade50Posts(), 1);
+        $user->addProgress(new UserMade100Posts(), 1);
+        $user->addProgress(new UserMade200Posts(), 1);
+        $user->addProgress(new UserMade300Posts(), 1);
+        $user->addProgress(new UserMade400Posts(), 1);
+        $user->addProgress(new UserMade500Posts(), 1);
+        $user->addProgress(new UserMade600Posts(), 1);
+        $user->addProgress(new UserMade700Posts(), 1);
+        $user->addProgress(new UserMade800Posts(), 1);
+        $user->addProgress(new UserMade900Posts(), 1);
+
+        return redirect()->route('forum_topic', [
+                'slug' => $topic->slug,
+                'id' => $topic->id
+            ])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
     }
 
     /**
