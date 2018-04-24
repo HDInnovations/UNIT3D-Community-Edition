@@ -106,7 +106,7 @@
      |
      */
      'markdown' => [
-         'theme' => 'default',
+         'theme' => 'unit3d',
          'paths' => [
              resource_path('views/vendor/mail'),
          ],
