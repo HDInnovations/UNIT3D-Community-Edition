@@ -19,7 +19,6 @@ use App\Peer;
 use App\History;
 use App\Category;
 use App\Group;
-use App\BonTransactions;
 use App\TorrentRequest;
 use Carbon\Carbon;
 

@@ -18,7 +18,6 @@ use App\Torrent;
 use App\User;
 use App\PersonalFreeleech;
 use App\FreeleechToken;
-use App\Group;
 use Carbon\Carbon;
 use App\Services\Bencode;
 use Illuminate\Http\Request;

@@ -14,7 +14,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use App\Catalog;
 use App\CatalogTorrent;
 use \Toastr;

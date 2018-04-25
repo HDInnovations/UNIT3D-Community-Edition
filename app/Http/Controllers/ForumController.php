@@ -12,7 +12,6 @@
 
 namespace App\Http\Controllers;
 
-use App\PrivateMessage;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;

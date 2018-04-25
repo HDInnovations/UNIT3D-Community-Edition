@@ -20,7 +20,6 @@ use App\Group;
 use App\Topic;
 use App\Torrent;
 use App\User;
-use App\Shoutbox;
 use App\Post;
 use App\FeaturedTorrent;
 use App\Mail\Contact;

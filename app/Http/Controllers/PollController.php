@@ -13,8 +13,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Requests\StorePoll;
 use App\Http\Requests\VoteOnPoll;
 use App\Poll;
 use App\Option;

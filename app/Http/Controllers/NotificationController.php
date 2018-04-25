@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Notifications;
 use \Toastr;
 use Carbon\Carbon;
 

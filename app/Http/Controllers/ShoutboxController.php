@@ -14,7 +14,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Shoutbox;
-use App\PrivateMessage;
 use App\User;
 use App\Helpers\LanguageCensor;
 use Carbon\Carbon;

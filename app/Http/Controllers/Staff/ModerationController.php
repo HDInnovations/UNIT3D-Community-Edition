@@ -12,7 +12,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\User;
 use App\Torrent;
 use App\TorrentRequest;
 use App\PrivateMessage;

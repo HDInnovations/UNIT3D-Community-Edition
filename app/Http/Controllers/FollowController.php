@@ -13,7 +13,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Follow;
 use \Toastr;
 
 class FollowController extends Controller
