@@ -9,7 +9,7 @@
 @endsection
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+
 @endsection
 
 @section('breadcrumb')
@@ -64,8 +64,6 @@
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
             var title = '{{ $title }}';

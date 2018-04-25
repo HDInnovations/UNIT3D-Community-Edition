@@ -76,6 +76,7 @@ Traffic: Unlimited
 
 ## <a name="installation"></a> Installation
 Prerequisites Example:
+
 1. Install OS
 
     `Ubuntu Server 17.10 "Artful Aardvark" (64bits)`
@@ -83,41 +84,85 @@ Prerequisites Example:
     or
 
     `Ubuntu Server 16.04.4 LTS "Xenial Xerus" (64bits)`
-2. Install MySQL:
-
-    `sudo apt-get install mysql-server`
-
-    `mysql_secure_installation`
-3. Get repositories for the latest software:
-
-    `sudo add-apt-repository -y ppa:nginx/development`
-
-    `sudo add-apt-repository -y ppa:ondrej/php`
-
-    `sudo apt-get update`
-4. Then we'll install the needed software (Basics/Redis/NGINX/PHP):
-
-    #Basics `sudo apt-get install -y git tmux vim curl wget zip unzip htop nano`
     
-    #Supervisor `sudo apt-get install supervisor`
+2. Get repositories for the latest software:
 
-    #Redis `sudo apt-get install redis-server`
+    ```
+    sudo add-apt-repository -y ppa:nginx/development
+    sudo add-apt-repository -y ppa:ondrej/php
+    sudo apt-get update
+    ```
+    
+3. Then we'll install the needed software:
 
-    #Nginx `sudo apt-get install -y nginx`
+    #Tools 
+    ```
+    sudo apt-get install -y git tmux vim curl wget zip unzip htop nano build-essential
+    ```
+    
+    #Supervisor 
+    ```
+    sudo apt-get install supervisor
+    ```
 
-    #PHP `sudo apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm`
-5. Configure PHP:
+    #Redis 
+    ```
+    sudo apt-get install redis-server
+    ```
 
-    `sudo nano /etc/php/7.2/fpm/php.ini`
+    #Nginx 
+    ```
+    sudo apt-get install -y nginx
+    ```
 
-    FIND->`;cgi.fix_pathinfo=1` REPLACE WITH->`cgi.fix_pathinfo=0`
+    #PHP 
+    ```
+    sudo apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm
+    ```
+    
+    #NodeJS and NPM 
+    ```
+    curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    ```
+    
+4. Configure PHP:
+
+    ```
+    sudo nano /etc/php/7.2/fpm/php.ini
+    ```
+
+    FIND
+    ```
+    ;cgi.fix_pathinfo=1
+    ```
+    REPLACE WITH
+    ```
+    cgi.fix_pathinfo=0
+    ```
 
     Save and close
 
-    `sudo systemctl restart php7.2-fpm`
-6. Configure Nginx:
+	Now restart php-fpm
+    ```
+    sudo systemctl restart php7.2-fpm
+    ```
+    
+ 5. Install MySQL:
 
-    `sudo nano /etc/nginx/sites-available/default`
+    ```
+    sudo apt-get install mysql-server
+    ```
+
+    ```
+    mysql_secure_installation
+    ```
+    
+ 6. Configure Nginx:
+
+    ```
+    sudo nano /etc/nginx/sites-available/default
+    ```
 
     ```
     server {
@@ -141,13 +186,20 @@ Prerequisites Example:
     ```
     Save and close.
 
-    `sudo systemctl reload nginx`
+	Now restart nginx
+    ```
+    sudo systemctl reload nginx
+    ```
+    
 7. Secure Nginx with Let's Encrypt
 
     https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+    
 8. Configure and start supervision to handle job processing
 
-    `nano /etc/supervisor/conf.d/unit3d.conf`
+    ```
+    nano /etc/supervisor/conf.d/unit3d.conf
+    ```
     
     Example:
     
@@ -165,11 +217,17 @@ Prerequisites Example:
     
     Next lets load new config and start the process. 
     
-    Run: `supervisorctl reread` and `supervisorctl update`
+    Run:
+    ```
+    supervisorctl reread && supervisorctl update
+    ```
     
     Make sure there running and all is good!
     
-    Run: `supervisorctl`
+    Run: 
+    ```
+    supervisorctl
+    ```
     
     If you see something like following your good to go!
     ```
@@ -185,7 +243,7 @@ Main:
 4. Run `sudo chown -R www-data: storage bootstrap public config` and `sudo find . -type d -exec chmod 0755 '{}' + -or -type f -exec chmod 0644 '{}' +`
 5. Run `php -r "readfile('http://getcomposer.org/installer');" | sudo php -- --install-dir=/usr/bin/ --filename=composer`
 6. Edit `.env.example` to `.env` and fill it with your APP, DB, REDIS and MAIL info.
-7. Run `composer install` to install dependencies.
+7. Run `composer install && npm install && npm run dev` to install dependencies.
 8. Edit `config/api-keys.php`, `config/app.php` and `config/other.php` (These house some basic settings. Be sure to visit the config manager from staff dashboard after up and running.)
 9. Add   `* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1` to crontab. `/path/to/artisan` becomes whatever directory you put the codebase on your server. Like `* * * * * php /var/www/html/artisan schedule:run >> /dev/null 2>&1` .
 10. Run `php artisan key:generate` to generate your cipher key.

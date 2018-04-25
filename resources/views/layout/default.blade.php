@@ -25,15 +25,8 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="{{ url('js/vendor/app.js?v=10') }}"></script>
-        <script type="text/javascript" src="{{ url('js/hoe.js') }}"></script>
-        <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
-
-        @if(auth()->user()->style == 1)
-            <link rel="stylesheet" href="{{ url('files/wysibb/theme/dark/wbbtheme.css') }}"/>
-        @elseif(auth()->user()->style == 2)
-            <link rel="stylesheet" href="{{ url('files/wysibb/theme/blur/wbbtheme.css') }}"/>
-        @endif
+        <script type="text/javascript" src="{{ url('js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ url('js/unit3d.js') }}"></script>
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
             <script type="text/javascript">

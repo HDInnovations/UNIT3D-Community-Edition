@@ -238,8 +238,6 @@
 
 @section('javascripts')
     <!--   Realtime Server Load  -->
-    <script src="{{ url('js/vendor/flotchart/js/jquery.flot.js') }}" type="text/javascript"></script>
-    <script src="{{ url('js/vendor/flotchart/js/jquery.flot.resize.js') }}" type="text/javascript"></script>
     <script>
         /* realtime chart */
         var data = [], totalPoints = 300
@@ -306,7 +304,6 @@
         }
     </script>
 
-    <script type="text/javascript" src="{{ url('js/vendor/countUp.js') }}"></script>
     <script>
         var useOnComplete = false,
             useEasing = false,

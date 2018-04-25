@@ -16,7 +16,7 @@
 
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url('css/vendor/toastr.min.css?v=01') }}"/>
+
     <link rel="stylesheet" href="{{ url('css/main/login.css?v=02') }}">
 </head>
 
@@ -114,7 +114,7 @@
 
     </div>
 </div>
-<script type="text/javascript" src="{{ url('js/vendor/app.js?v=04') }}"></script>
+<script type="text/javascript" src="{{ url('js/app.js') }}"></script>
 <script src="https://www.google.com/recaptcha/api.js"></script>
 {!! Toastr::message() !!}
 </body>

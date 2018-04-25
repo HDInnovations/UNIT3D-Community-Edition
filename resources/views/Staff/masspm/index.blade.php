@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+
 @endsection
 
 @section('title')
@@ -45,7 +45,6 @@
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
     <script>
         $(document).ready(function () {
             var wbbOpt = {}
