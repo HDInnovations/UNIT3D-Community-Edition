@@ -13,7 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Topic extends Model
 {
@@ -49,7 +48,7 @@ class Topic extends Model
 
     public function viewable()
     {
-        if (Auth::user()->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             return true;
         }
 

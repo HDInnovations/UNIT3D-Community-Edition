@@ -14,9 +14,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Torrent;
-use App\CatalogTorrent;
-
 class CatalogTorrent extends Model
 {
     /**

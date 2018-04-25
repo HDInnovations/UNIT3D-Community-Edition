@@ -13,7 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Torrent;
 
 class Catalog extends Model
 {

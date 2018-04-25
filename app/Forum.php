@@ -13,7 +13,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Forum extends Model
 {
@@ -86,8 +85,8 @@ class Forum extends Model
      */
     public function getPermission()
     {
-        if (Auth::check()) {
-            $group = Auth::user()->group;
+        if (auth()->check()) {
+            $group = auth()->user()->group;
         } else {
             $group = Group::find(2);
         }

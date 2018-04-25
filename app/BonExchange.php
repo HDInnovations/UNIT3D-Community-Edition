@@ -12,7 +12,6 @@
 
 namespace App;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class BonExchange extends Model

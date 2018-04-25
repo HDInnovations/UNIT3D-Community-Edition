@@ -12,11 +12,6 @@
 
 namespace App;
 
-use App\Ban;
-use App\Warning;
-use App\Peer;
-use App\History;
-use Cache;
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
@@ -76,7 +71,7 @@ class User extends Authenticatable
      */
     public function isOnline()
     {
-        return Cache::has('user-is-online-' . $this->id);
+        return cache()->has('user-is-online-' . $this->id);
     }
 
     /**

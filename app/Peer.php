@@ -12,8 +12,6 @@
 
 namespace App;
 
-use App\History;
-
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
