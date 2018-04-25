@@ -17,6 +17,11 @@ class TaggedUserRepository
     protected $debug = false;
 
     /**
+     * @var string
+     */
+    protected $regex = '/@[a-zA-Z0-9-_]+/m';
+
+    /**
      * @var User
      */
     private $user;
@@ -26,6 +31,11 @@ class TaggedUserRepository
      */
     private $message;
 
+    /**
+     * TaggedUserRepository constructor.
+     * @param User $user
+     * @param PrivateMessage $message
+     */
     public function __construct(User $user, PrivateMessage $message)
     {
         $this->user = $user;
@@ -33,28 +43,88 @@ class TaggedUserRepository
     }
 
     /**
-     * @param string $content The content string to search for usernames in
-     * @param string $subject The subject of the message sent to the user
-     * @param string $message The message body of the message sent to the user
+     * @param $content
+     * @return mixed
+     */
+    public function getTags($content)
+    {
+        preg_match_all($this->regex, $content, $tagged);
+        return $tagged[0];
+    }
+
+    /**
+     * @param $content
+     * @return bool
+     */
+    public function hasTags($content)
+    {
+        return $this->getTags($content) > 0;
+    }
+
+    /**
+     * @param $haystack
+     * @param $needle
+     * @return bool
+     */
+    public function contains($haystack, $needle)
+    {
+        return collect($this->getTags($haystack))->contains($needle);
+    }
+
+    /**
+     * @param string $content
+     * @param string $subject
+     * @param string $message
      */
     public function messageTaggedUsers(string $content, string $subject, string $message)
     {
-        preg_match_all('/@[a-zA-Z0-9-_]+/m', $content, $tagged);
-
-        foreach ($tagged[0] as $username) {
+        foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
+            $this->messageUsers($tagged_user, $subject, $message);
 
-            if ($tagged_user) {
-                if ($this->debug || $tagged_user->id !== auth()->user()->id) {
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $users
+     * @param $subject
+     * @param $message
+     * @return bool
+     */
+    public function messageUsers($users, $subject, $message)
+    {
+        // Array of User objects
+        if (is_iterable($users)) {
+
+            // we only want unique users from the collection
+            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+
+            foreach ($users as $user) {
+                if ($this->validate($user)) {
                     $this->message->create([
                         'sender_id' => 1,
-                        'reciever_id' => $tagged_user->id,
+                        'reciever_id' => $user->id,
                         'subject' => $subject,
                         'message' => $message
                     ]);
                 }
             }
+
+            return true;
         }
+
+        // A single User object
+        if ($this->validate($users)) {
+            $this->message->create([
+                'sender_id' => 1,
+                'reciever_id' => $users->id,
+                'subject' => $subject,
+                'message' => $message
+            ]);
+        }
+        return true;
     }
 
     /**
@@ -71,5 +141,14 @@ class TaggedUserRepository
     public function setDebug(bool $debug): void
     {
         $this->debug = $debug;
+    }
+
+    protected function validate($user)
+    {
+        if ($this->debug || $user->id !== auth()->user()->id) {
+            return true;
+        }
+
+        return false;
     }
 }

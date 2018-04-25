@@ -289,7 +289,7 @@
 
             $('.profil').on('click', 'button#quote', function () {
                 let author = $(this).closest('.post-info').find('.badge-user').first().text();
-                let text = $(this).closest('.profil').find('.post-content').first().text();
+                let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here', '');
 
                 editor.execCommand('quote', {author: '@'+author+' ', seltext: text});
             });

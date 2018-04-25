@@ -92,10 +92,31 @@ class CommentController extends Controller
 
         $appurl = config('app.url');
 
-        $this->tag->messageTaggedUsers($content,
-            "You have been tagged by {$user->username}",
-            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/articles/{$article->slug}.{$article->id}] HERE [/url]"
-        );
+        if ($this->tag->hasTags($content)) {
+
+            //$this->tag->setDebug(true);
+
+            $href = "{$appurl}/articles/{$article->slug}.{$article->id}";
+            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+
+            if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
+                $users = collect([]);
+
+                $article->comments()->get()->each(function ($c, $v) use ($users) {
+                    $users->push($c->user);
+                });
+
+                $this->tag->messageUsers($users,
+                    "You are being notified by staff!",
+                    $message
+                );
+            } else {
+                $this->tag->messageTaggedUsers($content,
+                    "You have been tagged by {$user->username}",
+                    $message
+                );
+            }
+        }
 
         Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
         cache()->forget('shoutbox_messages');
@@ -149,10 +170,31 @@ class CommentController extends Controller
 
         $appurl = config('app.url');
 
-        $this->tag->messageTaggedUsers($content,
-            "You have been tagged by {$user->username}",
-            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}] HERE [/url]"
-        );
+        if ($this->tag->hasTags($content)) {
+
+            //$this->tag->setDebug(true);
+
+            $href = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
+            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+
+            if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
+                $users = collect([]);
+
+                $torrent->comments()->get()->each(function ($c, $v) use ($users) {
+                    $users->push($c->user);
+                });
+
+                $this->tag->messageUsers($users,
+                    "You are being notified by staff!",
+                    $message
+                );
+            } else {
+                $this->tag->messageTaggedUsers($content,
+                    "You have been tagged by {$user->username}",
+                    $message
+                );
+            }
+        }
 
         // Achievements
         $user->unlock(new UserMadeComment(), 1);
@@ -229,10 +271,31 @@ class CommentController extends Controller
 
         $appurl = config('app.url');
 
-        $this->tag->messageTaggedUsers($content,
-            "You have been tagged by {$user->username}",
-            "The following user, {$user->username}, has tagged you in a comment. You can view it [url={$appurl}/request/{$torrentRequest->id}] HERE [/url]"
-        );
+        if ($this->tag->hasTags($content)) {
+
+            //$this->tag->setDebug(true);
+
+            $href = "{$appurl}/request/{$torrentRequest->id}";
+            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+
+            if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
+                $users = collect([]);
+
+                $torrentRequest->comments()->get()->each(function ($c, $v) use ($users) {
+                    $users->push($c->user);
+                });
+
+                $this->tag->messageUsers($users,
+                    "You are being notified by staff!",
+                    $message
+                );
+            } else {
+                $this->tag->messageTaggedUsers($content,
+                    "You have been tagged by {$user->username}",
+                    $message
+                );
+            }
+        }
 
         // Achievements
         $user->unlock(new UserMadeComment(), 1);

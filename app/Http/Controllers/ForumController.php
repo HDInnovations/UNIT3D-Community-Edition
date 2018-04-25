@@ -196,9 +196,9 @@ class ForumController extends Controller
 
         if ($v->failed()) {
             return redirect()->route('forum_topic', [
-                    'slug' => $topic->slug,
-                    'id' => $topic->id
-                ])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
+                'slug' => $topic->slug,
+                'id' => $topic->id
+            ])->with(Toastr::error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
 
         $content = $request->input('content');
@@ -210,11 +210,31 @@ class ForumController extends Controller
         $post->save();
 
         $appurl = config('app.url');
+        $href = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
+        $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
-        $this->tag->messageTaggedUsers($content,
-            "You have been tagged by {$user->username}",
-            "The following user, {$user->username}, has tagged you in a forum post. You can view it [url={$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}] HERE [/url]"
-        );
+        if ($this->tag->hasTags($content)) {
+
+            //$this->tag->setDebug(true);
+
+            if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
+                $users = collect([]);
+
+                $topic->posts()->get()->each(function ($p, $v) use ($users) {
+                    $users->push($p->user);
+                });
+
+                $this->tag->messageUsers($users,
+                    "You are being notified by staff!",
+                    $message
+                );
+            } else {
+                $this->tag->messageTaggedUsers($content,
+                    "You have been tagged by {$user->username}",
+                    $message
+                );
+            }
+        }
 
         // Save last post user data to topic table
         $topic->last_post_user_id = $user->id;
@@ -270,9 +290,9 @@ class ForumController extends Controller
         $user->addProgress(new UserMade900Posts(), 1);
 
         return redirect()->route('forum_topic', [
-                'slug' => $topic->slug,
-                'id' => $topic->id
-            ])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
+            'slug' => $topic->slug,
+            'id' => $topic->id
+        ])->with(Toastr::success('Post Successfully Posted', 'Yay!', ['options']));
     }
 
     /**
