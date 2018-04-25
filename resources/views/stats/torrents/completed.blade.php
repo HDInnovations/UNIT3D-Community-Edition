@@ -28,7 +28,7 @@
                 <div class="col-md-12">
                     <p class="text-info"><strong><i class="fa fa-line-chart"></i> {{ trans('stat.top-downloaded') }}
                         </strong></p>
-                    </center>
+                    </div>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>

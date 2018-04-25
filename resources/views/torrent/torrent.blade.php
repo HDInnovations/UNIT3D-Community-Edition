@@ -366,9 +366,9 @@
                     <tr>
                         <td>
                             <div class="panel-body torrent-desc">
-                                <center><span
+                                <div class="text-center"><span
                                             class="text-bold text-blue">@emojione(':blue_heart:') {{ trans('torrent.media-info') }}
-                                        @emojione(':blue_heart:')</span></center>
+                                        @emojione(':blue_heart:')</span></div>
                                 <br>
                                 @if($general !== null && isset($general['file_name']))
                                     <span class="text-bold text-blue">@emojione(':name_badge:') {{ strtoupper(trans('torrent.file')) }}
@@ -447,11 +447,11 @@
                                 @endif
                                 <br>
                                 <br>
-                                <center>
+                                <div class="text-center">
                                     <button class="show_hide btn btn-labeled btn-primary" href="#">
                                         <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
                                     </button>
-                                </center>
+                                </div>
                                 <div class="slidingDiv">
                                     <pre class="decoda-code"><code>{{ $torrent->mediainfo }}</code></pre>
                                 </div>
@@ -512,7 +512,7 @@
         <!-- /Info-->
 
         <div class="torrent-bottom col-md-12">
-            <center>
+            <div class="text-center">
         <span class="badge-user">
         <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
            class="btn btn-labeled btn-success">
@@ -550,7 +550,7 @@
           <span class="btn-label"><i
                       class="fa fa-fw fa-eye"></i></span>{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
       </span>
-            </center>
+            </div>
         </div>
     </div>
 
@@ -569,9 +569,9 @@
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
                             @if(count($comments) == 0)
-                                <center><h4 class="text-bold text-danger"><i
+                                <div class="text-center"><h4 class="text-bold text-danger"><i
                                                 class="fa fa-frown-o"></i> {{ trans('common.no-comments') }}!</h4>
-                                </center>
+                                </div>
                             @else
                                 @foreach($comments as $comment)
                                     <li class="media" style="border-left: 5px solid #01BC8C">
@@ -620,7 +620,7 @@
             <!-- /Comments -->
 
             <div class="col-md-12 home-pagination">
-                <center>{{ $comments->links() }}</center>
+                <div class="text-center">{{ $comments->links() }}</div>
             </div>
             <br>
 

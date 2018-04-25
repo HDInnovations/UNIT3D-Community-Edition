@@ -17,9 +17,9 @@
     <div class="container box">
         <h1 class="torrents-title">{{ trans('torrent.torrents') }}</h1>
         <hr>
-        <center>
+        <div class="text-center">
             <p class="text-danger">{{ trans('common.search') }}</p>
-        </center>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <form action="{{route('poster_search')}}" class="form-horizontal" method="get">

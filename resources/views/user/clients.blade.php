@@ -37,9 +37,9 @@
                     <input type="text" name="client_name" class="form-control"
                            placeholder="{{ trans('user.username-seedbox') }}" required>
                 </div>
-                <center>
+                <div class="text-center">
                     <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</a>
-                </center>
+                </div>
                 {{ Form::close() }}
             </div>
         </div>

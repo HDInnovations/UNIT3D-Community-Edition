@@ -88,7 +88,7 @@
                     </table>
                 </div>
             </div>
-            <center>{{ $invites->links() }}</center>
+            <div class="text-center">{{ $invites->links() }}</div>
         </div>
     </div>
 @endsection

@@ -116,13 +116,13 @@
                                                                            alt="Poster"></div>
                             </td>
                             <td>
-                                <center>
+                                <div class="text-center">
                                     <i class="{{ $t->category->icon }}" data-toggle="tooltip" title=""
                                        data-original-title="{{ $t->category->name }} Torrent"></i>
                                     <br>
                                     <br>
                                     <span class="label label-success">{{ $t->type }}</span>
-                                </center>
+                                </div>
                             </td>
                             <td>
                                 <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"

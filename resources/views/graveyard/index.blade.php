@@ -49,10 +49,10 @@
                         @php $history = DB::table('history')->where('info_hash', '=', $d->info_hash)->where('user_id', '=', $user->id)->first(); @endphp
                         <tr class="">
                             <td>
-                                <center>
+                                <div class="text-center">
                                     <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip" title=""
                                        data-original-title="{{ $d->category->name }} {{ trans('torrent.torrent') }}"></i>
-                                </center>
+                                </div>
                             </td>
                             <td>
                                 <div class="torrent-file">
@@ -107,7 +107,7 @@
                                                     class="text-green"><em>{{ $d->name }} </em></span></p>
                                         <p class="text-center text-bold">{{ trans('graveyard.howto') }}</p>
                                         <br>
-                                        <center>
+                                        <div class="text-center">
                                             <p>{!! trans('graveyard.howto-desc1', ['name' => $d->name]) !!}
                                                 <span class="text-red text-bold">@if(!$history)
                                                         0 @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }} @endif</span> {{ strtolower(trans('graveyard.howto-hits')) }}
@@ -133,7 +133,7 @@
                                                             data-dismiss="modal">{{ trans('common.cancel') }}</button>
                                                 </form>
                                             </div>
-                                        </center>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

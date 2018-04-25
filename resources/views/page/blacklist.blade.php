@@ -18,11 +18,11 @@
                 </div>
             </div>
             <div class="alert alert-info" id="alert1">
-                <center>
+                <div class="text-center">
                 <span>
                     {{ trans('page.blacklist-desc', ['title' => config('other.title')]) }}
                 </span>
-                </center>
+                </div>
             </div>
             <div class="row black-list">
                 <h2>{{ trans('page.blacklist-clients') }}</h2>

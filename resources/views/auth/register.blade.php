@@ -88,7 +88,7 @@
           </span>
             @endif
             @if (config('captcha.enabled') == true)
-                <center>
+                <div class="text-center">
                     <div class="form-group row">
                         <div class="col-md-6 offset-md-4">
                             <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
@@ -99,7 +99,7 @@
                             @endif
                         </div>
                     </div>
-                </center>
+                </div>
             @endif
             <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
         </form>

@@ -28,12 +28,12 @@
             <div class="row col-md-offset-2">
                 @foreach($groups as $group)
                     <div class="well col-md-3" style="margin: 10px;">
-                        <center>
+                        <div class="text-center">
                             <a href="{{ route('group', ['id' => $group->id]) }}"><h2 style="color:{{ $group->color }};">
                                     <i class="{{ $group->icon }}" aria-hidden="true"></i>&nbsp;{{ $group->name }}</h2>
                             </a>
                             <p class="lead text-blue">{{ $group->users->count() }} Users</p>
-                        </center>
+                        </div>
                     </div>
                 @endforeach
             </div>

@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-    <center><h3>Add New Group</h3></center>
+    <div class="text-center"><h3>Add New Group</h3></div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">

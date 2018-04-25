@@ -83,7 +83,7 @@
                     </table>
                 </div>
             </div>
-            <center>{{ $reports->links() }}</center>
+            <div class="text-center">{{ $reports->links() }}</div>
         </div>
     </div>
 @endsection

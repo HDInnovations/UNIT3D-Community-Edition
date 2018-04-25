@@ -140,7 +140,7 @@
                     </div>
                     <br>
                     @endforeach
-                    <center>{{ $posts->links() }}</center>
+                    <div class="text-center">{{ $posts->links() }}</div>
                 </div>
                 <br>
                 <br>
@@ -181,7 +181,7 @@
                             </form>
                         @endif
 
-                        <center>
+                        <div class="text-center">
                             @if(auth()->check() && (auth()->user()->group->is_modo || $topic->user_id == auth()->user()->id))
                                 <h3>{{ trans('forum.moderation') }}</h3>
                                 @if($topic->state == "close")
@@ -262,7 +262,7 @@
                                        class='label label-sm label-success'>{{ trans('common.remove') }} {{ strtoupper(trans('forum.implemented')) }}</a>
                                 @endif
                             @endif
-                        </center>
+                        </div>
 
                         <div class="clearfix"></div>
                     </div>

@@ -34,7 +34,7 @@
         <div class="panel-footer">
             <div class="row">
                 <div class="col-sm-12">
-                    <center>
+                    <div class="text-center">
                         <span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash"
                                                                           aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>
                         @foreach($groups as $group)
@@ -42,7 +42,7 @@
                                   style="color:{{ $group->color }}; background-image:{{ $group->effect }};"><i
                                         class="{{ $group->icon }}" aria-hidden="true"></i> {{ $group->name }}</span>
                         @endforeach
-                    </center>
+                    </div>
                 </div>
             </div>
         </div>

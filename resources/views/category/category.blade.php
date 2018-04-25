@@ -51,10 +51,10 @@
                             @endif
                             <td>
                                 <a href="{{ route('category', array('slug' => $t->category->slug, 'id' => $t->category->id)) }}">&nbsp;
-                                    <center>
+                                    <div class="text-center">
                                         <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title=""
                                            data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                    </center>
+                                    </div>
                                 </a></td>
                             <td>
                                 <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"

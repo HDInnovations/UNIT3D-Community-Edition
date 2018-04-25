@@ -137,13 +137,13 @@
                         </div>
                     </fieldset>
                     <br>
-                    <center>
+                    <div class="text-center">
                         <div class="btns">
                             <button type="submit" class="btn btn-success">{{ trans('request.claim-now') }}!</button>
                             <button type="button" class="btn btn-default"
                                     data-dismiss="modal">{{ trans('common.cancel') }}</button>
                         </div>
-                    </center>
+                    </div>
                 </div>
             </form>
         </div>

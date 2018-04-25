@@ -54,10 +54,10 @@
                         </div>
 
                         <div class="col-md-12 article-readmore">
-                            <center>
+                            <div class="text-center">
                                 <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}"
                                    class="btn btn-success">{{ trans('articles.read-more') }}</a>
-                            </center>
+                            </div>
                         </div>
                     </div>
                 </article>

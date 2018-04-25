@@ -37,10 +37,10 @@
                     @forelse ($myBookmarks as $t)
                         <tr class="">
                             <td>
-                                <center>
+                                <div class="text-center">
                                     <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title=""
                                        data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
-                                </center>
+                                </div>
                             </td>
                             <td>
                                 <div class="torrent-file">

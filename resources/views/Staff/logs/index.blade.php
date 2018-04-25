@@ -35,8 +35,8 @@
     <div class="container-fluid">
         <div class="row">
             <br><br>
-            <center><h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h3>
-            </center>
+            <div class="text-center"><h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h3>
+            </div>
             @foreach($files as $file)
                 <a href="?l={{ base64_encode($file) }}" class="log_file @if ($current_file == $file) llv-active @endif">
                     {{ $file }}

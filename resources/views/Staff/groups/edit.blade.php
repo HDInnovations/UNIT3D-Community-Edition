@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <center><h3>{{ $group->name }} Permissions</h3></center>
+    <div class="text-center"><h3>{{ $group->name }} Permissions</h3></div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-bordered table-hover">

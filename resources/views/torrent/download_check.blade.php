@@ -43,7 +43,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4 class="text-center">{{ trans('torrent.info') }}</h4></div>
-                <center>
+                <div class="text-center">
                     <h3 class="movie-title">
                         <a href="#" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
                     </h3>
@@ -59,11 +59,11 @@
                         <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}
                                     : </strong> {{ $torrent->times_completed }}</li></span>
                     </ul>
-                </center>
+                </div>
             </div>
         </div>
         <div class="well">
-            <center>
+            <div class="text-center">
                 <strong>{{ trans('common.ratio') }} {{ strtolower(trans('torrent.greater-than')) }} {{ config('other.ratio') }}
                     : </strong>
                 @if($user->getRatio() < config('other.ratio'))<span class="badge-extra text-red"><i
@@ -85,9 +85,9 @@
                 @else<span class="badge-extra text-green"><i
                             class="fa fa-check"></i> {{ strtoupper(trans('torrent.approved')) }}</span>
                 @endif
-            </center>
+            </div>
             <br>
-            <center>
+            <div class="text-center">
                 @if($user->getRatio() < config('other.ratio') || $user->can_download == 0)
                     <span class="text-red text-bold">{{ trans('torrent.no-privileges-desc') }}</span>
                 @else
@@ -95,7 +95,7 @@
                        role="button" class="btn btn-labeled btn-primary">
                         <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
                 @endif
-            </center>
+            </div>
         </div>
     </div>
     </div>

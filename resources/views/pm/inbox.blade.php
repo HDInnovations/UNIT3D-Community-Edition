@@ -64,8 +64,6 @@
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                         <tr>
-                            <td class="col-sm-1"><input type="checkbox" name="pm_id" value="0" class="selector all">
-                            </td>
                             <td class="col-sm-2">{{ trans('pm.from') }}</td>
                             <td class="col-sm-5">{{ trans('pm.subject') }}</td>
                             <td class="col-sm-2">{{ trans('pm.recieved-at') }}</td>
@@ -74,10 +72,7 @@
                         </thead>
                         <tbody>
                         @foreach($pms as $p)
-                            {{ Form::hidden('invisible', 'id', array('id' => 'id')) }}
                             <tr>
-                                <td class="col-sm-1"><input id="check" type="checkbox" name="pm_id" class="selector">
-                                </td>
                                 <td class="col-sm-2"><a
                                             href="{{ route('profile', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}"
                                             title="">{{ $p->sender->username}}</a></td>
@@ -93,7 +88,6 @@
                                     </td>
                                 @endif
                             </tr>
-                            {{ Form::close() }}
                         @endforeach
                         </tbody>
                     </table>

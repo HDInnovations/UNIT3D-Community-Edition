@@ -388,10 +388,10 @@
                             <div class="panel-body no-padding">
                                 <ul class="media-list comments-list">
                                     @if(count($comments) == 0)
-                                        <center>
+                                        <div class="text-center">
                                             <h4 class="text-bold text-danger"><i
                                                         class="fa fa-frown-o"></i> {{ trans('common.no-comments') }}!
-                                            </h4></center>
+                                            </h4></div>
                                     @else @foreach($comments as $comment)
                                         <li class="media" style="border-left: 5px solid #01BC8C">
                                             <div class="media-body">
@@ -445,7 +445,7 @@
                     <!-- /Comments -->
 
                     <div class="col-md-12 home-pagination">
-                        <center>{{ $comments->links() }}</center>
+                        <div class="text-center">{{ $comments->links() }}</div>
                     </div>
                     <br>
 

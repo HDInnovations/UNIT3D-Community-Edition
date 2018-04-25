@@ -75,7 +75,7 @@
                                                                                alt="Poster"></div>
                                 </td>
                                 <td>
-                                    <center>
+                                    <div class="text-center">
                                         @if($t->category_id == "1")
                                             <i class="fa fa-film torrent-icon" data-toggle="tooltip" title=""
                                                data-original-title="Movie Torrent"></i>
@@ -89,7 +89,7 @@
                                         <br>
                                         <br>
                                         <span class="label label-success">{{ $t->type }}</span>
-                                    </center>
+                                    </div>
                                 </td>
                                 <td>
                                     <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"

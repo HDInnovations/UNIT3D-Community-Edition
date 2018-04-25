@@ -436,7 +436,7 @@
 
         @if(auth()->check() && auth()->user()->id == $user->id)
             <div class="block">
-                <center>
+                <div class="text-center">
                     <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
                                     class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
@@ -457,13 +457,13 @@
                         <button class="btn btn-primary"><span class="fa fa-list"></span> {{ trans('user.my-wishlist') }}
                         </button>
                     </a>
-                </center>
+                </div>
             </div>
         @endif
 
         @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
             <div class="block">
-                <center>
+                <div class="text-center">
                     <a href="{{ route('myuploads', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-success"><span
                                     class="fa fa-upload"></span> {{ trans('user.uploads-table') }} </button>
@@ -476,7 +476,7 @@
                         <button class="btn btn-success"><span
                                     class="fa fa-history"></span> {{ trans('user.history-table') }} </button>
                     </a>
-                </center>
+                </div>
             </div>
         @endif
 

@@ -156,7 +156,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <center><input class="btn btn-primary" type="submit" value="Save"></center>
+                    <div class="text-center"><input class="btn btn-primary" type="submit" value="Save"></div>
                 </div>
                 {{ Form::close() }}
             </div>

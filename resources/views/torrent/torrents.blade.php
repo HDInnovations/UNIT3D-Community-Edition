@@ -19,11 +19,11 @@
 @section('content')
     <!-- Search -->
     <div class="container box">
-        <center>
+        <div class="text-center">
             <h3 class="filter-title">Current Filters</h3>
             <span id="filter-item-category"></span>
             <span id="filter-item-type"></span>
-        </center>
+        </div>
         <hr> {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
         <div class="form-group">
             <label for="name" class="col-sm-1 label label-default">Name</label>
@@ -180,9 +180,9 @@
             </div>
         </div>
         <div class="block">
-            <center>
+            <div class="text-center">
                 <h1 class="filter-title" id="count"></h1>
-            </center>
+            </div>
             <div class="form-horizontal">
                 <div class="form-group">
                     {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}

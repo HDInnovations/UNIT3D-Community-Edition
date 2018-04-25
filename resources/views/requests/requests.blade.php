@@ -31,11 +31,11 @@
             <div class="well">
                 <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
             </div>
-            <center>
+            <div class="text-center">
                 <h3 class="filter-title">Current Filters</h3>
                 <span id="filter-item-category"></span>
                 <span id="filter-item-type"></span>
-            </center>
+            </div>
             <hr> {{ Form::open(['action'=>'RequestController@requests','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
             <div class="form-group">
                 <label for="name" class="col-sm-1 label label-default">Name</label>

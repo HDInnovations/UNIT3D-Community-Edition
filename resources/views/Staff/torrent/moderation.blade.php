@@ -18,8 +18,8 @@
 @endsection
 
 @section('content')
-    <center><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1>
-    </center>
+    <div class="text-center"><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1>
+    </div>
     <div class="container box">
         <div class="torrents col-md-12">
             <table class="table table-bordered table-hover">
@@ -167,7 +167,7 @@
         </div>
     </div>
 
-    <center><h1>Postponed Torrents</h1></center>
+    <div class="text-center"><h1>Postponed Torrents</h1></div>
     <div class="container box">
         <div class="torrents col-med-12">
             <table class="table table-bordered table-hover">
@@ -276,7 +276,7 @@
         </div>
     </div>
 
-    <center><h1>Rejected Torrents</h1></center>
+    <div class="text-center"><h1>Rejected Torrents</h1></div>
     <div class="container box">
         <div class="torrents col-md-12">
             <table class="table table-bordered table-hover">

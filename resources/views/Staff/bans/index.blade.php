@@ -77,7 +77,7 @@
                     </table>
                 </div>
             </div>
-            <center>{{ $bans->links() }}</center>
+            <div class="text-center">{{ $bans->links() }}</div>
         </div>
     </div>
 @endsection

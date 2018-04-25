@@ -48,7 +48,7 @@
             </div>
 
             @if( !is_null($user->signature))
-                <center><p>{{ trans('user.forum-signature') }} </p> {!! $user->getSignature() !!}</center>
+                <div class="text-center"><p>{{ trans('user.forum-signature') }} </p> {!! $user->getSignature() !!}</div>
             @endif
 
             <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>

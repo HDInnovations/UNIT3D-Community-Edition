@@ -1,6 +1,6 @@
 @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
     <div class="alert alert-info" id="alert1">
-        <center>
+        <div class="text-center">
     <span>
       @if(config('other.freeleech') == true) {{ trans('common.freeleech_activated') }}! @endif
         @if(config('other.invite-only') == false) {{ trans('common.openreg_activated') }}! @endif
@@ -8,6 +8,6 @@
     </span>
             <strong>
                 <div id="promotions"></div>
-            </strong></center>
+            </strong></div>
     </div>
 @endif
