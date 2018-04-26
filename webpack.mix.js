@@ -58,6 +58,7 @@ mix
    */
   .sass('resources/assets/sass/main/login.scss', 'public/css/main/login.css')
   .sass('resources/assets/sass/main/twostep.scss', 'public/css/main/twostep.css')
+  .copy('resources/assets/js/unit3d/twostep.js', 'public/js')
 
   /*
    * shout.js
@@ -78,7 +79,6 @@ mix
   'resources/assets/js/unit3d/hoe.js',
   'resources/assets/js/unit3d/vendor/livicons.js',
   'resources/assets/js/unit3d/emoji.js',
-  'resources/assets/js/unit3d/twostep.js',
   'resources/assets/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
 
