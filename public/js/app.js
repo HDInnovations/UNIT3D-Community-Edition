@@ -12103,7 +12103,7 @@ window.CountUp = __webpack_require__(40);
 __webpack_require__(41);
 
 window.Raphael = __webpack_require__(42);
-window.sweetalert = __webpack_require__(43);
+window.swal = __webpack_require__(43);
 window.toastr = __webpack_require__(44);
 
 /***/ }),
