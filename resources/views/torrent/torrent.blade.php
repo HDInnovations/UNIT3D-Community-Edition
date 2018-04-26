@@ -532,15 +532,16 @@
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
-            @if(auth()->user()->hasBookmarked($torrent->id))
-                <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-danger"
-                   role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.unbookmark') }}</a>
-            @else
-                <a href="{{ route('bookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-primary"
-                   role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.bookmark') }}</a>
-            @endif
+
+            {{--
+            BOOKMARK COMPONENT
+                Note the : before the properties, because we don't want these values passed as strings
+                but rather a INT and a Boolean
+            --}}
+            <bookmark :id="{{ $torrent->id }}"
+                      :state="{{ auth()->user()->hasBookmarked($torrent->id) }}"
+            ></bookmark>
+
             @if($torrent->seeders <= 2)
                 <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
                    class="btn btn-labeled btn-warning">

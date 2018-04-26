@@ -1,55 +1,82 @@
 <template>
-    <span>
-        <a href="#" v-if="isBookmarked" @click.prevent="unBookmark(id)" class="btn btn-labeled btn-danger" role="button">
-            <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.unbookmark') }}
-        </a>
-        <a href="#" v-else @click.prevent="bookmark(id)" class="btn btn-labeled btn-primary" role="button">
+    <!-- wrap your templates is this fashion -->
+    <div id="bookmark-component">
+
+        <!-- we really don't even need 2 of these because we can use logic in the html -->
+        <!-- pay special attention the the : before the props (very important) -->
+        <button @click.prevent="bookmarked ? unBookmark(id) : bookmark(id)"
+                :class="['btn', bookmarked ? 'btn-danger' : 'btn-primary']">
+            <i class="fa fa-fw fa-bookmark-o"></i> {{ bookmarked ? 'Unbookmark' : 'Bookmark'}}
+        </button>
+
+        <!--<a href="#" v-else @click.prevent="bookmark(id)" class="btn btn-labeled btn-primary" role="button">
             <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.bookmark') }}
-        </a>
-    </span>
+        </a>-->
+    </div>
 </template>
 
 <script>
+  // DON'T FORGET TO IMPORT YOUR Swal
+  import Swal from 'sweetalert2'
+
   export default {
-    props: ['id', 'bookmarked'],
+    // you could create a endpoint also to get the "state" using axios.get(`/torrent/${id}/bookmarked`)
+    // then you would be able to remove the "state" prop
+    props: ['id', 'state'],
 
     data: function () {
       return {
-        isBookmarked: '',
+        // we just give dynamic data a default value as it will be updated by state prop
+        bookmarked: null,
       }
     },
 
-    mounted() {
-      this.isBookmarked = this.isBookmarked ? true : false;
+    mounted () {
+      // we dont have to do inline logic if state already is either true/false
+      this.bookmarked = this.state
     },
 
-    computed: {
-      isBookmarked() {
-        return this.bookmarked;
-      },
-    },
+    // we don't need this if we can check the variable itself right ?
+    // computed: {
+    //   isBookmarked() {
+    //     return this.bookmarked;
+    //   },
+    // },
 
     methods: {
-      bookmark(id) {
-        axios.post('/torrents/bookmark/' + id)
-          .then(response => this.isBookmarked = true)
-        {
-          Swal({
-            position: 'top-end',
-            type: 'success',
-            title: 'Torrent Has Been Bookmarked Successfully!',
-            showConfirmButton: false,
-            timer: 4500
-          })
+      bookmark (id) {
+        // The better way to post data is by passing the params through the request and not the url
+        // like axios.post(URL, ['id': id]).then(...)
 
-            .catch(response => console.log(response.data));
-        }
-      },
+        //axios.post('/torrents/bookmark/' + id)
+        // I like to use "template strings" when including vars in strings like this:
+        axios.post(`/torrents/bookmark/${id}`)
 
-      unBookmark(id) {
-        axios.post('/torrents/unbookmark/' + id)
-          .then(response => this.isBookmarked = false)
-        {
+        // this is all wrong
+        // .then(response => { this.isBookmarked = true})
+        // try and be consistent with this as it makes it easier to read
+          .then((response) => {
+            this.bookmarked = true
+
+            Swal({
+              position: 'top-end',
+              type: 'success',
+              title: 'Torrent Has Been Bookmarked Successfully!',
+              showConfirmButton: false,
+              timer: 4500
+            })
+
+          }).catch((error) => {
+          console.log(error.response.data)
+        })
+      }
+    },
+
+    unBookmark (id) {
+      axios.post('/torrents/unbookmark/' + id)
+        .then((response) => {
+          this.bookmarked = true
+
           Swal({
             position: 'top-end',
             type: 'success',
@@ -58,9 +85,9 @@
             timer: 4500
           })
 
-            .catch(response => console.log(response.data));
-        }
-      },
-    }
+        }).catch((error) => {
+        console.log(error.response.data)
+      })
+    },
   }
 </script>
