@@ -19,7 +19,9 @@
                     @include('partials.breadcrumb')
                     @include('cookieConsent::index')
                     @include('partials.alerts')
-                    @yield('content')
+                    <div id="app">
+                        @yield('content')
+                    </div>
                     @include('partials.footer')
                 </section>
             </div>
