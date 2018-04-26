@@ -24,7 +24,7 @@
     // then you would be able to remove the "state" prop
     props: ['id', 'state'],
 
-    data: function () {
+    data() {
       return {
         // we just give dynamic data a default value as it will be updated by state prop
         bookmarked: null,
