@@ -37,8 +37,8 @@ $factory->define(App\Torrent::class, function (Faker\Generator $faker) {
         'moderated_at' => $faker->dateTime('now'),
         'moderated_by' => 1,
         'status' => $faker->boolean(80) ? 1 : 0,
-        'seeders' => $faker->numberBetween(0, 50),
-        'leechers' => $faker->numberBetween(0, 100)
+        'seeders' => $faker->boolean(50) ? '0' : $faker->numberBetween(1, 100),
+        'leechers' => $faker->boolean(50) ? '0' : $faker->numberBetween(1, 100)
     ];
 });
 
