@@ -20,7 +20,7 @@
     <!--icons -->
 
     <!--css -->
-    <link rel="stylesheet" href="{{ url('css/vendor/vendor.min.css?v=05') }}"/>
+    <link rel="stylesheet" href="{{ url('css/app.css') }}"/>
     <!--css -->
 </head>
 
