@@ -16,17 +16,17 @@
                             Swal({
                                 position: 'top-end',
                                 type: 'warning',
-                                title: 'There is a update available.',
+                                title: 'There Is A Update Available!',
                                 showConfirmButton: false,
-                                timer: 3500
+                                timer: 4500
                             })
                         } else {
                             Swal({
                                 position: 'top-end',
                                 type: 'success',
-                                title: 'You are completely updated!',
+                                title: 'You Are Running The Latest Version Of UNIT3D!',
                                 showConfirmButton: false,
-                                timer: 3500
+                                timer: 4500
                             })
                         }
                     })
