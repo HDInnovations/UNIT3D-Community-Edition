@@ -342,6 +342,9 @@ Route::group(['middleware' => 'language'], function () {
         // Staff Dashboard
         Route::any('/', 'HomeController@home')->name('staff_dashboard');
 
+        // Codebase Version Check
+        Route::get('/check-update', 'VersionController@checkVersion');
+
         // Ban
         Route::any('/bans', 'BanController@getBans')->name('getBans');
         Route::any('/ban/{username}.{id}', 'BanController@ban')->name('ban');

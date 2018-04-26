@@ -32,6 +32,6 @@ return [
     |
     */
 
-    'version' => 'v1.6.5',
+    'version' => 'v1.6.6',
 
 ];

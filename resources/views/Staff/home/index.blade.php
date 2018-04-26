@@ -203,15 +203,13 @@
             <div class="col-sm-8 col-lg-9">
                 <div class="block">
                     <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="dashboard" data-size="20" data-loop="true" data-c="#F89A14"
-                               data-hc="#F89A14"></i>
-                            System Information
-                        </h3>
+                        <h1>
+                            <u>Codebase Information:</u>
+                        </h1>
                     </div>
                     <div class="panel-body">
-                        <span class="text-red text-bold text-center"><h3>Currently Running {{ config('other.codebase') }}</h3></span>
-
+                        <span class="text-red text-bold text-center"><h2>Currently Running {{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h2></span>
+                        <version></version>
                     </div>
                 </div>
             </div>
@@ -219,12 +217,9 @@
             <div class="col-sm-8 col-lg-9">
                 <div class="block">
                     <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <i class="livicon" data-name="dashboard" data-size="20" data-loop="true" data-c="#F89A14"
-                               data-hc="#F89A14"></i>
-                            Realtime Server Load
-                            <small>- Fake Data For Now!</small>
-                        </h3>
+                        <h1>
+                            <u>Realtime Server Load:</u>
+                        </h1>
                     </div>
                     <div class="panel-body">
                         <div id="realtimechart" style="height:350px;"></div>
