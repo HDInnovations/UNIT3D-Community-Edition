@@ -11178,7 +11178,7 @@ body.movie .movie-heading, body.movie .movie-poster, body.tvshow .movie-heading,
   color: #ffffff;
   width: 100%;
   text-align: center;
-  height: 350px;
+  height: 450px;
   margin-top: 25px;
 }
 
@@ -12671,7 +12671,7 @@ div.bg_image:before {
 
 div.header div.inner_content h1 {
   height: auto;
-  font-size: 5em;
+  font-size: 3.5em;
   font-weight: 800;
   text-align: center;
 }
@@ -12924,6 +12924,39 @@ div.header div.inner_content h1 {
   }
 }
 
+.fa-beat {
+  -webkit-animation: fa-beat 1s infinite linear;
+  animation: fa-beat 1s infinite linear;
+}
+@-webkit-keyframes fa-beat {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes fa-beat {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
 div.blocks {
   display: flex;
   justify-content: space-between;
@@ -13017,4 +13050,121 @@ div.blocks div.media_blocks.blu span {
 
 div.blocks div.media_blocks.collection span {
   background-color: #F5A623
+}
+
+section.tall_categories {
+  width: 1000px;
+  /* background-color: #fff; */
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 120px;
+}
+
+section.tall_categories div.category {
+  background-color: #081C24;
+  transition: all .5s;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap
+}
+
+section.tall_categories div.category {
+  width: 300px;
+  height: 500px;
+}
+
+section.tall_categories div.category:hover {
+  transform: scale(1.06);
+  box-shadow: 0 20px 40px 8px rgba(0, 0, 0, 0.6)
+}
+
+section.tall_categories div.category.fanres {
+  background-image: url("/img/fanres.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@media only screen and (min-resolution: 2dppx) {
+  section.tall_categories div.category.fanres {
+    background-image: url("/img/fanres.png")
+  }
+}
+
+section.tall_categories div.category.tv {
+  background-image: url("/img/tv.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@media only screen and (min-resolution: 2dppx) {
+  section.tall_categories div.category.tv {
+    background-image: url("/img/tv.png")
+  }
+}
+
+section.tall_categories div.category.music {
+  background-image: url("/img/music.png")
+}
+
+@media only screen and (min-resolution: 2dppx) {
+  section.tall_categories div.category.music {
+    background-image: url("/img/music.png")
+  }
+}
+
+section.tall_categories div.category.movie {
+  background-image: url("/img/movie.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@media only screen and (min-resolution: 2dppx) {
+  section.tall_categories div.category.movie {
+    background-image: url("/img/movie.png")
+  }
+}
+
+section.tall_categories div.category p {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 28px;
+  text-transform: uppercase;
+  margin: 0
+}
+
+section.tall_categories div.category div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 365px;
+}
+
+section.tall_categories div.category span {
+  width: 50px;
+  height: 3px;
+  display: block;
+  border-radius: 3px;
+  margin: 8px 0
+}
+
+section.tall_categories div.category.fanres span {
+  background-color: #F82251
+}
+
+section.tall_categories div.category.tv span {
+  background-color: #865BFD
+}
+
+section.tall_categories div.category.music span {
+  background-color: #0084EA
+}
+
+section.tall_categories div.category.movie span {
+  background-color: #E08B00
 }
