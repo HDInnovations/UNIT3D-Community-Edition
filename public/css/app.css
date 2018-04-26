@@ -19,7 +19,7 @@ html{height:100% !important;}
 	border:1px solid #ddd;
 	position:relative;
 	background:#fff;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .wysibb button:focus,.wysibb button:active,#wbbmodal button:focus, #wbbmodal button:active{
@@ -33637,6 +33637,117 @@ div.header div.inner_content h1 {
     -webkit-transform: scale(1);
     opacity: 0;
   }
+}
+
+div.blocks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+div.blocks a {
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 33.33%;
+  height: 145px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+}
+
+div.blocks a:first-child,
+div.blocks a:nth-child(4n+4) {
+  padding-left: 0;
+}
+
+div.blocks a:nth-child(3n) {
+  padding-right: 0;
+}
+
+div.blocks div.media_blocks {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+  background-color: #082629;
+}
+
+div.blocks div.media_blocks:hover {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+  -webkit-box-shadow: 0 20px 40px 8px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 20px 40px 8px rgba(0, 0, 0, 0.6);
+}
+
+div.blocks div.movie.media_blocks {
+  background-color: #241828;
+}
+
+div.blocks div.tv.media_blocks {
+  background-color: #20153B;
+}
+
+div.blocks div.blu.media_blocks {
+  background-color: #011F2B;
+}
+
+div.blocks div.collection.media_blocks {
+  background-color: #383823;
+}
+
+div.blocks div.media_blocks h2 {
+  width: 100%;
+  margin: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+div.blocks div.media_blocks span {
+  width: 50px;
+  height: 3px;
+  display: block;
+  border-radius: 3px;
+  margin: 8px auto;
+}
+
+div.blocks div.media_blocks span {
+  background-color: #01D277;
+}
+
+div.blocks div.media_blocks.movie span {
+  background-color: #F82251;
+}
+
+div.blocks div.media_blocks.tv span {
+  background-color: #865BFD;
+}
+
+div.blocks div.media_blocks.blu span {
+  background-color: #0084EA;
+}
+
+div.blocks div.media_blocks.collection span {
+  background-color: #F5A623;
 }
 
 .btn {
