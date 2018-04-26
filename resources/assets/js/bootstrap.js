@@ -81,5 +81,5 @@ window.CountUp = require('countup.js')
 require('./wysibb/jquery.wysibb')
 
 window.Raphael = require('raphael');
-window.sweetalert = require('sweetalert2')
+window.swal = require('sweetalert2')
 window.toastr = require('toastr')
