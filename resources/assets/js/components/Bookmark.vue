@@ -1,10 +1,8 @@
 <template>
-    <div id="bookmark-component">
-        <button @click="bookmarked ? unBookmark(id) : bookmark(id)"
-                :class="['btn', bookmarked ? 'btn-danger' : 'btn-primary']">
-            <i class="fa fa-fw fa-bookmark-o"></i> {{ bookmarked ? 'Unbookmark' : 'Bookmark'}}
-        </button>
-    </div>
+    <button @click="bookmarked ? unBookmark(id) : bookmark(id)"
+            :class="['btn', bookmarked ? 'btn btn-danger' : 'btn btn-primary']">
+        <i class="fa fa-fw fa-bookmark-o"></i> {{ bookmarked ? 'Unbookmark' : 'Bookmark'}}
+    </button>
 </template>
 
 <script>
