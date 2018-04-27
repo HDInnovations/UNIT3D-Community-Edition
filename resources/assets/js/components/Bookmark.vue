@@ -1,6 +1,6 @@
 <template>
     <div id="bookmark-component">
-        <button @click.prevent="bookmarked ? unBookmark(id) : bookmark(id)"
+        <button @click="bookmarked ? unBookmark(id) : bookmark(id)"
                 :class="['btn', bookmarked ? 'btn-danger' : 'btn-primary']">
             <i class="fa fa-fw fa-bookmark-o"></i> {{ bookmarked ? 'Unbookmark' : 'Bookmark'}}
         </button>
@@ -17,12 +17,12 @@
 
     data() {
       return {
-        bookmarked: null,
+        bookmarked: 0,
       }
     },
 
     mounted() {
-      this.bookmarked = this.state
+      this.bookmarked = this.state;
     },
 
     methods: {
@@ -48,7 +48,7 @@
       unBookmark(id) {
         axios.post('/torrents/unbookmark/' + id)
           .then((response) => {
-            this.bookmarked = true;
+            this.bookmarked = false;
 
             Swal({
               position: 'top-end',

@@ -187,7 +187,9 @@ class Torrent extends Model
      */
     public function bookmarked()
     {
-        return (bool)Bookmark::where('user_id', Auth::id())->where('torrent_id', $this->id)->first();
+        return Bookmark::where('user_id', auth()->user()->id)
+            ->where('torrent_id', $this->id)
+            ->first() ? true : false;
     }
 
     /**

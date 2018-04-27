@@ -533,7 +533,7 @@
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
 
-            {{--<bookmark :id="{{ $torrent->id }}" :state="{{ auth()->user()->isBookmarked($torrent->id) }}"></bookmark>--}}
+            <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
             @if($torrent->seeders <= 2)
                 <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
