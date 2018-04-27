@@ -1,6 +1,6 @@
 <template>
     <button @click="bookmarked ? unBookmark(id) : bookmark(id)"
-            :class="['btn', bookmarked ? 'btn btn-danger' : 'btn btn-primary']">
+            :class="['btn', bookmarked ? 'btn-md btn-danger' : 'btn-md btn-primary']">
         <i class="fa fa-fw fa-bookmark-o"></i> {{ bookmarked ? 'Unbookmark' : 'Bookmark'}}
     </button>
 </template>
