@@ -445,7 +445,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
 
         // Activity Log
-        Route::get('/activitylog', 'ActivityLogController@activityLog')->name('activityLog');
+        Route::get('/activitylog', 'ActivityLogController@getActivity')->name('getActivity');
+        Route::get('/activitylog/delete/{id}', 'ActivityLogController@deleteActivity')->name('deleteActivity');
 
         // System Gifting
         Route::get('/systemgift', 'GiftController@index')->name('systemGift');

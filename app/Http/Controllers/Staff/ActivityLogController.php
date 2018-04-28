@@ -13,18 +13,35 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\LogActivity;
+use \Toastr;
 
 class ActivityLogController extends Controller
 {
 
     /**
-     * Show the application dashboard.
+     * Display All Activities
      *
      * @return \Illuminate\Http\Response
      */
-    public function activityLog()
+    public function getActivity()
     {
-        $logs = \LogActivity::logActivityLists();
-        return view('Staff.activity.index', compact('logs'));
+        $activities = \LogActivity::logActivityLists();
+        return view('Staff.activity.index', ['activities' => $activities]);
+    }
+
+    /**
+     * Delete Record From Activity Log
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteActivity($id)
+    {
+        $activity = LogActivity::findOrFail($id);
+        $activity->delete();
+
+        return redirect()
+            ->back()
+            ->with(Toastr::success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }

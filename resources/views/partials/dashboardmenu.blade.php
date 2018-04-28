@@ -45,7 +45,7 @@
             </li>
             <li><a href="{{ route('massPM') }}"><i class="fa fa-mail-forward"></i> {{ trans('staff.mass-pm') }}</a></li>
             <li class="nav-header head"><i class="fa fa-file"></i> {{ trans('staff.logs') }}</li>
-            <li><a href="{{ route('activityLog') }}"><i class="fa fa-file"></i> {{ trans('staff.activity-log') }}</a>
+            <li><a href="{{ route('getActivity') }}"><i class="fa fa-file"></i> {{ trans('staff.activity-log') }}</a>
             </li>
             <li><a href="{{ route('getBans') }}"><i class="fa fa-file"></i> {{ trans('staff.bans-log') }}</a></li>
             <li><a href="{{ route('getFailedAttemps') }}"><i
