@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\ircBroadcast::class,
         \App\Console\Commands\ircMessage::class,
         \App\Console\Commands\recycleInvites::class,
+        \App\Console\Commands\recycleActivityLog::class,
         \App\Console\Commands\demoSeed::class,
     ];
 
@@ -55,6 +56,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('removeFeaturedTorrent')->hourly();
         $schedule->command('autoGraveyard')->daily();
         $schedule->command('recycleInvites')->daily();
+        $schedule->command('recycleActivityLog')->daily();
     }
 
     /**

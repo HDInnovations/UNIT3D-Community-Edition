@@ -41,18 +41,18 @@
             <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.user-tools') }}</li>
             <li><a href="{{ route('user_search') }}"><i class="fa fa-users"></i> {{ trans('staff.user-search') }}</a>
             </li>
-            <li><a href="{{ route('getNotes') }}"><i class="fa fa-comment"></i> {{ trans('staff.user-notes') }}</a></li>
             <li><a href="{{ route('systemGift') }}"><i class="fa fa-gift"></i> {{ trans('staff.user-gifting') }}</a>
             </li>
             <li><a href="{{ route('massPM') }}"><i class="fa fa-mail-forward"></i> {{ trans('staff.mass-pm') }}</a></li>
             <li class="nav-header head"><i class="fa fa-file"></i> {{ trans('staff.logs') }}</li>
-            <li><a href="{{ route('activityLog') }}"><i class="fa fa-file"></i> {{ trans('staff.activity-log') }}</a>
+            <li><a href="{{ route('getActivity') }}"><i class="fa fa-file"></i> {{ trans('staff.activity-log') }}</a>
             </li>
             <li><a href="{{ route('getBans') }}"><i class="fa fa-file"></i> {{ trans('staff.bans-log') }}</a></li>
             <li><a href="{{ route('getFailedAttemps') }}"><i
                             class="fa fa-file"></i> {{ trans('staff.failed-login-log') }}</a></li>
             <li><a href="{{ route('getInvites') }}"><i class="fa fa-file"></i> {{ trans('staff.invites-log') }}</a></li>
-            @if(auth()->user()->group->is_admin)
+            <li><a href="{{ route('getNotes') }}"><i class="fa fa-file"></i> {{ trans('staff.user-notes') }}</a></li>
+        @if(auth()->user()->group->is_admin)
                 <li><a href="/staff/log-viewer"><i class="fa fa-file"></i> {{ trans('staff.laravel-log') }}</a></li>
             @endif
             <li><a href="{{ route('getReports') }}"><i class="fa fa-file"></i> {{ trans('staff.reports-log') }}</a></li>

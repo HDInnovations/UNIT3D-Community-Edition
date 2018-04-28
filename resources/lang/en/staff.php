@@ -31,7 +31,7 @@ return [
     'torrent-moderation' => 'Torrent Moderation',
     'user-tools' => 'User Tools',
     'user-search' => 'User Search',
-    'user-notes' => 'User Notes',
+    'user-notes' => 'User Notes Log',
     'user-gifting' => 'User Gifting',
     'mass-pm' => 'Mass PM',
     'logs' => 'Logs',
