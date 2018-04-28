@@ -374,9 +374,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // User Staff Notes
-        Route::any('/notes/{username}.{id}', 'NoteController@postNote')->name('postNote');
-        Route::any('/notes', 'NoteController@getNotes')->name('getNotes');
-        Route::get('/notes/{note_id}', 'NoteController@getNote')->name('getNote');
+        Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
+        Route::post('/note/{username}.{id}', 'NoteController@postNote')->name('postNote');
+        Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
 
         // Reports
         Route::any('/reports', 'ReportController@getReports')->name('getReports');

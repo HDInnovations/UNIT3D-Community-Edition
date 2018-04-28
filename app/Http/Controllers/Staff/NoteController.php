@@ -53,7 +53,17 @@ class NoteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Staff Note Has Successfully Posted', 'Yay!', ['options']));
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Note Has Successfully Posted', 'Yay!', ['options']));
+    }
+
+    public function deleteNote($id)
+    {
+        $note = Note::findOrFail($id);
+        $note->delete();
+
+        return redirect()
+            ->back()
+            ->with(Toastr::success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 
 }

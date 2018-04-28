@@ -10,18 +10,9 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('user_search') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Search</span>
-        </a>
-    </li>
-    <li>
-        <a href="{{ route('user_results') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">User Search Results</span>
+        <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
@@ -33,7 +24,9 @@
 
 @section('content')
     <div class="container">
-        <h1 class="title"><i class="fa fa-gear"></i> Edit User {{ $user->username }}</h1>
+        <h1 class="title"><i class="fa fa-gear"></i> Edit User <a
+                    href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
+        </h1>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#account" aria-controls="account" role="tab"
                                                       data-toggle="tab" aria-expanded="true">Account</a></li>
@@ -181,6 +174,8 @@
                         <th>User</th>
                         <th>Staff</th>
                         <th>Message</th>
+                        <th>Created On</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -197,6 +192,15 @@
                                 </td>
                                 <td>
                                     {{ $n->message }}
+                                </td>
+                                <td>
+                                    {{ $n->created_at->toDayDateTimeString() }} ({{ $n->created_at->diffForHumans() }})
+                                </td>
+                                <td>
+                                    <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
+                                       class="btn btn-xs btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
