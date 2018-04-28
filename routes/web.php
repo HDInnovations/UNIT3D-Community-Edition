@@ -88,7 +88,7 @@ Route::group(['middleware' => 'language'], function () {
         // Bookmarks
         Route::get('/bookmarks', 'BookmarkController@bookmarks')->name('bookmarks');
         Route::any('/torrents/bookmark/{id}', 'TorrentController@bookmark')->name('bookmark');
-        Route::any('/torrents/unbookmark/{id}', 'BookmarkController@unBookmark')->name('unbookmark');
+        Route::any('/torrents/unbookmark/{id}', 'TorrentController@unBookmark')->name('unbookmark');
 
         // User/Torrent Report
         Route::post('/report', 'ReportController@postReport')->name('postReport');
