@@ -412,7 +412,7 @@ class TorrentController extends Controller
 
         if ($request->has('uploader') && $request->input('uploader') != null) {
             $match = User::where('username', 'like', $uploader)->first();
-            if(null === $match){
+            if (null === $match){
                 return ['result'=>[],'count'=>0];
             }
             $torrent->where('user_id', $match->id)->where('anon', 0);
