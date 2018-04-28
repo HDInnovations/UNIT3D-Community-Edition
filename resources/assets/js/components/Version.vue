@@ -7,45 +7,56 @@
 </template>
 
 <script>
-  import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
-  export default {
+export default {
+  data() {
+    return {
+      loading: false
+    };
+  },
 
-    data() {
-      return {
-        loading: false,
-      }
-    },
-
-    methods: {
-      checkUpdate() {
-        this.loading = true;
-        axios.get('/staff_dashboard/check-update')
-          .then((response) => {
-            if (response.data.updated === false) {
-              this.loading = false;
-              Swal({
-                position: 'center',
-                type: 'warning',
-                title: 'There Is A Update Available!',
-                showConfirmButton: false,
-                timer: 4500
-              })
-            } else {
-              this.loading = false;
-              Swal({
-                position: 'center',
-                type: 'success',
-                title: 'You Are Running The Latest Version Of UNIT3D!',
-                showConfirmButton: false,
-                timer: 4500
-              })
-            }
-          })
-          .catch((error) => {
-            Swal('Oops...', error.response.data, 'error')
-          })
-      },
+  methods: {
+    checkUpdate() {
+      this.loading = true;
+      axios
+        .get("/staff_dashboard/check-update")
+        .then(response => {
+          if (response.data.updated === "false") {
+            this.loading = false;
+            Swal({
+              position: "center",
+              type: "warning",
+              title: "There Is A Update Available!",
+              showCancelButton: true,
+              showConfirmButton: true,
+              confirmButtonText:
+                '<i class="fa fa-github"></i> Download from Github',
+              html: `New version <a href="//github.com/HDInnovations/UNIT3D/releases">v${
+                response.data.latestversion
+              } </a> is available`
+            }).then(result => {
+              if (result.value) {
+                window.location.assign(
+                  "//github.com/HDInnovations/UNIT3D/releases"
+                );
+              }
+            });
+          } else {
+            this.loading = false;
+            Swal({
+              position: "center",
+              type: "success",
+              title: "You Are Running The Latest Version Of UNIT3D!",
+              showCancelButton: false,
+              timer: 4500
+            });
+          }
+        })
+        .catch(error => {
+          Swal("Oops...", error.response.data, "error");
+        });
     }
   }
+};
 </script>
