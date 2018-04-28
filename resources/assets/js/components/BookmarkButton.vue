@@ -31,7 +31,7 @@
             this.bookmarked = true;
 
             Swal({
-              position: 'top-end',
+              position: 'center',
               type: 'success',
               title: 'Torrent Has Been Bookmarked Successfully!',
               showConfirmButton: false,
@@ -49,7 +49,7 @@
             this.bookmarked = false;
 
             Swal({
-              position: 'top-end',
+              position: 'center',
               type: 'success',
               title: 'Torrent Has Been Unbookmarked Successfully!',
               showConfirmButton: false,
