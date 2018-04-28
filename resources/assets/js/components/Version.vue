@@ -22,7 +22,7 @@ export default {
       axios
         .get("/staff_dashboard/check-update")
         .then(response => {
-          if (response.data.updated === "false") {
+          if (response.data.updated === false) {
             this.loading = false;
             Swal({
               position: "center",
@@ -32,7 +32,7 @@ export default {
               showConfirmButton: true,
               confirmButtonText:
                 '<i class="fa fa-github"></i> Download from Github',
-              html: `New version <a href="//github.com/HDInnovations/UNIT3D/releases">v${
+              html: `New version <a href="//github.com/HDInnovations/UNIT3D/releases">${
                 response.data.latestversion
               } </a> is available`
             }).then(result => {
