@@ -61,7 +61,7 @@ class User extends Authenticatable
      */
     public function chatroom()
     {
-        return $this->belongsTo(Chatroom::class, 'chatroom_id', 'id');
+        return $this->belongsTo(Chatroom::class);
     }
 
     /**
