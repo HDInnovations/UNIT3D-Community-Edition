@@ -273,11 +273,12 @@ Route::group(['middleware' => 'language'], function () {
     | ShoutBox Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'shoutbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
-        Route::get('/', 'HomeController@home')->name('shoutbox-home');
-        Route::get('/messages/{after?}', 'ShoutboxController@pluck')->name('shoutbox-fetch');
-        Route::post('/send', 'ShoutboxController@send')->name('shoutbox-send');
-        Route::get('/delete/{id}', 'ShoutboxController@deleteShout')->name('shout-delete');
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+        Route::get('/', 'ChatController@index');
+        Route::get('chatrooms', 'ChatController@fetchChatrooms');
+        Route::post('change-chatroom', 'ChatController@changeChatroom');
+        Route::get('messages', 'ChatController@fetchMessages');
+        Route::post('messages', 'ChatController@sendMessage');
     });
 
     /*

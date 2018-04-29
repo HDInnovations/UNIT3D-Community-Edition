@@ -15,24 +15,42 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-class Shoutbox extends Model
+class Message extends Model
 {
-
-    protected $table = 'shoutbox';
-    protected $fillable = ['user', 'message', 'mentions', 'messages'];
+    protected $table = 'messages';
 
     /**
-     * Get The Poster
+     * Fields that are mass assignable
      *
-     * @access public
-     * @return
+     * @var array
      */
-    public function poster()
+    protected $fillable = [
+        'message',
+        'user_id',
+        'chatroom_id'
+    ];
+
+    /**
+     * A message belongs to a user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
     {
-        return $this->belongsTo(\App\User::class, 'user')->withDefault([
+        return $this->belongsTo(\App\User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
+    }
+
+    /**
+     * A message belongs to a chatroom
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chatroom()
+    {
+        return $this->belongsTo(\App\Chatroom::class);
     }
 
     /**

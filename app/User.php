@@ -48,12 +48,31 @@ class User extends Authenticatable
     protected $dates = ['last_login'];
 
     /**
+     * A user can have many messages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(\App\Message::class);
+    }
+    /**
+     * A user can have one chatroom at a time
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function chatroom()
+    {
+        return $this->belongsTo(\App\Chatroom::class);
+    }
+
+    /**
      * Thanks Given
      *
      */
     public function thanksGiven()
     {
-        return $this->hasMany(Thank::class, 'user_id', 'id');
+        return $this->hasMany(\App\Thank::class, 'user_id', 'id');
     }
 
     /**
@@ -62,7 +81,7 @@ class User extends Authenticatable
      */
     public function thanksReceived()
     {
-        return $this->hasManyThrough(Thank::class, Torrent::class);
+        return $this->hasManyThrough(\App\Thank::class, Torrent::class);
     }
 
     /**

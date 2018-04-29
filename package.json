@@ -28,6 +28,8 @@
     "sweetalert2": "^7.18.0",
     "toastr": "^2.1.4",
     "vue": "^2.5.7",
-    "vue-countup-v2": "^1.0.3"
+    "vue-countup-v2": "^1.0.3",
+    "socket.io": "^2.1.0",
+    "laravel-echo": "^1.1.3"
   }
 }
