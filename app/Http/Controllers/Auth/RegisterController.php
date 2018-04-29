@@ -21,7 +21,7 @@ use App\Http\Requests\ValidateSecretRequest;
 use App\Jobs\SendActivationMail;
 use App\UserActivation;
 use App\User;
-use App\Shoutbox;
+use App\Message;
 use App\PrivateMessage;
 use App\Group;
 use App\Invite;
@@ -89,9 +89,8 @@ class RegisterController extends Controller
                 $this->dispatch(new SendActivationMail($user, $token));
 
                 $appurl = config('app.url');
-                // Post To Shoutbox
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
-                Cache::forget('shoutbox_messages');
+                // Post To Chatbox
+                Message::create(['user' => "1", 'chatroom_id' => "1", 'message' => "Welcome [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
 
                 // Send Welcome PM
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);

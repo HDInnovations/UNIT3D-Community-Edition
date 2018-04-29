@@ -19,7 +19,7 @@ use App\Article;
 use App\Comment;
 use App\Torrent;
 use App\TorrentRequest;
-use App\Shoutbox;
+use App\Message;
 use App\PrivateMessage;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
@@ -118,8 +118,7 @@ class CommentController extends Controller
             }
         }
 
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
-        cache()->forget('shoutbox_messages');
+        Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
 
         return redirect()->route('article', [
             'slug' => $article->slug,
@@ -217,11 +216,9 @@ class CommentController extends Controller
 
         // Auto Shout
         if ($comment->anon == 0) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
         } else {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
         }
 
         return redirect()->route('torrent', [
@@ -318,11 +315,9 @@ class CommentController extends Controller
 
         // Auto Shout
         if ($comment->anon == 0) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
         } else {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
         }
 
         return redirect()->route('request', [
@@ -379,8 +374,7 @@ class CommentController extends Controller
 
             // Auto Shout
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
         }

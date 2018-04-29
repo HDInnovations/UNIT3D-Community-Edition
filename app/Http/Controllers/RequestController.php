@@ -20,7 +20,7 @@ use App\TorrentRequest;
 use App\TorrentRequestBounty;
 use App\TorrentRequestClaim;
 use App\Torrent;
-use App\Shoutbox;
+use App\Message;
 use App\User;
 use App\PrivateMessage;
 use App\Helpers\RequestViewHelper;
@@ -275,8 +275,7 @@ class RequestController extends Controller
 
                 // Announce To Chat
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
 
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
@@ -391,8 +390,7 @@ class RequestController extends Controller
 
                 // Announce To Chat
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
 
                 // Send Private Message
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
@@ -518,8 +516,7 @@ class RequestController extends Controller
 
             // Announce To Chat
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
 
             // Send Private Message
             PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Approved!", 'message' => $torrentRequest->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] Enjoy The " . $torrentRequest->bounty . " Bonus Points!"]);

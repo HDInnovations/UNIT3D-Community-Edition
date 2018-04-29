@@ -17,7 +17,7 @@ use App\Http\Requests\VoteOnPoll;
 use App\Poll;
 use App\Option;
 use App\Voter;
-use App\Shoutbox;
+use App\Message;
 use \Toastr;
 
 class PollController extends Controller
@@ -78,8 +78,7 @@ class PollController extends Controller
         $url = config('app.url');
         $title = $poll->title;
 
-        Shoutbox::create(["user" => 1, "mentions" => 1, "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
-        cache()->forget("shoutbox_messages");
+        Message::create(["user_id" => "1", "mentions" => "3", "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
 
         return redirect('poll/' . $poll->slug . '/result')->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
     }

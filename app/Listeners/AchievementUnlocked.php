@@ -13,7 +13,7 @@
 namespace App\Listeners;
 
 use Gstt\Achievements\Event\Unlocked;
-use App\Shoutbox;
+use App\Message;
 use App\User;
 
 class AchievementUnlocked
@@ -42,8 +42,7 @@ class AchievementUnlocked
 
         if ($user->private_profile == 0) {
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
         }
     }
 }

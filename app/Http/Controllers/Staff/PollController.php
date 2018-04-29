@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Poll;
 use App\Option;
-use App\Shoutbox;
+use App\Message;
 use App\Http\Requests\StorePoll;
 use Cache;
 use \Toastr;
@@ -71,8 +71,7 @@ class PollController extends Controller
 
         // Auto Shout
         $appurl = config('app.url');
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]{$poll->title}[/url] vote on it now! :slight_smile:"]);
-        Cache::forget('shoutbox_messages');
+        Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]{$poll->title}[/url] vote on it now! :slight_smile:"]);
 
         return redirect('poll/' . $poll->slug)->with(Toastr::success('Your poll has been created.', 'Yay!', ['options']));
     }

@@ -19,7 +19,7 @@ use App\Forum;
 use App\Post;
 use App\Topic;
 use App\User;
-use App\Shoutbox;
+use App\Message;
 use App\Like;
 use App\Achievements\UserMadeFirstPost;
 use App\Achievements\UserMade25Posts;
@@ -266,8 +266,7 @@ class ForumController extends Controller
 
         // Post To ShoutBox
         $appurl = config('app.url');
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
-        cache()->forget('shoutbox_messages');
+        Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a reply on topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "?page={$post->getPageNumber()}#post-{$post->id}" . "]" . $topic->name . "[/url]"]);
 
         // Mail Topic Creator Of New Reply
         if ($post->user_id != $topic->first_post_user_id) {
@@ -358,8 +357,7 @@ class ForumController extends Controller
 
                     // Post To ShoutBox
                     $appurl = config('app.url');
-                    Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
-                    cache()->forget('shoutbox_messages');
+                    Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new topic [url={$appurl}/forums/topic/" . $topic->slug . "." . $topic->id . "]" . $topic->name . "[/url]"]);
 
                     //Achievements
                     $user->unlock(new UserMadeFirstPost(), 1);

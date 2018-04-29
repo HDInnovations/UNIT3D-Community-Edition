@@ -16,7 +16,7 @@ use App\PersonalFreeleech;
 use App\FreeleechToken;
 use App\History;
 use App\Torrent;
-use App\Shoutbox;
+use App\Message;
 use App\PrivateMessage;
 use App\Wish;
 use App\Achievements\UserMadeUpload;
@@ -296,11 +296,9 @@ class TorrentHelper
 
         // Announce To Shoutbox
         if ($anon == 0) {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
         } else {
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
         }
 
         // Announce To IRC

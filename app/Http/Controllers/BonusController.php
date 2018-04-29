@@ -219,9 +219,8 @@ class BonusController extends Controller
                 $transaction->save();
 
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has gifted " . $value . "BON to [url={$appurl}/"
+                Message::create(['user' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has gifted " . $value . "BON to [url={$appurl}/"
                     . $recipient->username . "." . $recipient->id . "]" . $recipient->username . "[/url]"]);
-                cache()->forget('shoutbox_messages');
 
                 PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $recipient->id, 'subject' => "You Have Recieved A Gift", 'message' => $transaction->comment]);
 

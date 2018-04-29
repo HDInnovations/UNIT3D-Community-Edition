@@ -23,7 +23,7 @@ use App\Post;
 use App\Topic;
 use App\PrivateMessage;
 use App\Note;
-use App\Shoutbox;
+use App\Message;
 use App\Like;
 use App\Thank;
 use App\Follow;
@@ -208,7 +208,7 @@ class UserController extends Controller
                 $recieved->save();
             }
             // Removes all Posts made by User from the shoutbox
-            foreach (Shoutbox::where('user', $user->id)->get() as $shout) {
+            foreach (Message::where('user_id', $user->id)->get() as $shout) {
                 $shout->delete();
             }
             // Removes all notes for user

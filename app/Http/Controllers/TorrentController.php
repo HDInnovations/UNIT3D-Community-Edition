@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use \DB;
 use App\Category;
 use App\History;
-use App\Shoutbox;
+use App\Message;
 use App\Torrent;
 use App\TorrentFile;
 use App\Type;
@@ -118,8 +118,7 @@ class TorrentController extends Controller
 
             // Announce To Chat
             $appurl = config('app.url');
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => ":warning: Attention, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => ":warning: Attention, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
 
             // Announce To IRC
             if (config('irc-bot.enabled') == true) {
@@ -628,13 +627,11 @@ class TorrentController extends Controller
             if ($torrent->free == 0) {
                 $torrent->free = "1";
                 // Announce To Chat
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
             } else {
                 $torrent->free = "0";
                 // Announce To Chat
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
             }
             $torrent->save();
 
@@ -673,8 +670,7 @@ class TorrentController extends Controller
 
                 // Announce To Chat
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
 
                 // Activity Log
                 \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
@@ -707,13 +703,11 @@ class TorrentController extends Controller
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
                 // Announce To Chat
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
             } else {
                 $torrent->doubleup = "0";
                 // Announce To Chat
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
-                cache()->forget('shoutbox_messages');
+                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
             }
             $torrent->save();
 
@@ -838,8 +832,7 @@ class TorrentController extends Controller
             }
 
             // Announce To Chat
-            Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
-            cache()->forget('shoutbox_messages');
+            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
