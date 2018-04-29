@@ -40,6 +40,6 @@ class CreateShoutboxTable extends Migration
      */
     public function down()
     {
-        Schema::drop('shoutbox');
+        Schema::dropIfExists('shoutbox');
     }
 }

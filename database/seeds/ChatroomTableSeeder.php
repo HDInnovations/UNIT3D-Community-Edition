@@ -22,18 +22,16 @@ class ChatroomTableSeeder extends Seeder
      */
     public function run()
     {
-        $chatroom = Chatroom::create([
-            'id' => 1,
-            'name' => 'General'
-        ]);
+        $rooms = [
+            'General',
+            'Trivia',
+            'System'
+        ];
 
-        $chatroom = Chatroom::create([
-            'id' => 2,
-            'name' => 'Trivia'
-        ]);
-        $chatroom = Chatroom::create([
-            'id' => 3,
-            'name' => 'System'
-        ]);
+        foreach ($rooms as $room) {
+            Chatroom::create([
+                'name' => $room
+            ]);
+        }
     }
 }

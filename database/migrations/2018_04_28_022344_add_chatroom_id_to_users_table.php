@@ -24,7 +24,7 @@ class AddChatroomIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('chatroom_id')->default(1)->unsigned()->after("rsskey");
+            $table->integer('chatroom_id')->unsigned()->default(1)->after("rsskey");
         });
     }
 

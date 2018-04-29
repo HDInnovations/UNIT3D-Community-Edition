@@ -61,10 +61,21 @@ class HomeController extends Controller
         //Latest Poll
         $poll = Poll::latest()->first();
 
+        return view('home.home', [
+            'user' => $user,
+            'groups' => $groups,
+            'articles' => $articles,
+            'torrents' => $torrents,
+            'best' => $best,
+            'dying' => $dying,
+            'leeched' => $leeched,
+            'dead' => $dead,
+            'topics' => $topics,
+            'posts' => $posts,
+            'featured' => $featured,
+            'poll' => $poll,
 
-        return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
-            'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
-            'articles' => $articles, 'featured' => $featured, 'poll' => $poll]);
+        ]);
     }
 
     /**

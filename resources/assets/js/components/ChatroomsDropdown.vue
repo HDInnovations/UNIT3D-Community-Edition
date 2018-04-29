@@ -1,10 +1,15 @@
 <template>
     <div class="input-group">
-	<span class="input-group-addon" for="currentChatroom">Current
-		Chatroom:</span> <select id='currentChatroom' v-model="currentChatroomValue"
-                                 class="form-control" v-on:change='onChatroomChange'>
-        <option v-for="chatroom in chatrooms" :value='chatroom'>{{ chatroom.name }}</option>
-    </select>
+	<span class="input-group-addon">
+        Current Chatroom:
+    </span>
+        <select id='currentChatroom'
+                v-model="currentChatroomValue"
+                class="form-control"
+                @change='onChatroomChange'>
+
+            <option v-for="chatroom in chatrooms" :value='chatroom'>{{ chatroom.name }}</option>
+        </select>
     </div>
 </template>
 
@@ -26,7 +31,7 @@
         type: Array,
       }
     },
-    data: function () {
+    data () {
       return {
         currentChatroomValue: this.currentchatroom
       }

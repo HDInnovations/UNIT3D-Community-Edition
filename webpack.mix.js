@@ -61,16 +61,6 @@ mix
   .copy('resources/assets/js/unit3d/twostep.js', 'public/js')
 
   /*
-   * shout.js
-   *
-   * We simply copy this file to the public path as currently we will link it in the home view separately from the
-   * rest of the JS.
-   *
-   * Note: This will eventually be reworked into a VueJS component.
-   */
-  .copy('resources/assets/js/unit3d/shout.js', 'public/js')
-
-  /*
    * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'
    *
    * Note: The order of this array will matter, no different then linking these assets manually in the html

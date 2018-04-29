@@ -10,7 +10,7 @@
                 <div id="sidepanel">
                     <div id="profile">
                         <div class="wrap">
-                            <img id="profile-img" src="https://unit3d.org/img/profile.png" class="online"
+                            <img id="profile-img" src="/img/profile.png" class="online"
                                  alt=""/>
                             <!--<p>HDVinnie</p>
                             <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
@@ -42,11 +42,14 @@
                 </div>
                 <div class="content">
                     <div class="contact-profile">
-                        <chatrooms-dropdown v-on:changechatroom="changeChatroom" :currentchatroom='chatroom'
-                                            :chatrooms="chatrooms"></chatrooms-dropdown>
+                        <chatrooms-dropdown @changechatroom="changeChatroom"
+                                            :currentchatroom='chatroom'
+                                            :chatrooms="chatrooms">
+
+                        </chatrooms-dropdown>
                     </div>
                     <chat-messages :messages="messages"></chat-messages>
-                    <chat-form v-on:messagesent="addMessage" :user="user"></chat-form>
+                    <chat-form @messagesent="addMessage" :user="user"></chat-form>
                 </div>
             </div>
         </div>
@@ -54,14 +57,24 @@
 </template>
 
 <script>
+  import ChatroomsDropdown from './ChatroomsDropdown'
+  import ChatMessages from './ChatMessages'
+  import ChatForm from './ChatForm'
+
   export default {
 
-    data: function () {
+    data () {
       return {
         messages: [],
         chatrooms: [],
         currentChatroom: this.chatroom
       }
+    },
+
+    components: {
+      ChatroomsDropdown,
+      ChatMessages,
+      ChatForm
     },
 
     props: {
@@ -75,52 +88,52 @@
       }
     },
 
-    mounted() {
-      this.fetchChatrooms();
-      this.fetchMessages();
+    mounted () {
+      this.fetchChatrooms()
+      this.fetchMessages()
 
       Echo.private('chatroom.' + this.currentChatroom.id)
         .listen('MessageSent', (e) => {
           this.messages.push({
             message: e.message.message,
             user: e.user
-          });
-        });
+          })
+        })
     },
 
     methods: {
-      fetchChatrooms() {
+      fetchChatrooms () {
         axios.get('chatbox/chatrooms').then(response => {
-          this.chatrooms = response.data;
-        });
+          this.chatrooms = response.data
+        })
       },
-      changeChatroom(chatroom) {
-        Echo.leave('chatroom.' + this.currentChatroom.id);
-        this.currentChatroom = chatroom;
+      changeChatroom (chatroom) {
+        Echo.leave('chatroom.' + this.currentChatroom.id)
+        this.currentChatroom = chatroom
 
         axios.post('chatbox/change-chatroom', {'chatroom': chatroom}).then(response => {
-          this.fetchMessages();
+          this.fetchMessages()
           Echo.private('chatroom.' + chatroom.id)
             .listen('MessageSent', (e) => {
               this.messages.push({
                 message: e.message.message,
                 user: e.user
-              });
-            });
-        });
+              })
+            })
+        })
       },
-      fetchMessages() {
+      fetchMessages () {
         axios.get('chatbox/messages').then(response => {
-          this.messages = response.data;
-        });
+          this.messages = response.data
+        })
       },
 
-      addMessage(message) {
-        this.messages.push(message);
+      addMessage (message) {
+        this.messages.push(message)
 
         axios.post('chatbox/messages', message).then(response => {
-          console.log(response.data);
-        });
+          console.log(response.data)
+        })
       }
     }
   }

@@ -17,9 +17,6 @@ window.Vue = require('vue')
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('version', require('./components/Version.vue'));
 Vue.component('chatbox', require('./components/Chatbox.vue'));
-Vue.component('chat-messages', require('./components/ChatMessages.vue'));
-Vue.component('chat-form', require('./components/ChatForm.vue'));
-Vue.component('chatrooms-dropdown', require('./components/ChatroomsDropdown.vue'));
 
 const app = new Vue({
     el: '#app'

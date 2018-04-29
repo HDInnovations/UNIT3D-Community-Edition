@@ -41,6 +41,6 @@ class AlterShoutboxTable extends Migration
      */
     public function down()
     {
-        Schema::drop('messages');
+        Schema::dropIfExists('messages');
     }
 }

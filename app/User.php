@@ -58,12 +58,10 @@ class User extends Authenticatable
     }
     /**
      * A user can have one chatroom at a time
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function chatroom()
     {
-        return $this->belongsTo(\App\Chatroom::class);
+        return $this->belongsTo(Chatroom::class, 'chatroom_id', 'id');
     }
 
     /**
