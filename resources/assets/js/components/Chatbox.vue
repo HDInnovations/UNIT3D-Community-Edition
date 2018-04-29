@@ -12,7 +12,7 @@
                         <div class="wrap">
                             <img id="profile-img" src="https://unit3d.org/img/profile.png" class="online"
                                  alt=""/>
-                            <p>HDVinnie</p>
+                            <!--<p>HDVinnie</p>
                             <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                             <div id="status-options">
                                 <ul>
@@ -28,7 +28,7 @@
                             </div>
                             <div id="expanded">
 
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div id="contacts">
