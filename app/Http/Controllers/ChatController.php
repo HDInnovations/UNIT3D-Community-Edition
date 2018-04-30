@@ -38,7 +38,6 @@ class ChatController extends Controller
     /**
      * Fetch all chatrooms
      *
-     * @return chatrooms
      */
     public function fetchChatrooms()
     {

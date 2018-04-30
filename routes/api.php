@@ -22,3 +22,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::namespace('API')->group(function () {
+
+    Route::prefix('chat')->group(function () {
+
+    });
+});

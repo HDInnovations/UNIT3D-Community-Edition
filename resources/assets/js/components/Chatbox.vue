@@ -92,13 +92,13 @@
       this.fetchChatrooms()
       this.fetchMessages()
 
-      Echo.private('chatroom.' + this.currentChatroom.id)
-        .listen('MessageSent', (e) => {
-          this.messages.push({
-            message: e.message.message,
-            user: e.user
-          })
-        })
+      // Echo.private('chatroom.' + this.currentChatroom.id)
+      //   .listen('MessageSent', (e) => {
+      //     this.messages.push({
+      //       message: e.message.message,
+      //       user: e.user
+      //     })
+      //   })
     },
 
     methods: {
