@@ -95,32 +95,32 @@ Prerequisites Example:
     
 3. Then we'll install the needed software:
 
-    #Tools 
+    #### Tools
     ```
     sudo apt-get install -y git tmux vim curl wget zip unzip htop nano build-essential
     ```
     
-    #Supervisor 
+    #### Supervisor
     ```
     sudo apt-get install supervisor
     ```
 
-    #Redis 
+    #### Redis
     ```
     sudo apt-get install redis-server
     ```
 
-    #Nginx 
+    #### Nginx
     ```
     sudo apt-get install -y nginx
     ```
 
-    #PHP 
+    #### PHP
     ```
     sudo apt-get install php-pear php7.2-curl php7.2-dev php7.2-gd php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xml php7.2-fpm
     ```
     
-    #NodeJS and NPM 
+    #### NodeJS and NPM
     ```
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
     sudo apt-get install -y nodejs
