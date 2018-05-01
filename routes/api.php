@@ -25,6 +25,27 @@ use Illuminate\Http\Request;
 Route::namespace('API')->group(function () {
 
     Route::prefix('chat')->group(function () {
+        /* MAIN ENDPOINT */
+        Route::get('/room/{id}', 'ChatController@chat');
 
+        /* Messages From Room */
+        Route::get('/room/{id}/messages', 'ChatController@roomMessages');
+
+        /* Rooms */
+        Route::get('/rooms', 'ChatController@rooms');
+        Route::post('/rooms', 'ChatController@createRoom');
+        Route::put('/rooms/{id}', 'ChatController@updateRoom');
+        Route::delete('/rooms/{id}', 'ChatController@destroyRoom');
+
+        /* Messages */
+        Route::get('/messages', 'ChatController@messages');
+        Route::post('/messages', 'ChatController@createMessage');
+        Route::put('/message/{id}', 'ChatController@updateMessage');
+        Route::delete('/messages/{id}', 'ChatController@destroyRoom');
+
+        /* Users */
+        Route::get('/user/{id}/chatroom', 'ChatController@userRoom');
+        Route::put('/user/{id}/chatroom', 'ChatController@updateUserRoom');
     });
+
 });
