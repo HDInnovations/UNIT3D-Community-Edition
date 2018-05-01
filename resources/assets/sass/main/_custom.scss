@@ -11178,7 +11178,7 @@ body.movie .movie-heading, body.movie .movie-poster, body.tvshow .movie-heading,
   color: #ffffff;
   width: 100%;
   text-align: center;
-  height: 450px;
+  min-height: 450px;
   margin-top: 25px;
 }
 
@@ -11197,6 +11197,10 @@ body.movie .movie-heading, body.movie .movie-poster, body.tvshow .movie-heading,
 #l-footer .l-footer-section ul {
   list-style: none;
   padding: 0;
+}
+
+#l-footer .l-footer-section > a {
+    white-space: normal;
 }
 
 .home .home-newsboxes {
