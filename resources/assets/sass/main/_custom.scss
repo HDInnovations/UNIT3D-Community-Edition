@@ -11199,6 +11199,10 @@ body.movie .movie-heading, body.movie .movie-poster, body.tvshow .movie-heading,
   padding: 0;
 }
 
+#l-footer .l-footer-section > a {
+    white-space: normal;
+}
+
 .home .home-newsboxes {
   margin: 1.25em auto;
 }
