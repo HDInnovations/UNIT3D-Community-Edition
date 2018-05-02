@@ -3,7 +3,7 @@
         <ul class="list-group">
             <li class="sent" v-for="message in messages">
 
-                <img src="https://unit3d.org/img/profile.png" alt=""/>
+                <img class="chat-user-image" :src="message.user.image ? message.user.image : '/img/profile.png'" alt=""/>
 
                 <h4 class="list-group-item-heading">
 
