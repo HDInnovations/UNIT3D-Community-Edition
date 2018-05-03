@@ -249,7 +249,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{locale}/back', 'LanguageController@back')->name('back');
 
         // User Clients
-        Route::any('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
+        Route::get('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
         Route::post('/{username}.{id}/addcli', 'UserController@authorizeClient')->name('addcli');
         Route::post('/{username}.{id}/rmcli', 'UserController@removeClient')->name('rmcli');
 
