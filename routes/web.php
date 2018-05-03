@@ -232,8 +232,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/wish/{uid}/delete/{id}', 'WishController@destroy')->name('wish-delete');
 
         // Follow System
-        Route::any('/follow/{user}', 'FollowController@follow')->name('follow');
-        Route::any('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
+        Route::get('/follow/{user}', 'FollowController@follow')->name('follow');
+        Route::get('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
 
         //Thank System
         Route::any('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
