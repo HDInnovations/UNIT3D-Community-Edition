@@ -211,16 +211,17 @@ Route::group(['middleware' => 'language'], function () {
 
         // User
         Route::get('/members', 'UserController@members')->name('members');
-        Route::any('/members/results', 'UserController@userSearch')->name('userSearch');
+        Route::get('/members/results', 'UserController@userSearch')->name('userSearch');
         Route::get('/{username}.{id}', 'UserController@profile')->name('profile');
-        Route::any('/{username}.{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
+        Route::get('/{username}.{id}/edit', 'UserController@editProfileForm')->name('user_edit_profile_form');
+        Route::post('/{username}.{id}/edit', 'UserController@editProfile')->name('user_edit_profile');
         Route::post('/{username}.{id}/photo', 'UserController@changePhoto')->name('user_change_photo');
         Route::get('/{username}.{id}/activate/{token}', 'UserController@activate')->name('user_activate');
         Route::post('/{username}.{id}/about', 'UserController@changeAbout')->name('user_change_about');
         Route::post('/{username}.{id}/photo', 'UserController@changeTitle')->name('user_change_title');
         Route::get('/achievements', 'AchievementsController@index')->name('achievements');
         Route::get('/{username}.{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
-        Route::any('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
+        Route::get('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');

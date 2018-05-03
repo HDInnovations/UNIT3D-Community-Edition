@@ -8,7 +8,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('user_edit_profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_edit_profile_form', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.edit') }}</span>
         </a>

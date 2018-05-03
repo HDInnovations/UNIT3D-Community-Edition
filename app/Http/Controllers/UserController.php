@@ -84,6 +84,15 @@ class UserController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editProfileForm($username, $id)
+    {
+        $user = auth()->user();
+        return view('user.edit_profile', ['user' => $user]);
+    }
+
+    /**
      * Edit User Profile
      *
      * @access public
@@ -93,33 +102,29 @@ class UserController extends Controller
     public function editProfile(Request $request, $username, $id)
     {
         $user = auth()->user();
-        // Requetes post only
-        if ($request->isMethod('POST')) {
-            // Avatar
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif', 'GIF']) && preg_match('#image/*#', $image->getMimeType())) {
-                    $filename = $user->username . '.' . $image->getClientOriginalExtension();
-                    $path = public_path('/files/img/' . $filename);
-                    Image::make($image->getRealPath())->fit(150, 150)->save($path);
-                    $user->image = $user->username . '.' . $image->getClientOriginalExtension();
-                }
+        // Avatar
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif', 'GIF']) && preg_match('#image/*#', $image->getMimeType())) {
+                $filename = $user->username . '.' . $image->getClientOriginalExtension();
+                $path = public_path('/files/img/' . $filename);
+                Image::make($image->getRealPath())->fit(150, 150)->save($path);
+                $user->image = $user->username . '.' . $image->getClientOriginalExtension();
             }
-            // Define data
-            $user->title = $request->input('title');
-            $user->about = $request->input('about');
-            $user->signature = $request->input('signature');
-            // Save the user
-            $user->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has updated there profile.");
-
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
         }
+        // Define data
+        $user->title = $request->input('title');
+        $user->about = $request->input('about');
+        $user->signature = $request->input('signature');
+        // Save the user
+        $user->save();
 
-        return view('user.edit_profile', ['user' => $user]);
+        // Activity Log
+        \LogActivity::addToLog("Member {$user->username} has updated there profile.");
+
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
     }
+
 
     /**
      * User Account Settings
@@ -196,21 +201,21 @@ class UserController extends Controller
             'new_password_confirmation' => 'required|min:6',
         ]);
         if ($v->passes()) {
-        if (Hash::check($request->current_password, $user->password)) {
-            $user->fill([
-                'password' => Hash::make($request->new_password)
-            ])->save();
+            if (Hash::check($request->current_password, $user->password)) {
+                $user->fill([
+                    'password' => Hash::make($request->new_password)
+                ])->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has changed there account password.");
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has changed there account password.");
 
-            return redirect('/')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
+                return redirect('/')->with(Toastr::success('Your Password Has Been Reset', 'Yay!', ['options']));
+            } else {
+                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+            }
         } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your Password Was Incorrect!', 'Whoops!', ['options']));
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your New Password Is To Weak!', 'Whoops!', ['options']));
         }
-    } else {
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your New Password Is To Weak!', 'Whoops!', ['options']));
-    }
     }
 
     /**
