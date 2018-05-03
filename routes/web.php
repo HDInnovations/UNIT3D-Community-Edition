@@ -359,7 +359,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/unban/{username}.{id}', 'BanController@unban')->name('unban');
 
         // Flush Ghost Peers
-        Route::any('/flush', 'FlushController@deleteOldPeers')->name('flush');
+        Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
 
         // User Tools
         Route::any('/user_search', 'UserController@members')->name('user_search');
