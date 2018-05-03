@@ -127,7 +127,7 @@ Route::group(['middleware' => 'language'], function () {
         // Comments
         Route::post('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
         Route::post('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
-        Route::post('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
+        Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
         Route::post('/comment/request/{id}', 'CommentController@request')->name('comment_request');
         Route::post('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
         Route::post('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
