@@ -448,7 +448,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
 
         // Warnings
-        Route::any('/warnings', 'WarningController@getWarnings')->name('getWarnings');
+        Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');
 
         // Invites
         Route::any('/invites', 'InviteController@getInvites')->name('getInvites');
