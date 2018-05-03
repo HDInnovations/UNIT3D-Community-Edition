@@ -270,10 +270,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Notifications System
         Route::get('/notifications', 'NotificationController@get')->name('get_notifications');
-        Route::any('/notification/read/{id}', 'NotificationController@read')->name('read_notification');
-        Route::any('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
-        Route::any('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
-        Route::any('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
+        Route::get('/notification/read/{id}', 'NotificationController@read')->name('read_notification');
+        Route::get('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
+        Route::get('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
+        Route::get('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
     });
 
     /*
