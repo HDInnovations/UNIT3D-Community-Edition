@@ -167,18 +167,20 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
-        Route::any('filterRequests', 'RequestController@faceted');
+        Route::get('filterRequests', 'RequestController@faceted');
         Route::get('/requests', 'RequestController@requests')->name('requests');
-        Route::any('/request/add', 'RequestController@addrequest')->name('add_request');
-        Route::any('/request/{id}/edit', 'RequestController@editrequest')->name('edit_request');
+        Route::get('/request/add', 'RequestController@addRequestForm')->name('add_request_form');
+        Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
+        Route::get('/request/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');
+        Route::post('/request/{id}/edit', 'RequestController@editRequest')->name('edit_request');
         Route::get('/request/{id}', 'RequestController@request')->name('request');
-        Route::any('/request/{id}/accept', 'RequestController@approveRequest')->name('approveRequest');
-        Route::any('/request/{id}/delete', 'RequestController@deleteRequest')->name('deleteRequest');
-        Route::any('/request/{id}/fill', 'RequestController@fillRequest')->name('fill_request');
-        Route::any('/request/{id}/reject', 'RequestController@rejectRequest')->name('rejectRequest');
-        Route::any('/request/{id}/vote', 'RequestController@addBonus')->name('add_votes');
-        Route::any('/request/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
-        Route::any('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
+        Route::get('/request/{id}/accept', 'RequestController@approveRequest')->name('approveRequest');
+        Route::post('/request/{id}/delete', 'RequestController@deleteRequest')->name('deleteRequest');
+        Route::post('/request/{id}/fill', 'RequestController@fillRequest')->name('fill_request');
+        Route::get('/request/{id}/reject', 'RequestController@rejectRequest')->name('rejectRequest');
+        Route::post('/request/{id}/vote', 'RequestController@addBonus')->name('add_votes');
+        Route::post('/request/{id}/claim', 'RequestController@claimRequest')->name('claimRequest');
+        Route::get('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
 
         // Torrent
         Route::any('filterTorrents', 'TorrentController@faceted');
