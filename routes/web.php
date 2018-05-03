@@ -109,6 +109,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/contact', 'ContactController@index')->name('contact');
         Route::post('/contact', 'ContactController@contact')->name('sendContact');
 
+        // Page
+        Route::get('/p/{slug}.{id}', 'PageController@page')->name('page');
+
         // Staff List
         Route::get('/staff', 'PageController@staff')->name('staff');
 
@@ -131,7 +134,7 @@ Route::group(['middleware' => 'language'], function () {
 
         //Extra-Stats
         Route::get('/stats', 'StatsController@index')->name('stats');
-        //USER
+        //User
         Route::get('/stats/user/uploaded', 'StatsController@uploaded')->name('uploaded');
         Route::get('/stats/user/downloaded', 'StatsController@downloaded')->name('downloaded');
         Route::get('/stats/user/seeders', 'StatsController@seeders')->name('seeders');
@@ -140,31 +143,28 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/user/bankers', 'StatsController@bankers')->name('bankers');
         Route::get('/stats/user/seedtime', 'StatsController@seedtime')->name('seedtime');
         Route::get('/stats/user/seedsize', 'StatsController@seedsize')->name('seedsize');
-        //TORRENT
+        //Torrent
         Route::get('/stats/torrent/seeded', 'StatsController@seeded')->name('seeded');
         Route::get('/stats/torrent/leeched', 'StatsController@leeched')->name('leeched');
         Route::get('/stats/torrent/completed', 'StatsController@completed')->name('completed');
         Route::get('/stats/torrent/dying', 'StatsController@dying')->name('dying');
         Route::get('/stats/torrent/dead', 'StatsController@dead')->name('dead');
-        //REQUEST
+        //Request
         Route::get('/stats/request/bountied', 'StatsController@bountied')->name('bountied');
-        //GROUPS
+        //Groups
         Route::get('/stats/groups', 'StatsController@groups')->name('groups');
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
-        // Page
-        Route::get('/p/{slug}.{id}', 'PageController@page')->name('page');
-
         // Private Messages System
+        Route::get('/{username}.{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
         Route::get('/{username}.{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
         Route::get('/{username}.{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
         Route::get('/{username}.{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
         Route::get('/{username}.{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
-        Route::any('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
+        Route::post('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
         Route::post('/send-private-message', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
-        Route::any('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
-        Route::any('/{username}.{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
-        Route::any('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
+        Route::post('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
+        Route::post('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
         Route::any('filterRequests', 'RequestController@faceted');
