@@ -379,7 +379,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrent_search', 'TorrentController@search')->name('torrent-search');
 
         // Request section
-        Route::any('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
+        Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // User Staff Notes
         Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
