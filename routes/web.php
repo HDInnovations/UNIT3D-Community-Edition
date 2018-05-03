@@ -412,8 +412,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Types
         Route::get('/types', 'TypeController@index')->name('staff_type_index');
-        Route::any('/types/new', 'TypeController@add')->name('staff_type_add');
-        Route::any('/types/edit/{slug}.{id}', 'TypeController@edit')->name('staff_type_edit');
+        Route::get('/types/new', 'TypeController@addForm')->name('staff_type_add_form');
+        Route::post('/types/new', 'TypeController@add')->name('staff_type_add');
+        Route::get('/types/edit/{slug}.{id}', 'TypeController@editForm')->name('staff_type_edit_form');
+        Route::post('/types/edit/{slug}.{id}', 'TypeController@edit')->name('staff_type_edit');
         Route::get('/types/delete/{slug}.{id}', 'TypeController@delete')->name('staff_type_delete');
 
         // Forum
