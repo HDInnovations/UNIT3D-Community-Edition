@@ -362,13 +362,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
 
         // User Tools
-        Route::any('/user_search', 'UserController@members')->name('user_search');
-        Route::any('/user_results', 'UserController@userSearch')->name('user_results');
-        Route::any('/user_edit/{username}.{id}', 'UserController@userSettings')->name('user_setting');
-        Route::any('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
-        Route::any('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::any('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
-        Route::any('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
+        Route::get('/user_search', 'UserController@members')->name('user_search');
+        Route::get('/user_results', 'UserController@userSearch')->name('user_results');
+        Route::get('/user_edit/{username}.{id}', 'UserController@userSettings')->name('user_setting');
+        Route::post('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
+        Route::post('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
+        Route::post('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
+        Route::post('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation
         Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');
