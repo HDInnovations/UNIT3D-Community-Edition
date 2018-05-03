@@ -348,7 +348,7 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
         // Staff Dashboard
-        Route::any('/', 'HomeController@home')->name('staff_dashboard');
+        Route::get('/', 'HomeController@home')->name('staff_dashboard');
 
         // Codebase Version Check
         Route::get('/check-update', 'VersionController@checkVersion');
