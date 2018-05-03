@@ -239,11 +239,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Settings
-        Route::get('/{username}.{id}/settings', 'UserController@settings')->name('user_settings');
+        Route::get('/{username}.{id}/settings', 'UserController@settings')->name('user_settings_form');
         Route::post('/{username}.{id}/settings', 'UserController@changeSettings')->name('user_settings');
-        Route::any('/{username}.{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
-        Route::any('/{username}.{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
-        Route::any('/{username}.{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
+        Route::post('/{username}.{id}/settings/change_password', 'UserController@changePassword')->name('change_password');
+        Route::post('/{username}.{id}/settings/change_email', 'UserController@changeEmail')->name('change_email');
+        Route::post('/{username}.{id}/settings/change_pid', 'UserController@changePID')->name('change_pid');
 
         // User Language
         Route::get('/{locale}/back', 'LanguageController@back')->name('back');
