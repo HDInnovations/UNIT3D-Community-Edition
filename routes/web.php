@@ -122,12 +122,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/aboutus', 'PageController@about')->name('about');
 
         // Comments
-        Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
-        Route::any('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
-        Route::any('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
-        Route::any('/comment/request/{id}', 'CommentController@request')->name('comment_request');
-        Route::any('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
-        Route::any('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
+        Route::post('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
+        Route::post('/comment/torrent/{slug}.{id}', 'CommentController@torrent')->name('comment_torrent');
+        Route::post('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
+        Route::post('/comment/request/{id}', 'CommentController@request')->name('comment_request');
+        Route::post('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
+        Route::post('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
         //Extra-Stats
         Route::get('/stats', 'StatsController@index')->name('stats');
