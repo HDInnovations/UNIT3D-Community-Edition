@@ -52,7 +52,7 @@ Route::group(['middleware' => 'language'], function () {
 
     Route::group(['before' => 'auth'], function () {
         // Announce
-        Route::any('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
+        Route::get('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
 
         // RSS
         //Route::get('/torrents/rss/{passkey}', 'RssController@getData')->name('rss');
