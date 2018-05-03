@@ -24,12 +24,8 @@ use Illuminate\Support\Facades\Broadcast;
  * |
  */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    // this is saying if the id which is being asked to be broadcast to is the same
-    // as the logged in user broadcast to this user.
-    return (int) $user->id === (int) $id;
-});
-
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id && (bool) $user->can_chat;
+    return [
+        'username' => $user->username
+    ];
 });

@@ -3,9 +3,9 @@
         <ul class="list-group">
             <li class="sent" v-for="message in messages">
 
-                <img class="chat-user-image" :src="message.user.image ? message.user.image : '/img/profile.png'" alt=""/>
+                <img v-if="message.user.id !== 1" class="chat-user-image" :src="message.user.image ? message.user.image : '/img/profile.png'" alt=""/>
 
-                <h4 class="list-group-item-heading">
+                <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
 
                     <span class="badge-user text-bold">
                         <i class="fa fa-android"
@@ -30,7 +30,7 @@
 
                 </h4>
 
-                <p v-html="message.message"></p>
+                <p :class="message.user.id === 1 ? 'system' : null" v-html="message.message"></p>
             </li>
         </ul>
     </div>
@@ -38,6 +38,8 @@
 
 <script>
   export default {
-    props: ['messages']
+    props: {
+      messages: {required: true},
+    }
   }
 </script>

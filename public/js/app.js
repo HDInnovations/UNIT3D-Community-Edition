@@ -13334,7 +13334,7 @@ window.Pusher = __webpack_require__(38);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
   key: '3952ae7020e1a8237c6e',
-  cluster: 'eu',
+  cluster: 'us2',
   encrypted: true
 });
 
@@ -64883,6 +64883,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(106)
+}
 var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(59)
@@ -64891,7 +64895,7 @@ var __vue_template__ = __webpack_require__(74)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -65002,6 +65006,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -65025,12 +65035,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       status: 'Online',
       showStatuses: false,
       chatrooms: [],
-      currentRoom: 1,
-      room: {},
-      scroll: true
+      currentRoom: 0,
+      scroll: true,
+      channel: null
     };
   },
 
+  watch: {
+    currentRoom: function currentRoom(newVal, oldVal) {
+      window.Echo.leave('chatroom.' + oldVal);
+
+      this.channel = window.Echo.join('chatroom.' + newVal);
+      this.listenForEvents();
+    }
+  },
+  computed: {
+    room_index: function room_index() {
+      return this.currentRoom - 1;
+    },
+    messages: function messages() {
+      return this.chatrooms.length > 0 ? this.chatrooms[this.room_index].messages : [];
+    }
+  },
   methods: {
     statusChanged: function statusChanged(status) {
       this.status = status;
@@ -65040,45 +65066,48 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       axios.get('/api/chat/rooms').then(function (response) {
-        _this.chatrooms = response.data;
+        _this.chatrooms = response.data.data;
       });
     },
     changeRoom: function changeRoom(id) {
       var _this2 = this;
 
       this.currentRoom = id;
-      this.room = {};
 
-      axios.get('/api/chat/room/' + id).then(function (response) {
-        _this2.room = response.data.data;
+      /* Update the users chatroom in the database */
+      axios.put('/api/chat/user/' + this.auth.id + '/chatroom', {
+        'room_id': this.currentRoom
+      }).then(function (response) {
 
-        axios.put('/api/chat/user/' + _this2.auth.id + '/chatroom', {
-          'room_id': _this2.currentRoom
-        }).then(function (response) {
-          _this2.auth = response.data;
-        });
-      });
-    },
-    fetchMessages: function fetchMessages() {
-      var _this3 = this;
-
-      axios.get('/api/chat/room/' + this.currentRoom + '/messages').then(function (response) {
-        _this3.room.messages = _.orderBy(response.data.data, ['id'], ['asc']);
+        // reassign the auth variable to the response data
+        _this2.auth = response.data;
       });
     },
     createMessage: function createMessage(message) {
-      var _this4 = this;
 
+      /* Create a new message in the database */
       axios.post('/api/chat/messages', {
         'user_id': this.auth.id,
         'chatroom_id': this.currentRoom,
         'message': message.message
       }).then(function (response) {
-        _this4.fetchMessages();
+        // push the new message on to the array
+        // this.chatrooms[this.room_index].messages.push(response.data.data)
+      });
+    },
+    systemMessage: function systemMessage(message) {
+
+      axios.post('/api/chat/messages', {
+        'user_id': 1,
+        'chatroom_id': this.currentRoom,
+        'message': message
+      }).then(function (response) {
+        // push the new message on to the array
+        // this.chatrooms[this.room_index].messages.push(response.data.data)
       });
     },
     scrollToBottom: function scrollToBottom() {
-      var _this5 = this;
+      var _this3 = this;
 
       var messages = $('.messages .list-group');
 
@@ -65087,35 +65116,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       messages.scroll(function () {
-        _this5.scroll = false;
+        _this3.scroll = false;
 
         var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
         var scrollHeight = messages.prop('scrollHeight');
 
-        _this5.scroll = scrollTop >= scrollHeight;
+        _this3.scroll = scrollTop >= scrollHeight;
+      });
+    },
+    listenForEvents: function listenForEvents() {
+      var _this4 = this;
+
+      this.channel.here(function (users) {
+        console.log('here');
+      }).joining(function (user) {
+        console.log('joining');
+        _this4.systemMessage('[b]' + user.username + '[/b] has JOINED the chat ...');
+      }).leaving(function (user) {
+        console.log('leaving');
+        _this4.systemMessage('[b]' + user.username + '[/b] has LEFT the chat ...');
+      }).listen('.new.message', function (e) {
+        console.log(e);
+        //push the new message on to the array
+        _this4.chatrooms[_this4.room_index].messages.push(e.message);
       });
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this5 = this;
 
     this.auth = this.user;
 
     this.fetchRooms();
     this.changeRoom(this.auth.chatroom.id);
-    this.fetchMessages();
     this.scrollToBottom();
 
-    Echo.channel('chatroom.' + this.auth.chatroom.id).listen('UserJoinedChat', function (e) {
-      console.log(e.username);
-    });
-
-    // setInterval(() => {
-    //   this.fetchMessages()
-    // }, 3000)
-
     setInterval(function () {
-      _this6.scrollToBottom();
+      _this5.scrollToBottom();
     }, 100);
   }
 });
@@ -65753,7 +65790,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages']
+  props: {
+    messages: { required: true }
+  }
 });
 
 /***/ }),
@@ -65770,58 +65809,67 @@ var render = function() {
       { staticClass: "list-group" },
       _vm._l(_vm.messages, function(message) {
         return _c("li", { staticClass: "sent" }, [
-          _c("img", {
-            staticClass: "chat-user-image",
-            attrs: {
-              src: message.user.image ? message.user.image : "/img/profile.png",
-              alt: ""
-            }
-          }),
-          _vm._v(" "),
-          _c("h4", { staticClass: "list-group-item-heading" }, [
-            _c("span", { staticClass: "badge-user text-bold" }, [
-              _c("i", {
-                staticClass: "fa fa-android",
+          message.user.id !== 1
+            ? _c("img", {
+                staticClass: "chat-user-image",
                 attrs: {
-                  "data-toggle": "tooltip",
-                  title: "",
-                  "data-original-title": "Bot"
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticStyle: { cursor: "pointer", color: "#FF9966" },
-                  attrs: { "data-toggle": "tooltip" }
-                },
-                [
-                  _vm._v(
-                    "\n                            " +
-                      _vm._s(message.user.username) +
-                      "\n                        "
-                  )
-                ]
-              ),
-              _vm._v(" - "),
-              _c("a", { attrs: { href: "#" } }, [_vm._v("Profile")]),
-              _vm._v(" "),
-              _c("i", {
-                staticClass: "fa fa-circle text-green",
-                attrs: {
-                  "data-toggle": "tooltip",
-                  title: "",
-                  "data-original-title": "Online!"
+                  src: message.user.image
+                    ? message.user.image
+                    : "/img/profile.png",
+                  alt: ""
                 }
               })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-muted" }, [
-              _c("small", [_c("em", [_vm._v(_vm._s(message.created_at))])])
-            ])
-          ]),
+            : _vm._e(),
           _vm._v(" "),
-          _c("p", { domProps: { innerHTML: _vm._s(message.message) } })
+          message.user.id !== 1
+            ? _c("h4", { staticClass: "list-group-item-heading" }, [
+                _c("span", { staticClass: "badge-user text-bold" }, [
+                  _c("i", {
+                    staticClass: "fa fa-android",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      title: "",
+                      "data-original-title": "Bot"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticStyle: { cursor: "pointer", color: "#FF9966" },
+                      attrs: { "data-toggle": "tooltip" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(message.user.username) +
+                          "\n                        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" - "),
+                  _c("a", { attrs: { href: "#" } }, [_vm._v("Profile")]),
+                  _vm._v(" "),
+                  _c("i", {
+                    staticClass: "fa fa-circle text-green",
+                    attrs: {
+                      "data-toggle": "tooltip",
+                      title: "",
+                      "data-original-title": "Online!"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-muted" }, [
+                  _c("small", [_c("em", [_vm._v(_vm._s(message.created_at))])])
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("p", {
+            class: message.user.id === 1 ? "system" : null,
+            domProps: { innerHTML: _vm._s(message.message) }
+          })
         ])
       })
     )
@@ -65890,7 +65938,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -66109,7 +66156,7 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("chat-messages", { attrs: { messages: _vm.room.messages } }),
+            _c("chat-messages", { attrs: { messages: _vm.messages } }),
             _vm._v(" "),
             _c("chat-form", {
               attrs: { user: _vm.auth },
@@ -66189,6 +66236,71 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(107);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(64)("96fdd22a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fe93899a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fe93899a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(63)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.decoda-image {\n  min-height: 150px;\n  max-height: 230px;\n  max-width: 500px;\n}\n", ""]);
+
+// exports
+
 
 /***/ })
 /******/ ]);

@@ -53,7 +53,7 @@
                         </chatrooms-dropdown>
                     </div>
 
-                    <chat-messages :messages="room.messages"></chat-messages>
+                    <chat-messages :messages="messages"></chat-messages>
 
                     <chat-form @message-sent="createMessage" :user="auth"></chat-form>
 
@@ -62,7 +62,13 @@
         </div>
     </div>
 </template>
-
+<style lang="scss">
+    .decoda-image {
+        min-height: 150px;
+        max-height: 230px;
+        max-width: 500px;
+    }
+</style>
 <script>
   import ChatroomsDropdown from './ChatroomsDropdown'
   import ChatMessages from './ChatMessages'
@@ -86,9 +92,25 @@
         status: 'Online',
         showStatuses: false,
         chatrooms: [],
-        currentRoom: 1,
-        room: {},
-        scroll: true
+        currentRoom: 0,
+        scroll: true,
+        channel: null,
+      }
+    },
+    watch: {
+      currentRoom (newVal, oldVal) {
+        window.Echo.leave(`chatroom.${oldVal}`)
+
+        this.channel = window.Echo.join(`chatroom.${newVal}`)
+        this.listenForEvents();
+      }
+    },
+    computed: {
+      room_index() {
+        return this.currentRoom -1;
+      },
+      messages() {
+        return this.chatrooms.length > 0 ? this.chatrooms[this.room_index].messages : []
       }
     },
     methods: {
@@ -99,42 +121,49 @@
 
       fetchRooms () {
         axios.get('/api/chat/rooms').then(response => {
-          this.chatrooms = response.data
+          this.chatrooms = response.data.data
         })
       },
 
       changeRoom (id) {
         this.currentRoom = id
-        this.room = {}
 
-        axios.get(`/api/chat/room/${id}`).then(response => {
-          this.room = response.data.data
+        /* Update the users chatroom in the database */
+        axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
+          'room_id': this.currentRoom
+        }).then(response => {
 
-          axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
-            'room_id': this.currentRoom
-          }).then(response => {
-            this.auth = response.data
-          })
-
+          // reassign the auth variable to the response data
+          this.auth = response.data
         })
 
       },
 
-      fetchMessages () {
-        axios.get(`/api/chat/room/${this.currentRoom}/messages`)
-          .then(response => {
-            this.room.messages = _.orderBy(response.data.data, ['id'], ['asc'])
-          })
-      },
-
       createMessage (message) {
+
+        /* Create a new message in the database */
         axios.post('/api/chat/messages', {
           'user_id': this.auth.id,
           'chatroom_id': this.currentRoom,
           'message': message.message
         }).then(response => {
-          this.fetchMessages()
+          // push the new message on to the array
+          // this.chatrooms[this.room_index].messages.push(response.data.data)
         })
+
+      },
+
+      systemMessage (message) {
+
+        axios.post('/api/chat/messages', {
+          'user_id': 1,
+          'chatroom_id': this.currentRoom,
+          'message': message
+        }).then(response => {
+          // push the new message on to the array
+          // this.chatrooms[this.room_index].messages.push(response.data.data)
+        })
+
       },
 
       scrollToBottom () {
@@ -152,6 +181,26 @@
 
           this.scroll = scrollTop >= scrollHeight
         })
+      },
+
+      listenForEvents() {
+        this.channel
+          .here(users => {
+            console.log('here')
+          })
+          .joining(user => {
+            console.log('joining')
+            this.systemMessage(`[b]${user.username}[/b] has JOINED the chat ...`)
+          })
+          .leaving(user => {
+            console.log('leaving')
+            this.systemMessage(`[b]${user.username}[/b] has LEFT the chat ...`)
+          })
+          .listen('.new.message', e => {
+            console.log(e);
+            //push the new message on to the array
+            this.chatrooms[this.room_index].messages.push(e.message)
+          });
       }
     },
     created () {
@@ -159,17 +208,7 @@
 
       this.fetchRooms()
       this.changeRoom(this.auth.chatroom.id)
-      this.fetchMessages()
       this.scrollToBottom()
-
-      Echo.channel(`chatroom.${this.auth.chatroom.id}`)
-        .listen('UserJoinedChat', e => {
-          console.log(e.username);
-        })
-
-      // setInterval(() => {
-      //   this.fetchMessages()
-      // }, 3000)
 
       setInterval(() => {
         this.scrollToBottom()

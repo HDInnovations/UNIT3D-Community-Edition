@@ -36761,8 +36761,14 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   display: inline-block;
   padding: 3px 10px;
   border-radius: 20px;
-  max-width: 205px;
+  max-width: 600px;
   line-height: 130%;
+}
+
+#frame .content .messages ul li.sent p.system {
+  font-size: 0.9em;
+  color: #939393;
+  background: transparent;
 }
 
 #frame .content .message-input {
