@@ -441,9 +441,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
 
         // Groups
-        Route::any('/groups', 'GroupsController@index')->name('staff_groups_index');
-        Route::any('/groups/add', 'GroupsController@add')->name('staff_groups_add');
-        Route::any('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
+        Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');
+        Route::get('/groups/add', 'GroupsController@addForm')->name('staff_groups_add_form');
+        Route::post('/groups/add', 'GroupsController@add')->name('staff_groups_add');
+        Route::get('/groups/edit/{group}.{id}', 'GroupsController@editForm')->name('staff_groups_edit_form');
+        Route::post('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
 
         // Warnings
         Route::any('/warnings', 'WarningController@getWarnings')->name('getWarnings');
