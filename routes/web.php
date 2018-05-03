@@ -81,7 +81,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Bonus System
         Route::get('/bonus', 'BonusController@bonus')->name('bonus');
-        Route::any('/bonusexchange/{id}', 'BonusController@exchange')->name('bonusexchange');
+        Route::post('/bonusexchange/{id}', 'BonusController@exchange')->name('bonusexchange');
         Route::post('/bongift', 'BonusController@gift')->name('bongift');
 
         // Bookmarks
