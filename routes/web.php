@@ -451,7 +451,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');
 
         // Invites
-        Route::any('/invites', 'InviteController@getInvites')->name('getInvites');
+        Route::get('/invites', 'InviteController@getInvites')->name('getInvites');
 
         // Failed Logins
         Route::get('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
