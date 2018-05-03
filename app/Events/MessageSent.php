@@ -15,6 +15,7 @@ namespace App\Events;
 use App\Chatroom;
 use App\Message;
 use App\User;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -61,10 +62,10 @@ class MessageSent implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return PrivateChannel|array
+     * @return Channel|array
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chatroom.' . $this->chatroom->id);
+        return new Channel('chatroom.' . $this->chatroom->id);
     }
 }

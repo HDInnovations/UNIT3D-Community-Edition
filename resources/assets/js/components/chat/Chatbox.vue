@@ -162,9 +162,14 @@
       this.fetchMessages()
       this.scrollToBottom()
 
-      setInterval(() => {
-        this.fetchMessages()
-      }, 3000)
+      Echo.channel(`chatroom.${this.auth.chatroom.id}`)
+        .listen('UserJoinedChat', e => {
+          console.log(e.username);
+        })
+
+      // setInterval(() => {
+      //   this.fetchMessages()
+      // }, 3000)
 
       setInterval(() => {
         this.scrollToBottom()

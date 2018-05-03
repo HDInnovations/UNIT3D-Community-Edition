@@ -31,21 +31,5 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    // firstly check the user is authorised.
-
-    if (auth()->check()) {
-        // if the user is authorised then go ahead and check if the user
-        // belongs to the chatroom.
-        // (you can only be in a chatroom at one time)
-
-        $chatroom = Chatroom::findOrFail($id);
-
-        if ($chatroom->users()
-            ->get()
-            ->contains($user)) {
-            return true;
-        }
-    }
-
-    return false;
+    return (int) $user->id === (int) $id && (bool) $user->can_chat;
 });

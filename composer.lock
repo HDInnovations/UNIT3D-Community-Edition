@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86e79875e2a2caaebe82669067f97c23",
+    "content-hash": "4d2dc61c3e87ae46df28e13992765453",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -2491,6 +2491,59 @@
                 "shell"
             ],
             "time": "2018-04-18T12:32:50+00:00"
+        },
+        {
+            "name": "pusher/pusher-php-server",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pusher/pusher-http-php.git",
+                "reference": "e4f6980fa69699945873f0895de8c5a14e7244e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/e4f6980fa69699945873f0895de8c5a14e7244e7",
+                "reference": "e4f6980fa69699945873f0895de8c5a14e7244e7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.4 || ^7.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Pusher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Library for interacting with the Pusher REST API",
+            "keywords": [
+                "events",
+                "messaging",
+                "php-pusher-server",
+                "publish",
+                "push",
+                "pusher",
+                "real time",
+                "real-time",
+                "realtime",
+                "rest",
+                "trigger"
+            ],
+            "time": "2018-04-26T09:54:45+00:00"
         },
         {
             "name": "rachidlaasri/laravel-installer",

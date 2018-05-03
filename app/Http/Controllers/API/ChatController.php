@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Chatroom;
+use App\Events\UserJoinedChat;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserResource;
@@ -124,6 +125,8 @@ class ChatController extends Controller
         $user->chatroom()->associate($room);
 
         $user->save();
+
+        UserJoinedChat::dispatch($room);
 
         return response($user, 200);
     }
