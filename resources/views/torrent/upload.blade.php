@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('uploadForm') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('upload_form') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Upload</span>
         </a>
     </li>
