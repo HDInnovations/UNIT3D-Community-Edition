@@ -23,11 +23,11 @@
 
 Route::group(['middleware' => 'language'], function () {
 
-/*
-|------------------------------------------
-| Website (Not Authorized)
-|------------------------------------------
-*/
+    /*
+    |------------------------------------------
+    | Website (Not Authorized)
+    |------------------------------------------
+    */
     Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
         // Authentication Routes
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -73,7 +73,6 @@ Route::group(['middleware' => 'language'], function () {
 
         // General
         Route::get('/', 'HomeController@home')->name('home');
-        Route::any('/contact', 'HomeController@contact')->name('contact');
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
         // Article
@@ -105,6 +104,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/catalogs', 'CatalogController@catalogs')->name('catalogs');
         Route::get('/catalog/{slug}.{id}', 'CatalogController@catalog')->name('catalog');
         Route::get('/catalog/torrents/{imdb}', 'CatalogController@torrents')->name('catalog_torrents');
+
+        // Contact Us
+        Route::get('/contact', 'ContactController@index')->name('contact');
+        Route::post('/contact', 'ContactController@contact')->name('sendContact');
 
         // Staff List
         Route::any('/staff', 'PageController@staff')->name('staff');
