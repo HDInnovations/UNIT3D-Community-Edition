@@ -23,7 +23,7 @@ class ReportController extends Controller
     /**
      * Reports System
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getReports()
     {
@@ -32,6 +32,10 @@ class ReportController extends Controller
         return view('Staff.reports.index', ['reports' => $reports]);
     }
 
+    /**
+     * @param $report_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getReport($report_id)
     {
         $report = Report::findOrFail($report_id);
@@ -41,6 +45,10 @@ class ReportController extends Controller
         return view('Staff.reports.report', ['report' => $report, 'urls' => $match[0]]);
     }
 
+    /**
+     * @param $report_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function solveReport(Request $request, $report_id)
     {
         $user = auth()->user();

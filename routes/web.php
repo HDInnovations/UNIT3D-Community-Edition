@@ -387,7 +387,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
 
         // Reports
-        Route::any('/reports', 'ReportController@getReports')->name('getReports');
+        Route::get('/reports', 'ReportController@getReports')->name('getReports');
         Route::get('/reports/{report_id}', 'ReportController@getReport')->name('getReport');
         Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
 
