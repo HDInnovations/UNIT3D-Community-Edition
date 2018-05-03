@@ -404,8 +404,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Categories
         Route::get('/categories', 'CategoryController@index')->name('staff_category_index');
-        Route::any('/categories/new', 'CategoryController@add')->name('staff_category_add');
-        Route::any('/categories/edit/{slug}.{id}', 'CategoryController@edit')->name('staff_category_edit');
+        Route::get('/categories/new', 'CategoryController@addForm')->name('staff_category_add_form');
+        Route::post('/categories/new', 'CategoryController@add')->name('staff_category_add');
+        Route::get('/categories/edit/{slug}.{id}', 'CategoryController@editForm')->name('staff_category_edit_form');
+        Route::post('/categories/edit/{slug}.{id}', 'CategoryController@edit')->name('staff_category_edit');
         Route::get('/categories/delete/{slug}.{id}', 'CategoryController@delete')->name('staff_category_delete');
 
         // Types
