@@ -236,7 +236,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/unfollow/{user}', 'FollowController@unfollow')->name('unfollow');
 
         //Thank System
-        Route::any('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
+        Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Settings
         Route::get('/{username}.{id}/settings', 'UserController@settings')->name('user_settings');
