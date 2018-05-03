@@ -426,8 +426,10 @@ Route::group(['middleware' => 'language'], function () {
 
         //Pages
         Route::get('/pages', 'PageController@index')->name('staff_page_index');
-        Route::any('/pages/new', 'PageController@add')->name('staff_page_add');
-        Route::any('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
+        Route::get('/pages/new', 'PageController@addForm')->name('staff_page_add_form');
+        Route::post('/pages/new', 'PageController@add')->name('staff_page_add');
+        Route::get('/pages/edit/{slug}.{id}', 'PageController@editForm')->name('staff_page_edit_form');
+        Route::post('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
         Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
 
         // Articles
