@@ -371,12 +371,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation
-        Route::any('/torrents', 'TorrentController@index')->name('staff_torrent_index');
+        Route::get('/torrents', 'TorrentController@index')->name('staff_torrent_index');
         Route::get('/moderation', 'ModerationController@moderation')->name('moderation');
         Route::get('/moderation/{slug}.{id}/approve', 'ModerationController@approve')->name('moderation_approve');
         Route::post('/moderation/reject', 'ModerationController@reject')->name('moderation_reject');
         Route::post('/moderation/postpone', 'ModerationController@postpone')->name('moderation_postpone');
-        Route::any('/torrent_search', 'TorrentController@search')->name('torrent-search');
+        Route::get('/torrent_search', 'TorrentController@search')->name('torrent-search');
 
         // Request section
         Route::any('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
