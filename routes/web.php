@@ -446,7 +446,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::any('/invites', 'InviteController@getInvites')->name('getInvites');
 
         // Failed Logins
-        Route::any('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
+        Route::get('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
 
         // Polls
         Route::get('/polls', 'PollController@polls')->name('getPolls');
