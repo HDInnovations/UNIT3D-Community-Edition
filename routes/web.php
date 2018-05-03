@@ -110,16 +110,16 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/contact', 'ContactController@contact')->name('sendContact');
 
         // Staff List
-        Route::any('/staff', 'PageController@staff')->name('staff');
+        Route::get('/staff', 'PageController@staff')->name('staff');
 
         // Internal List
-        Route::any('/internal', 'PageController@internal')->name('internal');
+        Route::get('/internal', 'PageController@internal')->name('internal');
 
         // Black List
-        Route::any('/blacklist', 'PageController@blacklist')->name('blacklist');
+        Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
 
         // About Us
-        Route::any('/aboutus', 'PageController@about')->name('about');
+        Route::get('/aboutus', 'PageController@about')->name('about');
 
         // Comments
         Route::any('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');
