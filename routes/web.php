@@ -433,10 +433,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
 
         // Articles
-        Route::any('/articles', 'ArticleController@index')->name('staff_article_index');
-        Route::any('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::any('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::any('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::get('/articles', 'ArticleController@index')->name('staff_article_index');
+        Route::get('/articles/new', 'ArticleController@addForm')->name('staff_article_add_form');
+        Route::post('/articles/new', 'ArticleController@add')->name('staff_article_add');
+        Route::get('/articles/edit/{slug}.{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
+        Route::post('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
+        Route::get('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
 
         // Groups
         Route::any('/groups', 'GroupsController@index')->name('staff_groups_index');

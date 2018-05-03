@@ -4,10 +4,6 @@
     <title>Articles - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -20,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_article_add') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff_article_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Article</span>
         </a>
     </li>
@@ -28,8 +24,9 @@
 
 @section('content')
     <div class="container box">
-        <h2>Add a post</h2>
-        {{ Form::open(array('route' => 'staff_article_add', 'files' => true)) }}
+        <h2>Add A Article</h2>
+        <form role="form" method="POST" action="{{ route('staff_article_add') }}">
+        {{ csrf_field() }}
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" required>
@@ -46,7 +43,7 @@
         </div>
 
         <button type="submit" class="btn btn-default">Post</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection
 
