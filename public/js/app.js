@@ -65917,7 +65917,7 @@ var render = function() {
           message.user.id !== 1
             ? _c("h4", { staticClass: "list-group-item-heading" }, [
                 _c("span", { staticClass: "badge-user text-bold" }, [
-                  _c("i", { staticClass: "fa fa-comment-o" }),
+                  _c("i", { class: message.user.group.icon }),
                   _vm._v(" "),
                   _c(
                     "a",

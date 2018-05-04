@@ -9,7 +9,7 @@
 
                     <span class="badge-user text-bold">
 
-                        <i class="fa fa-comment-o"></i>
+                        <i :class="message.user.group.icon"></i>
 
                         <a data-toggle="tooltip" :style="userStyles(message.user)">
 					        {{ message.user.username }}
