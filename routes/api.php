@@ -25,6 +25,10 @@ use Illuminate\Http\Request;
 Route::namespace('API')->group(function () {
 
     Route::prefix('chat')->group(function () {
+
+        /* Statuses */
+        Route::get('/statuses', 'ChatController@statuses');
+
         /* Rooms */
         Route::get('/rooms', 'ChatController@rooms');
 
@@ -33,6 +37,7 @@ Route::namespace('API')->group(function () {
 
         /* Users */
         Route::put('/user/{id}/chatroom', 'ChatController@updateUserRoom');
+        Route::put('/user/{id}/status', 'ChatController@updateUserChatStatus');
     });
 
 });

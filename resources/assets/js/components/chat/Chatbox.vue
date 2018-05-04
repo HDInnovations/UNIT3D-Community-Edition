@@ -13,23 +13,21 @@
 
                             <img :src="auth.image ? auth.image : '/img/profile.png'"
                                  @click="showStatuses = !showStatuses"
-                                 :class="status.toLowerCase()"
+                                 :style="`border: 2px solid ${statusColor};`"
                                  alt="">
 
                             <div v-if="showStatuses" class="statuses">
                                 <ul class="list-unstyled">
-                                    <li class="text-center" @click="statusChanged('Online')">
-                                        <i class="fa fa-dot-circle-o text-green"></i>
+
+                                    <li v-for="status in statuses"
+                                        class="text-center"
+                                        @click="changeStatus(status.id)">
+
+                                        <i :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
+                                           :style="`color: ${status.color}`"></i>
+
                                     </li>
-                                    <li class="text-center" @click="statusChanged('Away')">
-                                        <i class="fa fa-dot-circle-o text-yellow"></i>
-                                    </li>
-                                    <li class="text-center" @click="statusChanged('Busy')">
-                                        <i class="fa fa-dot-circle-o text-red"></i>
-                                    </li>
-                                    <li class="text-center" @click="statusChanged('Offline')">
-                                        <i class="fa fa-dot-circle-o"></i>
-                                    </li>
+
                                 </ul>
                             </div>
 
@@ -55,7 +53,9 @@
 
                     <chat-messages :messages="messages"></chat-messages>
 
-                    <chat-form @message-sent="createMessage" :user="auth"></chat-form>
+                    <chat-form
+                            @message-sent="(o) => createMessage(o.message, o.broadcast, o.save, o.user_id)"
+                            :user="auth"></chat-form>
 
                 </div>
             </div>
@@ -89,7 +89,8 @@
     data () {
       return {
         auth: {},
-        status: 'Online',
+        statuses: [],
+        status: 0,
         showStatuses: false,
         chatrooms: [],
         currentRoom: 0,
@@ -106,29 +107,45 @@
       }
     },
     computed: {
-      room_index () {
-        return this.currentRoom - 1
-      },
       messages () {
-        return this.chatrooms.length > 0 ? this.chatrooms[this.room_index].messages : []
-      },
-      last_id() {
-        if (this.messages > 0) {
-          return this.messages[m.length -1].id
+        if (this.chatrooms.length > 0) {
+          return this.chatrooms[this.room_index].messages
         }
 
-        return 0;
+        return []
+      },
+      room_index () {
+        if (this.currentRoom !== 0) {
+          return this.currentRoom - 1
+        }
+
+        return 0
+      },
+      last_id () {
+        if (this.messages > 0) {
+          return this.messages[m.length - 1].id
+        }
+
+        return 0
+      },
+      statusColor () {
+        if (this.statuses.length > 0) {
+          let i = _.findIndex(this.statuses, (o) => {
+            return o.id === this.status
+          })
+
+          return this.statuses[i].color
+        }
+
+        return ''
       }
     },
     methods: {
-      statusChanged (status) {
-        this.status = status
-        this.showStatuses = false
-      },
-
       fetchRooms () {
         axios.get('/api/chat/rooms').then(response => {
           this.chatrooms = response.data.data
+
+          this.changeRoom(this.auth.chatroom.id)
         })
       },
 
@@ -138,7 +155,7 @@
         if (this.auth.chatroom.id !== id) {
           /* Update the users chatroom in the database */
           axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
-            'room_id': this.currentRoom
+            'room_id': id
           }).then(response => {
             // reassign the auth variable to the response data
             this.auth = response.data
@@ -147,27 +164,53 @@
 
       },
 
-      createMessage (message) {
+      fetchStatuses () {
+        axios.get('/api/chat/statuses').then(response => {
+          this.statuses = response.data
 
-        /* Create a new message in the database */
-        axios.post('/api/chat/messages', {
-          'user_id': this.auth.id,
-          'chatroom_id': this.currentRoom,
-          'message': message.message
-        });
-
+          this.changeStatus(this.auth.chat_status.id)
+        })
       },
 
-      systemMessage (message) {
+      changeStatus (status_id) {
+        this.status = status_id
+        this.showStatuses = false
 
-        this.chatrooms[this.room_index].messages.push({
-          'id': this.last_id +1,
-          'message': message,
-          'user': {
-            'id': 1
-          }
-        });
+        if (this.auth.chat_status.id !== status_id) {
+          /* Update the users chat status in the database */
+          axios.put(`/api/chat/user/${this.auth.id}/status`, {
+            'status_id': status_id
+          }).then(response => {
+            // reassign the auth variable to the response data
+            this.auth = response.data
 
+            /* Add system message */
+            this.createMessage(`${this.auth.username} has updated their status to ${this.auth.chat_status.name}`, true)
+          })
+        }
+      },
+
+      /* User defaults to System user */
+      createMessage (message, broadcast = false, save = false, user_id = 1) {
+
+        if (!broadcast && !save) {
+          // if you don't broadcast, we simply display it on the current users chat (not on all clients)
+          this.chatrooms[this.room_index].messages.push({
+            'id': this.last_id + 1,
+            'message': message,
+            'user': {
+              'id': 1
+            }
+          })
+        } else {
+          axios.post('/api/chat/messages', {
+            'user_id': user_id,
+            'chatroom_id': this.currentRoom,
+            'message': message,
+            'save': save, // if you want to save the system message to the database
+            'broadcast': broadcast // if you want to broadcast the system message to other clients
+          })
+        }
       },
 
       scrollToBottom () {
@@ -194,11 +237,11 @@
           })
           .joining(user => {
             console.log('joining')
-            this.systemMessage(`${user.username} has JOINED the chat ...`)
+            this.createMessage(`${user.username} has JOINED the chat ...`)
           })
           .leaving(user => {
             console.log('leaving')
-            this.systemMessage(`${user.username} has LEFT the chat ...`)
+            this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
             console.log(e)
@@ -211,8 +254,7 @@
       this.auth = this.user
 
       this.fetchRooms()
-      this.changeRoom(this.auth.chatroom.id)
-      this.scrollToBottom()
+      this.fetchStatuses()
 
       setInterval(() => {
         this.scrollToBottom()

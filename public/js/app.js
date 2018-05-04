@@ -65415,7 +65415,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       auth: {},
-      status: 'Online',
+      statuses: [],
+      status: 0,
       showStatuses: false,
       chatrooms: [],
       currentRoom: 0,
@@ -65433,11 +65434,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   computed: {
-    room_index: function room_index() {
-      return this.currentRoom - 1;
-    },
     messages: function messages() {
-      return this.chatrooms.length > 0 ? this.chatrooms[this.room_index].messages : [];
+      if (this.chatrooms.length > 0) {
+        return this.chatrooms[this.room_index].messages;
+      }
+
+      return [];
+    },
+    room_index: function room_index() {
+      if (this.currentRoom !== 0) {
+        return this.currentRoom - 1;
+      }
+
+      return 0;
     },
     last_id: function last_id() {
       if (this.messages > 0) {
@@ -65445,56 +65454,104 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       return 0;
+    },
+    statusColor: function statusColor() {
+      var _this = this;
+
+      if (this.statuses.length > 0) {
+        var i = _.findIndex(this.statuses, function (o) {
+          return o.id === _this.status;
+        });
+
+        return this.statuses[i].color;
+      }
+
+      return '';
     }
   },
   methods: {
-    statusChanged: function statusChanged(status) {
-      this.status = status;
-      this.showStatuses = false;
-    },
     fetchRooms: function fetchRooms() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/api/chat/rooms').then(function (response) {
-        _this.chatrooms = response.data.data;
+        _this2.chatrooms = response.data.data;
+
+        _this2.changeRoom(_this2.auth.chatroom.id);
       });
     },
     changeRoom: function changeRoom(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       this.currentRoom = id;
 
       if (this.auth.chatroom.id !== id) {
         /* Update the users chatroom in the database */
         axios.put('/api/chat/user/' + this.auth.id + '/chatroom', {
-          'room_id': this.currentRoom
+          'room_id': id
         }).then(function (response) {
           // reassign the auth variable to the response data
-          _this2.auth = response.data;
+          _this3.auth = response.data;
         });
       }
     },
-    createMessage: function createMessage(message) {
+    fetchStatuses: function fetchStatuses() {
+      var _this4 = this;
 
-      /* Create a new message in the database */
-      axios.post('/api/chat/messages', {
-        'user_id': this.auth.id,
-        'chatroom_id': this.currentRoom,
-        'message': message.message
+      axios.get('/api/chat/statuses').then(function (response) {
+        _this4.statuses = response.data;
+
+        _this4.changeStatus(_this4.auth.chat_status.id);
       });
     },
-    systemMessage: function systemMessage(message) {
+    changeStatus: function changeStatus(status_id) {
+      var _this5 = this;
 
-      this.chatrooms[this.room_index].messages.push({
-        'id': this.last_id + 1,
-        'message': message,
-        'user': {
-          'id': 1
-        }
-      });
+      this.status = status_id;
+      this.showStatuses = false;
+
+      if (this.auth.chat_status.id !== status_id) {
+        /* Update the users chat status in the database */
+        axios.put('/api/chat/user/' + this.auth.id + '/status', {
+          'status_id': status_id
+        }).then(function (response) {
+          // reassign the auth variable to the response data
+          _this5.auth = response.data;
+
+          /* Add system message */
+          _this5.createMessage(_this5.auth.username + ' has updated their status to ' + _this5.auth.chat_status.name, true);
+        });
+      }
+    },
+
+
+    /* User defaults to System user */
+    createMessage: function createMessage(message) {
+      var broadcast = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var save = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var user_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+
+      if (!broadcast && !save) {
+        // if you don't broadcast, we simply display it on the current users chat (not on all clients)
+        this.chatrooms[this.room_index].messages.push({
+          'id': this.last_id + 1,
+          'message': message,
+          'user': {
+            'id': 1
+          }
+        });
+      } else {
+        axios.post('/api/chat/messages', {
+          'user_id': user_id,
+          'chatroom_id': this.currentRoom,
+          'message': message,
+          'save': save, // if you want to save the system message to the database
+          'broadcast': broadcast // if you want to broadcast the system message to other clients
+        });
+      }
     },
     scrollToBottom: function scrollToBottom() {
-      var _this3 = this;
+      var _this6 = this;
 
       var messages = $('.messages .list-group');
 
@@ -65503,43 +65560,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       messages.scroll(function () {
-        _this3.scroll = false;
+        _this6.scroll = false;
 
         var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
         var scrollHeight = messages.prop('scrollHeight');
 
-        _this3.scroll = scrollTop >= scrollHeight;
+        _this6.scroll = scrollTop >= scrollHeight;
       });
     },
     listenForEvents: function listenForEvents() {
-      var _this4 = this;
+      var _this7 = this;
 
       this.channel.here(function (users) {
         console.log('here');
       }).joining(function (user) {
         console.log('joining');
-        _this4.systemMessage(user.username + ' has JOINED the chat ...');
+        _this7.createMessage(user.username + ' has JOINED the chat ...');
       }).leaving(function (user) {
         console.log('leaving');
-        _this4.systemMessage(user.username + ' has LEFT the chat ...');
+        _this7.createMessage(user.username + ' has LEFT the chat ...');
       }).listen('.new.message', function (e) {
         console.log(e);
         //push the new message on to the array
-        _this4.chatrooms[_this4.room_index].messages.push(e.message);
+        _this7.chatrooms[_this7.room_index].messages.push(e.message);
       });
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this8 = this;
 
     this.auth = this.user;
 
     this.fetchRooms();
-    this.changeRoom(this.auth.chatroom.id);
-    this.scrollToBottom();
+    this.fetchStatuses();
 
     setInterval(function () {
-      _this5.scrollToBottom();
+      _this8.scrollToBottom();
     }, 100);
   }
 });
@@ -65876,6 +65932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -65904,7 +65961,7 @@ var render = function() {
         return _c("li", { staticClass: "sent" }, [
           message.user.id !== 1
             ? _c("img", {
-                staticClass: "chat-user-image",
+                class: ["chat-user-image"],
                 attrs: {
                   src: message.user.image
                     ? message.user.image
@@ -65943,16 +66000,7 @@ var render = function() {
                       }
                     },
                     [_vm._v("Profile")]
-                  ),
-                  _vm._v(" "),
-                  _c("i", {
-                    staticClass: "fa fa-circle text-green",
-                    attrs: {
-                      "data-toggle": "tooltip",
-                      title: "",
-                      "data-original-title": "Online!"
-                    }
-                  })
+                  )
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "text-muted" }, [
@@ -66072,8 +66120,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (msg !== null && msg !== '') {
 
           this.$emit('message-sent', {
-            user: this.user,
-            message: msg
+            message: msg,
+            broadcast: true,
+            save: true,
+            user_id: this.user.id
           });
 
           this.input.html('');
@@ -66148,7 +66198,7 @@ var render = function() {
           _c("div", { attrs: { id: "profile" } }, [
             _c("div", { staticClass: "wrap" }, [
               _c("img", {
-                class: _vm.status.toLowerCase(),
+                style: "border: 2px solid " + _vm.statusColor + ";",
                 attrs: {
                   src: _vm.auth.image ? _vm.auth.image : "/img/profile.png",
                   alt: ""
@@ -66162,71 +66212,31 @@ var render = function() {
               _vm._v(" "),
               _vm.showStatuses
                 ? _c("div", { staticClass: "statuses" }, [
-                    _c("ul", { staticClass: "list-unstyled" }, [
-                      _c(
-                        "li",
-                        {
-                          staticClass: "text-center",
-                          on: {
-                            click: function($event) {
-                              _vm.statusChanged("Online")
+                    _c(
+                      "ul",
+                      { staticClass: "list-unstyled" },
+                      _vm._l(_vm.statuses, function(status) {
+                        return _c(
+                          "li",
+                          {
+                            staticClass: "text-center",
+                            on: {
+                              click: function($event) {
+                                _vm.changeStatus(status.id)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-dot-circle-o text-green"
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        {
-                          staticClass: "text-center",
-                          on: {
-                            click: function($event) {
-                              _vm.statusChanged("Away")
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-dot-circle-o text-yellow"
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        {
-                          staticClass: "text-center",
-                          on: {
-                            click: function($event) {
-                              _vm.statusChanged("Busy")
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-dot-circle-o text-red"
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        {
-                          staticClass: "text-center",
-                          on: {
-                            click: function($event) {
-                              _vm.statusChanged("Offline")
-                            }
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-dot-circle-o" })]
-                      )
-                    ])
+                          },
+                          [
+                            _c("i", {
+                              class: status.icon
+                                ? status.icon
+                                : "fa fa-dot-circle-o",
+                              style: "color: " + status.color
+                            })
+                          ]
+                        )
+                      })
+                    )
                   ])
                 : _vm._e()
             ])
@@ -66259,7 +66269,16 @@ var render = function() {
             _vm._v(" "),
             _c("chat-form", {
               attrs: { user: _vm.auth },
-              on: { "message-sent": _vm.createMessage }
+              on: {
+                "message-sent": function(o) {
+                  return _vm.createMessage(
+                    o.message,
+                    o.broadcast,
+                    o.save,
+                    o.user_id
+                  )
+                }
+              }
             })
           ],
           1

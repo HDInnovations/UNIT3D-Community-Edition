@@ -54,14 +54,23 @@ class User extends Authenticatable
      */
     public function messages()
     {
-        return $this->hasMany(\App\Message::class);
+        return $this->hasMany(Message::class);
     }
+
     /**
      * A user can have one chatroom at a time
      */
     public function chatroom()
     {
         return $this->belongsTo(Chatroom::class);
+    }
+
+    /**
+     * A user has one chat status
+     */
+    public function chatStatus()
+    {
+        return $this->belongsTo(ChatStatus::class);
     }
 
     /**
@@ -164,9 +173,9 @@ class User extends Authenticatable
     }
 
     /**
-    * Has Many Topics
-    *
-    */
+     * Has Many Topics
+     *
+     */
     public function topics()
     {
         return $this->hasMany(Topic::class, 'first_post_user_id', 'id');

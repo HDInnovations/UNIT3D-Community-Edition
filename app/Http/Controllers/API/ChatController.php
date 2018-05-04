@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Chatroom;
+use App\ChatStatus;
 use App\Events\MessageSent;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
@@ -16,6 +17,12 @@ use App\Http\Controllers\Controller;
 class ChatController extends Controller
 {
 
+    /* STATUSES */
+    public function statuses()
+    {
+        return response(ChatStatus::all(), 200);
+    }
+
     /* ROOMS */
     public function rooms()
     {
@@ -27,17 +34,39 @@ class ChatController extends Controller
     /* MESSAGES */
     public function createMessage(Request $request)
     {
-        $message = Message::create($request->all());
+        $broadcast = $request->get('broadcast');
+        $save = $request->get('save');
 
-        broadcast(new MessageSent($message));
+        $message = Message::create($request->except(['broadcast', 'save']));
 
-        return new ChatMessageResource($message);
+        if ($broadcast) {
+            broadcast(new MessageSent($message));
+        }
+
+        if (!$save) {
+            $message->delete();
+        }
+
+        return $save ? new ChatMessageResource($message) : response('success', 200);
     }
 
     /* USERS */
+    public function updateUserChatStatus(Request $request, $id)
+    {
+        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
+        $status = ChatStatus::findOrFail($request->get('status_id'));
+
+        $user->chatStatus()->dissociate();
+        $user->chatStatus()->associate($status);
+
+        $user->save();
+
+        return response($user, 200);
+    }
+
     public function updateUserRoom(Request $request, $id)
     {
-        $user = User::with('chatroom')->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
         $room = Chatroom::findOrFail($request->get('room_id'));
 
         $user->chatroom()->dissociate();
@@ -47,4 +76,5 @@ class ChatController extends Controller
 
         return response($user, 200);
     }
+
 }

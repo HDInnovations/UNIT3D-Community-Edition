@@ -3,7 +3,10 @@
         <ul class="list-group">
             <li class="sent" v-for="message in messages">
 
-                <img v-if="message.user.id !== 1" class="chat-user-image" :src="message.user.image ? message.user.image : '/img/profile.png'" alt=""/>
+                <img v-if="message.user.id !== 1"
+                     :class="['chat-user-image']"
+                     :src="message.user.image ? message.user.image : '/img/profile.png'"
+                     alt=""/>
 
                 <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
 
@@ -15,11 +18,6 @@
 					        {{ message.user.username }}
                         </a> - <a :href="`/${message.user.username}.${message.user.id}`">Profile</a>
 
-                        <i class="fa fa-circle text-green"
-                           data-toggle="tooltip"
-                           title=""
-                           data-original-title="Online!"></i>
-
 					</span>
 
                     <span class="text-muted">
@@ -28,7 +26,10 @@
 
                 </h4>
 
-                <p :class="message.user.id === 1 ? 'system' : null" v-html="message.message"></p>
+                <p :class="message.user.id === 1 ? 'system' : null"
+                   v-html="message.message">
+
+                </p>
             </li>
         </ul>
     </div>

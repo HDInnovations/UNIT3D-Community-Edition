@@ -32,8 +32,10 @@
           if (msg !== null && msg !== '') {
 
             this.$emit('message-sent', {
-              user: this.user,
-              message: msg
+              message: msg,
+              broadcast: true,
+              save: true,
+              user_id: this.user.id,
             })
 
             this.input.html('')
