@@ -54,12 +54,12 @@ class TorrentController extends Controller
     private $repository;
 
     /**
-    * Constructs a object of type TorrentController
-    *
-    * @param $repository
-    *
-    * @return View
-    */
+     * Constructs a object of type TorrentController
+     *
+     * @param $repository
+     *
+     * @return View
+     */
     public function __construct(TorrentFacetedRepository $repository)
     {
         $this->repository = $repository;
@@ -221,6 +221,23 @@ class TorrentController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function uploadForm($title = '', $imdb = 0, $tmdb = 0)
+    {
+        $user = auth()->user();
+
+        return view('torrent.upload', [
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'user' => $user,
+            'title' => $title,
+            'imdb' => str_replace('tt', '', $imdb),
+            'tmdb' => $tmdb
+        ]);
+    }
+
+    /**
      * Upload A Torrent
      *
      * @access public
@@ -228,119 +245,97 @@ class TorrentController extends Controller
      *
      * @return View torrent.upload
      */
-    public function upload(Request $request, $title = '', $imdb = 0, $tmdb = 0)
+    public function upload(Request $request)
     {
         // Current user is the logged in user
         $user = auth()->user();
-        $parsedContent = null;
-        // Preview The Post
-        if ($request->isMethod('POST') && $request->input('preview') == true) {
-            $code = new Decoda($request->input('description'));
-            $code->defaults();
-            $code->removeHook('Censor');
-            $code->setXhtml(false);
-            $code->setStrict(false);
-            $code->setLineBreaks(true);
-            $parsedContent = $code->parse();
-        }
         // Post and Upload
-        if ($request->isMethod('POST') && $request->input('post') == true) {
-            $requestFile = $request->file('torrent');
-            // No torrent file uploaded OR an Error has occurred
-            if ($request->hasFile('torrent') == false) {
-                Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
-            } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
-                Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
-                return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
-            }
-            // Deplace and decode the torrent temporarily
-            TorrentTools::moveAndDecode($requestFile);
-            // Array decoded from torrent
-            $decodedTorrent = TorrentTools::$decodedTorrent;
-            // Tmp filename
-            $fileName = TorrentTools::$fileName;
-            // Torrent Info
-            $info = Bencode::bdecode_getinfo(getcwd() . '/files/torrents/' . $fileName, true);
-            // Find the right category
-            $category = Category::findOrFail($request->input('category_id'));
-            // Create the torrent (DB)
-            $name = $request->input('name');
-            $mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
-            $torrent = new Torrent([
-                'name' => $name,
-                'slug' => str_slug($name),
-                'description' => $request->input('description'),
-                'mediainfo' => $mediainfo,
-                'info_hash' => $info['info_hash'],
-                'file_name' => $fileName,
-                'num_file' => $info['info']['filecount'],
-                'announce' => $decodedTorrent['announce'],
-                'size' => $info['info']['size'],
-                'nfo' => ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '',
-                'category_id' => $category->id,
-                'user_id' => $user->id,
-                'imdb' => $request->input('imdb'),
-                'tvdb' => $request->input('tvdb'),
-                'tmdb' => $request->input('tmdb'),
-                'mal' => $request->input('mal'),
-                'type' => $request->input('type'),
-                'anon' => $request->input('anonymous'),
-                'stream' => $request->input('stream'),
-                'sd' => $request->input('sd')
-            ]);
-            // Validation
-            $v = validator($torrent->toArray(), $torrent->rules);
-            if ($v->fails()) {
-                if (file_exists(getcwd() . '/files/torrents/' . $fileName)) {
-                    unlink(getcwd() . '/files/torrents/' . $fileName);
-                }
-                Toastr::error('Did You Fill In All The Fields? If so then torrent hash is already on site. Dupe upload attempt was found.', 'Whoops!', ['options']);
-            } else {
-                // Save The Torrent
-                $torrent->save();
-
-                // Count and save the torrent number in this category
-                $category->num_torrent = Torrent::where('category_id', $category->id)->count();
-                $category->save();
-
-                // Torrent Tags System
-                /*foreach(explode(',', Input::get('tags')) as $k => $v)
-                {
-
-                }*/
-
-                // Backup the files contained in the torrent
-                $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
-                foreach ($fileList as $file) {
-                    $f = new TorrentFile();
-                    $f->name = $file['name'];
-                    $f->size = $file['size'];
-                    $f->torrent_id = $torrent->id;
-                    $f->save();
-                    unset($f);
-                }
-
-                // check for trusted user and update torrent
-                if ($user->group->is_trusted) {
-                    TorrentHelper::approveHelper($torrent->slug, $torrent->id);
-                    \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
-                } else {
-                    \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
-                }
-
-                return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
-            }
+        $requestFile = $request->file('torrent');
+        // No torrent file uploaded OR an Error has occurred
+        if ($request->hasFile('torrent') == false) {
+            Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']);
+            return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
+        } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
+            Toastr::error('A Error Has Occured!', 'Whoops!', ['options']);
+            return view('torrent.upload', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
         }
-
-        return view('torrent.upload', [
-            'categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'),
-            'user' => $user, 'parsedContent' => $parsedContent,
-            'title' => $title,
-            'imdb' => str_replace('tt', '', $imdb),
-            'tmdb' => $tmdb
+        // Deplace and decode the torrent temporarily
+        TorrentTools::moveAndDecode($requestFile);
+        // Array decoded from torrent
+        $decodedTorrent = TorrentTools::$decodedTorrent;
+        // Tmp filename
+        $fileName = TorrentTools::$fileName;
+        // Torrent Info
+        $info = Bencode::bdecode_getinfo(getcwd() . '/files/torrents/' . $fileName, true);
+        // Find the right category
+        $category = Category::findOrFail($request->input('category_id'));
+        // Create the torrent (DB)
+        $name = $request->input('name');
+        $mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
+        $torrent = new Torrent([
+            'name' => $name,
+            'slug' => str_slug($name),
+            'description' => $request->input('description'),
+            'mediainfo' => $mediainfo,
+            'info_hash' => $info['info_hash'],
+            'file_name' => $fileName,
+            'num_file' => $info['info']['filecount'],
+            'announce' => $decodedTorrent['announce'],
+            'size' => $info['info']['size'],
+            'nfo' => ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '',
+            'category_id' => $category->id,
+            'user_id' => $user->id,
+            'imdb' => $request->input('imdb'),
+            'tvdb' => $request->input('tvdb'),
+            'tmdb' => $request->input('tmdb'),
+            'mal' => $request->input('mal'),
+            'type' => $request->input('type'),
+            'anon' => $request->input('anonymous'),
+            'stream' => $request->input('stream'),
+            'sd' => $request->input('sd')
         ]);
+        // Validation
+        $v = validator($torrent->toArray(), $torrent->rules);
+        if ($v->fails()) {
+            if (file_exists(getcwd() . '/files/torrents/' . $fileName)) {
+                unlink(getcwd() . '/files/torrents/' . $fileName);
+            }
+            Toastr::error('Did You Fill In All The Fields? If so then torrent hash is already on site. Dupe upload attempt was found.', 'Whoops!', ['options']);
+        } else {
+            // Save The Torrent
+            $torrent->save();
+
+            // Count and save the torrent number in this category
+            $category->num_torrent = Torrent::where('category_id', $category->id)->count();
+            $category->save();
+
+            // Torrent Tags System
+            /*foreach(explode(',', Input::get('tags')) as $k => $v)
+            {
+
+            }*/
+
+            // Backup the files contained in the torrent
+            $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
+            foreach ($fileList as $file) {
+                $f = new TorrentFile();
+                $f->name = $file['name'];
+                $f->size = $file['size'];
+                $f->torrent_id = $torrent->id;
+                $f->save();
+                unset($f);
+            }
+
+            // check for trusted user and update torrent
+            if ($user->group->is_trusted) {
+                TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+                \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
+            } else {
+                \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
+            }
+
+            return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your torrent file is ready to be downloaded and seeded!', 'Yay!', ['options']));
+        }
     }
 
 
@@ -362,15 +357,15 @@ class TorrentController extends Controller
     }
 
     /**
-    * uses input to put together a search
-    *
-    * @access public
-    *
-    * @param $request Request from view
-    * @param $torrent Torrent a search is based on
-    *
-    * @return array
-    */
+     * uses input to put together a search
+     *
+     * @access public
+     *
+     * @param $request Request from view
+     * @param $torrent Torrent a search is based on
+     *
+     * @return array
+     */
     public function faceted(Request $request, Torrent $torrent)
     {
         $user = auth()->user();
@@ -412,8 +407,8 @@ class TorrentController extends Controller
 
         if ($request->has('uploader') && $request->input('uploader') != null) {
             $match = User::where('username', 'like', $uploader)->first();
-            if (null === $match){
-                return ['result'=>[],'count'=>0];
+            if (null === $match) {
+                return ['result' => [], 'count' => 0];
             }
             $torrent->where('user_id', $match->id)->where('anon', 0);
         }
@@ -542,13 +537,13 @@ class TorrentController extends Controller
             if ($torrent->tmdb || $torrent->tmdb != 0) {
                 $movie = $client->scrape('tv', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('tv', 'tt'. $torrent->imdb);
+                $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
             }
         } else {
             if ($torrent->tmdb || $torrent->tmdb != 0) {
                 $movie = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'. $torrent->imdb);
+                $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
             }
         }
 
@@ -881,11 +876,11 @@ class TorrentController extends Controller
     }
 
     /**
-    * Torrent Grouping Categories
-    *
-    * @access public
-    *
-    */
+     * Torrent Grouping Categories
+     *
+     * @access public
+     *
+     */
     public function groupingCategories()
     {
         $user = auth()->user();
@@ -895,11 +890,11 @@ class TorrentController extends Controller
     }
 
     /**
-    * Torrent Grouping
-    *
-    * @access public
-    *
-    */
+     * Torrent Grouping
+     *
+     * @access public
+     *
+     */
     public function groupingLayout($category_id)
     {
         $user = auth()->user();
@@ -908,8 +903,7 @@ class TorrentController extends Controller
         $torrents = DB::table('torrents')
             ->select('*')
             ->join(DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
-                function($join)
-                {
+                function ($join) {
                     $join->on('torrents.id', '=', 'unique_torrents.id');
                 })
             ->where('imdb', '!=', 0)
@@ -920,11 +914,11 @@ class TorrentController extends Controller
     }
 
     /**
-    * Torrent Grouping Results
-    *
-    * @access public
-    *
-    */
+     * Torrent Grouping Results
+     *
+     * @access public
+     *
+     */
     public function groupingResults($category_id, $imdb)
     {
         $user = auth()->user();
@@ -932,6 +926,25 @@ class TorrentController extends Controller
         $torrents = Torrent::where('category_id', $category_id)->where('imdb', $imdb)->latest()->get();
 
         return view('torrent.grouping_results', ['user' => $user, 'torrents' => $torrents, 'imdb' => $imdb, 'category' => $category]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editForm($slug, $id)
+    {
+        $user = auth()->user();
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+
+        if ($user->group->is_modo || $user->id == $torrent->user_id) {
+            return view('torrent.edit_tor', [
+                'categories' => Category::all()->sortBy('position'),
+                'types' => Type::all()->sortBy('position'),
+                'tor' => $torrent
+            ]);
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 
     /**
@@ -951,43 +964,39 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($user->group->is_modo || $user->id == $torrent->user_id) {
-            if ($request->isMethod('POST')) {
-                $name = $request->input('name');
-                $imdb = $request->input('imdb');
-                $tvdb = $request->input('tvdb');
-                $tmdb = $request->input('tmdb');
-                $mal = $request->input('mal');
-                $category = $request->input('category_id');
-                $type = $request->input('type');
-                $anon = $request->input('anonymous');
-                $stream = $request->input('stream');
-                $sd = $request->input('sd');
+            $name = $request->input('name');
+            $imdb = $request->input('imdb');
+            $tvdb = $request->input('tvdb');
+            $tmdb = $request->input('tmdb');
+            $mal = $request->input('mal');
+            $category = $request->input('category_id');
+            $type = $request->input('type');
+            $anon = $request->input('anonymous');
+            $stream = $request->input('stream');
+            $sd = $request->input('sd');
 
-                $torrent->name = $name;
-                $torrent->imdb = $imdb;
-                $torrent->tvdb = $tvdb;
-                $torrent->tmdb = $tmdb;
-                $torrent->mal = $mal;
-                $torrent->category_id = $category;
-                $torrent->type = $type;
-                $torrent->description = $request->input('description');
-                $torrent->mediainfo = $request->input('mediainfo');
-                $torrent->anon = $anon;
-                $torrent->stream = $stream;
-                $torrent->sd = $sd;
-                $torrent->save();
+            $torrent->name = $name;
+            $torrent->imdb = $imdb;
+            $torrent->tvdb = $tvdb;
+            $torrent->tmdb = $tmdb;
+            $torrent->mal = $mal;
+            $torrent->category_id = $category;
+            $torrent->type = $type;
+            $torrent->description = $request->input('description');
+            $torrent->mediainfo = $request->input('mediainfo');
+            $torrent->anon = $anon;
+            $torrent->stream = $stream;
+            $torrent->sd = $sd;
+            $torrent->save();
 
-                if ($user->group->is_modo) {
-                    // Activity Log
-                    \LogActivity::addToLog("Staff Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                } else {
-                    // Activity Log
-                    \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                }
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
+            if ($user->group->is_modo) {
+                // Activity Log
+                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
             } else {
-                return view('torrent.edit_tor', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'tor' => $torrent]);
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
             }
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Succesfully Edited!!!', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }

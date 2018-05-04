@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_edit', array('slug' => $type->slug, 'id' => $type->id)) }}" itemprop="url"
+        <a href="{{ route('staff_type_edit_form', array('slug' => $type->slug, 'id' => $type->id)) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Type</span>
         </a>

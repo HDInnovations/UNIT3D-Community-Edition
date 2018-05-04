@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ url('/upload') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('upload_form') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Upload</span>
         </a>
     </li>
@@ -35,13 +35,6 @@
             </div>
         </div>
     @else
-        @if(isset($parsedContent))
-            <div class="torrent box container">
-                <div class="text-center"><h2>Description Preview</h2></div>
-                <div class="preview col-md-12"> @emojione($parsedContent)</div>
-                <hr>
-            </div>
-        @endif
         <div class="torrent box container">
             <div class="alert alert-info text-center">
                 <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}
@@ -158,8 +151,6 @@
                 <br>
 
                 <div class="text-center">
-                    <button type="submit" name="preview" value="true" id="preview" class="btn btn-warning">Preview
-                    </button>
                     <button id="add" class="btn btn-default">Add MediaInfo Parser</button>
                     <button type="submit" name="post" value="true" id="post" class="btn btn-primary">Upload</button>
                 </div>

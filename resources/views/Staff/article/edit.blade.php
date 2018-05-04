@@ -4,10 +4,6 @@
     <title>Articles - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -20,7 +16,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_article_edit', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url"
+        <a href="{{ route('staff_article_edit', ['slug' => $article->slug, 'id' => $article->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Article Edit</span>
         </a>
@@ -30,10 +26,12 @@
 @section('content')
     <div class="container box">
         <h2>Add a post</h2>
-        {{ Form::open(array('route' => array('staff_article_edit', 'slug' => $post->slug, 'id' => $post->id), 'files' => true)) }}
+        <form role="form" method="POST"
+              action="{{ route('staff_article_edit',['slug' => $article->slug, 'id' => $article->id]) }}">
+            {{ csrf_field() }}
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" value="{{ $post->title }}" required>
+            <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
         </div>
 
         <div class="form-group">
@@ -44,11 +42,11 @@
         <div class="form-group">
             <label for="content">The content of your article</label>
             <textarea name="content" id="content" cols="30" rows="10"
-                      class="form-control">{{ $post->content }}</textarea>
+                      class="form-control">{{ $article->content }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-default">Save</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection
 

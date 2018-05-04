@@ -22,7 +22,6 @@ use App\Torrent;
 use App\User;
 use App\Post;
 use App\FeaturedTorrent;
-use App\Mail\Contact;
 use \Toastr;
 
 class HomeController extends Controller
@@ -68,25 +67,5 @@ class HomeController extends Controller
         return view('home.home', ['user' => $user, 'groups' => $groups, 'articles' => $articles, 'torrents' => $torrents,
             'best' => $best, 'dying' => $dying, 'leeched' => $leeched, 'dead' => $dead, 'topics' => $topics, 'posts' => $posts,
             'articles' => $articles, 'shoutboxMessages' => $shoutboxMessages, 'featured' => $featured, 'poll' => $poll]);
-    }
-
-    /**
-     * Contact page, send an email to admins
-     *
-     * @access public
-     * @return View home.contact
-     */
-    public function contact(Request $request)
-    {
-        // Fetch owner account
-        $user = User::where('id', 3)->first();
-
-        if ($request->isMethod('POST')) {
-            $input = $request->all();
-            Mail::to($user->email, $user->username)->send(new Contact($input));
-            Toastr::success('Your Message Was Succefully Sent!', 'Yay!', ['options']);
-        }
-
-        return view('home.contact');
     }
 }

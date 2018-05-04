@@ -21,9 +21,9 @@ class TypeController extends Controller
 {
 
     /**
-     * Get Types
+     * Get All Types
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -33,62 +33,80 @@ class TypeController extends Controller
     }
 
     /**
-     * Add A Type
+     * Type Add Form
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function add(Request $request)
+    public function addForm()
     {
-        if ($request->isMethod('POST')) {
-            $type = new Type();
-            $type->name = $request->input('name');
-            $type->slug = str_slug($type->name);
-            $type->position = $request->input('position');
-            $v = validator($type->toArray(), $type->rules);
-            if ($v->fails()) {
-                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
-            } else {
-                $type->save();
-                return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Added', 'Yay!', ['options']));
-            }
-        }
         return view('Staff.type.add');
     }
 
     /**
-     * Edit A Type
-     *
+     * Add A Type
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function add(Request $request)
+    {
+        $type = new Type();
+        $type->name = $request->input('name');
+        $type->slug = str_slug($type->name);
+        $type->position = $request->input('position');
+        $v = validator($type->toArray(), $type->rules);
+        if ($v->fails()) {
+            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+        } else {
+            $type->save();
+            return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Added', 'Yay!', ['options']));
+        }
+    }
+
+    /**
+     * Type Edit Form
+     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editForm($slug, $id)
     {
         $type = Type::findOrFail($id);
-        if ($request->isMethod('POST')) {
-            $type->name = $request->input('name');
-            $type->slug = str_slug($type->name);
-            $type->position = $request->input('position');
-            $v = validator($type->toArray(), $type->rules);
-            if ($v->fails()) {
-                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
-            } else {
-                $type->save();
-                return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Modified', 'Yay!', ['options']));
-            }
-        }
 
         return view('Staff.type.edit', ['type' => $type]);
     }
 
     /**
+     * Edit A Type
+     *
+     * @param $slug
+     * @param $id
+     */
+    public function edit(Request $request, $slug, $id)
+    {
+        $type = Type::findOrFail($id);
+        $type->name = $request->input('name');
+        $type->slug = str_slug($type->name);
+        $type->position = $request->input('position');
+        $v = validator($type->toArray(), $type->rules);
+        if ($v->fails()) {
+            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+        } else {
+            $type->save();
+            return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Modified', 'Yay!', ['options']));
+        }
+    }
+
+    /**
      * Delete A Type
      *
-     *
+     * @param $slug
+     * @param $id
      */
     public function delete($slug, $id)
     {
         $type = Type::findOrFail($id);
         $type->delete();
-        
+
         return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

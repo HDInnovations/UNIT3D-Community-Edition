@@ -248,7 +248,7 @@
                         @endif
                         @if(auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
                             <a class="btn btn-warning btn-xs"
-                               href="{{ route('edit', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
+                               href="{{ route('edit_form', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
                                role="button">{{ trans('common.edit') }}</a>
                         @endif
                         @if(auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))

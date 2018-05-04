@@ -21,9 +21,9 @@ class PageController extends Controller
 {
 
     /**
-     * Affiche les pages d'index
+     * Get All Pages
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -33,57 +33,76 @@ class PageController extends Controller
     }
 
     /**
-     * Ajoute une page
+     * Page Add Form
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function add(Request $request)
+    public function addForm()
     {
-        if ($request->isMethod('POST')) {
-            $page = new Page();
-            $page->name = $request->input('name');
-            $page->slug = str_slug($page->name);
-            $page->content = $request->input('content');
-
-            $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
-            if ($v->passes()) {
-                $page->save();
-                return redirect()->route('staff_page_index')->with(Toastr::success('Page has been created successfully', 'Yay!', ['options']));
-            } else {
-                return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
-            }
-        }
         return view('Staff.page.add');
     }
 
     /**
-     * Edit une page
-     *
+     * Add A Page
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function add(Request $request)
+    {
+        $page = new Page();
+        $page->name = $request->input('name');
+        $page->slug = str_slug($page->name);
+        $page->content = $request->input('content');
+
+        $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
+        if ($v->passes()) {
+            $page->save();
+            return redirect()->route('staff_page_index')->with(Toastr::success('Page has been created successfully', 'Yay!', ['options']));
+        } else {
+            return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
+        }
+    }
+
+    /**
+     * Page Edit Form
+     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editForm($slug, $id)
     {
         $page = Page::findOrFail($id);
-        if ($request->isMethod('POST')) {
-            $page->name = $request->input('name');
-            $page->slug = str_slug($page->name);
-            $page->content = $request->input('content');
 
-            $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
-            if ($v->passes()) {
-                $page->save();
-                return redirect()->route('staff_page_index')->with(Toastr::success('Page has been edited successfully', 'Yay!', ['options']));
-            } else {
-                return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
-            }
-        }
         return view('Staff.page.edit', ['page' => $page]);
     }
 
     /**
-     * Delete une page
+     * Edit A Page
      *
+     * @param $slug
+     * @param $id
+     */
+    public function edit(Request $request, $slug, $id)
+    {
+        $page = Page::findOrFail($id);
+        $page->name = $request->input('name');
+        $page->slug = str_slug($page->name);
+        $page->content = $request->input('content');
+
+        $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
+        if ($v->passes()) {
+            $page->save();
+            return redirect()->route('staff_page_index')->with(Toastr::success('Page has been edited successfully', 'Yay!', ['options']));
+        } else {
+            return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
+        }
+    }
+
+    /**
+     * Delete A Page
      *
+     * @param $slug
+     * @param $id
      */
     public function delete($slug, $id)
     {
