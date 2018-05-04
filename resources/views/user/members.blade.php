@@ -25,7 +25,7 @@
                     <div class="page-title"><h1>{{ trans('common.members') }}</h1></div>
                 </div>
             </div>
-            <form action="{{route('userSearch')}}" method="any">
+            <form action="{{route('userSearch')}}" method="GET">
                 <input type="text" name="username" id="username" size="25" placeholder="{{ trans('user.search') }}"
                        class="form-control" style="float:right;">
             </form>

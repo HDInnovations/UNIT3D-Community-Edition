@@ -33,8 +33,7 @@ class UserController extends Controller
 {
     /**
      * Members List
-     *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function members()
     {
@@ -50,7 +49,7 @@ class UserController extends Controller
      * Search for members
      *
      * @access public
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)
     {
@@ -67,7 +66,7 @@ class UserController extends Controller
      * User Edit
      *
      * @access public
-     * @return view user.settings
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSettings($username, $id)
     {
@@ -81,89 +80,72 @@ class UserController extends Controller
      * Edit User
      *
      * @access public
-     * @return view user.profile
      */
     public function userEdit(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
         $groups = Group::all();
-        if ($request->isMethod('POST')) {
-            $user->username = $request->input('username');
-            $user->email = $request->input('email');
-            $user->uploaded = $request->input('uploaded');
-            $user->downloaded = $request->input('downloaded');
-            $user->about = $request->input('about');
-            $user->group_id = (int)$request->input('group_id');
-            $user->save();
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->uploaded = $request->input('uploaded');
+        $user->downloaded = $request->input('downloaded');
+        $user->about = $request->input('about');
+        $user->group_id = (int)$request->input('group_id');
+        $user->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
-        }
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
      * Edit User Permissions
      *
      * @access public
-     * @return view user.profile
      */
     public function userPermissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        if ($request->isMethod('POST')) {
-            $user->can_upload = $request->input('can_upload');
-            $user->can_download = $request->input('can_download');
-            $user->can_comment = $request->input('can_comment');
-            $user->can_invite = $request->input('can_invite');
-            $user->can_request = $request->input('can_request');
-            $user->can_chat = $request->input('can_chat');
-            $user->save();
+        $user->can_upload = $request->input('can_upload');
+        $user->can_download = $request->input('can_download');
+        $user->can_comment = $request->input('can_comment');
+        $user->can_invite = $request->input('can_invite');
+        $user->can_request = $request->input('can_request');
+        $user->can_chat = $request->input('can_chat');
+        $user->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
-        }
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
     }
 
     /**
      * Edit User Password
      *
      * @access protected
-     *
      */
     protected function userPassword(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        if ($request->isMethod('POST')) {
-            $new_password = $request->input('new_password');
-            $user->password = Hash::make($new_password);
-            $user->save();
+        $new_password = $request->input('new_password');
+        $user->password = Hash::make($new_password);
+        $user->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
-        }
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
      * Delete User
      *
      * @access protected
-     * @return void
-     *
      */
     protected function userDelete($username, $id)
     {
