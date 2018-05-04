@@ -65933,6 +65933,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -65961,7 +65962,9 @@ var render = function() {
         return _c("li", { staticClass: "sent" }, [
           message.user.id !== 1
             ? _c("img", {
-                class: ["chat-user-image"],
+                staticClass: "chat-user-image",
+                style:
+                  "border: 3px solid " + message.user.chat_status.color + ";",
                 attrs: {
                   src: message.user.image
                     ? message.user.image

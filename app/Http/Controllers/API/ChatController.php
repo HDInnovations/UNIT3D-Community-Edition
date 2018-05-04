@@ -26,7 +26,7 @@ class ChatController extends Controller
     /* ROOMS */
     public function rooms()
     {
-        $rooms = Chatroom::with(['messages.user.group'])->get();
+        $rooms = Chatroom::with(['messages.user.group', 'messages.user.chatStatus'])->get();
 
         return ChatRoomResource::collection($rooms);
     }
