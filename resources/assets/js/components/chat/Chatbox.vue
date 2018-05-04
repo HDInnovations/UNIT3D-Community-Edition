@@ -135,13 +135,15 @@
       changeRoom (id) {
         this.currentRoom = id
 
-        /* Update the users chatroom in the database */
-        axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
-          'room_id': this.currentRoom
-        }).then(response => {
-          // reassign the auth variable to the response data
-          this.auth = response.data
-        })
+        if (this.auth.chatroom.id !== id) {
+          /* Update the users chatroom in the database */
+          axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
+            'room_id': this.currentRoom
+          }).then(response => {
+            // reassign the auth variable to the response data
+            this.auth = response.data
+          })
+        }
 
       },
 

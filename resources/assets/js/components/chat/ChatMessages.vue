@@ -8,14 +8,12 @@
                 <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
 
                     <span class="badge-user text-bold">
-                        <i class="fa fa-android"
-                           data-toggle="tooltip"
-                           title=""
-                           data-original-title="Bot"></i>
 
-                        <a data-toggle="tooltip" style="cursor: pointer; color:#FF9966;">
-                            {{ message.user.username }}
-                        </a> - <a href="#">Profile</a>
+                        <i class="fa fa-comment-o"></i>
+
+                        <a data-toggle="tooltip" :style="userStyles(message.user)">
+					        {{ message.user.username }}
+                        </a> - <a :href="`/${message.user.username}.${message.user.id}`">Profile</a>
 
                         <i class="fa fa-circle text-green"
                            data-toggle="tooltip"
@@ -35,11 +33,18 @@
         </ul>
     </div>
 </template>
+<style lang="scss" scoped>
 
+</style>
 <script>
   export default {
     props: {
       messages: {required: true},
+    },
+    methods: {
+      userStyles(user) {
+        return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+      }
     }
   }
 </script>
