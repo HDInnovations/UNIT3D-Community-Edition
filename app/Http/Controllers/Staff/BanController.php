@@ -24,6 +24,9 @@ use \Toastr;
 
 class BanController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getBans()
     {
         $bans = Ban::latest()->paginate(25);
@@ -37,7 +40,7 @@ class BanController extends Controller
      * @access public
      * @param $username
      * @param $id
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function ban(Request $request, $username, $id)
     {
@@ -56,9 +59,9 @@ class BanController extends Controller
 
             $staff = auth()->user();
             $v = validator($request->all(), [
-            'owned_by' => 'required',
-            'created_by' => 'required|numeric',
-            'ban_reason' => 'required',
+                'owned_by' => 'required',
+                'created_by' => 'required|numeric',
+                'ban_reason' => 'required',
             ]);
 
             $ban = new Ban();
@@ -84,7 +87,7 @@ class BanController extends Controller
      * @access public
      * @param $username
      * @param $id
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function unban(Request $request, $username, $id)
     {
@@ -103,8 +106,8 @@ class BanController extends Controller
 
             $staff = auth()->user();
             $v = validator($request->all(), [
-            'unban_reason' => 'required',
-            'removed_at' => 'required'
+                'unban_reason' => 'required',
+                'removed_at' => 'required'
             ]);
 
             $ban = new Ban();

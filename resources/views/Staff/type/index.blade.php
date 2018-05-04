@@ -31,10 +31,10 @@
                 <tr>
                     <td>{{ $t->position }}</td>
                     <td>
-                        <a href="{{ route('staff_type_edit', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a>
+                        <a href="{{ route('staff_type_edit_form', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a>
                     </td>
                     <td>
-                        <a href="{{ route('staff_type_edit', array('slug' => $t->slug, 'id' => $t->id)) }}"
+                        <a href="{{ route('staff_type_edit_form', array('slug' => $t->slug, 'id' => $t->id)) }}"
                            class="btn btn-warning">Edit</a>
                         <a href="{{ route('staff_type_delete', array('slug' => $t->slug, 'id' => $t->id)) }}"
                            class="btn btn-danger">Delete</a>

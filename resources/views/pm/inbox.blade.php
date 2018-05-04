@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-4 col-xs-7">
                             <div class="input-group">
-                                <form role="form" method="POST"
+                                <form role="form" method="GET"
                                       action="{{ route('searchPM',['username' => $user->username, 'id' => $user->id]) }}">
                                     {{ csrf_field() }}
                                     <input type="text" name="subject" id="subject" class="form-control"

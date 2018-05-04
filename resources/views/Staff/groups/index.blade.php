@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Groups</h2>
-        <a href="{{ route('staff_groups_add') }}" class="btn btn-primary">Add New Group</a>
+        <a href="{{ route('staff_groups_add_form') }}" class="btn btn-primary">Add New Group</a>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -41,7 +41,7 @@
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
-                            <a href="{{ route('staff_groups_edit', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
+                            <a href="{{ route('staff_groups_edit_form', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
                         </td>
                         <td>{{ $group->position }}</td>
                         <td><i class="fa fa-circle" style="color: {{ $group->color }};"></i> {{ $group->color }}</td>
