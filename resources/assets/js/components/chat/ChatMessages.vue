@@ -25,7 +25,7 @@
 					</span>
 
                     <span class="text-muted">
-                        <small><em>{{ message.created_at }}</em></small>
+                        {{ message.created_at }}
                     </span>
 
                 </h4>

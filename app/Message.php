@@ -19,6 +19,8 @@ class Message extends Model
 {
     protected $table = 'messages';
 
+    protected $with = ['user'];
+
     /**
      * Fields that are mass assignable
      *
@@ -37,10 +39,7 @@ class Message extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
-            'username' => 'System',
-            'id' => '1'
-        ]);
+        return $this->belongsTo(\App\User::class);
     }
 
     /**

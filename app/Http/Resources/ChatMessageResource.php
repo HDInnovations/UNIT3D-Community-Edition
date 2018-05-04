@@ -20,8 +20,8 @@ class ChatMessageResource extends JsonResource
             'user' => new UserResource($this->whenLoaded('user')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
             'message' => Bbcode::parse($this->message),
-            'created_at' => $this->created_at->diffForHumans(),
-            'updated_at' => $this->updated_at->diffForHumans()
+            'created_at' => $this->created_at->format('F jS h:i A'), // Mar 4th, 2018 at 02:15:16 PM,
+            'updated_at' => $this->updated_at
         ];
     }
 }

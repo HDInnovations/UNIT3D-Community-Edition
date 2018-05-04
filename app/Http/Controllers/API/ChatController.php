@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Chatroom;
 use App\Events\MessageSent;
-use App\Events\UserJoinedChat;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserResource;

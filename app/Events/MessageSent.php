@@ -12,17 +12,16 @@
 
 namespace App\Events;
 
-use App\Chatroom;
+use App\Http\Resources\ChatMessageResource;
 use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class MessageSent implements ShouldBroadcast
+class MessageSent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -41,7 +40,8 @@ class MessageSent implements ShouldBroadcast
      */
     public function __construct(Message $message)
     {
-        $this->message = $message;
+        $message = Message::with('user')->find($message->id);
+        $this->message = new ChatMessageResource($message);
     }
 
     /**
@@ -51,6 +51,8 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
+        // $this->dontBroadcastToCurrentUser();
+
         return new PresenceChannel('chatroom.' . $this->message->chatroom_id);
     }
 

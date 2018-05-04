@@ -408,6 +408,13 @@
 
           &.sent {
 
+            h4 {
+              .text-muted {
+                color: #262929;
+                font-size: 0.7em;
+              }
+            }
+
             img {
               padding: 10px;
 

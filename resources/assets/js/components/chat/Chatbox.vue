@@ -102,15 +102,22 @@
         window.Echo.leave(`chatroom.${oldVal}`)
 
         this.channel = window.Echo.join(`chatroom.${newVal}`)
-        this.listenForEvents();
+        this.listenForEvents()
       }
     },
     computed: {
-      room_index() {
-        return this.currentRoom -1;
+      room_index () {
+        return this.currentRoom - 1
       },
-      messages() {
+      messages () {
         return this.chatrooms.length > 0 ? this.chatrooms[this.room_index].messages : []
+      },
+      last_id() {
+        if (this.messages > 0) {
+          return this.messages[m.length -1].id
+        }
+
+        return 0;
       }
     },
     methods: {
@@ -132,7 +139,6 @@
         axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
           'room_id': this.currentRoom
         }).then(response => {
-
           // reassign the auth variable to the response data
           this.auth = response.data
         })
@@ -146,23 +152,19 @@
           'user_id': this.auth.id,
           'chatroom_id': this.currentRoom,
           'message': message.message
-        }).then(response => {
-          // push the new message on to the array
-          // this.chatrooms[this.room_index].messages.push(response.data.data)
-        })
+        });
 
       },
 
       systemMessage (message) {
 
-        axios.post('/api/chat/messages', {
-          'user_id': 1,
-          'chatroom_id': this.currentRoom,
-          'message': message
-        }).then(response => {
-          // push the new message on to the array
-          // this.chatrooms[this.room_index].messages.push(response.data.data)
-        })
+        this.chatrooms[this.room_index].messages.push({
+          'id': this.last_id +1,
+          'message': message,
+          'user': {
+            'id': 1
+          }
+        });
 
       },
 
@@ -183,24 +185,24 @@
         })
       },
 
-      listenForEvents() {
+      listenForEvents () {
         this.channel
           .here(users => {
             console.log('here')
           })
           .joining(user => {
             console.log('joining')
-            this.systemMessage(`[b]${user.username}[/b] has JOINED the chat ...`)
+            this.systemMessage(`${user.username} has JOINED the chat ...`)
           })
           .leaving(user => {
             console.log('leaving')
-            this.systemMessage(`[b]${user.username}[/b] has LEFT the chat ...`)
+            this.systemMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            console.log(e);
+            console.log(e)
             //push the new message on to the array
             this.chatrooms[this.room_index].messages.push(e.message)
-          });
+          })
       }
     },
     created () {

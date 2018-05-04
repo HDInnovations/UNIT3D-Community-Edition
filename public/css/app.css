@@ -36742,6 +36742,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   margin-bottom: 20px;
 }
 
+#frame .content .messages ul li.sent h4 .text-muted {
+  color: #262929;
+  font-size: 0.7em;
+}
+
 #frame .content .messages ul li.sent img {
   padding: 10px;
 }
