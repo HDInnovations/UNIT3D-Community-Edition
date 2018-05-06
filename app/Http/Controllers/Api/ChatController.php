@@ -1,64 +1,80 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\API;
 
+use App\Chatroom;
+use App\ChatStatus;
+use App\Events\MessageSent;
+use App\Http\Resources\ChatMessageResource;
+use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\UserResource;
+use App\Message;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ChatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    /* STATUSES */
+    public function statuses()
     {
-        //
+        return response(ChatStatus::all(), 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    /* ROOMS */
+    public function rooms()
     {
-        //
+        $rooms = Chatroom::with(['messages.user.group', 'messages.user.chatStatus'])->get();
+
+        return ChatRoomResource::collection($rooms);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    /* MESSAGES */
+    public function createMessage(Request $request)
     {
-        //
+        $broadcast = $request->get('broadcast');
+        $save = $request->get('save');
+
+        $message = Message::create($request->except(['broadcast', 'save']));
+
+        if ($broadcast) {
+            broadcast(new MessageSent($message));
+        }
+
+        if (!$save) {
+            $message->delete();
+        }
+
+        return $save ? new ChatMessageResource($message) : response('success', 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    /* USERS */
+    public function updateUserChatStatus(Request $request, $id)
     {
-        //
+        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
+        $status = ChatStatus::findOrFail($request->get('status_id'));
+
+        $user->chatStatus()->dissociate();
+        $user->chatStatus()->associate($status);
+
+        $user->save();
+
+        return response($user, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function updateUserRoom(Request $request, $id)
     {
-        //
+        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
+        $room = Chatroom::findOrFail($request->get('room_id'));
+
+        $user->chatroom()->dissociate();
+        $user->chatroom()->associate($room);
+
+        $user->save();
+
+        return response($user, 200);
     }
+
 }
