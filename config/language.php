@@ -97,7 +97,7 @@ return [
     |
     */
 
-    'allowed'       => ['ar', 'bg', 'bd', 'cn', 'cz', 'dk', 'de', 'en', 'es', 'et', 'ir', 'fr', 'gr', 'it', 'nl', 'pl', 'pt', 'br', 'ro', 'ru', 'tr', 'tw'],
+    'allowed'       => ['ar', 'bg', 'bn', 'cn', 'cs', 'da', 'de', 'en', 'es', 'et', 'ir', 'fr', 'gr', 'it', 'nl', 'pl', 'pt', 'br', 'ro', 'ru', 'tr', 'tw'],
 
     /*
     |--------------------------------------------------------------------------
@@ -111,10 +111,10 @@ return [
     'all' => [
         ['short' => 'ar',       'long' => 'ar-SA',      'english' => 'Arabic',              'native' => 'العربية'],
         ['short' => 'bg',       'long' => 'bg-BG',      'english' => 'Bulgarian',           'native' => 'български'],
-        ['short' => 'bd',       'long' => 'bn-BD',      'english' => 'Bengali',             'native' => 'বাংলা'],
+        ['short' => 'bn',       'long' => 'bn-BD',      'english' => 'Bengali',             'native' => 'বাংলা'],
         ['short' => 'cn',       'long' => 'zh-CN',      'english' => 'Chinese (S)',         'native' => '简体中文'],
-        ['short' => 'cz',       'long' => 'cs-CZ',      'english' => 'Czech',               'native' => 'Čeština'],
-        ['short' => 'dk',       'long' => 'da-DK',      'english' => 'Danish',              'native' => 'Dansk'],
+        ['short' => 'cs',       'long' => 'cs-CZ',      'english' => 'Czech',               'native' => 'Čeština'],
+        ['short' => 'da',       'long' => 'da-DK',      'english' => 'Danish',              'native' => 'Dansk'],
         ['short' => 'de',       'long' => 'de-DE',      'english' => 'German',              'native' => 'Deutsch'],
         ['short' => 'de-aus',   'long' => 'de-AT',      'english' => 'Austrian',            'native' => 'Österreichisches Deutsch'],
         ['short' => 'fi',       'long' => 'fi-FI',      'english' => 'Finnish',             'native' => 'Suomi'],
