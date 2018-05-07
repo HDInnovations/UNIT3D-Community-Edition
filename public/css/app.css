@@ -31927,7 +31927,7 @@ body.tvshow .movie-poster {
   color: #ffffff;
   width: 100%;
   text-align: center;
-  height: 450px;
+  min-height: 450px;
   margin-top: 25px;
 }
 
@@ -31946,6 +31946,10 @@ body.tvshow .movie-poster {
 #l-footer .l-footer-section ul {
   list-style: none;
   padding: 0;
+}
+
+#l-footer .l-footer-section > a {
+  white-space: normal;
 }
 
 .home .home-newsboxes {
@@ -36774,6 +36778,8 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   font-size: 0.9em;
   color: #939393;
   background: transparent;
+  padding: 0;
+  margin: 0;
 }
 
 #frame .content .message-input {
