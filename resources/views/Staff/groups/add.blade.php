@@ -38,6 +38,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
                     </thead>
@@ -73,6 +74,9 @@
                         </td>
                         <td>
                             {{ Form::checkbox('group_freeleech', '1', false) }}
+                        </td>
+                        <td>
+                            {{ Form::checkbox('group_upload', '1', false) }}
                         </td>
                         <td>
                             {{ Form::checkbox('autogroup', '1', false) }}

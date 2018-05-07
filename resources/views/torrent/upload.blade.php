@@ -22,12 +22,12 @@
 @endsection
 
 @section('content')
-    @if($user->can_upload == 0)
+    @if($user->can_upload == 0 || $user->group->can_upload == 0)
         <div class="container">
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="fa fa-times text-danger"></i> Error: Your Upload Rights Have Been Disabled
+                        <i class="fa fa-times text-danger"></i> Error: Your Upload Rights Are Disabled!
                     </h1>
                     <div class="separator"></div>
                     <p class="text-center">If You Feel This Is In Error, Please Contact Staff!</p>

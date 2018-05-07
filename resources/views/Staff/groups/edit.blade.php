@@ -40,6 +40,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
                     </thead>
@@ -95,6 +96,13 @@
                                 {{ Form::checkbox('group_freeleech', '1', true) }}
                             @else
                                 {{ Form::checkbox('group_freeleech', '0', false) }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($group->can_upload == 1)
+                                {{ Form::checkbox('group_upload', '1', true) }}
+                            @else
+                                {{ Form::checkbox('group_upload', '0', false) }}
                             @endif
                         </td>
                         <td>

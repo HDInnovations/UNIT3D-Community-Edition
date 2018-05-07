@@ -29,7 +29,8 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'validating',
             'position' => 2,
             'color' => '#95A5A6',
-            'icon' => 'fa fa-question-circle'
+            'icon' => 'fa fa-question-circle',
+            'can_upload' => 0
         ]);
 
         //2
@@ -38,7 +39,8 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'guest',
             'position' => 1,
             'color' => '#575757',
-            'icon' => 'fa fa-question-circle'
+            'icon' => 'fa fa-question-circle',
+            'can_upload' => 0
         ]);
 
         //3
@@ -70,7 +72,8 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'banned',
             'position' => 0,
             'color' => 'red',
-            'icon' => 'fa fa-ban'
+            'icon' => 'fa fa-ban',
+            'can_upload' => 0
         ]);
 
         //6

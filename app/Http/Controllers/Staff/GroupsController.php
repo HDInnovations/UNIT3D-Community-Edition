@@ -61,6 +61,7 @@ class GroupsController extends Controller
         $group->is_trusted = $request->get('group_trusted', 0);
         $group->is_immune = $request->get('group_immune', 0);
         $group->is_freeleech = $request->get('group_freeleech', 0);
+        $group->can_upload = $request->get('group_upload', 1);
         $group->autogroup = $request->get('autogroup', 0);
         $v = validator($group->toArray(), $group->rules);
         if ($v->fails()) {
@@ -106,6 +107,7 @@ class GroupsController extends Controller
         $group->is_trusted = $request->get('group_trusted', 0);
         $group->is_immune = $request->get('group_immune', 0);
         $group->is_freeleech = $request->get('group_freeleech', 0);
+        $group->can_upload = $request->get('group_upload', 1);
         $group->autogroup = $request->get('autogroup', 0);
         $v = validator($group->toArray(), $group->rules);
         if ($v->fails()) {
