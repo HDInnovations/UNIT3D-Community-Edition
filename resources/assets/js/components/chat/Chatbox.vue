@@ -16,29 +16,30 @@
                                  :style="`border: 2px solid ${statusColor};`"
                                  alt="">
 
-                            <div v-if="showStatuses" class="statuses">
-                                <ul class="list-unstyled">
+                            <transition name="slide-fade">
+                                <div v-if="showStatuses" class="statuses">
+                                    <ul class="list-unstyled">
 
-                                    <li v-for="status in statuses"
-                                        class="text-center"
-                                        @click="changeStatus(status.id)">
+                                        <li v-for="status in statuses"
+                                            class="text-center"
+                                            @click="changeStatus(status.id)">
 
-                                        <i :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
-                                           :style="`color: ${status.color}`"></i>
+                                            <i :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
+                                               :style="`color: ${status.color}`"></i>
 
-                                    </li>
+                                        </li>
 
-                                </ul>
-                            </div>
-
+                                    </ul>
+                                </div>
+                            </transition>
                         </div>
                     </div>
 
-                    <div id="bottom-bar">
+                    <!--<div id="bottom-bar">
                         <button id="channels">
                             <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
                         </button>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="content">
 
@@ -67,6 +68,19 @@
         min-height: 150px;
         max-height: 230px;
         max-width: 500px;
+    }
+
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+
+    .slide-fade-leave-active {
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+
+    .slide-fade-enter, .slide-fade-leave-to {
+        transform: translateY(10px);
+        opacity: 0;
     }
 </style>
 <script>
