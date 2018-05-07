@@ -9,6 +9,7 @@ use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
 use App\Http\Resources\UserResource;
 use App\Message;
+use App\Repositories\ChatRepository;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,6 +17,15 @@ use App\Http\Controllers\Controller;
 
 class ChatController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
 
     /* STATUSES */
     public function statuses()
@@ -34,13 +44,16 @@ class ChatController extends Controller
     /* MESSAGES */
     public function createMessage(Request $request)
     {
+        $user_id = $request->get('user_id');
+        $room_id = $request->get('chatroom_id');
+        $message = $request->get('message');
         $broadcast = $request->get('broadcast');
         $save = $request->get('save');
 
-        $message = Message::create($request->except(['broadcast', 'save']));
-
         if ($broadcast) {
-            broadcast(new MessageSent($message));
+            $message = $this->chat->message($user_id, $room_id, $message);
+        } else {
+            $message = $this->chat->dontBroadcast()->message($user_id, $room_id, $message);
         }
 
         if (!$save) {

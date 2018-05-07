@@ -12,6 +12,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use App\Message;
 use App\User;
@@ -20,6 +21,18 @@ use Carbon\Carbon;
 
 class autoNerdStat extends Command
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        parent::__construct();
+
+        $this->chat = $chat;
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -79,6 +92,6 @@ class autoNerdStat extends Command
         $selected = mt_rand(0, count($statArray) - 1);
 
         // Auto Shout Nerd Stat
-        Message::create(['user_id' => "2", 'chatroom_id' => "3", 'message' => ":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:"]);
+        $this->chat->system(":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:");
     }
 }

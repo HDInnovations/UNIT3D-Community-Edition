@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\BonExchange;
 use App\BonTransactions;
-use App\Shoutbox;
 use App\PrivateMessage;
 use App\PersonalFreeleech;
 use App\Torrent;

@@ -12,6 +12,7 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use App\Message;
 use App\FeaturedTorrent;
@@ -20,6 +21,18 @@ use Carbon\Carbon;
 
 class removeFeaturedTorrent extends Command
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        parent::__construct();
+
+        $this->chat = $chat;
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -54,7 +67,10 @@ class removeFeaturedTorrent extends Command
 
             // Auto Announce Featured Expired
             $appurl = config('app.url');
-            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "Ladies and Gents, [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] is no longer featured. :poop:"]);
+
+            $this->chat->system(
+                "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] is no longer featured. :poop:"
+            );
 
             // Delete The Record From DB
             $featured_torrent->delete();

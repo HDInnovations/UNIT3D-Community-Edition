@@ -199,7 +199,11 @@
             this.auth = response.data
 
             /* Add system message */
-            this.createMessage(`${this.auth.username} has updated their status to ${this.auth.chat_status.name}`, true)
+            this.createMessage(
+              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`,
+              true
+            )
+
           })
         }
       },
