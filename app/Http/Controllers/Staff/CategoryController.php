@@ -23,7 +23,7 @@ class CategoryController extends Controller
     /**
      * Get the categories
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -33,59 +33,77 @@ class CategoryController extends Controller
     }
 
     /**
-     * Add a category
+     * Category Add Form
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function add(Request $request)
+    public function addForm()
     {
-        if ($request->isMethod('POST')) {
-            $category = new Category();
-            $category->name = $request->input('name');
-            $category->slug = str_slug($category->name);
-            $category->position = $request->input('position');
-            $category->icon = $request->input('icon');
-            $category->meta = $request->input('meta');
-            $v = validator($category->toArray(), $category->rules);
-            if ($v->fails()) {
-                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
-            } else {
-                $category->save();
-                return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Added', 'Yay!', ['options']));
-            }
-        }
         return view('Staff.category.add');
     }
 
     /**
-     * Edit a category
-     *
+     * Add a category
      *
      */
-    public function edit(Request $request, $slug, $id)
+    public function add(Request $request)
+    {
+        $category = new Category();
+        $category->name = $request->input('name');
+        $category->slug = str_slug($category->name);
+        $category->position = $request->input('position');
+        $category->icon = $request->input('icon');
+        $category->meta = $request->input('meta');
+        $v = validator($category->toArray(), $category->rules);
+        if ($v->fails()) {
+            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
+        } else {
+            $category->save();
+            return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Added', 'Yay!', ['options']));
+        }
+    }
+
+    /**
+     * Category Edit Form
+     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editForm($slug, $id)
     {
         $category = Category::findOrFail($id);
-        if ($request->isMethod('POST')) {
-            $category->name = $request->input('name');
-            $category->slug = str_slug($category->name);
-            $category->icon = $request->input('icon');
-            $category->meta = $request->input('meta');
-            $v = validator($category->toArray(), $category->rules);
-            if ($v->fails()) {
-                return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
-            } else {
-                $category->save();
-                return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Modified', 'Yay!', ['options']));
-            }
-        }
 
         return view('Staff.category.edit', ['category' => $category]);
     }
 
     /**
+     * Edit a category
+     *
+     * @param $slug
+     * @param $id
+     */
+    public function edit(Request $request, $slug, $id)
+    {
+        $category = Category::findOrFail($id);
+        $category->name = $request->input('name');
+        $category->slug = str_slug($category->name);
+        $category->icon = $request->input('icon');
+        $category->meta = $request->input('meta');
+        $v = validator($category->toArray(), $category->rules);
+        if ($v->fails()) {
+            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
+        } else {
+            $category->save();
+            return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Modified', 'Yay!', ['options']));
+        }
+    }
+
+    /**
      * Delete a category
      *
-     *
+     * @param $id
+     * @param $slug
      */
     public function delete($slug, $id)
     {

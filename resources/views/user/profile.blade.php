@@ -437,11 +437,11 @@
         @if(auth()->check() && auth()->user()->id == $user->id)
             <div class="block">
                 <div class="text-center">
-                    <a href="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}">
+                    <a href="{{ route('user_settings_form', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
                                     class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
                     </a>
-                    <a href="{{ route('user_edit_profile', ['username' => $user->username, 'id' => $user->id]) }}">
+                    <a href="{{ route('user_edit_profile_form', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
                                     class="fa fa-user"></span> {{ trans('user.edit-profile') }}</button>
                     </a>

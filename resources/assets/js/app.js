@@ -17,6 +17,7 @@ window.Vue = require('vue')
 Vue.component('example', require('./components/Example'));
 Vue.component('version', require('./components/Version'));
 Vue.component('chatbox', require('./components/chat/Chatbox'));
+Vue.component('bookmark', require('./components/BookmarkButton'))
 
 const app = new Vue({
     el: '#app'

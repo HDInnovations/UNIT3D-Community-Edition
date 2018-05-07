@@ -30,16 +30,4 @@ class BookmarkController extends Controller
 
         return view('bookmark.bookmarks', ['myBookmarks' => $myBookmarks]);
     }
-
-    /**
-     * unBookmark a particular torrent
-     *
-     *
-     * @return Response
-     */
-    public function unBookmark($id)
-    {
-        auth()->user()->bookmarks()->detach($id);
-        return redirect()->back()->with(Toastr::success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
-    }
 }

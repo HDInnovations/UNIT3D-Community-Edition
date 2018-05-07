@@ -20,7 +20,7 @@
     <div class="container box">
         <div class="row">
             <div class="col-md-4 box centered-form">
-                <form role="form" method="POST" action="{{ route('contact') }}">
+                <form role="form" method="POST" action="{{ route('sendContact') }}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <input type="text" name="contact-name" placeholder="{{ trans('common.name') }}"

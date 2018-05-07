@@ -43,6 +43,7 @@ class ModerationController extends Controller
      *
      * @param $slug Slug of the torrent
      * @param $id Id of the torrent
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function approve($slug, $id)
     {
@@ -55,6 +56,7 @@ class ModerationController extends Controller
      * Torrent Moderation -> postpone
      *
      * @param $request Request containing torrent's id, slug and rejection message
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function postpone(Request $request)
     {
@@ -90,6 +92,7 @@ class ModerationController extends Controller
      * Torrent Moderation -> reject
      *
      * @param $request Request containing torrent's id, slug and rejection message
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function reject(Request $request)
     {
@@ -139,6 +142,5 @@ class ModerationController extends Controller
         } else {
             return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to this operation!", 'Whoops!', ['options']));
         }
-        return redirect()->route('requests')->with(Toastr::error("Unable to find request!", 'Whoops!', ['options']));
     }
 }

@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('edit', ['slug' => $tor->slug, 'id' => $tor->id]) }}" itemprop="url"
+        <a href="{{ route('edit_form', ['slug' => $tor->slug, 'id' => $tor->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }} {{ trans('common.edit') }}</span>

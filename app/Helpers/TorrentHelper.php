@@ -83,7 +83,7 @@ class TorrentHelper
 
             $unbookmark_link = route('unbookmark', ['id' => $list->id]);
             $bookmark_link = route('bookmark', ['id' => $list->id]);
-            if ($user->hasBookmarked($list->id)) {
+            if ($user->isBookmarked($list->id)) {
                 $bookmark = "<a href='{$unbookmark_link}'><button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.unbookmark')!'><i class='fa fa-bookmark'></i></button></a>";
             } else {
                 $bookmark = "<a href='{$bookmark_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.bookmark')!'><i class='fa fa-bookmark'></i></button></a>";

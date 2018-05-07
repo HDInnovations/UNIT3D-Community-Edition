@@ -248,7 +248,7 @@
                         @endif
                         @if(auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
                             <a class="btn btn-warning btn-xs"
-                               href="{{ route('edit', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
+                               href="{{ route('edit_form', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
                                role="button">{{ trans('common.edit') }}</a>
                         @endif
                         @if(auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
@@ -532,15 +532,9 @@
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('torrent.show-files') }}</a>
-            @if(auth()->user()->hasBookmarked($torrent->id))
-                <a href="{{ route('unbookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-danger"
-                   role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.unbookmark') }}</a>
-            @else
-                <a href="{{ route('bookmark', ['id' => $torrent->id]) }}" class="btn btn-labeled btn-primary"
-                   role="button">
-          <span class="btn-label"><i class="fa fa-fw fa-bookmark-o"></i></span>{{ trans('torrent.bookmark') }}</a>
-            @endif
+
+            <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
+
             @if($torrent->seeders <= 2)
                 <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
                    class="btn btn-labeled btn-warning">
