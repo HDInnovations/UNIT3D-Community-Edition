@@ -18,7 +18,7 @@
         <h2>Groups</h2>
         <a href="{{ route('staff_groups_add_form') }}" class="btn btn-primary">Add New Group</a>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
