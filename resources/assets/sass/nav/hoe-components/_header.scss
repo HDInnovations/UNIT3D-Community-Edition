@@ -6,7 +6,9 @@
 .right-navbar .hoe-rheader-submenu > ul.dropdown-menu {
   left: auto;
   position: absolute;
-  right: 0
+  right: 0;
+  max-height: 460px;
+  overflow: auto
 }
 
 .hoe-rheader-submenu > ul > li {
