@@ -43,7 +43,7 @@ return [
     'no-imdb-id' => 'Všechny žádosti musí obsahovat číslo IMDB',
     'no-privileges' => 'Chyba: Vaše práva k požadavkům byla zakázána',
     'no-privileges-desc' => 'Pokud si myslíte, že je to chyba, obraťte se prosím na zaměstnance',
-    'no-refunds' => 'BON výměny za vytvoření, plnění a odměny jsou konečné! <br> <strong> NEMÁ NÁHRADY! </ Strong>',
+    'no-refunds' => 'BON výměny za vytvoření, plnění a odměny jsou konečné! <br><strong> NEMÁ NÁHRADY! </strong>',
     'pending' => 'čekající',
     'reason' => 'Důvod',
     'reject' => 'Odmítnout',

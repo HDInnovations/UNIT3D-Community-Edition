@@ -13,14 +13,14 @@ return [
     'environment' => [
         'menu' => [
             'classic-button' => 'Klasický textový editor',
-            'desc' => 'Vyberte, jak chcete nakonfigurovat soubor <code> .env </ code> aplikace.',
+            'desc' => 'Vyberte, jak chcete nakonfigurovat soubor <code> .env </code> aplikace.',
             'templateTitle' => 'Krok 3 | Nastavení prostředí',
             'title' => 'Nastavení prostředí',
             'wizard-button' => 'Formát průvodce nastavením',
         ],
         'wizard' => [
             'templateTitle' => 'Krok 3 | Nastavení prostředí Průvodce s průvodcem',
-            'title' => 'Průvodce <code> .env </ code> s průvodcem',
+            'title' => 'Průvodce <code> .env </code> s průvodcem',
             'tabs' => [
                 'application' => 'aplikace',
                 'database' => 'Databáze',

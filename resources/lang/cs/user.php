@@ -74,7 +74,7 @@ return [
     'invites-count' => 'Ty máš :count Pozvěte tokeny',
     'invites-disabled' => 'Upozornění: pozvánky jsou zakázány kvůli otevření registrace!',
     'invites-disabled-desc' => 'Zkontrolujte prosím brzy!',
-    'invites-rules' => '<li> <li class = "text-danger"> Osoby, které znáte, důvěřujete pouze lidem, kterým znáte. </ li> <li = "Text-nebezpečí"> Nepřipojujte se, kontrolujeme každého pozvaného uživatele. </ li> <li class = "text-danger" text-nebezpečí "> Pokud je osoba, kterou jste pozvali, zachycen podvodem, obchodním účtem nebo pozváním k prodeji či obchodování, budete varováni. </ li>',
+    'invites-rules' => '<li><li class="text-success"> Osoby, které znáte, důvěřujete pouze lidem, kterým znáte. </li> <li class="text-danger"> Nepřipojujte se, kontrolujeme každého pozvaného uživatele. </li> <li class="text-danger"> Pokud je osoba, kterou jste pozvali, zachycen podvodem, obchodním účtem nebo pozváním k prodeji či obchodování, budete varováni. </li>',
     'invites-send' => 'Vyžádá Odeslat',
     'last-login' => 'Poslední přihlášení',
     'locked' => 'Zamčeno',
