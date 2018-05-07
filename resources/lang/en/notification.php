@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'notifications' => 'Notifications',
+    'date' => 'Date',
+    'delete' => 'Delete',
+    'delete-all' => 'Delete all notifications',
     'mark-all-read' => 'Mark all as read',
     'mark-read' => 'Mark as read',
-    'delete-all' => 'Delete all notifications',
-    'title' => 'Title',
     'message' => 'Message',
-    'date' => 'Date',
+    'no-notifications' => 'There are no notifications found',
+    'notifications' => 'Notifications',
     'read' => 'Read',
-    'delete' => 'Delete',
-    'no-notifications' => 'There are no notifications found'
+    'title' => 'Title'
 ];

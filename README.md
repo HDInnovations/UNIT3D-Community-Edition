@@ -254,7 +254,12 @@ Main:
 15. Login with the username `UNIT3D` and the password `UNIT3D`. (Or whatever you set in the .env if changed from defaults.) (This is the default owner account.)
 16. Enjoy using UNIT3D.
 
-**NOTE:** *If you recieve a error during `npm install` regarding `pngquant-bin@4.0.0` please run the following command `wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb && sudo dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb && npm install && npm run dev` and then try to install again.*
+**NOTE:** 
+If you recieve a error during `npm install` regarding `pngquant-bin@4.0.0` OR an error similar to `... binary doesn't seem to work correctly` please run the following command 
+```
+wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb && sudo dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb && npm install && npm run dev
+``` 
+and then try to install again.
 
 ## <a name="packages"></a> Packages
 Here are some packages that are built for UNIT3D.
