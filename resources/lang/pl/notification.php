@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'notifications' => 'Powiadomienia',
+    'date' => 'Data',
+    'delete' => 'Skasuj',
+    'delete-all' => 'Skasuj wszystkie powiadomienia',
     'mark-all-read' => 'Oznacz wszystkie wszystkie jako przeczytane',
     'mark-read' => 'Oznacz jako przeczytane',
-    'delete-all' => 'Skasuj wszystkie powiadomienia',
-    'title' => 'Tytuł',
     'message' => 'Treść',
-    'date' => 'Data',
+    'no-notifications' => 'Nie znaleziono żadnych powiadomień',
+    'notifications' => 'Powiadomienia',
     'read' => 'Przeczytane',
-    'delete' => 'Skasuj',
-    'no-notifications' => 'Nie znaleziono żadnych powiadomień'
+    'title' => 'Tytuł'
 ];

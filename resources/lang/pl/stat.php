@@ -7,8 +7,8 @@
 return [
     'by-count' => 'Liczba',
     'by-volume' => 'Dane',
-    'groups' => 'Grupy',
     'group' => 'Grupa',
+    'groups' => 'Grupy',
     'nerd-stats' => 'Statystyki dla nerdów',
     'nerd-stats-desc' => 'Wszyscy kochamy statystyki. Możemy poniżej przestawić Ci kilka kluczowych',
     'registration-date' => 'Data rejestracji',

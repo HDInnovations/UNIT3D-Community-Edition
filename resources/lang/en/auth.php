@@ -6,31 +6,31 @@ return [
     | Default Authentication Language Lines
     |--------------------------------------------------------------------------
     */
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'login' => 'Login',
-    'signup' => 'Signup',
-    'logout' => 'Logout',
     'email' => 'E-mail',
-    'username' => 'Username',
-    'password' => 'Password',
+    'failed' => 'These credentials do not match our records.',
+    'login' => 'Login',
+    'login-now-on' => 'Login now on',
+    'logout' => 'Logout',
     'lost-password' => 'Forgot Your Password?',
+    'lost-username' => 'Forgot Your Username?',
+    'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
+    'no-a-member' => 'Not yet member ? Signup in less than 30s.',
+    'password' => 'Password',
     'recover-my-password' => 'Recover My Password',
     'remember-me' => 'Remember Me',
-    'lost-username' => 'Forgot Your Username?',
-    'login-now-on' => 'Login now on',
-    'no-a-member' => 'Not yet member ? Signup in less than 30s.',
-    'user-icon' => 'User icon',
-    'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
+    'signup' => 'Signup',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'unlock' => 'Unlock',
+    'user-icon' => 'User icon',
+    'username' => 'Username',
 
     /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines
     |--------------------------------------------------------------------------
     */
-    'title'                         => '2-Step Verification',
     'subtitle'                      => 'Verification Required',
+    'title'                         => '2-Step Verification',
     'titleFailed'                   => 'Verification Failed',
     'titlePassed'                   => 'Good news everyone!',
 
@@ -39,28 +39,28 @@ return [
     'inputAlt3'                     => 'Code Input 3',
     'inputAlt4'                     => 'Code Input 4',
 
-    'verifyButton'                  => 'Verify',
     'attemptsRemaining'             => 'Attempt Remaining|Attempts Remaining',
     'missingCode'                   => 'Didn\'t receive verification code?',
+    'verifyButton'                  => 'Verify',
 
     'exceededTitle'                 => 'Verification Attempts Exceeded',
     'lockedUntil'                   => 'Account Locked Until:',
-    'tryAgainIn'                    => 'Try again in',
     'returnButton'                  => 'Return Home',
+    'tryAgainIn'                    => 'Try again in',
 
-    'verificationEmailSubject'      => 'Verification Required',
+    'verificationEmailButton'       => 'Verify Now',
     'verificationEmailGreeting'     => 'Hello :username',
     'verificationEmailMessage'      => 'Your account 2-step verification code is:',
-    'verificationEmailButton'       => 'Verify Now',
+    'verificationEmailSubject'      => 'Verification Required',
 
-    'verificationEmailSuccess'      => 'Success!',
     'verificationEmailSentMsg'      => 'Verification Email Sent!',
+    'verificationEmailSuccess'      => 'Success!',
 
-    'verificationWarningTitle'      => 'Warning!',
     'verificationWarningMessage'    => 'This is your last attempt before your account locks for :hours hours.',
+    'verificationWarningTitle'      => 'Warning!',
 
-    'verificationLockedTitle'       => 'Doh!',
     'verificationLockedMessage'     => 'Account Locked!',
+    'verificationLockedTitle'       => 'Doh!',
 
     'verificationModalConfBtn'      => 'Ok',
 

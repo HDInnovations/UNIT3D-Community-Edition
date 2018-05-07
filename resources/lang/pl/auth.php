@@ -5,21 +5,21 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'failed' => 'Podane dane nie znajdują się w naszej bazie.',
-    'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
-    'login' => 'Logowanie',
-    'signup' => 'Rejestracja',
-    'logout' => 'Wyloguj',
     'email' => 'E-mail',
-    'username' => 'Nazwa użytkownika',
-    'password' => 'Hasło',
+    'failed' => 'Podane dane nie znajdują się w naszej bazie.',
+    'login' => 'Logowanie',
+    'login-now-on' => 'Zaloguj się na',
+    'logout' => 'Wyloguj',
     'lost-password' => 'Zapomniałeś hasła?',
+    'lost-username' => 'Zapomniałeś nazwy użytkownika?',
+    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!',
+    'no-a-member' => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
+    'password' => 'Hasło',
     'recover-my-password' => 'Przypomnij mi hasło',
     'remember-me' => 'Zapamiętaj mnie',
-    'lost-username' => 'Zapomniałeś nazwy użytkownika?',
-    'login-now-on' => 'Zaloguj się na',
-    'no-a-member' => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
+    'signup' => 'Rejestracja',
+    'throttle' => 'Zbyt wiele prób logowania. Spróbuj ponownie za :seconds sekund.',
+    'unlock' => 'Odblokuj',
     'user-icon' => 'Ikona użytkownika',
-    'need-invite' => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!',
-    'unlock' => 'Odblokuj'
+    'username' => 'Nazwa użytkownika'
 ];
