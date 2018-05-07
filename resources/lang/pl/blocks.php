@@ -11,10 +11,10 @@ return [
     'to-enable-editor' => 'by włączyć edytor',
     
     // Featured Torrents
+    'featured-by' => 'Wyróżnione przez',
     'featured-torrents' => 'Wyróżnione torrenty',
     'featured-torrents-intro' => 'Poznaj najlepsze znaleziska!',
     'featured-until' => 'Wyróżnienie torrenta pozostaje',
-    'featured-by' => 'Wyróżnione przez',
     
     // Latest Torrents
     'latest-torrents' => 'Najnowsze torrenty',
@@ -26,12 +26,12 @@ return [
     'latest-topics' => 'Najnowsze wątki',
     
     // Users Online
-    'users-online' => 'Użytkownicy online',
     'active-in-last' => 'Aktywny przez ostatnie',
+    'users-online' => 'Użytkownicy online',
     
     // News/Articles
-    'new-news' => 'Nowe newsy',
     'check-news' => 'Newsy (sprawdzaj codziennie)',
+    'new-news' => 'Nowe newsy',
     
     // Top torrents
     'new-torrents' => 'Nowe torrenty'

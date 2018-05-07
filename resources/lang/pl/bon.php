@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
+    'activated' => 'Aktywowano',
+    'active' => 'Aktywowano!',
     'bon' => 'BON',
     'bonus' => 'Bonusowe',
-    'points' => 'Punkty',
-    'your-points' => 'Twoje punkty',
-    'store' => 'Sklep',
-    'gift-to' => 'Komu chcesz wysłać punkty?',
-    'gift' => 'Podaruj punkty',
+    'earning' => 'Zdobywasz',
     'exchange' => 'Wymiany',
     'exchange-warning' => 'Wymiany nie podlegają zwrotowi. Upewnij się przed ich zawarciem.',
-    'no-refund' => 'BRAK ZWROTÓW!',
-    'active' => 'Aktywowano!',
-    'earning' => 'Zdobywasz',
-    'per-hour' => 'punktów na godzinę',
+    'gift' => 'Podaruj punkty',
+    'gift-to' => 'Komu chcesz wysłać punkty?',
     'item' => 'Przedmiot',
+    'no-refund' => 'BRAK ZWROTÓW!',
+    'per-hour' => 'punktów na godzinę',
+    'points' => 'Punkty',
+    'store' => 'Sklep',
     'total' => 'Otrzymywane punkty',
-    'activated' => 'Aktywowano'
+    'your-points' => 'Twoje punkty'
 ];
