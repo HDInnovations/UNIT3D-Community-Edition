@@ -20,13 +20,14 @@
 @endsection
 
 @section('content')
-    <div class="text-center"><h3>{{ $group->name }} Permissions</h3></div>
     <div class="container box">
+        <h2>{{ $group->name }} Permissions</h2>
         <div class="table-responsive">
             <form role="form" method="POST"
                   action="{{ route('staff_groups_edit',['group' => $group->name, 'id' => $group->id]) }}">
                 {{ csrf_field() }}
-                <table class="table table-bordered table-hover">
+                <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -40,6 +41,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
                     </thead>
@@ -57,56 +59,80 @@
                         </td>
                         <td>
                             @if($group->is_internal == 1)
+                                <input type="hidden" name="group_internal" value="0">
                                 {{ Form::checkbox('group_internal', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_internal', '0', false) }}
+                                <input type="hidden" name="group_internal" value="0">
+                                {{ Form::checkbox('group_internal', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->is_modo == 1)
+                                <input type="hidden" name="group_modo" value="0">
                                 {{ Form::checkbox('group_modo', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_modo', '0', false) }}
+                                <input type="hidden" name="group_modo" value="0">
+                                {{ Form::checkbox('group_modo', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->is_admin == 1)
+                                <input type="hidden" name="group_admin" value="0">
                                 {{ Form::checkbox('group_admin', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_admin', '0', false) }}
+                                <input type="hidden" name="group_admin" value="0">
+                                {{ Form::checkbox('group_admin', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->is_trusted == 1)
+                                <input type="hidden" name="group_trusted" value="0">
                                 {{ Form::checkbox('group_trusted', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_trusted', '0', false) }}
+                                <input type="hidden" name="group_trusted" value="0">
+                                {{ Form::checkbox('group_trusted', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->is_immune == 1)
+                                <input type="hidden" name="group_immune" value="0">
                                 {{ Form::checkbox('group_immune', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_immune', '0', false) }}
+                                <input type="hidden" name="group_immune" value="0">
+                                {{ Form::checkbox('group_immune', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->is_freeleech == 1)
+                                <input type="hidden" name="group_freeleech" value="0">
                                 {{ Form::checkbox('group_freeleech', '1', true) }}
                             @else
-                                {{ Form::checkbox('group_freeleech', '0', false) }}
+                                <input type="hidden" name="group_freeleech" value="0">
+                                {{ Form::checkbox('group_freeleech', '1', false) }}
+                            @endif
+                        </td>
+                        <td>
+                            @if($group->can_upload == 1)
+                                <input type="hidden" name="group_upload" value="0">
+                                {{ Form::checkbox('group_upload', '1', true) }}
+                            @else
+                                <input type="hidden" name="group_upload" value="0">
+                                {{ Form::checkbox('group_upload', '1', false) }}
                             @endif
                         </td>
                         <td>
                             @if($group->autogroup == 1)
+                                <input type="hidden" name="autogroup" value="0">
                                 {{ Form::checkbox('autogroup', '1', true) }}
                             @else
-                                {{ Form::checkbox('autogroup', '0', false) }}
+                                <input type="hidden" name="autogroup" value="0">
+                                {{ Form::checkbox('autogroup', '1', false) }}
                             @endif
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
                 <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
             </form>
         </div>

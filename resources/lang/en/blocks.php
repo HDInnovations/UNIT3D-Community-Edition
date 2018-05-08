@@ -11,10 +11,10 @@ return [
     'to-enable-editor' => 'to enable editor',
     
     // Featured Torrents
+    'featured-by' => 'Featured by',
     'featured-torrents' => 'Featured Torrents',
     'featured-torrents-intro' => 'Get Them While You Can!',
     'featured-until' => 'This is featured torrent until',
-    'featured-by' => 'Featured by',
     
     // Latest Torrents
     'latest-torrents' => 'Latest Torrents',
@@ -26,12 +26,12 @@ return [
     'latest-topics' => 'Latest Topics',
     
     // Users Online
-    'users-online' => 'Users Online',
     'active-in-last' => 'Active in last',
+    'users-online' => 'Users Online',
     
     // News/Articles
-    'new-news' => 'New News',
     'check-news' => 'News (check daily)',
+    'new-news' => 'New News',
     
     // Top torrents
     'new-torrents' => 'New torrents'

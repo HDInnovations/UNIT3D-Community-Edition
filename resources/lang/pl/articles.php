@@ -5,8 +5,8 @@
  * |--------------------------------------------------------------------------
  */
 return [
+    'articles' => 'Artykuły',
     'meta-articles' => 'Artykuły i wiadomości dotyczące trackera i społeczności',
-    'read-more' => 'Zobacz więcej',
     'published-at' => 'Opublikowane na',
-    'articles' => 'Artykuły'
+    'read-more' => 'Zobacz więcej'
 ];

@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\recycleInvites::class,
         \App\Console\Commands\recycleActivityLog::class,
         \App\Console\Commands\demoSeed::class,
+        \App\Console\Commands\gitUpdate::class,
     ];
 
     /**

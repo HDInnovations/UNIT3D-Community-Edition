@@ -18,7 +18,7 @@
         <h2>Groups</h2>
         <a href="{{ route('staff_groups_add_form') }}" class="btn btn-primary">Add New Group</a>
         <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -33,6 +33,7 @@
                     <th>Trusted</th>
                     <th>Immune</th>
                     <th>Freeleech</th>
+                    <th>Upload</th>
                     <th>Autogroup</th>
                 </tr>
                 </thead>
@@ -58,6 +59,8 @@
                         <td>@if($group->is_immune == 0)<i class="fa fa-times text-red"></i>@else<i
                                     class="fa fa-check text-green"></i>@endif</td>
                         <td>@if($group->is_freeleech == 0)<i class="fa fa-times text-red"></i>@else<i
+                                    class="fa fa-check text-green"></i>@endif</td>
+                        <td>@if($group->can_upload == 0)<i class="fa fa-times text-red"></i>@else<i
                                     class="fa fa-check text-green"></i>@endif</td>
                         <td>@if($group->autogroup == 0)<i class="fa fa-times text-red"></i>@else<i
                                     class="fa fa-check text-green"></i>@endif</td>

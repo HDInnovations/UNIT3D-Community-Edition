@@ -55,13 +55,14 @@ class GroupsController extends Controller
         $group->color = $request->get('group_color');
         $group->icon = $request->get('group_icon');
         $group->effect = $request->get('group_effect');
-        $group->is_internal = $request->get('group_internal', 0);
-        $group->is_modo = $request->get('group_modo', 0);
-        $group->is_admin = $request->get('group_admin', 0);
-        $group->is_trusted = $request->get('group_trusted', 0);
-        $group->is_immune = $request->get('group_immune', 0);
-        $group->is_freeleech = $request->get('group_freeleech', 0);
-        $group->autogroup = $request->get('autogroup', 0);
+        $group->is_internal = $request->get('group_internal');
+        $group->is_modo = $request->get('group_modo');
+        $group->is_admin = $request->get('group_admin');
+        $group->is_trusted = $request->get('group_trusted');
+        $group->is_immune = $request->get('group_immune');
+        $group->is_freeleech = $request->get('group_freeleech');
+        $group->can_upload = $request->get('group_upload');
+        $group->autogroup = $request->get('autogroup');
         $v = validator($group->toArray(), $group->rules);
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
@@ -100,13 +101,14 @@ class GroupsController extends Controller
         $group->color = $request->get('group_color');
         $group->icon = $request->get('group_icon');
         $group->effect = $request->get('group_effect');
-        $group->is_internal = $request->get('group_internal', 0);
-        $group->is_modo = $request->get('group_modo', 0);
-        $group->is_admin = $request->get('group_admin', 0);
-        $group->is_trusted = $request->get('group_trusted', 0);
-        $group->is_immune = $request->get('group_immune', 0);
-        $group->is_freeleech = $request->get('group_freeleech', 0);
-        $group->autogroup = $request->get('autogroup', 0);
+        $group->is_internal = $request->get('group_internal');
+        $group->is_modo = $request->get('group_modo');
+        $group->is_admin = $request->get('group_admin');
+        $group->is_trusted = $request->get('group_trusted');
+        $group->is_immune = $request->get('group_immune');
+        $group->is_freeleech = $request->get('group_freeleech');
+        $group->can_upload = $request->get('group_upload');
+        $group->autogroup = $request->get('autogroup');
         $v = validator($group->toArray(), $group->rules);
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));

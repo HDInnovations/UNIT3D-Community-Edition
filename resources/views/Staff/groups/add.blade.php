@@ -19,12 +19,13 @@
 @endsection
 
 @section('content')
-    <div class="text-center"><h3>Add New Group</h3></div>
     <div class="container box">
+        <h2>Add New Group</h2>
         <div class="table-responsive">
             <form role="form" method="POST" action="{{ route('staff_groups_add') }}">
                 {{ csrf_field() }}
-                <table class="table table-bordered table-hover">
+                <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -38,6 +39,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
                     </thead>
@@ -57,29 +59,41 @@
                                    class="form-control"/>
                         </td>
                         <td>
+                            <input type="hidden" name="group_internal" value="0">
                             {{ Form::checkbox('group_internal', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_modo" value="0">
                             {{ Form::checkbox('group_modo', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_admin" value="0">
                             {{ Form::checkbox('group_admin', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_trusted" value="0">
                             {{ Form::checkbox('group_trusted', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_immune" value="0">
                             {{ Form::checkbox('group_immune', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_freeleech" value="0">
                             {{ Form::checkbox('group_freeleech', '1', false) }}
                         </td>
                         <td>
+                            <input type="hidden" name="group_upload" value="0">
+                            {{ Form::checkbox('group_upload', '1', false) }}
+                        </td>
+                        <td>
+                            <input type="hidden" name="autogroup" value="0">
                             {{ Form::checkbox('autogroup', '1', false) }}
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
                 <button type="submit" class="btn btn-primary">{{ trans('common.add') }}</button>
             </form>
         </div>

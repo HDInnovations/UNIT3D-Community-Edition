@@ -17,8 +17,8 @@ return [
      *
      */
     'welcome' => [
-        'title'   => 'Instalacja Laravel',
         'message' => 'Witaj w kreatorze instalacji.',
+        'title'   => 'Instalacja Laravel',
     ],
 
 
@@ -48,10 +48,10 @@ return [
      *
      */
     'environment' => [
-        'title' => 'Ustawnienia środowiska',
+        'errors' => 'Nie można zapisać pliku .env, Proszę utworzyć go ręcznie.',
         'save' => 'Zapisz .env',
         'success' => 'Plik .env został poprawnie zainstalowany.',
-        'errors' => 'Nie można zapisać pliku .env, Proszę utworzyć go ręcznie.',
+        'title' => 'Ustawnienia środowiska',
     ],
 
 
@@ -61,8 +61,8 @@ return [
      *
      */
     'final' => [
-        'title' => 'Instalacja zakończona',
-        'finished' => 'Aplikacja została poprawnie zainstalowana.',
         'exit' => 'Kliknij aby zakończyć',
+        'finished' => 'Aplikacja została poprawnie zainstalowana.',
+        'title' => 'Instalacja zakończona',
     ],
 ];
