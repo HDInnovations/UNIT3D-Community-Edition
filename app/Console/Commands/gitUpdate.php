@@ -21,11 +21,11 @@ class gitUpdate extends Command
 {
 
     /**
-     * The console command name.
+     * The console command signature.
      *
      * @var string
      */
-    protected $name = 'git:update';
+    protected $signature = 'git:update {file? : The path of the file you want to update}';
 
     /**
      * The console command description.
@@ -131,13 +131,27 @@ class gitUpdate extends Command
 
     private function runGitCommands(): void
     {
-        $commands = [
-            'git reset --mixed',
-            'git stash',
-            'git fetch origin',
-            'git rebase origin/master',
-            'git stash pop'
-        ];
+        if ($this->arguments() > 0) {
+            $file = $this->argument('file');
+
+            if ($file !== null) {
+                $commands = [
+                    'git stash',
+                    'git fetch origin',
+                    "git checkout origin/master -- {$file}",
+                    'git stash pop'
+                ];
+            }
+
+        } else {
+            $commands = [
+                'git reset --mixed',
+                'git stash',
+                'git fetch origin',
+                'git rebase origin/master',
+                'git stash pop'
+            ];
+        }
 
         foreach ($commands as $command) {
             $process = new Process($command);
