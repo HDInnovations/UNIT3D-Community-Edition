@@ -54,8 +54,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'downloaded' => 1073741824,
         'fl_tokens' => $faker->numberBetween(0, 30),
         'seedbonus' => $faker->randomFloat(1, 0.00, 10.00),
-        'invites' => $faker->numberBetween(0,10),
-        'hitandruns' => $faker->numberBetween(0,5),
+        'invites' => $faker->numberBetween(0, 10),
+        'hitandruns' => $faker->numberBetween(0, 5),
         'remember_token' => str_random(10),
     ];
 });

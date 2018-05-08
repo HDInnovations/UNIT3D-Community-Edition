@@ -902,10 +902,12 @@ class TorrentController extends Controller
 
         $torrents = DB::table('torrents')
             ->select('*')
-            ->join(DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
+            ->join(
+                DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
                 function ($join) {
                     $join->on('torrents.id', '=', 'unique_torrents.id');
-                })
+                }
+            )
             ->where('imdb', '!=', 0)
             ->orderBy('torrents.created_at', 'DESC')
             ->paginate(25);

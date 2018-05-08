@@ -124,7 +124,6 @@ class WishRepository implements WishInterface
     public function getSource($id)
     {
         if ($this->isGranted($id)) {
-
             $id = str_replace('tt', '', $id);
             $source = $this->torrent
                 ->where('imdb', $id)

@@ -79,7 +79,6 @@ class gitUpdate extends Command
         }
 
         $this->info('Done ... Please report any errors or issues.');
-
     }
 
     private function createBackup()
@@ -92,7 +91,6 @@ class gitUpdate extends Command
 
             // log the results
             info("A new backup was initiated from the git:update command ... ");
-
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }

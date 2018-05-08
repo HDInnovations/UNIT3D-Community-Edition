@@ -27,9 +27,9 @@ class ShoutboxController extends Controller
      *
      *
      */
-   public function send(Request $request)
+    public function send(Request $request)
     {
-		$string = $request->input('message');
+        $string = $request->input('message');
         $checkSendRate = Shoutbox::where('user', auth()->user()->id)->where('created_at', '>=', Carbon::now()->subSeconds(1))->first();
         if ($checkSendRate) {
             return 'Wait 1 Seconds Between Posts Please';
@@ -113,53 +113,53 @@ class ShoutboxController extends Controller
         $flag = false;
         foreach ($messages as $message) {
             $class = '';
-			if (!empty($message->mentions)){
-				if (in_array(auth()->user()->id, explode(',', $message->mentions))) {
-					$class = 'mentioned';
-					$show = true;
-				} elseif (in_array(auth()->user()->id, explode(',', $message->user))){
+            if (!empty($message->mentions)) {
+                if (in_array(auth()->user()->id, explode(',', $message->mentions))) {
+                    $class = 'mentioned';
+                    $show = true;
+                } elseif (in_array(auth()->user()->id, explode(',', $message->user))) {
                     $class = 'mentions';
                     $show = true;
-				} else {
+                } else {
                     $show = false;
                 }
-			} elseif ($message->mentions == '1'){
-				$show = true;
-			} elseif ($message->mentions == '2'){
-				$show = true;
-			} else {
-				$show = true;
-			}
-			if ($message->user == auth()->user()->id){
-				$show = true;
-			}
-			if ($message->user == '1'){
-				$show = true;
-			}
-			if ($message->user == '2'){
-				$show = true;
-			}
-			if ($show){
-				$flag = true;
-				if ($message->poster->image != null) {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
-				} else {
-					$avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profile.png">';
-				}
+            } elseif ($message->mentions == '1') {
+                $show = true;
+            } elseif ($message->mentions == '2') {
+                $show = true;
+            } else {
+                $show = true;
+            }
+            if ($message->user == auth()->user()->id) {
+                $show = true;
+            }
+            if ($message->user == '1') {
+                $show = true;
+            }
+            if ($message->user == '2') {
+                $show = true;
+            }
+            if ($show) {
+                $flag = true;
+                if ($message->poster->image != null) {
+                    $avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="/files/img/' . $message->poster->image . '">';
+                } else {
+                    $avatar = '<img onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')" class="profile-avatar tiny pull-left" src="img/profile.png">';
+                }
 
-				$flag = true;
-				$delete = '';
-				if (auth()->user()->group->is_modo || $message->poster->id == auth()->user()->id) {
-					$appurl = config('app.url');
-					$delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
-				}
+                $flag = true;
+                $delete = '';
+                if (auth()->user()->group->is_modo || $message->poster->id == auth()->user()->id) {
+                    $appurl = config('app.url');
+                    $delete = '<a title="Delete Shout" href=\'' . $appurl . '/shoutbox/delete/' . $message->id . '\'><i class="pull-right fa fa-lg fa-times"></i></a>';
+                }
 
-				$flag = true;
-				if ($message->poster->isOnline()) {
-					$online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="Online!"></i>';
-				} else {
-					$online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="Offline!"></i>';
-				}
+                $flag = true;
+                if ($message->poster->isOnline()) {
+                    $online = '<i class="fa fa-circle text-green" data-toggle="tooltip" title="" data-original-title="Online!"></i>';
+                } else {
+                    $online = '<i class="fa fa-circle text-red" data-toggle="tooltip" title="" data-original-title="Offline!"></i>';
+                }
 
                 $flag = true;
                 if (auth()->user()->censor == 1) {
@@ -168,12 +168,12 @@ class ShoutboxController extends Controller
                     $censorMessage = \LaravelEmojiOne::toImage(Shoutbox::getMessageHtml($message->message));
                 }
 
-				$appurl = config('app.url');
-				$data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
+                $appurl = config('app.url');
+                $data[] = '<li class="list-group-item ' . $class . '" data-created="' . strtotime($message->created_at) . '">
 					' . ($flag ? $avatar : "") . '
 					<h4 class="list-group-item-heading"><span class="badge-user text-bold"><i class="' . ($message->poster->group->icon) . '" data-toggle="tooltip" title="" data-original-title="' . ($message->poster->group->name) . '"></i>
                     &nbsp;<a data-toggle="tooltip" title="" data-original-title="PrivateMessage" style="cursor: pointer; color:' . ($message->poster->group->color) . '; background-image:' . ($message->poster->group->effect) . ';" onclick="addTextToChat(' . "'" . '#'.$message->poster->username . "'" . ')">'
-					. e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>Profile</a>
+                    . e($message->poster->username) . ' <i class="fa fa-comment-o"></i></a> - <a href=\'' . $appurl . '/' . e($message->poster->username) . '.' . e($message->poster->id) . '\'>Profile</a>
 					' . ($flag ? $online : "") . '
 					</span>&nbsp;<span class="text-muted"><small><em>' . ($message->created_at->diffForHumans()) . '</em></small></span>
 					</h4>
@@ -181,7 +181,7 @@ class ShoutboxController extends Controller
 					' . ($flag ? $censorMessage : "") . '
 					' . ($flag ? $delete : "") . '
 					</p></li>';
-			}
+            }
         }
 
         return ['data' => $data, 'next_batch' => $next_batch];

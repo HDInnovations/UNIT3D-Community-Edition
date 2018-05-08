@@ -213,7 +213,6 @@ class ForumController extends Controller
         $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
         if ($this->tag->hasTags($content)) {
-
             //$this->tag->setDebug(true);
 
             if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
@@ -223,12 +222,14 @@ class ForumController extends Controller
                     $users->push($p->user);
                 });
 
-                $this->tag->messageUsers($users,
+                $this->tag->messageUsers(
+                    $users,
                     "You are being notified by staff!",
                     $message
                 );
             } else {
-                $this->tag->messageTaggedUsers($content,
+                $this->tag->messageTaggedUsers(
+                    $content,
                     "You have been tagged by {$user->username}",
                     $message
                 );
