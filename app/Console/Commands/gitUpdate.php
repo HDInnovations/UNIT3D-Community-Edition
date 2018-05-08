@@ -51,7 +51,7 @@ class gitUpdate extends Command
      */
     public function handle()
     {
-        $this->alert('Git Updater v1.0 Beta (Author: Poppabear)');
+        $this->alert('Git Updater v1.6 Beta (Author: Poppabear)');
         $this->warn('Press CTRL + C to abort');
 
         sleep(5);
