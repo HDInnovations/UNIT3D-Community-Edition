@@ -17390,6 +17390,8 @@ body[hoe-navigation-type="horizontal"] #hoeapp-container[hoe-lpanel-effect="push
   left: auto;
   position: absolute;
   right: 0;
+  max-height: 460px;
+  overflow: auto;
 }
 
 .hoe-rheader-submenu > ul > li {

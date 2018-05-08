@@ -3,6 +3,7 @@
 /node_modules
 /public/hot
 /public/storage
+/storage/backups
 /storage/*.key
 /vendor
 /.vagrant
@@ -10,6 +11,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+laravel-echo-server.json
 
 # IntelliJ
 

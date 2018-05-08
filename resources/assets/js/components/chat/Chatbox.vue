@@ -55,7 +55,7 @@
                     <chat-messages :messages="messages"></chat-messages>
 
                     <chat-form
-                            @message-sent="(o) => createMessage(o.message, o.broadcast, o.save, o.user_id)"
+                            @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
                             :user="auth"></chat-form>
 
                 </div>
@@ -209,26 +209,15 @@
       },
 
       /* User defaults to System user */
-      createMessage (message, broadcast = false, save = false, user_id = 1) {
+      createMessage (message, save = false, user_id = 1) {
 
-        if (!broadcast && !save) {
-          // if you don't broadcast, we simply display it on the current users chat (not on all clients)
-          this.chatrooms[this.room_index].messages.push({
-            'id': this.last_id + 1,
-            'message': message,
-            'user': {
-              'id': 1
-            }
-          })
-        } else {
-          axios.post('/api/chat/messages', {
-            'user_id': user_id,
-            'chatroom_id': this.currentRoom,
-            'message': message,
-            'save': save, // if you want to save the system message to the database
-            'broadcast': broadcast // if you want to broadcast the system message to other clients
-          })
-        }
+        axios.post('/api/chat/messages', {
+          'user_id': user_id,
+          'chatroom_id': this.currentRoom,
+          'message': message,
+          'save': save, // if you want to save the system message to the database
+        })
+
       },
 
       scrollToBottom () {

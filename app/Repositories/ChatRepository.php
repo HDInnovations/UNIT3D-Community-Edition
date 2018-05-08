@@ -11,8 +11,6 @@ use App\User;
 class ChatRepository
 {
 
-    protected $broadcast = true;
-
     /**
      * @var Message
      */
@@ -54,8 +52,7 @@ class ChatRepository
             'message' => $message
         ]);
 
-        if ($this->broadcast)
-            broadcast(new MessageSent($message));
+        broadcast(new MessageSent($message));
 
         return $message;
     }
@@ -63,13 +60,6 @@ class ChatRepository
     public function systemMessage($message)
     {
         $this->message(1, $this->systemChatroom(), $message);
-
-        return $this;
-    }
-
-    public function dontBroadcast()
-    {
-        $this->broadcast = false;
 
         return $this;
     }

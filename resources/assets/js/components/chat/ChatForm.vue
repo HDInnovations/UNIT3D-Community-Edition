@@ -33,7 +33,6 @@
 
             this.$emit('message-sent', {
               message: msg,
-              broadcast: true,
               save: true,
               user_id: this.user.id,
             })

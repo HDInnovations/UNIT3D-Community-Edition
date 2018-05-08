@@ -46,14 +46,9 @@ class ChatController extends Controller
         $user_id = $request->get('user_id');
         $room_id = $request->get('chatroom_id');
         $message = $request->get('message');
-        $broadcast = $request->get('broadcast');
         $save = $request->get('save');
 
-        if ($broadcast) {
-            $message = $this->chat->message($user_id, $room_id, $message);
-        } else {
-            $message = $this->chat->dontBroadcast()->message($user_id, $room_id, $message);
-        }
+        $message = $this->chat->message($user_id, $room_id, $message);
 
         if (!$save) {
             $message->delete();
