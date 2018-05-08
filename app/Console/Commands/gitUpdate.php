@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Process\Process;
 
 class gitUpdate extends Command
 {
@@ -51,29 +52,43 @@ class gitUpdate extends Command
     public function handle()
     {
         $this->alert('Git Updater v1.0 Beta (Author: Poppabear)');
-        $this->warn('*** This process could take a few minutes ***');
         $this->warn('Press CTRL + C to abort');
 
         sleep(5);
 
-        $commands = [
-            'git reset --mixed',
-            'git stash',
-            'git fetch origin',
-            'git rebase origin/master',
-            'git stash pop'
-        ];
+        $this->alert('We are now going to create a backup ...');
+        $this->warn('*** This process could take a few minutes ***');
 
-        foreach ($commands as $command) {
-            $this->info(shell_exec($command));
+        $this->createBackup();
+
+        $this->alert('We are now going to run a series of git commands ...');
+        $this->warn('*** This process could take a few minutes ***');
+
+        $this->runGitCommands();
+
+        $this->runNewMigrations();
+
+        $this->clearCache();
+
+        $this->compileAssets();
+
+        $this->info('Done ...');
+        $this->alert('Please report any errors or issues.');
+
+    }
+
+    private function createBackup()
+    {
+        try {
+            // start the backup process
+            $this->call('backup:run');
+
+            // log the results
+            info("A new backup was initiated from the git:update command ... ");
+
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
         }
-
-        $this->call('migrate');
-
-        $this->info(shell_exec('npm run dev'));
-
-        $this->alert('Updated !!!');
-
     }
 
     /**
@@ -86,5 +101,51 @@ class gitUpdate extends Command
         return [
 
         ];
+    }
+
+    private function compileAssets(): void
+    {
+        $this->comment('Compiling JS and Style assets ...');
+        $process = new Process('npm run dev');
+        $process->start();
+
+        $process->wait();
+
+        $this->info($process->getOutput());
+    }
+
+    private function clearCache(): void
+    {
+        $this->comment('Clearing several common cache\'s ...');
+        $this->call('view:clear');
+        $this->call('route:clear');
+        $this->call('config:clear');
+        $this->call('cache:clear');
+    }
+
+    private function runNewMigrations(): void
+    {
+        $this->comment('Running new migrations ...');
+        $this->call('migrate');
+    }
+
+    private function runGitCommands(): void
+    {
+        $commands = [
+            'git reset --mixed',
+            'git stash',
+            'git fetch origin',
+            'git rebase origin/master',
+            'git stash pop'
+        ];
+
+        foreach ($commands as $command) {
+            $process = new Process($command);
+            $process->start();
+
+            $process->wait();
+
+            $this->info($process->getOutput());
+        }
     }
 }
