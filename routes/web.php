@@ -161,7 +161,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
         Route::get('/{username}.{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
         Route::get('/{username}.{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
-        Route::post('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
+        Route::get('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
         Route::post('/send-private-message', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
         Route::post('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
         Route::post('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
