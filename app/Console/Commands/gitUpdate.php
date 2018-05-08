@@ -25,7 +25,10 @@ class gitUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'git:update {file? : The path of the file you want to update}';
+    protected $signature = 'git:update 
+    {file? : The path of the file you want to update} 
+    {--backup : To create a backup before update}
+    {--no-compile : To opt out of compiling assets}';
 
     /**
      * The console command description.
@@ -51,18 +54,17 @@ class gitUpdate extends Command
      */
     public function handle()
     {
-        $this->alert('Git Updater v1.6 Beta (Author: Poppabear)');
+        $this->alert('Git Updater v1.7 Beta by Poppabear');
         $this->warn('Press CTRL + C to abort');
 
         sleep(5);
 
-        $this->alert('We are now going to create a backup ...');
-        $this->warn('*** This process could take a few minutes ***');
+        $backup = $this->option('backup');
+        $no_compile = $this->option('no-compile');
 
-        $this->createBackup();
-
-        $this->alert('We are now going to run a series of git commands ...');
-        $this->warn('*** This process could take a few minutes ***');
+        if ($backup) {
+            $this->createBackup();
+        }
 
         $this->runGitCommands();
 
@@ -70,15 +72,20 @@ class gitUpdate extends Command
 
         $this->clearCache();
 
-        $this->compileAssets();
+        if (!$no_compile) {
+            $this->compileAssets();
+        } else {
+            $this->warn('!!! Skipping Asset Compiling !!!');
+        }
 
-        $this->info('Done ...');
-        $this->alert('Please report any errors or issues.');
+        $this->info('Done ... Please report any errors or issues.');
 
     }
 
     private function createBackup()
     {
+        $this->info('Creating Backup ...');
+        $this->warn('*** This process could take a few minutes ***');
         try {
             // start the backup process
             $this->call('backup:run');
@@ -131,19 +138,20 @@ class gitUpdate extends Command
 
     private function runGitCommands(): void
     {
-        if ($this->arguments() > 0) {
-            $file = $this->argument('file');
 
-            if ($file !== null) {
-                $commands = [
-                    'git stash',
-                    'git fetch origin',
-                    "git checkout origin/master -- {$file}",
-                    'git stash pop'
-                ];
-            }
+        $file = $this->argument('file');
 
+        if ($file !== null) {
+            $this->info("Updating file {$file} ...");
+
+            $commands = [
+                'git stash',
+                'git fetch origin',
+                "git checkout origin/master -- {$file}",
+                'git stash pop'
+            ];
         } else {
+            $this->info('Updating ...');
             $commands = [
                 'git reset --mixed',
                 'git stash',
@@ -152,6 +160,8 @@ class gitUpdate extends Command
                 'git stash pop'
             ];
         }
+
+        $this->warn('*** This process could take a few minutes ***');
 
         foreach ($commands as $command) {
             $process = new Process($command);
