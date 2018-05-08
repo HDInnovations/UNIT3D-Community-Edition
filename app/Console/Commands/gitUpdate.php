@@ -51,10 +51,17 @@ class gitUpdate extends Command
     public function handle()
     {
         $this->alert('Git Updater v1.0 Beta (Author: Poppabear)');
-        $this->warn('*** This process could take a few minutes ***');
         $this->warn('Press CTRL + C to abort');
 
         sleep(5);
+
+        $this->alert('We are now going to create a backup ...');
+        $this->warn('*** This process could take a few minutes ***');
+
+        $this->createBackup();
+
+        $this->alert('We are now going to run a series of git commands ...');
+        $this->warn('*** This process could take a few minutes ***');
 
         $commands = [
             'git reset --mixed',
@@ -68,12 +75,35 @@ class gitUpdate extends Command
             $this->info(shell_exec($command));
         }
 
+        $this->comment('Running new migrations ...');
         $this->call('migrate');
 
+        $this->comment('Clearing several common cache\'s ...');
+        $this->call('view:clear');
+        $this->call('route:clear');
+        $this->call('config:clear');
+        $this->call('cache:clear');
+
+        $this->comment('Compiling JS and Style assets ...');
         $this->info(shell_exec('npm run dev'));
 
-        $this->alert('Updated !!!');
+        $this->info('Done ...');
+        $this->alert('Please report any errors or issues.');
 
+    }
+
+    private function createBackup()
+    {
+        try {
+            // start the backup process
+            $this->call('backup:run');
+
+            // log the results
+            info("A new backup was initiated from the git:update command ... ");
+
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 
     /**
