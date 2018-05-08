@@ -74,7 +74,7 @@ class autoGraveyard extends Command
                 // Auto Shout
                 $appurl = config('app.url');
 
-                $this->chat->system(
+                $this->chat->systemMessage(
                     "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has succesfully ressurected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
                 );
 

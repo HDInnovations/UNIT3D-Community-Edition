@@ -68,7 +68,7 @@ class removeFeaturedTorrent extends Command
             // Auto Announce Featured Expired
             $appurl = config('app.url');
 
-            $this->chat->system(
+            $this->chat->systemMessage(
                 "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] is no longer featured. :poop:"
             );
 

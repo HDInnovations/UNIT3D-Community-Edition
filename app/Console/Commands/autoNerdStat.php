@@ -92,6 +92,6 @@ class autoNerdStat extends Command
         $selected = mt_rand(0, count($statArray) - 1);
 
         // Auto Shout Nerd Stat
-        $this->chat->system(":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:");
+        $this->chat->systemMessage(":nerd: [b]Random Nerd Stat:[/b] " . $statArray[$selected] . " :nerd:");
     }
 }

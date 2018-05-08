@@ -17,6 +17,7 @@ use App\Http\Controllers\Controller;
 
 class ChatController extends Controller
 {
+
     /**
      * @var ChatRepository
      */
@@ -30,15 +31,13 @@ class ChatController extends Controller
     /* STATUSES */
     public function statuses()
     {
-        return response(ChatStatus::all(), 200);
+        return response($this->chat->statuses(), 200);
     }
 
     /* ROOMS */
     public function rooms()
     {
-        $rooms = Chatroom::with(['messages.user.group', 'messages.user.chatStatus'])->get();
-
-        return ChatRoomResource::collection($rooms);
+        return ChatRoomResource::collection($this->chat->rooms());
     }
 
     /* MESSAGES */
@@ -67,7 +66,7 @@ class ChatController extends Controller
     public function updateUserChatStatus(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
-        $status = ChatStatus::findOrFail($request->get('status_id'));
+        $status = $this->chat->statusFindOrFail($request->get('status_id'));
 
         $user->chatStatus()->dissociate();
         $user->chatStatus()->associate($status);
@@ -80,7 +79,7 @@ class ChatController extends Controller
     public function updateUserRoom(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
-        $room = Chatroom::findOrFail($request->get('room_id'));
+        $room = $this->chat->roomFindOrFail($request->get('room_id'));
 
         $user->chatroom()->dissociate();
         $user->chatroom()->associate($room);

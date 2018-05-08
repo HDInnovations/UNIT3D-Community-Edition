@@ -277,7 +277,7 @@ class ForumController extends Controller
         $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
         $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
-        $this->chat->system("User [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
+        $this->chat->systemMessage("User [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
         // Mail Topic Creator Of New Reply
         if ($post->user_id != $topic->first_post_user_id) {
@@ -371,7 +371,7 @@ class ForumController extends Controller
                     $topicUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}";
                     $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
-                    $this->chat->system("User [url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+                    $this->chat->systemMessage("User [url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
                     //Achievements
                     $user->unlock(new UserMadeFirstPost(), 1);
