@@ -12,7 +12,7 @@
 
 namespace App\Http\Middleware;
 
-use App;
+use Illuminate\Support\Facades\App;
 use Closure;
 use App\Language;
 use Carbon\Carbon;

@@ -93,7 +93,6 @@ class CommentController extends Controller
         $appurl = config('app.url');
 
         if ($this->tag->hasTags($content)) {
-
             //$this->tag->setDebug(true);
 
             $href = "{$appurl}/articles/{$article->slug}.{$article->id}";
@@ -106,12 +105,14 @@ class CommentController extends Controller
                     $users->push($c->user);
                 });
 
-                $this->tag->messageUsers($users,
+                $this->tag->messageUsers(
+                    $users,
                     "You are being notified by staff!",
                     $message
                 );
             } else {
-                $this->tag->messageTaggedUsers($content,
+                $this->tag->messageTaggedUsers(
+                    $content,
                     "You have been tagged by {$user->username}",
                     $message
                 );
@@ -171,7 +172,6 @@ class CommentController extends Controller
         $appurl = config('app.url');
 
         if ($this->tag->hasTags($content)) {
-
             //$this->tag->setDebug(true);
 
             $href = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
@@ -184,12 +184,14 @@ class CommentController extends Controller
                     $users->push($c->user);
                 });
 
-                $this->tag->messageUsers($users,
+                $this->tag->messageUsers(
+                    $users,
                     "You are being notified by staff!",
                     $message
                 );
             } else {
-                $this->tag->messageTaggedUsers($content,
+                $this->tag->messageTaggedUsers(
+                    $content,
                     "You have been tagged by {$user->username}",
                     $message
                 );
@@ -272,7 +274,6 @@ class CommentController extends Controller
         $appurl = config('app.url');
 
         if ($this->tag->hasTags($content)) {
-
             //$this->tag->setDebug(true);
 
             $href = "{$appurl}/request/{$torrentRequest->id}";
@@ -285,12 +286,14 @@ class CommentController extends Controller
                     $users->push($c->user);
                 });
 
-                $this->tag->messageUsers($users,
+                $this->tag->messageUsers(
+                    $users,
                     "You are being notified by staff!",
                     $message
                 );
             } else {
-                $this->tag->messageTaggedUsers($content,
+                $this->tag->messageTaggedUsers(
+                    $content,
                     "You have been tagged by {$user->username}",
                     $message
                 );

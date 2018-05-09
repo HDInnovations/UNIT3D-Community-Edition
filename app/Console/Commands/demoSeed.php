@@ -69,10 +69,8 @@ class demoSeed extends Command
             $uid = factory(User::class)->create()->id;
 
             foreach ($value as $id) {
-
                 // random boolean
-                if ([false,true][rand(0,1)]) {
-
+                if ([false,true][rand(0, 1)]) {
                     $r = $this->search('tt' . $id);
 
                     // Torrents
@@ -124,7 +122,7 @@ class demoSeed extends Command
         // we delay between api calls to reduce throttling
         usleep(500000);
 
-        $key = env('OMDB_API_KEY', config('api-keys.omdb'));
+        $key = config('api-keys.omdb');
 
         $url = 'http://www.omdbapi.com/?apikey=' . $key . '&i=' . $id . '&r=json&plot=full';
 
@@ -148,5 +146,4 @@ class demoSeed extends Command
             ["4662420", "4276820", "2278388", "1895315", "0342258", "0266308", "0477348", "0120746", "0129167"],
         ];
     }
-
 }

@@ -69,7 +69,7 @@ class WishController extends Controller
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
-        if($omdb === null || $omdb === false) {
+        if ($omdb === null || $omdb === false) {
             return redirect()
                 ->route('wishlist', ['id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));

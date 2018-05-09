@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // we can now inject this class and it will auto resolve for us
         $this->app->bind(OmdbClient::class, function ($app) {
-            $key = env('OMDB_API_KEY', config('api-keys.omdb'));
+            $key = config('api-keys.omdb');
             return new OmdbClient($key);
         });
 
