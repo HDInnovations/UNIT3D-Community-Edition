@@ -6,59 +6,62 @@
                 <h4>Chatbox</h4>
             </div>
 
-            <div id="frame">
-                <div id="sidepanel">
-                    <div id="profile">
-                        <div class="wrap">
+            <div class="panel-body">
+                <div id="frame">
+                    <div id="sidepanel">
+                        <div id="profile">
+                            <div class="wrap">
 
-                            <img :src="auth.image ? auth.image : '/img/profile.png'"
-                                 @click="showStatuses = !showStatuses"
-                                 :style="`border: 2px solid ${statusColor};`"
-                                 alt="">
+                                <img :src="auth.image ? auth.image : '/img/profile.png'"
+                                     @click="showStatuses = !showStatuses"
+                                     :style="`border: 2px solid ${statusColor};`"
+                                     alt="">
 
-                            <transition name="slide-fade">
-                                <div v-if="showStatuses" class="statuses">
-                                    <ul class="list-unstyled">
+                                <transition name="slide-fade">
+                                    <div v-if="showStatuses" class="statuses">
+                                        <ul class="list-unstyled">
 
-                                        <li v-for="status in statuses"
-                                            class="text-center"
-                                            @click="changeStatus(status.id)">
+                                            <li v-for="status in statuses"
+                                                class="text-center"
+                                                @click="changeStatus(status.id)">
 
-                                            <i :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
-                                               :style="`color: ${status.color}`"></i>
+                                                <i :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
+                                                   :style="`color: ${status.color}`"></i>
 
-                                        </li>
+                                            </li>
 
-                                    </ul>
-                                </div>
-                            </transition>
+                                        </ul>
+                                    </div>
+                                </transition>
+                            </div>
                         </div>
+
+                        <!--<div id="bottom-bar">
+                            <button id="channels">
+                                <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+                            </button>
+                        </div>-->
                     </div>
+                    <div class="content">
 
-                    <!--<div id="bottom-bar">
-                        <button id="channels">
-                            <i class="fa fa-cog fa-fw" aria-hidden="true"></i>
-                        </button>
-                    </div>-->
-                </div>
-                <div class="content">
+                        <div class="contact-profile">
+                            <chatrooms-dropdown :current="auth.chatroom.id"
+                                                :chatrooms="chatrooms"
+                                                class="pull-left"
+                                                @changedRoom="changeRoom">
 
-                    <div class="contact-profile">
-                        <chatrooms-dropdown :current="auth.chatroom.id"
-                                            :chatrooms="chatrooms"
-                                            class="pull-left"
-                                            @changedRoom="changeRoom">
+                            </chatrooms-dropdown>
+                        </div>
 
-                        </chatrooms-dropdown>
+                        <chat-messages :messages="messages"></chat-messages>
+
                     </div>
-
-                    <chat-messages :messages="messages"></chat-messages>
-
-                    <chat-form
-                            @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
-                            :user="auth"></chat-form>
-
                 </div>
+            </div>
+            <div class="panel-footer">
+                <chat-form
+                        @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
+                        :user="auth"></chat-form>
             </div>
         </div>
     </div>
@@ -221,9 +224,9 @@
           'message': message,
           'save': save,
         }).then((response) => {
-          let count = this.chatrooms[this.room_index].messages.length;
+          let count = this.chatrooms[this.room_index].messages.length
           if (count > this.limits.max_messages) {
-            this.chatrooms[this.room_index].messages.splice(0, 1);
+            this.chatrooms[this.room_index].messages.splice(0, 1)
           }
         })
 

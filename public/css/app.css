@@ -36279,7 +36279,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 #frame {
   height: 92vh;
   min-height: 300px;
-  max-height: 480px;
+  max-height: 523px;
   background: #E6EAEA;
 }
 
@@ -36729,7 +36729,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
 #frame .content .messages ul {
   margin-left: 10px;
-  max-height: 335px;
+  max-height: 475px;
   overflow-y: auto;
 }
 
@@ -36768,10 +36768,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
 #frame .content .messages ul li.sent p {
   color: #2C4151;
-  margin-top: 10px;
-  margin-bottom: -20px;
   max-width: 600px;
   line-height: 130%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
 }
 
 #frame .content .messages ul li.sent p.system {
@@ -36784,6 +36785,8 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 #frame .content .messages ul li.sent p img.emojione {
   padding: 0;
   margin: 0;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 #frame .content .message-input {

@@ -1,7 +1,7 @@
 #frame {
   height: 92vh;
   min-height: 300px;
-  max-height: 480px;
+  max-height: 523px;
   background: #E6EAEA;
   #sidepanel {
     float: left;
@@ -389,7 +389,7 @@
       }
       ul {
         margin-left: 10px;
-        max-height: 335px;
+        max-height: 475px;
         overflow-y: auto;
 
         li {
@@ -431,10 +431,9 @@
 
             p {
               color: #2C4151;
-              margin-top: 10px;
-              margin-bottom: -20px;
               max-width: 600px;
               line-height: 130%;
+              display: inline-flex;
 
               &.system {
                 font-size: 0.9em;
@@ -448,6 +447,8 @@
                 &.emojione {
                   padding: 0;
                   margin: 0;
+                  margin-right: 5px;
+                  margin-left: 5px;
                 }
 
               }

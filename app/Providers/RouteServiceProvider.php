@@ -49,7 +49,15 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        //
+        $this->mapVueApiRoutes();
+    }
+
+    protected function mapVueApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware(['web', 'auth'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/vue.php'));
     }
 
     /**

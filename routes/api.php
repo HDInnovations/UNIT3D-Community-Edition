@@ -10,8 +10,6 @@
  * @author     HDVinnie
  */
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,23 +20,3 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::namespace('API')->group(function () {
-
-    Route::prefix('chat')->group(function () {
-
-        /* Statuses */
-        Route::get('/statuses', 'ChatController@statuses');
-
-        /* Rooms */
-        Route::get('/rooms', 'ChatController@rooms');
-        Route::get('/rooms/{room_id}/limits', 'ChatController@roomLimits');
-
-        /* Messages */
-        Route::post('/messages', 'ChatController@createMessage');
-
-        /* Users */
-        Route::put('/user/{id}/chatroom', 'ChatController@updateUserRoom');
-        Route::put('/user/{id}/status', 'ChatController@updateUserChatStatus');
-    });
-
-});

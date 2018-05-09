@@ -1,11 +1,23 @@
 <template>
     <div class="message-input">
         <div class="wrap">
+            <span class="badge-extra">
+                Tap <strong>ALT</strong> to toggle multi-line (<strong>{{multiline ? 'On' : 'Off'}}</strong>)
+            </span>
+
+            <span class="badge-extra">
+                Type <strong>:</strong> for emoji
+            </span>
+
+            <span class="badge-extra">
+                BBcode Allowed
+            </span>
+
             <textarea id="chat-message"
                       name="message"
                       placeholder="Write your message..."
                       cols="30"
-                      rows="2">
+                      rows="5">
 
             </textarea>
         </div>
@@ -19,14 +31,19 @@
     data () {
       return {
         editor: null,
-        input: null
+        input: null,
+        multiline: false
       }
     },
 
     methods: {
       sendMessage (e) {
 
-        if (e.which === 13 && e.which !== 16) {
+        if (e.which === 18) {
+          this.multiline = !this.multiline
+        }
+
+        if (e.which === 13 && !this.multiline) {
           let msg = this.editor.bbcode()
 
           if (msg !== null && msg !== '') {
@@ -52,6 +69,7 @@
       this.input = $('.wysibb-body')
 
       this.input.keyup(this.sendMessage)
+
     }
   }
 </script>

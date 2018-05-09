@@ -28,8 +28,8 @@
                 </h4>
 
                 <p :class="message.user.id === 1 ? 'system' : null"
-                     v-html="message.message"
-                     v-emoji-render:data="message.message">
+                   v-emoji-render:data="message.message"
+                   v-html="message.message">
 
                 </p>
             </li>
@@ -45,7 +45,7 @@
       messages: {required: true},
     },
     methods: {
-      userStyles(user) {
+      userStyles (user) {
         return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
       }
     }
