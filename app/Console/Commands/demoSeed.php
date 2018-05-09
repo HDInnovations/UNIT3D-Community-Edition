@@ -122,7 +122,7 @@ class demoSeed extends Command
         // we delay between api calls to reduce throttling
         usleep(500000);
 
-        $key = env('OMDB_API_KEY', config('api-keys.omdb'));
+        $key = config('api-keys.omdb');
 
         $url = 'http://www.omdbapi.com/?apikey=' . $key . '&i=' . $id . '&r=json&plot=full';
 
