@@ -40,6 +40,13 @@ class ChatController extends Controller
         return ChatRoomResource::collection($this->chat->rooms());
     }
 
+    public function roomLimits($room_id)
+    {
+        return response([
+            'max_messages' => config('chat.message_limit')
+        ], 200);
+    }
+
     /* MESSAGES */
     public function createMessage(Request $request)
     {

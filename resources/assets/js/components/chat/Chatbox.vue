@@ -110,6 +110,7 @@
         currentRoom: 0,
         scroll: true,
         channel: null,
+        limits: {}
       }
     },
     watch: {
@@ -159,7 +160,11 @@
         axios.get('/api/chat/rooms').then(response => {
           this.chatrooms = response.data.data
 
-          this.changeRoom(this.auth.chatroom.id)
+          axios.get(`/api/chat/rooms/${this.auth.chatroom.id}/limits`).then(response => {
+            this.limits = response.data
+
+            this.changeRoom(this.auth.chatroom.id)
+          })
         })
       },
 
@@ -200,8 +205,7 @@
 
             /* Add system message */
             this.createMessage(
-              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`,
-              true
+              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`
             )
 
           })
@@ -209,13 +213,18 @@
       },
 
       /* User defaults to System user */
-      createMessage (message, save = false, user_id = 1) {
+      createMessage (message, save = true, user_id = 1) {
 
         axios.post('/api/chat/messages', {
           'user_id': user_id,
           'chatroom_id': this.currentRoom,
           'message': message,
-          'save': save, // if you want to save the system message to the database
+          'save': save,
+        }).then((response) => {
+          let count = this.chatrooms[this.room_index].messages.length;
+          if (count > this.limits.max_messages) {
+            this.chatrooms[this.room_index].messages.splice(0, 1);
+          }
         })
 
       },
@@ -251,8 +260,6 @@
             this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            console.log(e)
-            //push the new message on to the array
             this.chatrooms[this.room_index].messages.push(e.message)
           })
       }

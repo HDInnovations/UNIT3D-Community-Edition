@@ -52,9 +52,26 @@ class ChatRepository
             'message' => $message
         ]);
 
+        $this->checkMessageLimits($room_id);
+
         broadcast(new MessageSent($message));
 
         return $message;
+    }
+
+    public function messages($room_id) {
+        return $this->message->where('chatroom_id', $room_id)->get();
+    }
+
+    public function checkMessageLimits($room_id)
+    {
+        $messages = $this->messages($room_id);
+        $limit = config('chat.message_limit');
+        $count = $messages->count();
+
+        if ($count > $limit) {
+            $messages->first()->delete();
+        }
     }
 
     public function systemMessage($message)

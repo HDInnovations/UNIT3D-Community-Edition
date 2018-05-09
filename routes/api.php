@@ -31,6 +31,7 @@ Route::namespace('API')->group(function () {
 
         /* Rooms */
         Route::get('/rooms', 'ChatController@rooms');
+        Route::get('/rooms/{room_id}/limits', 'ChatController@roomLimits');
 
         /* Messages */
         Route::post('/messages', 'ChatController@createMessage');

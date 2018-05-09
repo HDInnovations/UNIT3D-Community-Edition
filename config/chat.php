@@ -7,10 +7,16 @@ return [
      *
      * Note: can use the id or name of the chatroom
      *
-     * id (integer) example: 3
-     * name (string) example: 'System'
+     * id (integer) example: 1
+     * name (string) example: 'General'
      */
-    'system_chatroom' => 'System',
+    'system_chatroom' => 'General',
+
+    /**
+     * Total Messages to keep in history (per chatroom)
+     */
+    'message_limit' => 100
+
 
 
 ];
