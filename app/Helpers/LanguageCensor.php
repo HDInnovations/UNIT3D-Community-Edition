@@ -12,8 +12,6 @@
 
 namespace App\Helpers;
 
-use Config;
-
 /**
  * Class LanguageCensor
  *

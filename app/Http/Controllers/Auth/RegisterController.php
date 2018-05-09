@@ -28,7 +28,6 @@ use App\Invite;
 use App\Rules\Captcha;
 use \Toastr;
 use Carbon\Carbon;
-use Cache;
 
 class RegisterController extends Controller
 {
@@ -91,7 +90,7 @@ class RegisterController extends Controller
                 $appurl = config('app.url');
                 // Post To Shoutbox
                 Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Welcome [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] hope you enjoy the community :rocket:"]);
-                Cache::forget('shoutbox_messages');
+                cache()->forget('shoutbox_messages');
 
                 // Send Welcome PM
                 PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);

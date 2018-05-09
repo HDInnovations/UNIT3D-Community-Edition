@@ -13,11 +13,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Traits\TwoStep;
-use Validator;
 
 class TwoStepController extends Controller
 {
@@ -52,7 +50,7 @@ class TwoStepController extends Controller
      */
     private function setUser2StepData()
     {
-        $user                       = Auth::User();
+        $user                       = auth()->user();
         $twoStepAuth                = $this->getTwoStepAuthStatus($user->id);
         $authCount                  = $twoStepAuth->authCount;
         $this->_user                = $user;
@@ -116,7 +114,7 @@ class TwoStepController extends Controller
             $data['timeUntilUnlock']     = $exceededTimeDetails['tomorrow'];
             $data['timeCountdownUnlock'] = $exceededTimeDetails['remaining'];
 
-            return View('auth.twostep-exceeded')->with($data);
+            return view('auth.twostep-exceeded')->with($data);
         }
 
         $now = new Carbon();
@@ -139,7 +137,7 @@ class TwoStepController extends Controller
             }
         }
 
-        return View('auth.twostep-verification')->with($data);
+        return view('auth.twostep-verification')->with($data);
     }
 
     /**
@@ -156,7 +154,7 @@ class TwoStepController extends Controller
         }
 
         if ($request->ajax()) {
-            $validator = Validator::make($request->all(), [
+            $validator = validator($request->all(), [
                 'v_input_1' => 'required|min:1|max:1',
                 'v_input_2' => 'required|min:1|max:1',
                 'v_input_3' => 'required|min:1|max:1',
