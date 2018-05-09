@@ -37,26 +37,37 @@
     },
 
     methods: {
-      sendMessage (e) {
+      keyup (e) {
 
+        // Alt
         if (e.which === 18) {
           this.multiline = !this.multiline
         }
 
+        // Enter
         if (e.which === 13 && !this.multiline) {
-          let msg = this.editor.bbcode()
-
-          if (msg !== null && msg !== '') {
-
-            this.$emit('message-sent', {
-              message: msg,
-              save: true,
-              user_id: this.user.id,
-            })
-
-            this.input.html('')
-          }
+          this.sendMessage()
         }
+
+      },
+      keydown (e) {
+
+      },
+      sendMessage () {
+
+        let msg = this.editor.bbcode()
+
+        if (msg !== null && msg !== '') {
+
+          this.$emit('message-sent', {
+            message: msg,
+            save: true,
+            user_id: this.user.id,
+          })
+
+          this.input.html('')
+        }
+
       }
     },
 
@@ -68,7 +79,8 @@
 
       this.input = $('.wysibb-body')
 
-      this.input.keyup(this.sendMessage)
+      this.input.keyup(this.keyup)
+      this.input.keydown(this.keydown)
 
     }
   }
