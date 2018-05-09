@@ -46,9 +46,9 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $("#message").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+        $('#message').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 @endsection

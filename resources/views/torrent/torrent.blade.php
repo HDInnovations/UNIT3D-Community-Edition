@@ -642,37 +642,37 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $('#content').wysibb(wbbOpt)
-        })
+      $(document).ready(function () {
+        $('#content').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 
     <script>
-        $(document).ready(function () {
+      $(document).ready(function () {
 
-            $('.slidingDiv').hide()
-            $('.show_hide').show()
+        $('.slidingDiv').hide()
+        $('.show_hide').show()
 
-            $('.show_hide').click(function () {
-                $('.slidingDiv').slideToggle()
-            })
-
+        $('.show_hide').click(function () {
+          $('.slidingDiv').slideToggle()
         })
+
+      })
     </script>
 
     <script type="text/javascript">
-        function showTrailer() {
-            swal({
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: '#232323',
-                width: 970,
-                html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
-                text: ''
-            })
-        }
+      function showTrailer () {
+        swal({
+          showConfirmButton: false,
+          showCloseButton: true,
+          background: '#232323',
+          width: 970,
+          html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+          title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
+          text: ''
+        })
+      }
     </script>
 
 @endsection

@@ -660,7 +660,8 @@ button.list-group-item {
 }
 
 .form-control {
-  background-color: #222222;
+  background-color: #c6c6c6;
+  color: #000;
 }
 
 .breadcrumb {
@@ -857,8 +858,9 @@ a.view-torrent:hover {
 }
 
 #frame .content .contact-profile {
-  background: #262929;
-  color: #DDDDDD;
+  background: #313434;
+  color: #e5e5e5;
+  border-bottom: 2px #424242 solid;
 }
 
 #frame .content .contact-profile .social-media i:hover {

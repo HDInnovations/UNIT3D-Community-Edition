@@ -68,7 +68,6 @@ mix
   .scripts([
   'resources/assets/js/unit3d/hoe.js',
   'resources/assets/js/unit3d/vendor/livicons.js',
-  'resources/assets/js/unit3d/emoji.js',
   'resources/assets/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
 

@@ -364,8 +364,9 @@ a.view-torrent, a.view-torrent:hover {
 }
 
 .form-control {
-  background-color: #202020;
-  border: 1px solid var(--text-color)
+  background-color: #c6c6c6;
+  color: #000 !important;
+  border: 1px solid #000;
 }
 
 .pagination > .disabled > span, .pagination > li > a {
@@ -635,4 +636,152 @@ div.topic-new-post {
 
 .mentions {
   background-color: rgba(10, 255, 64, 0.28);
+}
+
+/* CHAT */
+#frame {
+  background: #262929;
+}
+
+#frame #sidepanel {
+  background: #313434;
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #profile {
+  background: #313434;
+}
+
+#frame #sidepanel #profile .wrap img {
+  border: 2px solid #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap img.online {
+  border: 2px solid #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap img.away {
+  border: 2px solid #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap img.busy {
+  border: 2px solid #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap img.offline {
+  border: 2px solid #95a5a6;
+}
+
+#frame #sidepanel #profile .wrap i.expand-button {
+  color: #435f7a;
+}
+
+#frame #sidepanel #profile .wrap #status-options {
+  background: #435f7a;
+}
+
+#frame #sidepanel #profile .wrap #status-options:before {
+  border-bottom: 8px solid #435f7a;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li:hover {
+  background: #496886;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-online span.status-circle {
+  background: #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-online.active span.status-circle:before {
+  border: 1px solid #2ecc71;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-away span.status-circle {
+  background: #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-away.active span.status-circle:before {
+  border: 1px solid #f1c40f;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy span.status-circle {
+  background: #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-busy.active span.status-circle:before {
+  border: 1px solid #e74c3c;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline span.status-circle {
+  background: #95a5a6;
+}
+
+#frame #sidepanel #profile .wrap #status-options ul li#status-offline.active span.status-circle:before {
+  border: 1px solid #95a5a6;
+}
+
+#frame #sidepanel #bottom-bar button {
+  background: #313434;
+  color: #f5f5f5;
+}
+
+#frame #sidepanel #bottom-bar button:nth-child(1) {
+  border-right: 1px solid #2c3e50;
+}
+
+#frame #sidepanel #bottom-bar button:hover {
+  background: #435f7a;
+}
+
+#frame .content .contact-profile {
+  background: #313434;
+  color: #e5e5e5;
+  border-bottom: 2px #424242 solid;
+}
+
+#frame .content .contact-profile .social-media i:hover {
+  color: #435f7a;
+}
+
+#frame .content .messages::-webkit-scrollbar {
+  background: rgba(0, 0, 0, 0);
+}
+
+#frame .content .messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#frame .content .messages ul li {
+  border-top: 1px dashed #424545;
+  border-bottom: 1px dashed #424545;
+}
+
+#frame .content .messages ul li.sent p {
+  background: none;
+  color: #dddddd;
+}
+
+#frame .content .messages ul li > img {
+  border: 3px solid #7289da;
+}
+
+#frame .content .message-input .wrap input {
+  color: #32465a;
+}
+
+#frame .content .message-input .wrap input:focus {
+  outline: none;
+}
+
+#frame .content .message-input .wrap .attachment {
+  color: #435f7a;
+}
+
+#frame .content .message-input .wrap button {
+  background: #32465a;
+  color: #f5f5f5;
+}
+
+#frame .content .message-input .wrap button:hover {
+  background: #435f7a;
 }

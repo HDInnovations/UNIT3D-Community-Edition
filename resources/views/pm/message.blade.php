@@ -79,8 +79,8 @@
                                 <form role="form" method="POST" action="{{ route('reply-pm',['pmid' => $pm->id]) }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <textarea id="message" name="message" cols="30" rows="10"
-                                                  class="form-control"></textarea>
+                                <textarea id="message" name="message" cols="30" rows="10"
+                                          class="form-control"></textarea>
                                         <button type="submit" class="btn btn-primary"
                                                 style="float:right;">{{ trans('pm.reply') }}</button>
                                     </div>
@@ -89,13 +89,14 @@
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+@endsection
 
-        @section('javascripts')
-            <script>
-                $(document).ready(function () {
-                    var wbbOpt = {}
-                    $("#message").wysibb(wbbOpt);
-                });
-            </script>
+@section('javascripts')
+    <script>
+      $(document).ready(function () {
+        $('#message').wysibb({})
+        emoji.textcomplete()
+      })
+    </script>
 @endsection

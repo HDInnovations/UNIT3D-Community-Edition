@@ -28,7 +28,8 @@
                 </h4>
 
                 <p :class="message.user.id === 1 ? 'system' : null"
-                   v-html="message.message">
+                     v-html="message.message"
+                     v-emoji-render:data="message.message">
 
                 </p>
             </li>

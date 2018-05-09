@@ -82,6 +82,9 @@ window.CountUp = require('countup.js')
 // wysibb editor
 require('./wysibb/jquery.wysibb')
 
+// emojis
+window.emoji = require('./unit3d/emoji')
+
 window.Raphael = require('raphael');
 window.swal = require('sweetalert2')
 window.toastr = require('toastr')

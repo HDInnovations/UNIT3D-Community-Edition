@@ -124,10 +124,9 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-
-            $("#upload-form-description").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+        $('#upload-form-description').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 @endsection

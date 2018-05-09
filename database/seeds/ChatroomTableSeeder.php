@@ -24,8 +24,7 @@ class ChatroomTableSeeder extends Seeder
     {
         $rooms = [
             'General',
-            'Trivia',
-            'System'
+            'Trivia'
         ];
 
         foreach ($rooms as $room) {

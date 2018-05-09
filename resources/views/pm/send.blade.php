@@ -71,15 +71,15 @@
 
 @section('javascripts')
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.js-example-basic-single').select2();
-        });
+      $(document).ready(function () {
+        $('.js-example-basic-single').select2()
+      })
     </script>
 
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $("#message").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+        $('#message').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 @endsection

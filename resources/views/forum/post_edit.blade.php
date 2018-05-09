@@ -76,8 +76,9 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            $("#content").wysibb();
-        });
+      $(document).ready(function () {
+        $('#content').wysibb()
+        emoji.textcomplete()
+      })
     </script>
 @endsection

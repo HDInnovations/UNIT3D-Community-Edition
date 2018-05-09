@@ -430,21 +430,28 @@
             }
 
             p {
-              background: #f5f5f5;
               color: #2C4151;
-              display: inline-block;
-              padding: 3px 10px;
-              border-radius: 20px;
+              margin-top: 10px;
+              margin-bottom: -20px;
               max-width: 600px;
               line-height: 130%;
 
               &.system {
                 font-size: 0.9em;
                 color: #939393;
-                background: transparent;
                 padding: 0;
                 margin: 0;
               }
+
+              img {
+
+                &.emojione {
+                  padding: 0;
+                  margin: 0;
+                }
+
+              }
+
             }
 
           }

@@ -106,9 +106,11 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $("#content").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+
+        $('#content').wysibb({})
+
+        emoji.textcomplete()
+      })
     </script>
 @endsection

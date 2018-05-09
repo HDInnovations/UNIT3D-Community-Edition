@@ -286,6 +286,9 @@
 
             let editor = $("#topic-response").wysibb(wbbOpt);
 
+            // Initialize emojis
+            emoji.textcomplete();
+
             $('.profil').on('click', 'button#quote', function () {
                 let author = $(this).closest('.post-info').find('.badge-user').first().text();
                 let text = $(this).closest('.profil').find('.post-content').first().text().replace('@here', '');
@@ -294,6 +297,4 @@
             });
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.textcomplete/1.8.0/jquery.textcomplete.js"></script>
-    <script type="text/javascript" src="{{ url('js/emoji.js') }}"></script>
 @endsection

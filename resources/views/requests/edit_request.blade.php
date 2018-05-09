@@ -110,9 +110,9 @@
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $("#request-form-description").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+        $('#request-form-description').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 @endsection

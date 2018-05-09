@@ -29,32 +29,32 @@
         <form role="form" method="POST"
               action="{{ route('staff_article_edit',['slug' => $article->slug, 'id' => $article->id]) }}">
             {{ csrf_field() }}
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
-        </div>
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>
+            </div>
 
-        <div class="form-group">
-            <label for="image">Image thumbnail</label>
-            <input type="file" name="image">
-        </div>
+            <div class="form-group">
+                <label for="image">Image thumbnail</label>
+                <input type="file" name="image">
+            </div>
 
-        <div class="form-group">
-            <label for="content">The content of your article</label>
-            <textarea name="content" id="content" cols="30" rows="10"
-                      class="form-control">{{ $article->content }}</textarea>
-        </div>
+            <div class="form-group">
+                <label for="content">The content of your article</label>
+                <textarea name="content" id="content" cols="30" rows="10"
+                          class="form-control">{{ $article->content }}</textarea>
+            </div>
 
-        <button type="submit" class="btn btn-default">Save</button>
+            <button type="submit" class="btn btn-default">Save</button>
         </form>
     </div>
 @endsection
 
 @section('javascripts')
     <script>
-        $(document).ready(function () {
-            var wbbOpt = {}
-            $("#content").wysibb(wbbOpt);
-        });
+      $(document).ready(function () {
+        $('#content').wysibb({})
+        emoji.textcomplete()
+      })
     </script>
 @endsection

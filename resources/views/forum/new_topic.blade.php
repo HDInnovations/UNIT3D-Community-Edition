@@ -65,17 +65,19 @@
 
 @section('javascripts')
     <script type="text/javascript">
-        $(document).ready(function () {
-            var title = '{{ $title }}';
-            if (title.length != 0) {
-                $('#thread-title').text(': ' + title);
-            }
+      $(document).ready(function () {
+        var title = '{{ $title }}'
+        if (title.length != 0) {
+          $('#thread-title').text(': ' + title)
+        }
 
-            $('#input-thread-title').on('input', function () {
-                $('#thread-title').text(': ' + $('#input-thread-title').val());
-            });
+        $('#input-thread-title').on('input', function () {
+          $('#thread-title').text(': ' + $('#input-thread-title').val())
+        })
 
-            var wysibb = $("#new-thread-content").wysibb();
-        });
+        $('#new-thread-content').wysibb({})
+
+        emoji.textcomplete()
+      })
     </script>
 @endsection
