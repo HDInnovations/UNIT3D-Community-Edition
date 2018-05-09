@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use \DB;
 use App\Category;
@@ -51,18 +52,14 @@ class TorrentController extends Controller
     /**
      * @var TorrentFacetedRepository
      */
-    private $repository;
+    private $faceted;
 
-    /**
-     * Constructs a object of type TorrentController
-     *
-     * @param $repository
-     *
-     * @return View
-     */
-    public function __construct(TorrentFacetedRepository $repository)
+    private $chat;
+
+    public function __construct(TorrentFacetedRepository $faceted, ChatRepository $chat)
     {
-        $this->repository = $repository;
+        $this->faceted = $faceted;
+        $this->chat = $chat;
         view()->share('pages', Page::all());
     }
 
@@ -108,25 +105,31 @@ class TorrentController extends Controller
      */
     public function bumpTorrent($slug, $id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        $user = auth()->user();
+
+        if ($user->group->is_modo || $user->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             $torrent->created_at = Carbon::now();
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has bumped torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . $user->username . " has bumped torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             // Announce To Chat
-            $appurl = config('app.url');
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => ":warning: Attention, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been bumped to top by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! It could use more seeds! :warning:"]);
+            $torrent_url = hrefTorrent($torrent);
+            $profile_url = hrefProfile($user);
+
+            $this->chat->systemMessage(
+                ":warning: Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds! :warning:"
+            );
 
             // Announce To IRC
             if (config('irc-bot.enabled') == true) {
                 $appname = config('app.name');
                 $bot = new IRCAnnounceBot();
-                $bot->message("#announce", "[" . $appname . "] User " . auth()->user()->username . " has bumped " . $torrent->name . " , it could use more seeds!");
+                $bot->message("#announce", "[" . $appname . "] User " . $user->username . " has bumped " . $torrent->name . " , it could use more seeds!");
                 $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
+                $bot->message("#announce", "[Link: $torrent_url]");
             }
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
@@ -351,7 +354,7 @@ class TorrentController extends Controller
         $torrents = Torrent::query();
         $alive = Torrent::where('seeders', '>=', 1)->count();
         $dead = Torrent::where('seeders', 0)->count();
-        $repository = $this->repository;
+        $repository = $this->faceted;
         return view('torrent.torrents', compact('repository', 'torrents', 'user', 'alive', 'dead'));
     }
 
@@ -632,22 +635,30 @@ class TorrentController extends Controller
      */
     public function grantFL($slug, $id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        $user = auth()->user();
+        if ($user->group->is_modo || $user->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            $appurl = config('app.url');
+
+            $torrent_url = hrefTorrent($torrent);
+
             if ($torrent->free == 0) {
                 $torrent->free = "1";
-                // Announce To Chat
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"]);
+
+               $this->chat->systemMessage(
+                   "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+               );
             } else {
                 $torrent->free = "0";
-                // Announce To Chat
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"]);
+
+                $this->chat->systemMessage(
+                    "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+                );
             }
+
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . $user->username . " has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -667,7 +678,9 @@ class TorrentController extends Controller
      */
     public function grantFeatured($slug, $id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        $user = auth()->user();
+
+        if ($user->group->is_modo || $user->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
             if ($torrent->featured == 0) {
                 $torrent->free = "1";
@@ -679,9 +692,12 @@ class TorrentController extends Controller
                 ]);
                 $featured->save();
 
-                // Announce To Chat
-                $appurl = config('app.url');
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$appurl}/" . auth()->user()->username . "." . auth()->user()->id . "]" . auth()->user()->username . "[/url]! Grab It While You Can! :fire:"]);
+                $torrent_url = hrefTorrent($torrent);
+                $profile_url = hrefProfile($user);
+
+                $this->chat->systemMessage(
+                    "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+                );
 
                 // Activity Log
                 \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
@@ -708,22 +724,29 @@ class TorrentController extends Controller
      */
     public function grantDoubleUp($slug, $id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
+        $user = auth()->user();
+
+        if ($user->group->is_modo || $user->group->is_internal) {
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            $appurl = config('app.url');
+
+            $torrent_url = hrefTorrent($torrent);
+
             if ($torrent->doubleup == 0) {
                 $torrent->doubleup = "1";
-                // Announce To Chat
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"]);
+
+                $this->chat->systemMessage(
+                    "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+                );
             } else {
                 $torrent->doubleup = "0";
-                // Announce To Chat
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"]);
+                $this->chat->systemMessage(
+                    "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+                );
             }
             $torrent->save();
 
             // Activity Log
-            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            \LogActivity::addToLog("Staff Member " . $user->username . " has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
         } else {
@@ -842,8 +865,12 @@ class TorrentController extends Controller
                 $pmuser->save();
             }
 
-            // Announce To Chat
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has requested a reseed on [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] can you help out :question:"]);
+            $torrent_url = hrefTorrent($torrent);
+            $profile_url = hrefProfile($user);
+
+            $this->chat->systemMessage(
+                "Ladies and Gents, [url={$profile_url}[/url] has requested a reseed on [url={$torrent_url}[/url] can you help out :question:"
+            );
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");

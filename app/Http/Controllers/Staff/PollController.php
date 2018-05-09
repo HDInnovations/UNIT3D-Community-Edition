@@ -13,6 +13,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use App\Poll;
 use App\Option;
@@ -23,6 +24,14 @@ use \Toastr;
 
 class PollController extends Controller
 {
+
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
+
     public function polls()
     {
         $polls = Poll::latest()->paginate(25);
@@ -69,9 +78,11 @@ class PollController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$user->username} has created a new poll {$poll->title}.");
 
-        // Auto Shout
-        $appurl = config('app.url');
-        Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]{$poll->title}[/url] vote on it now! :slight_smile:"]);
+        $poll_url = hrefPoll($poll);
+
+        $this->chat->systemMessage(
+            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+        );
 
         return redirect('poll/' . $poll->slug)->with(Toastr::success('Your poll has been created.', 'Yay!', ['options']));
     }

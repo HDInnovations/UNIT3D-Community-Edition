@@ -12,20 +12,18 @@
 
 namespace App\Listeners;
 
+use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
 use App\Message;
 use App\User;
 
 class AchievementUnlocked
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
     {
-        //
+        $this->chat = $chat;
     }
 
     /**
@@ -41,8 +39,11 @@ class AchievementUnlocked
         session()->flash('achievement', $event->progress->details->name);
 
         if ($user->private_profile == 0) {
-            $appurl = config('app.url');
-            Message::create(['user' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has unlocked the " . $event->progress->details->name . " achievement :medal:"]);
+            $profile_url = hrefProfile($user);
+
+            $this->chat->systemMessage(
+                "User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
+            );
         }
     }
 }
