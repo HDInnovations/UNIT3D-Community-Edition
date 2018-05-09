@@ -19,7 +19,7 @@ class ChatMessageResource extends JsonResource
             'id' => $this->id,
             'user' => new UserResource($this->whenLoaded('user')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
-            'message' => '<span>' . Bbcode::parse($this->message). '</span>',
+            'message' => Bbcode::parse("[left]﻿{$this->message}[/left]"),
             'created_at' => $this->created_at->format('F jS h:i A'),
             'updated_at' => $this->updated_at
         ];
