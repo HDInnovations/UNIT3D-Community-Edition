@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use App\User;
@@ -45,9 +46,12 @@ class CommentController extends Controller
      */
     private $tag;
 
-    public function __construct(TaggedUserRepository $tag)
+    private $chat;
+
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
     {
         $this->tag = $tag;
+        $this->chat = $chat;
     }
 
     /**
@@ -90,14 +94,16 @@ class CommentController extends Controller
         $comment->article_id = $article->id;
         $comment->save();
 
-        $appurl = config('app.url');
+        $article_url = hrefArticle($article);
+        $profile_url = hrefProfile($user);
+
+        $this->chat->systemMessage(
+            "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
+        );
 
         if ($this->tag->hasTags($content)) {
 
-            //$this->tag->setDebug(true);
-
-            $href = "{$appurl}/articles/{$article->slug}.{$article->id}";
-            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+            $pm = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$article_url}]HERE[/url]";
 
             if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
                 $users = collect([]);
@@ -108,17 +114,15 @@ class CommentController extends Controller
 
                 $this->tag->messageUsers($users,
                     "You are being notified by staff!",
-                    $message
+                    $pm
                 );
             } else {
                 $this->tag->messageTaggedUsers($content,
                     "You have been tagged by {$user->username}",
-                    $message
+                    $pm
                 );
             }
         }
-
-        Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on article [url={$appurl}/articles/" . $article->slug . "." . $article->id . "]" . $article->title . "[/url]"]);
 
         return redirect()->route('article', [
             'slug' => $article->slug,
@@ -167,14 +171,28 @@ class CommentController extends Controller
         $comment->torrent_id = $torrent->id;
         $comment->save();
 
-        $appurl = config('app.url');
+        //Notification
+        if ($user->id != $torrent->user_id) {
+            User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+        }
+
+        $torrent_url = hrefTorrent($torrent);
+        $profile_url = hrefProfile($user);
+
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+            );
+        } else {
+            $this->chat->systemMessage(
+                "An anonymous user has left a comment on torrent [url={$torrent_url}]{$torrent->name}[/url]"
+            );
+        }
 
         if ($this->tag->hasTags($content)) {
 
-            //$this->tag->setDebug(true);
-
-            $href = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
-            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+            $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$torrent_url}]HERE[/url]";
 
             if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
                 $users = collect([]);
@@ -209,18 +227,6 @@ class CommentController extends Controller
         $user->addProgress(new UserMade800Comments(), 1);
         $user->addProgress(new UserMade900Comments(), 1);
 
-        //Notification
-        if ($user->id != $torrent->user_id) {
-            User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
-        }
-
-        // Auto Shout
-        if ($comment->anon == 0) {
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-        } else {
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "An anonymous user has left a comment on torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
-        }
-
         return redirect()->route('torrent', [
             'slug' => $torrent->slug,
             'id' => $torrent->id
@@ -235,7 +241,7 @@ class CommentController extends Controller
      */
     public function request(Request $request, $id)
     {
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $tr = TorrentRequest::findOrFail($id);
         $user = auth()->user();
 
         $v = validator($request->all(), [
@@ -263,22 +269,31 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
-        $comment->requests_id = $torrentRequest->id;
+        $comment->requests_id = $tr->id;
         $comment->save();
 
-        $appurl = config('app.url');
+        $tr_url = hrefTorrentRequest($tr);
+        $profile_url = hrefProfile($user);
+
+        // Auto Shout
+        if ($comment->anon == 0) {
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        } else {
+            $this->chat->systemMessage(
+                "An anonymous user has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+            );
+        }
 
         if ($this->tag->hasTags($content)) {
 
-            //$this->tag->setDebug(true);
-
-            $href = "{$appurl}/request/{$torrentRequest->id}";
-            $message = "{$user->username} has tagged you in a comment. You can view it [url={$href}] HERE [/url]";
+            $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$tr_url}] HERE [/url]";
 
             if ($this->tag->contains($content, '@here') && $user->group->is_modo) {
                 $users = collect([]);
 
-                $torrentRequest->comments()->get()->each(function ($c, $v) use ($users) {
+                $tr->comments()->get()->each(function ($c, $v) use ($users) {
                     $users->push($c->user);
                 });
 
@@ -310,18 +325,11 @@ class CommentController extends Controller
 
         // Auto PM
         if ($user->id != $request->user_id) {
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-        }
-
-        // Auto Shout
-        if ($comment->anon == 0) {
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
-        } else {
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "An anonymous user has left a comment on request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$appurl}/request/" . $tr->id . "]" . $tr->name . "[/url]"]);
         }
 
         return redirect()->route('request', [
-            'id' => $torrentRequest->id
+            'id' => $tr->id
         ])->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
     }
 
@@ -373,8 +381,13 @@ class CommentController extends Controller
             }
 
             // Auto Shout
-            $appurl = config('app.url');
-            Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has left a comment on Torrent [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]"]);
+            $torrent_url = hrefTorrent($torrent);
+            $profile_url = hrefProfile($user);
+
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+            );
+
         } else {
             Toastr::error('A Error Has Occured And Your Comment Was Not Posted!', 'Whoops!', ['options']);
         }

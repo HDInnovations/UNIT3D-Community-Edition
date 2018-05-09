@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\User;
@@ -25,6 +26,12 @@ use \Toastr;
 
 class BonusController extends Controller
 {
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
 
     /**
      * Bonus System
@@ -217,9 +224,12 @@ class BonusController extends Controller
                 ]);
                 $transaction->save();
 
-                $appurl = config('app.url');
-                Message::create(['user' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has gifted " . $value . "BON to [url={$appurl}/"
-                    . $recipient->username . "." . $recipient->id . "]" . $recipient->username . "[/url]"]);
+                $profile_url = hrefProfile($user);
+                $recipient_url = hrefProfile($recipient);
+
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                );
 
                 PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $recipient->id, 'subject' => "You Have Recieved A Gift", 'message' => $transaction->comment]);
 

@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use App\BonTransactions;
 use App\Category;
@@ -40,9 +41,12 @@ class RequestController extends Controller
      */
     private $repository;
 
-    public function __construct(RequestFacetedRepository $repository)
+    private $chat;
+
+    public function __construct(RequestFacetedRepository $repository, ChatRepository $chat)
     {
         $this->repository = $repository;
+        $this->chat = $chat;
     }
 
     /**
@@ -238,7 +242,7 @@ class RequestController extends Controller
                 $category = Category::findOrFail($request->input('category_id'));
 
                 // Holders for new data
-                $torrentRequest = new TorrentRequest([
+                $tr = new TorrentRequest([
                     'name' => $request->input('name'),
                     'description' => $request->input('description'),
                     'category_id' => $category->id,
@@ -251,12 +255,12 @@ class RequestController extends Controller
                     'bounty' => $request->input('bounty'),
                     'votes' => 1,
                 ]);
-                $torrentRequest->save();
+                $tr->save();
 
                 $requestsBounty = new TorrentRequestBounty([
                     'user_id' => $user->id,
                     'seedbonus' => $request->input('bounty'),
-                    'requests_id' => $torrentRequest->id,
+                    'requests_id' => $tr->id,
                 ]);
                 $requestsBounty->save();
 
@@ -273,12 +277,16 @@ class RequestController extends Controller
                 $user->seedbonus -= $request->input('bounty');
                 $user->save();
 
-                // Announce To Chat
-                $appurl = config('app.url');
-                Message::create(['user_id' => "1", 'chatroom_id' => "3", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has created a new request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                $tr_url = hrefTorrentRequest($tr);
+                $profile_url = hrefProfile($user);
+
+                // Auto Shout
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                );
 
                 // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+                \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
                 return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
             } else {
@@ -361,17 +369,17 @@ class RequestController extends Controller
             ]);
 
             if ($v->passes()) {
-                $torrentRequest = TorrentRequest::findOrFail($request->input('request_id'));
+                $tr = TorrentRequest::findOrFail($request->input('request_id'));
 
-                $torrentRequest->votes += 1;
-                $torrentRequest->bounty += $request->input('bonus_value');
-                $torrentRequest->created_at = Carbon::now();
-                $torrentRequest->save();
+                $tr->votes += 1;
+                $tr->bounty += $request->input('bonus_value');
+                $tr->created_at = Carbon::now();
+                $tr->save();
 
                 $requestsBounty = new TorrentRequestBounty([
                     'user_id' => $user->id,
                     'seedbonus' => $request->input('bonus_value'),
-                    'requests_id' => $torrentRequest->id,
+                    'requests_id' => $tr->id,
                 ]);
                 $requestsBounty->save();
 
@@ -381,22 +389,26 @@ class RequestController extends Controller
                     'cost' => $request->input('bonus_value'),
                     'sender' => $user->id,
                     'receiver' => 0,
-                    'comment' => "adding bonus to {$torrentRequest->name}"
+                    'comment' => "adding bonus to {$tr->name}"
                 ]);
                 $BonTransactions->save();
 
                 $user->seedbonus -= $request->input('bonus_value');
                 $user->save();
 
-                // Announce To Chat
-                $appurl = config('app.url');
-                Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has addded " . $request->input('bonus_value') . " BON bounty to request " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                $tr_url = hrefTorrentRequest($tr);
+                $profile_url = hrefProfile($user);
+
+                // Auto Shout
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has addded {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                );
 
                 // Send Private Message
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $tr->id . "]" . $tr->name . "[/url]"]);
 
                 // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+                \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
                 return redirect()->route('request', ['id' => $request->input('request_id')])->with(Toastr::success('Your bonus has been successfully added.', 'Yay!', ['options']));
             } else {
@@ -483,16 +495,16 @@ class RequestController extends Controller
     {
         $user = auth()->user();
 
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $tr = TorrentRequest::findOrFail($id);
 
-        if ($user->id == $torrentRequest->user_id || auth()->user()->group->is_modo) {
-            $torrentRequest->approved_by = $user->id;
-            $torrentRequest->approved_when = Carbon::now();
-            $torrentRequest->save();
+        if ($user->id == $tr->user_id || auth()->user()->group->is_modo) {
+            $tr->approved_by = $user->id;
+            $tr->approved_when = Carbon::now();
+            $tr->save();
 
             //BON and torrent request hash code below
-            $fill_user = User::findOrFail($torrentRequest->filled_by);
-            $fill_amount = $torrentRequest->bounty;
+            $fill_user = User::findOrFail($tr->filled_by);
+            $fill_amount = $tr->bounty;
 
             $BonTransactions = new BonTransactions([
                 'itemID' => 0,
@@ -500,7 +512,7 @@ class RequestController extends Controller
                 'cost' => $fill_amount,
                 'sender' => 0,
                 'receiver' => $fill_user->id,
-                'comment' => "{$fill_user->username} has filled {$torrentRequest->name} and has been awared {$fill_amount} BONUS."
+                'comment' => "{$fill_user->username} has filled {$tr->name} and has been awared {$fill_amount} BONUS."
             ]);
             $BonTransactions->save();
 
@@ -514,17 +526,21 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
-            // Announce To Chat
-            $appurl = config('app.url');
-            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $fill_user->username . "." . $fill_user->id . "]" . $fill_user->username . "[/url] has filled [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] and was awarded " . $fill_amount . " BON "]);
+            $tr_url = hrefTorrentRequest($tr);
+            $profile_url = hrefProfile($fill_user);
+
+            // Auto Shout
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$fill_user->username}[/url] has filled [url={$tr_url}]{$tr->name}[/url]"
+            );
 
             // Send Private Message
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Approved!", 'message' => $torrentRequest->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] Enjoy The " . $torrentRequest->bounty . " Bonus Points!"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->filled_by, 'subject' => "Your Request Fullfill On " . $tr->name . " Has Been Approved!", 'message' => $tr->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $tr->id . "]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!"]);
 
             // Activity Log
-            \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+            \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
-            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$torrentRequest->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
+            return redirect()->route('request', ['id' => $id])->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])->with(Toastr::error("You don't have access to approve this request", 'Whoops!', ['options']));
         }

@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use App\Http\Requests\VoteOnPoll;
 use App\Poll;
@@ -22,6 +23,13 @@ use \Toastr;
 
 class PollController extends Controller
 {
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -74,11 +82,12 @@ class PollController extends Controller
             ]);
         }
 
-        $slug = $poll->slug;
-        $url = config('app.url');
-        $title = $poll->title;
+        $poll_url = hrefPoll($poll);
+        $profile_url = hrefProfile($user);
 
-        Message::create(["user_id" => "1", "mentions" => "3", "message" => "A user has voted on poll [url=${url}/poll/$slug]${title}[/url]"]);
+        $this->chat->systemMessage(
+            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+        );
 
         return redirect('poll/' . $poll->slug . '/result')->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
     }
