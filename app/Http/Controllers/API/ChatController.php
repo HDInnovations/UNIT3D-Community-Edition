@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Chatroom;
-use App\ChatStatus;
-use App\Events\MessageSent;
 use App\Http\Resources\ChatMessageResource;
 use App\Http\Resources\ChatRoomResource;
-use App\Http\Resources\UserResource;
-use App\Message;
 use App\Repositories\ChatRepository;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
