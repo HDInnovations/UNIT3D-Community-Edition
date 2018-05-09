@@ -128,7 +128,7 @@ Prerequisites Example:
     
     #### Laravel Echo Server (for socket.io and broadcasting)
     ```
-    npm install -g laravel-echo-server
+    sudo npm install -g laravel-echo-server
     ```
     
 4. ## Configure PHP
