@@ -55332,7 +55332,7 @@ wbbdebug = true;
 			var $wrap = $(this.elFromString("<div>" + bbdata + "</div>"));
 			//transform smiles
 			/* $wrap.contents().filter(function() {return this.nodeType==3}).each($.proxy(smilerpl,this)).end().find("*").contents().filter(function() {return this.nodeType==3}).each($.proxy(smilerpl,this));
-   	function smilerpl(i,el) {
+   		function smilerpl(i,el) {
    	var ndata = el.data;
    	$.each(this.options.smileList,$.proxy(function(i,row) {
    		var fidx = ndata.indexOf(row.bbcode);
@@ -55637,7 +55637,7 @@ wbbdebug = true;
 			/* $.each(this.options.rules,$.proxy(function(s,bb) {
    	$block.find(s).attr("wbbkeep",1);
    },this));
-   	//replace div and p without last br to html()+br
+   		//replace div and p without last br to html()+br
    $block.find("*[wbbkeep!='1']").each($.proxy(function(i,el) {
    	var $this = $(el);
    	if ($this.is('div,p') && ($this.children().size()==0 || el.lastChild.tagName!="BR")) {
@@ -68047,7 +68047,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Example.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Example.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -68056,9 +68056,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-650f2efa", Component.options)
+    hotAPI.createRecord("data-v-b6ebd97a", Component.options)
   } else {
-    hotAPI.reload("data-v-650f2efa", Component.options)
+    hotAPI.reload("data-v-b6ebd97a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -68136,7 +68136,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-650f2efa", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-b6ebd97a", module.exports)
   }
 }
 
@@ -68166,7 +68166,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Version.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Version.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -68175,9 +68175,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6a590cf1", Component.options)
+    hotAPI.createRecord("data-v-416ab7b1", Component.options)
   } else {
-    hotAPI.reload("data-v-6a590cf1", Component.options)
+    hotAPI.reload("data-v-416ab7b1", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -68290,7 +68290,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6a590cf1", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-416ab7b1", module.exports)
   }
 }
 
@@ -68324,7 +68324,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/chat/Chatbox.vue"
+Component.options.__file = "resources\\assets\\js\\components\\chat\\Chatbox.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -68333,9 +68333,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-fe93899a", Component.options)
+    hotAPI.createRecord("data-v-25fb5a26", Component.options)
   } else {
-    hotAPI.reload("data-v-fe93899a", Component.options)
+    hotAPI.reload("data-v-25fb5a26", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -68356,13 +68356,13 @@ var content = __webpack_require__(106);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(18)("96fdd22a", content, false, {});
+var update = __webpack_require__(18)("7657ea2a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fe93899a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fe93899a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-25fb5a26\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-25fb5a26\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Chatbox.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -68541,7 +68541,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       chatrooms: [],
       currentRoom: 0,
       scroll: true,
-      channel: null
+      channel: null,
+      limits: {}
     };
   },
 
@@ -68596,7 +68597,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get('/api/chat/rooms').then(function (response) {
         _this2.chatrooms = response.data.data;
 
-        _this2.changeRoom(_this2.auth.chatroom.id);
+        axios.get('/api/chat/rooms/' + _this2.auth.chatroom.id + '/limits').then(function (response) {
+          _this2.limits = response.data;
+
+          _this2.changeRoom(_this2.auth.chatroom.id);
+        });
       });
     },
     changeRoom: function changeRoom(id) {
@@ -68638,7 +68643,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this5.auth = response.data;
 
           /* Add system message */
-          _this5.createMessage('[url=/' + _this5.auth.username + '.' + _this5.auth.id + ']' + _this5.auth.username + '[/url] has updated their status to [b]' + _this5.auth.chat_status.name + '[/b]', true);
+          _this5.createMessage('[url=/' + _this5.auth.username + '.' + _this5.auth.id + ']' + _this5.auth.username + '[/url] has updated their status to [b]' + _this5.auth.chat_status.name + '[/b]');
         });
       }
     },
@@ -68646,7 +68651,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     /* User defaults to System user */
     createMessage: function createMessage(message) {
-      var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var _this6 = this;
+
+      var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var user_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
 
@@ -68654,11 +68661,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'user_id': user_id,
         'chatroom_id': this.currentRoom,
         'message': message,
-        'save': save // if you want to save the system message to the database
+        'save': save
+      }).then(function (response) {
+        var count = _this6.chatrooms[_this6.room_index].messages.length;
+        if (count > _this6.limits.max_messages) {
+          _this6.chatrooms[_this6.room_index].messages.splice(0, 1);
+        }
       });
     },
     scrollToBottom: function scrollToBottom() {
-      var _this6 = this;
+      var _this7 = this;
 
       var messages = $('.messages .list-group');
 
@@ -68667,34 +68679,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       messages.scroll(function () {
-        _this6.scroll = false;
+        _this7.scroll = false;
 
         var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
         var scrollHeight = messages.prop('scrollHeight');
 
-        _this6.scroll = scrollTop >= scrollHeight;
+        _this7.scroll = scrollTop >= scrollHeight;
       });
     },
     listenForEvents: function listenForEvents() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.channel.here(function (users) {
         console.log('here');
       }).joining(function (user) {
         console.log('joining');
-        _this7.createMessage(user.username + ' has JOINED the chat ...');
+        _this8.createMessage(user.username + ' has JOINED the chat ...');
       }).leaving(function (user) {
         console.log('leaving');
-        _this7.createMessage(user.username + ' has LEFT the chat ...');
+        _this8.createMessage(user.username + ' has LEFT the chat ...');
       }).listen('.new.message', function (e) {
-        console.log(e);
-        //push the new message on to the array
-        _this7.chatrooms[_this7.room_index].messages.push(e.message);
+        _this8.chatrooms[_this8.room_index].messages.push(e.message);
       });
     }
   },
   created: function created() {
-    var _this8 = this;
+    var _this9 = this;
 
     this.auth = this.user;
 
@@ -68702,7 +68712,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     this.fetchStatuses();
 
     setInterval(function () {
-      _this8.scrollToBottom();
+      _this9.scrollToBottom();
     }, 100);
   }
 });
@@ -68726,7 +68736,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-5562f4de"
+var __vue_scopeId__ = "data-v-eb485e78"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -68737,7 +68747,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/chat/ChatroomsDropdown.vue"
+Component.options.__file = "resources\\assets\\js\\components\\chat\\ChatroomsDropdown.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -68746,9 +68756,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5562f4de", Component.options)
+    hotAPI.createRecord("data-v-eb485e78", Component.options)
   } else {
-    hotAPI.reload("data-v-5562f4de", Component.options)
+    hotAPI.reload("data-v-eb485e78", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -68769,13 +68779,13 @@ var content = __webpack_require__(111);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(18)("5201ee39", content, false, {});
+var update = __webpack_require__(18)("0d68c4c5", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5562f4de\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatroomsDropdown.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5562f4de\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatroomsDropdown.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-eb485e78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatroomsDropdown.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-eb485e78\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatroomsDropdown.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -68793,7 +68803,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "\n.chat-dropdown[data-v-5562f4de] {\n  width: 800px;\n}\n.chat-dropdown .input-group-addon[data-v-5562f4de] {\n    background-color: transparent;\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.chat-dropdown[data-v-eb485e78] {\n  width: 800px;\n}\n.chat-dropdown .input-group-addon[data-v-eb485e78] {\n    background-color: transparent;\n    border: none;\n}\n", ""]);
 
 // exports
 
@@ -68900,7 +68910,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5562f4de", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-eb485e78", module.exports)
   }
 }
 
@@ -68923,7 +68933,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3e4b6898"
+var __vue_scopeId__ = "data-v-e27ce6be"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -68934,7 +68944,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/chat/ChatMessages.vue"
+Component.options.__file = "resources\\assets\\js\\components\\chat\\ChatMessages.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -68943,9 +68953,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3e4b6898", Component.options)
+    hotAPI.createRecord("data-v-e27ce6be", Component.options)
   } else {
-    hotAPI.reload("data-v-3e4b6898", Component.options)
+    hotAPI.reload("data-v-e27ce6be", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -68966,13 +68976,13 @@ var content = __webpack_require__(116);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(18)("6bd50479", content, false, {});
+var update = __webpack_require__(18)("402080ba", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e27ce6be\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e27ce6be\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -69138,7 +69148,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3e4b6898", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-e27ce6be", module.exports)
   }
 }
 
@@ -69168,7 +69178,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/chat/ChatForm.vue"
+Component.options.__file = "resources\\assets\\js\\components\\chat\\ChatForm.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -69177,9 +69187,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-328a432c", Component.options)
+    hotAPI.createRecord("data-v-35e90299", Component.options)
   } else {
-    hotAPI.reload("data-v-328a432c", Component.options)
+    hotAPI.reload("data-v-35e90299", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -69284,7 +69294,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-328a432c", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-35e90299", module.exports)
   }
 }
 
@@ -69411,7 +69421,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-fe93899a", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-25fb5a26", module.exports)
   }
 }
 
@@ -69441,7 +69451,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/BookmarkButton.vue"
+Component.options.__file = "resources\\assets\\js\\components\\BookmarkButton.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -69450,9 +69460,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2dfa0c02", Component.options)
+    hotAPI.createRecord("data-v-c5009182", Component.options)
   } else {
-    hotAPI.reload("data-v-2dfa0c02", Component.options)
+    hotAPI.reload("data-v-c5009182", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -69566,7 +69576,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-2dfa0c02", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-c5009182", module.exports)
   }
 }
 
