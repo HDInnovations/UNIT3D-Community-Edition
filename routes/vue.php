@@ -31,8 +31,8 @@ Route::namespace('API')->group(function () {
         Route::post('/messages', 'ChatController@createMessage');
 
         /* Users */
-        Route::put('/user/{id}/chatroom', 'ChatController@updateUserRoom');
-        Route::put('/user/{id}/status', 'ChatController@updateUserChatStatus');
+        Route::post('/user/{id}/chatroom', 'ChatController@updateUserRoom');
+        Route::post('/user/{id}/status', 'ChatController@updateUserChatStatus');
     });
 
 });

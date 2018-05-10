@@ -1,17 +1,20 @@
 <template>
     <div class="message-input">
         <div class="wrap">
-            <span class="badge-extra">
-                Tap <strong>ALT</strong> to toggle multi-line (<strong>{{multiline ? 'On' : 'Off'}}</strong>)
-            </span>
 
-            <span class="badge-extra">
-                Type <strong>:</strong> for emoji
-            </span>
+            <div class="info">
+                <span class="badge-extra">
+                    Tap <strong>ALT</strong> to toggle multi-line (<strong>{{multiline ? 'On' : 'Off'}}</strong>)
+                </span>
 
-            <span class="badge-extra">
-                BBcode Allowed
-            </span>
+                <span class="badge-extra">
+                    Type <strong>:</strong> for emoji
+                </span>
+
+                <span class="badge-extra">
+                    BBcode Allowed
+                </span>
+            </div>
 
             <textarea id="chat-message"
                       name="message"
@@ -23,6 +26,13 @@
         </div>
     </div>
 </template>
+<style lang="scss" scoped>
+    .info {
+        .badge-extra {
+            margin-bottom: .5em;
+        }
+    }
+</style>
 <script>
   export default {
 

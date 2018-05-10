@@ -36738,7 +36738,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   clear: both;
   float: left;
   width: calc(100% - 25px);
-  font-size: 0.9em;
+  font-size: 14pt;
   padding: 10px;
   border-top: 1px dashed #dddddd;
   border-bottom: 1px dashed #dddddd;
@@ -36768,7 +36768,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
 #frame .content .messages ul li.sent p {
   color: #2C4151;
-  max-width: 600px;
+  max-width: 75%;
   line-height: 130%;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

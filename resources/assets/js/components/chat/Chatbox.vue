@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-10 col-sm-10 col-md-offset-1">
+    <div class="col-md-10 col-sm-10 col-md-offset-1 chatbox">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat">
             <div class="panel-heading">
@@ -12,7 +12,7 @@
                         <div id="profile">
                             <div class="wrap">
 
-                                <img :src="auth.image ? auth.image : '/img/profile.png'"
+                                <img :src="auth.image ? `/files/img/${auth.image}` : '/img/profile.png'"
                                      @click="showStatuses = !showStatuses"
                                      :style="`border: 2px solid ${statusColor};`"
                                      alt="">
@@ -67,23 +67,29 @@
     </div>
 </template>
 <style lang="scss">
-    .decoda-image {
-        min-height: 150px;
-        max-height: 230px;
-        max-width: 500px;
-    }
+    .chatbox {
+        .panel-body {
+            padding: 0;
+        }
 
-    .slide-fade-enter-active {
-        transition: all .3s ease;
-    }
+        .decoda-image {
+            min-height: 150px;
+            max-height: 230px;
+            max-width: 500px;
+        }
 
-    .slide-fade-leave-active {
-        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
 
-    .slide-fade-enter, .slide-fade-leave-to {
-        transform: translateY(10px);
-        opacity: 0;
+        .slide-fade-leave-active {
+            transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+
+        .slide-fade-enter, .slide-fade-leave-to {
+            transform: translateY(10px);
+            opacity: 0;
+        }
     }
 </style>
 <script>
@@ -176,7 +182,7 @@
 
         if (this.auth.chatroom.id !== id) {
           /* Update the users chatroom in the database */
-          axios.put(`/api/chat/user/${this.auth.id}/chatroom`, {
+          axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
             'room_id': id
           }).then(response => {
             // reassign the auth variable to the response data
@@ -200,7 +206,7 @@
 
         if (this.auth.chat_status.id !== status_id) {
           /* Update the users chat status in the database */
-          axios.put(`/api/chat/user/${this.auth.id}/status`, {
+          axios.post(`/api/chat/user/${this.auth.id}/status`, {
             'status_id': status_id
           }).then(response => {
             // reassign the auth variable to the response data

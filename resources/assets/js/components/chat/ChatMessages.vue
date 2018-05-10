@@ -6,7 +6,7 @@
                 <img v-if="message.user.id !== 1"
                      class="chat-user-image"
                      :style="`border: 3px solid ${message.user.chat_status.color};`"
-                     :src="message.user.image ? message.user.image : '/img/profile.png'"
+                     :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
                      alt=""/>
 
                 <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
