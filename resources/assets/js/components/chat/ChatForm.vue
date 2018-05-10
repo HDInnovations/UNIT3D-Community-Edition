@@ -65,7 +65,7 @@
       },
       sendMessage () {
 
-        let msg = this.editor.bbcode()
+        let msg = this.editor.bbcode().trim()
 
         if (msg !== null && msg !== '') {
 
