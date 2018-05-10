@@ -251,23 +251,32 @@ Prerequisites Example:
     
     [program:unit3d-socket-io]
     process_name=%(program_name)s_%(process_num)02d
-    command=/usr/bin/node /usr/bin/laravel-echo-server start --dir=/root/path/of/site
+    command=/usr/bin/node /usr/bin/laravel-echo-server start --dir=/var/www/html
     autostart=true
     autorestart=true
     user=www-data
-    numprocs=2
+    numprocs=1
     ```
     
     **Notes:** 
     
-    `command=php /var/www/html/artisan ...` change this to the absolute path to the root of your site files
+    `command=php /var/www/html ...` change this to the absolute path to the root of your site files where the `artisan` 
+    file resides.
     
     `user=www-data` you will probably want to change to something like your web server be it `apache` or `www-data`
     
-    `--dir=/root/path/of/site` change this to the absolute path to the root of your site files
+    `--dir=/var/www/html` change this to the absolute path to the root of your site files
      
     Once this is done, save and close!
     
+    **Note:** If you are using SSL **(HTTPS)**, you will want to make sure that the certificate files are readable by 
+    the user running the echo server.
+    
+    For example if you are using `LetsEncrypt` for SSL, you may need to run a command like:
+    ```
+    sudo chown www-data /etc/letsencrypt -R
+    ```
+     
     Next lets load new config and start the process. 
     
     Run:
