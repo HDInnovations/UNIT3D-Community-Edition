@@ -258,15 +258,13 @@
       listenForEvents () {
         this.channel
           .here(users => {
-            console.log('here')
+            console.log('CONNECTED TO CHAT ...')
           })
           .joining(user => {
-            console.log('joining')
-            this.createMessage(`${user.username} has JOINED the chat ...`)
+            // this.createMessage(`${user.username} has JOINED the chat ...`)
           })
           .leaving(user => {
-            console.log('leaving')
-            this.createMessage(`${user.username} has LEFT the chat ...`)
+            // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
             this.chatrooms[this.room_index].messages.push(e.message)
