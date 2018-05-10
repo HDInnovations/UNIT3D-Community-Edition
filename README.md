@@ -232,6 +232,14 @@ Prerequisites Example:
     #### Note: DO NOT Run the start command !!!
     The server should start automatically after loaded into Supervisor in the next section.
     
+    **Note:** If you are using SSL **(HTTPS)**, you will want to make sure that the certificate files are readable by 
+     the user running the echo server.
+        
+    For example if you are using `LetsEncrypt` for SSL, you may need to run a command like:
+    ```
+    sudo chown www-data /etc/letsencrypt -R
+    ```
+    
 9. ## Configure Supervisor
 
     ```
@@ -268,14 +276,6 @@ Prerequisites Example:
     `--dir=/var/www/html` change this to the absolute path to the root of your site files
      
     Once this is done, save and close!
-    
-    **Note:** If you are using SSL **(HTTPS)**, you will want to make sure that the certificate files are readable by 
-    the user running the echo server.
-    
-    For example if you are using `LetsEncrypt` for SSL, you may need to run a command like:
-    ```
-    sudo chown www-data /etc/letsencrypt -R
-    ```
      
     Next lets load new config and start the process. 
     
