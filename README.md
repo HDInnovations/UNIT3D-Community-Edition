@@ -199,6 +199,14 @@ Prerequisites Example:
 7. ## Secure Nginx with Let's Encrypt
 
     https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+    
+    **Note:** If you are using `ufw` or any other firewall you will need to `allow` port `6001` for the next step.
+    
+    With `ufw` you can do this simply by running:
+    ```
+    sudo ufw allow 6001
+    ```
+    
 8. ## Initialize Laravel Echo Server
     Run:
     ```
