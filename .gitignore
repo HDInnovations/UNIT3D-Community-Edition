@@ -20,3 +20,5 @@ laravel-echo-server.json
 # Vim
 .*.swp
 /public/tmp/
+
+*.DS_Store
