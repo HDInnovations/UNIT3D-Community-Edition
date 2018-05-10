@@ -846,11 +846,10 @@ textarea {
 }
 
 #frame .content .messages ul li {
-  border-top: 1px dashed #424545;
   border-bottom: 1px dashed #424545;
 }
 
-#frame .content .messages ul li.sent p {
+#frame .content .messages ul li.sent .messages-container {
   background: none;
   color: #dddddd;
 }

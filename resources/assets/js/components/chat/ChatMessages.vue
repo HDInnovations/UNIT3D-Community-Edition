@@ -27,11 +27,11 @@
 
                 </h4>
 
-                <p :class="message.user.id === 1 ? 'system' : null"
+                <div :class="['messages-container', message.user.id === 1 ? 'system' : null]"
                    v-emoji-render:data="message.message"
                    v-html="message.message">
 
-                </p>
+                </div>
             </li>
         </ul>
     </div>

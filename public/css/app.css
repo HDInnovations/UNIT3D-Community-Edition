@@ -36734,13 +36734,8 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 }
 
 #frame .content .messages ul li {
-  display: inline-block;
-  clear: both;
-  float: left;
-  width: calc(100% - 25px);
-  font-size: 14pt;
-  padding: 10px;
-  border-top: 1px dashed #dddddd;
+  position: relative;
+  display: block;
   border-bottom: 1px dashed #dddddd;
 }
 
@@ -36760,33 +36755,38 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 #frame .content .messages ul li.sent img.chat-user-image {
   border: 3px solid #7289da;
   margin-right: 10px;
+  margin-top: 4px;
   padding: 0;
   width: 45px;
   border-radius: 50%;
   float: left;
 }
 
-#frame .content .messages ul li.sent p {
+#frame .content .messages ul li.sent .messages-container {
   color: #2C4151;
   max-width: 75%;
   line-height: 130%;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  font-size: 14pt;
 }
 
-#frame .content .messages ul li.sent p.system {
+#frame .content .messages ul li.sent .messages-container.system {
   font-size: 0.9em;
   color: #939393;
   padding: 0;
   margin: 0;
 }
 
-#frame .content .messages ul li.sent p img.emojione {
+#frame .content .messages ul li.sent .messages-container .align-left {
+  margin-top: -6px;
+  padding-bottom: 3px;
+}
+
+#frame .content .messages ul li.sent .messages-container img.emojione {
   padding: 0;
-  margin: 0;
-  margin-right: 5px;
-  margin-left: 5px;
+  margin: 0 5px 2px;
 }
 
 #frame .content .message-input {

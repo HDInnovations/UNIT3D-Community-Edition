@@ -393,13 +393,8 @@
         overflow-y: auto;
 
         li {
-          display: inline-block;
-          clear: both;
-          float: left;
-          width: calc(100% - 25px);
-          font-size: 14pt;
-          padding: 10px;
-          border-top: 1px dashed #dddddd;
+          position: relative;
+          display: block;
           border-bottom: 1px dashed #dddddd;
 
           &:nth-last-child(1) {
@@ -421,6 +416,7 @@
               &.chat-user-image {
                 border: 3px solid #7289da;
                 margin-right: 10px;
+                margin-top: 4px;
                 padding: 0;
                 width: 45px;
                 border-radius: 50%;
@@ -429,11 +425,12 @@
 
             }
 
-            p {
+            .messages-container {
               color: #2C4151;
               max-width: 75%;
               line-height: 130%;
               display: inline-flex;
+              font-size: 14pt;
 
               &.system {
                 font-size: 0.9em;
@@ -442,13 +439,16 @@
                 margin: 0;
               }
 
+              .align-left {
+                margin-top: -6px;
+                padding-bottom: 3px;
+              }
+
               img {
 
                 &.emojione {
                   padding: 0;
-                  margin: 0;
-                  margin-right: 5px;
-                  margin-left: 5px;
+                  margin: 0 5px 2px;
                 }
 
               }
