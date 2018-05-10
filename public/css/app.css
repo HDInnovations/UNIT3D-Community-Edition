@@ -36773,15 +36773,10 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 }
 
 #frame .content .messages ul li.sent .messages-container.system {
-  font-size: 0.9em;
+  font-size: 12pt;
   color: #939393;
   padding: 0;
   margin: 0;
-}
-
-#frame .content .messages ul li.sent .messages-container .align-left {
-  margin-top: -6px;
-  padding-bottom: 3px;
 }
 
 #frame .content .messages ul li.sent .messages-container img.emojione {
