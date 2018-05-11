@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9050ae5874f11399e14a9d9362807364",
+    "content-hash": "0180de225b51bceb4df93aa1c0b749f4",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -230,16 +230,16 @@
         },
         {
             "name": "christofferok/laravel-emojione",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/christofferok/laravel-emojione.git",
-                "reference": "61521ad00cb39f51616d9af816d1cba12d7a0480"
+                "reference": "91a1d6b90510f6981c5d21c579124a7448cc74f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/christofferok/laravel-emojione/zipball/61521ad00cb39f51616d9af816d1cba12d7a0480",
-                "reference": "61521ad00cb39f51616d9af816d1cba12d7a0480",
+                "url": "https://api.github.com/repos/christofferok/laravel-emojione/zipball/91a1d6b90510f6981c5d21c579124a7448cc74f6",
+                "reference": "91a1d6b90510f6981c5d21c579124a7448cc74f6",
                 "shasum": ""
             },
             "require": {
@@ -256,14 +256,11 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                },
                 "laravel": {
                     "providers": [
                         "ChristofferOK\\LaravelEmojiOne\\LaravelEmojiOneServiceProvider"
                     ],
-                    "alias": {
+                    "aliases": {
                         "LaravelEmojiOne": "ChristofferOK\\LaravelEmojiOne\\LaravelEmojiOneFacade"
                     }
                 }
@@ -281,7 +278,7 @@
                 {
                     "name": ":Christoffer Korvald",
                     "email": "korvald@gmail.com",
-                    "homepage": "https://christoffeork.com",
+                    "homepage": "https://christofferok.com",
                     "role": "Developer"
                 }
             ],
@@ -294,7 +291,7 @@
                 "emojione",
                 "laravel"
             ],
-            "time": "2017-07-22T12:30:16+00:00"
+            "time": "2018-01-17T09:46:20+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1328,16 +1325,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.20",
+            "version": "v5.6.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c"
+                "reference": "458a89b1c5ff73072c27308566f444c790f76f28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c",
-                "reference": "3c11e7acc6ad14dd86e2f9e4bf3230010c3e611c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/458a89b1c5ff73072c27308566f444c790f76f28",
+                "reference": "458a89b1c5ff73072c27308566f444c790f76f28",
                 "shasum": ""
             },
             "require": {
@@ -1463,7 +1460,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-05-02T15:22:18+00:00"
+            "time": "2018-05-08T13:30:15+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1530,16 +1527,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.6.7",
+            "version": "v5.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "38f2c6ff0d3dfc497175a5cff5e24b3937f6e2c9"
+                "reference": "42c0854e00d6bb3346883d122b444fbf15a13ecb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/38f2c6ff0d3dfc497175a5cff5e24b3937f6e2c9",
-                "reference": "38f2c6ff0d3dfc497175a5cff5e24b3937f6e2c9",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/42c0854e00d6bb3346883d122b444fbf15a13ecb",
+                "reference": "42c0854e00d6bb3346883d122b444fbf15a13ecb",
                 "shasum": ""
             },
             "require": {
@@ -1594,20 +1591,20 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2018-04-26T16:09:18+00:00"
+            "time": "2018-05-10T17:15:15+00:00"
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.44",
+            "version": "1.0.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "168dbe519737221dc87d17385cde33073881fd02"
+                "reference": "a99f94e63b512d75f851b181afcdf0ee9ebef7e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/168dbe519737221dc87d17385cde33073881fd02",
-                "reference": "168dbe519737221dc87d17385cde33073881fd02",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a99f94e63b512d75f851b181afcdf0ee9ebef7e6",
+                "reference": "a99f94e63b512d75f851b181afcdf0ee9ebef7e6",
                 "shasum": ""
             },
             "require": {
@@ -1678,7 +1675,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2018-04-06T09:58:14+00:00"
+            "time": "2018-05-07T08:44:23+00:00"
         },
         {
             "name": "mjohnson/decoda",
@@ -2493,59 +2490,6 @@
             "time": "2018-04-18T12:32:50+00:00"
         },
         {
-            "name": "pusher/pusher-php-server",
-            "version": "v3.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pusher/pusher-http-php.git",
-                "reference": "e4f6980fa69699945873f0895de8c5a14e7244e7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pusher/pusher-http-php/zipball/e4f6980fa69699945873f0895de8c5a14e7244e7",
-                "reference": "e4f6980fa69699945873f0895de8c5a14e7244e7",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": "^5.4 || ^7.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Pusher\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Library for interacting with the Pusher REST API",
-            "keywords": [
-                "events",
-                "messaging",
-                "php-pusher-server",
-                "publish",
-                "push",
-                "pusher",
-                "real time",
-                "real-time",
-                "realtime",
-                "rest",
-                "trigger"
-            ],
-            "time": "2018-04-26T09:54:45+00:00"
-        },
-        {
             "name": "rachidlaasri/laravel-installer",
             "version": "3.2.1",
             "source": {
@@ -2776,16 +2720,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "5.6.5",
+            "version": "5.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "dc139dd381f38d9afcb6bbf861838acb1c838ef6"
+                "reference": "e40a94f5d1224356a002c1f74643782e684caa17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/dc139dd381f38d9afcb6bbf861838acb1c838ef6",
-                "reference": "dc139dd381f38d9afcb6bbf861838acb1c838ef6",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/e40a94f5d1224356a002c1f74643782e684caa17",
+                "reference": "e40a94f5d1224356a002c1f74643782e684caa17",
                 "shasum": ""
             },
             "require": {
@@ -2796,7 +2740,7 @@
                 "illuminate/notifications": "~5.5.0|~5.6.0",
                 "illuminate/support": "~5.5.0|~5.6.0",
                 "league/flysystem": "^1.0.27",
-                "php": "^7.0",
+                "php": "^7.1",
                 "spatie/db-dumper": "^2.10",
                 "spatie/temporary-directory": "^1.1",
                 "symfony/finder": "^3.3|^4.0"
@@ -2845,7 +2789,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2018-05-01T07:48:28+00:00"
+            "time": "2018-05-05T09:08:56+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
@@ -3022,16 +2966,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.6.0",
+            "version": "v6.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "0bae101401ed839a94d9e4d038f3e66bbed568f4"
+                "reference": "cd36a55c91894b10a57f1289b913e483ed020633"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0bae101401ed839a94d9e4d038f3e66bbed568f4",
-                "reference": "0bae101401ed839a94d9e4d038f3e66bbed568f4",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/cd36a55c91894b10a57f1289b913e483ed020633",
+                "reference": "cd36a55c91894b10a57f1289b913e483ed020633",
                 "shasum": ""
             },
             "require": {
@@ -3073,7 +3017,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-04-11T20:55:54+00:00"
+            "time": "2018-05-09T18:53:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

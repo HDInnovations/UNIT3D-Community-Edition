@@ -28,7 +28,6 @@
                 </h4>
 
                 <div :class="['messages-container', message.user.id === 1 ? 'system' : null]"
-                   v-emoji-render:data="message.message"
                    v-html="message.message">
 
                 </div>
