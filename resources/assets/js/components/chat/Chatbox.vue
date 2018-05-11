@@ -7,6 +7,7 @@
             </div>
 
             <div class="panel-body">
+                <!--<h2 class="text-center text-red text-bold">Chat Box Is Currently Offline For Maintenance</h2>-->
                 <div id="frame">
                     <div id="sidepanel">
                         <div id="profile">
@@ -59,8 +60,8 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <div class="typing" v-if="activePeer">
-                    {{ activePeer.username }} is typing ...
+                <div class="typing">
+                    <span class="badge-extra" v-if="activePeer">{{ activePeer.username }} is typing ...</span>
                 </div>
 
                 <chat-form
@@ -73,6 +74,14 @@
 </template>
 <style lang="scss">
     .chatbox {
+        .typing {
+            height: 20px;
+
+            .badge-extra {
+                margin: 0;
+            }
+        }
+
         .panel-body {
             padding: 0;
         }
@@ -285,7 +294,7 @@
 
             setTimeout(() => {
               this.activePeer = false
-            }, 3000)
+            }, 8000)
           })
       }
     },

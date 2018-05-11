@@ -405,7 +405,7 @@ class RequestController extends Controller
                 );
 
                 // Send Private Message
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$appurl}/request/" . $tr->id . "]" . $tr->name . "[/url]"]);
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]"]);
 
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
@@ -535,7 +535,7 @@ class RequestController extends Controller
             );
 
             // Send Private Message
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->filled_by, 'subject' => "Your Request Fullfill On " . $tr->name . " Has Been Approved!", 'message' => $tr->approved_by . " Has Approved Your Fullfillment On [url={$appurl}/request/" . $tr->id . "]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!"]);
+            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->filled_by, 'subject' => "Your Request Fullfill On " . $tr->name . " Has Been Approved!", 'message' => $tr->approved_by . " Has Approved Your Fullfillment On [url={$tr_url}]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!"]);
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
