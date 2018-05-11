@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0180de225b51bceb4df93aa1c0b749f4",
+    "content-hash": "d5bd3645f48587a477b83d50ac5afcc0",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -1111,16 +1111,16 @@
         },
         {
             "name": "intervention/image",
-            "version": "dev-master",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "a54d1e9e6af2815c5ec24972d1d9209c677ce452"
+                "reference": "3603dbcc9a17d307533473246a6c58c31cf17919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/a54d1e9e6af2815c5ec24972d1d9209c677ce452",
-                "reference": "a54d1e9e6af2815c5ec24972d1d9209c677ce452",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/3603dbcc9a17d307533473246a6c58c31cf17919",
+                "reference": "3603dbcc9a17d307533473246a6c58c31cf17919",
                 "shasum": ""
             },
             "require": {
@@ -1177,7 +1177,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-09-21T16:33:42+00:00"
+            "time": "2017-09-21T16:29:17+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -6277,9 +6277,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "intervention/image": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
