@@ -251,7 +251,7 @@
           let scrollTop = messages.scrollTop() + messages.prop('clientHeight')
           let scrollHeight = messages.prop('scrollHeight')
 
-          this.scroll = scrollTop >= scrollHeight
+          this.scroll = scrollTop >= scrollHeight - 2
         })
       },
 
