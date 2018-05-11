@@ -68432,6 +68432,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -69471,7 +69474,21 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
-      _c("h4", [_vm._v("Chatbox")])
+      _c("h4", [
+        _vm._v("\n                Chatbox 2.0 Beta\n                ( "),
+        _c(
+          "a",
+          {
+            attrs: {
+              target: "_blank",
+              href:
+                "https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement"
+            }
+          },
+          [_vm._v("Roadmap")]
+        ),
+        _vm._v(" )\n            ")
+      ])
     ])
   }
 ]

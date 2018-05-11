@@ -3,7 +3,10 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat">
             <div class="panel-heading">
-                <h4>Chatbox</h4>
+                <h4>
+                    Chatbox 2.0 Beta
+                    ( <a target="_blank" href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
+                </h4>
             </div>
 
             <div class="panel-body">
