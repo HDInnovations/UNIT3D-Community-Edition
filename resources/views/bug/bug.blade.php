@@ -13,9 +13,9 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="text-center">{{ trans('bug.bug-report-description') }}</h4></div>
+            <form role="form" method="POST" action="{{ route('bug') }}">
             <table class="table table-bordered">
                 <tbody>
-                <form role="form" method="POST" action="{{ route('bug') }}">
                     {{ csrf_field() }}
                     <tr>
                         <td class="rowhead">{{ trans('common.reporter') }}:</td>
@@ -65,9 +65,9 @@
                                             class="fa fa-bug"></i></span>{{ trans('common.submit') }}</button>
                         </td>
                     </tr>
-                </form>
                 </tbody>
             </table>
+            </form>
         </div>
     </div>
 @endsection
