@@ -428,9 +428,9 @@
 
             .messages-container {
               color: #2C4151;
-              max-width: 75%;
+              width: 100%;
+              max-width: 100%;
               line-height: 130%;
-              display: inline-flex;
               font-size: 14pt;
 
               &.system {
