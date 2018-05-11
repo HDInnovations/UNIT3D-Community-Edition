@@ -18,13 +18,6 @@ Vue.component('version', require('./components/Version'))
 Vue.component('chatbox', require('./components/chat/Chatbox'))
 Vue.component('bookmark', require('./components/BookmarkButton'))
 
-import VueEmoji from 'vue-emojione';
-
-Vue.use(VueEmoji, {
-  imageType: 'png',
-  sprites: false
-});
-
 const app = new Vue({
   el: '#app'
 })
