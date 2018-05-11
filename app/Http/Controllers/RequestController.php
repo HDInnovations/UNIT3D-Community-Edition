@@ -147,28 +147,28 @@ class RequestController extends Controller
         // pagination query starts
         $rows = $torrentRequest->count();
 
-        if($request->has('page')){
+        if ($request->has('page')) {
             $page = $request->input('page');
             $qty = $request->input('qty');
-            $torrentRequest->skip(($page-1)*$qty);
+            $torrentRequest->skip(($page - 1) * $qty);
             $active = $page;
-        }else{
+        } else {
             $active = 1;
         }
 
-        if($request->has('qty')){
+        if ($request->has('qty')) {
             $qty = $request->input('qty');
             $torrentRequest->take($qty);
-        }else{
+        } else {
             $qty = 6;
             $torrentRequest->take($qty);
         }
         // pagination query ends
 
-        if($request->has('sorting')){
+        if ($request->has('sorting')) {
             $sorting = $request->input('sorting');
             $order = $request->input('direction');
-            $torrentRequest->orderBy($sorting,$order);
+            $torrentRequest->orderBy($sorting, $order);
         }
 
         $listings = $torrentRequest->get();
@@ -176,7 +176,7 @@ class RequestController extends Controller
         $helper = new RequestViewHelper();
         $result = $helper->view($listings);
 
-        return ['result'=>$result,'rows'=>$rows,'qty'=>$qty,'active'=>$active];
+        return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active];
     }
 
     /**
@@ -198,19 +198,28 @@ class RequestController extends Controller
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrentRequest->category_id == 2) {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-            $movie = $client->scrape('tv', null, $torrentRequest->tmdb);
+                $movie = $client->scrape('tv', null, $torrentRequest->tmdb);
             } else {
-            $movie = $client->scrape('tv', 'tt'. $torrentRequest->imdb);
+                $movie = $client->scrape('tv', 'tt' . $torrentRequest->imdb);
             }
         } else {
             if ($torrentRequest->tmdb || $torrentRequest->tmdb != 0) {
-            $movie = $client->scrape('movie', null, $torrentRequest->tmdb);
+                $movie = $client->scrape('movie', null, $torrentRequest->tmdb);
             } else {
-            $movie = $client->scrape('movie', 'tt'. $torrentRequest->imdb);
+                $movie = $client->scrape('movie', 'tt' . $torrentRequest->imdb);
             }
         }
 
         return view('requests.request', ['torrentRequest' => $torrentRequest, 'voters' => $voters, 'user' => $user, 'comments' => $comments, 'carbon' => $carbon, 'movie' => $movie, 'torrentRequestClaim' => $torrentRequestClaim]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addRequestForm()
+    {
+        $user = auth()->user();
+        return view('requests.add_request', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
     }
 
     /**
@@ -223,82 +232,84 @@ class RequestController extends Controller
     public function addrequest(Request $request)
     {
         $user = auth()->user();
-        // Post the Request
-        if ($request->isMethod('POST')) {
-            $v = validator($request->all(), [
-                "name" => "required|max:180",
-                "imdb" => "required|numeric",
-                "tvdb" => "required|numeric",
-                "tmdb" => "required|numeric",
-                "mal" => "required|numeric",
-                "category_id" => "required|exists:categories,id",
-                "type" => "required",
-                "description" => "required|string",
-                "bounty" => "required|numeric|min:0|max:{$user->seedbonus}"
+        $v = validator($request->all(), [
+            "name" => "required|max:180",
+            "imdb" => "required|numeric",
+            "tvdb" => "required|numeric",
+            "tmdb" => "required|numeric",
+            "mal" => "required|numeric",
+            "category_id" => "required|exists:categories,id",
+            "type" => "required",
+            "description" => "required|string",
+            "bounty" => "required|numeric|min:0|max:{$user->seedbonus}"
+        ]);
+
+        if ($v->passes()) {
+            // Find the right category
+            $category = Category::findOrFail($request->input('category_id'));
+
+            // Holders for new data
+            $tr = new TorrentRequest([
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'category_id' => $category->id,
+                'user_id' => $user->id,
+                'imdb' => $request->input('imdb'),
+                'tvdb' => $request->input('tvdb'),
+                'tmdb' => $request->input('tmdb'),
+                'mal' => $request->input('mal'),
+                'type' => $request->input('type'),
+                'bounty' => $request->input('bounty'),
+                'votes' => 1,
             ]);
+            $tr->save();
 
-            if ($v->passes()) {
-                // Find the right category
-                $category = Category::findOrFail($request->input('category_id'));
+            $requestsBounty = new TorrentRequestBounty([
+                'user_id' => $user->id,
+                'seedbonus' => $request->input('bounty'),
+                'requests_id' => $tr->id,
+            ]);
+            $requestsBounty->save();
 
-                // Holders for new data
-                $tr = new TorrentRequest([
-                    'name' => $request->input('name'),
-                    'description' => $request->input('description'),
-                    'category_id' => $category->id,
-                    'user_id' => $user->id,
-                    'imdb' => $request->input('imdb'),
-                    'tvdb' => $request->input('tvdb'),
-                    'tmdb' => $request->input('tmdb'),
-                    'mal' => $request->input('mal'),
-                    'type' => $request->input('type'),
-                    'bounty' => $request->input('bounty'),
-                    'votes' => 1,
-                ]);
-                $tr->save();
+            $BonTransactions = new BonTransactions([
+                'itemID' => 0,
+                'name' => 'request',
+                'cost' => $request->input('bounty'),
+                'sender' => $user->id,
+                'receiver' => 0,
+                'comment' => "new request - {$request->input('name')}"
+            ]);
+            $BonTransactions->save();
 
-                $requestsBounty = new TorrentRequestBounty([
-                    'user_id' => $user->id,
-                    'seedbonus' => $request->input('bounty'),
-                    'requests_id' => $tr->id,
-                ]);
-                $requestsBounty->save();
+            $user->seedbonus -= $request->input('bounty');
+            $user->save();
 
-                $BonTransactions = new BonTransactions([
-                    'itemID' => 0,
-                    'name' => 'request',
-                    'cost' => $request->input('bounty'),
-                    'sender' => $user->id,
-                    'receiver' => 0,
-                    'comment' => "new request - {$request->input('name')}"
-                ]);
-                $BonTransactions->save();
+            $tr_url = hrefTorrentRequest($tr);
+            $profile_url = hrefProfile($user);
 
-                $user->seedbonus -= $request->input('bounty');
-                $user->save();
+            // Auto Shout
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+            );
 
-                $tr_url = hrefTorrentRequest($tr);
-                $profile_url = hrefProfile($user);
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
-                // Auto Shout
-                $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
-                );
-
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
-
-                return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
-            } else {
-                return redirect('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Whoops!', ['options']));
-            }
+            return redirect('/requests')->with(Toastr::success('Request Added.', 'Yay!', ['options']));
         } else {
-            if ($user->seedbonus >= 100) {
-                return view('requests.add_request', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user]);
-            } else {
-                return redirect('/requests')->with(Toastr::error('You dont have the minium of 100 BON to make a request!', 'Whoops!', ['options']));
-            }
+            return redirect('/requests')->with(Toastr::error('Not all the required information was provided, please try again.', 'Whoops!', ['options']));
         }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editRequestForm($id)
+    {
+        $user = auth()->user();
+        $torrentRequest = TorrentRequest::findOrFail($id);
+
+        return view('requests.edit_request', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'torrentRequest' => $torrentRequest]);
     }
 
     /**
@@ -313,42 +324,37 @@ class RequestController extends Controller
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
         if ($user->group->is_modo || $user->id == $torrentRequest->user_id) {
-            // Post the Request
-            if ($request->isMethod('POST')) {
-                // Find the right category
-                $name = $request->input('name');
-                $imdb = $request->input('imdb');
-                $tvdb = $request->input('tvdb');
-                $tmdb = $request->input('tmdb');
-                $mal = $request->input('mal');
-                $category = $request->input('category_id');
-                $type = $request->input('type');
-                $description = $request->input('description');
+            // Find the right category
+            $name = $request->input('name');
+            $imdb = $request->input('imdb');
+            $tvdb = $request->input('tvdb');
+            $tmdb = $request->input('tmdb');
+            $mal = $request->input('mal');
+            $category = $request->input('category_id');
+            $type = $request->input('type');
+            $description = $request->input('description');
 
-                $torrentRequest->name = $name;
-                $torrentRequest->imdb = $imdb;
-                $torrentRequest->tvdb = $tvdb;
-                $torrentRequest->tmdb = $tmdb;
-                $torrentRequest->mal = $mal;
-                $torrentRequest->category_id = $category;
-                $torrentRequest->type = $type;
-                $torrentRequest->description = $description;
-                $torrentRequest->save();
+            $torrentRequest->name = $name;
+            $torrentRequest->imdb = $imdb;
+            $torrentRequest->tvdb = $tvdb;
+            $torrentRequest->tmdb = $tmdb;
+            $torrentRequest->mal = $mal;
+            $torrentRequest->category_id = $category;
+            $torrentRequest->type = $type;
+            $torrentRequest->description = $description;
+            $torrentRequest->save();
 
-                if ($user->group->is_modo) {
-                    // Activity Log
-                    \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-                } else {
-                    // Activity Log
-                    \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-                }
-
-                return redirect()->route('requests', ['id' => $torrentRequest->id])->with(Toastr::success('Request Edited Successfuly.', 'Yay!', ['options']));
+            if ($user->group->is_modo) {
+                // Activity Log
+                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
             } else {
-                return view('requests.edit_request', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'torrentRequest' => $torrentRequest]);
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
             }
+
+            return redirect()->route('requests', ['id' => $torrentRequest->id])->with(Toastr::success('Request Edited Successfuly.', 'Yay!', ['options']));
         } else {
-            return redirect()->route('requests', ['id' => $torrentRequest->id])->with(Toastr::error('You Dont Have Access To This Operation!', 'Whoops!', ['options']));
+            return view('requests.edit_request', ['categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position'), 'user' => $user, 'torrentRequest' => $torrentRequest]);
         }
     }
 
