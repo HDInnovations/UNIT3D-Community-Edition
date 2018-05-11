@@ -854,6 +854,10 @@ textarea {
   color: #dddddd;
 }
 
+#frame .content .messages ul li.sent h4 .text-muted {
+  color: #818686;
+}
+
 #frame .content .messages ul li > img {
   border: 3px solid #7289da;
 }

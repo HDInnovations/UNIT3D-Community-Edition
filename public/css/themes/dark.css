@@ -896,6 +896,10 @@ a.view-torrent:hover {
   outline: none;
 }
 
+#frame .content .messages ul li.sent h4 .text-muted {
+  color: #818686;
+}
+
 #frame .content .message-input .wrap .attachment {
   color: #435f7a;
 }
