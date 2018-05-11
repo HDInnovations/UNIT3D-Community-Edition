@@ -61,7 +61,7 @@
 
       },
       keydown (e) {
-
+        this.$emit('typing', this.user)
       },
       sendMessage () {
 

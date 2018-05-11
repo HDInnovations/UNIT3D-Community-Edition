@@ -59,8 +59,13 @@
                 </div>
             </div>
             <div class="panel-footer">
+                <div class="typing" v-if="activePeer">
+                    {{ activePeer.username }} is typing ...
+                </div>
+
                 <chat-form
                         @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
+                        @typing="isTyping"
                         :user="auth"></chat-form>
             </div>
         </div>
@@ -119,7 +124,8 @@
         currentRoom: 0,
         scroll: true,
         channel: null,
-        limits: {}
+        limits: {},
+        activePeer: false
       }
     },
     watch: {
@@ -165,6 +171,11 @@
       }
     },
     methods: {
+      isTyping (e) {
+        this.channel.whisper('typing', {
+          username: e.username
+        })
+      },
       fetchRooms () {
         axios.get('/api/chat/rooms').then(response => {
           this.chatrooms = response.data.data
@@ -268,6 +279,13 @@
           })
           .listen('.new.message', e => {
             this.chatrooms[this.room_index].messages.push(e.message)
+          })
+          .listenForWhisper('typing', e => {
+            this.activePeer = e
+
+            setTimeout(() => {
+              this.activePeer = false
+            }, 3000)
           })
       }
     },
