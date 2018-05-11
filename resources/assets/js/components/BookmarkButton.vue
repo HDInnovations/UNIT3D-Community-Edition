@@ -26,7 +26,7 @@
     methods: {
 
       bookmark(id) {
-        axios.post('/torrents/bookmark/' + id)
+        axios.get('/torrents/bookmark/' + id)
           .then((response) => {
             this.bookmarked = true;
 
@@ -44,7 +44,7 @@
       },
 
       unBookmark(id) {
-        axios.post('/torrents/unbookmark/' + id)
+        axios.get('/torrents/unbookmark/' + id)
           .then((response) => {
             this.bookmarked = false;
 

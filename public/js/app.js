@@ -69568,7 +69568,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     bookmark: function bookmark(id) {
       var _this = this;
 
-      axios.post('/torrents/bookmark/' + id).then(function (response) {
+      axios.get('/torrents/bookmark/' + id).then(function (response) {
         _this.bookmarked = true;
 
         __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
@@ -69585,7 +69585,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     unBookmark: function unBookmark(id) {
       var _this2 = this;
 
-      axios.post('/torrents/unbookmark/' + id).then(function (response) {
+      axios.get('/torrents/unbookmark/' + id).then(function (response) {
         _this2.bookmarked = false;
 
         __WEBPACK_IMPORTED_MODULE_0_sweetalert2___default()({
