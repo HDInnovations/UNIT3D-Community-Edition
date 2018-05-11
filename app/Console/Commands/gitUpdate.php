@@ -124,8 +124,8 @@ class gitUpdate extends Command
     private function clearCache(): void
     {
         $this->comment('Clearing several common cache\'s ...');
-        $this->call('view:clear');
-        $this->call('route:clear');
+        $this->call('view:cache');
+        $this->call('route:cache');
         $this->call('config:clear');
         $this->call('cache:clear');
     }
