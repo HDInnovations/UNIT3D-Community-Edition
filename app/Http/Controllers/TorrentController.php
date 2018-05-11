@@ -869,7 +869,7 @@ class TorrentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "Ladies and Gents, [url={$profile_url}[/url] has requested a reseed on [url={$torrent_url}[/url] can you help out :question:"
+                "Ladies and Gents, [url={$profile_url}]{$user->username}[/url] has requested a reseed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
             );
 
             // Activity Log
