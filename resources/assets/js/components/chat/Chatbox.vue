@@ -293,7 +293,9 @@
             this.chatrooms[this.room_index].messages.push(e.message)
           })
           .listenForWhisper('typing', e => {
-            this.activePeer = e
+            if (!this.activePeer) {
+              this.activePeer = e
+            }
 
             setTimeout(() => {
               this.activePeer = false
