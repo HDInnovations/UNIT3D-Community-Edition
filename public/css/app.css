@@ -36729,7 +36729,7 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
 #frame .content .messages ul {
   margin-left: 10px;
-  max-height: 475px;
+  max-height: 460px;
   overflow-y: auto;
 }
 

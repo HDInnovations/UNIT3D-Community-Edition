@@ -283,7 +283,7 @@
           let scrollTop = messages.scrollTop() + messages.prop('clientHeight')
           let scrollHeight = messages.prop('scrollHeight')
 
-          this.scroll = scrollTop >= scrollHeight - 5
+          this.scroll = scrollTop >= scrollHeight - 50
         })
       },
 

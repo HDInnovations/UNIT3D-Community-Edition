@@ -68619,7 +68619,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
         var scrollHeight = messages.prop('scrollHeight');
 
-        _this7.scroll = scrollTop >= scrollHeight - 5;
+        _this7.scroll = scrollTop >= scrollHeight - 50;
       });
     },
     listenForEvents: function listenForEvents() {
@@ -69341,7 +69341,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   mounted: function mounted() {
-    this.editor = $('#chat-message').wysibb();
+    this.editor = $('#chat-message').wysibb({
+      allButtons: {
+        img: {
+          hotkey: 'ctrl+shift+v',
+          transform: {
+            '<a href="{SRC}"><img src="{SRC}" /></a>': '[url={SRC}][img]{SRC}[/img][/url]',
+            '<a href="{SRC}"><img src="{SRC}" width="{WIDTH}" height="{HEIGHT}"/></a>': '[url={SRC}][img width={WIDTH},height={HEIGHT}]{SRC}[/img][/url]'
+          }
+        }
+      }
+    });
 
     // Initialize emojis
     emoji.textcomplete();
