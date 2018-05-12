@@ -68274,7 +68274,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 230px;\n  max-width: 500px;\n}\n.chatbox .slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.chatbox .slide-fade-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n}\n.chatbox .slide-fade-enter, .chatbox .slide-fade-leave-to {\n  -webkit-transform: translateY(10px);\n          transform: translateY(10px);\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .statuses i:hover {\n  cursor: pointer;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 230px;\n  max-width: 500px;\n}\n.chatbox .slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.chatbox .slide-fade-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n}\n.chatbox .slide-fade-enter, .chatbox .slide-fade-leave-to {\n  -webkit-transform: translateY(10px);\n          transform: translateY(10px);\n  opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -68324,6 +68324,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ChatMessages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ChatForm__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //

@@ -86,6 +86,14 @@
             }
         }
 
+        .statuses {
+            i {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
         .panel-body {
             padding: 0;
         }
