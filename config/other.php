@@ -154,6 +154,17 @@ return [
     'default_download' => '1073741824',
     'default_style' => 0,
 
+    /*
+     * Restricted mode for invites. If set to true, invites will be restricted
+     */
     'invites_restriced' => false,
-    'invite_groups' => [],
+
+    /*
+     * Exempt these groups from the invite restrictions
+     *
+     */
+    'invite_groups' => [
+        'Administrator',
+        'Owner'
+    ],
 ];
