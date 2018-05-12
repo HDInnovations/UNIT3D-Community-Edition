@@ -48,7 +48,6 @@
 
     methods: {
       keyup (e) {
-        e.preventDefault()
 
         // Alt
         if (e.which === 18) {
@@ -62,7 +61,6 @@
 
       },
       keydown (e) {
-        e.preventDefault()
         this.$emit('typing', this.user)
       },
       sendMessage () {
