@@ -100,7 +100,7 @@
 
         .decoda-image {
             min-height: 150px;
-            max-height: 230px;
+            max-height: 300px;
             max-width: 500px;
         }
 
@@ -283,7 +283,7 @@
           let scrollTop = messages.scrollTop() + messages.prop('clientHeight')
           let scrollHeight = messages.prop('scrollHeight')
 
-          this.scroll = scrollTop >= scrollHeight - 2
+          this.scroll = scrollTop >= scrollHeight - 5
         })
       },
 
