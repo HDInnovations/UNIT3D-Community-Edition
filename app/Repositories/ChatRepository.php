@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Chatroom;
 use App\ChatStatus;
+use App\Events\MessageDeleted;
 use App\Events\MessageSent;
 use App\Message;
 use App\User;
@@ -57,6 +58,15 @@ class ChatRepository
         broadcast(new MessageSent($message));
 
         return $message;
+    }
+
+    public function deleteMessage($id)
+    {
+        $message = $this->message->find($id);
+
+        broadcast(new MessageDeleted($message));
+
+        return $message->delete();
     }
 
     public function messages($room_id) {

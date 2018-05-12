@@ -29,6 +29,8 @@ Route::namespace('API')->group(function () {
 
         /* Messages */
         Route::post('/messages', 'ChatController@createMessage');
+        Route::get('/message/{id}/delete', 'ChatController@deleteMessage');
+        Route::get('/messages/{room_id}', 'ChatController@messages');
 
         /* Users */
         Route::post('/user/{id}/chatroom', 'ChatController@updateUserRoom');

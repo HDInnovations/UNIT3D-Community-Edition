@@ -68435,6 +68435,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -68624,6 +68625,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
         _this8.chatrooms[_this8.room_index].messages.push(e.message);
+      }).listen('.edit.message', function (e) {}).listen('.delete.message', function (e) {
+        var msgs = _this8.chatrooms[_this8.room_index].messages;
+        var index = msgs.findIndex(function (msg) {
+          return msg.id === e.message.id;
+        });
+
+        _this8.chatrooms[_this8.room_index].messages.splice(index, 1);
       }).listenForWhisper('typing', function (e) {
         if (_this8.activePeer === false) {
           _this8.activePeer = e;
@@ -68932,7 +68940,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\n.messages h4 i.fa-times[data-v-e27ce6be] {\n  margin-left: 10px;\n}\n.messages h4 i.fa-times[data-v-e27ce6be]:hover {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -68983,12 +68991,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     messages: { required: true }
   },
   methods: {
+    canMod: function canMod(message) {
+      /*
+          A user can Mod his own messages
+          A user in a is_modo group can Mod messages
+          A is_modo CAN NOT Mod another is_modo message
+      */
+
+      return (
+        /* Owner can mod all */
+        this.$parent.auth.group.id === 10 ||
+
+        /* User can mod his own message */
+        message.user.id === this.$parent.auth.id ||
+
+        /* is_admin can mod messages except for Owner messages */
+        this.$parent.auth.group.is_admin && message.user.group.id !== 10 ||
+
+        /* Mods CAN NOT mod other mods messages */
+        this.$parent.auth.group.is_modo && !message.user.group.is_modo
+      );
+    },
+    deleteMessage: function deleteMessage(id) {
+      axios.get("/api/chat/message/" + id + "/delete");
+    },
     userStyles: function userStyles(user) {
       return "cursor: pointer; color: " + user.group.color + "; background-image: " + user.group.effect + ";";
     }
@@ -69009,19 +69063,31 @@ var render = function() {
       { staticClass: "list-group" },
       _vm._l(_vm.messages, function(message) {
         return _c("li", { staticClass: "sent" }, [
-          message.user.id !== 1
-            ? _c("img", {
-                staticClass: "chat-user-image",
-                style:
-                  "border: 3px solid " + message.user.chat_status.color + ";",
-                attrs: {
-                  src: message.user.image
-                    ? "/files/img/" + message.user.image
-                    : "/img/profile.png",
-                  alt: ""
-                }
-              })
-            : _vm._e(),
+          _c(
+            "a",
+            {
+              attrs: {
+                href: "/" + message.user.username + "." + message.user.id
+              }
+            },
+            [
+              message.user.id !== 1
+                ? _c("img", {
+                    staticClass: "chat-user-image",
+                    style:
+                      "border: 3px solid " +
+                      message.user.chat_status.color +
+                      ";",
+                    attrs: {
+                      src: message.user.image
+                        ? "/files/img/" + message.user.image
+                        : "/img/profile.png",
+                      alt: ""
+                    }
+                  })
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
           message.user.id !== 1
             ? _c("h4", { staticClass: "list-group-item-heading" }, [
@@ -69042,17 +69108,17 @@ var render = function() {
                       )
                     ]
                   ),
-                  _vm._v(" - "),
-                  _c(
-                    "a",
-                    {
-                      attrs: {
-                        href:
-                          "/" + message.user.username + "." + message.user.id
-                      }
-                    },
-                    [_vm._v("Profile")]
-                  )
+                  _vm._v(" "),
+                  _vm.canMod(message)
+                    ? _c("i", {
+                        staticClass: "fa fa-times text-red",
+                        on: {
+                          click: function($event) {
+                            _vm.deleteMessage(message.id)
+                          }
+                        }
+                      })
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "text-muted" }, [

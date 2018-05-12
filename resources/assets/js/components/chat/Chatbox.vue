@@ -5,7 +5,8 @@
             <div class="panel-heading">
                 <h4>
                     Chatbox 2.0 Beta
-                    ( <a target="_blank" href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
+                    ( <a target="_blank"
+                         href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
                 </h4>
             </div>
 
@@ -291,6 +292,15 @@
           })
           .listen('.new.message', e => {
             this.chatrooms[this.room_index].messages.push(e.message)
+          })
+          .listen('.edit.message', e => {
+
+          })
+          .listen('.delete.message', e => {
+            let msgs = this.chatrooms[this.room_index].messages
+            let index = msgs.findIndex(msg => msg.id === e.message.id)
+
+            this.chatrooms[this.room_index].messages.splice(index, 1)
           })
           .listenForWhisper('typing', e => {
             if (this.activePeer === false) {

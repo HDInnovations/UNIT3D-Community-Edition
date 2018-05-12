@@ -58,6 +58,12 @@ class ChatController extends Controller
         return $save ? new ChatMessageResource($message) : response('success', 200);
     }
 
+    public function deleteMessage($id)
+    {
+        $this->chat->deleteMessage($id);
+        return response('success', 200);
+    }
+
     /* USERS */
     public function updateUserChatStatus(Request $request, $id)
     {
