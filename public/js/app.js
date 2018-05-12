@@ -68625,11 +68625,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).listen('.new.message', function (e) {
         _this8.chatrooms[_this8.room_index].messages.push(e.message);
       }).listenForWhisper('typing', function (e) {
-        _this8.activePeer = e;
+        if (_this8.activePeer === false) {
+          _this8.activePeer = e;
+        }
 
         setTimeout(function () {
           _this8.activePeer = false;
-        }, 8000);
+        }, 15000);
       });
     }
   },
