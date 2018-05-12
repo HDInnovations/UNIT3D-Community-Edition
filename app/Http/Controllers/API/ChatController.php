@@ -67,7 +67,7 @@ class ChatController extends Controller
     /* USERS */
     public function updateUserChatStatus(Request $request, $id)
     {
-        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'group'])->findOrFail($id);
         $status = $this->chat->statusFindOrFail($request->get('status_id'));
 
         $user->chatStatus()->dissociate();
@@ -80,7 +80,7 @@ class ChatController extends Controller
 
     public function updateUserRoom(Request $request, $id)
     {
-        $user = User::with(['chatStatus', 'chatroom'])->findOrFail($id);
+        $user = User::with(['chatStatus', 'chatroom', 'group'])->findOrFail($id);
         $room = $this->chat->roomFindOrFail($request->get('room_id'));
 
         $user->chatroom()->dissociate();
