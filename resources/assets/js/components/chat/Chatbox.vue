@@ -293,13 +293,13 @@
             this.chatrooms[this.room_index].messages.push(e.message)
           })
           .listenForWhisper('typing', e => {
-            if (!this.activePeer) {
+            if (this.activePeer === false) {
               this.activePeer = e
             }
 
             setTimeout(() => {
               this.activePeer = false
-            }, 8000)
+            }, 15000)
           })
       }
     },
