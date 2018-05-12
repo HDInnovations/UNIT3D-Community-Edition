@@ -130,7 +130,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/comment/thanks/{id}', 'CommentController@quickthanks')->name('comment_thanks');
         Route::post('/comment/request/{id}', 'CommentController@request')->name('comment_request');
         Route::post('/comment/edit/{comment_id}', 'CommentController@editComment')->name('comment_edit');
-        Route::post('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
+        Route::get('/comment/delete/{comment_id}', 'CommentController@deleteComment')->name('comment_delete');
 
         //Extra-Stats
         Route::get('/stats', 'StatsController@index')->name('stats');
