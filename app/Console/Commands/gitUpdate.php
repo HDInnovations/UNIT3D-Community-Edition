@@ -114,6 +114,8 @@ class gitUpdate extends Command
     {
         $this->comment('Compiling JS and Style assets ...');
         $process = new Process('npm run dev');
+        $process->setTimeout(150);
+
         $process->start();
 
         $process->wait();
@@ -165,6 +167,8 @@ class gitUpdate extends Command
 
         foreach ($commands as $command) {
             $process = new Process($command);
+            $process->setTimeout(150);
+
             $process->start();
 
             $process->wait();
