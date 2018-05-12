@@ -18,17 +18,7 @@ class Group extends Model
 {
     public $timestamps = false;
 
-    /**
-     * Validation rules
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'position' => 'required',
-        'color' => 'required',
-        'icon' => 'required',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * Has many users
@@ -54,6 +44,8 @@ class Group extends Model
      */
     public function getPermissionsByForum($forum)
     {
-        return Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $this->id])->first();
+        return Permission::where('forum_id', $forum->id)
+            ->where('group_id', $this->id)
+            ->first();
     }
 }

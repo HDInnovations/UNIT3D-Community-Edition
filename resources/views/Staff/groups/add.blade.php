@@ -46,45 +46,51 @@
 
                     <tbody>
                     <tr>
-                        <td><input type="text" name="group_name" value="" placeholder="Name" class="form-control"/></td>
-                        <td><input type="number" name="group_postion" value="" placeholder="Position"
+                        <td>
+                            <input type="text" name="name" value="" placeholder="Name" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" name="position" value="" placeholder="Position"
                                    class="form-control"/>
                         </td>
-                        <td><input type="text" name="group_color" value="" placeholder="HEX Color ID"
+                        <td>
+                            <input type="text" name="color" value="" placeholder="HEX Color ID"
                                    class="form-control"/>
                         </td>
-                        <td><input type="text" name="group_icon" value="" placeholder="FontAwesome Icon"
+                        <td>
+                            <input type="text" name="icon" value="" placeholder="FontAwesome Icon"
                                    class="form-control"/></td>
-                        <td><input type="text" name="group_effect" value="" placeholder="GIF Effect"
+                        <td>
+                            <input type="text" name="effect" value="none" placeholder="GIF Effect"
                                    class="form-control"/>
                         </td>
                         <td>
-                            <input type="hidden" name="group_internal" value="0">
-                            {{ Form::checkbox('group_internal', '1', false) }}
+                            <input type="hidden" name="is_internal" value="0">
+                            {{ Form::checkbox('is_internal', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_modo" value="0">
-                            {{ Form::checkbox('group_modo', '1', false) }}
+                            <input type="hidden" name="is_modo" value="0">
+                            {{ Form::checkbox('is_modo', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_admin" value="0">
-                            {{ Form::checkbox('group_admin', '1', false) }}
+                            <input type="hidden" name="is_admin" value="0">
+                            {{ Form::checkbox('is_admin', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_trusted" value="0">
-                            {{ Form::checkbox('group_trusted', '1', false) }}
+                            <input type="hidden" name="is_trusted" value="0">
+                            {{ Form::checkbox('is_trusted', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_immune" value="0">
-                            {{ Form::checkbox('group_immune', '1', false) }}
+                            <input type="hidden" name="is_immune" value="0">
+                            {{ Form::checkbox('is_immune', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_freeleech" value="0">
-                            {{ Form::checkbox('group_freeleech', '1', false) }}
+                            <input type="hidden" name="is_freeleech" value="0">
+                            {{ Form::checkbox('is_freeleech', '1', false) }}
                         </td>
                         <td>
-                            <input type="hidden" name="group_upload" value="0">
-                            {{ Form::checkbox('group_upload', '1', false) }}
+                            <input type="hidden" name="can_upload" value="0">
+                            {{ Form::checkbox('can_upload', '1', false) }}
                         </td>
                         <td>
                             <input type="hidden" name="autogroup" value="0">
