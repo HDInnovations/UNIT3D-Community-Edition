@@ -36767,11 +36767,9 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
 
 #frame .content .messages ul li.sent .messages-container {
   color: #2C4151;
-  max-width: 75%;
+  width: 100%;
+  max-width: 100%;
   line-height: 130%;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
   font-size: 14pt;
 }
 

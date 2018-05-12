@@ -10,6 +10,14 @@ let mix = require('laravel-mix')
  */
 
 mix
+  .webpackConfig({
+    module: {
+      // configuration regarding modules
+      loaders: [
+        { test: /\.js$/, loader: 'babel', query: {compact: false} }
+      ]
+    }
+  })
   /*
    * Sourced asset dependencies via node_modules and JS bootstrapping
    */
@@ -66,9 +74,9 @@ mix
    * Note: The order of this array will matter, no different then linking these assets manually in the html
    */
   .scripts([
-  'resources/assets/js/unit3d/hoe.js',
-  'resources/assets/js/unit3d/vendor/livicons.js',
-  'resources/assets/js/unit3d/blutopia.js'
+    'resources/assets/js/unit3d/hoe.js',
+    'resources/assets/js/unit3d/vendor/livicons.js',
+    'resources/assets/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
 
 // Full API
