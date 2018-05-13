@@ -219,6 +219,8 @@
           }).then(response => {
             // reassign the auth variable to the response data
             this.auth = response.data
+
+            this.scrollToBottom(true)
           })
         }
 
@@ -270,10 +272,10 @@
 
       },
 
-      scrollToBottom () {
+      scrollToBottom (force = false) {
         let messages = $('.messages .list-group')
 
-        if (this.scroll) {
+        if (this.scroll || force) {
           messages.animate({scrollTop: messages.prop('scrollHeight')}, 0)
         }
 
@@ -300,6 +302,7 @@
           })
           .listen('.new.message', e => {
             this.chatrooms[this.room_index].messages.push(e.message)
+            this.scrollToBottom(true)
           })
           .listen('.edit.message', e => {
 
@@ -326,6 +329,10 @@
 
       this.fetchRooms()
       this.fetchStatuses()
+
+      setTimeout(() => {
+        this.scrollToBottom(true)
+      }, 1000)
 
       setInterval(() => {
         this.scrollToBottom()
