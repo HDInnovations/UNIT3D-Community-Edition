@@ -33,7 +33,7 @@
 					</span>
 
                     <span class="text-muted">
-                        {{ message.created_at }}
+                        {{ message.created_at | fromNow }}
                     </span>
 
                 </h4>
@@ -64,6 +64,8 @@
     }
 </style>
 <script>
+  import moment from 'moment'
+
   export default {
     props: {
       messages: {required: true},
@@ -77,17 +79,17 @@
         */
 
         return (
-            /* Owner can mod all */
+          /* Owner can mod all */
           this.$parent.auth.group.id === 10 ||
 
-            /* User can mod his own message */
+          /* User can mod his own message */
           message.user.id === this.$parent.auth.id ||
 
-            /* is_admin can mod messages except for Owner messages */
+          /* is_admin can mod messages except for Owner messages */
           this.$parent.auth.group.is_admin &&
           message.user.group.id !== 10 ||
 
-            /* Mods CAN NOT mod other mods messages */
+          /* Mods CAN NOT mod other mods messages */
           this.$parent.auth.group.is_modo &&
           !message.user.group.is_modo
         )
@@ -98,6 +100,17 @@
       userStyles (user) {
         return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
       }
+    },
+    filters: {
+      fromNow (dt) {
+        return moment(String(dt)).fromNow()
+      }
+    },
+    created () {
+      this.interval = setInterval(() => this.$forceUpdate(), 30000)
+    },
+    beforeDestroy () {
+      clearInterval(this.interval)
     }
   }
 </script>

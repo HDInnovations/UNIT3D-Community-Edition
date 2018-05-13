@@ -23,8 +23,8 @@ class ChatMessageResource extends JsonResource
             'user' => new UserResource($this->whenLoaded('user')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
             'message' => $emojiOne->toImage(Bbcode::parse("[left]﻿{$this->message}[/left]")),
-            'created_at' => $this->created_at->format('F jS h:i A'),
-            'updated_at' => $this->updated_at
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString()
         ];
     }
 }
