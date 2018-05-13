@@ -36,7 +36,7 @@ if (!function_exists('hrefTorrentRequest')) {
     {
         $appurl = appurl();
         $slug = str_slug($torrentRequest->name);
-        return "{$appurl}/request/{$slug}.{$torrentRequest->id}";
+        return "{$appurl}/request/{$torrentRequest->id}";
     }
 }
 
