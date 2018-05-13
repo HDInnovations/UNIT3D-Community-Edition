@@ -20,6 +20,7 @@
                 <div class="col-md-3">
                     <div class="pull-right">
                         <i v-for="status in $parent.statuses"
+                           v-tooltip="status.name"
                            @click="$emit('changedStatus', status.id)"
                            :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
                            :style="`color: ${status.color}`"></i>
@@ -29,6 +30,7 @@
                 <div class="col-md-3">
                     <chatrooms-dropdown :current="user.chatroom.id"
                                         :chatrooms="$parent.chatrooms"
+                                        v-tooltip="`Chatrooms`"
                                         class="pull-right"
                                         @changedRoom="$parent.changeRoom">
 

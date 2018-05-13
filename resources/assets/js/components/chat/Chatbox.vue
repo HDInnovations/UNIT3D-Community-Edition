@@ -11,10 +11,32 @@
             </div>
 
             <div class="panel-body">
-                <!--<h2 class="text-center text-red text-bold">Chat Box Is Currently Offline For Maintenance</h2>-->
+
+                <div v-if="showDevMsg">
+                    <h2 class="text-center text-red text-bold">Chat Box Is Currently In Beta</h2>
+                    <p class="text-center">
+                        Please understand that <strong>Beta</strong> refers to software undergoing testing.
+                        Is released to a certain group of peers for real world testing.
+                    </p>
+                    <p class="text-center">
+                        We are working hard to address all your concerns and issues.
+                    </p>
+                    <p class="text-center">
+                        Please be patient and be as detailed as possible when describing an issue you may be having!
+                    </p>
+                    <p class="text-center">
+                        <button @click="showDevMsg = false" class="btn btn-danger">Hide</button>
+                    </p>
+                </div>
+
                 <div id="frame">
                     <div class="content">
-                        <chat-messages :messages="messages"></chat-messages>
+                        <div class="text-center">
+                            <h4 v-if="state.connecting" class='text-red'>Connecting ...</h4>
+                            <h4 v-else class='text-green'>Connected with {{users.length}} users</h4>
+                        </div>
+
+                        <chat-messages v-if="!state.connecting" :messages="messages"></chat-messages>
                     </div>
                 </div>
             </div>
@@ -93,70 +115,41 @@
     },
     data () {
       return {
+        state: {
+          connecting: true
+        },
         auth: {},
         statuses: [],
         status: 0,
         showStatuses: false,
         chatrooms: [],
+        messages: [],
+        users: [],
         room: 0,
         scroll: true,
         channel: null,
         limits: {},
-        activePeer: false
+        activePeer: false,
+
+        /* Developer Settings */
+        showDevMsg: false,
       }
     },
     watch: {
+      chatrooms () {
+        this.changeRoom(this.auth.chatroom.id)
+      },
+      statuses () {
+        this.changeStatus(this.auth.chat_status.id)
+      },
       room (newVal, oldVal) {
         window.Echo.leave(`chatroom.${oldVal}`)
 
         this.channel = window.Echo.join(`chatroom.${newVal}`)
         this.listenForEvents()
-
-        if (this.auth.chatroom.id !== newVal) {
-          /* Update the users chatroom in the database */
-          axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
-            'room_id': newVal
-          }).then(response => {
-            // reassign the auth variable to the response data
-            this.auth = response.data
-          })
-        }
-
-        this.fetchMessages()
       },
-      status (newVal, oldVal) {
-        if (this.auth.chat_status.id !== newVal) {
-          /* Update the users chat status in the database */
-          axios.post(`/api/chat/user/${this.auth.id}/status`, {
-            'status_id': newVal
-          }).then(response => {
-            // reassign the auth variable to the response data
-            this.auth = response.data
-
-            /* Add system message */
-            this.createMessage(
-              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`
-            )
-
-          })
-        }
-      }
     },
     computed: {
-      messages () {
-        if (this.chatrooms.length > 0) {
-          return this.chatrooms[this.room_index].messages
-        }
-
-        return []
-      },
-      room_index () {
-        if (this.room !== 0) {
-          return this.room - 1
-        }
-
-        return 0
-      },
       last_id () {
         if (this.messages > 0) {
           return this.messages[m.length - 1].id
@@ -187,11 +180,11 @@
         axios.get('/api/chat/rooms').then(response => {
           this.chatrooms = response.data.data
 
-          this.changeRoom(this.auth.chatroom.id)
+          this.fetchLimits()
         })
       },
 
-      fetchLimits() {
+      fetchLimits () {
         axios.get(`/api/chat/rooms/${this.auth.chatroom.id}/limits`).then(response => {
           this.limits = response.data
         })
@@ -199,26 +192,57 @@
 
       changeRoom (id) {
         this.room = id
+
+        if (this.auth.chatroom.id !== id) {
+          /* Update the users chatroom in the database */
+          axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
+            'room_id': id
+          }).then(response => {
+            // reassign the auth variable to the response data
+            this.auth = response.data
+
+            this.fetchMessages()
+          })
+        } else {
+          this.fetchMessages()
+        }
       },
 
       fetchMessages () {
         axios.get(`/api/chat/messages/${this.room}`).then(response => {
-          this.chatrooms[this.room_index].messages = response.data.data
+          this.messages = _.reverse(response.data.data)
           this.scrollToBottom(true)
+
+          this.state.connecting = false
         })
       },
 
       fetchStatuses () {
         axios.get('/api/chat/statuses').then(response => {
           this.statuses = response.data
-
-          this.changeStatus(this.auth.chat_status.id)
         })
       },
 
       changeStatus (status_id) {
         this.status = status_id
         this.showStatuses = false
+
+        if (this.auth.chat_status.id !== status_id) {
+
+          /* Update the users chat status in the database */
+          axios.post(`/api/chat/user/${this.auth.id}/status`, {
+            'status_id': status_id
+          }).then(response => {
+            // reassign the auth variable to the response data
+            this.auth = response.data
+
+            /* Add system message */
+            this.createMessage(
+              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`
+            )
+
+          })
+        }
       },
 
       /* User defaults to System user */
@@ -232,17 +256,17 @@
       },
 
       scrollToBottom (force = false) {
-        let messages = $('.messages .list-group')
+        let container = $('.messages .list-group')
 
         if (this.scroll || force) {
-          messages.animate({scrollTop: messages.prop('scrollHeight')}, 0)
+          container.animate({scrollTop: container.prop('scrollHeight')}, 0)
         }
 
-        messages.scroll(() => {
+        container.scroll(() => {
           this.scroll = false
 
-          let scrollTop = messages.scrollTop() + messages.prop('clientHeight')
-          let scrollHeight = messages.prop('scrollHeight')
+          let scrollTop = container.scrollTop() + container.prop('clientHeight')
+          let scrollHeight = container.prop('scrollHeight')
 
           this.scroll = scrollTop >= scrollHeight - 30
         })
@@ -251,19 +275,25 @@
       listenForEvents () {
         this.channel
           .here(users => {
-            console.log('CONNECTED TO CHAT ...')
+            this.users = users
+            this.state.connecting = false
+
+            setInterval(() => {
+              this.scrollToBottom()
+            }, 100)
           })
           .joining(user => {
             // this.createMessage(`${user.username} has JOINED the chat ...`)
           })
           .leaving(user => {
+            this.state.connecting = true
             // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            let count = this.chatrooms[this.room_index].messages.push(e.message)
+            let count = this.messages.push(e.message)
 
             if (count > this.limits.max_messages) {
-              this.chatrooms[this.room_index].messages.splice(0, 1)
+              this.messages.splice(0, 1)
             }
 
             this.scrollToBottom(true)
@@ -272,10 +302,10 @@
 
           })
           .listen('.delete.message', e => {
-            let msgs = this.chatrooms[this.room_index].messages
+            let msgs = this.messages
             let index = msgs.findIndex(msg => msg.id === e.message.id)
 
-            this.chatrooms[this.room_index].messages.splice(index, 1)
+            this.messages.splice(index, 1)
           })
           .listenForWhisper('typing', e => {
             if (this.activePeer === false) {
@@ -290,17 +320,8 @@
     },
     created () {
       this.auth = this.user
-
       this.fetchRooms()
       this.fetchStatuses()
-
-      setTimeout(() => {
-        this.scrollToBottom(true)
-      }, 700)
-
-      setInterval(() => {
-        this.scrollToBottom()
-      }, 100)
     },
   }
 </script>

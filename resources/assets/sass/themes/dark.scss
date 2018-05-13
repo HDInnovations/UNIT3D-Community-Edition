@@ -3,6 +3,24 @@ body {
   color: #fff
 }
 
+.tooltip .tooltip-inner {
+  background: black;
+  color: white;
+}
+
+.tooltip .tooltip-arrow {
+  border-color: black;
+}
+
+.tooltip.popover .popover-inner {
+  background: #f9f9f9;
+  color: black;
+}
+
+.tooltip.popover .popover-arrow {
+  border-color: #f9f9f9;
+}
+
 .navbar-default {
   background: #008A67;
   border: 0

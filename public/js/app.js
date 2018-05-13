@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -98,7 +98,7 @@ module.exports = g;
 
 
 var bind = __webpack_require__(20);
-var isBuffer = __webpack_require__(44);
+var isBuffer = __webpack_require__(45);
 
 /*global toString:true*/
 
@@ -577,15 +577,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(72);
+var keys = __webpack_require__(73);
 var hasBinary = __webpack_require__(31);
-var sliceBuffer = __webpack_require__(74);
-var after = __webpack_require__(75);
-var utf8 = __webpack_require__(76);
+var sliceBuffer = __webpack_require__(75);
+var after = __webpack_require__(76);
+var utf8 = __webpack_require__(77);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(77);
+  base64encoder = __webpack_require__(78);
 }
 
 /**
@@ -643,7 +643,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(78);
+var Blob = __webpack_require__(79);
 
 /**
  * Encodes a packet.
@@ -12506,7 +12506,7 @@ return jQuery;
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(64);
+exports = module.exports = __webpack_require__(65);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -12763,7 +12763,7 @@ module.exports = function(a, b){
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(79);
+exports = module.exports = __webpack_require__(80);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -13057,7 +13057,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(105)
+var listToStyles = __webpack_require__(107)
 
 /*
 type StyleObject = {
@@ -13273,7 +13273,7 @@ function applyToTag (styleElement, obj) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(1);
-var normalizeHeaderName = __webpack_require__(46);
+var normalizeHeaderName = __webpack_require__(47);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -13536,9 +13536,9 @@ function plural(ms, n, name) {
  * Module dependencies.
  */
 
-var debug = __webpack_require__(65)('socket.io-parser');
+var debug = __webpack_require__(66)('socket.io-parser');
 var Emitter = __webpack_require__(2);
-var binary = __webpack_require__(67);
+var binary = __webpack_require__(68);
 var isArray = __webpack_require__(26);
 var isBuf = __webpack_require__(27);
 
@@ -13956,7 +13956,7 @@ function error(msg) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(70);
+var hasCORS = __webpack_require__(71);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -15352,12 +15352,12 @@ module.exports = function bind(fn, thisArg) {
 
 
 var utils = __webpack_require__(1);
-var settle = __webpack_require__(47);
-var buildURL = __webpack_require__(49);
-var parseHeaders = __webpack_require__(50);
-var isURLSameOrigin = __webpack_require__(51);
+var settle = __webpack_require__(48);
+var buildURL = __webpack_require__(50);
+var parseHeaders = __webpack_require__(51);
+var isURLSameOrigin = __webpack_require__(52);
 var createError = __webpack_require__(22);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(52);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(53);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -15454,7 +15454,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(53);
+      var cookies = __webpack_require__(54);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -15538,7 +15538,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(48);
+var enhanceError = __webpack_require__(49);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -15690,7 +15690,7 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(68);
+var eio = __webpack_require__(69);
 var Socket = __webpack_require__(34);
 var Emitter = __webpack_require__(2);
 var parser = __webpack_require__(15);
@@ -15698,7 +15698,7 @@ var on = __webpack_require__(35);
 var bind = __webpack_require__(36);
 var debug = __webpack_require__(7)('socket.io-client:manager');
 var indexOf = __webpack_require__(33);
-var Backoff = __webpack_require__(84);
+var Backoff = __webpack_require__(85);
 
 /**
  * IE6+ hasOwnProperty
@@ -16269,9 +16269,9 @@ Manager.prototype.onreconnect = function () {
  */
 
 var XMLHttpRequest = __webpack_require__(16);
-var XHR = __webpack_require__(71);
-var JSONP = __webpack_require__(80);
-var websocket = __webpack_require__(81);
+var XHR = __webpack_require__(72);
+var JSONP = __webpack_require__(81);
+var websocket = __webpack_require__(82);
 
 /**
  * Export transports.
@@ -16581,7 +16581,7 @@ Polling.prototype.uri = function () {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(73);
+var isArray = __webpack_require__(74);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -16741,7 +16741,7 @@ module.exports = function(arr, obj){
 
 var parser = __webpack_require__(15);
 var Emitter = __webpack_require__(2);
-var toArray = __webpack_require__(83);
+var toArray = __webpack_require__(84);
 var on = __webpack_require__(35);
 var bind = __webpack_require__(36);
 var debug = __webpack_require__(7)('socket.io-client:socket');
@@ -17234,42 +17234,65 @@ module.exports = function(obj, fn){
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(38);
-__webpack_require__(126);
-__webpack_require__(127);
-__webpack_require__(128);
-__webpack_require__(129);
-__webpack_require__(130);
-module.exports = __webpack_require__(131);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(109)
+}
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(111)
+/* template */
+var __vue_template__ = __webpack_require__(112)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-eb485e78"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\chat\\ChatroomsDropdown.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-eb485e78", Component.options)
+  } else {
+    hotAPI.reload("data-v-eb485e78", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 __webpack_require__(39);
+__webpack_require__(127);
+__webpack_require__(128);
+__webpack_require__(129);
+__webpack_require__(130);
+__webpack_require__(131);
+module.exports = __webpack_require__(132);
 
-window.Vue = __webpack_require__(96);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('version', __webpack_require__(99));
-Vue.component('chatbox', __webpack_require__(102));
-Vue.component('bookmark', __webpack_require__(123));
-
-var app = new Vue({
-  el: '#app'
-});
 
 /***/ }),
 /* 39 */
@@ -17277,9 +17300,45 @@ var app = new Vue({
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_tooltip__ = __webpack_require__(100);
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
+__webpack_require__(40);
+
+window.Vue = __webpack_require__(97);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+/* Plugins*/
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_v_tooltip__["a" /* default */]);
+
+/* Components */
+Vue.component('version', __webpack_require__(101));
+Vue.component('chatbox', __webpack_require__(104));
+Vue.component('bookmark', __webpack_require__(124));
+
+var app = new Vue({
+  el: '#app'
+});
+
+/***/ }),
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
-window._ = __webpack_require__(40);
+window._ = __webpack_require__(41);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -17291,7 +17350,7 @@ try {
   // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
   window.$ = window.jQuery = __webpack_require__(6);
 
-  __webpack_require__(41);
+  __webpack_require__(42);
 } catch (e) {}
 
 $.ajaxSetup({
@@ -17306,7 +17365,7 @@ $.ajaxSetup({
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(42);
+window.axios = __webpack_require__(43);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -17334,7 +17393,7 @@ if (token) {
 
 
 
-window.io = __webpack_require__(62);
+window.io = __webpack_require__(63);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'socket.io',
@@ -17344,32 +17403,32 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 /**
  * UNIT3D
  */
-__webpack_require__(85);
 __webpack_require__(86);
+__webpack_require__(87);
 
 /*
  * jQuery Extensions
  *
  * Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
  */
-__webpack_require__(88);
 __webpack_require__(89);
+__webpack_require__(90);
 
 // countUp JS from npm
-window.CountUp = __webpack_require__(90);
+window.CountUp = __webpack_require__(91);
 
 // wysibb editor
-__webpack_require__(91);
+__webpack_require__(92);
 
 // emojis
-window.emoji = __webpack_require__(92);
+window.emoji = __webpack_require__(93);
 
-window.Raphael = __webpack_require__(93);
+window.Raphael = __webpack_require__(94);
 window.swal = __webpack_require__(18);
-window.toastr = __webpack_require__(94);
+window.toastr = __webpack_require__(95);
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -34474,7 +34533,7 @@ window.toastr = __webpack_require__(94);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(19)(module)))
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 /*!
@@ -36857,13 +36916,13 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36871,7 +36930,7 @@ module.exports = __webpack_require__(43);
 
 var utils = __webpack_require__(1);
 var bind = __webpack_require__(20);
-var Axios = __webpack_require__(45);
+var Axios = __webpack_require__(46);
 var defaults = __webpack_require__(13);
 
 /**
@@ -36906,14 +36965,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(24);
-axios.CancelToken = __webpack_require__(59);
+axios.CancelToken = __webpack_require__(60);
 axios.isCancel = __webpack_require__(23);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(60);
+axios.spread = __webpack_require__(61);
 
 module.exports = axios;
 
@@ -36922,7 +36981,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 /*!
@@ -36949,7 +37008,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36957,8 +37016,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(13);
 var utils = __webpack_require__(1);
-var InterceptorManager = __webpack_require__(54);
-var dispatchRequest = __webpack_require__(55);
+var InterceptorManager = __webpack_require__(55);
+var dispatchRequest = __webpack_require__(56);
 
 /**
  * Create a new instance of Axios
@@ -37035,7 +37094,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37054,7 +37113,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37087,7 +37146,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37115,7 +37174,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37188,7 +37247,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37248,7 +37307,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37323,7 +37382,7 @@ module.exports = (
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37366,7 +37425,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37426,7 +37485,7 @@ module.exports = (
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37485,18 +37544,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(1);
-var transformData = __webpack_require__(56);
+var transformData = __webpack_require__(57);
 var isCancel = __webpack_require__(23);
 var defaults = __webpack_require__(13);
-var isAbsoluteURL = __webpack_require__(57);
-var combineURLs = __webpack_require__(58);
+var isAbsoluteURL = __webpack_require__(58);
+var combineURLs = __webpack_require__(59);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -37578,7 +37637,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37605,7 +37664,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37626,7 +37685,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37647,7 +37706,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37711,7 +37770,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37745,7 +37804,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 var asyncGenerator = function () {
@@ -38543,7 +38602,7 @@ var Echo = function () {
 module.exports = Echo;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -38551,7 +38610,7 @@ module.exports = Echo;
  * Module dependencies.
  */
 
-var url = __webpack_require__(63);
+var url = __webpack_require__(64);
 var parser = __webpack_require__(15);
 var Manager = __webpack_require__(28);
 var debug = __webpack_require__(7)('socket.io-client');
@@ -38643,7 +38702,7 @@ exports.Socket = __webpack_require__(34);
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -38725,7 +38784,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -38956,7 +39015,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -38965,7 +39024,7 @@ function coerce(val) {
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(66);
+exports = module.exports = __webpack_require__(67);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -39158,7 +39217,7 @@ function localstorage() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -39389,7 +39448,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -39537,11 +39596,11 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(69);
+module.exports = __webpack_require__(70);
 
 /**
  * Exports parser
@@ -39553,7 +39612,7 @@ module.exports.parser = __webpack_require__(3);
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -40303,7 +40362,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 
@@ -40326,7 +40385,7 @@ try {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -40745,7 +40804,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
 
@@ -40770,7 +40829,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -40781,7 +40840,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 /**
@@ -40816,7 +40875,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -40850,7 +40909,7 @@ function noop() {}
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -41111,7 +41170,7 @@ function noop() {}
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(19)(module), __webpack_require__(0)))
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports) {
 
 /*
@@ -41184,7 +41243,7 @@ function noop() {}
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -41287,7 +41346,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -41518,7 +41577,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -41756,7 +41815,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -41773,7 +41832,7 @@ var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(82);
+    NodeWebSocket = __webpack_require__(83);
   } catch (e) { }
 }
 
@@ -42049,13 +42108,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -42074,7 +42133,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports) {
 
 
@@ -42165,7 +42224,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var require;var require;/*!
@@ -48021,7 +48080,7 @@ S2.define('jquery.select2',[
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -48032,10 +48091,10 @@ S2.define('jquery.select2',[
  * Copyright (C) 2017 Hakim El Hattab, http://hakim.se
  */
 
-!function(t,e){"use strict"; true?module.exports=e(__webpack_require__(87)):"function"==typeof define&&define.amd?define(["spin"],e):t.Ladda=e(t.Spinner)}(this,function(t){"use strict";var e=[];function a(a){if(void 0!==a){if(/ladda-button/i.test(a.className)||(a.className+=" ladda-button"),a.hasAttribute("data-style")||a.setAttribute("data-style","expand-right"),!a.querySelector(".ladda-label")){var u=document.createElement("span");u.className="ladda-label",n=a,i=u,(r=document.createRange()).selectNodeContents(n),r.surroundContents(i),n.appendChild(i)}var n,i,r,d,o,s=a.querySelector(".ladda-spinner");s||((s=document.createElement("span")).className="ladda-spinner"),a.appendChild(s);var F={start:function(){return d||(d=function(e){var a,u,n=e.offsetHeight;0===n&&(n=parseFloat(window.getComputedStyle(e).height));n>32&&(n*=.8);e.hasAttribute("data-spinner-size")&&(n=parseInt(e.getAttribute("data-spinner-size"),10));e.hasAttribute("data-spinner-color")&&(a=e.getAttribute("data-spinner-color"));e.hasAttribute("data-spinner-lines")&&(u=parseInt(e.getAttribute("data-spinner-lines"),10));var i=.2*n;return new t({color:a||"#fff",lines:u||12,radius:i,length:.6*i,width:i<7?2:3,zIndex:"auto",top:"auto",left:"auto",className:""})}(a)),a.disabled=!0,a.setAttribute("data-loading",""),clearTimeout(o),d.spin(s),this.setProgress(0),this},startAfter:function(t){return clearTimeout(o),o=setTimeout(function(){F.start()},t),this},stop:function(){return F.isLoading()&&(a.disabled=!1,a.removeAttribute("data-loading")),clearTimeout(o),d&&(o=setTimeout(function(){d.stop()},1e3)),this},toggle:function(){return this.isLoading()?this.stop():this.start()},setProgress:function(t){t=Math.max(Math.min(t,1),0);var e=a.querySelector(".ladda-progress");0===t&&e&&e.parentNode?e.parentNode.removeChild(e):(e||((e=document.createElement("div")).className="ladda-progress",a.appendChild(e)),e.style.width=(t||0)*a.offsetWidth+"px")},enable:function(){return this.stop()},disable:function(){return this.stop(),a.disabled=!0,this},isLoading:function(){return a.hasAttribute("data-loading")},remove:function(){clearTimeout(o),a.disabled=!1,a.removeAttribute("data-loading"),d&&(d.stop(),d=null),e.splice(e.indexOf(F),1)}};return e.push(F),F}console.warn("Ladda button target must be defined.")}function u(t,e){if("function"==typeof t.addEventListener){var u=a(t),n=-1;t.addEventListener("click",function(){var a,i,r=!0,d=function(t,e){for(;t.parentNode&&t.tagName!==e;)t=t.parentNode;return e===t.tagName?t:void 0}(t,"FORM");if(void 0!==d&&!d.hasAttribute("novalidate"))if("function"==typeof d.checkValidity)r=d.checkValidity();else for(var o=(a=d,i=[],["input","textarea","select"].forEach(function(t){for(var e=a.getElementsByTagName(t),u=0;u<e.length;u++)e[u].hasAttribute("required")&&i.push(e[u])}),i),s=0;s<o.length;s++){var F=o[s],l=F.getAttribute("type");if(""===F.value.replace(/^\s+|\s+$/g,"")&&(r=!1),"checkbox"!==l&&"radio"!==l||F.checked||(r=!1),"email"===l&&(r=/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test(F.value)),"url"===l&&(r=/^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(F.value)),!r)break}r&&(u.startAfter(1),"number"==typeof e.timeout&&(clearTimeout(n),n=setTimeout(u.stop,e.timeout)),"function"==typeof e.callback&&e.callback.apply(null,[u]))},!1)}}return{bind:function(t,e){var a;if("string"==typeof t)a=document.querySelectorAll(t);else{if("object"!=typeof t)throw new Error("target must be string or object");a=[t]}e=e||{};for(var n=0;n<a.length;n++)u(a[n],e)},create:a,stopAll:function(){for(var t=0,a=e.length;t<a;t++)e[t].stop()}}});
+!function(t,e){"use strict"; true?module.exports=e(__webpack_require__(88)):"function"==typeof define&&define.amd?define(["spin"],e):t.Ladda=e(t.Spinner)}(this,function(t){"use strict";var e=[];function a(a){if(void 0!==a){if(/ladda-button/i.test(a.className)||(a.className+=" ladda-button"),a.hasAttribute("data-style")||a.setAttribute("data-style","expand-right"),!a.querySelector(".ladda-label")){var u=document.createElement("span");u.className="ladda-label",n=a,i=u,(r=document.createRange()).selectNodeContents(n),r.surroundContents(i),n.appendChild(i)}var n,i,r,d,o,s=a.querySelector(".ladda-spinner");s||((s=document.createElement("span")).className="ladda-spinner"),a.appendChild(s);var F={start:function(){return d||(d=function(e){var a,u,n=e.offsetHeight;0===n&&(n=parseFloat(window.getComputedStyle(e).height));n>32&&(n*=.8);e.hasAttribute("data-spinner-size")&&(n=parseInt(e.getAttribute("data-spinner-size"),10));e.hasAttribute("data-spinner-color")&&(a=e.getAttribute("data-spinner-color"));e.hasAttribute("data-spinner-lines")&&(u=parseInt(e.getAttribute("data-spinner-lines"),10));var i=.2*n;return new t({color:a||"#fff",lines:u||12,radius:i,length:.6*i,width:i<7?2:3,zIndex:"auto",top:"auto",left:"auto",className:""})}(a)),a.disabled=!0,a.setAttribute("data-loading",""),clearTimeout(o),d.spin(s),this.setProgress(0),this},startAfter:function(t){return clearTimeout(o),o=setTimeout(function(){F.start()},t),this},stop:function(){return F.isLoading()&&(a.disabled=!1,a.removeAttribute("data-loading")),clearTimeout(o),d&&(o=setTimeout(function(){d.stop()},1e3)),this},toggle:function(){return this.isLoading()?this.stop():this.start()},setProgress:function(t){t=Math.max(Math.min(t,1),0);var e=a.querySelector(".ladda-progress");0===t&&e&&e.parentNode?e.parentNode.removeChild(e):(e||((e=document.createElement("div")).className="ladda-progress",a.appendChild(e)),e.style.width=(t||0)*a.offsetWidth+"px")},enable:function(){return this.stop()},disable:function(){return this.stop(),a.disabled=!0,this},isLoading:function(){return a.hasAttribute("data-loading")},remove:function(){clearTimeout(o),a.disabled=!1,a.removeAttribute("data-loading"),d&&(d.stop(),d=null),e.splice(e.indexOf(F),1)}};return e.push(F),F}console.warn("Ladda button target must be defined.")}function u(t,e){if("function"==typeof t.addEventListener){var u=a(t),n=-1;t.addEventListener("click",function(){var a,i,r=!0,d=function(t,e){for(;t.parentNode&&t.tagName!==e;)t=t.parentNode;return e===t.tagName?t:void 0}(t,"FORM");if(void 0!==d&&!d.hasAttribute("novalidate"))if("function"==typeof d.checkValidity)r=d.checkValidity();else for(var o=(a=d,i=[],["input","textarea","select"].forEach(function(t){for(var e=a.getElementsByTagName(t),u=0;u<e.length;u++)e[u].hasAttribute("required")&&i.push(e[u])}),i),s=0;s<o.length;s++){var F=o[s],l=F.getAttribute("type");if(""===F.value.replace(/^\s+|\s+$/g,"")&&(r=!1),"checkbox"!==l&&"radio"!==l||F.checked||(r=!1),"email"===l&&(r=/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i.test(F.value)),"url"===l&&(r=/^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(F.value)),!r)break}r&&(u.startAfter(1),"number"==typeof e.timeout&&(clearTimeout(n),n=setTimeout(u.stop,e.timeout)),"function"==typeof e.callback&&e.callback.apply(null,[u]))},!1)}}return{bind:function(t,e){var a;if("string"==typeof t)a=document.querySelectorAll(t);else{if("object"!=typeof t)throw new Error("target must be string or object");a=[t]}e=e||{};for(var n=0;n<a.length;n++)u(a[n],e)},create:a,stopAll:function(){for(var t=0,a=e.length;t<a;t++)e[t].stop()}}});
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -48422,7 +48481,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (factory) {
@@ -49928,7 +49987,7 @@ return jQuery;
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports) {
 
 /* Javascript plotting library for jQuery, version 0.8.3.
@@ -53102,7 +53161,7 @@ Licensed under the MIT license.
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(a,n){ true?!(__WEBPACK_AMD_DEFINE_FACTORY__ = (n),
@@ -53112,7 +53171,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(a,n)
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"object"==typeof exports?module.exports=n(require,exports,module):a.CountUp=n()}(this,function(a,n,t){var e=function(a,n,t,e,i,r){function o(a){var n,t,e,i,r,o,s=a<0;if(a=Math.abs(a).toFixed(l.decimals),a+="",n=a.split("."),t=n[0],e=n.length>1?l.options.decimal+n[1]:"",l.options.useGrouping){for(i="",r=0,o=t.length;r<o;++r)0!==r&&r%3===0&&(i=l.options.separator+i),i=t[o-r-1]+i;t=i}return l.options.numerals.length&&(t=t.replace(/[0-9]/g,function(a){return l.options.numerals[+a]}),e=e.replace(/[0-9]/g,function(a){return l.options.numerals[+a]})),(s?"-":"")+l.options.prefix+t+e+l.options.suffix}function s(a,n,t,e){return t*(-Math.pow(2,-10*a/e)+1)*1024/1023+n}function u(a){return"number"==typeof a&&!isNaN(a)}var l=this;if(l.version=function(){return"1.9.3"},l.options={useEasing:!0,useGrouping:!0,separator:",",decimal:".",easingFn:s,formattingFn:o,prefix:"",suffix:"",numerals:[]},r&&"object"==typeof r)for(var m in l.options)r.hasOwnProperty(m)&&null!==r[m]&&(l.options[m]=r[m]);""===l.options.separator?l.options.useGrouping=!1:l.options.separator=""+l.options.separator;for(var d=0,c=["webkit","moz","ms","o"],f=0;f<c.length&&!window.requestAnimationFrame;++f)window.requestAnimationFrame=window[c[f]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[c[f]+"CancelAnimationFrame"]||window[c[f]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(a,n){var t=(new Date).getTime(),e=Math.max(0,16-(t-d)),i=window.setTimeout(function(){a(t+e)},e);return d=t+e,i}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(a){clearTimeout(a)}),l.initialize=function(){return!!l.initialized||(l.error="",l.d="string"==typeof a?document.getElementById(a):a,l.d?(l.startVal=Number(n),l.endVal=Number(t),u(l.startVal)&&u(l.endVal)?(l.decimals=Math.max(0,e||0),l.dec=Math.pow(10,l.decimals),l.duration=1e3*Number(i)||2e3,l.countDown=l.startVal>l.endVal,l.frameVal=l.startVal,l.initialized=!0,!0):(l.error="[CountUp] startVal ("+n+") or endVal ("+t+") is not a number",!1)):(l.error="[CountUp] target is null or undefined",!1))},l.printValue=function(a){var n=l.options.formattingFn(a);"INPUT"===l.d.tagName?this.d.value=n:"text"===l.d.tagName||"tspan"===l.d.tagName?this.d.textContent=n:this.d.innerHTML=n},l.count=function(a){l.startTime||(l.startTime=a),l.timestamp=a;var n=a-l.startTime;l.remaining=l.duration-n,l.options.useEasing?l.countDown?l.frameVal=l.startVal-l.options.easingFn(n,0,l.startVal-l.endVal,l.duration):l.frameVal=l.options.easingFn(n,l.startVal,l.endVal-l.startVal,l.duration):l.countDown?l.frameVal=l.startVal-(l.startVal-l.endVal)*(n/l.duration):l.frameVal=l.startVal+(l.endVal-l.startVal)*(n/l.duration),l.countDown?l.frameVal=l.frameVal<l.endVal?l.endVal:l.frameVal:l.frameVal=l.frameVal>l.endVal?l.endVal:l.frameVal,l.frameVal=Math.round(l.frameVal*l.dec)/l.dec,l.printValue(l.frameVal),n<l.duration?l.rAF=requestAnimationFrame(l.count):l.callback&&l.callback()},l.start=function(a){l.initialize()&&(l.callback=a,l.rAF=requestAnimationFrame(l.count))},l.pauseResume=function(){l.paused?(l.paused=!1,delete l.startTime,l.duration=l.remaining,l.startVal=l.frameVal,requestAnimationFrame(l.count)):(l.paused=!0,cancelAnimationFrame(l.rAF))},l.reset=function(){l.paused=!1,delete l.startTime,l.initialized=!1,l.initialize()&&(cancelAnimationFrame(l.rAF),l.printValue(l.startVal))},l.update=function(a){if(l.initialize()){if(a=Number(a),!u(a))return void(l.error="[CountUp] update() - new endVal is not a number: "+a);l.error="",a!==l.frameVal&&(cancelAnimationFrame(l.rAF),l.paused=!1,delete l.startTime,l.startVal=l.frameVal,l.endVal=a,l.countDown=l.startVal>l.endVal,l.rAF=requestAnimationFrame(l.count))}},l.initialize()&&l.printValue(l.startVal)};return e});
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -56301,7 +56360,7 @@ wbbdebug = true;
 })(jQuery);
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56312,7 +56371,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var emojiStrategy={"1f600":{"name":"grinning face","shortname":":grinning:","shortname_alternates":[],"keywords":["face","grin"],"unicode_output":"1f600"},"1f603":{"name":"smiling face with open mouth","shortname":":smiley:","shortname_alternates":[],"keywords":["face","mouth","open","smile"],"unicode_output":"1f603"},"1f604":{"name":"smiling face with open mouth & smiling eyes","shortname":":smile:","shortname_alternates":[],"keywords":["eye","face","mouth","open","smile"],"unicode_output":"1f604"},"1f601":{"name":"grinning face with smiling eyes","shortname":":grin:","shortname_alternates":[],"keywords":["eye","face","grin","smile"],"unicode_output":"1f601"},"1f606":{"name":"smiling face with open mouth & closed eyes","shortname":":laughing:","shortname_alternates":[":satisfied:"],"keywords":["face","laugh","mouth","open","satisfied","smile"],"unicode_output":"1f606"},"1f605":{"name":"smiling face with open mouth & cold sweat","shortname":":sweat_smile:","shortname_alternates":[],"keywords":["cold","face","open","smile","sweat"],"unicode_output":"1f605"},"1f602":{"name":"face with tears of joy","shortname":":joy:","shortname_alternates":[],"keywords":["face","joy","laugh","tear"],"unicode_output":"1f602"},"1f923":{"name":"rolling on the floor laughing","shortname":":rofl:","shortname_alternates":[":rolling_on_the_floor_laughing:"],"keywords":["face","floor","laugh","rolling"],"unicode_output":"1f923"},"263a":{"name":"smiling face","shortname":":relaxed:","shortname_alternates":[],"keywords":["face","outlined","relaxed","smile"],"unicode_output":"263a"},"1f60a":{"name":"smiling face with smiling eyes","shortname":":blush:","shortname_alternates":[],"keywords":["blush","eye","face","smile"],"unicode_output":"1f60a"},"1f607":{"name":"smiling face with halo","shortname":":innocent:","shortname_alternates":[],"keywords":["angel","face","fairy tale","fantasy","halo","innocent","smile"],"unicode_output":"1f607"},"1f642":{"name":"slightly smiling face","shortname":":slight_smile:","shortname_alternates":[":slightly_smiling_face:"],"keywords":["face","smile"],"unicode_output":"1f642"},"1f643":{"name":"upside-down face","shortname":":upside_down:","shortname_alternates":[":upside_down_face:"],"keywords":["face","upside-down"],"unicode_output":"1f643"},"1f609":{"name":"winking face","shortname":":wink:","shortname_alternates":[],"keywords":["face","wink"],"unicode_output":"1f609"},"1f60c":{"name":"relieved face","shortname":":relieved:","shortname_alternates":[],"keywords":["face","relieved"],"unicode_output":"1f60c"},"1f60d":{"name":"smiling face with heart-eyes","shortname":":heart_eyes:","shortname_alternates":[],"keywords":["eye","face","love","smile"],"unicode_output":"1f60d"},"1f618":{"name":"face blowing a kiss","shortname":":kissing_heart:","shortname_alternates":[],"keywords":["face","kiss"],"unicode_output":"1f618"},"1f617":{"name":"kissing face","shortname":":kissing:","shortname_alternates":[],"keywords":["face","kiss"],"unicode_output":"1f617"},"1f619":{"name":"kissing face with smiling eyes","shortname":":kissing_smiling_eyes:","shortname_alternates":[],"keywords":["eye","face","kiss","smile"],"unicode_output":"1f619"},"1f61a":{"name":"kissing face with closed eyes","shortname":":kissing_closed_eyes:","shortname_alternates":[],"keywords":["closed","eye","face","kiss"],"unicode_output":"1f61a"},"1f60b":{"name":"face savouring delicious food","shortname":":yum:","shortname_alternates":[],"keywords":["delicious","face","savouring","smile","um","yum"],"unicode_output":"1f60b"},"1f61c":{"name":"face with stuck-out tongue & winking eye","shortname":":stuck_out_tongue_winking_eye:","shortname_alternates":[],"keywords":["eye","face","joke","tongue","wink"],"unicode_output":"1f61c"},"1f61d":{"name":"face with stuck-out tongue & closed eyes","shortname":":stuck_out_tongue_closed_eyes:","shortname_alternates":[],"keywords":["eye","face","horrible","taste","tongue"],"unicode_output":"1f61d"},"1f61b":{"name":"face with stuck-out tongue","shortname":":stuck_out_tongue:","shortname_alternates":[],"keywords":["face","tongue"],"unicode_output":"1f61b"},"1f911":{"name":"money-mouth face","shortname":":money_mouth:","shortname_alternates":[":money_mouth_face:"],"keywords":["face","money","mouth"],"unicode_output":"1f911"},"1f917":{"name":"hugging face","shortname":":hugging:","shortname_alternates":[":hugging_face:"],"keywords":["face","hug","hugging"],"unicode_output":"1f917"},"1f913":{"name":"nerd face","shortname":":nerd:","shortname_alternates":[":nerd_face:"],"keywords":["face","geek","nerd"],"unicode_output":"1f913"},"1f60e":{"name":"smiling face with sunglasses","shortname":":sunglasses:","shortname_alternates":[],"keywords":["bright","cool","eye","eyewear","face","glasses","smile","sun","sunglasses"],"unicode_output":"1f60e"},"1f921":{"name":"clown face","shortname":":clown:","shortname_alternates":[":clown_face:"],"keywords":["clown","face"],"unicode_output":"1f921"},"1f920":{"name":"cowboy hat face","shortname":":cowboy:","shortname_alternates":[":face_with_cowboy_hat:"],"keywords":["cowboy","cowgirl","face","hat"],"unicode_output":"1f920"},"1f60f":{"name":"smirking face","shortname":":smirk:","shortname_alternates":[],"keywords":["face","smirk"],"unicode_output":"1f60f"},"1f612":{"name":"unamused face","shortname":":unamused:","shortname_alternates":[],"keywords":["face","unamused","unhappy"],"unicode_output":"1f612"},"1f61e":{"name":"disappointed face","shortname":":disappointed:","shortname_alternates":[],"keywords":["disappointed","face"],"unicode_output":"1f61e"},"1f614":{"name":"pensive face","shortname":":pensive:","shortname_alternates":[],"keywords":["dejected","face","pensive"],"unicode_output":"1f614"},"1f61f":{"name":"worried face","shortname":":worried:","shortname_alternates":[],"keywords":["face","worried"],"unicode_output":"1f61f"},"1f615":{"name":"confused face","shortname":":confused:","shortname_alternates":[],"keywords":["confused","face"],"unicode_output":"1f615"},"1f641":{"name":"slightly frowning face","shortname":":slight_frown:","shortname_alternates":[":slightly_frowning_face:"],"keywords":["face","frown"],"unicode_output":"1f641"},"2639":{"name":"frowning face","shortname":":frowning2:","shortname_alternates":[":white_frowning_face:"],"keywords":["face","frown"],"unicode_output":"2639"},"1f623":{"name":"persevering face","shortname":":persevere:","shortname_alternates":[],"keywords":["face","persevere"],"unicode_output":"1f623"},"1f616":{"name":"confounded face","shortname":":confounded:","shortname_alternates":[],"keywords":["confounded","face"],"unicode_output":"1f616"},"1f62b":{"name":"tired face","shortname":":tired_face:","shortname_alternates":[],"keywords":["face","tired"],"unicode_output":"1f62b"},"1f629":{"name":"weary face","shortname":":weary:","shortname_alternates":[],"keywords":["face","tired","weary"],"unicode_output":"1f629"},"1f624":{"name":"face with steam from nose","shortname":":triumph:","shortname_alternates":[],"keywords":["face","triumph","won"],"unicode_output":"1f624"},"1f620":{"name":"angry face","shortname":":angry:","shortname_alternates":[],"keywords":["angry","face","mad"],"unicode_output":"1f620"},"1f621":{"name":"pouting face","shortname":":rage:","shortname_alternates":[],"keywords":["angry","face","mad","pouting","rage","red"],"unicode_output":"1f621"},"1f636":{"name":"face without mouth","shortname":":no_mouth:","shortname_alternates":[],"keywords":["face","mouth","quiet","silent"],"unicode_output":"1f636"},"1f610":{"name":"neutral face","shortname":":neutral_face:","shortname_alternates":[],"keywords":["deadpan","face","neutral"],"unicode_output":"1f610"},"1f611":{"name":"expressionless face","shortname":":expressionless:","shortname_alternates":[],"keywords":["expressionless","face","inexpressive","unexpressive"],"unicode_output":"1f611"},"1f62f":{"name":"hushed face","shortname":":hushed:","shortname_alternates":[],"keywords":["face","hushed","stunned","surprised"],"unicode_output":"1f62f"},"1f626":{"name":"frowning face with open mouth","shortname":":frowning:","shortname_alternates":[],"keywords":["face","frown","mouth","open"],"unicode_output":"1f626"},"1f627":{"name":"anguished face","shortname":":anguished:","shortname_alternates":[],"keywords":["anguished","face"],"unicode_output":"1f627"},"1f62e":{"name":"face with open mouth","shortname":":open_mouth:","shortname_alternates":[],"keywords":["face","mouth","open","sympathy"],"unicode_output":"1f62e"},"1f632":{"name":"astonished face","shortname":":astonished:","shortname_alternates":[],"keywords":["astonished","face","shocked","totally"],"unicode_output":"1f632"},"1f635":{"name":"dizzy face","shortname":":dizzy_face:","shortname_alternates":[],"keywords":["dizzy","face"],"unicode_output":"1f635"},"1f633":{"name":"flushed face","shortname":":flushed:","shortname_alternates":[],"keywords":["dazed","face","flushed"],"unicode_output":"1f633"},"1f631":{"name":"face screaming in fear","shortname":":scream:","shortname_alternates":[],"keywords":["face","fear","fearful","munch","scared","scream"],"unicode_output":"1f631"},"1f628":{"name":"fearful face","shortname":":fearful:","shortname_alternates":[],"keywords":["face","fear","fearful","scared"],"unicode_output":"1f628"},"1f630":{"name":"face with open mouth & cold sweat","shortname":":cold_sweat:","shortname_alternates":[],"keywords":["blue","cold","face","mouth","open","rushed","sweat"],"unicode_output":"1f630"},"1f622":{"name":"crying face","shortname":":cry:","shortname_alternates":[],"keywords":["cry","face","sad","tear"],"unicode_output":"1f622"},"1f625":{"name":"disappointed but relieved face","shortname":":disappointed_relieved:","shortname_alternates":[],"keywords":["disappointed","face","relieved","whew"],"unicode_output":"1f625"},"1f924":{"name":"drooling face","shortname":":drooling_face:","shortname_alternates":[":drool:"],"keywords":["drooling","face"],"unicode_output":"1f924"},"1f62d":{"name":"loudly crying face","shortname":":sob:","shortname_alternates":[],"keywords":["cry","face","sad","sob","tear"],"unicode_output":"1f62d"},"1f613":{"name":"face with cold sweat","shortname":":sweat:","shortname_alternates":[],"keywords":["cold","face","sweat"],"unicode_output":"1f613"},"1f62a":{"name":"sleepy face","shortname":":sleepy:","shortname_alternates":[],"keywords":["face","sleep"],"unicode_output":"1f62a"},"1f634":{"name":"sleeping face","shortname":":sleeping:","shortname_alternates":[],"keywords":["face","sleep","zzz"],"unicode_output":"1f634"},"1f644":{"name":"face with rolling eyes","shortname":":rolling_eyes:","shortname_alternates":[":face_with_rolling_eyes:"],"keywords":["eyes","face","rolling"],"unicode_output":"1f644"},"1f914":{"name":"thinking face","shortname":":thinking:","shortname_alternates":[":thinking_face:"],"keywords":["face","thinking"],"unicode_output":"1f914"},"1f925":{"name":"lying face","shortname":":lying_face:","shortname_alternates":[":liar:"],"keywords":["face","lie","pinocchio"],"unicode_output":"1f925"},"1f62c":{"name":"grimacing face","shortname":":grimacing:","shortname_alternates":[],"keywords":["face","grimace"],"unicode_output":"1f62c"},"1f910":{"name":"zipper-mouth face","shortname":":zipper_mouth:","shortname_alternates":[":zipper_mouth_face:"],"keywords":["face","mouth","zipper"],"unicode_output":"1f910"},"1f922":{"name":"nauseated face","shortname":":nauseated_face:","shortname_alternates":[":sick:"],"keywords":["face","nauseated","vomit"],"unicode_output":"1f922"},"1f927":{"name":"sneezing face","shortname":":sneezing_face:","shortname_alternates":[":sneeze:"],"keywords":["face","gesundheit","sneeze"],"unicode_output":"1f927"},"1f637":{"name":"face with medical mask","shortname":":mask:","shortname_alternates":[],"keywords":["cold","doctor","face","mask","medicine","sick"],"unicode_output":"1f637"},"1f912":{"name":"face with thermometer","shortname":":thermometer_face:","shortname_alternates":[":face_with_thermometer:"],"keywords":["face","ill","sick","thermometer"],"unicode_output":"1f912"},"1f915":{"name":"face with head-bandage","shortname":":head_bandage:","shortname_alternates":[":face_with_head_bandage:"],"keywords":["bandage","face","hurt","injury"],"unicode_output":"1f915"},"1f608":{"name":"smiling face with horns","shortname":":smiling_imp:","shortname_alternates":[],"keywords":["face","fairy tale","fantasy","horns","smile"],"unicode_output":"1f608"},"1f47f":{"name":"angry face with horns","shortname":":imp:","shortname_alternates":[],"keywords":["demon","devil","face","fairy tale","fantasy","imp"],"unicode_output":"1f47f"},"1f479":{"name":"ogre","shortname":":japanese_ogre:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f479"},"1f47a":{"name":"goblin","shortname":":japanese_goblin:","shortname_alternates":[],"keywords":["creature","face","fairy tale","fantasy","monster"],"unicode_output":"1f47a"},"1f4a9":{"name":"pile of poo","shortname":":poop:","shortname_alternates":[":shit:",":hankey:",":poo:"],"keywords":["comic","dung","face","monster","poo","poop"],"unicode_output":"1f4a9"},"1f47b":{"name":"ghost","shortname":":ghost:","shortname_alternates":[],"keywords":["creature","face","fairy tale","fantasy","monster"],"unicode_output":"1f47b"},"1f480":{"name":"skull","shortname":":skull:","shortname_alternates":[":skeleton:"],"keywords":["death","face","fairy tale","monster"],"unicode_output":"1f480"},"2620":{"name":"skull and crossbones","shortname":":skull_crossbones:","shortname_alternates":[":skull_and_crossbones:"],"keywords":["crossbones","death","face","monster","skull"],"unicode_output":"2620"},"1f47d":{"name":"alien","shortname":":alien:","shortname_alternates":[],"keywords":["creature","extraterrestrial","face","fairy tale","fantasy","monster","ufo"],"unicode_output":"1f47d"},"1f47e":{"name":"alien monster","shortname":":space_invader:","shortname_alternates":[],"keywords":["alien","creature","extraterrestrial","face","fairy tale","fantasy","monster","ufo"],"unicode_output":"1f47e"},"1f916":{"name":"robot face","shortname":":robot:","shortname_alternates":[":robot_face:"],"keywords":["face","monster","robot"],"unicode_output":"1f916"},"1f383":{"name":"jack-o-lantern","shortname":":jack_o_lantern:","shortname_alternates":[],"keywords":["celebration","halloween","jack","lantern"],"unicode_output":"1f383"},"1f63a":{"name":"smiling cat face with open mouth","shortname":":smiley_cat:","shortname_alternates":[],"keywords":["cat","face","mouth","open","smile"],"unicode_output":"1f63a"},"1f638":{"name":"grinning cat face with smiling eyes","shortname":":smile_cat:","shortname_alternates":[],"keywords":["cat","eye","face","grin","smile"],"unicode_output":"1f638"},"1f639":{"name":"cat face with tears of joy","shortname":":joy_cat:","shortname_alternates":[],"keywords":["cat","face","joy","tear"],"unicode_output":"1f639"},"1f63b":{"name":"smiling cat face with heart-eyes","shortname":":heart_eyes_cat:","shortname_alternates":[],"keywords":["cat","eye","face","love","smile"],"unicode_output":"1f63b"},"1f63c":{"name":"cat face with wry smile","shortname":":smirk_cat:","shortname_alternates":[],"keywords":["cat","face","ironic","smile","wry"],"unicode_output":"1f63c"},"1f63d":{"name":"kissing cat face with closed eyes","shortname":":kissing_cat:","shortname_alternates":[],"keywords":["cat","eye","face","kiss"],"unicode_output":"1f63d"},"1f640":{"name":"weary cat face","shortname":":scream_cat:","shortname_alternates":[],"keywords":["cat","face","oh","surprised","weary"],"unicode_output":"1f640"},"1f63f":{"name":"crying cat face","shortname":":crying_cat_face:","shortname_alternates":[],"keywords":["cat","cry","face","sad","tear"],"unicode_output":"1f63f"},"1f63e":{"name":"pouting cat face","shortname":":pouting_cat:","shortname_alternates":[],"keywords":["cat","face","pouting"],"unicode_output":"1f63e"},"1f450":{"name":"open hands","shortname":":open_hands:","shortname_alternates":[],"keywords":["hand","open"],"unicode_output":"1f450"},"1f450-1f3fb":{"name":"open hands: light skin tone","shortname":":open_hands_tone1:","shortname_alternates":[],"keywords":["hand","light skin tone","open"],"unicode_output":"1f450-1f3fb"},"1f450-1f3fc":{"name":"open hands: medium-light skin tone","shortname":":open_hands_tone2:","shortname_alternates":[],"keywords":["hand","medium-light skin tone","open"],"unicode_output":"1f450-1f3fc"},"1f450-1f3fd":{"name":"open hands: medium skin tone","shortname":":open_hands_tone3:","shortname_alternates":[],"keywords":["hand","medium skin tone","open"],"unicode_output":"1f450-1f3fd"},"1f450-1f3fe":{"name":"open hands: medium-dark skin tone","shortname":":open_hands_tone4:","shortname_alternates":[],"keywords":["hand","medium-dark skin tone","open"],"unicode_output":"1f450-1f3fe"},"1f450-1f3ff":{"name":"open hands: dark skin tone","shortname":":open_hands_tone5:","shortname_alternates":[],"keywords":["dark skin tone","hand","open"],"unicode_output":"1f450-1f3ff"},"1f64c":{"name":"raising hands","shortname":":raised_hands:","shortname_alternates":[],"keywords":["celebration","gesture","hand","hooray","raised"],"unicode_output":"1f64c"},"1f64c-1f3fb":{"name":"raising hands: light skin tone","shortname":":raised_hands_tone1:","shortname_alternates":[],"keywords":["celebration","gesture","hand","hooray","light skin tone","raised"],"unicode_output":"1f64c-1f3fb"},"1f64c-1f3fc":{"name":"raising hands: medium-light skin tone","shortname":":raised_hands_tone2:","shortname_alternates":[],"keywords":["celebration","gesture","hand","hooray","medium-light skin tone","raised"],"unicode_output":"1f64c-1f3fc"},"1f64c-1f3fd":{"name":"raising hands: medium skin tone","shortname":":raised_hands_tone3:","shortname_alternates":[],"keywords":["celebration","gesture","hand","hooray","medium skin tone","raised"],"unicode_output":"1f64c-1f3fd"},"1f64c-1f3fe":{"name":"raising hands: medium-dark skin tone","shortname":":raised_hands_tone4:","shortname_alternates":[],"keywords":["celebration","gesture","hand","hooray","medium-dark skin tone","raised"],"unicode_output":"1f64c-1f3fe"},"1f64c-1f3ff":{"name":"raising hands: dark skin tone","shortname":":raised_hands_tone5:","shortname_alternates":[],"keywords":["celebration","dark skin tone","gesture","hand","hooray","raised"],"unicode_output":"1f64c-1f3ff"},"1f44f":{"name":"clapping hands","shortname":":clap:","shortname_alternates":[],"keywords":["clap","hand"],"unicode_output":"1f44f"},"1f44f-1f3fb":{"name":"clapping hands: light skin tone","shortname":":clap_tone1:","shortname_alternates":[],"keywords":["clap","hand","light skin tone"],"unicode_output":"1f44f-1f3fb"},"1f44f-1f3fc":{"name":"clapping hands: medium-light skin tone","shortname":":clap_tone2:","shortname_alternates":[],"keywords":["clap","hand","medium-light skin tone"],"unicode_output":"1f44f-1f3fc"},"1f44f-1f3fd":{"name":"clapping hands: medium skin tone","shortname":":clap_tone3:","shortname_alternates":[],"keywords":["clap","hand","medium skin tone"],"unicode_output":"1f44f-1f3fd"},"1f44f-1f3fe":{"name":"clapping hands: medium-dark skin tone","shortname":":clap_tone4:","shortname_alternates":[],"keywords":["clap","hand","medium-dark skin tone"],"unicode_output":"1f44f-1f3fe"},"1f44f-1f3ff":{"name":"clapping hands: dark skin tone","shortname":":clap_tone5:","shortname_alternates":[],"keywords":["clap","dark skin tone","hand"],"unicode_output":"1f44f-1f3ff"},"1f64f":{"name":"folded hands","shortname":":pray:","shortname_alternates":[],"keywords":["ask","bow","folded","gesture","hand","please","pray","thanks"],"unicode_output":"1f64f"},"1f64f-1f3fb":{"name":"folded hands: light skin tone","shortname":":pray_tone1:","shortname_alternates":[],"keywords":["ask","bow","folded","gesture","hand","light skin tone","please","pray","thanks"],"unicode_output":"1f64f-1f3fb"},"1f64f-1f3fc":{"name":"folded hands: medium-light skin tone","shortname":":pray_tone2:","shortname_alternates":[],"keywords":["ask","bow","folded","gesture","hand","medium-light skin tone","please","pray","thanks"],"unicode_output":"1f64f-1f3fc"},"1f64f-1f3fd":{"name":"folded hands: medium skin tone","shortname":":pray_tone3:","shortname_alternates":[],"keywords":["ask","bow","folded","gesture","hand","medium skin tone","please","pray","thanks"],"unicode_output":"1f64f-1f3fd"},"1f64f-1f3fe":{"name":"folded hands: medium-dark skin tone","shortname":":pray_tone4:","shortname_alternates":[],"keywords":["ask","bow","folded","gesture","hand","medium-dark skin tone","please","pray","thanks"],"unicode_output":"1f64f-1f3fe"},"1f64f-1f3ff":{"name":"folded hands: dark skin tone","shortname":":pray_tone5:","shortname_alternates":[],"keywords":["ask","bow","dark skin tone","folded","gesture","hand","please","pray","thanks"],"unicode_output":"1f64f-1f3ff"},"1f91d":{"name":"handshake","shortname":":handshake:","shortname_alternates":[":shaking_hands:"],"keywords":["agreement","hand","handshake","meeting","shake"],"unicode_output":"1f91d"},"1f44d":{"name":"thumbs up","shortname":":thumbsup:","shortname_alternates":[":+1:",":thumbup:"],"keywords":["+1","hand","thumb","up"],"unicode_output":"1f44d"},"1f44d-1f3fb":{"name":"thumbs up: light skin tone","shortname":":thumbsup_tone1:","shortname_alternates":[":+1_tone1:",":thumbup_tone1:"],"keywords":["+1","hand","light skin tone","thumb","up"],"unicode_output":"1f44d-1f3fb"},"1f44d-1f3fc":{"name":"thumbs up: medium-light skin tone","shortname":":thumbsup_tone2:","shortname_alternates":[":+1_tone2:",":thumbup_tone2:"],"keywords":["+1","hand","medium-light skin tone","thumb","up"],"unicode_output":"1f44d-1f3fc"},"1f44d-1f3fd":{"name":"thumbs up: medium skin tone","shortname":":thumbsup_tone3:","shortname_alternates":[":+1_tone3:",":thumbup_tone3:"],"keywords":["+1","hand","medium skin tone","thumb","up"],"unicode_output":"1f44d-1f3fd"},"1f44d-1f3fe":{"name":"thumbs up: medium-dark skin tone","shortname":":thumbsup_tone4:","shortname_alternates":[":+1_tone4:",":thumbup_tone4:"],"keywords":["+1","hand","medium-dark skin tone","thumb","up"],"unicode_output":"1f44d-1f3fe"},"1f44d-1f3ff":{"name":"thumbs up: dark skin tone","shortname":":thumbsup_tone5:","shortname_alternates":[":+1_tone5:",":thumbup_tone5:"],"keywords":["+1","dark skin tone","hand","thumb","up"],"unicode_output":"1f44d-1f3ff"},"1f44e":{"name":"thumbs down","shortname":":thumbsdown:","shortname_alternates":[":-1:",":thumbdown:"],"keywords":["-1","down","hand","thumb"],"unicode_output":"1f44e"},"1f44e-1f3fb":{"name":"thumbs down: light skin tone","shortname":":thumbsdown_tone1:","shortname_alternates":[":-1_tone1:",":thumbdown_tone1:"],"keywords":["-1","down","hand","light skin tone","thumb"],"unicode_output":"1f44e-1f3fb"},"1f44e-1f3fc":{"name":"thumbs down: medium-light skin tone","shortname":":thumbsdown_tone2:","shortname_alternates":[":-1_tone2:",":thumbdown_tone2:"],"keywords":["-1","down","hand","medium-light skin tone","thumb"],"unicode_output":"1f44e-1f3fc"},"1f44e-1f3fd":{"name":"thumbs down: medium skin tone","shortname":":thumbsdown_tone3:","shortname_alternates":[":-1_tone3:",":thumbdown_tone3:"],"keywords":["-1","down","hand","medium skin tone","thumb"],"unicode_output":"1f44e-1f3fd"},"1f44e-1f3fe":{"name":"thumbs down: medium-dark skin tone","shortname":":thumbsdown_tone4:","shortname_alternates":[":-1_tone4:",":thumbdown_tone4:"],"keywords":["-1","down","hand","medium-dark skin tone","thumb"],"unicode_output":"1f44e-1f3fe"},"1f44e-1f3ff":{"name":"thumbs down: dark skin tone","shortname":":thumbsdown_tone5:","shortname_alternates":[":-1_tone5:",":thumbdown_tone5:"],"keywords":["-1","dark skin tone","down","hand","thumb"],"unicode_output":"1f44e-1f3ff"},"1f44a":{"name":"oncoming fist","shortname":":punch:","shortname_alternates":[],"keywords":["clenched","fist","hand","punch"],"unicode_output":"1f44a"},"1f44a-1f3fb":{"name":"oncoming fist: light skin tone","shortname":":punch_tone1:","shortname_alternates":[],"keywords":["clenched","fist","hand","light skin tone","punch"],"unicode_output":"1f44a-1f3fb"},"1f44a-1f3fc":{"name":"oncoming fist: medium-light skin tone","shortname":":punch_tone2:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium-light skin tone","punch"],"unicode_output":"1f44a-1f3fc"},"1f44a-1f3fd":{"name":"oncoming fist: medium skin tone","shortname":":punch_tone3:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium skin tone","punch"],"unicode_output":"1f44a-1f3fd"},"1f44a-1f3fe":{"name":"oncoming fist: medium-dark skin tone","shortname":":punch_tone4:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium-dark skin tone","punch"],"unicode_output":"1f44a-1f3fe"},"1f44a-1f3ff":{"name":"oncoming fist: dark skin tone","shortname":":punch_tone5:","shortname_alternates":[],"keywords":["clenched","dark skin tone","fist","hand","punch"],"unicode_output":"1f44a-1f3ff"},"270a":{"name":"raised fist","shortname":":fist:","shortname_alternates":[],"keywords":["clenched","fist","hand","punch"],"unicode_output":"270a"},"270a-1f3fb":{"name":"raised fist: light skin tone","shortname":":fist_tone1:","shortname_alternates":[],"keywords":["clenched","fist","hand","light skin tone","punch"],"unicode_output":"270a-1f3fb"},"270a-1f3fc":{"name":"raised fist: medium-light skin tone","shortname":":fist_tone2:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium-light skin tone","punch"],"unicode_output":"270a-1f3fc"},"270a-1f3fd":{"name":"raised fist: medium skin tone","shortname":":fist_tone3:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium skin tone","punch"],"unicode_output":"270a-1f3fd"},"270a-1f3fe":{"name":"raised fist: medium-dark skin tone","shortname":":fist_tone4:","shortname_alternates":[],"keywords":["clenched","fist","hand","medium-dark skin tone","punch"],"unicode_output":"270a-1f3fe"},"270a-1f3ff":{"name":"raised fist: dark skin tone","shortname":":fist_tone5:","shortname_alternates":[],"keywords":["clenched","dark skin tone","fist","hand","punch"],"unicode_output":"270a-1f3ff"},"1f91b":{"name":"left-facing fist","shortname":":left_facing_fist:","shortname_alternates":[":left_fist:"],"keywords":["fist","leftwards"],"unicode_output":"1f91b"},"1f91b-1f3fb":{"name":"left-facing fist: light skin tone","shortname":":left_facing_fist_tone1:","shortname_alternates":[":left_fist_tone1:"],"keywords":["fist","leftwards","light skin tone"],"unicode_output":"1f91b-1f3fb"},"1f91b-1f3fc":{"name":"left-facing fist: medium-light skin tone","shortname":":left_facing_fist_tone2:","shortname_alternates":[":left_fist_tone2:"],"keywords":["fist","leftwards","medium-light skin tone"],"unicode_output":"1f91b-1f3fc"},"1f91b-1f3fd":{"name":"left-facing fist: medium skin tone","shortname":":left_facing_fist_tone3:","shortname_alternates":[":left_fist_tone3:"],"keywords":["fist","leftwards","medium skin tone"],"unicode_output":"1f91b-1f3fd"},"1f91b-1f3fe":{"name":"left-facing fist: medium-dark skin tone","shortname":":left_facing_fist_tone4:","shortname_alternates":[":left_fist_tone4:"],"keywords":["fist","leftwards","medium-dark skin tone"],"unicode_output":"1f91b-1f3fe"},"1f91b-1f3ff":{"name":"left-facing fist: dark skin tone","shortname":":left_facing_fist_tone5:","shortname_alternates":[":left_fist_tone5:"],"keywords":["dark skin tone","fist","leftwards"],"unicode_output":"1f91b-1f3ff"},"1f91c":{"name":"right-facing fist","shortname":":right_facing_fist:","shortname_alternates":[":right_fist:"],"keywords":["fist","rightwards"],"unicode_output":"1f91c"},"1f91c-1f3fb":{"name":"right-facing fist: light skin tone","shortname":":right_facing_fist_tone1:","shortname_alternates":[":right_fist_tone1:"],"keywords":["fist","light skin tone","rightwards"],"unicode_output":"1f91c-1f3fb"},"1f91c-1f3fc":{"name":"right-facing fist: medium-light skin tone","shortname":":right_facing_fist_tone2:","shortname_alternates":[":right_fist_tone2:"],"keywords":["fist","medium-light skin tone","rightwards"],"unicode_output":"1f91c-1f3fc"},"1f91c-1f3fd":{"name":"right-facing fist: medium skin tone","shortname":":right_facing_fist_tone3:","shortname_alternates":[":right_fist_tone3:"],"keywords":["fist","medium skin tone","rightwards"],"unicode_output":"1f91c-1f3fd"},"1f91c-1f3fe":{"name":"right-facing fist: medium-dark skin tone","shortname":":right_facing_fist_tone4:","shortname_alternates":[":right_fist_tone4:"],"keywords":["fist","medium-dark skin tone","rightwards"],"unicode_output":"1f91c-1f3fe"},"1f91c-1f3ff":{"name":"right-facing fist: dark skin tone","shortname":":right_facing_fist_tone5:","shortname_alternates":[":right_fist_tone5:"],"keywords":["dark skin tone","fist","rightwards"],"unicode_output":"1f91c-1f3ff"},"1f91e":{"name":"crossed fingers","shortname":":fingers_crossed:","shortname_alternates":[":hand_with_index_and_middle_finger_crossed:"],"keywords":["cross","finger","hand","luck"],"unicode_output":"1f91e"},"1f91e-1f3fb":{"name":"crossed fingers: light skin tone","shortname":":fingers_crossed_tone1:","shortname_alternates":[":hand_with_index_and_middle_fingers_crossed_tone1:"],"keywords":["cross","finger","hand","light skin tone","luck"],"unicode_output":"1f91e-1f3fb"},"1f91e-1f3fc":{"name":"crossed fingers: medium-light skin tone","shortname":":fingers_crossed_tone2:","shortname_alternates":[":hand_with_index_and_middle_fingers_crossed_tone2:"],"keywords":["cross","finger","hand","luck","medium-light skin tone"],"unicode_output":"1f91e-1f3fc"},"1f91e-1f3fd":{"name":"crossed fingers: medium skin tone","shortname":":fingers_crossed_tone3:","shortname_alternates":[":hand_with_index_and_middle_fingers_crossed_tone3:"],"keywords":["cross","finger","hand","luck","medium skin tone"],"unicode_output":"1f91e-1f3fd"},"1f91e-1f3fe":{"name":"crossed fingers: medium-dark skin tone","shortname":":fingers_crossed_tone4:","shortname_alternates":[":hand_with_index_and_middle_fingers_crossed_tone4:"],"keywords":["cross","finger","hand","luck","medium-dark skin tone"],"unicode_output":"1f91e-1f3fe"},"1f91e-1f3ff":{"name":"crossed fingers: dark skin tone","shortname":":fingers_crossed_tone5:","shortname_alternates":[":hand_with_index_and_middle_fingers_crossed_tone5:"],"keywords":["cross","dark skin tone","finger","hand","luck"],"unicode_output":"1f91e-1f3ff"},"270c":{"name":"victory hand","shortname":":v:","shortname_alternates":[],"keywords":["hand","v","victory"],"unicode_output":"270c"},"270c-1f3fb":{"name":"victory hand: light skin tone","shortname":":v_tone1:","shortname_alternates":[],"keywords":["hand","light skin tone","v","victory"],"unicode_output":"270c-1f3fb"},"270c-1f3fc":{"name":"victory hand: medium-light skin tone","shortname":":v_tone2:","shortname_alternates":[],"keywords":["hand","medium-light skin tone","v","victory"],"unicode_output":"270c-1f3fc"},"270c-1f3fd":{"name":"victory hand: medium skin tone","shortname":":v_tone3:","shortname_alternates":[],"keywords":["hand","medium skin tone","v","victory"],"unicode_output":"270c-1f3fd"},"270c-1f3fe":{"name":"victory hand: medium-dark skin tone","shortname":":v_tone4:","shortname_alternates":[],"keywords":["hand","medium-dark skin tone","v","victory"],"unicode_output":"270c-1f3fe"},"270c-1f3ff":{"name":"victory hand: dark skin tone","shortname":":v_tone5:","shortname_alternates":[],"keywords":["dark skin tone","hand","v","victory"],"unicode_output":"270c-1f3ff"},"1f918":{"name":"sign of the horns","shortname":":metal:","shortname_alternates":[":sign_of_the_horns:"],"keywords":["finger","hand","horns","rock-on"],"unicode_output":"1f918"},"1f918-1f3fb":{"name":"sign of the horns: light skin tone","shortname":":metal_tone1:","shortname_alternates":[":sign_of_the_horns_tone1:"],"keywords":["finger","hand","horns","light skin tone","rock-on"],"unicode_output":"1f918-1f3fb"},"1f918-1f3fc":{"name":"sign of the horns: medium-light skin tone","shortname":":metal_tone2:","shortname_alternates":[":sign_of_the_horns_tone2:"],"keywords":["finger","hand","horns","medium-light skin tone","rock-on"],"unicode_output":"1f918-1f3fc"},"1f918-1f3fd":{"name":"sign of the horns: medium skin tone","shortname":":metal_tone3:","shortname_alternates":[":sign_of_the_horns_tone3:"],"keywords":["finger","hand","horns","medium skin tone","rock-on"],"unicode_output":"1f918-1f3fd"},"1f918-1f3fe":{"name":"sign of the horns: medium-dark skin tone","shortname":":metal_tone4:","shortname_alternates":[":sign_of_the_horns_tone4:"],"keywords":["finger","hand","horns","medium-dark skin tone","rock-on"],"unicode_output":"1f918-1f3fe"},"1f918-1f3ff":{"name":"sign of the horns: dark skin tone","shortname":":metal_tone5:","shortname_alternates":[":sign_of_the_horns_tone5:"],"keywords":["dark skin tone","finger","hand","horns","rock-on"],"unicode_output":"1f918-1f3ff"},"1f44c":{"name":"OK hand","shortname":":ok_hand:","shortname_alternates":[],"keywords":["OK","hand"],"unicode_output":"1f44c"},"1f44c-1f3fb":{"name":"OK hand: light skin tone","shortname":":ok_hand_tone1:","shortname_alternates":[],"keywords":["OK","hand","light skin tone"],"unicode_output":"1f44c-1f3fb"},"1f44c-1f3fc":{"name":"OK hand: medium-light skin tone","shortname":":ok_hand_tone2:","shortname_alternates":[],"keywords":["OK","hand","medium-light skin tone"],"unicode_output":"1f44c-1f3fc"},"1f44c-1f3fd":{"name":"OK hand: medium skin tone","shortname":":ok_hand_tone3:","shortname_alternates":[],"keywords":["OK","hand","medium skin tone"],"unicode_output":"1f44c-1f3fd"},"1f44c-1f3fe":{"name":"OK hand: medium-dark skin tone","shortname":":ok_hand_tone4:","shortname_alternates":[],"keywords":["OK","hand","medium-dark skin tone"],"unicode_output":"1f44c-1f3fe"},"1f44c-1f3ff":{"name":"OK hand: dark skin tone","shortname":":ok_hand_tone5:","shortname_alternates":[],"keywords":["OK","dark skin tone","hand"],"unicode_output":"1f44c-1f3ff"},"1f448":{"name":"backhand index pointing left","shortname":":point_left:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","point"],"unicode_output":"1f448"},"1f448-1f3fb":{"name":"backhand index pointing left: light skin tone","shortname":":point_left_tone1:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","light skin tone","point"],"unicode_output":"1f448-1f3fb"},"1f448-1f3fc":{"name":"backhand index pointing left: medium-light skin tone","shortname":":point_left_tone2:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-light skin tone","point"],"unicode_output":"1f448-1f3fc"},"1f448-1f3fd":{"name":"backhand index pointing left: medium skin tone","shortname":":point_left_tone3:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium skin tone","point"],"unicode_output":"1f448-1f3fd"},"1f448-1f3fe":{"name":"backhand index pointing left: medium-dark skin tone","shortname":":point_left_tone4:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-dark skin tone","point"],"unicode_output":"1f448-1f3fe"},"1f448-1f3ff":{"name":"backhand index pointing left: dark skin tone","shortname":":point_left_tone5:","shortname_alternates":[],"keywords":["backhand","dark skin tone","finger","hand","index","point"],"unicode_output":"1f448-1f3ff"},"1f449":{"name":"backhand index pointing right","shortname":":point_right:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","point"],"unicode_output":"1f449"},"1f449-1f3fb":{"name":"backhand index pointing right: light skin tone","shortname":":point_right_tone1:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","light skin tone","point"],"unicode_output":"1f449-1f3fb"},"1f449-1f3fc":{"name":"backhand index pointing right: medium-light skin tone","shortname":":point_right_tone2:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-light skin tone","point"],"unicode_output":"1f449-1f3fc"},"1f449-1f3fd":{"name":"backhand index pointing right: medium skin tone","shortname":":point_right_tone3:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium skin tone","point"],"unicode_output":"1f449-1f3fd"},"1f449-1f3fe":{"name":"backhand index pointing right: medium-dark skin tone","shortname":":point_right_tone4:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-dark skin tone","point"],"unicode_output":"1f449-1f3fe"},"1f449-1f3ff":{"name":"backhand index pointing right: dark skin tone","shortname":":point_right_tone5:","shortname_alternates":[],"keywords":["backhand","dark skin tone","finger","hand","index","point"],"unicode_output":"1f449-1f3ff"},"1f446":{"name":"backhand index pointing up","shortname":":point_up_2:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","point","up"],"unicode_output":"1f446"},"1f446-1f3fb":{"name":"backhand index pointing up: light skin tone","shortname":":point_up_2_tone1:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","light skin tone","point","up"],"unicode_output":"1f446-1f3fb"},"1f446-1f3fc":{"name":"backhand index pointing up: medium-light skin tone","shortname":":point_up_2_tone2:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-light skin tone","point","up"],"unicode_output":"1f446-1f3fc"},"1f446-1f3fd":{"name":"backhand index pointing up: medium skin tone","shortname":":point_up_2_tone3:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium skin tone","point","up"],"unicode_output":"1f446-1f3fd"},"1f446-1f3fe":{"name":"backhand index pointing up: medium-dark skin tone","shortname":":point_up_2_tone4:","shortname_alternates":[],"keywords":["backhand","finger","hand","index","medium-dark skin tone","point","up"],"unicode_output":"1f446-1f3fe"},"1f446-1f3ff":{"name":"backhand index pointing up: dark skin tone","shortname":":point_up_2_tone5:","shortname_alternates":[],"keywords":["backhand","dark skin tone","finger","hand","index","point","up"],"unicode_output":"1f446-1f3ff"},"1f447":{"name":"backhand index pointing down","shortname":":point_down:","shortname_alternates":[],"keywords":["backhand","down","finger","hand","index","point"],"unicode_output":"1f447"},"1f447-1f3fb":{"name":"backhand index pointing down: light skin tone","shortname":":point_down_tone1:","shortname_alternates":[],"keywords":["backhand","down","finger","hand","index","light skin tone","point"],"unicode_output":"1f447-1f3fb"},"1f447-1f3fc":{"name":"backhand index pointing down: medium-light skin tone","shortname":":point_down_tone2:","shortname_alternates":[],"keywords":["backhand","down","finger","hand","index","medium-light skin tone","point"],"unicode_output":"1f447-1f3fc"},"1f447-1f3fd":{"name":"backhand index pointing down: medium skin tone","shortname":":point_down_tone3:","shortname_alternates":[],"keywords":["backhand","down","finger","hand","index","medium skin tone","point"],"unicode_output":"1f447-1f3fd"},"1f447-1f3fe":{"name":"backhand index pointing down: medium-dark skin tone","shortname":":point_down_tone4:","shortname_alternates":[],"keywords":["backhand","down","finger","hand","index","medium-dark skin tone","point"],"unicode_output":"1f447-1f3fe"},"1f447-1f3ff":{"name":"backhand index pointing down: dark skin tone","shortname":":point_down_tone5:","shortname_alternates":[],"keywords":["backhand","dark skin tone","down","finger","hand","index","point"],"unicode_output":"1f447-1f3ff"},"261d":{"name":"index pointing up","shortname":":point_up:","shortname_alternates":[],"keywords":["finger","hand","index","point","up"],"unicode_output":"261d"},"261d-1f3fb":{"name":"index pointing up: light skin tone","shortname":":point_up_tone1:","shortname_alternates":[],"keywords":["finger","hand","index","light skin tone","point","up"],"unicode_output":"261d-1f3fb"},"261d-1f3fc":{"name":"index pointing up: medium-light skin tone","shortname":":point_up_tone2:","shortname_alternates":[],"keywords":["finger","hand","index","medium-light skin tone","point","up"],"unicode_output":"261d-1f3fc"},"261d-1f3fd":{"name":"index pointing up: medium skin tone","shortname":":point_up_tone3:","shortname_alternates":[],"keywords":["finger","hand","index","medium skin tone","point","up"],"unicode_output":"261d-1f3fd"},"261d-1f3fe":{"name":"index pointing up: medium-dark skin tone","shortname":":point_up_tone4:","shortname_alternates":[],"keywords":["finger","hand","index","medium-dark skin tone","point","up"],"unicode_output":"261d-1f3fe"},"261d-1f3ff":{"name":"index pointing up: dark skin tone","shortname":":point_up_tone5:","shortname_alternates":[],"keywords":["dark skin tone","finger","hand","index","point","up"],"unicode_output":"261d-1f3ff"},"270b":{"name":"raised hand","shortname":":raised_hand:","shortname_alternates":[],"keywords":["hand"],"unicode_output":"270b"},"270b-1f3fb":{"name":"raised hand: light skin tone","shortname":":raised_hand_tone1:","shortname_alternates":[],"keywords":["hand","light skin tone"],"unicode_output":"270b-1f3fb"},"270b-1f3fc":{"name":"raised hand: medium-light skin tone","shortname":":raised_hand_tone2:","shortname_alternates":[],"keywords":["hand","medium-light skin tone"],"unicode_output":"270b-1f3fc"},"270b-1f3fd":{"name":"raised hand: medium skin tone","shortname":":raised_hand_tone3:","shortname_alternates":[],"keywords":["hand","medium skin tone"],"unicode_output":"270b-1f3fd"},"270b-1f3fe":{"name":"raised hand: medium-dark skin tone","shortname":":raised_hand_tone4:","shortname_alternates":[],"keywords":["hand","medium-dark skin tone"],"unicode_output":"270b-1f3fe"},"270b-1f3ff":{"name":"raised hand: dark skin tone","shortname":":raised_hand_tone5:","shortname_alternates":[],"keywords":["dark skin tone","hand"],"unicode_output":"270b-1f3ff"},"1f91a":{"name":"raised back of hand","shortname":":raised_back_of_hand:","shortname_alternates":[":back_of_hand:"],"keywords":["backhand","raised"],"unicode_output":"1f91a"},"1f91a-1f3fb":{"name":"raised back of hand: light skin tone","shortname":":raised_back_of_hand_tone1:","shortname_alternates":[":back_of_hand_tone1:"],"keywords":["backhand","light skin tone","raised"],"unicode_output":"1f91a-1f3fb"},"1f91a-1f3fc":{"name":"raised back of hand: medium-light skin tone","shortname":":raised_back_of_hand_tone2:","shortname_alternates":[":back_of_hand_tone2:"],"keywords":["backhand","medium-light skin tone","raised"],"unicode_output":"1f91a-1f3fc"},"1f91a-1f3fd":{"name":"raised back of hand: medium skin tone","shortname":":raised_back_of_hand_tone3:","shortname_alternates":[":back_of_hand_tone3:"],"keywords":["backhand","medium skin tone","raised"],"unicode_output":"1f91a-1f3fd"},"1f91a-1f3fe":{"name":"raised back of hand: medium-dark skin tone","shortname":":raised_back_of_hand_tone4:","shortname_alternates":[":back_of_hand_tone4:"],"keywords":["backhand","medium-dark skin tone","raised"],"unicode_output":"1f91a-1f3fe"},"1f91a-1f3ff":{"name":"raised back of hand: dark skin tone","shortname":":raised_back_of_hand_tone5:","shortname_alternates":[":back_of_hand_tone5:"],"keywords":["backhand","dark skin tone","raised"],"unicode_output":"1f91a-1f3ff"},"1f590":{"name":"raised hand with fingers splayed","shortname":":hand_splayed:","shortname_alternates":[":raised_hand_with_fingers_splayed:"],"keywords":["finger","hand","splayed"],"unicode_output":"1f590"},"1f590-1f3fb":{"name":"raised hand with fingers splayed: light skin tone","shortname":":hand_splayed_tone1:","shortname_alternates":[":raised_hand_with_fingers_splayed_tone1:"],"keywords":["finger","hand","light skin tone","splayed"],"unicode_output":"1f590-1f3fb"},"1f590-1f3fc":{"name":"raised hand with fingers splayed: medium-light skin tone","shortname":":hand_splayed_tone2:","shortname_alternates":[":raised_hand_with_fingers_splayed_tone2:"],"keywords":["finger","hand","medium-light skin tone","splayed"],"unicode_output":"1f590-1f3fc"},"1f590-1f3fd":{"name":"raised hand with fingers splayed: medium skin tone","shortname":":hand_splayed_tone3:","shortname_alternates":[":raised_hand_with_fingers_splayed_tone3:"],"keywords":["finger","hand","medium skin tone","splayed"],"unicode_output":"1f590-1f3fd"},"1f590-1f3fe":{"name":"raised hand with fingers splayed: medium-dark skin tone","shortname":":hand_splayed_tone4:","shortname_alternates":[":raised_hand_with_fingers_splayed_tone4:"],"keywords":["finger","hand","medium-dark skin tone","splayed"],"unicode_output":"1f590-1f3fe"},"1f590-1f3ff":{"name":"raised hand with fingers splayed: dark skin tone","shortname":":hand_splayed_tone5:","shortname_alternates":[":raised_hand_with_fingers_splayed_tone5:"],"keywords":["dark skin tone","finger","hand","splayed"],"unicode_output":"1f590-1f3ff"},"1f596":{"name":"vulcan salute","shortname":":vulcan:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers:"],"keywords":["finger","hand","spock","vulcan"],"unicode_output":"1f596"},"1f596-1f3fb":{"name":"vulcan salute: light skin tone","shortname":":vulcan_tone1:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers_tone1:"],"keywords":["finger","hand","light skin tone","spock","vulcan"],"unicode_output":"1f596-1f3fb"},"1f596-1f3fc":{"name":"vulcan salute: medium-light skin tone","shortname":":vulcan_tone2:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers_tone2:"],"keywords":["finger","hand","medium-light skin tone","spock","vulcan"],"unicode_output":"1f596-1f3fc"},"1f596-1f3fd":{"name":"vulcan salute: medium skin tone","shortname":":vulcan_tone3:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers_tone3:"],"keywords":["finger","hand","medium skin tone","spock","vulcan"],"unicode_output":"1f596-1f3fd"},"1f596-1f3fe":{"name":"vulcan salute: medium-dark skin tone","shortname":":vulcan_tone4:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers_tone4:"],"keywords":["finger","hand","medium-dark skin tone","spock","vulcan"],"unicode_output":"1f596-1f3fe"},"1f596-1f3ff":{"name":"vulcan salute: dark skin tone","shortname":":vulcan_tone5:","shortname_alternates":[":raised_hand_with_part_between_middle_and_ring_fingers_tone5:"],"keywords":["dark skin tone","finger","hand","spock","vulcan"],"unicode_output":"1f596-1f3ff"},"1f44b":{"name":"waving hand","shortname":":wave:","shortname_alternates":[],"keywords":["hand","wave","waving"],"unicode_output":"1f44b"},"1f44b-1f3fb":{"name":"waving hand: light skin tone","shortname":":wave_tone1:","shortname_alternates":[],"keywords":["hand","light skin tone","wave","waving"],"unicode_output":"1f44b-1f3fb"},"1f44b-1f3fc":{"name":"waving hand: medium-light skin tone","shortname":":wave_tone2:","shortname_alternates":[],"keywords":["hand","medium-light skin tone","wave","waving"],"unicode_output":"1f44b-1f3fc"},"1f44b-1f3fd":{"name":"waving hand: medium skin tone","shortname":":wave_tone3:","shortname_alternates":[],"keywords":["hand","medium skin tone","wave","waving"],"unicode_output":"1f44b-1f3fd"},"1f44b-1f3fe":{"name":"waving hand: medium-dark skin tone","shortname":":wave_tone4:","shortname_alternates":[],"keywords":["hand","medium-dark skin tone","wave","waving"],"unicode_output":"1f44b-1f3fe"},"1f44b-1f3ff":{"name":"waving hand: dark skin tone","shortname":":wave_tone5:","shortname_alternates":[],"keywords":["dark skin tone","hand","wave","waving"],"unicode_output":"1f44b-1f3ff"},"1f919":{"name":"call me hand","shortname":":call_me:","shortname_alternates":[":call_me_hand:"],"keywords":["call","hand"],"unicode_output":"1f919"},"1f919-1f3fb":{"name":"call me hand: light skin tone","shortname":":call_me_tone1:","shortname_alternates":[":call_me_hand_tone1:"],"keywords":["call","hand","light skin tone"],"unicode_output":"1f919-1f3fb"},"1f919-1f3fc":{"name":"call me hand: medium-light skin tone","shortname":":call_me_tone2:","shortname_alternates":[":call_me_hand_tone2:"],"keywords":["call","hand","medium-light skin tone"],"unicode_output":"1f919-1f3fc"},"1f919-1f3fd":{"name":"call me hand: medium skin tone","shortname":":call_me_tone3:","shortname_alternates":[":call_me_hand_tone3:"],"keywords":["call","hand","medium skin tone"],"unicode_output":"1f919-1f3fd"},"1f919-1f3fe":{"name":"call me hand: medium-dark skin tone","shortname":":call_me_tone4:","shortname_alternates":[":call_me_hand_tone4:"],"keywords":["call","hand","medium-dark skin tone"],"unicode_output":"1f919-1f3fe"},"1f919-1f3ff":{"name":"call me hand: dark skin tone","shortname":":call_me_tone5:","shortname_alternates":[":call_me_hand_tone5:"],"keywords":["call","dark skin tone","hand"],"unicode_output":"1f919-1f3ff"},"1f4aa":{"name":"flexed biceps","shortname":":muscle:","shortname_alternates":[],"keywords":["biceps","comic","flex","muscle"],"unicode_output":"1f4aa"},"1f4aa-1f3fb":{"name":"flexed biceps: light skin tone","shortname":":muscle_tone1:","shortname_alternates":[],"keywords":["biceps","comic","flex","light skin tone","muscle"],"unicode_output":"1f4aa-1f3fb"},"1f4aa-1f3fc":{"name":"flexed biceps: medium-light skin tone","shortname":":muscle_tone2:","shortname_alternates":[],"keywords":["biceps","comic","flex","medium-light skin tone","muscle"],"unicode_output":"1f4aa-1f3fc"},"1f4aa-1f3fd":{"name":"flexed biceps: medium skin tone","shortname":":muscle_tone3:","shortname_alternates":[],"keywords":["biceps","comic","flex","medium skin tone","muscle"],"unicode_output":"1f4aa-1f3fd"},"1f4aa-1f3fe":{"name":"flexed biceps: medium-dark skin tone","shortname":":muscle_tone4:","shortname_alternates":[],"keywords":["biceps","comic","flex","medium-dark skin tone","muscle"],"unicode_output":"1f4aa-1f3fe"},"1f4aa-1f3ff":{"name":"flexed biceps: dark skin tone","shortname":":muscle_tone5:","shortname_alternates":[],"keywords":["biceps","comic","dark skin tone","flex","muscle"],"unicode_output":"1f4aa-1f3ff"},"1f595":{"name":"middle finger","shortname":":middle_finger:","shortname_alternates":[":reversed_hand_with_middle_finger_extended:"],"keywords":["finger","hand"],"unicode_output":"1f595"},"1f595-1f3fb":{"name":"middle finger: light skin tone","shortname":":middle_finger_tone1:","shortname_alternates":[":reversed_hand_with_middle_finger_extended_tone1:"],"keywords":["finger","hand","light skin tone"],"unicode_output":"1f595-1f3fb"},"1f595-1f3fc":{"name":"middle finger: medium-light skin tone","shortname":":middle_finger_tone2:","shortname_alternates":[":reversed_hand_with_middle_finger_extended_tone2:"],"keywords":["finger","hand","medium-light skin tone"],"unicode_output":"1f595-1f3fc"},"1f595-1f3fd":{"name":"middle finger: medium skin tone","shortname":":middle_finger_tone3:","shortname_alternates":[":reversed_hand_with_middle_finger_extended_tone3:"],"keywords":["finger","hand","medium skin tone"],"unicode_output":"1f595-1f3fd"},"1f595-1f3fe":{"name":"middle finger: medium-dark skin tone","shortname":":middle_finger_tone4:","shortname_alternates":[":reversed_hand_with_middle_finger_extended_tone4:"],"keywords":["finger","hand","medium-dark skin tone"],"unicode_output":"1f595-1f3fe"},"1f595-1f3ff":{"name":"middle finger: dark skin tone","shortname":":middle_finger_tone5:","shortname_alternates":[":reversed_hand_with_middle_finger_extended_tone5:"],"keywords":["dark skin tone","finger","hand"],"unicode_output":"1f595-1f3ff"},"270d":{"name":"writing hand","shortname":":writing_hand:","shortname_alternates":[],"keywords":["hand","write"],"unicode_output":"270d"},"270d-1f3fb":{"name":"writing hand: light skin tone","shortname":":writing_hand_tone1:","shortname_alternates":[],"keywords":["hand","light skin tone","write"],"unicode_output":"270d-1f3fb"},"270d-1f3fc":{"name":"writing hand: medium-light skin tone","shortname":":writing_hand_tone2:","shortname_alternates":[],"keywords":["hand","medium-light skin tone","write"],"unicode_output":"270d-1f3fc"},"270d-1f3fd":{"name":"writing hand: medium skin tone","shortname":":writing_hand_tone3:","shortname_alternates":[],"keywords":["hand","medium skin tone","write"],"unicode_output":"270d-1f3fd"},"270d-1f3fe":{"name":"writing hand: medium-dark skin tone","shortname":":writing_hand_tone4:","shortname_alternates":[],"keywords":["hand","medium-dark skin tone","write"],"unicode_output":"270d-1f3fe"},"270d-1f3ff":{"name":"writing hand: dark skin tone","shortname":":writing_hand_tone5:","shortname_alternates":[],"keywords":["dark skin tone","hand","write"],"unicode_output":"270d-1f3ff"},"1f933":{"name":"selfie","shortname":":selfie:","shortname_alternates":[],"keywords":["camera","phone","selfie"],"unicode_output":"1f933"},"1f933-1f3fb":{"name":"selfie: light skin tone","shortname":":selfie_tone1:","shortname_alternates":[],"keywords":["camera","light skin tone","phone","selfie"],"unicode_output":"1f933-1f3fb"},"1f933-1f3fc":{"name":"selfie: medium-light skin tone","shortname":":selfie_tone2:","shortname_alternates":[],"keywords":["camera","medium-light skin tone","phone","selfie"],"unicode_output":"1f933-1f3fc"},"1f933-1f3fd":{"name":"selfie: medium skin tone","shortname":":selfie_tone3:","shortname_alternates":[],"keywords":["camera","medium skin tone","phone","selfie"],"unicode_output":"1f933-1f3fd"},"1f933-1f3fe":{"name":"selfie: medium-dark skin tone","shortname":":selfie_tone4:","shortname_alternates":[],"keywords":["camera","medium-dark skin tone","phone","selfie"],"unicode_output":"1f933-1f3fe"},"1f933-1f3ff":{"name":"selfie: dark skin tone","shortname":":selfie_tone5:","shortname_alternates":[],"keywords":["camera","dark skin tone","phone","selfie"],"unicode_output":"1f933-1f3ff"},"1f485":{"name":"nail polish","shortname":":nail_care:","shortname_alternates":[],"keywords":["care","cosmetics","manicure","nail","polish"],"unicode_output":"1f485"},"1f485-1f3fb":{"name":"nail polish: light skin tone","shortname":":nail_care_tone1:","shortname_alternates":[],"keywords":["care","cosmetics","light skin tone","manicure","nail","polish"],"unicode_output":"1f485-1f3fb"},"1f485-1f3fc":{"name":"nail polish: medium-light skin tone","shortname":":nail_care_tone2:","shortname_alternates":[],"keywords":["care","cosmetics","manicure","medium-light skin tone","nail","polish"],"unicode_output":"1f485-1f3fc"},"1f485-1f3fd":{"name":"nail polish: medium skin tone","shortname":":nail_care_tone3:","shortname_alternates":[],"keywords":["care","cosmetics","manicure","medium skin tone","nail","polish"],"unicode_output":"1f485-1f3fd"},"1f485-1f3fe":{"name":"nail polish: medium-dark skin tone","shortname":":nail_care_tone4:","shortname_alternates":[],"keywords":["care","cosmetics","manicure","medium-dark skin tone","nail","polish"],"unicode_output":"1f485-1f3fe"},"1f485-1f3ff":{"name":"nail polish: dark skin tone","shortname":":nail_care_tone5:","shortname_alternates":[],"keywords":["care","cosmetics","dark skin tone","manicure","nail","polish"],"unicode_output":"1f485-1f3ff"},"1f48d":{"name":"ring","shortname":":ring:","shortname_alternates":[],"keywords":["diamond"],"unicode_output":"1f48d"},"1f484":{"name":"lipstick","shortname":":lipstick:","shortname_alternates":[],"keywords":["cosmetics","makeup"],"unicode_output":"1f484"},"1f48b":{"name":"kiss mark","shortname":":kiss:","shortname_alternates":[],"keywords":["kiss","lips"],"unicode_output":"1f48b"},"1f444":{"name":"mouth","shortname":":lips:","shortname_alternates":[],"keywords":["lips"],"unicode_output":"1f444"},"1f445":{"name":"tongue","shortname":":tongue:","shortname_alternates":[],"keywords":["body"],"unicode_output":"1f445"},"1f442":{"name":"ear","shortname":":ear:","shortname_alternates":[],"keywords":["body"],"unicode_output":"1f442"},"1f442-1f3fb":{"name":"ear: light skin tone","shortname":":ear_tone1:","shortname_alternates":[],"keywords":["body","light skin tone"],"unicode_output":"1f442-1f3fb"},"1f442-1f3fc":{"name":"ear: medium-light skin tone","shortname":":ear_tone2:","shortname_alternates":[],"keywords":["body","medium-light skin tone"],"unicode_output":"1f442-1f3fc"},"1f442-1f3fd":{"name":"ear: medium skin tone","shortname":":ear_tone3:","shortname_alternates":[],"keywords":["body","medium skin tone"],"unicode_output":"1f442-1f3fd"},"1f442-1f3fe":{"name":"ear: medium-dark skin tone","shortname":":ear_tone4:","shortname_alternates":[],"keywords":["body","medium-dark skin tone"],"unicode_output":"1f442-1f3fe"},"1f442-1f3ff":{"name":"ear: dark skin tone","shortname":":ear_tone5:","shortname_alternates":[],"keywords":["body","dark skin tone"],"unicode_output":"1f442-1f3ff"},"1f443":{"name":"nose","shortname":":nose:","shortname_alternates":[],"keywords":["body"],"unicode_output":"1f443"},"1f443-1f3fb":{"name":"nose: light skin tone","shortname":":nose_tone1:","shortname_alternates":[],"keywords":["body","light skin tone"],"unicode_output":"1f443-1f3fb"},"1f443-1f3fc":{"name":"nose: medium-light skin tone","shortname":":nose_tone2:","shortname_alternates":[],"keywords":["body","medium-light skin tone"],"unicode_output":"1f443-1f3fc"},"1f443-1f3fd":{"name":"nose: medium skin tone","shortname":":nose_tone3:","shortname_alternates":[],"keywords":["body","medium skin tone"],"unicode_output":"1f443-1f3fd"},"1f443-1f3fe":{"name":"nose: medium-dark skin tone","shortname":":nose_tone4:","shortname_alternates":[],"keywords":["body","medium-dark skin tone"],"unicode_output":"1f443-1f3fe"},"1f443-1f3ff":{"name":"nose: dark skin tone","shortname":":nose_tone5:","shortname_alternates":[],"keywords":["body","dark skin tone"],"unicode_output":"1f443-1f3ff"},"1f463":{"name":"footprints","shortname":":footprints:","shortname_alternates":[],"keywords":["clothing","footprint","print"],"unicode_output":"1f463"},"1f441":{"name":"eye","shortname":":eye:","shortname_alternates":[],"keywords":["body"],"unicode_output":"1f441"},"1f440":{"name":"eyes","shortname":":eyes:","shortname_alternates":[],"keywords":["eye","face"],"unicode_output":"1f440"},"1f5e3":{"name":"speaking head","shortname":":speaking_head:","shortname_alternates":[":speaking_head_in_silhouette:"],"keywords":["face","head","silhouette","speak","speaking"],"unicode_output":"1f5e3"},"1f464":{"name":"bust in silhouette","shortname":":bust_in_silhouette:","shortname_alternates":[],"keywords":["bust","silhouette"],"unicode_output":"1f464"},"1f465":{"name":"busts in silhouette","shortname":":busts_in_silhouette:","shortname_alternates":[],"keywords":["bust","silhouette"],"unicode_output":"1f465"},"1f476":{"name":"baby","shortname":":baby:","shortname_alternates":[],"keywords":["baby","young"],"unicode_output":"1f476"},"1f476-1f3fb":{"name":"baby: light skin tone","shortname":":baby_tone1:","shortname_alternates":[],"keywords":["baby","light skin tone","young"],"unicode_output":"1f476-1f3fb"},"1f476-1f3fc":{"name":"baby: medium-light skin tone","shortname":":baby_tone2:","shortname_alternates":[],"keywords":["baby","medium-light skin tone","young"],"unicode_output":"1f476-1f3fc"},"1f476-1f3fd":{"name":"baby: medium skin tone","shortname":":baby_tone3:","shortname_alternates":[],"keywords":["baby","medium skin tone","young"],"unicode_output":"1f476-1f3fd"},"1f476-1f3fe":{"name":"baby: medium-dark skin tone","shortname":":baby_tone4:","shortname_alternates":[],"keywords":["baby","medium-dark skin tone","young"],"unicode_output":"1f476-1f3fe"},"1f476-1f3ff":{"name":"baby: dark skin tone","shortname":":baby_tone5:","shortname_alternates":[],"keywords":["baby","dark skin tone","young"],"unicode_output":"1f476-1f3ff"},"1f466":{"name":"boy","shortname":":boy:","shortname_alternates":[],"keywords":["boy","young"],"unicode_output":"1f466"},"1f466-1f3fb":{"name":"boy: light skin tone","shortname":":boy_tone1:","shortname_alternates":[],"keywords":["boy","light skin tone","young"],"unicode_output":"1f466-1f3fb"},"1f466-1f3fc":{"name":"boy: medium-light skin tone","shortname":":boy_tone2:","shortname_alternates":[],"keywords":["boy","medium-light skin tone","young"],"unicode_output":"1f466-1f3fc"},"1f466-1f3fd":{"name":"boy: medium skin tone","shortname":":boy_tone3:","shortname_alternates":[],"keywords":["boy","medium skin tone","young"],"unicode_output":"1f466-1f3fd"},"1f466-1f3fe":{"name":"boy: medium-dark skin tone","shortname":":boy_tone4:","shortname_alternates":[],"keywords":["boy","medium-dark skin tone","young"],"unicode_output":"1f466-1f3fe"},"1f466-1f3ff":{"name":"boy: dark skin tone","shortname":":boy_tone5:","shortname_alternates":[],"keywords":["boy","dark skin tone","young"],"unicode_output":"1f466-1f3ff"},"1f467":{"name":"girl","shortname":":girl:","shortname_alternates":[],"keywords":["Virgo","young","zodiac"],"unicode_output":"1f467"},"1f467-1f3fb":{"name":"girl: light skin tone","shortname":":girl_tone1:","shortname_alternates":[],"keywords":["Virgo","light skin tone","young","zodiac"],"unicode_output":"1f467-1f3fb"},"1f467-1f3fc":{"name":"girl: medium-light skin tone","shortname":":girl_tone2:","shortname_alternates":[],"keywords":["Virgo","medium-light skin tone","young","zodiac"],"unicode_output":"1f467-1f3fc"},"1f467-1f3fd":{"name":"girl: medium skin tone","shortname":":girl_tone3:","shortname_alternates":[],"keywords":["Virgo","medium skin tone","young","zodiac"],"unicode_output":"1f467-1f3fd"},"1f467-1f3fe":{"name":"girl: medium-dark skin tone","shortname":":girl_tone4:","shortname_alternates":[],"keywords":["Virgo","medium-dark skin tone","young","zodiac"],"unicode_output":"1f467-1f3fe"},"1f467-1f3ff":{"name":"girl: dark skin tone","shortname":":girl_tone5:","shortname_alternates":[],"keywords":["Virgo","dark skin tone","young","zodiac"],"unicode_output":"1f467-1f3ff"},"1f468":{"name":"man","shortname":":man:","shortname_alternates":[],"keywords":["man"],"unicode_output":"1f468"},"1f468-1f3fb":{"name":"man: light skin tone","shortname":":man_tone1:","shortname_alternates":[],"keywords":["light skin tone","man"],"unicode_output":"1f468-1f3fb"},"1f468-1f3fc":{"name":"man: medium-light skin tone","shortname":":man_tone2:","shortname_alternates":[],"keywords":["man","medium-light skin tone"],"unicode_output":"1f468-1f3fc"},"1f468-1f3fd":{"name":"man: medium skin tone","shortname":":man_tone3:","shortname_alternates":[],"keywords":["man","medium skin tone"],"unicode_output":"1f468-1f3fd"},"1f468-1f3fe":{"name":"man: medium-dark skin tone","shortname":":man_tone4:","shortname_alternates":[],"keywords":["man","medium-dark skin tone"],"unicode_output":"1f468-1f3fe"},"1f468-1f3ff":{"name":"man: dark skin tone","shortname":":man_tone5:","shortname_alternates":[],"keywords":["dark skin tone","man"],"unicode_output":"1f468-1f3ff"},"1f469":{"name":"woman","shortname":":woman:","shortname_alternates":[],"keywords":["woman"],"unicode_output":"1f469"},"1f469-1f3fb":{"name":"woman: light skin tone","shortname":":woman_tone1:","shortname_alternates":[],"keywords":["light skin tone","woman"],"unicode_output":"1f469-1f3fb"},"1f469-1f3fc":{"name":"woman: medium-light skin tone","shortname":":woman_tone2:","shortname_alternates":[],"keywords":["medium-light skin tone","woman"],"unicode_output":"1f469-1f3fc"},"1f469-1f3fd":{"name":"woman: medium skin tone","shortname":":woman_tone3:","shortname_alternates":[],"keywords":["medium skin tone","woman"],"unicode_output":"1f469-1f3fd"},"1f469-1f3fe":{"name":"woman: medium-dark skin tone","shortname":":woman_tone4:","shortname_alternates":[],"keywords":["medium-dark skin tone","woman"],"unicode_output":"1f469-1f3fe"},"1f469-1f3ff":{"name":"woman: dark skin tone","shortname":":woman_tone5:","shortname_alternates":[],"keywords":["dark skin tone","woman"],"unicode_output":"1f469-1f3ff"},"1f471-2640":{"name":"blond-haired woman","shortname":":blond-haired_woman:","shortname_alternates":[],"keywords":["blonde","woman"],"unicode_output":"1f471-200d-2640-fe0f"},"1f471-1f3fb-2640":{"name":"blond-haired woman: light skin tone","shortname":":blond-haired_woman_tone1:","shortname_alternates":[":blond-haired_woman_light_skin_tone:"],"keywords":["blonde","light skin tone","woman"],"unicode_output":"1f471-1f3fb-200d-2640-fe0f"},"1f471-1f3fc-2640":{"name":"blond-haired woman: medium-light skin tone","shortname":":blond-haired_woman_tone2:","shortname_alternates":[":blond-haired_woman_medium_light_skin_tone:"],"keywords":["blonde","medium-light skin tone","woman"],"unicode_output":"1f471-1f3fc-200d-2640-fe0f"},"1f471-1f3fd-2640":{"name":"blond-haired woman: medium skin tone","shortname":":blond-haired_woman_tone3:","shortname_alternates":[":blond-haired_woman_medium_skin_tone:"],"keywords":["blonde","medium skin tone","woman"],"unicode_output":"1f471-1f3fd-200d-2640-fe0f"},"1f471-1f3fe-2640":{"name":"blond-haired woman: medium-dark skin tone","shortname":":blond-haired_woman_tone4:","shortname_alternates":[":blond-haired_woman_medium_dark_skin_tone:"],"keywords":["blonde","medium-dark skin tone","woman"],"unicode_output":"1f471-1f3fe-200d-2640-fe0f"},"1f471-1f3ff-2640":{"name":"blond-haired woman: dark skin tone","shortname":":blond-haired_woman_tone5:","shortname_alternates":[":blond-haired_woman_dark_skin_tone:"],"keywords":["blonde","dark skin tone","woman"],"unicode_output":"1f471-1f3ff-200d-2640-fe0f"},"1f471":{"name":"blond-haired person","shortname":":blond_haired_person:","shortname_alternates":[":person_with_blond_hair:"],"keywords":["blond"],"unicode_output":"1f471"},"1f471-1f3fb":{"name":"blond-haired person: light skin tone","shortname":":blond_haired_person_tone1:","shortname_alternates":[":person_with_blond_hair_tone1:"],"keywords":["blond","light skin tone"],"unicode_output":"1f471-1f3fb"},"1f471-1f3fc":{"name":"blond-haired person: medium-light skin tone","shortname":":blond_haired_person_tone2:","shortname_alternates":[":person_with_blond_hair_tone2:"],"keywords":["blond","medium-light skin tone"],"unicode_output":"1f471-1f3fc"},"1f471-1f3fd":{"name":"blond-haired person: medium skin tone","shortname":":blond_haired_person_tone3:","shortname_alternates":[":person_with_blond_hair_tone3:"],"keywords":["blond","medium skin tone"],"unicode_output":"1f471-1f3fd"},"1f471-1f3fe":{"name":"blond-haired person: medium-dark skin tone","shortname":":blond_haired_person_tone4:","shortname_alternates":[":person_with_blond_hair_tone4:"],"keywords":["blond","medium-dark skin tone"],"unicode_output":"1f471-1f3fe"},"1f471-1f3ff":{"name":"blond-haired person: dark skin tone","shortname":":blond_haired_person_tone5:","shortname_alternates":[":person_with_blond_hair_tone5:"],"keywords":["blond","dark skin tone"],"unicode_output":"1f471-1f3ff"},"1f471-2642":{"name":"blond-haired man","shortname":":blond-haired_man:","shortname_alternates":[],"keywords":["blond","man"],"unicode_output":"1f471-200d-2642-fe0f"},"1f471-1f3ff-2642":{"name":"blond-haired man: dark skin tone","shortname":":blond-haired_man_tone5:","shortname_alternates":[":blond-haired_man_dark_skin_tone:"],"keywords":["blond","dark skin tone","man"],"unicode_output":"1f471-1f3ff-200d-2642-fe0f"},"1f471-1f3fe-2642":{"name":"blond-haired man: medium-dark skin tone","shortname":":blond-haired_man_tone4:","shortname_alternates":[":blond-haired_man_medium_dark_skin_tone:"],"keywords":["blond","man","medium-dark skin tone"],"unicode_output":"1f471-1f3fe-200d-2642-fe0f"},"1f471-1f3fd-2642":{"name":"blond-haired man: medium skin tone","shortname":":blond-haired_man_tone3:","shortname_alternates":[":blond-haired_man_medium_skin_tone:"],"keywords":["blond","man","medium skin tone"],"unicode_output":"1f471-1f3fd-200d-2642-fe0f"},"1f471-1f3fc-2642":{"name":"blond-haired man: medium-light skin tone","shortname":":blond-haired_man_tone2:","shortname_alternates":[":blond-haired_man_medium_light_skin_tone:"],"keywords":["blond","man","medium-light skin tone"],"unicode_output":"1f471-1f3fc-200d-2642-fe0f"},"1f471-1f3fb-2642":{"name":"blond-haired man: light skin tone","shortname":":blond-haired_man_tone1:","shortname_alternates":[":blond-haired_man_light_skin_tone:"],"keywords":["blond","light skin tone","man"],"unicode_output":"1f471-1f3fb-200d-2642-fe0f"},"1f474":{"name":"old man","shortname":":older_man:","shortname_alternates":[],"keywords":["man","old"],"unicode_output":"1f474"},"1f474-1f3fb":{"name":"old man: light skin tone","shortname":":older_man_tone1:","shortname_alternates":[],"keywords":["light skin tone","man","old"],"unicode_output":"1f474-1f3fb"},"1f474-1f3fc":{"name":"old man: medium-light skin tone","shortname":":older_man_tone2:","shortname_alternates":[],"keywords":["man","medium-light skin tone","old"],"unicode_output":"1f474-1f3fc"},"1f474-1f3fd":{"name":"old man: medium skin tone","shortname":":older_man_tone3:","shortname_alternates":[],"keywords":["man","medium skin tone","old"],"unicode_output":"1f474-1f3fd"},"1f474-1f3fe":{"name":"old man: medium-dark skin tone","shortname":":older_man_tone4:","shortname_alternates":[],"keywords":["man","medium-dark skin tone","old"],"unicode_output":"1f474-1f3fe"},"1f474-1f3ff":{"name":"old man: dark skin tone","shortname":":older_man_tone5:","shortname_alternates":[],"keywords":["dark skin tone","man","old"],"unicode_output":"1f474-1f3ff"},"1f475":{"name":"old woman","shortname":":older_woman:","shortname_alternates":[":grandma:"],"keywords":["old","woman"],"unicode_output":"1f475"},"1f475-1f3fb":{"name":"old woman: light skin tone","shortname":":older_woman_tone1:","shortname_alternates":[":grandma_tone1:"],"keywords":["light skin tone","old","woman"],"unicode_output":"1f475-1f3fb"},"1f475-1f3fc":{"name":"old woman: medium-light skin tone","shortname":":older_woman_tone2:","shortname_alternates":[":grandma_tone2:"],"keywords":["medium-light skin tone","old","woman"],"unicode_output":"1f475-1f3fc"},"1f475-1f3fd":{"name":"old woman: medium skin tone","shortname":":older_woman_tone3:","shortname_alternates":[":grandma_tone3:"],"keywords":["medium skin tone","old","woman"],"unicode_output":"1f475-1f3fd"},"1f475-1f3fe":{"name":"old woman: medium-dark skin tone","shortname":":older_woman_tone4:","shortname_alternates":[":grandma_tone4:"],"keywords":["medium-dark skin tone","old","woman"],"unicode_output":"1f475-1f3fe"},"1f475-1f3ff":{"name":"old woman: dark skin tone","shortname":":older_woman_tone5:","shortname_alternates":[":grandma_tone5:"],"keywords":["dark skin tone","old","woman"],"unicode_output":"1f475-1f3ff"},"1f472":{"name":"man with Chinese cap","shortname":":man_with_chinese_cap:","shortname_alternates":[":man_with_gua_pi_mao:"],"keywords":["gua pi mao","hat","man"],"unicode_output":"1f472"},"1f472-1f3fb":{"name":"man with Chinese cap: light skin tone","shortname":":man_with_chinese_cap_tone1:","shortname_alternates":[":man_with_gua_pi_mao_tone1:"],"keywords":["gua pi mao","hat","light skin tone","man"],"unicode_output":"1f472-1f3fb"},"1f472-1f3fc":{"name":"man with Chinese cap: medium-light skin tone","shortname":":man_with_chinese_cap_tone2:","shortname_alternates":[":man_with_gua_pi_mao_tone2:"],"keywords":["gua pi mao","hat","man","medium-light skin tone"],"unicode_output":"1f472-1f3fc"},"1f472-1f3fd":{"name":"man with Chinese cap: medium skin tone","shortname":":man_with_chinese_cap_tone3:","shortname_alternates":[":man_with_gua_pi_mao_tone3:"],"keywords":["gua pi mao","hat","man","medium skin tone"],"unicode_output":"1f472-1f3fd"},"1f472-1f3fe":{"name":"man with Chinese cap: medium-dark skin tone","shortname":":man_with_chinese_cap_tone4:","shortname_alternates":[":man_with_gua_pi_mao_tone4:"],"keywords":["gua pi mao","hat","man","medium-dark skin tone"],"unicode_output":"1f472-1f3fe"},"1f472-1f3ff":{"name":"man with Chinese cap: dark skin tone","shortname":":man_with_chinese_cap_tone5:","shortname_alternates":[":man_with_gua_pi_mao_tone5:"],"keywords":["dark skin tone","gua pi mao","hat","man"],"unicode_output":"1f472-1f3ff"},"1f473-2640":{"name":"woman wearing turban","shortname":":woman_wearing_turban:","shortname_alternates":[],"keywords":["turban","woman"],"unicode_output":"1f473-200d-2640-fe0f"},"1f473-1f3fb-2640":{"name":"woman wearing turban: light skin tone","shortname":":woman_wearing_turban_tone1:","shortname_alternates":[":woman_wearing_turban_light_skin_tone:"],"keywords":["light skin tone","turban","woman"],"unicode_output":"1f473-1f3fb-200d-2640-fe0f"},"1f473-1f3fc-2640":{"name":"woman wearing turban: medium-light skin tone","shortname":":woman_wearing_turban_tone2:","shortname_alternates":[":woman_wearing_turban_medium_light_skin_tone:"],"keywords":["medium-light skin tone","turban","woman"],"unicode_output":"1f473-1f3fc-200d-2640-fe0f"},"1f473-1f3fd-2640":{"name":"woman wearing turban: medium skin tone","shortname":":woman_wearing_turban_tone3:","shortname_alternates":[":woman_wearing_turban_medium_skin_tone:"],"keywords":["medium skin tone","turban","woman"],"unicode_output":"1f473-1f3fd-200d-2640-fe0f"},"1f473-1f3fe-2640":{"name":"woman wearing turban: medium-dark skin tone","shortname":":woman_wearing_turban_tone4:","shortname_alternates":[":woman_wearing_turban_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","turban","woman"],"unicode_output":"1f473-1f3fe-200d-2640-fe0f"},"1f473-1f3ff-2640":{"name":"woman wearing turban: dark skin tone","shortname":":woman_wearing_turban_tone5:","shortname_alternates":[":woman_wearing_turban_dark_skin_tone:"],"keywords":["dark skin tone","turban","woman"],"unicode_output":"1f473-1f3ff-200d-2640-fe0f"},"1f473":{"name":"person wearing turban","shortname":":person_wearing_turban:","shortname_alternates":[":man_with_turban:"],"keywords":["turban"],"unicode_output":"1f473"},"1f473-1f3fb":{"name":"person wearing turban: light skin tone","shortname":":person_wearing_turban_tone1:","shortname_alternates":[":man_with_turban_tone1:"],"keywords":["light skin tone","turban"],"unicode_output":"1f473-1f3fb"},"1f473-1f3fc":{"name":"person wearing turban: medium-light skin tone","shortname":":person_wearing_turban_tone2:","shortname_alternates":[":man_with_turban_tone2:"],"keywords":["medium-light skin tone","turban"],"unicode_output":"1f473-1f3fc"},"1f473-1f3fd":{"name":"person wearing turban: medium skin tone","shortname":":person_wearing_turban_tone3:","shortname_alternates":[":man_with_turban_tone3:"],"keywords":["medium skin tone","turban"],"unicode_output":"1f473-1f3fd"},"1f473-1f3fe":{"name":"person wearing turban: medium-dark skin tone","shortname":":person_wearing_turban_tone4:","shortname_alternates":[":man_with_turban_tone4:"],"keywords":["medium-dark skin tone","turban"],"unicode_output":"1f473-1f3fe"},"1f473-1f3ff":{"name":"person wearing turban: dark skin tone","shortname":":person_wearing_turban_tone5:","shortname_alternates":[":man_with_turban_tone5:"],"keywords":["dark skin tone","turban"],"unicode_output":"1f473-1f3ff"},"1f473-2642":{"name":"man wearing turban","shortname":":man_wearing_turban:","shortname_alternates":[],"keywords":["man","turban"],"unicode_output":"1f473-200d-2642-fe0f"},"1f473-1f3ff-2642":{"name":"man wearing turban: dark skin tone","shortname":":man_wearing_turban_tone5:","shortname_alternates":[":man_wearing_turban_dark_skin_tone:"],"keywords":["dark skin tone","man","turban"],"unicode_output":"1f473-1f3ff-200d-2642-fe0f"},"1f473-1f3fe-2642":{"name":"man wearing turban: medium-dark skin tone","shortname":":man_wearing_turban_tone4:","shortname_alternates":[":man_wearing_turban_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","turban"],"unicode_output":"1f473-1f3fe-200d-2642-fe0f"},"1f473-1f3fd-2642":{"name":"man wearing turban: medium skin tone","shortname":":man_wearing_turban_tone3:","shortname_alternates":[":man_wearing_turban_medium_skin_tone:"],"keywords":["man","medium skin tone","turban"],"unicode_output":"1f473-1f3fd-200d-2642-fe0f"},"1f473-1f3fc-2642":{"name":"man wearing turban: medium-light skin tone","shortname":":man_wearing_turban_tone2:","shortname_alternates":[":man_wearing_turban_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","turban"],"unicode_output":"1f473-1f3fc-200d-2642-fe0f"},"1f473-1f3fb-2642":{"name":"man wearing turban: light skin tone","shortname":":man_wearing_turban_tone1:","shortname_alternates":[":man_wearing_turban_light_skin_tone:"],"keywords":["light skin tone","man","turban"],"unicode_output":"1f473-1f3fb-200d-2642-fe0f"},"1f46e-2640":{"name":"woman police officer","shortname":":woman_police_officer:","shortname_alternates":[],"keywords":["cop","officer","police","woman"],"unicode_output":"1f46e-200d-2640-fe0f"},"1f46e-1f3fb-2640":{"name":"woman police officer: light skin tone","shortname":":woman_police_officer_tone1:","shortname_alternates":[":woman_police_officer_light_skin_tone:"],"keywords":["cop","light skin tone","officer","police","woman"],"unicode_output":"1f46e-1f3fb-200d-2640-fe0f"},"1f46e-1f3fc-2640":{"name":"woman police officer: medium-light skin tone","shortname":":woman_police_officer_tone2:","shortname_alternates":[":woman_police_officer_medium_light_skin_tone:"],"keywords":["cop","medium-light skin tone","officer","police","woman"],"unicode_output":"1f46e-1f3fc-200d-2640-fe0f"},"1f46e-1f3fd-2640":{"name":"woman police officer: medium skin tone","shortname":":woman_police_officer_tone3:","shortname_alternates":[":woman_police_officer_medium_skin_tone:"],"keywords":["cop","medium skin tone","officer","police","woman"],"unicode_output":"1f46e-1f3fd-200d-2640-fe0f"},"1f46e-1f3fe-2640":{"name":"woman police officer: medium-dark skin tone","shortname":":woman_police_officer_tone4:","shortname_alternates":[":woman_police_officer_medium_dark_skin_tone:"],"keywords":["cop","medium-dark skin tone","officer","police","woman"],"unicode_output":"1f46e-1f3fe-200d-2640-fe0f"},"1f46e-1f3ff-2640":{"name":"woman police officer: dark skin tone","shortname":":woman_police_officer_tone5:","shortname_alternates":[":woman_police_officer_dark_skin_tone:"],"keywords":["cop","dark skin tone","officer","police","woman"],"unicode_output":"1f46e-1f3ff-200d-2640-fe0f"},"1f46e":{"name":"police officer","shortname":":police_officer:","shortname_alternates":[":cop:"],"keywords":["cop","officer","police"],"unicode_output":"1f46e"},"1f46e-1f3fb":{"name":"police officer: light skin tone","shortname":":police_officer_tone1:","shortname_alternates":[":cop_tone1:"],"keywords":["cop","light skin tone","officer","police"],"unicode_output":"1f46e-1f3fb"},"1f46e-1f3fc":{"name":"police officer: medium-light skin tone","shortname":":police_officer_tone2:","shortname_alternates":[":cop_tone2:"],"keywords":["cop","medium-light skin tone","officer","police"],"unicode_output":"1f46e-1f3fc"},"1f46e-1f3fd":{"name":"police officer: medium skin tone","shortname":":police_officer_tone3:","shortname_alternates":[":cop_tone3:"],"keywords":["cop","medium skin tone","officer","police"],"unicode_output":"1f46e-1f3fd"},"1f46e-1f3fe":{"name":"police officer: medium-dark skin tone","shortname":":police_officer_tone4:","shortname_alternates":[":cop_tone4:"],"keywords":["cop","medium-dark skin tone","officer","police"],"unicode_output":"1f46e-1f3fe"},"1f46e-1f3ff":{"name":"police officer: dark skin tone","shortname":":police_officer_tone5:","shortname_alternates":[":cop_tone5:"],"keywords":["cop","dark skin tone","officer","police"],"unicode_output":"1f46e-1f3ff"},"1f46e-2642":{"name":"man police officer","shortname":":man_police_officer:","shortname_alternates":[],"keywords":["cop","man","officer","police"],"unicode_output":"1f46e-200d-2642-fe0f"},"1f46e-1f3ff-2642":{"name":"man police officer: dark skin tone","shortname":":man_police_officer_tone5:","shortname_alternates":[":man_police_officer_dark_skin_tone:"],"keywords":["cop","dark skin tone","man","officer","police"],"unicode_output":"1f46e-1f3ff-200d-2642-fe0f"},"1f46e-1f3fe-2642":{"name":"man police officer: medium-dark skin tone","shortname":":man_police_officer_tone4:","shortname_alternates":[":man_police_officer_medium_dark_skin_tone:"],"keywords":["cop","man","medium-dark skin tone","officer","police"],"unicode_output":"1f46e-1f3fe-200d-2642-fe0f"},"1f46e-1f3fd-2642":{"name":"man police officer: medium skin tone","shortname":":man_police_officer_tone3:","shortname_alternates":[":man_police_officer_medium_skin_tone:"],"keywords":["cop","man","medium skin tone","officer","police"],"unicode_output":"1f46e-1f3fd-200d-2642-fe0f"},"1f46e-1f3fc-2642":{"name":"man police officer: medium-light skin tone","shortname":":man_police_officer_tone2:","shortname_alternates":[":man_police_officer_medium_light_skin_tone:"],"keywords":["cop","man","medium-light skin tone","officer","police"],"unicode_output":"1f46e-1f3fc-200d-2642-fe0f"},"1f46e-1f3fb-2642":{"name":"man police officer: light skin tone","shortname":":man_police_officer_tone1:","shortname_alternates":[":man_police_officer_light_skin_tone:"],"keywords":["cop","light skin tone","man","officer","police"],"unicode_output":"1f46e-1f3fb-200d-2642-fe0f"},"1f477-2640":{"name":"woman construction worker","shortname":":woman_construction_worker:","shortname_alternates":[],"keywords":["construction","woman","worker"],"unicode_output":"1f477-200d-2640-fe0f"},"1f477-1f3fb-2640":{"name":"woman construction worker: light skin tone","shortname":":woman_construction_worker_tone1:","shortname_alternates":[":woman_construction_worker_light_skin_tone:"],"keywords":["construction","light skin tone","woman","worker"],"unicode_output":"1f477-1f3fb-200d-2640-fe0f"},"1f477-1f3fc-2640":{"name":"woman construction worker: medium-light skin tone","shortname":":woman_construction_worker_tone2:","shortname_alternates":[":woman_construction_worker_medium_light_skin_tone:"],"keywords":["construction","medium-light skin tone","woman","worker"],"unicode_output":"1f477-1f3fc-200d-2640-fe0f"},"1f477-1f3fd-2640":{"name":"woman construction worker: medium skin tone","shortname":":woman_construction_worker_tone3:","shortname_alternates":[":woman_construction_worker_medium_skin_tone:"],"keywords":["construction","medium skin tone","woman","worker"],"unicode_output":"1f477-1f3fd-200d-2640-fe0f"},"1f477-1f3fe-2640":{"name":"woman construction worker: medium-dark skin tone","shortname":":woman_construction_worker_tone4:","shortname_alternates":[":woman_construction_worker_medium_dark_skin_tone:"],"keywords":["construction","medium-dark skin tone","woman","worker"],"unicode_output":"1f477-1f3fe-200d-2640-fe0f"},"1f477-1f3ff-2640":{"name":"woman construction worker: dark skin tone","shortname":":woman_construction_worker_tone5:","shortname_alternates":[":woman_construction_worker_dark_skin_tone:"],"keywords":["construction","dark skin tone","woman","worker"],"unicode_output":"1f477-1f3ff-200d-2640-fe0f"},"1f477":{"name":"construction worker","shortname":":construction_worker:","shortname_alternates":[],"keywords":["construction","hat","worker"],"unicode_output":"1f477"},"1f477-1f3fb":{"name":"construction worker: light skin tone","shortname":":construction_worker_tone1:","shortname_alternates":[],"keywords":["construction","hat","light skin tone","worker"],"unicode_output":"1f477-1f3fb"},"1f477-1f3fc":{"name":"construction worker: medium-light skin tone","shortname":":construction_worker_tone2:","shortname_alternates":[],"keywords":["construction","hat","medium-light skin tone","worker"],"unicode_output":"1f477-1f3fc"},"1f477-1f3fd":{"name":"construction worker: medium skin tone","shortname":":construction_worker_tone3:","shortname_alternates":[],"keywords":["construction","hat","medium skin tone","worker"],"unicode_output":"1f477-1f3fd"},"1f477-1f3fe":{"name":"construction worker: medium-dark skin tone","shortname":":construction_worker_tone4:","shortname_alternates":[],"keywords":["construction","hat","medium-dark skin tone","worker"],"unicode_output":"1f477-1f3fe"},"1f477-1f3ff":{"name":"construction worker: dark skin tone","shortname":":construction_worker_tone5:","shortname_alternates":[],"keywords":["construction","dark skin tone","hat","worker"],"unicode_output":"1f477-1f3ff"},"1f477-2642":{"name":"man construction worker","shortname":":man_construction_worker:","shortname_alternates":[],"keywords":["construction","man","worker"],"unicode_output":"1f477-200d-2642-fe0f"},"1f477-1f3ff-2642":{"name":"man construction worker: dark skin tone","shortname":":man_construction_worker_tone5:","shortname_alternates":[":man_construction_worker_dark_skin_tone:"],"keywords":["construction","dark skin tone","man","worker"],"unicode_output":"1f477-1f3ff-200d-2642-fe0f"},"1f477-1f3fe-2642":{"name":"man construction worker: medium-dark skin tone","shortname":":man_construction_worker_tone4:","shortname_alternates":[":man_construction_worker_medium_dark_skin_tone:"],"keywords":["construction","man","medium-dark skin tone","worker"],"unicode_output":"1f477-1f3fe-200d-2642-fe0f"},"1f477-1f3fd-2642":{"name":"man construction worker: medium skin tone","shortname":":man_construction_worker_tone3:","shortname_alternates":[":man_construction_worker_medium_skin_tone:"],"keywords":["construction","man","medium skin tone","worker"],"unicode_output":"1f477-1f3fd-200d-2642-fe0f"},"1f477-1f3fc-2642":{"name":"man construction worker: medium-light skin tone","shortname":":man_construction_worker_tone2:","shortname_alternates":[":man_construction_worker_medium_light_skin_tone:"],"keywords":["construction","man","medium-light skin tone","worker"],"unicode_output":"1f477-1f3fc-200d-2642-fe0f"},"1f477-1f3fb-2642":{"name":"man construction worker: light skin tone","shortname":":man_construction_worker_tone1:","shortname_alternates":[":man_construction_worker_light_skin_tone:"],"keywords":["construction","light skin tone","man","worker"],"unicode_output":"1f477-1f3fb-200d-2642-fe0f"},"1f482-2640":{"name":"woman guard","shortname":":woman_guard:","shortname_alternates":[],"keywords":["guard","woman"],"unicode_output":"1f482-200d-2640-fe0f"},"1f482-1f3fb-2640":{"name":"woman guard: light skin tone","shortname":":woman_guard_tone1:","shortname_alternates":[":woman_guard_light_skin_tone:"],"keywords":["guard","light skin tone","woman"],"unicode_output":"1f482-1f3fb-200d-2640-fe0f"},"1f482-1f3fc-2640":{"name":"woman guard: medium-light skin tone","shortname":":woman_guard_tone2:","shortname_alternates":[":woman_guard_medium_light_skin_tone:"],"keywords":["guard","medium-light skin tone","woman"],"unicode_output":"1f482-1f3fc-200d-2640-fe0f"},"1f482-1f3fd-2640":{"name":"woman guard: medium skin tone","shortname":":woman_guard_tone3:","shortname_alternates":[":woman_guard_medium_skin_tone:"],"keywords":["guard","medium skin tone","woman"],"unicode_output":"1f482-1f3fd-200d-2640-fe0f"},"1f482-1f3fe-2640":{"name":"woman guard: medium-dark skin tone","shortname":":woman_guard_tone4:","shortname_alternates":[":woman_guard_medium_dark_skin_tone:"],"keywords":["guard","medium-dark skin tone","woman"],"unicode_output":"1f482-1f3fe-200d-2640-fe0f"},"1f482-1f3ff-2640":{"name":"woman guard: dark skin tone","shortname":":woman_guard_tone5:","shortname_alternates":[":woman_guard_dark_skin_tone:"],"keywords":["dark skin tone","guard","woman"],"unicode_output":"1f482-1f3ff-200d-2640-fe0f"},"1f482":{"name":"guard","shortname":":guard:","shortname_alternates":[":guardsman:"],"keywords":["guard"],"unicode_output":"1f482"},"1f482-1f3fb":{"name":"guard: light skin tone","shortname":":guard_tone1:","shortname_alternates":[":guardsman_tone1:"],"keywords":["guard","light skin tone"],"unicode_output":"1f482-1f3fb"},"1f482-1f3fc":{"name":"guard: medium-light skin tone","shortname":":guard_tone2:","shortname_alternates":[":guardsman_tone2:"],"keywords":["guard","medium-light skin tone"],"unicode_output":"1f482-1f3fc"},"1f482-1f3fd":{"name":"guard: medium skin tone","shortname":":guard_tone3:","shortname_alternates":[":guardsman_tone3:"],"keywords":["guard","medium skin tone"],"unicode_output":"1f482-1f3fd"},"1f482-1f3fe":{"name":"guard: medium-dark skin tone","shortname":":guard_tone4:","shortname_alternates":[":guardsman_tone4:"],"keywords":["guard","medium-dark skin tone"],"unicode_output":"1f482-1f3fe"},"1f482-1f3ff":{"name":"guard: dark skin tone","shortname":":guard_tone5:","shortname_alternates":[":guardsman_tone5:"],"keywords":["dark skin tone","guard"],"unicode_output":"1f482-1f3ff"},"1f482-2642":{"name":"man guard","shortname":":man_guard:","shortname_alternates":[],"keywords":["guard","man"],"unicode_output":"1f482-200d-2642-fe0f"},"1f482-1f3ff-2642":{"name":"man guard: dark skin tone","shortname":":man_guard_tone5:","shortname_alternates":[":man_guard_dark_skin_tone:"],"keywords":["dark skin tone","guard","man"],"unicode_output":"1f482-1f3ff-200d-2642-fe0f"},"1f482-1f3fe-2642":{"name":"man guard: medium-dark skin tone","shortname":":man_guard_tone4:","shortname_alternates":[":man_guard_medium_dark_skin_tone:"],"keywords":["guard","man","medium-dark skin tone"],"unicode_output":"1f482-1f3fe-200d-2642-fe0f"},"1f482-1f3fd-2642":{"name":"man guard: medium skin tone","shortname":":man_guard_tone3:","shortname_alternates":[":man_guard_medium_skin_tone:"],"keywords":["guard","man","medium skin tone"],"unicode_output":"1f482-1f3fd-200d-2642-fe0f"},"1f482-1f3fc-2642":{"name":"man guard: medium-light skin tone","shortname":":man_guard_tone2:","shortname_alternates":[":man_guard_medium_light_skin_tone:"],"keywords":["guard","man","medium-light skin tone"],"unicode_output":"1f482-1f3fc-200d-2642-fe0f"},"1f482-1f3fb-2642":{"name":"man guard: light skin tone","shortname":":man_guard_tone1:","shortname_alternates":[":man_guard_light_skin_tone:"],"keywords":["guard","light skin tone","man"],"unicode_output":"1f482-1f3fb-200d-2642-fe0f"},"1f575-2640":{"name":"woman detective","shortname":":woman_detective:","shortname_alternates":[],"keywords":["detective","sleuth","spy","woman"],"unicode_output":"1f575-fe0f-200d-2640-fe0f"},"1f575-1f3fb-2640":{"name":"woman detective: light skin tone","shortname":":woman_detective_tone1:","shortname_alternates":[":woman_detective_light_skin_tone:"],"keywords":["detective","light skin tone","sleuth","spy","woman"],"unicode_output":"1f575-1f3fb-200d-2640-fe0f"},"1f575-1f3fc-2640":{"name":"woman detective: medium-light skin tone","shortname":":woman_detective_tone2:","shortname_alternates":[":woman_detective_medium_light_skin_tone:"],"keywords":["detective","medium-light skin tone","sleuth","spy","woman"],"unicode_output":"1f575-1f3fc-200d-2640-fe0f"},"1f575-1f3fd-2640":{"name":"woman detective: medium skin tone","shortname":":woman_detective_tone3:","shortname_alternates":[":woman_detective_medium_skin_tone:"],"keywords":["detective","medium skin tone","sleuth","spy","woman"],"unicode_output":"1f575-1f3fd-200d-2640-fe0f"},"1f575-1f3fe-2640":{"name":"woman detective: medium-dark skin tone","shortname":":woman_detective_tone4:","shortname_alternates":[":woman_detective_medium_dark_skin_tone:"],"keywords":["detective","medium-dark skin tone","sleuth","spy","woman"],"unicode_output":"1f575-1f3fe-200d-2640-fe0f"},"1f575-1f3ff-2640":{"name":"woman detective: dark skin tone","shortname":":woman_detective_tone5:","shortname_alternates":[":woman_detective_dark_skin_tone:"],"keywords":["dark skin tone","detective","sleuth","spy","woman"],"unicode_output":"1f575-1f3ff-200d-2640-fe0f"},"1f575":{"name":"detective","shortname":":detective:","shortname_alternates":[":spy:",":sleuth_or_spy:"],"keywords":["detective","sleuth","spy"],"unicode_output":"1f575"},"1f575-1f3fb":{"name":"detective: light skin tone","shortname":":detective_tone1:","shortname_alternates":[":spy_tone1:",":sleuth_or_spy_tone1:"],"keywords":["detective","light skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fb"},"1f575-1f3fc":{"name":"detective: medium-light skin tone","shortname":":detective_tone2:","shortname_alternates":[":spy_tone2:",":sleuth_or_spy_tone2:"],"keywords":["detective","medium-light skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fc"},"1f575-1f3fd":{"name":"detective: medium skin tone","shortname":":detective_tone3:","shortname_alternates":[":spy_tone3:",":sleuth_or_spy_tone3:"],"keywords":["detective","medium skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fd"},"1f575-1f3fe":{"name":"detective: medium-dark skin tone","shortname":":detective_tone4:","shortname_alternates":[":spy_tone4:",":sleuth_or_spy_tone4:"],"keywords":["detective","medium-dark skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fe"},"1f575-1f3ff":{"name":"detective: dark skin tone","shortname":":detective_tone5:","shortname_alternates":[":spy_tone5:",":sleuth_or_spy_tone5:"],"keywords":["dark skin tone","detective","sleuth","spy"],"unicode_output":"1f575-1f3ff"},"1f575-2642":{"name":"man detective","shortname":":man_detective:","shortname_alternates":[],"keywords":["detective","man","sleuth","spy"],"unicode_output":"1f575-fe0f-200d-2642-fe0f"},"1f575-1f3ff-2642":{"name":"man detective: dark skin tone","shortname":":man_detective_tone5:","shortname_alternates":[":man_detective_dark_skin_tone:"],"keywords":["dark skin tone","detective","man","sleuth","spy"],"unicode_output":"1f575-1f3ff-200d-2642-fe0f"},"1f575-1f3fe-2642":{"name":"man detective: medium-dark skin tone","shortname":":man_detective_tone4:","shortname_alternates":[":man_detective_medium_dark_skin_tone:"],"keywords":["detective","man","medium-dark skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fe-200d-2642-fe0f"},"1f575-1f3fd-2642":{"name":"man detective: medium skin tone","shortname":":man_detective_tone3:","shortname_alternates":[":man_detective_medium_skin_tone:"],"keywords":["detective","man","medium skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fd-200d-2642-fe0f"},"1f575-1f3fc-2642":{"name":"man detective: medium-light skin tone","shortname":":man_detective_tone2:","shortname_alternates":[":man_detective_medium_light_skin_tone:"],"keywords":["detective","man","medium-light skin tone","sleuth","spy"],"unicode_output":"1f575-1f3fc-200d-2642-fe0f"},"1f575-1f3fb-2642":{"name":"man detective: light skin tone","shortname":":man_detective_tone1:","shortname_alternates":[":man_detective_light_skin_tone:"],"keywords":["detective","light skin tone","man","sleuth","spy"],"unicode_output":"1f575-1f3fb-200d-2642-fe0f"},"1f469-2695":{"name":"woman health worker","shortname":":woman_health_worker:","shortname_alternates":[],"keywords":["doctor","healthcare","nurse","therapist","woman"],"unicode_output":"1f469-200d-2695-fe0f"},"1f469-1f3fb-2695":{"name":"woman health worker: light skin tone","shortname":":woman_health_worker_tone1:","shortname_alternates":[":woman_health_worker_light_skin_tone:"],"keywords":["doctor","healthcare","light skin tone","nurse","therapist","woman"],"unicode_output":"1f469-1f3fb-200d-2695-fe0f"},"1f469-1f3fc-2695":{"name":"woman health worker: medium-light skin tone","shortname":":woman_health_worker_tone2:","shortname_alternates":[":woman_health_worker_medium_light_skin_tone:"],"keywords":["doctor","healthcare","medium-light skin tone","nurse","therapist","woman"],"unicode_output":"1f469-1f3fc-200d-2695-fe0f"},"1f469-1f3fd-2695":{"name":"woman health worker: medium skin tone","shortname":":woman_health_worker_tone3:","shortname_alternates":[":woman_health_worker_medium_skin_tone:"],"keywords":["doctor","healthcare","medium skin tone","nurse","therapist","woman"],"unicode_output":"1f469-1f3fd-200d-2695-fe0f"},"1f469-1f3fe-2695":{"name":"woman health worker: medium-dark skin tone","shortname":":woman_health_worker_tone4:","shortname_alternates":[":woman_health_worker_medium_dark_skin_tone:"],"keywords":["doctor","healthcare","medium-dark skin tone","nurse","therapist","woman"],"unicode_output":"1f469-1f3fe-200d-2695-fe0f"},"1f469-1f3ff-2695":{"name":"woman health worker: dark skin tone","shortname":":woman_health_worker_tone5:","shortname_alternates":[":woman_health_worker_dark_skin_tone:"],"keywords":["dark skin tone","doctor","healthcare","nurse","therapist","woman"],"unicode_output":"1f469-1f3ff-200d-2695-fe0f"},"1f468-2695":{"name":"man health worker","shortname":":man_health_worker:","shortname_alternates":[],"keywords":["doctor","healthcare","man","nurse","therapist"],"unicode_output":"1f468-200d-2695-fe0f"},"1f468-1f3fb-2695":{"name":"man health worker: light skin tone","shortname":":man_health_worker_tone1:","shortname_alternates":[":man_health_worker_light_skin_tone:"],"keywords":["doctor","healthcare","light skin tone","man","nurse","therapist"],"unicode_output":"1f468-1f3fb-200d-2695-fe0f"},"1f468-1f3fc-2695":{"name":"man health worker: medium-light skin tone","shortname":":man_health_worker_tone2:","shortname_alternates":[":man_health_worker_medium_light_skin_tone:"],"keywords":["doctor","healthcare","man","medium-light skin tone","nurse","therapist"],"unicode_output":"1f468-1f3fc-200d-2695-fe0f"},"1f468-1f3fd-2695":{"name":"man health worker: medium skin tone","shortname":":man_health_worker_tone3:","shortname_alternates":[":man_health_worker_medium_skin_tone:"],"keywords":["doctor","healthcare","man","medium skin tone","nurse","therapist"],"unicode_output":"1f468-1f3fd-200d-2695-fe0f"},"1f468-1f3fe-2695":{"name":"man health worker: medium-dark skin tone","shortname":":man_health_worker_tone4:","shortname_alternates":[":man_health_worker_medium_dark_skin_tone:"],"keywords":["doctor","healthcare","man","medium-dark skin tone","nurse","therapist"],"unicode_output":"1f468-1f3fe-200d-2695-fe0f"},"1f468-1f3ff-2695":{"name":"man health worker: dark skin tone","shortname":":man_health_worker_tone5:","shortname_alternates":[":man_health_worker_dark_skin_tone:"],"keywords":["dark skin tone","doctor","healthcare","man","nurse","therapist"],"unicode_output":"1f468-1f3ff-200d-2695-fe0f"},"1f469-1f33e":{"name":"woman farmer","shortname":":woman_farmer:","shortname_alternates":[],"keywords":["farmer","gardener","rancher","woman"],"unicode_output":"1f469-200d-1f33e"},"1f469-1f3fb-1f33e":{"name":"woman farmer: light skin tone","shortname":":woman_farmer_tone1:","shortname_alternates":[":woman_farmer_light_skin_tone:"],"keywords":["farmer","gardener","light skin tone","rancher","woman"],"unicode_output":"1f469-1f3fb-200d-1f33e"},"1f469-1f3fc-1f33e":{"name":"woman farmer: medium-light skin tone","shortname":":woman_farmer_tone2:","shortname_alternates":[":woman_farmer_medium_light_skin_tone:"],"keywords":["farmer","gardener","medium-light skin tone","rancher","woman"],"unicode_output":"1f469-1f3fc-200d-1f33e"},"1f469-1f3fd-1f33e":{"name":"woman farmer: medium skin tone","shortname":":woman_farmer_tone3:","shortname_alternates":[":woman_farmer_medium_skin_tone:"],"keywords":["farmer","gardener","medium skin tone","rancher","woman"],"unicode_output":"1f469-1f3fd-200d-1f33e"},"1f469-1f3fe-1f33e":{"name":"woman farmer: medium-dark skin tone","shortname":":woman_farmer_tone4:","shortname_alternates":[":woman_farmer_medium_dark_skin_tone:"],"keywords":["farmer","gardener","medium-dark skin tone","rancher","woman"],"unicode_output":"1f469-1f3fe-200d-1f33e"},"1f469-1f3ff-1f33e":{"name":"woman farmer: dark skin tone","shortname":":woman_farmer_tone5:","shortname_alternates":[":woman_farmer_dark_skin_tone:"],"keywords":["dark skin tone","farmer","gardener","rancher","woman"],"unicode_output":"1f469-1f3ff-200d-1f33e"},"1f468-1f33e":{"name":"man farmer","shortname":":man_farmer:","shortname_alternates":[],"keywords":["farmer","gardener","man","rancher"],"unicode_output":"1f468-200d-1f33e"},"1f468-1f3fb-1f33e":{"name":"man farmer: light skin tone","shortname":":man_farmer_tone1:","shortname_alternates":[":man_farmer_light_skin_tone:"],"keywords":["farmer","gardener","light skin tone","man","rancher"],"unicode_output":"1f468-1f3fb-200d-1f33e"},"1f468-1f3fc-1f33e":{"name":"man farmer: medium-light skin tone","shortname":":man_farmer_tone2:","shortname_alternates":[":man_farmer_medium_light_skin_tone:"],"keywords":["farmer","gardener","man","medium-light skin tone","rancher"],"unicode_output":"1f468-1f3fc-200d-1f33e"},"1f468-1f3fd-1f33e":{"name":"man farmer: medium skin tone","shortname":":man_farmer_tone3:","shortname_alternates":[":man_farmer_medium_skin_tone:"],"keywords":["farmer","gardener","man","medium skin tone","rancher"],"unicode_output":"1f468-1f3fd-200d-1f33e"},"1f468-1f3fe-1f33e":{"name":"man farmer: medium-dark skin tone","shortname":":man_farmer_tone4:","shortname_alternates":[":man_farmer_medium_dark_skin_tone:"],"keywords":["farmer","gardener","man","medium-dark skin tone","rancher"],"unicode_output":"1f468-1f3fe-200d-1f33e"},"1f468-1f3ff-1f33e":{"name":"man farmer: dark skin tone","shortname":":man_farmer_tone5:","shortname_alternates":[":man_farmer_dark_skin_tone:"],"keywords":["dark skin tone","farmer","gardener","man","rancher"],"unicode_output":"1f468-1f3ff-200d-1f33e"},"1f469-1f373":{"name":"woman cook","shortname":":woman_cook:","shortname_alternates":[],"keywords":["chef","cook","woman"],"unicode_output":"1f469-200d-1f373"},"1f469-1f3fb-1f373":{"name":"woman cook: light skin tone","shortname":":woman_cook_tone1:","shortname_alternates":[":woman_cook_light_skin_tone:"],"keywords":["chef","cook","light skin tone","woman"],"unicode_output":"1f469-1f3fb-200d-1f373"},"1f469-1f3fc-1f373":{"name":"woman cook: medium-light skin tone","shortname":":woman_cook_tone2:","shortname_alternates":[":woman_cook_medium_light_skin_tone:"],"keywords":["chef","cook","medium-light skin tone","woman"],"unicode_output":"1f469-1f3fc-200d-1f373"},"1f469-1f3fd-1f373":{"name":"woman cook: medium skin tone","shortname":":woman_cook_tone3:","shortname_alternates":[":woman_cook_medium_skin_tone:"],"keywords":["chef","cook","medium skin tone","woman"],"unicode_output":"1f469-1f3fd-200d-1f373"},"1f469-1f3fe-1f373":{"name":"woman cook: medium-dark skin tone","shortname":":woman_cook_tone4:","shortname_alternates":[":woman_cook_medium_dark_skin_tone:"],"keywords":["chef","cook","medium-dark skin tone","woman"],"unicode_output":"1f469-1f3fe-200d-1f373"},"1f469-1f3ff-1f373":{"name":"woman cook: dark skin tone","shortname":":woman_cook_tone5:","shortname_alternates":[":woman_cook_dark_skin_tone:"],"keywords":["chef","cook","dark skin tone","woman"],"unicode_output":"1f469-1f3ff-200d-1f373"},"1f468-1f373":{"name":"man cook","shortname":":man_cook:","shortname_alternates":[],"keywords":["chef","cook","man"],"unicode_output":"1f468-200d-1f373"},"1f468-1f3fb-1f373":{"name":"man cook: light skin tone","shortname":":man_cook_tone1:","shortname_alternates":[":man_cook_light_skin_tone:"],"keywords":["chef","cook","light skin tone","man"],"unicode_output":"1f468-1f3fb-200d-1f373"},"1f468-1f3fc-1f373":{"name":"man cook: medium-light skin tone","shortname":":man_cook_tone2:","shortname_alternates":[":man_cook_medium_light_skin_tone:"],"keywords":["chef","cook","man","medium-light skin tone"],"unicode_output":"1f468-1f3fc-200d-1f373"},"1f468-1f3fd-1f373":{"name":"man cook: medium skin tone","shortname":":man_cook_tone3:","shortname_alternates":[":man_cook_medium_skin_tone:"],"keywords":["chef","cook","man","medium skin tone"],"unicode_output":"1f468-1f3fd-200d-1f373"},"1f468-1f3fe-1f373":{"name":"man cook: medium-dark skin tone","shortname":":man_cook_tone4:","shortname_alternates":[":man_cook_medium_dark_skin_tone:"],"keywords":["chef","cook","man","medium-dark skin tone"],"unicode_output":"1f468-1f3fe-200d-1f373"},"1f468-1f3ff-1f373":{"name":"man cook: dark skin tone","shortname":":man_cook_tone5:","shortname_alternates":[":man_cook_dark_skin_tone:"],"keywords":["chef","cook","dark skin tone","man"],"unicode_output":"1f468-1f3ff-200d-1f373"},"1f469-1f393":{"name":"woman student","shortname":":woman_student:","shortname_alternates":[],"keywords":["graduate","student","woman"],"unicode_output":"1f469-200d-1f393"},"1f469-1f3fb-1f393":{"name":"woman student: light skin tone","shortname":":woman_student_tone1:","shortname_alternates":[":woman_student_light_skin_tone:"],"keywords":["graduate","light skin tone","student","woman"],"unicode_output":"1f469-1f3fb-200d-1f393"},"1f469-1f3fc-1f393":{"name":"woman student: medium-light skin tone","shortname":":woman_student_tone2:","shortname_alternates":[":woman_student_medium_light_skin_tone:"],"keywords":["graduate","medium-light skin tone","student","woman"],"unicode_output":"1f469-1f3fc-200d-1f393"},"1f469-1f3fd-1f393":{"name":"woman student: medium skin tone","shortname":":woman_student_tone3:","shortname_alternates":[":woman_student_medium_skin_tone:"],"keywords":["graduate","medium skin tone","student","woman"],"unicode_output":"1f469-1f3fd-200d-1f393"},"1f469-1f3fe-1f393":{"name":"woman student: medium-dark skin tone","shortname":":woman_student_tone4:","shortname_alternates":[":woman_student_medium_dark_skin_tone:"],"keywords":["graduate","medium-dark skin tone","student","woman"],"unicode_output":"1f469-1f3fe-200d-1f393"},"1f469-1f3ff-1f393":{"name":"woman student: dark skin tone","shortname":":woman_student_tone5:","shortname_alternates":[":woman_student_dark_skin_tone:"],"keywords":["dark skin tone","graduate","student","woman"],"unicode_output":"1f469-1f3ff-200d-1f393"},"1f468-1f393":{"name":"man student","shortname":":man_student:","shortname_alternates":[],"keywords":["graduate","man","student"],"unicode_output":"1f468-200d-1f393"},"1f468-1f3fb-1f393":{"name":"man student: light skin tone","shortname":":man_student_tone1:","shortname_alternates":[":man_student_light_skin_tone:"],"keywords":["graduate","light skin tone","man","student"],"unicode_output":"1f468-1f3fb-200d-1f393"},"1f468-1f3fc-1f393":{"name":"man student: medium-light skin tone","shortname":":man_student_tone2:","shortname_alternates":[":man_student_medium_light_skin_tone:"],"keywords":["graduate","man","medium-light skin tone","student"],"unicode_output":"1f468-1f3fc-200d-1f393"},"1f468-1f3fd-1f393":{"name":"man student: medium skin tone","shortname":":man_student_tone3:","shortname_alternates":[":man_student_medium_skin_tone:"],"keywords":["graduate","man","medium skin tone","student"],"unicode_output":"1f468-1f3fd-200d-1f393"},"1f468-1f3fe-1f393":{"name":"man student: medium-dark skin tone","shortname":":man_student_tone4:","shortname_alternates":[":man_student_medium_dark_skin_tone:"],"keywords":["graduate","man","medium-dark skin tone","student"],"unicode_output":"1f468-1f3fe-200d-1f393"},"1f468-1f3ff-1f393":{"name":"man student: dark skin tone","shortname":":man_student_tone5:","shortname_alternates":[":man_student_dark_skin_tone:"],"keywords":["dark skin tone","graduate","man","student"],"unicode_output":"1f468-1f3ff-200d-1f393"},"1f469-1f3a4":{"name":"woman singer","shortname":":woman_singer:","shortname_alternates":[],"keywords":["actor","entertainer","rock","singer","star","woman"],"unicode_output":"1f469-200d-1f3a4"},"1f469-1f3fb-1f3a4":{"name":"woman singer: light skin tone","shortname":":woman_singer_tone1:","shortname_alternates":[":woman_singer_light_skin_tone:"],"keywords":["actor","entertainer","light skin tone","rock","singer","star","woman"],"unicode_output":"1f469-1f3fb-200d-1f3a4"},"1f469-1f3fc-1f3a4":{"name":"woman singer: medium-light skin tone","shortname":":woman_singer_tone2:","shortname_alternates":[":woman_singer_medium_light_skin_tone:"],"keywords":["actor","entertainer","medium-light skin tone","rock","singer","star","woman"],"unicode_output":"1f469-1f3fc-200d-1f3a4"},"1f469-1f3fd-1f3a4":{"name":"woman singer: medium skin tone","shortname":":woman_singer_tone3:","shortname_alternates":[":woman_singer_medium_skin_tone:"],"keywords":["actor","entertainer","medium skin tone","rock","singer","star","woman"],"unicode_output":"1f469-1f3fd-200d-1f3a4"},"1f469-1f3fe-1f3a4":{"name":"woman singer: medium-dark skin tone","shortname":":woman_singer_tone4:","shortname_alternates":[":woman_singer_medium_dark_skin_tone:"],"keywords":["actor","entertainer","medium-dark skin tone","rock","singer","star","woman"],"unicode_output":"1f469-1f3fe-200d-1f3a4"},"1f469-1f3ff-1f3a4":{"name":"woman singer: dark skin tone","shortname":":woman_singer_tone5:","shortname_alternates":[":woman_singer_dark_skin_tone:"],"keywords":["actor","dark skin tone","entertainer","rock","singer","star","woman"],"unicode_output":"1f469-1f3ff-200d-1f3a4"},"1f468-1f3a4":{"name":"man singer","shortname":":man_singer:","shortname_alternates":[],"keywords":["actor","entertainer","man","rock","singer","star"],"unicode_output":"1f468-200d-1f3a4"},"1f468-1f3fb-1f3a4":{"name":"man singer: light skin tone","shortname":":man_singer_tone1:","shortname_alternates":[":man_singer_light_skin_tone:"],"keywords":["actor","entertainer","light skin tone","man","rock","singer","star"],"unicode_output":"1f468-1f3fb-200d-1f3a4"},"1f468-1f3fc-1f3a4":{"name":"man singer: medium-light skin tone","shortname":":man_singer_tone2:","shortname_alternates":[":man_singer_medium_light_skin_tone:"],"keywords":["actor","entertainer","man","medium-light skin tone","rock","singer","star"],"unicode_output":"1f468-1f3fc-200d-1f3a4"},"1f468-1f3fd-1f3a4":{"name":"man singer: medium skin tone","shortname":":man_singer_tone3:","shortname_alternates":[":man_singer_medium_skin_tone:"],"keywords":["actor","entertainer","man","medium skin tone","rock","singer","star"],"unicode_output":"1f468-1f3fd-200d-1f3a4"},"1f468-1f3fe-1f3a4":{"name":"man singer: medium-dark skin tone","shortname":":man_singer_tone4:","shortname_alternates":[":man_singer_medium_dark_skin_tone:"],"keywords":["actor","entertainer","man","medium-dark skin tone","rock","singer","star"],"unicode_output":"1f468-1f3fe-200d-1f3a4"},"1f468-1f3ff-1f3a4":{"name":"man singer: dark skin tone","shortname":":man_singer_tone5:","shortname_alternates":[":man_singer_dark_skin_tone:"],"keywords":["actor","dark skin tone","entertainer","man","rock","singer","star"],"unicode_output":"1f468-1f3ff-200d-1f3a4"},"1f469-1f3eb":{"name":"woman teacher","shortname":":woman_teacher:","shortname_alternates":[],"keywords":["instructor","professor","teacher","woman"],"unicode_output":"1f469-200d-1f3eb"},"1f469-1f3fb-1f3eb":{"name":"woman teacher: light skin tone","shortname":":woman_teacher_tone1:","shortname_alternates":[":woman_teacher_light_skin_tone:"],"keywords":["instructor","light skin tone","professor","teacher","woman"],"unicode_output":"1f469-1f3fb-200d-1f3eb"},"1f469-1f3fc-1f3eb":{"name":"woman teacher: medium-light skin tone","shortname":":woman_teacher_tone2:","shortname_alternates":[":woman_teacher_medium_light_skin_tone:"],"keywords":["instructor","medium-light skin tone","professor","teacher","woman"],"unicode_output":"1f469-1f3fc-200d-1f3eb"},"1f469-1f3fd-1f3eb":{"name":"woman teacher: medium skin tone","shortname":":woman_teacher_tone3:","shortname_alternates":[":woman_teacher_medium_skin_tone:"],"keywords":["instructor","medium skin tone","professor","teacher","woman"],"unicode_output":"1f469-1f3fd-200d-1f3eb"},"1f469-1f3fe-1f3eb":{"name":"woman teacher: medium-dark skin tone","shortname":":woman_teacher_tone4:","shortname_alternates":[":woman_teacher_medium_dark_skin_tone:"],"keywords":["instructor","medium-dark skin tone","professor","teacher","woman"],"unicode_output":"1f469-1f3fe-200d-1f3eb"},"1f469-1f3ff-1f3eb":{"name":"woman teacher: dark skin tone","shortname":":woman_teacher_tone5:","shortname_alternates":[":woman_teacher_dark_skin_tone:"],"keywords":["dark skin tone","instructor","professor","teacher","woman"],"unicode_output":"1f469-1f3ff-200d-1f3eb"},"1f468-1f3eb":{"name":"man teacher","shortname":":man_teacher:","shortname_alternates":[],"keywords":["instructor","man","professor","teacher"],"unicode_output":"1f468-200d-1f3eb"},"1f468-1f3fb-1f3eb":{"name":"man teacher: light skin tone","shortname":":man_teacher_tone1:","shortname_alternates":[":man_teacher_light_skin_tone:"],"keywords":["instructor","light skin tone","man","professor","teacher"],"unicode_output":"1f468-1f3fb-200d-1f3eb"},"1f468-1f3fc-1f3eb":{"name":"man teacher: medium-light skin tone","shortname":":man_teacher_tone2:","shortname_alternates":[":man_teacher_medium_light_skin_tone:"],"keywords":["instructor","man","medium-light skin tone","professor","teacher"],"unicode_output":"1f468-1f3fc-200d-1f3eb"},"1f468-1f3fd-1f3eb":{"name":"man teacher: medium skin tone","shortname":":man_teacher_tone3:","shortname_alternates":[":man_teacher_medium_skin_tone:"],"keywords":["instructor","man","medium skin tone","professor","teacher"],"unicode_output":"1f468-1f3fd-200d-1f3eb"},"1f468-1f3fe-1f3eb":{"name":"man teacher: medium-dark skin tone","shortname":":man_teacher_tone4:","shortname_alternates":[":man_teacher_medium_dark_skin_tone:"],"keywords":["instructor","man","medium-dark skin tone","professor","teacher"],"unicode_output":"1f468-1f3fe-200d-1f3eb"},"1f468-1f3ff-1f3eb":{"name":"man teacher: dark skin tone","shortname":":man_teacher_tone5:","shortname_alternates":[":man_teacher_dark_skin_tone:"],"keywords":["dark skin tone","instructor","man","professor","teacher"],"unicode_output":"1f468-1f3ff-200d-1f3eb"},"1f469-1f3ed":{"name":"woman factory worker","shortname":":woman_factory_worker:","shortname_alternates":[],"keywords":["assembly","factory","industrial","woman","worker"],"unicode_output":"1f469-200d-1f3ed"},"1f469-1f3fb-1f3ed":{"name":"woman factory worker: light skin tone","shortname":":woman_factory_worker_tone1:","shortname_alternates":[":woman_factory_worker_light_skin_tone:"],"keywords":["assembly","factory","industrial","light skin tone","woman","worker"],"unicode_output":"1f469-1f3fb-200d-1f3ed"},"1f469-1f3fc-1f3ed":{"name":"woman factory worker: medium-light skin tone","shortname":":woman_factory_worker_tone2:","shortname_alternates":[":woman_factory_worker_medium_light_skin_tone:"],"keywords":["assembly","factory","industrial","medium-light skin tone","woman","worker"],"unicode_output":"1f469-1f3fc-200d-1f3ed"},"1f469-1f3fd-1f3ed":{"name":"woman factory worker: medium skin tone","shortname":":woman_factory_worker_tone3:","shortname_alternates":[":woman_factory_worker_medium_skin_tone:"],"keywords":["assembly","factory","industrial","medium skin tone","woman","worker"],"unicode_output":"1f469-1f3fd-200d-1f3ed"},"1f469-1f3fe-1f3ed":{"name":"woman factory worker: medium-dark skin tone","shortname":":woman_factory_worker_tone4:","shortname_alternates":[":woman_factory_worker_medium_dark_skin_tone:"],"keywords":["assembly","factory","industrial","medium-dark skin tone","woman","worker"],"unicode_output":"1f469-1f3fe-200d-1f3ed"},"1f469-1f3ff-1f3ed":{"name":"woman factory worker: dark skin tone","shortname":":woman_factory_worker_tone5:","shortname_alternates":[":woman_factory_worker_dark_skin_tone:"],"keywords":["assembly","dark skin tone","factory","industrial","woman","worker"],"unicode_output":"1f469-1f3ff-200d-1f3ed"},"1f468-1f3ed":{"name":"man factory worker","shortname":":man_factory_worker:","shortname_alternates":[],"keywords":["assembly","factory","industrial","man","worker"],"unicode_output":"1f468-200d-1f3ed"},"1f468-1f3fb-1f3ed":{"name":"man factory worker: light skin tone","shortname":":man_factory_worker_tone1:","shortname_alternates":[":man_factory_worker_light_skin_tone:"],"keywords":["assembly","factory","industrial","light skin tone","man","worker"],"unicode_output":"1f468-1f3fb-200d-1f3ed"},"1f468-1f3fc-1f3ed":{"name":"man factory worker: medium-light skin tone","shortname":":man_factory_worker_tone2:","shortname_alternates":[":man_factory_worker_medium_light_skin_tone:"],"keywords":["assembly","factory","industrial","man","medium-light skin tone","worker"],"unicode_output":"1f468-1f3fc-200d-1f3ed"},"1f468-1f3fd-1f3ed":{"name":"man factory worker: medium skin tone","shortname":":man_factory_worker_tone3:","shortname_alternates":[":man_factory_worker_medium_skin_tone:"],"keywords":["assembly","factory","industrial","man","medium skin tone","worker"],"unicode_output":"1f468-1f3fd-200d-1f3ed"},"1f468-1f3fe-1f3ed":{"name":"man factory worker: medium-dark skin tone","shortname":":man_factory_worker_tone4:","shortname_alternates":[":man_factory_worker_medium_dark_skin_tone:"],"keywords":["assembly","factory","industrial","man","medium-dark skin tone","worker"],"unicode_output":"1f468-1f3fe-200d-1f3ed"},"1f468-1f3ff-1f3ed":{"name":"man factory worker: dark skin tone","shortname":":man_factory_worker_tone5:","shortname_alternates":[":man_factory_worker_dark_skin_tone:"],"keywords":["assembly","dark skin tone","factory","industrial","man","worker"],"unicode_output":"1f468-1f3ff-200d-1f3ed"},"1f469-1f4bb":{"name":"woman technologist","shortname":":woman_technologist:","shortname_alternates":[],"keywords":["coder","developer","inventor","software","technologist","woman"],"unicode_output":"1f469-200d-1f4bb"},"1f469-1f3fb-1f4bb":{"name":"woman technologist: light skin tone","shortname":":woman_technologist_tone1:","shortname_alternates":[":woman_technologist_light_skin_tone:"],"keywords":["coder","developer","inventor","light skin tone","software","technologist","woman"],"unicode_output":"1f469-1f3fb-200d-1f4bb"},"1f469-1f3fc-1f4bb":{"name":"woman technologist: medium-light skin tone","shortname":":woman_technologist_tone2:","shortname_alternates":[":woman_technologist_medium_light_skin_tone:"],"keywords":["coder","developer","inventor","medium-light skin tone","software","technologist","woman"],"unicode_output":"1f469-1f3fc-200d-1f4bb"},"1f469-1f3fd-1f4bb":{"name":"woman technologist: medium skin tone","shortname":":woman_technologist_tone3:","shortname_alternates":[":woman_technologist_medium_skin_tone:"],"keywords":["coder","developer","inventor","medium skin tone","software","technologist","woman"],"unicode_output":"1f469-1f3fd-200d-1f4bb"},"1f469-1f3fe-1f4bb":{"name":"woman technologist: medium-dark skin tone","shortname":":woman_technologist_tone4:","shortname_alternates":[":woman_technologist_medium_dark_skin_tone:"],"keywords":["coder","developer","inventor","medium-dark skin tone","software","technologist","woman"],"unicode_output":"1f469-1f3fe-200d-1f4bb"},"1f469-1f3ff-1f4bb":{"name":"woman technologist: dark skin tone","shortname":":woman_technologist_tone5:","shortname_alternates":[":woman_technologist_dark_skin_tone:"],"keywords":["coder","dark skin tone","developer","inventor","software","technologist","woman"],"unicode_output":"1f469-1f3ff-200d-1f4bb"},"1f468-1f4bb":{"name":"man technologist","shortname":":man_technologist:","shortname_alternates":[],"keywords":["coder","developer","inventor","man","software","technologist"],"unicode_output":"1f468-200d-1f4bb"},"1f468-1f3fb-1f4bb":{"name":"man technologist: light skin tone","shortname":":man_technologist_tone1:","shortname_alternates":[":man_technologist_light_skin_tone:"],"keywords":["coder","developer","inventor","light skin tone","man","software","technologist"],"unicode_output":"1f468-1f3fb-200d-1f4bb"},"1f468-1f3fc-1f4bb":{"name":"man technologist: medium-light skin tone","shortname":":man_technologist_tone2:","shortname_alternates":[":man_technologist_medium_light_skin_tone:"],"keywords":["coder","developer","inventor","man","medium-light skin tone","software","technologist"],"unicode_output":"1f468-1f3fc-200d-1f4bb"},"1f468-1f3fd-1f4bb":{"name":"man technologist: medium skin tone","shortname":":man_technologist_tone3:","shortname_alternates":[":man_technologist_medium_skin_tone:"],"keywords":["coder","developer","inventor","man","medium skin tone","software","technologist"],"unicode_output":"1f468-1f3fd-200d-1f4bb"},"1f468-1f3fe-1f4bb":{"name":"man technologist: medium-dark skin tone","shortname":":man_technologist_tone4:","shortname_alternates":[":man_technologist_medium_dark_skin_tone:"],"keywords":["coder","developer","inventor","man","medium-dark skin tone","software","technologist"],"unicode_output":"1f468-1f3fe-200d-1f4bb"},"1f468-1f3ff-1f4bb":{"name":"man technologist: dark skin tone","shortname":":man_technologist_tone5:","shortname_alternates":[":man_technologist_dark_skin_tone:"],"keywords":["coder","dark skin tone","developer","inventor","man","software","technologist"],"unicode_output":"1f468-1f3ff-200d-1f4bb"},"1f469-1f4bc":{"name":"woman office worker","shortname":":woman_office_worker:","shortname_alternates":[],"keywords":["architect","business","manager","office","white-collar","woman"],"unicode_output":"1f469-200d-1f4bc"},"1f469-1f3fb-1f4bc":{"name":"woman office worker: light skin tone","shortname":":woman_office_worker_tone1:","shortname_alternates":[":woman_office_worker_light_skin_tone:"],"keywords":["architect","business","light skin tone","manager","office","white-collar","woman"],"unicode_output":"1f469-1f3fb-200d-1f4bc"},"1f469-1f3fc-1f4bc":{"name":"woman office worker: medium-light skin tone","shortname":":woman_office_worker_tone2:","shortname_alternates":[":woman_office_worker_medium_light_skin_tone:"],"keywords":["architect","business","manager","medium-light skin tone","office","white-collar","woman"],"unicode_output":"1f469-1f3fc-200d-1f4bc"},"1f469-1f3fd-1f4bc":{"name":"woman office worker: medium skin tone","shortname":":woman_office_worker_tone3:","shortname_alternates":[":woman_office_worker_medium_skin_tone:"],"keywords":["architect","business","manager","medium skin tone","office","white-collar","woman"],"unicode_output":"1f469-1f3fd-200d-1f4bc"},"1f469-1f3fe-1f4bc":{"name":"woman office worker: medium-dark skin tone","shortname":":woman_office_worker_tone4:","shortname_alternates":[":woman_office_worker_medium_dark_skin_tone:"],"keywords":["architect","business","manager","medium-dark skin tone","office","white-collar","woman"],"unicode_output":"1f469-1f3fe-200d-1f4bc"},"1f469-1f3ff-1f4bc":{"name":"woman office worker: dark skin tone","shortname":":woman_office_worker_tone5:","shortname_alternates":[":woman_office_worker_dark_skin_tone:"],"keywords":["architect","business","dark skin tone","manager","office","white-collar","woman"],"unicode_output":"1f469-1f3ff-200d-1f4bc"},"1f468-1f4bc":{"name":"man office worker","shortname":":man_office_worker:","shortname_alternates":[],"keywords":["architect","business","man","manager","office","white-collar"],"unicode_output":"1f468-200d-1f4bc"},"1f468-1f3fb-1f4bc":{"name":"man office worker: light skin tone","shortname":":man_office_worker_tone1:","shortname_alternates":[":man_office_worker_light_skin_tone:"],"keywords":["architect","business","light skin tone","man","manager","office","white-collar"],"unicode_output":"1f468-1f3fb-200d-1f4bc"},"1f468-1f3fc-1f4bc":{"name":"man office worker: medium-light skin tone","shortname":":man_office_worker_tone2:","shortname_alternates":[":man_office_worker_medium_light_skin_tone:"],"keywords":["architect","business","man","manager","medium-light skin tone","office","white-collar"],"unicode_output":"1f468-1f3fc-200d-1f4bc"},"1f468-1f3fd-1f4bc":{"name":"man office worker: medium skin tone","shortname":":man_office_worker_tone3:","shortname_alternates":[":man_office_worker_medium_skin_tone:"],"keywords":["architect","business","man","manager","medium skin tone","office","white-collar"],"unicode_output":"1f468-1f3fd-200d-1f4bc"},"1f468-1f3fe-1f4bc":{"name":"man office worker: medium-dark skin tone","shortname":":man_office_worker_tone4:","shortname_alternates":[":man_office_worker_medium_dark_skin_tone:"],"keywords":["architect","business","man","manager","medium-dark skin tone","office","white-collar"],"unicode_output":"1f468-1f3fe-200d-1f4bc"},"1f468-1f3ff-1f4bc":{"name":"man office worker: dark skin tone","shortname":":man_office_worker_tone5:","shortname_alternates":[":man_office_worker_dark_skin_tone:"],"keywords":["architect","business","dark skin tone","man","manager","office","white-collar"],"unicode_output":"1f468-1f3ff-200d-1f4bc"},"1f469-1f527":{"name":"woman mechanic","shortname":":woman_mechanic:","shortname_alternates":[],"keywords":["electrician","mechanic","plumber","tradesperson","woman"],"unicode_output":"1f469-200d-1f527"},"1f469-1f3fb-1f527":{"name":"woman mechanic: light skin tone","shortname":":woman_mechanic_tone1:","shortname_alternates":[":woman_mechanic_light_skin_tone:"],"keywords":["electrician","light skin tone","mechanic","plumber","tradesperson","woman"],"unicode_output":"1f469-1f3fb-200d-1f527"},"1f469-1f3fc-1f527":{"name":"woman mechanic: medium-light skin tone","shortname":":woman_mechanic_tone2:","shortname_alternates":[":woman_mechanic_medium_light_skin_tone:"],"keywords":["electrician","mechanic","medium-light skin tone","plumber","tradesperson","woman"],"unicode_output":"1f469-1f3fc-200d-1f527"},"1f469-1f3fd-1f527":{"name":"woman mechanic: medium skin tone","shortname":":woman_mechanic_tone3:","shortname_alternates":[":woman_mechanic_medium_skin_tone:"],"keywords":["electrician","mechanic","medium skin tone","plumber","tradesperson","woman"],"unicode_output":"1f469-1f3fd-200d-1f527"},"1f469-1f3fe-1f527":{"name":"woman mechanic: medium-dark skin tone","shortname":":woman_mechanic_tone4:","shortname_alternates":[":woman_mechanic_medium_dark_skin_tone:"],"keywords":["electrician","mechanic","medium-dark skin tone","plumber","tradesperson","woman"],"unicode_output":"1f469-1f3fe-200d-1f527"},"1f469-1f3ff-1f527":{"name":"woman mechanic: dark skin tone","shortname":":woman_mechanic_tone5:","shortname_alternates":[":woman_mechanic_dark_skin_tone:"],"keywords":["dark skin tone","electrician","mechanic","plumber","tradesperson","woman"],"unicode_output":"1f469-1f3ff-200d-1f527"},"1f468-1f527":{"name":"man mechanic","shortname":":man_mechanic:","shortname_alternates":[],"keywords":["electrician","man","mechanic","plumber","tradesperson"],"unicode_output":"1f468-200d-1f527"},"1f468-1f3fb-1f527":{"name":"man mechanic: light skin tone","shortname":":man_mechanic_tone1:","shortname_alternates":[":man_mechanic_light_skin_tone:"],"keywords":["electrician","light skin tone","man","mechanic","plumber","tradesperson"],"unicode_output":"1f468-1f3fb-200d-1f527"},"1f468-1f3fc-1f527":{"name":"man mechanic: medium-light skin tone","shortname":":man_mechanic_tone2:","shortname_alternates":[":man_mechanic_medium_light_skin_tone:"],"keywords":["electrician","man","mechanic","medium-light skin tone","plumber","tradesperson"],"unicode_output":"1f468-1f3fc-200d-1f527"},"1f468-1f3fd-1f527":{"name":"man mechanic: medium skin tone","shortname":":man_mechanic_tone3:","shortname_alternates":[":man_mechanic_medium_skin_tone:"],"keywords":["electrician","man","mechanic","medium skin tone","plumber","tradesperson"],"unicode_output":"1f468-1f3fd-200d-1f527"},"1f468-1f3fe-1f527":{"name":"man mechanic: medium-dark skin tone","shortname":":man_mechanic_tone4:","shortname_alternates":[":man_mechanic_medium_dark_skin_tone:"],"keywords":["electrician","man","mechanic","medium-dark skin tone","plumber","tradesperson"],"unicode_output":"1f468-1f3fe-200d-1f527"},"1f468-1f3ff-1f527":{"name":"man mechanic: dark skin tone","shortname":":man_mechanic_tone5:","shortname_alternates":[":man_mechanic_dark_skin_tone:"],"keywords":["dark skin tone","electrician","man","mechanic","plumber","tradesperson"],"unicode_output":"1f468-1f3ff-200d-1f527"},"1f469-1f52c":{"name":"woman scientist","shortname":":woman_scientist:","shortname_alternates":[],"keywords":["biologist","chemist","engineer","mathematician","physicist","scientist","woman"],"unicode_output":"1f469-200d-1f52c"},"1f469-1f3fb-1f52c":{"name":"woman scientist: light skin tone","shortname":":woman_scientist_tone1:","shortname_alternates":[":woman_scientist_light_skin_tone:"],"keywords":["biologist","chemist","engineer","light skin tone","mathematician","physicist","scientist","woman"],"unicode_output":"1f469-1f3fb-200d-1f52c"},"1f469-1f3fc-1f52c":{"name":"woman scientist: medium-light skin tone","shortname":":woman_scientist_tone2:","shortname_alternates":[":woman_scientist_medium_light_skin_tone:"],"keywords":["biologist","chemist","engineer","mathematician","medium-light skin tone","physicist","scientist","woman"],"unicode_output":"1f469-1f3fc-200d-1f52c"},"1f469-1f3fd-1f52c":{"name":"woman scientist: medium skin tone","shortname":":woman_scientist_tone3:","shortname_alternates":[":woman_scientist_medium_skin_tone:"],"keywords":["biologist","chemist","engineer","mathematician","medium skin tone","physicist","scientist","woman"],"unicode_output":"1f469-1f3fd-200d-1f52c"},"1f469-1f3fe-1f52c":{"name":"woman scientist: medium-dark skin tone","shortname":":woman_scientist_tone4:","shortname_alternates":[":woman_scientist_medium_dark_skin_tone:"],"keywords":["biologist","chemist","engineer","mathematician","medium-dark skin tone","physicist","scientist","woman"],"unicode_output":"1f469-1f3fe-200d-1f52c"},"1f469-1f3ff-1f52c":{"name":"woman scientist: dark skin tone","shortname":":woman_scientist_tone5:","shortname_alternates":[":woman_scientist_dark_skin_tone:"],"keywords":["biologist","chemist","dark skin tone","engineer","mathematician","physicist","scientist","woman"],"unicode_output":"1f469-1f3ff-200d-1f52c"},"1f468-1f52c":{"name":"man scientist","shortname":":man_scientist:","shortname_alternates":[],"keywords":["biologist","chemist","engineer","man","mathematician","physicist","scientist"],"unicode_output":"1f468-200d-1f52c"},"1f468-1f3fb-1f52c":{"name":"man scientist: light skin tone","shortname":":man_scientist_tone1:","shortname_alternates":[":man_scientist_light_skin_tone:"],"keywords":["biologist","chemist","engineer","light skin tone","man","mathematician","physicist","scientist"],"unicode_output":"1f468-1f3fb-200d-1f52c"},"1f468-1f3fc-1f52c":{"name":"man scientist: medium-light skin tone","shortname":":man_scientist_tone2:","shortname_alternates":[":man_scientist_medium_light_skin_tone:"],"keywords":["biologist","chemist","engineer","man","mathematician","medium-light skin tone","physicist","scientist"],"unicode_output":"1f468-1f3fc-200d-1f52c"},"1f468-1f3fd-1f52c":{"name":"man scientist: medium skin tone","shortname":":man_scientist_tone3:","shortname_alternates":[":man_scientist_medium_skin_tone:"],"keywords":["biologist","chemist","engineer","man","mathematician","medium skin tone","physicist","scientist"],"unicode_output":"1f468-1f3fd-200d-1f52c"},"1f468-1f3fe-1f52c":{"name":"man scientist: medium-dark skin tone","shortname":":man_scientist_tone4:","shortname_alternates":[":man_scientist_medium_dark_skin_tone:"],"keywords":["biologist","chemist","engineer","man","mathematician","medium-dark skin tone","physicist","scientist"],"unicode_output":"1f468-1f3fe-200d-1f52c"},"1f468-1f3ff-1f52c":{"name":"man scientist: dark skin tone","shortname":":man_scientist_tone5:","shortname_alternates":[":man_scientist_dark_skin_tone:"],"keywords":["biologist","chemist","dark skin tone","engineer","man","mathematician","physicist","scientist"],"unicode_output":"1f468-1f3ff-200d-1f52c"},"1f469-1f3a8":{"name":"woman artist","shortname":":woman_artist:","shortname_alternates":[],"keywords":["artist","palette","woman"],"unicode_output":"1f469-200d-1f3a8"},"1f469-1f3fb-1f3a8":{"name":"woman artist: light skin tone","shortname":":woman_artist_tone1:","shortname_alternates":[":woman_artist_light_skin_tone:"],"keywords":["artist","light skin tone","palette","woman"],"unicode_output":"1f469-1f3fb-200d-1f3a8"},"1f469-1f3fc-1f3a8":{"name":"woman artist: medium-light skin tone","shortname":":woman_artist_tone2:","shortname_alternates":[":woman_artist_medium_light_skin_tone:"],"keywords":["artist","medium-light skin tone","palette","woman"],"unicode_output":"1f469-1f3fc-200d-1f3a8"},"1f469-1f3fd-1f3a8":{"name":"woman artist: medium skin tone","shortname":":woman_artist_tone3:","shortname_alternates":[":woman_artist_medium_skin_tone:"],"keywords":["artist","medium skin tone","palette","woman"],"unicode_output":"1f469-1f3fd-200d-1f3a8"},"1f469-1f3fe-1f3a8":{"name":"woman artist: medium-dark skin tone","shortname":":woman_artist_tone4:","shortname_alternates":[":woman_artist_medium_dark_skin_tone:"],"keywords":["artist","medium-dark skin tone","palette","woman"],"unicode_output":"1f469-1f3fe-200d-1f3a8"},"1f469-1f3ff-1f3a8":{"name":"woman artist: dark skin tone","shortname":":woman_artist_tone5:","shortname_alternates":[":woman_artist_dark_skin_tone:"],"keywords":["artist","dark skin tone","palette","woman"],"unicode_output":"1f469-1f3ff-200d-1f3a8"},"1f468-1f3a8":{"name":"man artist","shortname":":man_artist:","shortname_alternates":[],"keywords":["artist","man","palette"],"unicode_output":"1f468-200d-1f3a8"},"1f468-1f3fb-1f3a8":{"name":"man artist: light skin tone","shortname":":man_artist_tone1:","shortname_alternates":[":man_artist_light_skin_tone:"],"keywords":["artist","light skin tone","man","palette"],"unicode_output":"1f468-1f3fb-200d-1f3a8"},"1f468-1f3fc-1f3a8":{"name":"man artist: medium-light skin tone","shortname":":man_artist_tone2:","shortname_alternates":[":man_artist_medium_light_skin_tone:"],"keywords":["artist","man","medium-light skin tone","palette"],"unicode_output":"1f468-1f3fc-200d-1f3a8"},"1f468-1f3fd-1f3a8":{"name":"man artist: medium skin tone","shortname":":man_artist_tone3:","shortname_alternates":[":man_artist_medium_skin_tone:"],"keywords":["artist","man","medium skin tone","palette"],"unicode_output":"1f468-1f3fd-200d-1f3a8"},"1f468-1f3fe-1f3a8":{"name":"man artist: medium-dark skin tone","shortname":":man_artist_tone4:","shortname_alternates":[":man_artist_medium_dark_skin_tone:"],"keywords":["artist","man","medium-dark skin tone","palette"],"unicode_output":"1f468-1f3fe-200d-1f3a8"},"1f468-1f3ff-1f3a8":{"name":"man artist: dark skin tone","shortname":":man_artist_tone5:","shortname_alternates":[":man_artist_dark_skin_tone:"],"keywords":["artist","dark skin tone","man","palette"],"unicode_output":"1f468-1f3ff-200d-1f3a8"},"1f469-1f692":{"name":"woman firefighter","shortname":":woman_firefighter:","shortname_alternates":[],"keywords":["firefighter","firetruck","woman"],"unicode_output":"1f469-200d-1f692"},"1f469-1f3fb-1f692":{"name":"woman firefighter: light skin tone","shortname":":woman_firefighter_tone1:","shortname_alternates":[":woman_firefighter_light_skin_tone:"],"keywords":["firefighter","firetruck","light skin tone","woman"],"unicode_output":"1f469-1f3fb-200d-1f692"},"1f469-1f3fc-1f692":{"name":"woman firefighter: medium-light skin tone","shortname":":woman_firefighter_tone2:","shortname_alternates":[":woman_firefighter_medium_light_skin_tone:"],"keywords":["firefighter","firetruck","medium-light skin tone","woman"],"unicode_output":"1f469-1f3fc-200d-1f692"},"1f469-1f3fd-1f692":{"name":"woman firefighter: medium skin tone","shortname":":woman_firefighter_tone3:","shortname_alternates":[":woman_firefighter_medium_skin_tone:"],"keywords":["firefighter","firetruck","medium skin tone","woman"],"unicode_output":"1f469-1f3fd-200d-1f692"},"1f469-1f3fe-1f692":{"name":"woman firefighter: medium-dark skin tone","shortname":":woman_firefighter_tone4:","shortname_alternates":[":woman_firefighter_medium_dark_skin_tone:"],"keywords":["firefighter","firetruck","medium-dark skin tone","woman"],"unicode_output":"1f469-1f3fe-200d-1f692"},"1f469-1f3ff-1f692":{"name":"woman firefighter: dark skin tone","shortname":":woman_firefighter_tone5:","shortname_alternates":[":woman_firefighter_dark_skin_tone:"],"keywords":["dark skin tone","firefighter","firetruck","woman"],"unicode_output":"1f469-1f3ff-200d-1f692"},"1f468-1f692":{"name":"man firefighter","shortname":":man_firefighter:","shortname_alternates":[],"keywords":["firefighter","firetruck","man"],"unicode_output":"1f468-200d-1f692"},"1f468-1f3fb-1f692":{"name":"man firefighter: light skin tone","shortname":":man_firefighter_tone1:","shortname_alternates":[":man_firefighter_light_skin_tone:"],"keywords":["firefighter","firetruck","light skin tone","man"],"unicode_output":"1f468-1f3fb-200d-1f692"},"1f468-1f3fc-1f692":{"name":"man firefighter: medium-light skin tone","shortname":":man_firefighter_tone2:","shortname_alternates":[":man_firefighter_medium_light_skin_tone:"],"keywords":["firefighter","firetruck","man","medium-light skin tone"],"unicode_output":"1f468-1f3fc-200d-1f692"},"1f468-1f3fd-1f692":{"name":"man firefighter: medium skin tone","shortname":":man_firefighter_tone3:","shortname_alternates":[":man_firefighter_medium_skin_tone:"],"keywords":["firefighter","firetruck","man","medium skin tone"],"unicode_output":"1f468-1f3fd-200d-1f692"},"1f468-1f3fe-1f692":{"name":"man firefighter: medium-dark skin tone","shortname":":man_firefighter_tone4:","shortname_alternates":[":man_firefighter_medium_dark_skin_tone:"],"keywords":["firefighter","firetruck","man","medium-dark skin tone"],"unicode_output":"1f468-1f3fe-200d-1f692"},"1f468-1f3ff-1f692":{"name":"man firefighter: dark skin tone","shortname":":man_firefighter_tone5:","shortname_alternates":[":man_firefighter_dark_skin_tone:"],"keywords":["dark skin tone","firefighter","firetruck","man"],"unicode_output":"1f468-1f3ff-200d-1f692"},"1f469-2708":{"name":"woman pilot","shortname":":woman_pilot:","shortname_alternates":[],"keywords":["pilot","plane","woman"],"unicode_output":"1f469-200d-2708-fe0f"},"1f469-1f3fb-2708":{"name":"woman pilot: light skin tone","shortname":":woman_pilot_tone1:","shortname_alternates":[":woman_pilot_light_skin_tone:"],"keywords":["light skin tone","pilot","plane","woman"],"unicode_output":"1f469-1f3fb-200d-2708-fe0f"},"1f469-1f3fc-2708":{"name":"woman pilot: medium-light skin tone","shortname":":woman_pilot_tone2:","shortname_alternates":[":woman_pilot_medium_light_skin_tone:"],"keywords":["medium-light skin tone","pilot","plane","woman"],"unicode_output":"1f469-1f3fc-200d-2708-fe0f"},"1f469-1f3fd-2708":{"name":"woman pilot: medium skin tone","shortname":":woman_pilot_tone3:","shortname_alternates":[":woman_pilot_medium_skin_tone:"],"keywords":["medium skin tone","pilot","plane","woman"],"unicode_output":"1f469-1f3fd-200d-2708-fe0f"},"1f469-1f3fe-2708":{"name":"woman pilot: medium-dark skin tone","shortname":":woman_pilot_tone4:","shortname_alternates":[":woman_pilot_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","pilot","plane","woman"],"unicode_output":"1f469-1f3fe-200d-2708-fe0f"},"1f469-1f3ff-2708":{"name":"woman pilot: dark skin tone","shortname":":woman_pilot_tone5:","shortname_alternates":[":woman_pilot_dark_skin_tone:"],"keywords":["dark skin tone","pilot","plane","woman"],"unicode_output":"1f469-1f3ff-200d-2708-fe0f"},"1f468-2708":{"name":"man pilot","shortname":":man_pilot:","shortname_alternates":[],"keywords":["man","pilot","plane"],"unicode_output":"1f468-200d-2708-fe0f"},"1f468-1f3fb-2708":{"name":"man pilot: light skin tone","shortname":":man_pilot_tone1:","shortname_alternates":[":man_pilot_light_skin_tone:"],"keywords":["light skin tone","man","pilot","plane"],"unicode_output":"1f468-1f3fb-200d-2708-fe0f"},"1f468-1f3fc-2708":{"name":"man pilot: medium-light skin tone","shortname":":man_pilot_tone2:","shortname_alternates":[":man_pilot_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","pilot","plane"],"unicode_output":"1f468-1f3fc-200d-2708-fe0f"},"1f468-1f3fd-2708":{"name":"man pilot: medium skin tone","shortname":":man_pilot_tone3:","shortname_alternates":[":man_pilot_medium_skin_tone:"],"keywords":["man","medium skin tone","pilot","plane"],"unicode_output":"1f468-1f3fd-200d-2708-fe0f"},"1f468-1f3fe-2708":{"name":"man pilot: medium-dark skin tone","shortname":":man_pilot_tone4:","shortname_alternates":[":man_pilot_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","pilot","plane"],"unicode_output":"1f468-1f3fe-200d-2708-fe0f"},"1f468-1f3ff-2708":{"name":"man pilot: dark skin tone","shortname":":man_pilot_tone5:","shortname_alternates":[":man_pilot_dark_skin_tone:"],"keywords":["dark skin tone","man","pilot","plane"],"unicode_output":"1f468-1f3ff-200d-2708-fe0f"},"1f469-1f680":{"name":"woman astronaut","shortname":":woman_astronaut:","shortname_alternates":[],"keywords":["astronaut","rocket","woman"],"unicode_output":"1f469-200d-1f680"},"1f469-1f3fb-1f680":{"name":"woman astronaut: light skin tone","shortname":":woman_astronaut_tone1:","shortname_alternates":[":woman_astronaut_light_skin_tone:"],"keywords":["astronaut","light skin tone","rocket","woman"],"unicode_output":"1f469-1f3fb-200d-1f680"},"1f469-1f3fc-1f680":{"name":"woman astronaut: medium-light skin tone","shortname":":woman_astronaut_tone2:","shortname_alternates":[":woman_astronaut_medium_light_skin_tone:"],"keywords":["astronaut","medium-light skin tone","rocket","woman"],"unicode_output":"1f469-1f3fc-200d-1f680"},"1f469-1f3fd-1f680":{"name":"woman astronaut: medium skin tone","shortname":":woman_astronaut_tone3:","shortname_alternates":[":woman_astronaut_medium_skin_tone:"],"keywords":["astronaut","medium skin tone","rocket","woman"],"unicode_output":"1f469-1f3fd-200d-1f680"},"1f469-1f3fe-1f680":{"name":"woman astronaut: medium-dark skin tone","shortname":":woman_astronaut_tone4:","shortname_alternates":[":woman_astronaut_medium_dark_skin_tone:"],"keywords":["astronaut","medium-dark skin tone","rocket","woman"],"unicode_output":"1f469-1f3fe-200d-1f680"},"1f469-1f3ff-1f680":{"name":"woman astronaut: dark skin tone","shortname":":woman_astronaut_tone5:","shortname_alternates":[":woman_astronaut_dark_skin_tone:"],"keywords":["astronaut","dark skin tone","rocket","woman"],"unicode_output":"1f469-1f3ff-200d-1f680"},"1f468-1f680":{"name":"man astronaut","shortname":":man_astronaut:","shortname_alternates":[],"keywords":["astronaut","man","rocket"],"unicode_output":"1f468-200d-1f680"},"1f468-1f3fb-1f680":{"name":"man astronaut: light skin tone","shortname":":man_astronaut_tone1:","shortname_alternates":[":man_astronaut_light_skin_tone:"],"keywords":["astronaut","light skin tone","man","rocket"],"unicode_output":"1f468-1f3fb-200d-1f680"},"1f468-1f3fc-1f680":{"name":"man astronaut: medium-light skin tone","shortname":":man_astronaut_tone2:","shortname_alternates":[":man_astronaut_medium_light_skin_tone:"],"keywords":["astronaut","man","medium-light skin tone","rocket"],"unicode_output":"1f468-1f3fc-200d-1f680"},"1f468-1f3fd-1f680":{"name":"man astronaut: medium skin tone","shortname":":man_astronaut_tone3:","shortname_alternates":[":man_astronaut_medium_skin_tone:"],"keywords":["astronaut","man","medium skin tone","rocket"],"unicode_output":"1f468-1f3fd-200d-1f680"},"1f468-1f3fe-1f680":{"name":"man astronaut: medium-dark skin tone","shortname":":man_astronaut_tone4:","shortname_alternates":[":man_astronaut_medium_dark_skin_tone:"],"keywords":["astronaut","man","medium-dark skin tone","rocket"],"unicode_output":"1f468-1f3fe-200d-1f680"},"1f468-1f3ff-1f680":{"name":"man astronaut: dark skin tone","shortname":":man_astronaut_tone5:","shortname_alternates":[":man_astronaut_dark_skin_tone:"],"keywords":["astronaut","dark skin tone","man","rocket"],"unicode_output":"1f468-1f3ff-200d-1f680"},"1f469-2696":{"name":"woman judge","shortname":":woman_judge:","shortname_alternates":[],"keywords":["judge","scales","woman"],"unicode_output":"1f469-200d-2696-fe0f"},"1f469-1f3fb-2696":{"name":"woman judge: light skin tone","shortname":":woman_judge_tone1:","shortname_alternates":[":woman_judge_light_skin_tone:"],"keywords":["judge","light skin tone","scales","woman"],"unicode_output":"1f469-1f3fb-200d-2696-fe0f"},"1f469-1f3fc-2696":{"name":"woman judge: medium-light skin tone","shortname":":woman_judge_tone2:","shortname_alternates":[":woman_judge_medium_light_skin_tone:"],"keywords":["judge","medium-light skin tone","scales","woman"],"unicode_output":"1f469-1f3fc-200d-2696-fe0f"},"1f469-1f3fd-2696":{"name":"woman judge: medium skin tone","shortname":":woman_judge_tone3:","shortname_alternates":[":woman_judge_medium_skin_tone:"],"keywords":["judge","medium skin tone","scales","woman"],"unicode_output":"1f469-1f3fd-200d-2696-fe0f"},"1f469-1f3fe-2696":{"name":"woman judge: medium-dark skin tone","shortname":":woman_judge_tone4:","shortname_alternates":[":woman_judge_medium_dark_skin_tone:"],"keywords":["judge","medium-dark skin tone","scales","woman"],"unicode_output":"1f469-1f3fe-200d-2696-fe0f"},"1f469-1f3ff-2696":{"name":"woman judge: dark skin tone","shortname":":woman_judge_tone5:","shortname_alternates":[":woman_judge_dark_skin_tone:"],"keywords":["dark skin tone","judge","scales","woman"],"unicode_output":"1f469-1f3ff-200d-2696-fe0f"},"1f468-2696":{"name":"man judge","shortname":":man_judge:","shortname_alternates":[],"keywords":["justice","man","scales"],"unicode_output":"1f468-200d-2696-fe0f"},"1f468-1f3fb-2696":{"name":"man judge: light skin tone","shortname":":man_judge_tone1:","shortname_alternates":[":man_judge_light_skin_tone:"],"keywords":["justice","light skin tone","man","scales"],"unicode_output":"1f468-1f3fb-200d-2696-fe0f"},"1f468-1f3fc-2696":{"name":"man judge: medium-light skin tone","shortname":":man_judge_tone2:","shortname_alternates":[":man_judge_medium_light_skin_tone:"],"keywords":["justice","man","medium-light skin tone","scales"],"unicode_output":"1f468-1f3fc-200d-2696-fe0f"},"1f468-1f3fd-2696":{"name":"man judge: medium skin tone","shortname":":man_judge_tone3:","shortname_alternates":[":man_judge_medium_skin_tone:"],"keywords":["justice","man","medium skin tone","scales"],"unicode_output":"1f468-1f3fd-200d-2696-fe0f"},"1f468-1f3fe-2696":{"name":"man judge: medium-dark skin tone","shortname":":man_judge_tone4:","shortname_alternates":[":man_judge_medium_dark_skin_tone:"],"keywords":["justice","man","medium-dark skin tone","scales"],"unicode_output":"1f468-1f3fe-200d-2696-fe0f"},"1f468-1f3ff-2696":{"name":"man judge: dark skin tone","shortname":":man_judge_tone5:","shortname_alternates":[":man_judge_dark_skin_tone:"],"keywords":["dark skin tone","justice","man","scales"],"unicode_output":"1f468-1f3ff-200d-2696-fe0f"},"1f936":{"name":"Mrs. Claus","shortname":":mrs_claus:","shortname_alternates":[":mother_christmas:"],"keywords":["Christmas","Mrs.","celebration","claus","mother"],"unicode_output":"1f936"},"1f936-1f3fb":{"name":"Mrs. Claus: light skin tone","shortname":":mrs_claus_tone1:","shortname_alternates":[":mother_christmas_tone1:"],"keywords":["Christmas","Mrs.","celebration","claus","light skin tone","mother"],"unicode_output":"1f936-1f3fb"},"1f936-1f3fc":{"name":"Mrs. Claus: medium-light skin tone","shortname":":mrs_claus_tone2:","shortname_alternates":[":mother_christmas_tone2:"],"keywords":["Christmas","Mrs.","celebration","claus","medium-light skin tone","mother"],"unicode_output":"1f936-1f3fc"},"1f936-1f3fd":{"name":"Mrs. Claus: medium skin tone","shortname":":mrs_claus_tone3:","shortname_alternates":[":mother_christmas_tone3:"],"keywords":["Christmas","Mrs.","celebration","claus","medium skin tone","mother"],"unicode_output":"1f936-1f3fd"},"1f936-1f3fe":{"name":"Mrs. Claus: medium-dark skin tone","shortname":":mrs_claus_tone4:","shortname_alternates":[":mother_christmas_tone4:"],"keywords":["Christmas","Mrs.","celebration","claus","medium-dark skin tone","mother"],"unicode_output":"1f936-1f3fe"},"1f936-1f3ff":{"name":"Mrs. Claus: dark skin tone","shortname":":mrs_claus_tone5:","shortname_alternates":[":mother_christmas_tone5:"],"keywords":["Christmas","Mrs.","celebration","claus","dark skin tone","mother"],"unicode_output":"1f936-1f3ff"},"1f385":{"name":"Santa Claus","shortname":":santa:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","father","santa"],"unicode_output":"1f385"},"1f385-1f3fb":{"name":"Santa Claus: light skin tone","shortname":":santa_tone1:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","father","light skin tone","santa"],"unicode_output":"1f385-1f3fb"},"1f385-1f3fc":{"name":"Santa Claus: medium-light skin tone","shortname":":santa_tone2:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","father","medium-light skin tone","santa"],"unicode_output":"1f385-1f3fc"},"1f385-1f3fd":{"name":"Santa Claus: medium skin tone","shortname":":santa_tone3:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","father","medium skin tone","santa"],"unicode_output":"1f385-1f3fd"},"1f385-1f3fe":{"name":"Santa Claus: medium-dark skin tone","shortname":":santa_tone4:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","father","medium-dark skin tone","santa"],"unicode_output":"1f385-1f3fe"},"1f385-1f3ff":{"name":"Santa Claus: dark skin tone","shortname":":santa_tone5:","shortname_alternates":[],"keywords":["Christmas","celebration","claus","dark skin tone","father","santa"],"unicode_output":"1f385-1f3ff"},"1f478":{"name":"princess","shortname":":princess:","shortname_alternates":[],"keywords":["fairy tale","fantasy"],"unicode_output":"1f478"},"1f478-1f3fb":{"name":"princess: light skin tone","shortname":":princess_tone1:","shortname_alternates":[],"keywords":["fairy tale","fantasy","light skin tone"],"unicode_output":"1f478-1f3fb"},"1f478-1f3fc":{"name":"princess: medium-light skin tone","shortname":":princess_tone2:","shortname_alternates":[],"keywords":["fairy tale","fantasy","medium-light skin tone"],"unicode_output":"1f478-1f3fc"},"1f478-1f3fd":{"name":"princess: medium skin tone","shortname":":princess_tone3:","shortname_alternates":[],"keywords":["fairy tale","fantasy","medium skin tone"],"unicode_output":"1f478-1f3fd"},"1f478-1f3fe":{"name":"princess: medium-dark skin tone","shortname":":princess_tone4:","shortname_alternates":[],"keywords":["fairy tale","fantasy","medium-dark skin tone"],"unicode_output":"1f478-1f3fe"},"1f478-1f3ff":{"name":"princess: dark skin tone","shortname":":princess_tone5:","shortname_alternates":[],"keywords":["dark skin tone","fairy tale","fantasy"],"unicode_output":"1f478-1f3ff"},"1f934":{"name":"prince","shortname":":prince:","shortname_alternates":[],"keywords":["prince"],"unicode_output":"1f934"},"1f934-1f3fb":{"name":"prince: light skin tone","shortname":":prince_tone1:","shortname_alternates":[],"keywords":["light skin tone","prince"],"unicode_output":"1f934-1f3fb"},"1f934-1f3fc":{"name":"prince: medium-light skin tone","shortname":":prince_tone2:","shortname_alternates":[],"keywords":["medium-light skin tone","prince"],"unicode_output":"1f934-1f3fc"},"1f934-1f3fd":{"name":"prince: medium skin tone","shortname":":prince_tone3:","shortname_alternates":[],"keywords":["medium skin tone","prince"],"unicode_output":"1f934-1f3fd"},"1f934-1f3fe":{"name":"prince: medium-dark skin tone","shortname":":prince_tone4:","shortname_alternates":[],"keywords":["medium-dark skin tone","prince"],"unicode_output":"1f934-1f3fe"},"1f934-1f3ff":{"name":"prince: dark skin tone","shortname":":prince_tone5:","shortname_alternates":[],"keywords":["dark skin tone","prince"],"unicode_output":"1f934-1f3ff"},"1f470":{"name":"bride with veil","shortname":":bride_with_veil:","shortname_alternates":[],"keywords":["bride","veil","wedding"],"unicode_output":"1f470"},"1f470-1f3fb":{"name":"bride with veil: light skin tone","shortname":":bride_with_veil_tone1:","shortname_alternates":[],"keywords":["bride","light skin tone","veil","wedding"],"unicode_output":"1f470-1f3fb"},"1f470-1f3fc":{"name":"bride with veil: medium-light skin tone","shortname":":bride_with_veil_tone2:","shortname_alternates":[],"keywords":["bride","medium-light skin tone","veil","wedding"],"unicode_output":"1f470-1f3fc"},"1f470-1f3fd":{"name":"bride with veil: medium skin tone","shortname":":bride_with_veil_tone3:","shortname_alternates":[],"keywords":["bride","medium skin tone","veil","wedding"],"unicode_output":"1f470-1f3fd"},"1f470-1f3fe":{"name":"bride with veil: medium-dark skin tone","shortname":":bride_with_veil_tone4:","shortname_alternates":[],"keywords":["bride","medium-dark skin tone","veil","wedding"],"unicode_output":"1f470-1f3fe"},"1f470-1f3ff":{"name":"bride with veil: dark skin tone","shortname":":bride_with_veil_tone5:","shortname_alternates":[],"keywords":["bride","dark skin tone","veil","wedding"],"unicode_output":"1f470-1f3ff"},"1f935":{"name":"man in tuxedo","shortname":":man_in_tuxedo:","shortname_alternates":[],"keywords":["groom","man","tuxedo"],"unicode_output":"1f935"},"1f935-1f3fb":{"name":"man in tuxedo: light skin tone","shortname":":man_in_tuxedo_tone1:","shortname_alternates":[":tuxedo_tone1:"],"keywords":["groom","light skin tone","man","tuxedo"],"unicode_output":"1f935-1f3fb"},"1f935-1f3fc":{"name":"man in tuxedo: medium-light skin tone","shortname":":man_in_tuxedo_tone2:","shortname_alternates":[":tuxedo_tone2:"],"keywords":["groom","man","medium-light skin tone","tuxedo"],"unicode_output":"1f935-1f3fc"},"1f935-1f3fd":{"name":"man in tuxedo: medium skin tone","shortname":":man_in_tuxedo_tone3:","shortname_alternates":[":tuxedo_tone3:"],"keywords":["groom","man","medium skin tone","tuxedo"],"unicode_output":"1f935-1f3fd"},"1f935-1f3fe":{"name":"man in tuxedo: medium-dark skin tone","shortname":":man_in_tuxedo_tone4:","shortname_alternates":[":tuxedo_tone4:"],"keywords":["groom","man","medium-dark skin tone","tuxedo"],"unicode_output":"1f935-1f3fe"},"1f935-1f3ff":{"name":"man in tuxedo: dark skin tone","shortname":":man_in_tuxedo_tone5:","shortname_alternates":[":tuxedo_tone5:"],"keywords":["dark skin tone","groom","man","tuxedo"],"unicode_output":"1f935-1f3ff"},"1f47c":{"name":"baby angel","shortname":":angel:","shortname_alternates":[],"keywords":["angel","baby","face","fairy tale","fantasy"],"unicode_output":"1f47c"},"1f47c-1f3fb":{"name":"baby angel: light skin tone","shortname":":angel_tone1:","shortname_alternates":[],"keywords":["angel","baby","face","fairy tale","fantasy","light skin tone"],"unicode_output":"1f47c-1f3fb"},"1f47c-1f3fc":{"name":"baby angel: medium-light skin tone","shortname":":angel_tone2:","shortname_alternates":[],"keywords":["angel","baby","face","fairy tale","fantasy","medium-light skin tone"],"unicode_output":"1f47c-1f3fc"},"1f47c-1f3fd":{"name":"baby angel: medium skin tone","shortname":":angel_tone3:","shortname_alternates":[],"keywords":["angel","baby","face","fairy tale","fantasy","medium skin tone"],"unicode_output":"1f47c-1f3fd"},"1f47c-1f3fe":{"name":"baby angel: medium-dark skin tone","shortname":":angel_tone4:","shortname_alternates":[],"keywords":["angel","baby","face","fairy tale","fantasy","medium-dark skin tone"],"unicode_output":"1f47c-1f3fe"},"1f47c-1f3ff":{"name":"baby angel: dark skin tone","shortname":":angel_tone5:","shortname_alternates":[],"keywords":["angel","baby","dark skin tone","face","fairy tale","fantasy"],"unicode_output":"1f47c-1f3ff"},"1f930":{"name":"pregnant woman","shortname":":pregnant_woman:","shortname_alternates":[":expecting_woman:"],"keywords":["pregnant","woman"],"unicode_output":"1f930"},"1f930-1f3fb":{"name":"pregnant woman: light skin tone","shortname":":pregnant_woman_tone1:","shortname_alternates":[":expecting_woman_tone1:"],"keywords":["light skin tone","pregnant","woman"],"unicode_output":"1f930-1f3fb"},"1f930-1f3fc":{"name":"pregnant woman: medium-light skin tone","shortname":":pregnant_woman_tone2:","shortname_alternates":[":expecting_woman_tone2:"],"keywords":["medium-light skin tone","pregnant","woman"],"unicode_output":"1f930-1f3fc"},"1f930-1f3fd":{"name":"pregnant woman: medium skin tone","shortname":":pregnant_woman_tone3:","shortname_alternates":[":expecting_woman_tone3:"],"keywords":["medium skin tone","pregnant","woman"],"unicode_output":"1f930-1f3fd"},"1f930-1f3fe":{"name":"pregnant woman: medium-dark skin tone","shortname":":pregnant_woman_tone4:","shortname_alternates":[":expecting_woman_tone4:"],"keywords":["medium-dark skin tone","pregnant","woman"],"unicode_output":"1f930-1f3fe"},"1f930-1f3ff":{"name":"pregnant woman: dark skin tone","shortname":":pregnant_woman_tone5:","shortname_alternates":[":expecting_woman_tone5:"],"keywords":["dark skin tone","pregnant","woman"],"unicode_output":"1f930-1f3ff"},"1f647-2640":{"name":"woman bowing","shortname":":woman_bowing:","shortname_alternates":[],"keywords":["apology","bowing","favor","gesture","sorry","woman"],"unicode_output":"1f647-200d-2640-fe0f"},"1f647-1f3fb-2640":{"name":"woman bowing: light skin tone","shortname":":woman_bowing_tone1:","shortname_alternates":[":woman_bowing_light_skin_tone:"],"keywords":["apology","bowing","favor","gesture","light skin tone","sorry","woman"],"unicode_output":"1f647-1f3fb-200d-2640-fe0f"},"1f647-1f3fc-2640":{"name":"woman bowing: medium-light skin tone","shortname":":woman_bowing_tone2:","shortname_alternates":[":woman_bowing_medium_light_skin_tone:"],"keywords":["apology","bowing","favor","gesture","medium-light skin tone","sorry","woman"],"unicode_output":"1f647-1f3fc-200d-2640-fe0f"},"1f647-1f3fd-2640":{"name":"woman bowing: medium skin tone","shortname":":woman_bowing_tone3:","shortname_alternates":[":woman_bowing_medium_skin_tone:"],"keywords":["apology","bowing","favor","gesture","medium skin tone","sorry","woman"],"unicode_output":"1f647-1f3fd-200d-2640-fe0f"},"1f647-1f3fe-2640":{"name":"woman bowing: medium-dark skin tone","shortname":":woman_bowing_tone4:","shortname_alternates":[":woman_bowing_medium_dark_skin_tone:"],"keywords":["apology","bowing","favor","gesture","medium-dark skin tone","sorry","woman"],"unicode_output":"1f647-1f3fe-200d-2640-fe0f"},"1f647-1f3ff-2640":{"name":"woman bowing: dark skin tone","shortname":":woman_bowing_tone5:","shortname_alternates":[":woman_bowing_dark_skin_tone:"],"keywords":["apology","bowing","dark skin tone","favor","gesture","sorry","woman"],"unicode_output":"1f647-1f3ff-200d-2640-fe0f"},"1f647":{"name":"person bowing","shortname":":person_bowing:","shortname_alternates":[":bow:"],"keywords":["apology","bow","gesture","sorry"],"unicode_output":"1f647"},"1f647-1f3fb":{"name":"person bowing: light skin tone","shortname":":person_bowing_tone1:","shortname_alternates":[":bow_tone1:"],"keywords":["apology","bow","gesture","light skin tone","sorry"],"unicode_output":"1f647-1f3fb"},"1f647-1f3fc":{"name":"person bowing: medium-light skin tone","shortname":":person_bowing_tone2:","shortname_alternates":[":bow_tone2:"],"keywords":["apology","bow","gesture","medium-light skin tone","sorry"],"unicode_output":"1f647-1f3fc"},"1f647-1f3fd":{"name":"person bowing: medium skin tone","shortname":":person_bowing_tone3:","shortname_alternates":[":bow_tone3:"],"keywords":["apology","bow","gesture","medium skin tone","sorry"],"unicode_output":"1f647-1f3fd"},"1f647-1f3fe":{"name":"person bowing: medium-dark skin tone","shortname":":person_bowing_tone4:","shortname_alternates":[":bow_tone4:"],"keywords":["apology","bow","gesture","medium-dark skin tone","sorry"],"unicode_output":"1f647-1f3fe"},"1f647-1f3ff":{"name":"person bowing: dark skin tone","shortname":":person_bowing_tone5:","shortname_alternates":[":bow_tone5:"],"keywords":["apology","bow","dark skin tone","gesture","sorry"],"unicode_output":"1f647-1f3ff"},"1f647-2642":{"name":"man bowing","shortname":":man_bowing:","shortname_alternates":[],"keywords":["apology","bowing","favor","gesture","man","sorry"],"unicode_output":"1f647-200d-2642-fe0f"},"1f647-1f3ff-2642":{"name":"man bowing: dark skin tone","shortname":":man_bowing_tone5:","shortname_alternates":[":man_bowing_dark_skin_tone:"],"keywords":["apology","bowing","dark skin tone","favor","gesture","man","sorry"],"unicode_output":"1f647-1f3ff-200d-2642-fe0f"},"1f647-1f3fe-2642":{"name":"man bowing: medium-dark skin tone","shortname":":man_bowing_tone4:","shortname_alternates":[":man_bowing_medium_dark_skin_tone:"],"keywords":["apology","bowing","favor","gesture","man","medium-dark skin tone","sorry"],"unicode_output":"1f647-1f3fe-200d-2642-fe0f"},"1f647-1f3fd-2642":{"name":"man bowing: medium skin tone","shortname":":man_bowing_tone3:","shortname_alternates":[":man_bowing_medium_skin_tone:"],"keywords":["apology","bowing","favor","gesture","man","medium skin tone","sorry"],"unicode_output":"1f647-1f3fd-200d-2642-fe0f"},"1f647-1f3fc-2642":{"name":"man bowing: medium-light skin tone","shortname":":man_bowing_tone2:","shortname_alternates":[":man_bowing_medium_light_skin_tone:"],"keywords":["apology","bowing","favor","gesture","man","medium-light skin tone","sorry"],"unicode_output":"1f647-1f3fc-200d-2642-fe0f"},"1f647-1f3fb-2642":{"name":"man bowing: light skin tone","shortname":":man_bowing_tone1:","shortname_alternates":[":man_bowing_light_skin_tone:"],"keywords":["apology","bowing","favor","gesture","light skin tone","man","sorry"],"unicode_output":"1f647-1f3fb-200d-2642-fe0f"},"1f481":{"name":"person tipping hand","shortname":":person_tipping_hand:","shortname_alternates":[":information_desk_person:"],"keywords":["hand","help","information","sassy","tipping"],"unicode_output":"1f481"},"1f481-1f3fb":{"name":"person tipping hand: light skin tone","shortname":":person_tipping_hand_tone1:","shortname_alternates":[":information_desk_person_tone1:"],"keywords":["hand","help","information","light skin tone","sassy","tipping"],"unicode_output":"1f481-1f3fb"},"1f481-1f3fc":{"name":"person tipping hand: medium-light skin tone","shortname":":person_tipping_hand_tone2:","shortname_alternates":[":information_desk_person_tone2:"],"keywords":["hand","help","information","medium-light skin tone","sassy","tipping"],"unicode_output":"1f481-1f3fc"},"1f481-1f3fd":{"name":"person tipping hand: medium skin tone","shortname":":person_tipping_hand_tone3:","shortname_alternates":[":information_desk_person_tone3:"],"keywords":["hand","help","information","medium skin tone","sassy","tipping"],"unicode_output":"1f481-1f3fd"},"1f481-1f3fe":{"name":"person tipping hand: medium-dark skin tone","shortname":":person_tipping_hand_tone4:","shortname_alternates":[":information_desk_person_tone4:"],"keywords":["hand","help","information","medium-dark skin tone","sassy","tipping"],"unicode_output":"1f481-1f3fe"},"1f481-1f3ff":{"name":"person tipping hand: dark skin tone","shortname":":person_tipping_hand_tone5:","shortname_alternates":[":information_desk_person_tone5:"],"keywords":["dark skin tone","hand","help","information","sassy","tipping"],"unicode_output":"1f481-1f3ff"},"1f481-2642":{"name":"man tipping hand","shortname":":man_tipping_hand:","shortname_alternates":[],"keywords":["man","sassy","tipping hand"],"unicode_output":"1f481-200d-2642-fe0f"},"1f481-1f3fb-2642":{"name":"man tipping hand: light skin tone","shortname":":man_tipping_hand_tone1:","shortname_alternates":[":man_tipping_hand_light_skin_tone:"],"keywords":["light skin tone","man","sassy","tipping hand"],"unicode_output":"1f481-1f3fb-200d-2642-fe0f"},"1f481-1f3fc-2642":{"name":"man tipping hand: medium-light skin tone","shortname":":man_tipping_hand_tone2:","shortname_alternates":[":man_tipping_hand_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","sassy","tipping hand"],"unicode_output":"1f481-1f3fc-200d-2642-fe0f"},"1f481-1f3fd-2642":{"name":"man tipping hand: medium skin tone","shortname":":man_tipping_hand_tone3:","shortname_alternates":[":man_tipping_hand_medium_skin_tone:"],"keywords":["man","medium skin tone","sassy","tipping hand"],"unicode_output":"1f481-1f3fd-200d-2642-fe0f"},"1f481-1f3fe-2642":{"name":"man tipping hand: medium-dark skin tone","shortname":":man_tipping_hand_tone4:","shortname_alternates":[":man_tipping_hand_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","sassy","tipping hand"],"unicode_output":"1f481-1f3fe-200d-2642-fe0f"},"1f481-1f3ff-2642":{"name":"man tipping hand: dark skin tone","shortname":":man_tipping_hand_tone5:","shortname_alternates":[":man_tipping_hand_dark_skin_tone:"],"keywords":["dark skin tone","man","sassy","tipping hand"],"unicode_output":"1f481-1f3ff-200d-2642-fe0f"},"1f481-2640":{"name":"woman tipping hand","shortname":":woman_tipping_hand:","shortname_alternates":[],"keywords":["sassy","tipping hand","woman"],"unicode_output":"1f481-200d-2640-fe0f"},"1f481-1f3ff-2640":{"name":"woman tipping hand: dark skin tone","shortname":":woman_tipping_hand_tone5:","shortname_alternates":[":woman_tipping_hand_dark_skin_tone:"],"keywords":["dark skin tone","sassy","tipping hand","woman"],"unicode_output":"1f481-1f3ff-200d-2640-fe0f"},"1f481-1f3fe-2640":{"name":"woman tipping hand: medium-dark skin tone","shortname":":woman_tipping_hand_tone4:","shortname_alternates":[":woman_tipping_hand_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sassy","tipping hand","woman"],"unicode_output":"1f481-1f3fe-200d-2640-fe0f"},"1f481-1f3fd-2640":{"name":"woman tipping hand: medium skin tone","shortname":":woman_tipping_hand_tone3:","shortname_alternates":[":woman_tipping_hand_medium_skin_tone:"],"keywords":["medium skin tone","sassy","tipping hand","woman"],"unicode_output":"1f481-1f3fd-200d-2640-fe0f"},"1f481-1f3fc-2640":{"name":"woman tipping hand: medium-light skin tone","shortname":":woman_tipping_hand_tone2:","shortname_alternates":[":woman_tipping_hand_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sassy","tipping hand","woman"],"unicode_output":"1f481-1f3fc-200d-2640-fe0f"},"1f481-1f3fb-2640":{"name":"woman tipping hand: light skin tone","shortname":":woman_tipping_hand_tone1:","shortname_alternates":[":woman_tipping_hand_light_skin_tone:"],"keywords":["light skin tone","sassy","tipping hand","woman"],"unicode_output":"1f481-1f3fb-200d-2640-fe0f"},"1f645":{"name":"person gesturing NO","shortname":":person_gesturing_no:","shortname_alternates":[":no_good:"],"keywords":["forbidden","gesture","hand","no","not","prohibited"],"unicode_output":"1f645"},"1f645-1f3fb":{"name":"person gesturing NO: light skin tone","shortname":":person_gesturing_no_tone1:","shortname_alternates":[":no_good_tone1:"],"keywords":["forbidden","gesture","hand","light skin tone","no","not","prohibited"],"unicode_output":"1f645-1f3fb"},"1f645-1f3fc":{"name":"person gesturing NO: medium-light skin tone","shortname":":person_gesturing_no_tone2:","shortname_alternates":[":no_good_tone2:"],"keywords":["forbidden","gesture","hand","medium-light skin tone","no","not","prohibited"],"unicode_output":"1f645-1f3fc"},"1f645-1f3fd":{"name":"person gesturing NO: medium skin tone","shortname":":person_gesturing_no_tone3:","shortname_alternates":[":no_good_tone3:"],"keywords":["forbidden","gesture","hand","medium skin tone","no","not","prohibited"],"unicode_output":"1f645-1f3fd"},"1f645-1f3fe":{"name":"person gesturing NO: medium-dark skin tone","shortname":":person_gesturing_no_tone4:","shortname_alternates":[":no_good_tone4:"],"keywords":["forbidden","gesture","hand","medium-dark skin tone","no","not","prohibited"],"unicode_output":"1f645-1f3fe"},"1f645-1f3ff":{"name":"person gesturing NO: dark skin tone","shortname":":person_gesturing_no_tone5:","shortname_alternates":[":no_good_tone5:"],"keywords":["dark skin tone","forbidden","gesture","hand","no","not","prohibited"],"unicode_output":"1f645-1f3ff"},"1f645-2642":{"name":"man gesturing NO","shortname":":man_gesturing_no:","shortname_alternates":[],"keywords":["forbidden","gesture","hand","man","no","prohibited"],"unicode_output":"1f645-200d-2642-fe0f"},"1f645-1f3fb-2642":{"name":"man gesturing NO: light skin tone","shortname":":man_gesturing_no_tone1:","shortname_alternates":[":man_gesturing_no_light_skin_tone:"],"keywords":["forbidden","gesture","hand","light skin tone","man","no","prohibited"],"unicode_output":"1f645-1f3fb-200d-2642-fe0f"},"1f645-1f3fc-2642":{"name":"man gesturing NO: medium-light skin tone","shortname":":man_gesturing_no_tone2:","shortname_alternates":[":man_gesturing_no_medium_light_skin_tone:"],"keywords":["forbidden","gesture","hand","man","medium-light skin tone","no","prohibited"],"unicode_output":"1f645-1f3fc-200d-2642-fe0f"},"1f645-1f3fd-2642":{"name":"man gesturing NO: medium skin tone","shortname":":man_gesturing_no_tone3:","shortname_alternates":[":man_gesturing_no_medium_skin_tone:"],"keywords":["forbidden","gesture","hand","man","medium skin tone","no","prohibited"],"unicode_output":"1f645-1f3fd-200d-2642-fe0f"},"1f645-1f3fe-2642":{"name":"man gesturing NO: medium-dark skin tone","shortname":":man_gesturing_no_tone4:","shortname_alternates":[":man_gesturing_no_medium_dark_skin_tone:"],"keywords":["forbidden","gesture","hand","man","medium-dark skin tone","no","prohibited"],"unicode_output":"1f645-1f3fe-200d-2642-fe0f"},"1f645-1f3ff-2642":{"name":"man gesturing NO: dark skin tone","shortname":":man_gesturing_no_tone5:","shortname_alternates":[":man_gesturing_no_dark_skin_tone:"],"keywords":["dark skin tone","forbidden","gesture","hand","man","no","prohibited"],"unicode_output":"1f645-1f3ff-200d-2642-fe0f"},"1f645-2640":{"name":"woman gesturing NO","shortname":":woman_gesturing_no:","shortname_alternates":[],"keywords":["forbidden","gesture","hand","no","prohibited","woman"],"unicode_output":"1f645-200d-2640-fe0f"},"1f645-1f3ff-2640":{"name":"woman gesturing NO: dark skin tone","shortname":":woman_gesturing_no_tone5:","shortname_alternates":[":woman_gesturing_no_dark_skin_tone:"],"keywords":["dark skin tone","forbidden","gesture","hand","no","prohibited","woman"],"unicode_output":"1f645-1f3ff-200d-2640-fe0f"},"1f645-1f3fe-2640":{"name":"woman gesturing NO: medium-dark skin tone","shortname":":woman_gesturing_no_tone4:","shortname_alternates":[":woman_gesturing_no_medium_dark_skin_tone:"],"keywords":["forbidden","gesture","hand","medium-dark skin tone","no","prohibited","woman"],"unicode_output":"1f645-1f3fe-200d-2640-fe0f"},"1f645-1f3fd-2640":{"name":"woman gesturing NO: medium skin tone","shortname":":woman_gesturing_no_tone3:","shortname_alternates":[":woman_gesturing_no_medium_skin_tone:"],"keywords":["forbidden","gesture","hand","medium skin tone","no","prohibited","woman"],"unicode_output":"1f645-1f3fd-200d-2640-fe0f"},"1f645-1f3fc-2640":{"name":"woman gesturing NO: medium-light skin tone","shortname":":woman_gesturing_no_tone2:","shortname_alternates":[":woman_gesturing_no_medium_light_skin_tone:"],"keywords":["forbidden","gesture","hand","medium-light skin tone","no","prohibited","woman"],"unicode_output":"1f645-1f3fc-200d-2640-fe0f"},"1f645-1f3fb-2640":{"name":"woman gesturing NO: light skin tone","shortname":":woman_gesturing_no_tone1:","shortname_alternates":[":woman_gesturing_no_light_skin_tone:"],"keywords":["forbidden","gesture","hand","light skin tone","no","prohibited","woman"],"unicode_output":"1f645-1f3fb-200d-2640-fe0f"},"1f646":{"name":"person gesturing OK","shortname":":person_gesturing_ok:","shortname_alternates":[":ok_woman:"],"keywords":["OK","gesture","hand"],"unicode_output":"1f646"},"1f646-1f3fb":{"name":"person gesturing OK: light skin tone","shortname":":person_gesturing_ok_tone1:","shortname_alternates":[":ok_woman_tone1:"],"keywords":["OK","gesture","hand","light skin tone"],"unicode_output":"1f646-1f3fb"},"1f646-1f3fc":{"name":"person gesturing OK: medium-light skin tone","shortname":":person_gesturing_ok_tone2:","shortname_alternates":[":ok_woman_tone2:"],"keywords":["OK","gesture","hand","medium-light skin tone"],"unicode_output":"1f646-1f3fc"},"1f646-1f3fd":{"name":"person gesturing OK: medium skin tone","shortname":":person_gesturing_ok_tone3:","shortname_alternates":[":ok_woman_tone3:"],"keywords":["OK","gesture","hand","medium skin tone"],"unicode_output":"1f646-1f3fd"},"1f646-1f3fe":{"name":"person gesturing OK: medium-dark skin tone","shortname":":person_gesturing_ok_tone4:","shortname_alternates":[":ok_woman_tone4:"],"keywords":["OK","gesture","hand","medium-dark skin tone"],"unicode_output":"1f646-1f3fe"},"1f646-1f3ff":{"name":"person gesturing OK: dark skin tone","shortname":":person_gesturing_ok_tone5:","shortname_alternates":[":ok_woman_tone5:"],"keywords":["OK","dark skin tone","gesture","hand"],"unicode_output":"1f646-1f3ff"},"1f646-2642":{"name":"man gesturing OK","shortname":":man_gesturing_ok:","shortname_alternates":[],"keywords":["OK","gesture","hand","man"],"unicode_output":"1f646-200d-2642-fe0f"},"1f646-1f3fb-2642":{"name":"man gesturing OK: light skin tone","shortname":":man_gesturing_ok_tone1:","shortname_alternates":[":man_gesturing_ok_light_skin_tone:"],"keywords":["OK","gesture","hand","light skin tone","man"],"unicode_output":"1f646-1f3fb-200d-2642-fe0f"},"1f646-1f3fc-2642":{"name":"man gesturing OK: medium-light skin tone","shortname":":man_gesturing_ok_tone2:","shortname_alternates":[":man_gesturing_ok_medium_light_skin_tone:"],"keywords":["OK","gesture","hand","man","medium-light skin tone"],"unicode_output":"1f646-1f3fc-200d-2642-fe0f"},"1f646-1f3fd-2642":{"name":"man gesturing OK: medium skin tone","shortname":":man_gesturing_ok_tone3:","shortname_alternates":[":man_gesturing_ok_medium_skin_tone:"],"keywords":["OK","gesture","hand","man","medium skin tone"],"unicode_output":"1f646-1f3fd-200d-2642-fe0f"},"1f646-1f3fe-2642":{"name":"man gesturing OK: medium-dark skin tone","shortname":":man_gesturing_ok_tone4:","shortname_alternates":[":man_gesturing_ok_medium_dark_skin_tone:"],"keywords":["OK","gesture","hand","man","medium-dark skin tone"],"unicode_output":"1f646-1f3fe-200d-2642-fe0f"},"1f646-1f3ff-2642":{"name":"man gesturing OK: dark skin tone","shortname":":man_gesturing_ok_tone5:","shortname_alternates":[":man_gesturing_ok_dark_skin_tone:"],"keywords":["OK","dark skin tone","gesture","hand","man"],"unicode_output":"1f646-1f3ff-200d-2642-fe0f"},"1f646-2640":{"name":"woman gesturing OK","shortname":":woman_gesturing_ok:","shortname_alternates":[],"keywords":["OK","gesture","hand","woman"],"unicode_output":"1f646-200d-2640-fe0f"},"1f646-1f3ff-2640":{"name":"woman gesturing OK: dark skin tone","shortname":":woman_gesturing_ok_tone5:","shortname_alternates":[":woman_gesturing_ok_dark_skin_tone:"],"keywords":["OK","dark skin tone","gesture","hand","woman"],"unicode_output":"1f646-1f3ff-200d-2640-fe0f"},"1f646-1f3fe-2640":{"name":"woman gesturing OK: medium-dark skin tone","shortname":":woman_gesturing_ok_tone4:","shortname_alternates":[":woman_gesturing_ok_medium_dark_skin_tone:"],"keywords":["OK","gesture","hand","medium-dark skin tone","woman"],"unicode_output":"1f646-1f3fe-200d-2640-fe0f"},"1f646-1f3fd-2640":{"name":"woman gesturing OK: medium skin tone","shortname":":woman_gesturing_ok_tone3:","shortname_alternates":[":woman_gesturing_ok_medium_skin_tone:"],"keywords":["OK","gesture","hand","medium skin tone","woman"],"unicode_output":"1f646-1f3fd-200d-2640-fe0f"},"1f646-1f3fc-2640":{"name":"woman gesturing OK: medium-light skin tone","shortname":":woman_gesturing_ok_tone2:","shortname_alternates":[":woman_gesturing_ok_medium_light_skin_tone:"],"keywords":["OK","gesture","hand","medium-light skin tone","woman"],"unicode_output":"1f646-1f3fc-200d-2640-fe0f"},"1f646-1f3fb-2640":{"name":"woman gesturing OK: light skin tone","shortname":":woman_gesturing_ok_tone1:","shortname_alternates":[":woman_gesturing_ok_light_skin_tone:"],"keywords":["OK","gesture","hand","light skin tone","woman"],"unicode_output":"1f646-1f3fb-200d-2640-fe0f"},"1f64b":{"name":"person raising hand","shortname":":person_raising_hand:","shortname_alternates":[":raising_hand:"],"keywords":["gesture","hand","happy","raised"],"unicode_output":"1f64b"},"1f64b-1f3fb":{"name":"person raising hand: light skin tone","shortname":":person_raising_hand_tone1:","shortname_alternates":[":raising_hand_tone1:"],"keywords":["gesture","hand","happy","light skin tone","raised"],"unicode_output":"1f64b-1f3fb"},"1f64b-1f3fc":{"name":"person raising hand: medium-light skin tone","shortname":":person_raising_hand_tone2:","shortname_alternates":[":raising_hand_tone2:"],"keywords":["gesture","hand","happy","medium-light skin tone","raised"],"unicode_output":"1f64b-1f3fc"},"1f64b-1f3fd":{"name":"person raising hand: medium skin tone","shortname":":person_raising_hand_tone3:","shortname_alternates":[":raising_hand_tone3:"],"keywords":["gesture","hand","happy","medium skin tone","raised"],"unicode_output":"1f64b-1f3fd"},"1f64b-1f3fe":{"name":"person raising hand: medium-dark skin tone","shortname":":person_raising_hand_tone4:","shortname_alternates":[":raising_hand_tone4:"],"keywords":["gesture","hand","happy","medium-dark skin tone","raised"],"unicode_output":"1f64b-1f3fe"},"1f64b-1f3ff":{"name":"person raising hand: dark skin tone","shortname":":person_raising_hand_tone5:","shortname_alternates":[":raising_hand_tone5:"],"keywords":["dark skin tone","gesture","hand","happy","raised"],"unicode_output":"1f64b-1f3ff"},"1f64b-2642":{"name":"man raising hand","shortname":":man_raising_hand:","shortname_alternates":[],"keywords":["gesture","man","raising hand"],"unicode_output":"1f64b-200d-2642-fe0f"},"1f64b-1f3fb-2642":{"name":"man raising hand: light skin tone","shortname":":man_raising_hand_tone1:","shortname_alternates":[":man_raising_hand_light_skin_tone:"],"keywords":["gesture","light skin tone","man","raising hand"],"unicode_output":"1f64b-1f3fb-200d-2642-fe0f"},"1f64b-1f3fc-2642":{"name":"man raising hand: medium-light skin tone","shortname":":man_raising_hand_tone2:","shortname_alternates":[":man_raising_hand_medium_light_skin_tone:"],"keywords":["gesture","man","medium-light skin tone","raising hand"],"unicode_output":"1f64b-1f3fc-200d-2642-fe0f"},"1f64b-1f3fd-2642":{"name":"man raising hand: medium skin tone","shortname":":man_raising_hand_tone3:","shortname_alternates":[":man_raising_hand_medium_skin_tone:"],"keywords":["gesture","man","medium skin tone","raising hand"],"unicode_output":"1f64b-1f3fd-200d-2642-fe0f"},"1f64b-1f3fe-2642":{"name":"man raising hand: medium-dark skin tone","shortname":":man_raising_hand_tone4:","shortname_alternates":[":man_raising_hand_medium_dark_skin_tone:"],"keywords":["gesture","man","medium-dark skin tone","raising hand"],"unicode_output":"1f64b-1f3fe-200d-2642-fe0f"},"1f64b-1f3ff-2642":{"name":"man raising hand: dark skin tone","shortname":":man_raising_hand_tone5:","shortname_alternates":[":man_raising_hand_dark_skin_tone:"],"keywords":["dark skin tone","gesture","man","raising hand"],"unicode_output":"1f64b-1f3ff-200d-2642-fe0f"},"1f64b-2640":{"name":"woman raising hand","shortname":":woman_raising_hand:","shortname_alternates":[],"keywords":["gesture","raising hand","woman"],"unicode_output":"1f64b-200d-2640-fe0f"},"1f64b-1f3ff-2640":{"name":"woman raising hand: dark skin tone","shortname":":woman_raising_hand_tone5:","shortname_alternates":[":woman_raising_hand_dark_skin_tone:"],"keywords":["dark skin tone","gesture","raising hand","woman"],"unicode_output":"1f64b-1f3ff-200d-2640-fe0f"},"1f64b-1f3fe-2640":{"name":"woman raising hand: medium-dark skin tone","shortname":":woman_raising_hand_tone4:","shortname_alternates":[":woman_raising_hand_medium_dark_skin_tone:"],"keywords":["gesture","medium-dark skin tone","raising hand","woman"],"unicode_output":"1f64b-1f3fe-200d-2640-fe0f"},"1f64b-1f3fd-2640":{"name":"woman raising hand: medium skin tone","shortname":":woman_raising_hand_tone3:","shortname_alternates":[":woman_raising_hand_medium_skin_tone:"],"keywords":["gesture","medium skin tone","raising hand","woman"],"unicode_output":"1f64b-1f3fd-200d-2640-fe0f"},"1f64b-1f3fc-2640":{"name":"woman raising hand: medium-light skin tone","shortname":":woman_raising_hand_tone2:","shortname_alternates":[":woman_raising_hand_medium_light_skin_tone:"],"keywords":["gesture","medium-light skin tone","raising hand","woman"],"unicode_output":"1f64b-1f3fc-200d-2640-fe0f"},"1f64b-1f3fb-2640":{"name":"woman raising hand: light skin tone","shortname":":woman_raising_hand_tone1:","shortname_alternates":[":woman_raising_hand_light_skin_tone:"],"keywords":["gesture","light skin tone","raising hand","woman"],"unicode_output":"1f64b-1f3fb-200d-2640-fe0f"},"1f926-2640":{"name":"woman facepalming","shortname":":woman_facepalming:","shortname_alternates":[],"keywords":["disbelief","exasperation","facepalm","woman"],"unicode_output":"1f926-200d-2640-fe0f"},"1f926-1f3fb-2640":{"name":"woman facepalming: light skin tone","shortname":":woman_facepalming_tone1:","shortname_alternates":[":woman_facepalming_light_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","light skin tone","woman"],"unicode_output":"1f926-1f3fb-200d-2640-fe0f"},"1f926-1f3fc-2640":{"name":"woman facepalming: medium-light skin tone","shortname":":woman_facepalming_tone2:","shortname_alternates":[":woman_facepalming_medium_light_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","medium-light skin tone","woman"],"unicode_output":"1f926-1f3fc-200d-2640-fe0f"},"1f926-1f3fd-2640":{"name":"woman facepalming: medium skin tone","shortname":":woman_facepalming_tone3:","shortname_alternates":[":woman_facepalming_medium_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","medium skin tone","woman"],"unicode_output":"1f926-1f3fd-200d-2640-fe0f"},"1f926-1f3fe-2640":{"name":"woman facepalming: medium-dark skin tone","shortname":":woman_facepalming_tone4:","shortname_alternates":[":woman_facepalming_medium_dark_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","medium-dark skin tone","woman"],"unicode_output":"1f926-1f3fe-200d-2640-fe0f"},"1f926-1f3ff-2640":{"name":"woman facepalming: dark skin tone","shortname":":woman_facepalming_tone5:","shortname_alternates":[":woman_facepalming_dark_skin_tone:"],"keywords":["dark skin tone","disbelief","exasperation","facepalm","woman"],"unicode_output":"1f926-1f3ff-200d-2640-fe0f"},"1f926-2642":{"name":"man facepalming","shortname":":man_facepalming:","shortname_alternates":[],"keywords":["disbelief","exasperation","facepalm","man"],"unicode_output":"1f926-200d-2642-fe0f"},"1f926-1f3fb-2642":{"name":"man facepalming: light skin tone","shortname":":man_facepalming_tone1:","shortname_alternates":[":man_facepalming_light_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","light skin tone","man"],"unicode_output":"1f926-1f3fb-200d-2642-fe0f"},"1f926-1f3fc-2642":{"name":"man facepalming: medium-light skin tone","shortname":":man_facepalming_tone2:","shortname_alternates":[":man_facepalming_medium_light_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","man","medium-light skin tone"],"unicode_output":"1f926-1f3fc-200d-2642-fe0f"},"1f926-1f3fd-2642":{"name":"man facepalming: medium skin tone","shortname":":man_facepalming_tone3:","shortname_alternates":[":man_facepalming_medium_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","man","medium skin tone"],"unicode_output":"1f926-1f3fd-200d-2642-fe0f"},"1f926-1f3fe-2642":{"name":"man facepalming: medium-dark skin tone","shortname":":man_facepalming_tone4:","shortname_alternates":[":man_facepalming_medium_dark_skin_tone:"],"keywords":["disbelief","exasperation","facepalm","man","medium-dark skin tone"],"unicode_output":"1f926-1f3fe-200d-2642-fe0f"},"1f926-1f3ff-2642":{"name":"man facepalming: dark skin tone","shortname":":man_facepalming_tone5:","shortname_alternates":[":man_facepalming_dark_skin_tone:"],"keywords":["dark skin tone","disbelief","exasperation","facepalm","man"],"unicode_output":"1f926-1f3ff-200d-2642-fe0f"},"1f926":{"name":"person facepalming","shortname":":person_facepalming:","shortname_alternates":[":face_palm:",":facepalm:"],"keywords":["disbelief","exasperation","face","palm"],"unicode_output":"1f926"},"1f926-1f3fb":{"name":"person facepalming: light skin tone","shortname":":person_facepalming_tone1:","shortname_alternates":[":face_palm_tone1:",":facepalm_tone1:"],"keywords":["disbelief","exasperation","face","light skin tone","palm"],"unicode_output":"1f926-1f3fb"},"1f926-1f3fc":{"name":"person facepalming: medium-light skin tone","shortname":":person_facepalming_tone2:","shortname_alternates":[":face_palm_tone2:",":facepalm_tone2:"],"keywords":["disbelief","exasperation","face","medium-light skin tone","palm"],"unicode_output":"1f926-1f3fc"},"1f926-1f3fd":{"name":"person facepalming: medium skin tone","shortname":":person_facepalming_tone3:","shortname_alternates":[":face_palm_tone3:",":facepalm_tone3:"],"keywords":["disbelief","exasperation","face","medium skin tone","palm"],"unicode_output":"1f926-1f3fd"},"1f926-1f3fe":{"name":"person facepalming: medium-dark skin tone","shortname":":person_facepalming_tone4:","shortname_alternates":[":face_palm_tone4:",":facepalm_tone4:"],"keywords":["disbelief","exasperation","face","medium-dark skin tone","palm"],"unicode_output":"1f926-1f3fe"},"1f926-1f3ff":{"name":"person facepalming: dark skin tone","shortname":":person_facepalming_tone5:","shortname_alternates":[":face_palm_tone5:",":facepalm_tone5:"],"keywords":["dark skin tone","disbelief","exasperation","face","palm"],"unicode_output":"1f926-1f3ff"},"1f937-2640":{"name":"woman shrugging","shortname":":woman_shrugging:","shortname_alternates":[],"keywords":["doubt","ignorance","indifference","shrug","woman"],"unicode_output":"1f937-200d-2640-fe0f"},"1f937-1f3fb-2640":{"name":"woman shrugging: light skin tone","shortname":":woman_shrugging_tone1:","shortname_alternates":[":woman_shrugging_light_skin_tone:"],"keywords":["doubt","ignorance","indifference","light skin tone","shrug","woman"],"unicode_output":"1f937-1f3fb-200d-2640-fe0f"},"1f937-1f3fc-2640":{"name":"woman shrugging: medium-light skin tone","shortname":":woman_shrugging_tone2:","shortname_alternates":[":woman_shrugging_medium_light_skin_tone:"],"keywords":["doubt","ignorance","indifference","medium-light skin tone","shrug","woman"],"unicode_output":"1f937-1f3fc-200d-2640-fe0f"},"1f937-1f3fd-2640":{"name":"woman shrugging: medium skin tone","shortname":":woman_shrugging_tone3:","shortname_alternates":[":woman_shrugging_medium_skin_tone:"],"keywords":["doubt","ignorance","indifference","medium skin tone","shrug","woman"],"unicode_output":"1f937-1f3fd-200d-2640-fe0f"},"1f937-1f3fe-2640":{"name":"woman shrugging: medium-dark skin tone","shortname":":woman_shrugging_tone4:","shortname_alternates":[":woman_shrugging_medium_dark_skin_tone:"],"keywords":["doubt","ignorance","indifference","medium-dark skin tone","shrug","woman"],"unicode_output":"1f937-1f3fe-200d-2640-fe0f"},"1f937-1f3ff-2640":{"name":"woman shrugging: dark skin tone","shortname":":woman_shrugging_tone5:","shortname_alternates":[":woman_shrugging_dark_skin_tone:"],"keywords":["dark skin tone","doubt","ignorance","indifference","shrug","woman"],"unicode_output":"1f937-1f3ff-200d-2640-fe0f"},"1f937-2642":{"name":"man shrugging","shortname":":man_shrugging:","shortname_alternates":[],"keywords":["doubt","ignorance","indifference","man","shrug"],"unicode_output":"1f937-200d-2642-fe0f"},"1f937-1f3fb-2642":{"name":"man shrugging: light skin tone","shortname":":man_shrugging_tone1:","shortname_alternates":[":man_shrugging_light_skin_tone:"],"keywords":["doubt","ignorance","indifference","light skin tone","man","shrug"],"unicode_output":"1f937-1f3fb-200d-2642-fe0f"},"1f937-1f3fc-2642":{"name":"man shrugging: medium-light skin tone","shortname":":man_shrugging_tone2:","shortname_alternates":[":man_shrugging_medium_light_skin_tone:"],"keywords":["doubt","ignorance","indifference","man","medium-light skin tone","shrug"],"unicode_output":"1f937-1f3fc-200d-2642-fe0f"},"1f937-1f3fd-2642":{"name":"man shrugging: medium skin tone","shortname":":man_shrugging_tone3:","shortname_alternates":[":man_shrugging_medium_skin_tone:"],"keywords":["doubt","ignorance","indifference","man","medium skin tone","shrug"],"unicode_output":"1f937-1f3fd-200d-2642-fe0f"},"1f937-1f3fe-2642":{"name":"man shrugging: medium-dark skin tone","shortname":":man_shrugging_tone4:","shortname_alternates":[":man_shrugging_medium_dark_skin_tone:"],"keywords":["doubt","ignorance","indifference","man","medium-dark skin tone","shrug"],"unicode_output":"1f937-1f3fe-200d-2642-fe0f"},"1f937-1f3ff-2642":{"name":"man shrugging: dark skin tone","shortname":":man_shrugging_tone5:","shortname_alternates":[":man_shrugging_dark_skin_tone:"],"keywords":["dark skin tone","doubt","ignorance","indifference","man","shrug"],"unicode_output":"1f937-1f3ff-200d-2642-fe0f"},"1f937":{"name":"person shrugging","shortname":":person_shrugging:","shortname_alternates":[":shrug:"],"keywords":["doubt","ignorance","indifference","shrug"],"unicode_output":"1f937"},"1f937-1f3fb":{"name":"person shrugging: light skin tone","shortname":":person_shrugging_tone1:","shortname_alternates":[":shrug_tone1:"],"keywords":["doubt","ignorance","indifference","light skin tone","shrug"],"unicode_output":"1f937-1f3fb"},"1f937-1f3fc":{"name":"person shrugging: medium-light skin tone","shortname":":person_shrugging_tone2:","shortname_alternates":[":shrug_tone2:"],"keywords":["doubt","ignorance","indifference","medium-light skin tone","shrug"],"unicode_output":"1f937-1f3fc"},"1f937-1f3fd":{"name":"person shrugging: medium skin tone","shortname":":person_shrugging_tone3:","shortname_alternates":[":shrug_tone3:"],"keywords":["doubt","ignorance","indifference","medium skin tone","shrug"],"unicode_output":"1f937-1f3fd"},"1f937-1f3fe":{"name":"person shrugging: medium-dark skin tone","shortname":":person_shrugging_tone4:","shortname_alternates":[":shrug_tone4:"],"keywords":["doubt","ignorance","indifference","medium-dark skin tone","shrug"],"unicode_output":"1f937-1f3fe"},"1f937-1f3ff":{"name":"person shrugging: dark skin tone","shortname":":person_shrugging_tone5:","shortname_alternates":[":shrug_tone5:"],"keywords":["dark skin tone","doubt","ignorance","indifference","shrug"],"unicode_output":"1f937-1f3ff"},"1f64e":{"name":"person pouting","shortname":":person_pouting:","shortname_alternates":[":person_with_pouting_face:"],"keywords":["gesture","pouting"],"unicode_output":"1f64e"},"1f64e-1f3fb":{"name":"person pouting: light skin tone","shortname":":person_pouting_tone1:","shortname_alternates":[":person_with_pouting_face_tone1:"],"keywords":["gesture","light skin tone","pouting"],"unicode_output":"1f64e-1f3fb"},"1f64e-1f3fc":{"name":"person pouting: medium-light skin tone","shortname":":person_pouting_tone2:","shortname_alternates":[":person_with_pouting_face_tone2:"],"keywords":["gesture","medium-light skin tone","pouting"],"unicode_output":"1f64e-1f3fc"},"1f64e-1f3fd":{"name":"person pouting: medium skin tone","shortname":":person_pouting_tone3:","shortname_alternates":[":person_with_pouting_face_tone3:"],"keywords":["gesture","medium skin tone","pouting"],"unicode_output":"1f64e-1f3fd"},"1f64e-1f3fe":{"name":"person pouting: medium-dark skin tone","shortname":":person_pouting_tone4:","shortname_alternates":[":person_with_pouting_face_tone4:"],"keywords":["gesture","medium-dark skin tone","pouting"],"unicode_output":"1f64e-1f3fe"},"1f64e-1f3ff":{"name":"person pouting: dark skin tone","shortname":":person_pouting_tone5:","shortname_alternates":[":person_with_pouting_face_tone5:"],"keywords":["dark skin tone","gesture","pouting"],"unicode_output":"1f64e-1f3ff"},"1f64e-2642":{"name":"man pouting","shortname":":man_pouting:","shortname_alternates":[],"keywords":["gesture","man","pouting"],"unicode_output":"1f64e-200d-2642-fe0f"},"1f64e-1f3fb-2642":{"name":"man pouting: light skin tone","shortname":":man_pouting_tone1:","shortname_alternates":[":man_pouting_light_skin_tone:"],"keywords":["gesture","light skin tone","man","pouting"],"unicode_output":"1f64e-1f3fb-200d-2642-fe0f"},"1f64e-1f3fc-2642":{"name":"man pouting: medium-light skin tone","shortname":":man_pouting_tone2:","shortname_alternates":[":man_pouting_medium_light_skin_tone:"],"keywords":["gesture","man","medium-light skin tone","pouting"],"unicode_output":"1f64e-1f3fc-200d-2642-fe0f"},"1f64e-1f3fd-2642":{"name":"man pouting: medium skin tone","shortname":":man_pouting_tone3:","shortname_alternates":[":man_pouting_medium_skin_tone:"],"keywords":["gesture","man","medium skin tone","pouting"],"unicode_output":"1f64e-1f3fd-200d-2642-fe0f"},"1f64e-1f3fe-2642":{"name":"man pouting: medium-dark skin tone","shortname":":man_pouting_tone4:","shortname_alternates":[":man_pouting_medium_dark_skin_tone:"],"keywords":["gesture","man","medium-dark skin tone","pouting"],"unicode_output":"1f64e-1f3fe-200d-2642-fe0f"},"1f64e-1f3ff-2642":{"name":"man pouting: dark skin tone","shortname":":man_pouting_tone5:","shortname_alternates":[":man_pouting_dark_skin_tone:"],"keywords":["dark skin tone","gesture","man","pouting"],"unicode_output":"1f64e-1f3ff-200d-2642-fe0f"},"1f64e-2640":{"name":"woman pouting","shortname":":woman_pouting:","shortname_alternates":[],"keywords":["gesture","pouting","woman"],"unicode_output":"1f64e-200d-2640-fe0f"},"1f64e-1f3ff-2640":{"name":"woman pouting: dark skin tone","shortname":":woman_pouting_tone5:","shortname_alternates":[":woman_pouting_dark_skin_tone:"],"keywords":["dark skin tone","gesture","pouting","woman"],"unicode_output":"1f64e-1f3ff-200d-2640-fe0f"},"1f64e-1f3fe-2640":{"name":"woman pouting: medium-dark skin tone","shortname":":woman_pouting_tone4:","shortname_alternates":[":woman_pouting_medium_dark_skin_tone:"],"keywords":["gesture","medium-dark skin tone","pouting","woman"],"unicode_output":"1f64e-1f3fe-200d-2640-fe0f"},"1f64e-1f3fd-2640":{"name":"woman pouting: medium skin tone","shortname":":woman_pouting_tone3:","shortname_alternates":[":woman_pouting_medium_skin_tone:"],"keywords":["gesture","medium skin tone","pouting","woman"],"unicode_output":"1f64e-1f3fd-200d-2640-fe0f"},"1f64e-1f3fc-2640":{"name":"woman pouting: medium-light skin tone","shortname":":woman_pouting_tone2:","shortname_alternates":[":woman_pouting_medium_light_skin_tone:"],"keywords":["gesture","medium-light skin tone","pouting","woman"],"unicode_output":"1f64e-1f3fc-200d-2640-fe0f"},"1f64e-1f3fb-2640":{"name":"woman pouting: light skin tone","shortname":":woman_pouting_tone1:","shortname_alternates":[":woman_pouting_light_skin_tone:"],"keywords":["gesture","light skin tone","pouting","woman"],"unicode_output":"1f64e-1f3fb-200d-2640-fe0f"},"1f64d":{"name":"person frowning","shortname":":person_frowning:","shortname_alternates":[],"keywords":["frown","gesture"],"unicode_output":"1f64d"},"1f64d-1f3fb":{"name":"person frowning: light skin tone","shortname":":person_frowning_tone1:","shortname_alternates":[],"keywords":["frown","gesture","light skin tone"],"unicode_output":"1f64d-1f3fb"},"1f64d-1f3fc":{"name":"person frowning: medium-light skin tone","shortname":":person_frowning_tone2:","shortname_alternates":[],"keywords":["frown","gesture","medium-light skin tone"],"unicode_output":"1f64d-1f3fc"},"1f64d-1f3fd":{"name":"person frowning: medium skin tone","shortname":":person_frowning_tone3:","shortname_alternates":[],"keywords":["frown","gesture","medium skin tone"],"unicode_output":"1f64d-1f3fd"},"1f64d-1f3fe":{"name":"person frowning: medium-dark skin tone","shortname":":person_frowning_tone4:","shortname_alternates":[],"keywords":["frown","gesture","medium-dark skin tone"],"unicode_output":"1f64d-1f3fe"},"1f64d-1f3ff":{"name":"person frowning: dark skin tone","shortname":":person_frowning_tone5:","shortname_alternates":[],"keywords":["dark skin tone","frown","gesture"],"unicode_output":"1f64d-1f3ff"},"1f64d-2642":{"name":"man frowning","shortname":":man_frowning:","shortname_alternates":[],"keywords":["frowning","gesture","man"],"unicode_output":"1f64d-200d-2642-fe0f"},"1f64d-1f3fb-2642":{"name":"man frowning: light skin tone","shortname":":man_frowning_tone1:","shortname_alternates":[":man_frowning_light_skin_tone:"],"keywords":["frowning","gesture","light skin tone","man"],"unicode_output":"1f64d-1f3fb-200d-2642-fe0f"},"1f64d-1f3fc-2642":{"name":"man frowning: medium-light skin tone","shortname":":man_frowning_tone2:","shortname_alternates":[":man_frowning_medium_light_skin_tone:"],"keywords":["frowning","gesture","man","medium-light skin tone"],"unicode_output":"1f64d-1f3fc-200d-2642-fe0f"},"1f64d-1f3fd-2642":{"name":"man frowning: medium skin tone","shortname":":man_frowning_tone3:","shortname_alternates":[":man_frowning_medium_skin_tone:"],"keywords":["frowning","gesture","man","medium skin tone"],"unicode_output":"1f64d-1f3fd-200d-2642-fe0f"},"1f64d-1f3fe-2642":{"name":"man frowning: medium-dark skin tone","shortname":":man_frowning_tone4:","shortname_alternates":[":man_frowning_medium_dark_skin_tone:"],"keywords":["frowning","gesture","man","medium-dark skin tone"],"unicode_output":"1f64d-1f3fe-200d-2642-fe0f"},"1f64d-1f3ff-2642":{"name":"man frowning: dark skin tone","shortname":":man_frowning_tone5:","shortname_alternates":[":man_frowning_dark_skin_tone:"],"keywords":["dark skin tone","frowning","gesture","man"],"unicode_output":"1f64d-1f3ff-200d-2642-fe0f"},"1f64d-2640":{"name":"woman frowning","shortname":":woman_frowning:","shortname_alternates":[],"keywords":["frowning","gesture","woman"],"unicode_output":"1f64d-200d-2640-fe0f"},"1f64d-1f3ff-2640":{"name":"woman frowning: dark skin tone","shortname":":woman_frowning_tone5:","shortname_alternates":[":woman_frowning_dark_skin_tone:"],"keywords":["dark skin tone","frowning","gesture","woman"],"unicode_output":"1f64d-1f3ff-200d-2640-fe0f"},"1f64d-1f3fe-2640":{"name":"woman frowning: medium-dark skin tone","shortname":":woman_frowning_tone4:","shortname_alternates":[":woman_frowning_medium_dark_skin_tone:"],"keywords":["frowning","gesture","medium-dark skin tone","woman"],"unicode_output":"1f64d-1f3fe-200d-2640-fe0f"},"1f64d-1f3fd-2640":{"name":"woman frowning: medium skin tone","shortname":":woman_frowning_tone3:","shortname_alternates":[":woman_frowning_medium_skin_tone:"],"keywords":["frowning","gesture","medium skin tone","woman"],"unicode_output":"1f64d-1f3fd-200d-2640-fe0f"},"1f64d-1f3fc-2640":{"name":"woman frowning: medium-light skin tone","shortname":":woman_frowning_tone2:","shortname_alternates":[":woman_frowning_medium_light_skin_tone:"],"keywords":["frowning","gesture","medium-light skin tone","woman"],"unicode_output":"1f64d-1f3fc-200d-2640-fe0f"},"1f64d-1f3fb-2640":{"name":"woman frowning: light skin tone","shortname":":woman_frowning_tone1:","shortname_alternates":[":woman_frowning_light_skin_tone:"],"keywords":["frowning","gesture","light skin tone","woman"],"unicode_output":"1f64d-1f3fb-200d-2640-fe0f"},"1f487":{"name":"person getting haircut","shortname":":person_getting_haircut:","shortname_alternates":[":haircut:"],"keywords":["barber","beauty","haircut","parlor"],"unicode_output":"1f487"},"1f487-1f3fb":{"name":"person getting haircut: light skin tone","shortname":":person_getting_haircut_tone1:","shortname_alternates":[":haircut_tone1:"],"keywords":["barber","beauty","haircut","light skin tone","parlor"],"unicode_output":"1f487-1f3fb"},"1f487-1f3fc":{"name":"person getting haircut: medium-light skin tone","shortname":":person_getting_haircut_tone2:","shortname_alternates":[":haircut_tone2:"],"keywords":["barber","beauty","haircut","medium-light skin tone","parlor"],"unicode_output":"1f487-1f3fc"},"1f487-1f3fd":{"name":"person getting haircut: medium skin tone","shortname":":person_getting_haircut_tone3:","shortname_alternates":[":haircut_tone3:"],"keywords":["barber","beauty","haircut","medium skin tone","parlor"],"unicode_output":"1f487-1f3fd"},"1f487-1f3fe":{"name":"person getting haircut: medium-dark skin tone","shortname":":person_getting_haircut_tone4:","shortname_alternates":[":haircut_tone4:"],"keywords":["barber","beauty","haircut","medium-dark skin tone","parlor"],"unicode_output":"1f487-1f3fe"},"1f487-1f3ff":{"name":"person getting haircut: dark skin tone","shortname":":person_getting_haircut_tone5:","shortname_alternates":[":haircut_tone5:"],"keywords":["barber","beauty","dark skin tone","haircut","parlor"],"unicode_output":"1f487-1f3ff"},"1f487-2642":{"name":"man getting haircut","shortname":":man_getting_haircut:","shortname_alternates":[],"keywords":["haircut","man"],"unicode_output":"1f487-200d-2642-fe0f"},"1f487-1f3fb-2642":{"name":"man getting haircut: light skin tone","shortname":":man_getting_haircut_tone1:","shortname_alternates":[":man_getting_haircut_light_skin_tone:"],"keywords":["haircut","light skin tone","man"],"unicode_output":"1f487-1f3fb-200d-2642-fe0f"},"1f487-1f3fc-2642":{"name":"man getting haircut: medium-light skin tone","shortname":":man_getting_haircut_tone2:","shortname_alternates":[":man_getting_haircut_medium_light_skin_tone:"],"keywords":["haircut","man","medium-light skin tone"],"unicode_output":"1f487-1f3fc-200d-2642-fe0f"},"1f487-1f3fd-2642":{"name":"man getting haircut: medium skin tone","shortname":":man_getting_haircut_tone3:","shortname_alternates":[":man_getting_haircut_medium_skin_tone:"],"keywords":["haircut","man","medium skin tone"],"unicode_output":"1f487-1f3fd-200d-2642-fe0f"},"1f487-1f3fe-2642":{"name":"man getting haircut: medium-dark skin tone","shortname":":man_getting_haircut_tone4:","shortname_alternates":[":man_getting_haircut_medium_dark_skin_tone:"],"keywords":["haircut","man","medium-dark skin tone"],"unicode_output":"1f487-1f3fe-200d-2642-fe0f"},"1f487-1f3ff-2642":{"name":"man getting haircut: dark skin tone","shortname":":man_getting_haircut_tone5:","shortname_alternates":[":man_getting_haircut_dark_skin_tone:"],"keywords":["dark skin tone","haircut","man"],"unicode_output":"1f487-1f3ff-200d-2642-fe0f"},"1f487-2640":{"name":"woman getting haircut","shortname":":woman_getting_haircut:","shortname_alternates":[],"keywords":["haircut","woman"],"unicode_output":"1f487-200d-2640-fe0f"},"1f487-1f3ff-2640":{"name":"woman getting haircut: dark skin tone","shortname":":woman_getting_haircut_tone5:","shortname_alternates":[":woman_getting_haircut_dark_skin_tone:"],"keywords":["dark skin tone","haircut","woman"],"unicode_output":"1f487-1f3ff-200d-2640-fe0f"},"1f487-1f3fe-2640":{"name":"woman getting haircut: medium-dark skin tone","shortname":":woman_getting_haircut_tone4:","shortname_alternates":[":woman_getting_haircut_medium_dark_skin_tone:"],"keywords":["haircut","medium-dark skin tone","woman"],"unicode_output":"1f487-1f3fe-200d-2640-fe0f"},"1f487-1f3fd-2640":{"name":"woman getting haircut: medium skin tone","shortname":":woman_getting_haircut_tone3:","shortname_alternates":[":woman_getting_haircut_medium_skin_tone:"],"keywords":["haircut","medium skin tone","woman"],"unicode_output":"1f487-1f3fd-200d-2640-fe0f"},"1f487-1f3fc-2640":{"name":"woman getting haircut: medium-light skin tone","shortname":":woman_getting_haircut_tone2:","shortname_alternates":[":woman_getting_haircut_medium_light_skin_tone:"],"keywords":["haircut","medium-light skin tone","woman"],"unicode_output":"1f487-1f3fc-200d-2640-fe0f"},"1f487-1f3fb-2640":{"name":"woman getting haircut: light skin tone","shortname":":woman_getting_haircut_tone1:","shortname_alternates":[":woman_getting_haircut_light_skin_tone:"],"keywords":["haircut","light skin tone","woman"],"unicode_output":"1f487-1f3fb-200d-2640-fe0f"},"1f486":{"name":"person getting massage","shortname":":person_getting_massage:","shortname_alternates":[":massage:"],"keywords":["face","massage","salon"],"unicode_output":"1f486"},"1f486-1f3fb":{"name":"person getting massage: light skin tone","shortname":":person_getting_massage_tone1:","shortname_alternates":[":massage_tone1:"],"keywords":["face","light skin tone","massage","salon"],"unicode_output":"1f486-1f3fb"},"1f486-1f3fc":{"name":"person getting massage: medium-light skin tone","shortname":":person_getting_massage_tone2:","shortname_alternates":[":massage_tone2:"],"keywords":["face","massage","medium-light skin tone","salon"],"unicode_output":"1f486-1f3fc"},"1f486-1f3fd":{"name":"person getting massage: medium skin tone","shortname":":person_getting_massage_tone3:","shortname_alternates":[":massage_tone3:"],"keywords":["face","massage","medium skin tone","salon"],"unicode_output":"1f486-1f3fd"},"1f486-1f3fe":{"name":"person getting massage: medium-dark skin tone","shortname":":person_getting_massage_tone4:","shortname_alternates":[":massage_tone4:"],"keywords":["face","massage","medium-dark skin tone","salon"],"unicode_output":"1f486-1f3fe"},"1f486-1f3ff":{"name":"person getting massage: dark skin tone","shortname":":person_getting_massage_tone5:","shortname_alternates":[":massage_tone5:"],"keywords":["dark skin tone","face","massage","salon"],"unicode_output":"1f486-1f3ff"},"1f486-2642":{"name":"man getting massage","shortname":":man_getting_face_massage:","shortname_alternates":[],"keywords":["face","man","massage"],"unicode_output":"1f486-200d-2642-fe0f"},"1f486-1f3fb-2642":{"name":"man getting massage: light skin tone","shortname":":man_getting_face_massage_tone1:","shortname_alternates":[":man_getting_face_massage_light_skin_tone:"],"keywords":["face","light skin tone","man","massage"],"unicode_output":"1f486-1f3fb-200d-2642-fe0f"},"1f486-1f3fc-2642":{"name":"man getting massage: medium-light skin tone","shortname":":man_getting_face_massage_tone2:","shortname_alternates":[":man_getting_face_massage_medium_light_skin_tone:"],"keywords":["face","man","massage","medium-light skin tone"],"unicode_output":"1f486-1f3fc-200d-2642-fe0f"},"1f486-1f3fd-2642":{"name":"man getting massage: medium skin tone","shortname":":man_getting_face_massage_tone3:","shortname_alternates":[":man_getting_face_massage_medium_skin_tone:"],"keywords":["face","man","massage","medium skin tone"],"unicode_output":"1f486-1f3fd-200d-2642-fe0f"},"1f486-1f3fe-2642":{"name":"man getting massage: medium-dark skin tone","shortname":":man_getting_face_massage_tone4:","shortname_alternates":[":man_getting_face_massage_medium_dark_skin_tone:"],"keywords":["face","man","massage","medium-dark skin tone"],"unicode_output":"1f486-1f3fe-200d-2642-fe0f"},"1f486-1f3ff-2642":{"name":"man getting massage: dark skin tone","shortname":":man_getting_face_massage_tone5:","shortname_alternates":[":man_getting_face_massage_dark_skin_tone:"],"keywords":["dark skin tone","face","man","massage"],"unicode_output":"1f486-1f3ff-200d-2642-fe0f"},"1f486-2640":{"name":"woman getting massage","shortname":":woman_getting_face_massage:","shortname_alternates":[],"keywords":["face","massage","woman"],"unicode_output":"1f486-200d-2640-fe0f"},"1f486-1f3ff-2640":{"name":"woman getting massage: dark skin tone","shortname":":woman_getting_face_massage_tone5:","shortname_alternates":[":woman_getting_face_massage_dark_skin_tone:"],"keywords":["dark skin tone","face","massage","woman"],"unicode_output":"1f486-1f3ff-200d-2640-fe0f"},"1f486-1f3fe-2640":{"name":"woman getting massage: medium-dark skin tone","shortname":":woman_getting_face_massage_tone4:","shortname_alternates":[":woman_getting_face_massage_medium_dark_skin_tone:"],"keywords":["face","massage","medium-dark skin tone","woman"],"unicode_output":"1f486-1f3fe-200d-2640-fe0f"},"1f486-1f3fd-2640":{"name":"woman getting massage: medium skin tone","shortname":":woman_getting_face_massage_tone3:","shortname_alternates":[":woman_getting_face_massage_medium_skin_tone:"],"keywords":["face","massage","medium skin tone","woman"],"unicode_output":"1f486-1f3fd-200d-2640-fe0f"},"1f486-1f3fc-2640":{"name":"woman getting massage: medium-light skin tone","shortname":":woman_getting_face_massage_tone2:","shortname_alternates":[":woman_getting_face_massage_medium_light_skin_tone:"],"keywords":["face","massage","medium-light skin tone","woman"],"unicode_output":"1f486-1f3fc-200d-2640-fe0f"},"1f486-1f3fb-2640":{"name":"woman getting massage: light skin tone","shortname":":woman_getting_face_massage_tone1:","shortname_alternates":[":woman_getting_face_massage_light_skin_tone:"],"keywords":["face","light skin tone","massage","woman"],"unicode_output":"1f486-1f3fb-200d-2640-fe0f"},"1f574":{"name":"man in business suit levitating","shortname":":levitate:","shortname_alternates":[],"keywords":["business","man","suit"],"unicode_output":"1f574"},"1f574-1f3fb":{"name":"man in business suit levitating: light skin tone","shortname":":man_in_business_suit_levitating_tone1:","shortname_alternates":[":man_in_business_suit_levitating_light_skin_tone:"],"keywords":["business","light skin tone","man","suit"],"unicode_output":"1f574-1f3fb"},"1f574-1f3fc":{"name":"man in business suit levitating: medium-light skin tone","shortname":":man_in_business_suit_levitating_tone2:","shortname_alternates":[":man_in_business_suit_levitating_medium_light_skin_tone:"],"keywords":["business","man","medium-light skin tone","suit"],"unicode_output":"1f574-1f3fc"},"1f574-1f3fd":{"name":"man in business suit levitating: medium skin tone","shortname":":man_in_business_suit_levitating_tone3:","shortname_alternates":[":man_in_business_suit_levitating_medium_skin_tone:"],"keywords":["business","man","medium skin tone","suit"],"unicode_output":"1f574-1f3fd"},"1f574-1f3fe":{"name":"man in business suit levitating: medium-dark skin tone","shortname":":man_in_business_suit_levitating_tone4:","shortname_alternates":[":man_in_business_suit_levitating_medium_dark_skin_tone:"],"keywords":["business","man","medium-dark skin tone","suit"],"unicode_output":"1f574-1f3fe"},"1f574-1f3ff":{"name":"man in business suit levitating: dark skin tone","shortname":":man_in_business_suit_levitating_tone5:","shortname_alternates":[":man_in_business_suit_levitating_dark_skin_tone:"],"keywords":["business","dark skin tone","man","suit"],"unicode_output":"1f574-1f3ff"},"1f483":{"name":"woman dancing","shortname":":dancer:","shortname_alternates":[],"keywords":["dancing","woman"],"unicode_output":"1f483"},"1f483-1f3fb":{"name":"woman dancing: light skin tone","shortname":":dancer_tone1:","shortname_alternates":[],"keywords":["dancing","light skin tone","woman"],"unicode_output":"1f483-1f3fb"},"1f483-1f3fc":{"name":"woman dancing: medium-light skin tone","shortname":":dancer_tone2:","shortname_alternates":[],"keywords":["dancing","medium-light skin tone","woman"],"unicode_output":"1f483-1f3fc"},"1f483-1f3fd":{"name":"woman dancing: medium skin tone","shortname":":dancer_tone3:","shortname_alternates":[],"keywords":["dancing","medium skin tone","woman"],"unicode_output":"1f483-1f3fd"},"1f483-1f3fe":{"name":"woman dancing: medium-dark skin tone","shortname":":dancer_tone4:","shortname_alternates":[],"keywords":["dancing","medium-dark skin tone","woman"],"unicode_output":"1f483-1f3fe"},"1f483-1f3ff":{"name":"woman dancing: dark skin tone","shortname":":dancer_tone5:","shortname_alternates":[],"keywords":["dancing","dark skin tone","woman"],"unicode_output":"1f483-1f3ff"},"1f57a":{"name":"man dancing","shortname":":man_dancing:","shortname_alternates":[":male_dancer:"],"keywords":["dance","man"],"unicode_output":"1f57a"},"1f57a-1f3fb":{"name":"man dancing: light skin tone","shortname":":man_dancing_tone1:","shortname_alternates":[":male_dancer_tone1:"],"keywords":["dance","light skin tone","man"],"unicode_output":"1f57a-1f3fb"},"1f57a-1f3fc":{"name":"man dancing: medium-light skin tone","shortname":":man_dancing_tone2:","shortname_alternates":[":male_dancer_tone2:"],"keywords":["dance","man","medium-light skin tone"],"unicode_output":"1f57a-1f3fc"},"1f57a-1f3fd":{"name":"man dancing: medium skin tone","shortname":":man_dancing_tone3:","shortname_alternates":[":male_dancer_tone3:"],"keywords":["dance","man","medium skin tone"],"unicode_output":"1f57a-1f3fd"},"1f57a-1f3fe":{"name":"man dancing: medium-dark skin tone","shortname":":man_dancing_tone4:","shortname_alternates":[":male_dancer_tone4:"],"keywords":["dance","man","medium-dark skin tone"],"unicode_output":"1f57a-1f3fe"},"1f57a-1f3ff":{"name":"man dancing: dark skin tone","shortname":":man_dancing_tone5:","shortname_alternates":[":male_dancer_tone5:"],"keywords":["dance","dark skin tone","man"],"unicode_output":"1f57a-1f3ff"},"1f46f":{"name":"people with bunny ears partying","shortname":":people_with_bunny_ears_partying:","shortname_alternates":[":dancers:"],"keywords":["bunny ear","dancer","partying"],"unicode_output":"1f46f"},"1f46f-2642":{"name":"men with bunny ears partying","shortname":":men_with_bunny_ears_partying:","shortname_alternates":[],"keywords":["bunny ear","dancer","men","partying"],"unicode_output":"1f46f-200d-2642-fe0f"},"1f46f-2640":{"name":"women with bunny ears partying","shortname":":women_with_bunny_ears_partying:","shortname_alternates":[],"keywords":["bunny ear","dancer","partying","women"],"unicode_output":"1f46f-200d-2640-fe0f"},"1f6b6-2640":{"name":"woman walking","shortname":":woman_walking:","shortname_alternates":[],"keywords":["hike","walk","woman"],"unicode_output":"1f6b6-200d-2640-fe0f"},"1f6b6-1f3fb-2640":{"name":"woman walking: light skin tone","shortname":":woman_walking_tone1:","shortname_alternates":[":woman_walking_light_skin_tone:"],"keywords":["hike","light skin tone","walk","woman"],"unicode_output":"1f6b6-1f3fb-200d-2640-fe0f"},"1f6b6-1f3fc-2640":{"name":"woman walking: medium-light skin tone","shortname":":woman_walking_tone2:","shortname_alternates":[":woman_walking_medium_light_skin_tone:"],"keywords":["hike","medium-light skin tone","walk","woman"],"unicode_output":"1f6b6-1f3fc-200d-2640-fe0f"},"1f6b6-1f3fd-2640":{"name":"woman walking: medium skin tone","shortname":":woman_walking_tone3:","shortname_alternates":[":woman_walking_medium_skin_tone:"],"keywords":["hike","medium skin tone","walk","woman"],"unicode_output":"1f6b6-1f3fd-200d-2640-fe0f"},"1f6b6-1f3fe-2640":{"name":"woman walking: medium-dark skin tone","shortname":":woman_walking_tone4:","shortname_alternates":[":woman_walking_medium_dark_skin_tone:"],"keywords":["hike","medium-dark skin tone","walk","woman"],"unicode_output":"1f6b6-1f3fe-200d-2640-fe0f"},"1f6b6-1f3ff-2640":{"name":"woman walking: dark skin tone","shortname":":woman_walking_tone5:","shortname_alternates":[":woman_walking_dark_skin_tone:"],"keywords":["dark skin tone","hike","walk","woman"],"unicode_output":"1f6b6-1f3ff-200d-2640-fe0f"},"1f6b6":{"name":"person walking","shortname":":person_walking:","shortname_alternates":[":walking:"],"keywords":["hike","walk","walking"],"unicode_output":"1f6b6"},"1f6b6-1f3fb":{"name":"person walking: light skin tone","shortname":":person_walking_tone1:","shortname_alternates":[":walking_tone1:"],"keywords":["hike","light skin tone","walk","walking"],"unicode_output":"1f6b6-1f3fb"},"1f6b6-1f3fc":{"name":"person walking: medium-light skin tone","shortname":":person_walking_tone2:","shortname_alternates":[":walking_tone2:"],"keywords":["hike","medium-light skin tone","walk","walking"],"unicode_output":"1f6b6-1f3fc"},"1f6b6-1f3fd":{"name":"person walking: medium skin tone","shortname":":person_walking_tone3:","shortname_alternates":[":walking_tone3:"],"keywords":["hike","medium skin tone","walk","walking"],"unicode_output":"1f6b6-1f3fd"},"1f6b6-1f3fe":{"name":"person walking: medium-dark skin tone","shortname":":person_walking_tone4:","shortname_alternates":[":walking_tone4:"],"keywords":["hike","medium-dark skin tone","walk","walking"],"unicode_output":"1f6b6-1f3fe"},"1f6b6-1f3ff":{"name":"person walking: dark skin tone","shortname":":person_walking_tone5:","shortname_alternates":[":walking_tone5:"],"keywords":["dark skin tone","hike","walk","walking"],"unicode_output":"1f6b6-1f3ff"},"1f6b6-2642":{"name":"man walking","shortname":":man_walking:","shortname_alternates":[],"keywords":["hike","man","walk"],"unicode_output":"1f6b6-200d-2642-fe0f"},"1f6b6-1f3ff-2642":{"name":"man walking: dark skin tone","shortname":":man_walking_tone5:","shortname_alternates":[":man_walking_dark_skin_tone:"],"keywords":["dark skin tone","hike","man","walk"],"unicode_output":"1f6b6-1f3ff-200d-2642-fe0f"},"1f6b6-1f3fe-2642":{"name":"man walking: medium-dark skin tone","shortname":":man_walking_tone4:","shortname_alternates":[":man_walking_medium_dark_skin_tone:"],"keywords":["hike","man","medium-dark skin tone","walk"],"unicode_output":"1f6b6-1f3fe-200d-2642-fe0f"},"1f6b6-1f3fd-2642":{"name":"man walking: medium skin tone","shortname":":man_walking_tone3:","shortname_alternates":[":man_walking_medium_skin_tone:"],"keywords":["hike","man","medium skin tone","walk"],"unicode_output":"1f6b6-1f3fd-200d-2642-fe0f"},"1f6b6-1f3fc-2642":{"name":"man walking: medium-light skin tone","shortname":":man_walking_tone2:","shortname_alternates":[":man_walking_medium_light_skin_tone:"],"keywords":["hike","man","medium-light skin tone","walk"],"unicode_output":"1f6b6-1f3fc-200d-2642-fe0f"},"1f6b6-1f3fb-2642":{"name":"man walking: light skin tone","shortname":":man_walking_tone1:","shortname_alternates":[":man_walking_light_skin_tone:"],"keywords":["hike","light skin tone","man","walk"],"unicode_output":"1f6b6-1f3fb-200d-2642-fe0f"},"1f3c3-2640":{"name":"woman running","shortname":":woman_running:","shortname_alternates":[],"keywords":["marathon","racing","running","woman"],"unicode_output":"1f3c3-200d-2640-fe0f"},"1f3c3-1f3fb-2640":{"name":"woman running: light skin tone","shortname":":woman_running_tone1:","shortname_alternates":[":woman_running_light_skin_tone:"],"keywords":["light skin tone","marathon","racing","running","woman"],"unicode_output":"1f3c3-1f3fb-200d-2640-fe0f"},"1f3c3-1f3fc-2640":{"name":"woman running: medium-light skin tone","shortname":":woman_running_tone2:","shortname_alternates":[":woman_running_medium_light_skin_tone:"],"keywords":["marathon","medium-light skin tone","racing","running","woman"],"unicode_output":"1f3c3-1f3fc-200d-2640-fe0f"},"1f3c3-1f3fd-2640":{"name":"woman running: medium skin tone","shortname":":woman_running_tone3:","shortname_alternates":[":woman_running_medium_skin_tone:"],"keywords":["marathon","medium skin tone","racing","running","woman"],"unicode_output":"1f3c3-1f3fd-200d-2640-fe0f"},"1f3c3-1f3fe-2640":{"name":"woman running: medium-dark skin tone","shortname":":woman_running_tone4:","shortname_alternates":[":woman_running_medium_dark_skin_tone:"],"keywords":["marathon","medium-dark skin tone","racing","running","woman"],"unicode_output":"1f3c3-1f3fe-200d-2640-fe0f"},"1f3c3-1f3ff-2640":{"name":"woman running: dark skin tone","shortname":":woman_running_tone5:","shortname_alternates":[":woman_running_dark_skin_tone:"],"keywords":["dark skin tone","marathon","racing","running","woman"],"unicode_output":"1f3c3-1f3ff-200d-2640-fe0f"},"1f3c3":{"name":"person running","shortname":":person_running:","shortname_alternates":[":runner:"],"keywords":["marathon","running"],"unicode_output":"1f3c3"},"1f3c3-1f3fb":{"name":"person running: light skin tone","shortname":":person_running_tone1:","shortname_alternates":[":runner_tone1:"],"keywords":["light skin tone","marathon","running"],"unicode_output":"1f3c3-1f3fb"},"1f3c3-1f3fc":{"name":"person running: medium-light skin tone","shortname":":person_running_tone2:","shortname_alternates":[":runner_tone2:"],"keywords":["marathon","medium-light skin tone","running"],"unicode_output":"1f3c3-1f3fc"},"1f3c3-1f3fd":{"name":"person running: medium skin tone","shortname":":person_running_tone3:","shortname_alternates":[":runner_tone3:"],"keywords":["marathon","medium skin tone","running"],"unicode_output":"1f3c3-1f3fd"},"1f3c3-1f3fe":{"name":"person running: medium-dark skin tone","shortname":":person_running_tone4:","shortname_alternates":[":runner_tone4:"],"keywords":["marathon","medium-dark skin tone","running"],"unicode_output":"1f3c3-1f3fe"},"1f3c3-1f3ff":{"name":"person running: dark skin tone","shortname":":person_running_tone5:","shortname_alternates":[":runner_tone5:"],"keywords":["dark skin tone","marathon","running"],"unicode_output":"1f3c3-1f3ff"},"1f3c3-2642":{"name":"man running","shortname":":man_running:","shortname_alternates":[],"keywords":["man","marathon","racing","running"],"unicode_output":"1f3c3-200d-2642-fe0f"},"1f3c3-1f3ff-2642":{"name":"man running: dark skin tone","shortname":":man_running_tone5:","shortname_alternates":[":man_running_dark_skin_tone:"],"keywords":["dark skin tone","man","marathon","racing","running"],"unicode_output":"1f3c3-1f3ff-200d-2642-fe0f"},"1f3c3-1f3fe-2642":{"name":"man running: medium-dark skin tone","shortname":":man_running_tone4:","shortname_alternates":[":man_running_medium_dark_skin_tone:"],"keywords":["man","marathon","medium-dark skin tone","racing","running"],"unicode_output":"1f3c3-1f3fe-200d-2642-fe0f"},"1f3c3-1f3fd-2642":{"name":"man running: medium skin tone","shortname":":man_running_tone3:","shortname_alternates":[":man_running_medium_skin_tone:"],"keywords":["man","marathon","medium skin tone","racing","running"],"unicode_output":"1f3c3-1f3fd-200d-2642-fe0f"},"1f3c3-1f3fc-2642":{"name":"man running: medium-light skin tone","shortname":":man_running_tone2:","shortname_alternates":[":man_running_medium_light_skin_tone:"],"keywords":["man","marathon","medium-light skin tone","racing","running"],"unicode_output":"1f3c3-1f3fc-200d-2642-fe0f"},"1f3c3-1f3fb-2642":{"name":"man running: light skin tone","shortname":":man_running_tone1:","shortname_alternates":[":man_running_light_skin_tone:"],"keywords":["light skin tone","man","marathon","racing","running"],"unicode_output":"1f3c3-1f3fb-200d-2642-fe0f"},"1f46b":{"name":"man and woman holding hands","shortname":":couple:","shortname_alternates":[],"keywords":["couple","hand","hold","man","woman"],"unicode_output":"1f46b"},"1f46d":{"name":"two women holding hands","shortname":":two_women_holding_hands:","shortname_alternates":[],"keywords":["couple","hand","hold","woman"],"unicode_output":"1f46d"},"1f46c":{"name":"two men holding hands","shortname":":two_men_holding_hands:","shortname_alternates":[],"keywords":["Gemini","couple","hand","hold","man","twins","zodiac"],"unicode_output":"1f46c"},"1f491":{"name":"couple with heart","shortname":":couple_with_heart:","shortname_alternates":[],"keywords":["couple","love"],"unicode_output":"1f491"},"1f469-2764-1f469":{"name":"couple with heart: woman, woman","shortname":":couple_ww:","shortname_alternates":[":couple_with_heart_ww:"],"keywords":["couple","love","woman"],"unicode_output":"1f469-200d-2764-fe0f-200d-1f469"},"1f468-2764-1f468":{"name":"couple with heart: man, man","shortname":":couple_mm:","shortname_alternates":[":couple_with_heart_mm:"],"keywords":["couple","love","man"],"unicode_output":"1f468-200d-2764-fe0f-200d-1f468"},"1f48f":{"name":"kiss","shortname":":couplekiss:","shortname_alternates":[],"keywords":["couple"],"unicode_output":"1f48f"},"1f469-2764-1f48b-1f469":{"name":"kiss: woman, woman","shortname":":kiss_ww:","shortname_alternates":[":couplekiss_ww:"],"keywords":["couple","woman"],"unicode_output":"1f469-200d-2764-fe0f-200d-1f48b-200d-1f469"},"1f468-2764-1f48b-1f468":{"name":"kiss: man, man","shortname":":kiss_mm:","shortname_alternates":[":couplekiss_mm:"],"keywords":["couple","man"],"unicode_output":"1f468-200d-2764-fe0f-200d-1f48b-200d-1f468"},"1f46a":{"name":"family","shortname":":family:","shortname_alternates":[],"keywords":["family"],"unicode_output":"1f46a"},"1f468-1f469-1f467":{"name":"family: man, woman, girl","shortname":":family_mwg:","shortname_alternates":[],"keywords":["family","girl","man","woman"],"unicode_output":"1f468-200d-1f469-200d-1f467"},"1f468-1f469-1f467-1f466":{"name":"family: man, woman, girl, boy","shortname":":family_mwgb:","shortname_alternates":[],"keywords":["boy","family","girl","man","woman"],"unicode_output":"1f468-200d-1f469-200d-1f467-200d-1f466"},"1f468-1f469-1f466-1f466":{"name":"family: man, woman, boy, boy","shortname":":family_mwbb:","shortname_alternates":[],"keywords":["boy","family","man","woman"],"unicode_output":"1f468-200d-1f469-200d-1f466-200d-1f466"},"1f468-1f469-1f467-1f467":{"name":"family: man, woman, girl, girl","shortname":":family_mwgg:","shortname_alternates":[],"keywords":["family","girl","man","woman"],"unicode_output":"1f468-200d-1f469-200d-1f467-200d-1f467"},"1f469-1f469-1f466":{"name":"family: woman, woman, boy","shortname":":family_wwb:","shortname_alternates":[],"keywords":["boy","family","woman"],"unicode_output":"1f469-200d-1f469-200d-1f466"},"1f469-1f469-1f467":{"name":"family: woman, woman, girl","shortname":":family_wwg:","shortname_alternates":[],"keywords":["family","girl","woman"],"unicode_output":"1f469-200d-1f469-200d-1f467"},"1f469-1f469-1f467-1f466":{"name":"family: woman, woman, girl, boy","shortname":":family_wwgb:","shortname_alternates":[],"keywords":["boy","family","girl","woman"],"unicode_output":"1f469-200d-1f469-200d-1f467-200d-1f466"},"1f469-1f469-1f466-1f466":{"name":"family: woman, woman, boy, boy","shortname":":family_wwbb:","shortname_alternates":[],"keywords":["boy","family","woman"],"unicode_output":"1f469-200d-1f469-200d-1f466-200d-1f466"},"1f469-1f469-1f467-1f467":{"name":"family: woman, woman, girl, girl","shortname":":family_wwgg:","shortname_alternates":[],"keywords":["family","girl","woman"],"unicode_output":"1f469-200d-1f469-200d-1f467-200d-1f467"},"1f468-1f468-1f466":{"name":"family: man, man, boy","shortname":":family_mmb:","shortname_alternates":[],"keywords":["boy","family","man"],"unicode_output":"1f468-200d-1f468-200d-1f466"},"1f468-1f468-1f467":{"name":"family: man, man, girl","shortname":":family_mmg:","shortname_alternates":[],"keywords":["family","girl","man"],"unicode_output":"1f468-200d-1f468-200d-1f467"},"1f468-1f468-1f467-1f466":{"name":"family: man, man, girl, boy","shortname":":family_mmgb:","shortname_alternates":[],"keywords":["boy","family","girl","man"],"unicode_output":"1f468-200d-1f468-200d-1f467-200d-1f466"},"1f468-1f468-1f466-1f466":{"name":"family: man, man, boy, boy","shortname":":family_mmbb:","shortname_alternates":[],"keywords":["boy","family","man"],"unicode_output":"1f468-200d-1f468-200d-1f466-200d-1f466"},"1f468-1f468-1f467-1f467":{"name":"family: man, man, girl, girl","shortname":":family_mmgg:","shortname_alternates":[],"keywords":["family","girl","man"],"unicode_output":"1f468-200d-1f468-200d-1f467-200d-1f467"},"1f469-1f466":{"name":"family: woman, boy","shortname":":family_woman_boy:","shortname_alternates":[],"keywords":["boy","family","woman"],"unicode_output":"1f469-200d-1f466"},"1f469-1f467":{"name":"family: woman, girl","shortname":":family_woman_girl:","shortname_alternates":[],"keywords":["family","girl","woman"],"unicode_output":"1f469-200d-1f467"},"1f469-1f467-1f466":{"name":"family: woman, girl, boy","shortname":":family_woman_girl_boy:","shortname_alternates":[],"keywords":["boy","family","girl","woman"],"unicode_output":"1f469-200d-1f467-200d-1f466"},"1f469-1f466-1f466":{"name":"family: woman, boy, boy","shortname":":family_woman_boy_boy:","shortname_alternates":[],"keywords":["boy","family","woman"],"unicode_output":"1f469-200d-1f466-200d-1f466"},"1f469-1f467-1f467":{"name":"family: woman, girl, girl","shortname":":family_woman_girl_girl:","shortname_alternates":[],"keywords":["family","girl","woman"],"unicode_output":"1f469-200d-1f467-200d-1f467"},"1f468-1f466":{"name":"family: man, boy","shortname":":family_man_boy:","shortname_alternates":[],"keywords":["boy","family","man"],"unicode_output":"1f468-200d-1f466"},"1f468-1f467":{"name":"family: man, girl","shortname":":family_man_girl:","shortname_alternates":[],"keywords":["family","girl","man"],"unicode_output":"1f468-200d-1f467"},"1f468-1f467-1f466":{"name":"family: man, girl, boy","shortname":":family_man_girl_boy:","shortname_alternates":[],"keywords":["boy","family","girl","man"],"unicode_output":"1f468-200d-1f467-200d-1f466"},"1f468-1f466-1f466":{"name":"family: man, boy, boy","shortname":":family_man_boy_boy:","shortname_alternates":[],"keywords":["boy","family","man"],"unicode_output":"1f468-200d-1f466-200d-1f466"},"1f468-1f467-1f467":{"name":"family: man, girl, girl","shortname":":family_man_girl_girl:","shortname_alternates":[],"keywords":["family","girl","man"],"unicode_output":"1f468-200d-1f467-200d-1f467"},"1f45a":{"name":"woman\u2019s clothes","shortname":":womans_clothes:","shortname_alternates":[],"keywords":["clothing","woman"],"unicode_output":"1f45a"},"1f455":{"name":"t-shirt","shortname":":shirt:","shortname_alternates":[],"keywords":["clothing","shirt","tshirt"],"unicode_output":"1f455"},"1f456":{"name":"jeans","shortname":":jeans:","shortname_alternates":[],"keywords":["clothing","pants","trousers"],"unicode_output":"1f456"},"1f454":{"name":"necktie","shortname":":necktie:","shortname_alternates":[],"keywords":["clothing"],"unicode_output":"1f454"},"1f457":{"name":"dress","shortname":":dress:","shortname_alternates":[],"keywords":["clothing"],"unicode_output":"1f457"},"1f459":{"name":"bikini","shortname":":bikini:","shortname_alternates":[],"keywords":["clothing","swim"],"unicode_output":"1f459"},"1f458":{"name":"kimono","shortname":":kimono:","shortname_alternates":[],"keywords":["clothing"],"unicode_output":"1f458"},"1f460":{"name":"high-heeled shoe","shortname":":high_heel:","shortname_alternates":[],"keywords":["clothing","heel","shoe","woman"],"unicode_output":"1f460"},"1f461":{"name":"woman\u2019s sandal","shortname":":sandal:","shortname_alternates":[],"keywords":["clothing","sandal","shoe","woman"],"unicode_output":"1f461"},"1f462":{"name":"woman\u2019s boot","shortname":":boot:","shortname_alternates":[],"keywords":["boot","clothing","shoe","woman"],"unicode_output":"1f462"},"1f45e":{"name":"man\u2019s shoe","shortname":":mans_shoe:","shortname_alternates":[],"keywords":["clothing","man","shoe"],"unicode_output":"1f45e"},"1f45f":{"name":"running shoe","shortname":":athletic_shoe:","shortname_alternates":[],"keywords":["athletic","clothing","shoe","sneaker"],"unicode_output":"1f45f"},"1f452":{"name":"woman\u2019s hat","shortname":":womans_hat:","shortname_alternates":[],"keywords":["clothing","hat","woman"],"unicode_output":"1f452"},"1f3a9":{"name":"top hat","shortname":":tophat:","shortname_alternates":[],"keywords":["clothing","hat","top","tophat"],"unicode_output":"1f3a9"},"1f393":{"name":"graduation cap","shortname":":mortar_board:","shortname_alternates":[],"keywords":["cap","celebration","clothing","graduation","hat"],"unicode_output":"1f393"},"1f451":{"name":"crown","shortname":":crown:","shortname_alternates":[],"keywords":["clothing","king","queen"],"unicode_output":"1f451"},"26d1":{"name":"rescue worker\u2019s helmet","shortname":":helmet_with_cross:","shortname_alternates":[":helmet_with_white_cross:"],"keywords":["aid","cross","face","hat","helmet"],"unicode_output":"26d1"},"1f392":{"name":"school backpack","shortname":":school_satchel:","shortname_alternates":[],"keywords":["bag","satchel","school"],"unicode_output":"1f392"},"1f45d":{"name":"clutch bag","shortname":":pouch:","shortname_alternates":[],"keywords":["bag","clothing","pouch"],"unicode_output":"1f45d"},"1f45b":{"name":"purse","shortname":":purse:","shortname_alternates":[],"keywords":["clothing","coin"],"unicode_output":"1f45b"},"1f45c":{"name":"handbag","shortname":":handbag:","shortname_alternates":[],"keywords":["bag","clothing","purse"],"unicode_output":"1f45c"},"1f4bc":{"name":"briefcase","shortname":":briefcase:","shortname_alternates":[],"keywords":["briefcase"],"unicode_output":"1f4bc"},"1f453":{"name":"glasses","shortname":":eyeglasses:","shortname_alternates":[],"keywords":["clothing","eye","eyeglasses","eyewear"],"unicode_output":"1f453"},"1f576":{"name":"sunglasses","shortname":":dark_sunglasses:","shortname_alternates":[],"keywords":["dark","eye","eyewear","glasses"],"unicode_output":"1f576"},"1f302":{"name":"closed umbrella","shortname":":closed_umbrella:","shortname_alternates":[],"keywords":["clothing","rain","umbrella"],"unicode_output":"1f302"},"2602":{"name":"umbrella","shortname":":umbrella2:","shortname_alternates":[],"keywords":["clothing","rain"],"unicode_output":"2602"},"1f436":{"name":"dog face","shortname":":dog:","shortname_alternates":[],"keywords":["dog","face","pet"],"unicode_output":"1f436"},"1f431":{"name":"cat face","shortname":":cat:","shortname_alternates":[],"keywords":["cat","face","pet"],"unicode_output":"1f431"},"1f42d":{"name":"mouse face","shortname":":mouse:","shortname_alternates":[],"keywords":["face","mouse"],"unicode_output":"1f42d"},"1f439":{"name":"hamster face","shortname":":hamster:","shortname_alternates":[],"keywords":["face","hamster","pet"],"unicode_output":"1f439"},"1f430":{"name":"rabbit face","shortname":":rabbit:","shortname_alternates":[],"keywords":["bunny","face","pet","rabbit"],"unicode_output":"1f430"},"1f98a":{"name":"fox face","shortname":":fox:","shortname_alternates":[":fox_face:"],"keywords":["face","fox"],"unicode_output":"1f98a"},"1f43b":{"name":"bear face","shortname":":bear:","shortname_alternates":[],"keywords":["bear","face"],"unicode_output":"1f43b"},"1f43c":{"name":"panda face","shortname":":panda_face:","shortname_alternates":[],"keywords":["face","panda"],"unicode_output":"1f43c"},"1f428":{"name":"koala","shortname":":koala:","shortname_alternates":[],"keywords":["bear"],"unicode_output":"1f428"},"1f42f":{"name":"tiger face","shortname":":tiger:","shortname_alternates":[],"keywords":["face","tiger"],"unicode_output":"1f42f"},"1f981":{"name":"lion face","shortname":":lion_face:","shortname_alternates":[":lion:"],"keywords":["Leo","face","lion","zodiac"],"unicode_output":"1f981"},"1f42e":{"name":"cow face","shortname":":cow:","shortname_alternates":[],"keywords":["cow","face"],"unicode_output":"1f42e"},"1f437":{"name":"pig face","shortname":":pig:","shortname_alternates":[],"keywords":["face","pig"],"unicode_output":"1f437"},"1f43d":{"name":"pig nose","shortname":":pig_nose:","shortname_alternates":[],"keywords":["face","nose","pig"],"unicode_output":"1f43d"},"1f438":{"name":"frog face","shortname":":frog:","shortname_alternates":[],"keywords":["face","frog"],"unicode_output":"1f438"},"1f435":{"name":"monkey face","shortname":":monkey_face:","shortname_alternates":[],"keywords":["face","monkey"],"unicode_output":"1f435"},"1f648":{"name":"see-no-evil monkey","shortname":":see_no_evil:","shortname_alternates":[],"keywords":["evil","face","forbidden","gesture","monkey","no","not","prohibited","see"],"unicode_output":"1f648"},"1f649":{"name":"hear-no-evil monkey","shortname":":hear_no_evil:","shortname_alternates":[],"keywords":["evil","face","forbidden","gesture","hear","monkey","no","not","prohibited"],"unicode_output":"1f649"},"1f64a":{"name":"speak-no-evil monkey","shortname":":speak_no_evil:","shortname_alternates":[],"keywords":["evil","face","forbidden","gesture","monkey","no","not","prohibited","speak"],"unicode_output":"1f64a"},"1f412":{"name":"monkey","shortname":":monkey:","shortname_alternates":[],"keywords":["monkey"],"unicode_output":"1f412"},"1f414":{"name":"chicken","shortname":":chicken:","shortname_alternates":[],"keywords":["bird","chicken"],"unicode_output":"1f414"},"1f427":{"name":"penguin","shortname":":penguin:","shortname_alternates":[],"keywords":["bird","penguin"],"unicode_output":"1f427"},"1f426":{"name":"bird","shortname":":bird:","shortname_alternates":[],"keywords":["bird"],"unicode_output":"1f426"},"1f424":{"name":"baby chick","shortname":":baby_chick:","shortname_alternates":[],"keywords":["baby","bird","chick"],"unicode_output":"1f424"},"1f423":{"name":"hatching chick","shortname":":hatching_chick:","shortname_alternates":[],"keywords":["baby","bird","chick","hatching"],"unicode_output":"1f423"},"1f425":{"name":"front-facing baby chick","shortname":":hatched_chick:","shortname_alternates":[],"keywords":["baby","bird","chick"],"unicode_output":"1f425"},"1f986":{"name":"duck","shortname":":duck:","shortname_alternates":[],"keywords":["bird","duck"],"unicode_output":"1f986"},"1f985":{"name":"eagle","shortname":":eagle:","shortname_alternates":[],"keywords":["bird","eagle"],"unicode_output":"1f985"},"1f989":{"name":"owl","shortname":":owl:","shortname_alternates":[],"keywords":["bird","owl","wise"],"unicode_output":"1f989"},"1f987":{"name":"bat","shortname":":bat:","shortname_alternates":[],"keywords":["bat","vampire"],"unicode_output":"1f987"},"1f43a":{"name":"wolf face","shortname":":wolf:","shortname_alternates":[],"keywords":["face","wolf"],"unicode_output":"1f43a"},"1f417":{"name":"boar","shortname":":boar:","shortname_alternates":[],"keywords":["pig"],"unicode_output":"1f417"},"1f434":{"name":"horse face","shortname":":horse:","shortname_alternates":[],"keywords":["face","horse"],"unicode_output":"1f434"},"1f984":{"name":"unicorn face","shortname":":unicorn:","shortname_alternates":[":unicorn_face:"],"keywords":["face","unicorn"],"unicode_output":"1f984"},"1f41d":{"name":"honeybee","shortname":":bee:","shortname_alternates":[],"keywords":["bee","insect"],"unicode_output":"1f41d"},"1f41b":{"name":"bug","shortname":":bug:","shortname_alternates":[],"keywords":["insect"],"unicode_output":"1f41b"},"1f98b":{"name":"butterfly","shortname":":butterfly:","shortname_alternates":[],"keywords":["butterfly","insect","pretty"],"unicode_output":"1f98b"},"1f40c":{"name":"snail","shortname":":snail:","shortname_alternates":[],"keywords":["snail"],"unicode_output":"1f40c"},"1f41a":{"name":"spiral shell","shortname":":shell:","shortname_alternates":[],"keywords":["shell","spiral"],"unicode_output":"1f41a"},"1f41e":{"name":"lady beetle","shortname":":beetle:","shortname_alternates":[],"keywords":["beetle","insect","ladybird","ladybug"],"unicode_output":"1f41e"},"1f41c":{"name":"ant","shortname":":ant:","shortname_alternates":[],"keywords":["insect"],"unicode_output":"1f41c"},"1f577":{"name":"spider","shortname":":spider:","shortname_alternates":[],"keywords":["insect"],"unicode_output":"1f577"},"1f578":{"name":"spider web","shortname":":spider_web:","shortname_alternates":[],"keywords":["spider","web"],"unicode_output":"1f578"},"1f422":{"name":"turtle","shortname":":turtle:","shortname_alternates":[],"keywords":["terrapin","tortoise","turtle"],"unicode_output":"1f422"},"1f40d":{"name":"snake","shortname":":snake:","shortname_alternates":[],"keywords":["Ophiuchus","bearer","serpent","zodiac"],"unicode_output":"1f40d"},"1f98e":{"name":"lizard","shortname":":lizard:","shortname_alternates":[],"keywords":["lizard","reptile"],"unicode_output":"1f98e"},"1f982":{"name":"scorpion","shortname":":scorpion:","shortname_alternates":[],"keywords":["Scorpius","scorpio","zodiac"],"unicode_output":"1f982"},"1f980":{"name":"crab","shortname":":crab:","shortname_alternates":[],"keywords":["Cancer","zodiac"],"unicode_output":"1f980"},"1f991":{"name":"squid","shortname":":squid:","shortname_alternates":[],"keywords":["food","molusc","squid"],"unicode_output":"1f991"},"1f419":{"name":"octopus","shortname":":octopus:","shortname_alternates":[],"keywords":["octopus"],"unicode_output":"1f419"},"1f990":{"name":"shrimp","shortname":":shrimp:","shortname_alternates":[],"keywords":["food","shellfish","shrimp","small"],"unicode_output":"1f990"},"1f420":{"name":"tropical fish","shortname":":tropical_fish:","shortname_alternates":[],"keywords":["fish","tropical"],"unicode_output":"1f420"},"1f41f":{"name":"fish","shortname":":fish:","shortname_alternates":[],"keywords":["Pisces","zodiac"],"unicode_output":"1f41f"},"1f421":{"name":"blowfish","shortname":":blowfish:","shortname_alternates":[],"keywords":["fish"],"unicode_output":"1f421"},"1f42c":{"name":"dolphin","shortname":":dolphin:","shortname_alternates":[],"keywords":["flipper"],"unicode_output":"1f42c"},"1f988":{"name":"shark","shortname":":shark:","shortname_alternates":[],"keywords":["fish","shark"],"unicode_output":"1f988"},"1f433":{"name":"spouting whale","shortname":":whale:","shortname_alternates":[],"keywords":["face","spouting","whale"],"unicode_output":"1f433"},"1f40b":{"name":"whale","shortname":":whale2:","shortname_alternates":[],"keywords":["whale"],"unicode_output":"1f40b"},"1f40a":{"name":"crocodile","shortname":":crocodile:","shortname_alternates":[],"keywords":["crocodile"],"unicode_output":"1f40a"},"1f406":{"name":"leopard","shortname":":leopard:","shortname_alternates":[],"keywords":["leopard"],"unicode_output":"1f406"},"1f405":{"name":"tiger","shortname":":tiger2:","shortname_alternates":[],"keywords":["tiger"],"unicode_output":"1f405"},"1f403":{"name":"water buffalo","shortname":":water_buffalo:","shortname_alternates":[],"keywords":["buffalo","water"],"unicode_output":"1f403"},"1f402":{"name":"ox","shortname":":ox:","shortname_alternates":[],"keywords":["Taurus","bull","zodiac"],"unicode_output":"1f402"},"1f404":{"name":"cow","shortname":":cow2:","shortname_alternates":[],"keywords":["cow"],"unicode_output":"1f404"},"1f98c":{"name":"deer","shortname":":deer:","shortname_alternates":[],"keywords":["deer"],"unicode_output":"1f98c"},"1f42a":{"name":"camel","shortname":":dromedary_camel:","shortname_alternates":[],"keywords":["dromedary","hump"],"unicode_output":"1f42a"},"1f42b":{"name":"two-hump camel","shortname":":camel:","shortname_alternates":[],"keywords":["bactrian","camel","hump"],"unicode_output":"1f42b"},"1f418":{"name":"elephant","shortname":":elephant:","shortname_alternates":[],"keywords":["elephant"],"unicode_output":"1f418"},"1f98f":{"name":"rhinoceros","shortname":":rhino:","shortname_alternates":[":rhinoceros:"],"keywords":["rhinoceros"],"unicode_output":"1f98f"},"1f98d":{"name":"gorilla","shortname":":gorilla:","shortname_alternates":[],"keywords":["gorilla"],"unicode_output":"1f98d"},"1f40e":{"name":"horse","shortname":":racehorse:","shortname_alternates":[],"keywords":["equestrian","racehorse","racing"],"unicode_output":"1f40e"},"1f416":{"name":"pig","shortname":":pig2:","shortname_alternates":[],"keywords":["sow"],"unicode_output":"1f416"},"1f410":{"name":"goat","shortname":":goat:","shortname_alternates":[],"keywords":["Capricorn","zodiac"],"unicode_output":"1f410"},"1f40f":{"name":"ram","shortname":":ram:","shortname_alternates":[],"keywords":["Aries","male","sheep","zodiac"],"unicode_output":"1f40f"},"1f411":{"name":"ewe","shortname":":sheep:","shortname_alternates":[],"keywords":["female","sheep"],"unicode_output":"1f411"},"1f415":{"name":"dog","shortname":":dog2:","shortname_alternates":[],"keywords":["pet"],"unicode_output":"1f415"},"1f429":{"name":"poodle","shortname":":poodle:","shortname_alternates":[],"keywords":["dog"],"unicode_output":"1f429"},"1f408":{"name":"cat","shortname":":cat2:","shortname_alternates":[],"keywords":["pet"],"unicode_output":"1f408"},"1f413":{"name":"rooster","shortname":":rooster:","shortname_alternates":[],"keywords":["bird","rooster"],"unicode_output":"1f413"},"1f983":{"name":"turkey","shortname":":turkey:","shortname_alternates":[],"keywords":["bird","turkey"],"unicode_output":"1f983"},"1f54a":{"name":"dove","shortname":":dove:","shortname_alternates":[":dove_of_peace:"],"keywords":["bird","fly","peace"],"unicode_output":"1f54a"},"1f407":{"name":"rabbit","shortname":":rabbit2:","shortname_alternates":[],"keywords":["bunny","pet"],"unicode_output":"1f407"},"1f401":{"name":"mouse","shortname":":mouse2:","shortname_alternates":[],"keywords":["mouse"],"unicode_output":"1f401"},"1f400":{"name":"rat","shortname":":rat:","shortname_alternates":[],"keywords":["rat"],"unicode_output":"1f400"},"1f43f":{"name":"chipmunk","shortname":":chipmunk:","shortname_alternates":[],"keywords":["chipmunk"],"unicode_output":"1f43f"},"1f43e":{"name":"paw prints","shortname":":feet:","shortname_alternates":[":paw_prints:"],"keywords":["feet","paw","print"],"unicode_output":"1f43e"},"1f409":{"name":"dragon","shortname":":dragon:","shortname_alternates":[],"keywords":["fairy tale"],"unicode_output":"1f409"},"1f432":{"name":"dragon face","shortname":":dragon_face:","shortname_alternates":[],"keywords":["dragon","face","fairy tale"],"unicode_output":"1f432"},"1f335":{"name":"cactus","shortname":":cactus:","shortname_alternates":[],"keywords":["plant"],"unicode_output":"1f335"},"1f384":{"name":"Christmas tree","shortname":":christmas_tree:","shortname_alternates":[],"keywords":["Christmas","celebration","tree"],"unicode_output":"1f384"},"1f332":{"name":"evergreen tree","shortname":":evergreen_tree:","shortname_alternates":[],"keywords":["tree"],"unicode_output":"1f332"},"1f333":{"name":"deciduous tree","shortname":":deciduous_tree:","shortname_alternates":[],"keywords":["deciduous","shedding","tree"],"unicode_output":"1f333"},"1f334":{"name":"palm tree","shortname":":palm_tree:","shortname_alternates":[],"keywords":["palm","tree"],"unicode_output":"1f334"},"1f331":{"name":"seedling","shortname":":seedling:","shortname_alternates":[],"keywords":["young"],"unicode_output":"1f331"},"1f33f":{"name":"herb","shortname":":herb:","shortname_alternates":[],"keywords":["leaf"],"unicode_output":"1f33f"},"2618":{"name":"shamrock","shortname":":shamrock:","shortname_alternates":[],"keywords":["plant"],"unicode_output":"2618"},"1f340":{"name":"four leaf clover","shortname":":four_leaf_clover:","shortname_alternates":[],"keywords":["4","clover","four","leaf"],"unicode_output":"1f340"},"1f38d":{"name":"pine decoration","shortname":":bamboo:","shortname_alternates":[],"keywords":["Japanese","bamboo","celebration","pine"],"unicode_output":"1f38d"},"1f38b":{"name":"tanabata tree","shortname":":tanabata_tree:","shortname_alternates":[],"keywords":["Japanese","banner","celebration","tree"],"unicode_output":"1f38b"},"1f343":{"name":"leaf fluttering in wind","shortname":":leaves:","shortname_alternates":[],"keywords":["blow","flutter","leaf","wind"],"unicode_output":"1f343"},"1f342":{"name":"fallen leaf","shortname":":fallen_leaf:","shortname_alternates":[],"keywords":["falling","leaf"],"unicode_output":"1f342"},"1f341":{"name":"maple leaf","shortname":":maple_leaf:","shortname_alternates":[],"keywords":["falling","leaf","maple"],"unicode_output":"1f341"},"1f344":{"name":"mushroom","shortname":":mushroom:","shortname_alternates":[],"keywords":["toadstool"],"unicode_output":"1f344"},"1f33e":{"name":"sheaf of rice","shortname":":ear_of_rice:","shortname_alternates":[],"keywords":["ear","grain","rice"],"unicode_output":"1f33e"},"1f490":{"name":"bouquet","shortname":":bouquet:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f490"},"1f337":{"name":"tulip","shortname":":tulip:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f337"},"1f339":{"name":"rose","shortname":":rose:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f339"},"1f940":{"name":"wilted flower","shortname":":wilted_rose:","shortname_alternates":[":wilted_flower:"],"keywords":["flower","wilted"],"unicode_output":"1f940"},"1f33b":{"name":"sunflower","shortname":":sunflower:","shortname_alternates":[],"keywords":["flower","sun"],"unicode_output":"1f33b"},"1f33c":{"name":"blossom","shortname":":blossom:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f33c"},"1f338":{"name":"cherry blossom","shortname":":cherry_blossom:","shortname_alternates":[],"keywords":["blossom","cherry","flower"],"unicode_output":"1f338"},"1f33a":{"name":"hibiscus","shortname":":hibiscus:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f33a"},"1f30e":{"name":"globe showing Americas","shortname":":earth_americas:","shortname_alternates":[],"keywords":["Americas","earth","globe","world"],"unicode_output":"1f30e"},"1f30d":{"name":"globe showing Europe-Africa","shortname":":earth_africa:","shortname_alternates":[],"keywords":["Africa","Europe","earth","globe","world"],"unicode_output":"1f30d"},"1f30f":{"name":"globe showing Asia-Australia","shortname":":earth_asia:","shortname_alternates":[],"keywords":["Asia","Australia","earth","globe","world"],"unicode_output":"1f30f"},"1f315":{"name":"full moon","shortname":":full_moon:","shortname_alternates":[],"keywords":["full","moon"],"unicode_output":"1f315"},"1f316":{"name":"waning gibbous moon","shortname":":waning_gibbous_moon:","shortname_alternates":[],"keywords":["gibbous","moon","waning"],"unicode_output":"1f316"},"1f317":{"name":"last quarter moon","shortname":":last_quarter_moon:","shortname_alternates":[],"keywords":["moon","quarter"],"unicode_output":"1f317"},"1f318":{"name":"waning crescent moon","shortname":":waning_crescent_moon:","shortname_alternates":[],"keywords":["crescent","moon","waning"],"unicode_output":"1f318"},"1f311":{"name":"new moon","shortname":":new_moon:","shortname_alternates":[],"keywords":["dark","moon"],"unicode_output":"1f311"},"1f312":{"name":"waxing crescent moon","shortname":":waxing_crescent_moon:","shortname_alternates":[],"keywords":["crescent","moon","waxing"],"unicode_output":"1f312"},"1f313":{"name":"first quarter moon","shortname":":first_quarter_moon:","shortname_alternates":[],"keywords":["moon","quarter"],"unicode_output":"1f313"},"1f314":{"name":"waxing gibbous moon","shortname":":waxing_gibbous_moon:","shortname_alternates":[],"keywords":["gibbous","moon","waxing"],"unicode_output":"1f314"},"1f31a":{"name":"new moon face","shortname":":new_moon_with_face:","shortname_alternates":[],"keywords":["face","moon"],"unicode_output":"1f31a"},"1f31d":{"name":"full moon with face","shortname":":full_moon_with_face:","shortname_alternates":[],"keywords":["bright","face","full","moon"],"unicode_output":"1f31d"},"1f31e":{"name":"sun with face","shortname":":sun_with_face:","shortname_alternates":[],"keywords":["bright","face","sun"],"unicode_output":"1f31e"},"1f31b":{"name":"first quarter moon with face","shortname":":first_quarter_moon_with_face:","shortname_alternates":[],"keywords":["face","moon","quarter"],"unicode_output":"1f31b"},"1f31c":{"name":"last quarter moon with face","shortname":":last_quarter_moon_with_face:","shortname_alternates":[],"keywords":["face","moon","quarter"],"unicode_output":"1f31c"},"1f319":{"name":"crescent moon","shortname":":crescent_moon:","shortname_alternates":[],"keywords":["crescent","moon"],"unicode_output":"1f319"},"1f4ab":{"name":"dizzy","shortname":":dizzy:","shortname_alternates":[],"keywords":["comic","star"],"unicode_output":"1f4ab"},"2b50":{"name":"white medium star","shortname":":star:","shortname_alternates":[],"keywords":["star"],"unicode_output":"2b50"},"1f31f":{"name":"glowing star","shortname":":star2:","shortname_alternates":[],"keywords":["glittery","glow","shining","sparkle","star"],"unicode_output":"1f31f"},"2728":{"name":"sparkles","shortname":":sparkles:","shortname_alternates":[],"keywords":["sparkle","star"],"unicode_output":"2728"},"26a1":{"name":"high voltage","shortname":":zap:","shortname_alternates":[],"keywords":["danger","electric","electricity","lightning","voltage","zap"],"unicode_output":"26a1"},"1f525":{"name":"fire","shortname":":fire:","shortname_alternates":[":flame:"],"keywords":["flame","tool"],"unicode_output":"1f525"},"1f4a5":{"name":"collision","shortname":":boom:","shortname_alternates":[],"keywords":["boom","comic"],"unicode_output":"1f4a5"},"2604":{"name":"comet","shortname":":comet:","shortname_alternates":[],"keywords":["space"],"unicode_output":"2604"},"2600":{"name":"sun","shortname":":sunny:","shortname_alternates":[],"keywords":["bright","rays","sunny"],"unicode_output":"2600"},"1f324":{"name":"sun behind small cloud","shortname":":white_sun_small_cloud:","shortname_alternates":[":white_sun_with_small_cloud:"],"keywords":["cloud","sun"],"unicode_output":"1f324"},"26c5":{"name":"sun behind cloud","shortname":":partly_sunny:","shortname_alternates":[],"keywords":["cloud","sun"],"unicode_output":"26c5"},"1f325":{"name":"sun behind large cloud","shortname":":white_sun_cloud:","shortname_alternates":[":white_sun_behind_cloud:"],"keywords":["cloud","sun"],"unicode_output":"1f325"},"1f326":{"name":"sun behind rain cloud","shortname":":white_sun_rain_cloud:","shortname_alternates":[":white_sun_behind_cloud_with_rain:"],"keywords":["cloud","rain","sun"],"unicode_output":"1f326"},"1f308":{"name":"rainbow","shortname":":rainbow:","shortname_alternates":[],"keywords":["rain"],"unicode_output":"1f308"},"2601":{"name":"cloud","shortname":":cloud:","shortname_alternates":[],"keywords":["weather"],"unicode_output":"2601"},"1f327":{"name":"cloud with rain","shortname":":cloud_rain:","shortname_alternates":[":cloud_with_rain:"],"keywords":["cloud","rain"],"unicode_output":"1f327"},"26c8":{"name":"cloud with lightning and rain","shortname":":thunder_cloud_rain:","shortname_alternates":[":thunder_cloud_and_rain:"],"keywords":["cloud","rain","thunder"],"unicode_output":"26c8"},"1f329":{"name":"cloud with lightning","shortname":":cloud_lightning:","shortname_alternates":[":cloud_with_lightning:"],"keywords":["cloud","lightning"],"unicode_output":"1f329"},"1f328":{"name":"cloud with snow","shortname":":cloud_snow:","shortname_alternates":[":cloud_with_snow:"],"keywords":["cloud","cold","snow"],"unicode_output":"1f328"},"2603":{"name":"snowman","shortname":":snowman2:","shortname_alternates":[],"keywords":["cold","snow"],"unicode_output":"2603"},"26c4":{"name":"snowman without snow","shortname":":snowman:","shortname_alternates":[],"keywords":["cold","snow","snowman"],"unicode_output":"26c4"},"2744":{"name":"snowflake","shortname":":snowflake:","shortname_alternates":[],"keywords":["cold","snow"],"unicode_output":"2744"},"1f32c":{"name":"wind face","shortname":":wind_blowing_face:","shortname_alternates":[],"keywords":["blow","cloud","face","wind"],"unicode_output":"1f32c"},"1f4a8":{"name":"dashing away","shortname":":dash:","shortname_alternates":[],"keywords":["comic","dash","running"],"unicode_output":"1f4a8"},"1f32a":{"name":"tornado","shortname":":cloud_tornado:","shortname_alternates":[":cloud_with_tornado:"],"keywords":["cloud","whirlwind"],"unicode_output":"1f32a"},"1f32b":{"name":"fog","shortname":":fog:","shortname_alternates":[],"keywords":["cloud"],"unicode_output":"1f32b"},"1f30a":{"name":"water wave","shortname":":ocean:","shortname_alternates":[],"keywords":["ocean","water","wave"],"unicode_output":"1f30a"},"1f4a7":{"name":"droplet","shortname":":droplet:","shortname_alternates":[],"keywords":["cold","comic","drop","sweat"],"unicode_output":"1f4a7"},"1f4a6":{"name":"sweat droplets","shortname":":sweat_drops:","shortname_alternates":[],"keywords":["comic","splashing","sweat"],"unicode_output":"1f4a6"},"2614":{"name":"umbrella with rain drops","shortname":":umbrella:","shortname_alternates":[],"keywords":["clothing","drop","rain","umbrella"],"unicode_output":"2614"},"1f992":{"name":"giraffe","shortname":":giraffe:","shortname_alternates":[],"keywords":["spots"],"unicode_output":"1f992"},"1f993":{"name":"zebra","shortname":":zebra:","shortname_alternates":[],"keywords":["stripe"],"unicode_output":"1f993"},"1f994":{"name":"hedgehog","shortname":":hedgehog:","shortname_alternates":[],"keywords":["spiny"],"unicode_output":"1f994"},"1f995":{"name":"sauropod","shortname":":sauropod:","shortname_alternates":[],"keywords":["brachiosaurus","brontosaurus","diplodocus"],"unicode_output":"1f995"},"1f996":{"name":"T-Rex","shortname":":t_rex:","shortname_alternates":[],"keywords":["Tyrannosaurus Rex"],"unicode_output":"1f996"},"1f997":{"name":"cricket","shortname":":cricket:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f997"},"1f34f":{"name":"green apple","shortname":":green_apple:","shortname_alternates":[],"keywords":["apple","fruit","green"],"unicode_output":"1f34f"},"1f34e":{"name":"red apple","shortname":":apple:","shortname_alternates":[],"keywords":["apple","fruit","red"],"unicode_output":"1f34e"},"1f350":{"name":"pear","shortname":":pear:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f350"},"1f34a":{"name":"tangerine","shortname":":tangerine:","shortname_alternates":[],"keywords":["fruit","orange"],"unicode_output":"1f34a"},"1f34b":{"name":"lemon","shortname":":lemon:","shortname_alternates":[],"keywords":["citrus","fruit"],"unicode_output":"1f34b"},"1f34c":{"name":"banana","shortname":":banana:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f34c"},"1f349":{"name":"watermelon","shortname":":watermelon:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f349"},"1f347":{"name":"grapes","shortname":":grapes:","shortname_alternates":[],"keywords":["fruit","grape"],"unicode_output":"1f347"},"1f353":{"name":"strawberry","shortname":":strawberry:","shortname_alternates":[],"keywords":["berry","fruit"],"unicode_output":"1f353"},"1f348":{"name":"melon","shortname":":melon:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f348"},"1f352":{"name":"cherries","shortname":":cherries:","shortname_alternates":[],"keywords":["cherry","fruit"],"unicode_output":"1f352"},"1f351":{"name":"peach","shortname":":peach:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f351"},"1f34d":{"name":"pineapple","shortname":":pineapple:","shortname_alternates":[],"keywords":["fruit"],"unicode_output":"1f34d"},"1f95d":{"name":"kiwi fruit","shortname":":kiwi:","shortname_alternates":[":kiwifruit:"],"keywords":["food","fruit","kiwi"],"unicode_output":"1f95d"},"1f951":{"name":"avocado","shortname":":avocado:","shortname_alternates":[],"keywords":["avocado","food","fruit"],"unicode_output":"1f951"},"1f345":{"name":"tomato","shortname":":tomato:","shortname_alternates":[],"keywords":["fruit","vegetable"],"unicode_output":"1f345"},"1f346":{"name":"eggplant","shortname":":eggplant:","shortname_alternates":[],"keywords":["aubergine","vegetable"],"unicode_output":"1f346"},"1f952":{"name":"cucumber","shortname":":cucumber:","shortname_alternates":[],"keywords":["cucumber","food","pickle","vegetable"],"unicode_output":"1f952"},"1f955":{"name":"carrot","shortname":":carrot:","shortname_alternates":[],"keywords":["carrot","food","vegetable"],"unicode_output":"1f955"},"1f33d":{"name":"ear of corn","shortname":":corn:","shortname_alternates":[],"keywords":["corn","ear","maize","maze"],"unicode_output":"1f33d"},"1f336":{"name":"hot pepper","shortname":":hot_pepper:","shortname_alternates":[],"keywords":["hot","pepper"],"unicode_output":"1f336"},"1f954":{"name":"potato","shortname":":potato:","shortname_alternates":[],"keywords":["food","potato","vegetable"],"unicode_output":"1f954"},"1f360":{"name":"roasted sweet potato","shortname":":sweet_potato:","shortname_alternates":[],"keywords":["potato","roasted","sweet"],"unicode_output":"1f360"},"1f330":{"name":"chestnut","shortname":":chestnut:","shortname_alternates":[],"keywords":["plant"],"unicode_output":"1f330"},"1f95c":{"name":"peanuts","shortname":":peanuts:","shortname_alternates":[":shelled_peanut:"],"keywords":["food","nut","peanut","vegetable"],"unicode_output":"1f95c"},"1f36f":{"name":"honey pot","shortname":":honey_pot:","shortname_alternates":[],"keywords":["honey","honeypot","pot","sweet"],"unicode_output":"1f36f"},"1f950":{"name":"croissant","shortname":":croissant:","shortname_alternates":[],"keywords":["bread","crescent roll","croissant","food","french"],"unicode_output":"1f950"},"1f35e":{"name":"bread","shortname":":bread:","shortname_alternates":[],"keywords":["loaf"],"unicode_output":"1f35e"},"1f956":{"name":"baguette bread","shortname":":french_bread:","shortname_alternates":[":baguette_bread:"],"keywords":["baguette","bread","food","french"],"unicode_output":"1f956"},"1f9c0":{"name":"cheese wedge","shortname":":cheese:","shortname_alternates":[":cheese_wedge:"],"keywords":["cheese"],"unicode_output":"1f9c0"},"1f95a":{"name":"egg","shortname":":egg:","shortname_alternates":[],"keywords":["egg","food"],"unicode_output":"1f95a"},"1f373":{"name":"cooking","shortname":":cooking:","shortname_alternates":[],"keywords":["egg","frying","pan"],"unicode_output":"1f373"},"1f953":{"name":"bacon","shortname":":bacon:","shortname_alternates":[],"keywords":["bacon","food","meat"],"unicode_output":"1f953"},"1f95e":{"name":"pancakes","shortname":":pancakes:","shortname_alternates":[],"keywords":["cr\xEApe","food","hotcake","pancake"],"unicode_output":"1f95e"},"1f364":{"name":"fried shrimp","shortname":":fried_shrimp:","shortname_alternates":[],"keywords":["fried","prawn","shrimp","tempura"],"unicode_output":"1f364"},"1f357":{"name":"poultry leg","shortname":":poultry_leg:","shortname_alternates":[],"keywords":["bone","chicken","leg","poultry"],"unicode_output":"1f357"},"1f356":{"name":"meat on bone","shortname":":meat_on_bone:","shortname_alternates":[],"keywords":["bone","meat"],"unicode_output":"1f356"},"1f355":{"name":"pizza","shortname":":pizza:","shortname_alternates":[],"keywords":["cheese","slice"],"unicode_output":"1f355"},"1f32d":{"name":"hot dog","shortname":":hotdog:","shortname_alternates":[":hot_dog:"],"keywords":["frankfurter","hotdog","sausage"],"unicode_output":"1f32d"},"1f354":{"name":"hamburger","shortname":":hamburger:","shortname_alternates":[],"keywords":["burger"],"unicode_output":"1f354"},"1f35f":{"name":"french fries","shortname":":fries:","shortname_alternates":[],"keywords":["french","fries"],"unicode_output":"1f35f"},"1f959":{"name":"stuffed flatbread","shortname":":stuffed_flatbread:","shortname_alternates":[":stuffed_pita:"],"keywords":["falafel","flatbread","food","gyro","kebab","stuffed"],"unicode_output":"1f959"},"1f32e":{"name":"taco","shortname":":taco:","shortname_alternates":[],"keywords":["mexican"],"unicode_output":"1f32e"},"1f32f":{"name":"burrito","shortname":":burrito:","shortname_alternates":[],"keywords":["mexican","wrap"],"unicode_output":"1f32f"},"1f957":{"name":"green salad","shortname":":salad:","shortname_alternates":[":green_salad:"],"keywords":["food","green","salad"],"unicode_output":"1f957"},"1f958":{"name":"shallow pan of food","shortname":":shallow_pan_of_food:","shortname_alternates":[":paella:"],"keywords":["casserole","food","paella","pan","shallow"],"unicode_output":"1f958"},"1f35d":{"name":"spaghetti","shortname":":spaghetti:","shortname_alternates":[],"keywords":["pasta"],"unicode_output":"1f35d"},"1f35c":{"name":"steaming bowl","shortname":":ramen:","shortname_alternates":[],"keywords":["bowl","noodle","ramen","steaming"],"unicode_output":"1f35c"},"1f372":{"name":"pot of food","shortname":":stew:","shortname_alternates":[],"keywords":["pot","stew"],"unicode_output":"1f372"},"1f365":{"name":"fish cake with swirl","shortname":":fish_cake:","shortname_alternates":[],"keywords":["cake","fish","pastry","swirl"],"unicode_output":"1f365"},"1f363":{"name":"sushi","shortname":":sushi:","shortname_alternates":[],"keywords":["sushi"],"unicode_output":"1f363"},"1f371":{"name":"bento box","shortname":":bento:","shortname_alternates":[],"keywords":["bento","box"],"unicode_output":"1f371"},"1f35b":{"name":"curry rice","shortname":":curry:","shortname_alternates":[],"keywords":["curry","rice"],"unicode_output":"1f35b"},"1f359":{"name":"rice ball","shortname":":rice_ball:","shortname_alternates":[],"keywords":["Japanese","ball","rice"],"unicode_output":"1f359"},"1f35a":{"name":"cooked rice","shortname":":rice:","shortname_alternates":[],"keywords":["cooked","rice"],"unicode_output":"1f35a"},"1f358":{"name":"rice cracker","shortname":":rice_cracker:","shortname_alternates":[],"keywords":["cracker","rice"],"unicode_output":"1f358"},"1f362":{"name":"oden","shortname":":oden:","shortname_alternates":[],"keywords":["kebab","seafood","skewer","stick"],"unicode_output":"1f362"},"1f361":{"name":"dango","shortname":":dango:","shortname_alternates":[],"keywords":["Japanese","dessert","skewer","stick","sweet"],"unicode_output":"1f361"},"1f367":{"name":"shaved ice","shortname":":shaved_ice:","shortname_alternates":[],"keywords":["dessert","ice","shaved","sweet"],"unicode_output":"1f367"},"1f368":{"name":"ice cream","shortname":":ice_cream:","shortname_alternates":[],"keywords":["cream","dessert","ice","sweet"],"unicode_output":"1f368"},"1f366":{"name":"soft ice cream","shortname":":icecream:","shortname_alternates":[],"keywords":["cream","dessert","ice","icecream","soft","sweet"],"unicode_output":"1f366"},"1f370":{"name":"shortcake","shortname":":cake:","shortname_alternates":[],"keywords":["cake","dessert","pastry","slice","sweet"],"unicode_output":"1f370"},"1f382":{"name":"birthday cake","shortname":":birthday:","shortname_alternates":[],"keywords":["birthday","cake","celebration","dessert","pastry","sweet"],"unicode_output":"1f382"},"1f36e":{"name":"custard","shortname":":custard:","shortname_alternates":[":pudding:",":flan:"],"keywords":["dessert","pudding","sweet"],"unicode_output":"1f36e"},"1f36d":{"name":"lollipop","shortname":":lollipop:","shortname_alternates":[],"keywords":["candy","dessert","sweet"],"unicode_output":"1f36d"},"1f36c":{"name":"candy","shortname":":candy:","shortname_alternates":[],"keywords":["dessert","sweet"],"unicode_output":"1f36c"},"1f36b":{"name":"chocolate bar","shortname":":chocolate_bar:","shortname_alternates":[],"keywords":["bar","chocolate","dessert","sweet"],"unicode_output":"1f36b"},"1f37f":{"name":"popcorn","shortname":":popcorn:","shortname_alternates":[],"keywords":["popcorn"],"unicode_output":"1f37f"},"1f369":{"name":"doughnut","shortname":":doughnut:","shortname_alternates":[],"keywords":["dessert","donut","sweet"],"unicode_output":"1f369"},"1f36a":{"name":"cookie","shortname":":cookie:","shortname_alternates":[],"keywords":["dessert","sweet"],"unicode_output":"1f36a"},"1f95b":{"name":"glass of milk","shortname":":milk:","shortname_alternates":[":glass_of_milk:"],"keywords":["drink","glass","milk"],"unicode_output":"1f95b"},"1f37c":{"name":"baby bottle","shortname":":baby_bottle:","shortname_alternates":[],"keywords":["baby","bottle","drink","milk"],"unicode_output":"1f37c"},"2615":{"name":"hot beverage","shortname":":coffee:","shortname_alternates":[],"keywords":["beverage","coffee","drink","hot","steaming","tea"],"unicode_output":"2615"},"1f375":{"name":"teacup without handle","shortname":":tea:","shortname_alternates":[],"keywords":["beverage","cup","drink","tea","teacup"],"unicode_output":"1f375"},"1f376":{"name":"sake","shortname":":sake:","shortname_alternates":[],"keywords":["bar","beverage","bottle","cup","drink"],"unicode_output":"1f376"},"1f37a":{"name":"beer mug","shortname":":beer:","shortname_alternates":[],"keywords":["bar","beer","drink","mug"],"unicode_output":"1f37a"},"1f37b":{"name":"clinking beer mugs","shortname":":beers:","shortname_alternates":[],"keywords":["bar","beer","clink","drink","mug"],"unicode_output":"1f37b"},"1f942":{"name":"clinking glasses","shortname":":champagne_glass:","shortname_alternates":[":clinking_glass:"],"keywords":["celebrate","clink","drink","glass"],"unicode_output":"1f942"},"1f377":{"name":"wine glass","shortname":":wine_glass:","shortname_alternates":[],"keywords":["bar","beverage","drink","glass","wine"],"unicode_output":"1f377"},"1f943":{"name":"tumbler glass","shortname":":tumbler_glass:","shortname_alternates":[":whisky:"],"keywords":["glass","liquor","shot","tumbler","whisky"],"unicode_output":"1f943"},"1f378":{"name":"cocktail glass","shortname":":cocktail:","shortname_alternates":[],"keywords":["bar","cocktail","drink","glass"],"unicode_output":"1f378"},"1f379":{"name":"tropical drink","shortname":":tropical_drink:","shortname_alternates":[],"keywords":["bar","drink","tropical"],"unicode_output":"1f379"},"1f37e":{"name":"bottle with popping cork","shortname":":champagne:","shortname_alternates":[":bottle_with_popping_cork:"],"keywords":["bar","bottle","cork","drink","popping"],"unicode_output":"1f37e"},"1f944":{"name":"spoon","shortname":":spoon:","shortname_alternates":[],"keywords":["spoon","tableware"],"unicode_output":"1f944"},"1f374":{"name":"fork and knife","shortname":":fork_and_knife:","shortname_alternates":[],"keywords":["cooking","fork","knife"],"unicode_output":"1f374"},"1f37d":{"name":"fork and knife with plate","shortname":":fork_knife_plate:","shortname_alternates":[":fork_and_knife_with_plate:"],"keywords":["cooking","fork","knife","plate"],"unicode_output":"1f37d"},"1f95f":{"name":"dumpling","shortname":":dumpling:","shortname_alternates":[],"keywords":["empanada","gy\u014Dza","jiaozi","pierogi","potsticker"],"unicode_output":"1f95f"},"1f960":{"name":"fortune cookie","shortname":":fortune_cookie:","shortname_alternates":[],"keywords":["prophecy"],"unicode_output":"1f960"},"1f961":{"name":"takeout box","shortname":":takeout_box:","shortname_alternates":[],"keywords":["oyster pail"],"unicode_output":"1f961"},"1f962":{"name":"chopsticks","shortname":":chopsticks:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f962"},"1f963":{"name":"bowl with spoon","shortname":":bowl_with_spoon:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f963"},"1f964":{"name":"cup with straw","shortname":":cup_with_straw:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f964"},"1f965":{"name":"coconut","shortname":":coconut:","shortname_alternates":[],"keywords":["palm","pi\xF1a colada"],"unicode_output":"1f965"},"1f966":{"name":"broccoli","shortname":":broccoli:","shortname_alternates":[],"keywords":["wild cabbage"],"unicode_output":"1f966"},"1f967":{"name":"pie","shortname":":pie:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f967"},"1f968":{"name":"pretzel","shortname":":pretzel:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f968"},"1f969":{"name":"cut of meat","shortname":":cut_of_meat:","shortname_alternates":[],"keywords":["chop","lambchop","porkchop","steak"],"unicode_output":"1f969"},"1f96a":{"name":"sandwich","shortname":":sandwich:","shortname_alternates":[],"keywords":["bread"],"unicode_output":"1f96a"},"1f96b":{"name":"canned food","shortname":":canned_food:","shortname_alternates":[],"keywords":["can"],"unicode_output":"1f96b"},"26bd":{"name":"soccer ball","shortname":":soccer:","shortname_alternates":[],"keywords":["ball","football","soccer"],"unicode_output":"26bd"},"1f3c0":{"name":"basketball","shortname":":basketball:","shortname_alternates":[],"keywords":["ball","hoop"],"unicode_output":"1f3c0"},"1f3c8":{"name":"american football","shortname":":football:","shortname_alternates":[],"keywords":["american","ball","football"],"unicode_output":"1f3c8"},"26be":{"name":"baseball","shortname":":baseball:","shortname_alternates":[],"keywords":["ball"],"unicode_output":"26be"},"1f3be":{"name":"tennis","shortname":":tennis:","shortname_alternates":[],"keywords":["ball","racquet"],"unicode_output":"1f3be"},"1f3d0":{"name":"volleyball","shortname":":volleyball:","shortname_alternates":[],"keywords":["ball","game"],"unicode_output":"1f3d0"},"1f3c9":{"name":"rugby football","shortname":":rugby_football:","shortname_alternates":[],"keywords":["ball","football","rugby"],"unicode_output":"1f3c9"},"1f3b1":{"name":"pool 8 ball","shortname":":8ball:","shortname_alternates":[],"keywords":["8","8 ball","ball","billiard","eight","game"],"unicode_output":"1f3b1"},"1f3d3":{"name":"ping pong","shortname":":ping_pong:","shortname_alternates":[":table_tennis:"],"keywords":["ball","bat","game","paddle","ping pong","table tennis"],"unicode_output":"1f3d3"},"1f3f8":{"name":"badminton","shortname":":badminton:","shortname_alternates":[],"keywords":["birdie","game","racquet","shuttlecock"],"unicode_output":"1f3f8"},"1f945":{"name":"goal net","shortname":":goal:","shortname_alternates":[":goal_net:"],"keywords":["goal","net"],"unicode_output":"1f945"},"1f3d2":{"name":"ice hockey","shortname":":hockey:","shortname_alternates":[],"keywords":["game","hockey","ice","puck","stick"],"unicode_output":"1f3d2"},"1f3d1":{"name":"field hockey","shortname":":field_hockey:","shortname_alternates":[],"keywords":["ball","field","game","hockey","stick"],"unicode_output":"1f3d1"},"1f3cf":{"name":"cricket game","shortname":":cricket_game:","shortname_alternates":[":cricket_bat_ball:"],"keywords":["ball","bat","game"],"unicode_output":"1f3cf"},"26f3":{"name":"flag in hole","shortname":":golf:","shortname_alternates":[],"keywords":["golf","hole"],"unicode_output":"26f3"},"1f3f9":{"name":"bow and arrow","shortname":":bow_and_arrow:","shortname_alternates":[":archery:"],"keywords":["Sagittarius","archer","archery","arrow","bow","tool","weapon","zodiac"],"unicode_output":"1f3f9"},"1f3a3":{"name":"fishing pole","shortname":":fishing_pole_and_fish:","shortname_alternates":[],"keywords":["fish","pole"],"unicode_output":"1f3a3"},"1f94a":{"name":"boxing glove","shortname":":boxing_glove:","shortname_alternates":[":boxing_gloves:"],"keywords":["boxing","glove"],"unicode_output":"1f94a"},"1f94b":{"name":"martial arts uniform","shortname":":martial_arts_uniform:","shortname_alternates":[":karate_uniform:"],"keywords":["judo","karate","martial arts","taekwondo","uniform"],"unicode_output":"1f94b"},"26f8":{"name":"ice skate","shortname":":ice_skate:","shortname_alternates":[],"keywords":["ice","skate"],"unicode_output":"26f8"},"1f3bf":{"name":"skis","shortname":":ski:","shortname_alternates":[],"keywords":["ski","snow"],"unicode_output":"1f3bf"},"26f7":{"name":"skier","shortname":":skier:","shortname_alternates":[],"keywords":["ski","snow"],"unicode_output":"26f7"},"1f3c2":{"name":"snowboarder","shortname":":snowboarder:","shortname_alternates":[],"keywords":["ski","snow","snowboard"],"unicode_output":"1f3c2"},"1f3c2-1f3fb":{"name":"snowboarder: light skin tone","shortname":":snowboarder_tone1:","shortname_alternates":[":snowboarder_light_skin_tone:"],"keywords":["light skin tone","ski","snow","snowboard"],"unicode_output":"1f3c2-1f3fb"},"1f3c2-1f3fc":{"name":"snowboarder: medium-light skin tone","shortname":":snowboarder_tone2:","shortname_alternates":[":snowboarder_medium_light_skin_tone:"],"keywords":["medium-light skin tone","ski","snow","snowboard"],"unicode_output":"1f3c2-1f3fc"},"1f3c2-1f3fd":{"name":"snowboarder: medium skin tone","shortname":":snowboarder_tone3:","shortname_alternates":[":snowboarder_medium_skin_tone:"],"keywords":["medium skin tone","ski","snow","snowboard"],"unicode_output":"1f3c2-1f3fd"},"1f3c2-1f3fe":{"name":"snowboarder: medium-dark skin tone","shortname":":snowboarder_tone4:","shortname_alternates":[":snowboarder_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","ski","snow","snowboard"],"unicode_output":"1f3c2-1f3fe"},"1f3c2-1f3ff":{"name":"snowboarder: dark skin tone","shortname":":snowboarder_tone5:","shortname_alternates":[":snowboarder_dark_skin_tone:"],"keywords":["dark skin tone","ski","snow","snowboard"],"unicode_output":"1f3c2-1f3ff"},"1f3cb-2640":{"name":"woman lifting weights","shortname":":woman_lifting_weights:","shortname_alternates":[],"keywords":["weight lifter","woman"],"unicode_output":"1f3cb-fe0f-200d-2640-fe0f"},"1f3cb-1f3fb-2640":{"name":"woman lifting weights: light skin tone","shortname":":woman_lifting_weights_tone1:","shortname_alternates":[":woman_lifting_weights_light_skin_tone:"],"keywords":["light skin tone","weight lifter","woman"],"unicode_output":"1f3cb-1f3fb-200d-2640-fe0f"},"1f3cb-1f3fc-2640":{"name":"woman lifting weights: medium-light skin tone","shortname":":woman_lifting_weights_tone2:","shortname_alternates":[":woman_lifting_weights_medium_light_skin_tone:"],"keywords":["medium-light skin tone","weight lifter","woman"],"unicode_output":"1f3cb-1f3fc-200d-2640-fe0f"},"1f3cb-1f3fd-2640":{"name":"woman lifting weights: medium skin tone","shortname":":woman_lifting_weights_tone3:","shortname_alternates":[":woman_lifting_weights_medium_skin_tone:"],"keywords":["medium skin tone","weight lifter","woman"],"unicode_output":"1f3cb-1f3fd-200d-2640-fe0f"},"1f3cb-1f3fe-2640":{"name":"woman lifting weights: medium-dark skin tone","shortname":":woman_lifting_weights_tone4:","shortname_alternates":[":woman_lifting_weights_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","weight lifter","woman"],"unicode_output":"1f3cb-1f3fe-200d-2640-fe0f"},"1f3cb-1f3ff-2640":{"name":"woman lifting weights: dark skin tone","shortname":":woman_lifting_weights_tone5:","shortname_alternates":[":woman_lifting_weights_dark_skin_tone:"],"keywords":["dark skin tone","weight lifter","woman"],"unicode_output":"1f3cb-1f3ff-200d-2640-fe0f"},"1f3cb":{"name":"person lifting weights","shortname":":person_lifting_weights:","shortname_alternates":[":lifter:",":weight_lifter:"],"keywords":["lifter","weight"],"unicode_output":"1f3cb"},"1f3cb-1f3fb":{"name":"person lifting weights: light skin tone","shortname":":person_lifting_weights_tone1:","shortname_alternates":[":lifter_tone1:",":weight_lifter_tone1:"],"keywords":["lifter","light skin tone","weight"],"unicode_output":"1f3cb-1f3fb"},"1f3cb-1f3fc":{"name":"person lifting weights: medium-light skin tone","shortname":":person_lifting_weights_tone2:","shortname_alternates":[":lifter_tone2:",":weight_lifter_tone2:"],"keywords":["lifter","medium-light skin tone","weight"],"unicode_output":"1f3cb-1f3fc"},"1f3cb-1f3fd":{"name":"person lifting weights: medium skin tone","shortname":":person_lifting_weights_tone3:","shortname_alternates":[":lifter_tone3:",":weight_lifter_tone3:"],"keywords":["lifter","medium skin tone","weight"],"unicode_output":"1f3cb-1f3fd"},"1f3cb-1f3fe":{"name":"person lifting weights: medium-dark skin tone","shortname":":person_lifting_weights_tone4:","shortname_alternates":[":lifter_tone4:",":weight_lifter_tone4:"],"keywords":["lifter","medium-dark skin tone","weight"],"unicode_output":"1f3cb-1f3fe"},"1f3cb-1f3ff":{"name":"person lifting weights: dark skin tone","shortname":":person_lifting_weights_tone5:","shortname_alternates":[":lifter_tone5:",":weight_lifter_tone5:"],"keywords":["dark skin tone","lifter","weight"],"unicode_output":"1f3cb-1f3ff"},"1f3cb-2642":{"name":"man lifting weights","shortname":":man_lifting_weights:","shortname_alternates":[],"keywords":["man","weight lifter"],"unicode_output":"1f3cb-fe0f-200d-2642-fe0f"},"1f3cb-1f3ff-2642":{"name":"man lifting weights: dark skin tone","shortname":":man_lifting_weights_tone5:","shortname_alternates":[":man_lifting_weights_dark_skin_tone:"],"keywords":["dark skin tone","man","weight lifter"],"unicode_output":"1f3cb-1f3ff-200d-2642-fe0f"},"1f3cb-1f3fe-2642":{"name":"man lifting weights: medium-dark skin tone","shortname":":man_lifting_weights_tone4:","shortname_alternates":[":man_lifting_weights_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","weight lifter"],"unicode_output":"1f3cb-1f3fe-200d-2642-fe0f"},"1f3cb-1f3fd-2642":{"name":"man lifting weights: medium skin tone","shortname":":man_lifting_weights_tone3:","shortname_alternates":[":man_lifting_weights_medium_skin_tone:"],"keywords":["man","medium skin tone","weight lifter"],"unicode_output":"1f3cb-1f3fd-200d-2642-fe0f"},"1f3cb-1f3fc-2642":{"name":"man lifting weights: medium-light skin tone","shortname":":man_lifting_weights_tone2:","shortname_alternates":[":man_lifting_weights_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","weight lifter"],"unicode_output":"1f3cb-1f3fc-200d-2642-fe0f"},"1f3cb-1f3fb-2642":{"name":"man lifting weights: light skin tone","shortname":":man_lifting_weights_tone1:","shortname_alternates":[":man_lifting_weights_light_skin_tone:"],"keywords":["light skin tone","man","weight lifter"],"unicode_output":"1f3cb-1f3fb-200d-2642-fe0f"},"1f93a":{"name":"person fencing","shortname":":person_fencing:","shortname_alternates":[":fencer:",":fencing:"],"keywords":["fencer","fencing","sword"],"unicode_output":"1f93a"},"1f93c-2640":{"name":"women wrestling","shortname":":women_wrestling:","shortname_alternates":[],"keywords":["women","wrestle"],"unicode_output":"1f93c-200d-2640-fe0f"},"1f93c-2642":{"name":"men wrestling","shortname":":men_wrestling:","shortname_alternates":[],"keywords":["men","wrestle"],"unicode_output":"1f93c-200d-2642-fe0f"},"1f93c":{"name":"people wrestling","shortname":":people_wrestling:","shortname_alternates":[":wrestlers:",":wrestling:"],"keywords":["wrestle","wrestler"],"unicode_output":"1f93c"},"1f938-2640":{"name":"woman cartwheeling","shortname":":woman_cartwheeling:","shortname_alternates":[],"keywords":["cartwheel","gymnastics","woman"],"unicode_output":"1f938-200d-2640-fe0f"},"1f938-1f3fb-2640":{"name":"woman cartwheeling: light skin tone","shortname":":woman_cartwheeling_tone1:","shortname_alternates":[":woman_cartwheeling_light_skin_tone:"],"keywords":["cartwheel","gymnastics","light skin tone","woman"],"unicode_output":"1f938-1f3fb-200d-2640-fe0f"},"1f938-1f3fc-2640":{"name":"woman cartwheeling: medium-light skin tone","shortname":":woman_cartwheeling_tone2:","shortname_alternates":[":woman_cartwheeling_medium_light_skin_tone:"],"keywords":["cartwheel","gymnastics","medium-light skin tone","woman"],"unicode_output":"1f938-1f3fc-200d-2640-fe0f"},"1f938-1f3fd-2640":{"name":"woman cartwheeling: medium skin tone","shortname":":woman_cartwheeling_tone3:","shortname_alternates":[":woman_cartwheeling_medium_skin_tone:"],"keywords":["cartwheel","gymnastics","medium skin tone","woman"],"unicode_output":"1f938-1f3fd-200d-2640-fe0f"},"1f938-1f3fe-2640":{"name":"woman cartwheeling: medium-dark skin tone","shortname":":woman_cartwheeling_tone4:","shortname_alternates":[":woman_cartwheeling_medium_dark_skin_tone:"],"keywords":["cartwheel","gymnastics","medium-dark skin tone","woman"],"unicode_output":"1f938-1f3fe-200d-2640-fe0f"},"1f938-1f3ff-2640":{"name":"woman cartwheeling: dark skin tone","shortname":":woman_cartwheeling_tone5:","shortname_alternates":[":woman_cartwheeling_dark_skin_tone:"],"keywords":["cartwheel","dark skin tone","gymnastics","woman"],"unicode_output":"1f938-1f3ff-200d-2640-fe0f"},"1f938-2642":{"name":"man cartwheeling","shortname":":man_cartwheeling:","shortname_alternates":[],"keywords":["cartwheel","gymnastics","man"],"unicode_output":"1f938-200d-2642-fe0f"},"1f938-1f3fb-2642":{"name":"man cartwheeling: light skin tone","shortname":":man_cartwheeling_tone1:","shortname_alternates":[":man_cartwheeling_light_skin_tone:"],"keywords":["cartwheel","gymnastics","light skin tone","man"],"unicode_output":"1f938-1f3fb-200d-2642-fe0f"},"1f938-1f3fc-2642":{"name":"man cartwheeling: medium-light skin tone","shortname":":man_cartwheeling_tone2:","shortname_alternates":[":man_cartwheeling_medium_light_skin_tone:"],"keywords":["cartwheel","gymnastics","man","medium-light skin tone"],"unicode_output":"1f938-1f3fc-200d-2642-fe0f"},"1f938-1f3fd-2642":{"name":"man cartwheeling: medium skin tone","shortname":":man_cartwheeling_tone3:","shortname_alternates":[":man_cartwheeling_medium_skin_tone:"],"keywords":["cartwheel","gymnastics","man","medium skin tone"],"unicode_output":"1f938-1f3fd-200d-2642-fe0f"},"1f938-1f3fe-2642":{"name":"man cartwheeling: medium-dark skin tone","shortname":":man_cartwheeling_tone4:","shortname_alternates":[":man_cartwheeling_medium_dark_skin_tone:"],"keywords":["cartwheel","gymnastics","man","medium-dark skin tone"],"unicode_output":"1f938-1f3fe-200d-2642-fe0f"},"1f938-1f3ff-2642":{"name":"man cartwheeling: dark skin tone","shortname":":man_cartwheeling_tone5:","shortname_alternates":[":man_cartwheeling_dark_skin_tone:"],"keywords":["cartwheel","dark skin tone","gymnastics","man"],"unicode_output":"1f938-1f3ff-200d-2642-fe0f"},"1f938":{"name":"person cartwheeling","shortname":":person_doing_cartwheel:","shortname_alternates":[":cartwheel:"],"keywords":["cartwheel","gymnastics"],"unicode_output":"1f938"},"1f938-1f3fb":{"name":"person cartwheeling: light skin tone","shortname":":person_doing_cartwheel_tone1:","shortname_alternates":[":cartwheel_tone1:"],"keywords":["cartwheel","gymnastics","light skin tone"],"unicode_output":"1f938-1f3fb"},"1f938-1f3fc":{"name":"person cartwheeling: medium-light skin tone","shortname":":person_doing_cartwheel_tone2:","shortname_alternates":[":cartwheel_tone2:"],"keywords":["cartwheel","gymnastics","medium-light skin tone"],"unicode_output":"1f938-1f3fc"},"1f938-1f3fd":{"name":"person cartwheeling: medium skin tone","shortname":":person_doing_cartwheel_tone3:","shortname_alternates":[":cartwheel_tone3:"],"keywords":["cartwheel","gymnastics","medium skin tone"],"unicode_output":"1f938-1f3fd"},"1f938-1f3fe":{"name":"person cartwheeling: medium-dark skin tone","shortname":":person_doing_cartwheel_tone4:","shortname_alternates":[":cartwheel_tone4:"],"keywords":["cartwheel","gymnastics","medium-dark skin tone"],"unicode_output":"1f938-1f3fe"},"1f938-1f3ff":{"name":"person cartwheeling: dark skin tone","shortname":":person_doing_cartwheel_tone5:","shortname_alternates":[":cartwheel_tone5:"],"keywords":["cartwheel","dark skin tone","gymnastics"],"unicode_output":"1f938-1f3ff"},"26f9-2640":{"name":"woman bouncing ball","shortname":":woman_bouncing_ball:","shortname_alternates":[],"keywords":["ball","woman"],"unicode_output":"26f9-fe0f-200d-2640-fe0f"},"26f9-1f3fb-2640":{"name":"woman bouncing ball: light skin tone","shortname":":woman_bouncing_ball_tone1:","shortname_alternates":[":woman_bouncing_ball_light_skin_tone:"],"keywords":["ball","light skin tone","woman"],"unicode_output":"26f9-1f3fb-200d-2640-fe0f"},"26f9-1f3fc-2640":{"name":"woman bouncing ball: medium-light skin tone","shortname":":woman_bouncing_ball_tone2:","shortname_alternates":[":woman_bouncing_ball_medium_light_skin_tone:"],"keywords":["ball","medium-light skin tone","woman"],"unicode_output":"26f9-1f3fc-200d-2640-fe0f"},"26f9-1f3fd-2640":{"name":"woman bouncing ball: medium skin tone","shortname":":woman_bouncing_ball_tone3:","shortname_alternates":[":woman_bouncing_ball_medium_skin_tone:"],"keywords":["ball","medium skin tone","woman"],"unicode_output":"26f9-1f3fd-200d-2640-fe0f"},"26f9-1f3fe-2640":{"name":"woman bouncing ball: medium-dark skin tone","shortname":":woman_bouncing_ball_tone4:","shortname_alternates":[":woman_bouncing_ball_medium_dark_skin_tone:"],"keywords":["ball","medium-dark skin tone","woman"],"unicode_output":"26f9-1f3fe-200d-2640-fe0f"},"26f9-1f3ff-2640":{"name":"woman bouncing ball: dark skin tone","shortname":":woman_bouncing_ball_tone5:","shortname_alternates":[":woman_bouncing_ball_dark_skin_tone:"],"keywords":["ball","dark skin tone","woman"],"unicode_output":"26f9-1f3ff-200d-2640-fe0f"},"26f9":{"name":"person bouncing ball","shortname":":person_bouncing_ball:","shortname_alternates":[":basketball_player:",":person_with_ball:"],"keywords":["ball"],"unicode_output":"26f9"},"26f9-1f3fb":{"name":"person bouncing ball: light skin tone","shortname":":person_bouncing_ball_tone1:","shortname_alternates":[":basketball_player_tone1:",":person_with_ball_tone1:"],"keywords":["ball","light skin tone"],"unicode_output":"26f9-1f3fb"},"26f9-1f3fc":{"name":"person bouncing ball: medium-light skin tone","shortname":":person_bouncing_ball_tone2:","shortname_alternates":[":basketball_player_tone2:",":person_with_ball_tone2:"],"keywords":["ball","medium-light skin tone"],"unicode_output":"26f9-1f3fc"},"26f9-1f3fd":{"name":"person bouncing ball: medium skin tone","shortname":":person_bouncing_ball_tone3:","shortname_alternates":[":basketball_player_tone3:",":person_with_ball_tone3:"],"keywords":["ball","medium skin tone"],"unicode_output":"26f9-1f3fd"},"26f9-1f3fe":{"name":"person bouncing ball: medium-dark skin tone","shortname":":person_bouncing_ball_tone4:","shortname_alternates":[":basketball_player_tone4:",":person_with_ball_tone4:"],"keywords":["ball","medium-dark skin tone"],"unicode_output":"26f9-1f3fe"},"26f9-1f3ff":{"name":"person bouncing ball: dark skin tone","shortname":":person_bouncing_ball_tone5:","shortname_alternates":[":basketball_player_tone5:",":person_with_ball_tone5:"],"keywords":["ball","dark skin tone"],"unicode_output":"26f9-1f3ff"},"26f9-2642":{"name":"man bouncing ball","shortname":":man_bouncing_ball:","shortname_alternates":[],"keywords":["ball","man"],"unicode_output":"26f9-fe0f-200d-2642-fe0f"},"26f9-1f3ff-2642":{"name":"man bouncing ball: dark skin tone","shortname":":man_bouncing_ball_tone5:","shortname_alternates":[":man_bouncing_ball_dark_skin_tone:"],"keywords":["ball","dark skin tone","man"],"unicode_output":"26f9-1f3ff-200d-2642-fe0f"},"26f9-1f3fe-2642":{"name":"man bouncing ball: medium-dark skin tone","shortname":":man_bouncing_ball_tone4:","shortname_alternates":[":man_bouncing_ball_medium_dark_skin_tone:"],"keywords":["ball","man","medium-dark skin tone"],"unicode_output":"26f9-1f3fe-200d-2642-fe0f"},"26f9-1f3fd-2642":{"name":"man bouncing ball: medium skin tone","shortname":":man_bouncing_ball_tone3:","shortname_alternates":[":man_bouncing_ball_medium_skin_tone:"],"keywords":["ball","man","medium skin tone"],"unicode_output":"26f9-1f3fd-200d-2642-fe0f"},"26f9-1f3fc-2642":{"name":"man bouncing ball: medium-light skin tone","shortname":":man_bouncing_ball_tone2:","shortname_alternates":[":man_bouncing_ball_medium_light_skin_tone:"],"keywords":["ball","man","medium-light skin tone"],"unicode_output":"26f9-1f3fc-200d-2642-fe0f"},"26f9-1f3fb-2642":{"name":"man bouncing ball: light skin tone","shortname":":man_bouncing_ball_tone1:","shortname_alternates":[":man_bouncing_ball_light_skin_tone:"],"keywords":["ball","light skin tone","man"],"unicode_output":"26f9-1f3fb-200d-2642-fe0f"},"1f93e-2640":{"name":"woman playing handball","shortname":":woman_playing_handball:","shortname_alternates":[],"keywords":["handball","woman"],"unicode_output":"1f93e-200d-2640-fe0f"},"1f93e-1f3fb-2640":{"name":"woman playing handball: light skin tone","shortname":":woman_playing_handball_tone1:","shortname_alternates":[":woman_playing_handball_light_skin_tone:"],"keywords":["handball","light skin tone","woman"],"unicode_output":"1f93e-1f3fb-200d-2640-fe0f"},"1f93e-1f3fc-2640":{"name":"woman playing handball: medium-light skin tone","shortname":":woman_playing_handball_tone2:","shortname_alternates":[":woman_playing_handball_medium_light_skin_tone:"],"keywords":["handball","medium-light skin tone","woman"],"unicode_output":"1f93e-1f3fc-200d-2640-fe0f"},"1f93e-1f3fd-2640":{"name":"woman playing handball: medium skin tone","shortname":":woman_playing_handball_tone3:","shortname_alternates":[":woman_playing_handball_medium_skin_tone:"],"keywords":["handball","medium skin tone","woman"],"unicode_output":"1f93e-1f3fd-200d-2640-fe0f"},"1f93e-1f3fe-2640":{"name":"woman playing handball: medium-dark skin tone","shortname":":woman_playing_handball_tone4:","shortname_alternates":[":woman_playing_handball_medium_dark_skin_tone:"],"keywords":["handball","medium-dark skin tone","woman"],"unicode_output":"1f93e-1f3fe-200d-2640-fe0f"},"1f93e-1f3ff-2640":{"name":"woman playing handball: dark skin tone","shortname":":woman_playing_handball_tone5:","shortname_alternates":[":woman_playing_handball_dark_skin_tone:"],"keywords":["dark skin tone","handball","woman"],"unicode_output":"1f93e-1f3ff-200d-2640-fe0f"},"1f93e-2642":{"name":"man playing handball","shortname":":man_playing_handball:","shortname_alternates":[],"keywords":["handball","man"],"unicode_output":"1f93e-200d-2642-fe0f"},"1f93e-1f3fb-2642":{"name":"man playing handball: light skin tone","shortname":":man_playing_handball_tone1:","shortname_alternates":[":man_playing_handball_light_skin_tone:"],"keywords":["handball","light skin tone","man"],"unicode_output":"1f93e-1f3fb-200d-2642-fe0f"},"1f93e-1f3fc-2642":{"name":"man playing handball: medium-light skin tone","shortname":":man_playing_handball_tone2:","shortname_alternates":[":man_playing_handball_medium_light_skin_tone:"],"keywords":["handball","man","medium-light skin tone"],"unicode_output":"1f93e-1f3fc-200d-2642-fe0f"},"1f93e-1f3fd-2642":{"name":"man playing handball: medium skin tone","shortname":":man_playing_handball_tone3:","shortname_alternates":[":man_playing_handball_medium_skin_tone:"],"keywords":["handball","man","medium skin tone"],"unicode_output":"1f93e-1f3fd-200d-2642-fe0f"},"1f93e-1f3fe-2642":{"name":"man playing handball: medium-dark skin tone","shortname":":man_playing_handball_tone4:","shortname_alternates":[":man_playing_handball_medium_dark_skin_tone:"],"keywords":["handball","man","medium-dark skin tone"],"unicode_output":"1f93e-1f3fe-200d-2642-fe0f"},"1f93e-1f3ff-2642":{"name":"man playing handball: dark skin tone","shortname":":man_playing_handball_tone5:","shortname_alternates":[":man_playing_handball_dark_skin_tone:"],"keywords":["dark skin tone","handball","man"],"unicode_output":"1f93e-1f3ff-200d-2642-fe0f"},"1f93e":{"name":"person playing handball","shortname":":person_playing_handball:","shortname_alternates":[":handball:"],"keywords":["ball","handball"],"unicode_output":"1f93e"},"1f93e-1f3fb":{"name":"person playing handball: light skin tone","shortname":":person_playing_handball_tone1:","shortname_alternates":[":handball_tone1:"],"keywords":["ball","handball","light skin tone"],"unicode_output":"1f93e-1f3fb"},"1f93e-1f3fc":{"name":"person playing handball: medium-light skin tone","shortname":":person_playing_handball_tone2:","shortname_alternates":[":handball_tone2:"],"keywords":["ball","handball","medium-light skin tone"],"unicode_output":"1f93e-1f3fc"},"1f93e-1f3fd":{"name":"person playing handball: medium skin tone","shortname":":person_playing_handball_tone3:","shortname_alternates":[":handball_tone3:"],"keywords":["ball","handball","medium skin tone"],"unicode_output":"1f93e-1f3fd"},"1f93e-1f3fe":{"name":"person playing handball: medium-dark skin tone","shortname":":person_playing_handball_tone4:","shortname_alternates":[":handball_tone4:"],"keywords":["ball","handball","medium-dark skin tone"],"unicode_output":"1f93e-1f3fe"},"1f93e-1f3ff":{"name":"person playing handball: dark skin tone","shortname":":person_playing_handball_tone5:","shortname_alternates":[":handball_tone5:"],"keywords":["ball","dark skin tone","handball"],"unicode_output":"1f93e-1f3ff"},"1f3cc-2640":{"name":"woman golfing","shortname":":woman_golfing:","shortname_alternates":[],"keywords":["golf","woman"],"unicode_output":"1f3cc-fe0f-200d-2640-fe0f"},"1f3cc-1f3fb-2640":{"name":"woman golfing: light skin tone","shortname":":woman_golfing_tone1:","shortname_alternates":[":woman_golfing_light_skin_tone:"],"keywords":["golf","light skin tone","woman"],"unicode_output":"1f3cc-1f3fb-200d-2640-fe0f"},"1f3cc-1f3fc-2640":{"name":"woman golfing: medium-light skin tone","shortname":":woman_golfing_tone2:","shortname_alternates":[":woman_golfing_medium_light_skin_tone:"],"keywords":["golf","medium-light skin tone","woman"],"unicode_output":"1f3cc-1f3fc-200d-2640-fe0f"},"1f3cc-1f3fd-2640":{"name":"woman golfing: medium skin tone","shortname":":woman_golfing_tone3:","shortname_alternates":[":woman_golfing_medium_skin_tone:"],"keywords":["golf","medium skin tone","woman"],"unicode_output":"1f3cc-1f3fd-200d-2640-fe0f"},"1f3cc-1f3fe-2640":{"name":"woman golfing: medium-dark skin tone","shortname":":woman_golfing_tone4:","shortname_alternates":[":woman_golfing_medium_dark_skin_tone:"],"keywords":["golf","medium-dark skin tone","woman"],"unicode_output":"1f3cc-1f3fe-200d-2640-fe0f"},"1f3cc-1f3ff-2640":{"name":"woman golfing: dark skin tone","shortname":":woman_golfing_tone5:","shortname_alternates":[":woman_golfing_dark_skin_tone:"],"keywords":["dark skin tone","golf","woman"],"unicode_output":"1f3cc-1f3ff-200d-2640-fe0f"},"1f3cc":{"name":"person golfing","shortname":":person_golfing:","shortname_alternates":[":golfer:"],"keywords":["ball","golf"],"unicode_output":"1f3cc"},"1f3cc-1f3fb":{"name":"person golfing: light skin tone","shortname":":person_golfing_tone1:","shortname_alternates":[":person_golfing_light_skin_tone:"],"keywords":["ball","golf","light skin tone"],"unicode_output":"1f3cc-1f3fb"},"1f3cc-1f3fc":{"name":"person golfing: medium-light skin tone","shortname":":person_golfing_tone2:","shortname_alternates":[":person_golfing_medium_light_skin_tone:"],"keywords":["ball","golf","medium-light skin tone"],"unicode_output":"1f3cc-1f3fc"},"1f3cc-1f3fd":{"name":"person golfing: medium skin tone","shortname":":person_golfing_tone3:","shortname_alternates":[":person_golfing_medium_skin_tone:"],"keywords":["ball","golf","medium skin tone"],"unicode_output":"1f3cc-1f3fd"},"1f3cc-1f3fe":{"name":"person golfing: medium-dark skin tone","shortname":":person_golfing_tone4:","shortname_alternates":[":person_golfing_medium_dark_skin_tone:"],"keywords":["ball","golf","medium-dark skin tone"],"unicode_output":"1f3cc-1f3fe"},"1f3cc-1f3ff":{"name":"person golfing: dark skin tone","shortname":":person_golfing_tone5:","shortname_alternates":[":person_golfing_dark_skin_tone:"],"keywords":["ball","dark skin tone","golf"],"unicode_output":"1f3cc-1f3ff"},"1f3cc-2642":{"name":"man golfing","shortname":":man_golfing:","shortname_alternates":[],"keywords":["golf","man"],"unicode_output":"1f3cc-fe0f-200d-2642-fe0f"},"1f3cc-1f3fb-2642":{"name":"man golfing: light skin tone","shortname":":man_golfing_tone1:","shortname_alternates":[":man_golfing_light_skin_tone:"],"keywords":["golf","light skin tone","man"],"unicode_output":"1f3cc-1f3fb-200d-2642-fe0f"},"1f3cc-1f3fc-2642":{"name":"man golfing: medium-light skin tone","shortname":":man_golfing_tone2:","shortname_alternates":[":man_golfing_medium_light_skin_tone:"],"keywords":["golf","man","medium-light skin tone"],"unicode_output":"1f3cc-1f3fc-200d-2642-fe0f"},"1f3cc-1f3fd-2642":{"name":"man golfing: medium skin tone","shortname":":man_golfing_tone3:","shortname_alternates":[":man_golfing_medium_skin_tone:"],"keywords":["golf","man","medium skin tone"],"unicode_output":"1f3cc-1f3fd-200d-2642-fe0f"},"1f3cc-1f3fe-2642":{"name":"man golfing: medium-dark skin tone","shortname":":man_golfing_tone4:","shortname_alternates":[":man_golfing_medium_dark_skin_tone:"],"keywords":["golf","man","medium-dark skin tone"],"unicode_output":"1f3cc-1f3fe-200d-2642-fe0f"},"1f3cc-1f3ff-2642":{"name":"man golfing: dark skin tone","shortname":":man_golfing_tone5:","shortname_alternates":[":man_golfing_dark_skin_tone:"],"keywords":["dark skin tone","golf","man"],"unicode_output":"1f3cc-1f3ff-200d-2642-fe0f"},"1f3c4-2640":{"name":"woman surfing","shortname":":woman_surfing:","shortname_alternates":[],"keywords":["surfing","woman"],"unicode_output":"1f3c4-200d-2640-fe0f"},"1f3c4-1f3fb-2640":{"name":"woman surfing: light skin tone","shortname":":woman_surfing_tone1:","shortname_alternates":[":woman_surfing_light_skin_tone:"],"keywords":["light skin tone","surfing","woman"],"unicode_output":"1f3c4-1f3fb-200d-2640-fe0f"},"1f3c4-1f3fc-2640":{"name":"woman surfing: medium-light skin tone","shortname":":woman_surfing_tone2:","shortname_alternates":[":woman_surfing_medium_light_skin_tone:"],"keywords":["medium-light skin tone","surfing","woman"],"unicode_output":"1f3c4-1f3fc-200d-2640-fe0f"},"1f3c4-1f3fd-2640":{"name":"woman surfing: medium skin tone","shortname":":woman_surfing_tone3:","shortname_alternates":[":woman_surfing_medium_skin_tone:"],"keywords":["medium skin tone","surfing","woman"],"unicode_output":"1f3c4-1f3fd-200d-2640-fe0f"},"1f3c4-1f3fe-2640":{"name":"woman surfing: medium-dark skin tone","shortname":":woman_surfing_tone4:","shortname_alternates":[":woman_surfing_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","surfing","woman"],"unicode_output":"1f3c4-1f3fe-200d-2640-fe0f"},"1f3c4-1f3ff-2640":{"name":"woman surfing: dark skin tone","shortname":":woman_surfing_tone5:","shortname_alternates":[":woman_surfing_dark_skin_tone:"],"keywords":["dark skin tone","surfing","woman"],"unicode_output":"1f3c4-1f3ff-200d-2640-fe0f"},"1f3c4":{"name":"person surfing","shortname":":person_surfing:","shortname_alternates":[":surfer:"],"keywords":["surfing"],"unicode_output":"1f3c4"},"1f3c4-1f3fb":{"name":"person surfing: light skin tone","shortname":":person_surfing_tone1:","shortname_alternates":[":surfer_tone1:"],"keywords":["light skin tone","surfing"],"unicode_output":"1f3c4-1f3fb"},"1f3c4-1f3fc":{"name":"person surfing: medium-light skin tone","shortname":":person_surfing_tone2:","shortname_alternates":[":surfer_tone2:"],"keywords":["medium-light skin tone","surfing"],"unicode_output":"1f3c4-1f3fc"},"1f3c4-1f3fd":{"name":"person surfing: medium skin tone","shortname":":person_surfing_tone3:","shortname_alternates":[":surfer_tone3:"],"keywords":["medium skin tone","surfing"],"unicode_output":"1f3c4-1f3fd"},"1f3c4-1f3fe":{"name":"person surfing: medium-dark skin tone","shortname":":person_surfing_tone4:","shortname_alternates":[":surfer_tone4:"],"keywords":["medium-dark skin tone","surfing"],"unicode_output":"1f3c4-1f3fe"},"1f3c4-1f3ff":{"name":"person surfing: dark skin tone","shortname":":person_surfing_tone5:","shortname_alternates":[":surfer_tone5:"],"keywords":["dark skin tone","surfing"],"unicode_output":"1f3c4-1f3ff"},"1f3c4-2642":{"name":"man surfing","shortname":":man_surfing:","shortname_alternates":[],"keywords":["man","surfing"],"unicode_output":"1f3c4-200d-2642-fe0f"},"1f3c4-1f3ff-2642":{"name":"man surfing: dark skin tone","shortname":":man_surfing_tone5:","shortname_alternates":[":man_surfing_dark_skin_tone:"],"keywords":["dark skin tone","man","surfing"],"unicode_output":"1f3c4-1f3ff-200d-2642-fe0f"},"1f3c4-1f3fe-2642":{"name":"man surfing: medium-dark skin tone","shortname":":man_surfing_tone4:","shortname_alternates":[":man_surfing_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","surfing"],"unicode_output":"1f3c4-1f3fe-200d-2642-fe0f"},"1f3c4-1f3fd-2642":{"name":"man surfing: medium skin tone","shortname":":man_surfing_tone3:","shortname_alternates":[":man_surfing_medium_skin_tone:"],"keywords":["man","medium skin tone","surfing"],"unicode_output":"1f3c4-1f3fd-200d-2642-fe0f"},"1f3c4-1f3fc-2642":{"name":"man surfing: medium-light skin tone","shortname":":man_surfing_tone2:","shortname_alternates":[":man_surfing_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","surfing"],"unicode_output":"1f3c4-1f3fc-200d-2642-fe0f"},"1f3c4-1f3fb-2642":{"name":"man surfing: light skin tone","shortname":":man_surfing_tone1:","shortname_alternates":[":man_surfing_light_skin_tone:"],"keywords":["light skin tone","man","surfing"],"unicode_output":"1f3c4-1f3fb-200d-2642-fe0f"},"1f3ca-2640":{"name":"woman swimming","shortname":":woman_swimming:","shortname_alternates":[],"keywords":["swim","woman"],"unicode_output":"1f3ca-200d-2640-fe0f"},"1f3ca-1f3fb-2640":{"name":"woman swimming: light skin tone","shortname":":woman_swimming_tone1:","shortname_alternates":[":woman_swimming_light_skin_tone:"],"keywords":["light skin tone","swim","woman"],"unicode_output":"1f3ca-1f3fb-200d-2640-fe0f"},"1f3ca-1f3fc-2640":{"name":"woman swimming: medium-light skin tone","shortname":":woman_swimming_tone2:","shortname_alternates":[":woman_swimming_medium_light_skin_tone:"],"keywords":["medium-light skin tone","swim","woman"],"unicode_output":"1f3ca-1f3fc-200d-2640-fe0f"},"1f3ca-1f3fd-2640":{"name":"woman swimming: medium skin tone","shortname":":woman_swimming_tone3:","shortname_alternates":[":woman_swimming_medium_skin_tone:"],"keywords":["medium skin tone","swim","woman"],"unicode_output":"1f3ca-1f3fd-200d-2640-fe0f"},"1f3ca-1f3fe-2640":{"name":"woman swimming: medium-dark skin tone","shortname":":woman_swimming_tone4:","shortname_alternates":[":woman_swimming_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","swim","woman"],"unicode_output":"1f3ca-1f3fe-200d-2640-fe0f"},"1f3ca-1f3ff-2640":{"name":"woman swimming: dark skin tone","shortname":":woman_swimming_tone5:","shortname_alternates":[":woman_swimming_dark_skin_tone:"],"keywords":["dark skin tone","swim","woman"],"unicode_output":"1f3ca-1f3ff-200d-2640-fe0f"},"1f3ca":{"name":"person swimming","shortname":":person_swimming:","shortname_alternates":[":swimmer:"],"keywords":["swim"],"unicode_output":"1f3ca"},"1f3ca-1f3fb":{"name":"person swimming: light skin tone","shortname":":person_swimming_tone1:","shortname_alternates":[":swimmer_tone1:"],"keywords":["light skin tone","swim"],"unicode_output":"1f3ca-1f3fb"},"1f3ca-1f3fc":{"name":"person swimming: medium-light skin tone","shortname":":person_swimming_tone2:","shortname_alternates":[":swimmer_tone2:"],"keywords":["medium-light skin tone","swim"],"unicode_output":"1f3ca-1f3fc"},"1f3ca-1f3fd":{"name":"person swimming: medium skin tone","shortname":":person_swimming_tone3:","shortname_alternates":[":swimmer_tone3:"],"keywords":["medium skin tone","swim"],"unicode_output":"1f3ca-1f3fd"},"1f3ca-1f3fe":{"name":"person swimming: medium-dark skin tone","shortname":":person_swimming_tone4:","shortname_alternates":[":swimmer_tone4:"],"keywords":["medium-dark skin tone","swim"],"unicode_output":"1f3ca-1f3fe"},"1f3ca-1f3ff":{"name":"person swimming: dark skin tone","shortname":":person_swimming_tone5:","shortname_alternates":[":swimmer_tone5:"],"keywords":["dark skin tone","swim"],"unicode_output":"1f3ca-1f3ff"},"1f3ca-2642":{"name":"man swimming","shortname":":man_swimming:","shortname_alternates":[],"keywords":["man","swim"],"unicode_output":"1f3ca-200d-2642-fe0f"},"1f3ca-1f3ff-2642":{"name":"man swimming: dark skin tone","shortname":":man_swimming_tone5:","shortname_alternates":[":man_swimming_dark_skin_tone:"],"keywords":["dark skin tone","man","swim"],"unicode_output":"1f3ca-1f3ff-200d-2642-fe0f"},"1f3ca-1f3fe-2642":{"name":"man swimming: medium-dark skin tone","shortname":":man_swimming_tone4:","shortname_alternates":[":man_swimming_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","swim"],"unicode_output":"1f3ca-1f3fe-200d-2642-fe0f"},"1f3ca-1f3fd-2642":{"name":"man swimming: medium skin tone","shortname":":man_swimming_tone3:","shortname_alternates":[":man_swimming_medium_skin_tone:"],"keywords":["man","medium skin tone","swim"],"unicode_output":"1f3ca-1f3fd-200d-2642-fe0f"},"1f3ca-1f3fc-2642":{"name":"man swimming: medium-light skin tone","shortname":":man_swimming_tone2:","shortname_alternates":[":man_swimming_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","swim"],"unicode_output":"1f3ca-1f3fc-200d-2642-fe0f"},"1f3ca-1f3fb-2642":{"name":"man swimming: light skin tone","shortname":":man_swimming_tone1:","shortname_alternates":[":man_swimming_light_skin_tone:"],"keywords":["light skin tone","man","swim"],"unicode_output":"1f3ca-1f3fb-200d-2642-fe0f"},"1f93d-2640":{"name":"woman playing water polo","shortname":":woman_playing_water_polo:","shortname_alternates":[],"keywords":["water polo","woman"],"unicode_output":"1f93d-200d-2640-fe0f"},"1f93d-1f3fb-2640":{"name":"woman playing water polo: light skin tone","shortname":":woman_playing_water_polo_tone1:","shortname_alternates":[":woman_playing_water_polo_light_skin_tone:"],"keywords":["light skin tone","water polo","woman"],"unicode_output":"1f93d-1f3fb-200d-2640-fe0f"},"1f93d-1f3fc-2640":{"name":"woman playing water polo: medium-light skin tone","shortname":":woman_playing_water_polo_tone2:","shortname_alternates":[":woman_playing_water_polo_medium_light_skin_tone:"],"keywords":["medium-light skin tone","water polo","woman"],"unicode_output":"1f93d-1f3fc-200d-2640-fe0f"},"1f93d-1f3fd-2640":{"name":"woman playing water polo: medium skin tone","shortname":":woman_playing_water_polo_tone3:","shortname_alternates":[":woman_playing_water_polo_medium_skin_tone:"],"keywords":["medium skin tone","water polo","woman"],"unicode_output":"1f93d-1f3fd-200d-2640-fe0f"},"1f93d-1f3fe-2640":{"name":"woman playing water polo: medium-dark skin tone","shortname":":woman_playing_water_polo_tone4:","shortname_alternates":[":woman_playing_water_polo_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","water polo","woman"],"unicode_output":"1f93d-1f3fe-200d-2640-fe0f"},"1f93d-1f3ff-2640":{"name":"woman playing water polo: dark skin tone","shortname":":woman_playing_water_polo_tone5:","shortname_alternates":[":woman_playing_water_polo_dark_skin_tone:"],"keywords":["dark skin tone","water polo","woman"],"unicode_output":"1f93d-1f3ff-200d-2640-fe0f"},"1f93d-2642":{"name":"man playing water polo","shortname":":man_playing_water_polo:","shortname_alternates":[],"keywords":["man","water polo"],"unicode_output":"1f93d-200d-2642-fe0f"},"1f93d-1f3fb-2642":{"name":"man playing water polo: light skin tone","shortname":":man_playing_water_polo_tone1:","shortname_alternates":[":man_playing_water_polo_light_skin_tone:"],"keywords":["light skin tone","man","water polo"],"unicode_output":"1f93d-1f3fb-200d-2642-fe0f"},"1f93d-1f3fc-2642":{"name":"man playing water polo: medium-light skin tone","shortname":":man_playing_water_polo_tone2:","shortname_alternates":[":man_playing_water_polo_medium_light_skin_tone:"],"keywords":["man","medium-light skin tone","water polo"],"unicode_output":"1f93d-1f3fc-200d-2642-fe0f"},"1f93d-1f3fd-2642":{"name":"man playing water polo: medium skin tone","shortname":":man_playing_water_polo_tone3:","shortname_alternates":[":man_playing_water_polo_medium_skin_tone:"],"keywords":["man","medium skin tone","water polo"],"unicode_output":"1f93d-1f3fd-200d-2642-fe0f"},"1f93d-1f3fe-2642":{"name":"man playing water polo: medium-dark skin tone","shortname":":man_playing_water_polo_tone4:","shortname_alternates":[":man_playing_water_polo_medium_dark_skin_tone:"],"keywords":["man","medium-dark skin tone","water polo"],"unicode_output":"1f93d-1f3fe-200d-2642-fe0f"},"1f93d-1f3ff-2642":{"name":"man playing water polo: dark skin tone","shortname":":man_playing_water_polo_tone5:","shortname_alternates":[":man_playing_water_polo_dark_skin_tone:"],"keywords":["dark skin tone","man","water polo"],"unicode_output":"1f93d-1f3ff-200d-2642-fe0f"},"1f93d":{"name":"person playing water polo","shortname":":person_playing_water_polo:","shortname_alternates":[":water_polo:"],"keywords":["polo","water"],"unicode_output":"1f93d"},"1f93d-1f3fb":{"name":"person playing water polo: light skin tone","shortname":":person_playing_water_polo_tone1:","shortname_alternates":[":water_polo_tone1:"],"keywords":["light skin tone","polo","water"],"unicode_output":"1f93d-1f3fb"},"1f93d-1f3fc":{"name":"person playing water polo: medium-light skin tone","shortname":":person_playing_water_polo_tone2:","shortname_alternates":[":water_polo_tone2:"],"keywords":["medium-light skin tone","polo","water"],"unicode_output":"1f93d-1f3fc"},"1f93d-1f3fd":{"name":"person playing water polo: medium skin tone","shortname":":person_playing_water_polo_tone3:","shortname_alternates":[":water_polo_tone3:"],"keywords":["medium skin tone","polo","water"],"unicode_output":"1f93d-1f3fd"},"1f93d-1f3fe":{"name":"person playing water polo: medium-dark skin tone","shortname":":person_playing_water_polo_tone4:","shortname_alternates":[":water_polo_tone4:"],"keywords":["medium-dark skin tone","polo","water"],"unicode_output":"1f93d-1f3fe"},"1f93d-1f3ff":{"name":"person playing water polo: dark skin tone","shortname":":person_playing_water_polo_tone5:","shortname_alternates":[":water_polo_tone5:"],"keywords":["dark skin tone","polo","water"],"unicode_output":"1f93d-1f3ff"},"1f6a3-2640":{"name":"woman rowing boat","shortname":":woman_rowing_boat:","shortname_alternates":[],"keywords":["boat","rowboat","woman"],"unicode_output":"1f6a3-200d-2640-fe0f"},"1f6a3-1f3fb-2640":{"name":"woman rowing boat: light skin tone","shortname":":woman_rowing_boat_tone1:","shortname_alternates":[":woman_rowing_boat_light_skin_tone:"],"keywords":["boat","light skin tone","rowboat","woman"],"unicode_output":"1f6a3-1f3fb-200d-2640-fe0f"},"1f6a3-1f3fc-2640":{"name":"woman rowing boat: medium-light skin tone","shortname":":woman_rowing_boat_tone2:","shortname_alternates":[":woman_rowing_boat_medium_light_skin_tone:"],"keywords":["boat","medium-light skin tone","rowboat","woman"],"unicode_output":"1f6a3-1f3fc-200d-2640-fe0f"},"1f6a3-1f3fd-2640":{"name":"woman rowing boat: medium skin tone","shortname":":woman_rowing_boat_tone3:","shortname_alternates":[":woman_rowing_boat_medium_skin_tone:"],"keywords":["boat","medium skin tone","rowboat","woman"],"unicode_output":"1f6a3-1f3fd-200d-2640-fe0f"},"1f6a3-1f3fe-2640":{"name":"woman rowing boat: medium-dark skin tone","shortname":":woman_rowing_boat_tone4:","shortname_alternates":[":woman_rowing_boat_medium_dark_skin_tone:"],"keywords":["boat","medium-dark skin tone","rowboat","woman"],"unicode_output":"1f6a3-1f3fe-200d-2640-fe0f"},"1f6a3-1f3ff-2640":{"name":"woman rowing boat: dark skin tone","shortname":":woman_rowing_boat_tone5:","shortname_alternates":[":woman_rowing_boat_dark_skin_tone:"],"keywords":["boat","dark skin tone","rowboat","woman"],"unicode_output":"1f6a3-1f3ff-200d-2640-fe0f"},"1f6a3":{"name":"person rowing boat","shortname":":person_rowing_boat:","shortname_alternates":[":rowboat:"],"keywords":["boat","rowboat"],"unicode_output":"1f6a3"},"1f6a3-1f3fb":{"name":"person rowing boat: light skin tone","shortname":":person_rowing_boat_tone1:","shortname_alternates":[":rowboat_tone1:"],"keywords":["boat","light skin tone","rowboat"],"unicode_output":"1f6a3-1f3fb"},"1f6a3-1f3fc":{"name":"person rowing boat: medium-light skin tone","shortname":":person_rowing_boat_tone2:","shortname_alternates":[":rowboat_tone2:"],"keywords":["boat","medium-light skin tone","rowboat"],"unicode_output":"1f6a3-1f3fc"},"1f6a3-1f3fd":{"name":"person rowing boat: medium skin tone","shortname":":person_rowing_boat_tone3:","shortname_alternates":[":rowboat_tone3:"],"keywords":["boat","medium skin tone","rowboat"],"unicode_output":"1f6a3-1f3fd"},"1f6a3-1f3fe":{"name":"person rowing boat: medium-dark skin tone","shortname":":person_rowing_boat_tone4:","shortname_alternates":[":rowboat_tone4:"],"keywords":["boat","medium-dark skin tone","rowboat"],"unicode_output":"1f6a3-1f3fe"},"1f6a3-1f3ff":{"name":"person rowing boat: dark skin tone","shortname":":person_rowing_boat_tone5:","shortname_alternates":[":rowboat_tone5:"],"keywords":["boat","dark skin tone","rowboat"],"unicode_output":"1f6a3-1f3ff"},"1f6a3-2642":{"name":"man rowing boat","shortname":":man_rowing_boat:","shortname_alternates":[],"keywords":["boat","man","rowboat"],"unicode_output":"1f6a3-200d-2642-fe0f"},"1f6a3-1f3ff-2642":{"name":"man rowing boat: dark skin tone","shortname":":man_rowing_boat_tone5:","shortname_alternates":[":man_rowing_boat_dark_skin_tone:"],"keywords":["boat","dark skin tone","man","rowboat"],"unicode_output":"1f6a3-1f3ff-200d-2642-fe0f"},"1f6a3-1f3fe-2642":{"name":"man rowing boat: medium-dark skin tone","shortname":":man_rowing_boat_tone4:","shortname_alternates":[":man_rowing_boat_medium_dark_skin_tone:"],"keywords":["boat","man","medium-dark skin tone","rowboat"],"unicode_output":"1f6a3-1f3fe-200d-2642-fe0f"},"1f6a3-1f3fd-2642":{"name":"man rowing boat: medium skin tone","shortname":":man_rowing_boat_tone3:","shortname_alternates":[":man_rowing_boat_medium_skin_tone:"],"keywords":["boat","man","medium skin tone","rowboat"],"unicode_output":"1f6a3-1f3fd-200d-2642-fe0f"},"1f6a3-1f3fc-2642":{"name":"man rowing boat: medium-light skin tone","shortname":":man_rowing_boat_tone2:","shortname_alternates":[":man_rowing_boat_medium_light_skin_tone:"],"keywords":["boat","man","medium-light skin tone","rowboat"],"unicode_output":"1f6a3-1f3fc-200d-2642-fe0f"},"1f6a3-1f3fb-2642":{"name":"man rowing boat: light skin tone","shortname":":man_rowing_boat_tone1:","shortname_alternates":[":man_rowing_boat_light_skin_tone:"],"keywords":["boat","light skin tone","man","rowboat"],"unicode_output":"1f6a3-1f3fb-200d-2642-fe0f"},"1f3c7":{"name":"horse racing","shortname":":horse_racing:","shortname_alternates":[],"keywords":["horse","jockey","racehorse","racing"],"unicode_output":"1f3c7"},"1f3c7-1f3fb":{"name":"horse racing: light skin tone","shortname":":horse_racing_tone1:","shortname_alternates":[],"keywords":["horse","jockey","light skin tone","racehorse","racing"],"unicode_output":"1f3c7-1f3fb"},"1f3c7-1f3fc":{"name":"horse racing: medium-light skin tone","shortname":":horse_racing_tone2:","shortname_alternates":[],"keywords":["horse","jockey","medium-light skin tone","racehorse","racing"],"unicode_output":"1f3c7-1f3fc"},"1f3c7-1f3fd":{"name":"horse racing: medium skin tone","shortname":":horse_racing_tone3:","shortname_alternates":[],"keywords":["horse","jockey","medium skin tone","racehorse","racing"],"unicode_output":"1f3c7-1f3fd"},"1f3c7-1f3fe":{"name":"horse racing: medium-dark skin tone","shortname":":horse_racing_tone4:","shortname_alternates":[],"keywords":["horse","jockey","medium-dark skin tone","racehorse","racing"],"unicode_output":"1f3c7-1f3fe"},"1f3c7-1f3ff":{"name":"horse racing: dark skin tone","shortname":":horse_racing_tone5:","shortname_alternates":[],"keywords":["dark skin tone","horse","jockey","racehorse","racing"],"unicode_output":"1f3c7-1f3ff"},"1f6b4-2640":{"name":"woman biking","shortname":":woman_biking:","shortname_alternates":[],"keywords":["bicycle","biking","cyclist","woman"],"unicode_output":"1f6b4-200d-2640-fe0f"},"1f6b4-1f3fb-2640":{"name":"woman biking: light skin tone","shortname":":woman_biking_tone1:","shortname_alternates":[":woman_biking_light_skin_tone:"],"keywords":["bicycle","biking","cyclist","light skin tone","woman"],"unicode_output":"1f6b4-1f3fb-200d-2640-fe0f"},"1f6b4-1f3fc-2640":{"name":"woman biking: medium-light skin tone","shortname":":woman_biking_tone2:","shortname_alternates":[":woman_biking_medium_light_skin_tone:"],"keywords":["bicycle","biking","cyclist","medium-light skin tone","woman"],"unicode_output":"1f6b4-1f3fc-200d-2640-fe0f"},"1f6b4-1f3fd-2640":{"name":"woman biking: medium skin tone","shortname":":woman_biking_tone3:","shortname_alternates":[":woman_biking_medium_skin_tone:"],"keywords":["bicycle","biking","cyclist","medium skin tone","woman"],"unicode_output":"1f6b4-1f3fd-200d-2640-fe0f"},"1f6b4-1f3fe-2640":{"name":"woman biking: medium-dark skin tone","shortname":":woman_biking_tone4:","shortname_alternates":[":woman_biking_medium_dark_skin_tone:"],"keywords":["bicycle","biking","cyclist","medium-dark skin tone","woman"],"unicode_output":"1f6b4-1f3fe-200d-2640-fe0f"},"1f6b4-1f3ff-2640":{"name":"woman biking: dark skin tone","shortname":":woman_biking_tone5:","shortname_alternates":[":woman_biking_dark_skin_tone:"],"keywords":["bicycle","biking","cyclist","dark skin tone","woman"],"unicode_output":"1f6b4-1f3ff-200d-2640-fe0f"},"1f6b4":{"name":"person biking","shortname":":person_biking:","shortname_alternates":[":bicyclist:"],"keywords":["bicycle","biking","cyclist"],"unicode_output":"1f6b4"},"1f6b4-1f3fb":{"name":"person biking: light skin tone","shortname":":person_biking_tone1:","shortname_alternates":[":bicyclist_tone1:"],"keywords":["bicycle","biking","cyclist","light skin tone"],"unicode_output":"1f6b4-1f3fb"},"1f6b4-1f3fc":{"name":"person biking: medium-light skin tone","shortname":":person_biking_tone2:","shortname_alternates":[":bicyclist_tone2:"],"keywords":["bicycle","biking","cyclist","medium-light skin tone"],"unicode_output":"1f6b4-1f3fc"},"1f6b4-1f3fd":{"name":"person biking: medium skin tone","shortname":":person_biking_tone3:","shortname_alternates":[":bicyclist_tone3:"],"keywords":["bicycle","biking","cyclist","medium skin tone"],"unicode_output":"1f6b4-1f3fd"},"1f6b4-1f3fe":{"name":"person biking: medium-dark skin tone","shortname":":person_biking_tone4:","shortname_alternates":[":bicyclist_tone4:"],"keywords":["bicycle","biking","cyclist","medium-dark skin tone"],"unicode_output":"1f6b4-1f3fe"},"1f6b4-1f3ff":{"name":"person biking: dark skin tone","shortname":":person_biking_tone5:","shortname_alternates":[":bicyclist_tone5:"],"keywords":["bicycle","biking","cyclist","dark skin tone"],"unicode_output":"1f6b4-1f3ff"},"1f6b4-2642":{"name":"man biking","shortname":":man_biking:","shortname_alternates":[],"keywords":["bicycle","biking","cyclist","man"],"unicode_output":"1f6b4-200d-2642-fe0f"},"1f6b4-1f3ff-2642":{"name":"man biking: dark skin tone","shortname":":man_biking_tone5:","shortname_alternates":[":man_biking_dark_skin_tone:"],"keywords":["bicycle","biking","cyclist","dark skin tone","man"],"unicode_output":"1f6b4-1f3ff-200d-2642-fe0f"},"1f6b4-1f3fe-2642":{"name":"man biking: medium-dark skin tone","shortname":":man_biking_tone4:","shortname_alternates":[":man_biking_medium_dark_skin_tone:"],"keywords":["bicycle","biking","cyclist","man","medium-dark skin tone"],"unicode_output":"1f6b4-1f3fe-200d-2642-fe0f"},"1f6b4-1f3fd-2642":{"name":"man biking: medium skin tone","shortname":":man_biking_tone3:","shortname_alternates":[":man_biking_medium_skin_tone:"],"keywords":["bicycle","biking","cyclist","man","medium skin tone"],"unicode_output":"1f6b4-1f3fd-200d-2642-fe0f"},"1f6b4-1f3fc-2642":{"name":"man biking: medium-light skin tone","shortname":":man_biking_tone2:","shortname_alternates":[":man_biking_medium_light_skin_tone:"],"keywords":["bicycle","biking","cyclist","man","medium-light skin tone"],"unicode_output":"1f6b4-1f3fc-200d-2642-fe0f"},"1f6b4-1f3fb-2642":{"name":"man biking: light skin tone","shortname":":man_biking_tone1:","shortname_alternates":[":man_biking_light_skin_tone:"],"keywords":["bicycle","biking","cyclist","light skin tone","man"],"unicode_output":"1f6b4-1f3fb-200d-2642-fe0f"},"1f6b5-2640":{"name":"woman mountain biking","shortname":":woman_mountain_biking:","shortname_alternates":[],"keywords":["bicycle","bike","biking","cyclist","mountain","woman"],"unicode_output":"1f6b5-200d-2640-fe0f"},"1f6b5-1f3fb-2640":{"name":"woman mountain biking: light skin tone","shortname":":woman_mountain_biking_tone1:","shortname_alternates":[":woman_mountain_biking_light_skin_tone:"],"keywords":["bicycle","bike","biking","cyclist","light skin tone","mountain","woman"],"unicode_output":"1f6b5-1f3fb-200d-2640-fe0f"},"1f6b5-1f3fc-2640":{"name":"woman mountain biking: medium-light skin tone","shortname":":woman_mountain_biking_tone2:","shortname_alternates":[":woman_mountain_biking_medium_light_skin_tone:"],"keywords":["bicycle","bike","biking","cyclist","medium-light skin tone","mountain","woman"],"unicode_output":"1f6b5-1f3fc-200d-2640-fe0f"},"1f6b5-1f3fd-2640":{"name":"woman mountain biking: medium skin tone","shortname":":woman_mountain_biking_tone3:","shortname_alternates":[":woman_mountain_biking_medium_skin_tone:"],"keywords":["bicycle","bike","biking","cyclist","medium skin tone","mountain","woman"],"unicode_output":"1f6b5-1f3fd-200d-2640-fe0f"},"1f6b5-1f3fe-2640":{"name":"woman mountain biking: medium-dark skin tone","shortname":":woman_mountain_biking_tone4:","shortname_alternates":[":woman_mountain_biking_medium_dark_skin_tone:"],"keywords":["bicycle","bike","biking","cyclist","medium-dark skin tone","mountain","woman"],"unicode_output":"1f6b5-1f3fe-200d-2640-fe0f"},"1f6b5-1f3ff-2640":{"name":"woman mountain biking: dark skin tone","shortname":":woman_mountain_biking_tone5:","shortname_alternates":[":woman_mountain_biking_dark_skin_tone:"],"keywords":["bicycle","bike","biking","cyclist","dark skin tone","mountain","woman"],"unicode_output":"1f6b5-1f3ff-200d-2640-fe0f"},"1f6b5":{"name":"person mountain biking","shortname":":person_mountain_biking:","shortname_alternates":[":mountain_bicyclist:"],"keywords":["bicycle","bicyclist","bike","cyclist","mountain"],"unicode_output":"1f6b5"},"1f6b5-1f3fb":{"name":"person mountain biking: light skin tone","shortname":":person_mountain_biking_tone1:","shortname_alternates":[":mountain_bicyclist_tone1:"],"keywords":["bicycle","bicyclist","bike","cyclist","light skin tone","mountain"],"unicode_output":"1f6b5-1f3fb"},"1f6b5-1f3fc":{"name":"person mountain biking: medium-light skin tone","shortname":":person_mountain_biking_tone2:","shortname_alternates":[":mountain_bicyclist_tone2:"],"keywords":["bicycle","bicyclist","bike","cyclist","medium-light skin tone","mountain"],"unicode_output":"1f6b5-1f3fc"},"1f6b5-1f3fd":{"name":"person mountain biking: medium skin tone","shortname":":person_mountain_biking_tone3:","shortname_alternates":[":mountain_bicyclist_tone3:"],"keywords":["bicycle","bicyclist","bike","cyclist","medium skin tone","mountain"],"unicode_output":"1f6b5-1f3fd"},"1f6b5-1f3fe":{"name":"person mountain biking: medium-dark skin tone","shortname":":person_mountain_biking_tone4:","shortname_alternates":[":mountain_bicyclist_tone4:"],"keywords":["bicycle","bicyclist","bike","cyclist","medium-dark skin tone","mountain"],"unicode_output":"1f6b5-1f3fe"},"1f6b5-1f3ff":{"name":"person mountain biking: dark skin tone","shortname":":person_mountain_biking_tone5:","shortname_alternates":[":mountain_bicyclist_tone5:"],"keywords":["bicycle","bicyclist","bike","cyclist","dark skin tone","mountain"],"unicode_output":"1f6b5-1f3ff"},"1f6b5-2642":{"name":"man mountain biking","shortname":":man_mountain_biking:","shortname_alternates":[],"keywords":["bicycle","bike","cyclist","man","mountain"],"unicode_output":"1f6b5-200d-2642-fe0f"},"1f6b5-1f3ff-2642":{"name":"man mountain biking: dark skin tone","shortname":":man_mountain_biking_tone5:","shortname_alternates":[":man_mountain_biking_dark_skin_tone:"],"keywords":["bicycle","bike","cyclist","dark skin tone","man","mountain"],"unicode_output":"1f6b5-1f3ff-200d-2642-fe0f"},"1f6b5-1f3fe-2642":{"name":"man mountain biking: medium-dark skin tone","shortname":":man_mountain_biking_tone4:","shortname_alternates":[":man_mountain_biking_medium_dark_skin_tone:"],"keywords":["bicycle","bike","cyclist","man","medium-dark skin tone","mountain"],"unicode_output":"1f6b5-1f3fe-200d-2642-fe0f"},"1f6b5-1f3fd-2642":{"name":"man mountain biking: medium skin tone","shortname":":man_mountain_biking_tone3:","shortname_alternates":[":man_mountain_biking_medium_skin_tone:"],"keywords":["bicycle","bike","cyclist","man","medium skin tone","mountain"],"unicode_output":"1f6b5-1f3fd-200d-2642-fe0f"},"1f6b5-1f3fc-2642":{"name":"man mountain biking: medium-light skin tone","shortname":":man_mountain_biking_tone2:","shortname_alternates":[":man_mountain_biking_medium_light_skin_tone:"],"keywords":["bicycle","bike","cyclist","man","medium-light skin tone","mountain"],"unicode_output":"1f6b5-1f3fc-200d-2642-fe0f"},"1f6b5-1f3fb-2642":{"name":"man mountain biking: light skin tone","shortname":":man_mountain_biking_tone1:","shortname_alternates":[":man_mountain_biking_light_skin_tone:"],"keywords":["bicycle","bike","cyclist","light skin tone","man","mountain"],"unicode_output":"1f6b5-1f3fb-200d-2642-fe0f"},"1f3bd":{"name":"running shirt","shortname":":running_shirt_with_sash:","shortname_alternates":[],"keywords":["athletics","running","sash","shirt"],"unicode_output":"1f3bd"},"1f3c5":{"name":"sports medal","shortname":":medal:","shortname_alternates":[":sports_medal:"],"keywords":["medal"],"unicode_output":"1f3c5"},"1f396":{"name":"military medal","shortname":":military_medal:","shortname_alternates":[],"keywords":["celebration","medal","military"],"unicode_output":"1f396"},"1f947":{"name":"1st place medal","shortname":":first_place:","shortname_alternates":[":first_place_medal:"],"keywords":["first","gold","medal"],"unicode_output":"1f947"},"1f948":{"name":"2nd place medal","shortname":":second_place:","shortname_alternates":[":second_place_medal:"],"keywords":["medal","second","silver"],"unicode_output":"1f948"},"1f949":{"name":"3rd place medal","shortname":":third_place:","shortname_alternates":[":third_place_medal:"],"keywords":["bronze","medal","third"],"unicode_output":"1f949"},"1f3c6":{"name":"trophy","shortname":":trophy:","shortname_alternates":[],"keywords":["prize"],"unicode_output":"1f3c6"},"1f3f5":{"name":"rosette","shortname":":rosette:","shortname_alternates":[],"keywords":["plant"],"unicode_output":"1f3f5"},"1f397":{"name":"reminder ribbon","shortname":":reminder_ribbon:","shortname_alternates":[],"keywords":["celebration","reminder","ribbon"],"unicode_output":"1f397"},"1f3ab":{"name":"ticket","shortname":":ticket:","shortname_alternates":[],"keywords":["admission"],"unicode_output":"1f3ab"},"1f39f":{"name":"admission tickets","shortname":":tickets:","shortname_alternates":[":admission_tickets:"],"keywords":["admission","ticket"],"unicode_output":"1f39f"},"1f3aa":{"name":"circus tent","shortname":":circus_tent:","shortname_alternates":[],"keywords":["circus","tent"],"unicode_output":"1f3aa"},"1f939-2640":{"name":"woman juggling","shortname":":woman_juggling:","shortname_alternates":[],"keywords":["juggling","multitask","woman"],"unicode_output":"1f939-200d-2640-fe0f"},"1f939-1f3fb-2640":{"name":"woman juggling: light skin tone","shortname":":woman_juggling_tone1:","shortname_alternates":[":woman_juggling_light_skin_tone:"],"keywords":["juggling","light skin tone","multitask","woman"],"unicode_output":"1f939-1f3fb-200d-2640-fe0f"},"1f939-1f3fc-2640":{"name":"woman juggling: medium-light skin tone","shortname":":woman_juggling_tone2:","shortname_alternates":[":woman_juggling_medium_light_skin_tone:"],"keywords":["juggling","medium-light skin tone","multitask","woman"],"unicode_output":"1f939-1f3fc-200d-2640-fe0f"},"1f939-1f3fd-2640":{"name":"woman juggling: medium skin tone","shortname":":woman_juggling_tone3:","shortname_alternates":[":woman_juggling_medium_skin_tone:"],"keywords":["juggling","medium skin tone","multitask","woman"],"unicode_output":"1f939-1f3fd-200d-2640-fe0f"},"1f939-1f3fe-2640":{"name":"woman juggling: medium-dark skin tone","shortname":":woman_juggling_tone4:","shortname_alternates":[":woman_juggling_medium_dark_skin_tone:"],"keywords":["juggling","medium-dark skin tone","multitask","woman"],"unicode_output":"1f939-1f3fe-200d-2640-fe0f"},"1f939-1f3ff-2640":{"name":"woman juggling: dark skin tone","shortname":":woman_juggling_tone5:","shortname_alternates":[":woman_juggling_dark_skin_tone:"],"keywords":["dark skin tone","juggling","multitask","woman"],"unicode_output":"1f939-1f3ff-200d-2640-fe0f"},"1f939-2642":{"name":"man juggling","shortname":":man_juggling:","shortname_alternates":[],"keywords":["juggling","man","multitask"],"unicode_output":"1f939-200d-2642-fe0f"},"1f939-1f3fb-2642":{"name":"man juggling: light skin tone","shortname":":man_juggling_tone1:","shortname_alternates":[":man_juggling_light_skin_tone:"],"keywords":["juggling","light skin tone","man","multitask"],"unicode_output":"1f939-1f3fb-200d-2642-fe0f"},"1f939-1f3fc-2642":{"name":"man juggling: medium-light skin tone","shortname":":man_juggling_tone2:","shortname_alternates":[":man_juggling_medium_light_skin_tone:"],"keywords":["juggling","man","medium-light skin tone","multitask"],"unicode_output":"1f939-1f3fc-200d-2642-fe0f"},"1f939-1f3fd-2642":{"name":"man juggling: medium skin tone","shortname":":man_juggling_tone3:","shortname_alternates":[":man_juggling_medium_skin_tone:"],"keywords":["juggling","man","medium skin tone","multitask"],"unicode_output":"1f939-1f3fd-200d-2642-fe0f"},"1f939-1f3fe-2642":{"name":"man juggling: medium-dark skin tone","shortname":":man_juggling_tone4:","shortname_alternates":[":man_juggling_medium_dark_skin_tone:"],"keywords":["juggling","man","medium-dark skin tone","multitask"],"unicode_output":"1f939-1f3fe-200d-2642-fe0f"},"1f939-1f3ff-2642":{"name":"man juggling: dark skin tone","shortname":":man_juggling_tone5:","shortname_alternates":[":man_juggling_dark_skin_tone:"],"keywords":["dark skin tone","juggling","man","multitask"],"unicode_output":"1f939-1f3ff-200d-2642-fe0f"},"1f939":{"name":"person juggling","shortname":":person_juggling:","shortname_alternates":[":juggling:",":juggler:"],"keywords":["balance","juggle","multitask","skill"],"unicode_output":"1f939"},"1f939-1f3fb":{"name":"person juggling: light skin tone","shortname":":person_juggling_tone1:","shortname_alternates":[":juggling_tone1:",":juggler_tone1:"],"keywords":["balance","juggle","light skin tone","multitask","skill"],"unicode_output":"1f939-1f3fb"},"1f939-1f3fc":{"name":"person juggling: medium-light skin tone","shortname":":person_juggling_tone2:","shortname_alternates":[":juggling_tone2:",":juggler_tone2:"],"keywords":["balance","juggle","medium-light skin tone","multitask","skill"],"unicode_output":"1f939-1f3fc"},"1f939-1f3fd":{"name":"person juggling: medium skin tone","shortname":":person_juggling_tone3:","shortname_alternates":[":juggling_tone3:",":juggler_tone3:"],"keywords":["balance","juggle","medium skin tone","multitask","skill"],"unicode_output":"1f939-1f3fd"},"1f939-1f3fe":{"name":"person juggling: medium-dark skin tone","shortname":":person_juggling_tone4:","shortname_alternates":[":juggling_tone4:",":juggler_tone4:"],"keywords":["balance","juggle","medium-dark skin tone","multitask","skill"],"unicode_output":"1f939-1f3fe"},"1f939-1f3ff":{"name":"person juggling: dark skin tone","shortname":":person_juggling_tone5:","shortname_alternates":[":juggling_tone5:",":juggler_tone5:"],"keywords":["balance","dark skin tone","juggle","multitask","skill"],"unicode_output":"1f939-1f3ff"},"1f3ad":{"name":"performing arts","shortname":":performing_arts:","shortname_alternates":[],"keywords":["art","mask","performing","theater","theatre"],"unicode_output":"1f3ad"},"1f3a8":{"name":"artist palette","shortname":":art:","shortname_alternates":[],"keywords":["art","museum","painting","palette"],"unicode_output":"1f3a8"},"1f3ac":{"name":"clapper board","shortname":":clapper:","shortname_alternates":[],"keywords":["clapper","movie"],"unicode_output":"1f3ac"},"1f3a4":{"name":"microphone","shortname":":microphone:","shortname_alternates":[],"keywords":["karaoke","mic"],"unicode_output":"1f3a4"},"1f3a7":{"name":"headphone","shortname":":headphones:","shortname_alternates":[],"keywords":["earbud"],"unicode_output":"1f3a7"},"1f3bc":{"name":"musical score","shortname":":musical_score:","shortname_alternates":[],"keywords":["music","score"],"unicode_output":"1f3bc"},"1f3b9":{"name":"musical keyboard","shortname":":musical_keyboard:","shortname_alternates":[],"keywords":["instrument","keyboard","music","piano"],"unicode_output":"1f3b9"},"1f941":{"name":"drum","shortname":":drum:","shortname_alternates":[":drum_with_drumsticks:"],"keywords":["drum","drumsticks","music"],"unicode_output":"1f941"},"1f3b7":{"name":"saxophone","shortname":":saxophone:","shortname_alternates":[],"keywords":["instrument","music","sax"],"unicode_output":"1f3b7"},"1f3ba":{"name":"trumpet","shortname":":trumpet:","shortname_alternates":[],"keywords":["instrument","music"],"unicode_output":"1f3ba"},"1f3b8":{"name":"guitar","shortname":":guitar:","shortname_alternates":[],"keywords":["instrument","music"],"unicode_output":"1f3b8"},"1f3bb":{"name":"violin","shortname":":violin:","shortname_alternates":[],"keywords":["instrument","music"],"unicode_output":"1f3bb"},"1f3b2":{"name":"game die","shortname":":game_die:","shortname_alternates":[],"keywords":["dice","die","game"],"unicode_output":"1f3b2"},"1f3af":{"name":"direct hit","shortname":":dart:","shortname_alternates":[],"keywords":["bull","bullseye","dart","eye","game","hit","target"],"unicode_output":"1f3af"},"1f3b3":{"name":"bowling","shortname":":bowling:","shortname_alternates":[],"keywords":["ball","game"],"unicode_output":"1f3b3"},"1f3ae":{"name":"video game","shortname":":video_game:","shortname_alternates":[],"keywords":["controller","game"],"unicode_output":"1f3ae"},"1f3b0":{"name":"slot machine","shortname":":slot_machine:","shortname_alternates":[],"keywords":["game","slot"],"unicode_output":"1f3b0"},"1f6f7":{"name":"sled","shortname":":sled:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f6f7"},"1f931":{"name":"breast-feeding","shortname":":breast_feeding:","shortname_alternates":[],"keywords":["baby","breast","nursing"],"unicode_output":"1f931"},"1f94c":{"name":"curling stone","shortname":":curling_stone:","shortname_alternates":[],"keywords":["game","rock"],"unicode_output":"1f94c"},"1f9d6":{"name":"person in steamy room","shortname":":person_in_steamy_room:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d6"},"1f9d7":{"name":"person climbing","shortname":":person_climbing:","shortname_alternates":[],"keywords":["climber"],"unicode_output":"1f9d7"},"1f9d8":{"name":"person in lotus position","shortname":":person_in_lotus_position:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d8"},"1f931-1f3fb":{"name":"breast-feeding: light skin tone","shortname":":breast_feeding_tone1:","shortname_alternates":[":breast_feeding_light_skin_tone:"],"keywords":["baby","breast","light skin tone","nursing"],"unicode_output":"1f931-1f3fb"},"1f931-1f3fc":{"name":"breast-feeding: medium-light skin tone","shortname":":breast_feeding_tone2:","shortname_alternates":[":breast_feeding_medium_light_skin_tone:"],"keywords":["baby","breast","medium-light skin tone","nursing"],"unicode_output":"1f931-1f3fc"},"1f931-1f3fd":{"name":"breast-feeding: medium skin tone","shortname":":breast_feeding_tone3:","shortname_alternates":[":breast_feeding_medium_skin_tone:"],"keywords":["baby","breast","medium skin tone","nursing"],"unicode_output":"1f931-1f3fd"},"1f931-1f3fe":{"name":"breast-feeding: medium-dark skin tone","shortname":":breast_feeding_tone4:","shortname_alternates":[":breast_feeding_medium_dark_skin_tone:"],"keywords":["baby","breast","medium-dark skin tone","nursing"],"unicode_output":"1f931-1f3fe"},"1f931-1f3ff":{"name":"breast-feeding: dark skin tone","shortname":":breast_feeding_tone5:","shortname_alternates":[":breast_feeding_dark_skin_tone:"],"keywords":["baby","breast","dark skin tone","nursing"],"unicode_output":"1f931-1f3ff"},"1f9d6-1f3fb":{"name":"person in steamy room: light skin tone","shortname":":person_in_steamy_room_tone1:","shortname_alternates":[":person_in_steamy_room_light_skin_tone:"],"keywords":["light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fb"},"1f9d6-1f3fc":{"name":"person in steamy room: medium-light skin tone","shortname":":person_in_steamy_room_tone2:","shortname_alternates":[":person_in_steamy_room_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fc"},"1f9d6-1f3fd":{"name":"person in steamy room: medium skin tone","shortname":":person_in_steamy_room_tone3:","shortname_alternates":[":person_in_steamy_room_medium_skin_tone:"],"keywords":["medium skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fd"},"1f9d6-1f3fe":{"name":"person in steamy room: medium-dark skin tone","shortname":":person_in_steamy_room_tone4:","shortname_alternates":[":person_in_steamy_room_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fe"},"1f9d6-1f3ff":{"name":"person in steamy room: dark skin tone","shortname":":person_in_steamy_room_tone5:","shortname_alternates":[":person_in_steamy_room_dark_skin_tone:"],"keywords":["dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3ff"},"1f9d7-1f3fb":{"name":"person climbing: light skin tone","shortname":":person_climbing_tone1:","shortname_alternates":[":person_climbing_light_skin_tone:"],"keywords":["climber","light skin tone"],"unicode_output":"1f9d7-1f3fb"},"1f9d7-1f3fc":{"name":"person climbing: medium-light skin tone","shortname":":person_climbing_tone2:","shortname_alternates":[":person_climbing_medium_light_skin_tone:"],"keywords":["climber","medium-light skin tone"],"unicode_output":"1f9d7-1f3fc"},"1f9d7-1f3fd":{"name":"person climbing: medium skin tone","shortname":":person_climbing_tone3:","shortname_alternates":[":person_climbing_medium_skin_tone:"],"keywords":["climber","medium skin tone"],"unicode_output":"1f9d7-1f3fd"},"1f9d7-1f3fe":{"name":"person climbing: medium-dark skin tone","shortname":":person_climbing_tone4:","shortname_alternates":[":person_climbing_medium_dark_skin_tone:"],"keywords":["climber","medium-dark skin tone"],"unicode_output":"1f9d7-1f3fe"},"1f9d7-1f3ff":{"name":"person climbing: dark skin tone","shortname":":person_climbing_tone5:","shortname_alternates":[":person_climbing_dark_skin_tone:"],"keywords":["climber","dark skin tone"],"unicode_output":"1f9d7-1f3ff"},"1f9d8-1f3fb":{"name":"person in lotus position: light skin tone","shortname":":person_in_lotus_position_tone1:","shortname_alternates":[":person_in_lotus_position_light_skin_tone:"],"keywords":["light skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3fb"},"1f9d8-1f3fc":{"name":"person in lotus position: medium-light skin tone","shortname":":person_in_lotus_position_tone2:","shortname_alternates":[":person_in_lotus_position_medium_light_skin_tone:"],"keywords":["meditation","medium-light skin tone","yoga"],"unicode_output":"1f9d8-1f3fc"},"1f9d8-1f3fd":{"name":"person in lotus position: medium skin tone","shortname":":person_in_lotus_position_tone3:","shortname_alternates":[":person_in_lotus_position_medium_skin_tone:"],"keywords":["meditation","medium skin tone","yoga"],"unicode_output":"1f9d8-1f3fd"},"1f9d8-1f3fe":{"name":"person in lotus position: medium-dark skin tone","shortname":":person_in_lotus_position_tone4:","shortname_alternates":[":person_in_lotus_position_medium_dark_skin_tone:"],"keywords":["meditation","medium-dark skin tone","yoga"],"unicode_output":"1f9d8-1f3fe"},"1f9d8-1f3ff":{"name":"person in lotus position: dark skin tone","shortname":":person_in_lotus_position_tone5:","shortname_alternates":[":person_in_lotus_position_dark_skin_tone:"],"keywords":["dark skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3ff"},"1f9d6-2640":{"name":"woman in steamy room","shortname":":woman_in_steamy_room:","shortname_alternates":[],"keywords":["sauna","steam room"],"unicode_output":"1f9d6-200d-2640-fe0f"},"1f9d6-2642":{"name":"man in steamy room","shortname":":man_in_steamy_room:","shortname_alternates":[],"keywords":["sauna","steam room"],"unicode_output":"1f9d6-200d-2642-fe0f"},"1f9d6-1f3fb-2640":{"name":"woman in steamy room: light skin tone","shortname":":woman_in_steamy_room_tone1:","shortname_alternates":[":woman_in_steamy_room_light_skin_tone:"],"keywords":["light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fb-200d-2640-fe0f"},"1f9d6-1f3fb-2642":{"name":"man in steamy room: light skin tone","shortname":":man_in_steamy_room_tone1:","shortname_alternates":[":man_in_steamy_room_light_skin_tone:"],"keywords":["light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fb-200d-2642-fe0f"},"1f9d6-1f3fc-2640":{"name":"woman in steamy room: medium-light skin tone","shortname":":woman_in_steamy_room_tone2:","shortname_alternates":[":woman_in_steamy_room_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fc-200d-2640-fe0f"},"1f9d6-1f3fc-2642":{"name":"man in steamy room: medium-light skin tone","shortname":":man_in_steamy_room_tone2:","shortname_alternates":[":man_in_steamy_room_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fc-200d-2642-fe0f"},"1f9d6-1f3fd-2640":{"name":"woman in steamy room: medium skin tone","shortname":":woman_in_steamy_room_tone3:","shortname_alternates":[":woman_in_steamy_room_medium_skin_tone:"],"keywords":["medium skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fd-200d-2640-fe0f"},"1f9d6-1f3fd-2642":{"name":"man in steamy room: medium skin tone","shortname":":man_in_steamy_room_tone3:","shortname_alternates":[":man_in_steamy_room_medium_skin_tone:"],"keywords":["medium skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fd-200d-2642-fe0f"},"1f9d6-1f3fe-2640":{"name":"woman in steamy room: medium-dark skin tone","shortname":":woman_in_steamy_room_tone4:","shortname_alternates":[":woman_in_steamy_room_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fe-200d-2640-fe0f"},"1f9d6-1f3fe-2642":{"name":"man in steamy room: medium-dark skin tone","shortname":":man_in_steamy_room_tone4:","shortname_alternates":[":man_in_steamy_room_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3fe-200d-2642-fe0f"},"1f9d6-1f3ff-2640":{"name":"woman in steamy room: dark skin tone","shortname":":woman_in_steamy_room_tone5:","shortname_alternates":[":woman_in_steamy_room_dark_skin_tone:"],"keywords":["dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3ff-200d-2640-fe0f"},"1f9d6-1f3ff-2642":{"name":"man in steamy room: dark skin tone","shortname":":man_in_steamy_room_tone5:","shortname_alternates":[":man_in_steamy_room_dark_skin_tone:"],"keywords":["dark skin tone","sauna","steam room"],"unicode_output":"1f9d6-1f3ff-200d-2642-fe0f"},"1f9d7-2640":{"name":"woman climbing","shortname":":woman_climbing:","shortname_alternates":[],"keywords":["climber"],"unicode_output":"1f9d7-200d-2640-fe0f"},"1f9d7-2642":{"name":"man climbing","shortname":":man_climbing:","shortname_alternates":[],"keywords":["climber"],"unicode_output":"1f9d7-200d-2642-fe0f"},"1f9d7-1f3fb-2640":{"name":"woman climbing: light skin tone","shortname":":woman_climbing_tone1:","shortname_alternates":[":woman_climbing_light_skin_tone:"],"keywords":["climber","light skin tone"],"unicode_output":"1f9d7-1f3fb-200d-2640-fe0f"},"1f9d7-1f3fb-2642":{"name":"man climbing: light skin tone","shortname":":man_climbing_tone1:","shortname_alternates":[":man_climbing_light_skin_tone:"],"keywords":["climber","light skin tone"],"unicode_output":"1f9d7-1f3fb-200d-2642-fe0f"},"1f9d7-1f3fc-2640":{"name":"woman climbing: medium-light skin tone","shortname":":woman_climbing_tone2:","shortname_alternates":[":woman_climbing_medium_light_skin_tone:"],"keywords":["climber","medium-light skin tone"],"unicode_output":"1f9d7-1f3fc-200d-2640-fe0f"},"1f9d7-1f3fc-2642":{"name":"man climbing: medium-light skin tone","shortname":":man_climbing_tone2:","shortname_alternates":[":man_climbing_medium_light_skin_tone:"],"keywords":["climber","medium-light skin tone"],"unicode_output":"1f9d7-1f3fc-200d-2642-fe0f"},"1f9d7-1f3fd-2640":{"name":"woman climbing: medium skin tone","shortname":":woman_climbing_tone3:","shortname_alternates":[":woman_climbing_medium_skin_tone:"],"keywords":["climber","medium skin tone"],"unicode_output":"1f9d7-1f3fd-200d-2640-fe0f"},"1f9d7-1f3fd-2642":{"name":"man climbing: medium skin tone","shortname":":man_climbing_tone3:","shortname_alternates":[":man_climbing_medium_skin_tone:"],"keywords":["climber","medium skin tone"],"unicode_output":"1f9d7-1f3fd-200d-2642-fe0f"},"1f9d7-1f3fe-2640":{"name":"woman climbing: medium-dark skin tone","shortname":":woman_climbing_tone4:","shortname_alternates":[":woman_climbing_medium_dark_skin_tone:"],"keywords":["climber","medium-dark skin tone"],"unicode_output":"1f9d7-1f3fe-200d-2640-fe0f"},"1f9d7-1f3fe-2642":{"name":"man climbing: medium-dark skin tone","shortname":":man_climbing_tone4:","shortname_alternates":[":man_climbing_medium_dark_skin_tone:"],"keywords":["climber","medium-dark skin tone"],"unicode_output":"1f9d7-1f3fe-200d-2642-fe0f"},"1f9d7-1f3ff-2640":{"name":"woman climbing: dark skin tone","shortname":":woman_climbing_tone5:","shortname_alternates":[":woman_climbing_dark_skin_tone:"],"keywords":["climber","dark skin tone"],"unicode_output":"1f9d7-1f3ff-200d-2640-fe0f"},"1f9d7-1f3ff-2642":{"name":"man climbing: dark skin tone","shortname":":man_climbing_tone5:","shortname_alternates":[":man_climbing_dark_skin_tone:"],"keywords":["climber","dark skin tone"],"unicode_output":"1f9d7-1f3ff-200d-2642-fe0f"},"1f9d8-2640":{"name":"woman in lotus position","shortname":":woman_in_lotus_position:","shortname_alternates":[],"keywords":["meditation","yoga"],"unicode_output":"1f9d8-200d-2640-fe0f"},"1f9d8-2642":{"name":"man in lotus position","shortname":":man_in_lotus_position:","shortname_alternates":[],"keywords":["meditation","yoga"],"unicode_output":"1f9d8-200d-2642-fe0f"},"1f9d8-1f3fb-2640":{"name":"woman in lotus position: light skin tone","shortname":":woman_in_lotus_position_tone1:","shortname_alternates":[":woman_in_lotus_position_light_skin_tone:"],"keywords":["light skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3fb-200d-2640-fe0f"},"1f9d8-1f3fb-2642":{"name":"man in lotus position: light skin tone","shortname":":man_in_lotus_position_tone1:","shortname_alternates":[":man_in_lotus_position_light_skin_tone:"],"keywords":["light skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3fb-200d-2642-fe0f"},"1f9d8-1f3fc-2640":{"name":"woman in lotus position: medium-light skin tone","shortname":":woman_in_lotus_position_tone2:","shortname_alternates":[":woman_in_lotus_position_medium_light_skin_tone:"],"keywords":["meditation","medium-light skin tone","yoga"],"unicode_output":"1f9d8-1f3fc-200d-2640-fe0f"},"1f9d8-1f3fc-2642":{"name":"man in lotus position: medium-light skin tone","shortname":":man_in_lotus_position_tone2:","shortname_alternates":[":man_in_lotus_position_medium_light_skin_tone:"],"keywords":["meditation","medium-light skin tone","yoga"],"unicode_output":"1f9d8-1f3fc-200d-2642-fe0f"},"1f9d8-1f3fd-2640":{"name":"woman in lotus position: medium skin tone","shortname":":woman_in_lotus_position_tone3:","shortname_alternates":[":woman_in_lotus_position_medium_skin_tone:"],"keywords":["meditation","medium skin tone","yoga"],"unicode_output":"1f9d8-1f3fd-200d-2640-fe0f"},"1f9d8-1f3fd-2642":{"name":"man in lotus position: medium skin tone","shortname":":man_in_lotus_position_tone3:","shortname_alternates":[":man_in_lotus_position_medium_skin_tone:"],"keywords":["meditation","medium skin tone","yoga"],"unicode_output":"1f9d8-1f3fd-200d-2642-fe0f"},"1f9d8-1f3fe-2640":{"name":"woman in lotus position: medium-dark skin tone","shortname":":woman_in_lotus_position_tone4:","shortname_alternates":[":woman_in_lotus_position_medium_dark_skin_tone:"],"keywords":["meditation","medium-dark skin tone","yoga"],"unicode_output":"1f9d8-1f3fe-200d-2640-fe0f"},"1f9d8-1f3fe-2642":{"name":"man in lotus position: medium-dark skin tone","shortname":":man_in_lotus_position_tone4:","shortname_alternates":[":man_in_lotus_position_medium_dark_skin_tone:"],"keywords":["meditation","medium-dark skin tone","yoga"],"unicode_output":"1f9d8-1f3fe-200d-2642-fe0f"},"1f9d8-1f3ff-2640":{"name":"woman in lotus position: dark skin tone","shortname":":woman_in_lotus_position_tone5:","shortname_alternates":[":woman_in_lotus_position_dark_skin_tone:"],"keywords":["dark skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3ff-200d-2640-fe0f"},"1f9d8-1f3ff-2642":{"name":"man in lotus position: dark skin tone","shortname":":man_in_lotus_position_tone5:","shortname_alternates":[":man_in_lotus_position_dark_skin_tone:"],"keywords":["dark skin tone","meditation","yoga"],"unicode_output":"1f9d8-1f3ff-200d-2642-fe0f"},"1f697":{"name":"automobile","shortname":":red_car:","shortname_alternates":[],"keywords":["car"],"unicode_output":"1f697"},"1f695":{"name":"taxi","shortname":":taxi:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f695"},"1f699":{"name":"sport utility vehicle","shortname":":blue_car:","shortname_alternates":[],"keywords":["recreational","sport utility"],"unicode_output":"1f699"},"1f68c":{"name":"bus","shortname":":bus:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f68c"},"1f68e":{"name":"trolleybus","shortname":":trolleybus:","shortname_alternates":[],"keywords":["bus","tram","trolley"],"unicode_output":"1f68e"},"1f3ce":{"name":"racing car","shortname":":race_car:","shortname_alternates":[":racing_car:"],"keywords":["car","racing"],"unicode_output":"1f3ce"},"1f693":{"name":"police car","shortname":":police_car:","shortname_alternates":[],"keywords":["car","patrol","police"],"unicode_output":"1f693"},"1f691":{"name":"ambulance","shortname":":ambulance:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f691"},"1f692":{"name":"fire engine","shortname":":fire_engine:","shortname_alternates":[],"keywords":["engine","fire","truck"],"unicode_output":"1f692"},"1f690":{"name":"minibus","shortname":":minibus:","shortname_alternates":[],"keywords":["bus"],"unicode_output":"1f690"},"1f69a":{"name":"delivery truck","shortname":":truck:","shortname_alternates":[],"keywords":["delivery","truck"],"unicode_output":"1f69a"},"1f69b":{"name":"articulated lorry","shortname":":articulated_lorry:","shortname_alternates":[],"keywords":["lorry","semi","truck"],"unicode_output":"1f69b"},"1f69c":{"name":"tractor","shortname":":tractor:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f69c"},"1f6f4":{"name":"kick scooter","shortname":":scooter:","shortname_alternates":[],"keywords":["kick","scooter"],"unicode_output":"1f6f4"},"1f6b2":{"name":"bicycle","shortname":":bike:","shortname_alternates":[],"keywords":["bike"],"unicode_output":"1f6b2"},"1f6f5":{"name":"motor scooter","shortname":":motor_scooter:","shortname_alternates":[":motorbike:"],"keywords":["motor","scooter"],"unicode_output":"1f6f5"},"1f3cd":{"name":"motorcycle","shortname":":motorcycle:","shortname_alternates":[":racing_motorcycle:"],"keywords":["racing"],"unicode_output":"1f3cd"},"1f6a8":{"name":"police car light","shortname":":rotating_light:","shortname_alternates":[],"keywords":["beacon","car","light","police","revolving"],"unicode_output":"1f6a8"},"1f694":{"name":"oncoming police car","shortname":":oncoming_police_car:","shortname_alternates":[],"keywords":["car","oncoming","police"],"unicode_output":"1f694"},"1f68d":{"name":"oncoming bus","shortname":":oncoming_bus:","shortname_alternates":[],"keywords":["bus","oncoming"],"unicode_output":"1f68d"},"1f698":{"name":"oncoming automobile","shortname":":oncoming_automobile:","shortname_alternates":[],"keywords":["automobile","car","oncoming"],"unicode_output":"1f698"},"1f696":{"name":"oncoming taxi","shortname":":oncoming_taxi:","shortname_alternates":[],"keywords":["oncoming","taxi"],"unicode_output":"1f696"},"1f6a1":{"name":"aerial tramway","shortname":":aerial_tramway:","shortname_alternates":[],"keywords":["aerial","cable","car","gondola","tramway"],"unicode_output":"1f6a1"},"1f6a0":{"name":"mountain cableway","shortname":":mountain_cableway:","shortname_alternates":[],"keywords":["cable","gondola","mountain"],"unicode_output":"1f6a0"},"1f69f":{"name":"suspension railway","shortname":":suspension_railway:","shortname_alternates":[],"keywords":["railway","suspension"],"unicode_output":"1f69f"},"1f683":{"name":"railway car","shortname":":railway_car:","shortname_alternates":[],"keywords":["car","electric","railway","train","tram","trolleybus"],"unicode_output":"1f683"},"1f68b":{"name":"tram car","shortname":":train:","shortname_alternates":[],"keywords":["car","tram","trolleybus"],"unicode_output":"1f68b"},"1f69e":{"name":"mountain railway","shortname":":mountain_railway:","shortname_alternates":[],"keywords":["car","mountain","railway"],"unicode_output":"1f69e"},"1f69d":{"name":"monorail","shortname":":monorail:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f69d"},"1f684":{"name":"high-speed train","shortname":":bullettrain_side:","shortname_alternates":[],"keywords":["railway","shinkansen","speed","train"],"unicode_output":"1f684"},"1f685":{"name":"high-speed train with bullet nose","shortname":":bullettrain_front:","shortname_alternates":[],"keywords":["bullet","railway","shinkansen","speed","train"],"unicode_output":"1f685"},"1f688":{"name":"light rail","shortname":":light_rail:","shortname_alternates":[],"keywords":["railway"],"unicode_output":"1f688"},"1f682":{"name":"locomotive","shortname":":steam_locomotive:","shortname_alternates":[],"keywords":["engine","railway","steam","train"],"unicode_output":"1f682"},"1f686":{"name":"train","shortname":":train2:","shortname_alternates":[],"keywords":["railway"],"unicode_output":"1f686"},"1f687":{"name":"metro","shortname":":metro:","shortname_alternates":[],"keywords":["subway"],"unicode_output":"1f687"},"1f68a":{"name":"tram","shortname":":tram:","shortname_alternates":[],"keywords":["trolleybus"],"unicode_output":"1f68a"},"1f689":{"name":"station","shortname":":station:","shortname_alternates":[],"keywords":["railway","train"],"unicode_output":"1f689"},"1f681":{"name":"helicopter","shortname":":helicopter:","shortname_alternates":[],"keywords":["vehicle"],"unicode_output":"1f681"},"1f6e9":{"name":"small airplane","shortname":":airplane_small:","shortname_alternates":[":small_airplane:"],"keywords":["aeroplane","airplane"],"unicode_output":"1f6e9"},"2708":{"name":"airplane","shortname":":airplane:","shortname_alternates":[],"keywords":["aeroplane","airplane"],"unicode_output":"2708"},"1f6eb":{"name":"airplane departure","shortname":":airplane_departure:","shortname_alternates":[],"keywords":["aeroplane","airplane","check-in","departure","departures"],"unicode_output":"1f6eb"},"1f6ec":{"name":"airplane arrival","shortname":":airplane_arriving:","shortname_alternates":[],"keywords":["aeroplane","airplane","arrivals","arriving","landing"],"unicode_output":"1f6ec"},"1f680":{"name":"rocket","shortname":":rocket:","shortname_alternates":[],"keywords":["space"],"unicode_output":"1f680"},"1f6f0":{"name":"satellite","shortname":":satellite_orbital:","shortname_alternates":[],"keywords":["space"],"unicode_output":"1f6f0"},"1f4ba":{"name":"seat","shortname":":seat:","shortname_alternates":[],"keywords":["chair"],"unicode_output":"1f4ba"},"1f6f6":{"name":"canoe","shortname":":canoe:","shortname_alternates":[":kayak:"],"keywords":["boat","canoe"],"unicode_output":"1f6f6"},"26f5":{"name":"sailboat","shortname":":sailboat:","shortname_alternates":[],"keywords":["boat","resort","sea","yacht"],"unicode_output":"26f5"},"1f6e5":{"name":"motor boat","shortname":":motorboat:","shortname_alternates":[],"keywords":["boat","motorboat"],"unicode_output":"1f6e5"},"1f6a4":{"name":"speedboat","shortname":":speedboat:","shortname_alternates":[],"keywords":["boat"],"unicode_output":"1f6a4"},"1f6f3":{"name":"passenger ship","shortname":":cruise_ship:","shortname_alternates":[":passenger_ship:"],"keywords":["passenger","ship"],"unicode_output":"1f6f3"},"26f4":{"name":"ferry","shortname":":ferry:","shortname_alternates":[],"keywords":["boat","passenger"],"unicode_output":"26f4"},"1f6a2":{"name":"ship","shortname":":ship:","shortname_alternates":[],"keywords":["boat","passenger"],"unicode_output":"1f6a2"},"2693":{"name":"anchor","shortname":":anchor:","shortname_alternates":[],"keywords":["ship","tool"],"unicode_output":"2693"},"1f6a7":{"name":"construction","shortname":":construction:","shortname_alternates":[],"keywords":["barrier"],"unicode_output":"1f6a7"},"26fd":{"name":"fuel pump","shortname":":fuelpump:","shortname_alternates":[],"keywords":["fuel","fuelpump","gas","pump","station"],"unicode_output":"26fd"},"1f68f":{"name":"bus stop","shortname":":busstop:","shortname_alternates":[],"keywords":["bus","busstop","stop"],"unicode_output":"1f68f"},"1f6a6":{"name":"vertical traffic light","shortname":":vertical_traffic_light:","shortname_alternates":[],"keywords":["light","signal","traffic"],"unicode_output":"1f6a6"},"1f6a5":{"name":"horizontal traffic light","shortname":":traffic_light:","shortname_alternates":[],"keywords":["light","signal","traffic"],"unicode_output":"1f6a5"},"1f5fa":{"name":"world map","shortname":":map:","shortname_alternates":[":world_map:"],"keywords":["map","world"],"unicode_output":"1f5fa"},"1f5ff":{"name":"moai","shortname":":moyai:","shortname_alternates":[],"keywords":["face","moyai","statue"],"unicode_output":"1f5ff"},"1f5fd":{"name":"Statue of Liberty","shortname":":statue_of_liberty:","shortname_alternates":[],"keywords":["liberty","statue"],"unicode_output":"1f5fd"},"26f2":{"name":"fountain","shortname":":fountain:","shortname_alternates":[],"keywords":["fountain"],"unicode_output":"26f2"},"1f5fc":{"name":"Tokyo tower","shortname":":tokyo_tower:","shortname_alternates":[],"keywords":["Tokyo","tower"],"unicode_output":"1f5fc"},"1f3f0":{"name":"castle","shortname":":european_castle:","shortname_alternates":[],"keywords":["European"],"unicode_output":"1f3f0"},"1f3ef":{"name":"Japanese castle","shortname":":japanese_castle:","shortname_alternates":[],"keywords":["Japanese","castle"],"unicode_output":"1f3ef"},"1f3df":{"name":"stadium","shortname":":stadium:","shortname_alternates":[],"keywords":["stadium"],"unicode_output":"1f3df"},"1f3a1":{"name":"ferris wheel","shortname":":ferris_wheel:","shortname_alternates":[],"keywords":["amusement park","ferris","wheel"],"unicode_output":"1f3a1"},"1f3a2":{"name":"roller coaster","shortname":":roller_coaster:","shortname_alternates":[],"keywords":["amusement park","coaster","roller"],"unicode_output":"1f3a2"},"1f3a0":{"name":"carousel horse","shortname":":carousel_horse:","shortname_alternates":[],"keywords":["carousel","horse"],"unicode_output":"1f3a0"},"26f1":{"name":"umbrella on ground","shortname":":beach_umbrella:","shortname_alternates":[":umbrella_on_ground:"],"keywords":["rain","sun","umbrella"],"unicode_output":"26f1"},"1f3d6":{"name":"beach with umbrella","shortname":":beach:","shortname_alternates":[":beach_with_umbrella:"],"keywords":["beach","umbrella"],"unicode_output":"1f3d6"},"1f3dd":{"name":"desert island","shortname":":island:","shortname_alternates":[":desert_island:"],"keywords":["desert","island"],"unicode_output":"1f3dd"},"26f0":{"name":"mountain","shortname":":mountain:","shortname_alternates":[],"keywords":["mountain"],"unicode_output":"26f0"},"1f3d4":{"name":"snow-capped mountain","shortname":":mountain_snow:","shortname_alternates":[":snow_capped_mountain:"],"keywords":["cold","mountain","snow"],"unicode_output":"1f3d4"},"1f5fb":{"name":"mount fuji","shortname":":mount_fuji:","shortname_alternates":[],"keywords":["fuji","mountain"],"unicode_output":"1f5fb"},"1f30b":{"name":"volcano","shortname":":volcano:","shortname_alternates":[],"keywords":["eruption","mountain"],"unicode_output":"1f30b"},"1f3dc":{"name":"desert","shortname":":desert:","shortname_alternates":[],"keywords":["desert"],"unicode_output":"1f3dc"},"1f3d5":{"name":"camping","shortname":":camping:","shortname_alternates":[],"keywords":["camping"],"unicode_output":"1f3d5"},"26fa":{"name":"tent","shortname":":tent:","shortname_alternates":[],"keywords":["camping"],"unicode_output":"26fa"},"1f6e4":{"name":"railway track","shortname":":railway_track:","shortname_alternates":[":railroad_track:"],"keywords":["railway","train"],"unicode_output":"1f6e4"},"1f6e3":{"name":"motorway","shortname":":motorway:","shortname_alternates":[],"keywords":["highway","road"],"unicode_output":"1f6e3"},"1f3d7":{"name":"building construction","shortname":":construction_site:","shortname_alternates":[":building_construction:"],"keywords":["construction"],"unicode_output":"1f3d7"},"1f3ed":{"name":"factory","shortname":":factory:","shortname_alternates":[],"keywords":["building"],"unicode_output":"1f3ed"},"1f3e0":{"name":"house","shortname":":house:","shortname_alternates":[],"keywords":["home","house"],"unicode_output":"1f3e0"},"1f3e1":{"name":"house with garden","shortname":":house_with_garden:","shortname_alternates":[],"keywords":["garden","home","house"],"unicode_output":"1f3e1"},"1f3d8":{"name":"houses","shortname":":homes:","shortname_alternates":[":house_buildings:"],"keywords":["houses"],"unicode_output":"1f3d8"},"1f3da":{"name":"derelict house","shortname":":house_abandoned:","shortname_alternates":[":derelict_house_building:"],"keywords":["derelict","house"],"unicode_output":"1f3da"},"1f3e2":{"name":"office building","shortname":":office:","shortname_alternates":[],"keywords":["building"],"unicode_output":"1f3e2"},"1f3ec":{"name":"department store","shortname":":department_store:","shortname_alternates":[],"keywords":["department","store"],"unicode_output":"1f3ec"},"1f3e3":{"name":"Japanese post office","shortname":":post_office:","shortname_alternates":[],"keywords":["Japanese","post"],"unicode_output":"1f3e3"},"1f3e4":{"name":"post office","shortname":":european_post_office:","shortname_alternates":[],"keywords":["European","post"],"unicode_output":"1f3e4"},"1f3e5":{"name":"hospital","shortname":":hospital:","shortname_alternates":[],"keywords":["doctor","medicine"],"unicode_output":"1f3e5"},"1f3e6":{"name":"bank","shortname":":bank:","shortname_alternates":[],"keywords":["building"],"unicode_output":"1f3e6"},"1f3e8":{"name":"hotel","shortname":":hotel:","shortname_alternates":[],"keywords":["building"],"unicode_output":"1f3e8"},"1f3ea":{"name":"convenience store","shortname":":convenience_store:","shortname_alternates":[],"keywords":["convenience","store"],"unicode_output":"1f3ea"},"1f3eb":{"name":"school","shortname":":school:","shortname_alternates":[],"keywords":["building"],"unicode_output":"1f3eb"},"1f3e9":{"name":"love hotel","shortname":":love_hotel:","shortname_alternates":[],"keywords":["hotel","love"],"unicode_output":"1f3e9"},"1f492":{"name":"wedding","shortname":":wedding:","shortname_alternates":[],"keywords":["chapel","romance"],"unicode_output":"1f492"},"1f3db":{"name":"classical building","shortname":":classical_building:","shortname_alternates":[],"keywords":["classical"],"unicode_output":"1f3db"},"26ea":{"name":"church","shortname":":church:","shortname_alternates":[],"keywords":["Christian","cross","religion"],"unicode_output":"26ea"},"1f54c":{"name":"mosque","shortname":":mosque:","shortname_alternates":[],"keywords":["Muslim","islam","religion"],"unicode_output":"1f54c"},"1f54d":{"name":"synagogue","shortname":":synagogue:","shortname_alternates":[],"keywords":["Jew","Jewish","religion","temple"],"unicode_output":"1f54d"},"1f54b":{"name":"kaaba","shortname":":kaaba:","shortname_alternates":[],"keywords":["Muslim","islam","religion"],"unicode_output":"1f54b"},"26e9":{"name":"shinto shrine","shortname":":shinto_shrine:","shortname_alternates":[],"keywords":["religion","shinto","shrine"],"unicode_output":"26e9"},"1f5fe":{"name":"map of Japan","shortname":":japan:","shortname_alternates":[],"keywords":["Japan","map"],"unicode_output":"1f5fe"},"1f391":{"name":"moon viewing ceremony","shortname":":rice_scene:","shortname_alternates":[],"keywords":["celebration","ceremony","moon"],"unicode_output":"1f391"},"1f3de":{"name":"national park","shortname":":park:","shortname_alternates":[":national_park:"],"keywords":["park"],"unicode_output":"1f3de"},"1f305":{"name":"sunrise","shortname":":sunrise:","shortname_alternates":[],"keywords":["morning","sun"],"unicode_output":"1f305"},"1f304":{"name":"sunrise over mountains","shortname":":sunrise_over_mountains:","shortname_alternates":[],"keywords":["morning","mountain","sun","sunrise"],"unicode_output":"1f304"},"1f320":{"name":"shooting star","shortname":":stars:","shortname_alternates":[],"keywords":["falling","shooting","star"],"unicode_output":"1f320"},"1f387":{"name":"sparkler","shortname":":sparkler:","shortname_alternates":[],"keywords":["celebration","fireworks","sparkle"],"unicode_output":"1f387"},"1f386":{"name":"fireworks","shortname":":fireworks:","shortname_alternates":[],"keywords":["celebration"],"unicode_output":"1f386"},"1f307":{"name":"sunset","shortname":":city_sunset:","shortname_alternates":[":city_sunrise:"],"keywords":["dusk","sun"],"unicode_output":"1f307"},"1f306":{"name":"cityscape at dusk","shortname":":city_dusk:","shortname_alternates":[],"keywords":["city","dusk","evening","landscape","sun","sunset"],"unicode_output":"1f306"},"1f3d9":{"name":"cityscape","shortname":":cityscape:","shortname_alternates":[],"keywords":["city"],"unicode_output":"1f3d9"},"1f303":{"name":"night with stars","shortname":":night_with_stars:","shortname_alternates":[],"keywords":["night","star"],"unicode_output":"1f303"},"1f30c":{"name":"milky way","shortname":":milky_way:","shortname_alternates":[],"keywords":["space"],"unicode_output":"1f30c"},"1f309":{"name":"bridge at night","shortname":":bridge_at_night:","shortname_alternates":[],"keywords":["bridge","night"],"unicode_output":"1f309"},"1f301":{"name":"foggy","shortname":":foggy:","shortname_alternates":[],"keywords":["fog"],"unicode_output":"1f301"},"1f6f8":{"name":"flying saucer","shortname":":flying_saucer:","shortname_alternates":[],"keywords":["UFO"],"unicode_output":"1f6f8"},"231a":{"name":"watch","shortname":":watch:","shortname_alternates":[],"keywords":["clock"],"unicode_output":"231a"},"1f4f1":{"name":"mobile phone","shortname":":iphone:","shortname_alternates":[],"keywords":["cell","mobile","phone","telephone"],"unicode_output":"1f4f1"},"1f4f2":{"name":"mobile phone with arrow","shortname":":calling:","shortname_alternates":[],"keywords":["arrow","call","cell","mobile","phone","receive","telephone"],"unicode_output":"1f4f2"},"1f4bb":{"name":"laptop computer","shortname":":computer:","shortname_alternates":[],"keywords":["computer","pc","personal"],"unicode_output":"1f4bb"},"2328":{"name":"keyboard","shortname":":keyboard:","shortname_alternates":[],"keywords":["computer"],"unicode_output":"2328"},"1f5a5":{"name":"desktop computer","shortname":":desktop:","shortname_alternates":[":desktop_computer:"],"keywords":["computer","desktop"],"unicode_output":"1f5a5"},"1f5a8":{"name":"printer","shortname":":printer:","shortname_alternates":[],"keywords":["computer"],"unicode_output":"1f5a8"},"1f5b1":{"name":"computer mouse","shortname":":mouse_three_button:","shortname_alternates":[":three_button_mouse:"],"keywords":["computer"],"unicode_output":"1f5b1"},"1f5b2":{"name":"trackball","shortname":":trackball:","shortname_alternates":[],"keywords":["computer"],"unicode_output":"1f5b2"},"1f579":{"name":"joystick","shortname":":joystick:","shortname_alternates":[],"keywords":["game","video game"],"unicode_output":"1f579"},"1f5dc":{"name":"clamp","shortname":":compression:","shortname_alternates":[],"keywords":["compress","tool","vice"],"unicode_output":"1f5dc"},"1f4bd":{"name":"computer disk","shortname":":minidisc:","shortname_alternates":[],"keywords":["computer","disk","minidisk","optical"],"unicode_output":"1f4bd"},"1f4be":{"name":"floppy disk","shortname":":floppy_disk:","shortname_alternates":[],"keywords":["computer","disk","floppy"],"unicode_output":"1f4be"},"1f4bf":{"name":"optical disk","shortname":":cd:","shortname_alternates":[],"keywords":["cd","computer","disk","optical"],"unicode_output":"1f4bf"},"1f4c0":{"name":"dvd","shortname":":dvd:","shortname_alternates":[],"keywords":["blu-ray","computer","disk","dvd","optical"],"unicode_output":"1f4c0"},"1f4fc":{"name":"videocassette","shortname":":vhs:","shortname_alternates":[],"keywords":["tape","vhs","video"],"unicode_output":"1f4fc"},"1f4f7":{"name":"camera","shortname":":camera:","shortname_alternates":[],"keywords":["video"],"unicode_output":"1f4f7"},"1f4f8":{"name":"camera with flash","shortname":":camera_with_flash:","shortname_alternates":[],"keywords":["camera","flash","video"],"unicode_output":"1f4f8"},"1f4f9":{"name":"video camera","shortname":":video_camera:","shortname_alternates":[],"keywords":["camera","video"],"unicode_output":"1f4f9"},"1f3a5":{"name":"movie camera","shortname":":movie_camera:","shortname_alternates":[],"keywords":["camera","cinema","movie"],"unicode_output":"1f3a5"},"1f4fd":{"name":"film projector","shortname":":projector:","shortname_alternates":[":film_projector:"],"keywords":["cinema","film","movie","projector","video"],"unicode_output":"1f4fd"},"1f39e":{"name":"film frames","shortname":":film_frames:","shortname_alternates":[],"keywords":["cinema","film","frames","movie"],"unicode_output":"1f39e"},"1f4de":{"name":"telephone receiver","shortname":":telephone_receiver:","shortname_alternates":[],"keywords":["phone","receiver","telephone"],"unicode_output":"1f4de"},"260e":{"name":"telephone","shortname":":telephone:","shortname_alternates":[],"keywords":["phone"],"unicode_output":"260e"},"1f4df":{"name":"pager","shortname":":pager:","shortname_alternates":[],"keywords":["pager"],"unicode_output":"1f4df"},"1f4e0":{"name":"fax machine","shortname":":fax:","shortname_alternates":[],"keywords":["fax"],"unicode_output":"1f4e0"},"1f4fa":{"name":"television","shortname":":tv:","shortname_alternates":[],"keywords":["tv","video"],"unicode_output":"1f4fa"},"1f4fb":{"name":"radio","shortname":":radio:","shortname_alternates":[],"keywords":["video"],"unicode_output":"1f4fb"},"1f399":{"name":"studio microphone","shortname":":microphone2:","shortname_alternates":[":studio_microphone:"],"keywords":["mic","microphone","music","studio"],"unicode_output":"1f399"},"1f39a":{"name":"level slider","shortname":":level_slider:","shortname_alternates":[],"keywords":["level","music","slider"],"unicode_output":"1f39a"},"1f39b":{"name":"control knobs","shortname":":control_knobs:","shortname_alternates":[],"keywords":["control","knobs","music"],"unicode_output":"1f39b"},"23f1":{"name":"stopwatch","shortname":":stopwatch:","shortname_alternates":[],"keywords":["clock"],"unicode_output":"23f1"},"23f2":{"name":"timer clock","shortname":":timer:","shortname_alternates":[":timer_clock:"],"keywords":["clock","timer"],"unicode_output":"23f2"},"23f0":{"name":"alarm clock","shortname":":alarm_clock:","shortname_alternates":[],"keywords":["alarm","clock"],"unicode_output":"23f0"},"1f570":{"name":"mantelpiece clock","shortname":":clock:","shortname_alternates":[":mantlepiece_clock:"],"keywords":["clock"],"unicode_output":"1f570"},"231b":{"name":"hourglass","shortname":":hourglass:","shortname_alternates":[],"keywords":["sand","timer"],"unicode_output":"231b"},"23f3":{"name":"hourglass with flowing sand","shortname":":hourglass_flowing_sand:","shortname_alternates":[],"keywords":["hourglass","sand","timer"],"unicode_output":"23f3"},"1f4e1":{"name":"satellite antenna","shortname":":satellite:","shortname_alternates":[],"keywords":["antenna","dish","satellite"],"unicode_output":"1f4e1"},"1f50b":{"name":"battery","shortname":":battery:","shortname_alternates":[],"keywords":["battery"],"unicode_output":"1f50b"},"1f50c":{"name":"electric plug","shortname":":electric_plug:","shortname_alternates":[],"keywords":["electric","electricity","plug"],"unicode_output":"1f50c"},"1f4a1":{"name":"light bulb","shortname":":bulb:","shortname_alternates":[],"keywords":["bulb","comic","electric","idea","light"],"unicode_output":"1f4a1"},"1f526":{"name":"flashlight","shortname":":flashlight:","shortname_alternates":[],"keywords":["electric","light","tool","torch"],"unicode_output":"1f526"},"1f56f":{"name":"candle","shortname":":candle:","shortname_alternates":[],"keywords":["light"],"unicode_output":"1f56f"},"1f5d1":{"name":"wastebasket","shortname":":wastebasket:","shortname_alternates":[],"keywords":["wastebasket"],"unicode_output":"1f5d1"},"1f6e2":{"name":"oil drum","shortname":":oil:","shortname_alternates":[":oil_drum:"],"keywords":["drum","oil"],"unicode_output":"1f6e2"},"1f4b8":{"name":"money with wings","shortname":":money_with_wings:","shortname_alternates":[],"keywords":["bank","banknote","bill","dollar","fly","money","note","wings"],"unicode_output":"1f4b8"},"1f4b5":{"name":"dollar banknote","shortname":":dollar:","shortname_alternates":[],"keywords":["bank","banknote","bill","currency","dollar","money","note"],"unicode_output":"1f4b5"},"1f4b4":{"name":"yen banknote","shortname":":yen:","shortname_alternates":[],"keywords":["bank","banknote","bill","currency","money","note","yen"],"unicode_output":"1f4b4"},"1f4b6":{"name":"euro banknote","shortname":":euro:","shortname_alternates":[],"keywords":["bank","banknote","bill","currency","euro","money","note"],"unicode_output":"1f4b6"},"1f4b7":{"name":"pound banknote","shortname":":pound:","shortname_alternates":[],"keywords":["bank","banknote","bill","currency","money","note","pound"],"unicode_output":"1f4b7"},"1f4b0":{"name":"money bag","shortname":":moneybag:","shortname_alternates":[],"keywords":["bag","dollar","money","moneybag"],"unicode_output":"1f4b0"},"1f4b3":{"name":"credit card","shortname":":credit_card:","shortname_alternates":[],"keywords":["bank","card","credit","money"],"unicode_output":"1f4b3"},"1f48e":{"name":"gem stone","shortname":":gem:","shortname_alternates":[],"keywords":["diamond","gem","jewel"],"unicode_output":"1f48e"},"2696":{"name":"balance scale","shortname":":scales:","shortname_alternates":[],"keywords":["Libra","balance","justice","scales","tool","weight","zodiac"],"unicode_output":"2696"},"1f527":{"name":"wrench","shortname":":wrench:","shortname_alternates":[],"keywords":["spanner","tool","wrench"],"unicode_output":"1f527"},"1f528":{"name":"hammer","shortname":":hammer:","shortname_alternates":[],"keywords":["tool"],"unicode_output":"1f528"},"2692":{"name":"hammer and pick","shortname":":hammer_pick:","shortname_alternates":[":hammer_and_pick:"],"keywords":["hammer","pick","tool"],"unicode_output":"2692"},"1f6e0":{"name":"hammer and wrench","shortname":":tools:","shortname_alternates":[":hammer_and_wrench:"],"keywords":["hammer","spanner","tool","wrench"],"unicode_output":"1f6e0"},"26cf":{"name":"pick","shortname":":pick:","shortname_alternates":[],"keywords":["mining","tool"],"unicode_output":"26cf"},"1f529":{"name":"nut and bolt","shortname":":nut_and_bolt:","shortname_alternates":[],"keywords":["bolt","nut","tool"],"unicode_output":"1f529"},"2699":{"name":"gear","shortname":":gear:","shortname_alternates":[],"keywords":["tool"],"unicode_output":"2699"},"26d3":{"name":"chains","shortname":":chains:","shortname_alternates":[],"keywords":["chain"],"unicode_output":"26d3"},"1f52b":{"name":"pistol","shortname":":gun:","shortname_alternates":[],"keywords":["gun","handgun","revolver","tool","weapon"],"unicode_output":"1f52b"},"1f4a3":{"name":"bomb","shortname":":bomb:","shortname_alternates":[],"keywords":["comic"],"unicode_output":"1f4a3"},"1f52a":{"name":"kitchen knife","shortname":":knife:","shortname_alternates":[],"keywords":["cooking","hocho","knife","tool","weapon"],"unicode_output":"1f52a"},"1f5e1":{"name":"dagger","shortname":":dagger:","shortname_alternates":[":dagger_knife:"],"keywords":["knife","weapon"],"unicode_output":"1f5e1"},"2694":{"name":"crossed swords","shortname":":crossed_swords:","shortname_alternates":[],"keywords":["crossed","swords","weapon"],"unicode_output":"2694"},"1f6e1":{"name":"shield","shortname":":shield:","shortname_alternates":[],"keywords":["weapon"],"unicode_output":"1f6e1"},"1f6ac":{"name":"cigarette","shortname":":smoking:","shortname_alternates":[],"keywords":["smoking"],"unicode_output":"1f6ac"},"26b0":{"name":"coffin","shortname":":coffin:","shortname_alternates":[],"keywords":["death"],"unicode_output":"26b0"},"26b1":{"name":"funeral urn","shortname":":urn:","shortname_alternates":[":funeral_urn:"],"keywords":["ashes","death","funeral","urn"],"unicode_output":"26b1"},"1f3fa":{"name":"amphora","shortname":":amphora:","shortname_alternates":[],"keywords":["Aquarius","cooking","drink","jug","tool","weapon","zodiac"],"unicode_output":"1f3fa"},"1f52e":{"name":"crystal ball","shortname":":crystal_ball:","shortname_alternates":[],"keywords":["ball","crystal","fairy tale","fantasy","fortune","tool"],"unicode_output":"1f52e"},"1f4ff":{"name":"prayer beads","shortname":":prayer_beads:","shortname_alternates":[],"keywords":["beads","clothing","necklace","prayer","religion"],"unicode_output":"1f4ff"},"1f488":{"name":"barber pole","shortname":":barber:","shortname_alternates":[],"keywords":["barber","haircut","pole"],"unicode_output":"1f488"},"2697":{"name":"alembic","shortname":":alembic:","shortname_alternates":[],"keywords":["chemistry","tool"],"unicode_output":"2697"},"1f52d":{"name":"telescope","shortname":":telescope:","shortname_alternates":[],"keywords":["science","tool"],"unicode_output":"1f52d"},"1f52c":{"name":"microscope","shortname":":microscope:","shortname_alternates":[],"keywords":["science","tool"],"unicode_output":"1f52c"},"1f573":{"name":"hole","shortname":":hole:","shortname_alternates":[],"keywords":["hole"],"unicode_output":"1f573"},"1f48a":{"name":"pill","shortname":":pill:","shortname_alternates":[],"keywords":["doctor","medicine","sick"],"unicode_output":"1f48a"},"1f489":{"name":"syringe","shortname":":syringe:","shortname_alternates":[],"keywords":["doctor","medicine","needle","shot","sick","tool"],"unicode_output":"1f489"},"1f321":{"name":"thermometer","shortname":":thermometer:","shortname_alternates":[],"keywords":["weather"],"unicode_output":"1f321"},"1f6bd":{"name":"toilet","shortname":":toilet:","shortname_alternates":[],"keywords":["toilet"],"unicode_output":"1f6bd"},"1f6b0":{"name":"potable water","shortname":":potable_water:","shortname_alternates":[],"keywords":["drinking","potable","water"],"unicode_output":"1f6b0"},"1f6bf":{"name":"shower","shortname":":shower:","shortname_alternates":[],"keywords":["water"],"unicode_output":"1f6bf"},"1f6c1":{"name":"bathtub","shortname":":bathtub:","shortname_alternates":[],"keywords":["bath"],"unicode_output":"1f6c1"},"1f6c0":{"name":"person taking bath","shortname":":bath:","shortname_alternates":[],"keywords":["bath","bathtub"],"unicode_output":"1f6c0"},"1f6c0-1f3fb":{"name":"person taking bath: light skin tone","shortname":":bath_tone1:","shortname_alternates":[],"keywords":["bath","bathtub","light skin tone"],"unicode_output":"1f6c0-1f3fb"},"1f6c0-1f3fc":{"name":"person taking bath: medium-light skin tone","shortname":":bath_tone2:","shortname_alternates":[],"keywords":["bath","bathtub","medium-light skin tone"],"unicode_output":"1f6c0-1f3fc"},"1f6c0-1f3fd":{"name":"person taking bath: medium skin tone","shortname":":bath_tone3:","shortname_alternates":[],"keywords":["bath","bathtub","medium skin tone"],"unicode_output":"1f6c0-1f3fd"},"1f6c0-1f3fe":{"name":"person taking bath: medium-dark skin tone","shortname":":bath_tone4:","shortname_alternates":[],"keywords":["bath","bathtub","medium-dark skin tone"],"unicode_output":"1f6c0-1f3fe"},"1f6c0-1f3ff":{"name":"person taking bath: dark skin tone","shortname":":bath_tone5:","shortname_alternates":[],"keywords":["bath","bathtub","dark skin tone"],"unicode_output":"1f6c0-1f3ff"},"1f6ce":{"name":"bellhop bell","shortname":":bellhop:","shortname_alternates":[":bellhop_bell:"],"keywords":["bell","bellhop","hotel"],"unicode_output":"1f6ce"},"1f511":{"name":"key","shortname":":key:","shortname_alternates":[],"keywords":["lock","password"],"unicode_output":"1f511"},"1f5dd":{"name":"old key","shortname":":key2:","shortname_alternates":[":old_key:"],"keywords":["clue","key","lock","old"],"unicode_output":"1f5dd"},"1f6aa":{"name":"door","shortname":":door:","shortname_alternates":[],"keywords":["door"],"unicode_output":"1f6aa"},"1f6cb":{"name":"couch and lamp","shortname":":couch:","shortname_alternates":[":couch_and_lamp:"],"keywords":["couch","hotel","lamp"],"unicode_output":"1f6cb"},"1f6cf":{"name":"bed","shortname":":bed:","shortname_alternates":[],"keywords":["hotel","sleep"],"unicode_output":"1f6cf"},"1f6cc":{"name":"person in bed","shortname":":sleeping_accommodation:","shortname_alternates":[],"keywords":["hotel","sleep"],"unicode_output":"1f6cc"},"1f6cc-1f3fb":{"name":"person in bed: light skin tone","shortname":":person_in_bed_tone1:","shortname_alternates":[":person_in_bed_light_skin_tone:"],"keywords":["hotel","light skin tone","sleep"],"unicode_output":"1f6cc-1f3fb"},"1f6cc-1f3fc":{"name":"person in bed: medium-light skin tone","shortname":":person_in_bed_tone2:","shortname_alternates":[":person_in_bed_medium_light_skin_tone:"],"keywords":["hotel","medium-light skin tone","sleep"],"unicode_output":"1f6cc-1f3fc"},"1f6cc-1f3fd":{"name":"person in bed: medium skin tone","shortname":":person_in_bed_tone3:","shortname_alternates":[":person_in_bed_medium_skin_tone:"],"keywords":["hotel","medium skin tone","sleep"],"unicode_output":"1f6cc-1f3fd"},"1f6cc-1f3fe":{"name":"person in bed: medium-dark skin tone","shortname":":person_in_bed_tone4:","shortname_alternates":[":person_in_bed_medium_dark_skin_tone:"],"keywords":["hotel","medium-dark skin tone","sleep"],"unicode_output":"1f6cc-1f3fe"},"1f6cc-1f3ff":{"name":"person in bed: dark skin tone","shortname":":person_in_bed_tone5:","shortname_alternates":[":person_in_bed_dark_skin_tone:"],"keywords":["dark skin tone","hotel","sleep"],"unicode_output":"1f6cc-1f3ff"},"1f5bc":{"name":"framed picture","shortname":":frame_photo:","shortname_alternates":[":frame_with_picture:"],"keywords":["art","frame","museum","painting","picture"],"unicode_output":"1f5bc"},"1f6cd":{"name":"shopping bags","shortname":":shopping_bags:","shortname_alternates":[],"keywords":["bag","hotel","shopping"],"unicode_output":"1f6cd"},"1f6d2":{"name":"shopping cart","shortname":":shopping_cart:","shortname_alternates":[":shopping_trolley:"],"keywords":["cart","shopping","trolley"],"unicode_output":"1f6d2"},"1f381":{"name":"wrapped gift","shortname":":gift:","shortname_alternates":[],"keywords":["box","celebration","gift","present","wrapped"],"unicode_output":"1f381"},"1f388":{"name":"balloon","shortname":":balloon:","shortname_alternates":[],"keywords":["celebration"],"unicode_output":"1f388"},"1f38f":{"name":"carp streamer","shortname":":flags:","shortname_alternates":[],"keywords":["carp","celebration","streamer"],"unicode_output":"1f38f"},"1f380":{"name":"ribbon","shortname":":ribbon:","shortname_alternates":[],"keywords":["celebration"],"unicode_output":"1f380"},"1f38a":{"name":"confetti ball","shortname":":confetti_ball:","shortname_alternates":[],"keywords":["ball","celebration","confetti"],"unicode_output":"1f38a"},"1f389":{"name":"party popper","shortname":":tada:","shortname_alternates":[],"keywords":["celebration","party","popper","tada"],"unicode_output":"1f389"},"1f38e":{"name":"Japanese dolls","shortname":":dolls:","shortname_alternates":[],"keywords":["Japanese","celebration","doll","festival"],"unicode_output":"1f38e"},"1f3ee":{"name":"red paper lantern","shortname":":izakaya_lantern:","shortname_alternates":[],"keywords":["bar","lantern","light","red"],"unicode_output":"1f3ee"},"1f390":{"name":"wind chime","shortname":":wind_chime:","shortname_alternates":[],"keywords":["bell","celebration","chime","wind"],"unicode_output":"1f390"},"2709":{"name":"envelope","shortname":":envelope:","shortname_alternates":[],"keywords":["email","letter"],"unicode_output":"2709"},"1f4e9":{"name":"envelope with arrow","shortname":":envelope_with_arrow:","shortname_alternates":[],"keywords":["arrow","down","e-mail","email","envelope","letter","mail","outgoing","sent"],"unicode_output":"1f4e9"},"1f4e8":{"name":"incoming envelope","shortname":":incoming_envelope:","shortname_alternates":[],"keywords":["e-mail","email","envelope","incoming","letter","mail","receive"],"unicode_output":"1f4e8"},"1f4e7":{"name":"e-mail","shortname":":e-mail:","shortname_alternates":[":email:"],"keywords":["email","letter","mail"],"unicode_output":"1f4e7"},"1f48c":{"name":"love letter","shortname":":love_letter:","shortname_alternates":[],"keywords":["heart","letter","love","mail"],"unicode_output":"1f48c"},"1f4e5":{"name":"inbox tray","shortname":":inbox_tray:","shortname_alternates":[],"keywords":["box","inbox","letter","mail","receive","tray"],"unicode_output":"1f4e5"},"1f4e4":{"name":"outbox tray","shortname":":outbox_tray:","shortname_alternates":[],"keywords":["box","letter","mail","outbox","sent","tray"],"unicode_output":"1f4e4"},"1f4e6":{"name":"package","shortname":":package:","shortname_alternates":[],"keywords":["box","parcel"],"unicode_output":"1f4e6"},"1f3f7":{"name":"label","shortname":":label:","shortname_alternates":[],"keywords":["label"],"unicode_output":"1f3f7"},"1f4ea":{"name":"closed mailbox with lowered flag","shortname":":mailbox_closed:","shortname_alternates":[],"keywords":["closed","lowered","mail","mailbox","postbox"],"unicode_output":"1f4ea"},"1f4eb":{"name":"closed mailbox with raised flag","shortname":":mailbox:","shortname_alternates":[],"keywords":["closed","mail","mailbox","postbox"],"unicode_output":"1f4eb"},"1f4ec":{"name":"open mailbox with raised flag","shortname":":mailbox_with_mail:","shortname_alternates":[],"keywords":["mail","mailbox","open","postbox"],"unicode_output":"1f4ec"},"1f4ed":{"name":"open mailbox with lowered flag","shortname":":mailbox_with_no_mail:","shortname_alternates":[],"keywords":["lowered","mail","mailbox","open","postbox"],"unicode_output":"1f4ed"},"1f4ee":{"name":"postbox","shortname":":postbox:","shortname_alternates":[],"keywords":["mail","mailbox"],"unicode_output":"1f4ee"},"1f4ef":{"name":"postal horn","shortname":":postal_horn:","shortname_alternates":[],"keywords":["horn","post","postal"],"unicode_output":"1f4ef"},"1f4dc":{"name":"scroll","shortname":":scroll:","shortname_alternates":[],"keywords":["paper"],"unicode_output":"1f4dc"},"1f4c3":{"name":"page with curl","shortname":":page_with_curl:","shortname_alternates":[],"keywords":["curl","document","page"],"unicode_output":"1f4c3"},"1f4c4":{"name":"page facing up","shortname":":page_facing_up:","shortname_alternates":[],"keywords":["document","page"],"unicode_output":"1f4c4"},"1f4d1":{"name":"bookmark tabs","shortname":":bookmark_tabs:","shortname_alternates":[],"keywords":["bookmark","mark","marker","tabs"],"unicode_output":"1f4d1"},"1f4ca":{"name":"bar chart","shortname":":bar_chart:","shortname_alternates":[],"keywords":["bar","chart","graph"],"unicode_output":"1f4ca"},"1f4c8":{"name":"chart increasing","shortname":":chart_with_upwards_trend:","shortname_alternates":[],"keywords":["chart","graph","growth","trend","upward"],"unicode_output":"1f4c8"},"1f4c9":{"name":"chart decreasing","shortname":":chart_with_downwards_trend:","shortname_alternates":[],"keywords":["chart","down","graph","trend"],"unicode_output":"1f4c9"},"1f5d2":{"name":"spiral notepad","shortname":":notepad_spiral:","shortname_alternates":[":spiral_note_pad:"],"keywords":["note","pad","spiral"],"unicode_output":"1f5d2"},"1f5d3":{"name":"spiral calendar","shortname":":calendar_spiral:","shortname_alternates":[":spiral_calendar_pad:"],"keywords":["calendar","pad","spiral"],"unicode_output":"1f5d3"},"1f4c6":{"name":"tear-off calendar","shortname":":calendar:","shortname_alternates":[],"keywords":["calendar"],"unicode_output":"1f4c6"},"1f4c5":{"name":"calendar","shortname":":date:","shortname_alternates":[],"keywords":["date"],"unicode_output":"1f4c5"},"1f4c7":{"name":"card index","shortname":":card_index:","shortname_alternates":[],"keywords":["card","index","rolodex"],"unicode_output":"1f4c7"},"1f5c3":{"name":"card file box","shortname":":card_box:","shortname_alternates":[":card_file_box:"],"keywords":["box","card","file"],"unicode_output":"1f5c3"},"1f5f3":{"name":"ballot box with ballot","shortname":":ballot_box:","shortname_alternates":[":ballot_box_with_ballot:"],"keywords":["ballot","box"],"unicode_output":"1f5f3"},"1f5c4":{"name":"file cabinet","shortname":":file_cabinet:","shortname_alternates":[],"keywords":["cabinet","file","filing"],"unicode_output":"1f5c4"},"1f4cb":{"name":"clipboard","shortname":":clipboard:","shortname_alternates":[],"keywords":["clipboard"],"unicode_output":"1f4cb"},"1f4c1":{"name":"file folder","shortname":":file_folder:","shortname_alternates":[],"keywords":["file","folder"],"unicode_output":"1f4c1"},"1f4c2":{"name":"open file folder","shortname":":open_file_folder:","shortname_alternates":[],"keywords":["file","folder","open"],"unicode_output":"1f4c2"},"1f5c2":{"name":"card index dividers","shortname":":dividers:","shortname_alternates":[":card_index_dividers:"],"keywords":["card","dividers","index"],"unicode_output":"1f5c2"},"1f5de":{"name":"rolled-up newspaper","shortname":":newspaper2:","shortname_alternates":[":rolled_up_newspaper:"],"keywords":["news","newspaper","paper","rolled"],"unicode_output":"1f5de"},"1f4f0":{"name":"newspaper","shortname":":newspaper:","shortname_alternates":[],"keywords":["news","paper"],"unicode_output":"1f4f0"},"1f4d3":{"name":"notebook","shortname":":notebook:","shortname_alternates":[],"keywords":["notebook"],"unicode_output":"1f4d3"},"1f4d4":{"name":"notebook with decorative cover","shortname":":notebook_with_decorative_cover:","shortname_alternates":[],"keywords":["book","cover","decorated","notebook"],"unicode_output":"1f4d4"},"1f4d2":{"name":"ledger","shortname":":ledger:","shortname_alternates":[],"keywords":["notebook"],"unicode_output":"1f4d2"},"1f4d5":{"name":"closed book","shortname":":closed_book:","shortname_alternates":[],"keywords":["book","closed"],"unicode_output":"1f4d5"},"1f4d7":{"name":"green book","shortname":":green_book:","shortname_alternates":[],"keywords":["book","green"],"unicode_output":"1f4d7"},"1f4d8":{"name":"blue book","shortname":":blue_book:","shortname_alternates":[],"keywords":["blue","book"],"unicode_output":"1f4d8"},"1f4d9":{"name":"orange book","shortname":":orange_book:","shortname_alternates":[],"keywords":["book","orange"],"unicode_output":"1f4d9"},"1f4da":{"name":"books","shortname":":books:","shortname_alternates":[],"keywords":["book"],"unicode_output":"1f4da"},"1f4d6":{"name":"open book","shortname":":book:","shortname_alternates":[],"keywords":["book","open"],"unicode_output":"1f4d6"},"1f516":{"name":"bookmark","shortname":":bookmark:","shortname_alternates":[],"keywords":["mark"],"unicode_output":"1f516"},"1f517":{"name":"link","shortname":":link:","shortname_alternates":[],"keywords":["link"],"unicode_output":"1f517"},"1f4ce":{"name":"paperclip","shortname":":paperclip:","shortname_alternates":[],"keywords":["paperclip"],"unicode_output":"1f4ce"},"1f587":{"name":"linked paperclips","shortname":":paperclips:","shortname_alternates":[":linked_paperclips:"],"keywords":["link","paperclip"],"unicode_output":"1f587"},"1f4d0":{"name":"triangular ruler","shortname":":triangular_ruler:","shortname_alternates":[],"keywords":["ruler","set","triangle"],"unicode_output":"1f4d0"},"1f4cf":{"name":"straight ruler","shortname":":straight_ruler:","shortname_alternates":[],"keywords":["ruler","straight edge"],"unicode_output":"1f4cf"},"1f4cc":{"name":"pushpin","shortname":":pushpin:","shortname_alternates":[],"keywords":["pin"],"unicode_output":"1f4cc"},"1f4cd":{"name":"round pushpin","shortname":":round_pushpin:","shortname_alternates":[],"keywords":["pin","pushpin"],"unicode_output":"1f4cd"},"2702":{"name":"scissors","shortname":":scissors:","shortname_alternates":[],"keywords":["cutting","tool"],"unicode_output":"2702"},"1f58a":{"name":"pen","shortname":":pen_ballpoint:","shortname_alternates":[":lower_left_ballpoint_pen:"],"keywords":["ballpoint"],"unicode_output":"1f58a"},"1f58b":{"name":"fountain pen","shortname":":pen_fountain:","shortname_alternates":[":lower_left_fountain_pen:"],"keywords":["fountain","pen"],"unicode_output":"1f58b"},"2712":{"name":"black nib","shortname":":black_nib:","shortname_alternates":[],"keywords":["nib","pen"],"unicode_output":"2712"},"1f58c":{"name":"paintbrush","shortname":":paintbrush:","shortname_alternates":[":lower_left_paintbrush:"],"keywords":["painting"],"unicode_output":"1f58c"},"1f58d":{"name":"crayon","shortname":":crayon:","shortname_alternates":[":lower_left_crayon:"],"keywords":["crayon"],"unicode_output":"1f58d"},"1f4dd":{"name":"memo","shortname":":pencil:","shortname_alternates":[":memo:"],"keywords":["pencil"],"unicode_output":"1f4dd"},"270f":{"name":"pencil","shortname":":pencil2:","shortname_alternates":[],"keywords":["pencil"],"unicode_output":"270f"},"1f50d":{"name":"left-pointing magnifying glass","shortname":":mag:","shortname_alternates":[],"keywords":["glass","magnifying","search","tool"],"unicode_output":"1f50d"},"1f50e":{"name":"right-pointing magnifying glass","shortname":":mag_right:","shortname_alternates":[],"keywords":["glass","magnifying","search","tool"],"unicode_output":"1f50e"},"1f50f":{"name":"locked with pen","shortname":":lock_with_ink_pen:","shortname_alternates":[],"keywords":["ink","lock","nib","pen","privacy"],"unicode_output":"1f50f"},"1f510":{"name":"locked with key","shortname":":closed_lock_with_key:","shortname_alternates":[],"keywords":["closed","key","lock","secure"],"unicode_output":"1f510"},"1f512":{"name":"locked","shortname":":lock:","shortname_alternates":[],"keywords":["closed"],"unicode_output":"1f512"},"1f513":{"name":"unlocked","shortname":":unlock:","shortname_alternates":[],"keywords":["lock","open","unlock"],"unicode_output":"1f513"},"1f9e1":{"name":"orange heart","shortname":":orange_heart:","shortname_alternates":[],"keywords":["orange"],"unicode_output":"1f9e1"},"2764":{"name":"red heart","shortname":":heart:","shortname_alternates":[],"keywords":["heart"],"unicode_output":"2764"},"1f49b":{"name":"yellow heart","shortname":":yellow_heart:","shortname_alternates":[],"keywords":["yellow"],"unicode_output":"1f49b"},"1f49a":{"name":"green heart","shortname":":green_heart:","shortname_alternates":[],"keywords":["green"],"unicode_output":"1f49a"},"1f499":{"name":"blue heart","shortname":":blue_heart:","shortname_alternates":[],"keywords":["blue"],"unicode_output":"1f499"},"1f49c":{"name":"purple heart","shortname":":purple_heart:","shortname_alternates":[],"keywords":["purple"],"unicode_output":"1f49c"},"1f5a4":{"name":"black heart","shortname":":black_heart:","shortname_alternates":[],"keywords":["black","evil","wicked"],"unicode_output":"1f5a4"},"1f494":{"name":"broken heart","shortname":":broken_heart:","shortname_alternates":[],"keywords":["break","broken"],"unicode_output":"1f494"},"2763":{"name":"heavy heart exclamation","shortname":":heart_exclamation:","shortname_alternates":[":heavy_heart_exclamation_mark_ornament:"],"keywords":["exclamation","mark","punctuation"],"unicode_output":"2763"},"1f495":{"name":"two hearts","shortname":":two_hearts:","shortname_alternates":[],"keywords":["love"],"unicode_output":"1f495"},"1f49e":{"name":"revolving hearts","shortname":":revolving_hearts:","shortname_alternates":[],"keywords":["revolving"],"unicode_output":"1f49e"},"1f493":{"name":"beating heart","shortname":":heartbeat:","shortname_alternates":[],"keywords":["beating","heartbeat","pulsating"],"unicode_output":"1f493"},"1f497":{"name":"growing heart","shortname":":heartpulse:","shortname_alternates":[],"keywords":["excited","growing","nervous","pulse"],"unicode_output":"1f497"},"1f496":{"name":"sparkling heart","shortname":":sparkling_heart:","shortname_alternates":[],"keywords":["excited","sparkle"],"unicode_output":"1f496"},"1f498":{"name":"heart with arrow","shortname":":cupid:","shortname_alternates":[],"keywords":["arrow","cupid"],"unicode_output":"1f498"},"1f49d":{"name":"heart with ribbon","shortname":":gift_heart:","shortname_alternates":[],"keywords":["ribbon","valentine"],"unicode_output":"1f49d"},"1f49f":{"name":"heart decoration","shortname":":heart_decoration:","shortname_alternates":[],"keywords":["heart"],"unicode_output":"1f49f"},"262e":{"name":"peace symbol","shortname":":peace:","shortname_alternates":[":peace_symbol:"],"keywords":["peace"],"unicode_output":"262e"},"271d":{"name":"latin cross","shortname":":cross:","shortname_alternates":[":latin_cross:"],"keywords":["Christian","cross","religion"],"unicode_output":"271d"},"262a":{"name":"star and crescent","shortname":":star_and_crescent:","shortname_alternates":[],"keywords":["Muslim","islam","religion"],"unicode_output":"262a"},"1f549":{"name":"om","shortname":":om_symbol:","shortname_alternates":[],"keywords":["Hindu","religion"],"unicode_output":"1f549"},"2638":{"name":"wheel of dharma","shortname":":wheel_of_dharma:","shortname_alternates":[],"keywords":["Buddhist","dharma","religion","wheel"],"unicode_output":"2638"},"2721":{"name":"star of David","shortname":":star_of_david:","shortname_alternates":[],"keywords":["David","Jew","Jewish","religion","star"],"unicode_output":"2721"},"1f52f":{"name":"dotted six-pointed star","shortname":":six_pointed_star:","shortname_alternates":[],"keywords":["fortune","star"],"unicode_output":"1f52f"},"1f54e":{"name":"menorah","shortname":":menorah:","shortname_alternates":[],"keywords":["candelabrum","candlestick","religion"],"unicode_output":"1f54e"},"262f":{"name":"yin yang","shortname":":yin_yang:","shortname_alternates":[],"keywords":["religion","tao","taoist","yang","yin"],"unicode_output":"262f"},"2626":{"name":"orthodox cross","shortname":":orthodox_cross:","shortname_alternates":[],"keywords":["Christian","cross","religion"],"unicode_output":"2626"},"1f6d0":{"name":"place of worship","shortname":":place_of_worship:","shortname_alternates":[":worship_symbol:"],"keywords":["religion","worship"],"unicode_output":"1f6d0"},"26ce":{"name":"Ophiuchus","shortname":":ophiuchus:","shortname_alternates":[],"keywords":["bearer","serpent","snake","zodiac"],"unicode_output":"26ce"},"2648":{"name":"Aries","shortname":":aries:","shortname_alternates":[],"keywords":["ram","zodiac"],"unicode_output":"2648"},"2649":{"name":"Taurus","shortname":":taurus:","shortname_alternates":[],"keywords":["bull","ox","zodiac"],"unicode_output":"2649"},"264a":{"name":"Gemini","shortname":":gemini:","shortname_alternates":[],"keywords":["twins","zodiac"],"unicode_output":"264a"},"264b":{"name":"Cancer","shortname":":cancer:","shortname_alternates":[],"keywords":["crab","zodiac"],"unicode_output":"264b"},"264c":{"name":"Leo","shortname":":leo:","shortname_alternates":[],"keywords":["lion","zodiac"],"unicode_output":"264c"},"264d":{"name":"Virgo","shortname":":virgo:","shortname_alternates":[],"keywords":["zodiac"],"unicode_output":"264d"},"264e":{"name":"Libra","shortname":":libra:","shortname_alternates":[],"keywords":["balance","justice","scales","zodiac"],"unicode_output":"264e"},"264f":{"name":"Scorpius","shortname":":scorpius:","shortname_alternates":[],"keywords":["scorpio","scorpion","zodiac"],"unicode_output":"264f"},"2650":{"name":"Sagittarius","shortname":":sagittarius:","shortname_alternates":[],"keywords":["archer","zodiac"],"unicode_output":"2650"},"2651":{"name":"Capricorn","shortname":":capricorn:","shortname_alternates":[],"keywords":["goat","zodiac"],"unicode_output":"2651"},"2652":{"name":"Aquarius","shortname":":aquarius:","shortname_alternates":[],"keywords":["bearer","water","zodiac"],"unicode_output":"2652"},"2653":{"name":"Pisces","shortname":":pisces:","shortname_alternates":[],"keywords":["fish","zodiac"],"unicode_output":"2653"},"1f194":{"name":"ID button","shortname":":id:","shortname_alternates":[],"keywords":["id","identity"],"unicode_output":"1f194"},"269b":{"name":"atom symbol","shortname":":atom:","shortname_alternates":[":atom_symbol:"],"keywords":["atheist","atom"],"unicode_output":"269b"},"1f251":{"name":"Japanese \u201Cacceptable\u201D button","shortname":":accept:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cacceptable\u201D","\u53EF"],"unicode_output":"1f251"},"2622":{"name":"radioactive","shortname":":radioactive:","shortname_alternates":[":radioactive_sign:"],"keywords":["radioactive","sign"],"unicode_output":"2622"},"2623":{"name":"biohazard","shortname":":biohazard:","shortname_alternates":[":biohazard_sign:"],"keywords":["biohazard","sign"],"unicode_output":"2623"},"1f4f4":{"name":"mobile phone off","shortname":":mobile_phone_off:","shortname_alternates":[],"keywords":["cell","mobile","off","phone","telephone"],"unicode_output":"1f4f4"},"1f4f3":{"name":"vibration mode","shortname":":vibration_mode:","shortname_alternates":[],"keywords":["cell","mobile","mode","phone","telephone","vibration"],"unicode_output":"1f4f3"},"1f236":{"name":"Japanese \u201Cnot free of charge\u201D button","shortname":":u6709:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cnot free of charge\u201D","\u6709"],"unicode_output":"1f236"},"1f21a":{"name":"Japanese \u201Cfree of charge\u201D button","shortname":":u7121:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cfree of charge\u201D","\u7121"],"unicode_output":"1f21a"},"1f238":{"name":"Japanese \u201Capplication\u201D button","shortname":":u7533:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Capplication\u201D","\u7533"],"unicode_output":"1f238"},"1f23a":{"name":"Japanese \u201Copen for business\u201D button","shortname":":u55b6:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Copen for business\u201D","\u55B6"],"unicode_output":"1f23a"},"1f237":{"name":"Japanese \u201Cmonthly amount\u201D button","shortname":":u6708:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cmonthly amount\u201D","\u6708"],"unicode_output":"1f237"},"2734":{"name":"eight-pointed star","shortname":":eight_pointed_black_star:","shortname_alternates":[],"keywords":["star"],"unicode_output":"2734"},"1f19a":{"name":"VS button","shortname":":vs:","shortname_alternates":[],"keywords":["versus","vs"],"unicode_output":"1f19a"},"1f4ae":{"name":"white flower","shortname":":white_flower:","shortname_alternates":[],"keywords":["flower"],"unicode_output":"1f4ae"},"1f250":{"name":"Japanese \u201Cbargain\u201D button","shortname":":ideograph_advantage:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cbargain\u201D","\u5F97"],"unicode_output":"1f250"},"3299":{"name":"Japanese \u201Csecret\u201D button","shortname":":secret:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Csecret\u201D","\u79D8"],"unicode_output":"3299"},"3297":{"name":"Japanese \u201Ccongratulations\u201D button","shortname":":congratulations:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Ccongratulations\u201D","\u795D"],"unicode_output":"3297"},"1f234":{"name":"Japanese \u201Cpassing grade\u201D button","shortname":":u5408:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cpassing grade\u201D","\u5408"],"unicode_output":"1f234"},"1f235":{"name":"Japanese \u201Cno vacancy\u201D button","shortname":":u6e80:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cno vacancy\u201D","\u6E80"],"unicode_output":"1f235"},"1f239":{"name":"Japanese \u201Cdiscount\u201D button","shortname":":u5272:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cdiscount\u201D","\u5272"],"unicode_output":"1f239"},"1f232":{"name":"Japanese \u201Cprohibited\u201D button","shortname":":u7981:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cprohibited\u201D","\u7981"],"unicode_output":"1f232"},"1f170":{"name":"A button (blood type)","shortname":":a:","shortname_alternates":[],"keywords":["a","blood type"],"unicode_output":"1f170"},"1f171":{"name":"B button (blood type)","shortname":":b:","shortname_alternates":[],"keywords":["b","blood type"],"unicode_output":"1f171"},"1f18e":{"name":"AB button (blood type)","shortname":":ab:","shortname_alternates":[],"keywords":["ab","blood type"],"unicode_output":"1f18e"},"1f191":{"name":"CL button","shortname":":cl:","shortname_alternates":[],"keywords":["cl"],"unicode_output":"1f191"},"1f17e":{"name":"O button (blood type)","shortname":":o2:","shortname_alternates":[],"keywords":["blood type","o"],"unicode_output":"1f17e"},"1f198":{"name":"SOS button","shortname":":sos:","shortname_alternates":[],"keywords":["help","sos"],"unicode_output":"1f198"},"274c":{"name":"cross mark","shortname":":x:","shortname_alternates":[],"keywords":["cancel","mark","multiplication","multiply","x"],"unicode_output":"274c"},"2b55":{"name":"heavy large circle","shortname":":o:","shortname_alternates":[],"keywords":["circle","o"],"unicode_output":"2b55"},"1f6d1":{"name":"stop sign","shortname":":octagonal_sign:","shortname_alternates":[":stop_sign:"],"keywords":["octagonal","sign","stop"],"unicode_output":"1f6d1"},"26d4":{"name":"no entry","shortname":":no_entry:","shortname_alternates":[],"keywords":["entry","forbidden","no","not","prohibited","traffic"],"unicode_output":"26d4"},"1f4db":{"name":"name badge","shortname":":name_badge:","shortname_alternates":[],"keywords":["badge","name"],"unicode_output":"1f4db"},"1f6ab":{"name":"prohibited","shortname":":no_entry_sign:","shortname_alternates":[],"keywords":["entry","forbidden","no","not"],"unicode_output":"1f6ab"},"1f4af":{"name":"hundred points","shortname":":100:","shortname_alternates":[],"keywords":["100","full","hundred","score"],"unicode_output":"1f4af"},"1f4a2":{"name":"anger symbol","shortname":":anger:","shortname_alternates":[],"keywords":["angry","comic","mad"],"unicode_output":"1f4a2"},"2668":{"name":"hot springs","shortname":":hotsprings:","shortname_alternates":[],"keywords":["hot","hotsprings","springs","steaming"],"unicode_output":"2668"},"1f6b7":{"name":"no pedestrians","shortname":":no_pedestrians:","shortname_alternates":[],"keywords":["forbidden","no","not","pedestrian","prohibited"],"unicode_output":"1f6b7"},"1f6af":{"name":"no littering","shortname":":do_not_litter:","shortname_alternates":[],"keywords":["forbidden","litter","no","not","prohibited"],"unicode_output":"1f6af"},"1f6b3":{"name":"no bicycles","shortname":":no_bicycles:","shortname_alternates":[],"keywords":["bicycle","bike","forbidden","no","not","prohibited"],"unicode_output":"1f6b3"},"1f6b1":{"name":"non-potable water","shortname":":non-potable_water:","shortname_alternates":[],"keywords":["non-drinking","non-potable","water"],"unicode_output":"1f6b1"},"1f51e":{"name":"no one under eighteen","shortname":":underage:","shortname_alternates":[],"keywords":["18","age restriction","eighteen","forbidden","no","not","prohibited","underage"],"unicode_output":"1f51e"},"1f4f5":{"name":"no mobile phones","shortname":":no_mobile_phones:","shortname_alternates":[],"keywords":["cell","forbidden","mobile","no","not","phone","prohibited","telephone"],"unicode_output":"1f4f5"},"1f6ad":{"name":"no smoking","shortname":":no_smoking:","shortname_alternates":[],"keywords":["forbidden","no","not","prohibited","smoking"],"unicode_output":"1f6ad"},"2757":{"name":"exclamation mark","shortname":":exclamation:","shortname_alternates":[],"keywords":["exclamation","mark","punctuation"],"unicode_output":"2757"},"2755":{"name":"white exclamation mark","shortname":":grey_exclamation:","shortname_alternates":[],"keywords":["exclamation","mark","outlined","punctuation"],"unicode_output":"2755"},"2753":{"name":"question mark","shortname":":question:","shortname_alternates":[],"keywords":["mark","punctuation","question"],"unicode_output":"2753"},"2754":{"name":"white question mark","shortname":":grey_question:","shortname_alternates":[],"keywords":["mark","outlined","punctuation","question"],"unicode_output":"2754"},"203c":{"name":"double exclamation mark","shortname":":bangbang:","shortname_alternates":[],"keywords":["bangbang","exclamation","mark","punctuation"],"unicode_output":"203c"},"2049":{"name":"exclamation question mark","shortname":":interrobang:","shortname_alternates":[],"keywords":["exclamation","interrobang","mark","punctuation","question"],"unicode_output":"2049"},"1f505":{"name":"dim button","shortname":":low_brightness:","shortname_alternates":[],"keywords":["brightness","dim","low"],"unicode_output":"1f505"},"1f506":{"name":"bright button","shortname":":high_brightness:","shortname_alternates":[],"keywords":["bright","brightness"],"unicode_output":"1f506"},"303d":{"name":"part alternation mark","shortname":":part_alternation_mark:","shortname_alternates":[],"keywords":["mark","part"],"unicode_output":"303d"},"26a0":{"name":"warning","shortname":":warning:","shortname_alternates":[],"keywords":["warning"],"unicode_output":"26a0"},"1f6b8":{"name":"children crossing","shortname":":children_crossing:","shortname_alternates":[],"keywords":["child","crossing","pedestrian","traffic"],"unicode_output":"1f6b8"},"1f531":{"name":"trident emblem","shortname":":trident:","shortname_alternates":[],"keywords":["anchor","emblem","ship","tool","trident"],"unicode_output":"1f531"},"269c":{"name":"fleur-de-lis","shortname":":fleur-de-lis:","shortname_alternates":[],"keywords":["fleur-de-lis"],"unicode_output":"269c"},"1f530":{"name":"Japanese symbol for beginner","shortname":":beginner:","shortname_alternates":[],"keywords":["Japanese","beginner","chevron","green","leaf","tool","yellow"],"unicode_output":"1f530"},"267b":{"name":"recycling symbol","shortname":":recycle:","shortname_alternates":[],"keywords":["recycle"],"unicode_output":"267b"},"2705":{"name":"white heavy check mark","shortname":":white_check_mark:","shortname_alternates":[],"keywords":["check","mark"],"unicode_output":"2705"},"1f22f":{"name":"Japanese \u201Creserved\u201D button","shortname":":u6307:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Creserved\u201D","\u6307"],"unicode_output":"1f22f"},"1f4b9":{"name":"chart increasing with yen","shortname":":chart:","shortname_alternates":[],"keywords":["bank","chart","currency","graph","growth","market","money","rise","trend","upward","yen"],"unicode_output":"1f4b9"},"2747":{"name":"sparkle","shortname":":sparkle:","shortname_alternates":[],"keywords":["sparkle"],"unicode_output":"2747"},"2733":{"name":"eight-spoked asterisk","shortname":":eight_spoked_asterisk:","shortname_alternates":[],"keywords":["asterisk"],"unicode_output":"2733"},"274e":{"name":"cross mark button","shortname":":negative_squared_cross_mark:","shortname_alternates":[],"keywords":["mark","square"],"unicode_output":"274e"},"1f310":{"name":"globe with meridians","shortname":":globe_with_meridians:","shortname_alternates":[],"keywords":["earth","globe","meridians","world"],"unicode_output":"1f310"},"1f4a0":{"name":"diamond with a dot","shortname":":diamond_shape_with_a_dot_inside:","shortname_alternates":[],"keywords":["comic","diamond","geometric","inside"],"unicode_output":"1f4a0"},"24c2":{"name":"circled M","shortname":":m:","shortname_alternates":[],"keywords":["circle","m"],"unicode_output":"24c2"},"1f300":{"name":"cyclone","shortname":":cyclone:","shortname_alternates":[],"keywords":["dizzy","twister","typhoon"],"unicode_output":"1f300"},"1f4a4":{"name":"zzz","shortname":":zzz:","shortname_alternates":[],"keywords":["comic","sleep"],"unicode_output":"1f4a4"},"1f3e7":{"name":"ATM sign","shortname":":atm:","shortname_alternates":[],"keywords":["atm","automated","bank","teller"],"unicode_output":"1f3e7"},"1f6be":{"name":"water closet","shortname":":wc:","shortname_alternates":[],"keywords":["closet","lavatory","restroom","water","wc"],"unicode_output":"1f6be"},"267f":{"name":"wheelchair symbol","shortname":":wheelchair:","shortname_alternates":[],"keywords":["access"],"unicode_output":"267f"},"1f17f":{"name":"P button","shortname":":parking:","shortname_alternates":[],"keywords":["parking"],"unicode_output":"1f17f"},"1f233":{"name":"Japanese \u201Cvacancy\u201D button","shortname":":u7a7a:","shortname_alternates":[],"keywords":["Japanese","ideograph","\u201Cvacancy\u201D","\u7A7A"],"unicode_output":"1f233"},"1f202":{"name":"Japanese \u201Cservice charge\u201D button","shortname":":sa:","shortname_alternates":[],"keywords":["Japanese","katakana","\u201Cservice charge\u201D","\u30B5"],"unicode_output":"1f202"},"1f6c2":{"name":"passport control","shortname":":passport_control:","shortname_alternates":[],"keywords":["control","passport"],"unicode_output":"1f6c2"},"1f6c3":{"name":"customs","shortname":":customs:","shortname_alternates":[],"keywords":["customs"],"unicode_output":"1f6c3"},"1f6c4":{"name":"baggage claim","shortname":":baggage_claim:","shortname_alternates":[],"keywords":["baggage","claim"],"unicode_output":"1f6c4"},"1f6c5":{"name":"left luggage","shortname":":left_luggage:","shortname_alternates":[],"keywords":["baggage","locker","luggage"],"unicode_output":"1f6c5"},"1f6b9":{"name":"men\u2019s room","shortname":":mens:","shortname_alternates":[],"keywords":["lavatory","man","restroom","wc"],"unicode_output":"1f6b9"},"1f6ba":{"name":"women\u2019s room","shortname":":womens:","shortname_alternates":[],"keywords":["lavatory","restroom","wc","woman"],"unicode_output":"1f6ba"},"1f6bc":{"name":"baby symbol","shortname":":baby_symbol:","shortname_alternates":[],"keywords":["baby","changing"],"unicode_output":"1f6bc"},"1f6bb":{"name":"restroom","shortname":":restroom:","shortname_alternates":[],"keywords":["WC","lavatory","restroom"],"unicode_output":"1f6bb"},"1f6ae":{"name":"litter in bin sign","shortname":":put_litter_in_its_place:","shortname_alternates":[],"keywords":["litter","litter bin"],"unicode_output":"1f6ae"},"1f3a6":{"name":"cinema","shortname":":cinema:","shortname_alternates":[],"keywords":["camera","film","movie"],"unicode_output":"1f3a6"},"1f4f6":{"name":"antenna bars","shortname":":signal_strength:","shortname_alternates":[],"keywords":["antenna","bar","cell","mobile","phone","signal","telephone"],"unicode_output":"1f4f6"},"1f201":{"name":"Japanese \u201Chere\u201D button","shortname":":koko:","shortname_alternates":[],"keywords":["Japanese","katakana","\u201Chere\u201D","\u30B3\u30B3"],"unicode_output":"1f201"},"1f523":{"name":"input symbols","shortname":":symbols:","shortname_alternates":[],"keywords":["input","\u3012\u266A&%"],"unicode_output":"1f523"},"2139":{"name":"information","shortname":":information_source:","shortname_alternates":[],"keywords":["i","information"],"unicode_output":"2139"},"1f524":{"name":"input latin letters","shortname":":abc:","shortname_alternates":[],"keywords":["abc","alphabet","input","latin","letters"],"unicode_output":"1f524"},"1f521":{"name":"input latin lowercase","shortname":":abcd:","shortname_alternates":[],"keywords":["abcd","input","latin","letters","lowercase"],"unicode_output":"1f521"},"1f520":{"name":"input latin uppercase","shortname":":capital_abcd:","shortname_alternates":[],"keywords":["ABCD","input","latin","letters","uppercase"],"unicode_output":"1f520"},"1f196":{"name":"NG button","shortname":":ng:","shortname_alternates":[],"keywords":["ng"],"unicode_output":"1f196"},"1f197":{"name":"OK button","shortname":":ok:","shortname_alternates":[],"keywords":["OK"],"unicode_output":"1f197"},"1f199":{"name":"UP! button","shortname":":up:","shortname_alternates":[],"keywords":["mark","up"],"unicode_output":"1f199"},"1f192":{"name":"COOL button","shortname":":cool:","shortname_alternates":[],"keywords":["cool"],"unicode_output":"1f192"},"1f195":{"name":"NEW button","shortname":":new:","shortname_alternates":[],"keywords":["new"],"unicode_output":"1f195"},"1f193":{"name":"FREE button","shortname":":free:","shortname_alternates":[],"keywords":["free"],"unicode_output":"1f193"},"0030-20e3":{"name":"keycap: 0","shortname":":zero:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0030-fe0f-20e3"},"0031-20e3":{"name":"keycap: 1","shortname":":one:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0031-fe0f-20e3"},"0032-20e3":{"name":"keycap: 2","shortname":":two:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0032-fe0f-20e3"},"0033-20e3":{"name":"keycap: 3","shortname":":three:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0033-fe0f-20e3"},"0034-20e3":{"name":"keycap: 4","shortname":":four:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0034-fe0f-20e3"},"0035-20e3":{"name":"keycap: 5","shortname":":five:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0035-fe0f-20e3"},"0036-20e3":{"name":"keycap: 6","shortname":":six:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0036-fe0f-20e3"},"0037-20e3":{"name":"keycap: 7","shortname":":seven:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0037-fe0f-20e3"},"0038-20e3":{"name":"keycap: 8","shortname":":eight:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0038-fe0f-20e3"},"0039-20e3":{"name":"keycap: 9","shortname":":nine:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0039-fe0f-20e3"},"1f51f":{"name":"keycap 10","shortname":":keycap_ten:","shortname_alternates":[],"keywords":["keycap 10"],"unicode_output":"1f51f"},"1f522":{"name":"input numbers","shortname":":1234:","shortname_alternates":[],"keywords":["1234","input","numbers"],"unicode_output":"1f522"},"0023-20e3":{"name":"keycap: #","shortname":":hash:","shortname_alternates":[],"keywords":["keycap"],"unicode_output":"0023-fe0f-20e3"},"002a-20e3":{"name":"keycap: *","shortname":":asterisk:","shortname_alternates":[":keycap_asterisk:"],"keywords":["keycap"],"unicode_output":"002a-fe0f-20e3"},"25b6":{"name":"play button","shortname":":arrow_forward:","shortname_alternates":[],"keywords":["arrow","play","right","triangle"],"unicode_output":"25b6"},"23f8":{"name":"pause button","shortname":":pause_button:","shortname_alternates":[":double_vertical_bar:"],"keywords":["bar","double","pause","vertical"],"unicode_output":"23f8"},"23ef":{"name":"play or pause button","shortname":":play_pause:","shortname_alternates":[],"keywords":["arrow","pause","play","right","triangle"],"unicode_output":"23ef"},"23f9":{"name":"stop button","shortname":":stop_button:","shortname_alternates":[],"keywords":["square","stop"],"unicode_output":"23f9"},"23fa":{"name":"record button","shortname":":record_button:","shortname_alternates":[],"keywords":["circle","record"],"unicode_output":"23fa"},"23cf":{"name":"eject button","shortname":":eject:","shortname_alternates":[":eject_symbol:"],"keywords":["eject"],"unicode_output":"23cf"},"23ed":{"name":"next track button","shortname":":track_next:","shortname_alternates":[":next_track:"],"keywords":["arrow","next scene","next track","triangle"],"unicode_output":"23ed"},"23ee":{"name":"last track button","shortname":":track_previous:","shortname_alternates":[":previous_track:"],"keywords":["arrow","previous scene","previous track","triangle"],"unicode_output":"23ee"},"23e9":{"name":"fast-forward button","shortname":":fast_forward:","shortname_alternates":[],"keywords":["arrow","double","fast","forward"],"unicode_output":"23e9"},"23ea":{"name":"fast reverse button","shortname":":rewind:","shortname_alternates":[],"keywords":["arrow","double","rewind"],"unicode_output":"23ea"},"23eb":{"name":"fast up button","shortname":":arrow_double_up:","shortname_alternates":[],"keywords":["arrow","double"],"unicode_output":"23eb"},"23ec":{"name":"fast down button","shortname":":arrow_double_down:","shortname_alternates":[],"keywords":["arrow","double","down"],"unicode_output":"23ec"},"25c0":{"name":"reverse button","shortname":":arrow_backward:","shortname_alternates":[],"keywords":["arrow","left","reverse","triangle"],"unicode_output":"25c0"},"1f53c":{"name":"up button","shortname":":arrow_up_small:","shortname_alternates":[],"keywords":["arrow","button","red"],"unicode_output":"1f53c"},"1f53d":{"name":"down button","shortname":":arrow_down_small:","shortname_alternates":[],"keywords":["arrow","button","down","red"],"unicode_output":"1f53d"},"27a1":{"name":"right arrow","shortname":":arrow_right:","shortname_alternates":[],"keywords":["arrow","cardinal","direction","east"],"unicode_output":"27a1"},"2b05":{"name":"left arrow","shortname":":arrow_left:","shortname_alternates":[],"keywords":["arrow","cardinal","direction","west"],"unicode_output":"2b05"},"2b06":{"name":"up arrow","shortname":":arrow_up:","shortname_alternates":[],"keywords":["arrow","cardinal","direction","north"],"unicode_output":"2b06"},"2b07":{"name":"down arrow","shortname":":arrow_down:","shortname_alternates":[],"keywords":["arrow","cardinal","direction","down","south"],"unicode_output":"2b07"},"2197":{"name":"up-right arrow","shortname":":arrow_upper_right:","shortname_alternates":[],"keywords":["arrow","direction","intercardinal","northeast"],"unicode_output":"2197"},"2198":{"name":"down-right arrow","shortname":":arrow_lower_right:","shortname_alternates":[],"keywords":["arrow","direction","intercardinal","southeast"],"unicode_output":"2198"},"2199":{"name":"down-left arrow","shortname":":arrow_lower_left:","shortname_alternates":[],"keywords":["arrow","direction","intercardinal","southwest"],"unicode_output":"2199"},"2196":{"name":"up-left arrow","shortname":":arrow_upper_left:","shortname_alternates":[],"keywords":["arrow","direction","intercardinal","northwest"],"unicode_output":"2196"},"2195":{"name":"up-down arrow","shortname":":arrow_up_down:","shortname_alternates":[],"keywords":["arrow"],"unicode_output":"2195"},"2194":{"name":"left-right arrow","shortname":":left_right_arrow:","shortname_alternates":[],"keywords":["arrow"],"unicode_output":"2194"},"21aa":{"name":"left arrow curving right","shortname":":arrow_right_hook:","shortname_alternates":[],"keywords":["arrow"],"unicode_output":"21aa"},"21a9":{"name":"right arrow curving left","shortname":":leftwards_arrow_with_hook:","shortname_alternates":[],"keywords":["arrow"],"unicode_output":"21a9"},"2934":{"name":"right arrow curving up","shortname":":arrow_heading_up:","shortname_alternates":[],"keywords":["arrow"],"unicode_output":"2934"},"2935":{"name":"right arrow curving down","shortname":":arrow_heading_down:","shortname_alternates":[],"keywords":["arrow","down"],"unicode_output":"2935"},"1f500":{"name":"shuffle tracks button","shortname":":twisted_rightwards_arrows:","shortname_alternates":[],"keywords":["arrow","crossed"],"unicode_output":"1f500"},"1f501":{"name":"repeat button","shortname":":repeat:","shortname_alternates":[],"keywords":["arrow","clockwise","repeat"],"unicode_output":"1f501"},"1f502":{"name":"repeat single button","shortname":":repeat_one:","shortname_alternates":[],"keywords":["arrow","clockwise","once"],"unicode_output":"1f502"},"1f504":{"name":"anticlockwise arrows button","shortname":":arrows_counterclockwise:","shortname_alternates":[],"keywords":["anticlockwise","arrow","counterclockwise","withershins"],"unicode_output":"1f504"},"1f503":{"name":"clockwise vertical arrows","shortname":":arrows_clockwise:","shortname_alternates":[],"keywords":["arrow","clockwise","reload"],"unicode_output":"1f503"},"1f3b5":{"name":"musical note","shortname":":musical_note:","shortname_alternates":[],"keywords":["music","note"],"unicode_output":"1f3b5"},"1f3b6":{"name":"musical notes","shortname":":notes:","shortname_alternates":[],"keywords":["music","note","notes"],"unicode_output":"1f3b6"},"2795":{"name":"heavy plus sign","shortname":":heavy_plus_sign:","shortname_alternates":[],"keywords":["math","plus"],"unicode_output":"2795"},"2796":{"name":"heavy minus sign","shortname":":heavy_minus_sign:","shortname_alternates":[],"keywords":["math","minus"],"unicode_output":"2796"},"2797":{"name":"heavy division sign","shortname":":heavy_division_sign:","shortname_alternates":[],"keywords":["division","math"],"unicode_output":"2797"},"2716":{"name":"heavy multiplication x","shortname":":heavy_multiplication_x:","shortname_alternates":[],"keywords":["cancel","multiplication","multiply","x"],"unicode_output":"2716"},"1f4b2":{"name":"heavy dollar sign","shortname":":heavy_dollar_sign:","shortname_alternates":[],"keywords":["currency","dollar","money"],"unicode_output":"1f4b2"},"1f4b1":{"name":"currency exchange","shortname":":currency_exchange:","shortname_alternates":[],"keywords":["bank","currency","exchange","money"],"unicode_output":"1f4b1"},"2122":{"name":"trade mark","shortname":":tm:","shortname_alternates":[],"keywords":["mark","tm","trademark"],"unicode_output":"2122"},"00a9":{"name":"copyright","shortname":":copyright:","shortname_alternates":[],"keywords":["copyright"],"unicode_output":"00a9"},"00ae":{"name":"registered","shortname":":registered:","shortname_alternates":[],"keywords":["registered"],"unicode_output":"00ae"},"3030":{"name":"wavy dash","shortname":":wavy_dash:","shortname_alternates":[],"keywords":["dash","punctuation","wavy"],"unicode_output":"3030"},"27b0":{"name":"curly loop","shortname":":curly_loop:","shortname_alternates":[],"keywords":["curl","loop"],"unicode_output":"27b0"},"27bf":{"name":"double curly loop","shortname":":loop:","shortname_alternates":[],"keywords":["curl","double","loop"],"unicode_output":"27bf"},"1f51a":{"name":"END arrow","shortname":":end:","shortname_alternates":[],"keywords":["arrow","end"],"unicode_output":"1f51a"},"1f519":{"name":"BACK arrow","shortname":":back:","shortname_alternates":[],"keywords":["arrow","back"],"unicode_output":"1f519"},"1f51b":{"name":"ON! arrow","shortname":":on:","shortname_alternates":[],"keywords":["arrow","mark","on"],"unicode_output":"1f51b"},"1f51d":{"name":"TOP arrow","shortname":":top:","shortname_alternates":[],"keywords":["arrow","top","up"],"unicode_output":"1f51d"},"1f51c":{"name":"SOON arrow","shortname":":soon:","shortname_alternates":[],"keywords":["arrow","soon"],"unicode_output":"1f51c"},"2714":{"name":"heavy check mark","shortname":":heavy_check_mark:","shortname_alternates":[],"keywords":["check","mark"],"unicode_output":"2714"},"2611":{"name":"ballot box with check","shortname":":ballot_box_with_check:","shortname_alternates":[],"keywords":["ballot","box","check"],"unicode_output":"2611"},"1f518":{"name":"radio button","shortname":":radio_button:","shortname_alternates":[],"keywords":["button","geometric","radio"],"unicode_output":"1f518"},"26aa":{"name":"white circle","shortname":":white_circle:","shortname_alternates":[],"keywords":["circle","geometric"],"unicode_output":"26aa"},"26ab":{"name":"black circle","shortname":":black_circle:","shortname_alternates":[],"keywords":["circle","geometric"],"unicode_output":"26ab"},"1f534":{"name":"red circle","shortname":":red_circle:","shortname_alternates":[],"keywords":["circle","geometric","red"],"unicode_output":"1f534"},"1f535":{"name":"blue circle","shortname":":blue_circle:","shortname_alternates":[],"keywords":["blue","circle","geometric"],"unicode_output":"1f535"},"1f53a":{"name":"red triangle pointed up","shortname":":small_red_triangle:","shortname_alternates":[],"keywords":["geometric","red"],"unicode_output":"1f53a"},"1f53b":{"name":"red triangle pointed down","shortname":":small_red_triangle_down:","shortname_alternates":[],"keywords":["down","geometric","red"],"unicode_output":"1f53b"},"1f538":{"name":"small orange diamond","shortname":":small_orange_diamond:","shortname_alternates":[],"keywords":["diamond","geometric","orange"],"unicode_output":"1f538"},"1f539":{"name":"small blue diamond","shortname":":small_blue_diamond:","shortname_alternates":[],"keywords":["blue","diamond","geometric"],"unicode_output":"1f539"},"1f536":{"name":"large orange diamond","shortname":":large_orange_diamond:","shortname_alternates":[],"keywords":["diamond","geometric","orange"],"unicode_output":"1f536"},"1f537":{"name":"large blue diamond","shortname":":large_blue_diamond:","shortname_alternates":[],"keywords":["blue","diamond","geometric"],"unicode_output":"1f537"},"1f533":{"name":"white square button","shortname":":white_square_button:","shortname_alternates":[],"keywords":["button","geometric","outlined","square"],"unicode_output":"1f533"},"1f532":{"name":"black square button","shortname":":black_square_button:","shortname_alternates":[],"keywords":["button","geometric","square"],"unicode_output":"1f532"},"25aa":{"name":"black small square","shortname":":black_small_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25aa"},"25ab":{"name":"white small square","shortname":":white_small_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25ab"},"25fe":{"name":"black medium-small square","shortname":":black_medium_small_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25fe"},"25fd":{"name":"white medium-small square","shortname":":white_medium_small_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25fd"},"25fc":{"name":"black medium square","shortname":":black_medium_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25fc"},"25fb":{"name":"white medium square","shortname":":white_medium_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"25fb"},"2b1b":{"name":"black large square","shortname":":black_large_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"2b1b"},"2b1c":{"name":"white large square","shortname":":white_large_square:","shortname_alternates":[],"keywords":["geometric","square"],"unicode_output":"2b1c"},"1f508":{"name":"speaker low volume","shortname":":speaker:","shortname_alternates":[],"keywords":["soft"],"unicode_output":"1f508"},"1f507":{"name":"muted speaker","shortname":":mute:","shortname_alternates":[],"keywords":["mute","quiet","silent","speaker"],"unicode_output":"1f507"},"1f509":{"name":"speaker medium volume","shortname":":sound:","shortname_alternates":[],"keywords":["medium"],"unicode_output":"1f509"},"1f50a":{"name":"speaker high volume","shortname":":loud_sound:","shortname_alternates":[],"keywords":["loud"],"unicode_output":"1f50a"},"1f514":{"name":"bell","shortname":":bell:","shortname_alternates":[],"keywords":["bell"],"unicode_output":"1f514"},"1f515":{"name":"bell with slash","shortname":":no_bell:","shortname_alternates":[],"keywords":["bell","forbidden","mute","no","not","prohibited","quiet","silent"],"unicode_output":"1f515"},"1f4e3":{"name":"megaphone","shortname":":mega:","shortname_alternates":[],"keywords":["cheering"],"unicode_output":"1f4e3"},"1f4e2":{"name":"loudspeaker","shortname":":loudspeaker:","shortname_alternates":[],"keywords":["loud","public address"],"unicode_output":"1f4e2"},"1f5e8":{"name":"left speech bubble","shortname":":speech_left:","shortname_alternates":[":left_speech_bubble:"],"keywords":["dialog","speech"],"unicode_output":"1f5e8"},"1f441-1f5e8":{"name":"eye in speech bubble","shortname":":eye_in_speech_bubble:","shortname_alternates":[],"keywords":["eye","speech bubble","witness"],"unicode_output":"1f441-fe0f-200d-1f5e8-fe0f"},"1f4ac":{"name":"speech balloon","shortname":":speech_balloon:","shortname_alternates":[],"keywords":["balloon","bubble","comic","dialog","speech"],"unicode_output":"1f4ac"},"1f4ad":{"name":"thought balloon","shortname":":thought_balloon:","shortname_alternates":[],"keywords":["balloon","bubble","comic","thought"],"unicode_output":"1f4ad"},"1f5ef":{"name":"right anger bubble","shortname":":anger_right:","shortname_alternates":[":right_anger_bubble:"],"keywords":["angry","balloon","bubble","mad"],"unicode_output":"1f5ef"},"2660":{"name":"spade suit","shortname":":spades:","shortname_alternates":[],"keywords":["card","game"],"unicode_output":"2660"},"2663":{"name":"club suit","shortname":":clubs:","shortname_alternates":[],"keywords":["card","game"],"unicode_output":"2663"},"2665":{"name":"heart suit","shortname":":hearts:","shortname_alternates":[],"keywords":["card","game"],"unicode_output":"2665"},"2666":{"name":"diamond suit","shortname":":diamonds:","shortname_alternates":[],"keywords":["card","game"],"unicode_output":"2666"},"1f0cf":{"name":"joker","shortname":":black_joker:","shortname_alternates":[],"keywords":["card","game","wildcard"],"unicode_output":"1f0cf"},"1f3b4":{"name":"flower playing cards","shortname":":flower_playing_cards:","shortname_alternates":[],"keywords":["Japanese","card","flower","game","playing"],"unicode_output":"1f3b4"},"1f004":{"name":"mahjong red dragon","shortname":":mahjong:","shortname_alternates":[],"keywords":["game","mahjong","red"],"unicode_output":"1f004"},"1f550":{"name":"one o\u2019clock","shortname":":clock1:","shortname_alternates":[],"keywords":["00","1","1:00","clock","one","o\u2019clock"],"unicode_output":"1f550"},"1f551":{"name":"two o\u2019clock","shortname":":clock2:","shortname_alternates":[],"keywords":["00","2","2:00","clock","o\u2019clock","two"],"unicode_output":"1f551"},"1f552":{"name":"three o\u2019clock","shortname":":clock3:","shortname_alternates":[],"keywords":["00","3","3:00","clock","o\u2019clock","three"],"unicode_output":"1f552"},"1f553":{"name":"four o\u2019clock","shortname":":clock4:","shortname_alternates":[],"keywords":["00","4","4:00","clock","four","o\u2019clock"],"unicode_output":"1f553"},"1f554":{"name":"five o\u2019clock","shortname":":clock5:","shortname_alternates":[],"keywords":["00","5","5:00","clock","five","o\u2019clock"],"unicode_output":"1f554"},"1f555":{"name":"six o\u2019clock","shortname":":clock6:","shortname_alternates":[],"keywords":["00","6","6:00","clock","o\u2019clock","six"],"unicode_output":"1f555"},"1f556":{"name":"seven o\u2019clock","shortname":":clock7:","shortname_alternates":[],"keywords":["00","7","7:00","clock","o\u2019clock","seven"],"unicode_output":"1f556"},"1f557":{"name":"eight o\u2019clock","shortname":":clock8:","shortname_alternates":[],"keywords":["00","8","8:00","clock","eight","o\u2019clock"],"unicode_output":"1f557"},"1f558":{"name":"nine o\u2019clock","shortname":":clock9:","shortname_alternates":[],"keywords":["00","9","9:00","clock","nine","o\u2019clock"],"unicode_output":"1f558"},"1f559":{"name":"ten o\u2019clock","shortname":":clock10:","shortname_alternates":[],"keywords":["00","10","10:00","clock","o\u2019clock","ten"],"unicode_output":"1f559"},"1f55a":{"name":"eleven o\u2019clock","shortname":":clock11:","shortname_alternates":[],"keywords":["00","11","11:00","clock","eleven","o\u2019clock"],"unicode_output":"1f55a"},"1f55b":{"name":"twelve o\u2019clock","shortname":":clock12:","shortname_alternates":[],"keywords":["00","12","12:00","clock","o\u2019clock","twelve"],"unicode_output":"1f55b"},"1f55c":{"name":"one-thirty","shortname":":clock130:","shortname_alternates":[],"keywords":["1","1:30","30","clock","one","thirty"],"unicode_output":"1f55c"},"1f55d":{"name":"two-thirty","shortname":":clock230:","shortname_alternates":[],"keywords":["2","2:30","30","clock","thirty","two"],"unicode_output":"1f55d"},"1f55e":{"name":"three-thirty","shortname":":clock330:","shortname_alternates":[],"keywords":["3","30","3:30","clock","thirty","three"],"unicode_output":"1f55e"},"1f55f":{"name":"four-thirty","shortname":":clock430:","shortname_alternates":[],"keywords":["4","30","4:30","clock","four","thirty"],"unicode_output":"1f55f"},"1f560":{"name":"five-thirty","shortname":":clock530:","shortname_alternates":[],"keywords":["5","30","5:30","clock","five","thirty"],"unicode_output":"1f560"},"1f561":{"name":"six-thirty","shortname":":clock630:","shortname_alternates":[],"keywords":["6","30","6:30","clock","six","thirty"],"unicode_output":"1f561"},"1f562":{"name":"seven-thirty","shortname":":clock730:","shortname_alternates":[],"keywords":["7","30","7:30","clock","seven","thirty"],"unicode_output":"1f562"},"1f563":{"name":"eight-thirty","shortname":":clock830:","shortname_alternates":[],"keywords":["8","30","8:30","clock","eight","thirty"],"unicode_output":"1f563"},"1f564":{"name":"nine-thirty","shortname":":clock930:","shortname_alternates":[],"keywords":["9","30","9:30","clock","nine","thirty"],"unicode_output":"1f564"},"1f565":{"name":"ten-thirty","shortname":":clock1030:","shortname_alternates":[],"keywords":["10","10:30","30","clock","ten","thirty"],"unicode_output":"1f565"},"1f566":{"name":"eleven-thirty","shortname":":clock1130:","shortname_alternates":[],"keywords":["11","11:30","30","clock","eleven","thirty"],"unicode_output":"1f566"},"1f567":{"name":"twelve-thirty","shortname":":clock1230:","shortname_alternates":[],"keywords":["12","12:30","30","clock","thirty","twelve"],"unicode_output":"1f567"},"1f3f3":{"name":"white flag","shortname":":flag_white:","shortname_alternates":[":waving_white_flag:"],"keywords":["waving"],"unicode_output":"1f3f3"},"1f3f4":{"name":"black flag","shortname":":flag_black:","shortname_alternates":[":waving_black_flag:"],"keywords":["waving"],"unicode_output":"1f3f4"},"1f3c1":{"name":"chequered flag","shortname":":checkered_flag:","shortname_alternates":[],"keywords":["checkered","chequered","racing"],"unicode_output":"1f3c1"},"1f6a9":{"name":"triangular flag","shortname":":triangular_flag_on_post:","shortname_alternates":[],"keywords":["post"],"unicode_output":"1f6a9"},"1f3f3-1f308":{"name":"rainbow flag","shortname":":rainbow_flag:","shortname_alternates":[":gay_pride_flag:"],"keywords":["rainbow"],"unicode_output":"1f3f3-fe0f-200d-1f308"},"1f1e6-1f1eb":{"name":"Afghanistan","shortname":":flag_af:","shortname_alternates":[":af:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1eb"},"1f1e6-1f1fd":{"name":"\xC5land Islands","shortname":":flag_ax:","shortname_alternates":[":ax:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1fd"},"1f1e6-1f1f1":{"name":"Albania","shortname":":flag_al:","shortname_alternates":[":al:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f1"},"1f1e9-1f1ff":{"name":"Algeria","shortname":":flag_dz:","shortname_alternates":[":dz:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1ff"},"1f1e6-1f1f8":{"name":"American Samoa","shortname":":flag_as:","shortname_alternates":[":as:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f8"},"1f1e6-1f1e9":{"name":"Andorra","shortname":":flag_ad:","shortname_alternates":[":ad:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1e9"},"1f1e6-1f1f4":{"name":"Angola","shortname":":flag_ao:","shortname_alternates":[":ao:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f4"},"1f1e6-1f1ee":{"name":"Anguilla","shortname":":flag_ai:","shortname_alternates":[":ai:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1ee"},"1f1e6-1f1f6":{"name":"Antarctica","shortname":":flag_aq:","shortname_alternates":[":aq:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f6"},"1f1e6-1f1ec":{"name":"Antigua & Barbuda","shortname":":flag_ag:","shortname_alternates":[":ag:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1ec"},"1f1e6-1f1f7":{"name":"Argentina","shortname":":flag_ar:","shortname_alternates":[":ar:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f7"},"1f1e6-1f1f2":{"name":"Armenia","shortname":":flag_am:","shortname_alternates":[":am:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f2"},"1f1e6-1f1fc":{"name":"Aruba","shortname":":flag_aw:","shortname_alternates":[":aw:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1fc"},"1f1e6-1f1fa":{"name":"Australia","shortname":":flag_au:","shortname_alternates":[":au:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1fa"},"1f1e6-1f1f9":{"name":"Austria","shortname":":flag_at:","shortname_alternates":[":at:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1f9"},"1f1e6-1f1ff":{"name":"Azerbaijan","shortname":":flag_az:","shortname_alternates":[":az:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1ff"},"1f1e7-1f1f8":{"name":"Bahamas","shortname":":flag_bs:","shortname_alternates":[":bs:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f8"},"1f1e7-1f1ed":{"name":"Bahrain","shortname":":flag_bh:","shortname_alternates":[":bh:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ed"},"1f1e7-1f1e9":{"name":"Bangladesh","shortname":":flag_bd:","shortname_alternates":[":bd:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1e9"},"1f1e7-1f1e7":{"name":"Barbados","shortname":":flag_bb:","shortname_alternates":[":bb:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1e7"},"1f1e7-1f1fe":{"name":"Belarus","shortname":":flag_by:","shortname_alternates":[":by:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1fe"},"1f1e7-1f1ea":{"name":"Belgium","shortname":":flag_be:","shortname_alternates":[":be:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ea"},"1f1e7-1f1ff":{"name":"Belize","shortname":":flag_bz:","shortname_alternates":[":bz:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ff"},"1f1e7-1f1ef":{"name":"Benin","shortname":":flag_bj:","shortname_alternates":[":bj:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ef"},"1f1e7-1f1f2":{"name":"Bermuda","shortname":":flag_bm:","shortname_alternates":[":bm:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f2"},"1f1e7-1f1f9":{"name":"Bhutan","shortname":":flag_bt:","shortname_alternates":[":bt:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f9"},"1f1e7-1f1f4":{"name":"Bolivia","shortname":":flag_bo:","shortname_alternates":[":bo:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f4"},"1f1e7-1f1e6":{"name":"Bosnia & Herzegovina","shortname":":flag_ba:","shortname_alternates":[":ba:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1e6"},"1f1e7-1f1fc":{"name":"Botswana","shortname":":flag_bw:","shortname_alternates":[":bw:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1fc"},"1f1e7-1f1f7":{"name":"Brazil","shortname":":flag_br:","shortname_alternates":[":br:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f7"},"1f1ee-1f1f4":{"name":"British Indian Ocean Territory","shortname":":flag_io:","shortname_alternates":[":io:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f4"},"1f1fb-1f1ec":{"name":"British Virgin Islands","shortname":":flag_vg:","shortname_alternates":[":vg:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1ec"},"1f1e7-1f1f3":{"name":"Brunei","shortname":":flag_bn:","shortname_alternates":[":bn:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f3"},"1f1e7-1f1ec":{"name":"Bulgaria","shortname":":flag_bg:","shortname_alternates":[":bg:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ec"},"1f1e7-1f1eb":{"name":"Burkina Faso","shortname":":flag_bf:","shortname_alternates":[":bf:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1eb"},"1f1e7-1f1ee":{"name":"Burundi","shortname":":flag_bi:","shortname_alternates":[":bi:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1ee"},"1f1f0-1f1ed":{"name":"Cambodia","shortname":":flag_kh:","shortname_alternates":[":kh:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1ed"},"1f1e8-1f1f2":{"name":"Cameroon","shortname":":flag_cm:","shortname_alternates":[":cm:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f2"},"1f1e8-1f1e6":{"name":"Canada","shortname":":flag_ca:","shortname_alternates":[":ca:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1e6"},"1f1ee-1f1e8":{"name":"Canary Islands","shortname":":flag_ic:","shortname_alternates":[":ic:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1e8"},"1f1e8-1f1fb":{"name":"Cape Verde","shortname":":flag_cv:","shortname_alternates":[":cv:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1fb"},"1f1e7-1f1f6":{"name":"Caribbean Netherlands","shortname":":flag_bq:","shortname_alternates":[":bq:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f6"},"1f1f0-1f1fe":{"name":"Cayman Islands","shortname":":flag_ky:","shortname_alternates":[":ky:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1fe"},"1f1e8-1f1eb":{"name":"Central African Republic","shortname":":flag_cf:","shortname_alternates":[":cf:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1eb"},"1f1f9-1f1e9":{"name":"Chad","shortname":":flag_td:","shortname_alternates":[":td:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1e9"},"1f1e8-1f1f1":{"name":"Chile","shortname":":flag_cl:","shortname_alternates":[":chile:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f1"},"1f1e8-1f1f3":{"name":"China","shortname":":flag_cn:","shortname_alternates":[":cn:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f3"},"1f1e8-1f1fd":{"name":"Christmas Island","shortname":":flag_cx:","shortname_alternates":[":cx:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1fd"},"1f1e8-1f1e8":{"name":"Cocos (Keeling) Islands","shortname":":flag_cc:","shortname_alternates":[":cc:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1e8"},"1f1e8-1f1f4":{"name":"Colombia","shortname":":flag_co:","shortname_alternates":[":co:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f4"},"1f1f0-1f1f2":{"name":"Comoros","shortname":":flag_km:","shortname_alternates":[":km:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1f2"},"1f1e8-1f1ec":{"name":"Congo - Brazzaville","shortname":":flag_cg:","shortname_alternates":[":cg:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1ec"},"1f1e8-1f1e9":{"name":"Congo - Kinshasa","shortname":":flag_cd:","shortname_alternates":[":congo:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1e9"},"1f1e8-1f1f0":{"name":"Cook Islands","shortname":":flag_ck:","shortname_alternates":[":ck:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f0"},"1f1e8-1f1f7":{"name":"Costa Rica","shortname":":flag_cr:","shortname_alternates":[":cr:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f7"},"1f1e8-1f1ee":{"name":"C\xF4te d\u2019Ivoire","shortname":":flag_ci:","shortname_alternates":[":ci:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1ee"},"1f1ed-1f1f7":{"name":"Croatia","shortname":":flag_hr:","shortname_alternates":[":hr:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1f7"},"1f1e8-1f1fa":{"name":"Cuba","shortname":":flag_cu:","shortname_alternates":[":cu:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1fa"},"1f1e8-1f1fc":{"name":"Cura\xE7ao","shortname":":flag_cw:","shortname_alternates":[":cw:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1fc"},"1f1e8-1f1fe":{"name":"Cyprus","shortname":":flag_cy:","shortname_alternates":[":cy:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1fe"},"1f1e8-1f1ff":{"name":"Czechia","shortname":":flag_cz:","shortname_alternates":[":cz:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1ff"},"1f1e9-1f1f0":{"name":"Denmark","shortname":":flag_dk:","shortname_alternates":[":dk:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1f0"},"1f1e9-1f1ef":{"name":"Djibouti","shortname":":flag_dj:","shortname_alternates":[":dj:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1ef"},"1f1e9-1f1f2":{"name":"Dominica","shortname":":flag_dm:","shortname_alternates":[":dm:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1f2"},"1f1e9-1f1f4":{"name":"Dominican Republic","shortname":":flag_do:","shortname_alternates":[":do:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1f4"},"1f1ea-1f1e8":{"name":"Ecuador","shortname":":flag_ec:","shortname_alternates":[":ec:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1e8"},"1f1ea-1f1ec":{"name":"Egypt","shortname":":flag_eg:","shortname_alternates":[":eg:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1ec"},"1f1f8-1f1fb":{"name":"El Salvador","shortname":":flag_sv:","shortname_alternates":[":sv:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1fb"},"1f1ec-1f1f6":{"name":"Equatorial Guinea","shortname":":flag_gq:","shortname_alternates":[":gq:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f6"},"1f1ea-1f1f7":{"name":"Eritrea","shortname":":flag_er:","shortname_alternates":[":er:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1f7"},"1f1ea-1f1ea":{"name":"Estonia","shortname":":flag_ee:","shortname_alternates":[":ee:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1ea"},"1f1ea-1f1f9":{"name":"Ethiopia","shortname":":flag_et:","shortname_alternates":[":et:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1f9"},"1f1ea-1f1fa":{"name":"European Union","shortname":":flag_eu:","shortname_alternates":[":eu:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1fa"},"1f1eb-1f1f0":{"name":"Falkland Islands","shortname":":flag_fk:","shortname_alternates":[":fk:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1f0"},"1f1eb-1f1f4":{"name":"Faroe Islands","shortname":":flag_fo:","shortname_alternates":[":fo:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1f4"},"1f1eb-1f1ef":{"name":"Fiji","shortname":":flag_fj:","shortname_alternates":[":fj:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1ef"},"1f1eb-1f1ee":{"name":"Finland","shortname":":flag_fi:","shortname_alternates":[":fi:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1ee"},"1f1eb-1f1f7":{"name":"France","shortname":":flag_fr:","shortname_alternates":[":fr:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1f7"},"1f1ec-1f1eb":{"name":"French Guiana","shortname":":flag_gf:","shortname_alternates":[":gf:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1eb"},"1f1f5-1f1eb":{"name":"French Polynesia","shortname":":flag_pf:","shortname_alternates":[":pf:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1eb"},"1f1f9-1f1eb":{"name":"French Southern Territories","shortname":":flag_tf:","shortname_alternates":[":tf:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1eb"},"1f1ec-1f1e6":{"name":"Gabon","shortname":":flag_ga:","shortname_alternates":[":ga:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1e6"},"1f1ec-1f1f2":{"name":"Gambia","shortname":":flag_gm:","shortname_alternates":[":gm:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f2"},"1f1ec-1f1ea":{"name":"Georgia","shortname":":flag_ge:","shortname_alternates":[":ge:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1ea"},"1f1e9-1f1ea":{"name":"Germany","shortname":":flag_de:","shortname_alternates":[":de:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1ea"},"1f1ec-1f1ed":{"name":"Ghana","shortname":":flag_gh:","shortname_alternates":[":gh:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1ed"},"1f1ec-1f1ee":{"name":"Gibraltar","shortname":":flag_gi:","shortname_alternates":[":gi:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1ee"},"1f1ec-1f1f7":{"name":"Greece","shortname":":flag_gr:","shortname_alternates":[":gr:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f7"},"1f1ec-1f1f1":{"name":"Greenland","shortname":":flag_gl:","shortname_alternates":[":gl:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f1"},"1f1ec-1f1e9":{"name":"Grenada","shortname":":flag_gd:","shortname_alternates":[":gd:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1e9"},"1f1ec-1f1f5":{"name":"Guadeloupe","shortname":":flag_gp:","shortname_alternates":[":gp:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f5"},"1f1ec-1f1fa":{"name":"Guam","shortname":":flag_gu:","shortname_alternates":[":gu:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1fa"},"1f1ec-1f1f9":{"name":"Guatemala","shortname":":flag_gt:","shortname_alternates":[":gt:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f9"},"1f1ec-1f1ec":{"name":"Guernsey","shortname":":flag_gg:","shortname_alternates":[":gg:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1ec"},"1f1ec-1f1f3":{"name":"Guinea","shortname":":flag_gn:","shortname_alternates":[":gn:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f3"},"1f1ec-1f1fc":{"name":"Guinea-Bissau","shortname":":flag_gw:","shortname_alternates":[":gw:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1fc"},"1f1ec-1f1fe":{"name":"Guyana","shortname":":flag_gy:","shortname_alternates":[":gy:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1fe"},"1f1ed-1f1f9":{"name":"Haiti","shortname":":flag_ht:","shortname_alternates":[":ht:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1f9"},"1f1ed-1f1f3":{"name":"Honduras","shortname":":flag_hn:","shortname_alternates":[":hn:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1f3"},"1f1ed-1f1f0":{"name":"Hong Kong SAR China","shortname":":flag_hk:","shortname_alternates":[":hk:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1f0"},"1f1ed-1f1fa":{"name":"Hungary","shortname":":flag_hu:","shortname_alternates":[":hu:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1fa"},"1f1ee-1f1f8":{"name":"Iceland","shortname":":flag_is:","shortname_alternates":[":is:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f8"},"1f1ee-1f1f3":{"name":"India","shortname":":flag_in:","shortname_alternates":[":in:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f3"},"1f1ee-1f1e9":{"name":"Indonesia","shortname":":flag_id:","shortname_alternates":[":indonesia:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1e9"},"1f1ee-1f1f7":{"name":"Iran","shortname":":flag_ir:","shortname_alternates":[":ir:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f7"},"1f1ee-1f1f6":{"name":"Iraq","shortname":":flag_iq:","shortname_alternates":[":iq:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f6"},"1f1ee-1f1ea":{"name":"Ireland","shortname":":flag_ie:","shortname_alternates":[":ie:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1ea"},"1f1ee-1f1f2":{"name":"Isle of Man","shortname":":flag_im:","shortname_alternates":[":im:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f2"},"1f1ee-1f1f1":{"name":"Israel","shortname":":flag_il:","shortname_alternates":[":il:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f1"},"1f1ee-1f1f9":{"name":"Italy","shortname":":flag_it:","shortname_alternates":[":it:"],"keywords":["flag"],"unicode_output":"1f1ee-1f1f9"},"1f1ef-1f1f2":{"name":"Jamaica","shortname":":flag_jm:","shortname_alternates":[":jm:"],"keywords":["flag"],"unicode_output":"1f1ef-1f1f2"},"1f1ef-1f1f5":{"name":"Japan","shortname":":flag_jp:","shortname_alternates":[":jp:"],"keywords":["flag"],"unicode_output":"1f1ef-1f1f5"},"1f38c":{"name":"crossed flags","shortname":":crossed_flags:","shortname_alternates":[],"keywords":["Japanese","celebration","cross","crossed"],"unicode_output":"1f38c"},"1f1ef-1f1ea":{"name":"Jersey","shortname":":flag_je:","shortname_alternates":[":je:"],"keywords":["flag"],"unicode_output":"1f1ef-1f1ea"},"1f1ef-1f1f4":{"name":"Jordan","shortname":":flag_jo:","shortname_alternates":[":jo:"],"keywords":["flag"],"unicode_output":"1f1ef-1f1f4"},"1f1f0-1f1ff":{"name":"Kazakhstan","shortname":":flag_kz:","shortname_alternates":[":kz:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1ff"},"1f1f0-1f1ea":{"name":"Kenya","shortname":":flag_ke:","shortname_alternates":[":ke:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1ea"},"1f1f0-1f1ee":{"name":"Kiribati","shortname":":flag_ki:","shortname_alternates":[":ki:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1ee"},"1f1fd-1f1f0":{"name":"Kosovo","shortname":":flag_xk:","shortname_alternates":[":xk:"],"keywords":["flag"],"unicode_output":"1f1fd-1f1f0"},"1f1f0-1f1fc":{"name":"Kuwait","shortname":":flag_kw:","shortname_alternates":[":kw:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1fc"},"1f1f0-1f1ec":{"name":"Kyrgyzstan","shortname":":flag_kg:","shortname_alternates":[":kg:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1ec"},"1f1f1-1f1e6":{"name":"Laos","shortname":":flag_la:","shortname_alternates":[":la:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1e6"},"1f1f1-1f1fb":{"name":"Latvia","shortname":":flag_lv:","shortname_alternates":[":lv:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1fb"},"1f1f1-1f1e7":{"name":"Lebanon","shortname":":flag_lb:","shortname_alternates":[":lb:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1e7"},"1f1f1-1f1f8":{"name":"Lesotho","shortname":":flag_ls:","shortname_alternates":[":ls:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1f8"},"1f1f1-1f1f7":{"name":"Liberia","shortname":":flag_lr:","shortname_alternates":[":lr:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1f7"},"1f1f1-1f1fe":{"name":"Libya","shortname":":flag_ly:","shortname_alternates":[":ly:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1fe"},"1f1f1-1f1ee":{"name":"Liechtenstein","shortname":":flag_li:","shortname_alternates":[":li:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1ee"},"1f1f1-1f1f9":{"name":"Lithuania","shortname":":flag_lt:","shortname_alternates":[":lt:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1f9"},"1f1f1-1f1fa":{"name":"Luxembourg","shortname":":flag_lu:","shortname_alternates":[":lu:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1fa"},"1f1f2-1f1f4":{"name":"Macau SAR China","shortname":":flag_mo:","shortname_alternates":[":mo:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f4"},"1f1f2-1f1f0":{"name":"Macedonia","shortname":":flag_mk:","shortname_alternates":[":mk:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f0"},"1f1f2-1f1ec":{"name":"Madagascar","shortname":":flag_mg:","shortname_alternates":[":mg:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1ec"},"1f1f2-1f1fc":{"name":"Malawi","shortname":":flag_mw:","shortname_alternates":[":mw:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1fc"},"1f1f2-1f1fe":{"name":"Malaysia","shortname":":flag_my:","shortname_alternates":[":my:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1fe"},"1f1f2-1f1fb":{"name":"Maldives","shortname":":flag_mv:","shortname_alternates":[":mv:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1fb"},"1f1f2-1f1f1":{"name":"Mali","shortname":":flag_ml:","shortname_alternates":[":ml:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f1"},"1f1f2-1f1f9":{"name":"Malta","shortname":":flag_mt:","shortname_alternates":[":mt:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f9"},"1f1f2-1f1ed":{"name":"Marshall Islands","shortname":":flag_mh:","shortname_alternates":[":mh:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1ed"},"1f1f2-1f1f6":{"name":"Martinique","shortname":":flag_mq:","shortname_alternates":[":mq:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f6"},"1f1f2-1f1f7":{"name":"Mauritania","shortname":":flag_mr:","shortname_alternates":[":mr:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f7"},"1f1f2-1f1fa":{"name":"Mauritius","shortname":":flag_mu:","shortname_alternates":[":mu:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1fa"},"1f1fe-1f1f9":{"name":"Mayotte","shortname":":flag_yt:","shortname_alternates":[":yt:"],"keywords":["flag"],"unicode_output":"1f1fe-1f1f9"},"1f1f2-1f1fd":{"name":"Mexico","shortname":":flag_mx:","shortname_alternates":[":mx:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1fd"},"1f1eb-1f1f2":{"name":"Micronesia","shortname":":flag_fm:","shortname_alternates":[":fm:"],"keywords":["flag"],"unicode_output":"1f1eb-1f1f2"},"1f1f2-1f1e9":{"name":"Moldova","shortname":":flag_md:","shortname_alternates":[":md:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1e9"},"1f1f2-1f1e8":{"name":"Monaco","shortname":":flag_mc:","shortname_alternates":[":mc:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1e8"},"1f1f2-1f1f3":{"name":"Mongolia","shortname":":flag_mn:","shortname_alternates":[":mn:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f3"},"1f1f2-1f1ea":{"name":"Montenegro","shortname":":flag_me:","shortname_alternates":[":me:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1ea"},"1f1f2-1f1f8":{"name":"Montserrat","shortname":":flag_ms:","shortname_alternates":[":ms:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f8"},"1f1f2-1f1e6":{"name":"Morocco","shortname":":flag_ma:","shortname_alternates":[":ma:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1e6"},"1f1f2-1f1ff":{"name":"Mozambique","shortname":":flag_mz:","shortname_alternates":[":mz:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1ff"},"1f1f2-1f1f2":{"name":"Myanmar (Burma)","shortname":":flag_mm:","shortname_alternates":[":mm:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f2"},"1f1f3-1f1e6":{"name":"Namibia","shortname":":flag_na:","shortname_alternates":[":na:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1e6"},"1f1f3-1f1f7":{"name":"Nauru","shortname":":flag_nr:","shortname_alternates":[":nr:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1f7"},"1f1f3-1f1f5":{"name":"Nepal","shortname":":flag_np:","shortname_alternates":[":np:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1f5"},"1f1f3-1f1f1":{"name":"Netherlands","shortname":":flag_nl:","shortname_alternates":[":nl:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1f1"},"1f1f3-1f1e8":{"name":"New Caledonia","shortname":":flag_nc:","shortname_alternates":[":nc:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1e8"},"1f1f3-1f1ff":{"name":"New Zealand","shortname":":flag_nz:","shortname_alternates":[":nz:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1ff"},"1f1f3-1f1ee":{"name":"Nicaragua","shortname":":flag_ni:","shortname_alternates":[":ni:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1ee"},"1f1f3-1f1ea":{"name":"Niger","shortname":":flag_ne:","shortname_alternates":[":ne:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1ea"},"1f1f3-1f1ec":{"name":"Nigeria","shortname":":flag_ng:","shortname_alternates":[":nigeria:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1ec"},"1f1f3-1f1fa":{"name":"Niue","shortname":":flag_nu:","shortname_alternates":[":nu:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1fa"},"1f1f3-1f1eb":{"name":"Norfolk Island","shortname":":flag_nf:","shortname_alternates":[":nf:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1eb"},"1f1f0-1f1f5":{"name":"North Korea","shortname":":flag_kp:","shortname_alternates":[":kp:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1f5"},"1f1f2-1f1f5":{"name":"Northern Mariana Islands","shortname":":flag_mp:","shortname_alternates":[":mp:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1f5"},"1f1f3-1f1f4":{"name":"Norway","shortname":":flag_no:","shortname_alternates":[":no:"],"keywords":["flag"],"unicode_output":"1f1f3-1f1f4"},"1f1f4-1f1f2":{"name":"Oman","shortname":":flag_om:","shortname_alternates":[":om:"],"keywords":["flag"],"unicode_output":"1f1f4-1f1f2"},"1f1f5-1f1f0":{"name":"Pakistan","shortname":":flag_pk:","shortname_alternates":[":pk:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f0"},"1f1f5-1f1fc":{"name":"Palau","shortname":":flag_pw:","shortname_alternates":[":pw:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1fc"},"1f1f5-1f1f8":{"name":"Palestinian Territories","shortname":":flag_ps:","shortname_alternates":[":ps:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f8"},"1f1f5-1f1e6":{"name":"Panama","shortname":":flag_pa:","shortname_alternates":[":pa:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1e6"},"1f1f5-1f1ec":{"name":"Papua New Guinea","shortname":":flag_pg:","shortname_alternates":[":pg:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1ec"},"1f1f5-1f1fe":{"name":"Paraguay","shortname":":flag_py:","shortname_alternates":[":py:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1fe"},"1f1f5-1f1ea":{"name":"Peru","shortname":":flag_pe:","shortname_alternates":[":pe:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1ea"},"1f1f5-1f1ed":{"name":"Philippines","shortname":":flag_ph:","shortname_alternates":[":ph:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1ed"},"1f1f5-1f1f3":{"name":"Pitcairn Islands","shortname":":flag_pn:","shortname_alternates":[":pn:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f3"},"1f1f5-1f1f1":{"name":"Poland","shortname":":flag_pl:","shortname_alternates":[":pl:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f1"},"1f1f5-1f1f9":{"name":"Portugal","shortname":":flag_pt:","shortname_alternates":[":pt:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f9"},"1f1f5-1f1f7":{"name":"Puerto Rico","shortname":":flag_pr:","shortname_alternates":[":pr:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f7"},"1f1f6-1f1e6":{"name":"Qatar","shortname":":flag_qa:","shortname_alternates":[":qa:"],"keywords":["flag"],"unicode_output":"1f1f6-1f1e6"},"1f1f7-1f1ea":{"name":"R\xE9union","shortname":":flag_re:","shortname_alternates":[":re:"],"keywords":["flag"],"unicode_output":"1f1f7-1f1ea"},"1f1f7-1f1f4":{"name":"Romania","shortname":":flag_ro:","shortname_alternates":[":ro:"],"keywords":["flag"],"unicode_output":"1f1f7-1f1f4"},"1f1f7-1f1fa":{"name":"Russia","shortname":":flag_ru:","shortname_alternates":[":ru:"],"keywords":["flag"],"unicode_output":"1f1f7-1f1fa"},"1f1f7-1f1fc":{"name":"Rwanda","shortname":":flag_rw:","shortname_alternates":[":rw:"],"keywords":["flag"],"unicode_output":"1f1f7-1f1fc"},"1f1fc-1f1f8":{"name":"Samoa","shortname":":flag_ws:","shortname_alternates":[":ws:"],"keywords":["flag"],"unicode_output":"1f1fc-1f1f8"},"1f1f8-1f1f2":{"name":"San Marino","shortname":":flag_sm:","shortname_alternates":[":sm:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f2"},"1f1f8-1f1f9":{"name":"S\xE3o Tom\xE9 & Pr\xEDncipe","shortname":":flag_st:","shortname_alternates":[":st:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f9"},"1f1f8-1f1e6":{"name":"Saudi Arabia","shortname":":flag_sa:","shortname_alternates":[":saudiarabia:",":saudi:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1e6"},"1f1f8-1f1f3":{"name":"Senegal","shortname":":flag_sn:","shortname_alternates":[":sn:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f3"},"1f1f7-1f1f8":{"name":"Serbia","shortname":":flag_rs:","shortname_alternates":[":rs:"],"keywords":["flag"],"unicode_output":"1f1f7-1f1f8"},"1f1f8-1f1e8":{"name":"Seychelles","shortname":":flag_sc:","shortname_alternates":[":sc:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1e8"},"1f1f8-1f1f1":{"name":"Sierra Leone","shortname":":flag_sl:","shortname_alternates":[":sl:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f1"},"1f1f8-1f1ec":{"name":"Singapore","shortname":":flag_sg:","shortname_alternates":[":sg:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ec"},"1f1f8-1f1fd":{"name":"Sint Maarten","shortname":":flag_sx:","shortname_alternates":[":sx:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1fd"},"1f1f8-1f1f0":{"name":"Slovakia","shortname":":flag_sk:","shortname_alternates":[":sk:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f0"},"1f1f8-1f1ee":{"name":"Slovenia","shortname":":flag_si:","shortname_alternates":[":si:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ee"},"1f1ec-1f1f8":{"name":"South Georgia & South Sandwich Islands","shortname":":flag_gs:","shortname_alternates":[":gs:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1f8"},"1f1f8-1f1e7":{"name":"Solomon Islands","shortname":":flag_sb:","shortname_alternates":[":sb:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1e7"},"1f1f8-1f1f4":{"name":"Somalia","shortname":":flag_so:","shortname_alternates":[":so:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f4"},"1f1ff-1f1e6":{"name":"South Africa","shortname":":flag_za:","shortname_alternates":[":za:"],"keywords":["flag"],"unicode_output":"1f1ff-1f1e6"},"1f1f0-1f1f7":{"name":"South Korea","shortname":":flag_kr:","shortname_alternates":[":kr:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1f7"},"1f1f8-1f1f8":{"name":"South Sudan","shortname":":flag_ss:","shortname_alternates":[":ss:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f8"},"1f1ea-1f1f8":{"name":"Spain","shortname":":flag_es:","shortname_alternates":[":es:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1f8"},"1f1f1-1f1f0":{"name":"Sri Lanka","shortname":":flag_lk:","shortname_alternates":[":lk:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1f0"},"1f1e7-1f1f1":{"name":"St. Barth\xE9lemy","shortname":":flag_bl:","shortname_alternates":[":bl:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1f1"},"1f1f8-1f1ed":{"name":"St. Helena","shortname":":flag_sh:","shortname_alternates":[":sh:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ed"},"1f1f0-1f1f3":{"name":"St. Kitts & Nevis","shortname":":flag_kn:","shortname_alternates":[":kn:"],"keywords":["flag"],"unicode_output":"1f1f0-1f1f3"},"1f1f1-1f1e8":{"name":"St. Lucia","shortname":":flag_lc:","shortname_alternates":[":lc:"],"keywords":["flag"],"unicode_output":"1f1f1-1f1e8"},"1f1f5-1f1f2":{"name":"St. Pierre & Miquelon","shortname":":flag_pm:","shortname_alternates":[":pm:"],"keywords":["flag"],"unicode_output":"1f1f5-1f1f2"},"1f1fb-1f1e8":{"name":"St. Vincent & Grenadines","shortname":":flag_vc:","shortname_alternates":[":vc:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1e8"},"1f1f8-1f1e9":{"name":"Sudan","shortname":":flag_sd:","shortname_alternates":[":sd:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1e9"},"1f1f8-1f1f7":{"name":"Suriname","shortname":":flag_sr:","shortname_alternates":[":sr:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1f7"},"1f1f8-1f1ff":{"name":"Swaziland","shortname":":flag_sz:","shortname_alternates":[":sz:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ff"},"1f1f8-1f1ea":{"name":"Sweden","shortname":":flag_se:","shortname_alternates":[":se:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ea"},"1f1e8-1f1ed":{"name":"Switzerland","shortname":":flag_ch:","shortname_alternates":[":ch:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1ed"},"1f1f8-1f1fe":{"name":"Syria","shortname":":flag_sy:","shortname_alternates":[":sy:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1fe"},"1f1f9-1f1fc":{"name":"Taiwan","shortname":":flag_tw:","shortname_alternates":[":tw:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1fc"},"1f1f9-1f1ef":{"name":"Tajikistan","shortname":":flag_tj:","shortname_alternates":[":tj:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1ef"},"1f1f9-1f1ff":{"name":"Tanzania","shortname":":flag_tz:","shortname_alternates":[":tz:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1ff"},"1f1f9-1f1ed":{"name":"Thailand","shortname":":flag_th:","shortname_alternates":[":th:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1ed"},"1f1f9-1f1f1":{"name":"Timor-Leste","shortname":":flag_tl:","shortname_alternates":[":tl:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f1"},"1f1f9-1f1ec":{"name":"Togo","shortname":":flag_tg:","shortname_alternates":[":tg:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1ec"},"1f1f9-1f1f0":{"name":"Tokelau","shortname":":flag_tk:","shortname_alternates":[":tk:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f0"},"1f1f9-1f1f4":{"name":"Tonga","shortname":":flag_to:","shortname_alternates":[":to:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f4"},"1f1f9-1f1f9":{"name":"Trinidad & Tobago","shortname":":flag_tt:","shortname_alternates":[":tt:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f9"},"1f1f9-1f1f3":{"name":"Tunisia","shortname":":flag_tn:","shortname_alternates":[":tn:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f3"},"1f1f9-1f1f7":{"name":"Turkey","shortname":":flag_tr:","shortname_alternates":[":tr:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f7"},"1f1f9-1f1f2":{"name":"Turkmenistan","shortname":":flag_tm:","shortname_alternates":[":turkmenistan:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1f2"},"1f1f9-1f1e8":{"name":"Turks & Caicos Islands","shortname":":flag_tc:","shortname_alternates":[":tc:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1e8"},"1f1f9-1f1fb":{"name":"Tuvalu","shortname":":flag_tv:","shortname_alternates":[":tuvalu:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1fb"},"1f1fb-1f1ee":{"name":"U.S. Virgin Islands","shortname":":flag_vi:","shortname_alternates":[":vi:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1ee"},"1f1fa-1f1ec":{"name":"Uganda","shortname":":flag_ug:","shortname_alternates":[":ug:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1ec"},"1f1fa-1f1e6":{"name":"Ukraine","shortname":":flag_ua:","shortname_alternates":[":ua:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1e6"},"1f1e6-1f1ea":{"name":"United Arab Emirates","shortname":":flag_ae:","shortname_alternates":[":ae:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1ea"},"1f1ec-1f1e7":{"name":"United Kingdom","shortname":":flag_gb:","shortname_alternates":[":gb:"],"keywords":["flag"],"unicode_output":"1f1ec-1f1e7"},"1f1fa-1f1f8":{"name":"United States","shortname":":flag_us:","shortname_alternates":[":us:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1f8"},"1f1fa-1f1fe":{"name":"Uruguay","shortname":":flag_uy:","shortname_alternates":[":uy:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1fe"},"1f1fa-1f1ff":{"name":"Uzbekistan","shortname":":flag_uz:","shortname_alternates":[":uz:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1ff"},"1f1fb-1f1fa":{"name":"Vanuatu","shortname":":flag_vu:","shortname_alternates":[":vu:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1fa"},"1f1fb-1f1e6":{"name":"Vatican City","shortname":":flag_va:","shortname_alternates":[":va:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1e6"},"1f1fb-1f1ea":{"name":"Venezuela","shortname":":flag_ve:","shortname_alternates":[":ve:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1ea"},"1f1fb-1f1f3":{"name":"Vietnam","shortname":":flag_vn:","shortname_alternates":[":vn:"],"keywords":["flag"],"unicode_output":"1f1fb-1f1f3"},"1f1fc-1f1eb":{"name":"Wallis & Futuna","shortname":":flag_wf:","shortname_alternates":[":wf:"],"keywords":["flag"],"unicode_output":"1f1fc-1f1eb"},"1f1ea-1f1ed":{"name":"Western Sahara","shortname":":flag_eh:","shortname_alternates":[":eh:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1ed"},"1f1fe-1f1ea":{"name":"Yemen","shortname":":flag_ye:","shortname_alternates":[":ye:"],"keywords":["flag"],"unicode_output":"1f1fe-1f1ea"},"1f1ff-1f1f2":{"name":"Zambia","shortname":":flag_zm:","shortname_alternates":[":zm:"],"keywords":["flag"],"unicode_output":"1f1ff-1f1f2"},"1f1ff-1f1fc":{"name":"Zimbabwe","shortname":":flag_zw:","shortname_alternates":[":zw:"],"keywords":["flag"],"unicode_output":"1f1ff-1f1fc"},"1f1e6-1f1e8":{"name":"Ascension Island","shortname":":flag_ac:","shortname_alternates":[":ac:"],"keywords":["flag"],"unicode_output":"1f1e6-1f1e8"},"1f1f9-1f1e6":{"name":"Tristan da Cunha","shortname":":flag_ta:","shortname_alternates":[":ta:"],"keywords":["flag"],"unicode_output":"1f1f9-1f1e6"},"1f1e7-1f1fb":{"name":"Bouvet Island","shortname":":flag_bv:","shortname_alternates":[":bv:"],"keywords":["flag"],"unicode_output":"1f1e7-1f1fb"},"1f1ed-1f1f2":{"name":"Heard & McDonald Islands","shortname":":flag_hm:","shortname_alternates":[":hm:"],"keywords":["flag"],"unicode_output":"1f1ed-1f1f2"},"1f1f8-1f1ef":{"name":"Svalbard & Jan Mayen","shortname":":flag_sj:","shortname_alternates":[":sj:"],"keywords":["flag"],"unicode_output":"1f1f8-1f1ef"},"1f1fa-1f1f2":{"name":"U.S. Outlying Islands","shortname":":flag_um:","shortname_alternates":[":um:"],"keywords":["flag"],"unicode_output":"1f1fa-1f1f2"},"1f1ea-1f1e6":{"name":"Ceuta & Melilla","shortname":":flag_ea:","shortname_alternates":[":ea:"],"keywords":["flag"],"unicode_output":"1f1ea-1f1e6"},"1f1e8-1f1f5":{"name":"Clipperton Island","shortname":":flag_cp:","shortname_alternates":[":cp:"],"keywords":["flag"],"unicode_output":"1f1e8-1f1f5"},"1f1e9-1f1ec":{"name":"Diego Garcia","shortname":":flag_dg:","shortname_alternates":[":dg:"],"keywords":["flag"],"unicode_output":"1f1e9-1f1ec"},"1f1f2-1f1eb":{"name":"St. Martin","shortname":":flag_mf:","shortname_alternates":[":mf:"],"keywords":["flag"],"unicode_output":"1f1f2-1f1eb"},"1f1fa-1f1f3":{"name":"United Nations","shortname":":united_nations:","shortname_alternates":[],"keywords":["flag"],"unicode_output":"1f1fa-1f1f3"},"1f3f4-e0067-e0062-e0065-e006e-e0067-e007f":{"name":"England","shortname":":england:","shortname_alternates":[],"keywords":["flag"],"unicode_output":"1f3f4-e0067-e0062-e0065-e006e-e0067-e007f"},"1f3f4-e0067-e0062-e0073-e0063-e0074-e007f":{"name":"Scotland","shortname":":scotland:","shortname_alternates":[],"keywords":["flag"],"unicode_output":"1f3f4-e0067-e0062-e0073-e0063-e0074-e007f"},"1f3f4-e0067-e0062-e0077-e006c-e0073-e007f":{"name":"Wales","shortname":":wales:","shortname_alternates":[],"keywords":["flag"],"unicode_output":"1f3f4-e0067-e0062-e0077-e006c-e0073-e007f"},"002a":{"name":"asterisk","shortname":":asterisk_symbol:","shortname_alternates":[],"keywords":[""],"unicode_output":"002a-fe0f"},"1f1ff":{"name":"regional indicator symbol letter z","shortname":":regional_indicator_z:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ff"},"1f1fe":{"name":"regional indicator symbol letter y","shortname":":regional_indicator_y:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1fe"},"1f1fd":{"name":"regional indicator symbol letter x","shortname":":regional_indicator_x:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1fd"},"0023":{"name":"pound symbol","shortname":":pound_symbol:","shortname_alternates":[],"keywords":[""],"unicode_output":"0023-fe0f"},"1f3fb":{"name":"light skin tone","shortname":":tone1:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f3fb"},"1f3fc":{"name":"medium-light skin tone","shortname":":tone2:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f3fc"},"1f3fd":{"name":"medium skin tone","shortname":":tone3:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f3fd"},"1f3fe":{"name":"medium-dark skin tone","shortname":":tone4:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f3fe"},"1f3ff":{"name":"dark skin tone","shortname":":tone5:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f3ff"},"1f1fc":{"name":"regional indicator symbol letter w","shortname":":regional_indicator_w:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1fc"},"1f1fb":{"name":"regional indicator symbol letter v","shortname":":regional_indicator_v:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1fb"},"1f1fa":{"name":"regional indicator symbol letter u","shortname":":regional_indicator_u:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1fa"},"1f1f9":{"name":"regional indicator symbol letter t","shortname":":regional_indicator_t:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f9"},"1f1f8":{"name":"regional indicator symbol letter s","shortname":":regional_indicator_s:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f8"},"1f1f7":{"name":"regional indicator symbol letter r","shortname":":regional_indicator_r:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f7"},"1f1f6":{"name":"regional indicator symbol letter q","shortname":":regional_indicator_q:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f6"},"1f1f5":{"name":"regional indicator symbol letter p","shortname":":regional_indicator_p:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f5"},"1f1f4":{"name":"regional indicator symbol letter o","shortname":":regional_indicator_o:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f4"},"1f1f3":{"name":"regional indicator symbol letter n","shortname":":regional_indicator_n:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f3"},"1f1f2":{"name":"regional indicator symbol letter m","shortname":":regional_indicator_m:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f2"},"1f1f1":{"name":"regional indicator symbol letter l","shortname":":regional_indicator_l:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f1"},"1f1f0":{"name":"regional indicator symbol letter k","shortname":":regional_indicator_k:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1f0"},"1f1ef":{"name":"regional indicator symbol letter j","shortname":":regional_indicator_j:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ef"},"1f1ee":{"name":"regional indicator symbol letter i","shortname":":regional_indicator_i:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ee"},"1f1ed":{"name":"regional indicator symbol letter h","shortname":":regional_indicator_h:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ed"},"1f1ec":{"name":"regional indicator symbol letter g","shortname":":regional_indicator_g:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ec"},"1f1eb":{"name":"regional indicator symbol letter f","shortname":":regional_indicator_f:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1eb"},"1f1ea":{"name":"regional indicator symbol letter e","shortname":":regional_indicator_e:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1ea"},"1f1e9":{"name":"regional indicator symbol letter d","shortname":":regional_indicator_d:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1e9"},"1f1e8":{"name":"regional indicator symbol letter c","shortname":":regional_indicator_c:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1e8"},"1f1e7":{"name":"regional indicator symbol letter b","shortname":":regional_indicator_b:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1e7"},"1f1e6":{"name":"regional indicator symbol letter a","shortname":":regional_indicator_a:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f1e6"},"0039":{"name":"digit nine","shortname":":digit_nine:","shortname_alternates":[],"keywords":[""],"unicode_output":"0039-fe0f"},"0038":{"name":"digit eight","shortname":":digit_eight:","shortname_alternates":[],"keywords":[""],"unicode_output":"0038-fe0f"},"0037":{"name":"digit seven","shortname":":digit_seven:","shortname_alternates":[],"keywords":[""],"unicode_output":"0037-fe0f"},"0036":{"name":"digit six","shortname":":digit_six:","shortname_alternates":[],"keywords":[""],"unicode_output":"0036-fe0f"},"0035":{"name":"digit five","shortname":":digit_five:","shortname_alternates":[],"keywords":[""],"unicode_output":"0035-fe0f"},"0034":{"name":"digit four","shortname":":digit_four:","shortname_alternates":[],"keywords":[""],"unicode_output":"0034-fe0f"},"0033":{"name":"digit three","shortname":":digit_three:","shortname_alternates":[],"keywords":[""],"unicode_output":"0033-fe0f"},"0032":{"name":"digit two","shortname":":digit_two:","shortname_alternates":[],"keywords":[""],"unicode_output":"0032-fe0f"},"0031":{"name":"digit one","shortname":":digit_one:","shortname_alternates":[],"keywords":[""],"unicode_output":"0031-fe0f"},"0030":{"name":"digit zero","shortname":":digit_zero:","shortname_alternates":[],"keywords":[""],"unicode_output":"0030-fe0f"},"2640":{"name":"female sign","shortname":":female_sign:","shortname_alternates":[],"keywords":["woman"],"unicode_output":"2640"},"2642":{"name":"male sign","shortname":":male_sign:","shortname_alternates":[],"keywords":["man"],"unicode_output":"2642"},"2695":{"name":"medical symbol","shortname":":medical_symbol:","shortname_alternates":[],"keywords":["aesculapius","medicine","staff"],"unicode_output":"2695"},"1f468-1f469-1f466":{"name":"family: man, woman, boy","shortname":":family_man_woman_boy:","shortname_alternates":[],"keywords":["boy","family","man","woman"],"unicode_output":"1f468-200d-1f469-200d-1f466"},"1f469-2764-1f468":{"name":"couple with heart: woman, man","shortname":":couple_with_heart_woman_man:","shortname_alternates":[],"keywords":["couple","love","man","woman"],"unicode_output":"1f469-200d-2764-fe0f-200d-1f468"},"1f469-2764-1f48b-1f468":{"name":"kiss: woman, man","shortname":":kiss_woman_man:","shortname_alternates":[],"keywords":["couple","man","woman"],"unicode_output":"1f469-200d-2764-fe0f-200d-1f48b-200d-1f468"},"1f928":{"name":"face with raised eyebrow","shortname":":face_with_raised_eyebrow:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f928"},"1f929":{"name":"star-struck","shortname":":star_struck:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f929"},"1f92a":{"name":"crazy face","shortname":":crazy_face:","shortname_alternates":[],"keywords":["eye","large","small"],"unicode_output":"1f92a"},"1f92b":{"name":"shushing face","shortname":":shushing_face:","shortname_alternates":[],"keywords":["quiet","shush"],"unicode_output":"1f92b"},"1f92c":{"name":"face with symbols over mouth","shortname":":face_with_symbols_over_mouth:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f92c"},"1f92d":{"name":"face with hand over mouth","shortname":":face_with_hand_over_mouth:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f92d"},"1f92e":{"name":"face vomiting","shortname":":face_vomiting:","shortname_alternates":[],"keywords":["sick","vomit"],"unicode_output":"1f92e"},"1f92f":{"name":"exploding head","shortname":":exploding_head:","shortname_alternates":[],"keywords":["shocked"],"unicode_output":"1f92f"},"1f9d0":{"name":"face with monocle","shortname":":face_with_monocle:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d0"},"1f9d1":{"name":"adult","shortname":":adult:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d1"},"1f9d2":{"name":"child","shortname":":child:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d2"},"1f9d3":{"name":"older adult","shortname":":older_adult:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d3"},"1f9d4":{"name":"bearded person","shortname":":bearded_person:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d4"},"1f9d5":{"name":"woman with headscarf","shortname":":woman_with_headscarf:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9d5"},"1f9e0":{"name":"brain","shortname":":brain:","shortname_alternates":[],"keywords":["intelligent"],"unicode_output":"1f9e0"},"1f9e2":{"name":"billed cap","shortname":":billed_cap:","shortname_alternates":[],"keywords":["baseball cap"],"unicode_output":"1f9e2"},"1f9d9":{"name":"mage","shortname":":mage:","shortname_alternates":[],"keywords":["sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9"},"1f9da":{"name":"fairy","shortname":":fairy:","shortname_alternates":[],"keywords":["Oberon","Puck","Titania"],"unicode_output":"1f9da"},"1f9db":{"name":"vampire","shortname":":vampire:","shortname_alternates":[],"keywords":["Dracula","undead"],"unicode_output":"1f9db"},"1f9dc":{"name":"merperson","shortname":":merperson:","shortname_alternates":[],"keywords":["mermaid","merman","merwoman"],"unicode_output":"1f9dc"},"1f9dd":{"name":"elf","shortname":":elf:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9dd"},"1f9de":{"name":"genie","shortname":":genie:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9de"},"1f9df":{"name":"zombie","shortname":":zombie:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f9df"},"1f9e3":{"name":"scarf","shortname":":scarf:","shortname_alternates":[],"keywords":["neck"],"unicode_output":"1f9e3"},"1f9e4":{"name":"gloves","shortname":":gloves:","shortname_alternates":[],"keywords":["hand"],"unicode_output":"1f9e4"},"1f9e5":{"name":"coat","shortname":":coat:","shortname_alternates":[],"keywords":["jacket"],"unicode_output":"1f9e5"},"1f9e6":{"name":"socks","shortname":":socks:","shortname_alternates":[],"keywords":["stocking"],"unicode_output":"1f9e6"},"1f91f":{"name":"love-you gesture","shortname":":love_you_gesture:","shortname_alternates":[],"keywords":["ILY","hand"],"unicode_output":"1f91f"},"1f91f-1f3fb":{"name":"love-you gesture: light skin tone","shortname":":love_you_gesture_tone1:","shortname_alternates":[":love_you_gesture_light_skin_tone:"],"keywords":["ILY","hand","light skin tone"],"unicode_output":"1f91f-1f3fb"},"1f91f-1f3fc":{"name":"love-you gesture: medium-light skin tone","shortname":":love_you_gesture_tone2:","shortname_alternates":[":love_you_gesture_medium_light_skin_tone:"],"keywords":["ILY","hand","medium-light skin tone"],"unicode_output":"1f91f-1f3fc"},"1f91f-1f3fd":{"name":"love-you gesture: medium skin tone","shortname":":love_you_gesture_tone3:","shortname_alternates":[":love_you_gesture_medium_skin_tone:"],"keywords":["ILY","hand","medium skin tone"],"unicode_output":"1f91f-1f3fd"},"1f91f-1f3fe":{"name":"love-you gesture: medium-dark skin tone","shortname":":love_you_gesture_tone4:","shortname_alternates":[":love_you_gesture_medium_dark_skin_tone:"],"keywords":["ILY","hand","medium-dark skin tone"],"unicode_output":"1f91f-1f3fe"},"1f91f-1f3ff":{"name":"love-you gesture: dark skin tone","shortname":":love_you_gesture_tone5:","shortname_alternates":[":love_you_gesture_dark_skin_tone:"],"keywords":["ILY","dark skin tone","hand"],"unicode_output":"1f91f-1f3ff"},"1f932":{"name":"palms up together","shortname":":palms_up_together:","shortname_alternates":[],"keywords":[""],"unicode_output":"1f932"},"1f932-1f3fb":{"name":"palms up together: light skin tone","shortname":":palms_up_together_tone1:","shortname_alternates":[":palms_up_together_light_skin_tone:"],"keywords":["light skin tone","prayer"],"unicode_output":"1f932-1f3fb"},"1f932-1f3fc":{"name":"palms up together: medium-light skin tone","shortname":":palms_up_together_tone2:","shortname_alternates":[":palms_up_together_medium_light_skin_tone:"],"keywords":["medium-light skin tone","prayer"],"unicode_output":"1f932-1f3fc"},"1f932-1f3fd":{"name":"palms up together: medium skin tone","shortname":":palms_up_together_tone3:","shortname_alternates":[":palms_up_together_medium_skin_tone:"],"keywords":["medium skin tone","prayer"],"unicode_output":"1f932-1f3fd"},"1f932-1f3fe":{"name":"palms up together: medium-dark skin tone","shortname":":palms_up_together_tone4:","shortname_alternates":[":palms_up_together_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","prayer"],"unicode_output":"1f932-1f3fe"},"1f932-1f3ff":{"name":"palms up together: dark skin tone","shortname":":palms_up_together_tone5:","shortname_alternates":[":palms_up_together_dark_skin_tone:"],"keywords":["dark skin tone","prayer"],"unicode_output":"1f932-1f3ff"},"1f9d1-1f3fb":{"name":"adult: light skin tone","shortname":":adult_tone1:","shortname_alternates":[":adult_light_skin_tone:"],"keywords":["gender-neutral","light skin tone"],"unicode_output":"1f9d1-1f3fb"},"1f9d1-1f3fc":{"name":"adult: medium-light skin tone","shortname":":adult_tone2:","shortname_alternates":[":adult_medium_light_skin_tone:"],"keywords":["gender-neutral","medium-light skin tone"],"unicode_output":"1f9d1-1f3fc"},"1f9d1-1f3fd":{"name":"adult: medium skin tone","shortname":":adult_tone3:","shortname_alternates":[":adult_medium_skin_tone:"],"keywords":["gender-neutral","medium skin tone"],"unicode_output":"1f9d1-1f3fd"},"1f9d1-1f3fe":{"name":"adult: medium-dark skin tone","shortname":":adult_tone4:","shortname_alternates":[":adult_medium_dark_skin_tone:"],"keywords":["gender-neutral","medium-dark skin tone"],"unicode_output":"1f9d1-1f3fe"},"1f9d1-1f3ff":{"name":"adult: dark skin tone","shortname":":adult_tone5:","shortname_alternates":[":adult_dark_skin_tone:"],"keywords":["dark skin tone","gender-neutral"],"unicode_output":"1f9d1-1f3ff"},"1f9d2-1f3fb":{"name":"child: light skin tone","shortname":":child_tone1:","shortname_alternates":[":child_light_skin_tone:"],"keywords":["gender-neutral","light skin tone","young"],"unicode_output":"1f9d2-1f3fb"},"1f9d2-1f3fc":{"name":"child: medium-light skin tone","shortname":":child_tone2:","shortname_alternates":[":child_medium_light_skin_tone:"],"keywords":["gender-neutral","medium-light skin tone","young"],"unicode_output":"1f9d2-1f3fc"},"1f9d2-1f3fd":{"name":"child: medium skin tone","shortname":":child_tone3:","shortname_alternates":[":child_medium_skin_tone:"],"keywords":["gender-neutral","medium skin tone","young"],"unicode_output":"1f9d2-1f3fd"},"1f9d2-1f3fe":{"name":"child: medium-dark skin tone","shortname":":child_tone4:","shortname_alternates":[":child_medium_dark_skin_tone:"],"keywords":["gender-neutral","medium-dark skin tone","young"],"unicode_output":"1f9d2-1f3fe"},"1f9d2-1f3ff":{"name":"child: dark skin tone","shortname":":child_tone5:","shortname_alternates":[":child_dark_skin_tone:"],"keywords":["dark skin tone","gender-neutral","young"],"unicode_output":"1f9d2-1f3ff"},"1f9d3-1f3fb":{"name":"older adult: light skin tone","shortname":":older_adult_tone1:","shortname_alternates":[":older_adult_light_skin_tone:"],"keywords":["gender-neutral","light skin tone","old"],"unicode_output":"1f9d3-1f3fb"},"1f9d3-1f3fc":{"name":"older adult: medium-light skin tone","shortname":":older_adult_tone2:","shortname_alternates":[":older_adult_medium_light_skin_tone:"],"keywords":["gender-neutral","medium-light skin tone","old"],"unicode_output":"1f9d3-1f3fc"},"1f9d3-1f3fd":{"name":"older adult: medium skin tone","shortname":":older_adult_tone3:","shortname_alternates":[":older_adult_medium_skin_tone:"],"keywords":["gender-neutral","medium skin tone","old"],"unicode_output":"1f9d3-1f3fd"},"1f9d3-1f3fe":{"name":"older adult: medium-dark skin tone","shortname":":older_adult_tone4:","shortname_alternates":[":older_adult_medium_dark_skin_tone:"],"keywords":["gender-neutral","medium-dark skin tone","old"],"unicode_output":"1f9d3-1f3fe"},"1f9d3-1f3ff":{"name":"older adult: dark skin tone","shortname":":older_adult_tone5:","shortname_alternates":[":older_adult_dark_skin_tone:"],"keywords":["dark skin tone","gender-neutral","old"],"unicode_output":"1f9d3-1f3ff"},"1f9d4-1f3fb":{"name":"bearded person: light skin tone","shortname":":bearded_person_tone1:","shortname_alternates":[":bearded_person_light_skin_tone:"],"keywords":["beard","light skin tone"],"unicode_output":"1f9d4-1f3fb"},"1f9d4-1f3fc":{"name":"bearded person: medium-light skin tone","shortname":":bearded_person_tone2:","shortname_alternates":[":bearded_person_medium_light_skin_tone:"],"keywords":["beard","medium-light skin tone"],"unicode_output":"1f9d4-1f3fc"},"1f9d4-1f3fd":{"name":"bearded person: medium skin tone","shortname":":bearded_person_tone3:","shortname_alternates":[":bearded_person_medium_skin_tone:"],"keywords":["beard","medium skin tone"],"unicode_output":"1f9d4-1f3fd"},"1f9d4-1f3fe":{"name":"bearded person: medium-dark skin tone","shortname":":bearded_person_tone4:","shortname_alternates":[":bearded_person_medium_dark_skin_tone:"],"keywords":["beard","medium-dark skin tone"],"unicode_output":"1f9d4-1f3fe"},"1f9d4-1f3ff":{"name":"bearded person: dark skin tone","shortname":":bearded_person_tone5:","shortname_alternates":[":bearded_person_dark_skin_tone:"],"keywords":["beard","dark skin tone"],"unicode_output":"1f9d4-1f3ff"},"1f9d5-1f3fb":{"name":"woman with headscarf: light skin tone","shortname":":woman_with_headscarf_tone1:","shortname_alternates":[":woman_with_headscarf_light_skin_tone:"],"keywords":["headscarf","hijab","light skin tone","mantilla","tichel"],"unicode_output":"1f9d5-1f3fb"},"1f9d5-1f3fc":{"name":"woman with headscarf: medium-light skin tone","shortname":":woman_with_headscarf_tone2:","shortname_alternates":[":woman_with_headscarf_medium_light_skin_tone:"],"keywords":["headscarf","hijab","mantilla","medium-light skin tone","tichel"],"unicode_output":"1f9d5-1f3fc"},"1f9d5-1f3fd":{"name":"woman with headscarf: medium skin tone","shortname":":woman_with_headscarf_tone3:","shortname_alternates":[":woman_with_headscarf_medium_skin_tone:"],"keywords":["headscarf","hijab","mantilla","medium skin tone","tichel"],"unicode_output":"1f9d5-1f3fd"},"1f9d5-1f3fe":{"name":"woman with headscarf: medium-dark skin tone","shortname":":woman_with_headscarf_tone4:","shortname_alternates":[":woman_with_headscarf_medium_dark_skin_tone:"],"keywords":["headscarf","hijab","mantilla","medium-dark skin tone","tichel"],"unicode_output":"1f9d5-1f3fe"},"1f9d5-1f3ff":{"name":"woman with headscarf: dark skin tone","shortname":":woman_with_headscarf_tone5:","shortname_alternates":[":woman_with_headscarf_dark_skin_tone:"],"keywords":["dark skin tone","headscarf","hijab","mantilla","tichel"],"unicode_output":"1f9d5-1f3ff"},"1f9d9-1f3fb":{"name":"mage: light skin tone","shortname":":mage_tone1:","shortname_alternates":[":mage_light_skin_tone:"],"keywords":["light skin tone","sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9-1f3fb"},"1f9d9-1f3fc":{"name":"mage: medium-light skin tone","shortname":":mage_tone2:","shortname_alternates":[":mage_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9-1f3fc"},"1f9d9-1f3fd":{"name":"mage: medium skin tone","shortname":":mage_tone3:","shortname_alternates":[":mage_medium_skin_tone:"],"keywords":["medium skin tone","sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9-1f3fd"},"1f9d9-1f3fe":{"name":"mage: medium-dark skin tone","shortname":":mage_tone4:","shortname_alternates":[":mage_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9-1f3fe"},"1f9d9-1f3ff":{"name":"mage: dark skin tone","shortname":":mage_tone5:","shortname_alternates":[":mage_dark_skin_tone:"],"keywords":["dark skin tone","sorcerer","sorceress","witch","wizard"],"unicode_output":"1f9d9-1f3ff"},"1f9da-1f3fb":{"name":"fairy: light skin tone","shortname":":fairy_tone1:","shortname_alternates":[":fairy_light_skin_tone:"],"keywords":["Oberon","Puck","Titania","light skin tone"],"unicode_output":"1f9da-1f3fb"},"1f9da-1f3fc":{"name":"fairy: medium-light skin tone","shortname":":fairy_tone2:","shortname_alternates":[":fairy_medium_light_skin_tone:"],"keywords":["Oberon","Puck","Titania","medium-light skin tone"],"unicode_output":"1f9da-1f3fc"},"1f9da-1f3fd":{"name":"fairy: medium skin tone","shortname":":fairy_tone3:","shortname_alternates":[":fairy_medium_skin_tone:"],"keywords":["Oberon","Puck","Titania","medium skin tone"],"unicode_output":"1f9da-1f3fd"},"1f9da-1f3fe":{"name":"fairy: medium-dark skin tone","shortname":":fairy_tone4:","shortname_alternates":[":fairy_medium_dark_skin_tone:"],"keywords":["Oberon","Puck","Titania","medium-dark skin tone"],"unicode_output":"1f9da-1f3fe"},"1f9da-1f3ff":{"name":"fairy: dark skin tone","shortname":":fairy_tone5:","shortname_alternates":[":fairy_dark_skin_tone:"],"keywords":["Oberon","Puck","Titania","dark skin tone"],"unicode_output":"1f9da-1f3ff"},"1f9db-1f3fb":{"name":"vampire: light skin tone","shortname":":vampire_tone1:","shortname_alternates":[":vampire_light_skin_tone:"],"keywords":["Dracula","light skin tone","undead"],"unicode_output":"1f9db-1f3fb"},"1f9db-1f3fc":{"name":"vampire: medium-light skin tone","shortname":":vampire_tone2:","shortname_alternates":[":vampire_medium_light_skin_tone:"],"keywords":["Dracula","medium-light skin tone","undead"],"unicode_output":"1f9db-1f3fc"},"1f9db-1f3fd":{"name":"vampire: medium skin tone","shortname":":vampire_tone3:","shortname_alternates":[":vampire_medium_skin_tone:"],"keywords":["Dracula","medium skin tone","undead"],"unicode_output":"1f9db-1f3fd"},"1f9db-1f3fe":{"name":"vampire: medium-dark skin tone","shortname":":vampire_tone4:","shortname_alternates":[":vampire_medium_dark_skin_tone:"],"keywords":["Dracula","medium-dark skin tone","undead"],"unicode_output":"1f9db-1f3fe"},"1f9db-1f3ff":{"name":"vampire: dark skin tone","shortname":":vampire_tone5:","shortname_alternates":[":vampire_dark_skin_tone:"],"keywords":["Dracula","dark skin tone","undead"],"unicode_output":"1f9db-1f3ff"},"1f9dc-1f3fb":{"name":"merperson: light skin tone","shortname":":merperson_tone1:","shortname_alternates":[":merperson_light_skin_tone:"],"keywords":["light skin tone","mermaid","merman","merwoman"],"unicode_output":"1f9dc-1f3fb"},"1f9dc-1f3fc":{"name":"merperson: medium-light skin tone","shortname":":merperson_tone2:","shortname_alternates":[":merperson_medium_light_skin_tone:"],"keywords":["medium-light skin tone","mermaid","merman","merwoman"],"unicode_output":"1f9dc-1f3fc"},"1f9dc-1f3fd":{"name":"merperson: medium skin tone","shortname":":merperson_tone3:","shortname_alternates":[":merperson_medium_skin_tone:"],"keywords":["medium skin tone","mermaid","merman","merwoman"],"unicode_output":"1f9dc-1f3fd"},"1f9dc-1f3fe":{"name":"merperson: medium-dark skin tone","shortname":":merperson_tone4:","shortname_alternates":[":merperson_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","mermaid","merman","merwoman"],"unicode_output":"1f9dc-1f3fe"},"1f9dc-1f3ff":{"name":"merperson: dark skin tone","shortname":":merperson_tone5:","shortname_alternates":[":merperson_dark_skin_tone:"],"keywords":["dark skin tone","mermaid","merman","merwoman"],"unicode_output":"1f9dc-1f3ff"},"1f9dd-1f3fb":{"name":"elf: light skin tone","shortname":":elf_tone1:","shortname_alternates":[":elf_light_skin_tone:"],"keywords":["light skin tone","magical"],"unicode_output":"1f9dd-1f3fb"},"1f9dd-1f3fc":{"name":"elf: medium-light skin tone","shortname":":elf_tone2:","shortname_alternates":[":elf_medium_light_skin_tone:"],"keywords":["magical","medium-light skin tone"],"unicode_output":"1f9dd-1f3fc"},"1f9dd-1f3fd":{"name":"elf: medium skin tone","shortname":":elf_tone3:","shortname_alternates":[":elf_medium_skin_tone:"],"keywords":["magical","medium skin tone"],"unicode_output":"1f9dd-1f3fd"},"1f9dd-1f3fe":{"name":"elf: medium-dark skin tone","shortname":":elf_tone4:","shortname_alternates":[":elf_medium_dark_skin_tone:"],"keywords":["magical","medium-dark skin tone"],"unicode_output":"1f9dd-1f3fe"},"1f9dd-1f3ff":{"name":"elf: dark skin tone","shortname":":elf_tone5:","shortname_alternates":[":elf_dark_skin_tone:"],"keywords":["dark skin tone","magical"],"unicode_output":"1f9dd-1f3ff"},"1f9d9-2640":{"name":"woman mage","shortname":":woman_mage:","shortname_alternates":[],"keywords":["sorceress","witch"],"unicode_output":"1f9d9-200d-2640-fe0f"},"1f9d9-2642":{"name":"man mage","shortname":":man_mage:","shortname_alternates":[],"keywords":["sorcerer","wizard"],"unicode_output":"1f9d9-200d-2642-fe0f"},"1f9d9-1f3fb-2640":{"name":"woman mage: light skin tone","shortname":":woman_mage_tone1:","shortname_alternates":[":woman_mage_light_skin_tone:"],"keywords":["light skin tone","sorceress","witch"],"unicode_output":"1f9d9-1f3fb-200d-2640-fe0f"},"1f9d9-1f3fb-2642":{"name":"man mage: light skin tone","shortname":":man_mage_tone1:","shortname_alternates":[":man_mage_light_skin_tone:"],"keywords":["light skin tone","sorcerer","wizard"],"unicode_output":"1f9d9-1f3fb-200d-2642-fe0f"},"1f9d9-1f3fc-2640":{"name":"woman mage: medium-light skin tone","shortname":":woman_mage_tone2:","shortname_alternates":[":woman_mage_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sorceress","witch"],"unicode_output":"1f9d9-1f3fc-200d-2640-fe0f"},"1f9d9-1f3fc-2642":{"name":"man mage: medium-light skin tone","shortname":":man_mage_tone2:","shortname_alternates":[":man_mage_medium_light_skin_tone:"],"keywords":["medium-light skin tone","sorcerer","wizard"],"unicode_output":"1f9d9-1f3fc-200d-2642-fe0f"},"1f9d9-1f3fd-2640":{"name":"woman mage: medium skin tone","shortname":":woman_mage_tone3:","shortname_alternates":[":woman_mage_medium_skin_tone:"],"keywords":["medium skin tone","sorceress","witch"],"unicode_output":"1f9d9-1f3fd-200d-2640-fe0f"},"1f9d9-1f3fd-2642":{"name":"man mage: medium skin tone","shortname":":man_mage_tone3:","shortname_alternates":[":man_mage_medium_skin_tone:"],"keywords":["medium skin tone","sorcerer","wizard"],"unicode_output":"1f9d9-1f3fd-200d-2642-fe0f"},"1f9d9-1f3fe-2640":{"name":"woman mage: medium-dark skin tone","shortname":":woman_mage_tone4:","shortname_alternates":[":woman_mage_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sorceress","witch"],"unicode_output":"1f9d9-1f3fe-200d-2640-fe0f"},"1f9d9-1f3fe-2642":{"name":"man mage: medium-dark skin tone","shortname":":man_mage_tone4:","shortname_alternates":[":man_mage_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","sorcerer","wizard"],"unicode_output":"1f9d9-1f3fe-200d-2642-fe0f"},"1f9d9-1f3ff-2640":{"name":"woman mage: dark skin tone","shortname":":woman_mage_tone5:","shortname_alternates":[":woman_mage_dark_skin_tone:"],"keywords":["dark skin tone","sorceress","witch"],"unicode_output":"1f9d9-1f3ff-200d-2640-fe0f"},"1f9d9-1f3ff-2642":{"name":"man mage: dark skin tone","shortname":":man_mage_tone5:","shortname_alternates":[":man_mage_dark_skin_tone:"],"keywords":["dark skin tone","sorcerer","wizard"],"unicode_output":"1f9d9-1f3ff-200d-2642-fe0f"},"1f9da-2640":{"name":"woman fairy","shortname":":woman_fairy:","shortname_alternates":[],"keywords":["Titania"],"unicode_output":"1f9da-200d-2640-fe0f"},"1f9da-2642":{"name":"man fairy","shortname":":man_fairy:","shortname_alternates":[],"keywords":["Oberon","Puck"],"unicode_output":"1f9da-200d-2642-fe0f"},"1f9da-1f3fb-2640":{"name":"woman fairy: light skin tone","shortname":":woman_fairy_tone1:","shortname_alternates":[":woman_fairy_light_skin_tone:"],"keywords":["Titania","light skin tone"],"unicode_output":"1f9da-1f3fb-200d-2640-fe0f"},"1f9da-1f3fb-2642":{"name":"man fairy: light skin tone","shortname":":man_fairy_tone1:","shortname_alternates":[":man_fairy_light_skin_tone:"],"keywords":["Oberon","Puck","light skin tone"],"unicode_output":"1f9da-1f3fb-200d-2642-fe0f"},"1f9da-1f3fc-2640":{"name":"woman fairy: medium-light skin tone","shortname":":woman_fairy_tone2:","shortname_alternates":[":woman_fairy_medium_light_skin_tone:"],"keywords":["Titania","medium-light skin tone"],"unicode_output":"1f9da-1f3fc-200d-2640-fe0f"},"1f9da-1f3fc-2642":{"name":"man fairy: medium-light skin tone","shortname":":man_fairy_tone2:","shortname_alternates":[":man_fairy_medium_light_skin_tone:"],"keywords":["Oberon","Puck","medium-light skin tone"],"unicode_output":"1f9da-1f3fc-200d-2642-fe0f"},"1f9da-1f3fd-2640":{"name":"woman fairy: medium skin tone","shortname":":woman_fairy_tone3:","shortname_alternates":[":woman_fairy_medium_skin_tone:"],"keywords":["Titania","medium skin tone"],"unicode_output":"1f9da-1f3fd-200d-2640-fe0f"},"1f9da-1f3fd-2642":{"name":"man fairy: medium skin tone","shortname":":man_fairy_tone3:","shortname_alternates":[":man_fairy_medium_skin_tone:"],"keywords":["Oberon","Puck","medium skin tone"],"unicode_output":"1f9da-1f3fd-200d-2642-fe0f"},"1f9da-1f3fe-2640":{"name":"woman fairy: medium-dark skin tone","shortname":":woman_fairy_tone4:","shortname_alternates":[":woman_fairy_medium_dark_skin_tone:"],"keywords":["Titania","medium-dark skin tone"],"unicode_output":"1f9da-1f3fe-200d-2640-fe0f"},"1f9da-1f3fe-2642":{"name":"man fairy: medium-dark skin tone","shortname":":man_fairy_tone4:","shortname_alternates":[":man_fairy_medium_dark_skin_tone:"],"keywords":["Oberon","Puck","medium-dark skin tone"],"unicode_output":"1f9da-1f3fe-200d-2642-fe0f"},"1f9da-1f3ff-2640":{"name":"woman fairy: dark skin tone","shortname":":woman_fairy_tone5:","shortname_alternates":[":woman_fairy_dark_skin_tone:"],"keywords":["Titania","dark skin tone"],"unicode_output":"1f9da-1f3ff-200d-2640-fe0f"},"1f9da-1f3ff-2642":{"name":"man fairy: dark skin tone","shortname":":man_fairy_tone5:","shortname_alternates":[":man_fairy_dark_skin_tone:"],"keywords":["Oberon","Puck","dark skin tone"],"unicode_output":"1f9da-1f3ff-200d-2642-fe0f"},"1f9db-2640":{"name":"woman vampire","shortname":":woman_vampire:","shortname_alternates":[],"keywords":["undead"],"unicode_output":"1f9db-200d-2640-fe0f"},"1f9db-2642":{"name":"man vampire","shortname":":man_vampire:","shortname_alternates":[],"keywords":["Dracula","undead"],"unicode_output":"1f9db-200d-2642-fe0f"},"1f9db-1f3fb-2640":{"name":"woman vampire: light skin tone","shortname":":woman_vampire_tone1:","shortname_alternates":[":woman_vampire_light_skin_tone:"],"keywords":["light skin tone","undead"],"unicode_output":"1f9db-1f3fb-200d-2640-fe0f"},"1f9db-1f3fb-2642":{"name":"man vampire: light skin tone","shortname":":man_vampire_tone1:","shortname_alternates":[":man_vampire_light_skin_tone:"],"keywords":["Dracula","light skin tone","undead"],"unicode_output":"1f9db-1f3fb-200d-2642-fe0f"},"1f9db-1f3fc-2640":{"name":"woman vampire: medium-light skin tone","shortname":":woman_vampire_tone2:","shortname_alternates":[":woman_vampire_medium_light_skin_tone:"],"keywords":["medium-light skin tone","undead"],"unicode_output":"1f9db-1f3fc-200d-2640-fe0f"},"1f9db-1f3fc-2642":{"name":"man vampire: medium-light skin tone","shortname":":man_vampire_tone2:","shortname_alternates":[":man_vampire_medium_light_skin_tone:"],"keywords":["Dracula","medium-light skin tone","undead"],"unicode_output":"1f9db-1f3fc-200d-2642-fe0f"},"1f9db-1f3fd-2640":{"name":"woman vampire: medium skin tone","shortname":":woman_vampire_tone3:","shortname_alternates":[":woman_vampire_medium_skin_tone:"],"keywords":["medium skin tone","undead"],"unicode_output":"1f9db-1f3fd-200d-2640-fe0f"},"1f9db-1f3fd-2642":{"name":"man vampire: medium skin tone","shortname":":man_vampire_tone3:","shortname_alternates":[":man_vampire_medium_skin_tone:"],"keywords":["Dracula","medium skin tone","undead"],"unicode_output":"1f9db-1f3fd-200d-2642-fe0f"},"1f9db-1f3fe-2640":{"name":"woman vampire: medium-dark skin tone","shortname":":woman_vampire_tone4:","shortname_alternates":[":woman_vampire_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","undead"],"unicode_output":"1f9db-1f3fe-200d-2640-fe0f"},"1f9db-1f3fe-2642":{"name":"man vampire: medium-dark skin tone","shortname":":man_vampire_tone4:","shortname_alternates":[":man_vampire_medium_dark_skin_tone:"],"keywords":["Dracula","medium-dark skin tone","undead"],"unicode_output":"1f9db-1f3fe-200d-2642-fe0f"},"1f9db-1f3ff-2640":{"name":"woman vampire: dark skin tone","shortname":":woman_vampire_tone5:","shortname_alternates":[":woman_vampire_dark_skin_tone:"],"keywords":["dark skin tone","undead"],"unicode_output":"1f9db-1f3ff-200d-2640-fe0f"},"1f9db-1f3ff-2642":{"name":"man vampire: dark skin tone","shortname":":man_vampire_tone5:","shortname_alternates":[":man_vampire_dark_skin_tone:"],"keywords":["Dracula","dark skin tone","undead"],"unicode_output":"1f9db-1f3ff-200d-2642-fe0f"},"1f9dc-2640":{"name":"mermaid","shortname":":mermaid:","shortname_alternates":[],"keywords":["merwoman"],"unicode_output":"1f9dc-200d-2640-fe0f"},"1f9dc-2642":{"name":"merman","shortname":":merman:","shortname_alternates":[],"keywords":["Triton"],"unicode_output":"1f9dc-200d-2642-fe0f"},"1f9dc-1f3fb-2640":{"name":"mermaid: light skin tone","shortname":":mermaid_tone1:","shortname_alternates":[":mermaid_light_skin_tone:"],"keywords":["light skin tone","merwoman"],"unicode_output":"1f9dc-1f3fb-200d-2640-fe0f"},"1f9dc-1f3fb-2642":{"name":"merman: light skin tone","shortname":":merman_tone1:","shortname_alternates":[":merman_light_skin_tone:"],"keywords":["Triton","light skin tone"],"unicode_output":"1f9dc-1f3fb-200d-2642-fe0f"},"1f9dc-1f3fc-2640":{"name":"mermaid: medium-light skin tone","shortname":":mermaid_tone2:","shortname_alternates":[":mermaid_medium_light_skin_tone:"],"keywords":["medium-light skin tone","merwoman"],"unicode_output":"1f9dc-1f3fc-200d-2640-fe0f"},"1f9dc-1f3fc-2642":{"name":"merman: medium-light skin tone","shortname":":merman_tone2:","shortname_alternates":[":merman_medium_light_skin_tone:"],"keywords":["Triton","medium-light skin tone"],"unicode_output":"1f9dc-1f3fc-200d-2642-fe0f"},"1f9dc-1f3fd-2640":{"name":"mermaid: medium skin tone","shortname":":mermaid_tone3:","shortname_alternates":[":mermaid_medium_skin_tone:"],"keywords":["medium skin tone","merwoman"],"unicode_output":"1f9dc-1f3fd-200d-2640-fe0f"},"1f9dc-1f3fd-2642":{"name":"merman: medium skin tone","shortname":":merman_tone3:","shortname_alternates":[":merman_medium_skin_tone:"],"keywords":["Triton","medium skin tone"],"unicode_output":"1f9dc-1f3fd-200d-2642-fe0f"},"1f9dc-1f3fe-2640":{"name":"mermaid: medium-dark skin tone","shortname":":mermaid_tone4:","shortname_alternates":[":mermaid_medium_dark_skin_tone:"],"keywords":["medium-dark skin tone","merwoman"],"unicode_output":"1f9dc-1f3fe-200d-2640-fe0f"},"1f9dc-1f3fe-2642":{"name":"merman: medium-dark skin tone","shortname":":merman_tone4:","shortname_alternates":[":merman_medium_dark_skin_tone:"],"keywords":["Triton","medium-dark skin tone"],"unicode_output":"1f9dc-1f3fe-200d-2642-fe0f"},"1f9dc-1f3ff-2640":{"name":"mermaid: dark skin tone","shortname":":mermaid_tone5:","shortname_alternates":[":mermaid_dark_skin_tone:"],"keywords":["dark skin tone","merwoman"],"unicode_output":"1f9dc-1f3ff-200d-2640-fe0f"},"1f9dc-1f3ff-2642":{"name":"merman: dark skin tone","shortname":":merman_tone5:","shortname_alternates":[":merman_dark_skin_tone:"],"keywords":["Triton","dark skin tone"],"unicode_output":"1f9dc-1f3ff-200d-2642-fe0f"},"1f9dd-2640":{"name":"woman elf","shortname":":woman_elf:","shortname_alternates":[],"keywords":["magical"],"unicode_output":"1f9dd-200d-2640-fe0f"},"1f9dd-2642":{"name":"man elf","shortname":":man_elf:","shortname_alternates":[],"keywords":["magical"],"unicode_output":"1f9dd-200d-2642-fe0f"},"1f9dd-1f3fb-2640":{"name":"woman elf: light skin tone","shortname":":woman_elf_tone1:","shortname_alternates":[":woman_elf_light_skin_tone:"],"keywords":["light skin tone","magical"],"unicode_output":"1f9dd-1f3fb-200d-2640-fe0f"},"1f9dd-1f3fb-2642":{"name":"man elf: light skin tone","shortname":":man_elf_tone1:","shortname_alternates":[":man_elf_light_skin_tone:"],"keywords":["light skin tone","magical"],"unicode_output":"1f9dd-1f3fb-200d-2642-fe0f"},"1f9dd-1f3fc-2640":{"name":"woman elf: medium-light skin tone","shortname":":woman_elf_tone2:","shortname_alternates":[":woman_elf_medium_light_skin_tone:"],"keywords":["magical","medium-light skin tone"],"unicode_output":"1f9dd-1f3fc-200d-2640-fe0f"},"1f9dd-1f3fc-2642":{"name":"man elf: medium-light skin tone","shortname":":man_elf_tone2:","shortname_alternates":[":man_elf_medium_light_skin_tone:"],"keywords":["magical","medium-light skin tone"],"unicode_output":"1f9dd-1f3fc-200d-2642-fe0f"},"1f9dd-1f3fd-2640":{"name":"woman elf: medium skin tone","shortname":":woman_elf_tone3:","shortname_alternates":[":woman_elf_medium_skin_tone:"],"keywords":["magical","medium skin tone"],"unicode_output":"1f9dd-1f3fd-200d-2640-fe0f"},"1f9dd-1f3fd-2642":{"name":"man elf: medium skin tone","shortname":":man_elf_tone3:","shortname_alternates":[":man_elf_medium_skin_tone:"],"keywords":["magical","medium skin tone"],"unicode_output":"1f9dd-1f3fd-200d-2642-fe0f"},"1f9dd-1f3fe-2640":{"name":"woman elf: medium-dark skin tone","shortname":":woman_elf_tone4:","shortname_alternates":[":woman_elf_medium_dark_skin_tone:"],"keywords":["magical","medium-dark skin tone"],"unicode_output":"1f9dd-1f3fe-200d-2640-fe0f"},"1f9dd-1f3fe-2642":{"name":"man elf: medium-dark skin tone","shortname":":man_elf_tone4:","shortname_alternates":[":man_elf_medium_dark_skin_tone:"],"keywords":["magical","medium-dark skin tone"],"unicode_output":"1f9dd-1f3fe-200d-2642-fe0f"},"1f9dd-1f3ff-2640":{"name":"woman elf: dark skin tone","shortname":":woman_elf_tone5:","shortname_alternates":[":woman_elf_dark_skin_tone:"],"keywords":["dark skin tone","magical"],"unicode_output":"1f9dd-1f3ff-200d-2640-fe0f"},"1f9dd-1f3ff-2642":{"name":"man elf: dark skin tone","shortname":":man_elf_tone5:","shortname_alternates":[":man_elf_dark_skin_tone:"],"keywords":["dark skin tone","magical"],"unicode_output":"1f9dd-1f3ff-200d-2642-fe0f"},"1f9de-2640":{"name":"woman genie","shortname":":woman_genie:","shortname_alternates":[],"keywords":["djinn"],"unicode_output":"1f9de-200d-2640-fe0f"},"1f9de-2642":{"name":"man genie","shortname":":man_genie:","shortname_alternates":[],"keywords":["djinn"],"unicode_output":"1f9de-200d-2642-fe0f"},"1f9df-2640":{"name":"woman zombie","shortname":":woman_zombie:","shortname_alternates":[],"keywords":["undead","walking dead"],"unicode_output":"1f9df-200d-2640-fe0f"},"1f9df-2642":{"name":"man zombie","shortname":":man_zombie:","shortname_alternates":[],"keywords":["undead","walking dead"],"unicode_output":"1f9df-200d-2642-fe0f"}};function textcomplete(){var selector=arguments.length>0&&arguments[0]!==undefined?arguments[0]:null;selector=selector===null?'.wysibb-body':selector;$(selector).textcomplete([{match:/\B:([\-+\w]*)$/,search:function search(term,callback){var results=[];var results2=[];var results3=[];_.each(emojiStrategy,function(data,basename){if(data.shortname.indexOf(term)>-1){results.push(basename);}else{if(data.shortname_alternates!==null&&data.shortname_alternates.indexOf(term)>-1){results2.push(basename);}else if(data.keywords!==null&&data.keywords.indexOf(term)>-1){results3.push(basename);}}});if(term.length>=3){results.sort(function(a,b){return a.length>b.length;});results2.sort(function(a,b){return a.length>b.length;});results3.sort();}var newResults=results.concat(results2).concat(results3);callback(newResults);},template:function template(basename){return'<img class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/32/'+basename+'.png"> '+emojiStrategy[basename].shortname+'';},replace:function replace(basename){return emojiStrategy[basename].shortname+' ';},index:1,maxCount:10}],{footer:'<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>'});}/* harmony default export */ __webpack_exports__["default"] = ({emojiStrategy:emojiStrategy,textcomplete:textcomplete});
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function t(e,r){ true?module.exports=r():"function"==typeof define&&define.amd?define([],r):"object"==typeof exports?exports.Raphael=r():e.Raphael=r()}(this,function(){return function(t){function e(i){if(r[i])return r[i].exports;var n=r[i]={exports:{},id:i,loaded:!1};return t[i].call(n.exports,n,n.exports,e),n.loaded=!0,n.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){var i,n;i=[r(1),r(3),r(4)],n=function(t){return t}.apply(e,i),!(void 0!==n&&(t.exports=n))},function(t,e,r){var i,n;i=[r(2)],n=function(t){function e(r){if(e.is(r,"function"))return w?r():t.on("raphael.DOMload",r);if(e.is(r,Q))return e._engine.create[z](e,r.splice(0,3+e.is(r[0],$))).add(r);var i=Array.prototype.slice.call(arguments,0);if(e.is(i[i.length-1],"function")){var n=i.pop();return w?n.call(e._engine.create[z](e,i)):t.on("raphael.DOMload",function(){n.call(e._engine.create[z](e,i))})}return e._engine.create[z](e,arguments)}function r(t){if("function"==typeof t||Object(t)!==t)return t;var e=new t.constructor;for(var i in t)t[A](i)&&(e[i]=r(t[i]));return e}function i(t,e){for(var r=0,i=t.length;r<i;r++)if(t[r]===e)return t.push(t.splice(r,1)[0])}function n(t,e,r){function n(){var a=Array.prototype.slice.call(arguments,0),s=a.join("␀"),o=n.cache=n.cache||{},l=n.count=n.count||[];return o[A](s)?(i(l,s),r?r(o[s]):o[s]):(l.length>=1e3&&delete o[l.shift()],l.push(s),o[s]=t[z](e,a),r?r(o[s]):o[s])}return n}function a(){return this.hex}function s(t,e){for(var r=[],i=0,n=t.length;n-2*!e>i;i+=2){var a=[{x:+t[i-2],y:+t[i-1]},{x:+t[i],y:+t[i+1]},{x:+t[i+2],y:+t[i+3]},{x:+t[i+4],y:+t[i+5]}];e?i?n-4==i?a[3]={x:+t[0],y:+t[1]}:n-2==i&&(a[2]={x:+t[0],y:+t[1]},a[3]={x:+t[2],y:+t[3]}):a[0]={x:+t[n-2],y:+t[n-1]}:n-4==i?a[3]=a[2]:i||(a[0]={x:+t[i],y:+t[i+1]}),r.push(["C",(-a[0].x+6*a[1].x+a[2].x)/6,(-a[0].y+6*a[1].y+a[2].y)/6,(a[1].x+6*a[2].x-a[3].x)/6,(a[1].y+6*a[2].y-a[3].y)/6,a[2].x,a[2].y])}return r}function o(t,e,r,i,n){var a=-3*e+9*r-9*i+3*n,s=t*a+6*e-12*r+6*i;return t*s-3*e+3*r}function l(t,e,r,i,n,a,s,l,h){null==h&&(h=1),h=h>1?1:h<0?0:h;for(var u=h/2,c=12,f=[-.1252,.1252,-.3678,.3678,-.5873,.5873,-.7699,.7699,-.9041,.9041,-.9816,.9816],p=[.2491,.2491,.2335,.2335,.2032,.2032,.1601,.1601,.1069,.1069,.0472,.0472],d=0,g=0;g<c;g++){var v=u*f[g]+u,x=o(v,t,r,n,s),y=o(v,e,i,a,l),m=x*x+y*y;d+=p[g]*Y.sqrt(m)}return u*d}function h(t,e,r,i,n,a,s,o,h){if(!(h<0||l(t,e,r,i,n,a,s,o)<h)){var u=1,c=u/2,f=u-c,p,d=.01;for(p=l(t,e,r,i,n,a,s,o,f);H(p-h)>d;)c/=2,f+=(p<h?1:-1)*c,p=l(t,e,r,i,n,a,s,o,f);return f}}function u(t,e,r,i,n,a,s,o){if(!(W(t,r)<G(n,s)||G(t,r)>W(n,s)||W(e,i)<G(a,o)||G(e,i)>W(a,o))){var l=(t*i-e*r)*(n-s)-(t-r)*(n*o-a*s),h=(t*i-e*r)*(a-o)-(e-i)*(n*o-a*s),u=(t-r)*(a-o)-(e-i)*(n-s);if(u){var c=l/u,f=h/u,p=+c.toFixed(2),d=+f.toFixed(2);if(!(p<+G(t,r).toFixed(2)||p>+W(t,r).toFixed(2)||p<+G(n,s).toFixed(2)||p>+W(n,s).toFixed(2)||d<+G(e,i).toFixed(2)||d>+W(e,i).toFixed(2)||d<+G(a,o).toFixed(2)||d>+W(a,o).toFixed(2)))return{x:c,y:f}}}}function c(t,e){return p(t,e)}function f(t,e){return p(t,e,1)}function p(t,r,i){var n=e.bezierBBox(t),a=e.bezierBBox(r);if(!e.isBBoxIntersect(n,a))return i?0:[];for(var s=l.apply(0,t),o=l.apply(0,r),h=W(~~(s/5),1),c=W(~~(o/5),1),f=[],p=[],d={},g=i?0:[],v=0;v<h+1;v++){var x=e.findDotsAtSegment.apply(e,t.concat(v/h));f.push({x:x.x,y:x.y,t:v/h})}for(v=0;v<c+1;v++)x=e.findDotsAtSegment.apply(e,r.concat(v/c)),p.push({x:x.x,y:x.y,t:v/c});for(v=0;v<h;v++)for(var y=0;y<c;y++){var m=f[v],b=f[v+1],_=p[y],w=p[y+1],k=H(b.x-m.x)<.001?"y":"x",B=H(w.x-_.x)<.001?"y":"x",C=u(m.x,m.y,b.x,b.y,_.x,_.y,w.x,w.y);if(C){if(d[C.x.toFixed(4)]==C.y.toFixed(4))continue;d[C.x.toFixed(4)]=C.y.toFixed(4);var S=m.t+H((C[k]-m[k])/(b[k]-m[k]))*(b.t-m.t),A=_.t+H((C[B]-_[B])/(w[B]-_[B]))*(w.t-_.t);S>=0&&S<=1.001&&A>=0&&A<=1.001&&(i?g++:g.push({x:C.x,y:C.y,t1:G(S,1),t2:G(A,1)}))}}return g}function d(t,r,i){t=e._path2curve(t),r=e._path2curve(r);for(var n,a,s,o,l,h,u,c,f,d,g=i?0:[],v=0,x=t.length;v<x;v++){var y=t[v];if("M"==y[0])n=l=y[1],a=h=y[2];else{"C"==y[0]?(f=[n,a].concat(y.slice(1)),n=f[6],a=f[7]):(f=[n,a,n,a,l,h,l,h],n=l,a=h);for(var m=0,b=r.length;m<b;m++){var _=r[m];if("M"==_[0])s=u=_[1],o=c=_[2];else{"C"==_[0]?(d=[s,o].concat(_.slice(1)),s=d[6],o=d[7]):(d=[s,o,s,o,u,c,u,c],s=u,o=c);var w=p(f,d,i);if(i)g+=w;else{for(var k=0,B=w.length;k<B;k++)w[k].segment1=v,w[k].segment2=m,w[k].bez1=f,w[k].bez2=d;g=g.concat(w)}}}}}return g}function g(t,e,r,i,n,a){null!=t?(this.a=+t,this.b=+e,this.c=+r,this.d=+i,this.e=+n,this.f=+a):(this.a=1,this.b=0,this.c=0,this.d=1,this.e=0,this.f=0)}function v(){return this.x+j+this.y}function x(){return this.x+j+this.y+j+this.width+" × "+this.height}function y(t,e,r,i,n,a){function s(t){return((c*t+u)*t+h)*t}function o(t,e){var r=l(t,e);return((d*r+p)*r+f)*r}function l(t,e){var r,i,n,a,o,l;for(n=t,l=0;l<8;l++){if(a=s(n)-t,H(a)<e)return n;if(o=(3*c*n+2*u)*n+h,H(o)<1e-6)break;n-=a/o}if(r=0,i=1,n=t,n<r)return r;if(n>i)return i;for(;r<i;){if(a=s(n),H(a-t)<e)return n;t>a?r=n:i=n,n=(i-r)/2+r}return n}var h=3*e,u=3*(i-e)-h,c=1-h-u,f=3*r,p=3*(n-r)-f,d=1-f-p;return o(t,1/(200*a))}function m(t,e){var r=[],i={};if(this.ms=e,this.times=1,t){for(var n in t)t[A](n)&&(i[ht(n)]=t[n],r.push(ht(n)));r.sort(Bt)}this.anim=i,this.top=r[r.length-1],this.percents=r}function b(r,i,n,a,s,o){n=ht(n);var l,h,u,c=[],f,p,d,v=r.ms,x={},m={},b={};if(a)for(w=0,B=Ee.length;w<B;w++){var _=Ee[w];if(_.el.id==i.id&&_.anim==r){_.percent!=n?(Ee.splice(w,1),u=1):h=_,i.attr(_.totalOrigin);break}}else a=+m;for(var w=0,B=r.percents.length;w<B;w++){if(r.percents[w]==n||r.percents[w]>a*r.top){n=r.percents[w],p=r.percents[w-1]||0,v=v/r.top*(n-p),f=r.percents[w+1],l=r.anim[n];break}a&&i.attr(r.anim[r.percents[w]])}if(l){if(h)h.initstatus=a,h.start=new Date-h.ms*a;else{for(var C in l)if(l[A](C)&&(pt[A](C)||i.paper.customAttributes[A](C)))switch(x[C]=i.attr(C),null==x[C]&&(x[C]=ft[C]),m[C]=l[C],pt[C]){case $:b[C]=(m[C]-x[C])/v;break;case"colour":x[C]=e.getRGB(x[C]);var S=e.getRGB(m[C]);b[C]={r:(S.r-x[C].r)/v,g:(S.g-x[C].g)/v,b:(S.b-x[C].b)/v};break;case"path":var T=Qt(x[C],m[C]),E=T[1];for(x[C]=T[0],b[C]=[],w=0,B=x[C].length;w<B;w++){b[C][w]=[0];for(var M=1,N=x[C][w].length;M<N;M++)b[C][w][M]=(E[w][M]-x[C][w][M])/v}break;case"transform":var L=i._,z=le(L[C],m[C]);if(z)for(x[C]=z.from,m[C]=z.to,b[C]=[],b[C].real=!0,w=0,B=x[C].length;w<B;w++)for(b[C][w]=[x[C][w][0]],M=1,N=x[C][w].length;M<N;M++)b[C][w][M]=(m[C][w][M]-x[C][w][M])/v;else{var F=i.matrix||new g,R={_:{transform:L.transform},getBBox:function(){return i.getBBox(1)}};x[C]=[F.a,F.b,F.c,F.d,F.e,F.f],se(R,m[C]),m[C]=R._.transform,b[C]=[(R.matrix.a-F.a)/v,(R.matrix.b-F.b)/v,(R.matrix.c-F.c)/v,(R.matrix.d-F.d)/v,(R.matrix.e-F.e)/v,(R.matrix.f-F.f)/v]}break;case"csv":var j=I(l[C])[q](k),D=I(x[C])[q](k);if("clip-rect"==C)for(x[C]=D,b[C]=[],w=D.length;w--;)b[C][w]=(j[w]-x[C][w])/v;m[C]=j;break;default:for(j=[][P](l[C]),D=[][P](x[C]),b[C]=[],w=i.paper.customAttributes[C].length;w--;)b[C][w]=((j[w]||0)-(D[w]||0))/v}var V=l.easing,O=e.easing_formulas[V];if(!O)if(O=I(V).match(st),O&&5==O.length){var Y=O;O=function(t){return y(t,+Y[1],+Y[2],+Y[3],+Y[4],v)}}else O=St;if(d=l.start||r.start||+new Date,_={anim:r,percent:n,timestamp:d,start:d+(r.del||0),status:0,initstatus:a||0,stop:!1,ms:v,easing:O,from:x,diff:b,to:m,el:i,callback:l.callback,prev:p,next:f,repeat:o||r.times,origin:i.attr(),totalOrigin:s},Ee.push(_),a&&!h&&!u&&(_.stop=!0,_.start=new Date-v*a,1==Ee.length))return Ne();u&&(_.start=new Date-_.ms*a),1==Ee.length&&Me(Ne)}t("raphael.anim.start."+i.id,i,r)}}function _(t){for(var e=0;e<Ee.length;e++)Ee[e].el.paper==t&&Ee.splice(e--,1)}e.version="2.2.0",e.eve=t;var w,k=/[, ]+/,B={circle:1,rect:1,path:1,ellipse:1,text:1,image:1},C=/\{(\d+)\}/g,S="prototype",A="hasOwnProperty",T={doc:document,win:window},E={was:Object.prototype[A].call(T.win,"Raphael"),is:T.win.Raphael},M=function(){this.ca=this.customAttributes={}},N,L="appendChild",z="apply",P="concat",F="ontouchstart"in T.win||T.win.DocumentTouch&&T.doc instanceof DocumentTouch,R="",j=" ",I=String,q="split",D="click dblclick mousedown mousemove mouseout mouseover mouseup touchstart touchmove touchend touchcancel"[q](j),V={mousedown:"touchstart",mousemove:"touchmove",mouseup:"touchend"},O=I.prototype.toLowerCase,Y=Math,W=Y.max,G=Y.min,H=Y.abs,X=Y.pow,U=Y.PI,$="number",Z="string",Q="array",J="toString",K="fill",tt=Object.prototype.toString,et={},rt="push",it=e._ISURL=/^url\(['"]?(.+?)['"]?\)$/i,nt=/^\s*((#[a-f\d]{6})|(#[a-f\d]{3})|rgba?\(\s*([\d\.]+%?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+%?(?:\s*,\s*[\d\.]+%?)?)\s*\)|hsba?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\)|hsla?\(\s*([\d\.]+(?:deg|\xb0|%)?\s*,\s*[\d\.]+%?\s*,\s*[\d\.]+(?:%?\s*,\s*[\d\.]+)?)%?\s*\))\s*$/i,at={NaN:1,Infinity:1,"-Infinity":1},st=/^(?:cubic-)?bezier\(([^,]+),([^,]+),([^,]+),([^\)]+)\)/,ot=Y.round,lt="setAttribute",ht=parseFloat,ut=parseInt,ct=I.prototype.toUpperCase,ft=e._availableAttrs={"arrow-end":"none","arrow-start":"none",blur:0,"clip-rect":"0 0 1e9 1e9",cursor:"default",cx:0,cy:0,fill:"#fff","fill-opacity":1,font:'10px "Arial"',"font-family":'"Arial"',"font-size":"10","font-style":"normal","font-weight":400,gradient:0,height:0,href:"http://raphaeljs.com/","letter-spacing":0,opacity:1,path:"M0,0",r:0,rx:0,ry:0,src:"",stroke:"#000","stroke-dasharray":"","stroke-linecap":"butt","stroke-linejoin":"butt","stroke-miterlimit":0,"stroke-opacity":1,"stroke-width":1,target:"_blank","text-anchor":"middle",title:"Raphael",transform:"",width:0,x:0,y:0,"class":""},pt=e._availableAnimAttrs={blur:$,"clip-rect":"csv",cx:$,cy:$,fill:"colour","fill-opacity":$,"font-size":$,height:$,opacity:$,path:"path",r:$,rx:$,ry:$,stroke:"colour","stroke-opacity":$,"stroke-width":$,transform:"transform",width:$,x:$,y:$},dt=/[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]/g,gt=/[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/,vt={hs:1,rg:1},xt=/,?([achlmqrstvxz]),?/gi,yt=/([achlmrqstvz])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/gi,mt=/([rstm])[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029,]*((-?\d*\.?\d*(?:e[\-+]?\d+)?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*)+)/gi,bt=/(-?\d*\.?\d*(?:e[\-+]?\d+)?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,?[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*/gi,_t=e._radial_gradient=/^r(?:\(([^,]+?)[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*,[\x09\x0a\x0b\x0c\x0d\x20\xa0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029]*([^\)]+?)\))?/,wt={},kt=function(t,e){return t.key-e.key},Bt=function(t,e){return ht(t)-ht(e)},Ct=function(){},St=function(t){return t},At=e._rectPath=function(t,e,r,i,n){return n?[["M",t+n,e],["l",r-2*n,0],["a",n,n,0,0,1,n,n],["l",0,i-2*n],["a",n,n,0,0,1,-n,n],["l",2*n-r,0],["a",n,n,0,0,1,-n,-n],["l",0,2*n-i],["a",n,n,0,0,1,n,-n],["z"]]:[["M",t,e],["l",r,0],["l",0,i],["l",-r,0],["z"]]},Tt=function(t,e,r,i){return null==i&&(i=r),[["M",t,e],["m",0,-i],["a",r,i,0,1,1,0,2*i],["a",r,i,0,1,1,0,-2*i],["z"]]},Et=e._getPath={path:function(t){return t.attr("path")},circle:function(t){var e=t.attrs;return Tt(e.cx,e.cy,e.r)},ellipse:function(t){var e=t.attrs;return Tt(e.cx,e.cy,e.rx,e.ry)},rect:function(t){var e=t.attrs;return At(e.x,e.y,e.width,e.height,e.r)},image:function(t){var e=t.attrs;return At(e.x,e.y,e.width,e.height)},text:function(t){var e=t._getBBox();return At(e.x,e.y,e.width,e.height)},set:function(t){var e=t._getBBox();return At(e.x,e.y,e.width,e.height)}},Mt=e.mapPath=function(t,e){if(!e)return t;var r,i,n,a,s,o,l;for(t=Qt(t),n=0,s=t.length;n<s;n++)for(l=t[n],a=1,o=l.length;a<o;a+=2)r=e.x(l[a],l[a+1]),i=e.y(l[a],l[a+1]),l[a]=r,l[a+1]=i;return t};if(e._g=T,e.type=T.win.SVGAngle||T.doc.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure","1.1")?"SVG":"VML","VML"==e.type){var Nt=T.doc.createElement("div"),Lt;if(Nt.innerHTML='<v:shape adj="1"/>',Lt=Nt.firstChild,Lt.style.behavior="url(#default#VML)",!Lt||"object"!=typeof Lt.adj)return e.type=R;Nt=null}e.svg=!(e.vml="VML"==e.type),e._Paper=M,e.fn=N=M.prototype=e.prototype,e._id=0,e.is=function(t,e){return e=O.call(e),"finite"==e?!at[A](+t):"array"==e?t instanceof Array:"null"==e&&null===t||e==typeof t&&null!==t||"object"==e&&t===Object(t)||"array"==e&&Array.isArray&&Array.isArray(t)||tt.call(t).slice(8,-1).toLowerCase()==e},e.angle=function(t,r,i,n,a,s){if(null==a){var o=t-i,l=r-n;return o||l?(180+180*Y.atan2(-l,-o)/U+360)%360:0}return e.angle(t,r,a,s)-e.angle(i,n,a,s)},e.rad=function(t){return t%360*U/180},e.deg=function(t){return Math.round(180*t/U%360*1e3)/1e3},e.snapTo=function(t,r,i){if(i=e.is(i,"finite")?i:10,e.is(t,Q)){for(var n=t.length;n--;)if(H(t[n]-r)<=i)return t[n]}else{t=+t;var a=r%t;if(a<i)return r-a;if(a>t-i)return r-a+t}return r};var zt=e.createUUID=function(t,e){return function(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(t,e).toUpperCase()}}(/[xy]/g,function(t){var e=16*Y.random()|0,r="x"==t?e:3&e|8;return r.toString(16)});e.setWindow=function(r){t("raphael.setWindow",e,T.win,r),T.win=r,T.doc=T.win.document,e._engine.initWin&&e._engine.initWin(T.win)};var Pt=function(t){if(e.vml){var r=/^\s+|\s+$/g,i;try{var a=new ActiveXObject("htmlfile");a.write("<body>"),a.close(),i=a.body}catch(s){i=createPopup().document.body}var o=i.createTextRange();Pt=n(function(t){try{i.style.color=I(t).replace(r,R);var e=o.queryCommandValue("ForeColor");return e=(255&e)<<16|65280&e|(16711680&e)>>>16,"#"+("000000"+e.toString(16)).slice(-6)}catch(n){return"none"}})}else{var l=T.doc.createElement("i");l.title="Raphaël Colour Picker",l.style.display="none",T.doc.body.appendChild(l),Pt=n(function(t){return l.style.color=t,T.doc.defaultView.getComputedStyle(l,R).getPropertyValue("color")})}return Pt(t)},Ft=function(){return"hsb("+[this.h,this.s,this.b]+")"},Rt=function(){return"hsl("+[this.h,this.s,this.l]+")"},jt=function(){return this.hex},It=function(t,r,i){if(null==r&&e.is(t,"object")&&"r"in t&&"g"in t&&"b"in t&&(i=t.b,r=t.g,t=t.r),null==r&&e.is(t,Z)){var n=e.getRGB(t);t=n.r,r=n.g,i=n.b}return(t>1||r>1||i>1)&&(t/=255,r/=255,i/=255),[t,r,i]},qt=function(t,r,i,n){t*=255,r*=255,i*=255;var a={r:t,g:r,b:i,hex:e.rgb(t,r,i),toString:jt};return e.is(n,"finite")&&(a.opacity=n),a};e.color=function(t){var r;return e.is(t,"object")&&"h"in t&&"s"in t&&"b"in t?(r=e.hsb2rgb(t),t.r=r.r,t.g=r.g,t.b=r.b,t.hex=r.hex):e.is(t,"object")&&"h"in t&&"s"in t&&"l"in t?(r=e.hsl2rgb(t),t.r=r.r,t.g=r.g,t.b=r.b,t.hex=r.hex):(e.is(t,"string")&&(t=e.getRGB(t)),e.is(t,"object")&&"r"in t&&"g"in t&&"b"in t?(r=e.rgb2hsl(t),t.h=r.h,t.s=r.s,t.l=r.l,r=e.rgb2hsb(t),t.v=r.b):(t={hex:"none"},t.r=t.g=t.b=t.h=t.s=t.v=t.l=-1)),t.toString=jt,t},e.hsb2rgb=function(t,e,r,i){this.is(t,"object")&&"h"in t&&"s"in t&&"b"in t&&(r=t.b,e=t.s,i=t.o,t=t.h),t*=360;var n,a,s,o,l;return t=t%360/60,l=r*e,o=l*(1-H(t%2-1)),n=a=s=r-l,t=~~t,n+=[l,o,0,0,o,l][t],a+=[o,l,l,o,0,0][t],s+=[0,0,o,l,l,o][t],qt(n,a,s,i)},e.hsl2rgb=function(t,e,r,i){this.is(t,"object")&&"h"in t&&"s"in t&&"l"in t&&(r=t.l,e=t.s,t=t.h),(t>1||e>1||r>1)&&(t/=360,e/=100,r/=100),t*=360;var n,a,s,o,l;return t=t%360/60,l=2*e*(r<.5?r:1-r),o=l*(1-H(t%2-1)),n=a=s=r-l/2,t=~~t,n+=[l,o,0,0,o,l][t],a+=[o,l,l,o,0,0][t],s+=[0,0,o,l,l,o][t],qt(n,a,s,i)},e.rgb2hsb=function(t,e,r){r=It(t,e,r),t=r[0],e=r[1],r=r[2];var i,n,a,s;return a=W(t,e,r),s=a-G(t,e,r),i=0==s?null:a==t?(e-r)/s:a==e?(r-t)/s+2:(t-e)/s+4,i=(i+360)%6*60/360,n=0==s?0:s/a,{h:i,s:n,b:a,toString:Ft}},e.rgb2hsl=function(t,e,r){r=It(t,e,r),t=r[0],e=r[1],r=r[2];var i,n,a,s,o,l;return s=W(t,e,r),o=G(t,e,r),l=s-o,i=0==l?null:s==t?(e-r)/l:s==e?(r-t)/l+2:(t-e)/l+4,i=(i+360)%6*60/360,a=(s+o)/2,n=0==l?0:a<.5?l/(2*a):l/(2-2*a),{h:i,s:n,l:a,toString:Rt}},e._path2string=function(){return this.join(",").replace(xt,"$1")};var Dt=e._preload=function(t,e){var r=T.doc.createElement("img");r.style.cssText="position:absolute;left:-9999em;top:-9999em",r.onload=function(){e.call(this),this.onload=null,T.doc.body.removeChild(this)},r.onerror=function(){T.doc.body.removeChild(this)},T.doc.body.appendChild(r),r.src=t};e.getRGB=n(function(t){if(!t||(t=I(t)).indexOf("-")+1)return{r:-1,g:-1,b:-1,hex:"none",error:1,toString:a};if("none"==t)return{r:-1,g:-1,b:-1,hex:"none",toString:a};!(vt[A](t.toLowerCase().substring(0,2))||"#"==t.charAt())&&(t=Pt(t));var r,i,n,s,o,l,h,u=t.match(nt);return u?(u[2]&&(s=ut(u[2].substring(5),16),n=ut(u[2].substring(3,5),16),i=ut(u[2].substring(1,3),16)),u[3]&&(s=ut((l=u[3].charAt(3))+l,16),n=ut((l=u[3].charAt(2))+l,16),i=ut((l=u[3].charAt(1))+l,16)),u[4]&&(h=u[4][q](gt),i=ht(h[0]),"%"==h[0].slice(-1)&&(i*=2.55),n=ht(h[1]),"%"==h[1].slice(-1)&&(n*=2.55),s=ht(h[2]),"%"==h[2].slice(-1)&&(s*=2.55),"rgba"==u[1].toLowerCase().slice(0,4)&&(o=ht(h[3])),h[3]&&"%"==h[3].slice(-1)&&(o/=100)),u[5]?(h=u[5][q](gt),i=ht(h[0]),"%"==h[0].slice(-1)&&(i*=2.55),n=ht(h[1]),"%"==h[1].slice(-1)&&(n*=2.55),s=ht(h[2]),"%"==h[2].slice(-1)&&(s*=2.55),("deg"==h[0].slice(-3)||"°"==h[0].slice(-1))&&(i/=360),"hsba"==u[1].toLowerCase().slice(0,4)&&(o=ht(h[3])),h[3]&&"%"==h[3].slice(-1)&&(o/=100),e.hsb2rgb(i,n,s,o)):u[6]?(h=u[6][q](gt),i=ht(h[0]),"%"==h[0].slice(-1)&&(i*=2.55),n=ht(h[1]),"%"==h[1].slice(-1)&&(n*=2.55),s=ht(h[2]),"%"==h[2].slice(-1)&&(s*=2.55),("deg"==h[0].slice(-3)||"°"==h[0].slice(-1))&&(i/=360),"hsla"==u[1].toLowerCase().slice(0,4)&&(o=ht(h[3])),h[3]&&"%"==h[3].slice(-1)&&(o/=100),e.hsl2rgb(i,n,s,o)):(u={r:i,g:n,b:s,toString:a},u.hex="#"+(16777216|s|n<<8|i<<16).toString(16).slice(1),e.is(o,"finite")&&(u.opacity=o),u)):{r:-1,g:-1,b:-1,hex:"none",error:1,toString:a}},e),e.hsb=n(function(t,r,i){return e.hsb2rgb(t,r,i).hex}),e.hsl=n(function(t,r,i){return e.hsl2rgb(t,r,i).hex}),e.rgb=n(function(t,e,r){function i(t){return t+.5|0}return"#"+(16777216|i(r)|i(e)<<8|i(t)<<16).toString(16).slice(1)}),e.getColor=function(t){var e=this.getColor.start=this.getColor.start||{h:0,s:1,b:t||.75},r=this.hsb2rgb(e.h,e.s,e.b);return e.h+=.075,e.h>1&&(e.h=0,e.s-=.2,e.s<=0&&(this.getColor.start={h:0,s:1,b:e.b})),r.hex},e.getColor.reset=function(){delete this.start},e.parsePathString=function(t){if(!t)return null;var r=Vt(t);if(r.arr)return Yt(r.arr);var i={a:7,c:6,h:1,l:2,m:2,r:4,q:4,s:4,t:2,v:1,z:0},n=[];return e.is(t,Q)&&e.is(t[0],Q)&&(n=Yt(t)),n.length||I(t).replace(yt,function(t,e,r){var a=[],s=e.toLowerCase();if(r.replace(bt,function(t,e){e&&a.push(+e)}),"m"==s&&a.length>2&&(n.push([e][P](a.splice(0,2))),s="l",e="m"==e?"l":"L"),"r"==s)n.push([e][P](a));else for(;a.length>=i[s]&&(n.push([e][P](a.splice(0,i[s]))),i[s]););}),n.toString=e._path2string,r.arr=Yt(n),n},e.parseTransformString=n(function(t){if(!t)return null;var r={r:3,s:4,t:2,m:6},i=[];return e.is(t,Q)&&e.is(t[0],Q)&&(i=Yt(t)),i.length||I(t).replace(mt,function(t,e,r){var n=[],a=O.call(e);r.replace(bt,function(t,e){e&&n.push(+e)}),i.push([e][P](n))}),i.toString=e._path2string,i});var Vt=function(t){var e=Vt.ps=Vt.ps||{};return e[t]?e[t].sleep=100:e[t]={sleep:100},setTimeout(function(){for(var r in e)e[A](r)&&r!=t&&(e[r].sleep--,!e[r].sleep&&delete e[r])}),e[t]};e.findDotsAtSegment=function(t,e,r,i,n,a,s,o,l){var h=1-l,u=X(h,3),c=X(h,2),f=l*l,p=f*l,d=u*t+3*c*l*r+3*h*l*l*n+p*s,g=u*e+3*c*l*i+3*h*l*l*a+p*o,v=t+2*l*(r-t)+f*(n-2*r+t),x=e+2*l*(i-e)+f*(a-2*i+e),y=r+2*l*(n-r)+f*(s-2*n+r),m=i+2*l*(a-i)+f*(o-2*a+i),b=h*t+l*r,_=h*e+l*i,w=h*n+l*s,k=h*a+l*o,B=90-180*Y.atan2(v-y,x-m)/U;return(v>y||x<m)&&(B+=180),{x:d,y:g,m:{x:v,y:x},n:{x:y,y:m},start:{x:b,y:_},end:{x:w,y:k},alpha:B}},e.bezierBBox=function(t,r,i,n,a,s,o,l){e.is(t,"array")||(t=[t,r,i,n,a,s,o,l]);var h=Zt.apply(null,t);return{x:h.min.x,y:h.min.y,x2:h.max.x,y2:h.max.y,width:h.max.x-h.min.x,height:h.max.y-h.min.y}},e.isPointInsideBBox=function(t,e,r){return e>=t.x&&e<=t.x2&&r>=t.y&&r<=t.y2},e.isBBoxIntersect=function(t,r){var i=e.isPointInsideBBox;return i(r,t.x,t.y)||i(r,t.x2,t.y)||i(r,t.x,t.y2)||i(r,t.x2,t.y2)||i(t,r.x,r.y)||i(t,r.x2,r.y)||i(t,r.x,r.y2)||i(t,r.x2,r.y2)||(t.x<r.x2&&t.x>r.x||r.x<t.x2&&r.x>t.x)&&(t.y<r.y2&&t.y>r.y||r.y<t.y2&&r.y>t.y)},e.pathIntersection=function(t,e){return d(t,e)},e.pathIntersectionNumber=function(t,e){return d(t,e,1)},e.isPointInsidePath=function(t,r,i){var n=e.pathBBox(t);return e.isPointInsideBBox(n,r,i)&&d(t,[["M",r,i],["H",n.x2+10]],1)%2==1},e._removedFactory=function(e){return function(){t("raphael.log",null,"Raphaël: you are calling to method “"+e+"” of removed object",e)}};var Ot=e.pathBBox=function(t){var e=Vt(t);if(e.bbox)return r(e.bbox);if(!t)return{x:0,y:0,width:0,height:0,x2:0,y2:0};t=Qt(t);for(var i=0,n=0,a=[],s=[],o,l=0,h=t.length;l<h;l++)if(o=t[l],"M"==o[0])i=o[1],n=o[2],a.push(i),s.push(n);else{var u=Zt(i,n,o[1],o[2],o[3],o[4],o[5],o[6]);a=a[P](u.min.x,u.max.x),s=s[P](u.min.y,u.max.y),i=o[5],n=o[6]}var c=G[z](0,a),f=G[z](0,s),p=W[z](0,a),d=W[z](0,s),g=p-c,v=d-f,x={x:c,y:f,x2:p,y2:d,width:g,height:v,cx:c+g/2,cy:f+v/2};return e.bbox=r(x),x},Yt=function(t){var i=r(t);return i.toString=e._path2string,i},Wt=e._pathToRelative=function(t){var r=Vt(t);if(r.rel)return Yt(r.rel);e.is(t,Q)&&e.is(t&&t[0],Q)||(t=e.parsePathString(t));var i=[],n=0,a=0,s=0,o=0,l=0;"M"==t[0][0]&&(n=t[0][1],a=t[0][2],s=n,o=a,l++,i.push(["M",n,a]));for(var h=l,u=t.length;h<u;h++){var c=i[h]=[],f=t[h];if(f[0]!=O.call(f[0]))switch(c[0]=O.call(f[0]),c[0]){case"a":c[1]=f[1],c[2]=f[2],c[3]=f[3],c[4]=f[4],c[5]=f[5],c[6]=+(f[6]-n).toFixed(3),c[7]=+(f[7]-a).toFixed(3);break;case"v":c[1]=+(f[1]-a).toFixed(3);break;case"m":s=f[1],o=f[2];default:for(var p=1,d=f.length;p<d;p++)c[p]=+(f[p]-(p%2?n:a)).toFixed(3)}else{c=i[h]=[],"m"==f[0]&&(s=f[1]+n,o=f[2]+a);for(var g=0,v=f.length;g<v;g++)i[h][g]=f[g]}var x=i[h].length;switch(i[h][0]){case"z":n=s,a=o;break;case"h":n+=+i[h][x-1];break;case"v":a+=+i[h][x-1];break;default:n+=+i[h][x-2],a+=+i[h][x-1]}}return i.toString=e._path2string,r.rel=Yt(i),i},Gt=e._pathToAbsolute=function(t){var r=Vt(t);if(r.abs)return Yt(r.abs);if(e.is(t,Q)&&e.is(t&&t[0],Q)||(t=e.parsePathString(t)),!t||!t.length)return[["M",0,0]];var i=[],n=0,a=0,o=0,l=0,h=0;"M"==t[0][0]&&(n=+t[0][1],a=+t[0][2],o=n,l=a,h++,i[0]=["M",n,a]);for(var u=3==t.length&&"M"==t[0][0]&&"R"==t[1][0].toUpperCase()&&"Z"==t[2][0].toUpperCase(),c,f,p=h,d=t.length;p<d;p++){if(i.push(c=[]),f=t[p],f[0]!=ct.call(f[0]))switch(c[0]=ct.call(f[0]),c[0]){case"A":c[1]=f[1],c[2]=f[2],c[3]=f[3],c[4]=f[4],c[5]=f[5],c[6]=+(f[6]+n),c[7]=+(f[7]+a);break;case"V":c[1]=+f[1]+a;break;case"H":c[1]=+f[1]+n;break;case"R":for(var g=[n,a][P](f.slice(1)),v=2,x=g.length;v<x;v++)g[v]=+g[v]+n,g[++v]=+g[v]+a;i.pop(),i=i[P](s(g,u));break;case"M":o=+f[1]+n,l=+f[2]+a;default:for(v=1,x=f.length;v<x;v++)c[v]=+f[v]+(v%2?n:a)}else if("R"==f[0])g=[n,a][P](f.slice(1)),i.pop(),i=i[P](s(g,u)),c=["R"][P](f.slice(-2));else for(var y=0,m=f.length;y<m;y++)c[y]=f[y];switch(c[0]){case"Z":n=o,a=l;break;case"H":n=c[1];break;case"V":a=c[1];break;case"M":o=c[c.length-2],l=c[c.length-1];default:n=c[c.length-2],a=c[c.length-1]}}return i.toString=e._path2string,r.abs=Yt(i),i},Ht=function(t,e,r,i){return[t,e,r,i,r,i]},Xt=function(t,e,r,i,n,a){var s=1/3,o=2/3;return[s*t+o*r,s*e+o*i,s*n+o*r,s*a+o*i,n,a]},Ut=function(t,e,r,i,a,s,o,l,h,u){var c=120*U/180,f=U/180*(+a||0),p=[],d,g=n(function(t,e,r){var i=t*Y.cos(r)-e*Y.sin(r),n=t*Y.sin(r)+e*Y.cos(r);return{x:i,y:n}});if(u)S=u[0],A=u[1],B=u[2],C=u[3];else{d=g(t,e,-f),t=d.x,e=d.y,d=g(l,h,-f),l=d.x,h=d.y;var v=Y.cos(U/180*a),x=Y.sin(U/180*a),y=(t-l)/2,m=(e-h)/2,b=y*y/(r*r)+m*m/(i*i);b>1&&(b=Y.sqrt(b),r=b*r,i=b*i);var _=r*r,w=i*i,k=(s==o?-1:1)*Y.sqrt(H((_*w-_*m*m-w*y*y)/(_*m*m+w*y*y))),B=k*r*m/i+(t+l)/2,C=k*-i*y/r+(e+h)/2,S=Y.asin(((e-C)/i).toFixed(9)),A=Y.asin(((h-C)/i).toFixed(9));S=t<B?U-S:S,A=l<B?U-A:A,S<0&&(S=2*U+S),A<0&&(A=2*U+A),o&&S>A&&(S-=2*U),!o&&A>S&&(A-=2*U)}var T=A-S;if(H(T)>c){var E=A,M=l,N=h;A=S+c*(o&&A>S?1:-1),l=B+r*Y.cos(A),h=C+i*Y.sin(A),p=Ut(l,h,r,i,a,0,o,M,N,[A,E,B,C])}T=A-S;var L=Y.cos(S),z=Y.sin(S),F=Y.cos(A),R=Y.sin(A),j=Y.tan(T/4),I=4/3*r*j,D=4/3*i*j,V=[t,e],O=[t+I*z,e-D*L],W=[l+I*R,h-D*F],G=[l,h];if(O[0]=2*V[0]-O[0],O[1]=2*V[1]-O[1],u)return[O,W,G][P](p);p=[O,W,G][P](p).join()[q](",");for(var X=[],$=0,Z=p.length;$<Z;$++)X[$]=$%2?g(p[$-1],p[$],f).y:g(p[$],p[$+1],f).x;return X},$t=function(t,e,r,i,n,a,s,o,l){var h=1-l;return{x:X(h,3)*t+3*X(h,2)*l*r+3*h*l*l*n+X(l,3)*s,y:X(h,3)*e+3*X(h,2)*l*i+3*h*l*l*a+X(l,3)*o}},Zt=n(function(t,e,r,i,n,a,s,o){var l=n-2*r+t-(s-2*n+r),h=2*(r-t)-2*(n-r),u=t-r,c=(-h+Y.sqrt(h*h-4*l*u))/2/l,f=(-h-Y.sqrt(h*h-4*l*u))/2/l,p=[e,o],d=[t,s],g;return H(c)>"1e12"&&(c=.5),H(f)>"1e12"&&(f=.5),c>0&&c<1&&(g=$t(t,e,r,i,n,a,s,o,c),d.push(g.x),p.push(g.y)),f>0&&f<1&&(g=$t(t,e,r,i,n,a,s,o,f),d.push(g.x),p.push(g.y)),l=a-2*i+e-(o-2*a+i),h=2*(i-e)-2*(a-i),u=e-i,c=(-h+Y.sqrt(h*h-4*l*u))/2/l,f=(-h-Y.sqrt(h*h-4*l*u))/2/l,H(c)>"1e12"&&(c=.5),H(f)>"1e12"&&(f=.5),c>0&&c<1&&(g=$t(t,e,r,i,n,a,s,o,c),d.push(g.x),p.push(g.y)),f>0&&f<1&&(g=$t(t,e,r,i,n,a,s,o,f),d.push(g.x),p.push(g.y)),{min:{x:G[z](0,d),y:G[z](0,p)},max:{x:W[z](0,d),y:W[z](0,p)}}}),Qt=e._path2curve=n(function(t,e){var r=!e&&Vt(t);if(!e&&r.curve)return Yt(r.curve);for(var i=Gt(t),n=e&&Gt(e),a={x:0,y:0,bx:0,by:0,X:0,Y:0,qx:null,qy:null},s={x:0,y:0,bx:0,by:0,X:0,Y:0,qx:null,qy:null},o=(function(t,e,r){var i,n,a={T:1,Q:1};if(!t)return["C",e.x,e.y,e.x,e.y,e.x,e.y];switch(!(t[0]in a)&&(e.qx=e.qy=null),t[0]){case"M":e.X=t[1],e.Y=t[2];break;case"A":t=["C"][P](Ut[z](0,[e.x,e.y][P](t.slice(1))));break;case"S":"C"==r||"S"==r?(i=2*e.x-e.bx,n=2*e.y-e.by):(i=e.x,n=e.y),t=["C",i,n][P](t.slice(1));break;case"T":"Q"==r||"T"==r?(e.qx=2*e.x-e.qx,e.qy=2*e.y-e.qy):(e.qx=e.x,e.qy=e.y),t=["C"][P](Xt(e.x,e.y,e.qx,e.qy,t[1],t[2]));break;case"Q":e.qx=t[1],e.qy=t[2],t=["C"][P](Xt(e.x,e.y,t[1],t[2],t[3],t[4]));break;case"L":t=["C"][P](Ht(e.x,e.y,t[1],t[2]));break;case"H":t=["C"][P](Ht(e.x,e.y,t[1],e.y));break;case"V":t=["C"][P](Ht(e.x,e.y,e.x,t[1]));break;case"Z":t=["C"][P](Ht(e.x,e.y,e.X,e.Y))}return t}),l=function(t,e){if(t[e].length>7){t[e].shift();for(var r=t[e];r.length;)u[e]="A",n&&(c[e]="A"),t.splice(e++,0,["C"][P](r.splice(0,6)));t.splice(e,1),g=W(i.length,n&&n.length||0)}},h=function(t,e,r,a,s){t&&e&&"M"==t[s][0]&&"M"!=e[s][0]&&(e.splice(s,0,["M",a.x,a.y]),r.bx=0,r.by=0,r.x=t[s][1],r.y=t[s][2],g=W(i.length,n&&n.length||0))},u=[],c=[],f="",p="",d=0,g=W(i.length,n&&n.length||0);d<g;d++){i[d]&&(f=i[d][0]),"C"!=f&&(u[d]=f,d&&(p=u[d-1])),i[d]=o(i[d],a,p),"A"!=u[d]&&"C"==f&&(u[d]="C"),l(i,d),n&&(n[d]&&(f=n[d][0]),"C"!=f&&(c[d]=f,d&&(p=c[d-1])),n[d]=o(n[d],s,p),"A"!=c[d]&&"C"==f&&(c[d]="C"),l(n,d)),h(i,n,a,s,d),h(n,i,s,a,d);var v=i[d],x=n&&n[d],y=v.length,m=n&&x.length;a.x=v[y-2],a.y=v[y-1],a.bx=ht(v[y-4])||a.x,a.by=ht(v[y-3])||a.y,s.bx=n&&(ht(x[m-4])||s.x),s.by=n&&(ht(x[m-3])||s.y),s.x=n&&x[m-2],s.y=n&&x[m-1]}return n||(r.curve=Yt(i)),n?[i,n]:i},null,Yt),Jt=e._parseDots=n(function(t){for(var r=[],i=0,n=t.length;i<n;i++){var a={},s=t[i].match(/^([^:]*):?([\d\.]*)/);if(a.color=e.getRGB(s[1]),a.color.error)return null;a.opacity=a.color.opacity,a.color=a.color.hex,s[2]&&(a.offset=s[2]+"%"),r.push(a)}for(i=1,n=r.length-1;i<n;i++)if(!r[i].offset){for(var o=ht(r[i-1].offset||0),l=0,h=i+1;h<n;h++)if(r[h].offset){l=r[h].offset;break}l||(l=100,h=n),l=ht(l);for(var u=(l-o)/(h-i+1);i<h;i++)o+=u,r[i].offset=o+"%"}return r}),Kt=e._tear=function(t,e){t==e.top&&(e.top=t.prev),t==e.bottom&&(e.bottom=t.next),t.next&&(t.next.prev=t.prev),t.prev&&(t.prev.next=t.next)},te=e._tofront=function(t,e){e.top!==t&&(Kt(t,e),t.next=null,t.prev=e.top,e.top.next=t,e.top=t)},ee=e._toback=function(t,e){e.bottom!==t&&(Kt(t,e),t.next=e.bottom,t.prev=null,e.bottom.prev=t,e.bottom=t)},re=e._insertafter=function(t,e,r){Kt(t,r),e==r.top&&(r.top=t),e.next&&(e.next.prev=t),t.next=e.next,t.prev=e,e.next=t},ie=e._insertbefore=function(t,e,r){Kt(t,r),e==r.bottom&&(r.bottom=t),e.prev&&(e.prev.next=t),t.prev=e.prev,e.prev=t,t.next=e},ne=e.toMatrix=function(t,e){var r=Ot(t),i={_:{transform:R},getBBox:function(){return r}};return se(i,e),i.matrix},ae=e.transformPath=function(t,e){return Mt(t,ne(t,e))},se=e._extractTransform=function(t,r){if(null==r)return t._.transform;r=I(r).replace(/\.{3}|\u2026/g,t._.transform||R);var i=e.parseTransformString(r),n=0,a=0,s=0,o=1,l=1,h=t._,u=new g;if(h.transform=i||[],i)for(var c=0,f=i.length;c<f;c++){var p=i[c],d=p.length,v=I(p[0]).toLowerCase(),x=p[0]!=v,y=x?u.invert():0,m,b,_,w,k;"t"==v&&3==d?x?(m=y.x(0,0),b=y.y(0,0),_=y.x(p[1],p[2]),w=y.y(p[1],p[2]),u.translate(_-m,w-b)):u.translate(p[1],p[2]):"r"==v?2==d?(k=k||t.getBBox(1),u.rotate(p[1],k.x+k.width/2,k.y+k.height/2),n+=p[1]):4==d&&(x?(_=y.x(p[2],p[3]),w=y.y(p[2],p[3]),u.rotate(p[1],_,w)):u.rotate(p[1],p[2],p[3]),n+=p[1]):"s"==v?2==d||3==d?(k=k||t.getBBox(1),u.scale(p[1],p[d-1],k.x+k.width/2,k.y+k.height/2),o*=p[1],l*=p[d-1]):5==d&&(x?(_=y.x(p[3],p[4]),w=y.y(p[3],p[4]),u.scale(p[1],p[2],_,w)):u.scale(p[1],p[2],p[3],p[4]),o*=p[1],l*=p[2]):"m"==v&&7==d&&u.add(p[1],p[2],p[3],p[4],p[5],p[6]),h.dirtyT=1,t.matrix=u}t.matrix=u,h.sx=o,h.sy=l,h.deg=n,h.dx=a=u.e,h.dy=s=u.f,1==o&&1==l&&!n&&h.bbox?(h.bbox.x+=+a,h.bbox.y+=+s):h.dirtyT=1},oe=function(t){var e=t[0];switch(e.toLowerCase()){case"t":return[e,0,0];case"m":return[e,1,0,0,1,0,0];case"r":return 4==t.length?[e,0,t[2],t[3]]:[e,0];case"s":return 5==t.length?[e,1,1,t[3],t[4]]:3==t.length?[e,1,1]:[e,1]}},le=e._equaliseTransform=function(t,r){r=I(r).replace(/\.{3}|\u2026/g,t),t=e.parseTransformString(t)||[],r=e.parseTransformString(r)||[];for(var i=W(t.length,r.length),n=[],a=[],s=0,o,l,h,u;s<i;s++){if(h=t[s]||oe(r[s]),u=r[s]||oe(h),h[0]!=u[0]||"r"==h[0].toLowerCase()&&(h[2]!=u[2]||h[3]!=u[3])||"s"==h[0].toLowerCase()&&(h[3]!=u[3]||h[4]!=u[4]))return;for(n[s]=[],a[s]=[],o=0,l=W(h.length,u.length);o<l;o++)o in h&&(n[s][o]=h[o]),o in u&&(a[s][o]=u[o])}return{from:n,to:a}};e._getContainer=function(t,r,i,n){var a;if(a=null!=n||e.is(t,"object")?t:T.doc.getElementById(t),null!=a)return a.tagName?null==r?{container:a,width:a.style.pixelWidth||a.offsetWidth,height:a.style.pixelHeight||a.offsetHeight}:{container:a,width:r,height:i}:{container:1,x:t,y:r,width:i,height:n}},e.pathToRelative=Wt,e._engine={},e.path2curve=Qt,e.matrix=function(t,e,r,i,n,a){return new g(t,e,r,i,n,a)},function(t){function r(t){return t[0]*t[0]+t[1]*t[1]}function i(t){var e=Y.sqrt(r(t));t[0]&&(t[0]/=e),t[1]&&(t[1]/=e)}t.add=function(t,e,r,i,n,a){var s=[[],[],[]],o=[[this.a,this.c,this.e],[this.b,this.d,this.f],[0,0,1]],l=[[t,r,n],[e,i,a],[0,0,1]],h,u,c,f;for(t&&t instanceof g&&(l=[[t.a,t.c,t.e],[t.b,t.d,t.f],[0,0,1]]),h=0;h<3;h++)for(u=0;u<3;u++){for(f=0,c=0;c<3;c++)f+=o[h][c]*l[c][u];s[h][u]=f}this.a=s[0][0],this.b=s[1][0],this.c=s[0][1],this.d=s[1][1],this.e=s[0][2],this.f=s[1][2]},t.invert=function(){var t=this,e=t.a*t.d-t.b*t.c;return new g(t.d/e,-t.b/e,-t.c/e,t.a/e,(t.c*t.f-t.d*t.e)/e,(t.b*t.e-t.a*t.f)/e)},t.clone=function(){return new g(this.a,this.b,this.c,this.d,this.e,this.f)},t.translate=function(t,e){
@@ -56320,7 +56379,7 @@ this.add(1,0,0,1,t,e)},t.scale=function(t,e,r,i){null==e&&(e=t),(r||i)&&this.add
 i._.arrows&&("startString"in i._.arrows&&_(i,i._.arrows.startString),"endString"in i._.arrows&&_(i,i._.arrows.endString,1));break;case"stroke-dasharray":k(i,g,a);break;case"fill":var N=r(g).match(t._ISURL);if(N){A=v("pattern");var L=v("image");A.id=t.createUUID(),v(A,{x:0,y:0,patternUnits:"userSpaceOnUse",height:1,width:1}),v(L,{x:0,y:0,"xlink:href":N[1]}),A.appendChild(L),function(e){t._preload(N[1],function(){var t=this.offsetWidth,r=this.offsetHeight;v(e,{width:t,height:r}),v(L,{width:t,height:r})})}(A),i.paper.defs.appendChild(A),v(l,{fill:"url(#"+A.id+")"}),i.pattern=A,i.pattern&&b(i);break}var z=t.getRGB(g);if(z.error){if(("circle"==i.type||"ellipse"==i.type||"r"!=r(g).charAt())&&x(i,g)){if("opacity"in u||"fill-opacity"in u){var P=t._g.doc.getElementById(l.getAttribute("fill").replace(/^url\(#|\)$/g,c));if(P){var F=P.getElementsByTagName("stop");v(F[F.length-1],{"stop-opacity":("opacity"in u?u.opacity:1)*("fill-opacity"in u?u["fill-opacity"]:1)})}}u.gradient=g,u.fill="none";break}}else delete a.gradient,delete u.gradient,!t.is(u.opacity,"undefined")&&t.is(a.opacity,"undefined")&&v(l,{opacity:u.opacity}),!t.is(u["fill-opacity"],"undefined")&&t.is(a["fill-opacity"],"undefined")&&v(l,{"fill-opacity":u["fill-opacity"]});z[e]("opacity")&&v(l,{"fill-opacity":z.opacity>1?z.opacity/100:z.opacity});case"stroke":z=t.getRGB(g),l.setAttribute(d,z.hex),"stroke"==d&&z[e]("opacity")&&v(l,{"stroke-opacity":z.opacity>1?z.opacity/100:z.opacity}),"stroke"==d&&i._.arrows&&("startString"in i._.arrows&&_(i,i._.arrows.startString),"endString"in i._.arrows&&_(i,i._.arrows.endString,1));break;case"gradient":("circle"==i.type||"ellipse"==i.type||"r"!=r(g).charAt())&&x(i,g);break;case"opacity":u.gradient&&!u[e]("stroke-opacity")&&v(l,{"stroke-opacity":g>1?g/100:g});case"fill-opacity":if(u.gradient){P=t._g.doc.getElementById(l.getAttribute("fill").replace(/^url\(#|\)$/g,c)),P&&(F=P.getElementsByTagName("stop"),v(F[F.length-1],{"stop-opacity":g}));break}default:"font-size"==d&&(g=n(g,10)+"px");var R=d.replace(/(\-.)/g,function(t){return t.substring(1).toUpperCase()});l.style[R]=g,i._.dirty=1,l.setAttribute(d,g)}}S(i,a),l.style.visibility=f},C=1.2,S=function(i,a){if("text"==i.type&&(a[e]("text")||a[e]("font")||a[e]("font-size")||a[e]("x")||a[e]("y"))){var s=i.attrs,o=i.node,l=o.firstChild?n(t._g.doc.defaultView.getComputedStyle(o.firstChild,c).getPropertyValue("font-size"),10):10;if(a[e]("text")){for(s.text=a.text;o.firstChild;)o.removeChild(o.firstChild);for(var h=r(a.text).split("\n"),u=[],f,p=0,d=h.length;p<d;p++)f=v("tspan"),p&&v(f,{dy:l*C,x:s.x}),f.appendChild(t._g.doc.createTextNode(h[p])),o.appendChild(f),u[p]=f}else for(u=o.getElementsByTagName("tspan"),p=0,d=u.length;p<d;p++)p?v(u[p],{dy:l*C,x:s.x}):v(u[0],{dy:0});v(o,{x:s.x,y:s.y}),i._.dirty=1;var g=i._getBBox(),x=s.y-(g.y+g.height/2);x&&t.is(x,"finite")&&v(u[0],{dy:x})}},A=function(t){return t.parentNode&&"a"===t.parentNode.tagName.toLowerCase()?t.parentNode:t},T=function(e,r){function i(){return("0000"+(Math.random()*Math.pow(36,5)<<0).toString(36)).slice(-5)}var n=0,a=0;this[0]=this.node=e,e.raphael=!0,this.id=i(),e.raphaelid=this.id,this.matrix=t.matrix(),this.realPath=null,this.paper=r,this.attrs=this.attrs||{},this._={transform:[],sx:1,sy:1,deg:0,dx:0,dy:0,dirty:1},!r.bottom&&(r.bottom=this),this.prev=r.top,r.top&&(r.top.next=this),r.top=this,this.next=null},E=t.el;T.prototype=E,E.constructor=T,t._engine.path=function(t,e){var r=v("path");e.canvas&&e.canvas.appendChild(r);var i=new T(r,e);return i.type="path",B(i,{fill:"none",stroke:"#000",path:t}),i},E.rotate=function(t,e,n){if(this.removed)return this;if(t=r(t).split(h),t.length-1&&(e=i(t[1]),n=i(t[2])),t=i(t[0]),null==n&&(e=n),null==e||null==n){var a=this.getBBox(1);e=a.x+a.width/2,n=a.y+a.height/2}return this.transform(this._.transform.concat([["r",t,e,n]])),this},E.scale=function(t,e,n,a){if(this.removed)return this;if(t=r(t).split(h),t.length-1&&(e=i(t[1]),n=i(t[2]),a=i(t[3])),t=i(t[0]),null==e&&(e=t),null==a&&(n=a),null==n||null==a)var s=this.getBBox(1);return n=null==n?s.x+s.width/2:n,a=null==a?s.y+s.height/2:a,this.transform(this._.transform.concat([["s",t,e,n,a]])),this},E.translate=function(t,e){return this.removed?this:(t=r(t).split(h),t.length-1&&(e=i(t[1])),t=i(t[0])||0,e=+e||0,this.transform(this._.transform.concat([["t",t,e]])),this)},E.transform=function(r){var i=this._;if(null==r)return i.transform;if(t._extractTransform(this,r),this.clip&&v(this.clip,{transform:this.matrix.invert()}),this.pattern&&b(this),this.node&&v(this.node,{transform:this.matrix}),1!=i.sx||1!=i.sy){var n=this.attrs[e]("stroke-width")?this.attrs["stroke-width"]:1;this.attr({"stroke-width":n})}return this},E.hide=function(){return this.removed||(this.node.style.display="none"),this},E.show=function(){return this.removed||(this.node.style.display=""),this},E.remove=function(){var e=A(this.node);if(!this.removed&&e.parentNode){var r=this.paper;r.__set__&&r.__set__.exclude(this),u.unbind("raphael.*.*."+this.id),this.gradient&&r.defs.removeChild(this.gradient),t._tear(this,r),e.parentNode.removeChild(e),this.removeData();for(var i in this)this[i]="function"==typeof this[i]?t._removedFactory(i):null;this.removed=!0}},E._getBBox=function(){if("none"==this.node.style.display){this.show();var t=!0}var e=!1,r;this.paper.canvas.parentElement?r=this.paper.canvas.parentElement.style:this.paper.canvas.parentNode&&(r=this.paper.canvas.parentNode.style),r&&"none"==r.display&&(e=!0,r.display="");var i={};try{i=this.node.getBBox()}catch(n){i={x:this.node.clientLeft,y:this.node.clientTop,width:this.node.clientWidth,height:this.node.clientHeight}}finally{i=i||{},e&&(r.display="none")}return t&&this.hide(),i},E.attr=function(r,i){if(this.removed)return this;if(null==r){var n={};for(var a in this.attrs)this.attrs[e](a)&&(n[a]=this.attrs[a]);return n.gradient&&"none"==n.fill&&(n.fill=n.gradient)&&delete n.gradient,n.transform=this._.transform,n}if(null==i&&t.is(r,"string")){if("fill"==r&&"none"==this.attrs.fill&&this.attrs.gradient)return this.attrs.gradient;if("transform"==r)return this._.transform;for(var s=r.split(h),o={},l=0,c=s.length;l<c;l++)r=s[l],r in this.attrs?o[r]=this.attrs[r]:t.is(this.paper.customAttributes[r],"function")?o[r]=this.paper.customAttributes[r].def:o[r]=t._availableAttrs[r];return c-1?o:o[s[0]]}if(null==i&&t.is(r,"array")){for(o={},l=0,c=r.length;l<c;l++)o[r[l]]=this.attr(r[l]);return o}if(null!=i){var f={};f[r]=i}else null!=r&&t.is(r,"object")&&(f=r);for(var p in f)u("raphael.attr."+p+"."+this.id,this,f[p]);for(p in this.paper.customAttributes)if(this.paper.customAttributes[e](p)&&f[e](p)&&t.is(this.paper.customAttributes[p],"function")){var d=this.paper.customAttributes[p].apply(this,[].concat(f[p]));this.attrs[p]=f[p];for(var g in d)d[e](g)&&(f[g]=d[g])}return B(this,f),this},E.toFront=function(){if(this.removed)return this;var e=A(this.node);e.parentNode.appendChild(e);var r=this.paper;return r.top!=this&&t._tofront(this,r),this},E.toBack=function(){if(this.removed)return this;var e=A(this.node),r=e.parentNode;r.insertBefore(e,r.firstChild),t._toback(this,this.paper);var i=this.paper;return this},E.insertAfter=function(e){if(this.removed||!e)return this;var r=A(this.node),i=A(e.node||e[e.length-1].node);return i.nextSibling?i.parentNode.insertBefore(r,i.nextSibling):i.parentNode.appendChild(r),t._insertafter(this,e,this.paper),this},E.insertBefore=function(e){if(this.removed||!e)return this;var r=A(this.node),i=A(e.node||e[0].node);return i.parentNode.insertBefore(r,i),t._insertbefore(this,e,this.paper),this},E.blur=function(e){var r=this;if(0!==+e){var i=v("filter"),n=v("feGaussianBlur");r.attrs.blur=e,i.id=t.createUUID(),v(n,{stdDeviation:+e||1.5}),i.appendChild(n),r.paper.defs.appendChild(i),r._blur=i,v(r.node,{filter:"url(#"+i.id+")"})}else r._blur&&(r._blur.parentNode.removeChild(r._blur),delete r._blur,delete r.attrs.blur),r.node.removeAttribute("filter");return r},t._engine.circle=function(t,e,r,i){var n=v("circle");t.canvas&&t.canvas.appendChild(n);var a=new T(n,t);return a.attrs={cx:e,cy:r,r:i,fill:"none",stroke:"#000"},a.type="circle",v(n,a.attrs),a},t._engine.rect=function(t,e,r,i,n,a){var s=v("rect");t.canvas&&t.canvas.appendChild(s);var o=new T(s,t);return o.attrs={x:e,y:r,width:i,height:n,rx:a||0,ry:a||0,fill:"none",stroke:"#000"},o.type="rect",v(s,o.attrs),o},t._engine.ellipse=function(t,e,r,i,n){var a=v("ellipse");t.canvas&&t.canvas.appendChild(a);var s=new T(a,t);return s.attrs={cx:e,cy:r,rx:i,ry:n,fill:"none",stroke:"#000"},s.type="ellipse",v(a,s.attrs),s},t._engine.image=function(t,e,r,i,n,a){var s=v("image");v(s,{x:r,y:i,width:n,height:a,preserveAspectRatio:"none"}),s.setAttributeNS(p,"href",e),t.canvas&&t.canvas.appendChild(s);var o=new T(s,t);return o.attrs={x:r,y:i,width:n,height:a,src:e},o.type="image",o},t._engine.text=function(e,r,i,n){var a=v("text");e.canvas&&e.canvas.appendChild(a);var s=new T(a,e);return s.attrs={x:r,y:i,"text-anchor":"middle",text:n,"font-family":t._availableAttrs["font-family"],"font-size":t._availableAttrs["font-size"],stroke:"none",fill:"#000"},s.type="text",B(s,s.attrs),s},t._engine.setSize=function(t,e){return this.width=t||this.width,this.height=e||this.height,this.canvas.setAttribute("width",this.width),this.canvas.setAttribute("height",this.height),this._viewBox&&this.setViewBox.apply(this,this._viewBox),this},t._engine.create=function(){var e=t._getContainer.apply(0,arguments),r=e&&e.container,i=e.x,n=e.y,a=e.width,s=e.height;if(!r)throw new Error("SVG container not found.");var o=v("svg"),l="overflow:hidden;",h;return i=i||0,n=n||0,a=a||512,s=s||342,v(o,{height:s,version:1.1,width:a,xmlns:"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}),1==r?(o.style.cssText=l+"position:absolute;left:"+i+"px;top:"+n+"px",t._g.doc.body.appendChild(o),h=1):(o.style.cssText=l+"position:relative",r.firstChild?r.insertBefore(o,r.firstChild):r.appendChild(o)),r=new t._Paper,r.width=a,r.height=s,r.canvas=o,r.clear(),r._left=r._top=0,h&&(r.renderfix=function(){}),r.renderfix(),r},t._engine.setViewBox=function(t,e,r,i,n){u("raphael.setViewBox",this,this._viewBox,[t,e,r,i,n]);var a=this.getSize(),o=s(r/a.width,i/a.height),l=this.top,h=n?"xMidYMid meet":"xMinYMin",c,p;for(null==t?(this._vbSize&&(o=1),delete this._vbSize,c="0 0 "+this.width+f+this.height):(this._vbSize=o,c=t+f+e+f+r+f+i),v(this.canvas,{viewBox:c,preserveAspectRatio:h});o&&l;)p="stroke-width"in l.attrs?l.attrs["stroke-width"]:1,l.attr({"stroke-width":p}),l._.dirty=1,l._.dirtyT=1,l=l.prev;return this._viewBox=[t,e,r,i,!!n],this},t.prototype.renderfix=function(){var t=this.canvas,e=t.style,r;try{r=t.getScreenCTM()||t.createSVGMatrix()}catch(i){r=t.createSVGMatrix()}var n=-r.e%1,a=-r.f%1;(n||a)&&(n&&(this._left=(this._left+n)%1,e.left=this._left+"px"),a&&(this._top=(this._top+a)%1,e.top=this._top+"px"))},t.prototype.clear=function(){t.eve("raphael.clear",this);for(var e=this.canvas;e.firstChild;)e.removeChild(e.firstChild);this.bottom=this.top=null,(this.desc=v("desc")).appendChild(t._g.doc.createTextNode("Created with Raphaël "+t.version)),e.appendChild(this.desc),e.appendChild(this.defs=v("defs"))},t.prototype.remove=function(){u("raphael.remove",this),this.canvas.parentNode&&this.canvas.parentNode.removeChild(this.canvas);for(var e in this)this[e]="function"==typeof this[e]?t._removedFactory(e):null};var M=t.st;for(var N in E)E[e](N)&&!M[e](N)&&(M[N]=function(t){return function(){var e=arguments;return this.forEach(function(r){r[t].apply(r,e)})}}(N))}}.apply(e,i),!(void 0!==n&&(t.exports=n))},function(t,e,r){var i,n;i=[r(1)],n=function(t){if(!t||t.vml){var e="hasOwnProperty",r=String,i=parseFloat,n=Math,a=n.round,s=n.max,o=n.min,l=n.abs,h="fill",u=/[, ]+/,c=t.eve,f=" progid:DXImageTransform.Microsoft",p=" ",d="",g={M:"m",L:"l",C:"c",Z:"x",m:"t",l:"r",c:"v",z:"x"},v=/([clmz]),?([^clmz]*)/gi,x=/ progid:\S+Blur\([^\)]+\)/g,y=/-?[^,\s-]+/g,m="position:absolute;left:0;top:0;width:1px;height:1px;behavior:url(#default#VML)",b=21600,_={path:1,rect:1,image:1},w={circle:1,ellipse:1},k=function(e){var i=/[ahqstv]/gi,n=t._pathToAbsolute;if(r(e).match(i)&&(n=t._path2curve),i=/[clmz]/g,n==t._pathToAbsolute&&!r(e).match(i)){var s=r(e).replace(v,function(t,e,r){var i=[],n="m"==e.toLowerCase(),s=g[e];return r.replace(y,function(t){n&&2==i.length&&(s+=i+g["m"==e?"l":"L"],i=[]),i.push(a(t*b))}),s+i});return s}var o=n(e),l,h;s=[];for(var u=0,c=o.length;u<c;u++){l=o[u],h=o[u][0].toLowerCase(),"z"==h&&(h="x");for(var f=1,x=l.length;f<x;f++)h+=a(l[f]*b)+(f!=x-1?",":d);s.push(h)}return s.join(p)},B=function(e,r,i){var n=t.matrix();return n.rotate(-e,.5,.5),{dx:n.x(r,i),dy:n.y(r,i)}},C=function(t,e,r,i,n,a){var s=t._,o=t.matrix,u=s.fillpos,c=t.node,f=c.style,d=1,g="",v,x=b/e,y=b/r;if(f.visibility="hidden",e&&r){if(c.coordsize=l(x)+p+l(y),f.rotation=a*(e*r<0?-1:1),a){var m=B(a,i,n);i=m.dx,n=m.dy}if(e<0&&(g+="x"),r<0&&(g+=" y")&&(d=-1),f.flip=g,c.coordorigin=i*-x+p+n*-y,u||s.fillsize){var _=c.getElementsByTagName(h);_=_&&_[0],c.removeChild(_),u&&(m=B(a,o.x(u[0],u[1]),o.y(u[0],u[1])),_.position=m.dx*d+p+m.dy*d),s.fillsize&&(_.size=s.fillsize[0]*l(e)+p+s.fillsize[1]*l(r)),c.appendChild(_)}f.visibility="visible"}};t.toString=function(){return"Your browser doesn’t support SVG. Falling down to VML.\nYou are running Raphaël "+this.version};var S=function(t,e,i){for(var n=r(e).toLowerCase().split("-"),a=i?"end":"start",s=n.length,o="classic",l="medium",h="medium";s--;)switch(n[s]){case"block":case"classic":case"oval":case"diamond":case"open":case"none":o=n[s];break;case"wide":case"narrow":h=n[s];break;case"long":case"short":l=n[s]}var u=t.node.getElementsByTagName("stroke")[0];u[a+"arrow"]=o,u[a+"arrowlength"]=l,u[a+"arrowwidth"]=h},A=function(n,l){n.attrs=n.attrs||{};var c=n.node,f=n.attrs,g=c.style,v,x=_[n.type]&&(l.x!=f.x||l.y!=f.y||l.width!=f.width||l.height!=f.height||l.cx!=f.cx||l.cy!=f.cy||l.rx!=f.rx||l.ry!=f.ry||l.r!=f.r),y=w[n.type]&&(f.cx!=l.cx||f.cy!=l.cy||f.r!=l.r||f.rx!=l.rx||f.ry!=l.ry),m=n;for(var B in l)l[e](B)&&(f[B]=l[B]);if(x&&(f.path=t._getPath[n.type](n),n._.dirty=1),l.href&&(c.href=l.href),l.title&&(c.title=l.title),l.target&&(c.target=l.target),l.cursor&&(g.cursor=l.cursor),"blur"in l&&n.blur(l.blur),(l.path&&"path"==n.type||x)&&(c.path=k(~r(f.path).toLowerCase().indexOf("r")?t._pathToAbsolute(f.path):f.path),n._.dirty=1,"image"==n.type&&(n._.fillpos=[f.x,f.y],n._.fillsize=[f.width,f.height],C(n,1,1,0,0,0))),"transform"in l&&n.transform(l.transform),y){var A=+f.cx,E=+f.cy,M=+f.rx||+f.r||0,L=+f.ry||+f.r||0;c.path=t.format("ar{0},{1},{2},{3},{4},{1},{4},{1}x",a((A-M)*b),a((E-L)*b),a((A+M)*b),a((E+L)*b),a(A*b)),n._.dirty=1}if("clip-rect"in l){var z=r(l["clip-rect"]).split(u);if(4==z.length){z[2]=+z[2]+ +z[0],z[3]=+z[3]+ +z[1];var P=c.clipRect||t._g.doc.createElement("div"),F=P.style;F.clip=t.format("rect({1}px {2}px {3}px {0}px)",z),c.clipRect||(F.position="absolute",F.top=0,F.left=0,F.width=n.paper.width+"px",F.height=n.paper.height+"px",c.parentNode.insertBefore(P,c),P.appendChild(c),c.clipRect=P)}l["clip-rect"]||c.clipRect&&(c.clipRect.style.clip="auto")}if(n.textpath){var R=n.textpath.style;l.font&&(R.font=l.font),l["font-family"]&&(R.fontFamily='"'+l["font-family"].split(",")[0].replace(/^['"]+|['"]+$/g,d)+'"'),l["font-size"]&&(R.fontSize=l["font-size"]),l["font-weight"]&&(R.fontWeight=l["font-weight"]),l["font-style"]&&(R.fontStyle=l["font-style"])}if("arrow-start"in l&&S(m,l["arrow-start"]),"arrow-end"in l&&S(m,l["arrow-end"],1),null!=l.opacity||null!=l.fill||null!=l.src||null!=l.stroke||null!=l["stroke-width"]||null!=l["stroke-opacity"]||null!=l["fill-opacity"]||null!=l["stroke-dasharray"]||null!=l["stroke-miterlimit"]||null!=l["stroke-linejoin"]||null!=l["stroke-linecap"]){var j=c.getElementsByTagName(h),I=!1;if(j=j&&j[0],!j&&(I=j=N(h)),"image"==n.type&&l.src&&(j.src=l.src),l.fill&&(j.on=!0),null!=j.on&&"none"!=l.fill&&null!==l.fill||(j.on=!1),j.on&&l.fill){var q=r(l.fill).match(t._ISURL);if(q){j.parentNode==c&&c.removeChild(j),j.rotate=!0,j.src=q[1],j.type="tile";var D=n.getBBox(1);j.position=D.x+p+D.y,n._.fillpos=[D.x,D.y],t._preload(q[1],function(){n._.fillsize=[this.offsetWidth,this.offsetHeight]})}else j.color=t.getRGB(l.fill).hex,j.src=d,j.type="solid",t.getRGB(l.fill).error&&(m.type in{circle:1,ellipse:1}||"r"!=r(l.fill).charAt())&&T(m,l.fill,j)&&(f.fill="none",f.gradient=l.fill,j.rotate=!1)}if("fill-opacity"in l||"opacity"in l){var V=((+f["fill-opacity"]+1||2)-1)*((+f.opacity+1||2)-1)*((+t.getRGB(l.fill).o+1||2)-1);V=o(s(V,0),1),j.opacity=V,j.src&&(j.color="none")}c.appendChild(j);var O=c.getElementsByTagName("stroke")&&c.getElementsByTagName("stroke")[0],Y=!1;!O&&(Y=O=N("stroke")),(l.stroke&&"none"!=l.stroke||l["stroke-width"]||null!=l["stroke-opacity"]||l["stroke-dasharray"]||l["stroke-miterlimit"]||l["stroke-linejoin"]||l["stroke-linecap"])&&(O.on=!0),("none"==l.stroke||null===l.stroke||null==O.on||0==l.stroke||0==l["stroke-width"])&&(O.on=!1);var W=t.getRGB(l.stroke);O.on&&l.stroke&&(O.color=W.hex),V=((+f["stroke-opacity"]+1||2)-1)*((+f.opacity+1||2)-1)*((+W.o+1||2)-1);var G=.75*(i(l["stroke-width"])||1);if(V=o(s(V,0),1),null==l["stroke-width"]&&(G=f["stroke-width"]),l["stroke-width"]&&(O.weight=G),G&&G<1&&(V*=G)&&(O.weight=1),O.opacity=V,l["stroke-linejoin"]&&(O.joinstyle=l["stroke-linejoin"]||"miter"),O.miterlimit=l["stroke-miterlimit"]||8,l["stroke-linecap"]&&(O.endcap="butt"==l["stroke-linecap"]?"flat":"square"==l["stroke-linecap"]?"square":"round"),"stroke-dasharray"in l){var H={"-":"shortdash",".":"shortdot","-.":"shortdashdot","-..":"shortdashdotdot",". ":"dot","- ":"dash","--":"longdash","- .":"dashdot","--.":"longdashdot","--..":"longdashdotdot"};O.dashstyle=H[e](l["stroke-dasharray"])?H[l["stroke-dasharray"]]:d}Y&&c.appendChild(O)}if("text"==m.type){m.paper.canvas.style.display=d;var X=m.paper.span,U=100,$=f.font&&f.font.match(/\d+(?:\.\d*)?(?=px)/);g=X.style,f.font&&(g.font=f.font),f["font-family"]&&(g.fontFamily=f["font-family"]),f["font-weight"]&&(g.fontWeight=f["font-weight"]),f["font-style"]&&(g.fontStyle=f["font-style"]),$=i(f["font-size"]||$&&$[0])||10,g.fontSize=$*U+"px",m.textpath.string&&(X.innerHTML=r(m.textpath.string).replace(/</g,"&#60;").replace(/&/g,"&#38;").replace(/\n/g,"<br>"));var Z=X.getBoundingClientRect();m.W=f.w=(Z.right-Z.left)/U,m.H=f.h=(Z.bottom-Z.top)/U,m.X=f.x,m.Y=f.y+m.H/2,("x"in l||"y"in l)&&(m.path.v=t.format("m{0},{1}l{2},{1}",a(f.x*b),a(f.y*b),a(f.x*b)+1));for(var Q=["x","y","text","font","font-family","font-weight","font-style","font-size"],J=0,K=Q.length;J<K;J++)if(Q[J]in l){m._.dirty=1;break}switch(f["text-anchor"]){case"start":m.textpath.style["v-text-align"]="left",m.bbx=m.W/2;break;case"end":m.textpath.style["v-text-align"]="right",m.bbx=-m.W/2;break;default:m.textpath.style["v-text-align"]="center",m.bbx=0}m.textpath.style["v-text-kern"]=!0}},T=function(e,a,s){e.attrs=e.attrs||{};var o=e.attrs,l=Math.pow,h,u,c="linear",f=".5 .5";if(e.attrs.gradient=a,a=r(a).replace(t._radial_gradient,function(t,e,r){return c="radial",e&&r&&(e=i(e),r=i(r),l(e-.5,2)+l(r-.5,2)>.25&&(r=n.sqrt(.25-l(e-.5,2))*(2*(r>.5)-1)+.5),f=e+p+r),d}),a=a.split(/\s*\-\s*/),"linear"==c){var g=a.shift();if(g=-i(g),isNaN(g))return null}var v=t._parseDots(a);if(!v)return null;if(e=e.shape||e.node,v.length){e.removeChild(s),s.on=!0,s.method="none",s.color=v[0].color,s.color2=v[v.length-1].color;for(var x=[],y=0,m=v.length;y<m;y++)v[y].offset&&x.push(v[y].offset+p+v[y].color);s.colors=x.length?x.join():"0% "+s.color,"radial"==c?(s.type="gradientTitle",s.focus="100%",s.focussize="0 0",s.focusposition=f,s.angle=0):(s.type="gradient",s.angle=(270-g)%360),e.appendChild(s)}return 1},E=function(e,r){this[0]=this.node=e,e.raphael=!0,this.id=t._oid++,e.raphaelid=this.id,this.X=0,this.Y=0,this.attrs={},this.paper=r,this.matrix=t.matrix(),this._={transform:[],sx:1,sy:1,dx:0,dy:0,deg:0,dirty:1,dirtyT:1},!r.bottom&&(r.bottom=this),this.prev=r.top,r.top&&(r.top.next=this),r.top=this,this.next=null},M=t.el;E.prototype=M,M.constructor=E,M.transform=function(e){if(null==e)return this._.transform;var i=this.paper._viewBoxShift,n=i?"s"+[i.scale,i.scale]+"-1-1t"+[i.dx,i.dy]:d,a;i&&(a=e=r(e).replace(/\.{3}|\u2026/g,this._.transform||d)),t._extractTransform(this,n+e);var s=this.matrix.clone(),o=this.skew,l=this.node,h,u=~r(this.attrs.fill).indexOf("-"),c=!r(this.attrs.fill).indexOf("url(");if(s.translate(1,1),c||u||"image"==this.type)if(o.matrix="1 0 0 1",o.offset="0 0",h=s.split(),u&&h.noRotation||!h.isSimple){l.style.filter=s.toFilter();var f=this.getBBox(),g=this.getBBox(1),v=f.x-g.x,x=f.y-g.y;l.coordorigin=v*-b+p+x*-b,C(this,1,1,v,x,0)}else l.style.filter=d,C(this,h.scalex,h.scaley,h.dx,h.dy,h.rotate);else l.style.filter=d,o.matrix=r(s),o.offset=s.offset();return null!==a&&(this._.transform=a,t._extractTransform(this,a)),this},M.rotate=function(t,e,n){if(this.removed)return this;if(null!=t){if(t=r(t).split(u),t.length-1&&(e=i(t[1]),n=i(t[2])),t=i(t[0]),null==n&&(e=n),null==e||null==n){var a=this.getBBox(1);e=a.x+a.width/2,n=a.y+a.height/2}return this._.dirtyT=1,this.transform(this._.transform.concat([["r",t,e,n]])),this}},M.translate=function(t,e){return this.removed?this:(t=r(t).split(u),t.length-1&&(e=i(t[1])),t=i(t[0])||0,e=+e||0,this._.bbox&&(this._.bbox.x+=t,this._.bbox.y+=e),this.transform(this._.transform.concat([["t",t,e]])),this)},M.scale=function(t,e,n,a){if(this.removed)return this;if(t=r(t).split(u),t.length-1&&(e=i(t[1]),n=i(t[2]),a=i(t[3]),isNaN(n)&&(n=null),isNaN(a)&&(a=null)),t=i(t[0]),null==e&&(e=t),null==a&&(n=a),null==n||null==a)var s=this.getBBox(1);return n=null==n?s.x+s.width/2:n,a=null==a?s.y+s.height/2:a,this.transform(this._.transform.concat([["s",t,e,n,a]])),this._.dirtyT=1,this},M.hide=function(){return!this.removed&&(this.node.style.display="none"),this},M.show=function(){return!this.removed&&(this.node.style.display=d),this},M.auxGetBBox=t.el.getBBox,M.getBBox=function(){var t=this.auxGetBBox();if(this.paper&&this.paper._viewBoxShift){var e={},r=1/this.paper._viewBoxShift.scale;return e.x=t.x-this.paper._viewBoxShift.dx,e.x*=r,e.y=t.y-this.paper._viewBoxShift.dy,e.y*=r,e.width=t.width*r,e.height=t.height*r,e.x2=e.x+e.width,e.y2=e.y+e.height,e}return t},M._getBBox=function(){return this.removed?{}:{x:this.X+(this.bbx||0)-this.W/2,y:this.Y-this.H,width:this.W,height:this.H}},M.remove=function(){if(!this.removed&&this.node.parentNode){this.paper.__set__&&this.paper.__set__.exclude(this),t.eve.unbind("raphael.*.*."+this.id),t._tear(this,this.paper),this.node.parentNode.removeChild(this.node),this.shape&&this.shape.parentNode.removeChild(this.shape);for(var e in this)this[e]="function"==typeof this[e]?t._removedFactory(e):null;this.removed=!0}},M.attr=function(r,i){if(this.removed)return this;if(null==r){var n={};for(var a in this.attrs)this.attrs[e](a)&&(n[a]=this.attrs[a]);return n.gradient&&"none"==n.fill&&(n.fill=n.gradient)&&delete n.gradient,n.transform=this._.transform,n}if(null==i&&t.is(r,"string")){if(r==h&&"none"==this.attrs.fill&&this.attrs.gradient)return this.attrs.gradient;for(var s=r.split(u),o={},l=0,f=s.length;l<f;l++)r=s[l],r in this.attrs?o[r]=this.attrs[r]:t.is(this.paper.customAttributes[r],"function")?o[r]=this.paper.customAttributes[r].def:o[r]=t._availableAttrs[r];return f-1?o:o[s[0]]}if(this.attrs&&null==i&&t.is(r,"array")){for(o={},l=0,f=r.length;l<f;l++)o[r[l]]=this.attr(r[l]);return o}var p;null!=i&&(p={},p[r]=i),null==i&&t.is(r,"object")&&(p=r);for(var d in p)c("raphael.attr."+d+"."+this.id,this,p[d]);if(p){for(d in this.paper.customAttributes)if(this.paper.customAttributes[e](d)&&p[e](d)&&t.is(this.paper.customAttributes[d],"function")){var g=this.paper.customAttributes[d].apply(this,[].concat(p[d]));this.attrs[d]=p[d];for(var v in g)g[e](v)&&(p[v]=g[v])}p.text&&"text"==this.type&&(this.textpath.string=p.text),A(this,p)}return this},M.toFront=function(){return!this.removed&&this.node.parentNode.appendChild(this.node),this.paper&&this.paper.top!=this&&t._tofront(this,this.paper),this},M.toBack=function(){return this.removed?this:(this.node.parentNode.firstChild!=this.node&&(this.node.parentNode.insertBefore(this.node,this.node.parentNode.firstChild),t._toback(this,this.paper)),this)},M.insertAfter=function(e){return this.removed?this:(e.constructor==t.st.constructor&&(e=e[e.length-1]),e.node.nextSibling?e.node.parentNode.insertBefore(this.node,e.node.nextSibling):e.node.parentNode.appendChild(this.node),t._insertafter(this,e,this.paper),this)},M.insertBefore=function(e){return this.removed?this:(e.constructor==t.st.constructor&&(e=e[0]),e.node.parentNode.insertBefore(this.node,e.node),t._insertbefore(this,e,this.paper),this)},M.blur=function(e){var r=this.node.runtimeStyle,i=r.filter;return i=i.replace(x,d),0!==+e?(this.attrs.blur=e,r.filter=i+p+f+".Blur(pixelradius="+(+e||1.5)+")",r.margin=t.format("-{0}px 0 0 -{0}px",a(+e||1.5))):(r.filter=i,r.margin=0,delete this.attrs.blur),this},t._engine.path=function(t,e){var r=N("shape");r.style.cssText=m,r.coordsize=b+p+b,r.coordorigin=e.coordorigin;var i=new E(r,e),n={fill:"none",stroke:"#000"};t&&(n.path=t),i.type="path",i.path=[],i.Path=d,A(i,n),e.canvas&&e.canvas.appendChild(r);var a=N("skew");return a.on=!0,r.appendChild(a),i.skew=a,i.transform(d),i},t._engine.rect=function(e,r,i,n,a,s){var o=t._rectPath(r,i,n,a,s),l=e.path(o),h=l.attrs;return l.X=h.x=r,l.Y=h.y=i,l.W=h.width=n,l.H=h.height=a,h.r=s,h.path=o,l.type="rect",l},t._engine.ellipse=function(t,e,r,i,n){var a=t.path(),s=a.attrs;return a.X=e-i,a.Y=r-n,a.W=2*i,a.H=2*n,a.type="ellipse",A(a,{cx:e,cy:r,rx:i,ry:n}),a},t._engine.circle=function(t,e,r,i){var n=t.path(),a=n.attrs;return n.X=e-i,n.Y=r-i,n.W=n.H=2*i,n.type="circle",A(n,{cx:e,cy:r,r:i}),n},t._engine.image=function(e,r,i,n,a,s){var o=t._rectPath(i,n,a,s),l=e.path(o).attr({stroke:"none"}),u=l.attrs,c=l.node,f=c.getElementsByTagName(h)[0];return u.src=r,l.X=u.x=i,l.Y=u.y=n,l.W=u.width=a,l.H=u.height=s,u.path=o,l.type="image",f.parentNode==c&&c.removeChild(f),f.rotate=!0,f.src=r,f.type="tile",l._.fillpos=[i,n],l._.fillsize=[a,s],c.appendChild(f),C(l,1,1,0,0,0),l},t._engine.text=function(e,i,n,s){var o=N("shape"),l=N("path"),h=N("textpath");i=i||0,n=n||0,s=s||"",l.v=t.format("m{0},{1}l{2},{1}",a(i*b),a(n*b),a(i*b)+1),l.textpathok=!0,h.string=r(s),h.on=!0,o.style.cssText=m,o.coordsize=b+p+b,o.coordorigin="0 0";var u=new E(o,e),c={fill:"#000",stroke:"none",font:t._availableAttrs.font,text:s};u.shape=o,u.path=l,u.textpath=h,u.type="text",u.attrs.text=r(s),u.attrs.x=i,u.attrs.y=n,u.attrs.w=1,u.attrs.h=1,A(u,c),o.appendChild(h),o.appendChild(l),e.canvas.appendChild(o);var f=N("skew");return f.on=!0,o.appendChild(f),u.skew=f,u.transform(d),u},t._engine.setSize=function(e,r){var i=this.canvas.style;return this.width=e,this.height=r,e==+e&&(e+="px"),r==+r&&(r+="px"),i.width=e,i.height=r,i.clip="rect(0 "+e+" "+r+" 0)",this._viewBox&&t._engine.setViewBox.apply(this,this._viewBox),this},t._engine.setViewBox=function(e,r,i,n,a){t.eve("raphael.setViewBox",this,this._viewBox,[e,r,i,n,a]);var s=this.getSize(),o=s.width,l=s.height,h,u;return a&&(h=l/n,u=o/i,i*h<o&&(e-=(o-i*h)/2/h),n*u<l&&(r-=(l-n*u)/2/u)),this._viewBox=[e,r,i,n,!!a],this._viewBoxShift={dx:-e,dy:-r,scale:s},this.forEach(function(t){t.transform("...")}),this};var N;t._engine.initWin=function(t){var e=t.document;e.styleSheets.length<31?e.createStyleSheet().addRule(".rvml","behavior:url(#default#VML)"):e.styleSheets[0].addRule(".rvml","behavior:url(#default#VML)");try{!e.namespaces.rvml&&e.namespaces.add("rvml","urn:schemas-microsoft-com:vml"),N=function(t){return e.createElement("<rvml:"+t+' class="rvml">')}}catch(r){N=function(t){return e.createElement("<"+t+' xmlns="urn:schemas-microsoft.com:vml" class="rvml">')}}},t._engine.initWin(t._g.win),t._engine.create=function(){var e=t._getContainer.apply(0,arguments),r=e.container,i=e.height,n,a=e.width,s=e.x,o=e.y;if(!r)throw new Error("VML container not found.");var l=new t._Paper,h=l.canvas=t._g.doc.createElement("div"),u=h.style;return s=s||0,o=o||0,a=a||512,i=i||342,l.width=a,l.height=i,a==+a&&(a+="px"),i==+i&&(i+="px"),l.coordsize=1e3*b+p+1e3*b,l.coordorigin="0 0",l.span=t._g.doc.createElement("span"),l.span.style.cssText="position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;",h.appendChild(l.span),u.cssText=t.format("top:0;left:0;width:{0};height:{1};display:inline-block;position:relative;clip:rect(0 {0} {1} 0);overflow:hidden",a,i),1==r?(t._g.doc.body.appendChild(h),u.left=s+"px",u.top=o+"px",u.position="absolute"):r.firstChild?r.insertBefore(h,r.firstChild):r.appendChild(h),l.renderfix=function(){},l},t.prototype.clear=function(){t.eve("raphael.clear",this),this.canvas.innerHTML=d,this.span=t._g.doc.createElement("span"),this.span.style.cssText="position:absolute;left:-9999em;top:-9999em;padding:0;margin:0;line-height:1;display:inline;",this.canvas.appendChild(this.span),this.bottom=this.top=null},t.prototype.remove=function(){t.eve("raphael.remove",this),this.canvas.parentNode.removeChild(this.canvas);for(var e in this)this[e]="function"==typeof this[e]?t._removedFactory(e):null;return!0};var L=t.st;for(var z in M)M[e](z)&&!L[e](z)&&(L[z]=function(t){return function(){var e=arguments;return this.forEach(function(r){r[t].apply(r,e)})}}(z))}}.apply(e,i),!(void 0!==n&&(t.exports=n))}])});
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -56793,11 +56852,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(95)));
+}(__webpack_require__(96)));
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -56806,7 +56865,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67769,10 +67828,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(97).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(98).setImmediate))
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -67828,7 +67887,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(98);
+__webpack_require__(99);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -67842,7 +67901,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -68035,15 +68094,6422 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(5)))
 
 /***/ }),
-/* 99 */
+/* 100 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export install */
+/* unused harmony export VTooltip */
+/* unused harmony export VClosePopover */
+/* unused harmony export VPopover */
+/* unused harmony export createTooltip */
+/* unused harmony export destroyTooltip */
+/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.14.3
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+
+var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox'];
+var timeoutDuration = 0;
+for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+  if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+    timeoutDuration = 1;
+    break;
+  }
+}
+
+function microtaskDebounce(fn) {
+  var called = false;
+  return function () {
+    if (called) {
+      return;
+    }
+    called = true;
+    window.Promise.resolve().then(function () {
+      called = false;
+      fn();
+    });
+  };
+}
+
+function taskDebounce(fn) {
+  var scheduled = false;
+  return function () {
+    if (!scheduled) {
+      scheduled = true;
+      setTimeout(function () {
+        scheduled = false;
+        fn();
+      }, timeoutDuration);
+    }
+  };
+}
+
+var supportsMicroTasks = isBrowser && window.Promise;
+
+/**
+* Create a debounced version of a method, that's asynchronously deferred
+* but called in the minimum time possible.
+*
+* @method
+* @memberof Popper.Utils
+* @argument {Function} fn
+* @returns {Function}
+*/
+var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce;
+
+/**
+ * Check if the given variable is a function
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Any} functionToCheck - variable to check
+ * @returns {Boolean} answer to: is a function?
+ */
+function isFunction(functionToCheck) {
+  var getType = {};
+  return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+}
+
+/**
+ * Get CSS computed property of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Eement} element
+ * @argument {String} property
+ */
+function getStyleComputedProperty(element, property) {
+  if (element.nodeType !== 1) {
+    return [];
+  }
+  // NOTE: 1 DOM access here
+  var css = getComputedStyle(element, null);
+  return property ? css[property] : css;
+}
+
+/**
+ * Returns the parentNode or the host of the element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} parent
+ */
+function getParentNode(element) {
+  if (element.nodeName === 'HTML') {
+    return element;
+  }
+  return element.parentNode || element.host;
+}
+
+/**
+ * Returns the scrolling parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} scroll parent
+ */
+function getScrollParent(element) {
+  // Return body, `getScroll` will take care to get the correct `scrollTop` from it
+  if (!element) {
+    return document.body;
+  }
+
+  switch (element.nodeName) {
+    case 'HTML':
+    case 'BODY':
+      return element.ownerDocument.body;
+    case '#document':
+      return element.body;
+  }
+
+  // Firefox want us to check `-x` and `-y` variations as well
+
+  var _getStyleComputedProp = getStyleComputedProperty(element),
+      overflow = _getStyleComputedProp.overflow,
+      overflowX = _getStyleComputedProp.overflowX,
+      overflowY = _getStyleComputedProp.overflowY;
+
+  if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+    return element;
+  }
+
+  return getScrollParent(getParentNode(element));
+}
+
+var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode);
+var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent);
+
+/**
+ * Determines if the browser is Internet Explorer
+ * @method
+ * @memberof Popper.Utils
+ * @param {Number} version to check
+ * @returns {Boolean} isIE
+ */
+function isIE(version) {
+  if (version === 11) {
+    return isIE11;
+  }
+  if (version === 10) {
+    return isIE10;
+  }
+  return isIE11 || isIE10;
+}
+
+/**
+ * Returns the offset parent of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} offset parent
+ */
+function getOffsetParent(element) {
+  if (!element) {
+    return document.documentElement;
+  }
+
+  var noOffsetParent = isIE(10) ? document.body : null;
+
+  // NOTE: 1 DOM access here
+  var offsetParent = element.offsetParent;
+  // Skip hidden elements which don't have an offsetParent
+  while (offsetParent === noOffsetParent && element.nextElementSibling) {
+    offsetParent = (element = element.nextElementSibling).offsetParent;
+  }
+
+  var nodeName = offsetParent && offsetParent.nodeName;
+
+  if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+    return element ? element.ownerDocument.documentElement : document.documentElement;
+  }
+
+  // .offsetParent will return the closest TD or TABLE in case
+  // no offsetParent is present, I hate this job...
+  if (['TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 && getStyleComputedProperty(offsetParent, 'position') === 'static') {
+    return getOffsetParent(offsetParent);
+  }
+
+  return offsetParent;
+}
+
+function isOffsetContainer(element) {
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY') {
+    return false;
+  }
+  return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element;
+}
+
+/**
+ * Finds the root node (document, shadowDOM root) of the given element
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} node
+ * @returns {Element} root node
+ */
+function getRoot(node) {
+  if (node.parentNode !== null) {
+    return getRoot(node.parentNode);
+  }
+
+  return node;
+}
+
+/**
+ * Finds the offset parent common to the two provided nodes
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element1
+ * @argument {Element} element2
+ * @returns {Element} common offset parent
+ */
+function findCommonOffsetParent(element1, element2) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+    return document.documentElement;
+  }
+
+  // Here we make sure to give as "start" the element that comes first in the DOM
+  var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING;
+  var start = order ? element1 : element2;
+  var end = order ? element2 : element1;
+
+  // Get common ancestor container
+  var range = document.createRange();
+  range.setStart(start, 0);
+  range.setEnd(end, 0);
+  var commonAncestorContainer = range.commonAncestorContainer;
+
+  // Both nodes are inside #document
+
+  if (element1 !== commonAncestorContainer && element2 !== commonAncestorContainer || start.contains(end)) {
+    if (isOffsetContainer(commonAncestorContainer)) {
+      return commonAncestorContainer;
+    }
+
+    return getOffsetParent(commonAncestorContainer);
+  }
+
+  // one of the nodes is inside shadowDOM, find which one
+  var element1root = getRoot(element1);
+  if (element1root.host) {
+    return findCommonOffsetParent(element1root.host, element2);
+  } else {
+    return findCommonOffsetParent(element1, getRoot(element2).host);
+  }
+}
+
+/**
+ * Gets the scroll value of the given element in the given side (top and left)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {String} side `top` or `left`
+ * @returns {number} amount of scrolled pixels
+ */
+function getScroll(element) {
+  var side = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'top';
+
+  var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft';
+  var nodeName = element.nodeName;
+
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    var html = element.ownerDocument.documentElement;
+    var scrollingElement = element.ownerDocument.scrollingElement || html;
+    return scrollingElement[upperSide];
+  }
+
+  return element[upperSide];
+}
+
+/*
+ * Sum or subtract the element scroll values (left and top) from a given rect object
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} rect - Rect object you want to change
+ * @param {HTMLElement} element - The element from the function reads the scroll values
+ * @param {Boolean} subtract - set to true if you want to subtract the scroll values
+ * @return {Object} rect - The modifier rect object
+ */
+function includeScroll(rect, element) {
+  var subtract = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var scrollTop = getScroll(element, 'top');
+  var scrollLeft = getScroll(element, 'left');
+  var modifier = subtract ? -1 : 1;
+  rect.top += scrollTop * modifier;
+  rect.bottom += scrollTop * modifier;
+  rect.left += scrollLeft * modifier;
+  rect.right += scrollLeft * modifier;
+  return rect;
+}
+
+/*
+ * Helper to detect borders of a given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {CSSStyleDeclaration} styles
+ * Result of `getStyleComputedProperty` on the given element
+ * @param {String} axis - `x` or `y`
+ * @return {number} borders - The borders size of the given axis
+ */
+
+function getBordersSize(styles, axis) {
+  var sideA = axis === 'x' ? 'Left' : 'Top';
+  var sideB = sideA === 'Left' ? 'Right' : 'Bottom';
+
+  return parseFloat(styles['border' + sideA + 'Width'], 10) + parseFloat(styles['border' + sideB + 'Width'], 10);
+}
+
+function getSize(axis, body, html, computedStyle) {
+  return Math.max(body['offset' + axis], body['scroll' + axis], html['client' + axis], html['offset' + axis], html['scroll' + axis], isIE(10) ? html['offset' + axis] + computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')] + computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')] : 0);
+}
+
+function getWindowSizes() {
+  var body = document.body;
+  var html = document.documentElement;
+  var computedStyle = isIE(10) && getComputedStyle(html);
+
+  return {
+    height: getSize('Height', body, html, computedStyle),
+    width: getSize('Width', body, html, computedStyle)
+  };
+}
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+var defineProperty = function (obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/**
+ * Given element offsets, generate an output similar to getBoundingClientRect
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} offsets
+ * @returns {Object} ClientRect like output
+ */
+function getClientRect(offsets) {
+  return _extends({}, offsets, {
+    right: offsets.left + offsets.width,
+    bottom: offsets.top + offsets.height
+  });
+}
+
+/**
+ * Get bounding client rect of given element
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} element
+ * @return {Object} client rect
+ */
+function getBoundingClientRect(element) {
+  var rect = {};
+
+  // IE10 10 FIX: Please, don't ask, the element isn't
+  // considered in DOM in some circumstances...
+  // This isn't reproducible in IE10 compatibility mode of IE11
+  try {
+    if (isIE(10)) {
+      rect = element.getBoundingClientRect();
+      var scrollTop = getScroll(element, 'top');
+      var scrollLeft = getScroll(element, 'left');
+      rect.top += scrollTop;
+      rect.left += scrollLeft;
+      rect.bottom += scrollTop;
+      rect.right += scrollLeft;
+    } else {
+      rect = element.getBoundingClientRect();
+    }
+  } catch (e) {}
+
+  var result = {
+    left: rect.left,
+    top: rect.top,
+    width: rect.right - rect.left,
+    height: rect.bottom - rect.top
+  };
+
+  // subtract scrollbar size from sizes
+  var sizes = element.nodeName === 'HTML' ? getWindowSizes() : {};
+  var width = sizes.width || element.clientWidth || result.right - result.left;
+  var height = sizes.height || element.clientHeight || result.bottom - result.top;
+
+  var horizScrollbar = element.offsetWidth - width;
+  var vertScrollbar = element.offsetHeight - height;
+
+  // if an hypothetical scrollbar is detected, we must be sure it's not a `border`
+  // we make this check conditional for performance reasons
+  if (horizScrollbar || vertScrollbar) {
+    var styles = getStyleComputedProperty(element);
+    horizScrollbar -= getBordersSize(styles, 'x');
+    vertScrollbar -= getBordersSize(styles, 'y');
+
+    result.width -= horizScrollbar;
+    result.height -= vertScrollbar;
+  }
+
+  return getClientRect(result);
+}
+
+function getOffsetRectRelativeToArbitraryNode(children, parent) {
+  var fixedPosition = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var isIE10 = isIE(10);
+  var isHTML = parent.nodeName === 'HTML';
+  var childrenRect = getBoundingClientRect(children);
+  var parentRect = getBoundingClientRect(parent);
+  var scrollParent = getScrollParent(children);
+
+  var styles = getStyleComputedProperty(parent);
+  var borderTopWidth = parseFloat(styles.borderTopWidth, 10);
+  var borderLeftWidth = parseFloat(styles.borderLeftWidth, 10);
+
+  // In cases where the parent is fixed, we must ignore negative scroll in offset calc
+  if (fixedPosition && parent.nodeName === 'HTML') {
+    parentRect.top = Math.max(parentRect.top, 0);
+    parentRect.left = Math.max(parentRect.left, 0);
+  }
+  var offsets = getClientRect({
+    top: childrenRect.top - parentRect.top - borderTopWidth,
+    left: childrenRect.left - parentRect.left - borderLeftWidth,
+    width: childrenRect.width,
+    height: childrenRect.height
+  });
+  offsets.marginTop = 0;
+  offsets.marginLeft = 0;
+
+  // Subtract margins of documentElement in case it's being used as parent
+  // we do this only on HTML because it's the only element that behaves
+  // differently when margins are applied to it. The margins are included in
+  // the box of the documentElement, in the other cases not.
+  if (!isIE10 && isHTML) {
+    var marginTop = parseFloat(styles.marginTop, 10);
+    var marginLeft = parseFloat(styles.marginLeft, 10);
+
+    offsets.top -= borderTopWidth - marginTop;
+    offsets.bottom -= borderTopWidth - marginTop;
+    offsets.left -= borderLeftWidth - marginLeft;
+    offsets.right -= borderLeftWidth - marginLeft;
+
+    // Attach marginTop and marginLeft because in some circumstances we may need them
+    offsets.marginTop = marginTop;
+    offsets.marginLeft = marginLeft;
+  }
+
+  if (isIE10 && !fixedPosition ? parent.contains(scrollParent) : parent === scrollParent && scrollParent.nodeName !== 'BODY') {
+    offsets = includeScroll(offsets, parent);
+  }
+
+  return offsets;
+}
+
+function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+  var excludeScroll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var html = element.ownerDocument.documentElement;
+  var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html);
+  var width = Math.max(html.clientWidth, window.innerWidth || 0);
+  var height = Math.max(html.clientHeight, window.innerHeight || 0);
+
+  var scrollTop = !excludeScroll ? getScroll(html) : 0;
+  var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0;
+
+  var offset = {
+    top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+    left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+    width: width,
+    height: height
+  };
+
+  return getClientRect(offset);
+}
+
+/**
+ * Check if the given element is fixed or is inside a fixed parent
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @argument {Element} customContainer
+ * @returns {Boolean} answer to "isFixed?"
+ */
+function isFixed(element) {
+  var nodeName = element.nodeName;
+  if (nodeName === 'BODY' || nodeName === 'HTML') {
+    return false;
+  }
+  if (getStyleComputedProperty(element, 'position') === 'fixed') {
+    return true;
+  }
+  return isFixed(getParentNode(element));
+}
+
+/**
+ * Finds the first parent of an element that has a transformed property defined
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Element} first transformed parent or documentElement
+ */
+
+function getFixedPositionOffsetParent(element) {
+  // This check is needed to avoid errors in case one of the elements isn't defined for any reason
+  if (!element || !element.parentElement || isIE()) {
+    return document.documentElement;
+  }
+  var el = element.parentElement;
+  while (el && getStyleComputedProperty(el, 'transform') === 'none') {
+    el = el.parentElement;
+  }
+  return el || document.documentElement;
+}
+
+/**
+ * Computed the boundaries limits and return them
+ * @method
+ * @memberof Popper.Utils
+ * @param {HTMLElement} popper
+ * @param {HTMLElement} reference
+ * @param {number} padding
+ * @param {HTMLElement} boundariesElement - Element used to define the boundaries
+ * @param {Boolean} fixedPosition - Is in fixed position mode
+ * @returns {Object} Coordinates of the boundaries
+ */
+function getBoundaries(popper, reference, padding, boundariesElement) {
+  var fixedPosition = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
+  // NOTE: 1 DOM access here
+
+  var boundaries = { top: 0, left: 0 };
+  var offsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+
+  // Handle viewport case
+  if (boundariesElement === 'viewport') {
+    boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition);
+  } else {
+    // Handle other cases based on DOM element used as boundaries
+    var boundariesNode = void 0;
+    if (boundariesElement === 'scrollParent') {
+      boundariesNode = getScrollParent(getParentNode(reference));
+      if (boundariesNode.nodeName === 'BODY') {
+        boundariesNode = popper.ownerDocument.documentElement;
+      }
+    } else if (boundariesElement === 'window') {
+      boundariesNode = popper.ownerDocument.documentElement;
+    } else {
+      boundariesNode = boundariesElement;
+    }
+
+    var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition);
+
+    // In case of HTML, we need a different computation
+    if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+      var _getWindowSizes = getWindowSizes(),
+          height = _getWindowSizes.height,
+          width = _getWindowSizes.width;
+
+      boundaries.top += offsets.top - offsets.marginTop;
+      boundaries.bottom = height + offsets.top;
+      boundaries.left += offsets.left - offsets.marginLeft;
+      boundaries.right = width + offsets.left;
+    } else {
+      // for all the other DOM elements, this one is good
+      boundaries = offsets;
+    }
+  }
+
+  // Add paddings
+  boundaries.left += padding;
+  boundaries.top += padding;
+  boundaries.right -= padding;
+  boundaries.bottom -= padding;
+
+  return boundaries;
+}
+
+function getArea(_ref) {
+  var width = _ref.width,
+      height = _ref.height;
+
+  return width * height;
+}
+
+/**
+ * Utility used to transform the `auto` placement to the placement with more
+ * available space.
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+  var padding = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 0;
+
+  if (placement.indexOf('auto') === -1) {
+    return placement;
+  }
+
+  var boundaries = getBoundaries(popper, reference, padding, boundariesElement);
+
+  var rects = {
+    top: {
+      width: boundaries.width,
+      height: refRect.top - boundaries.top
+    },
+    right: {
+      width: boundaries.right - refRect.right,
+      height: boundaries.height
+    },
+    bottom: {
+      width: boundaries.width,
+      height: boundaries.bottom - refRect.bottom
+    },
+    left: {
+      width: refRect.left - boundaries.left,
+      height: boundaries.height
+    }
+  };
+
+  var sortedAreas = Object.keys(rects).map(function (key) {
+    return _extends({
+      key: key
+    }, rects[key], {
+      area: getArea(rects[key])
+    });
+  }).sort(function (a, b) {
+    return b.area - a.area;
+  });
+
+  var filteredAreas = sortedAreas.filter(function (_ref2) {
+    var width = _ref2.width,
+        height = _ref2.height;
+    return width >= popper.clientWidth && height >= popper.clientHeight;
+  });
+
+  var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key;
+
+  var variation = placement.split('-')[1];
+
+  return computedPlacement + (variation ? '-' + variation : '');
+}
+
+/**
+ * Get offsets to the reference element
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} state
+ * @param {Element} popper - the popper element
+ * @param {Element} reference - the reference element (the popper will be relative to this)
+ * @param {Element} fixedPosition - is in fixed position mode
+ * @returns {Object} An object containing the offsets which will be applied to the popper
+ */
+function getReferenceOffsets(state, popper, reference) {
+  var fixedPosition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+  var commonOffsetParent = fixedPosition ? getFixedPositionOffsetParent(popper) : findCommonOffsetParent(popper, reference);
+  return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition);
+}
+
+/**
+ * Get the outer sizes of the given element (offset size + margins)
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element
+ * @returns {Object} object containing width and height properties
+ */
+function getOuterSizes(element) {
+  var styles = getComputedStyle(element);
+  var x = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+  var y = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+  var result = {
+    width: element.offsetWidth + y,
+    height: element.offsetHeight + x
+  };
+  return result;
+}
+
+/**
+ * Get the opposite placement of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement
+ * @returns {String} flipped placement
+ */
+function getOppositePlacement(placement) {
+  var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' };
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return hash[matched];
+  });
+}
+
+/**
+ * Get offsets to the popper
+ * @method
+ * @memberof Popper.Utils
+ * @param {Object} position - CSS position the Popper will get applied
+ * @param {HTMLElement} popper - the popper element
+ * @param {Object} referenceOffsets - the reference offsets (the popper will be relative to this)
+ * @param {String} placement - one of the valid placement options
+ * @returns {Object} popperOffsets - An object containing the offsets which will be applied to the popper
+ */
+function getPopperOffsets(popper, referenceOffsets, placement) {
+  placement = placement.split('-')[0];
+
+  // Get popper node sizes
+  var popperRect = getOuterSizes(popper);
+
+  // Add position, width and height to our offsets object
+  var popperOffsets = {
+    width: popperRect.width,
+    height: popperRect.height
+  };
+
+  // depending by the popper placement we have to compute its offsets slightly differently
+  var isHoriz = ['right', 'left'].indexOf(placement) !== -1;
+  var mainSide = isHoriz ? 'top' : 'left';
+  var secondarySide = isHoriz ? 'left' : 'top';
+  var measurement = isHoriz ? 'height' : 'width';
+  var secondaryMeasurement = !isHoriz ? 'height' : 'width';
+
+  popperOffsets[mainSide] = referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2;
+  if (placement === secondarySide) {
+    popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement];
+  } else {
+    popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)];
+  }
+
+  return popperOffsets;
+}
+
+/**
+ * Mimics the `find` method of Array
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function find(arr, check) {
+  // use native find if supported
+  if (Array.prototype.find) {
+    return arr.find(check);
+  }
+
+  // use `filter` to obtain the same behavior of `find`
+  return arr.filter(check)[0];
+}
+
+/**
+ * Return the index of the matching object
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Array} arr
+ * @argument prop
+ * @argument value
+ * @returns index or -1
+ */
+function findIndex(arr, prop, value) {
+  // use native findIndex if supported
+  if (Array.prototype.findIndex) {
+    return arr.findIndex(function (cur) {
+      return cur[prop] === value;
+    });
+  }
+
+  // use `find` + `indexOf` if `findIndex` isn't supported
+  var match = find(arr, function (obj) {
+    return obj[prop] === value;
+  });
+  return arr.indexOf(match);
+}
+
+/**
+ * Loop trough the list of modifiers and run them in order,
+ * each of them will then edit the data object.
+ * @method
+ * @memberof Popper.Utils
+ * @param {dataObject} data
+ * @param {Array} modifiers
+ * @param {String} ends - Optional modifier name used as stopper
+ * @returns {dataObject}
+ */
+function runModifiers(modifiers, data, ends) {
+  var modifiersToRun = ends === undefined ? modifiers : modifiers.slice(0, findIndex(modifiers, 'name', ends));
+
+  modifiersToRun.forEach(function (modifier) {
+    if (modifier['function']) {
+      // eslint-disable-line dot-notation
+      console.warn('`modifier.function` is deprecated, use `modifier.fn`!');
+    }
+    var fn = modifier['function'] || modifier.fn; // eslint-disable-line dot-notation
+    if (modifier.enabled && isFunction(fn)) {
+      // Add properties to offsets to make them a complete clientRect object
+      // we do this before each modifier to make sure the previous one doesn't
+      // mess with these values
+      data.offsets.popper = getClientRect(data.offsets.popper);
+      data.offsets.reference = getClientRect(data.offsets.reference);
+
+      data = fn(data, modifier);
+    }
+  });
+
+  return data;
+}
+
+/**
+ * Updates the position of the popper, computing the new offsets and applying
+ * the new style.<br />
+ * Prefer `scheduleUpdate` over `update` because of performance reasons.
+ * @method
+ * @memberof Popper
+ */
+function update() {
+  // if popper is destroyed, don't perform any further update
+  if (this.state.isDestroyed) {
+    return;
+  }
+
+  var data = {
+    instance: this,
+    styles: {},
+    arrowStyles: {},
+    attributes: {},
+    flipped: false,
+    offsets: {}
+  };
+
+  // compute reference element offsets
+  data.offsets.reference = getReferenceOffsets(this.state, this.popper, this.reference, this.options.positionFixed);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  data.placement = computeAutoPlacement(this.options.placement, data.offsets.reference, this.popper, this.reference, this.options.modifiers.flip.boundariesElement, this.options.modifiers.flip.padding);
+
+  // store the computed placement inside `originalPlacement`
+  data.originalPlacement = data.placement;
+
+  data.positionFixed = this.options.positionFixed;
+
+  // compute the popper offsets
+  data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement);
+
+  data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute';
+
+  // run the modifiers
+  data = runModifiers(this.modifiers, data);
+
+  // the first `update` will call `onCreate` callback
+  // the other ones will call `onUpdate` callback
+  if (!this.state.isCreated) {
+    this.state.isCreated = true;
+    this.options.onCreate(data);
+  } else {
+    this.options.onUpdate(data);
+  }
+}
+
+/**
+ * Helper used to know if the given modifier is enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @returns {Boolean}
+ */
+function isModifierEnabled(modifiers, modifierName) {
+  return modifiers.some(function (_ref) {
+    var name = _ref.name,
+        enabled = _ref.enabled;
+    return enabled && name === modifierName;
+  });
+}
+
+/**
+ * Get the prefixed supported property name
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} property (camelCase)
+ * @returns {String} prefixed property (camelCase or PascalCase, depending on the vendor prefix)
+ */
+function getSupportedPropertyName(property) {
+  var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O'];
+  var upperProp = property.charAt(0).toUpperCase() + property.slice(1);
+
+  for (var i = 0; i < prefixes.length; i++) {
+    var prefix = prefixes[i];
+    var toCheck = prefix ? '' + prefix + upperProp : property;
+    if (typeof document.body.style[toCheck] !== 'undefined') {
+      return toCheck;
+    }
+  }
+  return null;
+}
+
+/**
+ * Destroy the popper
+ * @method
+ * @memberof Popper
+ */
+function destroy() {
+  this.state.isDestroyed = true;
+
+  // touch DOM only if `applyStyle` modifier is enabled
+  if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+    this.popper.removeAttribute('x-placement');
+    this.popper.style.position = '';
+    this.popper.style.top = '';
+    this.popper.style.left = '';
+    this.popper.style.right = '';
+    this.popper.style.bottom = '';
+    this.popper.style.willChange = '';
+    this.popper.style[getSupportedPropertyName('transform')] = '';
+  }
+
+  this.disableEventListeners();
+
+  // remove the popper if user explicity asked for the deletion on destroy
+  // do not use `remove` because IE11 doesn't support it
+  if (this.options.removeOnDestroy) {
+    this.popper.parentNode.removeChild(this.popper);
+  }
+  return this;
+}
+
+/**
+ * Get the window associated with the element
+ * @argument {Element} element
+ * @returns {Window}
+ */
+function getWindow(element) {
+  var ownerDocument = element.ownerDocument;
+  return ownerDocument ? ownerDocument.defaultView : window;
+}
+
+function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+  var isBody = scrollParent.nodeName === 'BODY';
+  var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent;
+  target.addEventListener(event, callback, { passive: true });
+
+  if (!isBody) {
+    attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents);
+  }
+  scrollParents.push(target);
+}
+
+/**
+ * Setup needed event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function setupEventListeners(reference, options, state, updateBound) {
+  // Resize event listener on window
+  state.updateBound = updateBound;
+  getWindow(reference).addEventListener('resize', state.updateBound, { passive: true });
+
+  // Scroll event listener on scroll parents
+  var scrollElement = getScrollParent(reference);
+  attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents);
+  state.scrollElement = scrollElement;
+  state.eventsEnabled = true;
+
+  return state;
+}
+
+/**
+ * It will add resize/scroll events and start recalculating
+ * position of the popper element when they are triggered.
+ * @method
+ * @memberof Popper
+ */
+function enableEventListeners() {
+  if (!this.state.eventsEnabled) {
+    this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate);
+  }
+}
+
+/**
+ * Remove event listeners used to update the popper position
+ * @method
+ * @memberof Popper.Utils
+ * @private
+ */
+function removeEventListeners(reference, state) {
+  // Remove resize event listener on window
+  getWindow(reference).removeEventListener('resize', state.updateBound);
+
+  // Remove scroll event listener on scroll parents
+  state.scrollParents.forEach(function (target) {
+    target.removeEventListener('scroll', state.updateBound);
+  });
+
+  // Reset state
+  state.updateBound = null;
+  state.scrollParents = [];
+  state.scrollElement = null;
+  state.eventsEnabled = false;
+  return state;
+}
+
+/**
+ * It will remove resize/scroll events and won't recalculate popper position
+ * when they are triggered. It also won't trigger onUpdate callback anymore,
+ * unless you call `update` method manually.
+ * @method
+ * @memberof Popper
+ */
+function disableEventListeners() {
+  if (this.state.eventsEnabled) {
+    cancelAnimationFrame(this.scheduleUpdate);
+    this.state = removeEventListeners(this.reference, this.state);
+  }
+}
+
+/**
+ * Tells if a given input is a number
+ * @method
+ * @memberof Popper.Utils
+ * @param {*} input to check
+ * @return {Boolean}
+ */
+function isNumeric(n) {
+  return n !== '' && !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+/**
+ * Set the style to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the style to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setStyles(element, styles) {
+  Object.keys(styles).forEach(function (prop) {
+    var unit = '';
+    // add unit if the value is numeric and is one of the following
+    if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+      unit = 'px';
+    }
+    element.style[prop] = styles[prop] + unit;
+  });
+}
+
+/**
+ * Set the attributes to the given popper
+ * @method
+ * @memberof Popper.Utils
+ * @argument {Element} element - Element to apply the attributes to
+ * @argument {Object} styles
+ * Object with a list of properties and values which will be applied to the element
+ */
+function setAttributes(element, attributes) {
+  Object.keys(attributes).forEach(function (prop) {
+    var value = attributes[prop];
+    if (value !== false) {
+      element.setAttribute(prop, attributes[prop]);
+    } else {
+      element.removeAttribute(prop);
+    }
+  });
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} data.styles - List of style properties - values to apply to popper element
+ * @argument {Object} data.attributes - List of attribute properties - values to apply to popper element
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The same data object
+ */
+function applyStyle(data) {
+  // any property present in `data.styles` will be applied to the popper,
+  // in this way we can make the 3rd party modifiers add custom styles to it
+  // Be aware, modifiers could override the properties defined in the previous
+  // lines of this modifier!
+  setStyles(data.instance.popper, data.styles);
+
+  // any property present in `data.attributes` will be applied to the popper,
+  // they will be set as HTML attributes of the element
+  setAttributes(data.instance.popper, data.attributes);
+
+  // if arrowElement is defined and arrowStyles has some properties
+  if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+    setStyles(data.arrowElement, data.arrowStyles);
+  }
+
+  return data;
+}
+
+/**
+ * Set the x-placement attribute before everything else because it could be used
+ * to add margins to the popper margins needs to be calculated to get the
+ * correct popper offsets.
+ * @method
+ * @memberof Popper.modifiers
+ * @param {HTMLElement} reference - The reference element used to position the popper
+ * @param {HTMLElement} popper - The HTML element used as popper
+ * @param {Object} options - Popper.js options
+ */
+function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+  // compute reference element offsets
+  var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed);
+
+  // compute auto placement, store placement inside the data object,
+  // modifiers will be able to edit `placement` if needed
+  // and refer to originalPlacement to know the original value
+  var placement = computeAutoPlacement(options.placement, referenceOffsets, popper, reference, options.modifiers.flip.boundariesElement, options.modifiers.flip.padding);
+
+  popper.setAttribute('x-placement', placement);
+
+  // Apply `position` to popper before anything else because
+  // without the position applied we can't guarantee correct computations
+  setStyles(popper, { position: options.positionFixed ? 'fixed' : 'absolute' });
+
+  return options;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function computeStyle(data, options) {
+  var x = options.x,
+      y = options.y;
+  var popper = data.offsets.popper;
+
+  // Remove this legacy support in Popper.js v2
+
+  var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'applyStyle';
+  }).gpuAcceleration;
+  if (legacyGpuAccelerationOption !== undefined) {
+    console.warn('WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!');
+  }
+  var gpuAcceleration = legacyGpuAccelerationOption !== undefined ? legacyGpuAccelerationOption : options.gpuAcceleration;
+
+  var offsetParent = getOffsetParent(data.instance.popper);
+  var offsetParentRect = getBoundingClientRect(offsetParent);
+
+  // Styles
+  var styles = {
+    position: popper.position
+  };
+
+  // Avoid blurry text by using full pixel integers.
+  // For pixel-perfect positioning, top/bottom prefers rounded
+  // values, while left/right prefers floored values.
+  var offsets = {
+    left: Math.floor(popper.left),
+    top: Math.round(popper.top),
+    bottom: Math.round(popper.bottom),
+    right: Math.floor(popper.right)
+  };
+
+  var sideA = x === 'bottom' ? 'top' : 'bottom';
+  var sideB = y === 'right' ? 'left' : 'right';
+
+  // if gpuAcceleration is set to `true` and transform is supported,
+  //  we use `translate3d` to apply the position to the popper we
+  // automatically use the supported prefixed version if needed
+  var prefixedProperty = getSupportedPropertyName('transform');
+
+  // now, let's make a step back and look at this code closely (wtf?)
+  // If the content of the popper grows once it's been positioned, it
+  // may happen that the popper gets misplaced because of the new content
+  // overflowing its reference element
+  // To avoid this problem, we provide two options (x and y), which allow
+  // the consumer to define the offset origin.
+  // If we position a popper on top of a reference element, we can set
+  // `x` to `top` to make the popper grow towards its top instead of
+  // its bottom.
+  var left = void 0,
+      top = void 0;
+  if (sideA === 'bottom') {
+    top = -offsetParentRect.height + offsets.bottom;
+  } else {
+    top = offsets.top;
+  }
+  if (sideB === 'right') {
+    left = -offsetParentRect.width + offsets.right;
+  } else {
+    left = offsets.left;
+  }
+  if (gpuAcceleration && prefixedProperty) {
+    styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)';
+    styles[sideA] = 0;
+    styles[sideB] = 0;
+    styles.willChange = 'transform';
+  } else {
+    // othwerise, we use the standard `top`, `left`, `bottom` and `right` properties
+    var invertTop = sideA === 'bottom' ? -1 : 1;
+    var invertLeft = sideB === 'right' ? -1 : 1;
+    styles[sideA] = top * invertTop;
+    styles[sideB] = left * invertLeft;
+    styles.willChange = sideA + ', ' + sideB;
+  }
+
+  // Attributes
+  var attributes = {
+    'x-placement': data.placement
+  };
+
+  // Update `data` attributes, styles and arrowStyles
+  data.attributes = _extends({}, attributes, data.attributes);
+  data.styles = _extends({}, styles, data.styles);
+  data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles);
+
+  return data;
+}
+
+/**
+ * Helper used to know if the given modifier depends from another one.<br />
+ * It checks if the needed modifier is listed and enabled.
+ * @method
+ * @memberof Popper.Utils
+ * @param {Array} modifiers - list of modifiers
+ * @param {String} requestingName - name of requesting modifier
+ * @param {String} requestedName - name of requested modifier
+ * @returns {Boolean}
+ */
+function isModifierRequired(modifiers, requestingName, requestedName) {
+  var requesting = find(modifiers, function (_ref) {
+    var name = _ref.name;
+    return name === requestingName;
+  });
+
+  var isRequired = !!requesting && modifiers.some(function (modifier) {
+    return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order;
+  });
+
+  if (!isRequired) {
+    var _requesting = '`' + requestingName + '`';
+    var requested = '`' + requestedName + '`';
+    console.warn(requested + ' modifier is required by ' + _requesting + ' modifier in order to work, be sure to include it before ' + _requesting + '!');
+  }
+  return isRequired;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function arrow(data, options) {
+  var _data$offsets$arrow;
+
+  // arrow depends on keepTogether in order to work
+  if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+    return data;
+  }
+
+  var arrowElement = options.element;
+
+  // if arrowElement is a string, suppose it's a CSS selector
+  if (typeof arrowElement === 'string') {
+    arrowElement = data.instance.popper.querySelector(arrowElement);
+
+    // if arrowElement is not found, don't run the modifier
+    if (!arrowElement) {
+      return data;
+    }
+  } else {
+    // if the arrowElement isn't a query selector we must check that the
+    // provided DOM node is child of its popper node
+    if (!data.instance.popper.contains(arrowElement)) {
+      console.warn('WARNING: `arrow.element` must be child of its popper element!');
+      return data;
+    }
+  }
+
+  var placement = data.placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isVertical = ['left', 'right'].indexOf(placement) !== -1;
+
+  var len = isVertical ? 'height' : 'width';
+  var sideCapitalized = isVertical ? 'Top' : 'Left';
+  var side = sideCapitalized.toLowerCase();
+  var altSide = isVertical ? 'left' : 'top';
+  var opSide = isVertical ? 'bottom' : 'right';
+  var arrowElementSize = getOuterSizes(arrowElement)[len];
+
+  //
+  // extends keepTogether behavior making sure the popper and its
+  // reference have enough pixels in conjuction
+  //
+
+  // top/left side
+  if (reference[opSide] - arrowElementSize < popper[side]) {
+    data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize);
+  }
+  // bottom/right side
+  if (reference[side] + arrowElementSize > popper[opSide]) {
+    data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide];
+  }
+  data.offsets.popper = getClientRect(data.offsets.popper);
+
+  // compute center of the popper
+  var center = reference[side] + reference[len] / 2 - arrowElementSize / 2;
+
+  // Compute the sideValue using the updated popper offsets
+  // take popper margin in account because we don't have this info available
+  var css = getStyleComputedProperty(data.instance.popper);
+  var popperMarginSide = parseFloat(css['margin' + sideCapitalized], 10);
+  var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'], 10);
+  var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide;
+
+  // prevent arrowElement from being placed not contiguously to its popper
+  sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0);
+
+  data.arrowElement = arrowElement;
+  data.offsets.arrow = (_data$offsets$arrow = {}, defineProperty(_data$offsets$arrow, side, Math.round(sideValue)), defineProperty(_data$offsets$arrow, altSide, ''), _data$offsets$arrow);
+
+  return data;
+}
+
+/**
+ * Get the opposite placement variation of the given one
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement variation
+ * @returns {String} flipped placement variation
+ */
+function getOppositeVariation(variation) {
+  if (variation === 'end') {
+    return 'start';
+  } else if (variation === 'start') {
+    return 'end';
+  }
+  return variation;
+}
+
+/**
+ * List of accepted placements to use as values of the `placement` option.<br />
+ * Valid placements are:
+ * - `auto`
+ * - `top`
+ * - `right`
+ * - `bottom`
+ * - `left`
+ *
+ * Each placement can have a variation from this list:
+ * - `-start`
+ * - `-end`
+ *
+ * Variations are interpreted easily if you think of them as the left to right
+ * written languages. Horizontally (`top` and `bottom`), `start` is left and `end`
+ * is right.<br />
+ * Vertically (`left` and `right`), `start` is top and `end` is bottom.
+ *
+ * Some valid examples are:
+ * - `top-end` (on top of reference, right aligned)
+ * - `right-start` (on right of reference, top aligned)
+ * - `bottom` (on bottom, centered)
+ * - `auto-right` (on the side with more space available, alignment depends by placement)
+ *
+ * @static
+ * @type {Array}
+ * @enum {String}
+ * @readonly
+ * @method placements
+ * @memberof Popper
+ */
+var placements = ['auto-start', 'auto', 'auto-end', 'top-start', 'top', 'top-end', 'right-start', 'right', 'right-end', 'bottom-end', 'bottom', 'bottom-start', 'left-end', 'left', 'left-start'];
+
+// Get rid of `auto` `auto-start` and `auto-end`
+var validPlacements = placements.slice(3);
+
+/**
+ * Given an initial placement, returns all the subsequent placements
+ * clockwise (or counter-clockwise).
+ *
+ * @method
+ * @memberof Popper.Utils
+ * @argument {String} placement - A valid placement (it accepts variations)
+ * @argument {Boolean} counter - Set to true to walk the placements counterclockwise
+ * @returns {Array} placements including their variations
+ */
+function clockwise(placement) {
+  var counter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var index = validPlacements.indexOf(placement);
+  var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index));
+  return counter ? arr.reverse() : arr;
+}
+
+var BEHAVIORS = {
+  FLIP: 'flip',
+  CLOCKWISE: 'clockwise',
+  COUNTERCLOCKWISE: 'counterclockwise'
+};
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function flip(data, options) {
+  // if `inner` modifier is enabled, we can't use the `flip` modifier
+  if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+    return data;
+  }
+
+  if (data.flipped && data.placement === data.originalPlacement) {
+    // seems like flip is trying to loop, probably there's not enough space on any of the flippable sides
+    return data;
+  }
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, options.boundariesElement, data.positionFixed);
+
+  var placement = data.placement.split('-')[0];
+  var placementOpposite = getOppositePlacement(placement);
+  var variation = data.placement.split('-')[1] || '';
+
+  var flipOrder = [];
+
+  switch (options.behavior) {
+    case BEHAVIORS.FLIP:
+      flipOrder = [placement, placementOpposite];
+      break;
+    case BEHAVIORS.CLOCKWISE:
+      flipOrder = clockwise(placement);
+      break;
+    case BEHAVIORS.COUNTERCLOCKWISE:
+      flipOrder = clockwise(placement, true);
+      break;
+    default:
+      flipOrder = options.behavior;
+  }
+
+  flipOrder.forEach(function (step, index) {
+    if (placement !== step || flipOrder.length === index + 1) {
+      return data;
+    }
+
+    placement = data.placement.split('-')[0];
+    placementOpposite = getOppositePlacement(placement);
+
+    var popperOffsets = data.offsets.popper;
+    var refOffsets = data.offsets.reference;
+
+    // using floor because the reference offsets may contain decimals we are not going to consider here
+    var floor = Math.floor;
+    var overlapsRef = placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left) || placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right) || placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top) || placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom);
+
+    var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left);
+    var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right);
+    var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top);
+    var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom);
+
+    var overflowsBoundaries = placement === 'left' && overflowsLeft || placement === 'right' && overflowsRight || placement === 'top' && overflowsTop || placement === 'bottom' && overflowsBottom;
+
+    // flip the variation if required
+    var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+    var flippedVariation = !!options.flipVariations && (isVertical && variation === 'start' && overflowsLeft || isVertical && variation === 'end' && overflowsRight || !isVertical && variation === 'start' && overflowsTop || !isVertical && variation === 'end' && overflowsBottom);
+
+    if (overlapsRef || overflowsBoundaries || flippedVariation) {
+      // this boolean to detect any flip loop
+      data.flipped = true;
+
+      if (overlapsRef || overflowsBoundaries) {
+        placement = flipOrder[index + 1];
+      }
+
+      if (flippedVariation) {
+        variation = getOppositeVariation(variation);
+      }
+
+      data.placement = placement + (variation ? '-' + variation : '');
+
+      // this object contains `position`, we want to preserve it along with
+      // any additional property we may add in the future
+      data.offsets.popper = _extends({}, data.offsets.popper, getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement));
+
+      data = runModifiers(data.instance.modifiers, data, 'flip');
+    }
+  });
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function keepTogether(data) {
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var placement = data.placement.split('-')[0];
+  var floor = Math.floor;
+  var isVertical = ['top', 'bottom'].indexOf(placement) !== -1;
+  var side = isVertical ? 'right' : 'bottom';
+  var opSide = isVertical ? 'left' : 'top';
+  var measurement = isVertical ? 'width' : 'height';
+
+  if (popper[side] < floor(reference[opSide])) {
+    data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement];
+  }
+  if (popper[opSide] > floor(reference[side])) {
+    data.offsets.popper[opSide] = floor(reference[side]);
+  }
+
+  return data;
+}
+
+/**
+ * Converts a string containing value + unit into a px value number
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} str - Value + unit string
+ * @argument {String} measurement - `height` or `width`
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @returns {Number|String}
+ * Value in pixels, or original string if no values were extracted
+ */
+function toValue(str, measurement, popperOffsets, referenceOffsets) {
+  // separate value from unit
+  var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/);
+  var value = +split[1];
+  var unit = split[2];
+
+  // If it's not a number it's an operator, I guess
+  if (!value) {
+    return str;
+  }
+
+  if (unit.indexOf('%') === 0) {
+    var element = void 0;
+    switch (unit) {
+      case '%p':
+        element = popperOffsets;
+        break;
+      case '%':
+      case '%r':
+      default:
+        element = referenceOffsets;
+    }
+
+    var rect = getClientRect(element);
+    return rect[measurement] / 100 * value;
+  } else if (unit === 'vh' || unit === 'vw') {
+    // if is a vh or vw, we calculate the size based on the viewport
+    var size = void 0;
+    if (unit === 'vh') {
+      size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    } else {
+      size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    }
+    return size / 100 * value;
+  } else {
+    // if is an explicit pixel unit, we get rid of the unit and keep the value
+    // if is an implicit unit, it's px, and we return just the value
+    return value;
+  }
+}
+
+/**
+ * Parse an `offset` string to extrapolate `x` and `y` numeric offsets.
+ * @function
+ * @memberof {modifiers~offset}
+ * @private
+ * @argument {String} offset
+ * @argument {Object} popperOffsets
+ * @argument {Object} referenceOffsets
+ * @argument {String} basePlacement
+ * @returns {Array} a two cells array with x and y offsets in numbers
+ */
+function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
+  var offsets = [0, 0];
+
+  // Use height if placement is left or right and index is 0 otherwise use width
+  // in this way the first offset will use an axis and the second one
+  // will use the other one
+  var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1;
+
+  // Split the offset string to obtain a list of values and operands
+  // The regex addresses values with the plus or minus sign in front (+10, -20, etc)
+  var fragments = offset.split(/(\+|\-)/).map(function (frag) {
+    return frag.trim();
+  });
+
+  // Detect if the offset string contains a pair of values or a single one
+  // they could be separated by comma or space
+  var divider = fragments.indexOf(find(fragments, function (frag) {
+    return frag.search(/,|\s/) !== -1;
+  }));
+
+  if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+    console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.');
+  }
+
+  // If divider is found, we divide the list of values and operands to divide
+  // them by ofset X and Y.
+  var splitRegex = /\s*,\s*|\s+/;
+  var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
+
+  // Convert the values with units to absolute pixels to allow our computations
+  ops = ops.map(function (op, index) {
+    // Most of the units rely on the orientation of the popper
+    var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';
+    var mergeWithPrevious = false;
+    return op
+    // This aggregates any `+` or `-` sign that aren't considered operators
+    // e.g.: 10 + +5 => [10, +, +5]
+    .reduce(function (a, b) {
+      if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+        a[a.length - 1] = b;
+        mergeWithPrevious = true;
+        return a;
+      } else if (mergeWithPrevious) {
+        a[a.length - 1] += b;
+        mergeWithPrevious = false;
+        return a;
+      } else {
+        return a.concat(b);
+      }
+    }, [])
+    // Here we convert the string values into number values (in px)
+    .map(function (str) {
+      return toValue(str, measurement, popperOffsets, referenceOffsets);
+    });
+  });
+
+  // Loop trough the offsets arrays and execute the operations
+  ops.forEach(function (op, index) {
+    op.forEach(function (frag, index2) {
+      if (isNumeric(frag)) {
+        offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1);
+      }
+    });
+  });
+  return offsets;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @argument {Number|String} options.offset=0
+ * The offset value as described in the modifier description
+ * @returns {Object} The data object, properly modified
+ */
+function offset(data, _ref) {
+  var offset = _ref.offset;
+  var placement = data.placement,
+      _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var basePlacement = placement.split('-')[0];
+
+  var offsets = void 0;
+  if (isNumeric(+offset)) {
+    offsets = [+offset, 0];
+  } else {
+    offsets = parseOffset(offset, popper, reference, basePlacement);
+  }
+
+  if (basePlacement === 'left') {
+    popper.top += offsets[0];
+    popper.left -= offsets[1];
+  } else if (basePlacement === 'right') {
+    popper.top += offsets[0];
+    popper.left += offsets[1];
+  } else if (basePlacement === 'top') {
+    popper.left += offsets[0];
+    popper.top -= offsets[1];
+  } else if (basePlacement === 'bottom') {
+    popper.left += offsets[0];
+    popper.top += offsets[1];
+  }
+
+  data.popper = popper;
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function preventOverflow(data, options) {
+  var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper);
+
+  // If offsetParent is the reference element, we really want to
+  // go one step up and use the next offsetParent as reference to
+  // avoid to make this modifier completely useless and look like broken
+  if (data.instance.reference === boundariesElement) {
+    boundariesElement = getOffsetParent(boundariesElement);
+  }
+
+  // NOTE: DOM access here
+  // resets the popper's position so that the document size can be calculated excluding
+  // the size of the popper element itself
+  var transformProp = getSupportedPropertyName('transform');
+  var popperStyles = data.instance.popper.style; // assignment to help minification
+  var top = popperStyles.top,
+      left = popperStyles.left,
+      transform = popperStyles[transformProp];
+
+  popperStyles.top = '';
+  popperStyles.left = '';
+  popperStyles[transformProp] = '';
+
+  var boundaries = getBoundaries(data.instance.popper, data.instance.reference, options.padding, boundariesElement, data.positionFixed);
+
+  // NOTE: DOM access here
+  // restores the original style properties after the offsets have been computed
+  popperStyles.top = top;
+  popperStyles.left = left;
+  popperStyles[transformProp] = transform;
+
+  options.boundaries = boundaries;
+
+  var order = options.priority;
+  var popper = data.offsets.popper;
+
+  var check = {
+    primary: function primary(placement) {
+      var value = popper[placement];
+      if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+        value = Math.max(popper[placement], boundaries[placement]);
+      }
+      return defineProperty({}, placement, value);
+    },
+    secondary: function secondary(placement) {
+      var mainSide = placement === 'right' ? 'left' : 'top';
+      var value = popper[mainSide];
+      if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+        value = Math.min(popper[mainSide], boundaries[placement] - (placement === 'right' ? popper.width : popper.height));
+      }
+      return defineProperty({}, mainSide, value);
+    }
+  };
+
+  order.forEach(function (placement) {
+    var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary';
+    popper = _extends({}, popper, check[side](placement));
+  });
+
+  data.offsets.popper = popper;
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function shift(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var shiftvariation = placement.split('-')[1];
+
+  // if shift shiftvariation is specified, run the modifier
+  if (shiftvariation) {
+    var _data$offsets = data.offsets,
+        reference = _data$offsets.reference,
+        popper = _data$offsets.popper;
+
+    var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1;
+    var side = isVertical ? 'left' : 'top';
+    var measurement = isVertical ? 'width' : 'height';
+
+    var shiftOffsets = {
+      start: defineProperty({}, side, reference[side]),
+      end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement])
+    };
+
+    data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation]);
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by update method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function hide(data) {
+  if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+    return data;
+  }
+
+  var refRect = data.offsets.reference;
+  var bound = find(data.instance.modifiers, function (modifier) {
+    return modifier.name === 'preventOverflow';
+  }).boundaries;
+
+  if (refRect.bottom < bound.top || refRect.left > bound.right || refRect.top > bound.bottom || refRect.right < bound.left) {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === true) {
+      return data;
+    }
+
+    data.hide = true;
+    data.attributes['x-out-of-boundaries'] = '';
+  } else {
+    // Avoid unnecessary DOM access if visibility hasn't changed
+    if (data.hide === false) {
+      return data;
+    }
+
+    data.hide = false;
+    data.attributes['x-out-of-boundaries'] = false;
+  }
+
+  return data;
+}
+
+/**
+ * @function
+ * @memberof Modifiers
+ * @argument {Object} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {Object} The data object, properly modified
+ */
+function inner(data) {
+  var placement = data.placement;
+  var basePlacement = placement.split('-')[0];
+  var _data$offsets = data.offsets,
+      popper = _data$offsets.popper,
+      reference = _data$offsets.reference;
+
+  var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1;
+
+  var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1;
+
+  popper[isHoriz ? 'left' : 'top'] = reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0);
+
+  data.placement = getOppositePlacement(placement);
+  data.offsets.popper = getClientRect(popper);
+
+  return data;
+}
+
+/**
+ * Modifier function, each modifier can have a function of this type assigned
+ * to its `fn` property.<br />
+ * These functions will be called on each update, this means that you must
+ * make sure they are performant enough to avoid performance bottlenecks.
+ *
+ * @function ModifierFn
+ * @argument {dataObject} data - The data object generated by `update` method
+ * @argument {Object} options - Modifiers configuration and options
+ * @returns {dataObject} The data object, properly modified
+ */
+
+/**
+ * Modifiers are plugins used to alter the behavior of your poppers.<br />
+ * Popper.js uses a set of 9 modifiers to provide all the basic functionalities
+ * needed by the library.
+ *
+ * Usually you don't want to override the `order`, `fn` and `onLoad` props.
+ * All the other properties are configurations that could be tweaked.
+ * @namespace modifiers
+ */
+var modifiers = {
+  /**
+   * Modifier used to shift the popper on the start or end of its reference
+   * element.<br />
+   * It will read the variation of the `placement` property.<br />
+   * It can be one either `-end` or `-start`.
+   * @memberof modifiers
+   * @inner
+   */
+  shift: {
+    /** @prop {number} order=100 - Index used to define the order of execution */
+    order: 100,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: shift
+  },
+
+  /**
+   * The `offset` modifier can shift your popper on both its axis.
+   *
+   * It accepts the following units:
+   * - `px` or unitless, interpreted as pixels
+   * - `%` or `%r`, percentage relative to the length of the reference element
+   * - `%p`, percentage relative to the length of the popper element
+   * - `vw`, CSS viewport width unit
+   * - `vh`, CSS viewport height unit
+   *
+   * For length is intended the main axis relative to the placement of the popper.<br />
+   * This means that if the placement is `top` or `bottom`, the length will be the
+   * `width`. In case of `left` or `right`, it will be the height.
+   *
+   * You can provide a single value (as `Number` or `String`), or a pair of values
+   * as `String` divided by a comma or one (or more) white spaces.<br />
+   * The latter is a deprecated method because it leads to confusion and will be
+   * removed in v2.<br />
+   * Additionally, it accepts additions and subtractions between different units.
+   * Note that multiplications and divisions aren't supported.
+   *
+   * Valid examples are:
+   * ```
+   * 10
+   * '10%'
+   * '10, 10'
+   * '10%, 10'
+   * '10 + 10%'
+   * '10 - 5vh + 3%'
+   * '-10px + 5vh, 5px - 6%'
+   * ```
+   * > **NB**: If you desire to apply offsets to your poppers in a way that may make them overlap
+   * > with their reference element, unfortunately, you will have to disable the `flip` modifier.
+   * > More on this [reading this issue](https://github.com/FezVrasta/popper.js/issues/373)
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  offset: {
+    /** @prop {number} order=200 - Index used to define the order of execution */
+    order: 200,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: offset,
+    /** @prop {Number|String} offset=0
+     * The offset value as described in the modifier description
+     */
+    offset: 0
+  },
+
+  /**
+   * Modifier used to prevent the popper from being positioned outside the boundary.
+   *
+   * An scenario exists where the reference itself is not within the boundaries.<br />
+   * We can say it has "escaped the boundaries" — or just "escaped".<br />
+   * In this case we need to decide whether the popper should either:
+   *
+   * - detach from the reference and remain "trapped" in the boundaries, or
+   * - if it should ignore the boundary and "escape with its reference"
+   *
+   * When `escapeWithReference` is set to`true` and reference is completely
+   * outside its boundaries, the popper will overflow (or completely leave)
+   * the boundaries in order to remain attached to the edge of the reference.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  preventOverflow: {
+    /** @prop {number} order=300 - Index used to define the order of execution */
+    order: 300,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: preventOverflow,
+    /**
+     * @prop {Array} [priority=['left','right','top','bottom']]
+     * Popper will try to prevent overflow following these priorities by default,
+     * then, it could overflow on the left and on top of the `boundariesElement`
+     */
+    priority: ['left', 'right', 'top', 'bottom'],
+    /**
+     * @prop {number} padding=5
+     * Amount of pixel used to define a minimum distance between the boundaries
+     * and the popper this makes sure the popper has always a little padding
+     * between the edges of its container
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='scrollParent'
+     * Boundaries used by the modifier, can be `scrollParent`, `window`,
+     * `viewport` or any DOM element.
+     */
+    boundariesElement: 'scrollParent'
+  },
+
+  /**
+   * Modifier used to make sure the reference and its popper stay near eachothers
+   * without leaving any gap between the two. Expecially useful when the arrow is
+   * enabled and you want to assure it to point to its reference element.
+   * It cares only about the first axis, you can still have poppers with margin
+   * between the popper and its reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  keepTogether: {
+    /** @prop {number} order=400 - Index used to define the order of execution */
+    order: 400,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: keepTogether
+  },
+
+  /**
+   * This modifier is used to move the `arrowElement` of the popper to make
+   * sure it is positioned between the reference element and its popper element.
+   * It will read the outer size of the `arrowElement` node to detect how many
+   * pixels of conjuction are needed.
+   *
+   * It has no effect if no `arrowElement` is provided.
+   * @memberof modifiers
+   * @inner
+   */
+  arrow: {
+    /** @prop {number} order=500 - Index used to define the order of execution */
+    order: 500,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: arrow,
+    /** @prop {String|HTMLElement} element='[x-arrow]' - Selector or node used as arrow */
+    element: '[x-arrow]'
+  },
+
+  /**
+   * Modifier used to flip the popper's placement when it starts to overlap its
+   * reference element.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   *
+   * **NOTE:** this modifier will interrupt the current update cycle and will
+   * restart it if it detects the need to flip the placement.
+   * @memberof modifiers
+   * @inner
+   */
+  flip: {
+    /** @prop {number} order=600 - Index used to define the order of execution */
+    order: 600,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: flip,
+    /**
+     * @prop {String|Array} behavior='flip'
+     * The behavior used to change the popper's placement. It can be one of
+     * `flip`, `clockwise`, `counterclockwise` or an array with a list of valid
+     * placements (with optional variations).
+     */
+    behavior: 'flip',
+    /**
+     * @prop {number} padding=5
+     * The popper will flip if it hits the edges of the `boundariesElement`
+     */
+    padding: 5,
+    /**
+     * @prop {String|HTMLElement} boundariesElement='viewport'
+     * The element which will define the boundaries of the popper position,
+     * the popper will never be placed outside of the defined boundaries
+     * (except if keepTogether is enabled)
+     */
+    boundariesElement: 'viewport'
+  },
+
+  /**
+   * Modifier used to make the popper flow toward the inner of the reference element.
+   * By default, when this modifier is disabled, the popper will be placed outside
+   * the reference element.
+   * @memberof modifiers
+   * @inner
+   */
+  inner: {
+    /** @prop {number} order=700 - Index used to define the order of execution */
+    order: 700,
+    /** @prop {Boolean} enabled=false - Whether the modifier is enabled or not */
+    enabled: false,
+    /** @prop {ModifierFn} */
+    fn: inner
+  },
+
+  /**
+   * Modifier used to hide the popper when its reference element is outside of the
+   * popper boundaries. It will set a `x-out-of-boundaries` attribute which can
+   * be used to hide with a CSS selector the popper when its reference is
+   * out of boundaries.
+   *
+   * Requires the `preventOverflow` modifier before it in order to work.
+   * @memberof modifiers
+   * @inner
+   */
+  hide: {
+    /** @prop {number} order=800 - Index used to define the order of execution */
+    order: 800,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: hide
+  },
+
+  /**
+   * Computes the style that will be applied to the popper element to gets
+   * properly positioned.
+   *
+   * Note that this modifier will not touch the DOM, it just prepares the styles
+   * so that `applyStyle` modifier can apply it. This separation is useful
+   * in case you need to replace `applyStyle` with a custom implementation.
+   *
+   * This modifier has `850` as `order` value to maintain backward compatibility
+   * with previous versions of Popper.js. Expect the modifiers ordering method
+   * to change in future major versions of the library.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  computeStyle: {
+    /** @prop {number} order=850 - Index used to define the order of execution */
+    order: 850,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: computeStyle,
+    /**
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: true,
+    /**
+     * @prop {string} [x='bottom']
+     * Where to anchor the X axis (`bottom` or `top`). AKA X offset origin.
+     * Change this if your popper should grow in a direction different from `bottom`
+     */
+    x: 'bottom',
+    /**
+     * @prop {string} [x='left']
+     * Where to anchor the Y axis (`left` or `right`). AKA Y offset origin.
+     * Change this if your popper should grow in a direction different from `right`
+     */
+    y: 'right'
+  },
+
+  /**
+   * Applies the computed styles to the popper element.
+   *
+   * All the DOM manipulations are limited to this modifier. This is useful in case
+   * you want to integrate Popper.js inside a framework or view library and you
+   * want to delegate all the DOM manipulations to it.
+   *
+   * Note that if you disable this modifier, you must make sure the popper element
+   * has its position set to `absolute` before Popper.js can do its work!
+   *
+   * Just disable this modifier and define you own to achieve the desired effect.
+   *
+   * @memberof modifiers
+   * @inner
+   */
+  applyStyle: {
+    /** @prop {number} order=900 - Index used to define the order of execution */
+    order: 900,
+    /** @prop {Boolean} enabled=true - Whether the modifier is enabled or not */
+    enabled: true,
+    /** @prop {ModifierFn} */
+    fn: applyStyle,
+    /** @prop {Function} */
+    onLoad: applyStyleOnLoad,
+    /**
+     * @deprecated since version 1.10.0, the property moved to `computeStyle` modifier
+     * @prop {Boolean} gpuAcceleration=true
+     * If true, it uses the CSS 3d transformation to position the popper.
+     * Otherwise, it will use the `top` and `left` properties.
+     */
+    gpuAcceleration: undefined
+  }
+};
+
+/**
+ * The `dataObject` is an object containing all the informations used by Popper.js
+ * this object get passed to modifiers and to the `onCreate` and `onUpdate` callbacks.
+ * @name dataObject
+ * @property {Object} data.instance The Popper.js instance
+ * @property {String} data.placement Placement applied to popper
+ * @property {String} data.originalPlacement Placement originally defined on init
+ * @property {Boolean} data.flipped True if popper has been flipped by flip modifier
+ * @property {Boolean} data.hide True if the reference element is out of boundaries, useful to know when to hide the popper.
+ * @property {HTMLElement} data.arrowElement Node used as arrow by arrow modifier
+ * @property {Object} data.styles Any CSS property defined here will be applied to the popper, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.arrowStyles Any CSS property defined here will be applied to the popper arrow, it expects the JavaScript nomenclature (eg. `marginBottom`)
+ * @property {Object} data.boundaries Offsets of the popper boundaries
+ * @property {Object} data.offsets The measurements of popper, reference and arrow elements.
+ * @property {Object} data.offsets.popper `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.reference `top`, `left`, `width`, `height` values
+ * @property {Object} data.offsets.arrow] `top` and `left` offsets, only one of them will be different from 0
+ */
+
+/**
+ * Default options provided to Popper.js constructor.<br />
+ * These can be overriden using the `options` argument of Popper.js.<br />
+ * To override an option, simply pass as 3rd argument an object with the same
+ * structure of this object, example:
+ * ```
+ * new Popper(ref, pop, {
+ *   modifiers: {
+ *     preventOverflow: { enabled: false }
+ *   }
+ * })
+ * ```
+ * @type {Object}
+ * @static
+ * @memberof Popper
+ */
+var Defaults = {
+  /**
+   * Popper's placement
+   * @prop {Popper.placements} placement='bottom'
+   */
+  placement: 'bottom',
+
+  /**
+   * Set this to true if you want popper to position it self in 'fixed' mode
+   * @prop {Boolean} positionFixed=false
+   */
+  positionFixed: false,
+
+  /**
+   * Whether events (resize, scroll) are initially enabled
+   * @prop {Boolean} eventsEnabled=true
+   */
+  eventsEnabled: true,
+
+  /**
+   * Set to true if you want to automatically remove the popper when
+   * you call the `destroy` method.
+   * @prop {Boolean} removeOnDestroy=false
+   */
+  removeOnDestroy: false,
+
+  /**
+   * Callback called when the popper is created.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onCreate}
+   */
+  onCreate: function onCreate() {},
+
+  /**
+   * Callback called when the popper is updated, this callback is not called
+   * on the initialization/creation of the popper, but only on subsequent
+   * updates.<br />
+   * By default, is set to no-op.<br />
+   * Access Popper.js instance with `data.instance`.
+   * @prop {onUpdate}
+   */
+  onUpdate: function onUpdate() {},
+
+  /**
+   * List of modifiers used to modify the offsets before they are applied to the popper.
+   * They provide most of the functionalities of Popper.js
+   * @prop {modifiers}
+   */
+  modifiers: modifiers
+};
+
+/**
+ * @callback onCreate
+ * @param {dataObject} data
+ */
+
+/**
+ * @callback onUpdate
+ * @param {dataObject} data
+ */
+
+// Utils
+// Methods
+var Popper = function () {
+  /**
+   * Create a new Popper.js instance
+   * @class Popper
+   * @param {HTMLElement|referenceObject} reference - The reference element used to position the popper
+   * @param {HTMLElement} popper - The HTML element used as popper.
+   * @param {Object} options - Your custom options to override the ones defined in [Defaults](#defaults)
+   * @return {Object} instance - The generated Popper.js instance
+   */
+  function Popper(reference, popper) {
+    var _this = this;
+
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    classCallCheck(this, Popper);
+
+    this.scheduleUpdate = function () {
+      return requestAnimationFrame(_this.update);
+    };
+
+    // make update() debounced, so that it only runs at most once-per-tick
+    this.update = debounce(this.update.bind(this));
+
+    // with {} we create a new object with the options inside it
+    this.options = _extends({}, Popper.Defaults, options);
+
+    // init state
+    this.state = {
+      isDestroyed: false,
+      isCreated: false,
+      scrollParents: []
+    };
+
+    // get reference and popper elements (allow jQuery wrappers)
+    this.reference = reference && reference.jquery ? reference[0] : reference;
+    this.popper = popper && popper.jquery ? popper[0] : popper;
+
+    // Deep merge modifiers options
+    this.options.modifiers = {};
+    Object.keys(_extends({}, Popper.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+      _this.options.modifiers[name] = _extends({}, Popper.Defaults.modifiers[name] || {}, options.modifiers ? options.modifiers[name] : {});
+    });
+
+    // Refactoring modifiers' list (Object => Array)
+    this.modifiers = Object.keys(this.options.modifiers).map(function (name) {
+      return _extends({
+        name: name
+      }, _this.options.modifiers[name]);
+    })
+    // sort the modifiers by order
+    .sort(function (a, b) {
+      return a.order - b.order;
+    });
+
+    // modifiers have the ability to execute arbitrary code when Popper.js get inited
+    // such code is executed in the same order of its modifier
+    // they could add new properties to their options configuration
+    // BE AWARE: don't add options to `options.modifiers.name` but to `modifierOptions`!
+    this.modifiers.forEach(function (modifierOptions) {
+      if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+        modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state);
+      }
+    });
+
+    // fire the first update to position the popper in the right place
+    this.update();
+
+    var eventsEnabled = this.options.eventsEnabled;
+    if (eventsEnabled) {
+      // setup event listeners, they will take care of update the position in specific situations
+      this.enableEventListeners();
+    }
+
+    this.state.eventsEnabled = eventsEnabled;
+  }
+
+  // We can't use class properties because they don't get listed in the
+  // class prototype and break stuff like Sinon stubs
+
+
+  createClass(Popper, [{
+    key: 'update',
+    value: function update$$1() {
+      return update.call(this);
+    }
+  }, {
+    key: 'destroy',
+    value: function destroy$$1() {
+      return destroy.call(this);
+    }
+  }, {
+    key: 'enableEventListeners',
+    value: function enableEventListeners$$1() {
+      return enableEventListeners.call(this);
+    }
+  }, {
+    key: 'disableEventListeners',
+    value: function disableEventListeners$$1() {
+      return disableEventListeners.call(this);
+    }
+
+    /**
+     * Schedule an update, it will run on the next UI update available
+     * @method scheduleUpdate
+     * @memberof Popper
+     */
+
+
+    /**
+     * Collection of utilities useful when writing custom modifiers.
+     * Starting from version 1.7, this method is available only if you
+     * include `popper-utils.js` before `popper.js`.
+     *
+     * **DEPRECATION**: This way to access PopperUtils is deprecated
+     * and will be removed in v2! Use the PopperUtils module directly instead.
+     * Due to the high instability of the methods contained in Utils, we can't
+     * guarantee them to follow semver. Use them at your own risk!
+     * @static
+     * @private
+     * @type {Object}
+     * @deprecated since version 1.8
+     * @member Utils
+     * @memberof Popper
+     */
+
+  }]);
+  return Popper;
+}();
+
+/**
+ * The `referenceObject` is an object that provides an interface compatible with Popper.js
+ * and lets you use it as replacement of a real DOM node.<br />
+ * You can use this method to position a popper relatively to a set of coordinates
+ * in case you don't have a DOM node to use as reference.
+ *
+ * ```
+ * new Popper(referenceObject, popperNode);
+ * ```
+ *
+ * NB: This feature isn't supported in Internet Explorer 10
+ * @name referenceObject
+ * @property {Function} data.getBoundingClientRect
+ * A function that returns a set of coordinates compatible with the native `getBoundingClientRect` method.
+ * @property {number} data.clientWidth
+ * An ES6 getter that will return the width of the virtual reference element.
+ * @property {number} data.clientHeight
+ * An ES6 getter that will return the height of the virtual reference element.
+ */
+
+
+Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils;
+Popper.placements = placements;
+Popper.Defaults = Defaults;
+
+var SVGAnimatedString = function SVGAnimatedString() {};
+if (typeof window !== 'undefined') {
+	SVGAnimatedString = window.SVGAnimatedString;
+}
+
+function convertToArray(value) {
+	if (typeof value === 'string') {
+		value = value.split(' ');
+	}
+	return value;
+}
+
+/**
+ * Add classes to an element.
+ * This method checks to ensure that the classes don't already exist before adding them.
+ * It uses el.className rather than classList in order to be IE friendly.
+ * @param {object} el - The element to add the classes to.
+ * @param {classes} string - List of space separated classes to be added to the element.
+ */
+function addClasses(el, classes) {
+	var newClasses = convertToArray(classes);
+	var classList = void 0;
+	if (el.className instanceof SVGAnimatedString) {
+		classList = convertToArray(el.className.baseVal);
+	} else {
+		classList = convertToArray(el.className);
+	}
+	newClasses.forEach(function (newClass) {
+		if (classList.indexOf(newClass) === -1) {
+			classList.push(newClass);
+		}
+	});
+	if (el instanceof SVGElement) {
+		el.setAttribute('class', classList.join(' '));
+	} else {
+		el.className = classList.join(' ');
+	}
+}
+
+/**
+ * Remove classes from an element.
+ * It uses el.className rather than classList in order to be IE friendly.
+ * @export
+ * @param {any} el The element to remove the classes from.
+ * @param {any} classes List of space separated classes to be removed from the element.
+ */
+function removeClasses(el, classes) {
+	var newClasses = convertToArray(classes);
+	var classList = void 0;
+	if (el.className instanceof SVGAnimatedString) {
+		classList = convertToArray(el.className.baseVal);
+	} else {
+		classList = convertToArray(el.className);
+	}
+	newClasses.forEach(function (newClass) {
+		var index = classList.indexOf(newClass);
+		if (index !== -1) {
+			classList.splice(index, 1);
+		}
+	});
+	if (el instanceof SVGElement) {
+		el.setAttribute('class', classList.join(' '));
+	} else {
+		el.className = classList.join(' ');
+	}
+}
+
+var supportsPassive = false;
+
+if (typeof window !== 'undefined') {
+	supportsPassive = false;
+	try {
+		var opts = Object.defineProperty({}, 'passive', {
+			get: function get() {
+				supportsPassive = true;
+			}
+		});
+		window.addEventListener('test', null, opts);
+	} catch (e) {}
+}
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+};
+
+
+
+
+
+
+
+
+
+
+
+var classCallCheck$1 = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass$1 = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+
+
+
+
+
+
+var _extends$1 = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+/* Forked from https://github.com/FezVrasta/popper.js/blob/master/packages/tooltip/src/index.js */
+
+var DEFAULT_OPTIONS = {
+	container: false,
+	delay: 0,
+	html: false,
+	placement: 'top',
+	title: '',
+	template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+	trigger: 'hover focus',
+	offset: 0
+};
+
+var openTooltips = [];
+
+var Tooltip = function () {
+	/**
+  * Create a new Tooltip.js instance
+  * @class Tooltip
+  * @param {HTMLElement} reference - The DOM node used as reference of the tooltip (it can be a jQuery element).
+  * @param {Object} options
+  * @param {String} options.placement=bottom
+  *			Placement of the popper accepted values: `top(-start, -end), right(-start, -end), bottom(-start, -end),
+  *			left(-start, -end)`
+  * @param {HTMLElement|String|false} options.container=false - Append the tooltip to a specific element.
+  * @param {Number|Object} options.delay=0
+  *			Delay showing and hiding the tooltip (ms) - does not apply to manual trigger type.
+  *			If a number is supplied, delay is applied to both hide/show.
+  *			Object structure is: `{ show: 500, hide: 100 }`
+  * @param {Boolean} options.html=false - Insert HTML into the tooltip. If false, the content will inserted with `innerText`.
+  * @param {String|PlacementFunction} options.placement='top' - One of the allowed placements, or a function returning one of them.
+  * @param {String} [options.template='<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>']
+  *			Base HTML to used when creating the tooltip.
+  *			The tooltip's `title` will be injected into the `.tooltip-inner` or `.tooltip__inner`.
+  *			`.tooltip-arrow` or `.tooltip__arrow` will become the tooltip's arrow.
+  *			The outermost wrapper element should have the `.tooltip` class.
+  * @param {String|HTMLElement|TitleFunction} options.title='' - Default title value if `title` attribute isn't present.
+  * @param {String} [options.trigger='hover focus']
+  *			How tooltip is triggered - click, hover, focus, manual.
+  *			You may pass multiple triggers; separate them with a space. `manual` cannot be combined with any other trigger.
+  * @param {HTMLElement} options.boundariesElement
+  *			The element used as boundaries for the tooltip. For more information refer to Popper.js'
+  *			[boundariesElement docs](https://popper.js.org/popper-documentation.html)
+  * @param {Number|String} options.offset=0 - Offset of the tooltip relative to its reference. For more information refer to Popper.js'
+  *			[offset docs](https://popper.js.org/popper-documentation.html)
+  * @param {Object} options.popperOptions={} - Popper options, will be passed directly to popper instance. For more information refer to Popper.js'
+  *			[options docs](https://popper.js.org/popper-documentation.html)
+  * @return {Object} instance - The generated tooltip instance
+  */
+	function Tooltip(reference, options) {
+		classCallCheck$1(this, Tooltip);
+
+		_initialiseProps.call(this);
+
+		// apply user options over default ones
+		options = _extends$1({}, DEFAULT_OPTIONS, options);
+
+		reference.jquery && (reference = reference[0]);
+
+		// cache reference and options
+		this.reference = reference;
+		this.options = options;
+
+		// set initial state
+		this._isOpen = false;
+
+		this._init();
+	}
+
+	//
+	// Public methods
+	//
+
+	/**
+  * Reveals an element's tooltip. This is considered a "manual" triggering of the tooltip.
+  * Tooltips with zero-length titles are never displayed.
+  * @method Tooltip#show
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Hides an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+  * @method Tooltip#hide
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Hides and destroys an element’s tooltip.
+  * @method Tooltip#dispose
+  * @memberof Tooltip
+  */
+
+
+	/**
+  * Toggles an element’s tooltip. This is considered a “manual” triggering of the tooltip.
+  * @method Tooltip#toggle
+  * @memberof Tooltip
+  */
+
+
+	createClass$1(Tooltip, [{
+		key: 'setClasses',
+		value: function setClasses(classes) {
+			this._classes = classes;
+		}
+	}, {
+		key: 'setContent',
+		value: function setContent(content) {
+			this.options.title = content;
+			if (this._tooltipNode) {
+				this._setContent(content, this.options);
+			}
+		}
+	}, {
+		key: 'setOptions',
+		value: function setOptions(options) {
+			var classesUpdated = false;
+			var classes = options && options.classes || directive.options.defaultClass;
+			if (this._classes !== classes) {
+				this.setClasses(classes);
+				classesUpdated = true;
+			}
+
+			options = getOptions(options);
+
+			var needPopperUpdate = false;
+			var needRestart = false;
+
+			if (this.options.offset !== options.offset || this.options.placement !== options.placement) {
+				needPopperUpdate = true;
+			}
+
+			if (this.options.template !== options.template || this.options.trigger !== options.trigger || this.options.container !== options.container || classesUpdated) {
+				needRestart = true;
+			}
+
+			for (var key in options) {
+				this.options[key] = options[key];
+			}
+
+			if (this._tooltipNode) {
+				if (needRestart) {
+					var isOpen = this._isOpen;
+
+					this.dispose();
+					this._init();
+
+					if (isOpen) {
+						this.show();
+					}
+				} else if (needPopperUpdate) {
+					this.popperInstance.update();
+				}
+			}
+		}
+
+		//
+		// Private methods
+		//
+
+	}, {
+		key: '_init',
+		value: function _init() {
+			// get events list
+			var events = typeof this.options.trigger === 'string' ? this.options.trigger.split(' ').filter(function (trigger) {
+				return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+			}) : [];
+			this._isDisposed = false;
+			this._enableDocumentTouch = events.indexOf('manual') === -1;
+
+			// set event listeners
+			this._setEventListeners(this.reference, events, this.options);
+		}
+
+		/**
+   * Creates a new tooltip node
+   * @memberof Tooltip
+   * @private
+   * @param {HTMLElement} reference
+   * @param {String} template
+   * @param {String|HTMLElement|TitleFunction} title
+   * @param {Boolean} allowHtml
+   * @return {HTMLelement} tooltipNode
+   */
+
+	}, {
+		key: '_create',
+		value: function _create(reference, template) {
+			// create tooltip element
+			var tooltipGenerator = window.document.createElement('div');
+			tooltipGenerator.innerHTML = template.trim();
+			var tooltipNode = tooltipGenerator.childNodes[0];
+
+			// add unique ID to our tooltip (needed for accessibility reasons)
+			tooltipNode.id = 'tooltip_' + Math.random().toString(36).substr(2, 10);
+
+			// Initially hide the tooltip
+			// The attribute will be switched in a next frame so
+			// CSS transitions can play
+			tooltipNode.setAttribute('aria-hidden', 'true');
+
+			if (this.options.autoHide && this.options.trigger.indexOf('hover') !== -1) {
+				tooltipNode.addEventListener('mouseenter', this.hide);
+				tooltipNode.addEventListener('click', this.hide);
+			}
+
+			// return the generated tooltip node
+			return tooltipNode;
+		}
+	}, {
+		key: '_setContent',
+		value: function _setContent(content, options) {
+			var _this = this;
+
+			this.asyncContent = false;
+			this._applyContent(content, options).then(function () {
+				_this.popperInstance.update();
+			});
+		}
+	}, {
+		key: '_applyContent',
+		value: function _applyContent(title, options) {
+			var _this2 = this;
+
+			return new Promise(function (resolve, reject) {
+				var allowHtml = options.html;
+				var rootNode = _this2._tooltipNode;
+				var titleNode = rootNode.querySelector(_this2.options.innerSelector);
+				if (title.nodeType === 1) {
+					// if title is a node, append it only if allowHtml is true
+					if (allowHtml) {
+						while (titleNode.firstChild) {
+							titleNode.removeChild(titleNode.firstChild);
+						}
+						titleNode.appendChild(title);
+					}
+				} else if (typeof title === 'function') {
+					// if title is a function, call it and set innerText or innerHtml depending by `allowHtml` value
+					var result = title();
+					if (result && typeof result.then === 'function') {
+						_this2.asyncContent = true;
+						options.loadingClass && addClasses(rootNode, options.loadingClass);
+						if (options.loadingContent) {
+							_this2._applyContent(options.loadingContent, options);
+						}
+						result.then(function (asyncResult) {
+							options.loadingClass && removeClasses(rootNode, options.loadingClass);
+							return _this2._applyContent(asyncResult, options);
+						}).then(resolve).catch(reject);
+					} else {
+						_this2._applyContent(result, options).then(resolve).catch(reject);
+					}
+					return;
+				} else {
+					// if it's just a simple text, set innerText or innerHtml depending by `allowHtml` value
+					allowHtml ? titleNode.innerHTML = title : titleNode.innerText = title;
+				}
+				resolve();
+			});
+		}
+	}, {
+		key: '_show',
+		value: function _show(reference, options) {
+			if (options && typeof options.container === 'string') {
+				var container = document.querySelector(options.container);
+				if (!container) return;
+			}
+
+			clearTimeout(this._disposeTimer);
+
+			options = Object.assign({}, options);
+			delete options.offset;
+
+			var updateClasses = true;
+			if (this._tooltipNode) {
+				addClasses(this._tooltipNode, this._classes);
+				updateClasses = false;
+			}
+
+			var result = this._ensureShown(reference, options);
+
+			if (updateClasses && this._tooltipNode) {
+				addClasses(this._tooltipNode, this._classes);
+			}
+
+			addClasses(reference, ['v-tooltip-open']);
+
+			return result;
+		}
+	}, {
+		key: '_ensureShown',
+		value: function _ensureShown(reference, options) {
+			var _this3 = this;
+
+			// don't show if it's already visible
+			if (this._isOpen) {
+				return this;
+			}
+			this._isOpen = true;
+
+			openTooltips.push(this);
+
+			// if the tooltipNode already exists, just show it
+			if (this._tooltipNode) {
+				this._tooltipNode.style.display = '';
+				this._tooltipNode.setAttribute('aria-hidden', 'false');
+				this.popperInstance.enableEventListeners();
+				this.popperInstance.update();
+				if (this.asyncContent) {
+					this._setContent(options.title, options);
+				}
+				return this;
+			}
+
+			// get title
+			var title = reference.getAttribute('title') || options.title;
+
+			// don't show tooltip if no title is defined
+			if (!title) {
+				return this;
+			}
+
+			// create tooltip node
+			var tooltipNode = this._create(reference, options.template);
+			this._tooltipNode = tooltipNode;
+
+			this._setContent(title, options);
+
+			// Add `aria-describedby` to our reference element for accessibility reasons
+			reference.setAttribute('aria-describedby', tooltipNode.id);
+
+			// append tooltip to container
+			var container = this._findContainer(options.container, reference);
+
+			this._append(tooltipNode, container);
+
+			var popperOptions = _extends$1({}, options.popperOptions, {
+				placement: options.placement
+			});
+
+			popperOptions.modifiers = _extends$1({}, popperOptions.modifiers, {
+				arrow: {
+					element: this.options.arrowSelector
+				}
+			});
+
+			if (options.boundariesElement) {
+				popperOptions.modifiers.preventOverflow = {
+					boundariesElement: options.boundariesElement
+				};
+			}
+
+			this.popperInstance = new Popper(reference, tooltipNode, popperOptions);
+
+			// Fix position
+			requestAnimationFrame(function () {
+				if (!_this3._isDisposed && _this3.popperInstance) {
+					_this3.popperInstance.update();
+
+					// Show the tooltip
+					requestAnimationFrame(function () {
+						if (!_this3._isDisposed) {
+							_this3._isOpen && tooltipNode.setAttribute('aria-hidden', 'false');
+						} else {
+							_this3.dispose();
+						}
+					});
+				} else {
+					_this3.dispose();
+				}
+			});
+
+			return this;
+		}
+	}, {
+		key: '_noLongerOpen',
+		value: function _noLongerOpen() {
+			var index = openTooltips.indexOf(this);
+			if (index !== -1) {
+				openTooltips.splice(index, 1);
+			}
+		}
+	}, {
+		key: '_hide',
+		value: function _hide() /* reference, options */{
+			var _this4 = this;
+
+			// don't hide if it's already hidden
+			if (!this._isOpen) {
+				return this;
+			}
+
+			this._isOpen = false;
+			this._noLongerOpen();
+
+			// hide tooltipNode
+			this._tooltipNode.style.display = 'none';
+			this._tooltipNode.setAttribute('aria-hidden', 'true');
+
+			this.popperInstance.disableEventListeners();
+
+			clearTimeout(this._disposeTimer);
+			var disposeTime = directive.options.disposeTimeout;
+			if (disposeTime !== null) {
+				this._disposeTimer = setTimeout(function () {
+					if (_this4._tooltipNode) {
+						_this4._tooltipNode.removeEventListener('mouseenter', _this4.hide);
+						_this4._tooltipNode.removeEventListener('click', _this4.hide);
+						// Don't remove popper instance, just the HTML element
+						_this4._tooltipNode.parentNode.removeChild(_this4._tooltipNode);
+						_this4._tooltipNode = null;
+					}
+				}, disposeTime);
+			}
+
+			removeClasses(this.reference, ['v-tooltip-open']);
+
+			return this;
+		}
+	}, {
+		key: '_dispose',
+		value: function _dispose() {
+			var _this5 = this;
+
+			this._isDisposed = true;
+
+			// remove event listeners first to prevent any unexpected behaviour
+			this._events.forEach(function (_ref) {
+				var func = _ref.func,
+				    event = _ref.event;
+
+				_this5.reference.removeEventListener(event, func);
+			});
+			this._events = [];
+
+			if (this._tooltipNode) {
+				this._hide();
+
+				this._tooltipNode.removeEventListener('mouseenter', this.hide);
+				this._tooltipNode.removeEventListener('click', this.hide);
+
+				// destroy instance
+				this.popperInstance.destroy();
+
+				// destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+				if (!this.popperInstance.options.removeOnDestroy) {
+					this._tooltipNode.parentNode.removeChild(this._tooltipNode);
+					this._tooltipNode = null;
+				}
+			} else {
+				this._noLongerOpen();
+			}
+			return this;
+		}
+	}, {
+		key: '_findContainer',
+		value: function _findContainer(container, reference) {
+			// if container is a query, get the relative element
+			if (typeof container === 'string') {
+				container = window.document.querySelector(container);
+			} else if (container === false) {
+				// if container is `false`, set it to reference parent
+				container = reference.parentNode;
+			}
+			return container;
+		}
+
+		/**
+   * Append tooltip to container
+   * @memberof Tooltip
+   * @private
+   * @param {HTMLElement} tooltip
+   * @param {HTMLElement|String|false} container
+   */
+
+	}, {
+		key: '_append',
+		value: function _append(tooltipNode, container) {
+			container.appendChild(tooltipNode);
+		}
+	}, {
+		key: '_setEventListeners',
+		value: function _setEventListeners(reference, events, options) {
+			var _this6 = this;
+
+			var directEvents = [];
+			var oppositeEvents = [];
+
+			events.forEach(function (event) {
+				switch (event) {
+					case 'hover':
+						directEvents.push('mouseenter');
+						oppositeEvents.push('mouseleave');
+						if (_this6.options.hideOnTargetClick) oppositeEvents.push('click');
+						break;
+					case 'focus':
+						directEvents.push('focus');
+						oppositeEvents.push('blur');
+						if (_this6.options.hideOnTargetClick) oppositeEvents.push('click');
+						break;
+					case 'click':
+						directEvents.push('click');
+						oppositeEvents.push('click');
+						break;
+				}
+			});
+
+			// schedule show tooltip
+			directEvents.forEach(function (event) {
+				var func = function func(evt) {
+					if (_this6._isOpen === true) {
+						return;
+					}
+					evt.usedByTooltip = true;
+					_this6._scheduleShow(reference, options.delay, options, evt);
+				};
+				_this6._events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+
+			// schedule hide tooltip
+			oppositeEvents.forEach(function (event) {
+				var func = function func(evt) {
+					if (evt.usedByTooltip === true) {
+						return;
+					}
+					_this6._scheduleHide(reference, options.delay, options, evt);
+				};
+				_this6._events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+		}
+	}, {
+		key: '_onDocumentTouch',
+		value: function _onDocumentTouch(event) {
+			if (this._enableDocumentTouch) {
+				this._scheduleHide(this.reference, this.options.delay, this.options, event);
+			}
+		}
+	}, {
+		key: '_scheduleShow',
+		value: function _scheduleShow(reference, delay, options /*, evt */) {
+			var _this7 = this;
+
+			// defaults to 0
+			var computedDelay = delay && delay.show || delay || 0;
+			clearTimeout(this._scheduleTimer);
+			this._scheduleTimer = window.setTimeout(function () {
+				return _this7._show(reference, options);
+			}, computedDelay);
+		}
+	}, {
+		key: '_scheduleHide',
+		value: function _scheduleHide(reference, delay, options, evt) {
+			var _this8 = this;
+
+			// defaults to 0
+			var computedDelay = delay && delay.hide || delay || 0;
+			clearTimeout(this._scheduleTimer);
+			this._scheduleTimer = window.setTimeout(function () {
+				if (_this8._isOpen === false) {
+					return;
+				}
+				if (!document.body.contains(_this8._tooltipNode)) {
+					return;
+				}
+
+				// if we are hiding because of a mouseleave, we must check that the new
+				// reference isn't the tooltip, because in this case we don't want to hide it
+				if (evt.type === 'mouseleave') {
+					var isSet = _this8._setTooltipNodeEvent(evt, reference, delay, options);
+
+					// if we set the new event, don't hide the tooltip yet
+					// the new event will take care to hide it if necessary
+					if (isSet) {
+						return;
+					}
+				}
+
+				_this8._hide(reference, options);
+			}, computedDelay);
+		}
+	}]);
+	return Tooltip;
+}();
+
+// Hide tooltips on touch devices
+
+
+var _initialiseProps = function _initialiseProps() {
+	var _this9 = this;
+
+	this.show = function () {
+		_this9._show(_this9.reference, _this9.options);
+	};
+
+	this.hide = function () {
+		_this9._hide();
+	};
+
+	this.dispose = function () {
+		_this9._dispose();
+	};
+
+	this.toggle = function () {
+		if (_this9._isOpen) {
+			return _this9.hide();
+		} else {
+			return _this9.show();
+		}
+	};
+
+	this._events = [];
+
+	this._setTooltipNodeEvent = function (evt, reference, delay, options) {
+		var relatedreference = evt.relatedreference || evt.toElement || evt.relatedTarget;
+
+		var callback = function callback(evt2) {
+			var relatedreference2 = evt2.relatedreference || evt2.toElement || evt2.relatedTarget;
+
+			// Remove event listener after call
+			_this9._tooltipNode.removeEventListener(evt.type, callback);
+
+			// If the new reference is not the reference element
+			if (!reference.contains(relatedreference2)) {
+				// Schedule to hide tooltip
+				_this9._scheduleHide(reference, options.delay, options, evt2);
+			}
+		};
+
+		if (_this9._tooltipNode.contains(relatedreference)) {
+			// listen to mouseleave on the tooltip element to be able to hide the tooltip
+			_this9._tooltipNode.addEventListener(evt.type, callback);
+			return true;
+		}
+
+		return false;
+	};
+};
+
+if (typeof document !== 'undefined') {
+	document.addEventListener('touchstart', function (event) {
+		for (var i = 0; i < openTooltips.length; i++) {
+			openTooltips[i]._onDocumentTouch(event);
+		}
+	}, supportsPassive ? {
+		passive: true,
+		capture: true
+	} : true);
+}
+
+/**
+ * Placement function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback PlacementFunction
+ * @param {HTMLElement} tooltip - tooltip DOM node.
+ * @param {HTMLElement} reference - reference DOM node.
+ * @return {String} placement - One of the allowed placement options.
+ */
+
+/**
+ * Title function, its context is the Tooltip instance.
+ * @memberof Tooltip
+ * @callback TitleFunction
+ * @return {String} placement - The desired title.
+ */
+
+var state = {
+	enabled: true
+};
+
+var positions = ['top', 'top-start', 'top-end', 'right', 'right-start', 'right-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end'];
+
+var defaultOptions = {
+	// Default tooltip placement relative to target element
+	defaultPlacement: 'top',
+	// Default CSS classes applied to the tooltip element
+	defaultClass: 'vue-tooltip-theme',
+	// Default CSS classes applied to the target element of the tooltip
+	defaultTargetClass: 'has-tooltip',
+	// Is the content HTML by default?
+	defaultHtml: true,
+	// Default HTML template of the tooltip element
+	// It must include `tooltip-arrow` & `tooltip-inner` CSS classes (can be configured, see below)
+	// Change if the classes conflict with other libraries (for example bootstrap)
+	defaultTemplate: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+	// Selector used to get the arrow element in the tooltip template
+	defaultArrowSelector: '.tooltip-arrow, .tooltip__arrow',
+	// Selector used to get the inner content element in the tooltip template
+	defaultInnerSelector: '.tooltip-inner, .tooltip__inner',
+	// Delay (ms)
+	defaultDelay: 0,
+	// Default events that trigger the tooltip
+	defaultTrigger: 'hover focus',
+	// Default position offset (px)
+	defaultOffset: 0,
+	// Default container where the tooltip will be appended
+	defaultContainer: 'body',
+	defaultBoundariesElement: undefined,
+	defaultPopperOptions: {},
+	// Class added when content is loading
+	defaultLoadingClass: 'tooltip-loading',
+	// Displayed when tooltip content is loading
+	defaultLoadingContent: '...',
+	// Hide on mouseover tooltip
+	autoHide: true,
+	// Close tooltip on click on tooltip target?
+	defaultHideOnTargetClick: true,
+	// Auto destroy tooltip DOM nodes (ms)
+	disposeTimeout: 5000,
+	// Options for popover
+	popover: {
+		defaultPlacement: 'bottom',
+		// Use the `popoverClass` prop for theming
+		defaultClass: 'vue-popover-theme',
+		// Base class (change if conflicts with other libraries)
+		defaultBaseClass: 'tooltip popover',
+		// Wrapper class (contains arrow and inner)
+		defaultWrapperClass: 'wrapper',
+		// Inner content class
+		defaultInnerClass: 'tooltip-inner popover-inner',
+		// Arrow class
+		defaultArrowClass: 'tooltip-arrow popover-arrow',
+		defaultDelay: 0,
+		defaultTrigger: 'click',
+		defaultOffset: 0,
+		defaultContainer: 'body',
+		defaultBoundariesElement: undefined,
+		defaultPopperOptions: {},
+		// Hides if clicked outside of popover
+		defaultAutoHide: true,
+		// Update popper on content resize
+		defaultHandleResize: true
+	}
+};
+
+function getOptions(options) {
+	var result = {
+		placement: typeof options.placement !== 'undefined' ? options.placement : directive.options.defaultPlacement,
+		delay: typeof options.delay !== 'undefined' ? options.delay : directive.options.defaultDelay,
+		html: typeof options.html !== 'undefined' ? options.html : directive.options.defaultHtml,
+		template: typeof options.template !== 'undefined' ? options.template : directive.options.defaultTemplate,
+		arrowSelector: typeof options.arrowSelector !== 'undefined' ? options.arrowSelector : directive.options.defaultArrowSelector,
+		innerSelector: typeof options.innerSelector !== 'undefined' ? options.innerSelector : directive.options.defaultInnerSelector,
+		trigger: typeof options.trigger !== 'undefined' ? options.trigger : directive.options.defaultTrigger,
+		offset: typeof options.offset !== 'undefined' ? options.offset : directive.options.defaultOffset,
+		container: typeof options.container !== 'undefined' ? options.container : directive.options.defaultContainer,
+		boundariesElement: typeof options.boundariesElement !== 'undefined' ? options.boundariesElement : directive.options.defaultBoundariesElement,
+		autoHide: typeof options.autoHide !== 'undefined' ? options.autoHide : directive.options.autoHide,
+		hideOnTargetClick: typeof options.hideOnTargetClick !== 'undefined' ? options.hideOnTargetClick : directive.options.defaultHideOnTargetClick,
+		loadingClass: typeof options.loadingClass !== 'undefined' ? options.loadingClass : directive.options.defaultLoadingClass,
+		loadingContent: typeof options.loadingContent !== 'undefined' ? options.loadingContent : directive.options.defaultLoadingContent,
+		popperOptions: _extends$1({}, typeof options.popperOptions !== 'undefined' ? options.popperOptions : directive.options.defaultPopperOptions)
+	};
+
+	if (result.offset) {
+		var typeofOffset = _typeof(result.offset);
+		var offset = result.offset;
+
+		// One value -> switch
+		if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+			offset = '0, ' + offset;
+		}
+
+		if (!result.popperOptions.modifiers) {
+			result.popperOptions.modifiers = {};
+		}
+		result.popperOptions.modifiers.offset = {
+			offset: offset
+		};
+	}
+
+	return result;
+}
+
+function getPlacement(value, modifiers) {
+	var placement = value.placement;
+	for (var i = 0; i < positions.length; i++) {
+		var pos = positions[i];
+		if (modifiers[pos]) {
+			placement = pos;
+		}
+	}
+	return placement;
+}
+
+function getContent(value) {
+	var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+	if (type === 'string') {
+		return value;
+	} else if (value && type === 'object') {
+		return value.content;
+	} else {
+		return false;
+	}
+}
+
+function createTooltip(el, value) {
+	var modifiers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+	var content = getContent(value);
+	var classes = typeof value.classes !== 'undefined' ? value.classes : directive.options.defaultClass;
+	var opts = _extends$1({
+		title: content
+	}, getOptions(_extends$1({}, value, {
+		placement: getPlacement(value, modifiers)
+	})));
+	var tooltip = el._tooltip = new Tooltip(el, opts);
+	tooltip.setClasses(classes);
+	tooltip._vueEl = el;
+
+	// Class on target
+	var targetClasses = typeof value.targetClasses !== 'undefined' ? value.targetClasses : directive.options.defaultTargetClass;
+	el._tooltipTargetClasses = targetClasses;
+	addClasses(el, targetClasses);
+
+	return tooltip;
+}
+
+function destroyTooltip(el) {
+	if (el._tooltip) {
+		el._tooltip.dispose();
+		delete el._tooltip;
+		delete el._tooltipOldShow;
+	}
+
+	if (el._tooltipTargetClasses) {
+		removeClasses(el, el._tooltipTargetClasses);
+		delete el._tooltipTargetClasses;
+	}
+}
+
+function bind(el, _ref) {
+	var value = _ref.value,
+	    oldValue = _ref.oldValue,
+	    modifiers = _ref.modifiers;
+
+	var content = getContent(value);
+	if (!content || !state.enabled) {
+		destroyTooltip(el);
+	} else {
+		var tooltip = void 0;
+		if (el._tooltip) {
+			tooltip = el._tooltip;
+			// Content
+			tooltip.setContent(content);
+			// Options
+			tooltip.setOptions(_extends$1({}, value, {
+				placement: getPlacement(value, modifiers)
+			}));
+		} else {
+			tooltip = createTooltip(el, value, modifiers);
+		}
+
+		// Manual show
+		if (typeof value.show !== 'undefined' && value.show !== el._tooltipOldShow) {
+			el._tooltipOldShow = value.show;
+			value.show ? tooltip.show() : tooltip.hide();
+		}
+	}
+}
+
+var directive = {
+	options: defaultOptions,
+	bind: bind,
+	update: bind,
+	unbind: function unbind(el) {
+		destroyTooltip(el);
+	}
+};
+
+function addListeners(el) {
+	el.addEventListener('click', onClick);
+	el.addEventListener('touchstart', onTouchStart, supportsPassive ? {
+		passive: true
+	} : false);
+}
+
+function removeListeners(el) {
+	el.removeEventListener('click', onClick);
+	el.removeEventListener('touchstart', onTouchStart);
+	el.removeEventListener('touchend', onTouchEnd);
+	el.removeEventListener('touchcancel', onTouchCancel);
+}
+
+function onClick(event) {
+	var el = event.currentTarget;
+	event.closePopover = !el.$_vclosepopover_touch;
+	event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+}
+
+function onTouchStart(event) {
+	if (event.changedTouches.length === 1) {
+		var el = event.currentTarget;
+		el.$_vclosepopover_touch = true;
+		var touch = event.changedTouches[0];
+		el.$_vclosepopover_touchPoint = touch;
+		el.addEventListener('touchend', onTouchEnd);
+		el.addEventListener('touchcancel', onTouchCancel);
+	}
+}
+
+function onTouchEnd(event) {
+	var el = event.currentTarget;
+	el.$_vclosepopover_touch = false;
+	if (event.changedTouches.length === 1) {
+		var touch = event.changedTouches[0];
+		var firstTouch = el.$_vclosepopover_touchPoint;
+		event.closePopover = Math.abs(touch.screenY - firstTouch.screenY) < 20 && Math.abs(touch.screenX - firstTouch.screenX) < 20;
+		event.closeAllPopover = el.$_closePopoverModifiers && !!el.$_closePopoverModifiers.all;
+	}
+}
+
+function onTouchCancel(event) {
+	var el = event.currentTarget;
+	el.$_vclosepopover_touch = false;
+}
+
+var vclosepopover = {
+	bind: function bind(el, _ref) {
+		var value = _ref.value,
+		    modifiers = _ref.modifiers;
+
+		el.$_closePopoverModifiers = modifiers;
+		if (typeof value === 'undefined' || value) {
+			addListeners(el);
+		}
+	},
+	update: function update(el, _ref2) {
+		var value = _ref2.value,
+		    oldValue = _ref2.oldValue,
+		    modifiers = _ref2.modifiers;
+
+		el.$_closePopoverModifiers = modifiers;
+		if (value !== oldValue) {
+			if (typeof value === 'undefined' || value) {
+				addListeners(el);
+			} else {
+				removeListeners(el);
+			}
+		}
+	},
+	unbind: function unbind(el) {
+		removeListeners(el);
+	}
+};
+
+function getInternetExplorerVersion() {
+	var ua = window.navigator.userAgent;
+
+	var msie = ua.indexOf('MSIE ');
+	if (msie > 0) {
+		// IE 10 or older => return version number
+		return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+	}
+
+	var trident = ua.indexOf('Trident/');
+	if (trident > 0) {
+		// IE 11 => return version number
+		var rv = ua.indexOf('rv:');
+		return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+	}
+
+	var edge = ua.indexOf('Edge/');
+	if (edge > 0) {
+		// Edge (IE 12+) => return version number
+		return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+	}
+
+	// other browser
+	return -1;
+}
+
+var isIE$1 = void 0;
+
+function initCompat() {
+	if (!initCompat.init) {
+		initCompat.init = true;
+		isIE$1 = getInternetExplorerVersion() !== -1;
+	}
+}
+
+var ResizeObserver = { render: function render() {
+		var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "resize-observer", attrs: { "tabindex": "-1" } });
+	}, staticRenderFns: [], _scopeId: 'data-v-b329ee4c',
+	name: 'resize-observer',
+
+	methods: {
+		notify: function notify() {
+			this.$emit('notify');
+		},
+		addResizeHandlers: function addResizeHandlers() {
+			this._resizeObject.contentDocument.defaultView.addEventListener('resize', this.notify);
+			if (this._w !== this.$el.offsetWidth || this._h !== this.$el.offsetHeight) {
+				this.notify();
+			}
+		},
+		removeResizeHandlers: function removeResizeHandlers() {
+			if (this._resizeObject && this._resizeObject.onload) {
+				if (!isIE$1 && this._resizeObject.contentDocument) {
+					this._resizeObject.contentDocument.defaultView.removeEventListener('resize', this.notify);
+				}
+				delete this._resizeObject.onload;
+			}
+		}
+	},
+
+	mounted: function mounted() {
+		var _this = this;
+
+		initCompat();
+		this.$nextTick(function () {
+			_this._w = _this.$el.offsetWidth;
+			_this._h = _this.$el.offsetHeight;
+		});
+		var object = document.createElement('object');
+		this._resizeObject = object;
+		object.setAttribute('style', 'display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;');
+		object.setAttribute('aria-hidden', 'true');
+		object.setAttribute('tabindex', -1);
+		object.onload = this.addResizeHandlers;
+		object.type = 'text/html';
+		if (isIE$1) {
+			this.$el.appendChild(object);
+		}
+		object.data = 'about:blank';
+		if (!isIE$1) {
+			this.$el.appendChild(object);
+		}
+	},
+	beforeDestroy: function beforeDestroy() {
+		this.removeResizeHandlers();
+	}
+};
+
+// Install the components
+function install$1(Vue) {
+	Vue.component('resize-observer', ResizeObserver);
+	/* -- Add more components here -- */
+}
+
+/* -- Plugin definition & Auto-install -- */
+/* You shouldn't have to modify the code below */
+
+// Plugin
+var plugin$2 = {
+	// eslint-disable-next-line no-undef
+	version: "0.4.4",
+	install: install$1
+};
+
+// Auto-install
+var GlobalVue$1 = null;
+if (typeof window !== 'undefined') {
+	GlobalVue$1 = window.Vue;
+} else if (typeof global !== 'undefined') {
+	GlobalVue$1 = global.Vue;
+}
+if (GlobalVue$1) {
+	GlobalVue$1.use(plugin$2);
+}
+
+function getDefault(key) {
+	var value = directive.options.popover[key];
+	if (typeof value === 'undefined') {
+		return directive.options[key];
+	}
+	return value;
+}
+
+var isIOS = false;
+if (typeof window !== 'undefined' && typeof navigator !== 'undefined') {
+	isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+var openPopovers = [];
+
+var Element = function Element() {};
+if (typeof window !== 'undefined') {
+	Element = window.Element;
+}
+
+var Popover = { render: function render() {
+		var _vm = this;var _h = _vm.$createElement;var _c = _vm._self._c || _h;return _c('div', { staticClass: "v-popover", class: _vm.cssClass }, [_c('span', { ref: "trigger", staticClass: "trigger", staticStyle: { "display": "inline-block" }, attrs: { "aria-describedby": _vm.popoverId, "tabindex": _vm.trigger.indexOf('focus') !== -1 ? 0 : -1 } }, [_vm._t("default")], 2), _vm._v(" "), _c('div', { ref: "popover", class: [_vm.popoverBaseClass, _vm.popoverClass, _vm.cssClass], style: {
+				visibility: _vm.isOpen ? 'visible' : 'hidden'
+			}, attrs: { "id": _vm.popoverId, "aria-hidden": _vm.isOpen ? 'false' : 'true' } }, [_c('div', { class: _vm.popoverWrapperClass }, [_c('div', { ref: "inner", class: _vm.popoverInnerClass, staticStyle: { "position": "relative" } }, [_c('div', [_vm._t("popover")], 2), _vm._v(" "), _vm.handleResize ? _c('ResizeObserver', { on: { "notify": _vm.$_handleResize } }) : _vm._e()], 1), _vm._v(" "), _c('div', { ref: "arrow", class: _vm.popoverArrowClass })])])]);
+	}, staticRenderFns: [],
+	name: 'VPopover',
+
+	components: {
+		ResizeObserver: ResizeObserver
+	},
+
+	props: {
+		open: {
+			type: Boolean,
+			default: false
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		placement: {
+			type: String,
+			default: function _default() {
+				return getDefault('defaultPlacement');
+			}
+		},
+		delay: {
+			type: [String, Number, Object],
+			default: function _default() {
+				return getDefault('defaultDelay');
+			}
+		},
+		offset: {
+			type: [String, Number],
+			default: function _default() {
+				return getDefault('defaultOffset');
+			}
+		},
+		trigger: {
+			type: String,
+			default: function _default() {
+				return getDefault('defaultTrigger');
+			}
+		},
+		container: {
+			type: [String, Object, Element],
+			default: function _default() {
+				return getDefault('defaultContainer');
+			}
+		},
+		boundariesElement: {
+			type: Element,
+			default: function _default() {
+				return getDefault('defaultBoundariesElement');
+			}
+		},
+		popperOptions: {
+			type: Object,
+			default: function _default() {
+				return getDefault('defaultPopperOptions');
+			}
+		},
+		popoverClass: {
+			type: [String, Array],
+			default: function _default() {
+				return getDefault('defaultClass');
+			}
+		},
+		popoverBaseClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultBaseClass;
+			}
+		},
+		popoverInnerClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultInnerClass;
+			}
+		},
+		popoverWrapperClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultWrapperClass;
+			}
+		},
+		popoverArrowClass: {
+			type: [String, Array],
+			default: function _default() {
+				return directive.options.popover.defaultArrowClass;
+			}
+		},
+		autoHide: {
+			type: Boolean,
+			default: function _default() {
+				return directive.options.popover.defaultAutoHide;
+			}
+		},
+		handleResize: {
+			type: Boolean,
+			default: function _default() {
+				return directive.options.popover.defaultHandleResize;
+			}
+		},
+		openGroup: {
+			type: String,
+			default: null
+		}
+	},
+
+	data: function data() {
+		return {
+			isOpen: false,
+			id: Math.random().toString(36).substr(2, 10)
+		};
+	},
+
+
+	computed: {
+		cssClass: function cssClass() {
+			return {
+				'open': this.isOpen
+			};
+		},
+		popoverId: function popoverId() {
+			return 'popover_' + this.id;
+		}
+	},
+
+	watch: {
+		open: function open(val) {
+			if (val) {
+				this.show();
+			} else {
+				this.hide();
+			}
+		},
+		disabled: function disabled(val, oldVal) {
+			if (val !== oldVal) {
+				if (val) {
+					this.hide();
+				} else if (this.open) {
+					this.show();
+				}
+			}
+		},
+		container: function container(val) {
+			if (this.isOpen && this.popperInstance) {
+				var popoverNode = this.$refs.popover;
+				var reference = this.$refs.trigger;
+
+				var container = this.$_findContainer(this.container, reference);
+				if (!container) {
+					console.warn('No container for popover', this);
+					return;
+				}
+
+				container.appendChild(popoverNode);
+				this.popperInstance.scheduleUpdate();
+			}
+		},
+		trigger: function trigger(val) {
+			this.$_removeEventListeners();
+			this.$_addEventListeners();
+		},
+		placement: function placement(val) {
+			var _this = this;
+
+			this.$_updatePopper(function () {
+				_this.popperInstance.options.placement = val;
+			});
+		},
+
+
+		offset: '$_restartPopper',
+
+		boundariesElement: '$_restartPopper',
+
+		popperOptions: {
+			handler: '$_restartPopper',
+			deep: true
+		}
+	},
+
+	created: function created() {
+		this.$_isDisposed = false;
+		this.$_mounted = false;
+		this.$_events = [];
+		this.$_preventOpen = false;
+	},
+	mounted: function mounted() {
+		var popoverNode = this.$refs.popover;
+		popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+
+		this.$_init();
+
+		if (this.open) {
+			this.show();
+		}
+	},
+	beforeDestroy: function beforeDestroy() {
+		this.dispose();
+	},
+
+
+	methods: {
+		show: function show() {
+			var _this2 = this;
+
+			var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+			    event = _ref.event,
+			    _ref$skipDelay = _ref.skipDelay,
+			    skipDelay = _ref$skipDelay === undefined ? false : _ref$skipDelay,
+			    _ref$force = _ref.force,
+			    force = _ref$force === undefined ? false : _ref$force;
+
+			if (force || !this.disabled) {
+				this.$_scheduleShow(event);
+				this.$emit('show');
+			}
+			this.$emit('update:open', true);
+			this.$_beingShowed = true;
+			requestAnimationFrame(function () {
+				_this2.$_beingShowed = false;
+			});
+		},
+		hide: function hide() {
+			var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+			    event = _ref2.event,
+			    _ref2$skipDelay = _ref2.skipDelay;
+
+			this.$_scheduleHide(event);
+
+			this.$emit('hide');
+			this.$emit('update:open', false);
+		},
+		dispose: function dispose() {
+			this.$_isDisposed = true;
+			this.$_removeEventListeners();
+			this.hide({ skipDelay: true });
+			if (this.popperInstance) {
+				this.popperInstance.destroy();
+
+				// destroy tooltipNode if removeOnDestroy is not set, as popperInstance.destroy() already removes the element
+				if (!this.popperInstance.options.removeOnDestroy) {
+					var popoverNode = this.$refs.popover;
+					popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+				}
+			}
+			this.$_mounted = false;
+			this.popperInstance = null;
+			this.isOpen = false;
+
+			this.$emit('dispose');
+		},
+		$_init: function $_init() {
+			if (this.trigger.indexOf('manual') === -1) {
+				this.$_addEventListeners();
+			}
+		},
+		$_show: function $_show() {
+			var _this3 = this;
+
+			var reference = this.$refs.trigger;
+			var popoverNode = this.$refs.popover;
+
+			clearTimeout(this.$_disposeTimer);
+
+			// Already open
+			if (this.isOpen) {
+				return;
+			}
+
+			// Popper is already initialized
+			if (this.popperInstance) {
+				this.isOpen = true;
+				this.popperInstance.enableEventListeners();
+				this.popperInstance.scheduleUpdate();
+			}
+
+			if (!this.$_mounted) {
+				var container = this.$_findContainer(this.container, reference);
+				if (!container) {
+					console.warn('No container for popover', this);
+					return;
+				}
+				container.appendChild(popoverNode);
+				this.$_mounted = true;
+			}
+
+			if (!this.popperInstance) {
+				var popperOptions = _extends$1({}, this.popperOptions, {
+					placement: this.placement
+				});
+
+				popperOptions.modifiers = _extends$1({}, popperOptions.modifiers, {
+					arrow: {
+						element: this.$refs.arrow
+					}
+				});
+
+				if (this.offset) {
+					var offset = this.$_getOffset();
+
+					popperOptions.modifiers.offset = {
+						offset: offset
+					};
+				}
+
+				if (this.boundariesElement) {
+					popperOptions.modifiers.preventOverflow = {
+						boundariesElement: this.boundariesElement
+					};
+				}
+
+				this.popperInstance = new Popper(reference, popoverNode, popperOptions);
+
+				// Fix position
+				requestAnimationFrame(function () {
+					if (!_this3.$_isDisposed && _this3.popperInstance) {
+						_this3.popperInstance.scheduleUpdate();
+
+						// Show the tooltip
+						requestAnimationFrame(function () {
+							if (!_this3.$_isDisposed) {
+								_this3.isOpen = true;
+							} else {
+								_this3.dispose();
+							}
+						});
+					} else {
+						_this3.dispose();
+					}
+				});
+			}
+
+			var openGroup = this.openGroup;
+			if (openGroup) {
+				var popover = void 0;
+				for (var i = 0; i < openPopovers.length; i++) {
+					popover = openPopovers[i];
+					if (popover.openGroup !== openGroup) {
+						popover.hide();
+						popover.$emit('close-group');
+					}
+				}
+			}
+
+			openPopovers.push(this);
+
+			this.$emit('apply-show');
+		},
+		$_hide: function $_hide() {
+			var _this4 = this;
+
+			// Already hidden
+			if (!this.isOpen) {
+				return;
+			}
+
+			var index = openPopovers.indexOf(this);
+			if (index !== -1) {
+				openPopovers.splice(index, 1);
+			}
+
+			this.isOpen = false;
+			if (this.popperInstance) {
+				this.popperInstance.disableEventListeners();
+			}
+
+			clearTimeout(this.$_disposeTimer);
+			var disposeTime = directive.options.popover.disposeTimeout || directive.options.disposeTimeout;
+			if (disposeTime !== null) {
+				this.$_disposeTimer = setTimeout(function () {
+					var popoverNode = _this4.$refs.popover;
+					if (popoverNode) {
+						// Don't remove popper instance, just the HTML element
+						popoverNode.parentNode && popoverNode.parentNode.removeChild(popoverNode);
+						_this4.$_mounted = false;
+					}
+				}, disposeTime);
+			}
+
+			this.$emit('apply-hide');
+		},
+		$_findContainer: function $_findContainer(container, reference) {
+			// if container is a query, get the relative element
+			if (typeof container === 'string') {
+				container = window.document.querySelector(container);
+			} else if (container === false) {
+				// if container is `false`, set it to reference parent
+				container = reference.parentNode;
+			}
+			return container;
+		},
+		$_getOffset: function $_getOffset() {
+			var typeofOffset = _typeof(this.offset);
+			var offset = this.offset;
+
+			// One value -> switch
+			if (typeofOffset === 'number' || typeofOffset === 'string' && offset.indexOf(',') === -1) {
+				offset = '0, ' + offset;
+			}
+
+			return offset;
+		},
+		$_addEventListeners: function $_addEventListeners() {
+			var _this5 = this;
+
+			var reference = this.$refs.trigger;
+			var directEvents = [];
+			var oppositeEvents = [];
+
+			var events = typeof this.trigger === 'string' ? this.trigger.split(' ').filter(function (trigger) {
+				return ['click', 'hover', 'focus'].indexOf(trigger) !== -1;
+			}) : [];
+
+			events.forEach(function (event) {
+				switch (event) {
+					case 'hover':
+						directEvents.push('mouseenter');
+						oppositeEvents.push('mouseleave');
+						break;
+					case 'focus':
+						directEvents.push('focus');
+						oppositeEvents.push('blur');
+						break;
+					case 'click':
+						directEvents.push('click');
+						oppositeEvents.push('click');
+						break;
+				}
+			});
+
+			// schedule show tooltip
+			directEvents.forEach(function (event) {
+				var func = function func(event) {
+					if (_this5.isOpen) {
+						return;
+					}
+					event.usedByTooltip = true;
+					!_this5.$_preventOpen && _this5.show({ event: event });
+				};
+				_this5.$_events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+
+			// schedule hide tooltip
+			oppositeEvents.forEach(function (event) {
+				var func = function func(event) {
+					if (event.usedByTooltip) {
+						return;
+					}
+					_this5.hide({ event: event });
+				};
+				_this5.$_events.push({ event: event, func: func });
+				reference.addEventListener(event, func);
+			});
+		},
+		$_scheduleShow: function $_scheduleShow() {
+			var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			clearTimeout(this.$_scheduleTimer);
+			if (skipDelay) {
+				this.$_show();
+			} else {
+				// defaults to 0
+				var computedDelay = parseInt(this.delay && this.delay.show || this.delay || 0);
+				this.$_scheduleTimer = setTimeout(this.$_show.bind(this), computedDelay);
+			}
+		},
+		$_scheduleHide: function $_scheduleHide() {
+			var _this6 = this;
+
+			var event = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+			var skipDelay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			clearTimeout(this.$_scheduleTimer);
+			if (skipDelay) {
+				this.$_hide();
+			} else {
+				// defaults to 0
+				var computedDelay = parseInt(this.delay && this.delay.hide || this.delay || 0);
+				this.$_scheduleTimer = setTimeout(function () {
+					if (!_this6.isOpen) {
+						return;
+					}
+
+					// if we are hiding because of a mouseleave, we must check that the new
+					// reference isn't the tooltip, because in this case we don't want to hide it
+					if (event && event.type === 'mouseleave') {
+						var isSet = _this6.$_setTooltipNodeEvent(event);
+
+						// if we set the new event, don't hide the tooltip yet
+						// the new event will take care to hide it if necessary
+						if (isSet) {
+							return;
+						}
+					}
+
+					_this6.$_hide();
+				}, computedDelay);
+			}
+		},
+		$_setTooltipNodeEvent: function $_setTooltipNodeEvent(event) {
+			var _this7 = this;
+
+			var reference = this.$refs.trigger;
+			var popoverNode = this.$refs.popover;
+
+			var relatedreference = event.relatedreference || event.toElement || event.relatedTarget;
+
+			var callback = function callback(event2) {
+				var relatedreference2 = event2.relatedreference || event2.toElement || event2.relatedTarget;
+
+				// Remove event listener after call
+				popoverNode.removeEventListener(event.type, callback);
+
+				// If the new reference is not the reference element
+				if (!reference.contains(relatedreference2)) {
+					// Schedule to hide tooltip
+					_this7.hide({ event: event2 });
+				}
+			};
+
+			if (popoverNode.contains(relatedreference)) {
+				// listen to mouseleave on the tooltip element to be able to hide the tooltip
+				popoverNode.addEventListener(event.type, callback);
+				return true;
+			}
+
+			return false;
+		},
+		$_removeEventListeners: function $_removeEventListeners() {
+			var reference = this.$refs.trigger;
+			this.$_events.forEach(function (_ref3) {
+				var func = _ref3.func,
+				    event = _ref3.event;
+
+				reference.removeEventListener(event, func);
+			});
+			this.$_events = [];
+		},
+		$_updatePopper: function $_updatePopper(cb) {
+			if (this.popperInstance) {
+				cb();
+				if (this.isOpen) this.popperInstance.scheduleUpdate();
+			}
+		},
+		$_restartPopper: function $_restartPopper() {
+			if (this.popperInstance) {
+				var isOpen = this.isOpen;
+				this.dispose();
+				this.$_isDisposed = false;
+				this.$_init();
+				if (isOpen) {
+					this.show({ skipDelay: true, force: true });
+				}
+			}
+		},
+		$_handleGlobalClose: function $_handleGlobalClose(event) {
+			var _this8 = this;
+
+			var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+			if (this.$_beingShowed) return;
+
+			this.hide({ event: event });
+
+			if (event.closePopover) {
+				this.$emit('close-directive');
+			} else {
+				this.$emit('auto-hide');
+			}
+
+			if (touch) {
+				this.$_preventOpen = true;
+				setTimeout(function () {
+					_this8.$_preventOpen = false;
+				}, 300);
+			}
+		},
+		$_handleResize: function $_handleResize() {
+			if (this.isOpen && this.popperInstance) {
+				this.popperInstance.scheduleUpdate();
+				this.$emit('resize');
+			}
+		}
+	}
+};
+
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+	if (isIOS) {
+		document.addEventListener('touchend', handleGlobalTouchend, supportsPassive ? {
+			passive: true,
+			capture: true
+		} : true);
+	} else {
+		window.addEventListener('click', handleGlobalClick, true);
+	}
+}
+
+function handleGlobalClick(event) {
+	handleGlobalClose(event);
+}
+
+function handleGlobalTouchend(event) {
+	handleGlobalClose(event, true);
+}
+
+function handleGlobalClose(event) {
+	var touch = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+	// Delay so that close directive has time to set values
+	requestAnimationFrame(function () {
+		var popover = void 0;
+		for (var i = 0; i < openPopovers.length; i++) {
+			popover = openPopovers[i];
+			if (popover.$refs.popover) {
+				var contains = popover.$refs.popover.contains(event.target);
+				if (event.closeAllPopover || event.closePopover && contains || popover.autoHide && !contains) {
+					popover.$_handleGlobalClose(event, touch);
+				}
+			}
+		}
+	});
+}
+
+var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+
+
+
+
+function createCommonjsModule(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var lodash_merge = createCommonjsModule(function (module, exports) {
+/**
+ * Lodash (Custom Build) <https://lodash.com/>
+ * Build: `lodash modularize exports="npm" -o ./`
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/** Used to stand-in for `undefined` hash values. */
+var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+/** Used to detect hot functions by number of calls within a span of milliseconds. */
+var HOT_COUNT = 800,
+    HOT_SPAN = 16;
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    asyncTag = '[object AsyncFunction]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    nullTag = '[object Null]',
+    objectTag = '[object Object]',
+    proxyTag = '[object Proxy]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    undefinedTag = '[object Undefined]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/**
+ * Used to match `RegExp`
+ * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+ */
+var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+/** Used to detect host constructors (Safari). */
+var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal && commonjsGlobal.Object === Object && commonjsGlobal;
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+/** Detect free variable `exports`. */
+var freeExports = 'object' == 'object' && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && 'object' == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * A faster alternative to `Function#apply`, this function invokes `func`
+ * with the `this` binding of `thisArg` and the arguments of `args`.
+ *
+ * @private
+ * @param {Function} func The function to invoke.
+ * @param {*} thisArg The `this` binding of `func`.
+ * @param {Array} args The arguments to invoke `func` with.
+ * @returns {*} Returns the result of `func`.
+ */
+function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0: return func.call(thisArg);
+    case 1: return func.call(thisArg, args[0]);
+    case 2: return func.call(thisArg, args[0], args[1]);
+    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+/**
+ * Gets the value at `key` of `object`.
+ *
+ * @private
+ * @param {Object} [object] The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function getValue(object, key) {
+  return object == null ? undefined : object[key];
+}
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+/**
+ * Gets the value at `key`, unless `key` is "__proto__".
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the property to get.
+ * @returns {*} Returns the property value.
+ */
+function safeGet(object, key) {
+  return key == '__proto__'
+    ? undefined
+    : object[key];
+}
+
+/** Used for built-in method references. */
+var arrayProto = Array.prototype,
+    funcProto = Function.prototype,
+    objectProto = Object.prototype;
+
+/** Used to detect overreaching core-js shims. */
+var coreJsData = root['__core-js_shared__'];
+
+/** Used to resolve the decompiled source of functions. */
+var funcToString = funcProto.toString;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = (function() {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? ('Symbol(src)_1.' + uid) : '';
+}());
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Used to infer the `Object` constructor. */
+var objectCtorString = funcToString.call(Object);
+
+/** Used to detect if a method is native. */
+var reIsNative = RegExp('^' +
+  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+);
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined,
+    Symbol = root.Symbol,
+    Uint8Array = root.Uint8Array,
+    allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined,
+    getPrototype = overArg(Object.getPrototypeOf, Object),
+    objectCreate = Object.create,
+    propertyIsEnumerable = objectProto.propertyIsEnumerable,
+    splice = arrayProto.splice,
+    symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+var defineProperty = (function() {
+  try {
+    var func = getNative(Object, 'defineProperty');
+    func({}, '', {});
+    return func;
+  } catch (e) {}
+}());
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined,
+    nativeMax = Math.max,
+    nativeNow = Date.now;
+
+/* Built-in method references that are verified to be native. */
+var Map = getNative(root, 'Map'),
+    nativeCreate = getNative(Object, 'create');
+
+/**
+ * The base implementation of `_.create` without support for assigning
+ * properties to the created object.
+ *
+ * @private
+ * @param {Object} proto The object to inherit from.
+ * @returns {Object} Returns the new object.
+ */
+var baseCreate = (function() {
+  function object() {}
+  return function(proto) {
+    if (!isObject(proto)) {
+      return {};
+    }
+    if (objectCreate) {
+      return objectCreate(proto);
+    }
+    object.prototype = proto;
+    var result = new object;
+    object.prototype = undefined;
+    return result;
+  };
+}());
+
+/**
+ * Creates a hash object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Hash(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the hash.
+ *
+ * @private
+ * @name clear
+ * @memberOf Hash
+ */
+function hashClear() {
+  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the hash.
+ *
+ * @private
+ * @name delete
+ * @memberOf Hash
+ * @param {Object} hash The hash to modify.
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+/**
+ * Gets the hash value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Hash
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? undefined : result;
+  }
+  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+}
+
+/**
+ * Checks if a hash value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Hash
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+}
+
+/**
+ * Sets the hash `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Hash
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the hash instance.
+ */
+function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+  return this;
+}
+
+// Add methods to `Hash`.
+Hash.prototype.clear = hashClear;
+Hash.prototype['delete'] = hashDelete;
+Hash.prototype.get = hashGet;
+Hash.prototype.has = hashHas;
+Hash.prototype.set = hashSet;
+
+/**
+ * Creates an list cache object.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function ListCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the list cache.
+ *
+ * @private
+ * @name delete
+ * @memberOf ListCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function listCacheDelete(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+
+/**
+ * Gets the list cache value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf ListCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function listCacheGet(key) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  return index < 0 ? undefined : data[index][1];
+}
+
+/**
+ * Checks if a list cache value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf ListCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function listCacheHas(key) {
+  return assocIndexOf(this.__data__, key) > -1;
+}
+
+/**
+ * Sets the list cache `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf ListCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the list cache instance.
+ */
+function listCacheSet(key, value) {
+  var data = this.__data__,
+      index = assocIndexOf(data, key);
+
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+
+// Add methods to `ListCache`.
+ListCache.prototype.clear = listCacheClear;
+ListCache.prototype['delete'] = listCacheDelete;
+ListCache.prototype.get = listCacheGet;
+ListCache.prototype.has = listCacheHas;
+ListCache.prototype.set = listCacheSet;
+
+/**
+ * Creates a map cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function MapCache(entries) {
+  var index = -1,
+      length = entries == null ? 0 : entries.length;
+
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+
+/**
+ * Removes all key-value entries from the map.
+ *
+ * @private
+ * @name clear
+ * @memberOf MapCache
+ */
+function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    'hash': new Hash,
+    'map': new (Map || ListCache),
+    'string': new Hash
+  };
+}
+
+/**
+ * Removes `key` and its value from the map.
+ *
+ * @private
+ * @name delete
+ * @memberOf MapCache
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function mapCacheDelete(key) {
+  var result = getMapData(this, key)['delete'](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+
+/**
+ * Checks if a map value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf MapCache
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function mapCacheHas(key) {
+  return getMapData(this, key).has(key);
+}
+
+/**
+ * Sets the map `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf MapCache
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the map cache instance.
+ */
+function mapCacheSet(key, value) {
+  var data = getMapData(this, key),
+      size = data.size;
+
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+
+// Add methods to `MapCache`.
+MapCache.prototype.clear = mapCacheClear;
+MapCache.prototype['delete'] = mapCacheDelete;
+MapCache.prototype.get = mapCacheGet;
+MapCache.prototype.has = mapCacheHas;
+MapCache.prototype.set = mapCacheSet;
+
+/**
+ * Creates a stack cache object to store key-value pairs.
+ *
+ * @private
+ * @constructor
+ * @param {Array} [entries] The key-value pairs to cache.
+ */
+function Stack(entries) {
+  var data = this.__data__ = new ListCache(entries);
+  this.size = data.size;
+}
+
+/**
+ * Removes all key-value entries from the stack.
+ *
+ * @private
+ * @name clear
+ * @memberOf Stack
+ */
+function stackClear() {
+  this.__data__ = new ListCache;
+  this.size = 0;
+}
+
+/**
+ * Removes `key` and its value from the stack.
+ *
+ * @private
+ * @name delete
+ * @memberOf Stack
+ * @param {string} key The key of the value to remove.
+ * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+ */
+function stackDelete(key) {
+  var data = this.__data__,
+      result = data['delete'](key);
+
+  this.size = data.size;
+  return result;
+}
+
+/**
+ * Gets the stack value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf Stack
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function stackGet(key) {
+  return this.__data__.get(key);
+}
+
+/**
+ * Checks if a stack value for `key` exists.
+ *
+ * @private
+ * @name has
+ * @memberOf Stack
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */
+function stackHas(key) {
+  return this.__data__.has(key);
+}
+
+/**
+ * Sets the stack `key` to `value`.
+ *
+ * @private
+ * @name set
+ * @memberOf Stack
+ * @param {string} key The key of the value to set.
+ * @param {*} value The value to set.
+ * @returns {Object} Returns the stack cache instance.
+ */
+function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache) {
+    var pairs = data.__data__;
+    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+
+// Add methods to `Stack`.
+Stack.prototype.clear = stackClear;
+Stack.prototype['delete'] = stackDelete;
+Stack.prototype.get = stackGet;
+Stack.prototype.has = stackHas;
+Stack.prototype.set = stackSet;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * This function is like `assignValue` except that it doesn't assign
+ * `undefined` values.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignMergeValue(object, key, value) {
+  if ((value !== undefined && !eq(object[key], value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+/**
+ * Assigns `value` to `key` of `object` if the existing value is not equivalent
+ * using [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * for equality comparisons.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty.call(object, key) && eq(objValue, value)) ||
+      (value === undefined && !(key in object))) {
+    baseAssignValue(object, key, value);
+  }
+}
+
+/**
+ * Gets the index at which the `key` is found in `array` of key-value pairs.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} key The key to search for.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+
+/**
+ * The base implementation of `assignValue` and `assignMergeValue` without
+ * value checks.
+ *
+ * @private
+ * @param {Object} object The object to modify.
+ * @param {string} key The key of the property to assign.
+ * @param {*} value The value to assign.
+ */
+function baseAssignValue(object, key, value) {
+  if (key == '__proto__' && defineProperty) {
+    defineProperty(object, key, {
+      'configurable': true,
+      'enumerable': true,
+      'value': value,
+      'writable': true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+/**
+ * The base implementation of `_.isNative` without bad shim checks.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a native function,
+ *  else `false`.
+ */
+function baseIsNative(value) {
+  if (!isObject(value) || isMasked(value)) {
+    return false;
+  }
+  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
+}
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+/**
+ * The base implementation of `_.keysIn` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeysIn(object) {
+  if (!isObject(object)) {
+    return nativeKeysIn(object);
+  }
+  var isProto = isPrototype(object),
+      result = [];
+
+  for (var key in object) {
+    if (!(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * The base implementation of `_.merge` without support for multiple sources.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} [customizer] The function to customize merged values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMerge(object, source, srcIndex, customizer, stack) {
+  if (object === source) {
+    return;
+  }
+  baseFor(source, function(srcValue, key) {
+    if (isObject(srcValue)) {
+      stack || (stack = new Stack);
+      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+    }
+    else {
+      var newValue = customizer
+        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
+        : undefined;
+
+      if (newValue === undefined) {
+        newValue = srcValue;
+      }
+      assignMergeValue(object, key, newValue);
+    }
+  }, keysIn);
+}
+
+/**
+ * A specialized version of `baseMerge` for arrays and objects which performs
+ * deep merges and tracks traversed objects enabling objects with circular
+ * references to be merged.
+ *
+ * @private
+ * @param {Object} object The destination object.
+ * @param {Object} source The source object.
+ * @param {string} key The key of the value to merge.
+ * @param {number} srcIndex The index of `source`.
+ * @param {Function} mergeFunc The function to merge values.
+ * @param {Function} [customizer] The function to customize assigned values.
+ * @param {Object} [stack] Tracks traversed source values and their merged
+ *  counterparts.
+ */
+function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+  var objValue = safeGet(object, key),
+      srcValue = safeGet(source, key),
+      stacked = stack.get(srcValue);
+
+  if (stacked) {
+    assignMergeValue(object, key, stacked);
+    return;
+  }
+  var newValue = customizer
+    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
+    : undefined;
+
+  var isCommon = newValue === undefined;
+
+  if (isCommon) {
+    var isArr = isArray(srcValue),
+        isBuff = !isArr && isBuffer(srcValue),
+        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
+
+    newValue = srcValue;
+    if (isArr || isBuff || isTyped) {
+      if (isArray(objValue)) {
+        newValue = objValue;
+      }
+      else if (isArrayLikeObject(objValue)) {
+        newValue = copyArray(objValue);
+      }
+      else if (isBuff) {
+        isCommon = false;
+        newValue = cloneBuffer(srcValue, true);
+      }
+      else if (isTyped) {
+        isCommon = false;
+        newValue = cloneTypedArray(srcValue, true);
+      }
+      else {
+        newValue = [];
+      }
+    }
+    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+      newValue = objValue;
+      if (isArguments(objValue)) {
+        newValue = toPlainObject(objValue);
+      }
+      else if (!isObject(objValue) || (srcIndex && isFunction(objValue))) {
+        newValue = initCloneObject(srcValue);
+      }
+    }
+    else {
+      isCommon = false;
+    }
+  }
+  if (isCommon) {
+    // Recursively merge objects and arrays (susceptible to call stack limits).
+    stack.set(srcValue, newValue);
+    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
+    stack['delete'](srcValue);
+  }
+  assignMergeValue(object, key, newValue);
+}
+
+/**
+ * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @returns {Function} Returns the new function.
+ */
+function baseRest(func, start) {
+  return setToString(overRest(func, start, identity), func + '');
+}
+
+/**
+ * The base implementation of `setToString` without support for hot loop shorting.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var baseSetToString = !defineProperty ? identity : function(func, string) {
+  return defineProperty(func, 'toString', {
+    'configurable': true,
+    'enumerable': false,
+    'value': constant(string),
+    'writable': true
+  });
+};
+
+/**
+ * Creates a clone of  `buffer`.
+ *
+ * @private
+ * @param {Buffer} buffer The buffer to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Buffer} Returns the cloned buffer.
+ */
+function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length,
+      result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+
+  buffer.copy(result);
+  return result;
+}
+
+/**
+ * Creates a clone of `arrayBuffer`.
+ *
+ * @private
+ * @param {ArrayBuffer} arrayBuffer The array buffer to clone.
+ * @returns {ArrayBuffer} Returns the cloned array buffer.
+ */
+function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array(result).set(new Uint8Array(arrayBuffer));
+  return result;
+}
+
+/**
+ * Creates a clone of `typedArray`.
+ *
+ * @private
+ * @param {Object} typedArray The typed array to clone.
+ * @param {boolean} [isDeep] Specify a deep clone.
+ * @returns {Object} Returns the cloned typed array.
+ */
+function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+/**
+ * Copies properties of `source` to `object`.
+ *
+ * @private
+ * @param {Object} source The object to copy properties from.
+ * @param {Array} props The property identifiers to copy.
+ * @param {Object} [object={}] The object to copy properties to.
+ * @param {Function} [customizer] The function to customize copied values.
+ * @returns {Object} Returns `object`.
+ */
+function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+
+  var index = -1,
+      length = props.length;
+
+  while (++index < length) {
+    var key = props[index];
+
+    var newValue = customizer
+      ? customizer(object[key], source[key], key, object, source)
+      : undefined;
+
+    if (newValue === undefined) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue(object, key, newValue);
+    } else {
+      assignValue(object, key, newValue);
+    }
+  }
+  return object;
+}
+
+/**
+ * Creates a function like `_.assign`.
+ *
+ * @private
+ * @param {Function} assigner The function to assign values.
+ * @returns {Function} Returns the new assigner function.
+ */
+function createAssigner(assigner) {
+  return baseRest(function(object, sources) {
+    var index = -1,
+        length = sources.length,
+        customizer = length > 1 ? sources[length - 1] : undefined,
+        guard = length > 2 ? sources[2] : undefined;
+
+    customizer = (assigner.length > 3 && typeof customizer == 'function')
+      ? (length--, customizer)
+      : undefined;
+
+    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? undefined : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+/**
+ * Gets the data for `map`.
+ *
+ * @private
+ * @param {Object} map The map to query.
+ * @param {string} key The reference key.
+ * @returns {*} Returns the map data.
+ */
+function getMapData(map, key) {
+  var data = map.__data__;
+  return isKeyable(key)
+    ? data[typeof key == 'string' ? 'string' : 'hash']
+    : data.map;
+}
+
+/**
+ * Gets the native function at `key` of `object`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {string} key The key of the method to get.
+ * @returns {*} Returns the function if it's native, else `undefined`.
+ */
+function getNative(object, key) {
+  var value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
+}
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+/**
+ * Initializes an object clone.
+ *
+ * @private
+ * @param {Object} object The object to clone.
+ * @returns {Object} Returns the initialized clone.
+ */
+function initCloneObject(object) {
+  return (typeof object.constructor == 'function' && !isPrototype(object))
+    ? baseCreate(getPrototype(object))
+    : {};
+}
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+
+  return !!length &&
+    (type == 'number' ||
+      (type != 'symbol' && reIsUint.test(value))) &&
+        (value > -1 && value % 1 == 0 && value < length);
+}
+
+/**
+ * Checks if the given arguments are from an iteratee call.
+ *
+ * @private
+ * @param {*} value The potential iteratee value argument.
+ * @param {*} index The potential iteratee index or key argument.
+ * @param {*} object The potential iteratee object argument.
+ * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+ *  else `false`.
+ */
+function isIterateeCall(value, index, object) {
+  if (!isObject(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == 'number'
+        ? (isArrayLike(object) && isIndex(index, object.length))
+        : (type == 'string' && index in object)
+      ) {
+    return eq(object[index], value);
+  }
+  return false;
+}
+
+/**
+ * Checks if `value` is suitable for use as unique object key.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+ */
+function isKeyable(value) {
+  var type = typeof value;
+  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+    ? (value !== '__proto__')
+    : (value === null);
+}
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && (maskSrcKey in func);
+}
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+/**
+ * This function is like
+ * [`Object.keys`](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * except that it includes inherited enumerable properties.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+/**
+ * A specialized version of `baseRest` which transforms the rest array.
+ *
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @param {number} [start=func.length-1] The start position of the rest parameter.
+ * @param {Function} transform The rest array transform.
+ * @returns {Function} Returns the new function.
+ */
+function overRest(func, start, transform) {
+  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+  return function() {
+    var args = arguments,
+        index = -1,
+        length = nativeMax(args.length - start, 0),
+        array = Array(length);
+
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply(func, this, otherArgs);
+  };
+}
+
+/**
+ * Sets the `toString` method of `func` to return `string`.
+ *
+ * @private
+ * @param {Function} func The function to modify.
+ * @param {Function} string The `toString` result.
+ * @returns {Function} Returns `func`.
+ */
+var setToString = shortOut(baseSetToString);
+
+/**
+ * Creates a function that'll short out and invoke `identity` instead
+ * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+ * milliseconds.
+ *
+ * @private
+ * @param {Function} func The function to restrict.
+ * @returns {Function} Returns the new shortable function.
+ */
+function shortOut(func) {
+  var count = 0,
+      lastCalled = 0;
+
+  return function() {
+    var stamp = nativeNow(),
+        remaining = HOT_SPAN - (stamp - lastCalled);
+
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(undefined, arguments);
+  };
+}
+
+/**
+ * Converts `func` to its source code.
+ *
+ * @private
+ * @param {Function} func The function to convert.
+ * @returns {string} Returns the source code.
+ */
+function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {}
+    try {
+      return (func + '');
+    } catch (e) {}
+  }
+  return '';
+}
+
+/**
+ * Performs a
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * comparison between two values to determine if they are equivalent.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to compare.
+ * @param {*} other The other value to compare.
+ * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ * var other = { 'a': 1 };
+ *
+ * _.eq(object, object);
+ * // => true
+ *
+ * _.eq(object, other);
+ * // => false
+ *
+ * _.eq('a', 'a');
+ * // => true
+ *
+ * _.eq('a', Object('a'));
+ * // => false
+ *
+ * _.eq(NaN, NaN);
+ * // => true
+ */
+function eq(value, other) {
+  return value === other || (value !== value && other !== other);
+}
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+/**
+ * This method is like `_.isArrayLike` except that it also checks if `value`
+ * is an object.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArrayLikeObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLikeObject(document.body.children);
+ * // => true
+ *
+ * _.isArrayLikeObject('abc');
+ * // => false
+ *
+ * _.isArrayLikeObject(_.noop);
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value);
+}
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+/**
+ * Checks if `value` is a plain object, that is, an object created by the
+ * `Object` constructor or one with a `[[Prototype]]` of `null`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.8.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ * }
+ *
+ * _.isPlainObject(new Foo);
+ * // => false
+ *
+ * _.isPlainObject([1, 2, 3]);
+ * // => false
+ *
+ * _.isPlainObject({ 'x': 0, 'y': 0 });
+ * // => true
+ *
+ * _.isPlainObject(Object.create(null));
+ * // => true
+ */
+function isPlainObject(value) {
+  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+    return false;
+  }
+  var proto = getPrototype(value);
+  if (proto === null) {
+    return true;
+  }
+  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+    funcToString.call(Ctor) == objectCtorString;
+}
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+/**
+ * Converts `value` to a plain object flattening inherited enumerable string
+ * keyed properties of `value` to own properties of the plain object.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {Object} Returns the converted plain object.
+ * @example
+ *
+ * function Foo() {
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.assign({ 'a': 1 }, new Foo);
+ * // => { 'a': 1, 'b': 2 }
+ *
+ * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+ * // => { 'a': 1, 'b': 2, 'c': 3 }
+ */
+function toPlainObject(value) {
+  return copyObject(value, keysIn(value));
+}
+
+/**
+ * Creates an array of the own and inherited enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keysIn(new Foo);
+ * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
+ */
+function keysIn(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+}
+
+/**
+ * This method is like `_.assign` except that it recursively merges own and
+ * inherited enumerable string keyed properties of source objects into the
+ * destination object. Source properties that resolve to `undefined` are
+ * skipped if a destination value exists. Array and plain object properties
+ * are merged recursively. Other objects and value types are overridden by
+ * assignment. Source objects are applied from left to right. Subsequent
+ * sources overwrite property assignments of previous sources.
+ *
+ * **Note:** This method mutates `object`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.5.0
+ * @category Object
+ * @param {Object} object The destination object.
+ * @param {...Object} [sources] The source objects.
+ * @returns {Object} Returns `object`.
+ * @example
+ *
+ * var object = {
+ *   'a': [{ 'b': 2 }, { 'd': 4 }]
+ * };
+ *
+ * var other = {
+ *   'a': [{ 'c': 3 }, { 'e': 5 }]
+ * };
+ *
+ * _.merge(object, other);
+ * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
+ */
+var merge = createAssigner(function(object, source, srcIndex) {
+  baseMerge(object, source, srcIndex);
+});
+
+/**
+ * Creates a function that returns `value`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.4.0
+ * @category Util
+ * @param {*} value The value to return from the new function.
+ * @returns {Function} Returns the new constant function.
+ * @example
+ *
+ * var objects = _.times(2, _.constant({ 'a': 1 }));
+ *
+ * console.log(objects);
+ * // => [{ 'a': 1 }, { 'a': 1 }]
+ *
+ * console.log(objects[0] === objects[1]);
+ * // => true
+ */
+function constant(value) {
+  return function() {
+    return value;
+  };
+}
+
+/**
+ * This method returns the first argument it receives.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Util
+ * @param {*} value Any value.
+ * @returns {*} Returns `value`.
+ * @example
+ *
+ * var object = { 'a': 1 };
+ *
+ * console.log(_.identity(object) === object);
+ * // => true
+ */
+function identity(value) {
+  return value;
+}
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = merge;
+});
+
+function install(Vue) {
+	var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	if (install.installed) return;
+	install.installed = true;
+
+	var finalOptions = {};
+	lodash_merge(finalOptions, defaultOptions, options);
+
+	plugin.options = finalOptions;
+	directive.options = finalOptions;
+
+	Vue.directive('tooltip', directive);
+	Vue.directive('close-popover', vclosepopover);
+	Vue.component('v-popover', Popover);
+}
+
+var VTooltip = directive;
+var VClosePopover = vclosepopover;
+var VPopover = Popover;
+
+var plugin = {
+	install: install,
+
+	get enabled() {
+		return state.enabled;
+	},
+
+	set enabled(value) {
+		state.enabled = value;
+	}
+};
+
+// Auto-install
+var GlobalVue = null;
+if (typeof window !== 'undefined') {
+	GlobalVue = window.Vue;
+} else if (typeof global !== 'undefined') {
+	GlobalVue = global.Vue;
+}
+if (GlobalVue) {
+	GlobalVue.use(plugin);
+}
+
+
+/* harmony default export */ __webpack_exports__["a"] = (plugin);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+
+/***/ }),
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(100)
+var __vue_script__ = __webpack_require__(102)
 /* template */
-var __vue_template__ = __webpack_require__(101)
+var __vue_template__ = __webpack_require__(103)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68082,7 +74548,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68147,7 +74613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -68189,19 +74655,19 @@ if (false) {
 }
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(103)
+  __webpack_require__(105)
 }
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(106)
+var __vue_script__ = __webpack_require__(108)
 /* template */
-var __vue_template__ = __webpack_require__(122)
+var __vue_template__ = __webpack_require__(123)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68240,13 +74706,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(104);
+var content = __webpack_require__(106);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -68266,7 +74732,7 @@ if(false) {
 }
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -68280,7 +74746,7 @@ exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typ
 
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports) {
 
 /**
@@ -68313,17 +74779,39 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages__ = __webpack_require__(113);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ChatMessages__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ChatForm__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68419,72 +74907,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
+      state: {
+        connecting: true
+      },
       auth: {},
       statuses: [],
       status: 0,
       showStatuses: false,
       chatrooms: [],
+      messages: [],
+      users: [],
       room: 0,
       scroll: true,
       channel: null,
       limits: {},
-      activePeer: false
+      activePeer: false,
+
+      /* Developer Settings */
+      showDevMsg: false
     };
   },
 
   watch: {
+    chatrooms: function chatrooms() {
+      this.changeRoom(this.auth.chatroom.id);
+    },
+    statuses: function statuses() {
+      this.changeStatus(this.auth.chat_status.id);
+    },
     room: function room(newVal, oldVal) {
-      var _this = this;
-
       window.Echo.leave('chatroom.' + oldVal);
 
       this.channel = window.Echo.join('chatroom.' + newVal);
       this.listenForEvents();
-
-      if (this.auth.chatroom.id !== newVal) {
-        /* Update the users chatroom in the database */
-        axios.post('/api/chat/user/' + this.auth.id + '/chatroom', {
-          'room_id': newVal
-        }).then(function (response) {
-          // reassign the auth variable to the response data
-          _this.auth = response.data;
-        });
-      }
-
-      this.fetchMessages();
-    },
-    status: function status(newVal, oldVal) {
-      var _this2 = this;
-
-      if (this.auth.chat_status.id !== newVal) {
-        /* Update the users chat status in the database */
-        axios.post('/api/chat/user/' + this.auth.id + '/status', {
-          'status_id': newVal
-        }).then(function (response) {
-          // reassign the auth variable to the response data
-          _this2.auth = response.data;
-
-          /* Add system message */
-          _this2.createMessage('[url=/' + _this2.auth.username + '.' + _this2.auth.id + ']' + _this2.auth.username + '[/url] has updated their status to [b]' + _this2.auth.chat_status.name + '[/b]');
-        });
-      }
     }
   },
   computed: {
-    messages: function messages() {
-      if (this.chatrooms.length > 0) {
-        return this.chatrooms[this.room_index].messages;
-      }
-
-      return [];
-    },
-    room_index: function room_index() {
-      if (this.room !== 0) {
-        return this.room - 1;
-      }
-
-      return 0;
-    },
     last_id: function last_id() {
       if (this.messages > 0) {
         return this.messages[m.length - 1].id;
@@ -68493,11 +74951,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return 0;
     },
     statusColor: function statusColor() {
-      var _this3 = this;
+      var _this = this;
 
       if (this.statuses.length > 0) {
         var i = _.findIndex(this.statuses, function (o) {
-          return o.id === _this3.status;
+          return o.id === _this.status;
         });
 
         return this.statuses[i].color;
@@ -68513,44 +74971,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     fetchRooms: function fetchRooms() {
-      var _this4 = this;
+      var _this2 = this;
 
       axios.get('/api/chat/rooms').then(function (response) {
-        _this4.chatrooms = response.data.data;
+        _this2.chatrooms = response.data.data;
 
-        _this4.changeRoom(_this4.auth.chatroom.id);
+        _this2.fetchLimits();
       });
     },
     fetchLimits: function fetchLimits() {
-      var _this5 = this;
+      var _this3 = this;
 
       axios.get('/api/chat/rooms/' + this.auth.chatroom.id + '/limits').then(function (response) {
-        _this5.limits = response.data;
+        _this3.limits = response.data;
       });
     },
     changeRoom: function changeRoom(id) {
+      var _this4 = this;
+
       this.room = id;
+
+      if (this.auth.chatroom.id !== id) {
+        /* Update the users chatroom in the database */
+        axios.post('/api/chat/user/' + this.auth.id + '/chatroom', {
+          'room_id': id
+        }).then(function (response) {
+          // reassign the auth variable to the response data
+          _this4.auth = response.data;
+
+          _this4.fetchMessages();
+        });
+      } else {
+        this.fetchMessages();
+      }
     },
     fetchMessages: function fetchMessages() {
-      var _this6 = this;
+      var _this5 = this;
 
       axios.get('/api/chat/messages/' + this.room).then(function (response) {
-        _this6.chatrooms[_this6.room_index].messages = response.data.data;
-        _this6.scrollToBottom(true);
+        _this5.messages = _.reverse(response.data.data);
+        _this5.scrollToBottom(true);
+
+        _this5.state.connecting = false;
       });
     },
     fetchStatuses: function fetchStatuses() {
-      var _this7 = this;
+      var _this6 = this;
 
       axios.get('/api/chat/statuses').then(function (response) {
-        _this7.statuses = response.data;
-
-        _this7.changeStatus(_this7.auth.chat_status.id);
+        _this6.statuses = response.data;
       });
     },
     changeStatus: function changeStatus(status_id) {
+      var _this7 = this;
+
       this.status = status_id;
       this.showStatuses = false;
+
+      if (this.auth.chat_status.id !== status_id) {
+
+        /* Update the users chat status in the database */
+        axios.post('/api/chat/user/' + this.auth.id + '/status', {
+          'status_id': status_id
+        }).then(function (response) {
+          // reassign the auth variable to the response data
+          _this7.auth = response.data;
+
+          /* Add system message */
+          _this7.createMessage('[url=/' + _this7.auth.username + '.' + _this7.auth.id + ']' + _this7.auth.username + '[/url] has updated their status to [b]' + _this7.auth.chat_status.name + '[/b]');
+        });
+      }
     },
 
 
@@ -68571,17 +75061,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-      var messages = $('.messages .list-group');
+      var container = $('.messages .list-group');
 
       if (this.scroll || force) {
-        messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
+        container.animate({ scrollTop: container.prop('scrollHeight') }, 0);
       }
 
-      messages.scroll(function () {
+      container.scroll(function () {
         _this8.scroll = false;
 
-        var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
-        var scrollHeight = messages.prop('scrollHeight');
+        var scrollTop = container.scrollTop() + container.prop('clientHeight');
+        var scrollHeight = container.prop('scrollHeight');
 
         _this8.scroll = scrollTop >= scrollHeight - 30;
       });
@@ -68590,26 +75080,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this9 = this;
 
       this.channel.here(function (users) {
-        console.log('CONNECTED TO CHAT ...');
+        _this9.users = users;
+        _this9.state.connecting = false;
+
+        setInterval(function () {
+          _this9.scrollToBottom();
+        }, 100);
       }).joining(function (user) {
         // this.createMessage(`${user.username} has JOINED the chat ...`)
       }).leaving(function (user) {
+        _this9.state.connecting = true;
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
-        var count = _this9.chatrooms[_this9.room_index].messages.push(e.message);
+        var count = _this9.messages.push(e.message);
 
         if (count > _this9.limits.max_messages) {
-          _this9.chatrooms[_this9.room_index].messages.splice(0, 1);
+          _this9.messages.splice(0, 1);
         }
 
         _this9.scrollToBottom(true);
       }).listen('.edit.message', function (e) {}).listen('.delete.message', function (e) {
-        var msgs = _this9.chatrooms[_this9.room_index].messages;
+        var msgs = _this9.messages;
         var index = msgs.findIndex(function (msg) {
           return msg.id === e.message.id;
         });
 
-        _this9.chatrooms[_this9.room_index].messages.splice(index, 1);
+        _this9.messages.splice(index, 1);
       }).listenForWhisper('typing', function (e) {
         if (_this9.activePeer === false) {
           _this9.activePeer = e;
@@ -68622,82 +75118,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   created: function created() {
-    var _this10 = this;
-
     this.auth = this.user;
-
     this.fetchRooms();
     this.fetchStatuses();
-
-    setTimeout(function () {
-      _this10.scrollToBottom(true);
-    }, 700);
-
-    setInterval(function () {
-      _this10.scrollToBottom();
-    }, 100);
   }
 });
 
 /***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(108)
-}
-var normalizeComponent = __webpack_require__(4)
-/* script */
-var __vue_script__ = __webpack_require__(110)
-/* template */
-var __vue_template__ = __webpack_require__(111)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-eb485e78"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources\\assets\\js\\components\\chat\\ChatroomsDropdown.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-eb485e78", Component.options)
-  } else {
-    hotAPI.reload("data-v-eb485e78", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(109);
+var content = __webpack_require__(110);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -68717,7 +75151,7 @@ if(false) {
 }
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -68731,7 +75165,7 @@ exports.push([module.i, "\n.chat-dropdown[data-v-eb485e78] {\n  width: 100%;\n}\
 
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68785,7 +75219,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -68844,19 +75278,19 @@ if (false) {
 }
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(113)
+  __webpack_require__(114)
 }
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(115)
+var __vue_script__ = __webpack_require__(116)
 /* template */
-var __vue_template__ = __webpack_require__(116)
+var __vue_template__ = __webpack_require__(117)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -68895,13 +75329,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(114);
+var content = __webpack_require__(115);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -68921,7 +75355,7 @@ if(false) {
 }
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -68935,11 +75369,14 @@ exports.push([module.i, "\n.messages h4 i.fa-times[data-v-e27ce6be] {\n  margin-
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -69039,7 +75476,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69055,7 +75492,16 @@ var render = function() {
           _c(
             "a",
             {
+              directives: [
+                {
+                  name: "tooltip",
+                  rawName: "v-tooltip",
+                  value: message.user.username + "'s profile",
+                  expression: "`${message.user.username}'s profile`"
+                }
+              ],
               attrs: {
+                target: "_blank",
                 href: "/" + message.user.username + "." + message.user.id
               }
             },
@@ -69100,6 +75546,14 @@ var render = function() {
                   _vm._v(" "),
                   _vm.canMod(message)
                     ? _c("i", {
+                        directives: [
+                          {
+                            name: "tooltip",
+                            rawName: "v-tooltip",
+                            value: "Delete Message",
+                            expression: "`Delete Message`"
+                          }
+                        ],
                         staticClass: "fa fa-times text-red",
                         on: {
                           click: function($event) {
@@ -69143,19 +75597,19 @@ if (false) {
 }
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(118)
+  __webpack_require__(119)
 }
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(120)
+var __vue_script__ = __webpack_require__(121)
 /* template */
-var __vue_template__ = __webpack_require__(121)
+var __vue_template__ = __webpack_require__(122)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69194,13 +75648,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(119);
+var content = __webpack_require__(120);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -69220,7 +75674,7 @@ if(false) {
 }
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)(false);
@@ -69234,13 +75688,15 @@ exports.push([module.i, "\n.col-md-4[data-v-35e90299], .col-md-12[data-v-35e9029
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__);
+//
+//
 //
 //
 //
@@ -69372,7 +75828,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69390,6 +75846,14 @@ var render = function() {
             { staticClass: "pull-right" },
             _vm._l(_vm.$parent.statuses, function(status) {
               return _c("i", {
+                directives: [
+                  {
+                    name: "tooltip",
+                    rawName: "v-tooltip",
+                    value: status.name,
+                    expression: "status.name"
+                  }
+                ],
                 class: status.icon ? status.icon : "fa fa-dot-circle-o",
                 style: "color: " + status.color,
                 on: {
@@ -69407,6 +75871,14 @@ var render = function() {
           { staticClass: "col-md-3" },
           [
             _c("chatrooms-dropdown", {
+              directives: [
+                {
+                  name: "tooltip",
+                  rawName: "v-tooltip",
+                  value: "Chatrooms",
+                  expression: "`Chatrooms`"
+                }
+              ],
               staticClass: "pull-right",
               attrs: {
                 current: _vm.user.chatroom.id,
@@ -69474,7 +75946,7 @@ if (false) {
 }
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69491,11 +75963,66 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
+          _vm.showDevMsg
+            ? _c("div", [
+                _c("h2", { staticClass: "text-center text-red text-bold" }, [
+                  _vm._v("Chat Box Is Currently In Beta")
+                ]),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-center" }, [
+                  _vm._v(
+                    "\n                    We are working hard to address all your concerns and issues.\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-center" }, [
+                  _vm._v(
+                    "\n                    Please be patient and be as detailed as possible when describing an issue you may be having!\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-center" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          _vm.showDevMsg = false
+                        }
+                      }
+                    },
+                    [_vm._v("Hide")]
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("div", { attrs: { id: "frame" } }, [
             _c(
               "div",
               { staticClass: "content" },
-              [_c("chat-messages", { attrs: { messages: _vm.messages } })],
+              [
+                _c("div", { staticClass: "text-center" }, [
+                  _vm.state.connecting
+                    ? _c("h4", { staticClass: "text-red" }, [
+                        _vm._v("Connecting ...")
+                      ])
+                    : _c("h4", { staticClass: "text-green" }, [
+                        _vm._v(
+                          "Connected with " +
+                            _vm._s(_vm.users.length) +
+                            " users"
+                        )
+                      ])
+                ]),
+                _vm._v(" "),
+                !_vm.state.connecting
+                  ? _c("chat-messages", { attrs: { messages: _vm.messages } })
+                  : _vm._e()
+              ],
               1
             )
           ])
@@ -69537,7 +76064,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
       _c("h4", [
-        _vm._v("\n                Chatbox 2.0 Beta\n                ( "),
+        _vm._v("\n                Chatbox 2.1 Beta\n                ( "),
         _c(
           "a",
           {
@@ -69552,6 +76079,18 @@ var staticRenderFns = [
         _vm._v(" )\n            ")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-center" }, [
+      _vm._v("\n                    Please understand that "),
+      _c("strong", [_vm._v("Beta")]),
+      _vm._v(
+        " refers to software undergoing testing.\n                    Is released to a certain group of peers for real world testing.\n                "
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -69564,15 +76103,15 @@ if (false) {
 }
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(4)
 /* script */
-var __vue_script__ = __webpack_require__(124)
+var __vue_script__ = __webpack_require__(125)
 /* template */
-var __vue_template__ = __webpack_require__(125)
+var __vue_template__ = __webpack_require__(126)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -69611,7 +76150,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69682,7 +76221,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -69719,12 +76258,6 @@ if (false) {
 }
 
 /***/ }),
-/* 126 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 127 */
 /***/ (function(module, exports) {
 
@@ -69750,6 +76283,12 @@ if (false) {
 
 /***/ }),
 /* 131 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 132 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

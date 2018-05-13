@@ -3,7 +3,9 @@
         <ul class="list-group">
             <li class="sent" v-for="message in messages">
 
-                <a :href="`/${message.user.username}.${message.user.id}`">
+                <a target="_blank"
+                   v-tooltip="`${message.user.username}'s profile`"
+                   :href="`/${message.user.username}.${message.user.id}`">
                     <img v-if="message.user.id !== 1"
                          class="chat-user-image"
                          :style="`border: 3px solid ${message.user.chat_status.color};`"
@@ -22,6 +24,7 @@
                         </a>
 
                         <i v-if="canMod(message)"
+                           v-tooltip="`Delete Message`"
                            @click="deleteMessage(message.id)"
                            class="fa fa-times text-red">
 

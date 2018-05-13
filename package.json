@@ -30,6 +30,7 @@
     "spin.js": "^3.1.0",
     "sweetalert2": "^7.18.0",
     "toastr": "^2.1.4",
+    "v-tooltip": "^2.0.0-rc.32",
     "vue": "^2.5.7",
     "vue-countup-v2": "^1.0.3"
   }

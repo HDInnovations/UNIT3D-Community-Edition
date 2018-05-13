@@ -37,7 +37,7 @@ class ChatRepository
 
     public function rooms()
     {
-        return $this->room->with(['messages.user.group', 'messages.user.chatStatus'])->get();
+        return $this->room->all();
     }
 
     public function roomFindOrFail($id)
@@ -69,21 +69,29 @@ class ChatRepository
         return $message->delete();
     }
 
-    public function messages($room_id) {
+    public function messages($room_id)
+    {
         return $this->message->with(['user.group', 'user.chatStatus'])
             ->where('chatroom_id', $room_id)
+            ->latest()
             ->limit(config('chat.message_limit'))
             ->get();
     }
 
     public function checkMessageLimits($room_id)
     {
-        $messages = $this->messages($room_id);
+        $messages = $this->messages($room_id)->toArray();
         $limit = config('chat.message_limit');
-        $count = $messages->count();
+        $count = count($messages);
 
+        // Lets purge all old messages and keep the database to the limit settings
         if ($count > $limit) {
-            $messages->first()->delete();
+            for ($x = 1; $x <= $count - $limit; $x++) {
+                $message = array_pop($messages);
+                echo $message['id'] . "\n";
+
+                $this->message->find($message['id'])->delete();
+            }
         }
     }
 
@@ -98,8 +106,7 @@ class ChatRepository
     {
         $config = config('chat.system_chatroom');
 
-        if ($room !== null)
-        {
+        if ($room !== null) {
             if ($room instanceof Chatroom) {
                 $room = $room->id;
             } elseif (is_int($room)) {

@@ -21,6 +21,24 @@
   --color-light-orange: hsl(20, 20%, 50%);
 }
 
+.tooltip .tooltip-inner {
+  background: black;
+  color: white;
+}
+
+.tooltip .tooltip-arrow {
+  border-color: black;
+}
+
+.tooltip.popover .popover-inner {
+  background: #f9f9f9;
+  color: black;
+}
+
+.tooltip.popover .popover-arrow {
+  border-color: #f9f9f9;
+}
+
 .breadcrumb {
   background-color: #2b2b2b;
   border: 0;
