@@ -75073,7 +75073,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var scrollTop = container.scrollTop() + container.prop('clientHeight');
         var scrollHeight = container.prop('scrollHeight');
 
-        _this8.scroll = scrollTop >= scrollHeight - 30;
+        _this8.scroll = scrollTop >= scrollHeight - 50;
       });
     },
     listenForEvents: function listenForEvents() {

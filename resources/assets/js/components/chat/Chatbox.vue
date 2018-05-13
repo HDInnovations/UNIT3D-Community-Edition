@@ -268,7 +268,7 @@
           let scrollTop = container.scrollTop() + container.prop('clientHeight')
           let scrollHeight = container.prop('scrollHeight')
 
-          this.scroll = scrollTop >= scrollHeight - 30
+          this.scroll = scrollTop >= scrollHeight - 50
         })
       },
 
