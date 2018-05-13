@@ -286,7 +286,6 @@
             // this.createMessage(`${user.username} has JOINED the chat ...`)
           })
           .leaving(user => {
-            this.state.connecting = true
             // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {

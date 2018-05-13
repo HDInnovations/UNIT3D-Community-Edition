@@ -75089,7 +75089,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).joining(function (user) {
         // this.createMessage(`${user.username} has JOINED the chat ...`)
       }).leaving(function (user) {
-        _this9.state.connecting = true;
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
         var count = _this9.messages.push(e.message);
