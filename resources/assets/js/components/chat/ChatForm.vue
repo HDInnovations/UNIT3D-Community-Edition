@@ -2,66 +2,100 @@
     <div class="message-input">
         <div class="wrap">
 
-            <div class="info">
-                <span class="badge-extra">
-                    Tap <strong>ALT</strong> to toggle multi-line (<strong>{{multiline ? 'On' : 'Off'}}</strong>)
-                </span>
+            <div class="row info">
+                <div class="col-md-6">
+                    <span class="badge-extra">
+                        <strong>SHIFT + ENTER</strong> to insert new line
+                    </span>
 
-                <span class="badge-extra">
-                    Type <strong>:</strong> for emoji
-                </span>
+                    <span class="badge-extra">
+                        Type <strong>:</strong> for emoji
+                    </span>
 
-                <span class="badge-extra">
-                    BBcode Allowed
-                </span>
+                    <span class="badge-extra">
+                        BBcode Allowed
+                    </span>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="pull-right">
+                        <i v-for="status in $parent.statuses"
+                           @click="$emit('changedStatus', status.id)"
+                           :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
+                           :style="`color: ${status.color}`"></i>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <chatrooms-dropdown :current="user.chatroom.id"
+                                        :chatrooms="$parent.chatrooms"
+                                        class="pull-right"
+                                        @changedRoom="$parent.changeRoom">
+
+                    </chatrooms-dropdown>
+                </div>
+
             </div>
 
-            <textarea id="chat-message"
-                      name="message"
-                      placeholder="Write your message..."
-                      cols="30"
-                      rows="5">
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea id="chat-message"
+                              name="message"
+                              placeholder="Write your message..."
+                              cols="30"
+                              rows="5">
 
-            </textarea>
+                </textarea>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
+    .col-md-4, .col-md-12 {
+        padding: 0;
+    }
+
     .info {
         .badge-extra {
-            margin-bottom: .5em;
+            margin: 8px;
+        }
+
+        i {
+            &.fa {
+                margin: 8px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
         }
     }
 </style>
 <script>
+  import ChatroomsDropdown from './ChatroomsDropdown'
+
   export default {
-
     props: ['user'],
-
+    components: {
+      ChatroomsDropdown
+    },
     data () {
       return {
         editor: null,
         input: null,
-        multiline: false
       }
     },
 
     methods: {
       keyup (e) {
-
-        // Alt
-        if (e.which === 18) {
-          this.multiline = !this.multiline
-        }
-
-        // Enter
-        if (e.which === 13 && !this.multiline) {
-          this.sendMessage()
-        }
-
+        this.$emit('typing', this.user)
       },
       keydown (e) {
-        this.$emit('typing', this.user)
+        if (e.keyCode === 13 && !e.shiftKey) {
+          e.preventDefault()
+          this.sendMessage()
+        }
       },
       sendMessage () {
 

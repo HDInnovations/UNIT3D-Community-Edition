@@ -34,7 +34,7 @@ class ChatController extends Controller
         return ChatRoomResource::collection($this->chat->rooms());
     }
 
-    public function roomLimits($room_id)
+    public function roomLimits()
     {
         return response([
             'max_messages' => config('chat.message_limit')
@@ -42,6 +42,11 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
+    public function messages($room_id)
+    {
+        return ChatMessageResource::collection($this->chat->messages($room_id));
+    }
+
     public function createMessage(Request $request)
     {
         $user_id = $request->get('user_id');

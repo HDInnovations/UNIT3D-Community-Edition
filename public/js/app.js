@@ -68400,50 +68400,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -68468,7 +68424,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       status: 0,
       showStatuses: false,
       chatrooms: [],
-      currentRoom: 0,
+      room: 0,
       scroll: true,
       channel: null,
       limits: {},
@@ -68477,11 +68433,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   watch: {
-    currentRoom: function currentRoom(newVal, oldVal) {
+    room: function room(newVal, oldVal) {
+      var _this = this;
+
       window.Echo.leave('chatroom.' + oldVal);
 
       this.channel = window.Echo.join('chatroom.' + newVal);
       this.listenForEvents();
+
+      if (this.auth.chatroom.id !== newVal) {
+        /* Update the users chatroom in the database */
+        axios.post('/api/chat/user/' + this.auth.id + '/chatroom', {
+          'room_id': newVal
+        }).then(function (response) {
+          // reassign the auth variable to the response data
+          _this.auth = response.data;
+        });
+      }
+
+      this.fetchMessages();
+    },
+    status: function status(newVal, oldVal) {
+      var _this2 = this;
+
+      if (this.auth.chat_status.id !== newVal) {
+        /* Update the users chat status in the database */
+        axios.post('/api/chat/user/' + this.auth.id + '/status', {
+          'status_id': newVal
+        }).then(function (response) {
+          // reassign the auth variable to the response data
+          _this2.auth = response.data;
+
+          /* Add system message */
+          _this2.createMessage('[url=/' + _this2.auth.username + '.' + _this2.auth.id + ']' + _this2.auth.username + '[/url] has updated their status to [b]' + _this2.auth.chat_status.name + '[/b]');
+        });
+      }
     }
   },
   computed: {
@@ -68493,8 +68479,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return [];
     },
     room_index: function room_index() {
-      if (this.currentRoom !== 0) {
-        return this.currentRoom - 1;
+      if (this.room !== 0) {
+        return this.room - 1;
       }
 
       return 0;
@@ -68507,11 +68493,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return 0;
     },
     statusColor: function statusColor() {
-      var _this = this;
+      var _this3 = this;
 
       if (this.statuses.length > 0) {
         var i = _.findIndex(this.statuses, function (o) {
-          return o.id === _this.status;
+          return o.id === _this3.status;
         });
 
         return this.statuses[i].color;
@@ -68527,103 +68513,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     fetchRooms: function fetchRooms() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios.get('/api/chat/rooms').then(function (response) {
-        _this2.chatrooms = response.data.data;
+        _this4.chatrooms = response.data.data;
 
-        axios.get('/api/chat/rooms/' + _this2.auth.chatroom.id + '/limits').then(function (response) {
-          _this2.limits = response.data;
+        _this4.changeRoom(_this4.auth.chatroom.id);
+      });
+    },
+    fetchLimits: function fetchLimits() {
+      var _this5 = this;
 
-          _this2.changeRoom(_this2.auth.chatroom.id);
-        });
+      axios.get('/api/chat/rooms/' + this.auth.chatroom.id + '/limits').then(function (response) {
+        _this5.limits = response.data;
       });
     },
     changeRoom: function changeRoom(id) {
-      var _this3 = this;
+      this.room = id;
+    },
+    fetchMessages: function fetchMessages() {
+      var _this6 = this;
 
-      this.currentRoom = id;
-
-      if (this.auth.chatroom.id !== id) {
-        /* Update the users chatroom in the database */
-        axios.post('/api/chat/user/' + this.auth.id + '/chatroom', {
-          'room_id': id
-        }).then(function (response) {
-          // reassign the auth variable to the response data
-          _this3.auth = response.data;
-        });
-      }
+      axios.get('/api/chat/messages/' + this.room).then(function (response) {
+        _this6.chatrooms[_this6.room_index].messages = response.data.data;
+        _this6.scrollToBottom(true);
+      });
     },
     fetchStatuses: function fetchStatuses() {
-      var _this4 = this;
+      var _this7 = this;
 
       axios.get('/api/chat/statuses').then(function (response) {
-        _this4.statuses = response.data;
+        _this7.statuses = response.data;
 
-        _this4.changeStatus(_this4.auth.chat_status.id);
+        _this7.changeStatus(_this7.auth.chat_status.id);
       });
     },
     changeStatus: function changeStatus(status_id) {
-      var _this5 = this;
-
       this.status = status_id;
       this.showStatuses = false;
-
-      if (this.auth.chat_status.id !== status_id) {
-        /* Update the users chat status in the database */
-        axios.post('/api/chat/user/' + this.auth.id + '/status', {
-          'status_id': status_id
-        }).then(function (response) {
-          // reassign the auth variable to the response data
-          _this5.auth = response.data;
-
-          /* Add system message */
-          _this5.createMessage('[url=/' + _this5.auth.username + '.' + _this5.auth.id + ']' + _this5.auth.username + '[/url] has updated their status to [b]' + _this5.auth.chat_status.name + '[/b]');
-        });
-      }
     },
 
 
     /* User defaults to System user */
     createMessage: function createMessage(message) {
-      var _this6 = this;
-
       var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var user_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
-
       axios.post('/api/chat/messages', {
         'user_id': user_id,
-        'chatroom_id': this.currentRoom,
+        'chatroom_id': this.room,
         'message': message,
         'save': save
-      }).then(function (response) {
-        var count = _this6.chatrooms[_this6.room_index].messages.length;
-        if (count > _this6.limits.max_messages) {
-          _this6.chatrooms[_this6.room_index].messages.splice(0, 1);
-        }
       });
     },
     scrollToBottom: function scrollToBottom() {
-      var _this7 = this;
+      var _this8 = this;
+
+      var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
       var messages = $('.messages .list-group');
 
-      if (this.scroll) {
+      if (this.scroll || force) {
         messages.animate({ scrollTop: messages.prop('scrollHeight') }, 0);
       }
 
       messages.scroll(function () {
-        _this7.scroll = false;
+        _this8.scroll = false;
 
         var scrollTop = messages.scrollTop() + messages.prop('clientHeight');
         var scrollHeight = messages.prop('scrollHeight');
 
-        _this7.scroll = scrollTop >= scrollHeight - 50;
+        _this8.scroll = scrollTop >= scrollHeight - 30;
       });
     },
     listenForEvents: function listenForEvents() {
-      var _this8 = this;
+      var _this9 = this;
 
       this.channel.here(function (users) {
         console.log('CONNECTED TO CHAT ...');
@@ -68632,35 +68596,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).leaving(function (user) {
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
-        _this8.chatrooms[_this8.room_index].messages.push(e.message);
+        var count = _this9.chatrooms[_this9.room_index].messages.push(e.message);
+
+        if (count > _this9.limits.max_messages) {
+          _this9.chatrooms[_this9.room_index].messages.splice(0, 1);
+        }
+
+        _this9.scrollToBottom(true);
       }).listen('.edit.message', function (e) {}).listen('.delete.message', function (e) {
-        var msgs = _this8.chatrooms[_this8.room_index].messages;
+        var msgs = _this9.chatrooms[_this9.room_index].messages;
         var index = msgs.findIndex(function (msg) {
           return msg.id === e.message.id;
         });
 
-        _this8.chatrooms[_this8.room_index].messages.splice(index, 1);
+        _this9.chatrooms[_this9.room_index].messages.splice(index, 1);
       }).listenForWhisper('typing', function (e) {
-        if (_this8.activePeer === false) {
-          _this8.activePeer = e;
+        if (_this9.activePeer === false) {
+          _this9.activePeer = e;
         }
 
         setTimeout(function () {
-          _this8.activePeer = false;
+          _this9.activePeer = false;
         }, 15000);
       });
     }
   },
   created: function created() {
-    var _this9 = this;
+    var _this10 = this;
 
     this.auth = this.user;
 
     this.fetchRooms();
     this.fetchStatuses();
 
+    setTimeout(function () {
+      _this10.scrollToBottom(true);
+    }, 700);
+
     setInterval(function () {
-      _this9.scrollToBottom();
+      _this10.scrollToBottom();
     }, 100);
   }
 });
@@ -68751,7 +68725,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.chat-dropdown[data-v-eb485e78] {\n  width: 800px;\n}\n.chat-dropdown .input-group-addon[data-v-eb485e78] {\n    background-color: transparent;\n    border: none;\n}\n", ""]);
+exports.push([module.i, "\n.chat-dropdown[data-v-eb485e78] {\n  width: 100%;\n}\n.chat-dropdown .form-control[data-v-eb485e78] {\n    margin: 0;\n}\n.chat-dropdown .input-group-addon[data-v-eb485e78] {\n    background-color: transparent;\n    border: none;\n}\n", ""]);
 
 // exports
 
@@ -68762,6 +68736,17 @@ exports.push([module.i, "\n.chat-dropdown[data-v-eb485e78] {\n  width: 800px;\n}
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68808,10 +68793,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "input-group chat-dropdown" }, [
-    _c("span", { staticClass: "input-group-addon" }, [
-      _vm._v("\n        Current Chatroom:\n    ")
-    ]),
-    _vm._v(" "),
     _c(
       "select",
       {
@@ -69247,7 +69228,7 @@ exports = module.exports = __webpack_require__(11)(false);
 
 
 // module
-exports.push([module.i, "\n.info .badge-extra[data-v-35e90299] {\n  margin-bottom: .5em;\n}\n", ""]);
+exports.push([module.i, "\n.col-md-4[data-v-35e90299], .col-md-12[data-v-35e90299] {\n  padding: 0;\n}\n.info .badge-extra[data-v-35e90299] {\n  margin: 8px;\n}\n.info i.fa[data-v-35e90299] {\n  margin: 8px;\n}\n.info i.fa[data-v-35e90299]:hover {\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -69258,6 +69239,8 @@ exports.push([module.i, "\n.info .badge-extra[data-v-35e90299] {\n  margin-botto
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown__);
 //
 //
 //
@@ -69293,35 +69276,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
   props: ['user'],
-
+  components: {
+    ChatroomsDropdown: __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default.a
+  },
   data: function data() {
     return {
       editor: null,
-      input: null,
-      multiline: false
+      input: null
     };
   },
 
 
   methods: {
     keyup: function keyup(e) {
-
-      // Alt
-      if (e.which === 18) {
-        this.multiline = !this.multiline;
-      }
-
-      // Enter
-      if (e.which === 13 && !this.multiline) {
-        this.sendMessage();
-      }
+      this.$emit('typing', this.user);
     },
     keydown: function keydown(e) {
-      this.$emit('typing', this.user);
+      if (e.keyCode === 13 && !e.shiftKey) {
+        e.preventDefault();
+        this.sendMessage();
+      }
     },
     sendMessage: function sendMessage() {
 
@@ -69341,17 +69359,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   mounted: function mounted() {
-    this.editor = $('#chat-message').wysibb({
-      allButtons: {
-        img: {
-          hotkey: 'ctrl+shift+v',
-          transform: {
-            '<a href="{SRC}"><img src="{SRC}" /></a>': '[url={SRC}][img]{SRC}[/img][/url]',
-            '<a href="{SRC}"><img src="{SRC}" width="{WIDTH}" height="{HEIGHT}"/></a>': '[url={SRC}][img width={WIDTH},height={HEIGHT}]{SRC}[/img][/url]'
-          }
-        }
-      }
-    });
+    this.editor = $('#chat-message').wysibb();
 
     // Initialize emojis
     emoji.textcomplete();
@@ -69373,31 +69381,45 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "message-input" }, [
     _c("div", { staticClass: "wrap" }, [
-      _c("div", { staticClass: "info" }, [
-        _c("span", { staticClass: "badge-extra" }, [
-          _vm._v("\n                Tap "),
-          _c("strong", [_vm._v("ALT")]),
-          _vm._v(" to toggle multi-line ("),
-          _c("strong", [_vm._v(_vm._s(_vm.multiline ? "On" : "Off"))]),
-          _vm._v(")\n            ")
-        ]),
-        _vm._v(" "),
+      _c("div", { staticClass: "row info" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("span", { staticClass: "badge-extra" }, [
-          _vm._v("\n                BBcode Allowed\n            ")
-        ])
+        _c("div", { staticClass: "col-md-3" }, [
+          _c(
+            "div",
+            { staticClass: "pull-right" },
+            _vm._l(_vm.$parent.statuses, function(status) {
+              return _c("i", {
+                class: status.icon ? status.icon : "fa fa-dot-circle-o",
+                style: "color: " + status.color,
+                on: {
+                  click: function($event) {
+                    _vm.$emit("changedStatus", status.id)
+                  }
+                }
+              })
+            })
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-3" },
+          [
+            _c("chatrooms-dropdown", {
+              staticClass: "pull-right",
+              attrs: {
+                current: _vm.user.chatroom.id,
+                chatrooms: _vm.$parent.chatrooms
+              },
+              on: { changedRoom: _vm.$parent.changeRoom }
+            })
+          ],
+          1
+        )
       ]),
       _vm._v(" "),
-      _c("textarea", {
-        attrs: {
-          id: "chat-message",
-          name: "message",
-          placeholder: "Write your message...",
-          cols: "30",
-          rows: "5"
-        }
-      })
+      _vm._m(1)
     ])
   ])
 }
@@ -69406,10 +69428,39 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "badge-extra" }, [
-      _vm._v("\n                Type "),
-      _c("strong", [_vm._v(":")]),
-      _vm._v(" for emoji\n            ")
+    return _c("div", { staticClass: "col-md-6" }, [
+      _c("span", { staticClass: "badge-extra" }, [
+        _c("strong", [_vm._v("SHIFT + ENTER")]),
+        _vm._v(" to insert new line\n                ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "badge-extra" }, [
+        _vm._v("\n                    Type "),
+        _c("strong", [_vm._v(":")]),
+        _vm._v(" for emoji\n                ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "badge-extra" }, [
+        _vm._v("\n                    BBcode Allowed\n                ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("textarea", {
+          attrs: {
+            id: "chat-message",
+            name: "message",
+            placeholder: "Write your message...",
+            cols: "30",
+            rows: "5"
+          }
+        })
+      ])
     ])
   }
 ]
@@ -69441,86 +69492,10 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
           _c("div", { attrs: { id: "frame" } }, [
-            _c("div", { attrs: { id: "sidepanel" } }, [
-              _c("div", { attrs: { id: "profile" } }, [
-                _c(
-                  "div",
-                  { staticClass: "wrap" },
-                  [
-                    _c("img", {
-                      style: "border: 2px solid " + _vm.statusColor + ";",
-                      attrs: {
-                        src: _vm.auth.image
-                          ? "/files/img/" + _vm.auth.image
-                          : "/img/profile.png",
-                        alt: ""
-                      },
-                      on: {
-                        click: function($event) {
-                          _vm.showStatuses = !_vm.showStatuses
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("transition", { attrs: { name: "slide-fade" } }, [
-                      _vm.showStatuses
-                        ? _c("div", { staticClass: "statuses" }, [
-                            _c(
-                              "ul",
-                              { staticClass: "list-unstyled" },
-                              _vm._l(_vm.statuses, function(status) {
-                                return _c(
-                                  "li",
-                                  {
-                                    staticClass: "text-center",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.changeStatus(status.id)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      class: status.icon
-                                        ? status.icon
-                                        : "fa fa-dot-circle-o",
-                                      style: "color: " + status.color
-                                    })
-                                  ]
-                                )
-                              })
-                            )
-                          ])
-                        : _vm._e()
-                    ])
-                  ],
-                  1
-                )
-              ])
-            ]),
-            _vm._v(" "),
             _c(
               "div",
               { staticClass: "content" },
-              [
-                _c(
-                  "div",
-                  { staticClass: "contact-profile" },
-                  [
-                    _c("chatrooms-dropdown", {
-                      staticClass: "pull-left",
-                      attrs: {
-                        current: _vm.auth.chatroom.id,
-                        chatrooms: _vm.chatrooms
-                      },
-                      on: { changedRoom: _vm.changeRoom }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("chat-messages", { attrs: { messages: _vm.messages } })
-              ],
+              [_c("chat-messages", { attrs: { messages: _vm.messages } })],
               1
             )
           ])
@@ -69541,6 +69516,7 @@ var render = function() {
             _c("chat-form", {
               attrs: { user: _vm.auth },
               on: {
+                changedStatus: _vm.changeStatus,
                 "message-sent": function(o) {
                   return _vm.createMessage(o.message, o.save, o.user_id)
                 },

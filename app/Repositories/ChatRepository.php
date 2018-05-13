@@ -70,7 +70,10 @@ class ChatRepository
     }
 
     public function messages($room_id) {
-        return $this->message->where('chatroom_id', $room_id)->get();
+        return $this->message->with(['user.group', 'user.chatStatus'])
+            ->where('chatroom_id', $room_id)
+            ->limit(config('chat.message_limit'))
+            ->get();
     }
 
     public function checkMessageLimits($room_id)

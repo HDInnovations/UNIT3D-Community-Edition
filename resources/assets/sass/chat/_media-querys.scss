@@ -159,18 +159,18 @@
   }
 }
 
-@media screen and (max-width: 2560px) {
-  #frame .content {
-    width: calc(100% - 58px);
-    min-width: 300px !important;
-  }
-}
+//@media screen and (max-width: 2560px) {
+//  #frame .content {
+//    width: calc(100% - 58px);
+//    min-width: 300px !important;
+//  }
+//}
 
-@media screen and (min-width: 2560px) {
-  #frame .content {
-    width: calc(100% - 340px);
-  }
-}
+//@media screen and (min-width: 2560px) {
+//  #frame .content {
+//    width: calc(100% - 340px);
+//  }
+//}
 
 @media screen and (max-width: 2560px) {
   #frame .content .messages {

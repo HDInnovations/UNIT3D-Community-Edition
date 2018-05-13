@@ -1,8 +1,5 @@
 <template>
     <div class="input-group chat-dropdown">
-        <span class="input-group-addon">
-            Current Chatroom:
-        </span>
         <select id='currentChatroom'
                 v-model="selected"
                 class="form-control"
@@ -12,7 +9,21 @@
         </select>
     </div>
 </template>
+<style lang="scss" scoped>
+    .chat-dropdown {
 
+        width: 100%;
+
+        .form-control {
+            margin: 0;
+        }
+
+        .input-group-addon {
+            background-color: transparent;
+            border: none;
+        }
+    }
+</style>
 <script>
   export default {
     props: {
@@ -34,15 +45,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-    .chat-dropdown {
-
-        width: 800px;
-
-        .input-group-addon {
-            background-color: transparent;
-            border: none;
-        }
-    }
-</style>

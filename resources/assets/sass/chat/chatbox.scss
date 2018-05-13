@@ -1,7 +1,7 @@
 #frame {
   height: 92vh;
   min-height: 300px;
-  max-height: 523px;
+  max-height: 550px;
   background: #E6EAEA;
   #sidepanel {
     float: left;
@@ -344,8 +344,9 @@
   }
   .content {
     float: right;
-    width: 60%;
+    width: 100%;
     height: 100%;
+    padding: 15px 0 15px 0;
     overflow: hidden;
     position: relative;
     .contact-profile {
@@ -389,7 +390,7 @@
       }
       ul {
         margin-left: 10px;
-        max-height: 460px;
+        max-height: 535px;
         overflow-y: auto;
 
         li {
