@@ -4087,7 +4087,6 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
   background-color: #efefef;
   border-radius: 15px;
   border: 1px solid #ddd;
-  border-radius: 0;
   box-shadow: 0 5px 5px rgba(93, 93, 93, 0.83);;
 }
 
@@ -4098,12 +4097,12 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 
 .well-lg {
   padding: 24px;
-  border-radius: 0
+  border-radius: 15px;
 }
 
 .well-sm {
   padding: 9px;
-  border-radius: 0
+  border-radius: 15px;
 }
 
 .close {
