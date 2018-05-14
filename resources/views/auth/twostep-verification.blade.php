@@ -9,7 +9,7 @@
 @endsection
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ url('css/main/twostep.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}">
 @endsection
 
 @section('breadcrumb')
