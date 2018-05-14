@@ -120,7 +120,7 @@ class gitUpdate extends Command
 
         $commands = [
             'npm install',
-            'npm run dev',
+            'npm run prod',
             'git add .' // we stage the compiled files
         ];
 
