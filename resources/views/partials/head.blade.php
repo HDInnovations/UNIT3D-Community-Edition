@@ -18,14 +18,14 @@
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-<link rel="stylesheet" href="{{ url('css/app.css') }}"/>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
 
 @if(auth()->user()->style == 1)
-    <link rel="stylesheet" href="{{ url('css/themes/dark.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark.css') }}">
 @elseif(auth()->user()->style == 2)
-    <link rel="stylesheet" href="{{ url('css/themes/blur.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/blur.css') }}">
 @elseif(auth()->user()->style == 3)
-    <link rel="stylesheet" href="{{ url('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
 @endif
 
 @if(isset(auth()->user()->custom_css))
