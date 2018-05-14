@@ -128,7 +128,7 @@
         room: 0,
         scroll: true,
         channel: null,
-        limits: {},
+        config: {},
         activePeer: false,
 
         /* Developer Settings */
@@ -180,13 +180,13 @@
         axios.get('/api/chat/rooms').then(response => {
           this.chatrooms = response.data.data
 
-          this.fetchLimits()
+          this.fetchConfiguration()
         })
       },
 
-      fetchLimits () {
-        axios.get(`/api/chat/rooms/${this.auth.chatroom.id}/limits`).then(response => {
-          this.limits = response.data
+      fetchConfiguration () {
+        axios.get(`/api/chat/config`).then(response => {
+          this.config = response.data
         })
       },
 
@@ -291,7 +291,7 @@
           .listen('.new.message', e => {
             let count = this.messages.push(e.message)
 
-            if (count > this.limits.max_messages) {
+            if (count > this.config.message_limit) {
               this.messages.splice(0, 1)
             }
 

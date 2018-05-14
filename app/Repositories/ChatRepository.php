@@ -35,6 +35,11 @@ class ChatRepository
         $this->status = $status;
     }
 
+    public function config()
+    {
+        return config('chat');
+    }
+
     public function rooms()
     {
         return $this->room->all();

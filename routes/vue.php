@@ -20,12 +20,13 @@ Route::namespace('API')->group(function () {
 
     Route::prefix('chat')->group(function () {
 
+        Route::get('/config', 'ChatController@config');
+
         /* Statuses */
         Route::get('/statuses', 'ChatController@statuses');
 
         /* Rooms */
         Route::get('/rooms', 'ChatController@rooms');
-        Route::get('/rooms/{room_id}/limits', 'ChatController@roomLimits');
 
         /* Messages */
         Route::post('/messages', 'ChatController@createMessage');
