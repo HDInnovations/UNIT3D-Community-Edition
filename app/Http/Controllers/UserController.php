@@ -103,13 +103,29 @@ class UserController extends Controller
     {
         $user = auth()->user();
         // Avatar
+        $max_upload = config('image.max_upload_size');
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif', 'GIF']) && preg_match('#image/*#', $image->getMimeType())) {
-                $filename = $user->username . '.' . $image->getClientOriginalExtension();
-                $path = public_path('/files/img/' . $filename);
-                Image::make($image->getRealPath())->fit(150, 150)->save($path);
-                $user->image = $user->username . '.' . $image->getClientOriginalExtension();
+            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
+                if ($max_upload >= $image->getSize()) {
+                    $filename = $user->username . '.' . $image->getClientOriginalExtension();
+                    $path = public_path('/files/img/' . $filename);
+                    if ($image->getClientOriginalExtension() != 'gif') {
+                        Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
+                    } else {
+                        $v = validator($request->all(), [
+                            'image' => 'dimensions:ratio=1/1'
+                        ]);
+                        if ($v->passes()) {
+                            $image->move(public_path('/files/img/'), $filename);
+                        } else {
+                            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Because you are uploading a GIF, your avatar must be symmetrical!', 'Whoops!', ['options']));
+                        }
+                    }
+                    $user->image = $user->username . '.' . $image->getClientOriginalExtension();
+                } else {
+                    return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::error('Your avatar is too large, max file size: ' . ($max_upload / 1000000) . ' MB', 'Whoops!', ['options']));
+                }
             }
         }
         // Define data
