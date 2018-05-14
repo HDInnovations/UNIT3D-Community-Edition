@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Process\Exception\RuntimeException;
 use Symfony\Component\Process\Process;
 
 class gitUpdate extends Command
@@ -54,7 +55,7 @@ class gitUpdate extends Command
      */
     public function handle()
     {
-        $this->alert('Git Updater v1.7 Beta by Poppabear');
+        $this->alert('Git Updater v1.8 Beta by Poppabear');
         $this->warn('Press CTRL + C to abort');
 
         sleep(5);
@@ -68,15 +69,17 @@ class gitUpdate extends Command
 
         $this->runGitCommands();
 
-        $this->runNewMigrations();
+        $this->runComposerCommands();
 
-        $this->clearCache();
+        $this->runNewMigrations();
 
         if (!$no_compile) {
             $this->compileAssets();
         } else {
             $this->warn('!!! Skipping Asset Compiling !!!');
         }
+
+        $this->clearCache();
 
         $this->info('Done ... Please report any errors or issues.');
 
@@ -98,38 +101,35 @@ class gitUpdate extends Command
         }
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
+    private function runComposerCommands(): void
     {
-        return [
+        $this->comment('Installing Composer packages ...');
+        $this->alert('THIS CAN TAKE A FEW MINUTES');
 
+        $commands = [
+            'composer install',
         ];
+
+        $this->processCommands($commands);
     }
 
     private function compileAssets(): void
     {
         $this->comment('Compiling JS and Style assets ...');
-        $process = new Process('npm run dev');
-        $process->setTimeout(150);
+        $this->alert('THIS CAN TAKE A FEW MINUTES');
 
-        $process->start();
+        $commands = [
+            'npm install',
+            'npm run dev',
+            'git add .' // we stage the compiled files
+        ];
 
-        $process->wait();
-
-        $this->info($process->getOutput());
+        $this->processCommands($commands);
     }
 
     private function clearCache(): void
     {
-        $this->comment('Clearing several common cache\'s ...');
-        $this->call('view:cache');
-        $this->call('route:cache');
-        $this->call('config:clear');
-        $this->call('cache:clear');
+        $this->call('clear:all');
     }
 
     private function runNewMigrations(): void
@@ -140,7 +140,6 @@ class gitUpdate extends Command
 
     private function runGitCommands(): void
     {
-
         $file = $this->argument('file');
 
         if ($file !== null) {
@@ -155,25 +154,53 @@ class gitUpdate extends Command
         } else {
             $this->info('Updating ...');
             $commands = [
-                'git reset --mixed',
-                'git stash',
                 'git fetch origin',
+                'git checkout -- public/js',
+                'git checkout -- public/css',
+                'git checkout -- app/Console/Commands/gitUpdate.php',
+                'git checkout -- package.json',
+                'git checkout -- package-lock.json',
+                'git checkout -- composer.json',
+                'git checkout -- composer.lock',
+                'git add .',
+                'git stash',
                 'git rebase origin/master',
-                'git stash pop'
+                'git stash pop',
             ];
         }
 
         $this->warn('*** This process could take a few minutes ***');
 
+        $this->processCommands($commands);
+    }
+
+    private function processCommands(array $commands)
+    {
         foreach ($commands as $command) {
             $process = new Process($command);
             $process->setTimeout(150);
 
             $process->start();
 
-            $process->wait();
+            try {
+                $process->wait();
+            } catch (RuntimeException $e) {
+                $this->error("'{$command}' timed out. Please run manually!");
+            }
 
             $this->info($process->getOutput());
         }
+    }
+
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [
+
+        ];
     }
 }
