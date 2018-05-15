@@ -17,11 +17,23 @@
 
                     <span class="badge-user text-bold">
 
-                        <i :class="message.user.group.icon"></i>
+                        <i v-tooltip="message.user.group.name"
+                           :class="message.user.group.icon">
 
-                        <a data-toggle="tooltip" :style="userStyles(message.user)">
+                        </i>
+
+                        <a v-tooltip="`Private Message`"
+                           @click="pmUser(message.user)"
+                           :style="userStyles(message.user)">
 					        {{ message.user.username }}
                         </a>
+
+                        <i v-if="canMod(message)"
+                           v-tooltip="`Edit Message`"
+                           @click="editMessage(message)"
+                           class="fa fa-edit text-blue">
+
+                        </i>
 
                         <i v-if="canMod(message)"
                            v-tooltip="`Delete Message`"
@@ -43,7 +55,6 @@
 
                 </div>
 
-
             </li>
         </ul>
     </div>
@@ -52,8 +63,12 @@
     .messages {
         h4 {
             i {
-                &.fa-times {
-                    margin-left: 10px;
+                &.fa {
+                    &:first-child {
+                        margin: 0;
+                    }
+
+                    margin-left: 5px;
 
                     &:hover {
                         cursor: pointer;
@@ -69,6 +84,11 @@
   export default {
     props: {
       messages: {required: true},
+    },
+    data () {
+      return {
+        editor: null
+      }
     },
     methods: {
       canMod (message) {
@@ -93,6 +113,92 @@
           this.$parent.auth.group.is_modo &&
           !message.user.group.is_modo
         )
+      },
+      pmUser (user) {
+        swal({
+          title: `Send Private Message to ${user.username}`,
+          input: 'textarea',
+          width: '900px',
+          height: '400px',
+          inputAttributes: {
+            autocapitalize: 'off'
+          },
+
+          showCancelButton: true,
+          confirmButtonText: 'Send',
+          showLoaderOnConfirm: true,
+
+          onOpen: () => {
+            const elist = emoji.emojiStrategy
+
+            this.editor = $('.swal2-textarea').wysibb({
+              buttons: 'bold,italic,underline,|,img,link',
+              smileList: [
+                {
+                  title: elist['2753'].name,
+                  img: '<img src="/vendor/emojione/png/2753.png" class="sm">',
+                  bbcode: elist['2753']['shortname']
+                },
+              ]
+            })
+
+            emoji.textcomplete('.swal2-textarea')
+          },
+
+          onClose: () => {
+            this.editor = null
+          },
+
+          preConfirm: (msg) => {
+
+            // axios.post(`/api/chat/messages/private/${user.id}`, {
+            //   message: msg
+            // }).then(response => {
+            //
+            //   return {
+            //     sender: this.$parent.auth,
+            //     receiver: user,
+            //     message: msg
+            //   }
+            //
+            // }).catch(error => {
+            //
+            //   swal.showValidationError(
+            //     `Request failed: ${error}`
+            //   )
+            //
+            // })
+
+            return {
+              sender: this.$parent.auth,
+              receiver: user,
+              message: this.editor.bbcode().trim()
+            }
+
+          },
+
+          allowOutsideClick: false
+
+        }).then(result => {
+          console.log(result)
+
+          if (result.value) {
+            swal({
+              title: `Sent Private Message to ${result.value.username}`,
+              timer: 1500,
+              onOpen: () => {
+                swal.showLoading()
+              }
+            }).then((result) => {
+              if (result.dismiss === swal.DismissReason.timer) {
+
+              }
+            })
+          }
+        })
+      },
+      editMessage (message) {
+
       },
       deleteMessage (id) {
         axios.get(`/api/chat/message/${id}/delete`)

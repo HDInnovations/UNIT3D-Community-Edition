@@ -49,7 +49,9 @@
                         @changedStatus="changeStatus"
                         @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
                         @typing="isTyping"
-                        :user="auth"></chat-form>
+                        :user="auth">
+
+                </chat-form>
             </div>
         </div>
     </div>
