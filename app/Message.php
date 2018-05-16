@@ -39,7 +39,17 @@ class Message extends Model
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * A message belongs to a receiver
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 
     /**
@@ -49,7 +59,7 @@ class Message extends Model
      */
     public function chatroom()
     {
-        return $this->belongsTo(\App\Chatroom::class);
+        return $this->belongsTo(Chatroom::class);
     }
 
     /**

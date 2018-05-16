@@ -36,7 +36,12 @@
                             <h4 v-else class='text-green'>Connected with {{users.length}} users</h4>
                         </div>
 
-                        <chat-messages v-if="!state.connecting" :messages="messages"></chat-messages>
+                        <chat-messages v-if="!state.connecting"
+                                       @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
+                                       :messages="messages">
+
+                        </chat-messages>
+
                     </div>
                 </div>
             </div>
@@ -248,9 +253,10 @@
       },
 
       /* User defaults to System user */
-      createMessage (message, save = true, user_id = 1) {
+      createMessage (message, save = true, user_id = 1, receiver_id = null) {
         axios.post('/api/chat/messages', {
           'user_id': user_id,
+          'receiver_id': receiver_id,
           'chatroom_id': this.room,
           'message': message,
           'save': save,

@@ -50,12 +50,13 @@ class ChatRepository
         return $this->room->findOrFail($id);
     }
 
-    public function message($user_id, $room_id, $message)
+    public function message($user_id, $room_id, $message, $receiver = null)
     {
         $message = $this->message->create([
             'user_id' => $user_id,
             'chatroom_id' => $room_id,
-            'message' => $message
+            'message' => $message,
+            'receiver_id' => $receiver
         ]);
 
         $this->checkMessageLimits($room_id);

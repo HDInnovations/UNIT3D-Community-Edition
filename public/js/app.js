@@ -2111,8 +2111,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       swal({
         title: 'Send Private Message to ' + user.username,
         input: 'textarea',
-        width: '900px',
-        height: '400px',
+        width: '800px',
+        height: '600px',
         inputAttributes: {
           autocapitalize: 'off'
         },
@@ -2122,18 +2122,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showLoaderOnConfirm: true,
 
         onOpen: function onOpen() {
-          var elist = emoji.emojiStrategy;
-
-          _this.editor = $('.swal2-textarea').wysibb({
-            buttons: 'bold,italic,underline,|,img,link',
-            smileList: [{
-              title: elist['2753'].name,
-              img: '<img src="/vendor/emojione/png/2753.png" class="sm">',
-              bbcode: elist['2753']['shortname']
-            }]
-          });
-
-          emoji.textcomplete('.swal2-textarea');
+          _this.editor = $('.swal2-textarea').wysibb({});
         },
 
         onClose: function onClose() {
@@ -2142,29 +2131,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         preConfirm: function preConfirm(msg) {
 
-          // axios.post(`/api/chat/messages/private/${user.id}`, {
-          //   message: msg
-          // }).then(response => {
-          //
-          //   return {
-          //     sender: this.$parent.auth,
-          //     receiver: user,
-          //     message: msg
-          //   }
-          //
-          // }).catch(error => {
-          //
-          //   swal.showValidationError(
-          //     `Request failed: ${error}`
-          //   )
-          //
-          // })
+          msg = _this.editor.bbcode().trim();
 
-          return {
-            sender: _this.$parent.auth,
-            receiver: user,
-            message: _this.editor.bbcode().trim()
-          };
+          if (msg !== null && msg !== '') {
+
+            _this.$emit('message-sent', {
+              message: msg,
+              save: true,
+              user_id: _this.$parent.auth.id,
+              receiver_id: user.id
+            });
+
+            $('.wysibb-body').html('');
+          }
+
+          return user;
         },
 
         allowOutsideClick: false
@@ -2223,6 +2204,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ChatMessages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm__ = __webpack_require__("./resources/assets/js/components/chat/ChatForm.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ChatForm__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2483,9 +2469,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     createMessage: function createMessage(message) {
       var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
       var user_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var receiver_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
 
       axios.post('/api/chat/messages', {
         'user_id': user_id,
+        'receiver_id': receiver_id,
         'chatroom_id': this.room,
         'message': message,
         'save': save
@@ -78073,7 +78061,19 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 !_vm.state.connecting
-                  ? _c("chat-messages", { attrs: { messages: _vm.messages } })
+                  ? _c("chat-messages", {
+                      attrs: { messages: _vm.messages },
+                      on: {
+                        "message-sent": function(o) {
+                          return _vm.createMessage(
+                            o.message,
+                            o.save,
+                            o.user_id,
+                            o.receiver_id
+                          )
+                        }
+                      }
+                    })
                   : _vm._e()
               ],
               1

@@ -118,8 +118,8 @@
         swal({
           title: `Send Private Message to ${user.username}`,
           input: 'textarea',
-          width: '900px',
-          height: '400px',
+          width: '800px',
+          height: '600px',
           inputAttributes: {
             autocapitalize: 'off'
           },
@@ -129,20 +129,7 @@
           showLoaderOnConfirm: true,
 
           onOpen: () => {
-            const elist = emoji.emojiStrategy
-
-            this.editor = $('.swal2-textarea').wysibb({
-              buttons: 'bold,italic,underline,|,img,link',
-              smileList: [
-                {
-                  title: elist['2753'].name,
-                  img: '<img src="/vendor/emojione/png/2753.png" class="sm">',
-                  bbcode: elist['2753']['shortname']
-                },
-              ]
-            })
-
-            emoji.textcomplete('.swal2-textarea')
+            this.editor = $('.swal2-textarea').wysibb({})
           },
 
           onClose: () => {
@@ -151,29 +138,21 @@
 
           preConfirm: (msg) => {
 
-            // axios.post(`/api/chat/messages/private/${user.id}`, {
-            //   message: msg
-            // }).then(response => {
-            //
-            //   return {
-            //     sender: this.$parent.auth,
-            //     receiver: user,
-            //     message: msg
-            //   }
-            //
-            // }).catch(error => {
-            //
-            //   swal.showValidationError(
-            //     `Request failed: ${error}`
-            //   )
-            //
-            // })
+            msg = this.editor.bbcode().trim()
 
-            return {
-              sender: this.$parent.auth,
-              receiver: user,
-              message: this.editor.bbcode().trim()
+            if (msg !== null && msg !== '') {
+
+              this.$emit('message-sent', {
+                message: msg,
+                save: true,
+                user_id: this.$parent.auth.id,
+                receiver_id: user.id
+              })
+
+              $('.wysibb-body').html('')
             }
+
+            return user
 
           },
 
