@@ -771,16 +771,33 @@ div.topic-new-post {
 
 #frame .content .messages ul li {
   border-bottom: 1px dashed #424545;
-}
 
-#frame .content .messages ul li.sent .messages-container {
-  background: none;
-  color: #dddddd;
+  &.sent {
+    background: none;
+    color: #dddddd;
+
+    &.pm {
+      border-top: 1px #0aadad dashed !important;
+      border-bottom: 1px #0aadad dashed !important;
+      background-color: #454554 !important;
+    }
+
+  }
 }
 
 .chatbox {
   .typing {
     color: #DDDDDD;
+  }
+}
+
+#frame {
+  ul.nav.nav-tabs {
+    justify-content: left;
+
+    .fa-beat.text-danger {
+      color: #f0f0f0;
+    }
   }
 }
 

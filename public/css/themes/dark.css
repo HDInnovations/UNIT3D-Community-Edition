@@ -897,9 +897,16 @@ a.view-torrent:hover {
   border-bottom: 1px dashed #424545;
 }
 
-#frame .content .messages ul li.sent .messages-container {
+#frame .content .messages ul li.sent {
   background: none;
   color: #dddddd;
+}
+
+#frame .content .messages ul li.sent.pm {
+  border-top: 1px #4fbd62 dashed !important;
+  border-bottom: 1px #4fbd62 dashed !important;
+  background-color: #def7e2 !important;
+  color: #262929;
 }
 
 .chatbox .typing {

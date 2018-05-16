@@ -31,13 +31,31 @@
 
                 <div id="frame">
                     <div class="content">
-                        <div class="text-center">
-                            <h4 v-if="state.connecting" class='text-red'>Connecting ...</h4>
-                            <h4 v-else class='text-green'>Connected with {{users.length}} users</h4>
-                        </div>
+                        <!--<div class="text-center">-->
+                        <!--<h4 v-if="state.connecting" class='text-red'>Connecting ...</h4>-->
+                        <!--<h4 v-else class='text-green'>Connected with {{users.length}} users</h4>-->
+                        <!--</div>-->
+                        <ul role="tablist" class="nav nav-tabs mb-5">
+                            <li class="active">
+                                <a href="" role="tab">
+                                    <i class="fa fa-comments text-blue"></i> Chatbox
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" role="tab">
+                                    <i class="fa fa-users text-success"></i> Active Users ({{users.length}})
+                                </a>
+                            </li>
+                            <li v-for="pm in pms">
+                                <a href="" role="tab">
+                                    <i class="fa fa-comment fa-beat text-danger"></i> {{ pm.user.username }}
+                                    <i class="fa fa-times text-red"></i>
+                                </a>
+                            </li>
+                        </ul>
 
                         <chat-messages v-if="!state.connecting"
-                                       @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
+                                       @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
                                        :messages="messages">
 
                         </chat-messages>
@@ -88,19 +106,6 @@
             max-height: 300px;
             max-width: 500px;
         }
-
-        .slide-fade-enter-active {
-            transition: all .3s ease;
-        }
-
-        .slide-fade-leave-active {
-            transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-        }
-
-        .slide-fade-enter, .slide-fade-leave-to {
-            transform: translateY(10px);
-            opacity: 0;
-        }
     }
 </style>
 <script>
@@ -123,6 +128,7 @@
     data () {
       return {
         state: {
+          tab: 0,
           connecting: true
         },
         auth: {},
@@ -132,6 +138,7 @@
         chatrooms: [],
         messages: [],
         users: [],
+        pms: [],
         room: 0,
         scroll: true,
         channel: null,
@@ -157,6 +164,7 @@
       },
     },
     computed: {
+
       last_id () {
         if (this.messages > 0) {
           return this.messages[m.length - 1].id
@@ -217,7 +225,15 @@
 
       fetchMessages () {
         axios.get(`/api/chat/messages/${this.room}`).then(response => {
-          this.messages = _.reverse(response.data.data)
+
+          this.messages = _.reverse(_.filter(response.data.data, (o) => {
+            return !o.receiver
+          }))
+
+          this.pms = _.reverse(_.filter(response.data.data, (o) => {
+            return o.receiver.id === this.auth.id
+          }))
+
           this.scrollToBottom(true)
 
           this.state.connecting = false
@@ -254,12 +270,25 @@
 
       /* User defaults to System user */
       createMessage (message, save = true, user_id = 1, receiver_id = null) {
+        console.log(message, user_id, receiver_id)
+
         axios.post('/api/chat/messages', {
           'user_id': user_id,
           'receiver_id': receiver_id,
           'chatroom_id': this.room,
           'message': message,
           'save': save,
+        }).then(response => {
+          this.scrollToBottom(true)
+
+          if (this.messages.length > this.config.message_limit) {
+            _.each(this.messages, (m, i) => {
+              if (!m.receiver) {
+                this.messages.splice(i, 1)
+                return false
+              }
+            })
+          }
         })
       },
 
@@ -297,13 +326,13 @@
             // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            let count = this.messages.push(e.message)
-
-            if (count > this.config.message_limit) {
-              this.messages.splice(0, 1)
+            if (e.message.receiver) {
+              if (e.message.receiver.id === this.auth.id) {
+                this.pms.push(e.message)
+              }
+            } else {
+              this.messages.push(e.message)
             }
-
-            this.scrollToBottom(true)
           })
           .listen('.edit.message', e => {
 

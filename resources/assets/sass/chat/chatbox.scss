@@ -404,6 +404,16 @@
 
           &.sent {
 
+            &.pm {
+              border-top: 1px #383e42 dashed !important;
+              border-bottom: 1px #383e42 dashed !important;
+              background-color: #ffffff !important;
+
+              .pm-container {
+                margin-left: 20px;
+              }
+            }
+
             h4 {
               margin: .25em;
 

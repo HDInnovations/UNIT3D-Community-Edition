@@ -77,8 +77,12 @@ class ChatRepository
 
     public function messages($room_id)
     {
-        return $this->message->with(['user.group', 'user.chatStatus'])
-            ->where('chatroom_id', $room_id)
+        return $this->message->with([
+            'user.group',
+            'user.chatStatus',
+            'receiver.group',
+            'receiver.chatStatus'
+        ])->where('chatroom_id', $room_id)
             ->latest()
             ->limit(config('chat.message_limit'))
             ->get();
@@ -96,7 +100,11 @@ class ChatRepository
                 $message = array_pop($messages);
                 echo $message['id'] . "\n";
 
-                $this->message->find($message['id'])->delete();
+                $message = $this->message->find($message['id']);
+
+                if ($message->receiver_id === null) {
+                    $message->delete();
+                }
             }
         }
     }

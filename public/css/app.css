@@ -36746,6 +36746,16 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   margin-bottom: 20px;
 }
 
+#frame .content .messages ul li.sent.pm {
+  border-top: 1px #383e42 dashed !important;
+  border-bottom: 1px #383e42 dashed !important;
+  background-color: #ffffff !important;
+}
+
+#frame .content .messages ul li.sent.pm .pm-container {
+  margin-left: 20px;
+}
+
 #frame .content .messages ul li.sent h4 {
   margin: .25em;
 }

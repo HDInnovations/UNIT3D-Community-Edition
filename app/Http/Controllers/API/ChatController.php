@@ -47,12 +47,14 @@ class ChatController extends Controller
 
     public function createMessage(Request $request)
     {
+
         $user_id = $request->get('user_id');
+        $receiver_id = $request->get('receiver_id');
         $room_id = $request->get('chatroom_id');
         $message = $request->get('message');
         $save = $request->get('save');
 
-        $message = $this->chat->message($user_id, $room_id, $message);
+        $message = $this->chat->message($user_id, $room_id, $message, $receiver_id);
 
         if (!$save) {
             $message->delete();

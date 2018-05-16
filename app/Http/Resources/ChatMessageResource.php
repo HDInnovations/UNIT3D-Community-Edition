@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Helpers\Bbcode;
+use App\User;
 use ChristofferOK\LaravelEmojiOne\LaravelEmojiOne;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class ChatMessageResource extends JsonResource
         return [
             'id' => $this->id,
             'user' => new UserResource($this->whenLoaded('user')),
-            'receiver' => $this->receiver_id ? new UserResource($this->receiver_id) : null,
+            'receiver' => new UserResource($this->whenLoaded('receiver')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
             'message' => $emojiOne->toImage(Bbcode::parse("[left]﻿{$this->message}[/left]")),
             'created_at' => $this->created_at->toIso8601String(),

@@ -1,13 +1,14 @@
 <template>
     <div class="messages">
         <ul class="list-group">
-            <li class="sent" v-for="message in messages">
+            <li v-if="canView(message)"
+                :class="['sent', message.receiver ? 'pm' : null]"
+                v-for="message in messages">
 
-                <a target="_blank"
+                <a v-if="!message.receiver && message.user.id !== 1" target="_blank"
                    v-tooltip="`${message.user.username}'s profile`"
                    :href="`/${message.user.username}.${message.user.id}`">
-                    <img v-if="message.user.id !== 1"
-                         class="chat-user-image"
+                    <img class="chat-user-image"
                          :style="`border: 3px solid ${message.user.chat_status.color};`"
                          :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
                          alt=""/>
@@ -22,18 +23,18 @@
 
                         </i>
 
-                        <a v-tooltip="`Private Message`"
+                        <a v-tooltip="!message.receiver !== message.user.id ? `Private Message` : message.user.name"
                            @click="pmUser(message.user)"
                            :style="userStyles(message.user)">
 					        {{ message.user.username }}
                         </a>
 
-                        <i v-if="canMod(message)"
-                           v-tooltip="`Edit Message`"
-                           @click="editMessage(message)"
-                           class="fa fa-edit text-blue">
+                        <!--<i v-if="canMod(message)"-->
+                        <!--v-tooltip="`Edit Message`"-->
+                        <!--@click="editMessage(message)"-->
+                        <!--class="fa fa-edit text-blue">-->
 
-                        </i>
+                        <!--</i>-->
 
                         <i v-if="canMod(message)"
                            v-tooltip="`Delete Message`"
@@ -50,7 +51,7 @@
 
                 </h4>
 
-                <div :class="['messages-container', message.user.id === 1 ? 'system' : null]"
+                <div :class="[message.receiver ? 'pm-container' : null, message.user.id === 1 ? 'system' : null]"
                      v-html="message.message">
 
                 </div>
@@ -61,6 +62,7 @@
 </template>
 <style lang="scss" scoped>
     .messages {
+
         h4 {
             i {
                 &.fa {
@@ -91,6 +93,24 @@
       }
     },
     methods: {
+      canView (message) {
+        /*
+            Determine if the user can view this message
+            If the message has no receiver it is a public message and all can see.
+            Otherwise, only the sender and receiver can see the message
+
+            This is only the first stage for Private Messaging
+        */
+
+        if (message.receiver === null) {
+          return true
+        }
+
+        return (
+          message.user.id === this.$parent.auth.id ||
+          message.receiver.id === this.$parent.auth.id
+        )
+      },
       canMod (message) {
         /*
             A user can Mod his own messages
@@ -115,6 +135,10 @@
         )
       },
       pmUser (user) {
+        if (user.id === this.$parent.auth.id) {
+          return false
+        }
+
         swal({
           title: `Send Private Message to ${user.username}`,
           input: 'textarea',
@@ -142,7 +166,7 @@
 
             if (msg !== null && msg !== '') {
 
-              this.$emit('message-sent', {
+              this.$emit('pm-sent', {
                 message: msg,
                 save: true,
                 user_id: this.$parent.auth.id,

@@ -807,11 +807,19 @@ a.view-torrent:hover {
 
 #frame .content .messages ul li {
   border-bottom: 1px dashed #424545;
-}
 
-#frame .content .messages ul li.sent .messages-container {
-  background: none;
-  color: #dddddd;
+  &.sent {
+    background: none;
+    color: #dddddd;
+
+    &.pm {
+      border-top: 1px #4fbd62 dashed !important;
+      border-bottom: 1px #4fbd62 dashed !important;
+      background-color: #def7e2 !important;
+      color: #262929;
+    }
+
+  }
 }
 
 .chatbox {

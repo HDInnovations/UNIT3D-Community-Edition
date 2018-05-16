@@ -26,11 +26,7 @@ class Message extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'message',
-        'user_id',
-        'chatroom_id'
-    ];
+    protected $guarded = ['id'];
 
     /**
      * A message belongs to a user

@@ -2070,6 +2070,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -2084,6 +2086,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
+    canView: function canView(message) {
+      /*
+          Determine if the user can view this message
+          If the message has no receiver it is a public message and all can see.
+          Otherwise, only the sender and receiver can see the message
+           This is only the first stage for Private Messaging
+      */
+
+      if (message.receiver === null) {
+        return true;
+      }
+
+      return message.user.id === this.$parent.auth.id || message.receiver.id === this.$parent.auth.id;
+    },
     canMod: function canMod(message) {
       /*
           A user can Mod his own messages
@@ -2107,6 +2123,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     pmUser: function pmUser(user) {
       var _this = this;
+
+      if (user.id === this.$parent.auth.id) {
+        return false;
+      }
 
       swal({
         title: 'Send Private Message to ' + user.username,
@@ -2135,7 +2155,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
           if (msg !== null && msg !== '') {
 
-            _this.$emit('message-sent', {
+            _this.$emit('pm-sent', {
               message: msg,
               save: true,
               user_id: _this.$parent.auth.id,
@@ -2309,6 +2329,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2329,6 +2354,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   data: function data() {
     return {
       state: {
+        tab: 0,
         connecting: true
       },
       auth: {},
@@ -2338,6 +2364,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       chatrooms: [],
       messages: [],
       users: [],
+      pms: [],
       room: 0,
       scroll: true,
       channel: null,
@@ -2430,7 +2457,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this5 = this;
 
       axios.get('/api/chat/messages/' + this.room).then(function (response) {
-        _this5.messages = _.reverse(response.data.data);
+
+        _this5.messages = _.reverse(_.filter(response.data.data, function (o) {
+          return !o.receiver;
+        }));
+
+        _this5.pms = _.reverse(_.filter(response.data.data, function (o) {
+          return o.receiver.id === _this5.auth.id;
+        }));
+
         _this5.scrollToBottom(true);
 
         _this5.state.connecting = false;
@@ -2468,8 +2503,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     /* User defaults to System user */
     createMessage: function createMessage(message) {
       var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      var _this8 = this;
+
       var user_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
       var receiver_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+      console.log(message, user_id, receiver_id);
 
       axios.post('/api/chat/messages', {
         'user_id': user_id,
@@ -2477,10 +2517,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'chatroom_id': this.room,
         'message': message,
         'save': save
+      }).then(function (response) {
+        _this8.scrollToBottom(true);
+
+        if (_this8.messages.length > _this8.config.message_limit) {
+          _.each(_this8.messages, function (m, i) {
+            if (!m.receiver) {
+              _this8.messages.splice(i, 1);
+              return false;
+            }
+          });
+        }
       });
     },
     scrollToBottom: function scrollToBottom() {
-      var _this8 = this;
+      var _this9 = this;
 
       var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -2491,50 +2542,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       container.scroll(function () {
-        _this8.scroll = false;
+        _this9.scroll = false;
 
         var scrollTop = container.scrollTop() + container.prop('clientHeight');
         var scrollHeight = container.prop('scrollHeight');
 
-        _this8.scroll = scrollTop >= scrollHeight - 50;
+        _this9.scroll = scrollTop >= scrollHeight - 50;
       });
     },
     listenForEvents: function listenForEvents() {
-      var _this9 = this;
+      var _this10 = this;
 
       this.channel.here(function (users) {
-        _this9.users = users;
-        _this9.state.connecting = false;
+        _this10.users = users;
+        _this10.state.connecting = false;
 
         setInterval(function () {
-          _this9.scrollToBottom();
+          _this10.scrollToBottom();
         }, 100);
       }).joining(function (user) {
         // this.createMessage(`${user.username} has JOINED the chat ...`)
       }).leaving(function (user) {
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
-        var count = _this9.messages.push(e.message);
-
-        if (count > _this9.config.message_limit) {
-          _this9.messages.splice(0, 1);
+        if (e.message.receiver) {
+          if (e.message.receiver.id === _this10.auth.id) {
+            _this10.pms.push(e.message);
+          }
+        } else {
+          _this10.messages.push(e.message);
         }
-
-        _this9.scrollToBottom(true);
       }).listen('.edit.message', function (e) {}).listen('.delete.message', function (e) {
-        var msgs = _this9.messages;
+        var msgs = _this10.messages;
         var index = msgs.findIndex(function (msg) {
           return msg.id === e.message.id;
         });
 
-        _this9.messages.splice(index, 1);
+        _this10.messages.splice(index, 1);
       }).listenForWhisper('typing', function (e) {
-        if (_this9.activePeer === false) {
-          _this9.activePeer = e;
+        if (_this10.activePeer === false) {
+          _this10.activePeer = e;
         }
 
         setTimeout(function () {
-          _this9.activePeer = false;
+          _this10.activePeer = false;
         }, 15000);
       });
     }
@@ -5534,7 +5585,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .statuses i:hover {\n  cursor: pointer;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 300px;\n  max-width: 500px;\n}\n.chatbox .slide-fade-enter-active {\n  -webkit-transition: all .3s ease;\n  transition: all .3s ease;\n}\n.chatbox .slide-fade-leave-active {\n  -webkit-transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);\n}\n.chatbox .slide-fade-enter, .chatbox .slide-fade-leave-to {\n  -webkit-transform: translateY(10px);\n          transform: translateY(10px);\n  opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .statuses i:hover {\n  cursor: pointer;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 300px;\n  max-width: 500px;\n}\n", ""]);
 
 // exports
 
@@ -77733,141 +77784,129 @@ var render = function() {
       "ul",
       { staticClass: "list-group" },
       _vm._l(_vm.messages, function(message) {
-        return _c("li", { staticClass: "sent" }, [
-          _c(
-            "a",
-            {
-              directives: [
-                {
-                  name: "tooltip",
-                  rawName: "v-tooltip",
-                  value: message.user.username + "'s profile",
-                  expression: "`${message.user.username}'s profile`"
-                }
-              ],
-              attrs: {
-                target: "_blank",
-                href: "/" + message.user.username + "." + message.user.id
-              }
-            },
-            [
-              message.user.id !== 1
-                ? _c("img", {
-                    staticClass: "chat-user-image",
-                    style:
-                      "border: 3px solid " +
-                      message.user.chat_status.color +
-                      ";",
-                    attrs: {
-                      src: message.user.image
-                        ? "/files/img/" + message.user.image
-                        : "/img/profile.png",
-                      alt: ""
-                    }
-                  })
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          message.user.id !== 1
-            ? _c("h4", { staticClass: "list-group-item-heading" }, [
-                _c("span", { staticClass: "badge-user text-bold" }, [
-                  _c("i", {
-                    directives: [
-                      {
-                        name: "tooltip",
-                        rawName: "v-tooltip",
-                        value: message.user.group.name,
-                        expression: "message.user.group.name"
-                      }
-                    ],
-                    class: message.user.group.icon
-                  }),
-                  _vm._v(" "),
-                  _c(
+        return _vm.canView(message)
+          ? _c("li", { class: ["sent", message.receiver ? "pm" : null] }, [
+              !message.receiver && message.user.id !== 1
+                ? _c(
                     "a",
                     {
                       directives: [
                         {
                           name: "tooltip",
                           rawName: "v-tooltip",
-                          value: "Private Message",
-                          expression: "`Private Message`"
+                          value: message.user.username + "'s profile",
+                          expression: "`${message.user.username}'s profile`"
                         }
                       ],
-                      style: _vm.userStyles(message.user),
-                      on: {
-                        click: function($event) {
-                          _vm.pmUser(message.user)
-                        }
+                      attrs: {
+                        target: "_blank",
+                        href:
+                          "/" + message.user.username + "." + message.user.id
                       }
                     },
                     [
-                      _vm._v(
-                        "\n\t\t\t\t\t        " +
-                          _vm._s(message.user.username) +
-                          "\n                        "
-                      )
+                      _c("img", {
+                        staticClass: "chat-user-image",
+                        style:
+                          "border: 3px solid " +
+                          message.user.chat_status.color +
+                          ";",
+                        attrs: {
+                          src: message.user.image
+                            ? "/files/img/" + message.user.image
+                            : "/img/profile.png",
+                          alt: ""
+                        }
+                      })
                     ]
-                  ),
-                  _vm._v(" "),
-                  _vm.canMod(message)
-                    ? _c("i", {
-                        directives: [
-                          {
-                            name: "tooltip",
-                            rawName: "v-tooltip",
-                            value: "Edit Message",
-                            expression: "`Edit Message`"
-                          }
-                        ],
-                        staticClass: "fa fa-edit text-blue",
-                        on: {
-                          click: function($event) {
-                            _vm.editMessage(message)
-                          }
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.canMod(message)
-                    ? _c("i", {
-                        directives: [
-                          {
-                            name: "tooltip",
-                            rawName: "v-tooltip",
-                            value: "Delete Message",
-                            expression: "`Delete Message`"
-                          }
-                        ],
-                        staticClass: "fa fa-times text-red",
-                        on: {
-                          click: function($event) {
-                            _vm.deleteMessage(message.id)
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "text-muted" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm._f("fromNow")(message.created_at)) +
-                      "\n                    "
                   )
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", {
-            class: [
-              "messages-container",
-              message.user.id === 1 ? "system" : null
-            ],
-            domProps: { innerHTML: _vm._s(message.message) }
-          })
-        ])
+                : _vm._e(),
+              _vm._v(" "),
+              message.user.id !== 1
+                ? _c("h4", { staticClass: "list-group-item-heading" }, [
+                    _c("span", { staticClass: "badge-user text-bold" }, [
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "tooltip",
+                            rawName: "v-tooltip",
+                            value: message.user.group.name,
+                            expression: "message.user.group.name"
+                          }
+                        ],
+                        class: message.user.group.icon
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          directives: [
+                            {
+                              name: "tooltip",
+                              rawName: "v-tooltip",
+                              value:
+                                !message.receiver !== message.user.id
+                                  ? "Private Message"
+                                  : message.user.name,
+                              expression:
+                                "!message.receiver !== message.user.id ? `Private Message` : message.user.name"
+                            }
+                          ],
+                          style: _vm.userStyles(message.user),
+                          on: {
+                            click: function($event) {
+                              _vm.pmUser(message.user)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t        " +
+                              _vm._s(message.user.username) +
+                              "\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.canMod(message)
+                        ? _c("i", {
+                            directives: [
+                              {
+                                name: "tooltip",
+                                rawName: "v-tooltip",
+                                value: "Delete Message",
+                                expression: "`Delete Message`"
+                              }
+                            ],
+                            staticClass: "fa fa-times text-red",
+                            on: {
+                              click: function($event) {
+                                _vm.deleteMessage(message.id)
+                              }
+                            }
+                          })
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm._f("fromNow")(message.created_at)) +
+                          "\n                    "
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", {
+                class: [
+                  message.receiver ? "pm-container" : null,
+                  message.user.id === 1 ? "system" : null
+                ],
+                domProps: { innerHTML: _vm._s(message.message) }
+              })
+            ])
+          : _vm._e()
       })
     )
   ])
@@ -78046,25 +78085,50 @@ var render = function() {
               "div",
               { staticClass: "content" },
               [
-                _c("div", { staticClass: "text-center" }, [
-                  _vm.state.connecting
-                    ? _c("h4", { staticClass: "text-red" }, [
-                        _vm._v("Connecting ...")
-                      ])
-                    : _c("h4", { staticClass: "text-green" }, [
+                _c(
+                  "ul",
+                  {
+                    staticClass: "nav nav-tabs mb-5",
+                    attrs: { role: "tablist" }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c("a", { attrs: { href: "", role: "tab" } }, [
+                        _c("i", { staticClass: "fa fa-users text-success" }),
                         _vm._v(
-                          "Connected with " +
+                          " Active Users (" +
                             _vm._s(_vm.users.length) +
-                            " users"
+                            ")\n                            "
                         )
                       ])
-                ]),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.pms, function(pm) {
+                      return _c("li", [
+                        _c("a", { attrs: { href: "", role: "tab" } }, [
+                          _c("i", {
+                            staticClass: "fa fa-comment fa-beat text-danger"
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(pm.user.username) +
+                              "\n                                "
+                          ),
+                          _c("i", { staticClass: "fa fa-times text-red" })
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                ),
                 _vm._v(" "),
                 !_vm.state.connecting
                   ? _c("chat-messages", {
                       attrs: { messages: _vm.messages },
                       on: {
-                        "message-sent": function(o) {
+                        "pm-sent": function(o) {
                           return _vm.createMessage(
                             o.message,
                             o.save,
@@ -78143,6 +78207,17 @@ var staticRenderFns = [
       _vm._v(
         " refers to software undergoing testing.\n                    Is released to a certain group of peers for real world testing.\n                "
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "active" }, [
+      _c("a", { attrs: { href: "", role: "tab" } }, [
+        _c("i", { staticClass: "fa fa-comments text-blue" }),
+        _vm._v(" Chatbox\n                            ")
+      ])
     ])
   }
 ]
