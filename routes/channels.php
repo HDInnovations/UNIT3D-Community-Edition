@@ -12,7 +12,7 @@
 
 use App\Chatroom;
 use Illuminate\Support\Facades\Broadcast;
-
+use App\User;
 /*
  * |--------------------------------------------------------------------------
  * | Broadcast Channels
@@ -26,6 +26,9 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
     return [
-        'username' => $user->username
+        'user' => User::with([
+            'user.group',
+            'user.chatStatus'
+        ])->find($id)
     ];
 });

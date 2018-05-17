@@ -2171,7 +2171,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         allowOutsideClick: false
 
       }).then(function (result) {
-        console.log(result);
+        // console.log(result)
 
         if (result.value) {
           swal({
@@ -2353,8 +2353,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
+      tab: 'chatbox',
       state: {
-        tab: 0,
         connecting: true
       },
       auth: {},
@@ -2377,6 +2377,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   watch: {
+    tab: function tab() {
+      this.scrollToBottom(true);
+    },
     chatrooms: function chatrooms() {
       this.changeRoom(this.auth.chatroom.id);
     },
@@ -2391,6 +2394,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   computed: {
+    msgs: function msgs() {
+
+      switch (this.tab) {
+        case 'chatbox':
+          return this.messages;
+        case 'userlist':
+          return this.users;
+        default:
+          return this.pms;
+      }
+    },
+    grouped_pms: function grouped_pms() {
+      return _.groupBy(this.pms, function (o) {
+        return o.user.username;
+      });
+    },
     last_id: function last_id() {
       if (this.messages > 0) {
         return this.messages[m.length - 1].id;
@@ -2414,9 +2433,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     isTyping: function isTyping(e) {
-      this.channel.whisper('typing', {
-        username: e.username
-      });
+      if (this.tab === 'chatbox') {
+        this.channel.whisper('typing', {
+          username: e.username
+        });
+      }
     },
     fetchRooms: function fetchRooms() {
       var _this2 = this;
@@ -2462,11 +2483,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           return !o.receiver;
         }));
 
-        _this5.pms = _.reverse(_.filter(response.data.data, function (o) {
-          return o.receiver.id === _this5.auth.id;
-        }));
-
         _this5.scrollToBottom(true);
+
+        _this5.pms = _.reverse(_.filter(response.data.data, function (o) {
+          return o.receiver ? o.receiver.id === _this5.auth.id : null;
+        }));
 
         _this5.state.connecting = false;
       });
@@ -2554,8 +2575,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this10 = this;
 
       this.channel.here(function (users) {
-        _this10.users = users;
         _this10.state.connecting = false;
+        console.log(users);
+
+        _this10.users = users;
 
         setInterval(function () {
           _this10.scrollToBottom();
@@ -78092,33 +78115,90 @@ var render = function() {
                     attrs: { role: "tablist" }
                   },
                   [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", { attrs: { href: "", role: "tab" } }, [
-                        _c("i", { staticClass: "fa fa-users text-success" }),
-                        _vm._v(
-                          " Active Users (" +
-                            _vm._s(_vm.users.length) +
-                            ")\n                            "
+                    _c(
+                      "li",
+                      { class: _vm.tab === "chatbox" ? "active" : null },
+                      [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "", role: "tab" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.tab = "chatbox"
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-comments text-blue"
+                            }),
+                            _vm._v(" Chatbox\n                            ")
+                          ]
                         )
-                      ])
-                    ]),
+                      ]
+                    ),
                     _vm._v(" "),
-                    _vm._l(_vm.pms, function(pm) {
-                      return _c("li", [
-                        _c("a", { attrs: { href: "", role: "tab" } }, [
-                          _c("i", {
-                            staticClass: "fa fa-comment fa-beat text-danger"
-                          }),
-                          _vm._v(
-                            " " +
-                              _vm._s(pm.user.username) +
-                              "\n                                "
-                          ),
-                          _c("i", { staticClass: "fa fa-times text-red" })
-                        ])
-                      ])
+                    _c(
+                      "li",
+                      { class: _vm.tab === "userlist" ? "active" : null },
+                      [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "", role: "tab" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.tab = "userlist"
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-users text-success"
+                            }),
+                            _vm._v(
+                              " Active Users (" +
+                                _vm._s(_vm.users.length) +
+                                ")\n                            "
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.grouped_pms, function(value, username) {
+                      return _c(
+                        "li",
+                        { class: _vm.tab === username ? "active" : null },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "", role: "tab" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.tab = username
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-comment fa-beat text-danger"
+                              }),
+                              _vm._v(
+                                " " +
+                                  _vm._s(username) +
+                                  "\n                                "
+                              ),
+                              _c("i", { staticClass: "fa fa-times text-red" })
+                            ]
+                          )
+                        ]
+                      )
                     })
                   ],
                   2
@@ -78126,7 +78206,7 @@ var render = function() {
                 _vm._v(" "),
                 !_vm.state.connecting
                   ? _c("chat-messages", {
-                      attrs: { messages: _vm.messages },
+                      attrs: { messages: _vm.msgs },
                       on: {
                         "pm-sent": function(o) {
                           return _vm.createMessage(
@@ -78207,17 +78287,6 @@ var staticRenderFns = [
       _vm._v(
         " refers to software undergoing testing.\n                    Is released to a certain group of peers for real world testing.\n                "
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "active" }, [
-      _c("a", { attrs: { href: "", role: "tab" } }, [
-        _c("i", { staticClass: "fa fa-comments text-blue" }),
-        _vm._v(" Chatbox\n                            ")
-      ])
     ])
   }
 ]

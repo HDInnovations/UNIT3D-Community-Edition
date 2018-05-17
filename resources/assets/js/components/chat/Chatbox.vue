@@ -36,19 +36,19 @@
                         <!--<h4 v-else class='text-green'>Connected with {{users.length}} users</h4>-->
                         <!--</div>-->
                         <ul role="tablist" class="nav nav-tabs mb-5">
-                            <li class="active">
-                                <a href="" role="tab">
+                            <li :class="tab === 'chatbox' ? 'active' : null">
+                                <a href="" role="tab" @click.prevent="tab = 'chatbox'">
                                     <i class="fa fa-comments text-blue"></i> Chatbox
                                 </a>
                             </li>
-                            <li>
-                                <a href="" role="tab">
+                            <li :class="tab === 'userlist' ? 'active' : null">
+                                <a href="" role="tab" @click.prevent="tab = 'userlist'">
                                     <i class="fa fa-users text-success"></i> Active Users ({{users.length}})
                                 </a>
                             </li>
-                            <li v-for="pm in pms">
-                                <a href="" role="tab">
-                                    <i class="fa fa-comment fa-beat text-danger"></i> {{ pm.user.username }}
+                            <li v-for="(value, username) in grouped_pms" :class="tab === username ? 'active' : null">
+                                <a href="" role="tab" @click.prevent="tab = username">
+                                    <i class="fa fa-comment fa-beat text-danger"></i> {{ username }}
                                     <i class="fa fa-times text-red"></i>
                                 </a>
                             </li>
@@ -56,7 +56,7 @@
 
                         <chat-messages v-if="!state.connecting"
                                        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
-                                       :messages="messages">
+                                       :messages="msgs">
 
                         </chat-messages>
 
@@ -127,8 +127,8 @@
     },
     data () {
       return {
+        tab: 'chatbox',
         state: {
-          tab: 0,
           connecting: true
         },
         auth: {},
@@ -150,6 +150,9 @@
       }
     },
     watch: {
+      tab () {
+        this.scrollToBottom(true)
+      },
       chatrooms () {
         this.changeRoom(this.auth.chatroom.id)
       },
@@ -164,7 +167,23 @@
       },
     },
     computed: {
+      msgs () {
 
+        switch (this.tab) {
+          case 'chatbox':
+            return this.messages
+          case 'userlist':
+            return this.users
+          default:
+            return this.pms
+        }
+
+      },
+      grouped_pms () {
+        return _.groupBy(this.pms, (o) => {
+          return o.user.username
+        })
+      },
       last_id () {
         if (this.messages > 0) {
           return this.messages[m.length - 1].id
@@ -186,9 +205,11 @@
     },
     methods: {
       isTyping (e) {
-        this.channel.whisper('typing', {
-          username: e.username
-        })
+        if (this.tab === 'chatbox') {
+          this.channel.whisper('typing', {
+            username: e.username
+          })
+        }
       },
 
       fetchRooms () {
@@ -230,11 +251,11 @@
             return !o.receiver
           }))
 
-          this.pms = _.reverse(_.filter(response.data.data, (o) => {
-            return o.receiver.id === this.auth.id
-          }))
-
           this.scrollToBottom(true)
+
+          this.pms = _.reverse(_.filter(response.data.data, (o) => {
+            return o.receiver ? o.receiver.id === this.auth.id : null
+          }))
 
           this.state.connecting = false
         })
@@ -312,8 +333,10 @@
       listenForEvents () {
         this.channel
           .here(users => {
-            this.users = users
             this.state.connecting = false
+            console.log(users)
+
+            this.users = users
 
             setInterval(() => {
               this.scrollToBottom()
@@ -358,6 +381,7 @@
       this.auth = this.user
       this.fetchRooms()
       this.fetchStatuses()
+
     },
   }
 </script>

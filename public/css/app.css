@@ -36746,6 +36746,14 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   margin-bottom: 20px;
 }
 
+#frame .content .messages ul li.sent {
+  color: #2C4151;
+  width: 100%;
+  max-width: 100%;
+  line-height: 130%;
+  font-size: 14pt;
+}
+
 #frame .content .messages ul li.sent.pm {
   border-top: 1px #383e42 dashed !important;
   border-bottom: 1px #383e42 dashed !important;
@@ -36769,6 +36777,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   padding: 10px;
 }
 
+#frame .content .messages ul li.sent img.emojione {
+  padding: 0;
+  margin: 0 5px 2px;
+}
+
 #frame .content .messages ul li.sent img.chat-user-image {
   border: 3px solid #7289da;
   margin-right: 10px;
@@ -36778,24 +36791,11 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   float: left;
 }
 
-#frame .content .messages ul li.sent .messages-container {
-  color: #2C4151;
-  width: 100%;
-  max-width: 100%;
-  line-height: 130%;
-  font-size: 14pt;
-}
-
-#frame .content .messages ul li.sent .messages-container.system {
+#frame .content .messages ul li.sent .system {
   font-size: 12pt;
   color: #939393;
   padding: 0;
   margin: 0;
-}
-
-#frame .content .messages ul li.sent .messages-container img.emojione {
-  padding: 0;
-  margin: 0 5px 2px;
 }
 
 #frame .content .message-input {

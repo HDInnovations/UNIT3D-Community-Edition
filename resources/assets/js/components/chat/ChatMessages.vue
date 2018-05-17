@@ -183,7 +183,7 @@
           allowOutsideClick: false
 
         }).then(result => {
-          console.log(result)
+          // console.log(result)
 
           if (result.value) {
             swal({
