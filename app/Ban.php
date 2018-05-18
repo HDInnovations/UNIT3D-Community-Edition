@@ -13,44 +13,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Ban.
  */
 class Ban extends Model
 {
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'ban';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'owned_by',
-        'created_by',
-        'ban_reason',
-        'unban_reason',
-    ];
-
-    /**
-     * Rules For Validation
-     *
-     */
-    public $rules = [
-        'owned_by' => 'required',
-        'created_by' => 'required',
-        'ban_reason' => 'required',
-        'unban_reason' => 'required',
-    ];
-
     public function banneduser()
     {
         return $this->belongsTo(\App\User::class, "owned_by")->withDefault([
