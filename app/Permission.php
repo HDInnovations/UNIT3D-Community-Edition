@@ -23,8 +23,6 @@ class Permission extends Model
 
     public $timestamps = false;
 
-    protected $guarded = ['id'];
-
     /**
      * Belongs to group
      *
