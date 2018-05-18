@@ -19,7 +19,6 @@ use \Toastr;
 
 class ArticleController extends Controller
 {
-
     /**
      * Get All Articles
      *
@@ -45,22 +44,22 @@ class ArticleController extends Controller
     /**
      * Add A Article
      *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
-        $input = $request->all();
         $article = new Article();
-        $article->title = $input['title'];
+        $article->title = $request->input('title');
         $article->slug = str_slug($article->title);
-        $article->content = $input['content'];
+        $article->content = $request->input('content');
         $article->user_id = auth()->user()->id;
-        // Verify that an image was upload
+
         if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
-            // The file is an image
-            if (in_array($request->file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
-                // Move and add the name to the object that will be saved
-                $article->image = 'article-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-                $request->file('image')->move(getcwd() . '/files/img/', $article->image);
+            $image = $request->file('image');
+            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
+                    $filename = 'article-' . uniqid() . '.' . $image->getClientOriginalExtension();
+                    $path = public_path('/files/img/' . $filename);
+                    Image::make($image->getRealPath())->fit(100, 100)->encode('png', 100)->save($path);
             } else {
                 // Image null or wrong format
                 $article->image = null;
@@ -70,16 +69,24 @@ class ArticleController extends Controller
             $article->image = null;
         }
 
-        $v = validator($article->toArray(), $article->rules);
+        $v = validator($article->toArray(), [
+            'title' => 'required',
+            'slug' => 'required',
+            'content' => 'required|min:100',
+            'user_id' => 'required'
+        ]);
+
         if ($v->fails()) {
             // Delete the image because the validation failed
             if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $article->image))) {
                 unlink($request->file('image')->move(getcwd() . '/files/img/' . $article->image));
             }
-            return redirect()->route('staff_article_index')->with(Toastr::error('Your article has failed to published!', 'Whoops!', ['options']));
+            return redirect()->route('staff_article_index')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             auth()->user()->articles()->save($article);
-            return redirect()->route('staff_article_index')->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
+            return redirect()->route('staff_article_index')
+                ->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -102,6 +109,7 @@ class ArticleController extends Controller
      *
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
     {
@@ -128,12 +136,20 @@ class ArticleController extends Controller
             $article->image = null;
         }
 
-        $v = validator($article->toArray(), $article->rules);
+        $v = validator($article->toArray(), [
+            'title' => 'required',
+            'slug' => 'required',
+            'content' => 'required|min:100',
+            'user_id' => 'required'
+        ]);
+
         if ($v->fails()) {
-            return redirect()->route('staff_article_index')->with(Toastr::error('Your article changes have failed to publish!', 'Whoops!', ['options']));
+            return redirect()->route('staff_article_index')
+                ->with(Toastr::error('Your article changes have failed to publish!', 'Whoops!', ['options']));
         } else {
             $article->save();
-            return redirect()->route('staff_article_index')->with(Toastr::success('Your article changes have successfully published!', 'Yay!', ['options']));
+            return redirect()->route('staff_article_index')
+                ->with(Toastr::success('Your article changes have successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -142,11 +158,14 @@ class ArticleController extends Controller
      *
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)
     {
         $article = Article::findOrFail($id);
         $article->delete();
-        return redirect()->route('staff_article_index')->with(Toastr::success('Article has successfully been deleted', 'Yay!', ['options']));
+
+        return redirect()->route('staff_article_index')
+            ->with(Toastr::success('Article has successfully been deleted', 'Yay!', ['options']));
     }
 }

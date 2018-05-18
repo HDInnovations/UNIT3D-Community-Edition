@@ -17,14 +17,6 @@ use App\Helpers\Bbcode;
 
 class Article extends Model
 {
-
-    public $rules = [
-        'title' => 'required',
-        'slug' => 'required',
-        'content' => 'required|min:100',
-        'user_id' => 'required'
-    ];
-
     /**
      * Belongs to User
      *
