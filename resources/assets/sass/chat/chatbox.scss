@@ -398,6 +398,22 @@
           display: block;
           border-bottom: 1px dashed #dddddd;
 
+          h4 {
+            i {
+              &.fa {
+                &:first-child {
+                  margin: 0;
+                }
+
+                margin-left: 5px;
+
+                &:hover {
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+
           &:nth-last-child(1) {
             margin-bottom: 20px;
           }

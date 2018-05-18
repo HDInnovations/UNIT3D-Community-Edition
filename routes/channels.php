@@ -25,10 +25,9 @@ use App\User;
  */
 
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    return [
-        'user' => User::with([
-            'user.group',
-            'user.chatStatus'
-        ])->find($id)
-    ];
+    return User::with([
+        'chatStatus',
+        'chatroom',
+        'group'
+    ])->find($user->id);
 });

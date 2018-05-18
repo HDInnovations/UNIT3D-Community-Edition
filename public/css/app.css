@@ -36742,6 +36742,18 @@ div.stats div.content div.inner_stats div.stat p:first-of-type {
   border-bottom: 1px dashed #dddddd;
 }
 
+#frame .content .messages ul li h4 i.fa {
+  margin-left: 5px;
+}
+
+#frame .content .messages ul li h4 i.fa:first-child {
+  margin: 0;
+}
+
+#frame .content .messages ul li h4 i.fa:hover {
+  cursor: pointer;
+}
+
 #frame .content .messages ul li:nth-last-child(1) {
   margin-bottom: 20px;
 }

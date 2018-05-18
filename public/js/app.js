@@ -1929,18 +1929,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
   components: {
     ChatroomsDropdown: __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default.a
   },
   data: function data() {
     return {
+      user: null,
       editor: null,
       input: null
     };
   },
 
-
+  computed: {
+    receiver_id: function receiver_id() {
+      return this.$parent.receiver_id;
+    }
+  },
   methods: {
     keyup: function keyup(e) {
       this.$emit('typing', this.user);
@@ -1960,14 +1964,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.$emit('message-sent', {
           message: msg,
           save: true,
-          user_id: this.user.id
+          user_id: this.user.id,
+          receiver_id: this.receiver_id
         });
 
         this.input.html('');
       }
     }
   },
-
+  created: function created() {
+    this.user = this.$parent.auth;
+  },
   mounted: function mounted() {
     this.editor = $('#chat-message').wysibb();
 
@@ -1984,6 +1991,138 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ }),
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatMessages.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment__ = __webpack_require__("./node_modules/moment/moment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_pmMethods__ = __webpack_require__("./resources/assets/js/components/chat/mixins/pmMethods.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    messages: { required: true }
+  },
+  data: function data() {
+    return {
+      editor: null
+    };
+  },
+
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins_pmMethods__["a" /* default */]],
+  methods: {
+    canMod: function canMod(message) {
+      /*
+          A user can Mod his own messages
+          A user in a is_modo group can Mod messages
+          A is_modo CAN NOT Mod another is_modo message
+      */
+
+      return (
+        /* Owner can mod all */
+        this.$parent.auth.group.id === 10 ||
+
+        /* User can mod his own message */
+        message.user.id === this.$parent.auth.id ||
+
+        /* is_admin can mod messages except for Owner messages */
+        this.$parent.auth.group.is_admin && message.user.group.id !== 10 ||
+
+        /* Mods CAN NOT mod other mods messages */
+        this.$parent.auth.group.is_modo && !message.user.group.is_modo
+      );
+    },
+    editMessage: function editMessage(message) {},
+    deleteMessage: function deleteMessage(id) {
+      axios.get('/api/chat/message/' + id + '/delete');
+    },
+    userStyles: function userStyles(user) {
+      return 'cursor: pointer; color: ' + user.group.color + '; background-image: ' + user.group.effect + ';';
+    }
+  },
+  filters: {
+    fromNow: function fromNow(dt) {
+      return __WEBPACK_IMPORTED_MODULE_0_moment___default()(String(dt)).fromNow();
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.interval = setInterval(function () {
+      return _this.$forceUpdate();
+    }, 30000);
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatPms.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2040,12 +2179,60 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    pms: { required: true }
+  },
+  data: function data() {
+    return {
+      editor: null
+    };
+  },
+
+  methods: {
+    canMod: function canMod(pm) {
+      /*
+          A user can Mod his own messages
+      */
+
+      return pm.user.id === this.$parent.auth.id;
+    },
+    editMessage: function editMessage(pm) {},
+    deleteMessage: function deleteMessage(id) {
+      axios.get('/api/chat/message/' + id + '/delete');
+    },
+    userStyles: function userStyles(user) {
+      return 'cursor: pointer; color: ' + user.group.color + '; background-image: ' + user.group.effect + ';';
+    }
+  },
+  filters: {
+    fromNow: function fromNow(dt) {
+      return __WEBPACK_IMPORTED_MODULE_0_moment___default()(String(dt)).fromNow();
+    }
+  },
+  created: function created() {
+    var _this = this;
+
+    this.interval = setInterval(function () {
+      return _this.$forceUpdate();
+    }, 30000);
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval);
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatUserList.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pmMethods__ = __webpack_require__("./resources/assets/js/components/chat/mixins/pmMethods.js");
 //
 //
 //
@@ -2077,137 +2264,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    messages: { required: true }
+    users: { required: true }
   },
-  data: function data() {
-    return {
-      editor: null
-    };
-  },
-
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_pmMethods__["a" /* default */]],
   methods: {
-    canView: function canView(message) {
-      /*
-          Determine if the user can view this message
-          If the message has no receiver it is a public message and all can see.
-          Otherwise, only the sender and receiver can see the message
-           This is only the first stage for Private Messaging
-      */
-
-      if (message.receiver === null) {
-        return true;
-      }
-
-      return message.user.id === this.$parent.auth.id || message.receiver.id === this.$parent.auth.id;
-    },
-    canMod: function canMod(message) {
-      /*
-          A user can Mod his own messages
-          A user in a is_modo group can Mod messages
-          A is_modo CAN NOT Mod another is_modo message
-      */
-
-      return (
-        /* Owner can mod all */
-        this.$parent.auth.group.id === 10 ||
-
-        /* User can mod his own message */
-        message.user.id === this.$parent.auth.id ||
-
-        /* is_admin can mod messages except for Owner messages */
-        this.$parent.auth.group.is_admin && message.user.group.id !== 10 ||
-
-        /* Mods CAN NOT mod other mods messages */
-        this.$parent.auth.group.is_modo && !message.user.group.is_modo
-      );
-    },
-    pmUser: function pmUser(user) {
-      var _this = this;
-
-      if (user.id === this.$parent.auth.id) {
-        return false;
-      }
-
-      swal({
-        title: 'Send Private Message to ' + user.username,
-        input: 'textarea',
-        width: '800px',
-        height: '600px',
-        inputAttributes: {
-          autocapitalize: 'off'
-        },
-
-        showCancelButton: true,
-        confirmButtonText: 'Send',
-        showLoaderOnConfirm: true,
-
-        onOpen: function onOpen() {
-          _this.editor = $('.swal2-textarea').wysibb({});
-        },
-
-        onClose: function onClose() {
-          _this.editor = null;
-        },
-
-        preConfirm: function preConfirm(msg) {
-
-          msg = _this.editor.bbcode().trim();
-
-          if (msg !== null && msg !== '') {
-
-            _this.$emit('pm-sent', {
-              message: msg,
-              save: true,
-              user_id: _this.$parent.auth.id,
-              receiver_id: user.id
-            });
-
-            $('.wysibb-body').html('');
-          }
-
-          return user;
-        },
-
-        allowOutsideClick: false
-
-      }).then(function (result) {
-        // console.log(result)
-
-        if (result.value) {
-          swal({
-            title: 'Sent Private Message to ' + result.value.username,
-            timer: 1500,
-            onOpen: function onOpen() {
-              swal.showLoading();
-            }
-          }).then(function (result) {
-            if (result.dismiss === swal.DismissReason.timer) {}
-          });
-        }
-      });
-    },
-    editMessage: function editMessage(message) {},
-    deleteMessage: function deleteMessage(id) {
-      axios.get('/api/chat/message/' + id + '/delete');
-    },
     userStyles: function userStyles(user) {
       return 'cursor: pointer; color: ' + user.group.color + '; background-image: ' + user.group.effect + ';';
     }
-  },
-  filters: {
-    fromNow: function fromNow(dt) {
-      return __WEBPACK_IMPORTED_MODULE_0_moment___default()(String(dt)).fromNow();
-    }
-  },
-  created: function created() {
-    var _this2 = this;
-
-    this.interval = setInterval(function () {
-      return _this2.$forceUpdate();
-    }, 30000);
-  },
-  beforeDestroy: function beforeDestroy() {
-    clearInterval(this.interval);
   }
 });
 
@@ -2224,6 +2287,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ChatMessages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ChatMessages__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm__ = __webpack_require__("./resources/assets/js/components/chat/ChatForm.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ChatForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ChatForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ChatPms__ = __webpack_require__("./resources/assets/js/components/chat/ChatPms.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ChatPms___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__ChatPms__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ChatUserList__ = __webpack_require__("./resources/assets/js/components/chat/ChatUserList.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ChatUserList___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__ChatUserList__);
 //
 //
 //
@@ -2326,14 +2393,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
@@ -2349,7 +2410,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     ChatroomsDropdown: __WEBPACK_IMPORTED_MODULE_0__ChatroomsDropdown___default.a,
     ChatMessages: __WEBPACK_IMPORTED_MODULE_1__ChatMessages___default.a,
-    ChatForm: __WEBPACK_IMPORTED_MODULE_2__ChatForm___default.a
+    ChatForm: __WEBPACK_IMPORTED_MODULE_2__ChatForm___default.a,
+    ChatUserList: __WEBPACK_IMPORTED_MODULE_4__ChatUserList___default.a,
+    ChatPms: __WEBPACK_IMPORTED_MODULE_3__ChatPms___default.a
   },
   data: function data() {
     return {
@@ -2360,25 +2423,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       auth: {},
       statuses: [],
       status: 0,
-      showStatuses: false,
       chatrooms: [],
       messages: [],
       users: [],
-      pms: [],
       room: 0,
       scroll: true,
       channel: null,
       config: {},
       activePeer: false,
-
-      /* Developer Settings */
-      showDevMsg: false
+      receiver_id: null
     };
   },
 
   watch: {
-    tab: function tab() {
+    tab: function tab(newVal, oldVal) {
       this.scrollToBottom(true);
+
+      if (newVal !== 'chatbox' && newVal !== 'userlist') {
+        var i = _.findIndex(this.pms[newVal], function (o) {
+          return o.user.username === newVal;
+        });
+
+        this.receiver_id = this.pms[newVal][i].user.id;
+      }
     },
     chatrooms: function chatrooms() {
       this.changeRoom(this.auth.chatroom.id);
@@ -2395,19 +2462,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   computed: {
     msgs: function msgs() {
-
-      switch (this.tab) {
-        case 'chatbox':
-          return this.messages;
-        case 'userlist':
-          return this.users;
-        default:
-          return this.pms;
-      }
+      return _.filter(this.messages, function (o) {
+        return !o.receiver;
+      });
     },
-    grouped_pms: function grouped_pms() {
-      return _.groupBy(this.pms, function (o) {
-        return o.user.username;
+    pms: function pms() {
+      var _this = this;
+
+      var m = _.filter(this.messages, function (o) {
+        return o.receiver ? o.receiver.id === _this.auth.id || o.user.id === _this.auth.id : null;
+      });
+
+      return _.groupBy(m, function (o) {
+        return o.user.username === _this.auth.username ? o.receiver.username : o.user.username;
       });
     },
     last_id: function last_id() {
@@ -2418,11 +2485,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return 0;
     },
     statusColor: function statusColor() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.statuses.length > 0) {
         var i = _.findIndex(this.statuses, function (o) {
-          return o.id === _this.status;
+          return o.id === _this2.status;
         });
 
         return this.statuses[i].color;
@@ -2440,23 +2507,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     fetchRooms: function fetchRooms() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('/api/chat/rooms').then(function (response) {
-        _this2.chatrooms = response.data.data;
+        _this3.chatrooms = response.data.data;
 
-        _this2.fetchConfiguration();
+        _this3.fetchConfiguration();
       });
     },
     fetchConfiguration: function fetchConfiguration() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/api/chat/config').then(function (response) {
-        _this3.config = response.data;
+        _this4.config = response.data;
       });
     },
     changeRoom: function changeRoom(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.room = id;
 
@@ -2466,41 +2533,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           'room_id': id
         }).then(function (response) {
           // reassign the auth variable to the response data
-          _this4.auth = response.data;
+          _this5.auth = response.data;
 
-          _this4.fetchMessages();
+          _this5.fetchMessages();
         });
       } else {
         this.fetchMessages();
       }
     },
     fetchMessages: function fetchMessages() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.get('/api/chat/messages/' + this.room).then(function (response) {
 
-        _this5.messages = _.reverse(_.filter(response.data.data, function (o) {
-          return !o.receiver;
-        }));
+        _this6.messages = _.reverse(response.data.data);
 
-        _this5.scrollToBottom(true);
+        _this6.scrollToBottom(true);
 
-        _this5.pms = _.reverse(_.filter(response.data.data, function (o) {
-          return o.receiver ? o.receiver.id === _this5.auth.id : null;
-        }));
-
-        _this5.state.connecting = false;
+        _this6.state.connecting = false;
       });
     },
     fetchStatuses: function fetchStatuses() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios.get('/api/chat/statuses').then(function (response) {
-        _this6.statuses = response.data;
+        _this7.statuses = response.data;
       });
     },
     changeStatus: function changeStatus(status_id) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.status = status_id;
       this.showStatuses = false;
@@ -2512,10 +2573,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           'status_id': status_id
         }).then(function (response) {
           // reassign the auth variable to the response data
-          _this7.auth = response.data;
+          _this8.auth = response.data;
 
           /* Add system message */
-          _this7.createMessage('[url=/' + _this7.auth.username + '.' + _this7.auth.id + ']' + _this7.auth.username + '[/url] has updated their status to [b]' + _this7.auth.chat_status.name + '[/b]');
+          _this8.createMessage('[url=/' + _this8.auth.username + '.' + _this8.auth.id + ']' + _this8.auth.username + '[/url] has updated their status to [b]' + _this8.auth.chat_status.name + '[/b]');
         });
       }
     },
@@ -2525,7 +2586,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     createMessage: function createMessage(message) {
       var save = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-      var _this8 = this;
+      var _this9 = this;
 
       var user_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
       var receiver_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
@@ -2539,12 +2600,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'message': message,
         'save': save
       }).then(function (response) {
-        _this8.scrollToBottom(true);
+        _this9.scrollToBottom(true);
 
-        if (_this8.messages.length > _this8.config.message_limit) {
-          _.each(_this8.messages, function (m, i) {
+        if (_this9.messages.length > _this9.config.message_limit) {
+          _.each(_this9.messages, function (m, i) {
             if (!m.receiver) {
-              _this8.messages.splice(i, 1);
+              _this9.messages.splice(i, 1);
               return false;
             }
           });
@@ -2552,7 +2613,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     scrollToBottom: function scrollToBottom() {
-      var _this9 = this;
+      var _this10 = this;
 
       var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
@@ -2563,52 +2624,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
 
       container.scroll(function () {
-        _this9.scroll = false;
+        _this10.scroll = false;
 
         var scrollTop = container.scrollTop() + container.prop('clientHeight');
         var scrollHeight = container.prop('scrollHeight');
 
-        _this9.scroll = scrollTop >= scrollHeight - 50;
+        _this10.scroll = scrollTop >= scrollHeight - 50;
       });
     },
     listenForEvents: function listenForEvents() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.channel.here(function (users) {
-        _this10.state.connecting = false;
-        console.log(users);
-
-        _this10.users = users;
+        _this11.state.connecting = false;
+        _this11.users = users;
 
         setInterval(function () {
-          _this10.scrollToBottom();
+          _this11.scrollToBottom();
         }, 100);
       }).joining(function (user) {
         // this.createMessage(`${user.username} has JOINED the chat ...`)
       }).leaving(function (user) {
         // this.createMessage(`${user.username} has LEFT the chat ...`)
       }).listen('.new.message', function (e) {
-        if (e.message.receiver) {
-          if (e.message.receiver.id === _this10.auth.id) {
-            _this10.pms.push(e.message);
-          }
-        } else {
-          _this10.messages.push(e.message);
-        }
+        _this11.messages.push(e.message);
       }).listen('.edit.message', function (e) {}).listen('.delete.message', function (e) {
-        var msgs = _this10.messages;
+        var msgs = _this11.messages;
         var index = msgs.findIndex(function (msg) {
           return msg.id === e.message.id;
         });
 
-        _this10.messages.splice(index, 1);
+        _this11.messages.splice(index, 1);
       }).listenForWhisper('typing', function (e) {
-        if (_this10.activePeer === false) {
-          _this10.activePeer = e;
+        if (_this11.activePeer === false) {
+          _this11.activePeer = e;
         }
 
         setTimeout(function () {
-          _this10.activePeer = false;
+          _this11.activePeer = false;
         }, 15000);
       });
     }
@@ -5570,21 +5623,6 @@ exports.push([module.i, "\n.col-md-4[data-v-328a432c], .col-md-12[data-v-328a432
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/chat/ChatMessages.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.messages h4 i.fa[data-v-3e4b6898] {\n  margin-left: 5px;\n}\n.messages h4 i.fa[data-v-3e4b6898]:first-child {\n    margin: 0;\n}\n.messages h4 i.fa[data-v-3e4b6898]:hover {\n    cursor: pointer;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5562f4de\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/chat/ChatroomsDropdown.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5608,7 +5646,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .statuses i:hover {\n  cursor: pointer;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 300px;\n  max-width: 500px;\n}\n", ""]);
+exports.push([module.i, "\n.chatbox .nav-tabs {\n  overflow-y: hidden;\n}\n.chatbox .typing {\n  height: 20px;\n}\n.chatbox .typing .badge-extra {\n    margin: 0;\n}\n.chatbox .statuses i:hover {\n  cursor: pointer;\n}\n.chatbox .panel-body {\n  padding: 0;\n}\n.chatbox .decoda-image {\n  min-height: 150px;\n  max-height: 300px;\n  max-width: 500px;\n}\n", ""]);
 
 // exports
 
@@ -77795,7 +77833,7 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3e4b6898\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatMessages.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3e4b6898\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatMessages.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -77807,129 +77845,123 @@ var render = function() {
       "ul",
       { staticClass: "list-group" },
       _vm._l(_vm.messages, function(message) {
-        return _vm.canView(message)
-          ? _c("li", { class: ["sent", message.receiver ? "pm" : null] }, [
-              !message.receiver && message.user.id !== 1
-                ? _c(
+        return _c("li", { staticClass: "sent" }, [
+          message.user.id !== 1
+            ? _c(
+                "a",
+                {
+                  directives: [
+                    {
+                      name: "tooltip",
+                      rawName: "v-tooltip",
+                      value: message.user.username + "'s profile",
+                      expression: "`${message.user.username}'s profile`"
+                    }
+                  ],
+                  attrs: {
+                    target: "_blank",
+                    href: "/" + message.user.username + "." + message.user.id
+                  }
+                },
+                [
+                  _c("img", {
+                    staticClass: "chat-user-image",
+                    style:
+                      "border: 3px solid " +
+                      message.user.chat_status.color +
+                      ";",
+                    attrs: {
+                      src: message.user.image
+                        ? "/files/img/" + message.user.image
+                        : "/img/profile.png",
+                      alt: ""
+                    }
+                  })
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          message.user.id !== 1
+            ? _c("h4", { staticClass: "list-group-item-heading" }, [
+                _c("span", { staticClass: "badge-user text-bold" }, [
+                  _c("i", {
+                    directives: [
+                      {
+                        name: "tooltip",
+                        rawName: "v-tooltip",
+                        value: message.user.group.name,
+                        expression: "message.user.group.name"
+                      }
+                    ],
+                    class: message.user.group.icon
+                  }),
+                  _vm._v(" "),
+                  _c(
                     "a",
                     {
                       directives: [
                         {
                           name: "tooltip",
                           rawName: "v-tooltip",
-                          value: message.user.username + "'s profile",
-                          expression: "`${message.user.username}'s profile`"
+                          value:
+                            message.user.id !== _vm.$parent.auth.id
+                              ? "Private Message"
+                              : message.user.username,
+                          expression:
+                            "message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
                         }
                       ],
-                      attrs: {
-                        target: "_blank",
-                        href:
-                          "/" + message.user.username + "." + message.user.id
+                      style: _vm.userStyles(message.user),
+                      on: {
+                        click: function($event) {
+                          _vm.pmUser(message.user)
+                        }
                       }
                     },
                     [
-                      _c("img", {
-                        staticClass: "chat-user-image",
-                        style:
-                          "border: 3px solid " +
-                          message.user.chat_status.color +
-                          ";",
-                        attrs: {
-                          src: message.user.image
-                            ? "/files/img/" + message.user.image
-                            : "/img/profile.png",
-                          alt: ""
-                        }
-                      })
+                      _vm._v(
+                        "\n\t\t\t\t\t        " +
+                          _vm._s(message.user.username) +
+                          "\n                        "
+                      )
                     ]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              message.user.id !== 1
-                ? _c("h4", { staticClass: "list-group-item-heading" }, [
-                    _c("span", { staticClass: "badge-user text-bold" }, [
-                      _c("i", {
+                  ),
+                  _vm._v(" "),
+                  _vm.canMod(message)
+                    ? _c("i", {
                         directives: [
                           {
                             name: "tooltip",
                             rawName: "v-tooltip",
-                            value: message.user.group.name,
-                            expression: "message.user.group.name"
+                            value: "Delete Message",
+                            expression: "`Delete Message`"
                           }
                         ],
-                        class: message.user.group.icon
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          directives: [
-                            {
-                              name: "tooltip",
-                              rawName: "v-tooltip",
-                              value:
-                                !message.receiver !== message.user.id
-                                  ? "Private Message"
-                                  : message.user.name,
-                              expression:
-                                "!message.receiver !== message.user.id ? `Private Message` : message.user.name"
-                            }
-                          ],
-                          style: _vm.userStyles(message.user),
-                          on: {
-                            click: function($event) {
-                              _vm.pmUser(message.user)
-                            }
+                        staticClass: "fa fa-times text-red",
+                        on: {
+                          click: function($event) {
+                            _vm.deleteMessage(message.id)
                           }
-                        },
-                        [
-                          _vm._v(
-                            "\n\t\t\t\t\t        " +
-                              _vm._s(message.user.username) +
-                              "\n                        "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.canMod(message)
-                        ? _c("i", {
-                            directives: [
-                              {
-                                name: "tooltip",
-                                rawName: "v-tooltip",
-                                value: "Delete Message",
-                                expression: "`Delete Message`"
-                              }
-                            ],
-                            staticClass: "fa fa-times text-red",
-                            on: {
-                              click: function($event) {
-                                _vm.deleteMessage(message.id)
-                              }
-                            }
-                          })
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(_vm._f("fromNow")(message.created_at)) +
-                          "\n                    "
-                      )
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", {
-                class: [
-                  message.receiver ? "pm-container" : null,
-                  message.user.id === 1 ? "system" : null
-                ],
-                domProps: { innerHTML: _vm._s(message.message) }
-              })
-            ])
-          : _vm._e()
+                        }
+                      })
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-muted" }, [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm._f("fromNow")(message.created_at)) +
+                      "\n                    "
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", {
+            class: message.user.id === 1 ? "system" : null,
+            domProps: { innerHTML: _vm._s(message.message) }
+          })
+        ])
       })
     )
   ])
@@ -77941,6 +77973,82 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-3e4b6898", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4ee656f1\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatUserList.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "messages" }, [
+    _c(
+      "ul",
+      { staticClass: "list-group" },
+      _vm._l(_vm.users, function(user) {
+        return _c("li", { staticClass: "sent" }, [
+          _c("h4", { staticClass: "list-group-item-heading" }, [
+            _c("span", { staticClass: "badge-user text-bold" }, [
+              _c("i", {
+                directives: [
+                  {
+                    name: "tooltip",
+                    rawName: "v-tooltip",
+                    value: user.group.name,
+                    expression: "user.group.name"
+                  }
+                ],
+                class: user.group.icon
+              }),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  directives: [
+                    {
+                      name: "tooltip",
+                      rawName: "v-tooltip",
+                      value:
+                        _vm.$parent.auth.id !== user.id
+                          ? "Private Message"
+                          : user.username,
+                      expression:
+                        "$parent.auth.id !== user.id ? `Private Message` : user.username"
+                    }
+                  ],
+                  style: _vm.userStyles(user),
+                  on: {
+                    click: function($event) {
+                      _vm.pmUser(user)
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n\t\t\t\t\t        " +
+                      _vm._s(user.username) +
+                      "\n                        "
+                  )
+                ]
+              )
+            ])
+          ])
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4ee656f1", module.exports)
   }
 }
 
@@ -78049,6 +78157,91 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-76542c44\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatPms.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "messages" }, [
+    _c(
+      "ul",
+      { staticClass: "list-group" },
+      _vm._l(_vm.pms, function(pm) {
+        return _c("li", { staticClass: "sent" }, [
+          _c("h4", { staticClass: "list-group-item-heading" }, [
+            _c("span", { staticClass: "badge-user text-bold" }, [
+              _c("i", {
+                directives: [
+                  {
+                    name: "tooltip",
+                    rawName: "v-tooltip",
+                    value: pm.user.group.name,
+                    expression: "pm.user.group.name"
+                  }
+                ],
+                class: pm.user.group.icon
+              }),
+              _vm._v(" "),
+              _c("a", { style: _vm.userStyles(pm.user) }, [
+                _vm._v(
+                  "\n\t\t\t\t\t        " +
+                    _vm._s(pm.user.username) +
+                    "\n                        "
+                )
+              ]),
+              _vm._v(" "),
+              _vm.canMod(pm)
+                ? _c("i", {
+                    directives: [
+                      {
+                        name: "tooltip",
+                        rawName: "v-tooltip",
+                        value: "Delete Message",
+                        expression: "`Delete Message`"
+                      }
+                    ],
+                    staticClass: "fa fa-times text-red",
+                    on: {
+                      click: function($event) {
+                        _vm.deleteMessage(pm.id)
+                      }
+                    }
+                  })
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "text-muted" }, [
+              _vm._v(
+                "\n                        " +
+                  _vm._s(_vm._f("fromNow")(pm.created_at)) +
+                  "\n                    "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            class: ["pm-container", pm.user.id === 1 ? "system" : null],
+            domProps: { innerHTML: _vm._s(pm.message) }
+          })
+        ])
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-76542c44", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-fe93899a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/Chatbox.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -78066,43 +78259,6 @@ var render = function() {
         _vm._m(0),
         _vm._v(" "),
         _c("div", { staticClass: "panel-body" }, [
-          _vm.showDevMsg
-            ? _c("div", [
-                _c("h2", { staticClass: "text-center text-red text-bold" }, [
-                  _vm._v("Chat Box Is Currently In Beta")
-                ]),
-                _vm._v(" "),
-                _vm._m(1),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-center" }, [
-                  _vm._v(
-                    "\n                    We are working hard to address all your concerns and issues.\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-center" }, [
-                  _vm._v(
-                    "\n                    Please be patient and be as detailed as possible when describing an issue you may be having!\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-center" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger",
-                      on: {
-                        click: function($event) {
-                          _vm.showDevMsg = false
-                        }
-                      }
-                    },
-                    [_vm._v("Hide")]
-                  )
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
           _c("div", { attrs: { id: "frame" } }, [
             _c(
               "div",
@@ -78169,42 +78325,47 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._l(_vm.grouped_pms, function(value, username) {
-                      return _c(
-                        "li",
-                        { class: _vm.tab === username ? "active" : null },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "", role: "tab" },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  _vm.tab = username
-                                }
-                              }
-                            },
+                    _vm._l(_vm.pms, function(value, username) {
+                      return value.length > 0
+                        ? _c(
+                            "li",
+                            { class: _vm.tab === username ? "active" : null },
                             [
-                              _c("i", {
-                                staticClass: "fa fa-comment fa-beat text-danger"
-                              }),
-                              _vm._v(
-                                " " +
-                                  _vm._s(username) +
-                                  "\n                                "
-                              ),
-                              _c("i", { staticClass: "fa fa-times text-red" })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { href: "", role: "tab" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      _vm.tab = username
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fa fa-comment fa-beat text-danger"
+                                  }),
+                                  _vm._v(
+                                    " " +
+                                      _vm._s(username) +
+                                      "\n                                "
+                                  ),
+                                  _c("i", {
+                                    staticClass: "fa fa-times text-red"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
+                        : _vm._e()
                     })
                   ],
                   2
                 ),
                 _vm._v(" "),
-                !_vm.state.connecting
+                !_vm.state.connecting && _vm.tab === "chatbox"
                   ? _c("chat-messages", {
                       attrs: { messages: _vm.msgs },
                       on: {
@@ -78218,7 +78379,23 @@ var render = function() {
                         }
                       }
                     })
-                  : _vm._e()
+                  : !_vm.state.connecting && _vm.tab === "userlist"
+                    ? _c("chat-user-list", {
+                        attrs: { users: _vm.users },
+                        on: {
+                          "pm-sent": function(o) {
+                            return _vm.createMessage(
+                              o.message,
+                              o.save,
+                              o.user_id,
+                              o.receiver_id
+                            )
+                          }
+                        }
+                      })
+                    : !_vm.state.connecting
+                      ? _c("chat-pms", { attrs: { pms: _vm.pms[_vm.tab] } })
+                      : _vm._e()
               ],
               1
             )
@@ -78237,16 +78414,22 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _c("chat-form", {
-              attrs: { user: _vm.auth },
-              on: {
-                changedStatus: _vm.changeStatus,
-                "message-sent": function(o) {
-                  return _vm.createMessage(o.message, o.save, o.user_id)
-                },
-                typing: _vm.isTyping
-              }
-            })
+            _vm.tab !== "userlist"
+              ? _c("chat-form", {
+                  on: {
+                    changedStatus: _vm.changeStatus,
+                    "message-sent": function(o) {
+                      return _vm.createMessage(
+                        o.message,
+                        o.save,
+                        o.user_id,
+                        o.receiver_id
+                      )
+                    },
+                    typing: _vm.isTyping
+                  }
+                })
+              : _vm._e()
           ],
           1
         )
@@ -78261,7 +78444,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "panel-heading" }, [
       _c("h4", [
-        _vm._v("\n                Chatbox 2.1 Beta\n                ( "),
+        _vm._v("\n                Chatbox 2.5 Beta\n                ( "),
         _c(
           "a",
           {
@@ -78275,18 +78458,6 @@ var staticRenderFns = [
         ),
         _vm._v(" )\n            ")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-center" }, [
-      _vm._v("\n                    Please understand that "),
-      _c("strong", [_vm._v("Beta")]),
-      _vm._v(
-        " refers to software undergoing testing.\n                    Is released to a certain group of peers for real world testing.\n                "
-      )
     ])
   }
 ]
@@ -78318,33 +78489,6 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-328a432c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatForm.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-328a432c\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatForm.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/chat/ChatMessages.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/chat/ChatMessages.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6bd50479", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChatMessages.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -90069,21 +90213,17 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e4b6898\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/sass-loader/lib/loader.js!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/components/chat/ChatMessages.vue")
-}
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
 var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatMessages.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3e4b6898\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatMessages.vue")
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3e4b6898\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatMessages.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
-var __vue_scopeId__ = "data-v-3e4b6898"
+var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -90106,6 +90246,102 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-3e4b6898", Component.options)
   } else {
     hotAPI.reload("data-v-3e4b6898", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/chat/ChatPms.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatPms.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-76542c44\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatPms.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/chat/ChatPms.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-76542c44", Component.options)
+  } else {
+    hotAPI.reload("data-v-76542c44", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/chat/ChatUserList.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/chat/ChatUserList.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4ee656f1\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/components/chat/ChatUserList.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/chat/ChatUserList.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4ee656f1", Component.options)
+  } else {
+    hotAPI.reload("data-v-4ee656f1", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -90218,6 +90454,82 @@ if (false) {(function () {
 
 module.exports = Component.exports
 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/chat/mixins/pmMethods.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ({
+  methods: {
+    pmUser: function pmUser(user) {
+      var _this = this;
+
+      if (user.id === this.$parent.auth.id) {
+        return false;
+      }
+
+      swal({
+        title: 'Send Private Message to ' + user.username,
+        input: 'textarea',
+        width: '800px',
+        height: '600px',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+
+        showCancelButton: true,
+        confirmButtonText: 'Send',
+        showLoaderOnConfirm: true,
+
+        onOpen: function onOpen() {
+          _this.editor = $('.swal2-textarea').wysibb({});
+        },
+
+        onClose: function onClose() {
+          _this.editor = null;
+        },
+
+        preConfirm: function preConfirm(msg) {
+
+          msg = _this.editor.bbcode().trim();
+
+          if (msg !== null && msg !== '') {
+
+            _this.$emit('pm-sent', {
+              message: msg,
+              save: true,
+              user_id: _this.$parent.auth.id,
+              receiver_id: user.id
+            });
+
+            $('.wysibb-body').html('');
+          }
+
+          return user;
+        },
+
+        allowOutsideClick: false
+
+      }).then(function (result) {
+        // console.log(result)
+
+        if (result.value) {
+          swal({
+            title: 'Sent Private Message to ' + result.value.username,
+            timer: 1500,
+            onOpen: function onOpen() {
+              swal.showLoading();
+            }
+          }).then(function (result) {
+            if (result.dismiss === swal.DismissReason.timer) {}
+          });
+        }
+      });
+    }
+  }
+});
 
 /***/ }),
 

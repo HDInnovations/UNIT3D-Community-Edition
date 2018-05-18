@@ -78,17 +78,21 @@
   import ChatroomsDropdown from './ChatroomsDropdown'
 
   export default {
-    props: ['user'],
     components: {
       ChatroomsDropdown
     },
     data () {
       return {
+        user: null,
         editor: null,
         input: null,
       }
     },
-
+    computed: {
+      receiver_id () {
+        return this.$parent.receiver_id
+      }
+    },
     methods: {
       keyup (e) {
         this.$emit('typing', this.user)
@@ -109,6 +113,7 @@
             message: msg,
             save: true,
             user_id: this.user.id,
+            receiver_id: this.receiver_id
           })
 
           this.input.html('')
@@ -116,7 +121,9 @@
 
       }
     },
-
+    created() {
+      this.user = this.$parent.auth
+    },
     mounted () {
       this.editor = $('#chat-message').wysibb()
 

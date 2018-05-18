@@ -4,37 +4,15 @@
         <div class="panel panel-chat">
             <div class="panel-heading">
                 <h4>
-                    Chatbox 2.1 Beta
+                    Chatbox 2.5 Beta
                     ( <a target="_blank"
                          href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
                 </h4>
             </div>
 
             <div class="panel-body">
-
-                <div v-if="showDevMsg">
-                    <h2 class="text-center text-red text-bold">Chat Box Is Currently In Beta</h2>
-                    <p class="text-center">
-                        Please understand that <strong>Beta</strong> refers to software undergoing testing.
-                        Is released to a certain group of peers for real world testing.
-                    </p>
-                    <p class="text-center">
-                        We are working hard to address all your concerns and issues.
-                    </p>
-                    <p class="text-center">
-                        Please be patient and be as detailed as possible when describing an issue you may be having!
-                    </p>
-                    <p class="text-center">
-                        <button @click="showDevMsg = false" class="btn btn-danger">Hide</button>
-                    </p>
-                </div>
-
                 <div id="frame">
                     <div class="content">
-                        <!--<div class="text-center">-->
-                        <!--<h4 v-if="state.connecting" class='text-red'>Connecting ...</h4>-->
-                        <!--<h4 v-else class='text-green'>Connected with {{users.length}} users</h4>-->
-                        <!--</div>-->
                         <ul role="tablist" class="nav nav-tabs mb-5">
                             <li :class="tab === 'chatbox' ? 'active' : null">
                                 <a href="" role="tab" @click.prevent="tab = 'chatbox'">
@@ -46,19 +24,30 @@
                                     <i class="fa fa-users text-success"></i> Active Users ({{users.length}})
                                 </a>
                             </li>
-                            <li v-for="(value, username) in grouped_pms" :class="tab === username ? 'active' : null">
+                            <li v-for="(value, username) in pms" v-if="value.length > 0"
+                                :class="tab === username ? 'active' : null">
+
                                 <a href="" role="tab" @click.prevent="tab = username">
                                     <i class="fa fa-comment fa-beat text-danger"></i> {{ username }}
                                     <i class="fa fa-times text-red"></i>
                                 </a>
+
                             </li>
                         </ul>
 
-                        <chat-messages v-if="!state.connecting"
+                        <chat-messages v-if="!state.connecting && tab === 'chatbox'"
                                        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
                                        :messages="msgs">
 
                         </chat-messages>
+
+                        <chat-user-list v-else-if="!state.connecting && tab === 'userlist'"
+                                        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
+                                        :users="users">
+
+                        </chat-user-list>
+
+                        <chat-pms v-else-if="!state.connecting" :pms="pms[tab]"></chat-pms>
 
                     </div>
                 </div>
@@ -68,11 +57,10 @@
                     <span class="badge-extra" v-if="activePeer">{{ activePeer.username }} is typing ...</span>
                 </div>
 
-                <chat-form
-                        @changedStatus="changeStatus"
-                        @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
-                        @typing="isTyping"
-                        :user="auth">
+                <chat-form v-if="tab !== 'userlist'"
+                           @changedStatus="changeStatus"
+                           @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
+                           @typing="isTyping">
 
                 </chat-form>
             </div>
@@ -81,6 +69,10 @@
 </template>
 <style lang="scss">
     .chatbox {
+        .nav-tabs {
+            overflow-y: hidden;
+        }
+
         .typing {
             height: 20px;
 
@@ -112,6 +104,8 @@
   import ChatroomsDropdown from './ChatroomsDropdown'
   import ChatMessages from './ChatMessages'
   import ChatForm from './ChatForm'
+  import ChatPms from './ChatPms'
+  import ChatUserList from './ChatUserList'
 
   export default {
     props: {
@@ -123,7 +117,9 @@
     components: {
       ChatroomsDropdown,
       ChatMessages,
-      ChatForm
+      ChatForm,
+      ChatUserList,
+      ChatPms
     },
     data () {
       return {
@@ -134,24 +130,28 @@
         auth: {},
         statuses: [],
         status: 0,
-        showStatuses: false,
         chatrooms: [],
         messages: [],
         users: [],
-        pms: [],
         room: 0,
         scroll: true,
         channel: null,
         config: {},
         activePeer: false,
-
-        /* Developer Settings */
-        showDevMsg: false,
+        receiver_id: null
       }
     },
     watch: {
-      tab () {
+      tab (newVal, oldVal) {
         this.scrollToBottom(true)
+
+        if (newVal !== 'chatbox' && newVal !== 'userlist') {
+          let i = _.findIndex(this.pms[newVal], (o) => {
+            return o.user.username === newVal
+          })
+
+          this.receiver_id = this.pms[newVal][i].user.id
+        }
       },
       chatrooms () {
         this.changeRoom(this.auth.chatroom.id)
@@ -168,20 +168,17 @@
     },
     computed: {
       msgs () {
-
-        switch (this.tab) {
-          case 'chatbox':
-            return this.messages
-          case 'userlist':
-            return this.users
-          default:
-            return this.pms
-        }
-
+        return _.filter(this.messages, (o) => {
+          return !o.receiver
+        })
       },
-      grouped_pms () {
-        return _.groupBy(this.pms, (o) => {
-          return o.user.username
+      pms () {
+        let m = _.filter(this.messages, (o) => {
+          return o.receiver ? (o.receiver.id === this.auth.id || o.user.id === this.auth.id) : null
+        })
+
+        return _.groupBy(m, (o) => {
+          return o.user.username === this.auth.username ? o.receiver.username : o.user.username
         })
       },
       last_id () {
@@ -247,15 +244,9 @@
       fetchMessages () {
         axios.get(`/api/chat/messages/${this.room}`).then(response => {
 
-          this.messages = _.reverse(_.filter(response.data.data, (o) => {
-            return !o.receiver
-          }))
+          this.messages = _.reverse(response.data.data)
 
           this.scrollToBottom(true)
-
-          this.pms = _.reverse(_.filter(response.data.data, (o) => {
-            return o.receiver ? o.receiver.id === this.auth.id : null
-          }))
 
           this.state.connecting = false
         })
@@ -334,8 +325,6 @@
         this.channel
           .here(users => {
             this.state.connecting = false
-            console.log(users)
-
             this.users = users
 
             setInterval(() => {
@@ -349,13 +338,7 @@
             // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            if (e.message.receiver) {
-              if (e.message.receiver.id === this.auth.id) {
-                this.pms.push(e.message)
-              }
-            } else {
               this.messages.push(e.message)
-            }
           })
           .listen('.edit.message', e => {
 
@@ -381,7 +364,6 @@
       this.auth = this.user
       this.fetchRooms()
       this.fetchStatuses()
-
     },
   }
 </script>
