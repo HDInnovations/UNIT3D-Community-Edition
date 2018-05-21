@@ -21,9 +21,9 @@ class GiftController extends Controller
 {
 
     /**
-     * Show the application dashboard.
+     * Send Gift Form
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class GiftController extends Controller
     }
 
     /**
-     * @method gift
+     * Send The Gift
      *
      * @return Illuminate\Http\RedirectResponse
      */
