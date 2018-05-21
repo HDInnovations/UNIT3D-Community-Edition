@@ -24,41 +24,42 @@
 @section('content')
     <div class="container box">
         <h2>Gifts</h2>
-        {{ Form::open(['route' => 'sendSystemGift' , 'method' => 'post' , 'role' => 'form' , 'class' => 'form-horizontal']) }}
-        <div class="form-group">
-            <label for="users">Select a User</label>
-            <select class="form-control user-select-placeholder-single" name="username">
-                @foreach($users as $user)
-                    <option value="{{ $user->username }}">{{ $user->username }}</option>
-                @endforeach
-            </select>
-        </div>
+        <form action="{{ route('sendSystemGift') }}" method="post">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label for="users">Select a User</label>
+                <select class="form-control user-select-placeholder-single" name="username">
+                    @foreach($users as $user)
+                        <option value="{{ $user->username }}">{{ $user->username }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="name">BON</label>
-            <input type="number" class="form-control" name="bonus_points" value="0">
-        </div>
+            <div class="form-group">
+                <label for="name">BON</label>
+                <input type="number" class="form-control" name="seedbonus" value="0">
+            </div>
 
-        <div class="form-group">
-            <label for="name">Invites</label>
-            <input type="number" class="form-control" name="invites" value="0">
-        </div>
+            <div class="form-group">
+                <label for="name">Invites</label>
+                <input type="number" class="form-control" name="invites" value="0">
+            </div>
 
-        <div class="form-group">
-            <label for="name">FL Tokens</label>
-            <input type="number" class="form-control" name="fl_tokens" value="0">
-        </div>
+            <div class="form-group">
+                <label for="name">FL Tokens</label>
+                <input type="number" class="form-control" name="fl_tokens" value="0">
+            </div>
 
-        <button type="submit" class="btn btn-default">Send</button>
-        {{ Form::close() }}
+            <button type="submit" class="btn btn-default">Send</button>
+        </form>
     </div>
 @endsection
 
 @section('javascripts')
     <script type="text/javascript">
-        $('.user-select-placeholder-single').select2({
-            placeholder: "Select A User",
-            allowClear: true
-        });
+      $('.user-select-placeholder-single').select2({
+        placeholder: "Select A User",
+        allowClear: true
+      });
     </script>
 @endsection

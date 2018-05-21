@@ -34,46 +34,45 @@ class GiftController extends Controller
     /**
      * @method gift
      *
-     * @access public
-     *
-     * @return void
+     * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
     {
-        $user = auth()->user();
+        $staff = auth()->user();
 
-        if ($request->isMethod('POST')) {
+        $username = $request->input('username');
+        $seedbonus = $request->input('seedbonus');
+        $invites = $request->input('invites');
+        $fl_tokens = $request->input('fl_tokens');
+
             $v = validator($request->all(), [
                 'username' => "required|exists:users,username|max:180",
-                'bonus_points' => "required|numeric|min:0",
+                'seedbonus' => "required|numeric|min:0",
                 'invites' => "required|numeric|min:0",
                 'fl_tokens' => "required|numeric|min:0"
             ]);
 
-            if ($v->passes()) {
-                $recipient = User::where('username', 'LIKE', $request->input('username'))->first();
-
-                if (!$recipient) {
-                    return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
-                }
-
-                $bon = $request->input('bonus_points');
-                $invites = $request->input('invites');
-                $fl_tokens = $request->input('fl_tokens');
-                $recipient->seedbonus += $bon;
-                $recipient->invites += $invites;
-                $recipient->fl_tokens += $fl_tokens;
-                $recipient->save();
-
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$user->username} has sent a system gift to {$recipient->username} account.");
-
-                return redirect('/staff_dashboard/systemgift')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
-            } else {
-                return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Gift Failed', 'Whoops!', ['options']));
-            }
+        if ($v->fails()) {
+            return redirect()->route('systemGift')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect('/staff_dashboard/systemgift')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
+            $recipient = User::where('username', 'LIKE', $username)->first();
+
+            if (!$recipient) {
+                return redirect()->route('systemGift')
+                    ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
+            }
+
+            $recipient->seedbonus += $seedbonus;
+            $recipient->invites += $invites;
+            $recipient->fl_tokens += $fl_tokens;
+            $recipient->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
+
+            return redirect()->route('systemGift')
+                ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
         }
     }
 }
