@@ -22,9 +22,9 @@ class MassPMController extends Controller
 {
 
     /**
-     * Show the application dashboard.
+     * Mass PM Form
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function massPM()
     {
@@ -32,37 +32,37 @@ class MassPMController extends Controller
     }
 
     /**
-     * @method gift
-     *
-     * @access public
-     *
-     * @return void
+     * Send The Mass PM
+     **
+     * @return Illuminate\Http\RedirectResponse
      */
     public function sendMassPM(Request $request)
     {
         $staff = auth()->user();
         $users = User::all();
 
-        if ($request->isMethod('POST')) {
-            $v = validator($request->all(), [
-                'title' => "required|min:5",
-                'message' => "required|min:5"
-            ]);
+        $subject = $request->input('subject');
+        $message = $request->input('message');
 
-            if ($v->passes()) {
-                foreach ($users as $user) {
-                    PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => $request->input('title'), 'message' => $request->input('message')]);
-                }
 
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
+        $v = validator($request->all(), [
+            'subject' => "required|min:5",
+            'message' => "required|min:5"
+        ]);
 
-                return redirect('/staff_dashboard/masspm')->with(Toastr::success('MassPM Sent', 'Yay!', ['options']));
-            } else {
-                return redirect('/staff_dashboard/masspm')->with(Toastr::error('MassPM Failed', 'Whoops!', ['options']));
-            }
+        if ($v->fails()) {
+            return redirect()->route('massPM')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
+            foreach ($users as $user) {
+                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => $subject, 'message' => $message]);
+            }
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
+
+            return redirect()->route('massPM')
+                ->with(Toastr::success('MassPM Sent', 'Yay!', ['options']));
         }
     }
 }
