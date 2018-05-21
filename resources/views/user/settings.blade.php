@@ -124,6 +124,13 @@
 
                 <h2>Torrent Preferences</h2>
                 <hr>
+                <label for="torrent_layout" class="control-label">Default Torrent Layout?</label>
+                <select class="form-control" id="torrent_layout" name="torrent_layout">
+                    <option @if($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
+                    <option @if($user->torrent_layout == 1) selected @endif value="1">Torrent Grouping</option>
+                    <option @if($user->torrent_layout == 2) selected @endif value="2">Torrent Cards</option>
+                </select>
+                <br>
                 <label for="poster" class="control-label">Show Posters On Torrent List View?</label>
                 <div class="radio-inline">
                     <label><input type="radio" name="show_poster" @if($user->show_poster == 1) checked @endif value="1">YES</label>
@@ -170,7 +177,6 @@
                 </h3>
                 <hr>
                 {{ Form::open(array('url' => '/{username}.{id}/settings/change_password','role' => 'form', 'class' => 'login-frm')) }}
-                {{ csrf_field() }}
                 <div class="form-group">
                     <label for="current_password">Current Password</label>
                     <input type="password" name="current_password" class="form-control" placeholder="Current Password">
@@ -207,7 +213,6 @@
                 </h3>
                 <hr>
                 {{ Form::open(array('url' => '/{username}.{id}/settings/change_pid','role' => 'form', 'class' => 'login-frm')) }}
-                {{ csrf_field() }}
                 <div class="form-group">
                     <label for="current_pid">Current pid</label>
                     <p class="form-control-static text-monospace current_pid">{{ $user->passkey }}</p>

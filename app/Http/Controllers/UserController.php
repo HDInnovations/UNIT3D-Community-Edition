@@ -104,7 +104,7 @@ class UserController extends Controller
         $user = auth()->user();
         // Avatar
         $max_upload = config('image.max_upload_size');
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
             $image = $request->file('image');
             if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
                 if ($max_upload >= $image->getSize()) {
@@ -183,6 +183,7 @@ class UserController extends Controller
         $user->peer_hidden = $request->input('peer_hidden');
 
         // Torrent Settings
+        $user->torrent_layout = (int)$request->input('torrent_layout');
         $user->show_poster = $request->input('show_poster');
         $user->ratings = $request->input('ratings');
 

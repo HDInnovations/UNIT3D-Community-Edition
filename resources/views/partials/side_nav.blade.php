@@ -10,7 +10,13 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('torrents') }}">
+            @if(auth()->user()->torrent_layout == 1)
+                <a href="{{ route('grouping_categories') }}">
+            @elseif(auth()->user()->torrent_layout == 2)
+                <a href="{{ route('cards') }}">
+            @else
+                <a href="{{ route('torrents') }}">
+            @endif
                 <i class="livicon" data-name="medal" data-size="18" data-c="#00bc8c" data-hc="#00bc8c"
                    data-loop="true"></i>
                 <span class="menu-text">{{ trans('torrent.torrents') }}</span>

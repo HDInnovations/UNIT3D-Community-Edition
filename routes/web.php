@@ -192,7 +192,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/upload', 'TorrentController@upload')->name('upload');
         Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
         Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
-        Route::get('/torrents/cards', 'TorrentController@cards')->name('cards');
+        Route::get('/torrents/cards', 'TorrentController@cardsLayout')->name('cards');
         Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
         Route::get('/torrents/{slug}.{id}/edit', 'TorrentController@editForm')->name('edit_form');
         Route::post('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
