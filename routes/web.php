@@ -47,7 +47,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Forgot Username Routes
         Route::get('username/reminder', 'Auth\ForgotUsernameController@showForgotUsernameForm')->name('username.request');
-        Route::post('username/reminder', 'Auth\ForgotUsernameController@sendUserameReminder')->name('username.email');
+        Route::post('username/reminder', 'Auth\ForgotUsernameController@sendUsernameReminder')->name('username.email');
     });
 
     Route::group(['before' => 'auth'], function () {
