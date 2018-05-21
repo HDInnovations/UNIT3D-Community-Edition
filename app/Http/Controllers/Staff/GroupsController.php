@@ -47,6 +47,7 @@ class GroupsController extends Controller
     /**
      * Add Group
      *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
@@ -115,6 +116,7 @@ class GroupsController extends Controller
      *
      * @param $group
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $group, $id)
     {
@@ -148,7 +150,8 @@ class GroupsController extends Controller
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
-            return redirect()->route('staff_groups_index')->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
+            return redirect()->route('staff_groups_index')
+                ->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
         }
     }
 }

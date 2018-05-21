@@ -22,7 +22,7 @@ class FlushController extends Controller
     /**
      * Delete all old peers from database
      *
-     *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function deleteOldPeers()
     {
@@ -37,6 +37,7 @@ class FlushController extends Controller
                 $peer->delete();
             }
         }
-        return redirect('staff_dashboard')->with(Toastr::success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
+        return redirect('staff_dashboard')
+            ->with(Toastr::success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
     }
 }

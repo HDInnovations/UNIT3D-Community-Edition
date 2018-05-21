@@ -29,10 +29,10 @@ class ContactController extends Controller
     }
 
     /**
-     * Contact page, send an email to admins
+     * Contact page, send an email to owner/first user
      *
      * @access public
-     * @return View home.contact
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contact(Request $request)
     {
