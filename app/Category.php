@@ -19,25 +19,12 @@ class Category extends Model
     public $timestamps = false;
 
     /**
-     * Validation rules
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'position' => 'required',
-        'icon' => 'required',
-        'meta' => 'required'
-    ];
-
-    /**
      * Has many torrents
-     *
      *
      */
     public function torrents()
     {
-        return $this->hasMany(\App\Torrent::class);
+        return $this->hasMany(Torrent::class);
     }
 
     /**
@@ -46,6 +33,6 @@ class Category extends Model
      */
     public function requests()
     {
-        return $this->hasMany(\App\TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 }

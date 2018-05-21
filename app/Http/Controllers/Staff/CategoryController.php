@@ -21,7 +21,7 @@ class CategoryController extends Controller
 {
 
     /**
-     * Get the categories
+     * Get The Categories
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -43,8 +43,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Add a category
+     * Add A Category
      *
+     * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
@@ -54,12 +55,22 @@ class CategoryController extends Controller
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->meta = $request->input('meta');
-        $v = validator($category->toArray(), $category->rules);
+
+        $v = validator($category->toArray(), [
+            'name' => 'required',
+            'slug' => 'required',
+            'position' => 'required',
+            'icon' => 'required',
+            'meta' => 'required'
+        ]);
+
         if ($v->fails()) {
-            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('staff_category_index')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
-            return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Added', 'Yay!', ['options']));
+            return redirect()->route('staff_category_index')
+                ->with(Toastr::success('Category Successfully Added', 'Yay!', ['options']));
         }
     }
 
@@ -78,37 +89,51 @@ class CategoryController extends Controller
     }
 
     /**
-     * Edit a category
+     * Edit A Category
      *
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
         $category->slug = str_slug($category->name);
+        $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->meta = $request->input('meta');
-        $v = validator($category->toArray(), $category->rules);
+
+        $v = validator($category->toArray(), [
+            'name' => 'required',
+            'slug' => 'required',
+            'position' => 'required',
+            'icon' => 'required',
+            'meta' => 'required'
+        ]);
+
         if ($v->fails()) {
-            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Error', ['options']));
+            return redirect()->route('staff_category_index')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
-            return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Modified', 'Yay!', ['options']));
+            return redirect()->route('staff_category_index')
+                ->with(Toastr::success('Category Successfully Modified', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Delete a category
+     * Delete A Category
      *
      * @param $id
      * @param $slug
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect()->route('staff_category_index')->with(Toastr::success('Category Sucessfully Deleted', 'Yay!', ['options']));
+        return redirect()->route('staff_category_index')
+            ->with(Toastr::success('Category Sucessfully Deleted', 'Yay!', ['options']));
     }
 }

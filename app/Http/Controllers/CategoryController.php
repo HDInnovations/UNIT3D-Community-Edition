@@ -16,14 +16,24 @@ use App\Category;
 
 class CategoryController extends Controller
 {
+    /**
+     * Display Category List
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function categories()
+    {
+        $categories = Category::all()->sortBy('position');
+
+        return view('category.categories', ['categories' => $categories]);
+    }
 
     /**
      * Displays torrents by category
      *
-     * @access public
      * @param $slug
      * @param $id
-     * @return category.category View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function category($slug, $id)
     {
@@ -31,19 +41,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $torrents = $category->torrents()->latest()->paginate(25);
 
-        return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category, 'categories' => Category::all()->sortBy('position')]);
-    }
-
-    /**
-     * Display category list
-     *
-     * @access public
-     * @return category.categories View
-     */
-    public function categories()
-    {
-        $categories = Category::all()->sortBy('position');
-
-        return view('category.categories', ['categories' => $categories]);
+        return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category]);
     }
 }
