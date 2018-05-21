@@ -142,15 +142,15 @@
         <br>
         <div style="float:left;">
             <strong>Extra:</strong>
-            <a href="{{ route('categories') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em>
-                Categories</a>
-            <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-film"></em> Catalogs</a>
+            <a href="{{ route('categories') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-file"></em>
+                Torrent Categories</a>
+            <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary"><em class="icon fa fa-book"></em> Torrent Catalogs</a>
         </div>
         <div style="float:right;">
             <strong>View:</strong>
-            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> List</a>
-            <a href="{{ route('poster') }}" class="btn btn-xs btn-primary"><i class="fa fa-image"></i> Poster</a>
-            <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Group</a>
+            <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Torrent List</a>
+            <a href="{{ route('cards') }}" class="btn btn-xs btn-primary"><i class="fa fa-image"></i> Torrent Cards</a>
+            <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary"><i class="fa fa-list"></i> Torrent Grouping</a>
         </div>
     </div>
     <!-- /Search -->

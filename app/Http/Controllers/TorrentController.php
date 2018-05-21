@@ -64,35 +64,6 @@ class TorrentController extends Controller
     }
 
     /**
-     * Poster Torrent Search
-     *
-     * @access public
-     *
-     * @param $request Request from view
-     *
-     * @return View torrent.poster
-     *
-     */
-    public function posterSearch(Request $request)
-    {
-        $user = auth()->user();
-        $order = explode(":", $request->input('order'));
-        $search = $request->input('search');
-        $name = $request->input('name');
-        $category_id = $request->input('category_id');
-        $type = $request->input('type');
-        $torrents = Torrent::where([
-            ['name', 'like', '%' . $name . '%'],
-            ['category_id', $category_id],
-            ['type', $type],
-        ])->orderBy($order[0], $order[1])->paginate(25);
-
-        $torrents->setPath('?name=' . $name . '&category_id=' . $category_id . '&type=' . $type . '&order=' . $order[0] . '%3A' . $order[1]);
-
-        return view('torrent.poster', ['torrents' => $torrents, 'user' => $user, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
-    }
-
-    /**
      * Bump A Torrent
      *
      * @access public
@@ -885,21 +856,20 @@ class TorrentController extends Controller
      * Poster View
      *
      * @access public
-     *
-     * @return view::make poster.poster
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function poster()
+    public function cardsLayout()
     {
         $user = auth()->user();
-        $torrents = Torrent::latest()->paginate(32);
-        return view('torrent.poster', ['user' => $user, 'torrents' => $torrents, 'categories' => Category::all()->sortBy('position'), 'types' => Type::all()->sortBy('position')]);
+        $torrents = Torrent::latest()->paginate(33);
+        return view('torrent.cards', ['user' => $user, 'torrents' => $torrents]);
     }
 
     /**
      * Torrent Grouping Categories
      *
      * @access public
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function groupingCategories()
     {
@@ -913,7 +883,7 @@ class TorrentController extends Controller
      * Torrent Grouping
      *
      * @access public
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function groupingLayout($category_id)
     {
@@ -937,7 +907,7 @@ class TorrentController extends Controller
      * Torrent Grouping Results
      *
      * @access public
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function groupingResults($category_id, $imdb)
     {
