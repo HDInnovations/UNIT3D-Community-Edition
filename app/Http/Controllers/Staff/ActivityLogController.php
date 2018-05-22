@@ -22,26 +22,27 @@ class ActivityLogController extends Controller
     /**
      * Display All Activities
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getActivity()
     {
         $activities = \LogActivity::logActivityLists();
+
         return view('Staff.activity.index', ['activities' => $activities]);
     }
 
     /**
      * Delete Record From Activity Log
+     *
      * @param $id
-     * @return \Illuminate\Http\Response
+     * @return Illuminate\Http\RedirectResponse
      */
     public function deleteActivity($id)
     {
         $activity = LogActivity::findOrFail($id);
         $activity->delete();
 
-        return redirect()
-            ->back()
+        return redirect()->route('getActivity')
             ->with(Toastr::success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }
