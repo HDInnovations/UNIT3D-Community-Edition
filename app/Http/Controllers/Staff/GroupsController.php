@@ -47,6 +47,7 @@ class GroupsController extends Controller
     /**
      * Add Group
      *
+     * @param Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -114,6 +115,7 @@ class GroupsController extends Controller
     /**
      * Edit Group
      *
+     * @param Request $request
      * @param $group
      * @param $id
      * @return Illuminate\Http\RedirectResponse

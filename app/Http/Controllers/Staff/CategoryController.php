@@ -45,6 +45,7 @@ class CategoryController extends Controller
     /**
      * Add A Category
      *
+     * @param Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -91,6 +92,7 @@ class CategoryController extends Controller
     /**
      * Edit A Category
      *
+     * @param Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse

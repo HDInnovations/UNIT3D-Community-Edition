@@ -33,7 +33,8 @@ class MassPMController extends Controller
 
     /**
      * Send The Mass PM
-     **
+     *
+     * @param Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function sendMassPM(Request $request)

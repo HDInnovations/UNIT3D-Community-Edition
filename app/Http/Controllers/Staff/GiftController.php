@@ -34,6 +34,7 @@ class GiftController extends Controller
     /**
      * Send The Gift
      *
+     * @param Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
