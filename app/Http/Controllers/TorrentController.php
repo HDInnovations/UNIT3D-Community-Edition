@@ -1073,18 +1073,16 @@ class TorrentController extends Controller
     /**
      * Use Freeleech Token
      *
-     * @access public
-     *
-     * @param $slug Slug of torrent
-     * @param $id Id of torrent
-     *
-     * @return Redirect to details page of modified torrent
+     * @param $slug
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function freeleechToken($slug, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $active_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
+
         if ($user->fl_tokens >= 1 && !$active_token) {
             $token = new FreeleechToken();
             $token->user_id = $user->id;
