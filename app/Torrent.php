@@ -29,131 +29,88 @@ class Torrent extends Model
     use Moderatable;
     use Sortable;
 
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = ['name', 'slug', 'description', 'mediainfo', 'info_hash', 'file_name', 'num_file', 'announce', 'size', 'nfo', 'category_id', 'user_id',
-        'imdb', 'tvdb', 'tmdb', 'mal', 'type', 'anon', 'stream', 'sd'];
-
-    /**
-     * Rules
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'description' => 'required',
-        'info_hash' => 'required|unique:torrents',
-        'file_name' => 'required',
-        'num_file' => 'required|numeric',
-        'announce' => 'required',
-        'size' => 'required',
-        'category_id' => 'required',
-        'user_id' => 'required',
-        'imdb' => 'required|numeric',
-        'tvdb' => 'required|numeric',
-        'tmdb' => 'required|numeric',
-        'type' => 'required',
-        'anon' => 'required',
-        'stream' => 'required',
-        'sd' => 'required'
-    ];
-
     public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];
 
     /**
-     * Belongs to User
-     *
+     * Belongs To A User
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Belongs to  Category
-     *
+     * Belongs To A Category
      */
     public function category()
     {
-        return $this->belongsTo(\App\Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     /**
-     * Belongs to  Type
-     *
+     * Belongs To A Type
      */
     public function type()
     {
-        return $this->belongsTo(\App\Type::class);
+        return $this->belongsTo(Type::class);
     }
 
     /**
-     * Has many files
-     *
+     * Has Many Files
      */
     public function files()
     {
-        return $this->hasMany(\App\TorrentFile::class);
+        return $this->hasMany(TorrentFile::class);
     }
 
     /**
-     * Has many Comment
-     *
+     * Has Many Comments
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**
-     * Has many peers
-     *
-     *
+     * Has Many Peers
      */
     public function peers()
     {
-        return $this->hasMany(\App\Peer::class);
+        return $this->hasMany(Peer::class);
     }
 
     /**
-     * HABTM Tag
-     *
-     *
+     * Has Many Tags
      */
     public function tags()
     {
-        return $this->belongsToMany(\App\Tag::class);
+        return $this->belongsToMany(Tag::class);
     }
 
     /**
-     * Relationship to a single request
-     *
+     * Relationship To A Single Request
      */
     public function request()
     {
-        return $this->hasOne(\App\TorrentRequest::class, 'filled_hash', 'info_hash');
+        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
     }
 
     /**
-     * Torrent has been moderated by
-     *
+     * Torrent Has Been Moderated By
      */
     public function moderated()
     {
-        return $this->belongsTo(\App\User::class, 'moderated_by')->withDefault([
+        return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Formats the output of the description
-     *
+     * Formats The Output Of The Description
      */
     public function getDescriptionHtml()
     {
@@ -161,8 +118,7 @@ class Torrent extends Model
     }
 
     /**
-     * Formats the output of the mediainfo dump
-     *
+     * Formats The Output Of The Media Info Dump
      */
     public function getMediaInfo()
     {
@@ -172,8 +128,7 @@ class Torrent extends Model
     }
 
     /**
-     * Returns the size in human format
-     *
+     * Returns The Size In Human Format
      */
     public function getSize($bytes = null, $precision = 2)
     {
@@ -183,7 +138,6 @@ class Torrent extends Model
 
     /**
      * Bookmarks
-     *
      */
     public function bookmarked()
     {
@@ -193,46 +147,48 @@ class Torrent extends Model
     }
 
     /**
-     * One movie belongs to many catalogs
-     *
+     * One Title Belongs To Many Catalogs
      */
     public function catalogs()
     {
         return $this->belongsToMany(Catalog::class)->withTimestamps();
     }
 
+    /**
+     * Has Many History
+     */
     public function history()
     {
-        return $this->hasMany(\App\History::class, "info_hash", "info_hash");
+        return $this->hasMany(History::class, "info_hash", "info_hash");
     }
 
     /**
-     * Has many Thank
-     *
+     * Has Many Thank
      */
     public function thanks()
     {
-        return $this->hasMany(\App\Thank::class);
+        return $this->hasMany(Thank::class);
     }
 
     /**
-     * Has many HitRuns
-     *
+     * Has Many HitRuns
      */
     public function hitrun()
     {
-        return $this->hasMany(\App\Warning::class, 'torrent');
+        return $this->hasMany(Warning::class, 'torrent');
     }
 
     /**
-     * Has many Featured
-     *
+     * Has Many Featured
      */
     public function featured()
     {
-        return $this->hasMany(\App\FeaturedTorrent::class);
+        return $this->hasMany(FeaturedTorrent::class);
     }
 
+    /**
+     * Torrent Is Freeleech
+     */
     public function isFreeleech($user = null)
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;

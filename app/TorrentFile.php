@@ -15,39 +15,29 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\StringHelper;
 
-/**
- * Template for torrent files
- *
- *
- */
 class TorrentFile extends Model
 {
 
     /**
-     * DB Table
-     *
+     * The Database Table Used By The Model
      */
     protected $table = 'files';
 
     /**
-     * Disable dates when backing up
-     *
+     * Disable Dates
      */
     public $timestamps = false;
 
     /**
-     * Belongs to Torrent
-     *
-     *
+     * Belongs To A Torrent
      */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class);
+        return $this->belongsTo(Torrent::class);
     }
 
     /**
      * Return Size In Human Format
-     *
      */
     public function getSize($bytes = null, $precision = 2)
     {

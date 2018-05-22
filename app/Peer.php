@@ -15,10 +15,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-/**
- * Peers for customers torrents
- *
- */
 class Peer extends Model
 {
     use Sortable;
@@ -27,12 +23,10 @@ class Peer extends Model
 
     /**
      * Belongs to User
-     *
-     *
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
@@ -40,11 +34,9 @@ class Peer extends Model
 
     /**
      * Belongs to torrent
-     *
-     *
      */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class);
+        return $this->belongsTo(Torrent::class);
     }
 }

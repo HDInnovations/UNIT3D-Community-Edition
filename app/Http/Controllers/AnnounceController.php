@@ -111,7 +111,7 @@ class AnnounceController extends Controller
 
         // Standard Information Fields
         $event = $request->input('event');
-        $hash = bin2hex($request->input('info_hash'));
+        $info_hash = bin2hex($request->input('info_hash'));
         $peer_id = bin2hex($request->input('peer_id'));
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
@@ -149,8 +149,8 @@ class AnnounceController extends Controller
         }
 
         // If Infohash Is Not 20 Bytes Long Return Error to Client
-        /*if (strlen($hash) != 20) {
-        info('sent invalid info_hash: ' . $hash);
+        /*if (strlen($info_hash) != 20) {
+        info('sent invalid info_hash: ' . $info_hash);
         return response(Bencode::bencode(['failure reason' => "Invalid infohash: infohash is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }
 
         // If Peerid Is Not 20 Bytes Long Return Error to Client
@@ -159,11 +159,11 @@ class AnnounceController extends Controller
         return response(Bencode::bencode(['failure reason' => "Invalid peerid: peerid is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }*/
 
         // Check Info Hash Agaist Torrents Table
-        $torrent = Torrent::where('info_hash', $hash)->first();
+        $torrent = Torrent::where('info_hash', $info_hash)->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if (!$torrent || $torrent->id < 0) {
-            //info('Client Attempted To Connect To Announce But The Torrent Doesnt Exsist Using Hash '  . $hash);
+            //info('Client Attempted To Connect To Announce But The Torrent Doesnt Exsist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']), 200, ['Content-Type' => 'text/plain']);
         }
 
@@ -179,7 +179,7 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        $peers = Peer::where('hash', $hash)->take(100)->get()->toArray();
+        $peers = Peer::where('info_hash', $info_hash)->take(100)->get()->toArray();
         $seeders = 0;
         $leechers = 0;
 
@@ -193,7 +193,7 @@ class AnnounceController extends Controller
             unset(
                 $p['id'],
                 $p['md5_peer_id'],
-                $p['hash'],
+                $p['info_hash'],
                 $p['agent'],
                 $p['uploaded'],
                 $p['downloaded'],
@@ -207,7 +207,7 @@ class AnnounceController extends Controller
         }
 
         // Pull Count On Users Peers Per Torrent
-        $limit = Peer::where('hash', $hash)->where('user_id', $user->id)->count();
+        $limit = Peer::where('info_hash', $info_hash)->where('user_id', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than 3 Return Error to Client
         if ($limit > 3) {
@@ -216,7 +216,7 @@ class AnnounceController extends Controller
         }
 
         // Get The Current Peer
-        $client = Peer::where('hash', $hash)->where('md5_peer_id', $md5_peer_id)->where('user_id', $user->id)->first();
+        $client = Peer::where('info_hash', $info_hash)->where('md5_peer_id', $md5_peer_id)->where('user_id', $user->id)->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
@@ -233,13 +233,12 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = History::where("info_hash", $hash)->where("user_id", $user->id)->first();
+        $history = History::where("info_hash", $info_hash)->where("user_id", $user->id)->first();
 
         if (!$history) {
-            $history = new History([
-                "user_id" => $user->id,
-                "info_hash" => $hash
-            ]);
+            $history = new History();
+            $history->user_id = $user->id;
+            $history->info_hash = $info_hash;
         }
 
         if ($ghost) {
@@ -286,7 +285,7 @@ class AnnounceController extends Controller
             //Peer update
             $client->peer_id = $peer_id;
             $client->md5_peer_id = $md5_peer_id;
-            $client->hash = $hash;
+            $client->info_hash = $info_hash;
             $client->ip = $request->ip();
             $client->port = $port;
             $client->agent = $agent;
@@ -322,7 +321,7 @@ class AnnounceController extends Controller
             //Peer update
             $client->peer_id = $peer_id;
             $client->md5_peer_id = $md5_peer_id;
-            $client->hash = $hash;
+            $client->info_hash = $info_hash;
             $client->ip = $request->ip();
             $client->port = $port;
             $client->agent = $agent;
@@ -365,7 +364,7 @@ class AnnounceController extends Controller
             //Peer update
             $client->peer_id = $peer_id;
             $client->md5_peer_id = $md5_peer_id;
-            $client->hash = $hash;
+            $client->info_hash = $info_hash;
             $client->ip = $request->ip();
             $client->port = $port;
             $client->agent = $agent;
@@ -410,7 +409,7 @@ class AnnounceController extends Controller
             //Peer update
             $client->peer_id = $peer_id;
             $client->md5_peer_id = $md5_peer_id;
-            $client->hash = $hash;
+            $client->info_hash = $info_hash;
             $client->ip = $request->ip();
             $client->port = $port;
             $client->agent = $agent;
