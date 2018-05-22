@@ -22,12 +22,4 @@ class Graveyard extends Model
      * @var string
      */
     protected $table = "graveyard";
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'user_id', 'torrent_id', 'seedtime'
-    ];
 }

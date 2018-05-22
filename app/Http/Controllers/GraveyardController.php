@@ -22,11 +22,9 @@ class GraveyardController extends Controller
 {
 
     /**
-     * Graveyard Manager
+     * Show The Graveyard
      *
-     *
-     * @access public
-     * @return view graveyard.index
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -36,26 +34,51 @@ class GraveyardController extends Controller
         $time = config('graveyard.time');
         $tokens = config('graveyard.reward');
 
-        return view('graveyard.index', compact('dead', 'deadcount', 'user', 'time', 'tokens'));
+        return view('graveyard.index', ['user' => $user, 'dead' => $dead,
+            'deadcount' => $deadcount, 'time' => $time, 'tokens' => $tokens]);
     }
 
+    /**
+     * Resurrect A Torrent
+     *
+     * @param Request $request
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function resurrect(Request $request, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
         $resurrected = Graveyard::where('torrent_id', $torrent->id)->first();
+
         if ($resurrected) {
-            return redirect()->route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
+            return redirect()->route('graveyard')
+                ->with(Toastr::error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }
+
         if ($user->id != $torrent->user_id) {
-            $resurrection = Graveyard::create([
-                'user_id' => $user->id,
-                'torrent_id' => $torrent->id,
-                'seedtime' => $request->input('seedtime')
-            ]);
-            return redirect()->route('graveyard')->with(Toastr::success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
+            return redirect()->route('graveyard')
+                ->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
+        }
+
+        $resurrection = new Graveyard();
+        $resurrection->user_id = $user->id;
+        $resurrection->torrent_id = $torrent->id;
+        $resurrection->seedtime = $request->input('seedtime');
+
+        $v = validator($resurrection->toArray(), [
+            'user_id' => 'required',
+            'torrent_id' => 'required',
+            'seedtime' => 'required'
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('graveyard')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect()->route('graveyard')->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
+            $resurrection->save();
+            return redirect()->route('graveyard')
+                ->with(Toastr::success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }
     }
 }
