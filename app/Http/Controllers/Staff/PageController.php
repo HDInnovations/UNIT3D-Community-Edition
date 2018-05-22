@@ -45,6 +45,8 @@ class PageController extends Controller
     /**
      * Add A Page
      *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
@@ -53,12 +55,19 @@ class PageController extends Controller
         $page->slug = str_slug($page->name);
         $page->content = $request->input('content');
 
-        $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
-        if ($v->passes()) {
-            $page->save();
-            return redirect()->route('staff_page_index')->with(Toastr::success('Page has been created successfully', 'Yay!', ['options']));
+        $v = validator($page->toArray(), [
+            'name' => 'required',
+            'slug' => 'required',
+            'content' => 'required'
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('staff_page_index')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
+            $page->save();
+            return redirect()->route('staff_page_index')
+                ->with(Toastr::success('Page has been created successfully', 'Yay!', ['options']));
         }
     }
 
@@ -79,8 +88,10 @@ class PageController extends Controller
     /**
      * Edit A Page
      *
+     * @param Request $request
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
     {
@@ -89,12 +100,19 @@ class PageController extends Controller
         $page->slug = str_slug($page->name);
         $page->content = $request->input('content');
 
-        $v = validator($page->toArray(), ['name' => 'required', 'slug' => 'required', 'content' => 'required']);
-        if ($v->passes()) {
-            $page->save();
-            return redirect()->route('staff_page_index')->with(Toastr::success('Page has been edited successfully', 'Yay!', ['options']));
+        $v = validator($page->toArray(), [
+            'name' => 'required',
+            'slug' => 'required',
+            'content' => 'required'
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('staff_page_index')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect()->back()->with(Toastr::error('Page failed to save', 'Whoops!', ['options']));
+            $page->save();
+            return redirect()->route('staff_page_index')
+                ->with(Toastr::success('Page has been edited successfully', 'Yay!', ['options']));
         }
     }
 
@@ -103,10 +121,13 @@ class PageController extends Controller
      *
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)
     {
         Page::findOrFail($id)->delete();
-        return redirect()->route('staff_page_index')->with(Toastr::success('Page has been deleted successfully', 'Yay!', ['options']));
+
+        return redirect()->route('staff_page_index')
+            ->with(Toastr::success('Page has been deleted successfully', 'Yay!', ['options']));
     }
 }
