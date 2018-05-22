@@ -93,12 +93,19 @@
                                         <i class="fa fa-circle text-red" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('user.offline') }}"></i>
                                     @endif
-                                    @if($user->getWarning() > 0)<i class="fa fa-exclamation-circle text-orange"
-                                                                   aria-hidden="true" data-toggle="tooltip" title=""
-                                                                   data-original-title="{{ trans('user.active-warning') }}"></i>@endif
-                                    @if($user->notes->count() > 0 && auth()->user()->group->is_modo)<i
-                                            class="fa fa-comment fa-beat" aria-hidden="true" data-toggle="tooltip"
-                                            title="" data-original-title="{{ trans('user.staff-noted') }}"></i>@endif
+                                    @if($user->getWarning() > 0)
+                                        <i class="fa fa-exclamation-circle text-orange" aria-hidden="true"
+                                           data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}">
+                                        </i>
+                                    @endif
+                                    @if($user->notes->count() > 0 && auth()->user()->group->is_modo)
+                                        <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
+                                           class="edit">
+                                        <i class="fa fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
+                                            title="" data-original-title="{{ trans('user.staff-noted') }}">
+                                        </i>
+                                        </a>
+                                    @endif
                                 </h2>
                                 <h4>{{ trans('common.group') }}: <span class="badge-user text-bold"
                                                                        style="color:{{ $user->group->color }}; background-image:{{ $user->group->effect }};"><i

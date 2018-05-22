@@ -24,16 +24,7 @@ class Note extends Model
     protected $table = "user_notes";
 
     /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'user_id', 'staff_id', 'message'
-    ];
-
-    /**
      * Belongs to User
-     *
      */
     public function noteduser()
     {
@@ -43,6 +34,9 @@ class Note extends Model
         ]);
     }
 
+    /**
+     * Belongs to Staff User
+     */
     public function staffuser()
     {
         return $this->belongsTo(\App\User::class, "staff_id")->withDefault([
