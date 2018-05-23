@@ -156,15 +156,15 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
         // Private Messages System
-        Route::get('/{username}.{id}/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
-        Route::get('/{username}.{id}/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
-        Route::get('/{username}.{id}/message/{pmid}', 'PrivateMessageController@getPrivateMessageById')->name('message');
-        Route::get('/{username}.{id}/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
-        Route::get('/{username}.{id}/create', 'PrivateMessageController@makePrivateMessage')->name('create');
-        Route::get('/{username}.{id}/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
-        Route::post('/send-private-message', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
-        Route::post('/reply-private-message/{pmid}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
-        Route::post('/deletePM/{pmid}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
+        Route::get('/mail/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
+        Route::get('/mail/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
+        Route::get('/mail/message/{id}', 'PrivateMessageController@getPrivateMessageById')->name('message');
+        Route::get('/mail/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
+        Route::get('/mail/create/{receiver_id}/{username}', 'PrivateMessageController@makePrivateMessage')->name('create');
+        Route::get('/mail/mark-all-read', 'PrivateMessageController@markAllAsRead')->name('mark-all-read');
+        Route::post('/mail/send', 'PrivateMessageController@sendPrivateMessage')->name('send-pm');
+        Route::post('/mail/reply/{id}', 'PrivateMessageController@replyPrivateMessage')->name('reply-pm');
+        Route::post('/mail/delete/{id}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
         Route::get('filterRequests', 'RequestController@faceted');

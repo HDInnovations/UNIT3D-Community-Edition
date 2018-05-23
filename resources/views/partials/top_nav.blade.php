@@ -10,7 +10,7 @@
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
         <ul class="left-navbar">
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                @php $pm = DB::table('private_messages')->where('reciever_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
+                @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
                 <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    class="dropdown-toggle icon-circle">
                     <i class="fa fa-envelope-o text-blue"></i>

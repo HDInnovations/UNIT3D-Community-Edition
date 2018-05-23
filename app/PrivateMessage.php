@@ -17,37 +17,30 @@ use App\Helpers\Bbcode;
 
 class PrivateMessage extends Model
 {
-    protected $fillable = [
-        'sender_id', 'reciever_id', 'subject', 'message', 'read', 'related_to'
-    ];
-
     /**
-     * PM belongs to User
-     *
+     * PM Belongs To User
      */
     public function sender()
     {
-        return $this->belongsTo(\App\User::class, "sender_id")->withDefault([
+        return $this->belongsTo(User::class, "sender_id")->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * PM belongs to User
-     *
+     * PM Belongs To User
      */
     public function receiver()
     {
-        return $this->belongsTo(\App\User::class, "reciever_id")->withDefault([
+        return $this->belongsTo(User::class, "receiver_id")->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Parse message and return valid HTML
-     *
+     * Parse Message And Return Valid HTML
      */
     public function getMessageHtml()
     {

@@ -1,13 +1,11 @@
 @extends('layout.default')
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li class="active">
-        <a href="{{ route('message', array('username' => auth()->user()->username, 'id' => auth()->user()->id, 'pmid' => $pm->id)) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
+        <a href="{{ route('message', ['id' => $pm->id]) }}">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                {{ trans('pm.message') }}
+            </span>
         </a>
     </li>
 @endsection
@@ -20,20 +18,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <div class="block">
-                    <a href="{{ route('create', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                       class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
-                    <div class="separator"></div>
-                    <div class="list-group">
-                        <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                           class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
-                        <a href="{{ route('outbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                           class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
-                    </div>
-                </div>
-            </div>
-
+            @include('partials.pmmenu')
             <div class="col-md-10">
                 <div class="block">
                     <h3>Re: {{ $pm->subject }}</h3>
@@ -61,7 +46,7 @@
                                             </div>
                                         </div>
                                         <form role="form" method="POST"
-                                              action="{{ route('delete-pm',['pmid' => $pm->id]) }}">
+                                              action="{{ route('delete-pm',['id' => $pm->id]) }}">
                                             {{ csrf_field() }}
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-sm btn-danger pull-right"
@@ -76,7 +61,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form role="form" method="POST" action="{{ route('reply-pm',['pmid' => $pm->id]) }}">
+                                <form role="form" method="POST" action="{{ route('reply-pm',['id' => $pm->id]) }}">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                 <textarea id="message" name="message" cols="30" rows="10"

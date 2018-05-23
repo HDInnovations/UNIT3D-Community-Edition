@@ -93,6 +93,9 @@
                                         <i class="fa fa-circle text-red" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('user.offline') }}"></i>
                                     @endif
+                                    <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
+                                        <i class="fa fa-envelope text-info"></i>
+                                    </a>
                                     @if($user->getWarning() > 0)
                                         <i class="fa fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}">
