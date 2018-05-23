@@ -364,7 +364,12 @@ class UserController extends Controller
             $warning->save();
 
             // Send Private Message
-            PrivateMessage::create(['sender_id' => $staff->id, 'reciever_id' => $warning->user_id, 'subject' => "Hit and Run Warning Deactivated", 'message' => $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = $staff->id;
+            $pm->receiver_id = $warning->user_id;
+            $pm->subject = "Hit and Run Warning Deactivated";
+            $pm->message = $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->save();
 
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");

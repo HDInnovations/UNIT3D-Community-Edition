@@ -325,7 +325,12 @@ class CommentController extends Controller
 
         // Auto PM
         if ($user->id != $request->user_id) {
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Comment!", 'message' => $comment->user->username . " Has Left A Comment On [url={$tr_url}]" . $tr->name . "[/url]"]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = 1;
+            $pm->receiver_id = $tr->user_id;
+            $pm->subject = "Your Request " . $tr->name . " Has A New Comment!";
+            $pm->message = $comment->user->username . " Has Left A Comment On [url={$tr_url}]" . $tr->name . "[/url]";
+            $pm->save();
         }
 
         return redirect()->route('request', [

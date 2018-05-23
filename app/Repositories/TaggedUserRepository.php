@@ -103,12 +103,12 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $this->message->create([
-                        'sender_id' => 1,
-                        'reciever_id' => $user->id,
-                        'subject' => $subject,
-                        'message' => $message
-                    ]);
+                    $message = new PrivateMessage();
+                    $message->sender_id = 1;
+                    $message->receiver_id = $user->id;
+                    $message->subject = $subject;
+                    $message->message = $message;
+                    $message->save();
                 }
             }
 
@@ -117,12 +117,12 @@ class TaggedUserRepository
 
         // A single User object
         if ($this->validate($users)) {
-            $this->message->create([
-                'sender_id' => 1,
-                'reciever_id' => $users->id,
-                'subject' => $subject,
-                'message' => $message
-            ]);
+            $message = new PrivateMessage();
+            $message->sender_id = 1;
+            $message->receiver_id = $users->id;
+            $message->subject = $subject;
+            $message->message = $message;
+            $message->save();
         }
         return true;
     }

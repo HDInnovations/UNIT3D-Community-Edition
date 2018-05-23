@@ -231,7 +231,12 @@ class BonusController extends Controller
                     "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
                 );
 
-                PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $recipient->id, 'subject' => "You Have Recieved A Gift", 'message' => $transaction->comment]);
+                $pm = new PrivateMessage;
+                $pm->sender_id = $user->id;
+                $pm->receiver_id = $recipient->id;
+                $pm->subject = "You Have Received A Gift";
+                $pm->message = $transaction->comment;
+                $pm->save();
 
                 return redirect('/bonus')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
             } else {
@@ -282,9 +287,12 @@ class BonusController extends Controller
         ]);
         $transaction->save();
 
-        // Insert the Recipient notification below
-        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $uploader->id, 'subject' => "You Have Recieved A BON Tip", 'message' => "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . "."]);
-        // End insert recipient notification here
+        $pm = new PrivateMessage;
+        $pm->sender_id = 1;
+        $pm->receiver_id = $uploader->id;
+        $pm->subject = "You Have Received A BON Tip";
+        $pm->message = "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . ".";
+        $pm->save();
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }

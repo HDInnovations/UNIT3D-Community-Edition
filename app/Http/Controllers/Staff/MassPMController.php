@@ -56,7 +56,13 @@ class MassPMController extends Controller
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             foreach ($users as $user) {
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => $subject, 'message' => $message]);
+                // Send Private Message
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $user->id;
+                $pm->subject = $subject;
+                $pm->message =  $message;
+                $pm->save();
             }
 
             // Activity Log

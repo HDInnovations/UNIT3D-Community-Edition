@@ -48,8 +48,13 @@ class deactivateWarning extends Command
             $warning->active = "0";
             $warning->save();
 
-            // PM User That Warning Has Expired
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $warning->warneduser->id, 'subject' => "Hit and Run Warning Deactivated", 'message' => "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+            // Send Private Message
+            $pm = new PrivateMessage;
+            $pm->sender_id = 1;
+            $pm->receiver_id = $warning->warneduser->id;
+            $pm->subject = "Hit and Run Warning Deactivated";
+            $pm->message = "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->save();
         }
     }
 }

@@ -103,7 +103,12 @@ class RegisterController extends Controller
                 );
 
                 // Send Welcome PM
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => config('welcomepm.subject'), 'message' => config('welcomepm.message')]);
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $user->id;
+                $pm->subject = config('welcomepm.subject');
+                $pm->message = config('welcomepm.message');
+                $pm->save();
 
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");

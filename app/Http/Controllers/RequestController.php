@@ -411,7 +411,12 @@ class RequestController extends Controller
                 );
 
                 // Send Private Message
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->user_id, 'subject' => "Your Request " . $tr->name . " Has A New Bounty!", 'message' => $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]"]);
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $tr->user_id;
+                $pm->subject = "Your Request " . $tr->name . " Has A New Bounty!";
+                $pm->message = $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                $pm->save();
 
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
@@ -486,7 +491,13 @@ class RequestController extends Controller
 
         // Send Private Message
         $appurl = config('app.url');
-        PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->user_id, 'subject' => "Your Request " . $torrentRequest->name . " Has Been Filled!", 'message' => $torrentRequest->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! "]);
+
+        $pm = new PrivateMessage;
+        $pm->sender_id = 1;
+        $pm->receiver_id = $torrentRequest->user_id;
+        $pm->subject = "Your Request " . $torrentRequest->name . " Has Been Filled!";
+        $pm->message = $torrentRequest->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
+        $pm->save();
 
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
@@ -541,7 +552,12 @@ class RequestController extends Controller
             );
 
             // Send Private Message
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $tr->filled_by, 'subject' => "Your Request Fullfill On " . $tr->name . " Has Been Approved!", 'message' => $tr->approved_by . " Has Approved Your Fullfillment On [url={$tr_url}]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!"]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = 1;
+            $pm->receiver_id = $tr->filled_by;
+            $pm->subject = "Your Request Fullfill On " . $tr->name . " Has Been Approved!";
+            $pm->message = $tr->approved_by . " Has Approved Your Fullfillment On [url={$tr_url}]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!";
+            $pm->save();
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
@@ -565,7 +581,12 @@ class RequestController extends Controller
 
         if ($user->id == $torrentRequest->user_id) {
             // Send Private Message
-            PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $torrentRequest->filled_by, 'subject' => "Your Request Fullfill On " . $torrentRequest->name . " Has Been Declined!", 'message' => $user->username . " Has Declined Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] It did not meet the requirements!"]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = 1;
+            $pm->receiver_id = $torrentRequest->filled_by;
+            $pm->subject = "Your Request Fullfill On " . $torrentRequest->name . " Has Been Declined!";
+            $pm->message = $user->username . " Has Declined Your Fullfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] It did not meet the requirements!";
+            $pm->save();
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has declined {$torrentRequest->filled_by} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");

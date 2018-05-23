@@ -70,7 +70,12 @@ class ReportController extends Controller
         $report->save();
 
         // Send Private Message
-        PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $report->reporter_id, 'subject' => "Your Report Has A New Verdict", 'message' => $report->verdict]);
+        $pm = new PrivateMessage;
+        $pm->sender_id = $user->id;
+        $pm->receiver_id = $report->reporter_id;
+        $pm->subject = "Your Report Has A New Verdict";
+        $pm->message = $report->verdict;
+        $pm->save();
 
         return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
     }
