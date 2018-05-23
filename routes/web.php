@@ -198,7 +198,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
         Route::get('/torrents/{slug}.{id}/torrent_fl', 'TorrentController@grantFL')->name('torrent_fl');
         Route::get('/torrents/{slug}.{id}/torrent_doubleup', 'TorrentController@grantDoubleUp')->name('torrent_doubleup');
-        Route::get('/torrents/poster/search', 'TorrentController@posterSearch')->name('poster_search');
         Route::get('/torrents/{slug}.{id}/bumpTorrent', 'TorrentController@bumpTorrent')->name('bumpTorrent');
         Route::get('/torrents/{slug}.{id}/torrent_sticky', 'TorrentController@sticky')->name('torrent_sticky');
         Route::get('/torrents/{slug}.{id}/torrent_feature', 'TorrentController@grantFeatured')->name('torrent_feature');
