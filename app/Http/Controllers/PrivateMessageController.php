@@ -73,12 +73,18 @@ class PrivateMessageController extends Controller
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $id)->firstOrFail();
 
-        if ($pm->read == 0) {
-            $pm->read = 1;
-            $pm->save();
-        }
+        if($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
+            if ($pm->read == 0) {
+                $pm->read = 1;
+                $pm->save();
+            }
 
-        return view('pm.message', ['pm' => $pm, 'user' => $user]);
+            return view('pm.message', ['pm' => $pm, 'user' => $user]);
+
+        } else {
+            return redirect()->route('inbox')
+                ->with(Toastr::error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+        }
     }
 
     /**
@@ -123,7 +129,7 @@ class PrivateMessageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('create')
+            return redirect()->route('create', ['receiver_id' => '', 'username' => ''])
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $pm->save();
@@ -175,7 +181,7 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * Delete The Message
+     * Delete A Message
      *
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -184,14 +190,19 @@ class PrivateMessageController extends Controller
     {
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $id)->firstOrFail();
-        $pm->delete();
 
-        return redirect()->route('inbox', ['username' => $user->username, 'id' => $user->id])
-            ->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+        if($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
+            $pm->delete();
+            return redirect()->route('inbox')
+                ->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+        } else {
+            return redirect()->route('inbox')
+                ->with(Toastr::error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+        }
     }
 
     /**
-     * Delete The Message
+     * Mark All Messages As Read
      *
      * @return Illuminate\Http\RedirectResponse
      */
