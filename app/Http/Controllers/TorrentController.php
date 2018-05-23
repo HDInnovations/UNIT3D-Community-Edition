@@ -325,7 +325,7 @@ class TorrentController extends Controller
      *
      * @param $slug
      * @param $id
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrent($slug, $id)
     {
