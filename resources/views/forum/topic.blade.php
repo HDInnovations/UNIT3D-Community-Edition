@@ -60,10 +60,10 @@
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $p->user->username }}"
                                          class="img-thumbnail post-info-image">
                                 @endif
-                                <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
-                                   class="post-info-username">
-                                    <p>
-                <span class="badge-user text-bold" style="color:{{ $p->user->group->color }}">{{ $p->user->username }}
+                <p>
+                <span class="badge-user text-bold">
+                   <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                      class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if($p->user->isOnline())
                         <i class="fa fa-circle text-green" data-toggle="tooltip" title=""
                            data-original-title="Online"></i>
@@ -71,9 +71,11 @@
                         <i class="fa fa-circle text-red" data-toggle="tooltip" title=""
                            data-original-title="Offline"></i>
                     @endif
+                    <a href="{{ route('create', ['receiver_id' => $p->user->id, 'username' => $p->user->username]) }}">
+                        <i class="fa fa-envelope text-info"></i>
+                    </a>
                 </span>
-                                    </p>
-                                </a>
+                </p>
                                 <p><span class="badge-user text-bold"
                                          style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
                                                 class="{{ $p->user->group->icon }}" data-toggle="tooltip" title=""
