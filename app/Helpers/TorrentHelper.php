@@ -269,7 +269,14 @@ class TorrentHelper
             foreach ($wishes as $wish) {
                 $wish->source = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
                 $wish->save();
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $wish->user_id, 'subject' => "Wish List Notice!", 'message' => "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]"]);
+
+                // Send Private Message
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $wish->user_id;
+                $pm->subject = "Wish List Notice!";
+                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]";
+                $pm->save();
             }
         }
 
