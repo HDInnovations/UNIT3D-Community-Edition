@@ -58,12 +58,11 @@ class autoBan extends Command
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log
-                $ban = new Ban([
-                    "owned_by" => $ban->warneduser->id,
-                    "created_by" => "1",
-                    "ban_reason" => "Warning Limit Reached, has " . $ban->value . " warnings.",
-                    "unban_reason" => "",
-                ]);
+                $ban = new Ban();
+                $ban->owned_by = $ban->warneduser->id;
+                $ban->created_by = 1;
+                $ban->ban_reason = "Warning Limit Reached, has " . $ban->value . " warnings.";
+                $ban->unban_reason = "";
                 $ban->save();
 
                 // Send Email
