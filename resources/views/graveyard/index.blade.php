@@ -116,22 +116,19 @@
                                                       style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ $tokens }} {{ trans('torrent.freeleech') }}
                                                     Token(s)!</span></p>
                                             <div class="btns">
-                                                <form role="form" method="POST"
-                                                      action="{{ route('resurrect',['id' => $d->id]) }}">
-                                                    {{ csrf_field() }}
-                                                    @if(!$history)
-                                                        <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                               value="{{ $time }}">
-                                                    @else
-                                                        <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                               value="{{ $history->seedtime + $time }}">
-                                                    @endif
-                                                    <button type="submit"
-                                                            class="btn btn-success">{{ trans('graveyard.ressurect') }}!
-                                                    </button>
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                                                </form>
+                                                @if(!$history)
+                                                    <input hidden="seedtime" name="seedtime" id="seedtime"
+                                                           value="{{ $time }}">
+                                                @else
+                                                    <input hidden="seedtime" name="seedtime" id="seedtime"
+                                                           value="{{ $history->seedtime + $time }}">
+                                                @endif
+                                                <a href="javascript:void(0);" class="btn btn-success"
+                                                   onclick="resurrect({{$d->id}});">
+                                                    {{ trans('graveyard.ressurect') }}!
+                                                </a>
+                                                <button type="button" class="btn btn-warning"
+                                                        data-dismiss="modal">{{ trans('common.cancel') }}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -141,8 +138,23 @@
                     @endforeach
                     </tbody>
                 </table>
+                <form id="resurrect-torrent" role="form" method="POST"
+                      action="{{ route('resurrect', ['torrent_id']) }}">
+                    {{ csrf_field() }}
+                </form>
             </div>
             {{ $dead->links() }}
         </div>
     </div>
+@endsection
+
+@section('javascripts')
+    <script>
+      function resurrect(id) {
+        event.preventDefault();
+        let form = document.getElementById("resurrect-torrent");
+        form.action = form.action.replace('torrent_id', id);
+        form.submit();
+      }
+    </script>
 @endsection

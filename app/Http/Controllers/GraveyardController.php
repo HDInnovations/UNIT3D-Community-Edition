@@ -56,7 +56,7 @@ class GraveyardController extends Controller
                 ->with(Toastr::error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }
 
-        if ($user->id != $torrent->user_id) {
+        if ($user->id === $torrent->user_id) {
             return redirect()->route('graveyard')
                 ->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
         }
