@@ -73,7 +73,7 @@ class AlbumsController extends Controller
      */
     public function add(Request $request)
     {
-        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find($imdb);
 
         if($omdb === null || $omdb === false) {
@@ -84,8 +84,8 @@ class AlbumsController extends Controller
         $album = new Album();
         $album->user_id = auth()->user()->id;
         $album->name = $omdb['Title'] . ' (' . $omdb['Year'] . ')';
-        $album->description = $request->get('description');
-        $album->imdb = $request->get('imdb');
+        $album->description = $request->input('description');
+        $album->imdb = $request->input('imdb');
 
         if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
             $image = $request->file('cover_image');
