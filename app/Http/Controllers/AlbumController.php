@@ -17,7 +17,7 @@ use App\Services\Clients\OmdbClient;
 use App\Album;
 use \Toastr;
 
-class AlbumsController extends Controller
+class AlbumController extends Controller
 {
     /**
      * AlbumController Constructor
