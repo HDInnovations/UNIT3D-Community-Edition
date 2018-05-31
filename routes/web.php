@@ -276,10 +276,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Gallery System
         Route::get('/gallery', 'AlbumController@index')->name('gallery');
-        Route::get('/createalbum', 'AlbumsController@addForm')->name('create_album_form');
-        Route::post('/createalbum', 'AlbumsController@add')->name('create_album');
-        Route::get('/deletealbum/{id}', 'AlbumsController@destroy')->name('delete_album');
-        Route::get('/album/{id}', 'AlbumsController@getAlbum')->name('show_album');
+        Route::get('/createalbum', 'AlbumController@addForm')->name('create_album_form');
+        Route::post('/createalbum', 'AlbumController@add')->name('create_album');
+        Route::get('/deletealbum/{id}', 'AlbumController@destroy')->name('delete_album');
+        Route::get('/album/{id}', 'AlbumController@getAlbum')->name('show_album');
 
         Route::get('/addimage/{id}', 'ImageController@addForm')->name('add_image');
         Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
