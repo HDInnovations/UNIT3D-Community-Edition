@@ -24,6 +24,7 @@ class CreateAlbumsTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->text('description');
+            $table->string('imdb');
             $table->string('cover_image');
             $table->timestamps();
         });
