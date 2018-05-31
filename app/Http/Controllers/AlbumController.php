@@ -92,7 +92,7 @@ class AlbumsController extends Controller
             if (in_array($image->getClientOriginalExtension(), ['png', 'PNG', 'tiff', 'TIFF']) && preg_match('#image/*#', $image->getMimeType())) {
                 $filename = 'album-cover_' . uniqid() . '.' . $image->getClientOriginalExtension();
                 $path = public_path('/files/img/' . $filename);
-                Image::make($image->getRealPath())->fit(100, 100)->encode('png', 100)->save($path);
+                Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
                 $album->cover_image = $filename;
             } else {
                 // Image null or wrong format
