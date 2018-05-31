@@ -20,6 +20,11 @@ use \Toastr;
 class AlbumController extends Controller
 {
     /**
+     * @var OmdbClient
+     */
+    private $client;
+
+    /**
      * AlbumController Constructor
      *
      * @param OmdbClient $client
@@ -74,7 +79,7 @@ class AlbumController extends Controller
     public function add(Request $request)
     {
         $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
-        $omdb = $this->client->find($imdb);
+        $omdb = $this->client->find(['imdb' => $imdb]);
 
         if($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
