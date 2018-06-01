@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
 use App\Album;
+use Image;
 use \Toastr;
 
 class AlbumController extends Controller
@@ -92,28 +93,18 @@ class AlbumController extends Controller
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
 
-        if ($request->hasFile('cover_image') && $request->file('cover_image')->getError() == 0) {
             $image = $request->file('cover_image');
-            if (in_array($image->getClientOriginalExtension(), ['png', 'PNG', 'tiff', 'TIFF']) && preg_match('#image/*#', $image->getMimeType())) {
                 $filename = 'album-cover_' . uniqid() . '.' . $image->getClientOriginalExtension();
                 $path = public_path('/files/img/' . $filename);
                 Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
                 $album->cover_image = $filename;
-            } else {
-                // Image null or wrong format
-                $album->cover_image = null;
-            }
-        } else {
-            // Error on the image so null
-            $album->cover_image = null;
-        }
 
         $v = validator($album->toArray(), [
             'user_id' => 'required',
             'name' => 'required',
             'description' => 'required',
             'imdb' => 'required',
-            'cover_image' => 'required|image'
+            'cover_image' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -130,7 +121,7 @@ class AlbumController extends Controller
             $album->save();
 
             return redirect()->route('show_album', ['id' => $album->id])
-                ->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
+                ->with(Toastr::success('Your album has successfully published!', 'Yay!', ['options']));
         }
     }
 

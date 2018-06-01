@@ -46,40 +46,34 @@ class ImageController extends Controller
         $image->description = $request->input('description');
         $image->type = $request->input('type');
 
-        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
-            $image = $request->file('image');
-            $filename = 'album-image_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('/files/img/'), $filename);
+            $file = $request->file('image');
+            $random_name = uniqid();
+            $destinationPath = public_path('/files/img/');
+            $extension = $file->getClientOriginalExtension();
+            $filename = 'album-image_' . $random_name . '.' . $extension;
+            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
             $image->image = $filename;
-        } else {
-            // Image null or faulty
-            return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->withInput()
-                ->with(Toastr::error('Bad Image Upload!', 'Whoops!', ['options']));
-        }
 
         $v = validator($image->toArray(), [
             'album_id' => 'required|numeric|exists:albums,id',
             'user_id' => 'required',
             'description' => 'required',
             'type' => 'required',
-            'image' => 'required|image'
+            'image' => 'required'
         ]);
 
         if ($v->fails()) {
-            // Delete the cover_image because the validation failed
-            if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $image->image))) {
-                unlink($request->file('image')->move(getcwd() . '/files/img/' . $image->image));
+            // Delete the image because the validation failed
+            if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $filename))) {
+                unlink($request->file('image')->move(getcwd() . '/files/img/' . $filename));
             }
 
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->withErrors($v)
-                ->withInput()
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $image->save();
 
-            return redirect()->route('show_album',['id'=>$request->input('album_id')])
+            return redirect()->route('show_album', ['id' => $request->input('album_id')])
                 ->with(Toastr::success('Your image has successfully published!', 'Yay!', ['options']));
         }
     }
