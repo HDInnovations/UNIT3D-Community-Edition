@@ -41,12 +41,14 @@ class LoginController extends Controller
         if ($user->active == 0 || $user->group_id == 1) {
             auth()->logout();
             $request->session()->flush();
-            return redirect()->route('login')->with(Toastr::error('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+            return redirect()->route('login')
+                ->with(Toastr::error('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
         if ($user->group_id == 5) {
             auth()->logout();
             $request->session()->flush();
-            return redirect()->route('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
+            return redirect()->route('login')
+                ->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
         return redirect('/');
     }

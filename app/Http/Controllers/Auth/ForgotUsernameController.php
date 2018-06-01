@@ -59,13 +59,15 @@ class ForgotUsernameController extends Controller
             $user = User::where('email', $email)->first();
 
             if (empty($user)) {
-                return redirect()->route('username.request')->with(Toastr::error('We could not find this email in our system!', 'Whoops!', ['options']));
+                return redirect()->route('username.request')
+                    ->with(Toastr::error('We could not find this email in our system!', 'Whoops!', ['options']));
             }
 
             //send username reminder notification
             $user->notify(new UsernameReminder());
 
-            return redirect()->route('login')->with(Toastr::success('Your username has been sent to your email address!', 'Yay!', ['options']));
+            return redirect()->route('login')
+                ->with(Toastr::success('Your username has been sent to your email address!', 'Yay!', ['options']));
         }
     }
 }
