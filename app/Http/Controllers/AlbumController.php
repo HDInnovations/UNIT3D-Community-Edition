@@ -42,7 +42,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::with('artwork')->get();
+        $albums = Album::with('images')->get();
 
         return view('gallery.index')->with('albums',$albums);
     }
@@ -55,8 +55,8 @@ class AlbumController extends Controller
      */
     public function getAlbum($id)
     {
-        $album = Album::with('artwork')->find($id);
-        $albums = Album::with('artwork')->get();
+        $album = Album::with('images')->find($id);
+        $albums = Album::with('images')->get();
 
         return view('gallery.album', ['album' => $album, 'albums' => $albums]);
     }
