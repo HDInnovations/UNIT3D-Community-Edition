@@ -16,5 +16,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
-    //
+    /**
+     * Belongs to User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
+    }
 }
