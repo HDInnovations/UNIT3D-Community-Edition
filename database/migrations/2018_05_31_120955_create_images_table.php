@@ -26,6 +26,7 @@ class CreateImagesTable extends Migration
             $table->string('image');
             $table->string('description');
             $table->string('type');
+            $table->integer('downloads')->nullable();
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->timestamps();
         });
