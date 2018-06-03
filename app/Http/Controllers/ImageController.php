@@ -79,6 +79,27 @@ class ImageController extends Controller
     }
 
     /**
+     * Download A Image
+    *
+    * @param $id
+    * @return Illuminate\Http\RedirectResponse
+    */
+    public function download($id)
+    {
+        $image = Image::findOrFail($id);
+        $filename = $image->image;
+
+        if (!file_exists(getcwd() . '/files/img/' . $filename)) {
+            return redirect()->route('show_album', ['id' => $image->album_id])
+                ->with(Toastr::error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
+        }
+
+        $image->downloads++;
+
+        return response()->download(getcwd() . '/files/img/' . $filename);
+    }
+
+    /**
      * Delete A Image
      *
      * @param $id
