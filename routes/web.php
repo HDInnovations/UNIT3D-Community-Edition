@@ -367,7 +367,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/user_edit/{username}.{id}', 'UserController@userSettings')->name('user_setting');
         Route::post('/user_edit/{username}.{id}/edit', 'UserController@userEdit')->name('user_edit');
         Route::post('/user_edit/{username}.{id}/permissions', 'UserController@userPermissions')->name('user_permissions');
-        Route::post('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
+        Route::get('/user_delete/{username}.{id}', 'UserController@userDelete')->name('user_delete');
         Route::post('/user_edit/{username}.{id}/password', 'UserController@userPassword')->name('user_password');
 
         // Moderation
