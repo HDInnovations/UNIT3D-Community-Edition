@@ -86,21 +86,25 @@ class ImageController extends Controller
      */
     public function move(Request $request)
     {
-        $image = Image::findOrFail($request->input('photo'));
-        $image->album_id = $request->input('new_album');
+        if (auth()->user()->group->is_modo) {
+            $image = Image::findOrFail($request->input('photo'));
+            $image->album_id = $request->input('new_album');
 
-        $v = validator($image->toArray(), [
-            'new_album' => 'required|numeric|exists:albums,id',
-            'image' => 'required|numeric|exists:images,id'
-        ]);
+            $v = validator($image->toArray(), [
+                'new_album' => 'required|numeric|exists:albums,id',
+                'image' => 'required|numeric|exists:images,id'
+            ]);
 
-        if ($v->fails()) {
-            return redirect()->route('gallery')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+            if ($v->fails()) {
+                return redirect()->route('gallery')
+                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+            } else {
+                $image->save();
+
+                return redirect()->route('show_album', ['id' => $request->input('new_album')]);
+            }
         } else {
-            $image->save();
-
-            return redirect()->route('show_album', ['id' => $request->input('new_album')]);
+            abort(403, 'Unauthorized action.');
         }
     }
 
@@ -133,10 +137,14 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        $image = Image::findOrFail($id);
-        $image->delete();
+        if (auth()->user()->group->is_modo) {
+            $image = Image::findOrFail($id);
+            $image->delete();
 
-        return redirect()->route('show_album', ['id' => $image->album_id])
-            ->with(Toastr::success('Image has successfully been deleted', 'Yay!', ['options']));
+            return redirect()->route('show_album', ['id' => $image->album_id])
+                ->with(Toastr::success('Image has successfully been deleted', 'Yay!', ['options']));
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }

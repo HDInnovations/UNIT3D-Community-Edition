@@ -44,7 +44,7 @@ class AlbumController extends Controller
     {
         $albums = Album::with('images')->get();
 
-        return view('gallery.index')->with('albums',$albums);
+        return view('gallery.index')->with('albums', $albums);
     }
 
     /**
@@ -79,10 +79,10 @@ class AlbumController extends Controller
      */
     public function add(Request $request)
     {
-        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
+        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt' . $request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
-        if($omdb === null || $omdb === false) {
+        if ($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
                 ->with(Toastr::error('Bad IMDB Request!', 'Whoops!', ['options']));
         };
@@ -93,11 +93,11 @@ class AlbumController extends Controller
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
 
-            $image = $request->file('cover_image');
-                $filename = 'album-cover_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $path = public_path('/files/img/' . $filename);
-                Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
-                $album->cover_image = $filename;
+        $image = $request->file('cover_image');
+        $filename = 'album-cover_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $path = public_path('/files/img/' . $filename);
+        Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
+        $album->cover_image = $filename;
 
         $v = validator($album->toArray(), [
             'user_id' => 'required',
@@ -133,10 +133,14 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        $album = Album::findOrFail($id);
-        $album->delete();
+        if (auth()->user()->group->is_modo) {
+            $album = Album::findOrFail($id);
+            $album->delete();
 
-        return redirect()->route('/')
-            ->with(Toastr::success('Album has successfully been deleted', 'Yay!', ['options']));
+            return redirect()->route('/')
+                ->with(Toastr::success('Album has successfully been deleted', 'Yay!', ['options']));
+        } else {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }

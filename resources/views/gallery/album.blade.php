@@ -37,10 +37,12 @@
                         <a href="{{ route('add_image', ['id' => $album->id]) }}">
                             <button type="button" class="btn btn-success btn-md">Add New Image to Album</button>
                         </a>
+                        @if(auth()->user()->group->is_modo)
                         <a href="{{ route('delete_album', ['id' => $album->id]) }}"
                            onclick="return confirm('Are you sure?')">
                             <button type="button" class="btn btn-danger btn-md">Delete Album</button>
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -60,10 +62,12 @@
                                 <button type="button" class="btn btn-sm"><i
                                             class="fa fa-download text-green"> {{ $photo->downloads }}</i>
                                 </button>
+                                @if(auth()->user()->group->is_modo)
                                 <a href="{{ route('delete_image', ['id' => $photo->id]) }}">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-times text-red"></i>
                                     </button>
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </div>
