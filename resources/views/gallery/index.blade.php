@@ -32,7 +32,7 @@
                             <div class="caption">
                                 <h3>{{ $album->name }}</h3>
                                 <h4>{{ $album->description }}</h4>
-                                <h4><span class="label label-default">{{ count($album->artwork) }} image(s)</span></h4>
+                                <h4><span class="label label-default">{{ count($album->images) }} image(s)</span></h4>
                                 <h4>Created: {{ $album->created_at->toDayDateTimeString() }}</h4>
                                 <a href="{{ route('show_album', ['id' => $album->id]) }}"
                                    class="btn btn-md btn-primary">View Album</a>

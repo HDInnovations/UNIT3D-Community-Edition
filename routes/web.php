@@ -280,7 +280,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/createalbum', 'AlbumController@add')->name('create_album');
         Route::get('/deletealbum/{id}', 'AlbumController@destroy')->name('delete_album');
         Route::get('/album/{id}', 'AlbumController@getAlbum')->name('show_album');
-
         Route::get('/addimage/{id}', 'ImageController@addForm')->name('add_image');
         Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
         Route::get('/deleteimage/{id}', 'ImageController@destroy')->name('delete_image');
