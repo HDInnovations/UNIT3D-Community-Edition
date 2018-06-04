@@ -46,13 +46,13 @@ class ImageController extends Controller
         $image->description = $request->input('description');
         $image->type = $request->input('type');
 
-            $file = $request->file('image');
-            $random_name = uniqid();
-            $destinationPath = public_path('/files/img/');
-            $extension = $file->getClientOriginalExtension();
-            $filename = 'album-image_' . $random_name . '.' . $extension;
-            $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
-            $image->image = $filename;
+        $file = $request->file('image');
+        $random_name = uniqid();
+        $destinationPath = public_path('/files/img/');
+        $extension = $file->getClientOriginalExtension();
+        $filename = 'album-image_' . $random_name . '.' . $extension;
+        $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
+        $image->image = $filename;
 
         $v = validator($image->toArray(), [
             'album_id' => 'required|numeric|exists:albums,id',
@@ -79,11 +79,37 @@ class ImageController extends Controller
     }
 
     /**
+     * Move A Image
+     *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function move(Request $request)
+    {
+        $image = Image::findOrFail($request->input('photo'));
+        $image->album_id = $request->input('new_album');
+
+        $v = validator($image->toArray(), [
+            'new_album' => 'required|numeric|exists:albums,id',
+            'image' => 'required|numeric|exists:images,id'
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('gallery')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
+            $image->save();
+
+            return redirect()->route('show_album', ['id' => $request->input('new_album')]);
+        }
+    }
+
+    /**
      * Download A Image
-    *
-    * @param $id
-    * @return Illuminate\Http\RedirectResponse
-    */
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function download($id)
     {
         $image = Image::findOrFail($id);
