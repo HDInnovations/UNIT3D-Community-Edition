@@ -185,9 +185,9 @@ class UserController extends Controller
                 $sent->save();
             }
             // Removes UserID from PM if any and replaces with System UserID (0)
-            foreach (PrivateMessage::where('reciever_id', $user->id)->get() as $recieved) {
-                $recieved->reciever_id = 1;
-                $recieved->save();
+            foreach (PrivateMessage::where('receiver_id', $user->id)->get() as $received) {
+                $received->receiver_id = 1;
+                $received->save();
             }
             // Removes all Posts made by User from the shoutbox
             foreach (Message::where('user_id', $user->id)->get() as $shout) {

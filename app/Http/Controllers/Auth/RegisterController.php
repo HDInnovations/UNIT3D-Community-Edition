@@ -47,14 +47,16 @@ class RegisterController extends Controller
 
         // Make sure open reg is off and ivite code is present
         if (config('other.invite-only') == true && $code == null) {
-            return view('auth.login')->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
+            return view('auth.login')
+                ->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
         }
 
         if ($request->isMethod('post')) {
             // Make sure open reg is off and ivite code exsist and has not been used already
             $key = Invite::where('code', '=', $code)->first();
             if (config('other.invite-only') == true && (!$key || $key->accepted_by !== null)) {
-                return view('auth.register', ['code' => $code])->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
+                return view('auth.register', ['code' => $code])
+                    ->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
             }
 
             $v = validator($request->all(), [
@@ -65,8 +67,8 @@ class RegisterController extends Controller
             ]);
 
             if ($v->fails()) {
-                $errors = $v->messages();
-                return redirect()->route('register', ['code' => $code])->with(Toastr::error('Either The Username/Email is already in use or you missed a field. Make sure password is also min 6 charaters!', 'Whoops!', ['options']));
+                return redirect()->route('register', ['code' => $code])
+                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 // Create The User
                 $group = Group::where('slug', '=', 'validating')->first();
@@ -113,7 +115,8 @@ class RegisterController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");
 
-                return redirect()->route('login')->with(Toastr::success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
+                return redirect()->route('login')
+                    ->with(Toastr::success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
             }
         }
         return view('auth.register', ['code' => $code]);
