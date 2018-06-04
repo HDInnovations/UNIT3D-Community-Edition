@@ -27,7 +27,7 @@
             <div class="row">
                 @foreach($albums as $album)
                     <div class="col-md-3 text-center">
-                        <div class="thumbnail" style="min-height: 400px;">
+                        <div class="thumbnail" style="min-height: 435px;">
                             <img alt="{{$album->name}}" src="{{ url('files/img/' . $album->cover_image) }}">
                             <div class="caption">
                                 <h2>{{ $album->name }}</h2>
