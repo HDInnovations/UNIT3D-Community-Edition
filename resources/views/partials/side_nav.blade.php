@@ -64,6 +64,14 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('gallery') }}">
+                <i class="livicon" data-name="image" data-c="teal" data-hc="teal" data-size="18"
+                   data-loop="true"></i>
+                <span class="menu-text">Gallery</span>
+                <span class="selected"></span>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('stats') }}">
                 <i class="livicon" data-name="barchart" data-c="pink" data-hc="pink" data-size="18"
                    data-loop="true"></i>
