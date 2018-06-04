@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="description">Image Description</label>
                         <textarea name="description" type="text" class="form-control"
-                                  placeholder="Image Description"></textarea>
+                                  placeholder="Hi-Res Sleeve / Disc Art"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="image">Select an Image</label>

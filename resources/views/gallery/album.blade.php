@@ -49,7 +49,7 @@
             <div class="row">
                 @foreach($album->images as $photo)
                     <div class="col-lg-3">
-                        <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
+                        <div class="thumbnail" style="max-height: 450px; min-height: 435px;">
                             <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
                                  style=" max-height: 300px; min-height: 300px; border: 6px solid gray; border-radius: 5px;">
                             <div class="caption text-center">

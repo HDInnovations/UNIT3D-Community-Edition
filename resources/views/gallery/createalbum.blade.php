@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="description">Album Description</label>
                     <textarea name="description" type="text" class="form-control"
-                              placeholder="Album Description">{{ old('description') }}</textarea>
+                              placeholder="Sleeves / Disc Art">{{ old('description') }}</textarea>
                 </div>
                 <div class="form-group">
                     <label for="cover_image">Select A Cover Image</label>
