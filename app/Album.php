@@ -16,6 +16,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Album extends Model
 {
+    /**
+     * Belongs To A User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
+    }
+
+    /**
+     * Has Many Images
+     */
     public function images()
     {
         return $this->hasMany(Image::class);

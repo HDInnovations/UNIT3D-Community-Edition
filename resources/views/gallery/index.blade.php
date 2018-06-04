@@ -26,16 +26,19 @@
             </div>
             <div class="row">
                 @foreach($albums as $album)
-                    <div class="col-md-3">
+                    <div class="col-md-3 text-center">
                         <div class="thumbnail" style="min-height: 400px;">
                             <img alt="{{$album->name}}" src="{{ url('files/img/' . $album->cover_image) }}">
                             <div class="caption">
-                                <h3>{{ $album->name }}</h3>
+                                <h2>{{ $album->name }}</h2>
                                 <h4>{{ $album->description }}</h4>
                                 <h4><span class="label label-default">{{ count($album->images) }} image(s)</span></h4>
-                                <h4>Created: {{ $album->created_at->toDayDateTimeString() }}</h4>
                                 <a href="{{ route('show_album', ['id' => $album->id]) }}"
                                    class="btn btn-md btn-primary">View Album</a>
+                                <br>
+                                <small>Created: {{ $album->created_at->toDayDateTimeString() }}</small>
+                                <br>
+                                <small>By: {{ $album->user->username }}</small>
                             </div>
                         </div>
                     </div>

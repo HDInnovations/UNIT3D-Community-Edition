@@ -125,6 +125,7 @@ class ImageController extends Controller
         }
 
         $image->downloads++;
+        $image->save();
 
         return response()->download(getcwd() . '/files/img/' . $filename);
     }

@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('add_image') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('add_image', ['id' => $album->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Image</span>
         </a>
     </li>

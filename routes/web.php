@@ -283,6 +283,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/addimage/{id}', 'ImageController@addForm')->name('add_image');
         Route::post('/addimage', 'ImageController@add')->name('add_image_to_album');
         Route::get('/deleteimage/{id}', 'ImageController@destroy')->name('delete_image');
+        Route::get('/image/download/{id}', 'ImageController@download')->name('image_download');
     });
 
     /*
