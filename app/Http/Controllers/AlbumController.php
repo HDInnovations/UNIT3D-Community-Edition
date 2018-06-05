@@ -131,7 +131,7 @@ class AlbumController extends Controller
             $album = Album::findOrFail($id);
             $album->delete();
 
-            return redirect()->route('/')
+            return redirect()->route('home')
                 ->with(Toastr::success('Album has successfully been deleted', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
