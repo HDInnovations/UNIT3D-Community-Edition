@@ -20,13 +20,12 @@ use \Toastr;
 class FlushController extends Controller
 {
     /**
-     * Delete all old peers from database
+     * Delete All Old Peers From Database
      *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteOldPeers()
     {
-        // Deleting old peers from the database
         foreach (Peer::all() as $peer) {
             if ((time() - strtotime($peer->updated_at)) > (60 * 60)) {
                 $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
