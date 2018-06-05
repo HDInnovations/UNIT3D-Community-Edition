@@ -19,12 +19,11 @@ use App\User;
 use App\Client;
 use App\Report;
 use App\Poll;
-use \Toastr;
 
 class HomeController extends Controller
 {
     /**
-     * Staff dashboard
+     * Staff Dashboard Index
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -58,10 +57,23 @@ class HomeController extends Controller
         //Polls
         $pollCount = Poll::count();
 
-        return view('Staff.home.index', ['num_user' => $num_user, 'banned' => $banned, 'validating' => $validating,
-            'num_torrent' => $num_torrent, 'pending' => $pending, 'rejected' => $rejected, 'peers' => $peers,
-            'seeders' => $seeders, 'leechers' => $leechers, 'seedboxes' => $seedboxes,
-            'highspeed_users' => $highspeed_users, 'highspeed_torrents' => $highspeed_torrents, 'reports' => $reports,
-            'unsolved' => $unsolved, 'solved' => $solved, 'pollCount' => $pollCount]);
+        return view('Staff.home.index', [
+            'num_user' => $num_user,
+            'banned' => $banned,
+            'validating' => $validating,
+            'num_torrent' => $num_torrent,
+            'pending' => $pending,
+            'rejected' => $rejected,
+            'peers' => $peers,
+            'seeders' => $seeders,
+            'leechers' => $leechers,
+            'seedboxes' => $seedboxes,
+            'highspeed_users' => $highspeed_users,
+            'highspeed_torrents' => $highspeed_torrents,
+            'reports' => $reports,
+            'unsolved' => $unsolved,
+            'solved' => $solved,
+            'pollCount' => $pollCount
+        ]);
     }
 }
