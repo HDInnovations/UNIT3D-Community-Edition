@@ -78,10 +78,6 @@ class ArticleController extends Controller
         ]);
 
         if ($v->fails()) {
-            // Delete the image because the validation failed
-            if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $article->image))) {
-                unlink($request->file('image')->move(getcwd() . '/files/img/' . $article->image));
-            }
             return redirect()->route('staff_article_index')
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
@@ -116,10 +112,9 @@ class ArticleController extends Controller
     public function edit(Request $request, $slug, $id)
     {
         $article = Article::findOrFail($id);
-        $input = $request->all();
-        $article->title = $input['title'];
+        $article->title = $request->input('title');
         $article->slug = str_slug($article->title);
-        $article->content = $input['content'];
+        $article->content = $request->input('content');
         $article->user_id = auth()->user()->id;
 
         // Verify that an image was upload
@@ -147,7 +142,7 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with(Toastr::error('Your article changes have failed to publish!', 'Whoops!', ['options']));
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $article->save();
             return redirect()->route('staff_article_index')
