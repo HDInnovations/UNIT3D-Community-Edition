@@ -136,6 +136,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
         return redirect()->route('staff_category_index')
-            ->with(Toastr::success('Category Sucessfully Deleted', 'Yay!', ['options']));
+            ->with(Toastr::success('Category Successfully Deleted', 'Yay!', ['options']));
     }
 }
