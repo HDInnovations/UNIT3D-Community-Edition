@@ -63,11 +63,6 @@ class ImageController extends Controller
         ]);
 
         if ($v->fails()) {
-            // Delete the image because the validation failed
-            if (file_exists($request->file('image')->move(getcwd() . '/files/img/' . $filename))) {
-                unlink($request->file('image')->move(getcwd() . '/files/img/' . $filename));
-            }
-
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {

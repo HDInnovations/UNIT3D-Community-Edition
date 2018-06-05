@@ -108,13 +108,7 @@ class AlbumController extends Controller
         ]);
 
         if ($v->fails()) {
-            // Delete the cover_image because the validation failed
-            if (file_exists($request->file('cover_image')->move(getcwd() . '/files/img/' . $album->image))) {
-                unlink($request->file('cover_image')->move(getcwd() . '/files/img/' . $album->image));
-            }
-
             return redirect()->route('create_album_form')
-                ->withErrors($v)
                 ->withInput()
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
