@@ -19,31 +19,18 @@ class Type extends Model
     public $timestamps = false;
 
     /**
-     * Validation rules
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'position' => 'required'
-    ];
-
-    /**
-     * Has many torrents
-     *
-     *
+     * Has Many Torrents
      */
     public function torrents()
     {
-        return $this->hasMany(\App\Torrent::class);
+        return $this->hasMany(Torrent::class);
     }
 
     /**
-     * Has many requests
-     *
+     * Has Many Requests
      */
     public function requests()
     {
-        return $this->hasMany(\App\TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 }

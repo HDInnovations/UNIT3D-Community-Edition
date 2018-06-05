@@ -19,7 +19,6 @@ use \Toastr;
 
 class TypeController extends Controller
 {
-
     /**
      * Get All Types
      *
@@ -45,6 +44,8 @@ class TypeController extends Controller
     /**
      * Add A Type
      *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
@@ -52,12 +53,20 @@ class TypeController extends Controller
         $type->name = $request->input('name');
         $type->slug = str_slug($type->name);
         $type->position = $request->input('position');
-        $v = validator($type->toArray(), $type->rules);
+
+        $v = validator($type->toArray(), [
+            'title' => 'required',
+            'slug' => 'required',
+            'position' => 'required'
+        ]);
+
         if ($v->fails()) {
-            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+            return redirect()->back()
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();
-            return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Added', 'Yay!', ['options']));
+            return redirect()->route('staff_type_index')
+                ->with(Toastr::success('Type Successfully Added', 'Yay!', ['options']));
         }
     }
 
@@ -78,8 +87,10 @@ class TypeController extends Controller
     /**
      * Edit A Type
      *
+     * @param Request $request
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
     {
@@ -87,12 +98,20 @@ class TypeController extends Controller
         $type->name = $request->input('name');
         $type->slug = str_slug($type->name);
         $type->position = $request->input('position');
-        $v = validator($type->toArray(), $type->rules);
+
+        $v = validator($type->toArray(), [
+            'title' => 'required',
+            'slug' => 'required',
+            'position' => 'required'
+        ]);
+
         if ($v->fails()) {
-            return redirect()->back()->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+            return redirect()->back()
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();
-            return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Modified', 'Yay!', ['options']));
+            return redirect()->route('staff_type_index')
+                ->with(Toastr::success('Type Successfully Modified', 'Yay!', ['options']));
         }
     }
 
@@ -101,12 +120,14 @@ class TypeController extends Controller
      *
      * @param $slug
      * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)
     {
         $type = Type::findOrFail($id);
         $type->delete();
 
-        return redirect()->route('staff_type_index')->with(Toastr::success('Type Sucessfully Deleted', 'Yay!', ['options']));
+        return redirect()->route('staff_type_index')
+            ->with(Toastr::success('Type Successfully Deleted', 'Yay!', ['options']));
     }
 }
