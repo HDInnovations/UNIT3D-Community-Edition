@@ -19,10 +19,8 @@ class Chatroom extends Model
 {
     use Notifiable;
 
-    protected $table = 'chatrooms';
-
     /**
-     * The attributes that are mass assignable.
+     * The Attributes That Are Mass Assignable
      *
      * @var array
      */
@@ -31,17 +29,17 @@ class Chatroom extends Model
     ];
 
     /**
-     * A user can have many messages
+     * A User Has Many Messages
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function messages()
     {
-        return $this->hasMany(\App\Message::class);
+        return $this->hasMany(Message::class);
     }
 
     /**
-     * A chatroom can have many users.
+     * A Chat Room Has Many Users
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
