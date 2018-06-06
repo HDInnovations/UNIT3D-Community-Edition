@@ -27,7 +27,7 @@
             <div class="well">
                 <img class="media-object pull-left" alt="{{ $album->name }}"
                      src="{{ url('files/img/' . $album->cover_image) }}"
-                     width="350px" style="margin-right: 20px;">
+                     height="175px" width="auto" style="margin-right: 20px;">
                 <div class="media-body">
                     <h2 class="media-heading">Album Name:</h2>
                     <p class="text-bold">{{ $album->name }}</p>
@@ -51,7 +51,7 @@
                     <div class="col-lg-3">
                         <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
                             <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
-                                 style=" max-height: 300px; min-height: 300px; border: 6px solid gray; border-radius: 5px;">
+                                 style="max-height: 300px; min-height: 300px; border: 6px solid gray; border-radius: 5px;">
                             <div class="caption text-center">
                                 <h4 class="label label-success">{{ $photo->type }}</h4>
                                 <br>
