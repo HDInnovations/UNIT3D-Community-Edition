@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Article;
+use Image;
 use \Toastr;
 
 class ArticleController extends Controller
@@ -55,18 +56,14 @@ class ArticleController extends Controller
         $article->content = $request->input('content');
         $article->user_id = auth()->user()->id;
 
-        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
-            if (in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif']) && preg_match('#image/*#', $image->getMimeType())) {
-                    $filename = 'article-' . uniqid() . '.' . $image->getClientOriginalExtension();
-                    $path = public_path('/files/img/' . $filename);
-                    Image::make($image->getRealPath())->fit(100, 100)->encode('png', 100)->save($path);
-            } else {
-                // Image null or wrong format
-                $article->image = null;
-            }
+            $filename = 'article-' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('/files/img/' . $filename);
+            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            $article->image = $filename;
         } else {
-            // Error on the image so null
+            // Use Default /public/img/missing-image.jpg
             $article->image = null;
         }
 
@@ -74,14 +71,15 @@ class ArticleController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'content' => 'required|min:100',
-            'user_id' => 'required'
+            'user_id' => 'required',
+            'image' => 'required'
         ]);
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            auth()->user()->articles()->save($article);
+            $article->save();
             return redirect()->route('staff_article_index')
                 ->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
         }
@@ -115,29 +113,22 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->slug = str_slug($article->title);
         $article->content = $request->input('content');
-        $article->user_id = auth()->user()->id;
 
-        // Verify that an image was upload
-        if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
-            // The file is an image
-            if (in_array($request->file('image')->getClientOriginalExtension(), ['jpg', 'jpeg', 'bmp', 'png', 'tiff'])) {
-                // Move and add the name to the object that will be saved
-                $article->image = 'article-' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-                $request->file('image')->move(getcwd() . '/files/img/', $article->image);
-            } else {
-                // Image null or wrong format
-                $article->image = null;
-            }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = 'article-' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $path = public_path('/files/img/' . $filename);
+            Image::make($image->getRealPath())->fit(75, 75)->encode('png', 100)->save($path);
+            $article->image = $filename;
         } else {
-            // Error on the image so null
+            // Use Default /public/img/missing-image.jpg
             $article->image = null;
         }
 
         $v = validator($article->toArray(), [
             'title' => 'required',
             'slug' => 'required',
-            'content' => 'required|min:100',
-            'user_id' => 'required'
+            'content' => 'required|min:100'
         ]);
 
         if ($v->fails()) {

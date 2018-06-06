@@ -26,7 +26,7 @@
 @section('content')
     <div class="container box">
         <h2>Add a post</h2>
-        <form role="form" method="POST"
+        <form role="form" method="POST" enctype="multipart/form-data"
               action="{{ route('staff_article_edit',['slug' => $article->slug, 'id' => $article->id]) }}">
             {{ csrf_field() }}
             <div class="form-group">
