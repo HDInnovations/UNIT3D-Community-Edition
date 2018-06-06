@@ -18,7 +18,6 @@ use App\Torrent;
 
 class TorrentController extends Controller
 {
-
     /**
      * Get All Torrents
      *

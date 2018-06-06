@@ -62,7 +62,7 @@ class TorrentController extends Controller
     /**
      * Displays Torrent List View
      *
-     * @return Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrents()
     {
@@ -72,8 +72,12 @@ class TorrentController extends Controller
         $dead = Torrent::where('seeders', 0)->count();
         $repository = $this->faceted;
 
-        return view('torrent.torrents', ['repository' => $repository, 'torrents' => $torrents, 'user' => $user,
-            'alive' => $alive, 'dead' => $dead
+        return view('torrent.torrents', [
+            'repository' => $repository,
+            'torrents' => $torrents,
+            'user' => $user,
+            'alive' => $alive,
+            'dead' => $dead
         ]);
     }
 
@@ -140,8 +144,12 @@ class TorrentController extends Controller
         $category = Category::where('id', $category_id)->first();
         $torrents = Torrent::where('category_id', $category_id)->where('imdb', $imdb)->latest()->get();
 
-        return view('torrent.grouping_results', ['user' => $user, 'torrents' => $torrents, 'imdb' => $imdb,
-            'category' => $category]);
+        return view('torrent.grouping_results', [
+            'user' => $user,
+            'torrents' => $torrents,
+            'imdb' => $imdb,
+            'category' => $category
+        ]);
     }
 
     /**
@@ -291,7 +299,13 @@ class TorrentController extends Controller
         $helper = new TorrentHelper();
         $result = $helper->view($listings);
 
-        return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active, 'count' => $count];
+        return [
+            'result' => $result,
+            'rows' => $rows,
+            'qty' => $qty,
+            'active' => $active,
+            'count' => $count
+        ];
     }
 
     /**
@@ -375,7 +389,7 @@ class TorrentController extends Controller
         $subtitle = null;
         $subtitle_crumbs = null;
         if ($torrent->mediainfo != null) {
-            $parser = new \App\Helpers\MediaInfo;
+            $parser = new MediaInfo;
             $parsed = $parser->parse($torrent->mediainfo);
             $view_crumbs = $parser->prepareViewCrumbs($parsed);
             $general = $parsed['general'];
@@ -389,13 +403,30 @@ class TorrentController extends Controller
             $text_crumbs = $view_crumbs['text'];
         }
 
-        return view('torrent.torrent', ['torrent' => $torrent, 'comments' => $comments, 'thanks' => $thanks,
-            'user' => $user, 'personal_freeleech' => $personal_freeleech, 'freeleech_token' => $freeleech_token,
-            'movie' => $movie, 'total_tips' => $total_tips, 'user_tips' => $user_tips, 'client' => $client,
-            'featured' => $featured, 'general' => $general, 'general_crumbs' => $general_crumbs,
-            'video_crumbs' => $video_crumbs, 'audio_crumbs' => $audio_crumbs, 'text_crumbs' => $text_crumbs,
-            'video' => $video, 'audio' => $audio, 'subtitle' => $subtitle, 'settings' => $settings,
-            'uploader' => $uploader, 'last_seed_activity' => $last_seed_activity]);
+        return view('torrent.torrent', [
+            'torrent' => $torrent,
+            'comments' => $comments,
+            'thanks' => $thanks,
+            'user' => $user,
+            'personal_freeleech' => $personal_freeleech,
+            'freeleech_token' => $freeleech_token,
+            'movie' => $movie,
+            'total_tips' => $total_tips,
+            'user_tips' => $user_tips,
+            'client' => $client,
+            'featured' => $featured,
+            'general' => $general,
+            'general_crumbs' => $general_crumbs,
+            'video_crumbs' => $video_crumbs,
+            'audio_crumbs' => $audio_crumbs,
+            'text_crumbs' => $text_crumbs,
+            'video' => $video,
+            'audio' => $audio,
+            'subtitle' => $subtitle,
+            'settings' => $settings,
+            'uploader' => $uploader,
+            'last_seed_activity' => $last_seed_activity
+        ]);
     }
 
     /**
@@ -411,8 +442,11 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($user->group->is_modo || $user->id == $torrent->user_id) {
-            return view('torrent.edit_torrent', ['categories' => Category::all()->sortBy('position'),
-                'types' => Type::all()->sortBy('position'), 'torrent' => $torrent
+
+            return view('torrent.edit_torrent', [
+                'categories' => Category::all()->sortBy('position'),
+                'types' => Type::all()->sortBy('position'),
+                'torrent' => $torrent
             ]);
         } else {
             abort(403, 'Unauthorized action.');
@@ -604,9 +638,13 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
 
-        return view('torrent.upload', ['categories' => Category::all()->sortBy('position'),
-            'types' => Type::all()->sortBy('position'), 'user' => $user, 'title' => $title,
-            'imdb' => str_replace('tt', '', $imdb), 'tmdb' => $tmdb
+        return view('torrent.upload', [
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'user' => $user,
+            'title' => $title,
+            'imdb' => str_replace('tt', '', $imdb),
+            'tmdb' => $tmdb
         ]);
     }
 
@@ -622,12 +660,16 @@ class TorrentController extends Controller
         $requestFile = $request->file('torrent');
 
         if ($request->hasFile('torrent') == false) {
-            return view('torrent.upload', ['categories' => Category::all()->sortBy('position'),
-                'types' => Type::all()->sortBy('position'), 'user' => $user])
+            return view('torrent.upload', [
+                'categories' => Category::all()->sortBy('position'),
+                'types' => Type::all()->sortBy('position'),
+                'user' => $user])
                 ->with(Toastr::error('You Must Provide A Torrent File For Upload!', 'Whoops!', ['options']));
         } elseif ($requestFile->getError() != 0 && $requestFile->getClientOriginalExtension() != 'torrent') {
-            return view('torrent.upload', ['categories' => Category::all()->sortBy('position'),
-                'types' => Type::all()->sortBy('position'), 'user' => $user])
+            return view('torrent.upload', [
+                'categories' => Category::all()->sortBy('position'),
+                'types' => Type::all()->sortBy('position'),
+                'user' => $user])
                 ->with(Toastr::error('A Error Has Occurred!', 'Whoops!', ['options']));
         }
 
@@ -1051,6 +1093,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
         $reseed = History::where('info_hash', $torrent->info_hash)->where('active', 0)->get();
+
         if ($torrent->seeders <= 2) {
             // Send Private Messages
             foreach ($reseed as $pm) {
