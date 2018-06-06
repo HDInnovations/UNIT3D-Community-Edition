@@ -16,30 +16,42 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    public $timestamps = false;
-
+    /**
+     * The Attributes That Aren't Mass Assignable
+     *
+     * @var array
+     */
     protected $guarded = ['id'];
 
     /**
-     * Has many users
+     * Indicates If The Model Should Be Timestamped
      *
+     * @var bool
+     */
+    public $timestamps = false;
+
+    /**
+     * Has Many Users
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function users()
     {
-        return $this->hasMany(\App\User::class);
+        return $this->hasMany(User::class);
     }
 
     /**
-     * Has many permissions
+     * Has Many Permissions
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function permissions()
     {
-        return $this->hasMany(\App\Permission::class);
+        return $this->hasMany(Permission::class);
     }
 
     /**
-     * Returns the requested row from the permissions table
+     * Returns The Requested Row From The Permissions Table
      *
      */
     public function getPermissionsByForum($forum)
