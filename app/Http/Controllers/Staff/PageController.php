@@ -19,7 +19,6 @@ use \Toastr;
 
 class PageController extends Controller
 {
-
     /**
      * Get All Pages
      *
