@@ -16,11 +16,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    /**
+     * Indicates If The Model Should Be Timestamped
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
-     * Has many torrents
+     * Has Many Torrents
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function torrents()
     {
@@ -28,8 +34,9 @@ class Category extends Model
     }
 
     /**
-     * Has many requests
+     * Has Many Requests
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requests()
     {

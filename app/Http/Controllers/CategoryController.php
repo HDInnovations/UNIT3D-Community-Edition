@@ -17,7 +17,7 @@ use App\Category;
 class CategoryController extends Controller
 {
     /**
-     * Display Category List
+     * Show Categories
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,7 +29,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Displays torrents by category
+     * Show All Torrents Within A Category
      *
      * @param $slug
      * @param $id
@@ -41,6 +41,10 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $torrents = $category->torrents()->latest()->paginate(25);
 
-        return view('category.category', ['torrents' => $torrents, 'user' => $user, 'category' => $category]);
+        return view('category.category', [
+            'torrents' => $torrents,
+            'user' => $user,
+            'category' => $category
+        ]);
     }
 }

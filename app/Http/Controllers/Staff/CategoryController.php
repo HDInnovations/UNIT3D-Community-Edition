@@ -19,7 +19,6 @@ use \Toastr;
 
 class CategoryController extends Controller
 {
-
     /**
      * Get The Categories
      *
