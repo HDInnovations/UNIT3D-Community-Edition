@@ -19,7 +19,6 @@ use \Toastr;
 
 class GiftController extends Controller
 {
-
     /**
      * Send Gift Form
      *
