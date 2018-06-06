@@ -973,10 +973,9 @@ class TorrentController extends Controller
                 $torrent->featured = "1";
                 $torrent->save();
 
-                $featured = new FeaturedTorrent([
-                    'user_id' => auth()->user()->id,
-                    'torrent_id' => $torrent->id,
-                ]);
+                $featured = new FeaturedTorrent();
+                $featured->user_id = $user->id;
+                $featured->torrent_id = $torrent->id;
                 $featured->save();
 
                 $torrent_url = hrefTorrent($torrent);
