@@ -24,12 +24,10 @@ use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
 {
-
     /**
-    * Announce code
+    * Announce Code
     *
-    * @access public
-    * @param $Passkey User passkey
+    * @param $passkey
     * @return Bencoded response for the torrent client
     */
     public function announce(Request $request, $passkey)
