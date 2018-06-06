@@ -19,30 +19,67 @@ class History extends Model
 {
     use Sortable;
 
-    public $sortable = ['id', 'agent', 'active', 'seeder', 'uploaded', 'downloaded', 'seedtime', 'created_at', 'updated_at', 'completed_at'];
-
-    //
     /**
-     * The database table used by the model.
+     * The Columns That Are Sortable
+     *
+     * @var array
+     */
+    public $sortable = [
+        'id',
+        'agent',
+        'active',
+        'seeder',
+        'uploaded',
+        'downloaded',
+        'seedtime',
+        'created_at',
+        'updated_at',
+        'completed_at'
+    ];
+
+    /**
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'history';
 
-    protected $fillable = ['user_id', 'info_hash'];
+    /**
+     * The Attributes That Are Mass Assignable
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'info_hash'
+    ];
 
+    /**
+     * The Attributes That Should Be Mutated To Dates
+     *
+     * @var array
+     */
     protected $dates = ['completed_at'];
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
-
+    /**
+     * Belongs To A Torrent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class, "info_hash", "info_hash");
+        return $this->belongsTo(Torrent::class, "info_hash", "info_hash");
     }
 }
