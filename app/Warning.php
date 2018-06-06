@@ -17,40 +17,36 @@ use Illuminate\Database\Eloquent\Model;
 class Warning extends Model
 {
     /**
-     * The database table used by the model.
+     * Belongs To A Torrent
      *
-     * @var string
-     */
-    protected $table = "warnings";
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'user_id', 'warned_by', 'torrent', 'reason', 'expires_on', 'active'
-    ];
-
-    /**
-     * Belongs to Torrent
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrenttitle()
     {
-        return $this->belongsTo(\App\Torrent::class, 'torrent');
+        return $this->belongsTo(Torrent::class, 'torrent');
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function warneduser()
     {
-        return $this->belongsTo(\App\User::class, 'user_id')->withDefault([
+        return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
+    /**
+     * Belongs To A USer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, 'warned_by')->withDefault([
+        return $this->belongsTo(User::class, 'warned_by')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
