@@ -15,7 +15,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
-
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
 use App\Helpers\Bbcode;
@@ -29,10 +28,25 @@ class Torrent extends Model
     use Moderatable;
     use Sortable;
 
-    public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];
+    /**
+     * The Columns That Are Sortable
+     *
+     * @var array
+     */
+    public $sortable = [
+        'id',
+        'name',
+        'size',
+        'seeders',
+        'leechers',
+        'times_completed',
+        'created_at'
+    ];
 
     /**
      * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -44,6 +58,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Category
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
@@ -52,6 +68,8 @@ class Torrent extends Model
 
     /**
      * Belongs To A Type
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {
@@ -59,47 +77,9 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Files
-     */
-    public function files()
-    {
-        return $this->hasMany(TorrentFile::class);
-    }
-
-    /**
-     * Has Many Comments
-     */
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
-    }
-
-    /**
-     * Has Many Peers
-     */
-    public function peers()
-    {
-        return $this->hasMany(Peer::class);
-    }
-
-    /**
-     * Has Many Tags
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
-
-    /**
-     * Relationship To A Single Request
-     */
-    public function request()
-    {
-        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
-    }
-
-    /**
      * Torrent Has Been Moderated By
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moderated()
     {
@@ -110,7 +90,109 @@ class Torrent extends Model
     }
 
     /**
-     * Formats The Output Of The Description
+     * One Title Belongs To Many Catalogs
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function catalogs()
+    {
+        return $this->belongsToMany(Catalog::class)->withTimestamps();
+    }
+
+    /**
+     * Has Many Tags
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Has Many History
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function history()
+    {
+        return $this->hasMany(History::class, "info_hash", "info_hash");
+    }
+
+    /**
+     * Has Many Thank
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function thanks()
+    {
+        return $this->hasMany(Thank::class);
+    }
+
+    /**
+     * Has Many HitRuns
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hitrun()
+    {
+        return $this->hasMany(Warning::class, 'torrent');
+    }
+
+    /**
+     * Has Many Featured
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function featured()
+    {
+        return $this->hasMany(FeaturedTorrent::class);
+    }
+
+    /**
+     * Has Many Files
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files()
+    {
+        return $this->hasMany(TorrentFile::class);
+    }
+
+    /**
+     * Has Many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Has Many Peers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function peers()
+    {
+        return $this->hasMany(Peer::class);
+    }
+
+    /**
+     * Relationship To A Single Request
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function request()
+    {
+        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+    }
+
+    /**
+     * Parse Description And Return Valid HTML
+     *
+     * @return string Parsed BBCODE To HTML
      */
     public function getDescriptionHtml()
     {
@@ -119,6 +201,8 @@ class Torrent extends Model
 
     /**
      * Formats The Output Of The Media Info Dump
+     *
+     * @return array
      */
     public function getMediaInfo()
     {
@@ -129,6 +213,8 @@ class Torrent extends Model
 
     /**
      * Returns The Size In Human Format
+     *
+     * @return string
      */
     public function getSize($bytes = null, $precision = 2)
     {
@@ -147,51 +233,12 @@ class Torrent extends Model
     }
 
     /**
-     * One Title Belongs To Many Catalogs
-     */
-    public function catalogs()
-    {
-        return $this->belongsToMany(Catalog::class)->withTimestamps();
-    }
-
-    /**
-     * Has Many History
-     */
-    public function history()
-    {
-        return $this->hasMany(History::class, "info_hash", "info_hash");
-    }
-
-    /**
-     * Has Many Thank
-     */
-    public function thanks()
-    {
-        return $this->hasMany(Thank::class);
-    }
-
-    /**
-     * Has Many HitRuns
-     */
-    public function hitrun()
-    {
-        return $this->hasMany(Warning::class, 'torrent');
-    }
-
-    /**
-     * Has Many Featured
-     */
-    public function featured()
-    {
-        return $this->hasMany(FeaturedTorrent::class);
-    }
-
-    /**
      * Torrent Is Freeleech
      */
     public function isFreeleech($user = null)
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
+
         return $this->free || config('other.freeleech') || $pfree;
     }
 }
