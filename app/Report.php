@@ -17,23 +17,29 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     /**
-     * The database table used by the model.
+     * The Attributes That Aren't Mass Assignable
      *
-     * @var string
+     * @var array
      */
-    protected $table = "reports";
+    protected $guarded = [
+        'id'
+    ];
 
     /**
-     * Mass assignment fields
+     * Belongs To A Torrent
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $guarded = ['id'];
-
     public function torrent()
     {
         return $this->belongsTo(Torrent::class, 'torrent_id');
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function reporter()
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
@@ -42,6 +48,11 @@ class Report extends Model
         ]);
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function reported()
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
@@ -50,6 +61,11 @@ class Report extends Model
         ]);
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function staff()
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
