@@ -14,7 +14,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class freeleechToken extends Model
+class FreeleechToken extends Model
 {
     //
 }
