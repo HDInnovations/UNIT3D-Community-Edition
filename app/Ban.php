@@ -14,11 +14,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Ban.
- */
 class Ban extends Model
 {
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function banneduser()
     {
         return $this->belongsTo(\App\User::class, "owned_by")->withDefault([
@@ -27,6 +29,11 @@ class Ban extends Model
         ]);
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function staffuser()
     {
         return $this->belongsTo(\App\User::class, "created_by")->withDefault([
