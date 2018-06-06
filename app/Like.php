@@ -16,16 +16,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
+    /**
+     * Belongs To A Post
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function post()
     {
-        return $this->belongsTo(\App\Post::class);
+        return $this->belongsTo(Post::class);
     }
 }
