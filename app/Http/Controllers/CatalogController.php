@@ -18,12 +18,10 @@ use App\Torrent;
 
 class CatalogController extends Controller
 {
-
     /**
-     * Display catalogs list
+     * Show Catalogs
      *
-     * @access public
-     * @return catalogs.catalogs View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalogs()
     {
@@ -33,12 +31,11 @@ class CatalogController extends Controller
     }
 
     /**
-     * Displays movies in catalog
+     * Show All Titles In A Catalog
      *
-     * @access public
      * @param $slug
      * @param $id
-     * @return catalogs.catalog View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalog($slug, $id)
     {
@@ -46,16 +43,18 @@ class CatalogController extends Controller
         $catalog = Catalog::findOrFail($id);
         $records = CatalogTorrent::where('catalog_id', $id)->latest('imdb')->get();
 
-        return view('catalogs.catalog', ['user' => $user, 'catalog' => $catalog, 'records' => $records]);
+        return view('catalogs.catalog', [
+            'user' => $user,
+            'catalog' => $catalog,
+            'records' => $records
+        ]);
     }
 
     /**
-     * Displays torrents
+     * Show All Torrents That Match Catalog Titles
      *
-     * @access public
-     * @param $slug
-     * @param $id
-     * @return catalogs.torrents View
+     * @param $imdb
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function torrents($imdb)
     {
