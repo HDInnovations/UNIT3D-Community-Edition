@@ -82,11 +82,12 @@ class ModerationController extends Controller
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
             $torrent->markPostponed();
 
-            PrivateMessage::create([
-                'sender_id' => $user->id,
-                'receiver_id' => $torrent->user_id,
-                'subject' => "Your upload has been postponed by {$user->username}",
-                'message' => "Greating user, \n\n Your upload {$torrent->username} has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}"]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = $user->id;
+            $pm->receiver_id = $torrent->user_id;
+            $pm->subject = "Your upload has been postponed by {$user->username}";
+            $pm->message = "Greetings, \n\n Your upload {$torrent->username} has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->save();
 
             return redirect()->route('moderation')
                 ->with(Toastr::success('Torrent Postponed', 'Yay!', ['options']));
@@ -115,12 +116,12 @@ class ModerationController extends Controller
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
             $torrent->markRejected();
 
-            PrivateMessage::create([
-                'sender_id' => $user->id,
-                'receiver_id' => $torrent->user_id,
-                'subject' => "Your upload has been rejected by {$user->username}",
-                'message' => "Greetings, \n\n Your upload {$torrent->username} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}"
-            ]);
+            $pm = new PrivateMessage;
+            $pm->sender_id = $user->id;
+            $pm->receiver_id = $torrent->user_id;
+            $pm->subject = "Your upload has been rejected by {$user->username}";
+            $pm->message = "Greetings, \n\n Your upload {$torrent->username} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->save();
 
             return redirect()->route('moderation')
                 ->with(Toastr::success('Torrent Rejected', 'Yay!', ['options']));
