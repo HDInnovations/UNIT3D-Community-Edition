@@ -21,7 +21,6 @@ use \Toastr;
 
 class GroupsController extends Controller
 {
-
     /**
      * Get All Groups
      *
