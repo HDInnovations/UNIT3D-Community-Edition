@@ -19,6 +19,8 @@ class Article extends Model
 {
     /**
      * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -30,6 +32,8 @@ class Article extends Model
 
     /**
      * Has Many Comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
