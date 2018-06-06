@@ -59,9 +59,9 @@
                                     </td>
                                     <td>
                                         @if($record->accepted_by != null)
-                                            <a class="view-user" data-id="{{ $record->reciever->id }}"
-                                               data-slug="{{ $record->reciever->username }}"
-                                               href="{{ route('profile', ['username' =>  $record->reciever->username, 'id' => $record->reciever->id]) }}">{{ $record->reciever->username }}</a>
+                                            <a class="view-user" data-id="{{ $record->receiver->id }}"
+                                               data-slug="{{ $record->receiver->username }}"
+                                               href="{{ route('profile', ['username' =>  $record->receiver->username, 'id' => $record->receiver->id]) }}">{{ $record->receiver->username }}</a>
                                         @else
                                             N/A
                                         @endif
@@ -80,7 +80,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 @endsection
