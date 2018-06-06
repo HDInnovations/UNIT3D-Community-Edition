@@ -34,7 +34,7 @@ class BugController extends Controller
      * Send Bug Report
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Illuminate\Http\RedirectResponse
      */
     public function bug(Request $request)
     {
