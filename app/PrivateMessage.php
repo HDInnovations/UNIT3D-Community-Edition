@@ -18,7 +18,9 @@ use App\Helpers\Bbcode;
 class PrivateMessage extends Model
 {
     /**
-     * PM Belongs To User
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sender()
     {
@@ -29,7 +31,9 @@ class PrivateMessage extends Model
     }
 
     /**
-     * PM Belongs To User
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function receiver()
     {
@@ -40,7 +44,9 @@ class PrivateMessage extends Model
     }
 
     /**
-     * Parse Message And Return Valid HTML
+     * Parse Content And Return Valid HTML
+     *
+     * @return string Parsed BBCODE To HTML
      */
     public function getMessageHtml()
     {
