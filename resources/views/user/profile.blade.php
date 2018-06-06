@@ -194,20 +194,20 @@
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
                           data-original-title="{{ trans('user.download-recorded') }}">{{ $user->getDownloaded() }}</span>
                     -
-                    <span class="badge-extra text-yellow" data-toggle="tooltip" title=""
-                          data-original-title="{{ trans('user.download-bon') }}">N/A</span> =
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="{{ trans('user.download-true') }}">N/A</span></td>
+                          data-original-title="{{ trans('user.download-bon') }}">{{ App\Helpers\StringHelper::formatBytes($bondownload , 2) }}</span> =
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="{{ trans('user.download-true') }}">{{ App\Helpers\StringHelper::formatBytes($realdownload , 2) }}</span></td>
             </tr>
             <tr>
                 <td>{{ trans('torrent.uploaded') }}</td>
                 <td>
                     <span class="badge-extra text-green" data-toggle="tooltip" title=""
                           data-original-title="{{ trans('user.upload-recorded') }}">{{ $user->getUploaded() }}</span> -
-                    <span class="badge-extra text-yellow" data-toggle="tooltip" title=""
-                          data-original-title="{{ trans('user.upload-bon') }}">N/A</span> =
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
-                          data-original-title="{{ trans('user.upload-true') }}">N/A</span></td>
+                          data-original-title="{{ trans('user.upload-bon') }}">{{ App\Helpers\StringHelper::formatBytes($bonupload , 2) }}</span> =
+                    <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                          data-original-title="{{ trans('user.upload-true') }}">{{ App\Helpers\StringHelper::formatBytes($realupload , 2) }}</span></td>
             </tr>
             <tr>
                 <td>{{ trans('common.ratio') }}</td>
