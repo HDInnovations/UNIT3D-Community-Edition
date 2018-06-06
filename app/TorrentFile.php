@@ -17,19 +17,24 @@ use App\Helpers\StringHelper;
 
 class TorrentFile extends Model
 {
-
     /**
-     * The Database Table Used By The Model
-     */
-    protected $table = 'files';
-
-    /**
-     * Disable Dates
+     * Indicates If The Model Should Be Timestamped
+     *
+     * @var bool
      */
     public $timestamps = false;
 
     /**
+     * The Database Table Used By The Model
+     *
+     * @var string
+     */
+    protected $table = 'files';
+
+    /**
      * Belongs To A Torrent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent()
     {
@@ -38,10 +43,13 @@ class TorrentFile extends Model
 
     /**
      * Return Size In Human Format
+     *
+     * @return string
      */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 }
