@@ -40,7 +40,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
         // Registration Routes
-        Route::any('/register/{code?}', 'Auth\RegisterController@register')->name('register');
+        Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
+        Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
 
         // Activation Routes
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
