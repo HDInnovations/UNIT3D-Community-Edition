@@ -30,7 +30,7 @@
                         <div class="thumbnail" style="min-height: 435px;">
                             <img alt="{{$album->name}}" src="{{ url('files/img/' . $album->cover_image) }}">
                             <div class="caption">
-                                <h2>{{ $album->name }}</h2>
+                                <p class="text-bold">{{ $album->name }}</p>
                                 <h4>{{ $album->description }}</h4>
                                 <h4><span class="label label-default">{{ count($album->images) }} image(s)</span></h4>
                                 <a href="{{ route('show_album', ['id' => $album->id]) }}"

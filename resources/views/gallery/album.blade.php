@@ -30,10 +30,10 @@
                      width="350px" style="margin-right: 20px;">
                 <div class="media-body">
                     <h2 class="media-heading">Album Name:</h2>
-                    <h4>{{ $album->name }}</h4>
+                    <p class="text-bold">{{ $album->name }}</p>
                     <div class="media">
                         <h2 class="media-heading">Album Description:</h2>
-                        <h4>{{ $album->description }}</h4>
+                        <p class="text-bold">{{ $album->description }}</p>
                         <a href="{{ route('add_image', ['id' => $album->id]) }}">
                             <button type="button" class="btn btn-success btn-md">Add New Image to Album</button>
                         </a>
@@ -64,7 +64,7 @@
                                             class="fa fa-download text-green"> {{ $photo->downloads }}</i>
                                 </button>
                                 </a>
-                                @if(auth()->user()->group->is_modo)
+                                @if(auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
                                 <a href="{{ route('delete_image', ['id' => $photo->id]) }}">
                                     <button type="button" class="btn btn-sm"><i class="fa fa-times text-red"> </i>
                                     </button>

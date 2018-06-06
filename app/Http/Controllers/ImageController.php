@@ -133,8 +133,9 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        if (auth()->user()->group->is_modo) {
-            $image = Image::findOrFail($id);
+        $image = Image::findOrFail($id);
+
+        if (auth()->user()->group->is_modo || auth()->user()->id === $image->user_id) {
             $image->delete();
 
             return redirect()->route('show_album', ['id' => $image->album_id])
