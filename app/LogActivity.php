@@ -17,11 +17,16 @@ use Illuminate\Database\Eloquent\Model;
 class LogActivity extends Model
 {
     /**
-     * The attributes that are mass assignable.
+     * The Attributes That Are Mass Assignable
      *
      * @var array
      */
     protected $fillable = [
-        'subject', 'url', 'method', 'ip', 'agent', 'user_id'
+        'subject',
+        'url',
+        'method',
+        'ip',
+        'agent',
+        'user_id'
     ];
 }
