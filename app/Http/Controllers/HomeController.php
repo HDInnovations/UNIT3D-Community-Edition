@@ -27,10 +27,9 @@ use \Toastr;
 class HomeController extends Controller
 {
     /**
-     * Home page
+     * Home Page
      *
-     * @access public
-     * @return View home.home
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function home()
     {

@@ -61,7 +61,7 @@ class ForumController extends Controller
     /**
      * Search For Topics
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search(Request $request)
@@ -200,7 +200,7 @@ class ForumController extends Controller
     /**
      * Add A Post To A Topic
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -325,7 +325,7 @@ class ForumController extends Controller
     /**
      * Topic Add Form
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -351,7 +351,7 @@ class ForumController extends Controller
     /**
      * Create A New Topic In The Forum
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -473,7 +473,7 @@ class ForumController extends Controller
     /**
      * Edit Topic In The Forum
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -524,7 +524,7 @@ class ForumController extends Controller
     /**
      * Edit A Post In A Topic
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @param $postId

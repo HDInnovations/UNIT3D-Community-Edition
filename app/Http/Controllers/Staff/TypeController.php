@@ -44,7 +44,7 @@ class TypeController extends Controller
     /**
      * Add A Type
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -87,7 +87,7 @@ class TypeController extends Controller
     /**
      * Edit A Type
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse

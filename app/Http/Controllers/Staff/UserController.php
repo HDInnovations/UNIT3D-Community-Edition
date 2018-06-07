@@ -92,7 +92,7 @@ class UserController extends Controller
     /**
      * Edit A User
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      * @@return Illuminate\Http\RedirectResponse
@@ -120,7 +120,7 @@ class UserController extends Controller
     /**
      * Edit A Users Permissions
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -148,7 +148,7 @@ class UserController extends Controller
     /**
      * Edit A Users Password
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      * @return Illuminate\Http\RedirectResponse

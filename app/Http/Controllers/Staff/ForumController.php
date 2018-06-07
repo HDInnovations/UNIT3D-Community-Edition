@@ -50,7 +50,7 @@ class ForumController extends Controller
     /**
      * Add A Forum
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -115,7 +115,7 @@ class ForumController extends Controller
     /**
      * Edit A Forum
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse

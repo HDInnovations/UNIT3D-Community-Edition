@@ -89,7 +89,7 @@ class BackupController extends Controller
     /**
      * Download A Backup
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function download(Request $request)
@@ -114,7 +114,7 @@ class BackupController extends Controller
     /**
      * Deletes A Backup
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $file_name
      * @return Illuminate\Http\RedirectResponse
      */

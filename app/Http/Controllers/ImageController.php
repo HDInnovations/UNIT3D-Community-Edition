@@ -35,7 +35,7 @@ class ImageController extends Controller
     /**
      * Add A Image To A Album
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -76,7 +76,7 @@ class ImageController extends Controller
     /**
      * Move A Image
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function move(Request $request)

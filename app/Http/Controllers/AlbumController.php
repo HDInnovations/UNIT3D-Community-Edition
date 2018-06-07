@@ -74,7 +74,7 @@ class AlbumController extends Controller
     /**
      * Add A Album
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)

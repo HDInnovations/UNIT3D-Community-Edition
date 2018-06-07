@@ -33,7 +33,7 @@ class TorrentController extends Controller
     /**
      * Search Torrents
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search(Request $request)

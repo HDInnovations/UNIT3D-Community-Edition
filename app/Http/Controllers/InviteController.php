@@ -23,7 +23,11 @@ use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
-
+    /**
+     * Invite Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function invite()
     {
         $user = auth()->user();
@@ -39,6 +43,12 @@ class InviteController extends Controller
         return view('user.invite', ['user' => $user]);
     }
 
+    /**
+     * Send Invite
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function process(Request $request)
     {
         $current = new Carbon();
@@ -84,6 +94,13 @@ class InviteController extends Controller
         }
     }
 
+    /**
+     * Invite Tree
+     *
+     * @param $username
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function inviteTree($username, $id)
     {
         if (auth()->user()->group->is_modo) {

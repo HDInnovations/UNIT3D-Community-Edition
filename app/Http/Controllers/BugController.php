@@ -33,7 +33,7 @@ class BugController extends Controller
     /**
      * Send Bug Report
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function bug(Request $request)

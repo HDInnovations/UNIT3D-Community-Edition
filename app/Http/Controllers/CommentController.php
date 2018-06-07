@@ -59,7 +59,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Article
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -129,7 +129,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Torrent
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -227,7 +227,7 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Request
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -400,7 +400,7 @@ class CommentController extends Controller
     /**
      * Edit A Comment
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $comment_id
      * @return Illuminate\Http\RedirectResponse
      */

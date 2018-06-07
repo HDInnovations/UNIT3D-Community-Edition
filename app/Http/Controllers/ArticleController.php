@@ -17,7 +17,7 @@ use App\Article;
 class ArticleController extends Controller
 {
     /**
-     * Show Articles
+     * Show All Articles
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,7 +29,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Show Article
+     * Show A Article
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

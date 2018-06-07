@@ -23,7 +23,7 @@ class PrivateMessageController extends Controller
     /**
      * Search PM
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function searchPM(Request $request)
@@ -105,7 +105,7 @@ class PrivateMessageController extends Controller
     /**
      * Create A Message
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function sendPrivateMessage(Request $request)
@@ -141,7 +141,7 @@ class PrivateMessageController extends Controller
     /**
      * Reply To A Message
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      * @return Illuminate\Http\RedirectResponse
      */

@@ -24,7 +24,7 @@ class TwoStepAuth
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param \Closure $response
      *
      * @return mixed

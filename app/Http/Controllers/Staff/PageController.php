@@ -44,7 +44,7 @@ class PageController extends Controller
     /**
      * Add A Page
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -87,7 +87,7 @@ class PageController extends Controller
     /**
      * Edit A Page
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse

@@ -155,7 +155,7 @@ class TorrentController extends Controller
     /**
      * Uses Input's To Put Together A Search
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @param $torrent Torrent
      * @return array
      */
@@ -456,7 +456,7 @@ class TorrentController extends Controller
     /**
      * Edit A Torrent
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -521,7 +521,7 @@ class TorrentController extends Controller
     /**
      * Delete A Torrent
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteTorrent(Request $request)
@@ -651,7 +651,7 @@ class TorrentController extends Controller
     /**
      * Upload A Torrent
      *
-     * @param $request Request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function upload(Request $request)

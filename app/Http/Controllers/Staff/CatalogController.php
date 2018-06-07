@@ -34,7 +34,7 @@ class CatalogController extends Controller
     /**
      * Create A Catalog
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function postCatalog(Request $request)
@@ -59,7 +59,7 @@ class CatalogController extends Controller
     /**
      * Edit A Catalog
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $catalog_id
      * @return Illuminate\Http\RedirectResponse
      */
@@ -106,6 +106,7 @@ class CatalogController extends Controller
     public function getCatalogTorrent()
     {
         $catalogs = Catalog::latest('name')->get();
+
         return view('Staff.catalog.catalog_torrent')->with('catalogs', $catalogs);
     }
 
@@ -130,6 +131,7 @@ class CatalogController extends Controller
         // Count and save the torrent number in this catalog
         $catalog->num_torrent = CatalogTorrent::where('catalog_id', $catalog->id)->count();
         $catalog->save();
+
         return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . $request->input('imdb') . ' has been successfully added', 'Yay!', ['options']));
     }
 
@@ -138,6 +140,7 @@ class CatalogController extends Controller
     {
         $catalogs = Catalog::findOrFail($catalog_id);
         $records = CatalogTorrent::where('catalog_id', $catalog_id)->latest('imdb')->get();
+
         return view('Staff.catalog.catalog_records', ['catalog' => $catalogs, 'records' => $records]);
     }
 }

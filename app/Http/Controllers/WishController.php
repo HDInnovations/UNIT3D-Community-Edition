@@ -54,7 +54,7 @@ class WishController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $uid
      * @return \Illuminate\Http\RedirectResponse
      */

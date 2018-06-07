@@ -41,7 +41,7 @@ class GraveyardController extends Controller
     /**
      * Resurrect A Torrent
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $id
      * @return Illuminate\Http\RedirectResponse
      */

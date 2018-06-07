@@ -63,7 +63,7 @@ class ModerationController extends Controller
     /**
      * Postpone A Torrent
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function postpone(Request $request)
@@ -97,16 +97,16 @@ class ModerationController extends Controller
     /**
      * Reject A Torrent
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request)
     {
         $v = validator($request->all(), [
-                'id' => "required|exists:torrents",
-                'slug' => "required|exists:torrents",
-                'message' => "required|alpha_dash"
-            ]);
+            'id' => "required|exists:torrents",
+            'slug' => "required|exists:torrents",
+            'message' => "required|alpha_dash"
+        ]);
 
         if ($v->fails()) {
             return redirect()->route('moderation')

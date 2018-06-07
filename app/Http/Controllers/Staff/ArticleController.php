@@ -45,7 +45,7 @@ class ArticleController extends Controller
     /**
      * Add A Article
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -102,7 +102,7 @@ class ArticleController extends Controller
     /**
      * Edit A Article
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @return Illuminate\Http\RedirectResponse

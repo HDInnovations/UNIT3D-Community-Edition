@@ -34,7 +34,7 @@ class GiftController extends Controller
     /**
      * Send The Gift
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
@@ -46,12 +46,12 @@ class GiftController extends Controller
         $invites = $request->input('invites');
         $fl_tokens = $request->input('fl_tokens');
 
-            $v = validator($request->all(), [
-                'username' => "required|exists:users,username|max:180",
-                'seedbonus' => "required|numeric|min:0",
-                'invites' => "required|numeric|min:0",
-                'fl_tokens' => "required|numeric|min:0"
-            ]);
+        $v = validator($request->all(), [
+            'username' => "required|exists:users,username|max:180",
+            'seedbonus' => "required|numeric|min:0",
+            'invites' => "required|numeric|min:0",
+            'fl_tokens' => "required|numeric|min:0"
+        ]);
 
         if ($v->fails()) {
             return redirect()->route('systemGift')

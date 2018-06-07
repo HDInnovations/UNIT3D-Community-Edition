@@ -39,7 +39,7 @@ class BanController extends Controller
     /**
      * Ban A User (current_group -> banned)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -93,7 +93,7 @@ class BanController extends Controller
     /**
      * Unban A User (banned -> new_group)
      *
-     * @param Request $request
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      * @return Illuminate\Http\RedirectResponse

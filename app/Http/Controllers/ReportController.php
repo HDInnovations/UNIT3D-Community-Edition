@@ -36,6 +36,12 @@ class ReportController extends Controller
         $this->torrent = $torrent;
     }
 
+    /**
+     * Create A Report
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function postReport(Request $request)
     {
         $torrent = $this->torrent->find($request->get('torrent_id'));
@@ -55,6 +61,7 @@ class ReportController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$reported_by->username} has made a new {$request->get('type')} report.");
 
-        return redirect()->route('home')->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
+        return redirect()->route('home')
+            ->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
     }
 }
