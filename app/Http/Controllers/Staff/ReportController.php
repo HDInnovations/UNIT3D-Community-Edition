@@ -21,7 +21,7 @@ use \Toastr;
 class ReportController extends Controller
 {
     /**
-     * Reports System
+     * Get All Reports
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -33,6 +33,8 @@ class ReportController extends Controller
     }
 
     /**
+     * Get A Report
+     *
      * @param $report_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -46,6 +48,8 @@ class ReportController extends Controller
     }
 
     /**
+     * Solve A Report
+     *
      * @param $report_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -61,7 +65,8 @@ class ReportController extends Controller
         $report = Report::findOrFail($report_id);
 
         if ($report->solved == 1) {
-            return redirect()->route('getReports')->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
+            return redirect()->route('getReports')
+                ->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
         }
 
         $report->verdict = $request->input('verdict');
@@ -77,6 +82,7 @@ class ReportController extends Controller
         $pm->message = $report->verdict;
         $pm->save();
 
-        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
+        return redirect()->route('getReports')
+            ->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }
