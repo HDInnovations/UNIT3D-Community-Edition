@@ -55,7 +55,7 @@
     <div id="formContent">
         <!-- Tabs Titles -->
         <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }}</h2></a>
-        <a href="{{ route('registrationForm', ['code' => $code]) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
+        <a href="{{ route('registrationForm', ['code' => 'null']) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
 
         <!-- Icon -->
         <div class="fadeIn first">

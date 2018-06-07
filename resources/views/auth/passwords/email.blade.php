@@ -46,7 +46,7 @@
 
     <div id="formContent">
         <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }}</h2></a>
-        <a href="{{ route('registrationForm', ['code' => $code]) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
+        <a href="{{ route('registrationForm', ['code' => 'null']) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
 
         <div class="fadeIn first">
             <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}"/>
