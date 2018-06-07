@@ -484,15 +484,15 @@ class ForumController extends Controller
         $topic = Topic::findOrFail($id);
 
         if ($user->group->is_modo) {
-                $name = $request->input('name');
-                $forum_id = $request->input('forum_id');
+            $name = $request->input('name');
+            $forum_id = $request->input('forum_id');
 
-                $topic->name = $name;
-                $topic->forum_id = $forum_id;
-                $topic->save();
+            $topic->name = $name;
+            $topic->forum_id = $forum_id;
+            $topic->save();
 
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                    ->with(Toastr::success('Topic Successfully Edited', 'Yay!', ['options']));
+            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+                ->with(Toastr::success('Topic Successfully Edited', 'Yay!', ['options']));
         } else {
             abort(403, 'Unauthorized action.');
         }
@@ -542,11 +542,11 @@ class ForumController extends Controller
                     ->with(Toastr::error('You Cannot Edit This!', 'Whoops!', ['options']));
             }
         }
-            $post->content = $request->input('content');
-            $post->save();
+        $post->content = $request->input('content');
+        $post->save();
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with(Toastr::success('Post Successfully Edited!', 'Yay!', ['options']));
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with(Toastr::success('Post Successfully Edited!', 'Yay!', ['options']));
     }
 
     /**
