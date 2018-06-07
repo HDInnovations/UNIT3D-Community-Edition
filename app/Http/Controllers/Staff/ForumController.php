@@ -25,6 +25,7 @@ class ForumController extends Controller
     /**
      * Show Forums
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -34,15 +35,29 @@ class ForumController extends Controller
     }
 
     /**
-     * Add A Forum
+     * Forum Add Form
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function add(Request $request)
+    public function addForm()
     {
         $categories = Forum::where('parent_id', 0)->get();
         $groups = Group::all();
-        if ($request->isMethod('POST')) {
+
+        return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
+    }
+
+    /**
+     * Add A Forum
+     *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function add(Request $request)
+    {
             $parentForum = Forum::findOrFail($request->input('parent_id'));
+            $groups = Group::all();
+
             $forum = new Forum();
             $forum->name = $request->input('title');
             $forum->position = $request->input('position');
@@ -73,22 +88,43 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return redirect()->route('staff_forum_index')->with(Toastr::success('Forum has been created successfully', 'Yay!', ['options']));
-        }
-        return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
+            return redirect()->route('staff_forum_index')
+                ->with(Toastr::success('Forum has been created successfully', 'Yay!', ['options']));
+    }
+
+    /**
+     * Forum Edit Form
+     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editForm($slug, $id)
+    {
+        $forum = Forum::findOrFail($id);
+        $categories = Forum::where('parent_id', 0)->get();
+        $groups = Group::all();
+
+        return view('Staff.forum.edit', [
+            'categories' => $categories,
+            'groups' => $groups,
+            'forum' => $forum
+        ]);
     }
 
     /**
      * Edit A Forum
      *
-     *
+     * @param Request $request
+     * @param $slug
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
     {
-        $categories = Forum::where('parent_id', 0)->get();
-        $groups = Group::all();
         $forum = Forum::findOrFail($id);
-        if ($request->isMethod('POST')) {
+        $groups = Group::all();
+
             $forum->name = $request->input('title');
             $forum->position = $request->input('position');
             $forum->slug = str_slug($request->input('title'));
@@ -119,15 +155,16 @@ class ForumController extends Controller
                 $perm->save();
             }
 
-            return redirect()->route('staff_forum_index')->with(Toastr::success('Forum has been edited successfully', 'Yay!', ['options']));
-        }
-        return view('Staff.forum.edit', ['categories' => $categories, 'groups' => $groups, 'forum' => $forum]);
+            return redirect()->route('staff_forum_index')
+                ->with(Toastr::success('Forum has been edited successfully', 'Yay!', ['options']));
     }
 
     /**
      * Delete A Forum
      *
-     *
+     * @param $slug
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)
     {
@@ -176,6 +213,7 @@ class ForumController extends Controller
             }
             $forum->delete();
         }
-        return redirect()->route('staff_forum_index')->with(Toastr::success('Forum has been deleted successfully', 'Yay!', ['options']));
+        return redirect()->route('staff_forum_index')
+            ->with(Toastr::success('Forum has been deleted successfully', 'Yay!', ['options']));
     }
 }

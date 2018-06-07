@@ -90,7 +90,7 @@
                                                 class="btn btn-xs btn-xxs btn-info">{{ trans('forum.quote') }}</button>
                                     @endif
                                     @if(auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
-                                        <a href="{{ route('forum_post_edit', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
+                                        <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">{{ trans('common.edit') }}</button></a>
                                         <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-danger">{{ trans('common.delete') }}</button></a>
@@ -195,7 +195,7 @@
                                 @endif
                             @endif
                             @if(auth()->check() && auth()->user()->group->is_modo)
-                                <a href="{{ route('forum_edit_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
+                                <a href="{{ route('forum_edit_topic_form', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                    class="btn btn-warning">{{ trans('forum.edit-topic') }}</a>
                                 <a href="{{ route('forum_delete_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                    class="btn btn-danger">{{ trans('forum.delete-topic') }}</a>

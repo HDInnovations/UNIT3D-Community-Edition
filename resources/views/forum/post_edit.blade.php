@@ -9,10 +9,6 @@
     <meta name="description" content="{{ $forum->name . ' - ' . trans('forum.edit-post') }}">
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -38,7 +34,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_post_edit', array('slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id)) }}"
+        <a href="{{ route('forum_post_edit_form', array('slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id)) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">{{ trans('common.edit') }} {{ trans('forum.post') }}</span>
@@ -48,13 +44,6 @@
 
 @section('content')
     <div class="forum box container">
-        @if(isset($parsedContent))
-            <div class="preview col-md-12">
-                {{ $parsedContent }}
-            </div>
-            <hr>
-        @endif
-
         <div class="col-md-12">
             <h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}
                 : {{ $forum->name }}</h2>
@@ -65,10 +54,7 @@
                     <textarea id="content" name="content" cols="30" rows="10"
                               class="form-control">{{ $post->content }}</textarea>
                 </div>
-                <button type="submit" name="post" value="true"
-                        class="btn btn-primary">{{ trans('common.submit') }}</button>
-                <button type="submit" name="preview" value="true"
-                        class="btn btn-default">{{ trans('common.preview') }}</button>
+                <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
             </form>
         </div>
     </div>

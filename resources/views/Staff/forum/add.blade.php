@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_forum_add') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff_forum_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Forums</span>
         </a>
     </li>
@@ -25,7 +25,8 @@
     <div class="container box">
         <h2>Add a new Forum</h2>
 
-        {{ Form::open(array('route' => 'staff_forum_add')) }}
+        <form role="form" method="POST" action="{{ route('staff_forum_add') }}">
+            {{ csrf_field() }}
         <div class="form-group">
             <label for="forum_type">Forum Type</label>
             <select name="forum_type" class="form-control">
@@ -86,6 +87,6 @@
         </table>
 
         <button type="submit" class="btn btn-default">Save Forum</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

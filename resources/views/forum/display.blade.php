@@ -29,7 +29,7 @@
                 <h1 class="f-display-info-title">{{ $forum->name }}</h1>
                 <p class="f-display-info-description">{{ $forum->description }}
                     @if($category->getPermission()->start_topic == true)
-                        <a href="{{ route('forum_new_topic', array('slug' => $forum->slug, 'id' => $forum->id)) }}"
+                        <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
                            class="btn btn-primary" style="float:right;">{{ trans('forum.create-new-topic') }}</a>
                     @endif
                 </p>

@@ -16,28 +16,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Forum extends Model
 {
-
     /**
-     * Has many topics
+     * Has Many Topic
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function topics()
     {
-        return $this->hasMany(\App\Topic::class);
+        return $this->hasMany(Topic::class);
     }
 
     /**
-     * Has many permissions
+     * Has Many Permissions
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function permissions()
     {
-        return $this->hasMany(\App\Permission::class);
+        return $this->hasMany(Permission::class);
     }
 
     /**
-     * Returns a table with the forums in the category
+     * Returns A Table With The Forums In The Category
      *
+     * @return string
      */
     public function getForumsInCategory()
     {
@@ -45,8 +47,9 @@ class Forum extends Model
     }
 
     /**
-     * Returns the category in which the forum is located
+     * Returns The Category Nn Which The Forum Is Located
      *
+     * @return string
      */
     public function getCategory()
     {
@@ -54,9 +57,9 @@ class Forum extends Model
     }
 
     /**
-     * Count the number of posts in the forum
+     * Count The Number Of Posts In The Forum
      *
-     *
+     * @return string
      */
     public function getPostCount($forumId)
     {
@@ -70,8 +73,9 @@ class Forum extends Model
     }
 
     /**
-     * Count the number of topics in the forum
+     * Count The Number Of Topics In The Forum
      *
+     * @return string
      */
     public function getTopicCount($forumId)
     {
@@ -80,8 +84,9 @@ class Forum extends Model
     }
 
     /**
-     * Returns the permission field
+     * Returns The Permission Field
      *
+     * @return string
      */
     public function getPermission()
     {
