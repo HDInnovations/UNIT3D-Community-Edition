@@ -449,16 +449,16 @@
         },
         {
             "name": "dragonmantank/cron-expression",
-            "version": "v2.1.0",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dragonmantank/cron-expression.git",
-                "reference": "3f00985deec8df53d4cc1e5c33619bda1ee309a5"
+                "reference": "92a2c3768d50e21a1f26a53cb795ce72806266c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/3f00985deec8df53d4cc1e5c33619bda1ee309a5",
-                "reference": "3f00985deec8df53d4cc1e5c33619bda1ee309a5",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/92a2c3768d50e21a1f26a53cb795ce72806266c5",
+                "reference": "92a2c3768d50e21a1f26a53cb795ce72806266c5",
                 "shasum": ""
             },
             "require": {
@@ -494,7 +494,7 @@
                 "cron",
                 "schedule"
             ],
-            "time": "2018-04-06T15:51:55+00:00"
+            "time": "2018-06-06T03:12:17+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1325,16 +1325,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.23",
+            "version": "v5.6.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f547f0a71a12763d1adb8493237d541c9e3a5d10"
+                "reference": "56290edeb0d8051826d40b4cbd8ed3c30348b2b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f547f0a71a12763d1adb8493237d541c9e3a5d10",
-                "reference": "f547f0a71a12763d1adb8493237d541c9e3a5d10",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/56290edeb0d8051826d40b4cbd8ed3c30348b2b5",
+                "reference": "56290edeb0d8051826d40b4cbd8ed3c30348b2b5",
                 "shasum": ""
             },
             "require": {
@@ -1460,7 +1460,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-05-22T14:55:57+00:00"
+            "time": "2018-06-04T14:51:03+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2127,16 +2127,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.12",
+            "version": "v2.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb"
+                "reference": "f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
-                "reference": "258c89a6b97de7dfaf5b8c7607d0478e236b04fb",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5",
+                "reference": "f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5",
                 "shasum": ""
             },
             "require": {
@@ -2168,10 +2168,11 @@
             "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
             "keywords": [
                 "csprng",
+                "polyfill",
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-04-04T21:24:14+00:00"
+            "time": "2018-06-06T17:40:22+00:00"
         },
         {
             "name": "predis/predis",
@@ -2671,16 +2672,16 @@
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.0.14",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "91603599eb29024cc9849a4a511a629ebce97850"
+                "reference": "1530d6cf72070068eecab150ffb73466c3806bdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/91603599eb29024cc9849a4a511a629ebce97850",
-                "reference": "91603599eb29024cc9849a4a511a629ebce97850",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/1530d6cf72070068eecab150ffb73466c3806bdd",
+                "reference": "1530d6cf72070068eecab150ffb73466c3806bdd",
                 "shasum": ""
             },
             "require": {
@@ -2716,7 +2717,7 @@
                 "image-optimizer",
                 "spatie"
             ],
-            "time": "2018-03-07T13:42:33+00:00"
+            "time": "2018-06-05T07:36:17+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -2861,22 +2862,22 @@
         },
         {
             "name": "spatie/laravel-image-optimizer",
-            "version": "1.2.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-image-optimizer.git",
-                "reference": "f98d1a8e90851ed0384b46f9b692297d47688a0c"
+                "reference": "b40f5accb41b385dcc62ca17c25283e5db11d9a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-image-optimizer/zipball/f98d1a8e90851ed0384b46f9b692297d47688a0c",
-                "reference": "f98d1a8e90851ed0384b46f9b692297d47688a0c",
+                "url": "https://api.github.com/repos/spatie/laravel-image-optimizer/zipball/b40f5accb41b385dcc62ca17c25283e5db11d9a3",
+                "reference": "b40f5accb41b385dcc62ca17c25283e5db11d9a3",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "~5.5.0|~5.6.0",
                 "php": "^7.0",
-                "spatie/image-optimizer": "^1.0.4"
+                "spatie/image-optimizer": "^1.1.0"
             },
             "require-dev": {
                 "orchestra/testbench": "~3.5.0|~3.6.0",
@@ -2916,7 +2917,7 @@
                 "laravel-image-optimizer",
                 "spatie"
             ],
-            "time": "2018-05-16T14:07:07+00:00"
+            "time": "2018-06-05T07:37:24+00:00"
         },
         {
             "name": "spatie/temporary-directory",
