@@ -40,7 +40,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
         // Registration Routes
-        Route::any('/register/{code?}', 'Auth\RegisterController@register')->name('register');
+        Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
+        Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
 
         // Activation Routes
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
@@ -93,8 +94,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/report', 'ReportController@postReport')->name('postReport');
 
         // Bug Report
-        Route::get('/bug', 'BugController@bug')->name('bug');
-        Route::post('/bug', 'BugController@bug')->name('bug');
+        Route::get('/bug', 'BugController@bugForm')->name('bug');
+        Route::post('/bug', 'BugController@bug')->name('postBug');
 
         // Category
         Route::get('/categories', 'CategoryController@categories')->name('categories');
@@ -308,13 +309,14 @@ Route::group(['middleware' => 'language'], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
         // Search Forums
-        Route::any('/search', 'ForumController@search')->name('forum_search');
+        Route::get('/search', 'ForumController@search')->name('forum_search');
         // Display Forum Categories
         Route::get('/category/{slug}.{id}', 'ForumController@category')->name('forum_category');
         // Display Topics
         Route::get('/forum/{slug}.{id}', 'ForumController@display')->name('forum_display');
         // Create New Topic
-        Route::any('/forum/{slug}.{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
+        Route::get('/forum/{slug}.{id}/new-topic', 'ForumController@addForm')->name('forum_new_topic_form');
+        Route::post('/forum/{slug}.{id}/new-topic', 'ForumController@newTopic')->name('forum_new_topic');
         // View Topic
         Route::get('/topic/{slug}.{id}', 'ForumController@topic')->name('forum_topic');
         // Close Topic
@@ -322,19 +324,21 @@ Route::group(['middleware' => 'language'], function () {
         // Open Topic
         Route::get('/topic/{slug}.{id}/open', 'ForumController@openTopic')->name('forum_open');
         // Edit Post
-        Route::any('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
+        Route::get('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
+        Route::post('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
         // Delete Post
-        Route::any('/topic/{slug}.{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
+        Route::get('/topic/{slug}.{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
         // Reply To Topic
         Route::post('/topic/{slug}.{id}/reply', 'ForumController@reply')->name('forum_reply');
         // Edit Topic
-        Route::any('/topic/{slug}.{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
+        Route::get('/topic/{slug}.{id}/edit', 'ForumController@editForm')->name('forum_edit_topic_form');
+        Route::post('/topic/{slug}.{id}/edit', 'ForumController@editTopic')->name('forum_edit_topic');
         // Delete Topic
-        Route::any('/topic/{slug}.{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
+        Route::get('/topic/{slug}.{id}/delete', 'ForumController@deleteTopic')->name('forum_delete_topic');
         // Pin Topic
-        Route::any('/topic/{slug}.{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
+        Route::get('/topic/{slug}.{id}/pin', 'ForumController@pinTopic')->name('forum_pin_topic');
         // Unpin Topic
-        Route::any('/topic/{slug}.{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
+        Route::get('/topic/{slug}.{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
 
         // Topic Label System
         Route::get('/topic/{slug}.{id}/approved', 'ForumController@approvedTopic')->name('forum_approved');
@@ -431,8 +435,10 @@ Route::group(['middleware' => 'language'], function () {
 
         // Forum
         Route::get('/forums', 'ForumController@index')->name('staff_forum_index');
-        Route::any('/forums/new', 'ForumController@add')->name('staff_forum_add');
-        Route::any('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
+        Route::get('/forums/new', 'ForumController@addForm')->name('staff_forum_add_form');
+        Route::post('/forums/new', 'ForumController@add')->name('staff_forum_add');
+        Route::get('/forums/edit/{slug}.{id}', 'ForumController@editForm')->name('staff_forum_edit_form');
+        Route::post('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
         Route::get('/forums/delete/{slug}.{id}', 'ForumController@delete')->name('staff_forum_delete');
 
         //Pages

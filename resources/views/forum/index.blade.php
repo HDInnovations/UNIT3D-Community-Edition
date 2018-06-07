@@ -21,7 +21,7 @@
     <div class="box container">
         <span class="badge-user" style="float: right;"><strong>{{ trans('forum.forums') }}:</strong> {{ $num_forums }} | <strong>{{ trans('forum.topics') }}
                 :</strong> {{ $num_topics }} | <strong>{{ trans('forum.posts') }}:</strong> {{ $num_posts }}</span>
-        <form role="form" method="POST" action="{{ route('forum_search') }}">
+        <form role="form" method="GET" action="{{ route('forum_search') }}">
             {{ csrf_field() }}
             <input type="text" name="name" id="name" placeholder="{{ trans('forum.topic-quick-search') }}"
                    class="form-control">

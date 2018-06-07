@@ -17,6 +17,9 @@ use GuzzleHttp\Client;
 
 class VersionController extends Controller
 {
+    /**
+     * @var VersionController
+     */
     private $version;
 
     public function __construct()
@@ -34,6 +37,7 @@ class VersionController extends Controller
         $client = new Client();
         $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody());
         $lastestVersion = $response[0]->tag_name;
+
         return response([
             'updated' => version_compare($this->version, $lastestVersion, '<') ? false : true,
             'latestversion' => $lastestVersion

@@ -16,31 +16,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class BonTransactions extends Model
 {
-
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'bon_transactions';
 
     /**
-     * Tells Laravel to not maintain the timestamp columns
+     * Indicates If The Model Should Be Timestamped
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = false;
 
     /**
-     * The storage format of the model's date columns.
+     * The Storage Format Of The Model's Date Columns.
      *
      * @var string
      */
     protected $dateFormat = 'U';
 
     /**
-     * Mass assignment fields
+     * The Attributes That Are Mass Assignable
      *
+     * @var array
      */
-    protected $fillable = ['itemID', 'name', 'cost', 'sender', 'receiver', 'comment', 'torrent_id'];
+    protected $fillable = [
+        'itemID',
+        'name',
+        'cost',
+        'sender',
+        'receiver',
+        'comment',
+        'torrent_id'
+    ];
 }

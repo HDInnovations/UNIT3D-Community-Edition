@@ -17,12 +17,15 @@ use App\Helpers\Bbcode;
 
 class Message extends Model
 {
-    protected $table = 'messages';
-
+    /**
+     * The Attributes That Aren't Mass Assignable
+     *
+     * @var array
+     */
     protected $with = ['user'];
 
     /**
-     * Fields that are mass assignable
+     * The Attributes That Are Mass Assignable
      *
      * @var array
      */
@@ -33,28 +36,29 @@ class Message extends Model
     ];
 
     /**
-     * A message belongs to a user
+     * Belongs To A User
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * A message belongs to a chatroom
+     * Belongs To A Chat Room
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function chatroom()
     {
-        return $this->belongsTo(\App\Chatroom::class);
+        return $this->belongsTo(Chatroom::class);
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)
     {

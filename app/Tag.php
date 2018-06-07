@@ -16,21 +16,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-
+    /**
+     * Indicates If The Model Should Be Timestamped
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
-    public $rules = [
-        'content' => 'required|unique:tags',
-        'slug' => 'required|unique:tags',
-    ];
-
     /**
-     * HABTM Torrent
+     * Belongs To Many Torrents
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function torrents()
     {
-        return $this->belongsToMany(\App\Torrent::class);
+        return $this->belongsToMany(Torrent::class);
     }
 }

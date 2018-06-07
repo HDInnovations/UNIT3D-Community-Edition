@@ -20,7 +20,6 @@ use \Toastr;
 
 class MassPMController extends Controller
 {
-
     /**
      * Mass PM Form
      *

@@ -37,7 +37,7 @@ class BanController extends Controller
     }
 
     /**
-     * Ban the user (current_group -> banned)
+     * Ban A User (current_group -> banned)
      *
      * @param Request $request
      * @param $username
@@ -91,7 +91,7 @@ class BanController extends Controller
 
 
     /**
-     * Unban the user (banned -> new group)
+     * Unban A User (banned -> new_group)
      *
      * @param Request $request
      * @param $username

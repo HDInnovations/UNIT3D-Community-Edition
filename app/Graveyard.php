@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class Graveyard extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */

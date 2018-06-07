@@ -15,57 +15,45 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-/**
- *  Post new topic Reply to topic
- *
- *
- */
 class Post extends Model
 {
-
     /**
-     * Rules
+     * Belongs To A Topic
      *
-     */
-    public $rules = [
-        'content' => 'required',
-        'user_id' => 'required',
-        'topic_id' => 'required'
-    ];
-
-    /**
-     * Belongs to Topic
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function topic()
     {
-        return $this->belongsTo(\App\Topic::class);
+        return $this->belongsTo(Topic::class);
     }
 
     /**
-     * Belongs to User
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * hasMany Likes
+     * A Post Has Many Likes
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes()
     {
-        return $this->hasMany(\App\Like::class);
+        return $this->hasMany(Like::class);
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml()
     {
@@ -73,14 +61,12 @@ class Post extends Model
     }
 
     /**
-     * Returns the cut content for the home page
+     * Post Trimming
      *
-     * @access public
      * @param $length
-     * @param ellipses
-     * @param strip_html Remove HTML tags from string
-     * @return string Formatted and cutted content
-     *
+     * @param $ellipses
+     * @param $strip_html
+     * @return string Formatted And Trimmed Content
      */
     public function getBrief($length = 100, $ellipses = true, $strip_html = false)
     {
@@ -107,15 +93,26 @@ class Post extends Model
         return $trimmed_text;
     }
 
+    /**
+     * Get A Post From A ID
+     *
+     * @return string
+     */
     public function getPostNumber()
     {
         return $this->topic->postNumberFromId($this->id);
     }
 
+    /**
+     * Get A Posts Page Number
+     *
+     * @return string
+     */
     public function getPageNumber()
     {
         $result = ($this->getPostNumber() - 1) / 25 + 1;
         $result = floor($result);
+
         return $result;
     }
 }

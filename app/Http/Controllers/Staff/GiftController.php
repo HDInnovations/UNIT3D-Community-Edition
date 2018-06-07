@@ -19,7 +19,6 @@ use \Toastr;
 
 class GiftController extends Controller
 {
-
     /**
      * Send Gift Form
      *
@@ -28,7 +27,8 @@ class GiftController extends Controller
     public function index()
     {
         $users = User::oldest('username')->get();
-        return view('Staff.gift.index', compact('users'));
+
+        return view('Staff.gift.index', ['users' => $users]);
     }
 
     /**
@@ -61,7 +61,7 @@ class GiftController extends Controller
 
             if (!$recipient) {
                 return redirect()->route('systemGift')
-                    ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
+                    ->with(Toastr::error('Unable To Find Specified User', 'Whoops!', ['options']));
             }
 
             $recipient->seedbonus += $seedbonus;

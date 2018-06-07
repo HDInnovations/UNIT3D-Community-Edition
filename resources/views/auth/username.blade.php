@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="UTF-8">
     <title>{{ trans('auth.lost-username') }} - {{ config('other.title') }}</title>
@@ -55,7 +55,7 @@
     <div id="formContent">
         <!-- Tabs Titles -->
         <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }}</h2></a>
-        <a href="{{ route('register') }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
+        <a href="{{ route('registrationForm', ['code' => 'null']) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }}</h2></a>
 
         <!-- Icon -->
         <div class="fadeIn first">

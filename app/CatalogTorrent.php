@@ -17,17 +17,20 @@ use Illuminate\Database\Eloquent\Model;
 class CatalogTorrent extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = "catalog_torrent";
 
     /**
-     * Mass assignment fields
+     * The Attributes That Are Mass Assignable
      *
+     * @var array
      */
     protected $fillable = [
-        'imdb', 'tvdb', 'catalog_id'
+        'imdb',
+        'tvdb',
+        'catalog_id'
     ];
 }

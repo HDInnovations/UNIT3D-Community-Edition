@@ -19,10 +19,25 @@ class Peer extends Model
 {
     use Sortable;
 
-    public $sortable = ['id', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'created_at'];
+    /**
+     * The Columns That Are Sortable
+     *
+     * @var array
+     */
+    public $sortable = [
+        'id',
+        'agent',
+        'uploaded',
+        'downloaded',
+        'left',
+        'seeder',
+        'created_at'
+    ];
 
     /**
-     * Belongs to User
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -33,7 +48,9 @@ class Peer extends Model
     }
 
     /**
-     * Belongs to torrent
+     * Belongs To A Torrent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent()
     {

@@ -24,16 +24,11 @@ use App\PrivateMessage;
 use App\Follow;
 use App\History;
 use App\Warning;
+use App\BonTransactions;
 use \Toastr;
 use Image;
 use Carbon\Carbon;
 
-/**
- * User Management
- *
- *
- *
- */
 class UserController extends Controller
 {
     /**
@@ -79,8 +74,14 @@ class UserController extends Controller
         $history = $user->history;
         $warnings = Warning::where('user_id', $id)->whereNotNull('torrent')->where('active', 1)->take(3)->get();
         $hitrun = Warning::where('user_id', $id)->latest()->paginate(10);
+        $bonupload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Upload%'],])->sum('cost');
+        $realupload = $user->uploaded - $bonupload;
+        $bondownload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Download%'],])->sum('cost');
+        $realdownload = $user->downloaded - $bondownload;
 
-        return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers, 'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun]);
+        return view('user.profile', ['user' => $user, 'groups' => $groups, 'followers' => $followers,
+            'history' => $history, 'warnings' => $warnings, 'hitrun' => $hitrun, 'bonupload' => $bonupload,
+            'realupload' => $realupload, 'bondownload' => $bondownload, 'realdownload' => $realdownload]);
     }
 
     /**

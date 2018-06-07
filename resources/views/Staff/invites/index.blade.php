@@ -67,9 +67,9 @@
                                     </td>
                                     <td>
                                         @if($invite->accepted_by != null)
-                                            <a class="view-user" data-id="{{ $invite->reciever->id }}"
-                                               data-slug="{{ $invite->reciever->username }}"
-                                               href="{{ route('profile', ['username' =>  $invite->reciever->username, 'id' => $invite->reciever->id]) }}">{{ $invite->reciever->username }}</a>
+                                            <a class="view-user" data-id="{{ $invite->receiver->id }}"
+                                               data-slug="{{ $invite->receiver->username }}"
+                                               href="{{ route('profile', ['username' =>  $invite->receiver->username, 'id' => $invite->receiver->id]) }}">{{ $invite->receiver->username }}</a>
                                         @else
                                             N/A
                                         @endif

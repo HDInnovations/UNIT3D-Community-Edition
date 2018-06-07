@@ -16,8 +16,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Wish extends Model
 {
+    /**
+     * The Attributes That Aren't Mass Assignable
+     *
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault([

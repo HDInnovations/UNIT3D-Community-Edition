@@ -21,7 +21,6 @@ use \Toastr;
 
 class GroupsController extends Controller
 {
-
     /**
      * Get All Groups
      *
@@ -45,7 +44,7 @@ class GroupsController extends Controller
     }
 
     /**
-     * Add Group
+     * Add A Group
      *
      * @param Request $request
      * @return Illuminate\Http\RedirectResponse
@@ -113,7 +112,7 @@ class GroupsController extends Controller
     }
 
     /**
-     * Edit Group
+     * Edit A Group
      *
      * @param Request $request
      * @param $group

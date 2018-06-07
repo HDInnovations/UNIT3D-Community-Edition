@@ -21,6 +21,8 @@ use \Toastr;
 class ContactController extends Controller
 {
     /**
+     * Contact Form
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -29,7 +31,7 @@ class ContactController extends Controller
     }
 
     /**
-     * Contact page, send an email to owner/first user
+     * Send A Contact Email To Owner/First User
      *
      * @access public
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

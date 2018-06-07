@@ -20,7 +20,7 @@ class WarningController extends Controller
     /**
      * Warnings Log
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getWarnings()
     {

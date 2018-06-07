@@ -21,9 +21,9 @@ use \Toastr;
 class CatalogController extends Controller
 {
     /**
-     * Catalog Group System
+     * Get All Catalogs
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCatalogs()
     {
@@ -31,7 +31,12 @@ class CatalogController extends Controller
         return view('Staff.catalog.catalogs', ['catalogs' => $catalogs]);
     }
 
-    //Add New Catalog
+    /**
+     * Create A Catalog
+     *
+     * @param Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function postCatalog(Request $request)
     {
         $v = validator($request->all(), [
@@ -39,27 +44,25 @@ class CatalogController extends Controller
         ]);
         $catalog = Catalog::where('name', $request->input('catalog'))->first();
         if ($catalog) {
-            return redirect()->route('catalogs')->with(Toastr::error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
+            return redirect()->route('catalogs')
+                ->with(Toastr::error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
         }
         $catalog = new Catalog();
         $catalog->name = $request->input('catalog');
         $catalog->slug = str_slug($request->input('catalog'));
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
+
+        return redirect()->route('getCatalog')
+            ->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
     }
 
-    //Delete Catalog
-    public function deleteCatalog($catalog_id)
-    {
-        $catalog = Catalog::findOrFail($catalog_id);
-        if (!$catalog) {
-            return redirect()->route('getCatalog')->with(Toastr::error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
-        }
-        $catalog->delete();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
-    }
-
-    //Edit Catalog
+    /**
+     * Edit A Catalog
+     *
+     * @param Request $request
+     * @param $catalog_id
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function editCatalog(Request $request, $catalog_id)
     {
         $v = validator($request->all(), [
@@ -67,12 +70,33 @@ class CatalogController extends Controller
         ]);
         $catalog = Catalog::findOrFail($catalog_id);
         if (!$catalog) {
-            return redirect()->route('getCatalog')->with(Toastr::error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
+            return redirect()->route('getCatalog')
+                ->with(Toastr::error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
         }
         $catalog->name = $request->input('catalog');
         $catalog->save();
-        return redirect()->route('getCatalog')->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
+        return redirect()->route('getCatalog')
+            ->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
     }
+
+    /**
+     * Delete A Catalog
+     *
+     * @param $catalog_id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function deleteCatalog($catalog_id)
+    {
+        $catalog = Catalog::findOrFail($catalog_id);
+        if (!$catalog) {
+            return redirect()->route('getCatalog')
+                ->with(Toastr::error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
+        }
+        $catalog->delete();
+        return redirect()->route('getCatalog')
+            ->with(Toastr::success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
+    }
+
 
     /**
      * Catalog Torrent System

@@ -14,12 +14,10 @@ namespace App\Http\Controllers;
 
 class AchievementsController extends Controller
 {
-
     /**
      * Show User Achievements
      *
-     * @access public
-     * @return user.achievements
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -28,6 +26,11 @@ class AchievementsController extends Controller
         $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return view('user.achievements', ['user' => $user, 'achievements' => $achievements, 'locked' => $locked, 'pending' => $pending]);
+        return view('user.achievements', [
+            'user' => $user,
+            'achievements' => $achievements,
+            'locked' => $locked,
+            'pending' => $pending
+        ]);
     }
 }

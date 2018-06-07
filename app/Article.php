@@ -18,35 +18,35 @@ use App\Helpers\Bbcode;
 class Article extends Model
 {
     /**
-     * Belongs to User
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Has many Comment
+     * Has Many Comments
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**
-     * Article Brief
+     * Article Trimming
      *
-     * @access public
      * @param $length
-     * @param ellipses
-     * @param strip_html Remove HTML tags from string
-     * @return string Formatted and cutted content
-     *
+     * @param $ellipses
+     * @param $strip_html
+     * @return string Formatted And Trimmed Content
      */
     public function getBrief($length = 100, $ellipses = true, $strip_html = false)
     {
@@ -74,8 +74,9 @@ class Article extends Model
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml()
     {

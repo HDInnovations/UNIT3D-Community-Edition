@@ -16,8 +16,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class FailedLoginAttempt extends Model
 {
+    /**
+     * The Attributes That Are Mass Assignable
+     *
+     * @var array
+     */
     protected $fillable = [
-        'user_id', 'username', 'ip_address',
+        'user_id',
+        'username',
+        'ip_address'
     ];
 
     public static function record($user = null, $username, $ip)

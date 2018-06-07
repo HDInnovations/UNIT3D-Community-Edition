@@ -13,7 +13,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h4 class="text-center">{{ trans('bug.bug-report-description') }}</h4></div>
-            <form role="form" method="POST" action="{{ route('bug') }}">
+            <form role="form" method="POST" action="{{ route('postBug') }}">
             <table class="table table-bordered">
                 <tbody>
                     {{ csrf_field() }}

@@ -32,7 +32,8 @@ use \Toastr;
 class UserController extends Controller
 {
     /**
-     * Members List
+     * Users List
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function members()
@@ -42,30 +43,37 @@ class UserController extends Controller
         $mods = User::where('group_id', 6)->latest()->paginate(25);
         $admins = User::where('group_id', 4)->latest()->paginate(25);
         $coders = User::where('group_id', 10)->latest()->paginate(25);
-        return view('Staff.user.user_search', ['users' => $users, 'uploaders' => $uploaders, 'mods' => $mods, 'admins' => $admins, 'coders' => $coders]);
+
+        return view('Staff.user.user_search', [
+            'users' => $users,
+            'uploaders' => $uploaders,
+            'mods' => $mods,
+            'admins' => $admins,
+            'coders' => $coders
+        ]);
     }
 
     /**
-     * Search for members
+     * Search For A User
      *
      * @access public
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)
     {
-        $search = $request->input('search');
         $users = User::where([
             ['username', 'like', '%' . $request->input('username') . '%'],
         ])->paginate(25);
         $users->setPath('?username=' . $request->input('username'));
 
-        return view('Staff.user.user_results')->with('users', $users);
+        return view('Staff.user.user_results', ['users' => $users]);
     }
 
     /**
-     * User Edit
+     * User Edit Form
      *
-     * @access public
+     * @param $username
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSettings($username, $id)
@@ -73,19 +81,27 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $groups = Group::all();
         $notes = Note::where('user_id', $id)->latest()->paginate(25);
-        return view('Staff.user.user_edit', ['user' => $user, 'groups' => $groups, 'notes' => $notes]);
+
+        return view('Staff.user.user_edit', [
+            'user' => $user,
+            'groups' => $groups,
+            'notes' => $notes
+        ]);
     }
 
     /**
-     * Edit User
+     * Edit A User
      *
-     * @access public
+     * @param Request $request
+     * @param $username
+     * @param $id
+     * @@return Illuminate\Http\RedirectResponse
      */
     public function userEdit(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        $groups = Group::all();
+
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->uploaded = $request->input('uploaded');
@@ -97,18 +113,23 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            ->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
-     * Edit User Permissions
+     * Edit A Users Permissions
      *
-     * @access public
+     * @param Request $request
+     * @param $username
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function userPermissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
+
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');
         $user->can_comment = $request->input('can_comment');
@@ -120,18 +141,23 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            ->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
     }
 
     /**
-     * Edit User Password
+     * Edit A Users Password
      *
-     * @access protected
+     * @param Request $request
+     * @param $username
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     protected function userPassword(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
+
         $new_password = $request->input('new_password');
         $user->password = Hash::make($new_password);
         $user->save();
@@ -139,20 +165,25 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            ->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
-     * Delete User
+     * Delete A User
      *
-     * @access protected
+     * @param $username
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     protected function userDelete($username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
+
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
-            return redirect()->route('home')->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
+            return redirect()->route('home')
+                ->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
             // Removes UserID from Torrents if any and replaces with System UserID (0)
             foreach (Torrent::where('user_id', $user->id)->get() as $tor) {
@@ -214,9 +245,11 @@ class UserController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
             if ($user->delete()) {
-                return redirect('staff_dashboard')->with(Toastr::success('Account Has Been Removed', 'Yay!', ['options']));
+                return redirect('staff_dashboard')
+                    ->with(Toastr::success('Account Has Been Removed', 'Yay!', ['options']));
             } else {
-                return redirect('staff_dashboard')->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+                return redirect('staff_dashboard')
+                    ->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
             }
         }
     }

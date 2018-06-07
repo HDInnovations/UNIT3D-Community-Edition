@@ -16,12 +16,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Option extends Model
 {
+    /**
+     * The Attributes That Are Mass Assignable
+     *
+     * @var array
+     */
     protected $fillable = [
         'name'
     ];
 
+    /**
+     * Belongs To A Poll
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function poll()
     {
-        return $this->belongsTo(\App\Poll::class);
+        return $this->belongsTo(Poll::class);
     }
 }
