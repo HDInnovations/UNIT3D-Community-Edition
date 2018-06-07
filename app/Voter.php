@@ -17,17 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 class Voter extends Model
 {
     /**
-     * The Attributes That Are Mass Assignable
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'poll_id',
-        'user_id',
-        'ip_address'
-    ];
-
-    /**
      * Belongs To A Poll
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -18,11 +18,13 @@ use App\Http\Requests\VoteOnPoll;
 use App\Poll;
 use App\Option;
 use App\Voter;
-use App\Message;
 use \Toastr;
 
 class PollController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
     private $chat;
 
     public function __construct(ChatRepository $chat)
@@ -31,22 +33,22 @@ class PollController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Show All Polls
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $polls = Poll::latest()->paginate(15);
 
-        return view('poll.latest', compact('polls'));
+        return view('poll.latest', ['polls' => $polls]);
     }
 
     /**
-     * Display the specified resource.
+     * Show A Poll
      *
-     * @param  int $slug
-     *
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($slug)
     {
@@ -55,12 +57,19 @@ class PollController extends Controller
         $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
-            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']));
+            return redirect('poll/' . $poll->slug . '/result')
+                ->with(Toastr::info('You have already vote on this poll. Here are the results.', 'Hey There!', ['options']));
         }
 
         return view('poll.show', compact('poll'));
     }
 
+    /**
+     * Vote On A Poll
+     *
+     * @param VoteOnPoll $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function vote(VoteOnPoll $request)
     {
         $user = auth()->user();
@@ -71,15 +80,16 @@ class PollController extends Controller
         }
 
         if (Voter::where('user_id', $user->id)->where('poll_id', $poll->id)->exists()) {
-            return redirect('poll/' . $poll->slug . '/result')->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
+            return redirect('poll/' . $poll->slug . '/result')
+                ->with(Toastr::error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
         }
 
         if ($poll->ip_checking == 1) {
-            $voter = Voter::create([
-                'poll_id' => $poll->id,
-                'user_id' => $user->id,
-                'ip_address' => $request->ip()
-            ]);
+            $vote = new Voter();
+            $vote->poll_id = $poll->id;
+            $vote->user_id = $user->id;
+            $vote->ip_address =$request->ip();
+            $vote->save();
         }
 
         $poll_url = hrefPoll($poll);
@@ -89,9 +99,16 @@ class PollController extends Controller
             "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
         );
 
-        return redirect('poll/' . $poll->slug . '/result')->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
+        return redirect('poll/' . $poll->slug . '/result')
+            ->with(Toastr::success('Your vote has been counted.', 'Yay!', ['options']));
     }
 
+    /**
+     * Show A Polls Results
+     *
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function result($slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
