@@ -231,7 +231,7 @@ a:hover {
 }
 
 .block, .well {
-  background-color: #353535
+  background-color: rgba(30, 30, 30, 0.51);
 }
 
 .block td {
@@ -811,4 +811,9 @@ div.topic-new-post {
 
 #frame .content .message-input .wrap button:hover {
   background: #435f7a;
+}
+
+.thumbnail {
+  background-color: rgba(30, 30, 30, 0.51);
+  border: 1px solid #282828;
 }
