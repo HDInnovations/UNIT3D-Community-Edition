@@ -23,7 +23,7 @@ class Ban extends Model
      */
     public function banneduser()
     {
-        return $this->belongsTo(\App\User::class, "owned_by")->withDefault([
+        return $this->belongsTo(User::class, "owned_by")->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
@@ -36,7 +36,7 @@ class Ban extends Model
      */
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, "created_by")->withDefault([
+        return $this->belongsTo(User::class, "created_by")->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);

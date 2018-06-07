@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BanUser;
 use App\Warning;
-use App\User;
 use App\Ban;
 
 class autoBan extends Command
@@ -58,12 +57,12 @@ class autoBan extends Command
                 $ban->warneduser->save();
 
                 // Log The Ban To Ban Log
-                $ban = new Ban();
-                $ban->owned_by = $ban->warneduser->id;
-                $ban->created_by = 1;
-                $ban->ban_reason = "Warning Limit Reached, has " . $ban->value . " warnings.";
-                $ban->unban_reason = "";
-                $ban->save();
+                $logban = new Ban();
+                $logban->owned_by = $ban->warneduser->id;
+                $logban->created_by = 1;
+                $logban->ban_reason = "Warning Limit Reached, has " . $ban->value . " warnings.";
+                $logban->unban_reason = "";
+                $logban->save();
 
                 // Send Email
                 Mail::to($ban->warneduser->email)->send(new BanUser($ban->warneduser));
