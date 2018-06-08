@@ -248,10 +248,11 @@ class CommentController extends Controller
         $comment->user_id = $user->id;
         $comment->requests_id = $tr->id;
 
-        $v = validator($request->all(), [
+        $v = validator($comment->toArray(), [
             'content' => 'required',
             'user_id' => 'required',
-            'requests_id' => 'required'
+            'requests_id' => 'required',
+            'anon' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -312,7 +313,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             // Auto PM
-            if ($user->id != $request->user_id) {
+            if ($user->id != $tr->user_id) {
                 $pm = new PrivateMessage;
                 $pm->sender_id = 1;
                 $pm->receiver_id = $tr->user_id;
