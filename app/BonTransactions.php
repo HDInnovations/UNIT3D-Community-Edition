@@ -37,18 +37,4 @@ class BonTransactions extends Model
      */
     protected $dateFormat = 'U';
 
-    /**
-     * The Attributes That Are Mass Assignable
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'itemID',
-        'name',
-        'cost',
-        'sender',
-        'receiver',
-        'comment',
-        'torrent_id'
-    ];
 }

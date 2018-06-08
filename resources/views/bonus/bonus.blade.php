@@ -84,8 +84,8 @@
                             <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
                                 1 {{ strtolower(trans('common.year')) }}</small>
                         </td>
-                        <td><strong>{{ $legendary }} x 2</strong></td>
-                        <td>{{ $legendary * 2 }} {{ trans('bon.per-hour') }}</td>
+                        <td><strong>{{ $legend }} x 2</strong></td>
+                        <td>{{ $legend * 2 }} {{ trans('bon.per-hour') }}</td>
                     </tr>
                     <tr>
                         <td>
@@ -104,8 +104,8 @@
                                 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 6 {{ strtolower(trans('common.months')) }}</small>
                         </td>
-                        <td><strong>{{ $commited }} x 0.75</strong></td>
-                        <td>{{ $commited * 0.75 }} {{ trans('bon.per-hour') }}</td>
+                        <td><strong>{{ $committed }} x 0.75</strong></td>
+                        <td>{{ $committed * 0.75 }} {{ trans('bon.per-hour') }}</td>
                     </tr>
                     <tr>
                         <td>
@@ -124,8 +124,8 @@
                                 1 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 2 {{ strtolower(trans('common.months')) }}</small>
                         </td>
-                        <td><strong>{{ $participaint }} x 0.25</strong></td>
-                        <td>{{ $participaint * 0.25 }} {{ trans('bon.per-hour') }}</td>
+                        <td><strong>{{ $participant }} x 0.25</strong></td>
+                        <td>{{ $participant * 0.25 }} {{ trans('bon.per-hour') }}</td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -268,6 +268,7 @@
 
         </form>
     </div>
+@endsection
 
 @section('javascripts')
     <script type="text/javascript">
@@ -276,6 +277,4 @@
             allowClear: true
         });
     </script>
-@endsection
-
 @endsection

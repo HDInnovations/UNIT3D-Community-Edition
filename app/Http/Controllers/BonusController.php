@@ -26,6 +26,9 @@ use \Toastr;
 
 class BonusController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
     private $chat;
 
     public function __construct(ChatRepository $chat)
@@ -34,11 +37,9 @@ class BonusController extends Controller
     }
 
     /**
-     * Bonus System
+     * Show Bonus System
      *
-     *
-     * @access public
-     * @return view::make bonus.bonus
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bonus()
     {
@@ -67,40 +68,50 @@ class BonusController extends Controller
         //Everyday Torrents
         $regular = $this->getRegularCount();
 
-        //Participaint Seeder
-        $participaint = $this->getParticipaintSeedCount();
-        //Participaint Seeder
+        //Participant Seeder
+        $participant = $this->getParticipaintSeedCount();
+        //TeamPlayer Seeder
         $teamplayer = $this->getTeamPlayerSeedCount();
-        //Participaint Seeder
-        $commited = $this->getCommitedSeedCount();
-        //Participaint Seeder
+        //Committed Seeder
+        $committed = $this->getCommitedSeedCount();
+        //MVP Seeder
         $mvp = $this->getMVPSeedCount();
-        //Participaint Seeder
-        $legendary = $this->getLegendarySeedCount();
+        //Legend Seeder
+        $legend = $this->getLegendarySeedCount();
 
         //Total points per hour
         $total =
             ($dying * 2) + ($legendary * 1.5) + ($old * 1) + ($huge * 0.75) + ($large * 0.50) + ($regular * 0.25)
-            + ($participaint * 0.25) + ($teamplayer * 0.50) + ($commited * 0.75) + ($mvp * 1) + ($legendary * 2);
+            + ($participant * 0.25) + ($teamplayer * 0.50) + ($committed * 0.75) + ($mvp * 1) + ($legend * 2);
 
-        return view('bonus.bonus', ['activefl' => $activefl, 'userbon' => $userbon, 'uploadOptions' => $uploadOptions,
-            'downloadOptions' => $downloadOptions, 'personalFreeleech' => $personalFreeleech, 'invite' => $invite,
-            'dying' => $dying, 'legendary' => $legendary, 'old' => $old,
-            'huge' => $huge, 'large' => $large, 'regular' => $regular,
-            'participaint' => $participaint, 'teamplayer' => $teamplayer, 'commited' => $commited, 'mvp' => $mvp, 'legendary' => $legendary,
-            'total' => $total, 'users' => $users]);
+        return view('bonus.bonus', [
+            'users' => $users,
+            'userbon' => $userbon,
+            'activefl' => $activefl,
+            'uploadOptions' => $uploadOptions,
+            'downloadOptions' => $downloadOptions,
+            'personalFreeleech' => $personalFreeleech,
+            'invite' => $invite,
+            'dying' => $dying,
+            'legendary' => $legendary,
+            'old' => $old,
+            'huge' => $huge,
+            'large' => $large,
+            'regular' => $regular,
+            'participant' => $participant,
+            'teamplayer' => $teamplayer,
+            'committed' => $committed,
+            'mvp' => $mvp,
+            'legend' => $legend,
+            'total' => $total
+        ]);
     }
 
     /**
-     * @method exchange
+     * Exchange Points For A Item
      *
-     * @access public
-     *
-     * This method is used when a USER exchanges their points into items
-     *
-     * @param $id This refers to the ID of the exchange item
-     *
-     * @return Redirect::to /bonus
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function exchange($id)
     {
@@ -114,27 +125,27 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (!$flag) {
-                return redirect('/bonus')->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+                return redirect('/bonus')
+                    ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect('/bonus')->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+            return redirect('/bonus')
+                ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
         }
 
-        return redirect('/bonus')->with(Toastr::success('Bonus Exchange Successful', 'Yay!', ['options']));
+        return redirect('/bonus')
+            ->with(Toastr::success('Bonus Exchange Successful', 'Yay!', ['options']));
     }
 
     /**
-     * @method doItemExchange
+     * Do Item Exchange
      *
-     * @access public
-     *
-     * @param $userID The person initiating the transaction
-     * @param $itemID This is the exchange item ID
-     *
-     * @return boolean
+     * @param $userID
+     * @param $itemID
+     * @return string
      */
     public function doItemExchange($userID, $itemID)
     {
@@ -182,17 +193,15 @@ class BonusController extends Controller
     }
 
     /**
-     * @method gift
+     * Gift Points To A User
      *
-     * @access public
-     *
-     * @return void
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
     {
         $user = auth()->user();
 
-        if ($request->isMethod('POST')) {
             $v = validator($request->all(), [
                 'to_username' => "required|exists:users,username|max:180",
                 'bonus_points' => "required|numeric|min:1|max:{$user->seedbonus}",
@@ -203,7 +212,8 @@ class BonusController extends Controller
                 $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
                 if (!$recipient || $recipient->id == $user->id) {
-                    return redirect('/bonus')->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
+                    return redirect('/bonus')
+                        ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
                 }
 
                 $value = $request->input('bonus_points');
@@ -213,15 +223,14 @@ class BonusController extends Controller
                 $user->seedbonus -= $value;
                 $user->save();
 
-                $transaction = new BonTransactions([
-                    'itemID' => 0,
-                    'name' => 'gift',
-                    'cost' => $value,
-                    'sender' => $user->id,
-                    'receiver' => $recipient->id,
-                    'comment' => $request->input('bonus_message'),
-                    'torrent_id' => null
-                ]);
+                $transaction = new BonTransactions();
+                $transaction->itemID = 0;
+                $transaction->name = 'gift';
+                $transaction->cost = $value;
+                $transaction->sender = $user->id;
+                $transaction->receiver = $recipient->id;
+                $transaction->comment = $request->input('bonus_message');
+                $transaction->torrent_id = null;
                 $transaction->save();
 
                 $profile_url = hrefProfile($user);
@@ -238,21 +247,21 @@ class BonusController extends Controller
                 $pm->message = $transaction->comment;
                 $pm->save();
 
-                return redirect('/bonus')->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
+                return redirect('/bonus')
+                    ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
             } else {
-                return redirect('/bonus')->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
+                return redirect('/bonus')
+                    ->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
             }
-        } else {
-            return redirect('/bonus')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
-        }
     }
 
     /**
-     * @method tipUploader
+     * Tip Points To A Uploader
      *
-     * @access public
-     *
-     * @return void
+     * @param \Illuminate\Http\Request $request
+     * @param $slug
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
      */
     public function tipUploader(Request $request, $slug, $id)
     {
@@ -262,13 +271,16 @@ class BonusController extends Controller
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with(Toastr::error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
         }
         if ($user->id == $torrent->user_id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
         }
         if ($tip_amount <= 0) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
@@ -276,15 +288,14 @@ class BonusController extends Controller
         $user->seedbonus -= $tip_amount;
         $user->save();
 
-        $transaction = new BonTransactions([
-            'itemID' => 0,
-            'name' => 'tip',
-            'cost' => $tip_amount,
-            'sender' => $user->id,
-            'receiver' => $uploader->id,
-            'comment' => 'tip',
-            'torrent_id' => $torrent->id
-        ]);
+        $transaction = new BonTransactions();
+        $transaction->itemID = 0;
+        $transaction->name = 'tip';
+        $transaction->cost = $tip_amount;
+        $transaction->sender = $user->id;
+        $transaction->receiver = $uploader->id;
+        $transaction->comment = 'tip';
+        $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
         $pm = new PrivateMessage;
@@ -294,7 +305,8 @@ class BonusController extends Controller
         $pm->message = "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . ".";
         $pm->save();
 
-        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 
 
