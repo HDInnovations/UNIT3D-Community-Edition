@@ -15,45 +15,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-/**
- * Torrent Requests
- *
- */
 class TorrentRequest extends Model
 {
-
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'requests';
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = ['name', 'description', 'category_id', 'user_id', 'imdb', 'votes', 'tvdb', 'type', 'bounty', 'tmdb', 'mal'];
-
-    /**
-     * Rules For Validation
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'description' => 'required',
-        'category_id' => 'required',
-        'user_id' => 'required',
-        'imdb' => 'required|numeric',
-        'tvdb' => 'required|numeric',
-        'tmdb' => 'required|numeric',
-        'mal' => 'required|numeric',
-        'type' => 'required',
-        'bounty' => 'required|numeric',
-    ];
-
-    /**
-     * The attributes that should be mutated to dates.
+     * The Attributes That Should Be Mutated To Dates
      *
      * @var array
      */
@@ -65,89 +30,105 @@ class TorrentRequest extends Model
     ];
 
     /**
-     * Belongs to This User who created the request
+     * The Database Table Used By The Model
      *
+     * @var string
+     */
+    protected $table = 'requests';
+
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Belongs to the user who approves the request
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function approveUser()
     {
-        return $this->belongsTo(\App\User::class, 'approved_by')->withDefault([
+        return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Belongs to the user who fills the request
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function FillUser()
     {
-        return $this->belongsTo(\App\User::class, 'filled_by')->withDefault([
+        return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);
     }
 
     /**
-     * Belongs to This Category
+     * Belongs To A Category
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
-        return $this->belongsTo(\App\Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     /**
-     * Belongs to This Type
+     * Belongs To A Type
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {
-        return $this->belongsTo(\App\Type::class);
+        return $this->belongsTo(Type::class);
     }
 
     /**
-     * Belongs to this torrent
+     * Belongs To A Torrent
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class, 'filled_hash', 'info_hash');
+        return $this->belongsTo(Torrent::class, 'filled_hash', 'info_hash');
     }
 
     /**
-     * Has many Comment
+     * Has Many Comments
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class, "requests_id", "id");
+        return $this->hasMany(Comment::class, "requests_id", "id");
     }
 
     /**
-     * Has many request bounties
+     * Has Many BON Bounties
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requestBounty()
     {
-        return $this->hasMany(\App\TorrentRequestBounty::class, "requests_id", "id");
+        return $this->hasMany(TorrentRequestBounty::class, "requests_id", "id");
     }
 
     /**
-     * Format The Description
+     * Parse Description And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getDescriptionHtml()
     {
