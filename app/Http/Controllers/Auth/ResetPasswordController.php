@@ -9,10 +9,10 @@ use Illuminate\Support\Str;
 
 class ResetPasswordController extends Controller
 {
-
     use ResetsPasswords;
 
     protected $redirectTo = '/';
+    protected $group_id = 3;
 
     public function __construct()
     {
@@ -23,6 +23,7 @@ class ResetPasswordController extends Controller
     {
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
+        $user->group_id = $this->group_id;
         $user->active = true;
         $user->save();
 
