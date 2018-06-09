@@ -21,11 +21,10 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
-        $user->forceFill([
-            'password' => bcrypt($password),
-            'remember_token' => Str::random(60),
-            'active' => true,
-        ])->save();
+        $user->password = bcrypt($password);
+        $user->remember_token = Str::random(60);
+        $user->active = true;
+        $user->save();
 
         // Activity Log
         \LogActivity::addToLog("Member " . $user->username . " has successfully reset his/her password.");
@@ -33,21 +32,5 @@ class ResetPasswordController extends Controller
         UserActivation::where('user_id', $user->id)->delete();
 
         $this->guard()->login($user);
-    }
-
-    protected function rules()
-    {
-        return [
-            'token' => 'required',
-            'email' => 'required|email',
-            'password' => 'required|confirmed|min:8',
-        ];
-    }
-
-    protected function validationErrorMessages()
-    {
-        return [
-            'password.password_policy' => 'Choose a stronger password, at least one uppercase letter with number or symbol.',
-        ];
     }
 }

@@ -239,10 +239,9 @@ class UserController extends Controller
             'new_password_confirmation' => 'required|min:6',
         ]);
         if ($v->passes()) {
-            if (Hash::check($request->current_password, $user->password)) {
-                $user->fill([
-                    'password' => Hash::make($request->new_password)
-                ])->save();
+            if (Hash::check($request->input('current_password'), $user->password)) {
+                $user->password = Hash::make($request->input('new_password'));
+                $user->save();
 
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has changed there account password.");
