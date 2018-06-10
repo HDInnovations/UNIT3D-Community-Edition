@@ -12,54 +12,33 @@
 
 namespace App;
 
-use App\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class Ban.
- */
 class Ban extends Model
 {
-
     /**
-     * The table associated with the model.
+     * Belongs To A User
      *
-     * @var string
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $table = 'ban';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'owned_by',
-        'created_by',
-        'ban_reason',
-        'unban_reason',
-    ];
-
-    /**
-     * Rules For Validation
-     *
-     */
-    public $rules = [
-        'owned_by' => 'required',
-        'created_by' => 'required',
-        'ban_reason' => 'required',
-        'unban_reason' => 'required',
-    ];
-
     public function banneduser()
     {
-        return $this->belongsTo(\App\User::class, "owned_by");
+        return $this->belongsTo(User::class, "owned_by")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, "created_by");
+        return $this->belongsTo(User::class, "created_by")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }

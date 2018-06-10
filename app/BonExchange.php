@@ -12,28 +12,26 @@
 
 namespace App;
 
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class BonExchange extends Model
 {
-
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'bon_exchange';
 
     /**
-     * Tells Laravel to not maintain the timestamp columns
+     * Indicates If The Model Should Be Timestamped
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = false;
 
     /**
-     * The attributes that should be casted to native types.
+     * The Attributes That Should Be Casted To Native Types
      *
      * @var array
      */
@@ -47,7 +45,7 @@ class BonExchange extends Model
     /**
      * @method getDownloadOptions
      *
-     * @return array[][]
+     * @return array
      */
     public function getDownloadOptions()
     {
@@ -60,7 +58,7 @@ class BonExchange extends Model
     /**
      * @method getUploadOptions
      *
-     * @return array[][]
+     * @return array
      */
     public function getUploadOptions()
     {
@@ -73,7 +71,7 @@ class BonExchange extends Model
     /**
      * @method getPersonalFreeleechOption
      *
-     * @return array[][]
+     * @return array
      */
     public function getPersonalFreeleechOption()
     {
@@ -86,7 +84,7 @@ class BonExchange extends Model
     /**
      * @method getInviteOption
      *
-     * @return array[][]
+     * @return array
      */
     public function getInviteOption()
     {

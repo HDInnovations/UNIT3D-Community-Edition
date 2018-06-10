@@ -20,7 +20,7 @@ class InviteController extends Controller
     /**
      * Invites Log
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getInvites()
     {

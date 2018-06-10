@@ -31,11 +31,11 @@ class CreateGroupsTable extends Migration
             $table->string('color');
             $table->string('icon');
             $table->string('effect')->default('none');
-            $table->boolean('is_admin');
-            $table->boolean('is_modo');
-            $table->boolean('is_trusted');
-            $table->boolean('is_immune');
-            $table->boolean('is_freeleech');
+            $table->boolean('is_admin')->default(0);
+            $table->boolean('is_modo')->default(0);
+            $table->boolean('is_trusted')->default(0);
+            $table->boolean('is_immune')->default(0);
+            $table->boolean('is_freeleech')->default(0);
             $table->boolean('autogroup')->default(0);
         });
     }

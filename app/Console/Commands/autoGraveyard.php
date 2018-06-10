@@ -12,16 +12,30 @@
 
 namespace App\Console\Commands;
 
+use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use App\Torrent;
 use App\History;
 use App\Graveyard;
 use App\PrivateMessage;
 use App\User;
-use App\Shoutbox;
+use App\Message;
 
 class autoGraveyard extends Command
 {
+
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        parent::__construct();
+
+        $this->chat = $chat;
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -59,12 +73,19 @@ class autoGraveyard extends Command
 
                 // Auto Shout
                 $appurl = config('app.url');
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "Ladies and Gents, [url={$appurl}/" . $user->username . "." . $user->id . "]" . $user->username . "[/url] has succesfully ressurected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url]. :zombie:"]);
-                cache()->forget('shoutbox_messages');
 
-                // PM User
-                PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => "Successful Graveyard Ressurection", 'message' => "You have successfully ressurected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
-                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]"]);
+                $this->chat->systemMessage(
+                    "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
+                );
+
+                // Send Private Message
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $user->id;
+                $pm->subject = "Successful Graveyard Resurrection";
+                $pm->message = "You have successfully resurrected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                $pm->save();
             }
         }
     }

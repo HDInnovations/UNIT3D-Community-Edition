@@ -20,26 +20,31 @@ use \Toastr;
 
 class BugController extends Controller
 {
+    /**
+     * Bug Report Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bugForm()
+    {
+        return view('bug.bug');
+    }
 
     /**
-     * Bug Report
+     * Send Bug Report
      *
-     *
-     * @access public
-     * @return view::make bug.bug
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function bug(Request $request)
     {
         // Fetch owner account
         $user = User::where('id', 3)->first();
+        $input = $request->all();
 
-        if ($request->isMethod('POST')) {
-            $input = $request->all();
+        Mail::to($user->email, $user->username)->send(new Bug($input));
 
-            Mail::to($user->email, $user->username)->send(new Bug($input));
-
-            Toastr::success('Your Bug Was Succefully Sent!', 'Yay!', ['options']);
-        }
-        return view('bug.bug');
+        return redirect()->route('home')
+        ->with(Toastr::success('Your Bug Was Successfully Sent!', 'Yay!', ['options']));
     }
 }

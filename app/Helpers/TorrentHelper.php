@@ -14,11 +14,11 @@ namespace App\Helpers;
 
 use App\PersonalFreeleech;
 use App\FreeleechToken;
-use App\Group;
-use App\User;
 use App\History;
 use App\Torrent;
-use App\Shoutbox;
+use App\Message;
+use App\PrivateMessage;
+use App\Wish;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -83,7 +83,7 @@ class TorrentHelper
 
             $unbookmark_link = route('unbookmark', ['id' => $list->id]);
             $bookmark_link = route('bookmark', ['id' => $list->id]);
-            if ($user->hasBookmarked($list->id)) {
+            if ($user->isBookmarked($list->id)) {
                 $bookmark = "<a href='{$unbookmark_link}'><button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.unbookmark')!'><i class='fa fa-bookmark'></i></button></a>";
             } else {
                 $bookmark = "<a href='{$bookmark_link}'><button class='btn btn-primary btn-circle' type='button' data-toggle='tooltip' title='' data-original-title='trans('torrent.bookmark')!'><i class='fa fa-bookmark'></i></button></a>";
@@ -258,9 +258,28 @@ class TorrentHelper
 
     public static function approveHelper($slug, $id)
     {
-        Torrent::approve($id);
+        $appurl = config('app.url');
+        $appname = config('app.name');
 
+        Torrent::approve($id);
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+
+        $wishes = Wish::where('imdb', 'tt'.$torrent->imdb)->whereNull('source')->get();
+        if ($wishes) {
+            foreach ($wishes as $wish) {
+                $wish->source = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
+                $wish->save();
+
+                // Send Private Message
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $wish->user_id;
+                $pm->subject = "Wish List Notice!";
+                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]";
+                $pm->save();
+            }
+        }
+
         $user = $torrent->user;
         $user_id = $user->id;
         $username = $user->username;
@@ -283,15 +302,10 @@ class TorrentHelper
         }
 
         // Announce To Shoutbox
-        $appurl = config('app.url');
-        if ($torrent->sd == 0) {
-            if ($anon == 0) {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                cache()->forget('shoutbox_messages');
-            } else {
-                Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-                cache()->forget('shoutbox_messages');
-            }
+        if ($anon == 0) {
+            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
+        } else {
+            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
         }
 
         // Announce To IRC

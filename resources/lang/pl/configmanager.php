@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Menadżer konfiguracji',
-    'info_choose' => 'Wybierz plik do edycji',
+    'actions' => [
+        'cancel' => 'Anuluj',
+        'confirm' => 'Zapisz nowy klucz',
+        'edit' => 'Edycja',
+        'save' => 'Zapisz!',
+    ],
     'file' => 'Plik',
-    'path' => 'Ścieżka',
     'header' => [
+        'actions' => 'Akcja',
         'key' => 'Klucz',
         'value' => 'Wartość',
-        'actions' => 'Akcja'
     ],
-    'actions' => [
-        'edit' => 'Edycja',
-        'confirm' => 'Zapisz nowy klucz',
-        'save' => 'Zapisz!',
-        'cancel' => 'Anuluj'
-    ],
-    'sure' => 'Na pewno?'
+    'info_choose' => 'Wybierz plik do edycji',
+    'path' => 'Ścieżka',
+    'sure' => 'Na pewno?',
+    'title' => 'Menadżer konfiguracji'
 ];

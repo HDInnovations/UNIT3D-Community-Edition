@@ -13,36 +13,55 @@
 namespace App\Http\Controllers;
 
 use App\Report;
+use App\Torrent;
 use Illuminate\Http\Request;
 use \Toastr;
 
 class ReportController extends Controller
 {
+
     /**
-     * Reports System
+     * @var Report
+     */
+    private $report;
+
+    /**
+     * @var Torrent
+     */
+    private $torrent;
+
+    public function __construct(Report $report, Torrent $torrent)
+    {
+        $this->report = $report;
+        $this->torrent = $torrent;
+    }
+
+    /**
+     * Create A Report
      *
-     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function postReport(Request $request)
     {
-        $user = auth()->user();
+        $torrent = $this->torrent->find($request->get('torrent_id'));
+        $reported_by = auth()->user();
+        $reported_user = $torrent->user;
 
-        $v = validator($request->all(), [
-            'type' => 'required',
-            'reporter_id' => 'required|numeric',
-            'title' => 'required',
-            'message' => 'required',
-            'solved' => 'required|numeric'
+        $this->report->create([
+            'type' => $request->get('type'),
+            'torrent_id' => $torrent->id,
+            'reporter_id' => $reported_by->id,
+            'reported_user' => $reported_user->id,
+            'title' => $torrent->name,
+            'message' => $request->get('message'),
+            'solved' => 0
         ]);
 
-        $report = new Report();
-        $report->type = $request->input('type');
-        $report->reporter_id = $user->id;
-        $report->title = $request->input('title');
-        $report->message = $request->input('message');
-        $report->solved = 0;
-        $report->save();
+        // Activity Log
+        \LogActivity::addToLog("Member {$reported_by->username} has made a new {$request->get('type')} report.");
 
-        return redirect()->route('home')->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
+        return redirect()->route('home')
+            ->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
     }
 }

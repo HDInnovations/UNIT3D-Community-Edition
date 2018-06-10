@@ -1,14 +1,28 @@
 @extends('layout.default')
 
-@section('stylesheets')
-<link rel="stylesheet" href="{{ url('files/wysibb/theme/default/wbbtheme.css') }}">
+@section('breadcrumb')
+    <li>
+        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('staff_page_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
+        </a>
+    </li>
+    <li class="active">
+        <a href="{{ route('staff_type_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Add New Page</span>
+        </a>
+    </li>
 @endsection
 
 @section('content')
-<div class="container box">
-		<h2>Add a new page</h2>
-        {{ Form::open(['route' => 'staff_page_add'])}}
-        {{ csrf_field() }}
+    <div class="container box">
+        <h2>Add a new page</h2>
+        <form role="form" method="POST" action="{{ route('staff_page_add') }}">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Page Name</label>
                 <input type="text" name="name" class="form-control">
@@ -20,16 +34,15 @@
             </div>
 
             <button type="submit" class="btn btn-default">Save</button>
-        {{ Form::close() }}
-</div>
+        </form>
+    </div>
 @endsection
 
 @section('javascripts')
-<script type="text/javascript" src="{{ url('files/wysibb/jquery.wysibb.js') }}"></script>
-<script>
-$(document).ready(function() {
-    var wbbOpt = { }
-    $("#content").wysibb(wbbOpt);
-});
-</script>
+    <script>
+      $(document).ready(function () {
+        $('#content').wysibb({})
+        emoji.textcomplete()
+      })
+    </script>
 @endsection

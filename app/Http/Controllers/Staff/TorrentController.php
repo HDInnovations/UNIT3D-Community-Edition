@@ -18,28 +18,26 @@ use App\Torrent;
 
 class TorrentController extends Controller
 {
-
     /**
-     * Affiche la page d'administration des articles
+     * Get All Torrents
      *
-     * @access public
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $torrents = Torrent::latest()->paginate(25);
+
         return view('Staff.torrent.index', ['torrents' => $torrents]);
     }
 
     /**
-     * Search for torrents
+     * Search Torrents
      *
-     * @access public
-     * @return View page.torrents
-     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search(Request $request)
     {
-        $search = $request->input('name');
         $torrents = Torrent::where([
             ['name', 'like', '%' . $request->input('name') . '%'],
         ])->latest()->paginate(25);

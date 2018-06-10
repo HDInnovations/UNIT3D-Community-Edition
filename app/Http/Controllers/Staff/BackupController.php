@@ -21,6 +21,11 @@ use Exception;
 
 class BackupController extends Controller
 {
+    /**
+     * Display All Backups
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
         if (!count(config('backup.backup.destination.disks'))) {
@@ -57,6 +62,11 @@ class BackupController extends Controller
         return view('Staff.backup.backup', $this->data);
     }
 
+    /**
+     * Create A Backup
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function create()
     {
         try {
@@ -77,7 +87,10 @@ class BackupController extends Controller
     }
 
     /**
-     * Downloads a backup zip file.
+     * Download A Backup
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function download(Request $request)
     {
@@ -99,7 +112,11 @@ class BackupController extends Controller
     }
 
     /**
-     * Deletes a backup file.
+     * Deletes A Backup
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $file_name
+     * @return Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $file_name)
     {

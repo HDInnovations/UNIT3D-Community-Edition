@@ -14,15 +14,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Page;
-use App\User;
 
 class PageController extends Controller
 {
-
     /**
-     * Displays the requested page
+     * Show A Page
      *
-     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function page($slug, $id)
     {
@@ -32,9 +32,9 @@ class PageController extends Controller
     }
 
     /**
-     * Staff Page
+     * Show Staff Page
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function staff()
     {
@@ -44,9 +44,9 @@ class PageController extends Controller
     }
 
     /**
-     * Internal Page
+     * Show Internals Page
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function internal()
     {
@@ -56,9 +56,9 @@ class PageController extends Controller
     }
 
     /**
-     * Blacklist Page
+     * Show Blacklist Page
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function blacklist()
     {
@@ -69,9 +69,9 @@ class PageController extends Controller
     }
 
     /**
-     * About Us Page
+     * Show About Us Page
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function about()
     {

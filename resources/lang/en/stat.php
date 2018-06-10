@@ -7,8 +7,8 @@
 return [
     'by-count' => 'Count',
     'by-volume' => 'By volume',
-    'groups' => 'Groups',
     'group' => 'Group',
+    'groups' => 'Groups',
     'nerd-stats' => 'Nerd stats',
     'nerd-stats-desc' => 'We all love stats. Here are a few that we find important',
     'registration-date' => 'Registration date',

@@ -10,8 +10,6 @@
  * @author     HDVinnie
  */
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

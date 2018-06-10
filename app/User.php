@@ -12,13 +12,6 @@
 
 namespace App;
 
-use App\Ban;
-use App\Warning;
-use App\Peer;
-use App\History;
-
-use Cache;
-
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
@@ -27,42 +20,87 @@ use function theodorejb\polycast\to_int;
 use App\Helpers\StringHelper;
 use App\Helpers\Bbcode;
 
-/**
- * User-Related Template
- *
- */
 class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
 
-    public $rules = [
-        'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-        'email' => 'required|email|max:255|unique:users',
-        'password' => 'required|min:6',
-    ];
-
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
-     * The attributes excluded from the model's JSON form.
+     * The Attributes Excluded From The Model's JSON Form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token'
+    ];
 
-    protected $fillable = ['name', 'email', 'password'];
-
+    /**
+     * The Attributes That Should Be Mutated To Dates
+     *
+     * @var array
+     */
     protected $dates = ['last_login'];
 
     /**
-     * Thanks Given
+     * Belongs To A Group
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    /**
+     * Belongs To A Chatroom
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chatroom()
+    {
+        return $this->belongsTo(Chatroom::class);
+    }
+
+    /**
+     * Belongs To A Chat Status
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chatStatus()
+    {
+        return $this->belongsTo(ChatStatus::class);
+    }
+
+    /**
+     * Belongs To Many Bookmarks
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
+    }
+
+    public function isBookmarked($torrent_id)
+    {
+        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+    }
+
+    /**
+     * Has Many Messages
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Has Many Thanks Given
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function thanksGiven()
     {
@@ -70,8 +108,19 @@ class User extends Authenticatable
     }
 
     /**
-     * Thanks Received
+     * Has Many Wish's
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function wishes()
+    {
+        return $this->hasMany(Wish::class);
+    }
+
+    /**
+     * Has Many Thanks Received
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function thanksReceived()
     {
@@ -79,274 +128,284 @@ class User extends Authenticatable
     }
 
     /**
-     * Is Online?
+     * Has Many Polls
      *
-     */
-    public function isOnline()
-    {
-        return Cache::has('user-is-online-' . $this->id);
-    }
-
-    /**
-     * Polls
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function polls()
     {
-        return $this->hasMany(\App\Poll::class);
+        return $this->hasMany(Poll::class);
     }
 
     /**
-     * Belongs to group
+     * Has Many Torrents
      *
-     */
-    public function group()
-    {
-        return $this->belongsTo(\App\Group::class);
-    }
-
-    /**
-     * Has many torrents
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function torrents()
     {
-        return $this->hasMany(\App\Torrent::class);
+        return $this->hasMany(Torrent::class);
     }
 
     /**
-     * Has send many pms
+     * Has Many Sent PM's
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_sender()
     {
-        return $this->hasMany(\App\PrivateMessage::class, "sender_id");
+        return $this->hasMany(PrivateMessage::class, "sender_id");
     }
 
     /**
-     * Has received many pms
+     * Has Many Received PM's
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_receiver()
     {
-        return $this->hasMany(\App\PrivateMessage::class, "reciever_id");
+        return $this->hasMany(PrivateMessage::class, "receiver_id");
     }
 
     /**
-     * Has many peers
+     * Has Many Peers
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function peers()
     {
-        return $this->hasMany(\App\Peer::class);
+        return $this->hasMany(Peer::class);
     }
 
     /**
-     * Has many follow
+     * Has Many Followers
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function follows()
     {
-        return $this->hasMany(\App\Follow::class);
+        return $this->hasMany(Follow::class);
     }
 
     /**
-     * Has many articles
+     * Has Many Articles
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articles()
     {
-        return $this->hasMany(\App\Article::class);
+        return $this->hasMany(Article::class);
     }
 
     /**
-    * Has Many Topics
-    *
-    */
+     * Has Many Topics
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function topics()
     {
         return $this->hasMany(Topic::class, 'first_post_user_id', 'id');
     }
 
     /**
-     * Has many posts
+     * Has Many Posts
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts()
     {
-        return $this->hasMany(\App\Post::class);
+        return $this->hasMany(Post::class);
     }
 
     /**
-     * Has many Comment
+     * Has Many Comments
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**
-     * Has many created requests
+     * Has Many Torrent Requests
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requests()
     {
-        return $this->hasMany(\App\TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 
     /**
-     * Has approved many requests
+     * Has Approved Many Torrent Requests
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function ApprovedRequests()
     {
-        return $this->hasMany(\App\TorrentRequest::class, 'approved_by');
+        return $this->hasMany(TorrentRequest::class, 'approved_by');
     }
 
     /**
-     * Has filled many requests
+     * Has Filled Many Torrent Requests
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function FilledRequests()
     {
-        return $this->hasMany(\App\TorrentRequest::class, 'filled_by');
+        return $this->hasMany(TorrentRequest::class, 'filled_by');
     }
 
     /**
-     * Has many request Bounties
+     * Has Many Torrent Request BON Bounties
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requestBounty()
     {
-        return $this->hasMany(\App\TorrentRequestBounty::class);
+        return $this->hasMany(TorrentRequestBounty::class);
     }
 
     /**
-     * Has moderated many torrents
+     * Has Moderated Many Torrents
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moderated()
     {
-        return $this->hasMany(\App\Torrent::class, 'moderated_by');
+        return $this->hasMany(Torrent::class, 'moderated_by');
     }
 
     /**
-     * Has many Notes
+     * Has Many Notes
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function notes()
     {
-        return $this->hasMany(\App\Note::class, 'user_id');
+        return $this->hasMany(Note::class, 'user_id');
     }
 
     /**
-     * Has many Reports
+     * Has Many Reports
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reports()
     {
-        return $this->hasMany(\App\Report::class, 'reporter_id');
+        return $this->hasMany(Report::class, 'reporter_id');
     }
 
     /**
-     * Has many solvedReports
+     * Has Solved Many Reports
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function solvedReports()
     {
-        return $this->hasMany(\App\Report::class, 'staff_id');
+        return $this->hasMany(Report::class, 'staff_id');
     }
 
     /**
-     * Get all of bookmarks for the user.
+     * Has Many Torrent History
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bookmarks()
+    public function history()
     {
-        return $this->belongsToMany(\App\Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
-    }
-
-    public function hasBookmarked($torrent_id)
-    {
-        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+        return $this->hasMany(History::class, "user_id");
     }
 
     /**
-     * Get all of follows for the user.
+     * Has Many Bans
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userban()
+    {
+        return $this->hasMany(Ban::class, "owned_by");
+    }
+
+    /**
+     * Has Given Many Bans
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffban()
+    {
+        return $this->hasMany(Ban::class, "created_by");
+    }
+
+    /**
+     * Has Given Many Warnings
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffwarning()
+    {
+        return $this->hasMany(Warning::class, 'warned_by');
+    }
+
+    /**
+     * Has Many Warnings
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userwarning()
+    {
+        return $this->hasMany(Warning::class, 'user_id');
+    }
+
+    /**
+     * Has Given Many Invites
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function sentInvite()
+    {
+        return $this->hasMany(Invite::class, 'user_id');
+    }
+
+    /**
+     * Has Recieved Many Invites
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function recievedInvite()
+    {
+        return $this->hasMany(Invite::class, 'accepted_by');
+    }
+
+    /**
+     * Has Many Featured Torrents
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function featuredTorrent()
+    {
+        return $this->hasMany(FeaturedTorrent::class);
+    }
+
+    /**
+     * Has Many Post Likes
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    /**
+     * Get All Followers Of A User
+     *
+     * @param $target_id
+     * @return string
      */
     public function isFollowing($target_id)
     {
         return (bool)$this->follows()->where('target_id', $target_id)->first(['id']);
-    }
-
-    /*
-    * Get all history records for the user.
-    */
-    public function history()
-    {
-        return $this->hasMany(\App\History::class, "user_id");
-    }
-
-    /*
-    * Get all records of user bans.
-    */
-    public function userban()
-    {
-        return $this->hasMany(\App\Ban::class, "owned_by");
-    }
-
-    /*
-    * Get all the bans a staff member has actioned.
-    */
-    public function staffban()
-    {
-        return $this->hasMany(\App\Ban::class, "created_by");
-    }
-
-    public function staffwarning()
-    {
-        return $this->hasMany(\App\Warning::class, 'warned_by');
-    }
-
-    public function userwarning()
-    {
-        return $this->hasMany(\App\Warning::class, 'user_id');
-    }
-
-    /**
-     * Has many invites
-     *
-     */
-    public function sentInvite()
-    {
-        return $this->hasMany(\App\Invite::class, 'user_id');
-    }
-
-    /**
-     * Has many invites
-     *
-     */
-    public function recievedInvite()
-    {
-        return $this->hasMany(\App\Invite::class, 'accepted_by');
-    }
-
-    /**
-     * Has many featured
-     *
-     */
-    public function featuredTorrent()
-    {
-        return $this->hasMany(\App\FeaturedTorrent::class);
-    }
-
-    /**
-     * Has many likes
-     *
-     */
-    public function likes()
-    {
-        return $this->hasMany(\App\Like::class);
     }
 
     /**
@@ -440,8 +499,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse About Me And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml()
     {
@@ -536,5 +596,15 @@ class User extends Authenticatable
     {
         return History::where('user_id', '=', $this->id)
             ->sum('seedtime');
+    }
+
+    /**
+     * Is A User Online?
+     *
+     * @return string
+     */
+    public function isOnline()
+    {
+        return cache()->has('user-is-online-' . $this->id);
     }
 }

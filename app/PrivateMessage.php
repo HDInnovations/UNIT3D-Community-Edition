@@ -13,37 +13,40 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
-use Carbon\Carbon;
 use App\Helpers\Bbcode;
 
 class PrivateMessage extends Model
 {
-    protected $fillable = [
-        'sender_id', 'reciever_id', 'subject', 'message', 'read', 'related_to'
-    ];
-
     /**
-     * PM belongs to User
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sender()
     {
-        return $this->belongsTo(\App\User::class, "sender_id");
+        return $this->belongsTo(User::class, "sender_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
-     * PM belongs to User
+     * Belongs To A User
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function receiver()
     {
-        return $this->belongsTo(\App\User::class, "reciever_id");
+        return $this->belongsTo(User::class, "receiver_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
-     * Parse message and return valid HTML
+     * Parse Content And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getMessageHtml()
     {

@@ -13,12 +13,14 @@
         "bepsvpt/secure-headers": "^3.0",
         "brian2694/laravel-toastr": "^1.0",
         "christofferok/laravel-emojione": "^2.1",
+        "emojione/emojione": "3.1.2",
         "fideloper/proxy": "~4.0",
+        "google/recaptcha": "~1.1",
         "gstt/laravel-achievements": "^1.0",
         "guzzlehttp/guzzle": "6.*",
         "hootlex/laravel-moderation": "^1.0",
         "infinety-es/config-manager": "^1.1",
-        "intervention/image": "dev-master",
+        "intervention/image": "^2.4",
         "kyslik/column-sortable": "5.5.*",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "~1.0",
@@ -26,14 +28,14 @@
         "mjohnson/decoda": "6.*",
         "moinax/tvdb": "1.*",
         "paragonie/constant_time_encoding": "^2.0",
-        "predis/predis": "1.1.1",
+        "predis/predis": "^1.1",
         "rachidlaasri/laravel-installer": "^3.2",
+        "spatie/laravel-backup": "^5.0",
         "spatie/laravel-cookie-consent": "^2.1.0",
         "spatie/laravel-image-optimizer": "^1.1",
+        "stripe/stripe-php": "^6.1",
         "symfony/dom-crawler": "^2.7|^3.0",
-        "theodorejb/polycast": "^1.0",
-        "spatie/laravel-backup": "^5.0",
-        "stripe/stripe-php": "^6.1"
+        "theodorejb/polycast": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -49,7 +51,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+          "app/Helpers/Helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

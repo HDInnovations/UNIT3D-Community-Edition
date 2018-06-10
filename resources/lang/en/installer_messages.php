@@ -7,10 +7,10 @@ return [
      * Shared translations.
      *
      */
-    'title' => 'UNIT3D Installer',
-    'next' => 'Next Step',
     'back' => 'Previous',
     'finish' => 'Install',
+    'next' => 'Next Step',
+    'title' => 'UNIT3D Installer',
     'forms' => [
         'errorTitle' => 'The Following errors occurred:',
     ],
@@ -21,10 +21,10 @@ return [
      *
      */
     'welcome' => [
-        'templateTitle' => 'Welcome',
-        'title'   => 'Laravel Installer',
         'message' => 'Easy Installation and Setup Wizard.',
         'next'    => 'Check Requirements',
+        'templateTitle' => 'Welcome',
+        'title'   => 'Laravel Installer',
     ],
 
     /**
@@ -33,9 +33,9 @@ return [
      *
      */
     'requirements' => [
+        'next'    => 'Check Permissions',
         'templateTitle' => 'Step 1 | Server Requirements',
         'title' => 'Server Requirements',
-        'next'    => 'Check Permissions',
     ],
 
     /**
@@ -44,9 +44,9 @@ return [
      *
      */
     'permissions' => [
+        'next' => 'Configure Environment',
         'templateTitle' => 'Step 2 | Permissions',
         'title' => 'Permissions',
-        'next' => 'Configure Environment',
     ],
 
     /**
@@ -56,115 +56,115 @@ return [
      */
     'environment' => [
         'menu' => [
+            'classic-button' => 'Classic Text Editor',
+            'desc' => 'Please select how you want to configure the apps <code>.env</code> file.',
             'templateTitle' => 'Step 3 | Environment Settings',
             'title' => 'Environment Settings',
-            'desc' => 'Please select how you want to configure the apps <code>.env</code> file.',
             'wizard-button' => 'Form Wizard Setup',
-            'classic-button' => 'Classic Text Editor',
         ],
         'wizard' => [
             'templateTitle' => 'Step 3 | Environment Settings | Guided Wizard',
             'title' => 'Guided <code>.env</code> Wizard',
             'tabs' => [
-                'environment' => 'Environment',
+                'application' => 'Application',
                 'database' => 'Database',
-                'application' => 'Application'
+                'environment' => 'Environment',
             ],
             'form' => [
-                'name_required' => 'An environment name is required.',
-                'app_name_label' => 'App Name',
-                'app_name_placeholder' => 'App Name',
-                'app_environment_label' => 'App Environment',
-                'app_environment_label_local' => 'Local',
-                'app_environment_label_developement' => 'Development',
-                'app_environment_label_qa' => 'Qa',
-                'app_environment_label_production' => 'Production',
-                'app_environment_label_other' => 'Other',
-                'app_environment_placeholder_other' => 'Enter your environment...',
                 'app_debug_label' => 'App Debug',
-                'app_debug_label_true' => 'True',
                 'app_debug_label_false' => 'False',
+                'app_debug_label_true' => 'True',
+                'app_environment_label' => 'App Environment',
+                'app_environment_label_developement' => 'Development',
+                'app_environment_label_local' => 'Local',
+                'app_environment_label_other' => 'Other',
+                'app_environment_label_production' => 'Production',
+                'app_environment_label_qa' => 'Qa',
+                'app_environment_placeholder_other' => 'Enter your environment...',
                 'app_log_level_label' => 'App Log Level',
+                'app_log_level_label_alert' => 'alert',
+                'app_log_level_label_critical' => 'critical',
                 'app_log_level_label_debug' => 'debug',
+                'app_log_level_label_emergency' => 'emergency',
+                'app_log_level_label_error' => 'error',
                 'app_log_level_label_info' => 'info',
                 'app_log_level_label_notice' => 'notice',
                 'app_log_level_label_warning' => 'warning',
-                'app_log_level_label_error' => 'error',
-                'app_log_level_label_critical' => 'critical',
-                'app_log_level_label_alert' => 'alert',
-                'app_log_level_label_emergency' => 'emergency',
+                'app_name_label' => 'App Name',
+                'app_name_placeholder' => 'App Name',
                 'app_url_label' => 'App Url',
                 'app_url_placeholder' => 'App Url',
                 'db_connection_label' => 'Database Connection',
                 'db_connection_label_mysql' => 'mysql',
-                'db_connection_label_sqlite' => 'sqlite',
                 'db_connection_label_pgsql' => 'pgsql',
+                'db_connection_label_sqlite' => 'sqlite',
                 'db_connection_label_sqlsrv' => 'sqlsrv',
                 'db_host_label' => 'Database Host',
                 'db_host_placeholder' => 'Database Host',
-                'db_port_label' => 'Database Port',
-                'db_port_placeholder' => 'Database Port',
                 'db_name_label' => 'Database Name',
                 'db_name_placeholder' => 'Database Name',
-                'db_username_label' => 'Database User Name',
-                'db_username_placeholder' => 'Database User Name',
                 'db_password_label' => 'Database Password',
                 'db_password_placeholder' => 'Database Password',
+                'db_port_label' => 'Database Port',
+                'db_port_placeholder' => 'Database Port',
+                'db_username_label' => 'Database User Name',
+                'db_username_placeholder' => 'Database User Name',
+                'name_required' => 'An environment name is required.',
 
                 'app_tabs' => [
-                    'more_info' => 'More Info',
-                    'broadcasting_title' => 'Broadcasting, Caching, Session, &amp; Queue',
                     'broadcasting_label' => 'Broadcast Driver',
                     'broadcasting_placeholder' => 'Broadcast Driver',
+                    'broadcasting_title' => 'Broadcasting, Caching, Session, &amp; Queue',
                     'cache_label' => 'Cache Driver',
                     'cache_placeholder' => 'Cache Driver',
-                    'session_label' => 'Session Driver',
-                    'session_placeholder' => 'Session Driver',
+                    'more_info' => 'More Info',
                     'queue_label' => 'Queue Driver',
                     'queue_placeholder' => 'Queue Driver',
-                    'redis_label' => 'Redis Driver',
                     'redis_host' => 'Redis Host',
+                    'redis_label' => 'Redis Driver',
                     'redis_password' => 'Redis Password',
                     'redis_port' => 'Redis Port',
+                    'session_label' => 'Session Driver',
+                    'session_placeholder' => 'Session Driver',
 
-                    'mail_label' => 'Mail',
                     'mail_driver_label' => 'Mail Driver',
                     'mail_driver_placeholder' => 'Mail Driver',
+                    'mail_encryption_label' => 'Mail Encryption',
+                    'mail_encryption_placeholder' => 'Mail Encryption',
                     'mail_host_label' => 'Mail Host',
                     'mail_host_placeholder' => 'Mail Host',
+                    'mail_label' => 'Mail',
+                    'mail_password_label' => 'Mail Password',
+                    'mail_password_placeholder' => 'Mail Password',
                     'mail_port_label' => 'Mail Port',
                     'mail_port_placeholder' => 'Mail Port',
                     'mail_username_label' => 'Mail Username',
                     'mail_username_placeholder' => 'Mail Username',
-                    'mail_password_label' => 'Mail Password',
-                    'mail_password_placeholder' => 'Mail Password',
-                    'mail_encryption_label' => 'Mail Encryption',
-                    'mail_encryption_placeholder' => 'Mail Encryption',
 
-                    'pusher_label' => 'Pusher',
                     'pusher_app_id_label' => 'Pusher App Id',
                     'pusher_app_id_palceholder' => 'Pusher App Id',
                     'pusher_app_key_label' => 'Pusher App Key',
                     'pusher_app_key_palceholder' => 'Pusher App Key',
                     'pusher_app_secret_label' => 'Pusher App Secret',
                     'pusher_app_secret_palceholder' => 'Pusher App Secret',
+                    'pusher_label' => 'Pusher',
                 ],
                 'buttons' => [
-                    'setup_database' => 'Setup Database',
-                    'setup_application' => 'Setup Application',
                     'install' => 'Install',
+                    'setup_application' => 'Setup Application',
+                    'setup_database' => 'Setup Database',
                 ],
             ],
         ],
         'classic' => [
-            'templateTitle' => 'Step 3 | Environment Settings | Classic Editor',
-            'title' => 'Classic Environment Editor',
-            'save' => 'Save .env',
             'back' => 'Use Form Wizard',
             'install' => 'Save and Install',
+            'save' => 'Save .env',
+            'templateTitle' => 'Step 3 | Environment Settings | Classic Editor',
+            'title' => 'Classic Environment Editor',
         ],
-        'success' => 'Your .env file settings have been saved.',
         'errors' => 'Unable to save the .env file, Please create it manually.',
+        'success' => 'Your .env file settings have been saved.',
     ],
 
     'install' => 'Install',
@@ -184,14 +184,14 @@ return [
      *
      */
     'final' => [
-        'title' => 'Installation Finished',
-        'templateTitle' => 'Installation Finished',
-        'finished' => 'Application has been successfully installed.',
-        'migration' => 'Migration &amp; Seed Console Output:',
         'console' => 'Application Console Output:',
-        'log' => 'Installation Log Entry:',
         'env' => 'Final .env File:',
         'exit' => 'Click here to exit',
+        'finished' => 'Application has been successfully installed.',
+        'log' => 'Installation Log Entry:',
+        'migration' => 'Migration &amp; Seed Console Output:',
+        'templateTitle' => 'Installation Finished',
+        'title' => 'Installation Finished',
     ],
 
     /**
@@ -213,8 +213,8 @@ return [
          *
          */
         'welcome' => [
-            'title'   => 'Welcome To The Updater',
             'message' => 'Welcome to the update wizard.',
+            'title'   => 'Welcome To The Updater',
         ],
 
         /**
@@ -223,9 +223,9 @@ return [
          *
          */
         'overview' => [
-            'title'   => 'Overview',
+            'install_updates' => "Install Updates",
             'message' => 'There is 1 update.|There are :number updates.',
-            'install_updates' => "Install Updates"
+            'title'   => 'Overview',
         ],
 
         /**
@@ -234,9 +234,9 @@ return [
          *
          */
         'final' => [
-            'title' => 'Finished',
-            'finished' => 'Application\'s database has been successfully updated.',
             'exit' => 'Click here to exit',
+            'finished' => 'Application\'s database has been successfully updated.',
+            'title' => 'Finished',
         ],
 
         'log' => [

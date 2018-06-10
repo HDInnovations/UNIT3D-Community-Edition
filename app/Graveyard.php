@@ -17,17 +17,9 @@ use Illuminate\Database\Eloquent\Model;
 class Graveyard extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = "graveyard";
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'user_id', 'torrent_id', 'seedtime'
-    ];
 }

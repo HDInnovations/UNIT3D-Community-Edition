@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.6.1',
+    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.8',
 
     /*
     |--------------------------------------------------------------------------
@@ -126,9 +126,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Invite System On/Off (Open Reg / Closed)
+    | Expire time in days
     |
     */
     'invite-only' => true,
+    'invite_expire' => '14',
 
     /*
     |--------------------------------------------------------------------------
@@ -152,6 +154,17 @@ return [
     'default_download' => '1073741824',
     'default_style' => 0,
 
+    /*
+     * Restricted mode for invites. If set to true, invites will be restricted
+     */
     'invites_restriced' => false,
-    'invite_groups' => [],
+
+    /*
+     * Exempt these groups from the invite restrictions
+     *
+     */
+    'invite_groups' => [
+        'Administrator',
+        'Owner'
+    ],
 ];

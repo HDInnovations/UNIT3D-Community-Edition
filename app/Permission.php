@@ -14,30 +14,32 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Permission of the forums
- *
- */
 class Permission extends Model
 {
-
+    /**
+     * Tells Laravel To Not Maintain The Timestamp Columns
+     *
+     * @var boolean
+     */
     public $timestamps = false;
 
     /**
-     * Belongs to group
+     * Belongs To A Group
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function group()
     {
-        return $this->belongsTo(\App\Group::class);
+        return $this->belongsTo(Group::class);
     }
 
     /**
-     * Belongs to Forum
+     * Belongs To A Forum
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function forum()
     {
-        return $this->belongsTo(\App\Forum::class);
+        return $this->belongsTo(Forum::class);
     }
 }

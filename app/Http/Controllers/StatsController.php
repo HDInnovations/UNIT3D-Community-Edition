@@ -17,25 +17,20 @@ use App\User;
 use App\Torrent;
 use App\Peer;
 use App\History;
-use App\BonTransactions;
-use App\TorrentRequest;
+use App\Category;
 use App\Group;
+use App\TorrentRequest;
 use Carbon\Carbon;
 
 class StatsController extends Controller
 {
-
     /**
-     * Extra-Stats Manager
+     * Show Extra-Stats Index
      *
-     *
-     * @access public
-     * @return view::make stats.index
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        // Site Stats Block
-
         // Total Members Count
         $num_user = cache()->remember('num_user', 60, function () {
             return User::all()->count();
@@ -44,17 +39,11 @@ class StatsController extends Controller
         $num_torrent = cache()->remember('num_torrent', 60, function () {
             return Torrent::all()->count();
         });
-        // Total Movies Count
-        $num_movies = cache()->remember('num_movies', 60, function () {
-            return Torrent::where('category_id', 1)->count();
-        });
-        // Total HDTV Count
-        $num_hdtv = cache()->remember('num_hdtv', 60, function () {
-            return Torrent::where('category_id', 2)->count();
-        });
-        // Total FANRES Count
-        $num_fan = cache()->remember('num_fan', 60, function () {
-            return Torrent::where('category_id', 3)->count();
+        // Total Categories With Torrent Count
+        $categories = Category::select('name', 'position', 'num_torrent')->oldest('position')->get();
+        // Total HD Count
+        $num_hd = cache()->remember('num_hd', 60, function () {
+            return Torrent::where('sd', 0)->count();
         });
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
@@ -88,17 +77,36 @@ class StatsController extends Controller
         $credited_download = cache()->remember('credited_download', 60, function () {
             return History::all()->sum('downloaded');
         });
-        $actual_up_down = $actual_upload + $actual_download;     //Total Up/Down Traffic without perks
-        $credited_up_down = $credited_upload + $credited_download;     //Total Up/Down Traffic with perks
+        //Total Up/Down Traffic without perks
+        $actual_up_down = $actual_upload + $actual_download;
+        //Total Up/Down Traffic with perks
+        $credited_up_down = $credited_upload + $credited_download;
 
-        return view('stats.index', ['num_user' => $num_user, 'num_torrent' => $num_torrent, 'num_movies' => $num_movies, 'num_hdtv' => $num_hdtv, 'num_sd' => $num_sd, 'num_fan' => $num_fan,
-            'num_seeders' => $num_seeders, 'num_leechers' => $num_leechers, 'num_peers' => $num_peers,
-            'actual_upload' => $actual_upload, 'actual_download' => $actual_download, 'actual_up_down' => $actual_up_down,
-            'credited_upload' => $credited_upload, 'credited_download' => $credited_download, 'credited_up_down' => $credited_up_down,
+        return view('stats.index', [
+            'num_user' => $num_user,
+            'num_torrent' => $num_torrent,
+            'categories' => $categories,
+            'num_hd' => $num_hd,
+            'num_sd' => $num_sd,
+            'num_seeders' => $num_seeders,
+            'num_leechers' => $num_leechers,
+            'num_peers' => $num_peers,
+            'actual_upload' => $actual_upload,
+            'actual_download' => $actual_download,
+            'actual_up_down' => $actual_up_down,
+            'credited_upload' => $credited_upload,
+            'credited_download' => $credited_download,
+            'credited_up_down' => $credited_up_down,
         ]);
     }
 
-    // USER CATEGORY
+    //USER CATEGORY
+
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function uploaded()
     {
         // Fetch Top Uploaders
@@ -107,6 +115,11 @@ class StatsController extends Controller
         return view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function downloaded()
     {
         // Fetch Top Downloaders
@@ -115,6 +128,11 @@ class StatsController extends Controller
         return view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function seeders()
     {
         // Fetch Top Seeders
@@ -123,6 +141,11 @@ class StatsController extends Controller
         return view('stats.users.seeders', ['seeders' => $seeders]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function leechers()
     {
         // Fetch Top Leechers
@@ -131,6 +154,11 @@ class StatsController extends Controller
         return view('stats.users.leechers', ['leechers' => $leechers]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function uploaders()
     {
         // Fetch Top Uploaders
@@ -139,6 +167,11 @@ class StatsController extends Controller
         return view('stats.users.uploaders', ['uploaders' => $uploaders]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function bankers()
     {
         // Fetch Top Bankers
@@ -147,6 +180,11 @@ class StatsController extends Controller
         return view('stats.users.bankers', ['bankers' => $bankers]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function seedtime()
     {
         // Fetch Top Total Seedtime
@@ -155,6 +193,11 @@ class StatsController extends Controller
         return view('stats.users.seedtime', ['seedtime' => $seedtime]);
     }
 
+    /**
+     * Show Extra-Stats Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function seedsize()
     {
         // Fetch Top Total Seedsize Users
@@ -164,6 +207,12 @@ class StatsController extends Controller
     }
 
     //TORRENT CATEGORY
+
+    /**
+     * Show Extra-Stats Torrents
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function seeded()
     {
         // Fetch Top Seeded
@@ -172,6 +221,11 @@ class StatsController extends Controller
         return view('stats.torrents.seeded', ['seeded' => $seeded]);
     }
 
+    /**
+     * Show Extra-Stats Torrents
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function leeched()
     {
         // Fetch Top Leeched
@@ -180,6 +234,11 @@ class StatsController extends Controller
         return view('stats.torrents.leeched', ['leeched' => $leeched]);
     }
 
+    /**
+     * Show Extra-Stats Torrents
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function completed()
     {
         // Fetch Top Completed
@@ -188,6 +247,11 @@ class StatsController extends Controller
         return view('stats.torrents.completed', ['completed' => $completed]);
     }
 
+    /**
+     * Show Extra-Stats Torrents
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function dying()
     {
         // Fetch Top Dying
@@ -196,6 +260,11 @@ class StatsController extends Controller
         return view('stats.torrents.dying', ['dying' => $dying]);
     }
 
+    /**
+     * Show Extra-Stats Torrents
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function dead()
     {
         // Fetch Top Dead
@@ -204,7 +273,13 @@ class StatsController extends Controller
         return view('stats.torrents.dead', ['dead' => $dead]);
     }
 
-    //REQUEST CATEGORY
+    //TORRENT REQUEST CATEGORY
+
+    /**
+     * Show Extra-Stats Torrent Requests
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function bountied()
     {
         // Fetch Top Bountied
@@ -214,6 +289,12 @@ class StatsController extends Controller
     }
 
     //GROUPS CATEGORY
+
+    /**
+     * Show Extra-Stats Groups
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function groups()
     {
         // Fetch Groups User Counts
@@ -222,6 +303,11 @@ class StatsController extends Controller
         return view('stats.groups.groups', ['groups' => $groups]);
     }
 
+    /**
+     * Show Extra-Stats Groups
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function group($id)
     {
         // Fetch Users In Group

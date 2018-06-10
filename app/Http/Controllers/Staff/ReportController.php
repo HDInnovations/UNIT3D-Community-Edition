@@ -21,24 +21,38 @@ use \Toastr;
 class ReportController extends Controller
 {
     /**
-     * Reports System
+     * Get All Reports
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getReports()
     {
-        $reports = Report::latest()->get();
+        $reports = Report::latest()->paginate(25);
 
         return view('Staff.reports.index', ['reports' => $reports]);
     }
 
+    /**
+     * Get A Report
+     *
+     * @param $report_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getReport($report_id)
     {
         $report = Report::findOrFail($report_id);
 
-        return view('Staff.reports.report', ['report' => $report]);
+        preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', $report->message, $match);
+
+        return view('Staff.reports.report', ['report' => $report, 'urls' => $match[0]]);
     }
 
+    /**
+     * Solve A Report
+     *
+     * @param $report_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function solveReport(Request $request, $report_id)
     {
         $user = auth()->user();
@@ -51,7 +65,8 @@ class ReportController extends Controller
         $report = Report::findOrFail($report_id);
 
         if ($report->solved == 1) {
-            return redirect()->route('getReports')->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
+            return redirect()->route('getReports')
+                ->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
         }
 
         $report->verdict = $request->input('verdict');
@@ -59,10 +74,15 @@ class ReportController extends Controller
         $report->solved = 1;
         $report->save();
 
-        // Insert the Recipient notification below
-        PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $report->reporter_id, 'subject' => "Your Report Has A New Verdict", 'message' => $report->verdict]);
-        // End insert recipient notification here
+        // Send Private Message
+        $pm = new PrivateMessage;
+        $pm->sender_id = $user->id;
+        $pm->receiver_id = $report->reporter_id;
+        $pm->subject = "Your Report Has A New Verdict";
+        $pm->message = $report->verdict;
+        $pm->save();
 
-        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
+        return redirect()->route('getReports')
+            ->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }

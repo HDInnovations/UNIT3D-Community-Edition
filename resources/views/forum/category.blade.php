@@ -1,44 +1,46 @@
 @extends('layout.default')
 
 @section('title')
-<title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ Config::get('other.title') }}</title>
+    <title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-<meta name="description" content="{{ trans('forum.meta-category') . ' ' . $c->name }}">
+    <meta name="description" content="{{ trans('forum.meta-category') . ' ' . $c->name }}">
 @endsection
 
 @section('breadcrumb')
-<li>
-    <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
-    </a>
-</li>
-<li>
-    <a href="{{ route('forum_category') }}" itemprop="url" class="l-breadcrumb-item-link">
-        <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $c->name }}</span>
-    </a>
-</li>
+    <li>
+        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('forum_category') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $c->name }}</span>
+        </a>
+    </li>
 @endsection
 
 @section('content')
-<div class="box container">
-    <div class="f-category" id="category_{{ $c->id }}">
-        <div class="f-category-title col-md-12">
-            <h2><a href="{{ route('forum_category', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a></h2>
-        </div>
+    <div class="box container">
+        <div class="f-category" id="category_{{ $c->id }}">
+            <div class="f-category-title col-md-12">
+                <h2>
+                    <a href="{{ route('forum_category', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a>
+                </h2>
+            </div>
 
-        <div class="f-category-table-wrapper col-md-12">
-            <table class="f-category-forums table col-md-12">
-                <thead>
+            <div class="f-category-table-wrapper col-md-12">
+                <table class="f-category-forums table col-md-12">
+                    <thead>
                     <tr>
                         <th></th>
                         <th>{{ trans('forum.forum') }}</th>
                         <th>{{ trans('forum.stats') }}</th>
                         <th>{{ trans('forum.last-message') }}</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach($c->getForumsInCategory() as $f)
                         <tr>
                             <!-- Icon -->
@@ -63,7 +65,9 @@
                             <!-- Last post -->
                             <td>
                                 <ul class="f-category-forums-last-post">
-                                    <li class="f-category-forums-last-post-item"><a href="{{ route('forum_topic', array('slug' => $f->last_topic_slug, 'id' => $f->last_topic_id)) }}">{{ $f->last_topic_name }}</a></li>
+                                    <li class="f-category-forums-last-post-item"><a
+                                                href="{{ route('forum_topic', array('slug' => $f->last_topic_slug, 'id' => $f->last_topic_id)) }}">{{ $f->last_topic_name }}</a>
+                                    </li>
                                     <li class="f-category-forums-last-post-item">
                                         By
                                         <a href="{{ route('profile', ['username' => $f->last_post_user_username, 'id' => $f->last_post_user_id]) }}">{{ $f->last_post_user_username }}</a>
@@ -77,9 +81,9 @@
                             </td><!-- /Last post -->
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection

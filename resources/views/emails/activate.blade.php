@@ -1,9 +1,7 @@
-@extends('emails.template')
-
-@section('content')
-<h1>{{ trans('email.register-header') }} {{ env('SITE_NAME') }}.</h1>
-<p>{{ trans('email.register-code') }}:</p>
-@include('emails.blocks.call-to-action', ['cta_url'=>url('/activate/'.$code),'cta_text'=>trans('email.activate-account')])
-<p style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">{{ url('/activate/'.$code) }}</p>
-<p>{{ trans('email.register-footer') }}.</p>
-@endsection
+@component('mail::message')
+# {{ trans('email.register-header') }} {{ config('other.title') }} !
+**{{ trans('email.register-code') }}::**
+@component('mail::button', ['url' => route('activate', $code), 'color' => 'blue'])
+{{ trans('email.activate-account') }}
+@endcomponent
+@endcomponent

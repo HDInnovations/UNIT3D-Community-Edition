@@ -13,49 +13,49 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Topic extends Model
 {
-
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'state' => 'required',
-        'num_post' => '',
-        'first_post_user_id' => 'required',
-        'first_post_user_username' => 'required',
-        'last_post_user_id' => '',
-        'last_post_user_username' => '',
-        'views' => '',
-        'pinned' => '',
-        'forum_id' => 'required',
-    ];
-
     /**
-     * Belongs to Forum
+     * Belongs To A Forum
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function forum()
     {
-        return $this->belongsTo(\App\Forum::class);
+        return $this->belongsTo(Forum::class);
     }
 
+    /**
+     * Has Many Posts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
-        return $this->hasMany(\App\Post::class);
+        return $this->hasMany(Post::class);
     }
 
+    /**
+     * Does User Have Permission To View Topic
+     *
+     * @return string
+     */
     public function viewable()
     {
-        if (Auth::user()->group->is_modo) {
+        if (auth()->user()->group->is_modo) {
             return true;
         }
 
         return $this->forum->getPermission()->read_topic;
     }
 
+    /**
+     * Get Post Number From ID
+     *
+     * @param $searchId
+     * @return string
+     */
     public function postNumberFromId($searchId)
     {
         $count = 0;

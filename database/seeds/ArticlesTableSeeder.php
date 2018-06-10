@@ -30,9 +30,9 @@ class ArticlesTableSeeder extends Seeder
             0 =>
                 [
                     'id' => 1,
-                    'title' => 'Welcome To UNIT3D',
-                    'slug' => 'welcome_to_unit3d',
-                    'content' => 'For the last year, I have been developing a Nex-Gen Torrent Tracker Script called “UNIT3D.” This is a PHP script based off the lovely Laravel Framework – currently Laravel Framework 5.4.36, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm Bcrypt is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: “apc,” “array,” “database,” “file,” “memcached,” and “redis” methods. Eloquent and much more!',
+                    'title' => 'Welcome To ' . config('other.title') . ' .',
+                    'slug' => 'welcome',
+                    'content' => 'Welcome to ' . config('other.title') . '. Powered By ' . config('other.codebase') . '.',
                     'user_id' => 3,
                     'created_at' => '2017-02-28 17:22:37',
                     'updated_at' => '2017-04-21 12:21:06',

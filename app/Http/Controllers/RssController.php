@@ -17,11 +17,7 @@ use App\Rss;
 use App\Torrent;
 use App\User;
 
-/**
- * File upload management
- *
- *
- */
+/*TODO Finish RSS System*/
 class RssController extends Controller
 {
     private $userID = 0;

@@ -16,44 +16,48 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    /**
+     * The Attributes That Aren't Mass Assignable
+     *
+     * @var array
+     */
+    protected $guarded = ['id'];
+
+    /**
+     * Indicates If The Model Should Be Timestamped
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
-     * Validation rules
+     * Has Many Users
      *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'position' => 'required',
-        'color' => 'required',
-        'icon' => 'required',
-    ];
-
-    /**
-     * Has many users
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function users()
     {
-        return $this->hasMany(\App\User::class);
+        return $this->hasMany(User::class);
     }
 
     /**
-     * Has many permissions
+     * Has Many Permissions
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function permissions()
     {
-        return $this->hasMany(\App\Permission::class);
+        return $this->hasMany(Permission::class);
     }
 
     /**
-     * Returns the requested row from the permissions table
+     * Returns The Requested Row From The Permissions Table
      *
      */
     public function getPermissionsByForum($forum)
     {
-        return Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $this->id])->first();
+        return Permission::where('forum_id', $forum->id)
+            ->where('group_id', $this->id)
+            ->first();
     }
 }

@@ -17,15 +17,9 @@ use Illuminate\Database\Eloquent\Model;
 class TorrentRequestClaim extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'request_claims';
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = ['username', 'anon', 'request_id'];
 }

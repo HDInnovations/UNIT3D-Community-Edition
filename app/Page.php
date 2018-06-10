@@ -15,16 +15,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-/**
- * Model responsible for managing pages (as on Wordpress)
- *
- *
- */
 class Page extends Model
 {
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml()
     {

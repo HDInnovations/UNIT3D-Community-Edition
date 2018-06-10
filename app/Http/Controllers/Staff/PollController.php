@@ -13,34 +13,54 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\User;
 use App\Poll;
 use App\Option;
-use App\Shoutbox;
 use App\Http\Requests\StorePoll;
 use Cache;
 use \Toastr;
 
 class PollController extends Controller
 {
-    public function polls()
-    {
-        $polls = Poll::latest()->paginate(25);
-        return view('Staff.poll.polls', compact('polls'));
-    }
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
 
-    public function poll($id)
+    public function __construct(ChatRepository $chat)
     {
-        $poll = Poll::where('id', $id)->firstOrFail();
-        return view('Staff.poll.poll', compact('poll'));
+        $this->chat = $chat;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show All Polls
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function polls()
+    {
+        $polls = Poll::latest()->paginate(25);
+
+        return view('Staff.poll.polls', ['polls' => $polls]);
+    }
+
+    /**
+     * Show A Poll
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function poll($id)
+    {
+        $poll = Poll::where('id', $id)->firstOrFail();
+
+        return view('Staff.poll.poll', ['poll' => $poll]);
+    }
+
+    /**
+     * Poll Add Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -48,15 +68,17 @@ class PollController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Add A Poll
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param StorePoll $request
+     * @return Illuminate\Http\RedirectResponse
      */
     public function store(StorePoll $request)
     {
-        if (auth()->check() {
-            $poll = auth()->user()->polls()->create($request->all());
+        $user = auth()->user();
+
+        if (auth()->check()) {
+            $poll = $user->polls()->create($request->all());
         } else {
             $poll = Poll::create($request->all());
         }
@@ -67,49 +89,15 @@ class PollController extends Controller
         $poll->options()->saveMany($options);
 
         // Activity Log
-        \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has created a new poll {$poll->title}.");
+        \LogActivity::addToLog("Staff Member {$user->username} has created a new poll {$poll->title}.");
 
-        // Auto Shout
-        $appurl = config('app.url');
-        Shoutbox::create(['user' => "1", 'mentions' => "1", 'message' => "A new poll has been created [url={$appurl}/poll/{$poll->slug}]"{$poll->title}"[/url] vote on it now! :slight_smile:"]);
-        Cache::forget('shoutbox_messages');
+        $poll_url = hrefPoll($poll);
 
-        Toastr::success('Your poll has been created.', 'Yay!', ['options']);
+        $this->chat->systemMessage(
+            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+        );
 
-        return redirect('poll/' . $poll->slug);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('poll/' . $poll->slug)
+            ->with(Toastr::success('Your poll has been created.', 'Yay!', ['options']));
     }
 }

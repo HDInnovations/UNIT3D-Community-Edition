@@ -23,53 +23,70 @@ use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
-
+    /**
+     * Invite Form
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function invite()
     {
         $user = auth()->user();
+
         if (config('other.invite-only') == false) {
-            Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']);
+            return redirect()->route('home')
+            ->with(Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']));
         }
         if ($user->can_invite == 0) {
-            Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']);
+            return redirect()->route('home')
+            ->with(Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
         return view('user.invite', ['user' => $user]);
     }
 
+    /**
+     * Send Invite
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function process(Request $request)
     {
         $current = new Carbon();
         $user = auth()->user();
         $invites_restricted = config('config.invites_restriced', false);
         $invite_groups = config('config.invite_groups', []);
+
         if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
-            return redirect()->route('invite')->with(Toastr::error('Invites are currently disabled for your userclass.', 'Whoops!', ['options']));
+            return redirect()->route('invite')
+                ->with(Toastr::error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }
-        $exsist = Invite::where('email', $request->input('email'))->first();
+
+        $exist = Invite::where('email', $request->input('email'))->first();
         $member = User::where('email', $request->input('email'))->first();
-        if ($exsist || $member) {
-            return redirect()->route('invite')->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a user already.', 'Whoops!', ['options']));
+
+        if ($exist || $member) {
+            return redirect()->route('invite')
+                ->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a used already.', 'Whoops!', ['options']));
         }
 
         if ($user->invites > 0) {
-            // Generate a version 4, truly random, UUID
             $code = Uuid::uuid4()->toString();
 
-            //create a new invite record
-            $invite = Invite::create([
-                'user_id' => $user->id,
-                'email' => $request->input('email'),
-                'code' => $code,
-                'expires_on' => $current->copy()->addDays(14),
-                'custom' => $request->input('message'),
-            ]);
+            $invite = new Invite();
+            $invite->user_id = $user->id;
+            $invite->email = $request->input('email');
+            $invite->code = $code;
+            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+            $invite->custom = $request->input('message');
+            $invite->save();
 
-            // send the email
             Mail::to($request->input('email'))->send(new InviteUser($invite));
 
-            // subtract 1 invite
             $user->invites -= 1;
             $user->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
             return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         } else {
@@ -77,6 +94,13 @@ class InviteController extends Controller
         }
     }
 
+    /**
+     * Invite Tree
+     *
+     * @param $username
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function inviteTree($username, $id)
     {
         if (auth()->user()->group->is_modo) {

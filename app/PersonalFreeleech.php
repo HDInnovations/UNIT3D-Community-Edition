@@ -17,15 +17,9 @@ use Illuminate\Database\Eloquent\Model;
 class PersonalFreeleech extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'personal_freeleech';
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = ['user_id'];
 }

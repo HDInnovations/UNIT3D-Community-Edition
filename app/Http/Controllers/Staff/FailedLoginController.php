@@ -20,7 +20,7 @@ class FailedLoginController extends Controller
     /**
      * Failed Login Attempt Log
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getFailedAttemps()
     {

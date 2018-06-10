@@ -43,7 +43,7 @@ class bonAllocation extends Command
     {
         //Dying Torrent
         $dying = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('torrents.seeders', 1)
             ->where('torrents.times_completed', '>', 2)
@@ -54,7 +54,7 @@ class bonAllocation extends Command
             ->toArray();
 
         $legendary = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
@@ -64,7 +64,7 @@ class bonAllocation extends Command
             ->toArray();
 
         $old = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
@@ -75,7 +75,7 @@ class bonAllocation extends Command
             ->toArray();
 
         $huge = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1073741824 * 100)
@@ -85,7 +85,7 @@ class bonAllocation extends Command
             ->toArray();
 
         $large = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1073741824 * 25)
@@ -96,7 +96,7 @@ class bonAllocation extends Command
             ->toArray();
 
         $regular = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.hash)) as value'), 'peers.user_id')
+            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('torrents.size', '>=', 1073741824)

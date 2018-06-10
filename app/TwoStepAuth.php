@@ -17,21 +17,21 @@ use Illuminate\Database\Eloquent\Model;
 class TwoStepAuth extends Model
 {
     /**
-     * The table associated with the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = 'twostep_auth';
 
     /**
-     * Indicates if the model should be timestamped.
+     * Indicates If The Model Should Be Timestamped
      *
      * @var bool
      */
     public $timestamps = true;
 
     /**
-     * The attributes that are not mass assignable.
+     * The Attributes That Are Not Mass Assignable.
      *
      * @var array
      */
@@ -40,7 +40,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * The attributes that should be mutated to dates.
+     * The Attributes That Should Be Mutated To Dates
      *
      * @var array
      */
@@ -52,7 +52,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * Fillable fields for a Profile.
+     * The Attributes That Are Mass Assignable
      *
      * @var array
      */
@@ -65,6 +65,11 @@ class TwoStepAuth extends Model
         'authDate',
     ];
 
+    /**
+     * The Attributes That Should Be Casted To Native Types
+     *
+     * @var array
+     */
     protected $casts = [
         'userId'     => 'integer',
         'authCode'   => 'string',
@@ -75,7 +80,7 @@ class TwoStepAuth extends Model
     /**
      * Get a validator for an incoming Request.
      *
-     * @param  array $merge (rules to optionally merge)
+     * @param array $merge (rules to optionally merge)
      *
      * @return array
      */

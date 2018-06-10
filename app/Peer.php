@@ -12,38 +12,48 @@
 
 namespace App;
 
-use App\History;
-
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-/**
- * Peers for customers torrents
- *
- */
 class Peer extends Model
 {
     use Sortable;
 
-    public $sortable = ['id', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'created_at'];
+    /**
+     * The Columns That Are Sortable
+     *
+     * @var array
+     */
+    public $sortable = [
+        'id',
+        'agent',
+        'uploaded',
+        'downloaded',
+        'left',
+        'seeder',
+        'created_at'
+    ];
 
     /**
-     * Belongs to User
+     * Belongs To A User
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
     /**
-     * Belongs to torrent
+     * Belongs To A Torrent
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class);
+        return $this->belongsTo(Torrent::class);
     }
 }

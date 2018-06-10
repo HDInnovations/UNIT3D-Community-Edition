@@ -33,7 +33,7 @@ class RequestFacetedRepository
      */
     public function types()
     {
-        return Type::all()->where('slug', '!=', 'sd')->sortBy('position')->pluck('name', 'id');
+        return Type::all()->sortBy('position')->pluck('name', 'id');
     }
 
     /**

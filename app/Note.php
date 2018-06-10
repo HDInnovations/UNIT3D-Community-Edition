@@ -17,31 +17,35 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model
      *
      * @var string
      */
     protected $table = "user_notes";
 
     /**
-     * Mass assignment fields
+     * Belongs To A User
      *
-     */
-    protected $fillable = [
-        'user_id', 'staff_id', 'message'
-    ];
-
-    /**
-     * Belongs to User
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function noteduser()
     {
-        return $this->belongsTo(\App\User::class, "user_id");
+        return $this->belongsTo(User::class, "user_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function staffuser()
     {
-        return $this->belongsTo(\App\User::class, "staff_id");
+        return $this->belongsTo(User::class, "staff_id")->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
     }
 }

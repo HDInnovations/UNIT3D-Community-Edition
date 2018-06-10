@@ -54,9 +54,6 @@ class revokePermissions extends Command
                 $deny->warneduser->can_download = 0;
                 $deny->warneduser->can_request = 0;
                 $deny->warneduser->save();
-
-                //Private message notifiing users of their rights being revoked.
-                //PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $deny->warneduser->id, 'subject' => "Rights Revoked", 'message' => "Due to your active warnings, Your download and request rights have been revoked."]);
             }
         }
     }

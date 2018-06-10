@@ -3,15 +3,15 @@
 /node_modules
 /public/hot
 /public/storage
+/storage/backups
 /storage/*.key
 /vendor
-/.idea
 /.vagrant
 Homestead.json
 Homestead.yaml
 npm-debug.log
-yarn-error.log
 .env
+laravel-echo-server.json
 
 # IntelliJ
 
@@ -19,3 +19,6 @@ yarn-error.log
 
 # Vim
 .*.swp
+/public/tmp/
+
+*.DS_Store

@@ -13,22 +13,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Torrent;
 
 class Catalog extends Model
 {
     /**
-     * The database table used by the model.
+     * The Attributes That Are Mass Assignable
      *
-     * @var string
-     */
-    protected $table = "catalogs";
-
-    /**
-     * Mass assignment fields
-     *
+     * @var array
      */
     protected $fillable = [
-        'name', 'slug'
+        'name',
+        'slug'
     ];
 }

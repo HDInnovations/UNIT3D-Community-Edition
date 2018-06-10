@@ -16,36 +16,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    /**
+     * Indicates If The Model Should Be Timestamped
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
-     * Validation rules
+     * Has Many Torrents
      *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'position' => 'required',
-        'icon' => 'required',
-        'meta' => 'required'
-    ];
-
-    /**
-     * Has many torrents
-     *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function torrents()
     {
-        return $this->hasMany(\App\Torrent::class);
+        return $this->hasMany(Torrent::class);
     }
 
     /**
-     * Has many requests
+     * Has Many Requests
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requests()
     {
-        return $this->hasMany(\App\TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 }

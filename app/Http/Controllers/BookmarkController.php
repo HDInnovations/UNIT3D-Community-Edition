@@ -12,34 +12,17 @@
 
 namespace App\Http\Controllers;
 
-use \Toastr;
-
 class BookmarkController extends Controller
 {
-
     /**
-     * Bookmarks
+     * Get Torrent Bookmarks
      *
-     *
-     * @access public
-     * @return view::make bookmark.bookmarks
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bookmarks()
     {
         $myBookmarks = auth()->user()->bookmarks;
 
         return view('bookmark.bookmarks', ['myBookmarks' => $myBookmarks]);
-    }
-
-    /**
-     * unBookmark a particular torrent
-     *
-     *
-     * @return Response
-     */
-    public function unBookmark($id)
-    {
-        auth()->user()->bookmarks()->detach($id);
-        return redirect()->back()->with(Toastr::success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
     }
 }

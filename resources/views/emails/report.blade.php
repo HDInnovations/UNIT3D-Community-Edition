@@ -1,9 +1,10 @@
-@extends('emails.template')
+@component('mail::message')
+    # {{ trans('email.report-header') }} {{ config('other.title') }} !
+    **{{ trans('email.report-email') }}:** {{ $report->email }}
 
-@section('content')
-<p>{{ trans('email.report-header') }} {{ env('SITE_NAME') }}.</p>
-<p><strong>{{ trans('email.report-email') }}</strong>: {{ $report->email }}</p>
-<p><strong>{{ trans('email.report-link') }}</strong>: {{ url($report->url) }}</p>
-<p><strong>{{ trans('email.report-link-hash') }}</strong>: {{ url($report->link->hash) }}</p>
-<p><strong>{{ trans('email.report-comment') }}</strong>: {{ $report->comment }}</p>
-@endsection
+    **{{ trans('email.report-link') }}:** {{ $report->url }}
+
+    **{{ trans('email.report-link-hash') }}:** {{ $report->link->hash }}
+
+    **{{ trans('email.report-comment') }}:** {{ $report->comment }}
+@endcomponent
