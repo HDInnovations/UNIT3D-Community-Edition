@@ -312,9 +312,9 @@ Prerequisites Example:
     
 
 Main:
-1. Open a terminal and SSH into your server.
-2. cd to the sites root directory
-3. Clone the codebase. `git clone https://github.com/HDInnovations/UNIT3D`
+1. First grab the source-code and upload it to your web server. (If you have Git on your web server installed then clone it directly on your web server.)
+2. Open a terminal and SSH into your server.
+3. cd to the sites root directory
 
 4. Run 
 ```
