@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
 use App\Album;
 use Image;
+use Carbon\Carbon;
 use \Toastr;
 
 class AlbumController extends Controller
@@ -127,8 +128,9 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        if (auth()->user()->group->is_modo) {
-            $album = Album::findOrFail($id);
+        $album = Album::findOrFail($id);
+
+        if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id && Carbon::now()->lt($album->created_at->addDay()))) {
             $album->delete();
 
             return redirect()->route('home')

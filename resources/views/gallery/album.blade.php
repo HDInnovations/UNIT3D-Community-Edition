@@ -37,7 +37,7 @@
                         <a href="{{ route('add_image', ['id' => $album->id]) }}">
                             <button type="button" class="btn btn-success btn-md">Add New Image to Album</button>
                         </a>
-                        @if(auth()->user()->group->is_modo)
+                        @if(auth()->user()->group->is_modo || auth()->user()->id == $album->user_id && Carbon\Carbon::now()->lt($album->created_at->addDay()))
                         <a href="{{ route('delete_album', ['id' => $album->id]) }}"
                            onclick="return confirm('Are you sure?')">
                             <button type="button" class="btn btn-danger btn-md">Delete Album</button>
