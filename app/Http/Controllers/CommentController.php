@@ -417,7 +417,7 @@ class CommentController extends Controller
 
             return back()->with(Toastr::success('Comment Has Been Edited.', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -437,7 +437,7 @@ class CommentController extends Controller
 
             return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

@@ -743,7 +743,7 @@ class RequestController extends Controller
                     ->with(Toastr::error("Nothing To Unclaim.", 'Whoops!', ['options']));
             }
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

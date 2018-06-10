@@ -411,7 +411,7 @@ class UserController extends Controller
 
             return view('user.warninglog', ['warnings' => $warnings, 'warningcount' => $warningcount, 'user' => $user]);
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -444,7 +444,7 @@ class UserController extends Controller
             return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
                 ->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -462,7 +462,7 @@ class UserController extends Controller
             $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -480,7 +480,7 @@ class UserController extends Controller
             $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->with('torrent')->distinct('hash')->paginate(50);
             return view('user.active', ['user' => $user, 'active' => $active]);
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -510,7 +510,7 @@ class UserController extends Controller
                 'his_downl_cre' => $his_downl_cre
             ]);
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }
