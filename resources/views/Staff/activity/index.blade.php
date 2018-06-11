@@ -35,9 +35,9 @@
                         <th>Subject</th>
                         <th>URL</th>
                         <th>Method</th>
-                        <th>Ip</th>
+                        <th>IP</th>
                         <th width="300px">User Agent</th>
-                        <th>User Id</th>
+                        <th>Username</th>
                         <th>Created On</th>
                         <th>Action</th>
                     </tr>
@@ -52,7 +52,7 @@
                                 <td><label class="label label-info">{{ $activity->method }}</label></td>
                                 <td class="text-danger">{{ $activity->ip }}</td>
                                 <td class="text-warning">{{ $activity->agent }}</td>
-                                <td>{{ $activity->user_id }}</td>
+                                <td>{{ $activity->user->username }}</td>
                                 <td>
                                     {{ $activity->created_at->toDayDateTimeString() }}
                                     ({{ $activity->created_at->diffForHumans() }})
