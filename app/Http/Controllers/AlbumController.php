@@ -136,7 +136,7 @@ class AlbumController extends Controller
             return redirect()->route('home')
                 ->with(Toastr::success('Album has successfully been deleted', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

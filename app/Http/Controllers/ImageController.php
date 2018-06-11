@@ -99,7 +99,7 @@ class ImageController extends Controller
                 return redirect()->route('show_album', ['id' => $request->input('new_album')]);
             }
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -141,7 +141,7 @@ class ImageController extends Controller
             return redirect()->route('show_album', ['id' => $image->album_id])
                 ->with(Toastr::success('Image has successfully been deleted', 'Yay!', ['options']));
         } else {
-            abort(403, 'Unauthorized action.');
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }
