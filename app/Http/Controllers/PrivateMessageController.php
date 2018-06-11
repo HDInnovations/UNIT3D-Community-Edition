@@ -74,7 +74,7 @@ class PrivateMessageController extends Controller
         $pm = PrivateMessage::where('id', $id)->firstOrFail();
 
         if($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
-            if ($pm->read == 0) {
+            if ($user->id === $pm->reciever_id && $pm->read === 0) {
                 $pm->read = 1;
                 $pm->save();
             }
