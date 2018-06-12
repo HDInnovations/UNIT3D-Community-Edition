@@ -169,7 +169,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Requests
         Route::get('filterRequests', 'RequestController@faceted');
-        Route::get('/requests', 'RequestController@requests')->name('FfollF');
+        Route::get('/requests', 'RequestController@requests')->name('requests');
         Route::get('/request/add', 'RequestController@addRequestForm')->name('add_request_form');
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
         Route::get('/request/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');

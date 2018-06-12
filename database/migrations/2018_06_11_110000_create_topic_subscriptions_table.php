@@ -29,11 +29,6 @@ class CreateTopicSubscriptionsTable extends Migration
             $table->unsignedInteger('topic_id');
             $table->timestamps();
             $table->unique(['user_id', 'topic_id']);
-
-            $table->foreign('topic_id')
-                ->references('id')
-                ->on('topics')
-                ->onDelete('cascade');
         });
     }
 
