@@ -12,17 +12,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\MessageSent;
-use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Forum;
 use App\Post;
 use App\Topic;
 use App\User;
-use App\Message;
 use App\Like;
+use App\TopicSubscription;
 use App\Achievements\UserMadeFirstPost;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -35,7 +32,9 @@ use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
-use App\Mail\NewReply;
+use App\Notifications\NewTopicPost;
+use App\Repositories\ChatRepository;
+use App\Repositories\TaggedUserRepository;
 use Decoda\Decoda;
 use \Toastr;
 
@@ -288,19 +287,18 @@ class ForumController extends Controller
             // Save
             $forum->save();
 
-            // Find the user who initated the topic
-            $topicCreator = User::findOrFail($topic->first_post_user_id);
-
             // Post To Chatbox
             $appurl = config('app.url');
             $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
-
             $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
-            // Mail Topic Creator Of New Reply
-            if ($post->user_id != $topic->first_post_user_id) {
-                Mail::to($topicCreator->email)->send(new NewReply($user, $topic));
+            // Notify All Subscribers Of New Reply
+            $subscribers = TopicSubscription::where('topic_id', $topic->id)->get();
+            foreach ($subscribers as $subscriber) {
+                if ($subscriber->user_id != $post->user_id) {
+                    $subscriber->notify(new NewTopicPost($post));
+                }
             }
 
             //Achievements
