@@ -32,7 +32,6 @@ use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
-use App\Notifications\NewTopicPost;
 use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
 use Decoda\Decoda;
@@ -294,12 +293,7 @@ class ForumController extends Controller
             $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
-            $subscribers = TopicSubscription::where('topic_id', $topic->id)->get();
-            foreach ($subscribers as $subscriber) {
-                if ($subscriber->user_id != $post->user_id) {
-                    $subscriber->notify(new NewTopicPost($post));
-                }
-            }
+            $topic->notifySubscribers($post);
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
