@@ -37,6 +37,26 @@ class Topic extends Model
     }
 
     /**
+     * Has Many Subscriptions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(TopicSubscription::class);
+    }
+
+    /**
+     * Notify Subscribers Of A Topic When New Post Is Made
+     *
+     * @return string
+     */
+    public function notifySubscribers($post)
+    {
+        $this->subscriptions->where('user_id', '!=', $post->user_id)->each->notify($post);
+    }
+
+    /**
      * Does User Have Permission To View Topic
      *
      * @return string
