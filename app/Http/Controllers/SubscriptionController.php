@@ -34,7 +34,7 @@ class SubscriptionController extends Controller
             $subscription->save();
 
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with(Toastr::success('You are now subscribed to topic, ' . $topic->name . '. You will now receive site and email notifications when a reply is left.', 'Yay!', ['options']));
+                ->with(Toastr::success('You are now subscribed to topic, ' . $topic->name . '. You will now receive site notifications when a reply is left.', 'Yay!', ['options']));
         } else {
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
                 ->with(Toastr::error('You are already subscribed to this topic', 'Whoops!', ['options']));
@@ -55,7 +55,7 @@ class SubscriptionController extends Controller
             $subscription->delete();
 
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with(Toastr::info('You are no longer subscribed to topic, ' . $topic->name. '. You will no longer receive site and email notifications when a reply is left.', 'Yay!', ['options']));
+                ->with(Toastr::info('You are no longer subscribed to topic, ' . $topic->name. '. You will no longer receive site notifications when a reply is left.', 'Yay!', ['options']));
         } else {
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
                 ->with(Toastr::error('You are not subscribed this topic to begin with...', 'Whoops!', ['options']));
