@@ -169,7 +169,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Requests
         Route::get('filterRequests', 'RequestController@faceted');
-        Route::get('/requests', 'RequestController@requests')->name('requests');
+        Route::get('/requests', 'RequestController@requests')->name('FfollF');
         Route::get('/request/add', 'RequestController@addRequestForm')->name('add_request_form');
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
         Route::get('/request/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');
@@ -352,6 +352,10 @@ Route::group(['middleware' => 'language'], function () {
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'ForumController@likePost')->name('like');
         Route::any('/dislike/post/{postId}', 'ForumController@dislikePost')->name('dislike');
+
+        // Subscription System
+        Route::get('/subscribe/{topic}', 'SubscriptionController@subscribe')->name('subscribe');
+        Route::get('/unsubscribe/{topic}', 'SubscriptionController@unsubscribe')->name('unsubscribe');
     });
 
 
