@@ -398,6 +398,27 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many Subscriptions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(TopicSubscription::class);
+    }
+
+    /**
+     * Does Subscription Exist
+     *
+     * @param $topic_id
+     * @return string
+     */
+    public function isSubscribed($topic_id)
+    {
+        return (bool)$this->subscriptions()->where('topic_id', $topic_id)->first(['id']);
+    }
+
+    /**
      * Get All Followers Of A User
      *
      * @param $target_id

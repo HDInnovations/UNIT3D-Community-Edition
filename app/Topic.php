@@ -37,6 +37,16 @@ class Topic extends Model
     }
 
     /**
+     * Has Many Subscriptions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(TopicSubscription::class);
+    }
+
+    /**
      * Does User Have Permission To View Topic
      *
      * @return string
