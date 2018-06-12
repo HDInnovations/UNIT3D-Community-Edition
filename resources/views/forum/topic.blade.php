@@ -39,10 +39,10 @@
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed($topic->id))
-                <a href="{{ route('unsubscribe', ['topic' => $topic->id]) }}" class="btn btn-md btn-danger">
+                <a href="{{ route('unsubscribe', ['topic' => $topic->id]) }}" class="label label-sm label-danger">
                     <i class="fa fa-envelope"></i> Unsubscribe</a>
             @else
-                <a href="{{ route('subscribe', ['topic' => $topic->id]) }}" class="btn btn-md btn-success">
+                <a href="{{ route('subscribe', ['topic' => $topic->id]) }}" class="label label-sm label-success">
                     <i class="fa fa-envelope"></i> Subscribe</a>
             @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
