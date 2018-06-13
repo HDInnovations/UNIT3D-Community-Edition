@@ -117,7 +117,7 @@ return [
     'titles' => 'Títulos',
     'top-completed' => 'Top concluído',
     'top-dead' => 'Top morto',
-    'top-dying' => 'Top morrendo,
+    'top-dying' => 'Top morrendo',
     'top-leeched' => 'Top leeched',
     'top-seeded' => 'Top seeded',
     'torrent' => 'Torrent',
