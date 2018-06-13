@@ -17,21 +17,21 @@ return [
     'featured-until' => 'Este torrent está destacado até',
     
     // Latest Torrents
-    'latest-torrents' => 'Últimos Torrents',
+    'latest-torrents' => 'Últimos torrents',
     
     // Latest Posts
-    'latest-posts' => 'Últimas Postagens',
+    'latest-posts' => 'Últimas postagens',
     
     // Latest Topics
-    'latest-topics' => 'Tópicos Recentes',
+    'latest-topics' => 'Tópicos recentes',
     
     // Users Online
     'active-in-last' => 'Ativo nos últimos',
-    'users-online' => 'Usuários Online',
+    'users-online' => 'Usuários online',
     
     // News/Articles
     'check-news' => 'Notícias (verifique diariamente)',
-    'new-news' => 'Novas Notícias',
+    'new-news' => 'Novas notícias',
     
     // Top torrents
     'new-torrents' => 'Novos torrents'
