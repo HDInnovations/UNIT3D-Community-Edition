@@ -31,7 +31,7 @@ return [
     'fill-request' => 'Preencha este pedido',
     'filled' => 'Preenchido',
     'filled-by' => 'Preenchido por',
-    'for' => 'para',
+    'for' => 'por',
     'fulfill' => 'Completar',
     'last-vote' => 'Último voto',
     'my-requests' => 'Meus pedidos',
