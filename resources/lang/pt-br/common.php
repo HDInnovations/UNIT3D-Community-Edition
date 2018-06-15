@@ -38,7 +38,7 @@ return [
     'edit' => 'Editar',
     'edit-your-comment' => 'Editar seu comentário',
     'email' => 'E-mail',
-    'enter' => 'Enter',
+    'enter' => 'Insira',
     'error' => 'Erro',
     'everyday' => 'Todo dia',
     'expired' => 'Expirado',
