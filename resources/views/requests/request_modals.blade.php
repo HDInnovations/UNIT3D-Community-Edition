@@ -68,7 +68,7 @@
                             aria-hidden="true">&times;</span></button>
                 <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
             </div>
-            <form role="form" method="POST" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
+            <form role="form" method="GET" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
                 {{ csrf_field() }}
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
