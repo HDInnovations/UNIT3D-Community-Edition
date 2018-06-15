@@ -126,7 +126,7 @@ return [
     'torrents' => 'Torrents',
     'type' => 'Tipo',
     'types' => 'Tipos',
-    'unbookmark' => 'Remover favorito'
+    'unbookmark' => 'Remover favorito',
     'unsticky' => 'Unsticky',
     'updated' => 'Atualizado',
     'updated_at' => 'Atualizado em',
