@@ -116,7 +116,7 @@ class ModerationController extends Controller
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
             $torrent->markRejected();
 
-            $pm = new PrivateMessage;
+            $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
             $pm->subject = "Your upload has been rejected by {$user->username}";
