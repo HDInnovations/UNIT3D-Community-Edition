@@ -71,7 +71,7 @@ class ModerationController extends Controller
         $v = validator($request->all(), [
             'id' => "required|exists:torrents",
             'slug' => "required|exists:torrents",
-            'message' => "required|alpha_dash"
+            'message' => "required"
         ]);
 
         if ($v->fails()) {
@@ -105,7 +105,7 @@ class ModerationController extends Controller
         $v = validator($request->all(), [
             'id' => "required|exists:torrents",
             'slug' => "required|exists:torrents",
-            'message' => "required|alpha_dash"
+            'message' => "required"
         ]);
 
         if ($v->fails()) {
