@@ -90,7 +90,7 @@ return [
     'revoke' => 'Revogar',
     'rss' => 'RSS',
     'runtime' => 'Tempo de execução',
-    'say-thanks' => 'Por favor, lembre-se de dizer <b>obrigado</b> e <b>semear</b> por quanto tempo puder',
+    'say-thanks' => 'Por favor, lembre-se de deixar um <b>obrigado</b> e <b>semear</b> por quanto tempo puder',
     'sd-content' => 'Conteúdo SD',
     'seed-time' => 'Tempo semeando',
     'seeder' => 'Seeder',
