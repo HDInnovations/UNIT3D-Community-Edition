@@ -14,7 +14,7 @@ return [
     'add' => 'Adicionar',
     'added' => 'Adicionado',
     'amount' => 'Quantidade',
-    'anonymous' => 'Anônimo',
+    'anonymous' => 'Anonimamente',
     'author' => 'Autor',
     'balance' => 'Saldo',
     'blacklist' => 'Lista negra',
