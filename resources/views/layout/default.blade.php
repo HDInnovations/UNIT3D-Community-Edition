@@ -30,7 +30,7 @@
         <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
         <script type="text/javascript" src="{{ mix('js/unit3d.js') }}"></script>
 
-        @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
+        @if (config('other.freeleech') === true || config('other.invite-only') === false || config('other.doubleup') === true)
             <script type="text/javascript">
                 CountDownTimer('{{config('other.freeleech_until')}}', 'promotions');
 
