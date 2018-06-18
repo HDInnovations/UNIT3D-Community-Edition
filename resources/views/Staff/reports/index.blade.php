@@ -24,7 +24,7 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>User/Torrent Reports</h2>
+            <h2>Reports</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -36,6 +36,7 @@
                             <th>Type</th>
                             <th>Title</th>
                             <th>Reporter</th>
+                            <th class="col-md-2">Created</th>
                             <th>Judge</th>
                             <th>Solved</th>
                         </tr>
@@ -61,6 +62,9 @@
                                             {{ $r->reporter->username }}
                                         </a>
                                     </td>
+                                    <td>
+                                        {{ $r->created_at->toDayDateTimeString() }}
+                                    </td>
                                     <td class="user-name">
                                         <a class="name"
                                            href="{{ $r->staff_id ? route('profile', ['username' => $r->staff->username, 'id' => $r->staff_id ]) : route('home')}}">
@@ -69,11 +73,13 @@
                                     </td>
                                     <td>
                                         @if($r->solved == 0)
-                                            <span class="text-red"><strong><i
-                                                            class="fa fa-times"></i> NO</strong></span>
+                                            <span class="text-red">
+                                                <strong><i class="fa fa-times"></i> NO</strong>
+                                            </span>
                                         @else
-                                            <span class="text-green"><strong><i
-                                                            class="fa fa-check"></i> YES</strong></span>
+                                            <span class="text-green">
+                                                <strong><i class="fa fa-check"></i> YES</strong>
+                                            </span>
                                         @endif
                                     </td>
                                 </tr>
