@@ -38,7 +38,8 @@
 
                 {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
                 <br>
-                <h2>General Settings</h2>
+                <div class="well">
+                <h2 class="text-bold">General Settings</h2>
                 <hr>
                 <label for="hidden" class="control-label">Language Censor Chat?</label>
                 <div class="radio-inline">
@@ -57,10 +58,10 @@
                 <div class="radio-inline">
                     <label><input type="radio" name="chat_hidden" @if($user->chat_hidden == 0) checked @endif value="0">NO</label>
                 </div>
-                <br>
-                <br>
+                </div>
 
-                <h2>Style Settings</h2>
+                <div class="well">
+                <h2 class="text-bold">Style Settings</h2>
                 <hr>
                 <div class="form-group">
                     <label for="theme" class="control-label">Theme</label>
@@ -85,10 +86,10 @@
                     <label><input type="radio" name="sidenav" @if($user->nav == 0) checked
                                   @endif value="0">Compact</label>
                 </div>
-                <br>
-                <br>
+                </div>
 
-                <h2>Privacy Settings</h2>
+                <div class="well">
+                <h2 class="text-bold">Privacy Settings</h2>
                 <hr>
                 <label for="hidden" class="control-label">Hidden From Online Block?</label>
                 <div class="radio-inline">
@@ -119,10 +120,10 @@
                     <label><input type="radio" name="private_profile" @if($user->private_profile == 0) checked
                                   @endif value="0">NO</label>
                 </div>
-                <br>
-                <br>
+                </div>
 
-                <h2>Torrent Preferences</h2>
+                <div class="well">
+                <h2 class="text-bold">Torrent Preferences</h2>
                 <hr>
                 <label for="torrent_layout" class="control-label">Default Torrent Layout?</label>
                 <select class="form-control" id="torrent_layout" name="torrent_layout">
@@ -149,10 +150,10 @@
                     <label><input type="radio" name="ratings" @if($user->ratings == 0) checked
                                   @endif value="0">TMDB</label>
                 </div>
-                <br>
-                <br>
+                </div>
 
-                <h2>Security Preferences</h2>
+                <div class="well">
+                <h2 class="text-bold">Security Preferences</h2>
                 <hr>
                 @if(config('auth.TwoStepEnabled') == true)
                     <label for="twostep" class="control-label">Use Two Step Auth?</label>
@@ -165,6 +166,7 @@
                     </div>
                     <br>
                 @endif
+                </div>
                 <div class="form-group">
                     <div class="text-center"><input class="btn btn-primary" type="submit" value="Save"></div>
                 </div>
