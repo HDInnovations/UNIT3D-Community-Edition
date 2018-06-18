@@ -81,7 +81,7 @@
             <span>
                 <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle"/>
             </span>
-                    <span>Language <i class=" fa fa-angle-down"></i></span>
+                    <span><i class=" fa fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
                     @foreach (App\Language::allowed() as $code => $name)
@@ -106,7 +106,7 @@
                   <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
               @endif
           </span>
-                    <span>{{ auth()->user()->username }} <i class=" fa fa-angle-down"></i></span>
+                    <span><i class=" fa fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
