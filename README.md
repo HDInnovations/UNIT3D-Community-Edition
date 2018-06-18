@@ -10,6 +10,8 @@
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.6.24-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
 <a href="https://trello.com/b/tUDsQ0Gs/unit3d"><img src="https://img.shields.io/badge/Trello-HERE-green.svg" /></a>
 <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://cdn.rawgit.com/Hyleus/237f9903320939eb4f7615633a8fb221/raw/dca104edf34eabaca1016e633f06a52a346a7700/chat-Discord-blue.svg" /></a>
+<a href="https://liberapay.com/HDVinnie/"><img src="https://img.shields.io/badge/liberapay-Support%20UNIT3D-yellow.svg"></a>
+<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>	
 </p>
 
 
@@ -23,9 +25,9 @@
 6. [Security](#security)
 7. [Contributing](#contributing)
 8. [License](#license)
-9. [Screenshots](#screenshots)
-10. [Homestead (For local developement)](#homestead)
-11. [Patreon](#patreon)
+9. [Homestead (For local developement)](#homestead)
+10. [Demo](#demo)
+11. [Donate](#donate)
 
 
 ## <a name="introduction"></a> Introduction
@@ -388,18 +390,6 @@ UNIT3D is open-sourced software licensed under the [GNU General Public License v
 
 <b> As per license do not remove the license from sourcecode or from footer in /resources/views/partials/footer.blade.php</b>
 
-
-<hr>
-
-## <a name="screenshots"></a> Screenshots
-
-<p align="center">
-User Profile (Galactic Theme)
-    <img src="https://i.imgur.com/NyLolmJ.gif" alt="User Profile Page">
-User Profile (Light Theme)
-    <img src="https://i.imgur.com/94XCo3Q.gif" alt="User Profile Page">
-</p>
-
 ## <a name="homestead"></a> Homestead (for local developement)
 
 <a href="https://laravel.com/docs/5.6/homestead#installation-and-setup">Install and Setup Homestead </a>
@@ -440,10 +430,29 @@ databases:
 9. visit <a href="http://unit3d.site">unit3d.site</a>
 10. Login u: `UNIT3D` p: `UNIT3D`
 
-## <a name="patreon"></a> Support me on patreon
+<hr>
 
-You can support me on patreon if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane.
+## <a name="demo"></a> Demo
 
-<p align="center">
-<a href="https://www.patreon.com/UNIT3D"><img src="https://i.imgur.com/ZTLPSt5.png"></a>
-</p>
+URL: https://unit3d.org
+
+Username: UNIT3D
+
+Password: UNIT3D
+
+## <a name="donate"></a> Support UNIT3D
+
+You can support my work if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation, or if I accept cryptocurrency. Yes, and yes!
+
+
+Liberapay: <a href="https://liberapay.com/HDVinnie/"><img src="https://img.shields.io/badge/liberapay-Support%20UNIT3D-yellow.svg"></a>
+	
+Patreon:<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
+
+Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
+
+Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
+
+Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
+
+Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
