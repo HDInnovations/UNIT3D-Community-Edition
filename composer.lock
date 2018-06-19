@@ -968,16 +968,16 @@
         },
         {
             "name": "hootlex/laravel-moderation",
-            "version": "v1.0.12",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hootlex/laravel-moderation.git",
-                "reference": "e9bbc3af7fb56fb24503ffa5eaf1609a61021000"
+                "reference": "1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hootlex/laravel-moderation/zipball/e9bbc3af7fb56fb24503ffa5eaf1609a61021000",
-                "reference": "e9bbc3af7fb56fb24503ffa5eaf1609a61021000",
+                "url": "https://api.github.com/repos/hootlex/laravel-moderation/zipball/1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b",
+                "reference": "1ae3aa8ae2ee3d16ecb8325c99d15614901d4d7b",
                 "shasum": ""
             },
             "require": {
@@ -985,9 +985,17 @@
             },
             "require-dev": {
                 "laravel/laravel": "5.*",
-                "phpunit/phpunit": "5.*"
+                "nunomaduro/collision": "^2.0",
+                "phpunit/phpunit": "7.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Hootlex\\Moderation\\ModerationServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Hootlex\\Moderation\\": "src/"
@@ -1010,7 +1018,7 @@
                 "moderation",
                 "moderation-system"
             ],
-            "time": "2017-07-16T07:42:32+00:00"
+            "time": "2018-06-08T08:18:26+00:00"
         },
         {
             "name": "infinety-es/config",
@@ -1325,16 +1333,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.24",
+            "version": "v5.6.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "56290edeb0d8051826d40b4cbd8ed3c30348b2b5"
+                "reference": "a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/56290edeb0d8051826d40b4cbd8ed3c30348b2b5",
-                "reference": "56290edeb0d8051826d40b4cbd8ed3c30348b2b5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
+                "reference": "a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
                 "shasum": ""
             },
             "require": {
@@ -1460,7 +1468,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-06-04T14:51:03+00:00"
+            "time": "2018-06-12T14:39:24+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1527,16 +1535,16 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.6.9",
+            "version": "v5.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "fda9d3dad85ecea609ef9c6323d6923536cf5643"
+                "reference": "974605fcd22a7e4d19f0b2ef635a0d1d7400387d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/fda9d3dad85ecea609ef9c6323d6923536cf5643",
-                "reference": "fda9d3dad85ecea609ef9c6323d6923536cf5643",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/974605fcd22a7e4d19f0b2ef635a0d1d7400387d",
+                "reference": "974605fcd22a7e4d19f0b2ef635a0d1d7400387d",
                 "shasum": ""
             },
             "require": {
@@ -1591,7 +1599,7 @@
             ],
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "https://laravelcollective.com",
-            "time": "2018-05-30T16:09:07+00:00"
+            "time": "2018-06-18T15:04:16+00:00"
         },
         {
             "name": "league/flysystem",
@@ -2127,16 +2135,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.14",
+            "version": "v2.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5"
+                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5",
-                "reference": "f6ce7dd93628088e1017fb5dd73b0b9fec7df9e5",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
+                "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
                 "shasum": ""
             },
             "require": {
@@ -2172,7 +2180,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-06-06T17:40:22+00:00"
+            "time": "2018-06-08T15:26:40+00:00"
         },
         {
             "name": "predis/predis",
@@ -2420,16 +2428,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.9.5",
+            "version": "v0.9.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "0951e91ac04ca28cf317f3997a0adfc319e80106"
+                "reference": "4a2ce86f199d51b6e2524214dc06835e872f4fce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/0951e91ac04ca28cf317f3997a0adfc319e80106",
-                "reference": "0951e91ac04ca28cf317f3997a0adfc319e80106",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/4a2ce86f199d51b6e2524214dc06835e872f4fce",
+                "reference": "4a2ce86f199d51b6e2524214dc06835e872f4fce",
                 "shasum": ""
             },
             "require": {
@@ -2488,7 +2496,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-06-02T16:39:22+00:00"
+            "time": "2018-06-10T17:57:20+00:00"
         },
         {
             "name": "rachidlaasri/laravel-installer",
@@ -2721,16 +2729,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "5.7.0",
+            "version": "5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "60c6fbc27c9c2cbdf3c7da90b080a63d2599cd2d"
+                "reference": "a4c85861a280073d84c15aefaa406d42207d01c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/60c6fbc27c9c2cbdf3c7da90b080a63d2599cd2d",
-                "reference": "60c6fbc27c9c2cbdf3c7da90b080a63d2599cd2d",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/a4c85861a280073d84c15aefaa406d42207d01c8",
+                "reference": "a4c85861a280073d84c15aefaa406d42207d01c8",
                 "shasum": ""
             },
             "require": {
@@ -2790,20 +2798,20 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2018-05-11T07:06:58+00:00"
+            "time": "2018-06-18T10:31:14+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.2.2",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "2f21c92d8fcbae591178f9a3ab2072a92e6ba543"
+                "reference": "af29482520961df0778e934b1effd4a600b1299e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/2f21c92d8fcbae591178f9a3ab2072a92e6ba543",
-                "reference": "2f21c92d8fcbae591178f9a3ab2072a92e6ba543",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/af29482520961df0778e934b1effd4a600b1299e",
+                "reference": "af29482520961df0778e934b1effd4a600b1299e",
                 "shasum": ""
             },
             "require": {
@@ -2858,7 +2866,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2018-05-28T07:51:32+00:00"
+            "time": "2018-06-09T09:31:35+00:00"
         },
         {
             "name": "spatie/laravel-image-optimizer",
@@ -2967,16 +2975,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.7.4",
+            "version": "v6.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "67fee13fcb344aa865076589888f4afef542dfd7"
+                "reference": "c90990082451dcacf62c483540dd73b8898badb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/67fee13fcb344aa865076589888f4afef542dfd7",
-                "reference": "67fee13fcb344aa865076589888f4afef542dfd7",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c90990082451dcacf62c483540dd73b8898badb8",
+                "reference": "c90990082451dcacf62c483540dd73b8898badb8",
                 "shasum": ""
             },
             "require": {
@@ -3018,7 +3026,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-05-30T00:13:55+00:00"
+            "time": "2018-06-13T23:38:34+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4772,16 +4780,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/478465659fd987669df0bd8a9bf22a8710e5f1b6",
-                "reference": "478465659fd987669df0bd8a9bf22a8710e5f1b6",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
@@ -4816,7 +4824,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2018-05-29T17:25:09+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "nunomaduro/collision",
