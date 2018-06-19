@@ -36,16 +36,16 @@
                         <tr>
                             <td>
                                 <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}"
-                                   href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">{{ $torrent->name }}</a>
+                                   href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                                 <div class="pull-right">
-                                    <a href="{{ route('download', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">
+                                    <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"><i
                                                     class="fa fa-download"></i></button>
                                     </a>
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('category', array('slug' => $torrent->category->slug, 'id' => $torrent->category->id)) }}">{{ $torrent->category->name }}</a>
+                                <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">{{ $torrent->category->name }}</a>
                             </td>
                             <td>
                                 <span class="badge-extra text-blue text-bold"> {{ $torrent->getSize() }}</span>

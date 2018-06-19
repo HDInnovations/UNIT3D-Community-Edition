@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_type_edit_form', array('slug' => $type->slug, 'id' => $type->id)) }}" itemprop="url"
+        <a href="{{ route('staff_type_edit_form', ['slug' => $type->slug, 'id' => $type->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Type</span>
         </a>
@@ -22,7 +22,7 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Type</h2>
-        {{ Form::open(array('route' => array('staff_type_edit', 'slug' => $type->slug, 'id' => $type->id))) }}
+        {{ Form::open(['route' => ['staff_type_edit', 'slug' => $type->slug, 'id' => $type->id]]) }}
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{ $type->name }}">

@@ -14,7 +14,7 @@
             <ul>
                 @if(auth()->check())
                     <li>
-                        <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">{{ trans('user.my-profile') }}</a>
+                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">{{ trans('user.my-profile') }}</a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"

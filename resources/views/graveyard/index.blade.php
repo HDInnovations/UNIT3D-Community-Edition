@@ -58,7 +58,7 @@
                                 <div class="torrent-file">
                                     <div>
                                         <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}"
-                                           href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}"
+                                           href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}"
                                            data-toggle="tooltip" title=""
                                            data-original-title="{{ $d->name }}">{{ $d->name }} </a><span
                                                 class="label label-success">{{ $d->type }}</span>

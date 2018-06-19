@@ -46,14 +46,14 @@
                                 <div class="torrent-file">
                                     <div>
                                         <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
-                                           href="{{ route('torrent', array('slug' => $t->slug, 'id' => $t->id)) }}"
+                                           href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
                                            data-toggle="tooltip" title=""
                                            data-original-title="{{ $t->name }}">{{ $t->name }}</a>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('download', array('slug' => $t->slug, 'id' => $t->id)) }}">&nbsp;&nbsp;
+                                <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             title="" data-original-title="{{ strtoupper(trans('common.download')) }}"><i
                                                 class="livicon" data-name="download" data-size="18" data-color="white"

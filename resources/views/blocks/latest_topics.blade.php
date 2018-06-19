@@ -18,7 +18,7 @@
                     @if ($t->viewable())
                         <tr class="">
                             <td>
-                                <a href="{{ route('forum_topic', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a>
+                                <a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
                             </td>
                             <td>{{ $t->first_post_user_username }}</td>
                             <td>{{ $t->created_at->diffForHumans() }}</td>

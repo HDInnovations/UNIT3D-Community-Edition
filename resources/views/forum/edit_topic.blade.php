@@ -15,13 +15,13 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', array('slug' => $topic->slug, 'id' => $topic->id)) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_edit_topic', array('slug' => $topic->slug, 'id' => $topic->id)) }}" itemprop="url"
+        <a href="{{ route('forum_edit_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.edit-topic') }}</span>
         </a>

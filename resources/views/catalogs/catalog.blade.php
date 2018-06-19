@@ -47,7 +47,7 @@
                 @endif
                 <div class="col-md-12">
                     <div class="well">
-                        <h2><a href="{{ route('catalog_torrents', array('imdb' => $r->imdb)) }}">{{ $movie->title }}
+                        <h2><a href="{{ route('catalog_torrents', ['imdb' => $r->imdb]) }}">{{ $movie->title }}
                                 ({{ $movie->releaseYear }})</a></h2>
                         <div class="movie-details">
                             <p class="movie-plot">{{ $movie->plot }}</p>

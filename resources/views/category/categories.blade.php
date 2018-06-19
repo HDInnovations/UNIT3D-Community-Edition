@@ -21,7 +21,7 @@
         </div>
         <div class="blocks">
             @foreach($categories as $c)
-                <a href="{{ route('category', array('slug' => $c->slug, 'id' => $c->id)) }}">
+                <a href="{{ route('category', ['slug' => $c->slug, 'id' => $c->id]) }}">
                     <div class="general media_blocks">
                         <h2><i class="{{ $c->icon }}"></i> {{ $c->name }}</h2>
                         <span></span>

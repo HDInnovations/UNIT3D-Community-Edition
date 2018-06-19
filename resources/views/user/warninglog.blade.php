@@ -55,7 +55,7 @@
                                     <td>
                                         <a class="view-torrent" data-id="{{ $warning->torrenttitle->id }}"
                                            data-slug="{{ $warning->torrenttitle->name }}"
-                                           href="{{ route('torrent', array('slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id)) }}">{{ $warning->torrenttitle->name }}</a>
+                                           href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">{{ $warning->torrenttitle->name }}</a>
                                     </td>
                                     <td>
                                         {{ $warning->reason }}

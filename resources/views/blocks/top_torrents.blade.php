@@ -43,7 +43,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a href="{{ route('torrent', array('slug' => $t->slug, 'id' => $t->id)) }}"
+                                            <a href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
                                                class="" title="">
                                                 {{ $t->name }}
                                             </a>
@@ -123,7 +123,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a href="{{ route('torrent', array('slug' => $b->slug, 'id' => $b->id)) }}"
+                                            <a href="{{ route('torrent', ['slug' => $b->slug, 'id' => $b->id]) }}"
                                                class="" title="">
                                                 {{ $b->name }}
                                             </a>
@@ -203,7 +203,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a href="{{ route('torrent', array('slug' => $l->slug, 'id' => $l->id)) }}"
+                                            <a href="{{ route('torrent', ['slug' => $l->slug, 'id' => $l->id]) }}"
                                                class="" title="">
                                                 {{ $l->name }}
                                             </a>
@@ -283,7 +283,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}"
+                                            <a href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}"
                                                class="" title="">
                                                 {{ $d->name }}
                                             </a>
@@ -363,7 +363,7 @@
                                 <td>
                                     <div class="torrent-file">
                                         <div>
-                                            <a href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}"
+                                            <a href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}"
                                                class="" title="">
                                                 {{ $d->name }}
                                             </a>

@@ -15,13 +15,13 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', array('slug' => $forum->slug, 'id' => $forum->id)) }}" itemprop="url"
+        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', array('slug' => $topic->slug, 'id' => $topic->id)) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
@@ -56,7 +56,7 @@
                             <div class="head">
                                 <p>{{ date('M d Y', $p->created_at->getTimestamp()) }}
                                     ({{ $p->created_at->diffForHumans() }}) <a class="text-bold permalink"
-                                                                               href="{{ route('forum_topic', array('slug' => $p->topic->slug, 'id' => $p->topic->id)) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">{{ trans('forum.permalink') }}</a>
+                                                                               href="{{ route('forum_topic', ['slug' => $p->topic->slug, 'id' => $p->topic->id]) }}?page={{$p->getPageNumber()}}#post-{{$p->id}}">{{ trans('forum.permalink') }}</a>
                                 </p>
                             </div>
                             <aside class="col-md-2 post-info">

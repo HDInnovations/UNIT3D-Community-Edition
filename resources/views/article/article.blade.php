@@ -72,7 +72,7 @@
                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }}
                                         )</a>@endif</strong>
                             @else
-                                <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}"
+                                <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
                                    class="pull-left">
                                     @if($comment->user->image != null)
                                         <img src="{{ url('files/img/' . $comment->user->image) }}"

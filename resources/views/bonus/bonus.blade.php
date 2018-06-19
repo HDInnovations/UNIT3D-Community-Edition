@@ -169,7 +169,7 @@
                             <td>{{ $uu['description'] }}</td>
                             <td>{{ $uu['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', array('id' => $uu['id'])) }}" role="button"
+                                <a href="{{ route('bonusexchange', ['id' => $uu['id']]) }}" role="button"
                                    class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
                             </td>
                         </tr>
@@ -180,7 +180,7 @@
                             <td>{{ $dO['description'] }}</td>
                             <td>{{ $dO['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', array('id' => $dO['id'])) }}" role="button" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
+                                <a href="{{ route('bonusexchange', ['id' => $dO['id']]) }}" role="button" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
                             </td>
                         </tr>
                     @endforeach--}}
@@ -191,11 +191,11 @@
                             <td>{{ $pf['cost'] }}</td>
                             <td>
                                 @if($activefl)
-                                    <a href="{{ route('bonusexchange', array('id' => $pf['id'])) }}" role="button"
+                                    <a href="{{ route('bonusexchange', ['id' => $pf['id']]) }}" role="button"
                                        class="btn btn-sm btn-success btn-exchange disabled">{{ trans('bon.activated') }}
                                         !</a>
                                 @else
-                                    <a href="{{ route('bonusexchange', array('id' => $pf['id'])) }}" role="button"
+                                    <a href="{{ route('bonusexchange', ['id' => $pf['id']]) }}" role="button"
                                        class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
                                 @endif
                             </td>
@@ -207,7 +207,7 @@
                             <td>{{ $in['description'] }}</td>
                             <td>{{ $in['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', array('id' => $in['id'])) }}" role="button"
+                                <a href="{{ route('bonusexchange', ['id' => $in['id']]) }}" role="button"
                                    class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
                             </td>
                         </tr>

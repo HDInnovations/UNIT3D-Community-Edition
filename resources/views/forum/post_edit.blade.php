@@ -16,25 +16,25 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_category', array('slug' => $category->slug, 'id' => $category->id)) }}" itemprop="url"
+        <a href="{{ route('forum_category', ['slug' => $category->slug, 'id' => $category->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', array('slug' => $forum->slug, 'id' => $forum->id)) }}" itemprop="url"
+        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_topic', array('slug' => $topic->slug, 'id' => $topic->id)) }}" itemprop="url"
+        <a href="{{ route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $topic->name }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_post_edit_form', array('slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id)) }}"
+        <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">{{ trans('common.edit') }} {{ trans('forum.post') }}</span>

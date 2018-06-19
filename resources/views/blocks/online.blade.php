@@ -12,12 +12,12 @@
                     @if($u->hidden == 1)
                         <span class="badge-user text-orange text-bold"
                               style="margin-bottom: 10px;">{{ strtoupper(trans('common.hidden')) }} @if(auth()->user()->group->is_modo)
-                                <a href="{{ route('profile', array('username' => $u->username, 'id' => $u->id)) }}"> ({{ $u->username }} @if($u->getWarning() > 0)
+                                <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"> ({{ $u->username }} @if($u->getWarning() > 0)
                                         <i class="fa fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('common.active-warning') }}"></i>@endif)</a>@endif</span>
                     @else
-                        <a href="{{ route('profile', array('username' => $u->username, 'id' => $u->id)) }}"><span
+                        <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"><span
                                     class="badge-user text-bold"
                                     style="color:{{ $u->group->color }}; background-image:{{ $u->group->effect }}; margin-bottom: 10px;"><i
                                         class="{{ $u->group->icon }}" data-toggle="tooltip" title=""

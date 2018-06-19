@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_display', array('slug' => $forum->slug, 'id' => $forum->id)) }}" itemprop="url"
+        <a href="{{ route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $forum->name }}</span>
         </a>
@@ -55,7 +55,7 @@
                                                 class="fa fa-thumb-tack fa-2x"></i></span></td>
                             @endif
                             <td class="f-display-topic-title">
-                                <strong><a href="{{ route('forum_topic', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></strong>
+                                <strong><a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></strong>
                                 @if($t->state == "close") <span
                                         class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
                                 @if($t->approved == "1") <span

@@ -248,7 +248,7 @@
                         @endif
                         @if(auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
                             <a class="btn btn-warning btn-xs"
-                               href="{{ route('edit_form', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
+                               href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                                role="button">{{ trans('common.edit') }}</a>
                         @endif
                         @if(auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
@@ -514,7 +514,7 @@
         <div class="torrent-bottom col-md-12">
             <div class="text-center">
         <span class="badge-user">
-        <a href="{{ route('download_check', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
+        <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button"
            class="btn btn-labeled btn-success">
                 <span class='btn-label'><i class='fa fa-download'></i></span>{{ trans('common.download') }}</a>
             @if($torrent->imdb != 0)
@@ -527,7 +527,7 @@
                 <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
           <span class='btn-label'><i class='fa fa-file'></i></span>{{ trans('common.view') }} NFO</button>
             @endif
-            <a href="{{ route('comment_thanks', array('id' => $torrent->id)) }}" role="button"
+            <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button"
                class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='fa fa-heart'></i></span>{{ trans('torrent.quick-comment') }}</a>
         <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
@@ -536,7 +536,7 @@
             <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
             @if($torrent->seeders <= 2)
-                <a href="{{ route('reseed', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}" role="button"
+                <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button"
                    class="btn btn-labeled btn-warning">
           <span class='btn-label'><i class='fa fa-envelope'></i></span>{{ trans('torrent.request-reseed') }}</a>
             @endif
@@ -578,7 +578,7 @@
                                                     <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }}
                                                         )</a>@endif
                                             @else
-                                                <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}"
+                                                <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
                                                    class="pull-left">
                                                     @if($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"

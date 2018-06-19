@@ -49,7 +49,7 @@
                             <td>
                                 <a class="view-torrent" data-id="{{ $his->torrent_id }}"
                                    data-slug="{{ $his->torrent->slug }}"
-                                   href="{{ route('torrent', array('slug' => $his->torrent->slug, 'id' => $his->torrent->id)) }}"
+                                   href="{{ route('torrent', ['slug' => $his->torrent->slug, 'id' => $his->torrent->id]) }}"
                                    data-toggle="tooltip" title="{{ $his->torrent->name }}"
                                    data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($his->torrent->moderated_by)->username]) }} {{ $his->torrent->moderated_at->diffForHumans() }}">{{ $his->torrent->name }}</a>
                             </td>

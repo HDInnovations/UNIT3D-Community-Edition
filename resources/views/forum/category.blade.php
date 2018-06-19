@@ -26,7 +26,7 @@
         <div class="f-category" id="category_{{ $c->id }}">
             <div class="f-category-title col-md-12">
                 <h2>
-                    <a href="{{ route('forum_category', array('slug' => $c->slug, 'id' => $c->id)) }}">{{ $c->name }}</a>
+                    <a href="{{ route('forum_category', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
                 </h2>
             </div>
 
@@ -50,7 +50,7 @@
                             <!-- Forum title -->
                             <td>
                                 <h4 class="f-category-forums-title">
-                                    <a href="{{ route('forum_display', array('slug' => $f->slug, 'id' => $f->id)) }}">{{ $f->name }}</a>
+                                    <a href="{{ route('forum_display', ['slug' => $f->slug, 'id' => $f->id]) }}">{{ $f->name }}</a>
                                 </h4>
                                 <br>
                                 <p class="f-category-forums-description">{{ $f->description }}</p>
@@ -66,7 +66,7 @@
                             <td>
                                 <ul class="f-category-forums-last-post">
                                     <li class="f-category-forums-last-post-item"><a
-                                                href="{{ route('forum_topic', array('slug' => $f->last_topic_slug, 'id' => $f->last_topic_id)) }}">{{ $f->last_topic_name }}</a>
+                                                href="{{ route('forum_topic', ['slug' => $f->last_topic_slug, 'id' => $f->last_topic_id]) }}">{{ $f->last_topic_name }}</a>
                                     </li>
                                     <li class="f-category-forums-last-post-item">
                                         By

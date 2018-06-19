@@ -55,14 +55,14 @@
                                 <span class="notification-ago">{{ $n->created_at->diffForHumans() }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('read_notification', array('id' => $n->id)) }}">
+                                <a href="{{ route('read_notification', ['id' => $n->id]) }}">
                                     <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip" title=""
                                             data-original-title="{{ trans('notification.mark-read') }}"
                                             @if($n->read_at != null) disabled @endif><i class="fa fa-eye"></i></button>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('delete_notification', array('id' => $n->id)) }}">
+                                <a href="{{ route('delete_notification', ['id' => $n->id]) }}">
                                     <button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip" title=""
                                             data-original-title="{{ trans('notification.delete') }}"><i
                                                 class="fa fa-times"></i></button>

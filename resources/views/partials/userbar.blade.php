@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <ul class="list-inline">
             <li><i class="fa fa-user text-black"></i>
-                <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
+                <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    class="l-header-user-data-link">
                     <span class="badge-user"
                           style="color:{{ auth()->user()->group->color }}"><strong>{{ auth()->user()->username }}</strong>@if(auth()->user()->getWarning() > 0)
@@ -25,12 +25,12 @@
             <li><i class="fa fa-exchange text-orange text-bold"></i> {{ trans('common.buffer') }}
                 : {{ auth()->user()->untilRatio(config('other.ratio')) }}</li>
             <li><i class="fa fa-upload text-green text-bold"></i>
-                <a href="{{ route('myactive', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
+                <a href="{{ route('myactive', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.seeding') }}
                         :</span></a> {{ auth()->user()->getSeeding() }}
             </li>
             <li><i class="fa fa-download text-red text-bold"></i>
-                <a href="{{ route('myactive', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
+                <a href="{{ route('myactive', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    title="{{ trans('torrent.my-active-torrents') }}"><span class="text-blue"> {{ trans('torrent.leeching') }}
                         :</span></a> {{ auth()->user()->getLeeching() }}
             </li>
@@ -43,7 +43,7 @@
                         :</span></a> {{ auth()->user()->getSeedbonus() }}
             </li>
             <li><i class="fa fa-viacoin text-bold"></i>
-                <a href="{{ route('profile', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
+                <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    title="{{ trans('user.my-fl-tokens') }}"><span class="text-blue"> {{ trans('common.fl_tokens') }}
                         :</span></a> {{ auth()->user()->fl_tokens }}
             </li>

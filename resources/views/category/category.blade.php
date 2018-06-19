@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('category', array('slug' => $category->slug, 'id' => $category->id)) }}" itemprop="url"
+        <a href="{{ route('category', ['slug' => $category->slug, 'id' => $category->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }}</span>
         </a>
@@ -50,7 +50,7 @@
                         <tr>
                             @endif
                             <td>
-                                <a href="{{ route('category', array('slug' => $t->category->slug, 'id' => $t->category->id)) }}">&nbsp;
+                                <a href="{{ route('category', ['slug' => $t->category->slug, 'id' => $t->category->id]) }}">&nbsp;
                                     <div class="text-center">
                                         <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title=""
                                            data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
@@ -58,10 +58,10 @@
                                 </a></td>
                             <td>
                                 <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
-                                   href="{{ route('torrent', array('slug' => $t->slug, 'id' => $t->id)) }}"
+                                   href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
                                    data-toggle="tooltip" title=""
                                    data-original-title="{{ $t->name }}">{{ $t->name }}</a>
-                                <a href="{{ route('download', array('slug' => $t->slug, 'id' => $t->id)) }}">&nbsp;&nbsp;
+                                <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                             title="" data-original-title="DOWNLOAD!"><i class="livicon"
                                                                                         data-name="download"

@@ -62,7 +62,7 @@
                                     </i> {{ trans('request.reset-request') }}</button>
                             @endif @if($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <a class="btn btn-warning btn-xs"
-                                   href="{{ route('edit_request', array('id' => $torrentRequest->id)) }}" role="button"><i
+                                   href="{{ route('edit_request', ['id' => $torrentRequest->id]) }}" role="button"><i
                                             class="fa fa-pencil-square-o"
                                             aria-hidden="true"> {{ trans('request.edit-request') }}</i></a>
                                 <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i
@@ -404,7 +404,7 @@
                                                             )</a>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}"
+                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
                                                        class="pull-left">
                                                         @if($comment->user->image != null)
                                                             <img src="{{ url('files/img/' . $comment->user->image) }}"

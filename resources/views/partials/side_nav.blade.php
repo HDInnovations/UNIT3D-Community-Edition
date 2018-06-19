@@ -96,7 +96,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}">
+            <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
                 <i class="livicon" data-name="mail" data-size="18" data-c="#fff" data-hc="#fff" data-loop="true"></i>
                 <span class="menu-text">{{ trans('pm.inbox') }}</span>
                 <span class="selected"></span>
@@ -127,7 +127,7 @@
             </a>
         </li>
         {{--<li>
-          <a href="{{ route('rss', array('passkey' => auth()->user()->passkey)) }}">
+          <a href="{{ route('rss', ['passkey' => auth()->user()->passkey]) }}">
             <i class="livicon" data-name="rss" data-c="orange" data-hc="orange" data-size="18" data-loop="true"></i>
             <span class="menu-text">{{ trans('torrent.rss') }}</span>
             <span class="selected"></span>
