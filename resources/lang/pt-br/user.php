@@ -57,7 +57,7 @@ return [
     'follow' => 'Seguir',
     'followers' => 'Seguidores',
     'formats-are-supported' => ':formats são suportados',
-    'forum-signature' => 'Assinatura do fórum',
+    'forum-signature' => 'Assinatura no fórum',
     'history-table' => 'Meu histórico',
     'hit-n-runs' => 'Baixados e não semeados',
     'hit-n-runs-count' => 'Quantidade de downloads não semeados (Todo o tempo)',
