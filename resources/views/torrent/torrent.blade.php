@@ -33,7 +33,7 @@
         </div>
         @if($torrent->category->meta == 1)
             <div class="movie-wrapper">
-                <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
+                <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                     <div class="tags">
                         {{ $torrent->category->name }}
                     </div>
@@ -43,8 +43,13 @@
                     <div class="row movie-row ">
                         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                             <h1 class="movie-heading">
+                                @if($movie->title)
                                 <span class="text-bold">{{ $movie->title }}</span><span
-                                        class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
+                                        class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
+                                @else
+                                    <span class="text-bold">Sorry Not Meta Found</span>
+                                @endif
+                                @if($movie->imdbRating || $movie->tmdbRating)
                                 <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
                     <span class="movie-rating-stars">
                       <i class="fa fa-star"></i>
@@ -57,6 +62,7 @@
                                         )
                                     @endif
                  </span>
+                                    @endif
                             </h1>
                             <br>
                             <span class="movie-overview">
@@ -69,21 +75,28 @@
                                             <span class="badge-user text-bold text-green">{{ $genre }}</span>
                                         @endforeach
                                     @endif
+                                    @if($movie->rated )
                                     <span class="badge-user text-bold text-orange">{{ trans('torrent.rated') }}
-                                        : {{ $movie->rated }} </span> <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}
+                                        : {{ $movie->rated }} </span>
+                                        @endif
+                                        @if($movie->runtime )
+                                        <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}
                                         : {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
+                                            @endif
                                 </li>
                                 <li>
+                                    @if($torrent->imdb != 0 && $torrent->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $movie->imdb }}" title="IMDB"
-                       target="_blank">IMDB: {{ $movie->imdb }}</a>
+                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $torrent->imdb }}" title="IMDB"
+                       target="_blank">IMDB: {{ $torrent->imdb }}</a>
                   </span>
-                                    @if($torrent->category_id == "2")
+                                    @endif
+                                    @if($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
                       <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                     </span>
-                                    @else
+                                    @elseif($torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
                       <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
@@ -134,7 +147,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                            <img src="{{ $movie->poster }}" class="movie-poster img-responsive hidden-xs">
+                            <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
                         </div>
                     </div>
                 </div>

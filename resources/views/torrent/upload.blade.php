@@ -71,22 +71,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">IMDB ID <b>(Required)</b></label>
+                    <label for="name">IMDB ID <b>({{ trans('request.required') }})</b></label>
                     <input type="number" name="imdb" class="form-control" value="{{$imdb}}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">TMDB ID <b>(Required)</b></label>
+                    <label for="name">TMDB ID <b>({{ trans('request.required') }})</b></label>
                     <input type="number" name="tmdb" class="form-control" value="{{$tmdb}}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">TVDB ID <b>(Optional)</b></label>
+                    <label for="name">TVDB ID (Optional)</label>
                     <input type="number" name="tvdb" value="0" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">MAL ID <b>(Optional)</b></label>
+                    <label for="name">MAL ID (Optional)</label>
                     <input type="number" name="mal" value="0" class="form-control" required>
                 </div>
 

@@ -13,7 +13,7 @@ return [
     'bounty-claimed' => 'Bounty claimed',
     'bounty-unclaimed' => 'Bounty unclaimed',
     'category' => 'Category',
-    'claim' => 'Claim this request',
+    'claim' => 'Claim',
     'claim-anon-choose' => 'Please Choose Wisely',
     'claim-as-anon' => 'Would You Like To Claim This Anonomously',
     'claim-now' => 'Claim now',

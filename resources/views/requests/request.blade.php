@@ -74,7 +74,7 @@
                 </div>
                 @if($torrentRequest->category->meta == 1)
                     <div class="movie-wrapper">
-                        <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop }});">
+                        <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                             <div class="tags">
                                 {{ $torrentRequest->category->name }}
                             </div>
@@ -84,20 +84,26 @@
                             <div class="row movie-row ">
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                                     <h1 class="movie-heading">
-                                        <span class="text-bold">{{ $movie->title }}</span><span
-                                                class="text-bold"><em> ({{ $movie->releaseYear }})</em></span>
-                                        <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
+                                        @if($movie->title)
+                                            <span class="text-bold">{{ $movie->title }}</span><span
+                                                    class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
+                                        @else
+                                            <span class="text-bold">Sorry Not Meta Found</span>
+                                        @endif
+                                            @if($movie->imdbRating || $movie->tmdbRating)
+                                                <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
                     <span class="movie-rating-stars">
                       <i class="fa fa-star"></i>
                     </span>
-                                            @if($user->ratings == 1)
-                                                {{ $movie->imdbRating }}/10
-                                                ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
-                                            @else
-                                                {{ $movie->tmdbRating }}/10
-                                                ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
-                                            @endif
+                                                    @if($user->ratings == 1)
+                                                        {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} {{ trans('torrent.votes') }}
+                                                        )
+                                                    @else
+                                                        {{ $movie->tmdbRating }}/10({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }}
+                                                        )
+                                                    @endif
                  </span>
+                                            @endif
                                     </h1>
                                     <br>
                                     <span class="movie-overview">
@@ -110,25 +116,31 @@
                                                     <span class="badge-user text-bold text-green">{{ $genre }}</span>
                                                 @endforeach
                                             @endif
+                                                @if($movie->rated )
                                             <span class="badge-user text-bold text-orange">{{ trans('torrent.rated') }}
-                                                : {{ $movie->rated }} </span> <span
-                                                    class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}
+                                                : {{ $movie->rated }} </span>
+                                                @endif
+                                                @if($movie->runtime )
+                                            <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}
                                                 : {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
+                                                    @endif
                                         </li>
                                         <li>
+                                            @if($torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $movie->imdb }}" title="IMDB"
-                       target="_blank">IMDB: {{ $movie->imdb }}</a>
+                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $torrentRequest->imdb }}" title="IMDB"
+                       target="_blank">IMDB: {{ $torrentRequest->imdb }}</a>
                   </span>
-                                            @if($torrentRequest->category_id == "2")
+                                            @endif
+                                                @if($torrentRequest->category_id == "2" && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}"
+                         title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
-                                            @else
+                                                @elseif($torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}"
+                         title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                             @endif
                                             @if($torrentRequest->mal != 0 && $torrentRequest->mal != null)
@@ -177,7 +189,7 @@
                                 </div>
 
                                 <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                                    <img src="{{ $movie->poster }}" class="movie-poster img-responsive hidden-xs">
+                                    <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
                                 </div>
                             </div>
                         </div>
@@ -248,16 +260,19 @@
                         </tr>
                         <tr>
                             <td>
-                                <strong>{{ trans('request.claim') }}</strong>
+                                <strong>{{ trans('request.claim') }} / {{ trans('common.upload') }}</strong>
                             </td>
                             <td>
                                 @if($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
-                                    <button class="btn btn-md btn-success btn-vote-request" data-toggle="modal"
+                                    <button class="btn btn-md btn-info btn-vote-request" data-toggle="modal"
                                             data-target="#claim"><i class="fa fa-suitcase">
                                         </i> {{ trans('request.claim') }}
                                     </button>
+                                    <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
+                                       class="btn btn-md btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? '' }}
+                                    </a>
                                 @elseif($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
-                                    <button class="btn btn-xs btn-info" disabled><i
+                                    <button class="btn btn-xs btn-warning" disabled><i
                                                 class="fa fa-question-circle"></i>{{ trans('request.pending') }}
                                     </button>
                                 @elseif($torrentRequest->filled_hash != null)
@@ -271,6 +286,9 @@
                                             <span class="icon"><i
                                                         class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
                                         </a>
+                                        <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
+                                           class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
+                                        </a>
                                     @endif @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}</span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
@@ -278,6 +296,9 @@
                                            data-original-title="{{ trans('request.unclaim') }}">
                                             <span class="icon"><i
                                                         class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
+                                        </a>
+                                        <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
+                                           class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
                                         </a>
                                     @endif @endif @endif
                             </td>

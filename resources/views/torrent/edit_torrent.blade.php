@@ -27,22 +27,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">IMDB ID ({{ trans('common.required') }})</label>
+                    <label for="name">IMDB ID <b>({{ trans('common.required') }})</b></label>
                     <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">TMDB ID </label>
+                    <label for="name">TMDB ID <b>({{ trans('request.required') }})</b></label>
                     <input type="number" name="tmdb" value="{{ $torrent->tmdb }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">TVDB ID </label>
+                    <label for="name">TVDB ID (Optional)</label>
                     <input type="number" name="tvdb" value="{{ $torrent->tvdb }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">MAL ID </label>
+                    <label for="name">MAL ID (Optional)</label>
                     <input type="number" name="mal" value="{{ $torrent->mal }}" class="form-control" required>
                 </div>
 
