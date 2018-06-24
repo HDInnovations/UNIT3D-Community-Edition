@@ -16,7 +16,7 @@ return [
     'new' => 'Nova mensagem',
     'outbox' => 'Caixa de saída',
     'private' => 'Privada',
-    'read' => 'Ler',
+    'read' => 'Lida',
     'recieved-at' => 'Recebida em',
     'refresh' => 'Atualizar',
     'reply' => 'Responder',
