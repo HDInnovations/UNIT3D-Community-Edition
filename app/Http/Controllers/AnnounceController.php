@@ -130,38 +130,28 @@ class AnnounceController extends Controller
 
         // If User Download Rights Are Disabled Return Error to Client
         if ($user->can_download == 0 && $left != 0) {
-            //info('A User With Revoked Download Priviliges Attempted To Announce');
-            return response(Bencode::bencode(['failure reason' => 'You download priviliges are Revoked']), 200, ['Content-Type' => 'text/plain']);
+            //info('A User With Revoked Download Privileges Attempted To Announce');
+            return response(Bencode::bencode(['failure reason' => 'You download privileges are Revoked']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        // If User Client Is Sending Negitive Values Return Error to Client
+        // If User Client Is Sending Negative Values Return Error to Client
         if ($uploaded < 0 || $downloaded < 0 || $left < 0) {
-            //info('Client Attempted To Send Data With A Negitive Value');
+            //info('Client Attempted To Send Data With A Negative Value');
             return response(Bencode::bencode(['failure reason' => 'Data from client is a negative value']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If User Client Does Not Support Compact Return Error to Client
         if (!$compact) {
-            //info('Client Attempted To Connect To Announce But Doesnt Suppport Compact');
+            //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]), 200, ['Content-Type' => 'text/plain']);
         }
 
-        // If Infohash Is Not 20 Bytes Long Return Error to Client
-        /*if (strlen($info_hash) != 20) {
-        info('sent invalid info_hash: ' . $info_hash);
-        return response(Bencode::bencode(['failure reason' => "Invalid infohash: infohash is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }
-
-        // If Peerid Is Not 20 Bytes Long Return Error to Client
-        if (strlen($peer_id) != 20) {
-        info('sent invalid peer_id: ' . $peer_id);
-        return response(Bencode::bencode(['failure reason' => "Invalid peerid: peerid is not 20 bytes long."]), 200, ['Content-Type' => 'text/plain']); }*/
-
-        // Check Info Hash Agaist Torrents Table
+        // Check Info Hash Against Torrents Table
         $torrent = Torrent::where('info_hash', $info_hash)->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if (!$torrent || $torrent->id < 0) {
-            //info('Client Attempted To Connect To Announce But The Torrent Doesnt Exsist Using Hash '  . $info_hash);
+            //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']), 200, ['Content-Type' => 'text/plain']);
         }
 
@@ -296,6 +286,7 @@ class AnnounceController extends Controller
             //End Peer update
 
             $client->save();
+
         } elseif ($event == 'completed') {
             // Set the torrent data
             $history->agent = $agent;
@@ -310,7 +301,7 @@ class AnnounceController extends Controller
             $history->completed_at = Carbon::now();
             $history->save();
 
-            // user update
+            // User update
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
@@ -340,6 +331,7 @@ class AnnounceController extends Controller
             $diff = $new_update - $old_update;
             $history->seedtime += $diff;
             $history->save();
+
         } elseif ($event == 'stopped') {
             // Set the torrent data
             $history->agent = $agent;
@@ -353,7 +345,7 @@ class AnnounceController extends Controller
             $history->client_downloaded = 0;
             $history->save();
 
-            // user update
+            // User update
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
@@ -386,6 +378,7 @@ class AnnounceController extends Controller
 
             $client->delete();
         } else {
+
             // Set the torrent data
             $history->agent = $agent;
             $history->active = true;
@@ -398,7 +391,7 @@ class AnnounceController extends Controller
             $history->client_downloaded = $real_uploaded;
             $history->save();
 
-            // user update
+            // User update
             $user->uploaded += $mod_uploaded;
             $user->downloaded += $mod_downloaded;
             $user->save();
@@ -451,7 +444,7 @@ class AnnounceController extends Controller
         $blockedBrowsers = config('client-blacklist.browsers', []);
         foreach ($blockedBrowsers as $b) {
             if ($b == $client) {
-                info('Blacklist Browser Attempted To Connect To Announce');
+                //info('Blacklist Browser Attempted To Connect To Announce');
                 abort(405, "You Cannot Access This Through A Browser Bro!");
                 die();
             }
@@ -461,7 +454,7 @@ class AnnounceController extends Controller
         $blockedClients = config('client-blacklist.clients', []);
         foreach ($blockedClients as $blocked) {
             if ($blocked == $client) {
-                info('Blacklist Client Attempted To Connect To Announce');
+                //info('Blacklist Client Attempted To Connect To Announce');
                 return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
             }
         }
