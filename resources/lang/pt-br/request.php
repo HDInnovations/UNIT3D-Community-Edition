@@ -13,7 +13,7 @@ return [
     'bounty-claimed' => 'Recompensa reivindicada',
     'bounty-unclaimed' => 'Recompensa não reivindicada',
     'category' => 'Categoria',
-    'claim' => 'Reivindicar esse pedido',
+    'claim' => 'Reivindicar',
     'claim-anon-choose' => 'Escolha com sabedoria',
     'claim-as-anon' => 'Você gostaria de reivindicar isso anonimamente',
     'claim-now' => 'Reivindicar agora',
