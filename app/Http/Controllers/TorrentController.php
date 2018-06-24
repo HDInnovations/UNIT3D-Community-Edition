@@ -844,7 +844,7 @@ class TorrentController extends Controller
 
         $fileToDownload = Bencode::bencode($dict);
         file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
-        return response()->download(getcwd() . '/files/tmp/' . $tmpFileName);
+        return response()->download(getcwd() . '/files/tmp/' . $tmpFileName)->deleteFileAfterSend(true);
     }
 
     /**
