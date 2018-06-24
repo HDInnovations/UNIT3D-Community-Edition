@@ -1333,16 +1333,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.25",
+            "version": "v5.6.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f"
+                "reference": "7047df295e77cecb6a2f84736a732af66cc6789c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
-                "reference": "a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7047df295e77cecb6a2f84736a732af66cc6789c",
+                "reference": "7047df295e77cecb6a2f84736a732af66cc6789c",
                 "shasum": ""
             },
             "require": {
@@ -1468,7 +1468,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-06-12T14:39:24+00:00"
+            "time": "2018-06-20T14:21:11+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -2729,16 +2729,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "5.9.0",
+            "version": "5.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "a4c85861a280073d84c15aefaa406d42207d01c8"
+                "reference": "ad85988480db742937345c8b086346a30959e814"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/a4c85861a280073d84c15aefaa406d42207d01c8",
-                "reference": "a4c85861a280073d84c15aefaa406d42207d01c8",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/ad85988480db742937345c8b086346a30959e814",
+                "reference": "ad85988480db742937345c8b086346a30959e814",
                 "shasum": ""
             },
             "require": {
@@ -2798,20 +2798,20 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2018-06-18T10:31:14+00:00"
+            "time": "2018-06-19T21:20:28+00:00"
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.3.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "af29482520961df0778e934b1effd4a600b1299e"
+                "reference": "0765a254218b4946cfe9cf390dd0903ee479a669"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/af29482520961df0778e934b1effd4a600b1299e",
-                "reference": "af29482520961df0778e934b1effd4a600b1299e",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/0765a254218b4946cfe9cf390dd0903ee479a669",
+                "reference": "0765a254218b4946cfe9cf390dd0903ee479a669",
                 "shasum": ""
             },
             "require": {
@@ -2866,7 +2866,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2018-06-09T09:31:35+00:00"
+            "time": "2018-06-22T13:50:11+00:00"
         },
         {
             "name": "spatie/laravel-image-optimizer",
@@ -2975,16 +2975,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.8.1",
+            "version": "v6.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "c90990082451dcacf62c483540dd73b8898badb8"
+                "reference": "b325b5c123d2786eeac21e62ab594836300fb10a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c90990082451dcacf62c483540dd73b8898badb8",
-                "reference": "c90990082451dcacf62c483540dd73b8898badb8",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b325b5c123d2786eeac21e62ab594836300fb10a",
+                "reference": "b325b5c123d2786eeac21e62ab594836300fb10a",
                 "shasum": ""
             },
             "require": {
@@ -3026,7 +3026,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-06-13T23:38:34+00:00"
+            "time": "2018-06-24T15:29:24+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
