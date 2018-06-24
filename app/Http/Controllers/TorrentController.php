@@ -807,7 +807,7 @@ class TorrentController extends Controller
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0) {
+        if ($user->can_download == 0 && $torrent->user_id != $user->id) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with(Toastr::error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }

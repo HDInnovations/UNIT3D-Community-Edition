@@ -72,7 +72,7 @@
                             class="fa fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
                 @endif
                 <strong>Download Rights Active: </strong>
-                @if($user->can_download == 0)<span class="badge-extra text-red"><i
+                @if($user->can_download == 0 && $torrent->user_id != $user->id)<span class="badge-extra text-red"><i
                             class="fa fa-times"></i> {{ strtoupper(trans('torrent.failed')) }}</span>
                 @else<span class="badge-extra text-green"><i
                             class="fa fa-check"></i> {{ strtoupper(trans('torrent.passed')) }}</span>
@@ -88,7 +88,7 @@
             </div>
             <br>
             <div class="text-center">
-                @if($user->getRatio() < config('other.ratio') || $user->can_download == 0)
+                @if($user->getRatio() < config('other.ratio') || $user->can_download == 0 && $torrent->user_id != $user->id)
                     <span class="text-red text-bold">{{ trans('torrent.no-privileges-desc') }}</span>
                 @else
                     <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
