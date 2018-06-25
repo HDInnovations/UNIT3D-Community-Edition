@@ -41,8 +41,7 @@ class bonAllocation extends Command
      */
     public function handle()
     {
-        //Dying Torrent
-        $dying = DB::table('peers')
+        $dying_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('torrents.seeders', 1)
@@ -53,7 +52,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary = DB::table('peers')
+        $legendary_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -63,7 +62,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $old = DB::table('peers')
+        $old_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -74,7 +73,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $huge = DB::table('peers')
+        $huge_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -84,7 +83,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $large = DB::table('peers')
+        $large_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -95,7 +94,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $regular = DB::table('peers')
+        $regular_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
@@ -106,7 +105,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $participaint = DB::table('history')
+        $participaint_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -117,7 +116,7 @@ class bonAllocation extends Command
             ->toArray();
 
 
-        $teamplayer = DB::table('history')
+        $teamplayer_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -127,7 +126,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $commited = DB::table('history')
+        $commited_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -137,7 +136,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $mvp = DB::table('history')
+        $mvp_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -147,7 +146,7 @@ class bonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary = DB::table('history')
+        $legendary_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -160,7 +159,7 @@ class bonAllocation extends Command
 
         $array = [];
 
-        foreach ($dying as $key => $value) {
+        foreach ($dying_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
@@ -168,7 +167,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($legendary as $key => $value) {
+        foreach ($legendary_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1.5;
             } else {
@@ -176,7 +175,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($old as $key => $value) {
+        foreach ($old_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
@@ -184,7 +183,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($huge as $key => $value) {
+        foreach ($huge_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
@@ -192,7 +191,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($large as $key => $value) {
+        foreach ($large_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
@@ -200,7 +199,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($regular as $key => $value) {
+        foreach ($regular_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
@@ -208,7 +207,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($participaint as $key => $value) {
+        foreach ($participaint_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.25;
             } else {
@@ -216,7 +215,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($teamplayer as $key => $value) {
+        foreach ($teamplayer_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
@@ -224,7 +223,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($commited as $key => $value) {
+        foreach ($commited_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
@@ -232,7 +231,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($mvp as $key => $value) {
+        foreach ($mvp_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
@@ -240,7 +239,7 @@ class bonAllocation extends Command
             }
         }
 
-        foreach ($legendary as $key => $value) {
+        foreach ($legendary_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
