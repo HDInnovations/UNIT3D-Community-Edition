@@ -129,7 +129,7 @@ class PrivateMessageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('create', ['receiver_id' => '', 'username' => ''])
+            return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $pm->save();
