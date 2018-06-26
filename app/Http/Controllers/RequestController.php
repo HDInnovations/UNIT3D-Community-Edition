@@ -463,12 +463,14 @@ class RequestController extends Controller
             );
 
             // Send Private Message
-            $pm = new PrivateMessage;
-            $pm->sender_id = 1;
-            $pm->receiver_id = $tr->user_id;
-            $pm->subject = "Your Request " . $tr->name . " Has A New Bounty!";
-            $pm->message = $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
-            $pm->save();
+            if ($user->id != $tr->user_id) {
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $tr->user_id;
+                $pm->subject = "Your Request " . $tr->name . " Has A New Bounty!";
+                $pm->message = $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                $pm->save();
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
