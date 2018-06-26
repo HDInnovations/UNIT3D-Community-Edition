@@ -302,7 +302,9 @@ class BonusController extends Controller
         $pm->sender_id = 1;
         $pm->receiver_id = $uploader->id;
         $pm->subject = "You Have Received A BON Tip";
-        $pm->message = "Member " . $user->username . " has left a tip of " . $tip_amount . " BON on your upload " . $torrent->name . ".";
+        $profile_url = hrefProfile($user);
+        $torrent_url = hrefTorrent($torrent);
+        $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has left a tip of " . $tip_amount . " BON on your upload [url={$torrent_url}]{$torrent->name}[/url].";
         $pm->save();
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
