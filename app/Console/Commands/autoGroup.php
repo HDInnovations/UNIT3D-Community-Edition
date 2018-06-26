@@ -69,22 +69,22 @@ class autoGroup extends Command
             }
 
             //BluMember >= 1TB but < 5TB and account 1 month old
-            if ($user->uploaded >= 1073741824000 && $user->uploaded < 1073741824000 * 5 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 11) {
+            if ($user->uploaded >= 1073741824000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 11) {
                 $user->group_id = 11;
                 $user->save();
             }
             //BluMaster >= 5TB but < 20TB and account 1 month old
-            if ($user->uploaded >= 1073741824000 * 5 && $user->uploaded < 1073741824000 * 20 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 12) {
+            if ($user->uploaded >= 1073741824000 * 5 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 12) {
                 $user->group_id = 12;
                 $user->save();
             }
             //BluExtremist >= 20TB but < 50TB and account 3 month old
-            if ($user->uploaded >= 1073741824000 * 20 && $user->uploaded < 1073741824000 * 50 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 13) {
+            if ($user->uploaded >= 1073741824000 * 20 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 13) {
                 $user->group_id = 13;
                 $user->save();
             }
             //BluLegend >= 50TB but < 100TB and account 6 month old
-            if ($user->uploaded >= 1073741824000 * 50 && $user->uploaded < 1073741824000 * 100 && $user->created_at < $current->copy()->subDays(180)->toDateTimeString() && $user->group_id != 14) {
+            if ($user->uploaded >= 1073741824000 * 50 && $user->created_at < $current->copy()->subDays(180)->toDateTimeString() && $user->group_id != 14) {
                 $user->group_id = 14;
                 $user->save();
             }
