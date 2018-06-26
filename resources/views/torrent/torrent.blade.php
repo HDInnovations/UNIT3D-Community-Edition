@@ -87,7 +87,7 @@
                                 <li>
                                     @if($torrent->imdb != 0 && $torrent->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/{{ $torrent->imdb }}" title="IMDB"
+                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrent->imdb }}</a>
                   </span>
                                     @endif
