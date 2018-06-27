@@ -468,7 +468,8 @@ class RequestController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $tr->user_id;
                 $pm->subject = "Your Request " . $tr->name . " Has A New Bounty!";
-                $pm->message = $user->username . " Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                $profile_url = hrefProfile($user);
+                $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
                 $pm->save();
             }
 
@@ -545,7 +546,8 @@ class RequestController extends Controller
         $pm->sender_id = 1;
         $pm->receiver_id = $torrentRequest->user_id;
         $pm->subject = "Your Request " . $torrentRequest->name . " Has Been Filled!";
-        $pm->message = $torrentRequest->filled_by . " Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
+        $profile_url = hrefProfile($user);
+        $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
         $pm->save();
 
         // Activity Log
@@ -605,7 +607,8 @@ class RequestController extends Controller
             $pm->sender_id = 1;
             $pm->receiver_id = $tr->filled_by;
             $pm->subject = "Your Request Fulfill On " . $tr->name . " Has Been Approved!";
-            $pm->message = $tr->approved_by . " Has Approved Your Fulfillment On [url={$tr_url}]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!";
+            $profile_url = hrefProfile($user);
+            $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Approved Your Fulfillment On [url={$tr_url}]" . $tr->name . "[/url] Enjoy The " . $tr->bounty . " Bonus Points!";
             $pm->save();
 
             // Activity Log
@@ -637,7 +640,8 @@ class RequestController extends Controller
             $pm->sender_id = 1;
             $pm->receiver_id = $torrentRequest->filled_by;
             $pm->subject = "Your Request Fullfill On " . $torrentRequest->name . " Has Been Declined!";
-            $pm->message = $user->username . " Has Declined Your Fulfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] It did not meet the requirements!";
+            $profile_url = hrefProfile($user);
+            $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Declined Your Fulfillment On [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url] It did not meet the requirements!";
             $pm->save();
 
             // Activity Log
