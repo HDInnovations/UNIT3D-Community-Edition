@@ -23,7 +23,9 @@ class ResetPasswordController extends Controller
     {
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
-        $user->group_id = $this->group_id;
+        if ($user->group_id === 1){
+            $user->group_id = $this->group_id;
+        }
         $user->active = true;
         $user->save();
 
