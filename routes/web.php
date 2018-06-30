@@ -500,5 +500,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/backup/create', 'BackupController@create');
         Route::get('/backup/download/{file_name?}', 'BackupController@download');
         Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
+
+        // Mass Validate Users
+        Route::get('/massValidateUsers', 'UserController@massValidateUsers')->name('massValidateUsers');
     });
 });

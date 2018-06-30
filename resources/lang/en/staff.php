@@ -24,6 +24,7 @@ return [
     'links' => 'Links',
     'logs' => 'Logs',
     'mass-pm' => 'Mass PM',
+    'mass-validate-users' => 'Mass Validate Users',
     'moderation' => 'Moderation',
     'pages' => 'Pages',
     'please-moderate' => 'Please Moderate This Torrent!',

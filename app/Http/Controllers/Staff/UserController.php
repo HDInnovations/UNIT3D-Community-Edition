@@ -253,4 +253,22 @@ class UserController extends Controller
             }
         }
     }
+
+    /**
+     * Mass Validate Unvalidated Users
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function massValidateUsers()
+    {
+        $users = User::where('active', '=', 0)->where('group_id', '=', 1)->get();
+
+        foreach ($users as $user) {
+            $user->group_id = 3;
+            $user->active = 1;
+            $user->save();
+        }
+        return redirect('staff_dashboard')
+            ->with(Toastr::success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
+    }
 }
