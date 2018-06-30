@@ -128,9 +128,17 @@ return [
     | Invite System On/Off (Open Reg / Closed)
     | Expire time in days
     |
+    | Restricted mode for invites. If set to true, invites will be restricted
+    | Exempt these groups from the invite restrictions
     */
     'invite-only' => true,
     'invite_expire' => '14',
+    
+    'invites_restriced' => false,
+    'invite_groups' => [
+        'Administrator',
+        'Owner'
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -152,19 +160,15 @@ return [
     */
     'default_upload' => '53687091200',
     'default_download' => '1073741824',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Default Site Style
+    |--------------------------------------------------------------------------
+    | 0 = Light
+    | 1 = Dark
+    | 2 = Blur
+    | 3 = Galatic
+    */
     'default_style' => 0,
-
-    /*
-     * Restricted mode for invites. If set to true, invites will be restricted
-     */
-    'invites_restriced' => false,
-
-    /*
-     * Exempt these groups from the invite restrictions
-     *
-     */
-    'invite_groups' => [
-        'Administrator',
-        'Owner'
-    ],
 ];
