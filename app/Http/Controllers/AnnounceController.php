@@ -147,7 +147,7 @@ class AnnounceController extends Controller
         }
 
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::where('info_hash', $info_hash)->first();
+        $torrent = Torrent::withAnyStatus()->where('info_hash', $info_hash)->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if (!$torrent || $torrent->id < 0) {
