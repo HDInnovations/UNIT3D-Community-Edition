@@ -27,7 +27,7 @@ return [
     'comments' => 'Comments',
     'community' => 'Community',
     'contact' => 'Contact',
-    'contact-desc' => 'This contact request will be sent to all staff and one will get back to you as soon as possible',
+    'contact-desc' => 'This contact request will be sent to the owner and will get back to you as soon as possible',
     'contact-header' => 'Hello',
     'day' => 'Day',
     'delete' => 'Delete',
