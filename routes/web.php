@@ -265,6 +265,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/poll/{slug}/result', 'PollController@result')->name('poll_results');
 
         // Graveyard System
+        Route::get('/filterGraveyard', 'GraveyardController@faceted');
         Route::get('/graveyard', 'GraveyardController@index')->name('graveyard');
         Route::post('/graveyard/{id}', 'GraveyardController@resurrect')->name('resurrect');
 

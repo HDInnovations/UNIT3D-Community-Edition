@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\TorrentFacetedRepository;
 use App\Torrent;
 use App\Graveyard;
 use Carbon\Carbon;
@@ -20,6 +21,15 @@ use \Toastr;
 
 class GraveyardController extends Controller
 {
+    /**
+     * @var TorrentFacetedRepository
+     */
+    private $faceted;
+
+    public function __construct(TorrentFacetedRepository $faceted)
+    {
+        $this->faceted = $faceted;
+    }
 
     /**
      * Show The Graveyard
@@ -29,13 +39,89 @@ class GraveyardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $dead = Torrent::where('seeders', 0)->latest('leechers')->paginate(50);
+        $torrents = Torrent::query()->paginate(25);
+        $repository = $this->faceted;
         $deadcount = Torrent::where('seeders', 0)->count();
-        $time = config('graveyard.time');
-        $tokens = config('graveyard.reward');
 
-        return view('graveyard.index', ['user' => $user, 'dead' => $dead,
-            'deadcount' => $deadcount, 'time' => $time, 'tokens' => $tokens]);
+        return view('graveyard.index', [
+            'user' => $user,
+            'torrents' => $torrents,
+            'repository' => $repository,
+            'deadcount' => $deadcount,
+        ]);
+    }
+
+    /**
+     * Uses Input's To Put Together A Search
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $torrent Torrent
+     * @return array
+     */
+    public function faceted(Request $request, Torrent $torrent)
+    {
+        $user = auth()->user();
+        $search = $request->input('search');
+        $imdb = $request->input('imdb');
+        $tvdb = $request->input('tvdb');
+        $tmdb = $request->input('tmdb');
+        $mal = $request->input('mal');
+        $categories = $request->input('categories');
+        $types = $request->input('types');
+
+        $terms = explode(' ', $search);
+        $search = '';
+        foreach ($terms as $term) {
+            $search .= '%' . $term . '%';
+        }
+
+        $torrent = $torrent->where('seeders', 0);
+
+        if ($request->has('search') && $request->input('search') != null) {
+            $torrent->where('name', 'like', $search);
+        }
+
+        if ($request->has('imdb') && $request->input('imdb') != null) {
+            $torrent->where('imdb', $imdb);
+        }
+
+        if ($request->has('tvdb') && $request->input('tvdb') != null) {
+            $torrent->where('tvdb', $tvdb);
+        }
+
+        if ($request->has('tmdb') && $request->input('tmdb') != null) {
+            $torrent->where('tmdb', $tmdb);
+        }
+
+        if ($request->has('mal') && $request->input('mal') != null) {
+            $torrent->where('mal', $mal);
+        }
+
+        if ($request->has('categories') && $request->input('categories') != null) {
+            $torrent->whereIn('category_id', $categories);
+        }
+
+        if ($request->has('types') && $request->input('types') != null) {
+            $torrent->whereIn('type', $types);
+        }
+
+        if ($request->has('sorting') && $request->input('sorting') != null) {
+            $sorting = $request->input('sorting');
+            $order = $request->input('direction');
+            $torrent->orderBy($sorting, $order);
+        }
+
+        if($request->has('qty')){
+            $qty = $request->get('qty');
+            $torrents = $torrent->paginate($qty);
+        }else{
+            $torrents = $torrent->paginate(25);
+        }
+
+        return view('graveyard.results', [
+            'user' => $user,
+            'torrents' => $torrents
+        ])->render();
     }
 
     /**
