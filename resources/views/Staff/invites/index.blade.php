@@ -30,7 +30,8 @@
                 <div class="col-sm-12">
                     <h2>Invites Sent <span class="text-blue"><strong><i
                                         class="fa fa-note"></i> {{ $invitecount }} </strong></span></h2>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>Sender</th>
@@ -88,7 +89,10 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center">{{ $invites->links() }}</div>
+            </div>
+            <div class="text-center">
+                {{ $invites->links() }}
+            </div>
         </div>
     </div>
 @endsection

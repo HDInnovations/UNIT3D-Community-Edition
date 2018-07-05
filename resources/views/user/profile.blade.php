@@ -159,7 +159,8 @@
                 </div>
 
                 <h3><i class="fa fa-unlock"></i> {{ trans('user.public-info') }}</h3>
-                <table class="table table-condensed table-bordered table-striped">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-striped table-bordered">
                     <tbody>
                     <tr>
                         <td colspan="2">
@@ -187,7 +188,6 @@
                             </ul>
                         </td>
                     </tr>
-            </div>
             <tr>
                 <td>{{ trans('torrent.downloaded') }}</td>
                 <td>
@@ -339,12 +339,14 @@
             </tr>
             </tbody>
             </table>
+            </div>
     </div>
 
     @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
         <div class="block">
             <h3><i class="fa fa-lock"></i> {{ trans('user.private-info') }}</h3>
-            <table class="table table-condensed table-bordered table-striped">
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered">
                 <tbody>
                 <tr>
                     <td class="col-sm-3"> {{ trans('user.passkey') }}</td>
@@ -442,6 +444,7 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
             <br>
         </div>
 
@@ -548,4 +551,5 @@
         @endif
         </div>
 
-        @include('user.user_modals', ['user' => $user]) @endsection
+        @include('user.user_modals', ['user' => $user])
+@endsection

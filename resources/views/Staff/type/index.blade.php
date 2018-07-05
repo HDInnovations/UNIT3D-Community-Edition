@@ -18,7 +18,8 @@
         <h2>Types</h2>
         <a href="{{ route('staff_type_add') }}" class="btn btn-primary">Add A Torrent Type</a>
 
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Position</th>
@@ -43,5 +44,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

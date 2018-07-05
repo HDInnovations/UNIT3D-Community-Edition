@@ -25,7 +25,8 @@
     <div class="container box">
         <h2>Forums</h2>
         <a href="{{ route('staff_forum_add') }}" class="btn btn-primary">Add New Category/Forum</a>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Name</th>
@@ -59,5 +60,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

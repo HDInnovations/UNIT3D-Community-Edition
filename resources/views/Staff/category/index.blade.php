@@ -18,7 +18,8 @@
         <h2>Categories</h2>
         <a href="{{ route('staff_category_add') }}" class="btn btn-primary">Add A Category</a>
 
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Position</th>
@@ -47,5 +48,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

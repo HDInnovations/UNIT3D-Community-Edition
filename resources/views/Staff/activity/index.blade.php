@@ -68,7 +68,9 @@
                     @endif
                     </tbody>
                 </table>
-                {{ $activities->links() }}
+                <div class="text-center">
+                    {{ $activities->links() }}
+                </div>
             </div>
         </div>
     </div>

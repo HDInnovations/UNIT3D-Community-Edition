@@ -24,7 +24,8 @@
             <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control"
                    style="float:right;">
         </form>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>#</th>
@@ -97,7 +98,10 @@
             @endforeach
             </tbody>
         </table>
+        </div>
 
-        {{ $torrents->links() }}
+        <div class="text-center">
+            {{ $torrents->links() }}
+        </div>
     </div>
 @endsection

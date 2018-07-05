@@ -21,7 +21,8 @@
     <div class="container box">
         <h2>Articles</h2>
         <a href="{{ route('staff_article_add_form') }}" class="btn btn-primary">Add A Article</a>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -50,6 +51,9 @@
             @endforeach
             </tbody>
         </table>
-        {{ $articles->links() }}
+        </div>
+        <div class="text-center">
+            {{ $articles->links() }}
+        </div>
     </div>
 @endsection

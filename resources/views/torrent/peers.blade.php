@@ -31,7 +31,8 @@
                     <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
-            <table class="table table-striped table-bordered table-condensed table-hover">
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>{{ trans('common.user') }}</th>
@@ -117,7 +118,10 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
+            <div class="text-center">
             {{ $peers->links() }}
+            </div>
         </div>
     </div>
 @endsection

@@ -22,6 +22,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h2>{{ trans('user.invites-send') }}</h2>
+                    <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
@@ -78,6 +79,7 @@
                         @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>

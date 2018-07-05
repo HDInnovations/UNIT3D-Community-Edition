@@ -16,7 +16,8 @@
     <div class="container box">
         <h2>Manage Polls</h2>
         <a href="{{ route('getCreatePoll') }}" class="btn btn-primary">Add New Poll</a>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -37,5 +38,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

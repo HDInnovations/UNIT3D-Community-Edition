@@ -18,7 +18,8 @@
         <h2>Pages</h2>
         <a href="{{ route('staff_page_add') }}" class="btn btn-primary">Add a new page</a>
 
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -43,5 +44,6 @@
             @endforeach
             </tbody>
         </table>
+    </div>
     </div>
 @endsection

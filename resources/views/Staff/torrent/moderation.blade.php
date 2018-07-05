@@ -21,8 +21,8 @@
     <div class="text-center"><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1>
     </div>
     <div class="container box">
-        <div class="torrents col-md-12">
-            <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>Since</th>
@@ -162,12 +162,12 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        </div>
 
     <div class="text-center"><h1>Postponed Torrents</h1></div>
     <div class="container box">
-        <div class="torrents col-med-12">
-            <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>Since</th>
@@ -271,12 +271,12 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        </div>
 
     <div class="text-center"><h1>Rejected Torrents</h1></div>
     <div class="container box">
-        <div class="torrents col-md-12">
-            <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>Since</th>
@@ -430,5 +430,5 @@
                 </tbody>
             </table>
         </div>
-    </div>
+        </div>
 @endsection

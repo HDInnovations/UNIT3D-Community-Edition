@@ -29,6 +29,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <p class="text-red"><strong><i class="fa fa-list"></i> Reports</strong></p>
+                    <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
@@ -87,9 +88,12 @@
                         @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
-            <div class="text-center">{{ $reports->links() }}</div>
+            <div class="text-center">
+                {{ $reports->links() }}
+            </div>
         </div>
     </div>
 @endsection

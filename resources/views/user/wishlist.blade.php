@@ -44,7 +44,8 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-hover">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>Title</th>
@@ -89,8 +90,11 @@
                         @endforeach
                         </tbody>
                     </table>
+                    </div>
 
-                    {{ $wishes->links() }}
+                    <div class="text-center">
+                        {{ $wishes->links() }}
+                    </div>
 
                     @if(count($wishes) <= 0)
                         <div class="row">

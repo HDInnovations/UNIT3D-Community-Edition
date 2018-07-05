@@ -30,7 +30,8 @@
                 <div class="col-sm-12">
                     <h2>Warnings <span class="text-blue"><strong><i
                                         class="fa fa-note"></i> {{ $warningcount }} </strong></span></h2>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>User</th>
@@ -86,7 +87,10 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center">{{ $warnings->links() }}</div>
+            </div>
+            <div class="text-center">
+                {{ $warnings->links() }}
+            </div>
         </div>
     </div>
 @endsection

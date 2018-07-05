@@ -76,7 +76,9 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">{{ $notes->links() }}</div>
+            <div class="text-center">
+                {{ $notes->links() }}
+            </div>
         </div>
     </div>
 @endsection
