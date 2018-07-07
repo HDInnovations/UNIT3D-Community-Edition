@@ -222,6 +222,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/achievements', 'AchievementsController@index')->name('achievements');
         Route::get('/{username}.{id}/warninglog', 'UserController@getWarnings')->name('warninglog');
         Route::get('/deactivateWarning/{id}', 'UserController@deactivateWarning')->name('deactivateWarning');
+        Route::get('/deleteWarning/{id}', 'UserController@deleteWarning')->name('deleteWarning');
+        Route::get('/{username}.{id}/massDeactivateWarnings', 'UserController@deactivateAllWarnings')->name('massDeactivateWarnings');
+        Route::get('/{username}.{id}/massDeleteWarnings', 'UserController@deleteAllWarnings')->name('massDeleteWarnings');
+
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');

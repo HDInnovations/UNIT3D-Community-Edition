@@ -29,40 +29,37 @@
                 <input type="text" name="username" id="username" size="25" placeholder="{{ trans('user.search') }}"
                        class="form-control" style="float:right;">
             </form>
-            <div class="table-responsive">
-                <table class="table table-condensed table-striped table-bordered">
-                    <thead>
+            <table class="table table-condensed table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th>{{ trans('user.image') }}</th>
+                    <th>{{ trans('common.username') }}</th>
+                    <th>{{ trans('common.group') }}</th>
+                    <th>{{ trans('user.registration-date') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($users as $user)
                     <tr>
-                        <th>{{ trans('user.image') }}</th>
-                        <th>{{ trans('common.username') }}</th>
-                        <th>{{ trans('common.group') }}</th>
-                        <th>{{ trans('user.registration-date') }}</th>
+                        <td>
+                            @if($user->image != null)
+                                <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
+                                     class="members-table-img img-thumbnail">
+                            @else
+                                <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
+                                     class="members-table-img img-thumbnail">
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
+                        </td>
+                        <td>{{ $user->group->name }}</td>
+                        <td>{{ date('d M Y', strtotime($user->created_at)) }}</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($users as $user)
-                        <tr>
-                            <td>
-                                @if($user->image != null)
-                                    <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
-                                         class="members-table-img img-thumbnail">
-                                @else
-                                    <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
-                                         class="members-table-img img-thumbnail">
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
-                            </td>
-                            <td>{{ $user->group->name }}</td>
-                            <td>{{ date('d M Y', strtotime($user->created_at)) }}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+                @endforeach
+                </tbody>
+            </table>
         </div>
-
         <div class="text-center">
             {{ $users->links() }}
         </div>

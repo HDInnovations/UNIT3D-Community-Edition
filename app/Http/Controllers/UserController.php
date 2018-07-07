@@ -435,7 +435,7 @@ class UserController extends Controller
             $pm->sender_id = $staff->id;
             $pm->receiver_id = $warning->user_id;
             $pm->subject = "Hit and Run Warning Deactivated";
-            $pm->message = $staff->username . " has decided to deactivate your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->message = $staff->username . " has decided to deactivate your active warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
 
             // Activity Log
@@ -443,6 +443,112 @@ class UserController extends Controller
 
             return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
                 ->with(Toastr::success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
+        } else {
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
+
+    /**
+     * Deactivate All Warnings
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function deactivateAllWarnings($username, $id)
+    {
+        if (auth()->user()->group->is_modo) {
+            $staff = auth()->user();
+            $user = User::findOrFail($id);
+
+            $warnings = Warning::where('user_id', $user->id)->get();
+
+            foreach ($warnings as $warning) {
+                $warning->expires_on = Carbon::now();
+                $warning->active = 0;
+                $warning->save();
+            }
+
+            // Send Private Message
+            $pm = new PrivateMessage;
+            $pm->sender_id = $staff->id;
+            $pm->receiver_id = $warning->user_id;
+            $pm->subject = "All Hit and Run Warning Deactivated";
+            $pm->message = $staff->username . " has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has deactivated all warnings on {$warning->warneduser->username} account.");
+
+            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+                ->with(Toastr::success('All Warnings Were Successfully Deactivated', 'Yay!', ['options']));
+        } else {
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
+
+    /**
+     * Delete A Warning
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function deleteWarning($id)
+    {
+        if (auth()->user()->group->is_modo) {
+            $staff = auth()->user();
+            $warning = Warning::findOrFail($id);
+
+            // Send Private Message
+            $pm = new PrivateMessage;
+            $pm->sender_id = $staff->id;
+            $pm->receiver_id = $warning->user_id;
+            $pm->subject = "Hit and Run Warning Deleted";
+            $pm->message = $staff->username . " has decided to delete your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->save();
+
+            $warning->delete();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has deleted a warning on {$warning->warneduser->username} account.");
+
+            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+                ->with(Toastr::success('Warning Was Successfully Deleted', 'Yay!', ['options']));
+        } else {
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
+
+    /**
+     * Delete All Warnings
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function deleteAllWarnings($username, $id)
+    {
+        if (auth()->user()->group->is_modo) {
+            $staff = auth()->user();
+            $user = User::findOrFail($id);
+
+            $warnings = Warning::where('user_id', $user->id)->get();
+
+            foreach ($warnings as $warning) {
+                $warning->delete();
+            }
+
+            // Send Private Message
+            $pm = new PrivateMessage;
+            $pm->sender_id = $staff->id;
+            $pm->receiver_id = $warning->user_id;
+            $pm->subject = "All Hit and Run Warnings Deleted";
+            $pm->message = $staff->username . " has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has deleted all warnings on {$warning->warneduser->username} account.");
+
+            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+                ->with(Toastr::success('All Warnings Were Successfully Deleted', 'Yay!', ['options']));
         } else {
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
