@@ -43,6 +43,12 @@
                 <li><a href="{{ route('blacklist') }}">{{ trans('common.blacklist') }}</a></li>
                 <li><a href="{{ route('home') }}/p/tracker-codes.6">{{ trans('common.tracker-codes') }}</a></li>
                 <li><a href="{{ route('home') }}/p/upload-guide.5">{{ trans('common.upload-guide') }}</a></li>
+                @if (config('email-white-blacklist.enabled') == 'allow')
+                <li><a href="{{ route('emaillist') }}">{{ trans('common.email-whitelist') }}</a></li>
+                @endif
+                @if (config('email-white-blacklist.enabled') == 'block')
+                <li><a href="{{ route('emaillist') }}">{{ trans('common.email-blacklist') }}</a></li>
+                @endif
             </ul>
         </div>
 

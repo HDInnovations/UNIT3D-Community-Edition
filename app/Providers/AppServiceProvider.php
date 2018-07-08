@@ -15,11 +15,11 @@ namespace App\Providers;
 use App\Repositories\WishInterface;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -27,7 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Custom validation for the email whitelist/blacklist
+        Validator::extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
     }
 
     /**

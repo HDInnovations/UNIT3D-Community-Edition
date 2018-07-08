@@ -23,6 +23,10 @@ return [
     'blacklist-clients' => 'Clients',
     'blacklist-desc' => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
     'blacklist-webbrowser' => 'Web Browser',
+    'blacklist-emaildomain' => 'Blocked Domain',
+    'email-blacklist-desc' => 'The Following Email Domains Are Blocked From Being Used. You Cannot Register Or Send A Invite To The Following.',
+    'email-whitelist-desc' => 'The Following Email Domains Are The Only Email Domains Allowed To Be Used. You May Only Register Or Send A Invite Using The Following.',
     'staff-group' => 'Group',
-    'staff-title' => 'Title'
+    'staff-title' => 'Title',
+    'whitelist-emaildomain' => 'Trusted Domain'
 ];

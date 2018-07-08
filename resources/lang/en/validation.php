@@ -93,12 +93,14 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    'email_list' => 'Sorry, this email domain is not allowed to be used on this site. Please see sites email whitelist.',
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message'
-        ]
+            'rule-name' => 'custom-message',
+        ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

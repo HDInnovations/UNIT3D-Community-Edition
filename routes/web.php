@@ -116,14 +116,17 @@ Route::group(['middleware' => 'language'], function () {
         // Staff List
         Route::get('/staff', 'PageController@staff')->name('staff');
 
-        // Internal List
+        // Internals List
         Route::get('/internal', 'PageController@internal')->name('internal');
 
-        // Black List
+        // Client Blacklist
         Route::get('/blacklist', 'PageController@blacklist')->name('blacklist');
 
         // About Us
         Route::get('/aboutus', 'PageController@about')->name('about');
+
+        // Email Whitelist / Blacklist
+        Route::get('/emaillist', 'PageController@emailList')->name('emaillist');
 
         // Comments
         Route::post('/comment/article/{slug}.{id}', 'CommentController@article')->name('comment_article');

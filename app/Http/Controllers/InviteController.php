@@ -61,6 +61,11 @@ class InviteController extends Controller
                 ->with(Toastr::error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }
 
+        if ($user->invites <= 0) {
+            return redirect()->route('invite')
+                ->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
+        }
+
         $exist = Invite::where('email', $request->input('email'))->first();
         $member = User::where('email', $request->input('email'))->first();
 
@@ -69,18 +74,38 @@ class InviteController extends Controller
                 ->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a used already.', 'Whoops!', ['options']));
         }
 
-        if ($user->invites > 0) {
-            $code = Uuid::uuid4()->toString();
+        $code = Uuid::uuid4()->toString();
+        $invite = new Invite();
+        $invite->user_id = $user->id;
+        $invite->email = $request->input('email');
+        $invite->code = $code;
+        $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+        $invite->custom = $request->input('message');
 
-            $invite = new Invite();
-            $invite->user_id = $user->id;
-            $invite->email = $request->input('email');
-            $invite->code = $code;
-            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
-            $invite->custom = $request->input('message');
-            $invite->save();
+            if (config('email-white-blacklist.enabled') === 'allow'){
+                $v = validator($invite->toArray(), [
+                "email" => "required|email|email_list:allow", // Whitelist
+                "custom" => "required"
+                ]);
+            } elseif (config('email-white-blacklist.enabled') === 'block') {
+                $v = validator($invite->toArray(), [
+                    "email" => "required|email|email_list:block", // Blacklist
+                    "custom" => "required"
+                ]);
+            } else {
+                $v = validator($invite->toArray(), [
+                    "email" => "required|email", // Default
+                    "custom" => "required"
+                ]);
+            }
 
+
+        if ($v->fails()) {
+            return redirect()->route('invite')
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
             Mail::to($request->input('email'))->send(new InviteUser($invite));
+            $invite->save();
 
             $user->invites -= 1;
             $user->save();
@@ -88,9 +113,8 @@ class InviteController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
-            return redirect()->route('invite')->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('invite')->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
+            return redirect()->route('invite')
+                ->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
         }
     }
 

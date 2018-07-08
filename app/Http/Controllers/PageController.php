@@ -77,4 +77,17 @@ class PageController extends Controller
     {
         return view('page.aboutus');
     }
+
+    /**
+     * Show Email Whitelist / Blacklist Page
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function emailList()
+    {
+        $whitelist = config('email-white-blacklist.allow', []);
+        $blacklist = config('email-white-blacklist.block', []);
+
+        return view('page.emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
+    }
 }

@@ -50,20 +50,20 @@ class RegisterController extends Controller
      */
     public function registrationForm($code = null)
     {
+        // Make sure open reg is off and invite code is present
+        if ($code === 'null' && config('other.invite-only') == 1) {
+            return view('auth.login')
+                ->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
+        }
+
         return view('auth.register', ['code' => $code]);
     }
 
     public function register(Request $request, $code = null)
     {
-        // Make sure open reg is off and invite code is present
-        if (config('other.invite-only') == true && $code == null) {
-            return view('auth.login')
-                ->with(Toastr::error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
-        }
-
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == true && (!$key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
             return view('auth.register', ['code' => $code])
                 ->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }
@@ -80,12 +80,28 @@ class RegisterController extends Controller
         $user->style = config('other.default_style', 0);
         $user->group_id = $group->id;
 
-        $v = validator($request->all(), [
-            'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6',
-            'g-recaptcha-response' => new Captcha()
-        ]);
+        if (config('email-white-blacklist.enabled') === 'allow'){
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
+                'password' => 'required|min:8',
+                'g-recaptcha-response' => new Captcha()
+            ]);
+        } elseif (config('email-white-blacklist.enabled') === 'block') {
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
+                'password' => 'required|min:8',
+                'g-recaptcha-response' => new Captcha()
+            ]);
+        } else {
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:8',
+                'g-recaptcha-response' => new Captcha()
+            ]);
+        }
 
         if ($v->fails()) {
             return redirect()->route('register', ['code' => $code])
