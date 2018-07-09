@@ -16,6 +16,7 @@ use App\Torrent;
 use App\Message;
 use App\PrivateMessage;
 use App\Wish;
+use App\Follow;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -51,8 +52,25 @@ class TorrentHelper
                 $pm->sender_id = 1;
                 $pm->receiver_id = $wish->user_id;
                 $pm->subject = "Wish List Notice!";
-                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]";
+                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                 $pm->save();
+            }
+        }
+
+        if ($torrent->anon == 0) {
+            $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
+            if ($followers) {
+                foreach ($followers as $follower) {
+                    // Send Private Message
+                    $pm = new PrivateMessage;
+                    $pm->sender_id = 1;
+                    $pm->receiver_id = $follower->user_id;
+                    $pm->subject = "New Upload Notice!";
+                    $pm->message = "We just wanted to let you know that the user, {$torrent->user->username}, in which you are following has uploaded a new torrent to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] {$torrent->name} [/url]
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                    $pm->save();
+                }
             }
         }
 
