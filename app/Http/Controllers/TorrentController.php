@@ -67,17 +67,15 @@ class TorrentController extends Controller
     public function torrents()
     {
         $user = auth()->user();
-        $torrents = Torrent::query();
-        $alive = Torrent::where('seeders', '>=', 1)->count();
-        $dead = Torrent::where('seeders', 0)->count();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $torrents = Torrent::query()->paginate(25);
         $repository = $this->faceted;
 
         return view('torrent.torrents', [
+            'personal_freeleech' => $personal_freeleech,
             'repository' => $repository,
             'torrents' => $torrents,
-            'user' => $user,
-            'alive' => $alive,
-            'dead' => $dead
+            'user' => $user
         ]);
     }
 
@@ -162,7 +160,9 @@ class TorrentController extends Controller
     public function faceted(Request $request, Torrent $torrent)
     {
         $user = auth()->user();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $search = $request->input('search');
+        $description = $request->input('description');
         $uploader = $request->input('uploader');
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
@@ -192,10 +192,24 @@ class TorrentController extends Controller
             $uploader .= '%' . $username . '%';
         }
 
+        $keywords = explode(' ', $description);
+        $description = '';
+        foreach ($keywords as $keyword) {
+            $description .= '%' . $keyword . '%';
+        }
+
         $torrent = $torrent->newQuery();
 
-        if ($request->has('search') && $request->input('search') != null) {
-            $torrent->where('name', 'like', $search);
+        if($request->has('search')){
+            $torrent->where(function($query) use($search){
+                $query->where('name','like', $search);
+            });
+        }
+
+        if($request->has('description')){
+            $torrent->where(function($query) use($description){
+                $query->where('description','like', $description)->orWhere('mediainfo','like', $description);
+            });
         }
 
         if ($request->has('uploader') && $request->input('uploader') != null) {
@@ -266,46 +280,24 @@ class TorrentController extends Controller
             $torrent->where('seeders', $dead);
         }
 
-        // pagination query starts
-        $rows = $torrent->count();
-
-        if ($request->has('page')) {
-            $page = $request->input('page');
-            $qty = $request->input('qty');
-            $torrent->skip(($page - 1) * $qty);
-            $active = $page;
-        } else {
-            $active = 1;
-        }
-
-        if ($request->has('qty')) {
-            $qty = $request->input('qty');
-            $torrent->take($qty);
-        } else {
-            $qty = 25;
-            $torrent->take($qty);
-        }
-        // pagination query ends
-
         if ($request->has('sorting') && $request->input('sorting') != null) {
             $sorting = $request->input('sorting');
             $order = $request->input('direction');
             $torrent->orderBy($sorting, $order);
         }
 
-        $listings = $torrent->get();
-        $count = $torrent->count();
+        if($request->has('qty')){
+            $qty = $request->input('qty');
+            $torrents = $torrent->paginate($qty);
+        }else{
+            $torrents = $torrent->paginate(25);
+        }
 
-        $helper = new TorrentHelper();
-        $result = $helper->view($listings);
-
-        return [
-            'result' => $result,
-            'rows' => $rows,
-            'qty' => $qty,
-            'active' => $active,
-            'count' => $count
-        ];
+        return view('torrent.results', [
+            'torrents' => $torrents,
+            'user' => $user,
+            'personal_freeleech' => $personal_freeleech
+        ])->render();
     }
 
     /**
@@ -356,13 +348,13 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         if ($torrent->category_id == 2) {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $movie = $client->scrape('tv', null, $torrent->tmdb);
             } else {
                 $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
             }
         } else {
-            if ($torrent->tmdb || $torrent->tmdb != 0) {
+            if ($torrent->tmdb && $torrent->tmdb != 0) {
                 $movie = $client->scrape('movie', null, $torrent->tmdb);
             } else {
                 $movie = $client->scrape('movie', 'tt' . $torrent->imdb);

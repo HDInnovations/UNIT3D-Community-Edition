@@ -22,6 +22,7 @@ Vue.use(VTooltip)
 Vue.component('version', require('./components/Version'))
 Vue.component('chatbox', require('./components/chat/Chatbox'))
 Vue.component('bookmark', require('./components/BookmarkButton'))
+Vue.component('smallbookmark', require('./components/SmallBookmarkButton'))
 
 const app = new Vue({
   el: '#app'
