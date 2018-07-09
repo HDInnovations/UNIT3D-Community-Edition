@@ -374,7 +374,7 @@ wbbdebug=true;
 						}
 					},
 					transform: {
-            '<iframe src="http://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>': '[video]{SRC}[/video]'
+            '<iframe src="http://www.youtube.com/embed/{SRC}?rel=0" width="640" height="480" frameborder="0"></iframe>': '[video="youtube"]{SRC}[/video]'
 					}
 				},
 
