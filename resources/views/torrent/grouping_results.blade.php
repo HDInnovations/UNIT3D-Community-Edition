@@ -129,12 +129,21 @@
                                    href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
                                    data-toggle="tooltip" title=""
                                    data-original-title="{{ $t->name }}">{{ $t->name }}</a>
-                                <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
-                                    <button class="btn btn-primary btn-circle" type="button"
-                                            data-toggle="tooltip" title="" data-original-title="DOWNLOAD!"><i
-                                                class="livicon" data-name="download" data-size="18"
-                                                data-color="white" data-hc="white" data-l="true"></i></button>
-                                </a>
+                                @if (config('torrent.download_check_page') == 1)
+                                    <a href="{{ route('download_check', ['slug' => $t->slug, 'id' => $t->id]) }}">
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                                data-original-title="Download Torrent">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </a>
+                                @else
+                                    <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                                data-original-title="Download Torrent">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                    </a>
+                                @endif
                                 <br>
                                 <strong>
                                     @if ($t->anon == 1)
