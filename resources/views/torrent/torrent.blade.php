@@ -47,7 +47,7 @@
                                 <span class="text-bold">{{ $movie->title }}</span><span
                                         class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
                                 @else
-                                    <span class="text-bold">Sorry Not Meta Found</span>
+                                    <span class="text-bold">No Meta Data Found</span>
                                 @endif
                                 @if($movie->imdbRating || $movie->tmdbRating)
                                 <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
