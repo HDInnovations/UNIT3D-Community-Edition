@@ -71,12 +71,21 @@
                         <a class="view-torrent" href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                             {{ $torrent->name }}
                         </a>
-                        <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
-                            <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
-                                    data-original-title="Download Torrent">
-                                <i class="fa fa-download"></i>
-                            </button>
-                        </a>
+                        @if (config('torrent.download_check_page') == 1)
+                            <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                                <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                        data-original-title="Download Torrent">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </a>
+                        @else
+                            <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                                <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                        data-original-title="Download Torrent">
+                                    <i class="fa fa-download"></i>
+                                </button>
+                            </a>
+                        @endif
 
                         {{--<smallbookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></smallbookmark>--}}
 
