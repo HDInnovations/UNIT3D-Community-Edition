@@ -16,8 +16,6 @@ use Decoda\Decoda;
 use App\Hook\ClickableHook;
 use Illuminate\Database\Eloquent\Model;
 
-use Config;
-
 class Bbcode
 {
     private function __construct()

@@ -14,7 +14,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use \DB;
+use Illuminate\Support\Facades\DB;
 use App\Category;
 use App\History;
 use App\Torrent;

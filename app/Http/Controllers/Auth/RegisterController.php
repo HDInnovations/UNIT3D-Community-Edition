@@ -28,7 +28,6 @@ use App\Invite;
 use App\Rules\Captcha;
 use \Toastr;
 use Carbon\Carbon;
-use Cache;
 
 class RegisterController extends Controller
 {
