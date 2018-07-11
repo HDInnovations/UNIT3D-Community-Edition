@@ -107,6 +107,11 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']), 200, ['Content-Type' => 'text/plain']);
         }
 
+        // If User Is Leech Or Download Rights Disabled Return Error to Client
+        if ($user->group->id == 15 || $user->can_download == 0) {
+            return response(Bencode::bencode(['failure reason' => 'Your download rights are disabled']), 200, ['Content-Type' => 'text/plain']);
+        }
+
         // Standard Information Fields
         $event = $request->input('event');
         $info_hash = bin2hex($request->input('info_hash'));
