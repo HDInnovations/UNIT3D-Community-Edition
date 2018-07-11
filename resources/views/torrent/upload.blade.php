@@ -152,8 +152,8 @@
                 <br>
 
                 <div class="text-center">
-                    <button id="add" class="btn btn-default">Add MediaInfo Parser</button>
-                    <button type="submit" name="post" value="true" id="post" class="btn btn-primary">Upload</button>
+                    <button id="add" type="button" class="btn btn-primary">Add MediaInfo Parser</button>
+                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">Upload</button>
                 </div>
                 <br>
                 {{ Form::close() }}
@@ -171,12 +171,12 @@
     </script>
 
     <script type="text/javascript">
-      $('#add').on('click', function (e) {
-        e.preventDefault()
-        var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>'
-        $('.parser').append(optionHTML)
-      })
+      document.querySelector("#add").addEventListener("click", () => {
+        var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
+        document.querySelector(".parser").innerHTML = optionHTML;
+      });
     </script>
+
     <script>
       function updateTorrentName () {
         let name = document.querySelector('#title')
