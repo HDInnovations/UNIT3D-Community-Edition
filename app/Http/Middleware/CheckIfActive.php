@@ -20,9 +20,9 @@ class CheckIfActive
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param  string|null $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
@@ -31,7 +31,8 @@ class CheckIfActive
         if ($user and $user->group_id == 1 || $user->active == 0) {
             auth()->logout();
             $request->session()->flush();
-            return redirect('login')->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));;
+            return redirect('login')
+                ->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));;
         }
 
         return $next($request);

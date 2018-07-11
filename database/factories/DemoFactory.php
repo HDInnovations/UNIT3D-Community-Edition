@@ -9,7 +9,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
- 
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -29,7 +29,7 @@ $factory->define(App\Torrent::class, function (Faker\Generator $faker) {
         'info_hash' => $faker->md5,
         'file_name' => str_slug(strtolower($faker->name)),
         'num_file' => $faker->numberBetween(1, 50),
-        'announce' => config('app.url').'/announce',
+        'announce' => config('app.url') . '/announce',
         'size' => $faker->randomFloat(1, 0.00, 4000.00),
         'category_id' => $faker->numberBetween(1, 3),
         'user_id' => 0,
@@ -54,8 +54,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'downloaded' => 1073741824,
         'fl_tokens' => $faker->numberBetween(0, 30),
         'seedbonus' => $faker->randomFloat(1, 0.00, 10.00),
-        'invites' => $faker->numberBetween(0,10),
-        'hitandruns' => $faker->numberBetween(0,5),
+        'invites' => $faker->numberBetween(0, 10),
+        'hitandruns' => $faker->numberBetween(0, 5),
         'remember_token' => str_random(10),
     ];
 });

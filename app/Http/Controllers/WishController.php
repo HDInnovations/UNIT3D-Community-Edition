@@ -60,7 +60,7 @@ class WishController extends Controller
      */
     public function store(Request $request, $uid)
     {
-        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt' . $request->get('imdb');
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
@@ -69,7 +69,7 @@ class WishController extends Controller
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
-        if($omdb === null || $omdb === false) {
+        if ($omdb === null || $omdb === false) {
             return redirect()
                 ->route('wishlist', ['id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
