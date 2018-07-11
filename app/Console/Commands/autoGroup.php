@@ -52,7 +52,7 @@ class autoGroup extends Command
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
 
             //Leech ratio dropped below sites minimum
-            if ($user->getRatio() < config('other.ratio') && $user->group_id != 15) {
+            if ($user->getRatio() <= config('other.ratio') && $user->group_id != 15) {
                 $user->group_id = 15;
                 $user->can_request = 0;
                 $user->can_invite = 0;
@@ -60,7 +60,7 @@ class autoGroup extends Command
                 $user->save();
             }
             //Member >= 0 but < 1TB and ratio above sites minimum
-            if ($user->uploaded >= 0 && $user->getRatio() > config('other.ratio') && $user->group_id != 3) {
+            if ($user->uploaded >= 0 && $user->getRatio() >= config('other.ratio') && $user->group_id != 3) {
                 $user->group_id = 3;
                 $user->can_download = 1;
                 $user->can_request = 1;
