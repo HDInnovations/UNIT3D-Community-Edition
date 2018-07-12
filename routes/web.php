@@ -228,6 +228,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/deleteWarning/{id}', 'UserController@deleteWarning')->name('deleteWarning');
         Route::get('/{username}.{id}/massDeactivateWarnings', 'UserController@deactivateAllWarnings')->name('massDeactivateWarnings');
         Route::get('/{username}.{id}/massDeleteWarnings', 'UserController@deleteAllWarnings')->name('massDeleteWarnings');
+        Route::get('/restoreWarning/{id}', 'UserController@restoreWarning')->name('restoreWarning');
 
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');

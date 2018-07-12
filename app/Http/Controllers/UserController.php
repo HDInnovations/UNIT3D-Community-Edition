@@ -409,7 +409,16 @@ class UserController extends Controller
             $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
             $warningcount = Warning::where('user_id', $id)->count();
 
-            return view('user.warninglog', ['warnings' => $warnings, 'warningcount' => $warningcount, 'user' => $user]);
+            $softDeletedWarnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
+            $softDeletedWarningCount = Warning::where('user_id', $id)->onlyTrashed()->count();
+
+            return view('user.warninglog', [
+                'warnings' => $warnings,
+                'warningcount' => $warningcount,
+                'softDeletedWarnings' => $softDeletedWarnings,
+                'softDeletedWarningCount' => $softDeletedWarningCount,
+                'user' => $user
+            ]);
         } else {
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
@@ -506,6 +515,8 @@ class UserController extends Controller
             $pm->message = $staff->username . " has decided to delete your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
 
+            $warning->deleted_by = $staff->id;
+            $warning->save();
             $warning->delete();
 
             // Activity Log
@@ -533,6 +544,8 @@ class UserController extends Controller
             $warnings = Warning::where('user_id', $user->id)->get();
 
             foreach ($warnings as $warning) {
+                $warning->deleted_by = $staff->id;
+                $warning->save();
                 $warning->delete();
             }
 
@@ -549,6 +562,29 @@ class UserController extends Controller
 
             return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
                 ->with(Toastr::success('All Warnings Were Successfully Deleted', 'Yay!', ['options']));
+        } else {
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
+
+    /**
+     * Restore A Soft Deleted Warning
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function restoreWarning($id)
+    {
+        if (auth()->user()->group->is_modo) {
+            $staff = auth()->user();
+            $warning = Warning::findOrFail($id);
+            $warning->restore();
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has restore a soft deleted warning on {$warning->warneduser->username} account.");
+
+            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+                ->with(Toastr::success('Warning Was Successfully Restored', 'Yay!', ['options']));
         } else {
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }

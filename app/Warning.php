@@ -13,9 +13,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Warning extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     /**
      * Belongs To A Torrent
      *
@@ -47,6 +57,19 @@ class Warning extends Model
     public function staffuser()
     {
         return $this->belongsTo(User::class, 'warned_by')->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
+    }
+
+    /**
+     * Belongs To A USer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class, 'deleted_by')->withDefault([
             'username' => 'System',
             'id' => '1'
         ]);

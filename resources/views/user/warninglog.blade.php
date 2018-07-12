@@ -13,6 +13,7 @@
 @endsection
 
 @section('content')
+    {{--Warnings--}}
     <div class="container">
         <div class="block">
             <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}"
@@ -113,6 +114,81 @@
                 </div>
             </div>
             {{ $warnings->links() }}
+        </div>
+    </div>
+
+    {{--SoftDeleted Warnings --}}
+    <div class="container">
+        <div class="block">
+            <h2>
+                <span class="text-bold text-orange">
+                    Soft Deleted Warnings {{ $softDeletedWarningCount }}
+                </span>
+            </h2>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Warned By</th>
+                                <th>Torrent</th>
+                                <th>Reason</th>
+                                <th>Created On</th>
+                                <th>Deleted On</th>
+                                <th>Deleted By</th>
+                                <th>Restore</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(count($softDeletedWarnings) == 0)
+                                <tr>
+                                    <td>
+                                        <p>The are soft deleted warnings in the database for this user!</p>
+                                    </td>
+                                </tr>
+                            @else
+                                @foreach($softDeletedWarnings as $softDeletedWarning)
+                                    <tr>
+                                        <td>
+                                            <a data-id="{{ $softDeletedWarning->staffuser->id }}"
+                                               data-slug="{{ $softDeletedWarning->staffuser->username }}"
+                                               href="{{ route('profile', ['username' => $softDeletedWarning->staffuser->username, 'id' => $softDeletedWarning->staffuser->id]) }}">{{ $softDeletedWarning->staffuser->username }}</a>
+                                        </td>
+                                        <td>
+                                            <a data-id="{{ $softDeletedWarning->torrenttitle->id }}"
+                                               data-slug="{{ $softDeletedWarning->torrenttitle->name }}"
+                                               href="{{ route('torrent', ['slug' =>$softDeletedWarning->torrenttitle->slug, 'id' => $softDeletedWarning->torrenttitle->id]) }}">{{ $softDeletedWarning->torrenttitle->name }}</a>
+                                        </td>
+                                        <td>
+                                            {{ $softDeletedWarning->reason }}
+                                        </td>
+                                        <td>
+                                            {{ $softDeletedWarning->created_at }}
+                                        </td>
+                                        <td>
+                                            {{ $softDeletedWarning->deleted_at }}
+                                        </td>
+                                        <td>
+                                            <a data-id="{{ $softDeletedWarning->deletedBy->id }}"
+                                               data-slug="{{ $softDeletedWarning->deletedBy->username }}"
+                                               href="{{ route('profile', ['username' => $softDeletedWarning->deletedBy->username, 'id' => $softDeletedWarning->deletedBy->id]) }}">{{ $softDeletedWarning->deletedBy->username }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}" class="btn btn-xs btn-info">
+                                                <i class="fa fa-refresh"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{ $softDeletedWarnings->links() }}
         </div>
     </div>
 @endsection

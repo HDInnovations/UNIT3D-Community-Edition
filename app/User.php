@@ -348,6 +348,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Deleted Many Warnings
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffdeletedwarning()
+    {
+        return $this->hasMany(Warning::class, 'deleted_by');
+    }
+
+    /**
      * Has Many Warnings
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
