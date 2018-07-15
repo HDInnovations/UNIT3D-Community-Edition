@@ -56,6 +56,7 @@
                                 <td class="col-sm-5">{{ trans('pm.subject') }}</td>
                                 <td class="col-sm-2">{{ trans('pm.recieved-at') }}</td>
                                 <td class="col-sm-2">{{ trans('pm.read') }}</td>
+                                <td class="col-sm-2">{{ trans('pm.delete') }}</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -87,6 +88,16 @@
                                             </span>
                                         </td>
                                     @endif
+                                    <td class="col-sm-2">
+                                        <form role="form" method="POST" action="{{ route('delete-pm',['id' => $p->id]) }}">
+                                            {{ csrf_field() }}
+                                            <div class="col-sm-1">
+                                                <button type="submit" class="btn btn-xs btn-danger"
+                                                        title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
