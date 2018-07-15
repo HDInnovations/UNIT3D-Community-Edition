@@ -254,8 +254,7 @@
                             <td>
                                 <span class="badge-user"><a
                                             href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}"
-                                            title="">{{ $torrentRequest->user->username }}</a></span>
-                                <span class="badge-extra">{{ $torrentRequest->created_at->diffForHumans() }}</span>
+                                            title="">{{ $torrentRequest->user->username }} <em>({{ $torrentRequest->created_at->diffForHumans() }})</em></a></span>
                             </td>
                         </tr>
                         <tr>
@@ -279,7 +278,7 @@
                                     <button class="btn btn-xs btn-success" disabled><i
                                                 class="fa fa-check-square-o"></i>{{ trans('request.filled') }}</button>
                                 @else @if($torrentRequestClaim->anon == 0)
-                                    <span class="badge-user">{{ $torrentRequestClaim->username }}</span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                    <span class="badge-user">{{ $torrentRequestClaim->username }} <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
@@ -290,7 +289,7 @@
                                            class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
                                         </a>
                                     @endif @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}</span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }} <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
