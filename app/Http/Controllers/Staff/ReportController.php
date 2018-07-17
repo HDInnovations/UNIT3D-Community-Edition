@@ -79,7 +79,11 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = "Your Report Has A New Verdict";
-        $pm->message = $report->verdict;
+        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        
+                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        
+                        [b]VERDICT:[/b] {$report->verdict}";
         $pm->save();
 
         return redirect()->route('getReports')
