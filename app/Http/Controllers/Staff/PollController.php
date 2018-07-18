@@ -18,7 +18,6 @@ use Illuminate\Http\Request;
 use App\Poll;
 use App\Option;
 use App\Http\Requests\StorePoll;
-use Cache;
 use \Toastr;
 
 class PollController extends Controller

@@ -20,7 +20,6 @@ use App\Article;
 use App\Comment;
 use App\Torrent;
 use App\TorrentRequest;
-use App\Message;
 use App\PrivateMessage;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
@@ -35,7 +34,6 @@ use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Notifications\NewTorrentComment;
-use App\Notifications\NewRequestComment;
 use \Toastr;
 
 class CommentController extends Controller
