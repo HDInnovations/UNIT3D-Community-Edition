@@ -85,7 +85,9 @@
                     @endforeach
                     </tbody>
                 </table>
-                {!! $active->appends(\Request::except('page'))->render() !!}
+                <div class="text-center">
+                    {{ $active->links() }}
+                </div>
             </div>
         </div>
 @endsection

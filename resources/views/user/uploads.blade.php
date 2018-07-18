@@ -85,7 +85,9 @@
                     @endforeach
                     </tbody>
                 </table>
-                {!! $torrents->appends(\Request::except('page'))->render() !!}
+                <div class="text-center">
+                    {{ $torrents->links() }}
+                </div>
             </div>
         </div>
 @endsection

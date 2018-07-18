@@ -88,7 +88,9 @@
                     @endforeach
                     </tbody>
                 </table>
-                {!! $history->appends(\Request::except('page'))->render() !!}
+                <div class="text-center">
+                    {{ $history->links() }}
+                </div>
             </div>
         </div>
 @endsection
