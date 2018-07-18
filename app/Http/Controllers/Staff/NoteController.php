@@ -84,5 +84,4 @@ class NoteController extends Controller
         return redirect()->back()
             ->with(Toastr::success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
     }
-
 }

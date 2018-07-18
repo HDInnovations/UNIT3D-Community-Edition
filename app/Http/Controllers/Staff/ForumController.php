@@ -67,26 +67,26 @@ class ForumController extends Controller
             $forum->save();
 
             // Permissions
-            foreach ($groups as $k => $group) {
-                $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-                if ($perm == null) {
-                    $perm = new Permission();
-                }
-                $perm->forum_id = $forum->id;
-                $perm->group_id = $group->id;
-                if (array_key_exists($group->id, $request->input('permissions'))) {
-                    $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                    $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                    $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                    $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                } else {
-                    $perm->show_forum = false;
-                    $perm->read_topic = false;
-                    $perm->reply_topic = false;
-                    $perm->start_topic = false;
-                }
-                $perm->save();
+        foreach ($groups as $k => $group) {
+            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
+            if ($perm == null) {
+                $perm = new Permission();
             }
+            $perm->forum_id = $forum->id;
+            $perm->group_id = $group->id;
+            if (array_key_exists($group->id, $request->input('permissions'))) {
+                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
+                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
+                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
+                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+            } else {
+                $perm->show_forum = false;
+                $perm->read_topic = false;
+                $perm->reply_topic = false;
+                $perm->start_topic = false;
+            }
+            $perm->save();
+        }
 
             return redirect()->route('staff_forum_index')
                 ->with(Toastr::success('Forum has been created successfully', 'Yay!', ['options']));
@@ -134,26 +134,26 @@ class ForumController extends Controller
             $forum->save();
 
             // Permissions
-            foreach ($groups as $k => $group) {
-                $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
-                if ($perm == null) {
-                    $perm = new Permission();
-                }
-                $perm->forum_id = $forum->id;
-                $perm->group_id = $group->id;
-                if (array_key_exists($group->id, $request->input('permissions'))) {
-                    $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
-                    $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
-                    $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
-                    $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
-                } else {
-                    $perm->show_forum = false;
-                    $perm->read_topic = false;
-                    $perm->reply_topic = false;
-                    $perm->start_topic = false;
-                }
-                $perm->save();
+        foreach ($groups as $k => $group) {
+            $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
+            if ($perm == null) {
+                $perm = new Permission();
             }
+            $perm->forum_id = $forum->id;
+            $perm->group_id = $group->id;
+            if (array_key_exists($group->id, $request->input('permissions'))) {
+                $perm->show_forum = (isset($request->input('permissions')[$group->id]['show_forum'])) ? true : false;
+                $perm->read_topic = (isset($request->input('permissions')[$group->id]['read_topic'])) ? true : false;
+                $perm->reply_topic = (isset($request->input('permissions')[$group->id]['reply_topic'])) ? true : false;
+                $perm->start_topic = (isset($request->input('permissions')[$group->id]['start_topic'])) ? true : false;
+            } else {
+                $perm->show_forum = false;
+                $perm->read_topic = false;
+                $perm->reply_topic = false;
+                $perm->start_topic = false;
+            }
+            $perm->save();
+        }
 
             return redirect()->route('staff_forum_index')
                 ->with(Toastr::success('Forum has been edited successfully', 'Yay!', ['options']));

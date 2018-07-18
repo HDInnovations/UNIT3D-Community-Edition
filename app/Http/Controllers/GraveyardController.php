@@ -111,10 +111,10 @@ class GraveyardController extends Controller
             $torrent->orderBy($sorting, $order);
         }
 
-        if($request->has('qty')){
+        if ($request->has('qty')) {
             $qty = $request->get('qty');
             $torrents = $torrent->paginate($qty);
-        }else{
+        } else {
             $torrents = $torrent->paginate(25);
         }
 

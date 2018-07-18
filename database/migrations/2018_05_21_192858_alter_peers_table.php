@@ -23,8 +23,7 @@ class AlterPeersTable extends Migration
      */
     public function up()
     {
-        Schema::table('peers', function($table)
-        {
+        Schema::table('peers', function ($table) {
             $table->renameColumn('hash', 'info_hash');
         });
     }
@@ -36,8 +35,7 @@ class AlterPeersTable extends Migration
      */
     public function down()
     {
-        Schema::table('peers', function($table)
-        {
+        Schema::table('peers', function ($table) {
             $table->renameColumn('hash', 'info_hash');
         });
     }

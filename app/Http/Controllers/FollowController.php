@@ -30,7 +30,6 @@ class FollowController extends Controller
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with(Toastr::error("Nice try, but sadly you can not follow yourself.", 'Whoops!', ['options']));
         } elseif (!auth()->user()->isFollowing($user->id)) {
-
             $follow = new Follow();
             $follow->user_id = auth()->user()->id;
             $follow->target_id = $user->id;

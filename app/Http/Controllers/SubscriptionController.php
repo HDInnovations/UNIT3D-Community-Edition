@@ -27,7 +27,6 @@ class SubscriptionController extends Controller
     public function subscribe(Topic $topic)
     {
         if (!auth()->user()->isSubscribed($topic->id)) {
-
             $subscription = new TopicSubscription();
             $subscription->user_id = auth()->user()->id;
             $subscription->topic_id = $topic->id;
@@ -50,7 +49,6 @@ class SubscriptionController extends Controller
     public function unsubscribe(Topic $topic)
     {
         if (auth()->user()->isSubscribed($topic->id)) {
-
             $subscription = auth()->user()->subscriptions()->where('topic_id', $topic->id)->first();
             $subscription->delete();
 

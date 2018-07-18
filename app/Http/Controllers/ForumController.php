@@ -238,7 +238,6 @@ class ForumController extends Controller
             $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
             if ($this->tag->hasTags($request->input('content'))) {
-
                 //$this->tag->setDebug(true);
 
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
@@ -248,12 +247,14 @@ class ForumController extends Controller
                         $users->push($p->user);
                     });
 
-                    $this->tag->messageUsers($users,
+                    $this->tag->messageUsers(
+                        $users,
                         "You are being notified by staff!",
                         $message
                     );
                 } else {
-                    $this->tag->messageTaggedUsers($request->input('content'),
+                    $this->tag->messageTaggedUsers(
+                        $request->input('content'),
                         "You have been tagged by {$user->username}",
                         $message
                     );
@@ -459,7 +460,6 @@ class ForumController extends Controller
         $categories = Forum::where('parent_id', '!=', 0)->get();
 
         return view('forum.edit_topic', ['topic' => $topic, 'categories' => $categories]);
-
     }
 
     /**

@@ -292,7 +292,6 @@ class RequestController extends Controller
             return redirect()->route('requests')
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-
             $tr->save();
 
             $requestsBounty = new TorrentRequestBounty();
@@ -497,27 +496,27 @@ class RequestController extends Controller
                 'info_hash' => "required|exists:torrents,info_hash",
             ]);
 
-            if ($v->passes()) {
-                $torrent = Torrent::where('info_hash', $request->input('info_hash'))->firstOrFail();
+        if ($v->passes()) {
+            $torrent = Torrent::where('info_hash', $request->input('info_hash'))->firstOrFail();
 
-                if ($user->id == $torrent->user_id) {
-                    $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
+            if ($user->id == $torrent->user_id) {
+                $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
 
-                    return redirect()->route('request', ['id' => $request->input('request_id')])
-                        ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
-                } elseif ($user->id != $torrent->user_id && Carbon::now()->addDay() > $torrent->created_at) {
-                    $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
+                return redirect()->route('request', ['id' => $request->input('request_id')])
+                    ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
+            } elseif ($user->id != $torrent->user_id && Carbon::now()->addDay() > $torrent->created_at) {
+                $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
 
-                    return redirect()->route('request', ['id' => $request->input('request_id')])
-                        ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
-                } else {
-                    return redirect()->route('request', ['id' => $request->input('request_id')])
-                        ->with(Toastr::error('You cannot fill this request for some weird reason', 'Whoops!', ['options']));
-                }
+                return redirect()->route('request', ['id' => $request->input('request_id')])
+                ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
             } else {
                 return redirect()->route('request', ['id' => $request->input('request_id')])
-                    ->with(Toastr::error('You failed to adhere to the requirements.', 'Whoops!', ['options']));
+                ->with(Toastr::error('You cannot fill this request for some weird reason', 'Whoops!', ['options']));
             }
+        } else {
+            return redirect()->route('request', ['id' => $request->input('request_id')])
+            ->with(Toastr::error('You failed to adhere to the requirements.', 'Whoops!', ['options']));
+        }
     }
 
     /**

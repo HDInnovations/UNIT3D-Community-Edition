@@ -291,7 +291,6 @@ class AnnounceController extends Controller
             //End Peer update
 
             $client->save();
-
         } elseif ($event == 'completed') {
             // Set the torrent data
             $history->agent = $agent;
@@ -336,7 +335,6 @@ class AnnounceController extends Controller
             $diff = $new_update - $old_update;
             $history->seedtime += $diff;
             $history->save();
-
         } elseif ($event == 'stopped') {
             // Set the torrent data
             $history->agent = $agent;
@@ -383,7 +381,6 @@ class AnnounceController extends Controller
 
             $client->delete();
         } else {
-
             // Set the torrent data
             $history->agent = $agent;
             $history->active = true;
