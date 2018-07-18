@@ -29,7 +29,7 @@
                     <div class="panel-heading">Add Catalog</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('postCatalog') }}">
-                            {{ csrf_field() }}
+                            @crsf
                             <div class="form-group{{ $errors->has('catalog') ? ' has-error' : '' }}">
                                 <label for="catalog" class="col-md-4 control-label">Catalog Name:</label>
                                 <div class="col-md-6">

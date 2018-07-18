@@ -20,7 +20,7 @@
             <h2>{{ trans('common.edit') }}: {{ $torrent->name }}</h2>
             <div class="block">
                 {{ Form::open(array('route' => array('edit', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
-                {{ csrf_field() }}
+                @crsf
                 <div class="form-group">
                     <label for="title">{{ trans('torrent.title') }}</label>
                     <input type="text" class="form-control" name="name" value="{{ $torrent->name }}" required>

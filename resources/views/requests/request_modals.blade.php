@@ -8,7 +8,7 @@
                 <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('add_votes',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @crsf
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.enter-bp') }}.</p>
                     <fieldset>
@@ -39,7 +39,7 @@
                 <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('fill_request',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @crsf
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.enter-hash') }}.</p>
                     <fieldset>
@@ -69,7 +69,7 @@
                 <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
             </div>
             <form role="form" method="GET" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @crsf
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
                     <div class="btns">
@@ -95,7 +95,7 @@
                 <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
             </div>
             <form role="form" method="POST" action="{{ route('deleteRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @crsf
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.delete-confirmation') }}?</p>
                     <fieldset>
@@ -123,7 +123,7 @@
                 <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.claim') }}</h2>
             </div>
             <form role="form" method="POST" action="{{ route('claimRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @crsf
                 <div class="modal-body">
                     <p class="text-center">{{ trans('request.claim-as-anon') }}?</p>
                     <br>
@@ -164,7 +164,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
-                    {{ csrf_field() }}
+                    @crsf
                     <div class="form-group">
                         <input id="type" name="type" type="hidden" value="Request">
                         <label for="file_name" class="col-sm-2 control-label">{{ trans('request.request') }}</label>

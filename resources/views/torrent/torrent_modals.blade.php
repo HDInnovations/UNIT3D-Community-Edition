@@ -14,7 +14,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
                     <div class="form-group">
-                        {{ csrf_field() }}
+                        @crsf
                         <input id="type" name="type" type="hidden" value="Torrent">
                         <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
                         <div class="col-sm-10">

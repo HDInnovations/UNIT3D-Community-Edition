@@ -58,7 +58,7 @@
                     </div>
                     <div class="panel-body">
                         <form id="verification_form" class="form-horizontal" method="POST">
-                            {{ csrf_field() }}
+                            @crsf
                             <div class="form-group margin-bottom-1 code-inputs">
                                 <div class="col-xs-3">
                                     <div class="{{ $errors->has('v_input_1') ? ' has-error' : '' }}">

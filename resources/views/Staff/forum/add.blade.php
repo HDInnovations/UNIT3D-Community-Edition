@@ -26,7 +26,7 @@
         <h2>Add a new Forum</h2>
 
         <form role="form" method="POST" action="{{ route('staff_forum_add') }}">
-            {{ csrf_field() }}
+            @crsf
         <div class="form-group">
             <label for="forum_type">Forum Type</label>
             <select name="forum_type" class="form-control">

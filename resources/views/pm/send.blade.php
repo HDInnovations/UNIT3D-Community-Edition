@@ -22,7 +22,7 @@
             <div class="col-md-10">
                 <div class="block">
                     <form role="form" method="POST" action="{{ route('send-pm') }}">
-                        {{ csrf_field() }}
+                        @crsf
                         <div class="form-group">
                             <label for="users">{{ trans('pm.select') }}</label>
                             <select class="js-example-basic-single form-control" name="receiver_id">

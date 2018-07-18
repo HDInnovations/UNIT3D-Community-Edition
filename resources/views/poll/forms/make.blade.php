@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    {{ csrf_field() }}
+    @crsf
 
     <div class="form-group">
         <label for="stitle">{{ trans('poll.title') }}:</label>

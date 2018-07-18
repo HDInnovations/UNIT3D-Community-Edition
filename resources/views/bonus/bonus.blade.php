@@ -229,7 +229,7 @@
     <div class="container box">
         <h3>{{ trans('bon.gift') }}</h3>
         <form role="form" method="POST" action="{{ route('bongift') }}" id="send_bonus">
-            {{ csrf_field() }}
+            @crsf
 
             <div class="form-group">
                 <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>

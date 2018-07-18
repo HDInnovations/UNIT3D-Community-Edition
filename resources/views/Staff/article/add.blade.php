@@ -26,7 +26,7 @@
     <div class="container box">
         <h2>Add A Article</h2>
         <form role="form" method="POST" action="{{ route('staff_article_add') }}" enctype="multipart/form-data">
-            {{ csrf_field() }}
+            @csrf
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" name="title" required>
