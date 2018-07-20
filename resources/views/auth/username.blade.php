@@ -64,7 +64,7 @@
 
         <!-- SignUp Form -->
         <form class="form-horizontal" role="form" method="POST" action="{{ route('username.email') }}">
-            {{ csrf_field() }}
+            @csrf
             <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('auth.email') }}"
                    required autofocus>
             @if ($errors->has('email'))

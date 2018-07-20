@@ -28,7 +28,7 @@
                           method="post"
                           class="form-inline pull-right">
 
-                        {{ csrf_field() }}
+                        @csrf
 
                         <div class="form-group">
                             <input type="text" class="form-control" name="imdb" id="imdb" placeholder="IMDB ID">

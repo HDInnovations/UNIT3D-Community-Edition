@@ -79,7 +79,7 @@ class RegisterController extends Controller
         $user->style = config('other.default_style', 0);
         $user->group_id = $group->id;
 
-        if (config('email-white-blacklist.enabled') === 'allow'){
+        if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist

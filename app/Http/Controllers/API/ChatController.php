@@ -93,5 +93,4 @@ class ChatController extends Controller
 
         return response($user, 200);
     }
-
 }

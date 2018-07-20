@@ -46,7 +46,7 @@
         <div class="col-md-12">
             <form role="form" method="POST"
                   action="{{ route('comment_article',['slug' => $article->slug, 'id' => $article->id]) }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="form-group">
                     <label for="content">{{ trans('common.your') }} {{ strtolower(trans('common.comment')) }}
                         :</label><span class="badge-extra">{{ trans('common.type') }}

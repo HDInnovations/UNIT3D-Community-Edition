@@ -36,5 +36,4 @@ class BonTransactions extends Model
      * @var string
      */
     protected $dateFormat = 'U';
-
 }

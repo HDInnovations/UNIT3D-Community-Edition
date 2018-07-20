@@ -81,7 +81,6 @@ class TaggedUserRepository
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
             $this->messageUsers($tagged_user, $subject, $message);
-
         }
 
         return true;
@@ -97,7 +96,6 @@ class TaggedUserRepository
     {
         // Array of User objects
         if (is_iterable($users)) {
-
             // we only want unique users from the collection
             $users = is_array($users) ? collect($users)->unique() : $users->unique();
 

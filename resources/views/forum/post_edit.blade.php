@@ -49,7 +49,7 @@
                 : {{ $forum->name }}</h2>
             <form role="form" method="POST"
                   action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="form-group">
                     <textarea id="content" name="content" cols="30" rows="10"
                               class="form-control">{{ $post->content }}</textarea>

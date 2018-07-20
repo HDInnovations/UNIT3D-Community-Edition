@@ -82,22 +82,22 @@ class InviteController extends Controller
         $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
         $invite->custom = $request->input('message');
 
-            if (config('email-white-blacklist.enabled') === 'allow'){
-                $v = validator($invite->toArray(), [
-                "email" => "required|email|email_list:allow", // Whitelist
-                "custom" => "required"
-                ]);
-            } elseif (config('email-white-blacklist.enabled') === 'block') {
-                $v = validator($invite->toArray(), [
-                    "email" => "required|email|email_list:block", // Blacklist
-                    "custom" => "required"
-                ]);
-            } else {
-                $v = validator($invite->toArray(), [
-                    "email" => "required|email", // Default
-                    "custom" => "required"
-                ]);
-            }
+        if (config('email-white-blacklist.enabled') === 'allow') {
+            $v = validator($invite->toArray(), [
+            "email" => "required|email|email_list:allow", // Whitelist
+            "custom" => "required"
+            ]);
+        } elseif (config('email-white-blacklist.enabled') === 'block') {
+            $v = validator($invite->toArray(), [
+            "email" => "required|email|email_list:block", // Blacklist
+            "custom" => "required"
+            ]);
+        } else {
+            $v = validator($invite->toArray(), [
+            "email" => "required|email", // Default
+            "custom" => "required"
+            ]);
+        }
 
 
         if ($v->fails()) {

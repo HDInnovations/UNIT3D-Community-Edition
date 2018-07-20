@@ -101,7 +101,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
-                    {{ csrf_field() }}
+                    @csrf
                     <div class="form-group">
                         <input id="type" name="type" type="hidden" value="User">
                         <label for="file_name" class="col-sm-2 control-label">User</label>

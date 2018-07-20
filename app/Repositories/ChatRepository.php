@@ -152,5 +152,4 @@ class ChatRepository
     {
         return $this->status->findOrFail($id);
     }
-
 }

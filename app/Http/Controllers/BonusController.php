@@ -208,51 +208,51 @@ class BonusController extends Controller
                 'bonus_message' => "required|string"
             ]);
 
-            if ($v->passes()) {
-                $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
+        if ($v->passes()) {
+            $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
-                if (!$recipient || $recipient->id == $user->id) {
-                    return redirect('/bonus')
-                        ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
-                }
-
-                $value = $request->input('bonus_points');
-                $recipient->seedbonus += $value;
-                $recipient->save();
-
-                $user->seedbonus -= $value;
-                $user->save();
-
-                $transaction = new BonTransactions();
-                $transaction->itemID = 0;
-                $transaction->name = 'gift';
-                $transaction->cost = $value;
-                $transaction->sender = $user->id;
-                $transaction->receiver = $recipient->id;
-                $transaction->comment = $request->input('bonus_message');
-                $transaction->torrent_id = null;
-                $transaction->save();
-
-                $profile_url = hrefProfile($user);
-                $recipient_url = hrefProfile($recipient);
-
-                $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
-                );
-
-                $pm = new PrivateMessage;
-                $pm->sender_id = $user->id;
-                $pm->receiver_id = $recipient->id;
-                $pm->subject = "You Have Received A Gift";
-                $pm->message = $transaction->comment;
-                $pm->save();
-
+            if (!$recipient || $recipient->id == $user->id) {
                 return redirect('/bonus')
-                    ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
-            } else {
-                return redirect('/bonus')
-                    ->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
+                    ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
             }
+
+            $value = $request->input('bonus_points');
+            $recipient->seedbonus += $value;
+            $recipient->save();
+
+            $user->seedbonus -= $value;
+            $user->save();
+
+            $transaction = new BonTransactions();
+            $transaction->itemID = 0;
+            $transaction->name = 'gift';
+            $transaction->cost = $value;
+            $transaction->sender = $user->id;
+            $transaction->receiver = $recipient->id;
+            $transaction->comment = $request->input('bonus_message');
+            $transaction->torrent_id = null;
+            $transaction->save();
+
+            $profile_url = hrefProfile($user);
+            $recipient_url = hrefProfile($recipient);
+
+            $this->chat->systemMessage(
+                "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+            );
+
+            $pm = new PrivateMessage;
+            $pm->sender_id = $user->id;
+            $pm->receiver_id = $recipient->id;
+            $pm->subject = "You Have Received A Gift";
+            $pm->message = $transaction->comment;
+            $pm->save();
+
+            return redirect('/bonus')
+            ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
+        } else {
+            return redirect('/bonus')
+            ->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
+        }
     }
 
     /**

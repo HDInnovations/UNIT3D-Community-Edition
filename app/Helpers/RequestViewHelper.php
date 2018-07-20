@@ -19,7 +19,6 @@ class RequestViewHelper
         $data = [];
 
         foreach ($results as $list) {
-
             $category = "<i class='{$list->category->icon} torrent-icon' data-toggle='tooltip' title='' data-original-title='{$list->category->name} Torrent'></i>";
             $request_link = route('request', ['id' => $list->id]);
             $user_link = route('profile', ['username' => $list->user->username, 'id' => $list->user->id]);

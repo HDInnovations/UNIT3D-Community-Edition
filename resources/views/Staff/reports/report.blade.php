@@ -78,7 +78,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <form role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
-                        {{ csrf_field() }}
+                        @csrf
                         @if($report->solved == 0)
                             <div class="form-group">
                                 <label for="message">Verdict</label>

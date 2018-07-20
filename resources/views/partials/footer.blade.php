@@ -20,7 +20,7 @@
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ trans('common.logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                              style="display: none;">{{ csrf_field() }}</form>
+                              style="display: none;">@csrf</form>
                     </li>
                 @endif
             </ul>

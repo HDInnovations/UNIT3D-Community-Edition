@@ -23,7 +23,7 @@
         <h2>Add New Group</h2>
         <div class="table-responsive">
             <form role="form" method="POST" action="{{ route('staff_groups_add') }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>

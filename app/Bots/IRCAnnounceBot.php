@@ -52,8 +52,9 @@ class IRCAnnounceBot
 
             if ($ex[0] == "PING") {
                 $this->send_data("PONG " . $ex[1]);
-                if ($this->nickservpass)
+                if ($this->nickservpass) {
                     $this->send_data("NICKSERV IDENTIFY {$this->nickservpass}");
+                }
                 return;
             }
         }

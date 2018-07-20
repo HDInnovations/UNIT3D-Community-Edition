@@ -73,14 +73,13 @@ class PrivateMessageController extends Controller
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $id)->firstOrFail();
 
-        if($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
+        if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             if ($user->id === $pm->receiver_id && $pm->read === 0) {
                 $pm->read = 1;
                 $pm->save();
             }
 
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
-
         } else {
             return redirect()->route('inbox')
                 ->with(Toastr::error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
@@ -191,7 +190,7 @@ class PrivateMessageController extends Controller
         $user = auth()->user();
         $pm = PrivateMessage::where('id', $id)->firstOrFail();
 
-        if($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
+        if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
             return redirect()->route('inbox')
                 ->with(Toastr::success('PM Was Deleted Successfully!', 'Yay!', ['options']));

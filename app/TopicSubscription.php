@@ -15,7 +15,6 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\NewTopicPost;
 
-
 class TopicSubscription extends Model
 {
     /**

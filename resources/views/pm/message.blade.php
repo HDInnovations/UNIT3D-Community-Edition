@@ -47,7 +47,7 @@
                                         </div>
                                         <form role="form" method="POST"
                                               action="{{ route('delete-pm',['id' => $pm->id]) }}">
-                                            {{ csrf_field() }}
+                                            @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-sm btn-danger pull-right"
                                                         title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>
@@ -62,7 +62,7 @@
                                     </div>
                                 </div>
                                 <form role="form" method="POST" action="{{ route('reply-pm',['id' => $pm->id]) }}">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     <div class="form-group">
                                 <textarea id="message" name="message" cols="30" rows="10"
                                           class="form-control"></textarea>

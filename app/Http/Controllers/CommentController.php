@@ -20,7 +20,6 @@ use App\Article;
 use App\Comment;
 use App\Torrent;
 use App\TorrentRequest;
-use App\Message;
 use App\PrivateMessage;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
@@ -35,7 +34,6 @@ use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Notifications\NewTorrentComment;
-use App\Notifications\NewRequestComment;
 use \Toastr;
 
 class CommentController extends Controller
@@ -99,7 +97,6 @@ class CommentController extends Controller
             );
 
             if ($this->tag->hasTags($request->input('content'))) {
-
                 $pm = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$article_url}]HERE[/url]";
 
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
@@ -109,12 +106,14 @@ class CommentController extends Controller
                         $users->push($c->user);
                     });
 
-                    $this->tag->messageUsers($users,
+                    $this->tag->messageUsers(
+                        $users,
                         "You are being notified by staff!",
                         $pm
                     );
                 } else {
-                    $this->tag->messageTaggedUsers($request->input('content'),
+                    $this->tag->messageTaggedUsers(
+                        $request->input('content'),
                         "You have been tagged by {$user->username}",
                         $pm
                     );
@@ -145,7 +144,8 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $comment->content = $request->input('content');;
+        $comment->content = $request->input('content');
+        ;
         $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
@@ -183,7 +183,6 @@ class CommentController extends Controller
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
-
                 $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$torrent_url}]HERE[/url]";
 
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
@@ -193,12 +192,14 @@ class CommentController extends Controller
                         $users->push($c->user);
                     });
 
-                    $this->tag->messageUsers($users,
+                    $this->tag->messageUsers(
+                        $users,
                         "You are being notified by staff!",
                         $message
                     );
                 } else {
-                    $this->tag->messageTaggedUsers($request->input('content'),
+                    $this->tag->messageTaggedUsers(
+                        $request->input('content'),
                         "You have been tagged by {$user->username}",
                         $message
                     );
@@ -276,7 +277,6 @@ class CommentController extends Controller
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
-
                 $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$tr_url}] HERE [/url]";
 
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
@@ -286,12 +286,14 @@ class CommentController extends Controller
                         $users->push($c->user);
                     });
 
-                    $this->tag->messageUsers($users,
+                    $this->tag->messageUsers(
+                        $users,
                         "You are being notified by staff!",
                         $message
                     );
                 } else {
-                    $this->tag->messageTaggedUsers($request->input('content'),
+                    $this->tag->messageTaggedUsers(
+                        $request->input('content'),
                         "You have been tagged by {$user->username}",
                         $message
                     );

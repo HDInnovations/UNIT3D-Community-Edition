@@ -32,7 +32,8 @@ class CheckIfActive
             auth()->logout();
             $request->session()->flush();
             return redirect('login')
-                ->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));;
+                ->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+            ;
         }
 
         return $next($request);

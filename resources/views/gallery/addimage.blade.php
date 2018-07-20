@@ -27,7 +27,7 @@
             <div class="text-center">
                 <form name="addimagetoalbum" method="POST" action="{{ route('add_image_to_album') }}"
                       enctype="multipart/form-data">
-                    {{ csrf_field() }}
+                    @csrf
                     <input type="hidden" name="album_id" value="{{$album->id}}"/>
                     <h2>Add an Image to {{$album->name}}</h2>
                     <div class="form-group">

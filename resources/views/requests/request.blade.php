@@ -473,7 +473,7 @@
                     <div class="col-md-12">
                         <form role="form" method="POST"
                               action="{{ route('comment_request',['id' => $torrentRequest->id]) }}">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group">
                                 <label for="content">{{ trans('common.your-comment') }}:</label><span
                                         class="badge-extra">{{ trans('common.type') }}

@@ -118,10 +118,12 @@ class TorrentController extends Controller
 
         $torrents = DB::table('torrents')
             ->select('*')
-            ->join(DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
+            ->join(
+                DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
                 function ($join) {
                     $join->on('torrents.id', '=', 'unique_torrents.id');
-                })
+                }
+            )
             ->where('imdb', '!=', 0)
             ->orderBy('torrents.created_at', 'DESC')
             ->paginate(25);
@@ -200,15 +202,15 @@ class TorrentController extends Controller
 
         $torrent = $torrent->newQuery();
 
-        if($request->has('search')){
-            $torrent->where(function($query) use($search){
-                $query->where('name','like', $search);
+        if ($request->has('search')) {
+            $torrent->where(function ($query) use ($search) {
+                $query->where('name', 'like', $search);
             });
         }
 
-        if($request->has('description')){
-            $torrent->where(function($query) use($description){
-                $query->where('description','like', $description)->orWhere('mediainfo','like', $description);
+        if ($request->has('description')) {
+            $torrent->where(function ($query) use ($description) {
+                $query->where('description', 'like', $description)->orWhere('mediainfo', 'like', $description);
             });
         }
 
@@ -286,10 +288,10 @@ class TorrentController extends Controller
             $torrent->orderBy($sorting, $order);
         }
 
-        if($request->has('qty')){
+        if ($request->has('qty')) {
             $qty = $request->input('qty');
             $torrents = $torrent->paginate($qty);
-        }else{
+        } else {
             $torrents = $torrent->paginate(25);
         }
 
@@ -434,7 +436,6 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if ($user->group->is_modo || $user->id == $torrent->user_id) {
-
             return view('torrent.edit_torrent', [
                 'categories' => Category::all()->sortBy('position'),
                 'types' => Type::all()->sortBy('position'),
@@ -998,7 +999,6 @@ class TorrentController extends Controller
         $user = auth()->user();
 
         if ($user->group->is_modo || $user->group->is_internal) {
-
             $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
             if ($torrent->featured == 0) {

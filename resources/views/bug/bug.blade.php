@@ -16,7 +16,7 @@
             <form role="form" method="POST" action="{{ route('postBug') }}">
             <table class="table table-bordered">
                 <tbody>
-                    {{ csrf_field() }}
+                    @csrf
                     <tr>
                         <td class="rowhead">{{ trans('common.reporter') }}:</td>
                         <td>{{ trans('bug.enter-username') }}

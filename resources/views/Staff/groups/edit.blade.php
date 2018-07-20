@@ -25,7 +25,7 @@
         <div class="table-responsive">
             <form role="form" method="POST"
                   action="{{ route('staff_groups_edit',['group' => $group->name, 'id' => $group->id]) }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>

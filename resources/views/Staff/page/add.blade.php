@@ -22,7 +22,7 @@
     <div class="container box">
         <h2>Add a new page</h2>
         <form role="form" method="POST" action="{{ route('staff_page_add') }}">
-            {{ csrf_field() }}
+            @csrf
             <div class="form-group">
                 <label for="name">Page Name</label>
                 <input type="text" name="name" class="form-control">

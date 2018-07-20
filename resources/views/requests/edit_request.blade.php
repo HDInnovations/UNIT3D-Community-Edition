@@ -38,7 +38,7 @@
         @else
             <h1 class="upload-title">{{ trans('request.edit-request') }}</h1>
             <form role="form" method="POST" action="{{ route('edit_request',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="block">
                     <div class="form-group">
                         <label for="name">{{ trans('request.title') }}</label>

@@ -30,7 +30,7 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST"
                               action="{{ route('postCatalogTorrent') }}">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group{{ $errors->has('imdb') ? ' has-error' : '' }}">
                                 <label for="imdb" class="col-md-4 control-label">Torrent IMDB:</label>
                                 <div class="col-md-6">
