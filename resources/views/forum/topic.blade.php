@@ -158,7 +158,7 @@
                         @if($topic->state == "close" && auth()->user()->group->is_modo)
                             <form role="form" method="POST"
                                   action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
-                                @crsf
+                                @csrf
                                 <div class="text-danger">This topic is closed, but you can still reply due to you
                                     being {{auth()->user()->group->name}}.
                                 </div>
@@ -177,7 +177,7 @@
                         @else
                             <form role="form" method="POST"
                                   action="{{ route('forum_reply',['slug' => $topic->slug, 'id' => $topic->id]) }}">
-                                @crsf
+                                @csrf
                                 <div class="from-group">
                                     <textarea name="content" id="topic-response" cols="30" rows="10"></textarea>
                                 </div>

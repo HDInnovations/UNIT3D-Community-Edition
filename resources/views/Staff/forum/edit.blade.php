@@ -26,7 +26,7 @@
         <h2>Edit: {{ $forum->name }}</h2>
 
         <form role="form" method="POST" action="{{ route('staff_forum_edit', ['slug' => $forum->slug, 'id' => $forum->id]) }}">
-            @crsf
+            @csrf
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" value="{{ $forum->name }}">

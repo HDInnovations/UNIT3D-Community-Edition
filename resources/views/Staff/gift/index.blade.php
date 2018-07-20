@@ -25,7 +25,7 @@
     <div class="container box">
         <h2>Gifts</h2>
         <form action="{{ route('sendSystemGift') }}" method="post">
-            @crsf
+            @csrf
             <div class="form-group">
                 <label for="users">Select a User</label>
                 <select class="form-control user-select-placeholder-single" name="username">

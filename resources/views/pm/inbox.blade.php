@@ -41,7 +41,7 @@
                         <div class="col-md-4 col-xs-7">
                             <div class="input-group">
                                 <form role="form" method="GET" action="{{ route('searchPM') }}">
-                                    @crsf
+                                    @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
                                            placeholder="{{ trans('pm.search') }}">
                                 </form>
@@ -90,7 +90,7 @@
                                     @endif
                                     <td class="col-sm-2">
                                         <form role="form" method="POST" action="{{ route('delete-pm',['id' => $p->id]) }}">
-                                            @crsf
+                                            @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-xs btn-danger"
                                                         title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>

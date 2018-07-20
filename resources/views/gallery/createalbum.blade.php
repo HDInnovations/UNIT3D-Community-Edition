@@ -26,7 +26,7 @@
         <div class="block">
             <form name="createnewalbum" method="POST" action="{{ route('create_album') }}"
                   enctype="multipart/form-data">
-                @crsf
+                @csrf
                 <h2 class="text-center">Create An Album</h2>
                 <h4 class="text-red text-center">
                     IMDB Number Will Pull Album Name For You!

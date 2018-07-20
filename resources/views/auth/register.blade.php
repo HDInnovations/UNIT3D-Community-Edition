@@ -53,7 +53,7 @@
         </div>
 
         <form role="form" method="POST" action="{{ route('register', ['code' => $code]) }}">
-            @crsf
+            @csrf
             <input type="text" id="username" class="fadeIn second" name="username"
                    placeholder="{{ trans('auth.username') }}" required autofocus>
             @if ($errors->has('username'))

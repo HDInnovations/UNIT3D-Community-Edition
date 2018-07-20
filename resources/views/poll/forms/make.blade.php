@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    @crsf
+    @csrf
 
     <div class="form-group">
         <label for="stitle">{{ trans('poll.title') }}:</label>

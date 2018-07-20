@@ -50,7 +50,7 @@
             <h3>{{ trans('user.invite-friend') }}</h3>
             <div class="block block-form">
                 <form action="{{ route('invite') }}" method="post">
-                    @crsf
+                    @csrf
                     <label for="email" class="col-sm-2 control-label">{{ trans('common.email') }}</label>
                     <input class="form-control" name="email" type="email" id="email" size="10" required>
                     <label for="message" class="col-sm-2 control-label">{{ trans('common.message') }}</label>

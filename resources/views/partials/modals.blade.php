@@ -11,7 +11,7 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form" method="POST"
                       action="{{route('comment_edit',['comment_id'=>$comment->id])}}">
-                    @crsf
+                    @csrf
                     <div class="form-group">
                         <div class="col-sm-12">
                             <textarea class="form-control" rows="5" name="comment-edit" cols="50"

@@ -67,7 +67,7 @@
             <li>
                 <form class="hoe-searchbar" role="form" method="GET"
                       action="{{ action('TorrentController@torrents') }}">
-                    @crsf
+                    @csrf
                     <input name="search" type="text" id="name" placeholder="{{ trans('common.quick-search') }}"
                            class="form-control">
                     <span class="search-icon"><i class="fa fa-search"></i></span>
@@ -134,7 +134,7 @@
                               action="{{ route('logout') }}"
                               method="POST"
                               style="display: none;">
-                            @crsf
+                            @csrf
                         </form>
                     </li>
                 </ul>

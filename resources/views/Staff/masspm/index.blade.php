@@ -25,7 +25,7 @@
     <div class="container box">
         <h2>Mass PM</h2>
         <form action="{{ route('sendMassPM') }}" method="post">
-            @crsf
+            @csrf
             <div class="form-group">
                 <label for="subject">Subject</label>
                 <input type="text" class="form-control" name="subject">

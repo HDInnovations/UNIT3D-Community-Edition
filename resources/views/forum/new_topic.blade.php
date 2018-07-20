@@ -38,7 +38,7 @@
             <h2><span>{{ trans('forum.create-new-topic') }}</span><span id="thread-title">{{ $title }}</span></h2>
             <form role="form" method="POST"
                   action="{{ route('forum_new_topic',['slug' => $forum->slug, 'id' => $forum->id]) }}">
-                @crsf
+                @csrf
                 <div class="form-group">
                     <input id="input-thread-title" type="text" name="title" maxlength="75" class="form-control"
                            placeholder="{{ trans('forum.topic-title') }}">

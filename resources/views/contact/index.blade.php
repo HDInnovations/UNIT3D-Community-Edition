@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-4 box centered-form">
                 <form role="form" method="POST" action="{{ route('sendContact') }}">
-                    @crsf
+                    @csrf
                     <div class="form-group">
                         <input type="text" name="contact-name" placeholder="{{ trans('common.name') }}"
                                value="{{ auth()->user()->username }}" class="form-control" required>

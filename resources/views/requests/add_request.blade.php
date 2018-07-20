@@ -44,7 +44,7 @@
             </div>
             <h1 class="upload-title">{{ trans('request.add-request') }}</h1>
             <form role="form" method="POST" action="{{ route('add_request') }}">
-                @crsf
+                @csrf
                 <div class="block">
                     <div class="upload col-md-12">
                         <div class="form-group">

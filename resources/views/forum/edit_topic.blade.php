@@ -34,7 +34,7 @@
             <h2><span>{{ trans('forum.edit-topic') }}</span></h2>
             <form role="form" method="POST"
                   action="{{ route('forum_edit_topic',['slug' => $topic->slug, 'id' => $topic->id]) }}">
-                @crsf
+                @csrf
                 <div class="form-group">
                     <label for="forum_name">{{ trans('forum.topic-name') }}</label>
                     <input id="name" type="text" name="name" maxlength="75" class="form-control"

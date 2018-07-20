@@ -21,7 +21,7 @@
             <h1>{{ trans('user.edit-profile') }}</h1>
 
             {{ Form::open(array('route' => array('user_edit_profile', 'username' => $user->username, 'id' => $user->id), 'files' => true)) }}
-            @crsf
+            @csrf
             <div class="form-group">
                 <label for="image">{{ trans('user.avatar') }}</label>
                 <small>{{ trans('user.formats-are-supported', ['formats' => '.jpg , .jpeg , .bmp , .png , .tiff , .gif']) }}</small>
