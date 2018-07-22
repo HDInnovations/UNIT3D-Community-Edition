@@ -379,13 +379,14 @@ wbbdebug=true;
 				},
 
         //select options
+        // Adapt size options to the ones accepted by decoda.
 				fs_verysmall: {
 					title: CURLANG.fs_verysmall,
 					buttonText: "fs1",
 					excmd: 'fontSize',
 					exvalue: "1",
 					transform: {
-            '<font size="10">{SELTEXT}</font>': '[size=10]{SELTEXT}[/size]'
+            '<font size="1">{SELTEXT}</font>': '[size=10]{SELTEXT}[/size]'
 					}
 				},
 				fs_small: {
@@ -394,7 +395,7 @@ wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "2",
 					transform: {
-            '<font size="15">{SELTEXT}</font>': '[size=15]{SELTEXT}[/size]'
+            '<font size="2">{SELTEXT}</font>': '[size=13]{SELTEXT}[/size]'
 					}
 				},
 				fs_normal: {
@@ -403,7 +404,7 @@ wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "3",
 					transform: {
-            '<font size="20">{SELTEXT}</font>': '[size=20]{SELTEXT}[/size]'
+            '<font size="3">{SELTEXT}</font>': '[size=16]{SELTEXT}[/size]'
 					}
 				},
 				fs_big: {
@@ -412,7 +413,7 @@ wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "4",
 					transform: {
-            '<font size="25">{SELTEXT}</font>': '[size=25]{SELTEXT}[/size]'
+            '<font size="4">{SELTEXT}</font>': '[size=18]{SELTEXT}[/size]'
 					}
 				},
 				fs_verybig: {
@@ -421,7 +422,7 @@ wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "6",
 					transform: {
-            '<font size="29">{SELTEXT}</font>': '[size=29]{SELTEXT}[/size]'
+            '<font size="6">{SELTEXT}</font>': '[size=29]{SELTEXT}[/size]'
 					}
 				},
 
