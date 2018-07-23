@@ -66,8 +66,8 @@ class TorrentHelper
                     $pm = new PrivateMessage;
                     $pm->sender_id = 1;
                     $pm->receiver_id = $follower->user_id;
-                    $pm->subject = "New Upload Notice!";
-                    $pm->message = "We just wanted to let you know that the user, {$torrent->user->username}, in which you are following has uploaded a new torrent to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] {$torrent->name} [/url]
+                    $pm->subject = "New Upload Notice: {$torrent->name}";
+                    $pm->message = "We just wanted to let you know that the user, {$torrent->user->username}, in which you are following has uploaded a new torrent to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] here. [/url]
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                     $pm->save();
                 }
