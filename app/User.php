@@ -536,12 +536,11 @@ class User extends Authenticatable
      */
     public function getAboutHtml()
     {	
-		if (empty($this->about)) {
-        return ('N/A');
-		}
-		else {
+	if (empty($this->about)) {
+		return ('N/A');
+	} else {
 		return Bbcode::parse($this->about);
-		}
+	}
     }
 
     /**
