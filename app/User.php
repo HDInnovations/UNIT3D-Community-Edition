@@ -535,8 +535,13 @@ class User extends Authenticatable
      * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml()
-    {
-        return Bbcode::parse($this->about);
+    {	
+		if (empty($this->about)) {
+        return ('N/A');
+		}
+		else {
+		return Bbcode::parse($this->about);
+		}
     }
 
     /**
