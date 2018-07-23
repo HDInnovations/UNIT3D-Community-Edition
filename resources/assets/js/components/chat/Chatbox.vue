@@ -77,7 +77,6 @@
         }
 
         .decoda-image {
-            min-height: 150px;
             max-height: 300px;
             max-width: 500px;
         }
