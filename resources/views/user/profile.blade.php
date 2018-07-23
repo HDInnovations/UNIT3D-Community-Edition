@@ -193,7 +193,7 @@
                 <td>
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
                           data-original-title="{{ trans('user.download-recorded') }}">{{ $user->getDownloaded() }}</span>
-                    -
+                    +
                     <span class="badge-extra text-orange" data-toggle="tooltip" title=""
                           data-original-title="{{ trans('user.download-bon') }}">{{ App\Helpers\StringHelper::formatBytes($bondownload , 2) }}</span> =
                     <span class="badge-extra text-blue" data-toggle="tooltip" title=""
