@@ -77,7 +77,7 @@ class UserController extends Controller
         $bonupload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Upload%'],])->sum('cost');
         $realupload = $user->uploaded - $bonupload;
         $bondownload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Download%'],])->sum('cost');
-        $realdownload = $user->downloaded - $bondownload;
+        $realdownload = $user->downloaded + $bondownload;
 
         return view('user.profile', [
             'user' => $user,
