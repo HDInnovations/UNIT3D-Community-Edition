@@ -199,7 +199,7 @@ wbbdebug=true;
 							{
 								title: CURLANG.modal_img_tab1,
 								input: [
-									{param: "SRC",title:CURLANG.modal_imgsrc_text,validation: '^http(s)?://.*?\.(jpg|png|gif|jpeg)$'}
+									{param: "SRC",title:CURLANG.modal_imgsrc_text,validation: '^http(s)?://.*?\.(jpg|png|gif|jpeg|svg)$'}
 								]
 							}
 						],
