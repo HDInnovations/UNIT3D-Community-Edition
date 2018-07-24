@@ -132,7 +132,8 @@ class RegisterController extends Controller
                 "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
                 "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
                 "Ready player [url={$profile_url}]{$user->username}[/url].",
-                "A wild [url={$profile_url}]{$user->username}[/url] appeared."
+                "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
+                "Welcome to " .config('other.title') . " [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)"
             ];
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
