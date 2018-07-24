@@ -15,6 +15,7 @@
             <li class="nav-header head"><i class="fa fa-wrench"></i> {{ trans('staff.general-tools') }}</li>
             <li><a href="{{ route('staff_article_index') }}"><i
                             class="fa fa-newspaper-o"></i> {{ trans('staff.articles') }}</a></li>
+            <li><a href="{{ route('chatManager') }}"><i class="fa fa-comment"></i> {{ trans('staff.chat') }}</a></li>
             @if(auth()->user()->group->is_admin)
                 <li><a href="{{ route('staff_forum_index') }}"><i class="fa fa-wpforms"></i> {{ trans('staff.forums') }}
                     </a></li>
