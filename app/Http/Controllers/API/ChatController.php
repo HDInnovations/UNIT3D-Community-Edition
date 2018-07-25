@@ -8,6 +8,7 @@ use App\Repositories\ChatRepository;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
@@ -16,6 +17,11 @@ class ChatController extends Controller
      * @var ChatRepository
      */
     private $chat;
+
+    /**
+     * @var AuthManager
+     */
+    private $auth;
 
     public function __construct(ChatRepository $chat)
     {
@@ -47,7 +53,13 @@ class ChatController extends Controller
 
     public function createMessage(Request $request)
     {
-        $user_id = $request->get('user_id');
+        $uid = $request->get('user_id');
+
+        if (Auth::user()->id !== $uid) {
+            return response('error', 401);
+        }
+
+        $user_id = $uid;
         $room_id = $request->get('chatroom_id');
         $message = $request->get('message');
         $save = $request->get('save');
