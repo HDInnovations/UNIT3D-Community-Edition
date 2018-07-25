@@ -11,6 +11,7 @@ return [
     'blocks' => 'Blocks',
     'catalog-groups' => 'Catalog Groups',
     'catalog-torrents' => 'Catalog Torrents',
+    'chat' => 'Chat',
     'config-manager' => 'Config Manager',
     'dashboard' => 'Dashboard',
     'failed-login-log' => 'Failed Login Log',

@@ -512,5 +512,14 @@ Route::group(['middleware' => 'language'], function () {
 
         // Mass Validate Users
         Route::get('/massValidateUsers', 'UserController@massValidateUsers')->name('massValidateUsers');
+
+        // Chat Management
+        Route::get('/chatManager', 'ChatController@index')->name('chatManager');
+        Route::post('/chatroom/add', 'ChatController@addChatroom')->name('addChatroom');
+        Route::post('/chatroom/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
+        Route::post('/chatroom/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
+        Route::post('/chatstatus/add', 'ChatController@addChatStatus')->name('addChatStatus');
+        Route::post('/chatstatus/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
+        Route::post('/chatstatus/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
     });
 });
