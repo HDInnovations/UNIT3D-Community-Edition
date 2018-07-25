@@ -4,7 +4,7 @@
             <li class="sent" v-for="message in messages">
 
                 <a target="_blank"
-                   v-tooltip="`${message.user.username}'s profile`"
+                   v-tooltip="`${message.user.username}${message.user.title ? ' ('+ message.user.title +')' : '\'s Profile'}`"
                    :href="`/${message.user.username}.${message.user.id}`">
                     <img v-if="message.user.id !== 1"
                          class="chat-user-image"
@@ -17,7 +17,7 @@
 
                     <span class="badge-user text-bold">
 
-                        <i :class="message.user.group.icon"></i>
+                        <i v-tooltip="`${message.user.group.name}`" :class="message.user.group.icon"></i>
 
                         <a data-toggle="tooltip" :style="userStyles(message.user)">
 					        {{ message.user.username }}
