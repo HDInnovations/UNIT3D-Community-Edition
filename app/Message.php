@@ -18,13 +18,6 @@ use App\Helpers\Bbcode;
 class Message extends Model
 {
     /**
-     * The Attributes That Aren't Mass Assignable
-     *
-     * @var array
-     */
-    protected $with = ['user'];
-
-    /**
      * The Attributes That Are Mass Assignable
      *
      * @var array

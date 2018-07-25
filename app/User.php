@@ -33,7 +33,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'passkey',
-        'email',
         'remember_token'
     ];
 
