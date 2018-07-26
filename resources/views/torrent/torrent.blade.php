@@ -163,7 +163,7 @@
                         <td>
                             @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
                                 @if($freeleech_token)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-viacoin text-bold" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip" title=""
                                             data-original-title="{{ trans('common.fl_token') }}"></i> {{ trans('common.fl_token') }}</span> @endif
                                 @if($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip" title=""
@@ -505,16 +505,16 @@
                         <br>
                         <span class="text-green text-bold">{{ trans('torrent.quick-tip') }}</span>
                         <br>
-                        <button type="submit" value="10" name="tip" class="btn"><img src="/images/10coin.png"/></button>
-                        <button type="submit" value="20" name="tip" class="btn"><img src="/images/20coin.png"/></button>
-                        <button type="submit" value="50" name="tip" class="btn"><img src="/images/50coin.png"/></button>
-                        <button type="submit" value="100" name="tip" class="btn"><img src="/images/100coin.png"/>
+                        <button type="submit" value="10" name="tip" class="btn"><img src="/img/coins/10coin.png"/></button>
+                        <button type="submit" value="20" name="tip" class="btn"><img src="/img/coins/20coin.png"/></button>
+                        <button type="submit" value="50" name="tip" class="btn"><img src="/img/coins/50coin.png"/></button>
+                        <button type="submit" value="100" name="tip" class="btn"><img src="/img/coins/100coin.png"/>
                         </button>
-                        <button type="submit" value="200" name="tip" class="btn"><img src="/images/200coin.png"/>
+                        <button type="submit" value="200" name="tip" class="btn"><img src="/img/coins/200coin.png"/>
                         </button>
-                        <button type="submit" value="500" name="tip" class="btn"><img src="/images/500coin.png"/>
+                        <button type="submit" value="500" name="tip" class="btn"><img src="/img/coins/500coin.png"/>
                         </button>
-                        <button type="submit" value="1000" name="tip" class="btn"><img src="/images/1000coin.png"/>
+                        <button type="submit" value="1000" name="tip" class="btn"><img src="/img/coins/1000coin.png"/>
                         </button>
                         {{ Form::close() }}
                     </td>
