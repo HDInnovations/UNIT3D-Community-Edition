@@ -237,7 +237,7 @@
 
             /* Add system message */
             this.createMessage(
-              `I am now [b]${this.auth.chat_status.name}[/b]`,
+              `[color=#999999][size=13]Updated their status to [b]${this.auth.chat_status.name}[/b][/size][/color]`,
               false,
               this.auth.id
             )
@@ -252,7 +252,7 @@
           'user_id': user_id,
           'chatroom_id': this.room,
           'message': message,
-          'save': save,
+          'save': save
         })
       },
 
