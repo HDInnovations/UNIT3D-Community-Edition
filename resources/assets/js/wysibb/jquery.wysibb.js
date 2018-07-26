@@ -1093,7 +1093,7 @@ wbbdebug=true;
 			for (let i=0; i<olist.length; i++) {
 				let oname = olist[i];
 				if (typeof(oname)=="string") {
-					var option = this.options.allButtons[oname];
+					let option = this.options.allButtons[oname];
 					if (option) {
 						//$.log("create: "+oname);
 						if (option.html) {
@@ -2085,7 +2085,7 @@ wbbdebug=true;
 								let nhtml = html;
 								nhtml = nhtml.replace(/\{(.*?)(\[.*?\])\}/g,"{$1}");
 								nhtml = this.strf(nhtml,r);
-								bbdata = bbdata.replace(am[0],nhtml);
+                bbdata = bbdata.replace(am[0],function(){return nhtml});
 							}
 						}
 					},this));
