@@ -1,7 +1,7 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home') }}">
-            <div class="banner"><i class="fa fa-rocket" style="display: inline;"></i>
+            <div class="banner"><i class="{{ config('other.font-awesome') }} fa-rocket" style="display: inline;"></i>
                 <span>{{ config('other.title') }}</span></div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
@@ -13,7 +13,7 @@
                 @php $pm = DB::table('private_messages')->where('receiver_id', '=', auth()->user()->id)->where('read', '=', '0')->count(); @endphp
                 <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    class="dropdown-toggle icon-circle">
-                    <i class="fa fa-envelope-o text-blue"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
                     @if($pm > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                     @endif
@@ -22,7 +22,7 @@
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
-                    <i class="fa fa-bell-o"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if(auth()->user()->unreadNotifications->count() > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                     @endif
@@ -31,14 +31,14 @@
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('achievements') }}" class="dropdown-toggle icon-circle">
-                    <i class="fa fa-trophy text-gold"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
                 </a>
             </li>
 
             @if(auth()->user()->group->is_modo)
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-tasks text-red"></i>
+                        <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
                         @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -70,7 +70,7 @@
                     @csrf
                     <input name="search" type="text" id="name" placeholder="{{ trans('common.quick-search') }}"
                            class="form-control">
-                    <span class="search-icon"><i class="fa fa-search"></i></span>
+                    <span class="search-icon"><i class="{{ config('other.font-awesome') }} fa-search"></i></span>
                 </form>
             </li>
         </ul>
@@ -81,7 +81,7 @@
             <span>
                 <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle"/>
             </span>
-                    <span><i class=" fa fa-angle-down"></i></span>
+                    <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
                     @foreach (App\Language::allowed() as $code => $name)
@@ -106,28 +106,28 @@
                   <img src="{{ url('img/profile.png') }}" alt="{{ auth()->user()->username }}" class="img-circle">
               @endif
           </span>
-                    <span><i class=" fa fa-angle-down"></i></span>
+                    <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
                         <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="fa fa-user"></i> {{ trans('user.my-profile') }}
+                            <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.my-profile') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_settings', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="fa fa-cogs"></i> {{ trans('user.account-settings') }}
+                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> {{ trans('user.account-settings') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
-                            <i class="fa fa-clipboard-list"></i> {{ trans('user.my-wishlist') }}
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> {{ trans('user.my-wishlist') }}
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="fa fa-sign-out"></i> {{ trans('auth.logout') }}
+                            <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> {{ trans('auth.logout') }}
                         </a>
 
                         <form id="logout-form"

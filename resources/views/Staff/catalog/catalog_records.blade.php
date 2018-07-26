@@ -47,13 +47,13 @@
                             <tr>
                                 <td>{{ $movie->releaseYear }}</td>
                                 <td>{{ $movie->title }}</td>
-                                <td><span class="text-green" style="float:right;"><i class="fa fa-lg fa-film list-icons"
+                                <td><span class="text-green" style="float:right;"><i class="{{ config('other.font-awesome') }} fa-lg fa-film list-icons"
                                                                                      aria-hidden="true"></i>  #{{$record->imdb}}</span>
                                 </td>
                                 <td><span class="text-red" style="float:right;"><i
-                                                class="fa fa-lg fa-television list-icons"
+                                                class="{{ config('other.font-awesome') }} fa-lg fa-television list-icons"
                                                 aria-hidden="true"></i>  #{{$record->tvdb}}</span></td>
-                                <td><i class="fa fa-lg fa-trash list-icons" aria-hidden="true"></i></td>
+                                <td><i class="{{ config('other.font-awesome') }} fa-lg fa-trash list-icons" aria-hidden="true"></i></td>
                             </tr>
                         @endforeach
                     @endif

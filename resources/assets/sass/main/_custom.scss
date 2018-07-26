@@ -9182,7 +9182,7 @@ img.emojione {
 }
 
 .checked i, .spoiler .spoiler-open:before, .spoiler .spoiler-toggle:before {
-  font-family: FontAwesome, sans-serif;
+  font-family: 'Font Awesome\ 5 Pro', sans-serif;
 }
 
 .pl-0 {
@@ -12735,7 +12735,7 @@ div.header div.inner_content h1 {
   overflow: hidden
 }
 
-.oper-list .oper-item .fa {
+.oper-list .oper-item .fal {
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
   -webkit-transition-duration: .5s;
@@ -12750,7 +12750,7 @@ div.header div.inner_content h1 {
   color: #fff
 }
 
-.oper-list .oper-item:hover .fa {
+.oper-list .oper-item:hover .fal {
   -webkit-transform: scale(1.5);
   transform: scale(1.5)
 }
@@ -12777,7 +12777,7 @@ div.header div.inner_content h1 {
   overflow: hidden
 }
 
-.black-list .black-item .fa {
+.black-list .black-item .fal {
   -webkit-transition-property: opacity, -webkit-transform;
   transition-property: transform, opacity;
   -webkit-transition-duration: .5s;
@@ -12799,7 +12799,7 @@ div.header div.inner_content h1 {
   z-index: 100
 }
 
-.black-list .black-item:hover .fa {
+.black-list .black-item:hover .fal {
   -webkit-transform: scale(1.5);
   transform: scale(1.5)
 }

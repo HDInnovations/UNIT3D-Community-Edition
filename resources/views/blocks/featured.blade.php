@@ -75,15 +75,15 @@
                   <br>
                   <br>
                 <ul class="list-inline">
-                <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}
+                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>{{ trans('torrent.size') }}
                         : </strong> {{ $feature->torrent->getSize() }}</span>
-                <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}
+                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}
                         : </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}
+                <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}
                             : </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}
+                <span class="badge-extra text-red"><li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}
                             : </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}
+                <span class="badge-extra text-orange"><li><i class="{{ config('other.font-awesome') }} fa-check-square"></i> <strong>{{ trans('torrent.completed') }}
                             : </strong> {{ $feature->torrent->times_completed }}</li></span>
                 <br>
                 <span class="badge-user text-bold text-pink"

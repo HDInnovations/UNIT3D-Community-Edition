@@ -32,7 +32,7 @@
 
             <p class="text-center">
                 <a href="{{ url('/') }}" role="button" class="btn btn-labeled btn-primary">
-                    <i class="fa fa-home"></i> Go Home
+                    <i class="{{ config('other.font-awesome') }} fa-home"></i> Go Home
                 </a>
             </p>
         </div>

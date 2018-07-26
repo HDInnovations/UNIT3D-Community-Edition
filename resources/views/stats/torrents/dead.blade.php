@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-red"><strong><i class="fa fa-recycle"></i> {{ trans('stat.top-dead') }}</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-recycle"></i> {{ trans('stat.top-dead') }}</strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>

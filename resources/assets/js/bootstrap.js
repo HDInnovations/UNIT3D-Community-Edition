@@ -66,7 +66,7 @@ window.Echo = new Echo({
  * UNIT3D
  */
 require('select2')
-require('ladda')
+window.Ladda = require('ladda')
 
 /*
  * jQuery Extensions

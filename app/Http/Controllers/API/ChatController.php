@@ -8,6 +8,7 @@ use App\Repositories\ChatRepository;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\AuthManager;
 
 class ChatController extends Controller
 {
@@ -17,9 +18,15 @@ class ChatController extends Controller
      */
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    /**
+     * @var AuthManager
+     */
+    private $auth;
+
+    public function __construct(ChatRepository $chat, AuthManager $auth)
     {
         $this->chat = $chat;
+        $this->auth = $auth;
     }
 
     /* STATUSES */
@@ -51,6 +58,10 @@ class ChatController extends Controller
         $room_id = $request->get('chatroom_id');
         $message = $request->get('message');
         $save = $request->get('save');
+
+        if ($this->auth->user()->id !== $user_id) {
+            return response('error', 401);
+        }
 
         $message = $this->chat->message($user_id, $room_id, $message);
 

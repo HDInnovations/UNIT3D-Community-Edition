@@ -43,8 +43,8 @@
 
             <div class="col-sm-8">
                 <div class="well well-sm mt-0">
-                    <p class="lead text-green text-center"><i class="fa fa-star"></i>
-                        <strong>{{ trans('common.contact-header') }}</strong> <i class="fa fa-star"></i></p>
+                    <p class="lead text-green text-center"><i class="{{ config('other.font-awesome') }} fa-star"></i>
+                        <strong>{{ trans('common.contact-header') }}</strong> <i class="{{ config('other.font-awesome') }} fa-star"></i></p>
                     <p class="lead text-orange text-center">{{ trans('common.contact-desc') }}.</p>
                 </div>
             </div>

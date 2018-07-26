@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    <i class="fa fa-list-ul fa-fw" aria-hidden="true"></i>
+    <i class="{{ config('other.font-awesome') }} fa-list-ul fa-fw" aria-hidden="true"></i>
     {{ trans('installer_messages.requirements.title') }}
 @endsection
 
@@ -25,14 +25,14 @@
                         <strong>
                             {{ $phpSupportInfo['current'] }}
                         </strong>
-                        <i class="fa fa-fw fa-{{ $phpSupportInfo['supported'] ? 'check-circle-o' : 'exclamation-circle' }} row-icon" aria-hidden="true"></i>
+                        <i class="{{ config('other.font-awesome') }} fa-fw fa-{{ $phpSupportInfo['supported'] ? 'check-circle' : 'exclamation-circle' }} row-icon" aria-hidden="true"></i>
                     </span>
                 @endif
             </li>
             @foreach($requirements['requirements'][$type] as $extention => $enabled)
                 <li class="list__item {{ $enabled ? 'success' : 'error' }}">
                     {{ $extention }}
-                    <i class="fa fa-fw fa-{{ $enabled ? 'check-circle-o' : 'exclamation-circle' }} row-icon" aria-hidden="true"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-fw fa-{{ $enabled ? 'check-circle' : 'exclamation-circle' }} row-icon" aria-hidden="true"></i>
                 </li>
             @endforeach
         </ul>
@@ -42,7 +42,7 @@
         <div class="buttons">
             <a class="button" href="{{ route('LaravelInstaller::permissions') }}">
                 {{ trans('installer_messages.requirements.next') }}
-                <i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+                <i class="{{ config('other.font-awesome') }} fa-angle-right fa-fw" aria-hidden="true"></i>
             </a>
         </div>
     @endif

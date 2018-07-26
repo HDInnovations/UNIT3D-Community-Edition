@@ -62,7 +62,7 @@
                             ({{ $movie->releaseYear }})</a>
                         <span class="badge-user text-bold text-gold">Rating:
             <span class="movie-rating-stars">
-              <i class="fa fa-star"></i>
+              <i class="{{ config('other.font-awesome') }} fa-star"></i>
             </span>
                             @if($user->ratings == 1)
                                 {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
@@ -88,7 +88,7 @@
                     <br>
                     <ul class="list-inline">
                         @php $count = DB::table('torrents')->where('imdb',$t->imdb)->where('category_id', $category->id)->count(); @endphp
-                        <li><i class="fa fa-files-o"></i> <strong>Torrents: </strong> {{ $count }}</li>
+                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>Torrents: </strong> {{ $count }}</li>
                     </ul>
                 </div>
             </div>

@@ -30,12 +30,12 @@
                             <a href="{{ route('massDeactivateWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
                                 <button type="button" class="btn btn btn-success" data-toggle="tooltip" title=""
                                         data-original-title="Deactivate All"><i
-                                            class="fa fa-check"></i> Deactivate All</button>
+                                            class="{{ config('other.font-awesome') }} fa-check"></i> Deactivate All</button>
                             </a>
                             <a href="{{ route('massDeleteWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
                                 <button type="button" class="btn btn btn-danger" data-toggle="tooltip" title=""
                                         data-original-title="Delete All"><i
-                                            class="fa fa-times"></i> Delete All</button>
+                                            class="{{ config('other.font-awesome') }} fa-times"></i> Delete All</button>
                             </a>
                         </div>
                     </h2>
@@ -92,17 +92,17 @@
                                     <td>
                                         @if($warning->active == 1)
                                             <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}" class="btn btn-xs btn-warning">
-                                                <i class="fa fa-power-off"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
                                             </a>
                                         @else
                                             <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}" class="btn btn-xs btn-warning" disabled>
-                                                <i class="fa fa-power-off"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
                                             </a>
                                         @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('deleteWarning', ['id' => $warning->id]) }}" class="btn btn-xs btn-danger">
-                                            <i class="fa fa-trash"></i>
+                                            <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -177,7 +177,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}" class="btn btn-xs btn-info">
-                                                <i class="fa fa-refresh"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
                                             </a>
                                         </td>
                                     </tr>

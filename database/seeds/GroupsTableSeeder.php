@@ -29,7 +29,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'validating',
             'position' => 2,
             'color' => '#95A5A6',
-            'icon' => 'fa fa-question-circle',
+            'icon' => config("other.font-awesome") . ' fa-question-circle',
             'can_upload' => 0
         ]);
 
@@ -39,7 +39,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'guest',
             'position' => 1,
             'color' => '#575757',
-            'icon' => 'fa fa-question-circle',
+            'icon' => config("other.font-awesome") . ' fa-question-circle',
             'can_upload' => 0
         ]);
 
@@ -49,7 +49,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'user',
             'position' => 4,
             'color' => '#7289DA',
-            'icon' => 'fa fa-user',
+            'icon' => config("other.font-awesome") . ' fa-user',
             'autogroup' => 1
         ]);
 
@@ -59,7 +59,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'administrator',
             'position' => 15,
             'color' => '#f92672',
-            'icon' => 'fa fa-user-secret',
+            'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_admin' => 1,
             'is_modo' => 1,
             'is_trusted' => 1,
@@ -72,7 +72,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'banned',
             'position' => 0,
             'color' => 'red',
-            'icon' => 'fa fa-ban',
+            'icon' => config("other.font-awesome") . ' fa-ban',
             'can_upload' => 0
         ]);
 
@@ -82,7 +82,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'moderator',
             'position' => 14,
             'color' => '#4ECDC4',
-            'icon' => 'fa fa-user-secret',
+            'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_modo' => 1,
             'is_trusted' => 1,
             'is_immune' => 1
@@ -94,7 +94,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'uploader',
             'position' => 12,
             'color' => '#2ECC71',
-            'icon' => 'fa fa-upload',
+            'icon' => config("other.font-awesome") . ' fa-upload',
             'is_trusted' => 1,
             'is_immune' => 1,
             'is_freeleech' => 1
@@ -106,7 +106,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'trustee',
             'position' => 13,
             'color' => '#BF55EC',
-            'icon' => 'fa fa-shield',
+            'icon' => config("other.font-awesome") . ' fa-shield',
             'is_trusted' => 1,
             'is_immune' => 1,
             'is_freeleech' => 1
@@ -118,7 +118,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'bot',
             'position' => 17,
             'color' => '#f1c40f',
-            'icon' => 'fa fa-android',
+            'icon' => 'fab fa-android',
             'is_modo' => 1,
             'is_trusted' => 1,
             'is_immune' => 1
@@ -130,7 +130,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'owner',
             'position' => 16,
             'color' => '#00abff',
-            'icon' => 'fa fa-user-secret',
+            'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_admin' => 1,
             'is_modo' => 1,
             'is_trusted' => 1,
@@ -143,7 +143,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'poweruser',
             'position' => 5,
             'color' => '#3c78d8',
-            'icon' => 'fa fa-user-circle-o',
+            'icon' => config("other.font-awesome") . ' fa-user-circle',
             'autogroup' => 1
         ]);
 
@@ -153,7 +153,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'superuser',
             'position' => 6,
             'color' => '#1155cc',
-            'icon' => 'fa fa-power-off',
+            'icon' => config("other.font-awesome") . ' fa-power-off',
             'autogroup' => 1
         ]);
 
@@ -163,7 +163,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'extremeuser',
             'position' => 7,
             'color' => '#1c4587',
-            'icon' => 'fa fa-bolt',
+            'icon' => config("other.font-awesome") . ' fa-bolt',
             'is_trusted' => 1,
             'autogroup' => 1
         ]);
@@ -174,7 +174,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'insaneuser',
             'position' => 8,
             'color' => '#1c4587',
-            'icon' => 'fa fa-rocket',
+            'icon' => config("other.font-awesome") . ' fa-rocket',
             'is_trusted' => 1,
             'autogroup' => 1
         ]);
@@ -185,7 +185,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'leech',
             'position' => 3,
             'color' => '#96281B',
-            'icon' => 'fa fa-times',
+            'icon' => config("other.font-awesome") . ' fa-times',
             'autogroup' => 1
         ]);
 
@@ -195,7 +195,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'veteran',
             'position' => 9,
             'color' => '#1c4587',
-            'icon' => 'fa fa-key',
+            'icon' => config("other.font-awesome") . ' fa-key',
             'effect' => 'url(https://i.imgur.com/F0UCb7A.gif)',
             'is_trusted' => 1,
             'is_immune' => 1,
@@ -209,7 +209,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'seeder',
             'position' => 10,
             'color' => '#1c4587',
-            'icon' => 'fa fa-hdd-o',
+            'icon' => config("other.font-awesome") . ' fa-hdd',
             'is_trusted' => 1,
             'is_immune' => 1,
             'autogroup' => 1
@@ -221,7 +221,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'archivist',
             'position' => 11,
             'color' => '#1c4587',
-            'icon' => 'fa fa-tasks',
+            'icon' => config("other.font-awesome") . ' fa-server',
             'effect' => 'url(https://i.imgur.com/F0UCb7A.gif)',
             'is_trusted' => 1,
             'is_immune' => 1,
@@ -235,7 +235,7 @@ class GroupsTableSeeder extends Seeder
             'slug' => 'internal',
             'position' => 11,
             'color' => '#BAAF92',
-            'icon' => 'fa fa-magic',
+            'icon' => config("other.font-awesome") . ' fa-magic',
             'is_trusted' => 1,
             'is_immune' => 1,
             'is_freeleech' => 1,

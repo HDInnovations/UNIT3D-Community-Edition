@@ -21,7 +21,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="title"><i class="fa fa-gear"></i> Account Setting</h1>
+        <h1 class="title"><i class="{{ config('other.font-awesome') }} fa-gear"></i> Account Setting</h1>
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#welcome" aria-controls="welcome" role="tab"
                                                       data-toggle="tab" aria-expanded="true">Account</a></li>

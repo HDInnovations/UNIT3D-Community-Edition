@@ -79,7 +79,7 @@
 						<td class="key">{{ $values["key"] }}</td>
 						<td class="value">{{ (!$values["value"]) ? 'null' : $values["value"] }}</td>
 						<td>
-							<button class="btn btn-sm btn-info edit" data-placement="top" data-key="{{ $values["key"] }}" data-loading-text="Saving new key..."><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button>
+							<button class="btn btn-sm btn-info edit" data-placement="top" data-key="{{ $values["key"] }}" data-loading-text="Saving new key..."><i class="{{ config('other.font-awesome') }} fa-pencil-square" aria-hidden="true"></i> Edit</button>
 						</td>
 					</tr>
 				@endforeach
@@ -96,7 +96,7 @@
         </div>
         <div class="second-step" style="display:none">
         	<div class="alert alert-warning">
-				<i class="fa fa-exclamation-triangle pr10"></i>
+				<i class="{{ config('other.font-awesome') }} fa-exclamation-triangle pr10"></i>
 				{{ trans('configmanager.sure') }}
 			</div>
 			<div class="col-xs-6 text-left no-padding">

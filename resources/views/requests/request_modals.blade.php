@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('add_votes',['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -36,7 +36,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('fill_request',['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -66,7 +66,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
             </div>
             <form role="form" method="GET" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -92,7 +92,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
             </div>
             <form role="form" method="POST" action="{{ route('deleteRequest',['id' => $torrentRequest->id]) }}">
                 @csrf
@@ -120,7 +120,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.claim') }}</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('request.claim') }}</h2>
             </div>
             <form role="form" method="POST" action="{{ route('claimRequest',['id' => $torrentRequest->id]) }}">
                 @csrf

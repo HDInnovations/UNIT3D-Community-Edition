@@ -57,16 +57,16 @@
                                 <br>
                                 <h4 class="badge badge-user"> Uploaded By: {{ $photo->user->username }}</h4>
                                 <br>
-                                <button type="button" class="btn btn-sm"><i class="fa fa-heart text-pink"> </i>
+                                <button type="button" class="btn btn-sm"><i class="{{ config('other.font-awesome') }} fa-heart text-pink"> </i>
                                 </button>
                                 <a href="{{ route('image_download', ['id' => $photo->id]) }}">
                                 <button type="button" class="btn btn-sm"><i
-                                            class="fa fa-download text-green"> {{ $photo->downloads }}</i>
+                                            class="{{ config('other.font-awesome') }} fa-download text-green"> {{ $photo->downloads }}</i>
                                 </button>
                                 </a>
                                 @if(auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
                                 <a href="{{ route('delete_image', ['id' => $photo->id]) }}">
-                                    <button type="button" class="btn btn-sm"><i class="fa fa-times text-red"> </i>
+                                    <button type="button" class="btn btn-sm"><i class="{{ config('other.font-awesome') }} fa-times text-red"> </i>
                                     </button>
                                 </a>
                                 @endif

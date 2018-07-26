@@ -94,17 +94,17 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('freeleech','1',false,['id'=>'freeleech']) }} <span class="fa fa-star text-gold"></span> 100% Free
+                        {{ Form::checkbox('freeleech','1',false,['id'=>'freeleech']) }} <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> 100% Free
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('doubleupload','1',false,['id'=>'doubleupload']) }}<span class="fa fa-diamond text-green"></span> Double Upload
+                        {{ Form::checkbox('doubleupload','1',false,['id'=>'doubleupload']) }}<span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> Double Upload
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('featured','1',false,['id'=>'featured']) }}<span class="fa fa-certificate text-pink"></span> Featured Torrent
+                        {{ Form::checkbox('featured','1',false,['id'=>'featured']) }}<span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> Featured Torrent
                     </label>
                 </span>
             </div>
@@ -115,17 +115,17 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('stream','1',false,['id'=>'stream']) }} <span class="fa fa-play text-red"></span> Stream Optimized
+                        {{ Form::checkbox('stream','1',false,['id'=>'stream']) }} <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> Stream Optimized
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('highspeed','1',false,['id'=>'highspeed']) }} <span class="fa fa-tachometer text-red"></span> High Speeds
+                        {{ Form::checkbox('highspeed','1',false,['id'=>'highspeed']) }} <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> High Speeds
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('sd','1',false,['id'=>'sd']) }} <span class="fa fa-ticket text-orange"></span> SD Content
+                        {{ Form::checkbox('sd','1',false,['id'=>'sd']) }} <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> SD Content
                     </label>
                 </span>
             </div>
@@ -136,17 +136,17 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('alive','1',false,['id'=>'alive']) }} <span class="fa fa-smile-o text-green"></span> Alive
+                        {{ Form::checkbox('alive','1',false,['id'=>'alive']) }} <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> Alive
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('dying','1',false,['id'=>'dying']) }} <span class="fa fa-meh-o text-orange"></span> Dying
+                        {{ Form::checkbox('dying','1',false,['id'=>'dying']) }} <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> Dying
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('dead','0',false,['id'=>'dead']) }} <span class="fa fa-frown-o text-red"></span> Dead
+                        {{ Form::checkbox('dead','0',false,['id'=>'dead']) }} <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> Dead
                     </label>
                 </span>
             </div>
@@ -178,22 +178,22 @@
             <div style="float:left;">
                 <strong>Extra:</strong>
                 <a href="{{ route('categories') }}" class="btn btn-xs btn-primary">
-                    <i class="fa fa-file"></i> Torrent Categories
+                    <i class="{{ config('other.font-awesome') }} fa-file"></i> Torrent Categories
                 </a>
                 <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary">
-                    <i class="fa fa-book"></i> Torrent Catalogs
+                    <i class="{{ config('other.font-awesome') }} fa-book"></i> Torrent Catalogs
                 </a>
             </div>
             <div style="float:right;">
                 <strong>View:</strong>
                 <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                    <i class="fa fa-list"></i> Torrent List
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> Torrent List
                 </a>
                 <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                    <i class="fa fa-image"></i> Torrent Cards
+                    <i class="{{ config('other.font-awesome') }} fa-image"></i> Torrent Cards
                 </a>
                 <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary">
-                    <i class="fa fa-list"></i> Torrent Grouping
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> Torrent Grouping
                 </a>
             </div>
             <br>
@@ -222,19 +222,19 @@
                 <strong>Activity Legend:</strong>
                 <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='Currently Seeding!'>
-                    <i class='fa fa-arrow-up'></i>
+                    <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
                 </button>
                 <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='Currently Leeching!'>
-                    <i class='fa fa-arrow-down'></i>
+                    <i class='{{ config("other.font-awesome") }} fa-arrow-down'></i>
                 </button>
                 <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='Started Downloading But Never Completed!'>
-                    <i class='fa fa-hand-paper-o'></i>
+                    <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
                 </button>
                 <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='You Completed This Download But Are No Longer Seeding It!'>
-                    <i class='fa fa-thumbs-down'></i>
+                    <i class='{{ config("other.font-awesome") }} fa-thumbs-down'></i>
                 </button>
             </div>
         </div>
@@ -357,7 +357,7 @@
                 },
                 type: 'get',
                 beforeSend: function () {
-                    $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function (e) {
               $data = $(e);

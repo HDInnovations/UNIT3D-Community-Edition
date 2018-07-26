@@ -23,7 +23,7 @@
         <div class="block">
             <h2>{{ trans('stat.groups') }}</h2>
             <hr>
-            <p class="text-red"><strong><i class="fa fa-users"></i> {{ trans('stat.groups') }}</strong>
+            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i> {{ trans('stat.groups') }}</strong>
                 ({{ trans('stat.users-per-group') }})</p>
             <div class="row col-md-offset-2">
                 @foreach($groups as $group)

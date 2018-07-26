@@ -45,7 +45,7 @@
                         </div>
 
                         <button class="btn btn-primary">
-                            <i class="fa fa-save"></i> {{ trans('pm.send') }}
+                            <i class="{{ config('other.font-awesome') }} fa-save"></i> {{ trans('pm.send') }}
                         </button>
                     </form>
                 </div>

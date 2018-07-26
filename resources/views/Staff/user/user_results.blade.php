@@ -66,7 +66,7 @@
                                     </td>
                                     <td class="action-links">
                                         <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
-                                           class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                           class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                         </a>
                                     </td>
                                 @endif

@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-info"><strong><i class="fa fa-line-chart"></i> {{ trans('stat.top-downloaded') }}
+                    <p class="text-info"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i> {{ trans('stat.top-downloaded') }}
                         </strong></p>
                     </div>
                     <table class="table table-condensed table-striped table-bordered">

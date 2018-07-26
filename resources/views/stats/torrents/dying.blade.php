@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="text-orange"><strong><i
-                                    class="fa fa-exclamation-triangle"></i> {{ trans('stat.top-dying') }}</strong></p>
+                                    class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i> {{ trans('stat.top-dying') }}</strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>

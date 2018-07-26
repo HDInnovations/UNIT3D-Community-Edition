@@ -242,9 +242,9 @@
                     <div class="card is-torrent">
                         <div class="card_head">
                             <span class="badge-user text-bold" style="float:right;">
-                                <i class="fa fa-fw fa-arrow-up text-green"></i> {{ $t->seeders }} /
-                                <i class="fa fa-fw fa-arrow-down text-red"></i> {{ $t->leechers }} /
-                                <i class="fa fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
+                                <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-up text-green"></i> {{ $t->seeders }} /
+                                <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i> {{ $t->leechers }} /
+                                <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $t->times_completed }}
                             </span>&nbsp;
                             <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->getSize() }}</span>&nbsp;
                             <span class="badge-user text-bold text-blue" style="float:right;">{{ $t->type }}</span>&nbsp;
@@ -289,7 +289,7 @@
                             </div>
 
                             <span class="badge-user text-bold" style="float: right;">
-                                <i class="fa fa-star text-gold"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                     @if($user->ratings == 1)
                                         {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
                                     @else

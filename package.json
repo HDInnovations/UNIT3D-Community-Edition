@@ -15,7 +15,6 @@
     "bootstrap-sass": "^3.3.7",
     "countup.js": "^1.9.3",
     "cross-env": "^5.1",
-    "font-awesome": "^4.7.0",
     "jquery": "^1.8",
     "jquery-textcomplete": "^1.8.4",
     "jquery.flot": "^0.8.3",

@@ -28,7 +28,7 @@
         <div class="box-body">
             <button id="create-new-backup-button" href="{{ url('staff_dashboard/backup/create') }}"
                     class="btn btn-primary ladda-button" data-style="zoom-in"><span class="ladda-label"><i
-                            class="fa fa-plus"></i> {{ trans('backup.create_a_new_backup') }}</span></button>
+                            class="{{ config('other.font-awesome') }} fa-plus"></i> {{ trans('backup.create_a_new_backup') }}</span></button>
             <br>
             <h3>{{ trans('backup.existing_backups') }}:</h3>
             <table class="table table-hover table-condensed">
@@ -52,11 +52,11 @@
                             @if ($b['download'])
                                 <a class="btn btn-xs btn-default"
                                    href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
-                                            class="fa fa-cloud-download"></i> {{ trans('backup.download') }}</a>
+                                            class="{{ config('other.font-awesome') }} fa-cloud-download"></i> {{ trans('backup.download') }}</a>
                             @endif
                             <a class="btn btn-xs btn-danger" data-button-type="delete"
                                href="{{ url('staff_dashboard/backup/delete/'.$b['file_name']) }}?disk={{ $b['disk'] }}"><i
-                                        class="fa fa-trash-o"></i> {{ trans('backup.delete') }}</a>
+                                        class="{{ config('other.font-awesome') }} fa-trash"></i> {{ trans('backup.delete') }}</a>
                         </td>
                     </tr>
                 @endforeach
