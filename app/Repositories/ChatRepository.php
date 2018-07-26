@@ -52,6 +52,11 @@ class ChatRepository
 
     public function message($user_id, $room_id, $message)
     {
+        if (config('censor.enabled')) {
+            $message = $this->censorMessage($message);
+        }
+
+
         $message = $this->message->create([
             'user_id' => $user_id,
             'chatroom_id' => $room_id,
@@ -151,5 +156,26 @@ class ChatRepository
     public function statusFindOrFail($id)
     {
         return $this->status->findOrFail($id);
+    }
+
+    /**
+     * @param $message
+     * @return string
+     */
+    protected function censorMessage($message)
+    {
+        if (str_contains($message, config('censor.redact'))) {
+            foreach (config('censor.redact') as $word) {
+                $message = str_replace($word, '****', $message);
+            }
+        }
+
+        foreach (config('censor.replace') as $word => $rword) {
+            if (str_contains($message, $word)) {
+                $message = str_replace($word, $rword, $message);
+            }
+        }
+
+        return $message;
     }
 }
