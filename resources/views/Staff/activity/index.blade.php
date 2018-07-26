@@ -26,7 +26,7 @@
         <div class="block">
             <h2>Activity Log</h2>
             <hr>
-            <p class="text-red"><strong><i class="fa fa-list"></i> Activity Log</strong></p>
+            <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i> Activity Log</strong></p>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
@@ -60,7 +60,7 @@
                                 <td>
                                     <a href="{{ route('deleteActivity', ['id' => $activity->id]) }}"
                                        class="btn btn-xs btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

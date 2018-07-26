@@ -6,7 +6,7 @@
 
 @section('container')
     <h1 class="mt-5 text-center">
-        <i class="fa fa-exclamation-circle text-warning"></i> Error 503: Service Unavailable!
+        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-warning"></i> Error 503: Service Unavailable!
     </h1>
 
     <div class="separator"></div>

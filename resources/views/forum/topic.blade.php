@@ -40,10 +40,10 @@
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if(auth()->user()->isSubscribed($topic->id))
                 <a href="{{ route('unsubscribe', ['topic' => $topic->id]) }}" class="label label-sm label-danger">
-                    <i class="fa fa-envelope"></i> Unsubscribe</a>
+                    <i class="{{ config('other.font-awesome') }} fa-envelope"></i> Unsubscribe</a>
             @else
                 <a href="{{ route('subscribe', ['topic' => $topic->id]) }}" class="label label-sm label-success">
-                    <i class="fa fa-envelope"></i> Subscribe</a>
+                    <i class="{{ config('other.font-awesome') }} fa-envelope"></i> Subscribe</a>
             @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
@@ -72,14 +72,14 @@
                    <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
                       class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if($p->user->isOnline())
-                        <i class="fa fa-circle text-green" data-toggle="tooltip" title=""
+                        <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip" title=""
                            data-original-title="Online"></i>
                     @else
-                        <i class="fa fa-circle text-red" data-toggle="tooltip" title=""
+                        <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip" title=""
                            data-original-title="Offline"></i>
                     @endif
                     <a href="{{ route('create', ['receiver_id' => $p->user->id, 'username' => $p->user->username]) }}">
-                        <i class="fa fa-envelope text-info"></i>
+                        <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                     </a>
                 </span>
                 </p>
@@ -116,23 +116,23 @@
             @if(auth()->user()->likes()->where('post_id', $p->id)->where('like', '=', 1)->first())
                   <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip"
                      style="margin-right: 16px;" data-original-title="{{ trans('forum.like-post') }}"><i
-                              class="icon-like fa fa-thumbs-up fa-2x fa-beat"></i>
+                              class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x fa-beat"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
               @else
                   <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip"
                      style="margin-right: 16px;" data-original-title="{{ trans('forum.like-post') }}"><i
-                              class="icon-like fa fa-thumbs-up fa-2x"></i>
+                              class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
               @endif
               @if(auth()->user()->likes()->where('post_id', $p->id)->where('dislike', '=', 1)->first())
                   <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red" data-toggle="tooltip"
                      data-original-title="{{ trans('forum.dislike-post') }}"><i
-                              class="icon-dislike fa fa-thumbs-down fa-2x fa-beat"></i>
+                              class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x fa-beat"></i>
               <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
               @else
                   <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red" data-toggle="tooltip"
                      data-original-title="{{ trans('forum.dislike-post') }}"><i
-                              class="icon-dislike fa fa-thumbs-down fa-2x"></i>
+                              class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $dislikes }}</span></a>
               @endif
           </span>

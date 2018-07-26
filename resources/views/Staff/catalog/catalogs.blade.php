@@ -89,7 +89,7 @@
                                 <td>
                                     <a class="pull-right" href="{{route('deleteCatalog',['catalog_id'=>$catalog->id])}}"
                                        title="Delete catalog">
-                                        <i class="fa fa-lg fa-trash list-icons" aria-hidden="true"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-lg fa-trash list-icons" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>

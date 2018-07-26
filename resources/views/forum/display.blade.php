@@ -52,7 +52,7 @@
                                 <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}"></td>
                             @else
                                 <td class="f-display-topic-icon"><span class="text-green"><i
-                                                class="fa fa-thumb-tack fa-2x"></i></span></td>
+                                                class="{{ config('other.font-awesome') }} fa-thumbtack fa-2x"></i></span></td>
                             @endif
                             <td class="f-display-topic-title">
                                 <strong><a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></strong>

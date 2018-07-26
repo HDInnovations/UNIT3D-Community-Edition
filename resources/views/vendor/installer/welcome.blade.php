@@ -15,7 +15,7 @@
     <p class="text-center">
       <a href="{{ route('LaravelInstaller::requirements') }}" class="button">
         {{ trans('installer_messages.welcome.next') }}
-        <i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+        <i class="{{ config('other.font-awesome') }} fa-angle-right fa-fw" aria-hidden="true"></i>
       </a>
     </p>
 @endsection

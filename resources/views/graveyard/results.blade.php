@@ -70,7 +70,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                             <h2>
-                                                <i class="fa fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent')) }} ?
+                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent')) }} ?
                                             </h2>
                                         </div>
 

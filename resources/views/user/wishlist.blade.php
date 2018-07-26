@@ -35,7 +35,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-success mt-10">
-                            <span class="fa fa-plus"></span> {{ trans('common.add') }}
+                            <span class="{{ config('other.font-awesome') }} fa-plus"></span> {{ trans('common.add') }}
                         </button>
 
                     </form>
@@ -75,15 +75,15 @@
                                 </td>
                                 <td>
                                     @if($wish->source === null)
-                                        <i class="fa fa-times red-text"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-times red-text"></i>
                                     @else
-                                        <i class="fa fa-check green-text"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-check green-text"></i>
                                     @endif
                                 </td>
                                 <td>
                                     <a href="{{ route('wish-delete', ['uid' => auth()->user()->id, 'id' => $wish->id]) }}"
                                        class="btn btn-xs btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -99,7 +99,7 @@
                     @if(count($wishes) <= 0)
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <h1 class="text-blue"><i class="fa fa-frown-o text-blue"></i> No Wishes</h1>
+                                <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i> No Wishes</h1>
                             </div>
                         </div>
                     @endif

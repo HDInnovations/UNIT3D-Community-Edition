@@ -28,7 +28,7 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>

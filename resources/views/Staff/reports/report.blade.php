@@ -30,9 +30,9 @@
         <div class="block">
             <h2>Report Details
                 @if($report->solved == 0)
-                    <span class="text-red"><strong><i class="fa fa-times"></i> UNSOLVED </strong></span>
+                    <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED </strong></span>
                 @else
-                    <span class="text-green"><strong><i class="fa fa-check"></i> SOLVED BY <a class="name"
+                    <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY <a class="name"
                                                                                               href="{{ route('profile', ['username' => $report->staff->username, 'id' => $report->staff_id ]) }}">{{ $report->staff->username }}</a></strong></span>
                 @endif
             </h2>

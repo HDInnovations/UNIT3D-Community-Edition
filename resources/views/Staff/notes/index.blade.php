@@ -28,7 +28,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Notes <span class="text-blue"><strong><i class="fa fa-note"></i> {{ $notes->count() }} </strong></span>
+                    <h2>Notes <span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $notes->count() }} </strong></span>
                     </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
@@ -65,7 +65,7 @@
                                         <td>
                                             <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
                                                class="btn btn-xs btn-danger">
-                                                <i class="fa fa-trash"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                             </a>
                                         </td>
                                     </tr>

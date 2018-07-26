@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-warning"><strong><i class="fa fa-line-chart"></i> {{ trans('stat.top-leeched') }}
+                    <p class="text-warning"><strong><i class="{{ config('other.font-awesome') }} fa-line-chart"></i> {{ trans('stat.top-leeched') }}
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

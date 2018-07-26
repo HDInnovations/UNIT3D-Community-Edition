@@ -50,7 +50,7 @@
                         <tr>
                             @if($hpeers->user->peer_hidden == 1)
                                 <td>
-                                    <span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash"
+                                    <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                       aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
                                     @if(auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span

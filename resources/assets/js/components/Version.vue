@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <button @click="checkUpdate()" class="btn btn-primary btn-lg">
-            <i v-if="loading" class="fa fa-circle-o-notch fa-spin"></i> {{ loading ? 'Loading...' : 'Check For Update' }}
+            <i v-if="loading" class="fa fa-circle-notch fa-spin"></i> {{ loading ? 'Loading...' : 'Check For Update' }}
         </button>
     </div>
 </template>

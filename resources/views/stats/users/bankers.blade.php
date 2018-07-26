@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-purple"><strong><i class="fa fa-star"></i> {{ trans('stat.top-bankers') }}</strong>
+                    <p class="text-purple"><strong><i class="{{ config('other.font-awesome') }} fa-star"></i> {{ trans('stat.top-bankers') }}</strong>
                         ({{ trans('bon.bon') }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
@@ -45,7 +45,7 @@
                                 <td @if(auth()->user()->username == $b->username) class="mentions" @endif>
                                     @if($b->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
-                                                        class="fa fa-eye-slash"
+                                                        class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                         aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(auth()->user()->id == $b->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('profile', ['username' => $b->username, 'id' => $b->id]) }}">({{ $b->username }}</a></span>
                                     @endif

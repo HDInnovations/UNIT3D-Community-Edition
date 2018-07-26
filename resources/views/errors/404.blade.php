@@ -6,7 +6,7 @@
 
 @section('container')
     <h1 class="mt-5 text-center">
-        <i class="fa fa-question-circle text-warning"></i> Error 404: Page Not Found
+        <i class="{{ config('other.font-awesome') }} fa-question-circle text-warning"></i> Error 404: Page Not Found
     </h1>
 
     <div class="separator"></div>

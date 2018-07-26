@@ -52,7 +52,7 @@
                 @foreach ($peers as $p)
                     <tr>
                         @if($p->user->peer_hidden == 1)
-                            <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash"
+                            <td><span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                   aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }}

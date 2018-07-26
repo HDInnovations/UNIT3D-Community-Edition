@@ -69,17 +69,17 @@
                             </a>
                         </td>
                         <td>
-                            <i class="fal fa-circle" style="color: {{ $chatstatus->color }};"></i> {{ $chatstatus->color }}
+                            <i class="{{ config('other.font-awesome') }} fa-circle" style="color: {{ $chatstatus->color }};"></i> {{ $chatstatus->color }}
                         </td>
                         <td>
                             <i class="{{ $chatstatus->icon }}"></i> [{{ $chatstatus->icon }}]
                         </td>
                         <td>
                             <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#editChatStatus-{{ $chatstatus->id }}">
-                                <i class="fal fa-pen-square"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-pen-square"></i>
                             </button>
                             <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChatStatus-{{ $chatstatus->id }}">
-                                <i class="fal fa-trash"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             </button>
                             @include('Staff.chat.chatstatuses_modals', ['chatstatus' => $chatstatus])
                         </td>
@@ -142,10 +142,10 @@
                         </td>
                         <td>
                             <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#editChatroom-{{ $chatroom->id }}">
-                                <i class="fal fa-pen-square"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-pen-square"></i>
                             </button>
                             <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#deleteChatroom-{{ $chatroom->id }}">
-                                <i class="fal fa-trash"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             </button>
                             @include('Staff.chat.chatroom_modals', ['chatroom' => $chatroom])
                         </td>

@@ -25,7 +25,7 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i>{{ trans('user.private-profile') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>{{ trans('user.private-profile') }}
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">{{ trans('user.not-authorized') }}</p>
@@ -42,7 +42,7 @@
                                  height="50px" data-original-title="{{ $a->details->name }}">
                         @endforeach
                         <div class="col-xs-1 matches-won"><i
-                                    class="fa fa-trophy text-success"></i><span>{{ $user->unlockedAchievements()->count() }}</span>
+                                    class="{{ config('other.font-awesome') }} fa-trophy text-success"></i><span>{{ $user->unlockedAchievements()->count() }}</span>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                             @endif
                         @endforeach
                         <div class="col-xs-1 matches-won"><i
-                                    class="fa fa-group text-success"></i><span>{{ $followers->count() }}</span></div>
+                                    class="{{ config('other.font-awesome') }} fa-group text-success"></i><span>{{ $followers->count() }}</span></div>
                     </div>
                 </div>
             </div>
@@ -87,24 +87,24 @@
                             <div class="col-md-10">
                                 <h2>{{ $user->username }}
                                     @if($user->isOnline())
-                                        <i class="fa fa-circle text-green" data-toggle="tooltip" title=""
+                                        <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('user.online') }}"></i>
                                     @else
-                                        <i class="fa fa-circle text-red" data-toggle="tooltip" title=""
+                                        <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('user.offline') }}"></i>
                                     @endif
                                     <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
-                                        <i class="fa fa-envelope text-info"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                                     </a>
                                     @if($user->getWarning() > 0)
-                                        <i class="fa fa-exclamation-circle text-orange" aria-hidden="true"
+                                        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}">
                                         </i>
                                     @endif
                                     @if($user->notes->count() > 0 && auth()->user()->group->is_modo)
                                         <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
                                            class="edit">
-                                        <i class="fa fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
+                                        <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
                                             title="" data-original-title="{{ trans('user.staff-noted') }}">
                                         </i>
                                         </a>
@@ -122,34 +122,34 @@
                                             <a href="{{ route('unfollow', ['user' => $user->id]) }}"
                                                id="delete-follow-{{ $user->target_id }}" class="btn btn-xs btn-info"
                                                title="{{ trans('user.unfollow') }}"><i
-                                                        class="fa fa-user"></i> {{ trans('user.unfollow') }} {{ $user->username }}</a>
+                                                        class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.unfollow') }} {{ $user->username }}</a>
                                         @else
                                             <a href="{{ route('follow', ['user' => $user->id]) }}"
                                                id="follow-user-{{ $user->id }}" class="btn btn-xs btn-success"
                                                title="{{ trans('user.follow') }}"><i
-                                                        class="fa fa-user"></i> {{ trans('user.follow') }} {{ $user->username }}</a>
+                                                        class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }} {{ $user->username }}</a>
                                         @endif
                                         <button class="btn btn-xs btn-danger" data-toggle="modal"
                                                 data-target="#modal_user_report"><i
-                                                    class="fa fa-eye"></i> {{ trans('user.report') }}</button>
+                                                    class="{{ config('other.font-awesome') }} fa-eye"></i> {{ trans('user.report') }}</button>
         </span>
                                 <span style="float:right;">
         @if(auth()->check() && auth()->user()->group->is_modo)
                                         @if($user->group->id == 5)
                                             <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                     data-target="#modal_user_unban"><span
-                                                        class="fa fa-undo"></span> {{ trans('user.unban') }} </button>
+                                                        class="{{ config('other.font-awesome') }} fa-undo"></span> {{ trans('user.unban') }} </button>
                                         @else
                                             <button class="btn btn-xs btn-danger" data-toggle="modal"
                                                     data-target="#modal_user_ban"><span
-                                                        class="fa fa-ban"></span> {{ trans('user.ban') }}</button>
+                                                        class="{{ config('other.font-awesome') }} fa-ban"></span> {{ trans('user.ban') }}</button>
                                         @endif
                                         <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
                                            class="btn btn-xs btn-warning"><span
-                                                    class="fa fa-pencil"></span> {{ trans('user.edit') }} </a>
+                                                    class="{{ config('other.font-awesome') }} fa-pencil"></span> {{ trans('user.edit') }} </a>
                                         <button class="btn btn-xs btn-danger" data-toggle="modal"
                                                 data-target="#modal_user_delete"><span
-                                                    class="fa fa-trash"></span> {{ trans('user.delete') }} </button>
+                                                    class="{{ config('other.font-awesome') }} fa-trash"></span> {{ trans('user.delete') }} </button>
                                     @endif
                                     @endif
         </span>
@@ -158,7 +158,7 @@
                     </div>
                 </div>
 
-                <h3><i class="fa fa-unlock"></i> {{ trans('user.public-info') }}</h3>
+                <h3><i class="{{ config('other.font-awesome') }} fa-unlock"></i> {{ trans('user.public-info') }}</h3>
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered">
                     <tbody>
@@ -167,22 +167,22 @@
                             <ul class="list-inline mb-0">
                                 <li>
                                     <span class="badge-extra text-green text-bold"><i
-                                                class="fa fa-upload"></i> {{ trans('user.total-uploads') }}
+                                                class="{{ config('other.font-awesome') }} fa-upload"></i> {{ trans('user.total-uploads') }}
                                         : {{ $user->torrents->count() }}</span>
                                 </li>
                                 <li>
                                     <span class="badge-extra text-red text-bold"><i
-                                                class="fa fa-download"></i> {{ trans('user.total-downloads') }}
+                                                class="{{ config('other.font-awesome') }} fa-download"></i> {{ trans('user.total-downloads') }}
                                         : {{ $history->where('actual_downloaded', '>', 0)->count() }}</span>
                                 </li>
                                 <li>
                                     <span class="badge-extra text-green text-bold"><i
-                                                class="fa fa-cloud-upload"></i> {{ trans('user.total-seeding') }}
+                                                class="{{ config('other.font-awesome') }} fa-cloud-upload"></i> {{ trans('user.total-seeding') }}
                                         : {{ $user->getSeeding() }}</span>
                                 </li>
                                 <li>
                                     <span class="badge-extra text-red text-bold"><i
-                                                class="fa fa-cloud-download"></i> {{ trans('user.total-leeching') }}
+                                                class="{{ config('other.font-awesome') }} fa-cloud-download"></i> {{ trans('user.total-leeching') }}
                                         : {{ $user->getLeeching() }}</span>
                                 </li>
                             </ul>
@@ -231,17 +231,17 @@
                     @if($user->getSeeding() >= 150)
                         <span class="badge-user" style="background-color:#3fb618; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-seeder-desc') }}"><i
-                                    class="fa fa-upload"></i> {{ trans('user.certified-seeder') }}!</span>
+                                    class="{{ config('other.font-awesome') }} fa-upload"></i> {{ trans('user.certified-seeder') }}!</span>
                     @endif
                     @if($history->where('actual_downloaded', '>', 0)->count() >= 100)
                         <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-downloader-desc') }}"><i
-                                    class="fa fa-download"></i> {{ trans('user.certified-downloader') }}!</span>
+                                    class="{{ config('other.font-awesome') }} fa-download"></i> {{ trans('user.certified-downloader') }}!</span>
                     @endif
                     @if($user->getSeedbonus() >= 50000)
                         <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-banker-desc') }}"><i
-                                    class="fa fa-star"></i> {{ trans('user.certified-banker') }}!</span>
+                                    class="{{ config('other.font-awesome') }} fa-star"></i> {{ trans('user.certified-banker') }}!</span>
                     @endif
                 </td>
             </tr>
@@ -344,7 +344,7 @@
 
     @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
         <div class="block">
-            <h3><i class="fa fa-lock"></i> {{ trans('user.private-info') }}</h3>
+            <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> {{ trans('user.private-info') }}</h3>
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
                 <tbody>
@@ -383,49 +383,49 @@
                 <tr>
                     <td> {{ trans('user.can-upload') }}</td>
                     @if($user->can_upload == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-download') }}</td>
                     @if($user->can_download == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-comment') }}</td>
                     @if($user->can_comment == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-request') }}</td>
                     @if($user->can_request == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-chat') }}</td>
                     @if($user->can_chat == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-invite') }}</td>
                     @if($user->can_invite == 1)
-                        <td><i class="fa fa-check text-green"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
-                        <td><i class="fa fa-times text-red"></i></td>
+                        <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
                     @endif
                 </tr>
                 <tr>
@@ -453,22 +453,22 @@
                 <div class="text-center">
                     <a href="{{ route('user_settings_form', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
-                                    class="fa fa-cog"></span> {{ trans('user.account-settings') }}</button>
+                                    class="{{ config('other.font-awesome') }} fa-cog"></span> {{ trans('user.account-settings') }}</button>
                     </a>
                     <a href="{{ route('user_edit_profile_form', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
-                                    class="fa fa-user"></span> {{ trans('user.edit-profile') }}</button>
+                                    class="{{ config('other.font-awesome') }} fa-user"></span> {{ trans('user.edit-profile') }}</button>
                     </a>
                     <a href="{{ route('invite') }}">
-                        <button class="btn btn-primary"><span class="fa fa-plus"></span> {{ trans('user.invites') }}
+                        <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-plus"></span> {{ trans('user.invites') }}
                         </button>
                     </a>
                     <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-primary"><span
-                                    class="fa fa-server"></span> {{ trans('user.my-seedboxes') }}</button>
+                                    class="{{ config('other.font-awesome') }} fa-server"></span> {{ trans('user.my-seedboxes') }}</button>
                     </a>
                     <a href="{{ route('wishlist', ['uid' => $user->id]) }}">
-                        <button class="btn btn-primary"><span class="fa fa-list"></span> {{ trans('user.my-wishlist') }}
+                        <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-list"></span> {{ trans('user.my-wishlist') }}
                         </button>
                     </a>
                 </div>
@@ -480,15 +480,15 @@
                 <div class="text-center">
                     <a href="{{ route('myuploads', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-success"><span
-                                    class="fa fa-upload"></span> {{ trans('user.uploads-table') }} </button>
+                                    class="{{ config('other.font-awesome') }} fa-upload"></span> {{ trans('user.uploads-table') }} </button>
                     </a>
                     <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-success"><span
-                                    class="fa fa-clock-o"></span> {{ trans('user.active-table') }} </button>
+                                    class="{{ config('other.font-awesome') }} fa-clock"></span> {{ trans('user.active-table') }} </button>
                     </a>
                     <a href="{{ route('myhistory', ['username' => $user->username, 'id' => $user->id]) }}">
                         <button class="btn btn-success"><span
-                                    class="fa fa-history"></span> {{ trans('user.history-table') }} </button>
+                                    class="{{ config('other.font-awesome') }} fa-history"></span> {{ trans('user.history-table') }} </button>
                     </a>
                 </div>
             </div>

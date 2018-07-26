@@ -50,7 +50,7 @@
                                             @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-sm btn-danger pull-right"
-                                                        title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>
+                                                        title="{{ trans('pm.delete') }}"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>
                                         </form>

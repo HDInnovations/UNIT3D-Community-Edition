@@ -23,7 +23,7 @@
             @foreach ($polls as $poll)
                 <a href="{{ url('/poll/' . $poll->slug) }}" style="padding: 0 2px">
                     <div class="general media_blocks">
-                        <h2 style="font-size: 20px;"><i class="fa fa-pie-chart"></i> {{ $poll->title }}</h2>
+                        <h2 style="font-size: 20px;"><i class="{{ config('other.font-awesome') }} fa-pie-chart"></i> {{ $poll->title }}</h2>
                         <span></span>
                         <h2 style="font-size: 12px;">{{ trans('poll.vote-now') }}</h2>
                     </div>

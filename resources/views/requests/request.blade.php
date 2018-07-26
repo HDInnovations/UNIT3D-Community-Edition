@@ -24,7 +24,7 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
@@ -34,7 +34,7 @@
         @else
             <h1 class="title h2">
                 {{ $torrentRequest->name }}
-                <span class="text-green">{{ trans('request.for') }} <i class="fa fa-star text-gold">
+                <span class="text-green">{{ trans('request.for') }} <i class="{{ config('other.font-awesome') }} fa-star text-gold">
             </i> <strong>{{ $torrentRequest->bounty }}</strong> {{ trans('bon.bon') }}</span>
             </h1>
             <div class="block">
@@ -43,30 +43,30 @@
                         <div class="pull-right">
                             <button class="btn btn-xs btn-danger" data-toggle="modal"
                                     data-target="#modal_request_report"><i
-                                        class="fa fa-eye"></i> {{ trans('request.report') }}</button>
+                                        class="{{ config('other.font-awesome') }} fa-eye"></i> {{ trans('request.report') }}</button>
                             @if($torrentRequest->filled_hash == null)
                                 <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal"
-                                        data-target="#vote"><i class="fa fa-thumbs-up">
+                                        data-target="#vote"><i class="{{ config('other.font-awesome') }} fa-thumbs-up">
                                     </i> {{ trans('request.vote') }}</button>
                                 @if($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
                                     <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                            data-target="#fill"><i class="fa fa-link">
+                                            data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                         </i> {{ trans('request.fulfill') }}</button>
                                 @elseif($torrentRequest->claimed == 0)
                                     <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                            data-target="#fill"><i class="fa fa-link">
+                                            data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                         </i> {{ trans('request.fulfill') }}</button>
                                 @endif @endif @if($user->group->is_modo && $torrentRequest->filled_hash != null)
                                 <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i
-                                            class="fa fa-undo">
+                                            class="{{ config('other.font-awesome') }} fa-undo">
                                     </i> {{ trans('request.reset-request') }}</button>
                             @endif @if($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <a class="btn btn-warning btn-xs"
                                    href="{{ route('edit_request', ['id' => $torrentRequest->id]) }}" role="button"><i
-                                            class="fa fa-pencil-square-o"
+                                            class="{{ config('other.font-awesome') }} fa-pencil-square"
                                             aria-hidden="true"> {{ trans('request.edit-request') }}</i></a>
                                 <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i
-                                            class="fa fa-trash-o">
+                                            class="{{ config('other.font-awesome') }} fa-trash">
                                     </i> {{ trans('common.delete') }}</button>
                             @endif
                         </div>
@@ -93,7 +93,7 @@
                                             @if($movie->imdbRating || $movie->tmdbRating)
                                                 <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
                     <span class="movie-rating-stars">
-                      <i class="fa fa-star"></i>
+                      <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     </span>
                                                     @if($user->ratings == 1)
                                                         {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} {{ trans('torrent.votes') }}
@@ -160,7 +160,7 @@
                                                 <span onclick="showTrailer()" style="cursor: pointer;"
                                                       class="badge-user text-bold">
                             <a class="text-pink" title="View Trailer">{{ trans('torrent.view-trailer') }} <i
-                                        class="fa fa-external-link"></i></a>
+                                        class="{{ config('other.font-awesome') }} fa-external-link"></i></a>
                         </span>
                                             @endif
                                         </li>
@@ -229,7 +229,7 @@
                                 <strong>{{ trans('bon.bon') }}</strong>
                             </td>
                             <td>
-                                <i class="fa fa-star text-gold">
+                                <i class="{{ config('other.font-awesome') }} fa-star text-gold">
                                 </i>
                                 <strong>{{ $torrentRequest->bounty }}</strong> {{ trans('bon.bon') }} {{ strtolower(trans('request.reward-from')) }}
                                 <strong>{{ $torrentRequest->requestBounty->count() }}</strong> {{ strtolower(trans('request.voters')) }}
@@ -264,7 +264,7 @@
                             <td>
                                 @if($torrentRequest->claimed == null && $torrentRequest->filled_hash == null)
                                     <button class="btn btn-md btn-info btn-vote-request" data-toggle="modal"
-                                            data-target="#claim"><i class="fa fa-suitcase">
+                                            data-target="#claim"><i class="{{ config('other.font-awesome') }} fa-suitcase">
                                         </i> {{ trans('request.claim') }}
                                     </button>
                                     <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
@@ -272,18 +272,18 @@
                                     </a>
                                 @elseif($torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                                     <button class="btn btn-xs btn-warning" disabled><i
-                                                class="fa fa-question-circle"></i>{{ trans('request.pending') }}
+                                                class="{{ config('other.font-awesome') }} fa-question-circle"></i>{{ trans('request.pending') }}
                                     </button>
                                 @elseif($torrentRequest->filled_hash != null)
                                     <button class="btn btn-xs btn-success" disabled><i
-                                                class="fa fa-check-square-o"></i>{{ trans('request.filled') }}</button>
+                                                class="{{ config('other.font-awesome') }} fa-check-square"></i>{{ trans('request.filled') }}</button>
                                 @else @if($torrentRequestClaim->anon == 0)
                                     <span class="badge-user">{{ $torrentRequestClaim->username }} <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
                                             <span class="icon"><i
-                                                        class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
+                                                        class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}</span>
                                         </a>
                                         <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
                                            class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
@@ -294,7 +294,7 @@
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
                                             <span class="icon"><i
-                                                        class="fa fa-times"></i> {{ trans('request.unclaim') }}</span>
+                                                        class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}</span>
                                         </a>
                                         <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
                                            class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
@@ -410,7 +410,7 @@
                                     @if(count($comments) == 0)
                                         <div class="text-center">
                                             <h4 class="text-bold text-danger"><i
-                                                        class="fa fa-frown-o"></i> {{ trans('common.no-comments') }}!
+                                                        class="{{ config('other.font-awesome') }} fa-frown"></i> {{ trans('common.no-comments') }}!
                                             </h4></div>
                                     @else @foreach($comments as $comment)
                                         <li class="media" style="border-left: 5px solid #01BC8C">
@@ -442,12 +442,12 @@
                                                 @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                     <a title="{{ trans('common.delete-your-comment') }}"
                                                        href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                                class="pull-right fa fa-lg fa-times"
+                                                                class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times"
                                                                 aria-hidden="true"></i></a>
                                                     <a title="{{ trans('common.edit-your-comment') }}"
                                                        data-toggle="modal"
                                                        data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                                class="pull-right fa fa-lg fa-pencil"
+                                                                class="pull-right {{ config('other.font-awesome') }} fa-lg fa-pencil"
                                                                 aria-hidden="true"></i></a>
                                                 @endif
                                                 <div class="pt-5">

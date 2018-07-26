@@ -18,7 +18,7 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="fa fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
                     </h1>
                     <div class="separator"></div>
                     <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
@@ -86,29 +86,29 @@
         <span class="badge-user">
         <label class="inline">
             {{ Form::checkbox('myrequests',$user->id,false,['id'=>'myrequests']) }} <span
-                    class="fa fa-user text-blue"></span> My Requests
+                    class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My Requests
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
             {{ Form::checkbox('unfilled','1',false,['id'=>'unfilled']) }} <span
-                    class="fa fa-times-circle text-blue"></span> Unfilled
+                    class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> Unfilled
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('claimed','1',false,['id'=>'claimed']) }} <span class="fa fa-suitcase text-blue"></span> Claimed
+            {{ Form::checkbox('claimed','1',false,['id'=>'claimed']) }} <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> Claimed
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
             {{ Form::checkbox('pending','1',false,['id'=>'pending']) }} <span
-                    class="fa fa-question-circle text-blue"></span> Pending
+                    class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> Pending
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('filled','1',false,['id'=>'filled']) }} <span class="fa fa-check-circle text-blue"></span> Filled
+            {{ Form::checkbox('filled','1',false,['id'=>'filled']) }} <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> Filled
         </label>
         </span>
                 </div>
@@ -275,7 +275,7 @@
                 },
                 type: 'get',
                 beforeSend: function () {
-                    $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function (e) {
                 $("#result").html(e['result']);

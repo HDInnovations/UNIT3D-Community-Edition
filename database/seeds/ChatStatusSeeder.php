@@ -15,19 +15,19 @@ class ChatStatusSeeder extends Seeder
         $statuses = [
             'Online' => [
                 'color' => '#2ECC40',
-                'icon' => 'fa fa-dot-circle-o'
+                'icon' => '{{ config("other.font-awesome") }} fa-dot-circle'
             ],
             'Away' => [
                 'color' => '#FFDC00',
-                'icon' => 'fa fa-paper-plane-o'
+                'icon' => '{{ config("other.font-awesome") }} fa-paper-plane'
             ],
             'Busy' => [
                 'color' => '#FF4136',
-                'icon' => 'fa fa-bell-slash-o'
+                'icon' => '{{ config("other.font-awesome") }} fa-bell-slash'
             ],
             'Offline' => [
                 'color' => '#AAAAAA',
-                'icon' => 'fa fa-power-off'
+                'icon' => '{{ config("other.font-awesome") }} fa-power-off'
             ]
         ];
 

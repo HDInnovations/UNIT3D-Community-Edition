@@ -54,11 +54,11 @@
                                     ({{ $p->user->group->name }})</span></a></td>
                         <td><a href="{{ route('moderation_approve', ['slug' => $p->slug, 'id' => $p->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="fa fa-thumbs-up"></i></span>Approve</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
                             <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="fa fa-thumbs-down"></i></span>Postpone
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Postpone
                             </button>
                             <!-- Torrent Postpone Modal-->
                             {{-- Torrent Postpone Modal --}}
@@ -106,7 +106,7 @@
                         <td>
                             <button data-target="#pendreject-{{ $p->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="fa fa-thumbs-down"></i></span>Reject
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Reject
                             </button>
                             <!-- Torrent Reject Modal -->
                             {{-- Torrent Reject Modal --}}
@@ -206,14 +206,14 @@
                                     ({{ $post->moderated->group->name }})</span></a></td>
                         <td><a href="{{ route('moderation_approve', ['slug' => $post->slug, 'id' => $post->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="fa fa-thumbs-up"></i></span>Approve</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td><a href="{{ route('edit', ['slug' => $post->slug, 'id' => $post->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="fa fa-pencil"></i></span>Edit</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
                         <td>
                             <button data-target="#postdelete-{{ $post->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="fa fa-thumbs-down"></i></span>Delete
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Delete
                             </button>
                             <!-- Torrent Delete Modal -->
                             {{-- Torrent Delete Modal --}}
@@ -316,11 +316,11 @@
                                     ({{ $reject->moderated->group->name }})</span></a></td>
                         <td><a href="{{ route('moderation_approve', ['slug' => $reject->slug, 'id' => $reject->id]) }}"
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
-                                            class="fa fa-thumbs-up"></i></span>Approve</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
                             <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="fa fa-thumbs-down"></i></span>Postpone
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Postpone
                             </button>
                             <!-- Torrent Postpone Modal-->
                             {{-- Torrent Postpone Modal --}}
@@ -367,11 +367,11 @@
                         </td>
                         <td><a href="{{ route('edit', ['slug' => $reject->slug, 'id' => $reject->id]) }}" role='button'
                                class='btn btn-labeled btn-info'><span class="btn-label"><i
-                                            class="fa fa-pencil"></i></span>Edit</a></td>
+                                            class="{{ config('other.font-awesome') }} fa-pencil"></i></span>Edit</a></td>
                         <td>
                             <button data-target="#rejectdelete-{{ $reject->id }}" data-toggle="modal"
                                     class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="fa fa-thumbs-down"></i></span>Delete
+                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Delete
                             </button>
                             <!-- Torrent Delete Modal -->
                             {{-- Torrent Delete Modal --}}

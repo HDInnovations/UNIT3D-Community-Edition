@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-success"><strong><i class="fa fa-trophy"></i> {{ trans('stat.top-bountied') }}
+                    <p class="text-success"><strong><i class="{{ config('other.font-awesome') }} fa-trophy"></i> {{ trans('stat.top-bountied') }}
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
@@ -53,15 +53,15 @@
                                     @if($b->filled_hash == null)
                                         <button class="btn btn-xxs" data-toggle="tooltip" title=""
                                                 data-original-title="{{ trans('stat.request-not-fulfilled') }}">
-                                            <i class="fa fa-times-circle text-danger"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i></button>
                                     @elseif($b->filled_hash != null && $b->approved_by == null)
                                         <button class="btn btn-xxs" data-toggle="tooltip" title=""
                                                 data-original-title="{{ trans('stat.request-pending-aproval') }}">
-                                            <i class="fa fa-question-circle text-info"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i></button>
                                     @else
                                         <button class="btn btn-xxs" data-toggle="tooltip" title=""
                                                 data-original-title="{{ trans('stat.request-fulfilled') }}">
-                                            <i class="fa fa-check-circle text-success"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i></button>
                                     @endif
                                 </td>
                             </tr>

@@ -28,7 +28,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="fa fa-list"></i> Reports</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i> Reports</strong></p>
                     <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
@@ -75,11 +75,11 @@
                                     <td>
                                         @if($r->solved == 0)
                                             <span class="text-red">
-                                                <strong><i class="fa fa-times"></i> NO</strong>
+                                                <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> NO</strong>
                                             </span>
                                         @else
                                             <span class="text-green">
-                                                <strong><i class="fa fa-check"></i> YES</strong>
+                                                <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> YES</strong>
                                             </span>
                                         @endif
                                     </td>
