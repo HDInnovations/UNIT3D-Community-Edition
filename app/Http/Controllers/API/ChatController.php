@@ -54,16 +54,14 @@ class ChatController extends Controller
 
     public function createMessage(Request $request)
     {
-        $uid = $request->get('user_id');
-
-        if ($this->auth->user()->id !== $uid) {
-            return response('error', 401);
-        }
-
-        $user_id = $uid;
+        $user_id = $request->get('user_id');
         $room_id = $request->get('chatroom_id');
         $message = $request->get('message');
         $save = $request->get('save');
+
+        if ($this->auth->user()->id !== $user_id) {
+            return response('error', 401);
+        }
 
         $message = $this->chat->message($user_id, $room_id, $message);
 
