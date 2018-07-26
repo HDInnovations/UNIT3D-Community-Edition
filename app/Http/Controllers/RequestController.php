@@ -66,11 +66,11 @@ class RequestController extends Controller
         $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
-        $torrentRequest = TorrentRequest::query();
+        $torrentRequests = TorrentRequest::query()->paginate(25);
         $repository = $this->repository;
 
         return view('requests.requests', [
-            'torrentRequest' => $torrentRequest,
+            'torrentRequests' => $torrentRequests,
             'repository' => $repository,
             'user' => $user,
             'num_req' => $num_req,
@@ -100,10 +100,6 @@ class RequestController extends Controller
         $categories = $request->input('categories');
         $types = $request->input('types');
         $myrequests = $request->input('myrequests');
-        $unfilled = $request->input('unfilled');
-        $claimed = $request->input('claimed');
-        $pending = $request->input('pending');
-        $filled = $request->input('filled');
 
         $terms = explode(' ', $search);
         $search = '';
@@ -161,39 +157,23 @@ class RequestController extends Controller
             $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '!=', null);
         }
 
-        // pagination query starts
-        $rows = $torrentRequest->count();
-
-        if ($request->has('page')) {
-            $page = $request->input('page');
-            $qty = $request->input('qty');
-            $torrentRequest->skip(($page - 1) * $qty);
-            $active = $page;
-        } else {
-            $active = 1;
-        }
-
-        if ($request->has('qty')) {
-            $qty = $request->input('qty');
-            $torrentRequest->take($qty);
-        } else {
-            $qty = 6;
-            $torrentRequest->take($qty);
-        }
-        // pagination query ends
-
         if ($request->has('sorting')) {
             $sorting = $request->input('sorting');
             $order = $request->input('direction');
             $torrentRequest->orderBy($sorting, $order);
         }
 
-        $listings = $torrentRequest->get();
+        if ($request->has('qty')) {
+            $qty = $request->get('qty');
+            $torrentRequests = $torrentRequest->paginate($qty);
+        } else {
+            $torrentRequests = $torrentRequest->paginate(25);
+        }
 
-        $helper = new RequestViewHelper();
-        $result = $helper->view($listings);
-
-        return ['result' => $result, 'rows' => $rows, 'qty' => $qty, 'active' => $active];
+        return view('requests.results', [
+            'user' => $user,
+            'torrentRequests' => $torrentRequests
+        ])->render();
     }
 
     /**
