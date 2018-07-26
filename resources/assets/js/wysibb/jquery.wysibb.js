@@ -522,14 +522,14 @@ wbbdebug=true;
 				})
 			}
 
-      this.$txtArea.parents("form").bind("submit",$.proxy(function() {
+      this.$txtArea.parents("form").on("submit",$.proxy(function() {
 				this.sync();
 				return true;
       }, this));
 			
 			
 			//phpbb2
-			this.$txtArea.parents("form").find("input[id*='preview'],input[id*='submit'],input[class*='preview'],input[class*='submit'],input[name*='preview'],input[name*='submit']").bind("mousedown",$.proxy(function() {
+			this.$txtArea.parents("form").find("input[id*='preview'],input[id*='submit'],input[class*='preview'],input[class*='submit'],input[name*='preview'],input[name*='submit']").on("mousedown",$.proxy(function() {
 				this.sync();
 				setTimeout($.proxy(function() {
 					if (this.options.bbmode===false) {
@@ -832,7 +832,7 @@ wbbdebug=true;
 
 
 				//clear html on paste from external editors
-				this.$body.bind('keydown', $.proxy(function(e) {
+				this.$body.on('keydown', $.proxy(function(e) {
 					if ((e.which == 86 && (e.ctrlKey==true || e.metaKey==true)) || (e.which == 45 && (e.shiftKey==true || e.metaKey==true))) {
 						if (!this.$pasteBlock) {
 							this.saveRange();
@@ -867,7 +867,7 @@ wbbdebug=true;
 				},this));
 
 				//insert BR on press enter
-				this.$body.bind('keydown',$.proxy(function(e) {
+				this.$body.on('keydown',$.proxy(function(e) {
 					if (e.which == 13) {
 						var isLi = this.isContain(this.getSelectNode(),'li');
 						if (!isLi) {
@@ -880,27 +880,27 @@ wbbdebug=true;
 
 				//tabInsert
 				if (this.options.tabInsert===true) {
-					this.$body.bind('keydown', $.proxy(this.pressTab,this));
+					this.$body.on('keydown', $.proxy(this.pressTab,this));
 				}
 
 				//add event listeners
-				this.$body.bind('mouseup keyup',$.proxy(this.updateUI,this));
-				this.$body.bind('mousedown',$.proxy(function(e) {this.clearLastRange();this.checkForLastBR(e.target)},this));
+				this.$body.on('mouseup keyup',$.proxy(this.updateUI,this));
+				this.$body.on('mousedown',$.proxy(function(e) {this.clearLastRange();this.checkForLastBR(e.target)},this));
 
 				//trace Textarea
 				if (this.options.traceTextarea===true) {
-					$(document).bind("mousedown",$.proxy(this.traceTextareaEvent,this));
+					$(document).on("mousedown",$.proxy(this.traceTextareaEvent,this));
 					this.$txtArea.val("");
 				}
 
 				//attach hotkeys
 				if (this.options.hotkeys===true) {
-					this.$body.bind('keydown',$.proxy(this.presskey,this));
+					this.$body.on('keydown',$.proxy(this.presskey,this));
 				}
 
 				//smileConversion
 				if (this.options.smileConversion===true) {
-					this.$body.bind('keyup',$.proxy(this.smileConversion,this));
+					this.$body.on('keyup',$.proxy(this.smileConversion,this));
 				}
 
 				this.inited=true;
@@ -922,14 +922,14 @@ wbbdebug=true;
 			//this.$editor.append('<span class="powered">Powered by <a href="http://www.wysibb.com" target="_blank">WysiBB<a/></span>');
 
 			//add event listeners to textarea
-			this.$txtArea.bind('mouseup keyup',$.proxy(function() {
+			this.$txtArea.on('mouseup keyup',$.proxy(function() {
 				clearTimeout(this.uitimer);
 				this.uitimer = setTimeout($.proxy(this.updateUI,this),100);
 			},this));
 
 			//attach hotkeys
 			if (this.options.hotkeys===true) {
-				$(document).bind('keydown',$.proxy(this.presskey,this));
+				$(document).on('keydown',$.proxy(this.presskey,this));
 			}
 		},
 		buildToolbar: function() {
@@ -986,7 +986,7 @@ wbbdebug=true;
 
 			//attach events
 			this.controllers.push($btn);
-			$btn.bind('queryState',$.proxy(function(e) {
+			$btn.on('queryState',$.proxy(function(e) {
 				(this.queryState(bn)) ? $(e.currentTarget).addClass("on"):$(e.currentTarget).removeClass("on");
 			},this));
 			$btn.mousedown($.proxy(function(e) {
@@ -1014,7 +1014,7 @@ wbbdebug=true;
 			var basecolor = $(document.body).css("color");
 			//attach events
 			this.controllers.push($btn);
-			$btn.bind('queryState',$.proxy(function(e) {
+			$btn.on('queryState',$.proxy(function(e) {
 				//queryState
 				$cpline.css("background-color",basecolor);
 				var r = this.queryState(bn,true);
@@ -1123,7 +1123,7 @@ wbbdebug=true;
 				$selectbox.appendTo(container);
 				this.controllers.push($selectbox);
 
-				$selectbox.bind('queryState',$.proxy(function(e) {
+				$selectbox.on('queryState',$.proxy(function(e) {
 					//queryState
 					$selectbox.find("option").each($.proxy(function(i,el){
 						var $el = $(el);
@@ -1148,7 +1148,7 @@ wbbdebug=true;
 
 			}
 			this.controllers.push($btn);
-			$btn.bind('queryState',$.proxy(function(e) {
+			$btn.on('queryState',$.proxy(function(e) {
 				//queryState
 				$sval.text(opt.title);
 				$btn.find(".option.selected").removeClass("selected");
@@ -1216,13 +1216,13 @@ wbbdebug=true;
 					.html('<div class="wbbm"><div class="wbbm-title"><span class="wbbm-title-text"></span><span class="wbbclose" title="'+CURLANG.close+'">×</span></div><div class="wbbm-content"></div><div class="wbbm-bottom"><button id="wbbm-submit" class="wbb-button">'+CURLANG.save+'</button><button id="wbbm-cancel" class="wbb-cancel-button">'+CURLANG.cancel+'</button><button id="wbbm-remove" class="wbb-remove-button">'+CURLANG.remove+'</button></div></div>').hide();
 
 				this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal,this));
-				this.$modal.bind('click',$.proxy(function(e) {
+				this.$modal.on('click',$.proxy(function(e) {
 					if ($(e.target).parents(".wbbm").length==0) {
 						this.closeModal();
 					}
 				},this));
 
-				$(document).bind("keydown",$.proxy(this.escModal,this)); //ESC key close modal
+				$(document).on("keydown",$.proxy(this.escModal,this)); //ESC key close modal
 			}
 		},
 		initHotkeys: function() {
@@ -2294,9 +2294,9 @@ wbbdebug=true;
 			if ($btn.attr("wbbshow")) {
 				//hide dropdown
 				$btn.removeAttr("wbbshow");
-				$(document).unbind("mousedown",this.dropdownhandler);
+				$(document).off("mousedown",this.dropdownhandler);
 				if (document) {
-					$(document).unbind("mousedown",this.dropdownhandler);
+					$(document).off("mousedown",this.dropdownhandler);
 				}
 				this.lastRange=false;
 
@@ -2306,9 +2306,9 @@ wbbdebug=true;
 					$(el).removeClass("on").find($(el).attr("wbbshow")).hide().end().removeAttr("wbbshow");
 				})
 				$btn.attr("wbbshow",tsel);
-				$(document.body).bind("mousedown",$.proxy(function(evt) {this.dropdownhandler($btn,bsel,tsel,evt)},this));
+				$(document.body).on("mousedown",$.proxy(function(evt) {this.dropdownhandler($btn,bsel,tsel,evt)},this));
 				if (this.$body) {
-					this.$body.bind("mousedown",$.proxy(function(evt) {this.dropdownhandler($btn,bsel,tsel,evt)},this));
+					this.$body.on("mousedown",$.proxy(function(evt) {this.dropdownhandler($btn,bsel,tsel,evt)},this));
 				}
 			}
 			$btn.find(tsel).toggle();
@@ -2317,9 +2317,9 @@ wbbdebug=true;
 		dropdownhandler: function($btn,bsel,tsel,e) {
 			if ($(e.target).parents(bsel).length==0) {
 				$btn.removeClass("on").find(tsel).hide();
-				$(document).unbind('mousedown',this.dropdownhandler);
+				$(document).off('mousedown',this.dropdownhandler);
 				if (this.$body) {
-					this.$body.unbind('mousedown',this.dropdownhandler);
+					this.$body.off('mousedown',this.dropdownhandler);
 				}
 			}
 		},
@@ -2672,8 +2672,8 @@ wbbdebug=true;
 			if (e.which==27) {this.closeModal();}
 		},
 		closeModal: function() {
-			$(document.body).css("overflow","auto").css("padding-right","0").unbind("keyup",this.escModal); //ESC key close modal;
-			this.$modal.find('#wbbm-submit,#wbbm-remove').unbind('click');
+			$(document.body).css("overflow","auto").css("padding-right","0").off("keyup",this.escModal); //ESC key close modal;
+			this.$modal.find('#wbbm-submit,#wbbm-remove').off('click');
 			this.$modal.hide();
 			this.lastRange=false;
 			return this;
@@ -2739,10 +2739,10 @@ wbbdebug=true;
 					},this)
 				});
 
-        this.$modal.find("#fileupl").bind("change",function() {
+        this.$modal.find("#fileupl").on("change",function() {
 					$("#fupform").submit();
 				});
-				this.$modal.find("#fupform").bind("submit",$.proxy(function(e) {
+				this.$modal.find("#fupform").on("submit",$.proxy(function(e) {
 					$(e.target).parents("#imguploader").hide().after('<div class="loader"><img src="'+this.options.themePrefix+'/'+this.options.themeName+'/img/loader.gif" /><br/><span>'+CURLANG.loading+'</span></div>').parent().css("text-align","center");
 				},this))
 
@@ -2820,13 +2820,13 @@ wbbdebug=true;
 				sheight: opt.scope.$body.height()
 			}
 			drag=true;
-			$(document).bind("mousemove",$.proxy(opt.scope.drag_mousemove,this));
+			$(document).on("mousemove",$.proxy(opt.scope.drag_mousemove,this));
 			$(this).addClass("drag");
 		};
 		opt.scope.drag_mouseup = function(e) {
 			if (drag===true) {
 				e.preventDefault();
-				$(document).unbind("mousemove",opt.scope.drag_mousemove);
+				$(document).off("mousemove",opt.scope.drag_mousemove);
 				$(this).removeClass("drag");
 				drag=false;
 			}
@@ -2852,8 +2852,8 @@ wbbdebug=true;
 			}
 		};
 
-    $(this).bind("mousedown",opt.scope.drag_mousedown);
-		$(document).bind("mouseup",$.proxy(opt.scope.drag_mouseup,this));
+    $(this).on("mousedown",opt.scope.drag_mousedown);
+		$(document).on("mouseup",$.proxy(opt.scope.drag_mouseup,this));
 	},
 
     //API
@@ -2959,8 +2959,8 @@ wbbdebug=true;
 				this.$block.prepend('<div class="p2">'+this.opt.t2+'</div>');
 				this.$block.prepend('<div class="p">'+this.opt.t1+'</div>');
 
-        this.$block.bind('dragover', function() {$(this).addClass('dragover');return false;});
-				this.$block.bind('dragleave', function() {$(this).removeClass('dragover');return false;});
+        this.$block.on('dragover', function() {$(this).addClass('dragover');return false;});
+				this.$block.on('dragleave', function() {$(this).removeClass('dragover');return false;});
 
         //upload progress
         var uploadProgress = $.proxy(function (e) {

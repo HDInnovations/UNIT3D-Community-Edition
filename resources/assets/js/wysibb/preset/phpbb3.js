@@ -157,10 +157,10 @@ function fileModal() {
 			this.$modal.find("#fileupl").css("opacity",1);
 		}
 		
-		this.$modal.find("#fileupl").bind("change",function() {
+		this.$modal.find("#fileupl").on("change",function() {
 			$("#fupform").submit();
 		});
-		this.$modal.find("#fupform").bind("submit",$.proxy(function(e) {
+		this.$modal.find("#fupform").on("submit",$.proxy(function(e) {
 			$(e.target).parents("#imguploader").hide().after('<div class="loader"><img src="'+this.options.themePrefix+'/'+this.options.themeName+'/img/loader.gif" /><br/><span>'+CURLANG.loading+'</span></div>').parent().css("text-align","center");
 		},this))
 		
