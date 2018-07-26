@@ -62,7 +62,7 @@ $(document).ready(function() {
 	//for attachments process
 	$.wysibb.prototype.traceTextareaEvent = function(e) {
 		var data = this.$txtArea.val();
-		if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").size()==0 && !this.$txtArea.attr("wbbsync")) {
+		if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").length==0 && !this.$txtArea.attr("wbbsync")) {
 			if (data.indexOf("[attachment=")!=-1) {
 				var num = data.replace(/\[attachment=(\d+?)\].*/,"$1");
 				var idfile = $("input[name='attachment_data["+num+"][attach_id]']").val();
@@ -104,7 +104,7 @@ $(document).ready(function() {
 	$.fn.insertAttach = function(id,alt,isimg) {
 		var num=0;
 		while (num<30) {
-			if ($("input[name='attachment_data["+num+"][attach_id]']").size()==0) {
+			if ($("input[name='attachment_data["+num+"][attach_id]']").length==0) {
 				break;
 			}
 			num++;
@@ -134,7 +134,7 @@ function fileModal() {
 				if (data && data.status==1) {
 					var num=0;
 					while (num<30) {
-						if ($("input[name='attachment_data["+num+"][attach_id]']").size()==0) {
+						if ($("input[name='attachment_data["+num+"][attach_id]']").length==0) {
 							break;
 						}
 						num++;

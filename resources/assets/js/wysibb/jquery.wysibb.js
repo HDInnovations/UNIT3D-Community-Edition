@@ -675,7 +675,7 @@ wbbdebug=true;
 													var p = this.relFilterByNode(el,rootSelector);
 													var regRepl = (txt!=r[a]) ? this.getRegexpReplace(txt,r[a]):false;
 													var sel = (p) ? $.trim(p):false;
-													if ($.inArray(sel,sl)>-1 || $(rel).parent().contents().size()>1) {
+													if ($.inArray(sel,sl)>-1 || $(rel).parent().contents().length>1) {
 														//has dublicate and not one children, need wrap
 														var nel = $("<span>").html("{"+rname+"}");
 														this.setUID(nel,"wbb");
@@ -1210,14 +1210,14 @@ wbbdebug=true;
 		},
 		initModal: function() {
 			this.$modal=$("#wbbmodal");
-			if (this.$modal.size()==0) {
+			if (this.$modal.length==0) {
 				$.log("Init modal");
 				this.$modal = $('<div>').attr("id","wbbmodal").prependTo(document.body)
 					.html('<div class="wbbm"><div class="wbbm-title"><span class="wbbm-title-text"></span><span class="wbbclose" title="'+CURLANG.close+'">×</span></div><div class="wbbm-content"></div><div class="wbbm-bottom"><button id="wbbm-submit" class="wbb-button">'+CURLANG.save+'</button><button id="wbbm-cancel" class="wbb-cancel-button">'+CURLANG.cancel+'</button><button id="wbbm-remove" class="wbb-remove-button">'+CURLANG.remove+'</button></div></div>').hide();
 
 				this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal,this));
 				this.$modal.bind('click',$.proxy(function(e) {
-					if ($(e.target).parents(".wbbm").size()==0) {
+					if ($(e.target).parents(".wbbm").length==0) {
 						this.closeModal();
 					}
 				},this));
@@ -1334,7 +1334,7 @@ wbbdebug=true;
 						try { //Firefox fix, exception while get queryState for UnorderedList
 							if ((opt.excmd=="bold" || opt.excmd=="italic" || opt.excmd=="underline" || opt.excmd=="strikeThrough") && $(this.getSelectNode()).is("img")) { //Fix, when img selected
 								return false;
-							}else if (opt.excmd=="underline" && $(this.getSelectNode()).closest("a").size()>0) { //fix, when link select
+							}else if (opt.excmd=="underline" && $(this.getSelectNode()).closest("a").length>0) { //fix, when link select
 								return false;
 							}
 							return document.queryCommandState(opt.excmd);
@@ -2166,7 +2166,7 @@ wbbdebug=true;
 				var wr = document.createElement("SPAN");
 				$(wr).html(str);
 				this.setUID(wr,"wbb");
-				return ($(wr).contents().size()>1) ? wr:wr.firstChild;
+				return ($(wr).contents().length>1) ? wr:wr.firstChild;
 			}else{
 				//create text node
 				return document.createTextNode(str);
@@ -2202,11 +2202,11 @@ wbbdebug=true;
 			if (node.nodeType==3) {node=node.parentNode;}
 			var $node = $(node);
 			if ($node.is("span[id*='wbbid']")) {$node = $node.parent();}
-			if (this.options.bbmode===false && $node.is('div,blockquote,code') && $node.contents().size()>0) {
+			if (this.options.bbmode===false && $node.is('div,blockquote,code') && $node.contents().length>0) {
 				var l = $node[0].lastChild;
 				if (!l || (l && l.tagName!="BR")) {$node.append("<br/>");}
 			}
-			if (this.$body.contents().size()>0 && this.body.lastChild.tagName!="BR") {
+			if (this.$body.contents().length>0 && this.body.lastChild.tagName!="BR") {
 				this.$body.append('<br/>');
 			}
 		},
@@ -2279,7 +2279,7 @@ wbbdebug=true;
 				}
 				if (!$(this).hasClass("wbbtab") && $.trim($(this).html()).length==0) {
 					return true;
-				}else if ($(this).children().size()>0) {
+				}else if ($(this).children().length>0) {
 					$(this).children().filter(emptyFilter).remove();
 					if ($(this).html().length==0 && this.tagName!="BODY") {
 						return true;
@@ -2315,7 +2315,7 @@ wbbdebug=true;
 			$btn.toggleClass("on");
 		},
 		dropdownhandler: function($btn,bsel,tsel,e) {
-			if ($(e.target).parents(bsel).size()==0) {
+			if ($(e.target).parents(bsel).length==0) {
 				$btn.removeClass("on").find(tsel).hide();
 				$(document).unbind('mousedown',this.dropdownhandler);
 				if (this.$body) {
@@ -2354,7 +2354,7 @@ wbbdebug=true;
 			//NEW
 			$.each(this.options.rules,$.proxy(function(s,ar) {
 				var $sf = $block.find(s).attr("wbbkeep",1);
-				if ($sf.size()>0) {
+				if ($sf.length>0) {
 					var s2 = ar[0][1];
 					$.each(s2,function(i,v) {
 						if (v.sel) {
@@ -2365,7 +2365,7 @@ wbbdebug=true;
 			},this));
 			$block.find("*[wbbkeep!='1']").each($.proxy(function(i,el) {
 				var $this = $(el);
-				if ($this.is('div,p') && ($this.children().size()==0 || el.lastChild.tagName!="BR")) {
+				if ($this.is('div,p') && ($this.children().length==0 || el.lastChild.tagName!="BR")) {
 					$this.after("<br/>");
 				}
 			},this));
@@ -2383,7 +2383,7 @@ wbbdebug=true;
 			//replace div and p without last br to html()+br
 			$block.find("*[wbbkeep!='1']").each($.proxy(function(i,el) {
 				var $this = $(el);
-				if ($this.is('div,p') && ($this.children().size()==0 || el.lastChild.tagName!="BR")) {
+				if ($this.is('div,p') && ($this.children().length==0 || el.lastChild.tagName!="BR")) {
 					$this.after("<br/>").after($this.contents()).remove();
 				}else{
 					$this.after($this.contents()).remove();
@@ -2400,7 +2400,7 @@ wbbdebug=true;
 		smileFind: function() {
 			if (this.options.smilefind) {
 				var $smlist = $(this.options.smilefind).find('img[alt]');
-				if ($smlist.size()>0) {
+				if ($smlist.length>0) {
 					this.options.smileList=[];
 					$smlist.each($.proxy(function(i,el) {
 						var $el=$(el);
@@ -2434,13 +2434,13 @@ wbbdebug=true;
 			}
 		},
 		traceTextareaEvent: function(e) {
-			if ($(e.target).closest("div.wysibb").size()==0) {
+			if ($(e.target).closest("div.wysibb").length==0) {
 				if ($(document.activeElement).is("div.wysibb-body")) {
 					this.saveRange();
 				}
 				setTimeout($.proxy(function() {
 					var data = this.$txtArea.val();
-					if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").size()==0 && !this.$txtArea.attr("wbbsync")) {
+					if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").length==0 && !this.$txtArea.attr("wbbsync")) {
 						this.selectLastRange();
 						this.insertAtCursor(this.getHTML(data,true));
 						this.$txtArea.val("");
@@ -2466,7 +2466,7 @@ wbbdebug=true;
 				var snode = this.getSelectNode();
 				if (snode.nodeType==3) {
 					var ndata = snode.data;
-					if (ndata.length>=2 && !this.isInClearTextBlock(snode) && $(snode).parents("a").size()==0) {
+					if (ndata.length>=2 && !this.isInClearTextBlock(snode) && $(snode).parents("a").length==0) {
 						$.each(this.options.srules,$.proxy(function(i,sar) {
 							var smbb = sar[0];
 							var fidx = ndata.indexOf(smbb);
@@ -2528,7 +2528,7 @@ wbbdebug=true;
 		},
 		imgEventHandler: function(e) {
 			var $e = $(e.target);
-			if (this.hasWrapedImage && ($e.closest(".wbb-img,#wbbmodal").size()==0 || $e.hasClass("wbb-cancel-button"))) {
+			if (this.hasWrapedImage && ($e.closest(".wbb-img,#wbbmodal").length==0 || $e.hasClass("wbb-cancel-button"))) {
 				this.$body.find(".imgWrap ").each(function() {
 					$.log("Removed imgWrap block");
 					$(this).replaceWith($(this).find("img"));
@@ -2537,7 +2537,7 @@ wbbdebug=true;
 				this.updateUI();
 			}
 
-			if ($e.is("img") && $e.closest(".wysibb-body").size()>0) {
+			if ($e.is("img") && $e.closest(".wysibb-body").length>0) {
 				$e.wrap("<span class='imgWrap'></span>");
 				this.hasWrapedImage = $e;
 				this.$body.focus();
