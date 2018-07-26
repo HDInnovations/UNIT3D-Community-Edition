@@ -22,7 +22,7 @@ class ChatMessageResource extends JsonResource
             'id' => $this->id,
             'user' => new ChatUserResource($this->whenLoaded('user')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
-            'message' => $emojiOne->toImage(Bbcode::parse("[left]﻿{$this->message}[/left]")),
+            'message' => htmlspecialchars_decode($emojiOne->toImage(Bbcode::parse("[left]﻿{$this->message}[/left]"))),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String()
         ];

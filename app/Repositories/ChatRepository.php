@@ -164,9 +164,9 @@ class ChatRepository
      */
     protected function censorMessage($message)
     {
-        if (str_contains($message, config('censor.redact'))) {
-            foreach (config('censor.redact') as $word) {
-                $message = str_replace($word, '****', $message);
+        foreach (config('censor.redact') as $word) {
+            if (preg_match("\b$word(?=$|\s)", $message)) {
+                $message = str_replace($word, "<span class='censor'>{$word}</span>", $message);
             }
         }
 
