@@ -103,12 +103,13 @@
 }
 
 .hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li {
-  border-bottom: 1px solid #f3f3f3
+  border-bottom: none
 }
 
 .hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a {
   clear: both;
-  color: #7e7e7e;
+  color: #fff;
+  background-color: #272634;
   display: block;
   font-family: "lato", sans-serif;
   font-weight: 400;
@@ -117,10 +118,16 @@
   white-space: nowrap
 }
 
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:focus,
+.hoe-right-header .hoe-rheader-submenu > .dropdown-menu > li > a:hover {
+  background-color: #1f1f2a;
+}
+
 .hoe-right-header .hoe-rheader-submenu .dropdown-menu > li > a i {
   display: inline-block;
   margin-right: 9px;
-  width: 15px
+  width: 15px;
+  color: #fff;
 }
 
 .hoe-right-header .hoe-rheader-submenu .dropdown-menu > li > a > .badge {
