@@ -237,7 +237,9 @@
 
             /* Add system message */
             this.createMessage(
-              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`
+              `I am now [b]${this.auth.chat_status.name}[/b]`,
+              false,
+              this.auth.id
             )
 
           })
