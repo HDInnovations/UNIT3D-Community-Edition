@@ -8,7 +8,7 @@ use App\Repositories\ChatRepository;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\AuthManager;
 
 class ChatController extends Controller
 {
@@ -23,9 +23,10 @@ class ChatController extends Controller
      */
     private $auth;
 
-    public function __construct(ChatRepository $chat)
+    public function __construct(ChatRepository $chat, AuthManager $auth)
     {
         $this->chat = $chat;
+        $this->auth = $auth;
     }
 
     /* STATUSES */
@@ -55,7 +56,7 @@ class ChatController extends Controller
     {
         $uid = $request->get('user_id');
 
-        if (Auth::user()->id !== $uid) {
+        if ($this->auth->user()->id !== $uid) {
             return response('error', 401);
         }
 
