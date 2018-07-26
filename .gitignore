@@ -3,6 +3,11 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/tmp
+/public/fonts/fa-*
 /storage/backups
 /storage/*.key
 /vendor
@@ -19,6 +24,3 @@ laravel-echo-server.json
 
 # Vim
 .*.swp
-/public/tmp/
-
-*.DS_Store
