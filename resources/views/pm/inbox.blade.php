@@ -28,13 +28,13 @@
                                     <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle"
                                             data-toggle="tooltip" data-placement="top" title=""
                                             data-original-title="{{ trans('pm.mark-all-read') }}"><i
-                                                class="fa fa-eye"></i></button>
+                                                class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                                 <a href="{{ route('inbox') }}">
                                     <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
                                             data-toggle="tooltip" data-placement="top" title=""
                                             data-original-title="{{ trans('pm.refresh') }}"><i
-                                                class="fa fa-refresh"></i></button>
+                                                class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                             @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-xs btn-danger"
-                                                        title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>
+                                                        title="{{ trans('pm.delete') }}"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>
                                         </form>

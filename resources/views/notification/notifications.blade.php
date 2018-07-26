@@ -13,7 +13,7 @@
         <div class="col-md-12 page">
             <div class="header gradient teal">
                 <div class="inner_content">
-                    <div class="page-title"><h1><i class="fa fa-bell-o"></i>{{ trans('notification.notifications') }}
+                    <div class="page-title"><h1><i class="{{ config('other.font-awesome') }} fa-bell"></i>{{ trans('notification.notifications') }}
                         </h1></div>
                 </div>
             </div>
@@ -22,12 +22,12 @@
                     <a href="{{ route('massRead_notifications') }}">
                         <button type="button" class="btn btn btn-success" data-toggle="tooltip" title=""
                                 data-original-title="{{ trans('notification.mark-all-read') }}"><i
-                                    class="fa fa-eye"></i> {{ trans('notification.mark-all-read') }}</button>
+                                    class="{{ config('other.font-awesome') }} fa-eye"></i> {{ trans('notification.mark-all-read') }}</button>
                     </a>
                     <a href="{{ route('delete_notifications') }}">
                         <button type="button" class="btn btn btn-danger" data-toggle="tooltip" title=""
                                 data-original-title="{{ trans('notification.delete-all') }}"><i
-                                    class="fa fa-times"></i> {{ trans('notification.delete-all') }}</button>
+                                    class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('notification.delete-all') }}</button>
                     </a>
                 </div>
                 <table class="table table-condensed table-striped table-bordered">
@@ -58,14 +58,14 @@
                                 <a href="{{ route('read_notification', ['id' => $n->id]) }}">
                                     <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip" title=""
                                             data-original-title="{{ trans('notification.mark-read') }}"
-                                            @if($n->read_at != null) disabled @endif><i class="fa fa-eye"></i></button>
+                                            @if($n->read_at != null) disabled @endif><i class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                             </td>
                             <td>
                                 <a href="{{ route('delete_notification', ['id' => $n->id]) }}">
                                     <button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip" title=""
                                             data-original-title="{{ trans('notification.delete') }}"><i
-                                                class="fa fa-times"></i></button>
+                                                class="{{ config('other.font-awesome') }} fa-times"></i></button>
                                 </a>
                             </td>
                         </tr>

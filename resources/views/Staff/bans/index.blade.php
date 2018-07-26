@@ -28,7 +28,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="fa fa-ban"></i> Bans</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i> Bans</strong></p>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>

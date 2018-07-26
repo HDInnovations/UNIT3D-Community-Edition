@@ -28,9 +28,9 @@
                         <h3>{{ trans('page.aboutus-welcome') }} {{ config('other.title') }}</h3>
                         <p>{!! trans('page.aboutus-welcome-desc', ['title' => config('other.title')]) !!}</p>
 
-                        <h4><i class="fa fa-globe"
+                        <h4><i class="{{ config('other.font-awesome') }} fa-globe"
                                aria-hidden="true"></i> {{ trans('page.aboutus-advantage') }} {{ config('other.title') }}
-                            <i class="fa fa-globe" aria-hidden="true"></i></h4>
+                            <i class="{{ config('other.font-awesome') }} fa-globe" aria-hidden="true"></i></h4>
                         <div class="wrapper">
                             <div>
                                 <div>1</div>
@@ -58,8 +58,8 @@
                             </div>
 
 
-                            <h4><i class="fa fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-rules') }} <i
-                                        class="fa fa-globe" aria-hidden="true"></i></h4>
+                            <h4><i class="{{ config('other.font-awesome') }} fa-globe" aria-hidden="true"></i> {{ trans('page.aboutus-rules') }} <i
+                                        class="{{ config('other.font-awesome') }} fa-globe" aria-hidden="true"></i></h4>
                             <div>
                                 <div>1</div>
                                 <p>{{ trans('page.aboutus-rules1') }}</p>

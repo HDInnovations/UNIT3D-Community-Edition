@@ -45,9 +45,9 @@
         </div>
         <div class="col-sm-8">
             <div class="well well-sm mt-0">
-                <p class="lead text-orange text-center"><i class="fa fa-exclamation-triangle"></i>
+                <p class="lead text-orange text-center"><i class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i>
                     <strong>{{ strtoupper(trans('user.disclaimer')) }}</strong> <i
-                            class="fa fa-exclamation-triangle"></i></p>
+                            class="{{ config('other.font-awesome') }} fa-exclamation-triangle"></i></p>
                 <p class="lead text-orange text-center">{{ trans('user.disclaimer-info') }}
                     &nbsp;<br><strong>{{ trans('user.disclaimer-info-bordered') }}</strong></p>
             </div>

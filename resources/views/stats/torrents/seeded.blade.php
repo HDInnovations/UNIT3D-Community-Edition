@@ -26,7 +26,7 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-success"><strong><i class="fa fa-trophy"></i> {{ trans('stat.top-seeded') }}</strong>
+                    <p class="text-success"><strong><i class="{{ config('other.font-awesome') }} fa-trophy"></i> {{ trans('stat.top-seeded') }}</strong>
                     </p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>

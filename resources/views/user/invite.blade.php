@@ -19,7 +19,7 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('user.invites-disabled') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('user.invites-disabled') }}
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">{{ trans('user.invites-disabled-desc') }}</p>
@@ -31,7 +31,7 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('user.invites-banned') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('user.invites-banned') }}
                         </h1>
                         <div class="separator"></div>
                         <p class="text-center">{{ trans('user.invites-banned-desc') }}</p>

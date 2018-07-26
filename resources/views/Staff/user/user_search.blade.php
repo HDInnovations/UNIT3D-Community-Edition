@@ -71,7 +71,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -119,7 +119,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -162,7 +162,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $mod->username, 'id' => $mod->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -205,7 +205,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $admin->username, 'id' => $admin->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -248,7 +248,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $coder->username, 'id' => $coder->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif

@@ -23,14 +23,14 @@
                     <tr>
                         <th class="torrents-icon"></th>
                         <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                        <th><i class="fa fa-download"></i></th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-download"></i></th>
                         <th>{{ trans('torrent.size') }}</th>
                         <th>{{ trans('torrent.short-seeds') }}</th>
                         <th>{{ trans('torrent.short-leechs') }}</th>
                         <th>{{ trans('torrent.short-completed') }}</th>
                         <th>{{ trans('torrent.age') }}</th>
                         <th>{{ trans('torrent.downloaded') }}</th>
-                        <th><i class="fa fa-cogs"></i></th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-cogs"></i></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,7 +73,7 @@
                                     <button type="button" id="{{ $t->id }}"
                                             class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip"
                                             title="" data-original-title="{{ trans('torrent.delete-bookmark') }}"><i
-                                                class="fa fa-times"></i></button>
+                                                class="{{ config('other.font-awesome') }} fa-times"></i></button>
                                 </a>
                             </td>
                         </tr>

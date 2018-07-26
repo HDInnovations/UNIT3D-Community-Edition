@@ -35,16 +35,16 @@ class RequestViewHelper
 
             if ($list->claimed != null && $list->filled_hash == null) {
                 $status .= "<button class='btn btn-xs btn-primary' data-toggle='tooltip' title='' data-original-title='{$request} {$claimed}'>
-                            <i class='fa fa-suitcase'></i> {$claimed}</button>";
+                            <i class='fal fa-suitcase'></i> {$claimed}</button>";
             } elseif ($list->filled_hash != null && $list->approved_by == null) {
                 $status .= "<button class='btn btn-xs btn-info' data-toggle='tooltip' title='' data-original-title='{$request} {$pending}'>
-                            <i class='fa fa-question-circle'></i> {$pending}</button>";
+                            <i class='fal fa-question-circle'></i> {$pending}</button>";
             } elseif ($list->filled_hash == null) {
                 $status .= "<button class='btn btn-xs btn-danger' data-toggle='tooltip' title='' data-original-title='{$request} {$unfilled}'>
-                            <i class='fa fa-times-circle'></i> {$unfilled}</button>";
+                            <i class='fal fa-times-circle'></i> {$unfilled}</button>";
             } else {
                 $status .= "<button class='btn btn-xs btn-success' data-toggle='tooltip' title='' data-original-title='{$request} {$filled}'>
-                            <i class='fa fa-check-circle'></i> {$filled}</button>";
+                            <i class='fal fa-check-circle'></i> {$filled}</button>";
             }
 
             $data[] =

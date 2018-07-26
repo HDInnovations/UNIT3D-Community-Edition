@@ -157,7 +157,7 @@
             },
             type: 'get',
             beforeSend: function () {
-              $("#result").html('<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>')
+              $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
           }).done(function (e) {
             $data = $(e);

@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="title"><i class="fa fa-gear"></i> Edit User <a
+        <h1 class="title"><i class="{{ config('other.font-awesome') }} fa-gear"></i> Edit User <a
                     href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
@@ -167,7 +167,7 @@
                 {{ Form::close() }}
                 <hr>
                 <h2>Notes <span class="text-blue"><strong><i
-                                    class="fa fa-note"></i> {{ $notes->count() }} </strong></span></h2>
+                                    class="{{ config('other.font-awesome') }} fa-note"></i> {{ $notes->count() }} </strong></span></h2>
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
@@ -199,7 +199,7 @@
                                 <td>
                                     <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
                                        class="btn btn-xs btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

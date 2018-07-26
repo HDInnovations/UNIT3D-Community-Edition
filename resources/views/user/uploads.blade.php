@@ -40,7 +40,7 @@
                                 <div class="pull-right">
                                     <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"><i
-                                                    class="fa fa-download"></i></button>
+                                                    class="{{ config('other.font-awesome') }} fa-download"></i></button>
                                     </a>
                                 </div>
                             </td>

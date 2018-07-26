@@ -25,15 +25,15 @@
                 <ul class="step">
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelUpdater::final') }}">
-                        <i class="step__icon fa fa-database" aria-hidden="true"></i>
+                        <i class="step__icon {{ config('other.font-awesome') }} fa-database" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelUpdater::overview') }}">
-                        <i class="step__icon fa fa-reorder" aria-hidden="true"></i>
+                        <i class="step__icon {{ config('other.font-awesome') }} fa-reorder" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelUpdater::welcome') }}">
-                        <i class="step__icon fa fa-refresh" aria-hidden="true"></i>
+                        <i class="step__icon {{ config('other.font-awesome') }} fa-sync-alt" aria-hidden="true"></i>
                     </li>
                     <li class="step__divider"></li>
                 </ul>

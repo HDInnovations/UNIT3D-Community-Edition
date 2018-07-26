@@ -19,11 +19,12 @@
 
                 <div class="col-md-3">
                     <div class="pull-right">
+                        <span>Status: </span>
                         <i v-for="status in $parent.statuses"
                            v-tooltip="status.name"
                            @click="$emit('changedStatus', status.id)"
                            :class="status.icon ? status.icon : 'fa fa-dot-circle-o'"
-                           :style="`color: ${status.color}`"></i>
+                           :style="`color: ${status.color}`">&nbsp;</i>
                     </div>
                 </div>
 

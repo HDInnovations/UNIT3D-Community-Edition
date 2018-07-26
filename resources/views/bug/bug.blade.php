@@ -62,7 +62,7 @@
                     <tr>
                         <td colspan="2" align="center">
                             <button class="btn btn-labeled btn-danger" type="submit"><span class="btn-label"><i
-                                            class="fa fa-bug"></i></span>{{ trans('common.submit') }}</button>
+                                            class="{{ config('other.font-awesome') }} fa-bug"></i></span>{{ trans('common.submit') }}</button>
                         </td>
                     </tr>
                 </tbody>

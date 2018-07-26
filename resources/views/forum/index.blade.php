@@ -58,13 +58,13 @@
                                 <td>{{ $categoryChild->num_topic }}</td>
                                 <td>
                                     <span>{{ trans('forum.last-message') }} - {{ strtolower(trans('forum.author')) }} <i
-                                                class="fa fa-user"></i> <a
+                                                class="{{ config('other.font-awesome') }} fa-user"></i> <a
                                                 href="{{ route('profile', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
                                     <br>
-                                    <span>{{ trans('forum.topic') }} <i class="fa fa-chevron-right"></i><a
+                                    <span>{{ trans('forum.topic') }} <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
                                                 href="{{ route('forum_topic', ['slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>
                                     <br>
-                                    <span><i class="fa fa-clock-o"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>
+                                    <span><i class="{{ config('other.font-awesome') }} fa-clock"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>
                                 </td>
                             </tr>
                         @endforeach

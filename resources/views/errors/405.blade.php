@@ -6,7 +6,7 @@
 
 @section('container')
     <h1 class="mt-5 text-center">
-        <i class="fa fa-exclamation-circle text-warning"></i> Error 405: Method Not Allowed!
+        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-warning"></i> Error 405: Method Not Allowed!
     </h1>
 
     <div class="separator"></div>
