@@ -136,51 +136,26 @@
 
         <div class="container-fluid">
             <div class="block">
-                <div class="header gradient light_blue">
+                <span class="badge-user" style="float: right;">
+                    <strong>{{ trans('request.requests') }}:</strong> {{ $num_req }} |
+                    <strong>{{ trans('request.filled') }}:</strong> {{ $num_fil }} |
+                    <strong>{{ trans('request.unfilled') }}:</strong> {{ $num_unfil }} |
+                    <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} |
+                    <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
+                    <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
+                </span>
+                <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
+                    {{ trans('request.add-request') }}
+                </a>
+                <div class="header gradient green">
                     <div class="inner_content">
-                        <h1>{{ trans('request.requests') }}</h1>
+                        <h1>
+                            {{ trans('request.requests') }}
+                        </h1>
                     </div>
                 </div>
-                <br>
-                <span class="badge-user" style="float: right;">
-      <strong>{{ trans('request.requests') }}:</strong> {{ $num_req }} |
-      <strong>{{ trans('request.filled') }}:</strong> {{ $num_fil }} |
-      <strong>{{ trans('request.unfilled') }}:</strong> {{ $num_unfil }} |
-      <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} |
-      <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
-      <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
-  </span>
-                <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title=""
-                   data-original-title="{{ trans('request.add-request') }}!"
-                   class="btn btn btn-success">{{ trans('request.add-request') }}</a>
-                <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="torrents-icon">{{ trans('torrent.category') }}</th>
-                            <th class="torrents-icon">{{ trans('torrent.type') }}</th>
-                            <th class="torrents-filename col-sm-6">{{ trans('request.request') }}</th>
-                            <th>{{ trans('common.author') }}</th>
-                            <th>{{ trans('request.votes') }}</th>
-                            <th>{{ trans('common.comments') }}</th>
-                            <th>{{ trans('request.bounty') }}</th>
-                            <th>{{ trans('request.age') }}</th>
-                            <th>{{ trans('request.claimed') }} / {{ trans('request.filled') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody id="result">
-
-                        </tbody>
-                    </table>
-                    <!-- Pagination -->
-                    <div class="text-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination" id="pagination">
-
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- /Pagination -->
+                <div id="result">
+                    @include('requests.results')
                 </div>
             </div>
         </div>
@@ -278,8 +253,8 @@
                     $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function (e) {
-                $("#result").html(e['result']);
-                pagination(e['rows'], e['qty'], e['active']);
+              $data = $(e);
+              $("#result").html($data);
             });
         }
     </script>
@@ -326,30 +301,18 @@
             faceted();
         });
     </script>
-
     <script>
-        function pagination(rows, qty, active) {
-            //var rows = Object.keys(e).length;
-            var q = parseInt(qty);
-            if (active == 1) {
-                var nav = '<li><a aria-label="Previous" style="cursor:not-allowed"><span aria-hidden="true">&laquo;</span></a></li>';
-            } else {
-                nav = '<li><a onclick="faceted(' + (parseInt(active) - 1) + ')" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
-            }
-            for (var i = 0, j = 1; i <= rows; i += q, j++) {
-                if ((j >= parseInt(active) - 6) && (j <= parseInt(active) + 8)) {
-                    nav += '<li class="" id="a' + j + '"><a onclick="faceted(' + (j) + ')">' + j + '</a>';
-                }
-            }
-            if (active == Math.ceil(rows / qty)) {
-                nav += '<li><a aria-label="Next" style="cursor:not-allowed"><span aria-hidden="true">&raquo;</span></a></li>';
-            } else {
-                nav += '<li><a onclick="faceted(' + (parseInt(active) + 1) + ')" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>';
-            }
-
-            $("#pagination").html(nav);
-
-            $("#a" + (parseInt(active))).addClass('active');
-        }
+      $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var page = url.split('page=')[1];
+        window.history.pushState("", "", url);
+        faceted(page);
+      })
+    </script>
+    <script>
+      $(document).ajaxComplete(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
     </script>
 @endsection

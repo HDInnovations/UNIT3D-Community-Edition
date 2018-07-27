@@ -171,7 +171,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/mail/delete/{id}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
-        Route::get('filterRequests', 'RequestController@faceted');
+        Route::get('/filterRequests', 'RequestController@faceted');
         Route::get('/requests', 'RequestController@requests')->name('requests');
         Route::get('/request/add', 'RequestController@addRequestForm')->name('add_request_form');
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
@@ -187,7 +187,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
 
         // Torrent
-        Route::get('filterTorrents', 'TorrentController@faceted');
+        Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
         Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
