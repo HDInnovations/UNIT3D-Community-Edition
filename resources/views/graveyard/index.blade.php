@@ -212,4 +212,9 @@
         faceted(page);
       })
     </script>
+    <script>
+      $(document).ajaxComplete(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
 @endsection

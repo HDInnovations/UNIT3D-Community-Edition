@@ -301,4 +301,18 @@
             faceted();
         });
     </script>
+    <script>
+      $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var page = url.split('page=')[1];
+        window.history.pushState("", "", url);
+        faceted(page);
+      })
+    </script>
+    <script>
+      $(document).ajaxComplete(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
 @endsection
