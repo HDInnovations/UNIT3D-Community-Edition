@@ -11,11 +11,11 @@
                 @if($u->isOnline())
                     @if($u->hidden == 1)
                         <span class="badge-user text-orange text-bold"
-                              style="margin-bottom: 10px;">{{ strtoupper(trans('common.hidden')) }} @if(auth()->user()->group->is_modo)
-                                <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"> ({{ $u->username }} @if($u->getWarning() > 0)
+                              style="margin-bottom: 10px;"><i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }} @if(auth()->user()->group->is_modo)
+                                <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"> {{ $u->username }} @if($u->getWarning() > 0)
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title=""
-                                           data-original-title="{{ trans('common.active-warning') }}"></i>@endif)</a>@endif</span>
+                                           data-original-title="{{ trans('common.active-warning') }}"></i>@endif</a>@endif</span>
                     @else
                         <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"><span
                                     class="badge-user text-bold"
