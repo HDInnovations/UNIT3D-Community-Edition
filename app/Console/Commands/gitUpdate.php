@@ -13,30 +13,53 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Process\Exception\RuntimeException;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
 class gitUpdate extends Command
 {
+    /**
+     * @var SymfonyStyle $io
+     */
+    protected $io;
+
+    /**
+     * The copy command
+     */
+    protected $copy_command = 'cp -Rfp';
+
+    /**
+     * The paths relative to base_path() to backup and restore
+     *
+     * @var array
+     */
+    protected $paths = [
+        '.env',
+        'laravel-echo-server.json',
+        'config',
+        'public/files',
+        'resources/views/emails'
+    ];
 
     /**
      * The console command signature.
      *
      * @var string
      */
-    protected $signature = 'git:update 
-    {file? : The path of the file you want to update} 
-    {--backup : To create a backup before update}
-    {--no-compile : To opt out of compiling assets}';
+    protected $signature = 'git:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Executes the commands necessary to update your website using git without loosing changes.';
+    protected $description = 'Executes the commands necessary to update your website using git';
 
     /**
      * Create a new command instance.
@@ -55,139 +78,225 @@ class gitUpdate extends Command
      */
     public function handle()
     {
-        $this->alert('Git Updater v1.8 Beta by Poppabear');
-        $this->warn('Press CTRL + C to abort');
+        $this->input = new ArgvInput();
+        $this->output = new ConsoleOutput();
 
-        sleep(5);
+        $this->io = new SymfonyStyle($this->input, $this->output);
 
-        $backup = $this->option('backup');
-        $no_compile = $this->option('no-compile');
+        $this->info('
+        ***************************
+        * Git Updater v2.0 Stable *
+        ***************************
+        ');
 
-        if ($backup) {
-            $this->createBackup();
+        $this->line('<fg=cyan>
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+        
+        IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+        SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
+        GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) EVEN IF ADVISED OF THE POSSIBILITY 
+        OF SUCH DAMAGE.
+        
+        <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER!</>
+        </>');
+
+        $choice = $this->io->choice('Would you like to proceed', ['no', 'yes'], 'no');
+        if ($choice === 'no') {
+            $this->line('<fg=red>Aborted ...</>');
+            die();
         }
 
-        $this->runGitCommands();
+        $this->warn('
+        Press CTRL + C ANYTIME to abort! Aborting can lead to unexpected results!
+        ');
 
-        $this->runComposerCommands();
+        sleep(3);
 
-        $this->runNewMigrations();
+        $this->git();
 
-        if (!$no_compile) {
-            $this->compileAssets();
-        } else {
-            $this->warn('!!! Skipping Asset Compiling !!!');
-        }
+        $this->composer();
 
-        $this->clearCache();
+        $this->migrations();
+
+        $this->compile();
+
+        $this->clear();
 
         $this->info('Done ... Please report any errors or issues.');
     }
 
-    private function createBackup()
+    private function git()
     {
-        $this->info('Creating Backup ...');
-        $this->warn('*** This process could take a few minutes ***');
-        try {
-            // start the backup process
-            $this->call('backup:run');
+        $process = $this->process('git fetch && git diff --name-only --oneline ..origin');
+        $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
-            // log the results
-            info("A new backup was initiated from the git:update command ... ");
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+        $process = $this->process('git diff --name-only');
+        $diffs = array_filter(explode("\n", $process->getOutput()), 'strlen');
+
+        $results = array_intersect($updating, $diffs);
+
+        $this->info("\nUpdating to be current with remote repository ...");
+
+        $this->backup();
+
+        $this->commands([
+            'git stash',
+            'git checkout master',
+            'git fetch origin',
+            'git reset --hard origin/master',
+            'git pull origin master'
+        ]);
+
+        $this->restore();
+
+        if (count($results) > 0) {
+            $this->line('<fg=magenta>
+            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+            
+            We have detected a conflict with some of the files we are trying to update.
+            
+            This happens when we are trying to update files that you have made custom changes to.
+            
+            You have 2 options here:
+            
+            <fg=white>\'Keep\':</> <fg=cyan> Keep YOUR VERSION and manually updated the file with our changes.</>
+            <fg=white>\'Update\':</> <fg=cyan> Update with OUR VERSION and manually updated the file with your changes.</>
+            
+            <fg=red> Please note if you chose to Update you WILL LOSE your changes. </>
+
+            </>');
+
+            $this->info('Below is the list of files that will be affected:');
+
+            $this->io->listing($results);
+
+            $choice = $this->io->choice('Would you like to \'Keep\' or \'Update\'', ['Keep', 'Update'], 'Keep');
+            if ($choice === 'Update') {
+                foreach ($results as $file) {
+                    $this->process("git checkout -- $file");
+                }
+            }
         }
     }
 
-    private function runComposerCommands(): void
+    private function backup()
     {
-        $this->comment('Installing Composer packages ...');
-        $this->alert('THIS CAN TAKE A FEW MINUTES');
+        $this->warn('Backing up some stuff ...');
 
-        $commands = [
-            'composer install',
-        ];
+        $this->commands([
+            'rm -rf ' . storage_path('gitupdate'),
+            'mkdir ' . storage_path('gitupdate'),
+            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'public',
+            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'resources',
+            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'resources/views',
+        ]);
 
-        $this->processCommands($commands);
+        foreach ($this->paths as $path) {
+            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . $path);
+        }
     }
 
-    private function compileAssets(): void
+    private function restore()
     {
-        $this->comment('Compiling JS and Style assets ...');
-        $this->alert('THIS CAN TAKE A FEW MINUTES');
+        $this->warn('Restoring backed up stuff ...');
 
-        $commands = [
+        foreach ($this->paths as $path) {
+            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . $path . ' ' . base_path(dirname($path) . DIRECTORY_SEPARATOR));
+        }
+    }
+
+    private function composer()
+    {
+        $this->info("\nInstalling Composer packages ...");
+        $this->process('composer install');
+    }
+
+    private function compile()
+    {
+        $this->info('Compiling Assets ...');
+
+        $this->commands([
             'npm install',
-            'npm run prod',
-            'git add .' // we stage the compiled files
-        ];
-
-        $this->processCommands($commands);
+            'npm run prod'
+        ]);
     }
 
-    private function clearCache(): void
+    private function clear()
     {
         $this->call('clear:all');
     }
 
-    private function runNewMigrations(): void
+    private function migrations()
     {
-        $this->comment('Running new migrations ...');
+        $this->info("\nRunning new migrations ...");
+
         $this->call('migrate');
     }
 
-    private function runGitCommands(): void
-    {
-        $file = $this->argument('file');
-
-        if ($file !== null) {
-            $this->info("Updating file {$file} ...");
-
-            $commands = [
-                'git stash',
-                'git fetch origin',
-                "git checkout origin/master -- {$file}",
-                'git stash pop'
-            ];
-        } else {
-            $this->info('Updating ...');
-            $commands = [
-                'git fetch origin',
-                'git checkout -- public/js',
-                'git checkout -- public/css',
-                'git checkout -- app/Console/Commands/gitUpdate.php',
-                'git checkout -- package.json',
-                'git checkout -- package-lock.json',
-                'git checkout -- composer.json',
-                'git checkout -- composer.lock',
-                'git add .',
-                'git stash',
-                'git rebase origin/master',
-                'git stash pop',
-            ];
-        }
-
-        $this->warn('*** This process could take a few minutes ***');
-
-        $this->processCommands($commands);
-    }
-
-    private function processCommands(array $commands)
+    private function commands(array $commands)
     {
         foreach ($commands as $command) {
-            $process = new Process($command);
-            $process->setTimeout(150);
+            $process = $this->process($command);
 
-            $process->start();
+            echo "\n\n";
+            $this->warn($process->getOutput());
+        }
+    }
 
+    private function process($command)
+    {
+        $this->io->writeln("\n<fg=cyan>$command</>");
+
+        $process = new Process($command);
+        $bar = $this->progressStart();
+        $process->setTimeout(3600);
+
+        $process->start();
+
+        while ($process->isRunning()) {
             try {
-                $process->wait();
-            } catch (RuntimeException $e) {
+                $process->checkTimeout();
+            } catch (ProcessTimedOutException $e) {
                 $this->error("'{$command}' timed out. Please run manually!");
             }
 
-            $this->info($process->getOutput());
+            $bar->advance();
+            usleep(200000);
         }
+
+        $this->progressStop($bar);
+        $process->stop();
+
+        if (!$process->isSuccessful()) {
+            $this->error($process->getErrorOutput());
+            die();
+        }
+
+        return $process;
+    }
+
+    /**
+     * @return ProgressBar
+     */
+    protected function progressStart()
+    {
+        $bar = $this->io->createProgressBar();
+        $bar->setBarCharacter('<fg=magenta>=</>');
+        $bar->setFormat('[%bar%] (<fg=cyan>%message%</>)');
+        $bar->setMessage('Please Wait ...');
+        //$bar->setRedrawFrequency(20); todo: may be useful for platforms like CentOS
+        $bar->start();
+
+        return $bar;
+    }
+
+    /**
+     * @param $bar
+     */
+    protected function progressStop(ProgressBar $bar)
+    {
+        $bar->setMessage("<fg=green>Done!</>");
+        $bar->finish();
     }
 
     /**
