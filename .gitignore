@@ -9,6 +9,7 @@
 /public/tmp
 /public/fonts/fa-*
 /storage/backups
+/storage/gitupdate
 /storage/*.key
 /vendor
 /.vagrant
