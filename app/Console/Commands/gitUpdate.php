@@ -112,6 +112,8 @@ class gitUpdate extends Command
 
         sleep(3);
 
+        $this->call('down --message="Currently Updating" --retry=300');
+
         $this->git();
 
         $this->composer();
@@ -121,6 +123,8 @@ class gitUpdate extends Command
         $this->compile();
 
         $this->clear();
+
+        $this->call('up');
 
         $this->info('Done ... Please report any errors or issues.');
     }
