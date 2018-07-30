@@ -11,6 +11,24 @@
             </div>
 
             <div class="panel-body">
+
+                <div v-if="showDevMsg">
+                    <h2 class="text-center text-red text-bold">Chat Box Is Currently In Beta</h2>
+                    <p class="text-center">
+                        Please understand that <strong>Beta</strong> refers to software undergoing testing.
+                        Is released to a certain group of peers for real world testing.
+                    </p>
+                    <p class="text-center">
+                        We are working hard to address all your concerns and issues.
+                    </p>
+                    <p class="text-center">
+                        Please be patient and be as detailed as possible when describing an issue you may be having!
+                    </p>
+                    <p class="text-center">
+                        <button @click="showDevMsg = false" class="btn btn-danger">Hide</button>
+                    </p>
+                </div>
+
                 <div id="frame">
                     <div class="content">
                         <div class="text-center">
@@ -36,6 +54,47 @@
         </div>
     </div>
 </template>
+<style lang="scss">
+    .chatbox {
+        .typing {
+            height: 20px;
+
+            .badge-extra {
+                margin: 0;
+            }
+        }
+
+        .statuses {
+            i {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .panel-body {
+            padding: 0;
+        }
+
+        .decoda-image {
+            max-height: 300px;
+            max-width: 500px;
+        }
+
+        .slide-fade-enter-active {
+            transition: all .3s ease;
+        }
+
+        .slide-fade-leave-active {
+            transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+
+        .slide-fade-enter, .slide-fade-leave-to {
+            transform: translateY(10px);
+            opacity: 0;
+        }
+    }
+</style>
 <script>
   import ChatroomsDropdown from './ChatroomsDropdown'
   import ChatMessages from './ChatMessages'
@@ -69,7 +128,10 @@
         scroll: true,
         channel: null,
         config: {},
-        activePeer: false
+        activePeer: false,
+
+        /* Developer Settings */
+        showDevMsg: false,
       }
     },
     watch: {
@@ -263,46 +325,3 @@
     },
   }
 </script>
-<style lang="scss">
-    @import "~Sass/chat/chatbox";
-
-    .chatbox {
-        .typing {
-            height: 20px;
-
-            .badge-extra {
-                margin: 0;
-            }
-        }
-
-        .statuses {
-            i {
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .panel-body {
-            padding: 0;
-        }
-
-        .decoda-image {
-            max-height: 300px;
-            max-width: 500px;
-        }
-
-        .slide-fade-enter-active {
-            transition: all .3s ease;
-        }
-
-        .slide-fade-leave-active {
-            transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-        }
-
-        .slide-fade-enter, .slide-fade-leave-to {
-            transform: translateY(10px);
-            opacity: 0;
-        }
-    }
-</style>

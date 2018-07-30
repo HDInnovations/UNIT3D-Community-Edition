@@ -13,11 +13,6 @@ mix
   .version()
 
   .webpackConfig({
-    resolve: {
-      alias: {
-        Sass: path.resolve(__dirname, 'resources/assets/sass')
-      }
-    },
     module: {
       // configuration regarding modules
       loaders: [
