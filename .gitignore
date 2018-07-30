@@ -1,6 +1,11 @@
 # Laravel
 
 /node_modules
+
+# Ignore everything in the public/files directory EXCEPT the .gitkeep
+/public/files
+!/public/files/*/.gitkeep
+
 /public/hot
 /public/storage
 /public/css
