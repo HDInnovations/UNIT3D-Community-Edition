@@ -112,7 +112,9 @@ class gitUpdate extends Command
 
         sleep(3);
 
-        $this->call('down --message="Currently Updating" --retry=300');
+        $this->call('down', [
+            '--message' => "Currently Updating", '--retry' => '300'
+        ]);
 
         $this->git();
 
