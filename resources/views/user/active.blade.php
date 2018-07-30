@@ -86,7 +86,7 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    {{ $active->links() }}
+                    {{ $active->appends(request()->except('page'))->render() }}
                 </div>
             </div>
         </div>

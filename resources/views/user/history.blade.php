@@ -89,7 +89,7 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    {{ $history->links() }}
+                    {{ $history->appends(request()->except('page'))->render() }}
                 </div>
             </div>
         </div>

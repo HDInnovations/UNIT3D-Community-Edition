@@ -86,7 +86,7 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    {{ $torrents->links() }}
+                    {{ $torrents->appends(request()->except('page'))->render() }}
                 </div>
             </div>
         </div>
