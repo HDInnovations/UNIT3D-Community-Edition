@@ -21,6 +21,17 @@
             @include('partials.pmmenu')
             <div class="col-md-10">
                 <div class="block">
+                    <div class="row">
+                        <div class="col-md-4 col-xs-7">
+                            <div class="input-group">
+                                <form role="form" method="GET" action="{{ route('searchPMOutbox') }}">
+                                    @csrf
+                                    <input type="text" name="subject" id="subject" class="form-control"
+                                           placeholder="{{ trans('pm.search') }}">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-condensed table-bordered table-striped table-hover">
                         <thead>
