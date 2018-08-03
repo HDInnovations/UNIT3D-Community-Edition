@@ -160,7 +160,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
         // Private Messages System
-        Route::get('/mail/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
+        Route::get('/mail/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
+        Route::get('/mail/searchPMOutbox', 'PrivateMessageController@searchPMOutbox')->name('searchPMOutbox');
         Route::get('/mail/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
         Route::get('/mail/message/{id}', 'PrivateMessageController@getPrivateMessageById')->name('message');
         Route::get('/mail/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');

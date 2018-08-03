@@ -21,12 +21,12 @@ class PrivateMessageController extends Controller
 {
 
     /**
-     * Search PM
+     * Search PM Inbox
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function searchPM(Request $request)
+    public function searchPMInbox(Request $request)
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('receiver_id', $user->id)->where([
@@ -34,6 +34,22 @@ class PrivateMessageController extends Controller
         ])->latest()->paginate(20);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
+    }
+
+    /**
+     * Search PM Outbox
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchPMOutbox(Request $request)
+    {
+        $user = auth()->user();
+        $pms = PrivateMessage::where('sender_id', $user->id)->where([
+            ['subject', 'like', '%' . $request->input('subject') . '%'],
+        ])->latest()->paginate(20);
+
+        return view('pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
