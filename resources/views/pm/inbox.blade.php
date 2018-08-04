@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-xs-7">
-                            <div class="input-group">
+                            <div class="input-group pull-right">
                                 <form role="form" method="GET" action="{{ route('searchPMInbox') }}">
                                     @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
