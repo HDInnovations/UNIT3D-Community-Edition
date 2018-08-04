@@ -1,14 +1,14 @@
 <?php
 /**
-* NOTICE OF LICENSE
-*
-* UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
-* The details is bundled with this project in the file LICENSE.txt.
-*
-* @project    UNIT3D
-* @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
-* @author     Mr.G
-*/
+ * NOTICE OF LICENSE
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     Mr.G
+ */
 
 namespace App\Http\Controllers;
 
@@ -25,11 +25,11 @@ use Illuminate\Http\Request;
 class AnnounceController extends Controller
 {
     /**
-    * Announce Code
-    *
-    * @param $passkey
-    * @return Bencoded response for the torrent client
-    */
+     * Announce Code
+     *
+     * @param $passkey
+     * @return Bencode response for the torrent client
+     */
     public function announce(Request $request, $passkey)
     {
         $this->checkRequestType();
@@ -81,9 +81,9 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::where("passkey", $passkey)->first();
+        $user = User::with('history')->where("passkey", $passkey)->first();
 
-        // If Passkey Doesnt Exsist Return Error to Client
+        // If Passkey Doesn't Exist Return Error to Client
         if (!$user) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']), 200, ['Content-Type' => 'text/plain']);
@@ -152,7 +152,11 @@ class AnnounceController extends Controller
         }
 
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::withAnyStatus()->where('info_hash', $info_hash)->first();
+        $torrent = Torrent::select('id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers')
+            ->with('peers')
+            ->withAnyStatus()
+            ->where('info_hash', $info_hash)
+            ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
         if (!$torrent || $torrent->id < 0) {
@@ -172,35 +176,10 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        $peers = Peer::where('info_hash', $info_hash)->take(100)->get()->toArray();
-        $seeders = 0;
-        $leechers = 0;
-
-        foreach ($peers as &$p) {
-            if ($p['left'] > 0) {
-                $leechers++; // Counts the number of leechers
-            } else {
-                $seeders++; // Counts the number of seeders
-            }
-
-            unset(
-                $p['id'],
-                $p['md5_peer_id'],
-                $p['info_hash'],
-                $p['agent'],
-                $p['uploaded'],
-                $p['downloaded'],
-                $p['left'],
-                $p['torrent_id'],
-                $p['user_id'],
-                $p['seeder'],
-                $p['created_at'],
-                $p['updated_at']
-            );
-        }
+        $peers = $torrent->peers->where('info_hash', $info_hash)->take(100)->toArray();
 
         // Pull Count On Users Peers Per Torrent
-        $limit = Peer::where('info_hash', $info_hash)->where('user_id', $user->id)->count();
+        $limit = $torrent->peers->where('user_id', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than 3 Return Error to Client
         if ($limit > 3) {
@@ -209,7 +188,7 @@ class AnnounceController extends Controller
         }
 
         // Get The Current Peer
-        $client = Peer::where('info_hash', $info_hash)->where('md5_peer_id', $md5_peer_id)->where('user_id', $user->id)->first();
+        $client = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', $user->id)->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
@@ -226,7 +205,7 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = History::where("info_hash", $info_hash)->where("user_id", $user->id)->first();
+        $history = $user->history->where('info_hash', $info_hash)->first();
 
         if (!$history) {
             $history = new History();
@@ -425,16 +404,16 @@ class AnnounceController extends Controller
             }
         }
 
-        $torrent->seeders = Peer::whereRaw('torrent_id = ? AND `left` = 0', [$torrent->id])->count();
-        $torrent->leechers = Peer::whereRaw('torrent_id = ? AND `left` > 0', [$torrent->id])->count();
+        $torrent->seeders = $torrent->peers->where('left', '=', '0')->count();
+        $torrent->leechers = $torrent->peers->where('left', '>', '0')->count();
         $torrent->save();
 
         $res = [];
         $res['interval'] = (60 * 45);
         $res['min interval'] = (60 * 30);
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
-        $res['complete'] = $seeders;
-        $res['incomplete'] = $leechers;
+        $res['complete'] = $torrent->seeders;
+        $res['incomplete'] = $torrent->leechers;
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
 
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
