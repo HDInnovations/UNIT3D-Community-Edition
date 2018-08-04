@@ -546,6 +546,10 @@ class RequestController extends Controller
         $tr = TorrentRequest::findOrFail($id);
 
         if ($user->id == $tr->user_id || auth()->user()->group->is_modo) {
+            if ($tr->approved_by != null) {
+                return redirect()->route('request', ['id' => $id])
+                    ->with(Toastr::error("Seems this request was already approved", 'Whoops!', ['options']));
+            }
             $tr->approved_by = $user->id;
             $tr->approved_when = Carbon::now();
             $tr->save();
@@ -614,6 +618,11 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
 
         if ($user->id == $torrentRequest->user_id) {
+            if ($torrentRequest->approved_by != null) {
+                return redirect()->route('request', ['id' => $id])
+                    ->with(Toastr::error("Seems this request was already rejected", 'Whoops!', ['options']));
+            }
+
             // Send Private Message
             $pm = new PrivateMessage;
             $pm->sender_id = 1;
