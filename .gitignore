@@ -13,6 +13,7 @@
 /public/mix-manifest.json
 /public/tmp
 /public/fonts/fa-*
+/public/img/emojione
 /storage/backups
 /storage/gitupdate
 /storage/*.key
