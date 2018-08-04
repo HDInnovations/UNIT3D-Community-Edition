@@ -80,6 +80,11 @@ mix
     'resources/assets/js/unit3d/vendor/livicons.js',
     'resources/assets/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
+  
+  /*
+   * Copy emojione assets
+   */
+  .copy('node_modules/emojione-assets/png/64', 'public/img/emojione');
 
 // Full API
 // mix.js(src, output);
