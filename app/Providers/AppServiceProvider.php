@@ -12,11 +12,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
 use App\Repositories\WishInterface;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\ServiceProvider;
+use App\Page;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Custom validation for the email whitelist/blacklist
-        Validator::extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
+        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
+        // Share $page across all views
+        view()->share('pages', Page::take(5)->get());
     }
 
     /**

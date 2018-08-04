@@ -6,7 +6,7 @@
             <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
             <footer>{{ config('other.meta_description') }}</footer>
             <br>
-            <i class="{{ config('other.font-awesome') }} fa-tv disk-good" style="font-size: 90px;"></i>
+            <i class="{{ config('other.font-awesome') }} fa-tv-retro disk-good" style="font-size: 90px;"></i>
         </div>
 
         <div class="col-md-2 l-footer-section">
@@ -35,30 +35,30 @@
             </ul>
         </div>
 
+        @if($pages)
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.pages') }}</h2>
             <ul>
-                <li><a href="{{ route('home') }}/p/rules.1">{{ trans('common.rules') }}</a></li>
-                <li><a href="{{ route('home') }}/p/faq.3">{{ trans('common.faq') }}</a></li>
-                <li><a href="{{ route('blacklist') }}">{{ trans('common.blacklist') }}</a></li>
-                <li><a href="{{ route('home') }}/p/tracker-codes.6">{{ trans('common.tracker-codes') }}</a></li>
-                <li><a href="{{ route('home') }}/p/upload-guide.5">{{ trans('common.upload-guide') }}</a></li>
-                @if (config('email-white-blacklist.enabled') == 'allow')
-                <li><a href="{{ route('emaillist') }}">{{ trans('common.email-whitelist') }}</a></li>
-                @endif
-                @if (config('email-white-blacklist.enabled') == 'block')
-                <li><a href="{{ route('emaillist') }}">{{ trans('common.email-blacklist') }}</a></li>
-                @endif
+                @foreach($pages as $p)
+                    <li><a href="{{ route('page', ['slug' => $p->slug, 'id' => $p->id]) }}">{{ $p->name }}</a></li>
+                @endforeach
             </ul>
         </div>
+        @endif
 
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.info') }}</h2>
             <ul>
                 <li><a href="{{ route('staff') }}">{{ trans('common.staff') }}</a></li>
                 <li><a href="{{ route('internal') }}">{{ trans('common.internal') }}</a></li>
+                <li><a href="{{ route('blacklist') }}">{{ trans('common.blacklist') }}</a></li>
+                @if (config('email-white-blacklist.enabled') == 'allow')
+                    <li><a href="{{ route('emaillist') }}">{{ trans('common.email-whitelist') }}</a></li>
+                @endif
+                @if (config('email-white-blacklist.enabled') == 'block')
+                    <li><a href="{{ route('emaillist') }}">{{ trans('common.email-blacklist') }}</a></li>
+                @endif
                 <li><a href="{{ route('about') }}">{{ trans('common.about') }}</a></li>
-                <li><a href="{{ route('home') }}/p/terms_of_use.7">{{ trans('common.terms') }}</a></li>
             </ul>
         </div>
 
