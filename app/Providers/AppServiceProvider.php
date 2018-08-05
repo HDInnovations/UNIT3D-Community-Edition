@@ -12,6 +12,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\WishInterface;
 use App\Repositories\WishRepository;
@@ -29,8 +30,11 @@ class AppServiceProvider extends ServiceProvider
     {
         // Custom validation for the email whitelist/blacklist
         validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
-        // Share $page across all views
-        view()->share('pages', Page::take(5)->get());
+
+        if (Schema::hasTable('pages')) {
+            // Share $page across all views
+            view()->share('pages', Page::take(5)->get());
+        }
     }
 
     /**
