@@ -22,8 +22,8 @@
             <div class="col-md-10">
                 <div class="block">
                     <div class="row">
-                        <div class="col-md-4 col-xs-7">
-                            <div class="input-group">
+                        <div class="col-xs-12">
+                            <div class="input-group pull-right">
                                 <form role="form" method="GET" action="{{ route('searchPMOutbox') }}">
                                     @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
