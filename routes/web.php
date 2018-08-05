@@ -111,7 +111,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/contact', 'ContactController@contact')->name('sendContact');
 
         // Page
-        Route::get('/p/{slug}.{id}', 'PageController@page')->name('page');
+        Route::get('/page/{slug}.{id}', 'PageController@page')->name('page');
 
         // Staff List
         Route::get('/staff', 'PageController@staff')->name('staff');

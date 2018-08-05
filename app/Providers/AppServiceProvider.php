@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
-            $view->with('pages', Page::take(5)->get());
+            $view->with('pages', Page::select('id', 'name', 'slug')->take(5)->get());
         });
     }
 
