@@ -79,6 +79,13 @@ Traffic: Unlimited
 </pre>
 
 ## <a name="installation"></a> Installation
+
+**A UNIT3D Installer has been released by Poppabear.**
+
+Check it out here: https://github.com/ServNX/UNIT3D-INSTALLER
+
+If you rather setup UNIT3D manually you can continue following the below instructions!
+ 
 Prerequisites Example:
 
 1. ## Install OS
