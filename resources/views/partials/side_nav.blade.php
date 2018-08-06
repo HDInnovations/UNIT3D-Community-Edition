@@ -111,7 +111,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('home') }}/p/rules.1">
+            <a href="{{ route('home') }}/page/rules.1">
                 <i class="livicon" data-name="info" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18"
                    data-loop="true"></i>
                 <span class="menu-text">{{ trans('common.rules') }}</span>
@@ -119,7 +119,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('home') }}/p/faq.3">
+            <a href="{{ route('home') }}/page/faq.3">
                 <i class="livicon" data-name="question" data-c="#ecf0f1" data-hc="#ecf0f1" data-size="18"
                    data-loop="true"></i>
                 <span class="menu-text">{{ trans('common.faq') }}</span>
