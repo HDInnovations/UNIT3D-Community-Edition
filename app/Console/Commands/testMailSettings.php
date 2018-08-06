@@ -45,20 +45,15 @@ class testMailSettings extends Command
 
         $this->info('Sending Test Email To ' . $owner);
         sleep(5);
-        $abort = false;
 
         try {
             Mail::to($owner)->send(new TestEmail());
         } catch (\Exception $e) {
-            $abort = true;
-        }
-
-        if ($abort) {
             $this->error('Failed!');
             $this->alert('Email failed to send. Please review your mail configs in the .env file.');
-        } else {
-            $this->alert('Email Was Successfully Sent!');
+            exit(1);
         }
-    }
 
+        $this->alert('Email Was Successfully Sent!');
+    }
 }
