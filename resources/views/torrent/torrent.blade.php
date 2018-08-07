@@ -378,7 +378,7 @@
                     <tbody>
                     <tr>
                         <td>
-                            <div class="panel-body torrent-desc">
+                            <div class="panel-body">
                                 <div class="text-center"><span
                                             class="text-bold text-blue">@emojione(':blue_heart:') {{ trans('torrent.media-info') }}
                                         @emojione(':blue_heart:')</span></div>
@@ -481,7 +481,7 @@
                 <tbody>
                 <tr>
                     <td>
-                        <div class="panel-body torrent-desc">
+                        <div class="panel-body">
                             @emojione($torrent->getDescriptionHtml())
                         </div>
                     </td>
