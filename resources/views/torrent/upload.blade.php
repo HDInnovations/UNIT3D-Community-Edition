@@ -45,7 +45,7 @@
             </div>
             <br>
             <div class="text-center">
-                <p class="text-success">Having Trouble? See Our Guide <a href="{{ url('p/upload-guide.5') }}">HERE</a>
+                <p class="text-success">Having Trouble? See Our Guide <a href="{{ url('page/upload-guide.5') }}">HERE</a>
                 </p>
                 <p class="text-danger">TMDB and IMDB is required for all uploads! It is used to grab
                     Posters/Backdrops and ExtraInfo!</p>
