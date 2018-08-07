@@ -57,7 +57,7 @@ class autoGraveyard extends Command
      */
     public function handle()
     {
-        $rewardable = Graveyard::where('rewarded', '!=', 1)->get();
+        $rewardable = Graveyard::where('rewarded', '!=', 1)->oldest()->get();
 
         foreach ($rewardable as $reward) {
             $user = User::where('id', $reward->user_id)->first();
