@@ -9,6 +9,7 @@
     "type": "project",
     "require": {
         "php": ">=7.2",
+        "appstract/laravel-opcache": "^2.0",
         "arcanedev/log-viewer": "^4.3",
         "bepsvpt/secure-headers": "^3.0",
         "brian2694/laravel-toastr": "^1.0",
