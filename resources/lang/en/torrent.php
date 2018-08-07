@@ -121,7 +121,7 @@ return [
     'top-leeched' => 'Top leeched',
     'top-seeded' => 'Top seeded',
     'torrent' => 'Torrent',
-    'torrent-tips' => 'In Total <span class="text-red text-bold">:total</span> BON has been tipped to the uploader, in which <span class="text-red text-bold">:user</span> are from you',
+    'torrent-tips' => 'In Total <span class="text-red text-bold">:total</span> BON has been tipped to the uploader, of which <span class="text-red text-bold">:user</span> are from you',
     'torrent-tips-desc' => 'This will be deducted from your available bonus points',
     'torrents' => 'Torrents',
     'type' => 'Type',
