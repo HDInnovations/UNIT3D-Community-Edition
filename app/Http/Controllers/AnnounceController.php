@@ -404,8 +404,8 @@ class AnnounceController extends Controller
             }
         }
 
-        $torrent->seeders = $torrent->peers->where('left', '=', '0')->count();
-        $torrent->leechers = $torrent->peers->where('left', '>', '0')->count();
+        $torrent->seeders = Peer::where('torrent_id', '=', $torrent->id)->where('left', '=', '0')->count();
+        $torrent->leechers = Peer::where('torrent_id', '=', $torrent->id)->where('left', '>', '0')->count();
         $torrent->save();
 
         $res = [];
