@@ -35,19 +35,6 @@ class gitUpdate extends Command
     protected $copy_command = 'cp -Rfp';
 
     /**
-     * The paths relative to base_path() to backup and restore
-     *
-     * @var array
-     */
-    protected $paths = [
-        '.env',
-        'laravel-echo-server.json',
-        'config',
-        'public/files',
-        'resources/views/emails'
-    ];
-
-    /**
      * The console command signature.
      *
      * @var string
@@ -62,6 +49,11 @@ class gitUpdate extends Command
     protected $description = 'Executes the commands necessary to update your website using git';
 
     /**
+     * @var $paths
+     */
+    private $paths;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -69,6 +61,7 @@ class gitUpdate extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->paths = config('gitupdate.backup');
     }
 
     /**
