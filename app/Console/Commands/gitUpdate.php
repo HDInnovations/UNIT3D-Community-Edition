@@ -106,7 +106,8 @@ class gitUpdate extends Command
         sleep(3);
 
         $this->call('down', [
-            '--message' => "Currently Updating", '--retry' => '300'
+            '--message' => "Currently Updating",
+            '--retry' => '300'
         ]);
 
         $this->git();
@@ -134,7 +135,7 @@ class gitUpdate extends Command
 
         $results = array_intersect($updating, $diffs);
 
-        $this->info("\nUpdating to be current with remote repository ...");
+        $this->info("\n\nUpdating to be current with remote repository ...");
 
         $this->backup();
 
@@ -184,14 +185,16 @@ class gitUpdate extends Command
 
         $this->commands([
             'rm -rf ' . storage_path('gitupdate'),
-            'mkdir ' . storage_path('gitupdate'),
-            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'public',
-            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'resources',
-            'mkdir ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . 'resources/views',
-        ]);
+            'mkdir ' . storage_path('gitupdate')
+        ], true);
 
         foreach ($this->paths as $path) {
-            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . $path);
+
+            $this->validatePath($path);
+
+            $this->createBackupPath($path);
+
+            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
     }
 
@@ -232,24 +235,27 @@ class gitUpdate extends Command
         $this->call('migrate');
     }
 
-    private function commands(array $commands)
+    private function commands(array $commands, $silent = false)
     {
         foreach ($commands as $command) {
-            $process = $this->process($command);
+            $process = $this->process($command, $silent);
 
-            echo "\n\n";
-            $this->warn($process->getOutput());
+            if (!$silent) {
+                echo "\n\n";
+                $this->warn($process->getOutput());
+            }
         }
     }
 
-    private function process($command)
+    private function process($command, $silent = false)
     {
-        $this->io->writeln("\n<fg=cyan>$command</>");
+        if (!$silent) {
+            $this->io->writeln("\n<fg=cyan>$command</>");
+            $bar = $this->progressStart();
+        }
 
         $process = new Process($command);
-        $bar = $this->progressStart();
         $process->setTimeout(3600);
-
         $process->start();
 
         while ($process->isRunning()) {
@@ -259,11 +265,17 @@ class gitUpdate extends Command
                 $this->error("'{$command}' timed out. Please run manually!");
             }
 
-            $bar->advance();
+            if (!$silent) {
+                $bar->advance();
+            }
+
             usleep(200000);
         }
 
-        $this->progressStop($bar);
+        if (!$silent) {
+            $this->progressStop($bar);
+        }
+
         $process->stop();
 
         if (!$process->isSuccessful()) {
@@ -308,5 +320,33 @@ class gitUpdate extends Command
         return [
 
         ];
+    }
+
+    /**
+     * @param $path
+     */
+    private function validatePath($path): void
+    {
+        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
+            $this->error("The path '$path' is invalid ...");
+            $this->call('up');
+            die();
+        }
+    }
+
+    /**
+     * @param $path
+     */
+    private function createBackupPath($path): void
+    {
+        if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
+            $arr = explode('/', $path);
+            $parent = null;
+            foreach ($arr as $dir) {
+                $_dir = $parent ? $parent . '/' . $dir : $dir;
+                $this->commands(['mkdir ' . storage_path('gitupdate') . '/' . $_dir], true);
+                $parent = $_dir;
+            }
+        }
     }
 }
