@@ -325,10 +325,10 @@ class gitUpdate extends Command
     /**
      * @param $path
      */
-    private function validatePath($path): void
+    private function validatePath($path)
     {
         if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
-            $this->error("The path '$path' is invalid ...");
+            $this->error("\n\nThe path '$path' is invalid ...");
             $this->call('up');
             die();
         }
@@ -337,7 +337,7 @@ class gitUpdate extends Command
     /**
      * @param $path
      */
-    private function createBackupPath($path): void
+    private function createBackupPath($path)
     {
         if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
             mkdir(storage_path("gitupdate/$path"), 0775, true);
