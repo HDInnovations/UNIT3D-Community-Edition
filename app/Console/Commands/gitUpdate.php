@@ -196,6 +196,8 @@ class gitUpdate extends Command
 
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
+
+        dd('debug');
     }
 
     private function restore()
@@ -340,13 +342,7 @@ class gitUpdate extends Command
     private function createBackupPath($path): void
     {
         if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
-            $arr = explode('/', $path);
-            $parent = null;
-            foreach ($arr as $dir) {
-                $_dir = $parent ? $parent . '/' . $dir : $dir;
-                $this->commands(['mkdir ' . storage_path('gitupdate') . '/' . $_dir], true);
-                $parent = $_dir;
-            }
+            mkdir(storage_path("gitupdate/$path"), 0775, true);
         }
     }
 }
