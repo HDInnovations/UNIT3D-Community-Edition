@@ -196,8 +196,6 @@ class gitUpdate extends Command
 
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
-
-        dd('debug');
     }
 
     private function restore()
