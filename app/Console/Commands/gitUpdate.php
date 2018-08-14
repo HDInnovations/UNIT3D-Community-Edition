@@ -226,6 +226,11 @@ class gitUpdate extends Command
     private function clear()
     {
         $this->call('clear:all');
+
+        $this->commands([
+            'chown -R www-data: storage bootstrap public config',
+            'find . -type d -exec chmod 0775 \'{}\' + -or -type f -exec chmod 0664 \'{}\' +'
+        ]);
     }
 
     private function migrations()
