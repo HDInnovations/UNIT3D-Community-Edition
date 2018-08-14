@@ -61,12 +61,12 @@ $(document).ready(function() {
 (function($) {
 	//for attachments process
 	$.wysibb.prototype.traceTextareaEvent = function(e) {
-		var data = this.$txtArea.val();
-		if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").size()==0 && !this.$txtArea.attr("wbbsync")) {
+		let data = this.$txtArea.val();
+		if (this.options.bbmode===false && data!="" && $(e.target).closest("div.wysibb").length==0 && !this.$txtArea.attr("wbbsync")) {
 			if (data.indexOf("[attachment=")!=-1) {
-				var num = data.replace(/\[attachment=(\d+?)\].*/,"$1");
-				var idfile = $("input[name='attachment_data["+num+"][attach_id]']").val();
-				var ext = $("input[name='attachment_data["+num+"][real_filename]']").val().replace(/.*?\.(\w+)$/,"$1");
+				let num = data.replace(/\[attachment=(\d+?)\].*/,"$1");
+				let idfile = $("input[name='attachment_data["+num+"][attach_id]']").val();
+				let ext = $("input[name='attachment_data["+num+"][real_filename]']").val().replace(/.*?\.(\w+)$/,"$1");
 				if (ext.match(/(jpg|gif|png|bmp)/)) {
 					data = data.replace(/(\[attachment=\d+\])(.*?)(\[\/attachment\])/,"$1"+idfile+":$2$3");
 				}else{
@@ -79,10 +79,10 @@ $(document).ready(function() {
 	}
 	
 	$.wysibb.prototype.txtAreaInitContent = function() { 
-		var tdata = this.txtArea.value;
+		let tdata = this.txtArea.value;
 		tdata = tdata.replace(/(\[attachment=(\d+?)\])([^:;]*?)(\[\/attachment\])/g,function(m,left,num,cont,right) {
-			var idfile = $("input[name='attachment_data["+num+"][attach_id]']").val();
-			var ext = $("input[name='attachment_data["+num+"][real_filename]']").val();
+			let idfile = $("input[name='attachment_data["+num+"][attach_id]']").val();
+			let ext = $("input[name='attachment_data["+num+"][real_filename]']").val();
 			if (ext) {
 				ext = ext.replace(/.*?\.(\w+)$/,"$1");
 				if (ext.match(/(jpg|gif|png|bmp)/)) {
@@ -102,16 +102,16 @@ $(document).ready(function() {
 		return this.data("wbb");
 	}
 	$.fn.insertAttach = function(id,alt,isimg) {
-		var num=0;
+		let num=0;
 		while (num<30) {
-			if ($("input[name='attachment_data["+num+"][attach_id]']").size()==0) {
+			if ($("input[name='attachment_data["+num+"][attach_id]']").length==0) {
 				break;
 			}
 			num++;
 		}
 		
 		this.data("wbb").$txtArea.after('<input type="hidden" name="attachment_data['+num+'][attach_id]" value="'+id+'" /><input type="hidden" name="attachment_data['+num+'][is_orphan]" value="1" /><input type="hidden" name="attachment_data['+num+'][real_filename]" value="'+id+":"+alt+'" /><input type="hidden" name="attachment_data['+num+'][attach_comment]" value="" />');
-		var data = (isimg===true) ? this.data("wbb").getCodeByCommand("attach",{"id":id,"num":num,"alt":alt}):this.data("wbb").getCodeByCommand("attach",{"id":id,"num":num,"altfile":alt});
+		let data = (isimg===true) ? this.data("wbb").getCodeByCommand("attach",{"id":id,"num":num,"alt":alt}):this.data("wbb").getCodeByCommand("attach",{"id":id,"num":num,"altfile":alt});
 
 		this.data("wbb").insertAtCursor(data);
 		return this.data("wbb");
@@ -132,16 +132,16 @@ function fileModal() {
 			success: $.proxy(function(data) {
 				$.log("Success");
 				if (data && data.status==1) {
-					var num=0;
+					let num=0;
 					while (num<30) {
-						if ($("input[name='attachment_data["+num+"][attach_id]']").size()==0) {
+						if ($("input[name='attachment_data["+num+"][attach_id]']").length==0) {
 							break;
 						}
 						num++;
 					}
 					
 					this.$txtArea.after('<input type="hidden" name="attachment_data['+num+'][attach_id]" value="'+data.id+'" /><input type="hidden" name="attachment_data['+num+'][is_orphan]" value="1" /><input type="hidden" name="attachment_data['+num+'][real_filename]" value="'+data.id+":"+data.alt+'" /><input type="hidden" name="attachment_data['+num+'][attach_comment]" value="" />');
-					var datastr = (data.isimg===true) ? this.getCodeByCommand("attach",{"id":data.id,"num":num,"alt":data.alt}):this.getCodeByCommand("attach",{"id":data.id,"num":num,"altfile":data.alt});
+					let datastr = (data.isimg===true) ? this.getCodeByCommand("attach",{"id":data.id,"num":num,"alt":data.alt}):this.getCodeByCommand("attach",{"id":data.id,"num":num,"altfile":data.alt});
 					this.insertAtCursor(datastr);
 				}
 				this.closeModal();
@@ -157,10 +157,10 @@ function fileModal() {
 			this.$modal.find("#fileupl").css("opacity",1);
 		}
 		
-		this.$modal.find("#fileupl").bind("change",function() {
+		this.$modal.find("#fileupl").on("change",function() {
 			$("#fupform").submit();
 		});
-		this.$modal.find("#fupform").bind("submit",$.proxy(function(e) {
+		this.$modal.find("#fupform").on("submit",$.proxy(function(e) {
 			$(e.target).parents("#imguploader").hide().after('<div class="loader"><img src="'+this.options.themePrefix+'/'+this.options.themeName+'/img/loader.gif" /><br/><span>'+CURLANG.loading+'</span></div>').parent().css("text-align","center");
 		},this))
 		
