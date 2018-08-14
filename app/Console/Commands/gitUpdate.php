@@ -203,7 +203,7 @@ class gitUpdate extends Command
         $this->warn('Restoring backed up stuff ...');
 
         foreach ($this->paths as $path) {
-            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . $path . ' ' . base_path(dirname($path) . DIRECTORY_SEPARATOR));
+            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . '/' . $path . ' ' . str_replace_last('/.', '', base_path(dirname($path))));
         }
     }
 
