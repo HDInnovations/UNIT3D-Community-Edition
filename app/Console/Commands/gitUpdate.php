@@ -173,7 +173,7 @@ class gitUpdate extends Command
             $choice = $this->io->choice('Would you like to \'Keep\' or \'Update\'', ['Keep', 'Update'], 'Keep');
             if ($choice === 'Update') {
                 foreach ($results as $file) {
-                    $this->process("git checkout -- $file");
+                    $this->process("git checkout origin/master -- $file");
                 }
             }
         }
@@ -203,7 +203,7 @@ class gitUpdate extends Command
         $this->warn('Restoring backed up stuff ...');
 
         foreach ($this->paths as $path) {
-            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . DIRECTORY_SEPARATOR . $path . ' ' . base_path(dirname($path) . DIRECTORY_SEPARATOR));
+            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . '/' . $path . ' ' . str_replace_last('/.', '', base_path(dirname($path))));
         }
     }
 
@@ -226,6 +226,11 @@ class gitUpdate extends Command
     private function clear()
     {
         $this->call('clear:all');
+
+        $this->commands([
+            'chown -R www-data: storage bootstrap public config',
+            'find . -type d -exec chmod 0775 \'{}\' + -or -type f -exec chmod 0664 \'{}\' +'
+        ]);
     }
 
     private function migrations()
