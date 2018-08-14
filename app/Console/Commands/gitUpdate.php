@@ -173,7 +173,7 @@ class gitUpdate extends Command
             $choice = $this->io->choice('Would you like to \'Keep\' or \'Update\'', ['Keep', 'Update'], 'Keep');
             if ($choice === 'Update') {
                 foreach ($results as $file) {
-                    $this->process("git checkout -- $file");
+                    $this->process("git checkout origin/master -- $file");
                 }
             }
         }
