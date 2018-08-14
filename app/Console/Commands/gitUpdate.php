@@ -203,7 +203,14 @@ class gitUpdate extends Command
         $this->warn('Restoring backed up stuff ...');
 
         foreach ($this->paths as $path) {
-            $this->process($this->copy_command . ' ' . storage_path('gitupdate') . '/' . $path . ' ' . str_replace_last('/.', '', base_path(dirname($path))));
+            $to = str_replace_last('/.', '', base_path(dirname($path)));
+            $from = storage_path('gitupdate') . '/' . $path;
+
+            if (is_dir($from)) {
+                $from .= '/*';
+            }
+
+            $this->process("$this->copy_command $from $to");
         }
     }
 
@@ -218,6 +225,7 @@ class gitUpdate extends Command
         $this->info('Compiling Assets ...');
 
         $this->commands([
+            'rm -rf node_modules',
             'npm install',
             'npm run prod'
         ]);
