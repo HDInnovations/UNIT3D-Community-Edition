@@ -23,8 +23,6 @@ class BackupController extends Controller
 {
     /**
      * Display All Backups
-     *
-     * @return Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -32,7 +30,7 @@ class BackupController extends Controller
             dd(trans('backup.no_disks_configured'));
         }
 
-        $this->data['backups'] = [];
+        $data['backups'] = [];
 
         foreach (config('backup.backup.destination.disks') as $disk_name) {
             $disk = Storage::disk($disk_name);
@@ -41,9 +39,10 @@ class BackupController extends Controller
 
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
+
                 // only take the zip files into account
                 if (substr($f, -4) == '.zip' && $disk->exists($f)) {
-                    $this->data['backups'][] = [
+                    $data['backups'][] = [
                         'file_path'     => $f,
                         'file_name'     => str_replace('backups/', '', $f),
                         'file_size'     => $disk->size($f),
@@ -56,16 +55,14 @@ class BackupController extends Controller
         }
 
         // reverse the backups, so the newest one would be on top
-        $this->data['backups'] = array_reverse($this->data['backups']);
-        $this->data['title'] = 'Backups';
+        $data['backups'] = array_reverse($data['backups']);
+        $data['title'] = 'Backups';
 
-        return view('Staff.backup.backup', $this->data);
+        return view('Staff.backup.backup', $data);
     }
 
     /**
      * Create A Backup
-     *
-     * @return Illuminate\Http\RedirectResponse
      */
     public function create()
     {
@@ -90,7 +87,6 @@ class BackupController extends Controller
      * Download A Backup
      *
      * @param \Illuminate\Http\Request $request
-     * @return Illuminate\Http\RedirectResponse
      */
     public function download(Request $request)
     {
@@ -104,11 +100,11 @@ class BackupController extends Controller
             if ($disk->exists($file_name)) {
                 return response()->download($storage_path.$file_name);
             } else {
-                abort(404, trans('backup.backup_doesnt_exist'));
+                return abort(404, trans('backup.backup_doesnt_exist'));
             }
-        } else {
-            abort(404, trans('backup.only_local_downloads_supported'));
         }
+
+        return abort(404, trans('backup.only_local_downloads_supported'));
     }
 
     /**
@@ -116,7 +112,6 @@ class BackupController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param $file_name
-     * @return Illuminate\Http\RedirectResponse
      */
     public function delete(Request $request, $file_name)
     {
@@ -126,8 +121,8 @@ class BackupController extends Controller
             $disk->delete($file_name);
 
             return 'success';
-        } else {
-            abort(404, trans('backup.backup_doesnt_exist'));
         }
+
+        return abort(404, trans('backup.backup_doesnt_exist'));
     }
 }

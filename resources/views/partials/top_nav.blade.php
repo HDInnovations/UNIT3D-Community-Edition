@@ -121,7 +121,7 @@
                     </li>
                     <li>
                         <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.my-wishlist') }}
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> {{ trans('user.my-wishlist') }}
                         </a>
                     </li>
                     <li>

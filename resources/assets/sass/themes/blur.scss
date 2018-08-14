@@ -408,7 +408,6 @@ body {
 }
 
 .box {
-  background: url(/img/blur-bg-blurred.jpg) fixed;
   display: block;
   padding: 20px 15px;
   background-color: #efefef;
@@ -422,7 +421,6 @@ body {
 }
 
 .container.box {
-  background: url(/img/blur-bg-blurred.jpg) fixed;
   display: block;
   padding: 20px 15px;
   background-color: #efefef;
@@ -448,13 +446,12 @@ body {
   padding: 8px 15px;
   margin-bottom: 24px;
   list-style: none;
-  background: url(/img/blur-bg-blurred.jpg) fixed;
-  border: 1px solid rgba(158, 158, 158, 0.46);
-  font-size: 14px
+  border: none;
+  font-size: 14px;
+  background-color: rgba(17, 17, 17, 0.24);
 }
 
 .block {
-  background: url(/img/blur-bg-blurred.jpg) fixed;
   display: block;
   padding: 20px 15px;
   background-color: #efefef;
@@ -543,4 +540,44 @@ ul.comments-list li {
 
 .mentions {
   background-color: rgba(10, 255, 64, 0.28);
+}
+
+
+.card.is-torrent {
+  background-color: rgba(23, 23, 23, 0.39);
+}
+
+.card.is-torrent .card_head {
+  background-color: rgba(23, 23, 23, 0.39);
+}
+
+.card.is-torrent .card_body {
+  background-color: rgba(0, 0, 0, 0.16);
+}
+
+.card.is-torrent .genre-label {
+  border: .5px solid rgba(34, 34, 34, 0.41);
+  border-radius: 5px;
+  background-color: rgba(30, 30, 30, 0.24);
+  box-shadow: none;
+}
+
+.card.is-torrent .description_plot {
+  color: #cccfe1;
+}
+
+.card.is-torrent .card_footer {
+  background-color: rgba(23, 23, 23, 0.39);
+}
+
+#frame {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+#frame .content .messages ul li.sent .messages-container {
+  color: #ffffff;
+}
+
+#frame .content .messages ul li {
+  border-bottom: 1px dashed rgba(254, 254, 254, 0.19);
 }

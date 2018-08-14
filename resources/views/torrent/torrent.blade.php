@@ -378,7 +378,7 @@
                     <tbody>
                     <tr>
                         <td>
-                            <div class="panel-body torrent-desc">
+                            <div class="panel-body">
                                 <div class="text-center"><span
                                             class="text-bold text-blue">@emojione(':blue_heart:') {{ trans('torrent.media-info') }}
                                         @emojione(':blue_heart:')</span></div>
@@ -481,7 +481,7 @@
                 <tbody>
                 <tr>
                     <td>
-                        <div class="panel-body torrent-desc">
+                        <div class="panel-body">
                             @emojione($torrent->getDescriptionHtml())
                         </div>
                     </td>
@@ -618,10 +618,10 @@
                                             @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="{{ trans('common.delete-comment') }}"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times" aria-hidden="true"></i></a>
+                                                            class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
                                                 <a title="{{ trans('common.edit-comment') }}" data-toggle="modal"
                                                    data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                                            class="pull-right {{ config('other.font-awesome') }} fa-lg fa-pencil"
+                                                            class="pull-right {{ config('other.font-awesome') }} fa-pencil"
                                                             aria-hidden="true"></i></a>
                                             @endif
                                             <div class="pt-5">

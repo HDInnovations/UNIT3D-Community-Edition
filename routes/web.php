@@ -111,7 +111,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/contact', 'ContactController@contact')->name('sendContact');
 
         // Page
-        Route::get('/p/{slug}.{id}', 'PageController@page')->name('page');
+        Route::get('/page/{slug}.{id}', 'PageController@page')->name('page');
 
         // Staff List
         Route::get('/staff', 'PageController@staff')->name('staff');
@@ -160,7 +160,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
         // Private Messages System
-        Route::get('/mail/searchPM', 'PrivateMessageController@searchPM')->name('searchPM');
+        Route::get('/mail/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
+        Route::get('/mail/searchPMOutbox', 'PrivateMessageController@searchPMOutbox')->name('searchPMOutbox');
         Route::get('/mail/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
         Route::get('/mail/message/{id}', 'PrivateMessageController@getPrivateMessageById')->name('message');
         Route::get('/mail/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
@@ -171,7 +172,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/mail/delete/{id}', 'PrivateMessageController@deletePrivateMessage')->name('delete-pm');
 
         // Requests
-        Route::get('filterRequests', 'RequestController@faceted');
+        Route::get('/filterRequests', 'RequestController@faceted');
         Route::get('/requests', 'RequestController@requests')->name('requests');
         Route::get('/request/add', 'RequestController@addRequestForm')->name('add_request_form');
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
@@ -187,7 +188,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
 
         // Torrent
-        Route::get('filterTorrents', 'TorrentController@faceted');
+        Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
         Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');

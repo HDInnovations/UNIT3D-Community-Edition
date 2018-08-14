@@ -55,7 +55,6 @@ class ForumController extends Controller
      */
     public function add(Request $request)
     {
-            $parentForum = Forum::findOrFail($request->input('parent_id'));
             $groups = Group::all();
 
             $forum = new Forum();
@@ -63,7 +62,7 @@ class ForumController extends Controller
             $forum->position = $request->input('position');
             $forum->slug = str_slug($request->input('title'));
             $forum->description = $request->input('description');
-            $forum->parent_id = ($request->input('forum_type') == 'category') ? 0 : $parentForum->id;
+            $forum->parent_id = $request->input('parent_id');
             $forum->save();
 
             // Permissions
@@ -129,11 +128,14 @@ class ForumController extends Controller
             $forum->position = $request->input('position');
             $forum->slug = str_slug($request->input('title'));
             $forum->description = $request->input('description');
-            $forum->parent_id = ($request->input('forum_type') == 'category') ? 0 : $request->input('parent_id');
-            $forum->parent_id = $request->input('parent_id');
+            if ($request->input('forum_type') == 'category') {
+                $forum->parent_id = 0;
+            } else {
+                $forum->parent_id = $request->input('parent_id');
+            }
             $forum->save();
 
-            // Permissions
+        // Permissions
         foreach ($groups as $k => $group) {
             $perm = Permission::whereRaw('forum_id = ? AND group_id = ?', [$forum->id, $group->id])->first();
             if ($perm == null) {

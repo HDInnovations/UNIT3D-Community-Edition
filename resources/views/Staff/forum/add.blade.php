@@ -48,11 +48,9 @@
         <div class="form-group">
             <label for="parent_id">Parent forum</label>
             <select name="parent_id" class="form-control">
+                <option value="0">New Category</option>
                 @foreach($categories as $c)
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    {{-- @foreach($c->getForumsInCategory() as $f)
-                        <option value="{{ $f->id }}">---- {{ $f->name }}</option>
-                    @endforeach --}}
+                    <option value="{{ $c->id }}">New Forum In {{ $c->name }} Category</option>
                 @endforeach
             </select>
         </div>
@@ -77,10 +75,10 @@
             @foreach($groups as $g)
                 <tr>
                     <td>{{ $g->name }}</td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked></td>
                 </tr>
             @endforeach
             </tbody>

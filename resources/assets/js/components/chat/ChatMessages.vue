@@ -79,19 +79,24 @@
         */
 
         return (
-          /* Owner can mod all */
-          this.$parent.auth.group.id === 10 ||
+          /* CAN NOT mod an automated message */
+          !message.message.includes('Updated their status') &&
 
-          /* User can mod his own message */
-          message.user.id === this.$parent.auth.id ||
+          (
+              /* Owner can mod all */
+              this.$parent.auth.group.id === 10 ||
 
-          /* is_admin can mod messages except for Owner messages */
-          this.$parent.auth.group.is_admin &&
-          message.user.group.id !== 10 ||
+              /* User can mod his own message */
+              message.user.id === this.$parent.auth.id ||
 
-          /* Mods CAN NOT mod other mods messages */
-          this.$parent.auth.group.is_modo &&
-          !message.user.group.is_modo
+              /* is_admin can mod messages except for Owner messages */
+              this.$parent.auth.group.is_admin &&
+              message.user.group.id !== 10 ||
+
+              /* Mods CAN NOT mod other mods messages */
+              this.$parent.auth.group.is_modo &&
+              !message.user.group.is_modo
+          )
         )
       },
       deleteMessage (id) {

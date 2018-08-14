@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'email' => 'none@none.com',
+    'email' => env('DEFAULT_OWNER_EMAIL', 'unit3d@none.com'),
 
     /*
     |--------------------------------------------------------------------------

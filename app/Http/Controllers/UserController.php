@@ -25,6 +25,7 @@ use App\Follow;
 use App\History;
 use App\Warning;
 use App\BonTransactions;
+use App\Invite;
 use \Toastr;
 use Image;
 use Carbon\Carbon;
@@ -78,6 +79,7 @@ class UserController extends Controller
         $realupload = $user->uploaded - $bonupload;
         $bondownload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Download%'],])->sum('cost');
         $realdownload = $user->downloaded + $bondownload;
+        $invitedBy = Invite::where('accepted_by', $user->id)->first();
 
         return view('user.profile', [
             'user' => $user,
@@ -89,7 +91,8 @@ class UserController extends Controller
             'bonupload' => $bonupload,
             'realupload' => $realupload,
             'bondownload' => $bondownload,
-            'realdownload' => $realdownload
+            'realdownload' => $realdownload,
+            'invitedBy' => $invitedBy
         ]);
     }
 

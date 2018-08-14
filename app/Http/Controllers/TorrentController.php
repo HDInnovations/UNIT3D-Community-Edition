@@ -285,7 +285,7 @@ class TorrentController extends Controller
         if ($request->has('sorting') && $request->input('sorting') != null) {
             $sorting = $request->input('sorting');
             $order = $request->input('direction');
-            $torrent->orderBy($sorting, $order);
+            $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order);
         }
 
         if ($request->has('qty')) {

@@ -84,7 +84,7 @@
                                          class="img-circle">
                                 @endif
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-lg-10">
                                 <h2>{{ $user->username }}
                                     @if($user->isOnline())
                                         <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip" title=""
@@ -441,6 +441,20 @@
                                         class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a>
                         </td>
                     @endif
+                </tr>
+                <tr>
+                    <td>Invited By</td>
+                    <td>
+                    @if($invitedBy)
+                        <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
+                            <span class="text-bold" style="color: {{ $invitedBy->sender->group->color }}">
+                                <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
+                            </span>
+                        </a>
+                    @else
+                        <span class="text-bold"> Open Registration</span>
+                    @endif
+                    </td>
                 </tr>
                 </tbody>
             </table>

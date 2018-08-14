@@ -18,28 +18,28 @@ return [
     'columns' => [
         'alpha' => [
             'rows' => ['description', 'name', 'slug', 'agent'],
-            'class' => '{{ config("other.font-awesome") }} fa-sort-alpha',
+            'class' => 'fal fa-sort-alpha',
         ],
         'amount' => [
             'rows' => ['amount', 'price'],
-            'class' => '{{ config("other.font-awesome") }} fa-sort-amount',
+            'class' => 'fal fa-sort-amount',
         ],
         'numeric' => [
             'rows' => ['created_at', 'updated_at', 'id', 'seeders', 'leechers', 'times_completed', 'size', 'uploaded', 'downloaded', 'left', 'seeder',
                 'active', 'seedtime', 'updated_at', 'completed_at'],
-            'class' => '{{ config("other.font-awesome") }} fa-sort-numeric',
+            'class' => 'fal fa-sort-numeric',
         ],
     ],
 
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
      */
-    'default_icon_set' => '{{ config("other.font-awesome") }} fa-sort',
+    'default_icon_set' => 'fal fa-sort',
 
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    'sortable_icon' => '{{ config("other.font-awesome") }} fa-sort',
+    'sortable_icon' => 'fal fa-sort',
 
     /*
     generated icon is clickable non-clickable (default)

@@ -27,6 +27,7 @@ use App\Message;
 use App\Like;
 use App\Thank;
 use App\Follow;
+use App\Invite;
 use \Toastr;
 
 class UserController extends Controller
@@ -185,37 +186,37 @@ class UserController extends Controller
             return redirect()->route('home')
                 ->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
-            // Removes UserID from Torrents if any and replaces with System UserID (0)
+            // Removes UserID from Torrents if any and replaces with System UserID (1)
             foreach (Torrent::where('user_id', $user->id)->get() as $tor) {
                 $tor->user_id = 1;
                 $tor->save();
             }
-            // Removes UserID from Comments if any and replaces with System UserID (0)
+            // Removes UserID from Comments if any and replaces with System UserID (1)
             foreach (Comment::where('user_id', $user->id)->get() as $com) {
                 $com->user_id = 1;
                 $com->save();
             }
-            // Removes UserID from Posts if any and replaces with System UserID (0)
+            // Removes UserID from Posts if any and replaces with System UserID (1)
             foreach (Post::where('user_id', $user->id)->get() as $post) {
                 $post->user_id = 1;
                 $post->save();
             }
-            // Removes UserID from Topic Creators if any and replaces with System UserID (0)
+            // Removes UserID from Topic Creators if any and replaces with System UserID (1)
             foreach (Topic::where('first_post_user_id', $user->id)->get() as $topic) {
                 $topic->first_post_user_id = 1;
                 $topic->save();
             }
-            // Removes UserID from Topic if any and replaces with System UserID (0)
+            // Removes UserID from Topic if any and replaces with System UserID (1)
             foreach (Topic::where('last_post_user_id', $user->id)->get() as $topic) {
                 $topic->last_post_user_id = 1;
                 $topic->save();
             }
-            // Removes UserID from PM if any and replaces with System UserID (0)
+            // Removes UserID from PM if any and replaces with System UserID (1)
             foreach (PrivateMessage::where('sender_id', $user->id)->get() as $sent) {
                 $sent->sender_id = 1;
                 $sent->save();
             }
-            // Removes UserID from PM if any and replaces with System UserID (0)
+            // Removes UserID from PM if any and replaces with System UserID (1)
             foreach (PrivateMessage::where('receiver_id', $user->id)->get() as $received) {
                 $received->receiver_id = 1;
                 $received->save();
@@ -240,7 +241,16 @@ class UserController extends Controller
             foreach (Follow::where('user_id', $user->id)->get() as $follow) {
                 $follow->delete();
             }
-
+            // Removes UserID from Sent Invites if any and replaces with System UserID (1)
+            foreach (Invite::where('user_id', $user->id)->get() as $sent_invite) {
+                $sent_invite->user_id = 1;
+                $sent_invite->save();
+            }
+            // Removes UserID from Received Invite if any and replaces with System UserID (1)
+            foreach (Invite::where('accepted_by', $user->id)->get() as $received_invite) {
+                $received_invite->accepted_by = 1;
+                $received_invite->save();
+            }
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 

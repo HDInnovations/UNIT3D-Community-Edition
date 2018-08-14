@@ -38,18 +38,21 @@
         </div>
 
         <div class="form-group">
+            <label for="forum_type">Forum Type</label>
+            <select name="forum_type" class="form-control">
+                <option value="category">Category</option>
+                <option value="forum">Forum</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="parent_id">Parent forum</label>
             <select name="parent_id" class="form-control">
-                <!-- Selectionne le forum parent par defaut -->
                 @if($forum->getCategory() != null)
-                    <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Default)
-                    </option>
-                @endif<!-- /Selectionne le forum parent par defaut -->
+                    <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Current)</option>
+                @endif
                 @foreach($categories as $c)
                     <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    {{-- @foreach($c->getForumsInCategory() as $f)
-                        <option value="{{ $f->id }}">---- {{ $f->name }}</option>
-                    @endforeach --}}
                 @endforeach
             </select>
         </div>

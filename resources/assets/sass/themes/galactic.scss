@@ -644,7 +644,7 @@ div.topic-new-post {
   color: var(--text-color)
 }
 
-#subject, input, textarea {
+input, textarea {
   margin-bottom: 1em
 }
 
@@ -822,3 +822,27 @@ div.topic-new-post {
   background-color: #446;
   border-color: #446;
 }
+
+.card.is-torrent {
+  background-color: #171717;
+}
+
+.card.is-torrent .card_head {
+  background-color: #171717;
+}
+
+.card.is-torrent .card_body {
+  background-color: #000000;
+}
+
+.card.is-torrent .genre-label {
+  border: .5px solid #222;
+  border-radius: 5px;
+  background-color: #1e1e1e;
+  box-shadow: none;
+}
+
+.card.is-torrent .card_footer {
+  background-color: #171717;
+}
+
