@@ -2,5 +2,7 @@
   "extends": [
     "config:base"
   ]
-  "branchPrefix = dependencies/"
+}
+{
+  "branchPrefix": "dependencies/"
 }
