@@ -50,6 +50,8 @@
             <li><a href="{{ route('massPM') }}"><i class="{{ config('other.font-awesome') }} fa-envelope-square"></i> {{ trans('staff.mass-pm') }}</a></li>
             <li><a href="{{ route('massValidateUsers') }}"><i
                             class="{{ config('other.font-awesome') }} fa-history"></i> {{ trans('staff.mass-validate-users') }}</a></li>
+            <li><a href="{{ route('leechCheaters') }}"><i
+                            class="{{ config('other.font-awesome') }} fa-question"></i> Possible Leech Cheaters</a></li>
 
             <li class="nav-header head"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.logs') }}</li>
             <li><a href="{{ route('getActivity') }}"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.activity-log') }}</a>

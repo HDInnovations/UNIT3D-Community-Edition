@@ -522,5 +522,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/chatstatus/add', 'ChatController@addChatStatus')->name('addChatStatus');
         Route::post('/chatstatus/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
         Route::post('/chatstatus/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
+
+        // Possible Cheaters
+        Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
     });
 });
