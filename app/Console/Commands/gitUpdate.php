@@ -352,7 +352,7 @@ and add in the updated changes manually to this file.
 
 </>');
 
-            if ($this->io->confirm("Update $file")) {
+            if ($this->io->confirm("Update $file", false)) {
                 $this->process("git checkout origin/master -- $file", true);
             }
         } else {
