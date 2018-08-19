@@ -366,7 +366,7 @@ and add in the updated changes manually to this file.
      */
     private function checkForUpdates()
     {
-        $process = $this->process('git fetch origin && git log ..origin/master --pretty="format:" --name-only');
+        $process = $this->process('git fetch origin && git diff ..origin/master --name-only');
         return array_filter(explode("\n", $process->getOutput()), 'strlen');
     }
 
