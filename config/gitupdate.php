@@ -3,7 +3,7 @@
 return [
 
     /**
-     * The paths relative to the project root to backup and restore
+     * The paths relative to the project root to backup
      *
      * Note: Can be a directory OR a file
      */

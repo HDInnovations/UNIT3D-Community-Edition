@@ -78,7 +78,7 @@ class gitUpdate extends Command
 
         $this->info('
         ***************************
-        * Git Updater v2.0 Stable *
+        * Git Updater v2.5 Beta   *
         ***************************
         ');
 
@@ -90,7 +90,9 @@ class gitUpdate extends Command
         GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) EVEN IF ADVISED OF THE POSSIBILITY 
         OF SUCH DAMAGE.
         
-        <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER!</>
+        WITH THAT SAID YOU CAN BE GUARANTEED THAT YOUR DATABASE WILL NOT BE ALTERED.
+        
+        <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
         $choice = $this->io->choice('Would you like to proceed', ['no', 'yes'], 'no');
@@ -105,83 +107,72 @@ class gitUpdate extends Command
 
         sleep(3);
 
-        $this->call('down', [
-            '--message' => "Currently Updating",
-            '--retry' => '300'
-        ]);
-
-        $this->git();
-
-        $this->composer();
-
-        $this->migrations();
-
-        $this->compile();
-
-        $this->clear();
-
-        $this->call('up');
+        $this->update();
 
         $this->info('Done ... Please report any errors or issues.');
     }
 
-    private function git()
+    private function update()
     {
-        $process = $this->process('git fetch && git diff --name-only --oneline ..origin');
-        $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
+        $this->info("\n\nChecking for updates ...");
 
-        $process = $this->process('git diff --name-only');
-        $diffs = array_filter(explode("\n", $process->getOutput()), 'strlen');
+        $updating = $this->checkForUpdates();
 
-        $results = array_intersect($updating, $diffs);
-
-        $this->info("\n\nUpdating to be current with remote repository ...");
-
-        $this->backup();
-
-        $this->commands([
-            'git stash',
-            'git checkout master',
-            'git fetch origin',
-            'git reset --hard origin/master',
-            'git pull origin master'
-        ]);
-
-        $this->restore();
-
-        if (count($results) > 0) {
+        if (count($updating) > 0) {
             $this->line('<fg=magenta>
             <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
             
-            We have detected a conflict with some of the files we are trying to update.
+            We have found files to be updated.
             
-            This happens when we are trying to update files that you have made custom changes to.
+            You have 3 options here:
             
-            You have 2 options here:
+            <fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
+            <fg=white>\'Update\':</> <fg=cyan> Update all files.</>
+            <fg=white>\'Abort\':</> <fg=cyan> Abort the update and.</>
             
-            <fg=white>\'Keep\':</> <fg=cyan> Keep YOUR VERSION and manually updated the file with our changes.</>
-            <fg=white>\'Update\':</> <fg=cyan> Update with OUR VERSION and manually updated the file with your changes.</>
-            
-            <fg=red> Please note if you chose to Update you WILL LOSE your changes. </>
+            <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
 
             </>');
 
-            $this->info('Below is the list of files that will be affected:');
+            $this->info('Below is the list of files that needs updated:');
+            $this->io->listing($updating);
 
-            $this->io->listing($results);
+            $choice = $this->io->choice('How would you like to update', ['Manual', 'Update', 'Abort'], 'Abort');
 
-            $choice = $this->io->choice('Would you like to \'Keep\' or \'Update\'', ['Keep', 'Update'], 'Keep');
-            if ($choice === 'Update') {
-                foreach ($results as $file) {
-                    $this->process("git checkout origin/master -- $file");
+            if ($choice !== 'Abort') {
+
+                $this->prepare();
+
+                if ($choice === 'Update') {
+                    $this->io->writeln('<fg=white>[</><fg=red> !! Automatic Update !! </><fg=white>]</>');
+                    $this->autoUpdate($updating);
+                } else {
+                    $this->io->writeln('<fg=white>[</><fg=red> !! Manual Update !! </><fg=white>]</>');
+                    $this->manualUpdate($updating);
                 }
+
+                $this->migrations();
+
+                $this->compile();
+
+                $this->composer();
+
+                $this->clear();
+
+                $this->call('up');
+
+            } else {
+                $this->io->writeln('<fg=white>[</><fg=red> !! Aborted Update !! </><fg=white>]</>');
+                die();
             }
+        } else {
+            $this->info("\n\nNo Available Updates Found\n");
         }
     }
 
     private function backup()
     {
-        $this->warn('Backing up some stuff ...');
+        $this->warn('Backing up files specified in config/gitupdate.php ...');
 
         $this->commands([
             'rm -rf ' . storage_path('gitupdate'),
@@ -195,22 +186,6 @@ class gitUpdate extends Command
             $this->createBackupPath($path);
 
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
-        }
-    }
-
-    private function restore()
-    {
-        $this->warn('Restoring backed up stuff ...');
-
-        foreach ($this->paths as $path) {
-            $to = str_replace_last('/.', '', base_path(dirname($path)));
-            $from = storage_path('gitupdate') . '/' . $path;
-
-            if (is_dir($from)) {
-                $from .= '/*';
-            }
-
-            $this->process("$this->copy_command $from $to");
         }
     }
 
@@ -275,7 +250,7 @@ class gitUpdate extends Command
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException $e) {
-                $this->error("'{$command}' timed out. Please run manually!");
+                $this->error("'{$command}' timed out.!");
             }
 
             if (!$silent) {
@@ -357,6 +332,72 @@ class gitUpdate extends Command
         } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
             $path = dirname($path);
             mkdir(storage_path("gitupdate/$path"), 0775, true);
+        }
+    }
+
+    /**
+     * @param $file
+     */
+    private function updateFile($file)
+    {
+        $this->process("git checkout origin/master -- $file", true);
+    }
+
+    /**
+     * @return array
+     */
+    private function checkForUpdates()
+    {
+        $process = $this->process('git fetch origin && git log ..origin/master --pretty="format:" --name-only');
+        return array_filter(explode("\n", $process->getOutput()), 'strlen');
+    }
+
+    private function prepare(): void
+    {
+        $this->call('down', [
+            '--message' => "Currently Updating",
+            '--retry' => '300'
+        ]);
+
+        $this->backup();
+    }
+
+    /**
+     * @param $updating
+     */
+    private function autoUpdate($updating)
+    {
+        foreach ($updating as $file) {
+
+            if (dirname($file) === 'config') {
+                $this->line('<fg=magenta>
+                            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+                            
+                            This next file is a configuration file. If you choose to update this file
+                            you will loose any custom modifications to this file and will likely need to
+                            add your changes back. If you choose not to, you may want to look at the changes
+                            and add in the updated changes manually to this file.
+                            
+                            </>');
+
+                if ($this->io->confirm('Update this file ?')) {
+                    $this->updateFile($file);
+                }
+            } else {
+                $this->updateFile($file);
+            }
+        }
+    }
+
+    /**
+     * @param $updating
+     */
+    private function manualUpdate($updating)
+    {
+        foreach ($updating as $file) {
+            if ($this->io->confirm("Update $file")) {
+                $this->updateFile($file);
+            }
         }
     }
 }
