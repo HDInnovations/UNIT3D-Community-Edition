@@ -375,7 +375,7 @@ and add in the updated changes manually to this file.
             $s = strlen($d);
             $local_sha1 = sha1("blob " . $s . "\0" . $d);
 
-            $this->io->writeln($file);
+            $this->io->writeln("\n$file");
             $this->io->writeln("SHA1: remote($git_sha1) -> local($local_sha1)");
 
             if ($local_sha1 === $git_sha1) {
