@@ -367,7 +367,20 @@ and add in the updated changes manually to this file.
     private function checkForUpdates()
     {
         $process = $this->process('git fetch origin && git diff ..origin/master --name-only');
-        return array_filter(explode("\n", $process->getOutput()), 'strlen');
+        $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
+
+        foreach ($updating as $index => $file) {
+            $git_sha1 = $this->process("git rev-parse @:$file");
+            $d = str_replace("\r\n", "\n", file_get_contents($file));
+            $s = strlen($d);
+            $local_sha1 = sha1("blob " . $s . "\0" . $d);
+
+            if ($local_sha1 === $git_sha1) {
+                unset($updating[$index]);
+            }
+        }
+
+        return $updating;
     }
 
     private function prepare(): void
