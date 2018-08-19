@@ -128,7 +128,7 @@ You have 3 options here:
 
 <fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
 <fg=white>\'Update\':</> <fg=cyan> Update all files.</>
-<fg=white>\'Abort\':</> <fg=cyan> Abort the update and.</>
+<fg=white>\'Abort\':</> <fg=cyan> Abort the update.</>
 
 <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
 
