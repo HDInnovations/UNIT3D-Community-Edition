@@ -120,19 +120,19 @@ class gitUpdate extends Command
 
         if (count($updating) > 0) {
             $this->line('<fg=magenta>
-            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
-            
-            We have found files to be updated.
-            
-            You have 3 options here:
-            
-            <fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
-            <fg=white>\'Update\':</> <fg=cyan> Update all files.</>
-            <fg=white>\'Abort\':</> <fg=cyan> Abort the update and.</>
-            
-            <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
+<fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
 
-            </>');
+We have found files to be updated.
+
+You have 3 options here:
+
+<fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
+<fg=white>\'Update\':</> <fg=cyan> Update all files.</>
+<fg=white>\'Abort\':</> <fg=cyan> Abort the update and.</>
+
+<fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
+
+</>');
 
             $this->info('Below is the list of files that needs updated:');
             $this->io->listing($updating);
@@ -144,10 +144,10 @@ class gitUpdate extends Command
                 $this->prepare();
 
                 if ($choice === 'Update') {
-                    $this->io->writeln('<fg=white>[</><fg=red> !! Automatic Update !! </><fg=white>]</>');
+                    $this->io->writeln("\n\n<fg=white>[</><fg=red> !! Automatic Update !! </><fg=white>]</>");
                     $this->autoUpdate($updating);
                 } else {
-                    $this->io->writeln('<fg=white>[</><fg=red> !! Manual Update !! </><fg=white>]</>');
+                    $this->io->writeln("\n\n<fg=white>[</><fg=red> !! Manual Update !! </><fg=white>]</>");
                     $this->manualUpdate($updating);
                 }
 
@@ -340,7 +340,25 @@ class gitUpdate extends Command
      */
     private function updateFile($file)
     {
-        $this->process("git checkout origin/master -- $file", true);
+
+        if (dirname($file) === 'config') {
+            $this->line('<fg=magenta>
+<fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+
+This next file is a configuration file. If you choose to update this file
+you will loose any custom modifications to this file and will likely need to
+add your changes back. If you choose not to, you may want to look at the changes
+and add in the updated changes manually to this file.
+
+</>');
+
+            if ($this->io->confirm('Update this file ?')) {
+                $this->process("git checkout origin/master -- $file", true);
+            }
+        } else {
+            $this->process("git checkout origin/master -- $file", true);
+        }
+
     }
 
     /**
@@ -368,24 +386,7 @@ class gitUpdate extends Command
     private function autoUpdate($updating)
     {
         foreach ($updating as $file) {
-
-            if (dirname($file) === 'config') {
-                $this->line('<fg=magenta>
-                            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
-                            
-                            This next file is a configuration file. If you choose to update this file
-                            you will loose any custom modifications to this file and will likely need to
-                            add your changes back. If you choose not to, you may want to look at the changes
-                            and add in the updated changes manually to this file.
-                            
-                            </>');
-
-                if ($this->io->confirm('Update this file ?')) {
-                    $this->updateFile($file);
-                }
-            } else {
-                $this->updateFile($file);
-            }
+            $this->updateFile($file);
         }
     }
 
