@@ -127,7 +127,7 @@ We have found files to be updated.
 You have 3 options here:
 
 <fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
-<fg=white>\'Update\':</> <fg=cyan> Update all files.</>
+<fg=white>\'Auto\':</> <fg=cyan> Update all files automatically.</>
 <fg=white>\'Abort\':</> <fg=cyan> Abort the update.</>
 
 <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
@@ -137,13 +137,13 @@ You have 3 options here:
             $this->info('Below is the list of files that needs updated:');
             $this->io->listing($updating);
 
-            $choice = $this->io->choice('How would you like to update', ['Manual', 'Update', 'Abort'], 'Abort');
+            $choice = $this->io->choice('How would you like to update', ['Manual', 'Auto', 'Abort'], 'Abort');
 
             if ($choice !== 'Abort') {
 
                 $this->prepare();
 
-                if ($choice === 'Update') {
+                if ($choice === 'Auto') {
                     $this->io->writeln("\n\n<fg=white>[</><fg=red> !! Automatic Update !! </><fg=white>]</>");
                     $this->autoUpdate($updating);
                 } else {
