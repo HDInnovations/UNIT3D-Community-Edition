@@ -411,7 +411,7 @@ and add in the updated changes manually to this file.
     private function manualUpdate($updating)
     {
         foreach ($updating as $file) {
-            if ($this->io->confirm("Update $file")) {
+            if ($this->io->confirm("Update $file", false)) {
                 $this->updateFile($file);
             }
         }
