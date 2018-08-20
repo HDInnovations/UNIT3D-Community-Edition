@@ -211,7 +211,6 @@ class gitUpdater extends Command
         foreach ($this->paths() as $path) {
             $this->validatePath($path);
             $this->createBackupPath($path);
-            $this->process();
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
 
