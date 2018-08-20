@@ -13,23 +13,18 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Process\Exception\ProcessTimedOutException;
-use Symfony\Component\Process\Process;
 
 use App\GitUpdate;
+use App\Console\ConsoleTools;
 
 class gitUpdater extends Command
 {
-    /**
-     * @var SymfonyStyle $io
-     */
-    protected $io;
+    use ConsoleTools;
 
     /**
      * The copy command
@@ -97,13 +92,12 @@ class gitUpdater extends Command
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
-        $choice = $this->io->choice('Would you like to proceed', ['no', 'yes'], 'no');
-        if ($choice === 'no') {
+        if (!$this->io->confirm('Would you like to proceed', false)) {
             $this->line('<fg=red>Aborted ...</>');
             die();
         }
 
-        $this->warn('
+        $this->io->writeln('
         Press CTRL + C ANYTIME to abort! Aborting can lead to unexpected results!
         ');
 
@@ -111,30 +105,30 @@ class gitUpdater extends Command
 
         $this->update();
 
-        $this->info('Done ... Please report any errors or issues.');
+        $this->white('Please report any errors or issues.');
+
+        $this->done();
     }
 
     private function update()
     {
-        $this->info("\n\nChecking for updates ...");
-
         $updating = $this->checkForUpdates();
 
         if (count($updating) > 0) {
             $this->line('<fg=magenta>
-    <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
-    
-    We have found files to be updated.
-    
-    You have 3 options here:
-    
-    <fg=white>\'Manual\':</><fg=cyan> Update files one by one.</>
-    <fg=white>\'Auto\':</><fg=cyan> Update all files automatically.</>
-    <fg=white>\'Exit\':</><fg=cyan> Abort the update.</>
-    
-    <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
-    
-    </>');
+            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+            
+            We have found files to be updated.
+            
+            You have 3 options here:
+            
+            <fg=white>\'Manual\':</><fg=cyan> Update files one by one.</>
+            <fg=white>\'Auto\':</><fg=cyan> Update all files automatically.</>
+            <fg=white>\'Exit\':</><fg=cyan> Abort the update.</>
+            
+            <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
+            
+            </>');
 
             $this->info('Files that need updated:');
             $this->io->listing($updating);
@@ -146,232 +140,45 @@ class gitUpdater extends Command
                 $this->prepare();
 
                 if ($choice === 'Auto') {
-                    $this->io->writeln("\n\n<fg=white>[</><fg=red> !! Automatic Update !! </><fg=white>]</>");
                     $this->autoUpdate($updating);
                 } else {
-                    $this->io->writeln("\n\n<fg=white>[</><fg=red> !! Manual Update !! </><fg=white>]</>");
                     $this->manualUpdate($updating);
                 }
 
-                $this->migrations();
+                if ($this->io->confirm('Run new migrations (php artisan migrate)', false)) {
+                    $this->migrations();
+                }
 
-                $this->compile();
+                if ($this->io->confirm('Compile assets (npm run prod)', false)) {
+                    $this->compile();
+                }
 
-                $this->composer();
+                if ($this->io->confirm('Install new packages (composer install)', false)) {
+                    $this->composer();
+                }
 
                 $this->clear();
 
                 $this->call('up');
 
             } else {
-                $this->io->writeln('<fg=white>[</><fg=red> !! Aborted Update !! </><fg=white>]</>');
+                $this->alertDanger('Aborted Update');
                 die();
             }
         } else {
-            $this->info("\n\nNo Available Updates Found\n");
+            $this->alertSuccess("No Available Updates Found");
         }
     }
 
-    private function backup()
-    {
-        $this->io->writeln('<fg=cyan>Backing up files specified in config/gitupdate.php ... Please Wait!</>');
-
-        $this->commands([
-            'rm -rf ' . storage_path('gitupdate'),
-            'mkdir ' . storage_path('gitupdate')
-        ], true);
-
-        foreach ($this->paths as $path) {
-
-            $this->validatePath($path);
-
-            $this->createBackupPath($path);
-
-            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path, true);
-        }
-    }
-
-    private function composer()
-    {
-        $this->info("\nInstalling Composer packages ...");
-        $this->process('composer install');
-    }
-
-    private function compile()
-    {
-        $this->info('Compiling Assets ...');
-
-        $this->commands([
-            'rm -rf node_modules',
-            'npm install',
-            'npm run prod'
-        ]);
-    }
-
-    private function clear()
-    {
-        $this->call('clear:all');
-
-        $this->commands([
-            'chown -R www-data: storage bootstrap public config',
-            'find . -type d -exec chmod 0775 \'{}\' + -or -type f -exec chmod 0664 \'{}\' +'
-        ]);
-    }
-
-    private function migrations()
-    {
-        $this->info("\nRunning new migrations ...");
-
-        $this->call('migrate');
-    }
-
-    private function commands(array $commands, $silent = false)
-    {
-        foreach ($commands as $command) {
-            $process = $this->process($command, $silent);
-
-            if (!$silent) {
-                echo "\n\n";
-                $this->warn($process->getOutput());
-            }
-        }
-    }
-
-    private function process($command, $silent = false)
-    {
-        if (!$silent) {
-            $this->io->writeln("\n<fg=cyan>$command</>");
-            $bar = $this->progressStart();
-        }
-
-        $process = new Process($command);
-        $process->setTimeout(3600);
-        $process->start();
-
-        while ($process->isRunning()) {
-            try {
-                $process->checkTimeout();
-            } catch (ProcessTimedOutException $e) {
-                $this->error("'{$command}' timed out.!");
-            }
-
-            if (!$silent) {
-                $bar->advance();
-            }
-
-            usleep(200000);
-        }
-
-        if (!$silent) {
-            $this->progressStop($bar);
-        }
-
-        $process->stop();
-
-        if (!$process->isSuccessful()) {
-            $this->error($process->getErrorOutput());
-            die();
-        }
-
-        return $process;
-    }
-
-    /**
-     * @return ProgressBar
-     */
-    protected function progressStart()
-    {
-        $bar = $this->io->createProgressBar();
-        $bar->setBarCharacter('<fg=magenta>=</>');
-        $bar->setFormat('[%bar%] (<fg=cyan>%message%</>)');
-        $bar->setMessage('Please Wait ...');
-        //$bar->setRedrawFrequency(20); todo: may be useful for platforms like CentOS
-        $bar->start();
-
-        return $bar;
-    }
-
-    /**
-     * @param $bar
-     */
-    protected function progressStop(ProgressBar $bar)
-    {
-        $bar->setMessage("<fg=green>Done!</>");
-        $bar->finish();
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-
-        ];
-    }
-
-    /**
-     * @param $path
-     */
-    private function validatePath($path)
-    {
-        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
-            $this->error("\n\nThe path '$path' is invalid ...");
-            $this->call('up');
-            die();
-        }
-    }
-
-    /**
-     * @param $path
-     */
-    private function createBackupPath($path)
-    {
-        if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
-            mkdir(storage_path("gitupdate/$path"), 0775, true);
-        } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
-            $path = dirname($path);
-            mkdir(storage_path("gitupdate/$path"), 0775, true);
-        }
-    }
-
-    /**
-     * @param $file
-     */
-    private function updateFile($file)
-    {
-
-        if (dirname($file) === 'config') {
-            $this->line('<fg=magenta>
-<fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
-
-This next file is a configuration file. If you choose to update this file
-you will loose any custom modifications to this file and will likely need to
-add your changes back. If you choose not to, you may want to look at the changes
-and add in the updated changes manually to this file.
-
-</>');
-
-            if ($this->io->confirm("Update $file", false)) {
-                $this->process("git checkout origin/master -- $file", true);
-            }
-        } else {
-            $this->process("git checkout origin/master -- $file", true);
-        }
-
-    }
-
-    /**
-     * @return array
-     */
     private function checkForUpdates()
     {
-        $process = $this->process('git fetch origin && git diff ..origin/master --name-only');
+        $this->header("Checking For Updates");
+
+        $this->process('git fetch origin');
+        $process = $this->process('git diff ..origin/master --name-only');
         $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
-        $this->line("\n\n<fg=cyan>Checking file hashes ... Please Wait!</>");
+        $this->magenta("Checking file hashes ... Please wait!");
 
         foreach ($updating as $index => $file) {
             $sha1 = str_replace("\n", '', $this->process("git rev-parse origin:$file", true)->getOutput());
@@ -392,6 +199,8 @@ and add in the updated changes manually to this file.
             }
         }
 
+        $this->done();
+
         return $updating;
     }
 
@@ -405,25 +214,142 @@ and add in the updated changes manually to this file.
         $this->backup();
     }
 
-    /**
-     * @param $updating
-     */
     private function autoUpdate($updating)
     {
+        $this->alertInfo("Automatic Update");
+
         foreach ($updating as $file) {
-            $this->updateFile($file);
+
+            if (str_contains($file, 'config/')) {
+
+                $this->alertDanger("Configuration File Detected");
+                $this->red("Updating $file will cause you to LOSE any changes you might have made to this file!");
+
+                if ($this->io->confirm('Update Configuration File', false)) {
+                    $this->updateFile($file);
+                }
+
+            } else {
+                $this->updateFile($file);
+            }
+        }
+
+        $this->done();
+    }
+
+    private function manualUpdate($updating)
+    {
+        $this->alertInfo("Manual Update");
+
+        foreach ($updating as $file) {
+
+            if (str_contains($file, 'config/')) {
+                $this->alertDanger("Configuration File Detected");
+                $this->red("Updating $file will cause you to LOSE any changes you might have made to this file!");
+
+                if ($this->io->confirm('Update Configuration File', false)) {
+                    $this->updateFile($file);
+                }
+
+            } else if ($this->io->confirm("Update $file", false)) {
+                $this->updateFile($file);
+            }
+
+        }
+
+        $this->done();
+    }
+
+    private function updateFile($file)
+    {
+        $this->process("git checkout origin/master -- $file");
+    }
+
+    private function backup()
+    {
+        $this->header('Backing Up Files');
+
+        $this->commands([
+            'rm -rf ' . storage_path('gitupdate'),
+            'mkdir ' . storage_path('gitupdate')
+        ], true);
+
+        foreach ($this->paths as $path) {
+            $this->validatePath($path);
+            $this->createBackupPath($path);
+            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
+        }
+
+        $this->done();
+    }
+
+    private function composer()
+    {
+        $this->header("Installing Composer Packages");
+
+        $this->commands([
+            'composer install',
+            'composer dump-autoload'
+        ]);
+
+        $this->done();
+    }
+
+    private function compile()
+    {
+        $this->header('Compiling Assets ...');
+
+        $this->commands([
+            'rm -rf node_modules',
+            'npm install',
+            'npm run prod'
+        ]);
+
+        $this->done();
+    }
+
+    private function clear()
+    {
+        $this->header("Clearing Cache");
+        $this->call('clear:all');
+        $this->done();
+    }
+
+    private function migrations()
+    {
+        $this->header("Running New Migrations");
+        $this->call('migrate');
+        $this->done();
+    }
+
+    private function validatePath($path)
+    {
+        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
+            $this->red("The path '$path' is invalid");
+            $this->call('up');
+            die();
+        }
+    }
+
+    private function createBackupPath($path)
+    {
+        if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
+            mkdir(storage_path("gitupdate/$path"), 0775, true);
+        } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
+            $path = dirname($path);
+            mkdir(storage_path("gitupdate/$path"), 0775, true);
         }
     }
 
     /**
-     * @param $updating
+     * Get the console command arguments.
+     *
+     * @return array
      */
-    private function manualUpdate($updating)
+    protected function getArguments()
     {
-        foreach ($updating as $file) {
-            if ($this->io->confirm("Update $file", false)) {
-                $this->updateFile($file);
-            }
-        }
+        return [
+
+        ];
     }
 }
