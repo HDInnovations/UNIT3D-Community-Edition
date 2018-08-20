@@ -120,6 +120,8 @@ class gitUpdater extends Command
                     '--retry' => '300'
                 ]);
 
+                $this->process("git add .");
+
                 $paths = $this->paths();
 
                 $this->backup($paths);
