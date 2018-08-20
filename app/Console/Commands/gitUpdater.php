@@ -395,7 +395,7 @@ and add in the updated changes manually to this file.
         return $updating;
     }
 
-    private function prepare(): void
+    private function prepare()
     {
         $this->call('down', [
             '--message' => "Currently Updating",
