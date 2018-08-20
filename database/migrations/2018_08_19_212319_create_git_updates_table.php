@@ -28,8 +28,6 @@ class CreateGitUpdatesTable extends Migration
      */
     public function down()
     {
-        Schema::table('git_updates', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('git_updates');
     }
 }
