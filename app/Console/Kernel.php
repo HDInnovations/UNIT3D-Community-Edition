@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\recycleActivityLog::class,
         \App\Console\Commands\recycleFailedLogins::class,
         \App\Console\Commands\demoSeed::class,
-        \App\Console\Commands\gitUpdate::class,
+        \App\Console\Commands\gitUpdater::class,
         \App\Console\Commands\clearCache::class,
         \App\Console\Commands\testMailSettings::class
     ];

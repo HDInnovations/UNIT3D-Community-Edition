@@ -22,7 +22,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
-class gitUpdate extends Command
+use App\GitUpdate;
+
+class gitUpdater extends Command
 {
     /**
      * @var SymfonyStyle $io
@@ -370,15 +372,21 @@ and add in the updated changes manually to this file.
         $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
         foreach ($updating as $index => $file) {
-            $git_sha1 = str_replace("\n", '', $this->process("git rev-parse @:$file")->getOutput());
-            $d = str_replace("\r\n", "\n", file_get_contents($file));
-            $s = strlen($d);
-            $local_sha1 = sha1("blob " . $s . "\0" . $d);
+            $sha1 = str_replace("\n", '', $this->process("git rev-parse @:$file")->getOutput());
 
-            $this->io->writeln("\nSHA1: remote($git_sha1) -> local($local_sha1)");
+            $model = GitUpdate::whereName($file)->first();
 
-            if ($local_sha1 === $git_sha1) {
-                unset($updating[$index]);
+            if ($model !== null) {
+                if ($model->hash !== $sha1) {
+                    $model->update(['hash' => $sha1]);
+                } else {
+                    unset($updating[$index]);
+                }
+            } else {
+                GitUpdate::create([
+                    'name' => $file,
+                    'hash' => $sha1
+                ]);
             }
         }
 
