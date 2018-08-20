@@ -374,7 +374,7 @@ and add in the updated changes manually to this file.
         $this->line('<fg=cyan>Checking file hashes ... Please Wait!');
 
         foreach ($updating as $index => $file) {
-            $sha1 = str_replace("\n", '', $this->process("git rev-parse :$file", true)->getOutput());
+            $sha1 = str_replace("\n", '', $this->process("git rev-parse origin:$file", true)->getOutput());
 
             $model = GitUpdate::whereName($file)->first();
 
