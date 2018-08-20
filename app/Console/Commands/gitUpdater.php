@@ -133,14 +133,13 @@ class gitUpdater extends Command
 
                 $this->restore($paths);
 
-                $conflicts = array_intersect($updating, $this->paths());
+                $conflicts = array_intersect($updating, $paths);
                 if (count($conflicts) > 0) {
                     $this->red('There are some files that was not updated because because of conflicts.');
                     $this->red('We will walk you through updating these files now.');
 
                     $this->manualUpdate($conflicts);
                 }
-
 
                 if ($this->io->confirm('Run new migrations (php artisan migrate)', false)) {
                     $this->migrations();
