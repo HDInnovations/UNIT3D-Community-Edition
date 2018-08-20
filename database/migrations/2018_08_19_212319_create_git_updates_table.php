@@ -13,7 +13,7 @@ class CreateGitUpdatesTable extends Migration
      */
     public function up()
     {
-        Schema::table('git_updates', function (Blueprint $table) {
+        Schema::create('git_updates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('hash')->unique();
