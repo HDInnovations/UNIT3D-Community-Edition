@@ -222,10 +222,12 @@ class gitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($this->paths() as $path) {
+
             $to = str_replace_last('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate') . '/' . $path;
 
             if (is_dir($from)) {
+                $to .= '/'.basename($from).'/';
                 $from .= '/*';
             }
 
@@ -318,7 +320,13 @@ class gitUpdater extends Command
     {
         $p = $this->process("git diff master --name-only");
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
-        $config = config('gitupdate.backup');
-        return array_merge($paths, $config);
+
+        $additional = [
+            '.env',
+            'laravel-echo-server.json',
+            'public/files',
+        ];
+
+        return array_merge($paths, $additional);
     }
 }
