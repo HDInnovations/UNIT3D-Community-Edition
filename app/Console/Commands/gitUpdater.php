@@ -120,7 +120,9 @@ class gitUpdater extends Command
                     '--retry' => '300'
                 ]);
 
-                $this->backup();
+                $paths = $this->paths();
+
+                $this->backup($paths);
 
                 $this->header('Reseting Repository');
 
@@ -129,7 +131,7 @@ class gitUpdater extends Command
                     'git reset --hard origin/master',
                 ]);
 
-                $this->restore();
+                $this->restore($paths);
 
                 $conflicts = array_intersect($updating, $this->paths());
                 if (count($conflicts) > 0) {
@@ -199,7 +201,7 @@ class gitUpdater extends Command
         $this->process("git checkout origin/master -- $file");
     }
 
-    private function backup()
+    private function backup(array $paths)
     {
         $this->header('Backing Up Files');
 
@@ -208,7 +210,7 @@ class gitUpdater extends Command
             'mkdir ' . storage_path('gitupdate')
         ], true);
 
-        foreach ($this->paths() as $path) {
+        foreach ($paths as $path) {
             $this->validatePath($path);
             $this->createBackupPath($path);
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
@@ -217,11 +219,11 @@ class gitUpdater extends Command
         $this->done();
     }
 
-    private function restore()
+    private function restore(array $paths)
     {
         $this->header('Restoring Backups');
 
-        foreach ($this->paths() as $path) {
+        foreach ($paths as $path) {
 
             $to = str_replace_last('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate') . '/' . $path;
