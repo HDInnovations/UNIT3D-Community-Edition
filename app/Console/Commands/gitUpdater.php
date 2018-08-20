@@ -19,7 +19,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-use App\GitUpdate;
 use App\Console\ConsoleTools;
 
 class gitUpdater extends Command
@@ -46,11 +45,6 @@ class gitUpdater extends Command
     protected $description = 'Executes the commands necessary to update your website using git';
 
     /**
-     * @var $paths
-     */
-    private $paths;
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -58,13 +52,12 @@ class gitUpdater extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->paths = config('gitupdate.backup');
     }
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {
@@ -115,35 +108,37 @@ class gitUpdater extends Command
         $updating = $this->checkForUpdates();
 
         if (count($updating) > 0) {
-            $this->line('<fg=magenta>
-            <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
-            
-            We have found files to be updated.
-            
-            You have 3 options here:
-            
-            <fg=white>\'Manual\':</><fg=cyan> Update files one by one.</>
-            <fg=white>\'Auto\':</><fg=cyan> Update all files automatically.</>
-            <fg=white>\'Exit\':</><fg=cyan> Abort the update.</>
-            
-            <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
-            
-            </>');
+            $this->alertDanger('Found Updates');
 
-            $this->info('Files that need updated:');
+            $this->cyan('Files that need updated:');
             $this->io->listing($updating);
 
-            $choice = $this->io->choice('How would you like to update', ['Manual', 'Auto', 'Exit'], 'Exit');
+            if ($this->io->confirm('Start the update process', false)) {
 
-            if ($choice !== 'Exit') {
+                $this->call('down', [
+                    '--message' => "Currently Updating",
+                    '--retry' => '300'
+                ]);
 
-                $this->prepare();
+                $this->backup();
 
-                if ($choice === 'Auto') {
-                    $this->autoUpdate($updating);
-                } else {
-                    $this->manualUpdate($updating);
+                $this->header('Reseting Repository');
+
+                $this->commands([
+                    'git fetch origin',
+                    'git reset --hard origin/master',
+                ]);
+
+                $this->restore();
+
+                $conflicts = array_intersect($updating, $this->paths());
+                if (count($conflicts) > 0) {
+                    $this->red('There are some files that was not updated because because of conflicts.');
+                    $this->red('We will walk you through updating these files now.');
+
+                    $this->manualUpdate($conflicts);
                 }
+
 
                 if ($this->io->confirm('Run new migrations (php artisan migrate)', false)) {
                     $this->migrations();
@@ -178,80 +173,19 @@ class gitUpdater extends Command
         $process = $this->process('git diff ..origin/master --name-only');
         $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
-        $this->magenta("Checking file hashes ... Please wait!");
-
-        foreach ($updating as $index => $file) {
-            $sha1 = str_replace("\n", '', $this->process("git rev-parse origin:$file", true)->getOutput());
-
-            $model = GitUpdate::whereName($file)->first();
-
-            if ($model !== null) {
-                if ($model->hash !== $sha1) {
-                    $model->update(['hash' => $sha1]);
-                } else {
-                    unset($updating[$index]);
-                }
-            } else {
-                GitUpdate::create([
-                    'name' => $file,
-                    'hash' => $sha1
-                ]);
-            }
-        }
-
         $this->done();
 
         return $updating;
     }
 
-    private function prepare()
-    {
-        $this->call('down', [
-            '--message' => "Currently Updating",
-            '--retry' => '300'
-        ]);
-
-        $this->backup();
-    }
-
-    private function autoUpdate($updating)
-    {
-        $this->alertInfo("Automatic Update");
-
-        foreach ($updating as $file) {
-
-            if (str_contains($file, 'config/')) {
-
-                $this->alertDanger("Configuration File Detected");
-                $this->red("Updating $file will cause you to LOSE any changes you might have made to this file!");
-
-                if ($this->io->confirm('Update Configuration File', false)) {
-                    $this->updateFile($file);
-                }
-
-            } else {
-                $this->updateFile($file);
-            }
-        }
-
-        $this->done();
-    }
-
     private function manualUpdate($updating)
     {
         $this->alertInfo("Manual Update");
+        $this->red("Updating will cause you to LOSE any changes you might have made to the file!");
 
         foreach ($updating as $file) {
 
-            if (str_contains($file, 'config/')) {
-                $this->alertDanger("Configuration File Detected");
-                $this->red("Updating $file will cause you to LOSE any changes you might have made to this file!");
-
-                if ($this->io->confirm('Update Configuration File', false)) {
-                    $this->updateFile($file);
-                }
-
-            } else if ($this->io->confirm("Update $file", false)) {
+            if ($this->io->confirm("Update $file", false)) {
                 $this->updateFile($file);
             }
 
@@ -274,13 +208,36 @@ class gitUpdater extends Command
             'mkdir ' . storage_path('gitupdate')
         ], true);
 
-        foreach ($this->paths as $path) {
+        foreach ($this->paths() as $path) {
+
+            if ($path === 'package-lock.json' || $path === 'composer.lock') {
+                continue;
+            }
+
             $this->validatePath($path);
             $this->createBackupPath($path);
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
 
         $this->done();
+    }
+
+    private function restore()
+    {
+        $this->header('Restoring Backups');
+
+        foreach ($this->paths() as $path) {
+            $to = str_replace_last('/.', '', base_path(dirname($path)));
+            $from = storage_path('gitupdate') . '/' . $path;
+
+            $this->process("$this->copy_command $from $to");
+        }
+
+        $this->commands([
+            'git add .',
+            'git checkout origin/master -- package-lock.json',
+            'git checkout origin/master -- composer.lock'
+        ]);
     }
 
     private function composer()
@@ -351,5 +308,15 @@ class gitUpdater extends Command
         return [
 
         ];
+    }
+
+    /**
+     * @return array
+     */
+    private function paths()
+    {
+        $p = $this->process("git diff master --name-only");
+        $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
+        return $paths;
     }
 }
