@@ -107,7 +107,7 @@ class gitUpdater extends Command
         Press CTRL + C ANYTIME to abort! Aborting can lead to unexpected results!
         ');
 
-        sleep(3);
+        sleep(1);
 
         $this->update();
 
@@ -122,21 +122,21 @@ class gitUpdater extends Command
 
         if (count($updating) > 0) {
             $this->line('<fg=magenta>
-<fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+    <fg=white>[</><fg=red> !! ATTENTION !! </><fg=white>]</>
+    
+    We have found files to be updated.
+    
+    You have 3 options here:
+    
+    <fg=white>\'Manual\':</><fg=cyan> Update files one by one.</>
+    <fg=white>\'Auto\':</><fg=cyan> Update all files automatically.</>
+    <fg=white>\'Exit\':</><fg=cyan> Abort the update.</>
+    
+    <fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
+    
+    </>');
 
-We have found files to be updated.
-
-You have 3 options here:
-
-<fg=white>\'Manual\':</> <fg=cyan> Update files one by one.</>
-<fg=white>\'Auto\':</> <fg=cyan> Update all files automatically.</>
-<fg=white>\'Exit\':</> <fg=cyan> Abort the update.</>
-
-<fg=red> Please note if you chose to Update a file you WILL LOSE any custom changes to that file! </>
-
-</>');
-
-            $this->info('Below is the list of files that needs updated:');
+            $this->info('Files that need updated:');
             $this->io->listing($updating);
 
             $choice = $this->io->choice('How would you like to update', ['Manual', 'Auto', 'Exit'], 'Exit');
@@ -174,7 +174,7 @@ You have 3 options here:
 
     private function backup()
     {
-        $this->warn('Backing up files specified in config/gitupdate.php ...');
+        $this->io->writeln('<fg=cyan>Backing up files specified in config/gitupdate.php ... Please Wait!</>');
 
         $this->commands([
             'rm -rf ' . storage_path('gitupdate'),
@@ -187,7 +187,7 @@ You have 3 options here:
 
             $this->createBackupPath($path);
 
-            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
+            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path, true);
         }
     }
 
