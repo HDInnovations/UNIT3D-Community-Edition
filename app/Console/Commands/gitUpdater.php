@@ -372,7 +372,7 @@ and add in the updated changes manually to this file.
         $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
         foreach ($updating as $index => $file) {
-            $sha1 = str_replace("\n", '', $this->process("git rev-parse @:$file")->getOutput());
+            $sha1 = str_replace("\n", '', $this->process("git rev-parse :$file")->getOutput());
 
             $model = GitUpdate::whereName($file)->first();
 
