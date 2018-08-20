@@ -209,13 +209,9 @@ class gitUpdater extends Command
         ], true);
 
         foreach ($this->paths() as $path) {
-
-            if ($path === 'package-lock.json' || $path === 'composer.lock') {
-                continue;
-            }
-
             $this->validatePath($path);
             $this->createBackupPath($path);
+            $this->process();
             $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
         }
 
@@ -229,6 +225,10 @@ class gitUpdater extends Command
         foreach ($this->paths() as $path) {
             $to = str_replace_last('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate') . '/' . $path;
+
+            if (is_dir($from)) {
+                $from .= '/*';
+            }
 
             $this->process("$this->copy_command $from $to");
         }
@@ -294,7 +294,9 @@ class gitUpdater extends Command
             mkdir(storage_path("gitupdate/$path"), 0775, true);
         } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
             $path = dirname($path);
-            mkdir(storage_path("gitupdate/$path"), 0775, true);
+            if (!is_dir(storage_path("gitupdate/$path"))) {
+                mkdir(storage_path("gitupdate/$path"), 0775, true);
+            }
         }
     }
 
@@ -317,6 +319,7 @@ class gitUpdater extends Command
     {
         $p = $this->process("git diff master --name-only");
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
-        return $paths;
+        $config = config('gitupdate.backup');
+        return array_merge($paths, $config);
     }
 }
