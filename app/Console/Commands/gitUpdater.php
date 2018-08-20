@@ -371,8 +371,10 @@ and add in the updated changes manually to this file.
         $process = $this->process('git fetch origin && git diff ..origin/master --name-only');
         $updating = array_filter(explode("\n", $process->getOutput()), 'strlen');
 
+        $this->line('<fg=cyan>Checking file hashes ... Please Wait!');
+
         foreach ($updating as $index => $file) {
-            $sha1 = str_replace("\n", '', $this->process("git rev-parse :$file")->getOutput());
+            $sha1 = str_replace("\n", '', $this->process("git rev-parse :$file", true)->getOutput());
 
             $model = GitUpdate::whereName($file)->first();
 
