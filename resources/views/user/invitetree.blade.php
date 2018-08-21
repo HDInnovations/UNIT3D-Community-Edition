@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="block">
             <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}"
                    href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
@@ -42,9 +42,11 @@
                             @foreach($records as $record)
                                 <tr>
                                     <td>
-                                        <a class="view-user" data-id="{{ $record->sender->id }}"
-                                           data-slug="{{ $record->sender->username }}"
-                                           href="{{ route('profile', ['username' =>  $record->sender->username, 'id' => $record->sender->id]) }}">{{ $record->sender->username }}</a>
+                                        <a href="{{ route('profile', ['username' => $record->sender->username, 'id' => $record->sender->id]) }}">
+                                            <span class="text-bold" style="color: {{ $record->sender->group->color }}">
+                                                <i class="{{ $record->sender->group->icon }}"></i> {{ $record->sender->username }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $record->email }}
@@ -59,10 +61,12 @@
                                         {{ $record->expires_on }}
                                     </td>
                                     <td>
-                                        @if($record->accepted_by != null)
-                                            <a class="view-user" data-id="{{ $record->receiver->id }}"
-                                               data-slug="{{ $record->receiver->username }}"
-                                               href="{{ route('profile', ['username' =>  $record->receiver->username, 'id' => $record->receiver->id]) }}">{{ $record->receiver->username }}</a>
+                                        @if($record->accepted_by != null && $record->accepted_by != 1)
+                                            <a href="{{ route('profile', ['username' => $record->receiver->username, 'id' => $record->receiver->id]) }}">
+                                                <span class="text-bold" style="color: {{ $record->receiver->group->color }}">
+                                                    <i class="{{ $record->receiver->group->icon }}"></i> {{ $record->receiver->username }}
+                                                </span>
+                                            </a>
                                         @else
                                             N/A
                                         @endif
@@ -79,6 +83,9 @@
                         @endif
                         </tbody>
                     </table>
+                        <div class="text-center">
+                            {{ $records->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

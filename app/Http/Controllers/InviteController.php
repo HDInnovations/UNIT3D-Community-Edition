@@ -129,10 +129,10 @@ class InviteController extends Controller
     {
         if (auth()->user()->group->is_modo) {
             $user = User::findOrFail($id);
-            $records = Invite::with('sender')->where('user_id', $user->id)->latest()->get();
+            $records = Invite::with('sender', 'receiver')->where('user_id', $user->id)->latest()->paginate(25);
         } else {
             $user = auth()->user();
-            $records = Invite::with('sender')->where('user_id', $user->id)->latest()->get();
+            $records = Invite::with('sender', 'receiver')->where('user_id', $user->id)->latest()->paginate(25);
         }
         return view('user.invitetree', ['user' => $user, 'records' => $records]);
     }

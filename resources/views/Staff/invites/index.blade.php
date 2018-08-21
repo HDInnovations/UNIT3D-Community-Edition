@@ -22,7 +22,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="block">
             <h2>Invites Log</h2>
             <hr>
@@ -50,9 +50,11 @@
                             @foreach($invites as $invite)
                                 <tr>
                                     <td>
-                                        <a class="view-user" data-id="{{ $invite->sender->id }}"
-                                           data-slug="{{ $invite->sender->username }}"
-                                           href="{{ route('profile', ['username' =>  $invite->sender->username, 'id' => $invite->sender->id]) }}">{{ $invite->sender->username }}</a>
+                                        <a href="{{ route('profile', ['username' => $invite->sender->username, 'id' => $invite->sender->id]) }}">
+                                            <span class="text-bold" style="color: {{ $invite->sender->group->color }}">
+                                                <i class="{{ $invite->sender->group->icon }}"></i> {{ $invite->sender->username }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $invite->email }}
@@ -67,10 +69,12 @@
                                         {{ $invite->expires_on }}
                                     </td>
                                     <td>
-                                        @if($invite->accepted_by != null)
-                                            <a class="view-user" data-id="{{ $invite->receiver->id }}"
-                                               data-slug="{{ $invite->receiver->username }}"
-                                               href="{{ route('profile', ['username' =>  $invite->receiver->username, 'id' => $invite->receiver->id]) }}">{{ $invite->receiver->username }}</a>
+                                        @if($invite->accepted_by != null && $invite->accepted_by != 1)
+                                            <a href="{{ route('profile', ['username' => $invite->receiver->username, 'id' => $invite->receiver->id]) }}">
+                                                <span class="text-bold" style="color: {{ $invite->receiver->group->color }}">
+                                                    <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
+                                                </span>
+                                            </a>
                                         @else
                                             N/A
                                         @endif
