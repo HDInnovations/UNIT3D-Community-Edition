@@ -276,6 +276,11 @@ class UserController extends Controller
         foreach ($users as $user) {
             $user->group_id = 3;
             $user->active = 1;
+            $user->can_upload = 1;
+            $user->can_download = 1;
+            $user->can_request = 1;
+            $user->can_comment = 1;
+            $user->can_invite = 1;
             $user->save();
         }
         return redirect('staff_dashboard')
