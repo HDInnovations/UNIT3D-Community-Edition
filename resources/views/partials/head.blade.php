@@ -6,10 +6,6 @@
 <meta name="description" content="{{ config('other.meta_description') }}">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta property="og:title" content="{{ config('other.title') }}">
-<meta property="og:type" content="website">
-<meta property="og:image" content="{{ url('/img/rlm.png') }}">
-<meta property="og:url" content="{{ url('/') }}">
 <meta name="_base_url" content="{{ route('home') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 

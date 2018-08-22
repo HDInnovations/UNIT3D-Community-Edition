@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
+<html lang="{{ auth()->user()->locale }}">
 
 <head>
     @include('partials.head')
