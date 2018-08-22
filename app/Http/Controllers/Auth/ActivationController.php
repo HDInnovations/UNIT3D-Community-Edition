@@ -25,7 +25,12 @@ class ActivationController extends Controller
     {
         $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
         if (!empty($activation->user->id) && $activation->user->group->id != 5) {
-            $activation->user->active = true;
+            $activation->user->active = 1;
+            $activation->user->can_upload = 1;
+            $activation->user->can_download = 1;
+            $activation->user->can_request = 1;
+            $activation->user->can_comment = 1;
+            $activation->user->can_invite = 1;
             $activation->user->group_id = $this->group_id;
             $activation->user->save();
 
