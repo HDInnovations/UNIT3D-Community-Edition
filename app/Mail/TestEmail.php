@@ -40,5 +40,4 @@ class TestEmail extends Mailable
     {
         return $this->markdown('emails.test_email');
     }
-
 }
