@@ -85,8 +85,8 @@ class ModerationController extends Controller
             $pm = new PrivateMessage;
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
-            $pm->subject = "Your upload has been postponed by {$user->username}";
-            $pm->message = "Greetings, \n\n Your upload {$torrent->username} has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
+            $pm->message = "Greetings, \n\n Your upload, {$torrent->name} ,has been postponed. Please see below the message from the staff member. \n\n{$request->input('message')}";
             $pm->save();
 
             return redirect()->route('moderation')
@@ -119,8 +119,8 @@ class ModerationController extends Controller
             $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
-            $pm->subject = "Your upload has been rejected by {$user->username}";
-            $pm->message = "Greetings, \n\n Your upload {$torrent->username} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
+            $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
+            $pm->message = "Greetings, \n\n Your upload {$torrent->name} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
             $pm->save();
 
             return redirect()->route('moderation')
