@@ -81,7 +81,7 @@ Traffic: Unlimited
 
 **A UNIT3D Installer has been released by Poppabear.**
 
-Check it out here: https://github.com/ServNX/UNIT3D-INSTALLER
+Check it out here: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
  
