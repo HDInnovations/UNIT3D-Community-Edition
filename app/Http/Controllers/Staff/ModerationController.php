@@ -119,7 +119,7 @@ class ModerationController extends Controller
             $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
-            $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
+            $pm->subject = "Your upload, {$torrent->name} ,has been rejected by {$user->username}";
             $pm->message = "Greetings, \n\n Your upload {$torrent->name} has been rejected. Please see below the message from the staff member. \n\n{$request->input('message')}";
             $pm->save();
 
