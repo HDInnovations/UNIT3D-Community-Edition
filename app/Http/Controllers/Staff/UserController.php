@@ -28,6 +28,7 @@ use App\Like;
 use App\Thank;
 use App\Follow;
 use App\Invite;
+use App\Peer;
 use \Toastr;
 
 class UserController extends Controller
@@ -176,6 +177,8 @@ class UserController extends Controller
      * @param $username
      * @param $id
      * @return Illuminate\Http\RedirectResponse
+     *
+     * Todo: Refactor Once New Migrations Are In Place And Soft Deletes Are Added
      */
     protected function userDelete($username, $id)
     {
@@ -250,6 +253,10 @@ class UserController extends Controller
             foreach (Invite::where('accepted_by', $user->id)->get() as $received_invite) {
                 $received_invite->accepted_by = 1;
                 $received_invite->save();
+            }
+            // Removes all Peers for user
+            foreach (Peer::where('user_id', $user->id)->get() as $peer) {
+                $peer->delete();
             }
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
