@@ -130,8 +130,7 @@
                                             @foreach(array_slice($movie->actors, 0,6) as $actor)
                                                 @php $person = $client->person($actor->tmdb); @endphp
                                                 <div class="col-xs-4 col-md-2 text-center">
-                                                    <img class="img-circle" style="height:50px; width:50px;"
-                                                         src="{{ $person->photo }}">
+                                                    <img class="img-people" src="{{ $person->photo }}">
                                                     <a rel="nofollow"
                                                        href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}"
                                                        title="TheMovieDatabase" target="_blank">
