@@ -13,7 +13,6 @@
 namespace App\Helpers;
 
 use App\Torrent;
-use App\Message;
 use App\PrivateMessage;
 use App\Wish;
 use App\Follow;
@@ -75,7 +74,6 @@ class TorrentHelper
         }
 
         $user = $torrent->user;
-        $user_id = $user->id;
         $username = $user->username;
         $anon = $torrent->anon;
 
@@ -93,13 +91,6 @@ class TorrentHelper
             $user->addProgress(new UserMade700Uploads(), 1);
             $user->addProgress(new UserMade800Uploads(), 1);
             $user->addProgress(new UserMade900Uploads(), 1);
-        }
-
-        // Announce To Shoutbox
-        if ($anon == 0) {
-            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
-        } else {
-            Message::create(['user_id' => "1", 'chatroom_id' => "1", 'message' => "An anonymous user has uploaded [url={$appurl}/torrents/" . $slug . "." . $id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"]);
         }
 
         // Announce To IRC

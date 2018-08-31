@@ -755,7 +755,25 @@ class TorrentController extends Controller
 
             // check for trusted user and update torrent
             if ($user->group->is_trusted) {
+                $appurl = config('app.url');
+                $user = $torrent->user;
+                $user_id = $user->id;
+                $username = $user->username;
+                $anon = $torrent->anon;
+
+                // Announce To Shoutbox
+                if ($anon == 0) {
+                    $this->chat->systemMessage(
+                        "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    );
+                } else {
+                    $this->chat->systemMessage(
+                        "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    );
+                }
+
                 TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
             } else {
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");

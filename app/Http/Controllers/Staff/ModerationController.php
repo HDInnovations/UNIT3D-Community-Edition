@@ -18,11 +18,22 @@ use App\PrivateMessage;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
 use Carbon\Carbon;
 use \Toastr;
 
 class ModerationController extends Controller
 {
+    /**
+     * @var ChatRepository
+     */
+    private $chat;
+
+    public function __construct(ChatRepository $chat)
+    {
+        $this->chat = $chat;
+    }
+
     /**
      * Torrent Moderation Panel
      *
@@ -54,7 +65,26 @@ class ModerationController extends Controller
      */
     public function approve($slug, $id)
     {
-        TorrentHelper::approveHelper($slug, $id);
+        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+
+        $appurl = config('app.url');
+        $user = $torrent->user;
+        $user_id = $user->id;
+        $username = $user->username;
+        $anon = $torrent->anon;
+
+        // Announce To Shoutbox
+        if ($anon == 0) {
+            $this->chat->systemMessage(
+                "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+            );
+        } else {
+            $this->chat->systemMessage(
+                "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+            );
+        }
+
+        TorrentHelper::approveHelper($torrent->slug, $torrent->id);
 
         return redirect()->route('moderation')
             ->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
