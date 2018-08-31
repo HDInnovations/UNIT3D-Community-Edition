@@ -67,27 +67,32 @@ class ModerationController extends Controller
     {
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
 
-        $appurl = config('app.url');
-        $user = $torrent->user;
-        $user_id = $user->id;
-        $username = $user->username;
-        $anon = $torrent->anon;
+        if ($torrent->status !== 1) {
+            $appurl = config('app.url');
+            $user = $torrent->user;
+            $user_id = $user->id;
+            $username = $user->username;
+            $anon = $torrent->anon;
 
-        // Announce To Shoutbox
-        if ($anon == 0) {
-            $this->chat->systemMessage(
-                "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
-            );
+            // Announce To Shoutbox
+            if ($anon == 0) {
+                $this->chat->systemMessage(
+                    "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                );
+            }
+
+            TorrentHelper::approveHelper($torrent->slug, $torrent->id);
+
+            return redirect()->route('moderation')
+                ->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
         } else {
-            $this->chat->systemMessage(
-                "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
-            );
+            return redirect()->back()
+                ->with(Toastr::error('Torrent Already Approved', 'Whoops!', ['options']));
         }
-
-        TorrentHelper::approveHelper($torrent->slug, $torrent->id);
-
-        return redirect()->route('moderation')
-            ->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
     }
 
     /**
