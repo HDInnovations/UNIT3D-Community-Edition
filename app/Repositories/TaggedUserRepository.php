@@ -143,7 +143,11 @@ class TaggedUserRepository
 
     protected function validate($user)
     {
-        if ($this->debug || $user->id !== auth()->user()->id) {
+        if(is_object($user)) {
+            if (!$this->debug || $user->id === auth()->user()->id) {
+                return false;
+            }
+
             return true;
         }
 
