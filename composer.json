@@ -11,7 +11,7 @@
         "php": ">=7.2",
         "appstract/laravel-opcache": "^2.0",
         "arcanedev/log-viewer": "^4.3",
-        "bepsvpt/secure-headers": "^3.0",
+        "bepsvpt/secure-headers": "^5.3",
         "brian2694/laravel-toastr": "^1.0",
         "christofferok/laravel-emojione": "^2.1",
         "emojione/emojione": "3.1.2",
@@ -34,6 +34,7 @@
         "spatie/laravel-backup": "^5.0",
         "spatie/laravel-cookie-consent": "^2.1.0",
         "spatie/laravel-image-optimizer": "^1.1",
+        "spatie/ssl-certificate": "^1.12",
         "stripe/stripe-php": "^6.1",
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0"

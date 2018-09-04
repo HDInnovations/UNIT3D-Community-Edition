@@ -76,7 +76,6 @@ class Kernel extends HttpKernel
         'modo' => \App\Http\Middleware\CheckForModo::class,
         'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
         'language' => \App\Http\Middleware\SetLanguage::class,
-        'censor' => \App\Http\Middleware\LanguageCensor::class,
         'banned' => \App\Http\Middleware\CheckIfBanned::class,
         'active' => \App\Http\Middleware\CheckIfActive::class,
         'online' => \App\Http\Middleware\CheckIfOnline::class,

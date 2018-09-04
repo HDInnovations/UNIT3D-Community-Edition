@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d67e055b9efaecd961bc8841f9726ae",
+    "content-hash": "8bd44ca7d95fc02e872af44455395d67",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -249,30 +249,36 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "3.1.0",
+            "version": "5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BePsvPT/secure-headers.git",
-                "reference": "3d2d82bad167992bc8e0addaf479e5a5d7bfff6d"
+                "reference": "37959847d0d18f41a1a9fcf51041b976fbde4a2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/3d2d82bad167992bc8e0addaf479e5a5d7bfff6d",
-                "reference": "3d2d82bad167992bc8e0addaf479e5a5d7bfff6d",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/37959847d0d18f41a1a9fcf51041b976fbde4a2f",
+                "reference": "37959847d0d18f41a1a9fcf51041b976fbde4a2f",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^5.1",
-                "paragonie/csp-builder": "^2.0",
-                "paragonie/hpkp-builder": "^0.1",
                 "php": "^7.0"
             },
             "require-dev": {
-                "codeclimate/php-test-reporter": "^0.4",
-                "orchestra/testbench": "^3.4",
-                "phpunit/phpunit": "^5.7"
+                "codeclimate/php-test-reporter": "0.4.*",
+                "doctrine/instantiator": "1.0.*",
+                "orchestra/testbench": "3.5.*",
+                "phpunit/phpunit": "6.5.*"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Bepsvpt\\SecureHeaders\\": "src/"
@@ -285,20 +291,23 @@
             "authors": [
                 {
                     "name": "BePsvPT",
-                    "email": "freedom@csie.io"
+                    "email": "bepsvpt@protonmail.com"
                 }
             ],
             "description": "Add security related headers to HTTP response. The package includes Service Providers for easy Laravel integration.",
             "homepage": "https://github.com/BePsvPT/secure-headers",
             "keywords": [
+                "clear-site-data",
                 "csp",
+                "except-ct",
+                "feature-policy",
                 "header",
                 "hpkp",
                 "hsts",
                 "https",
                 "laravel"
             ],
-            "time": "2017-07-18T08:37:05+00:00"
+            "time": "2018-08-05T11:10:43+00:00"
         },
         {
             "name": "brian2694/laravel-toastr",
@@ -2146,116 +2155,6 @@
             "time": "2018-03-10T19:47:49+00:00"
         },
         {
-            "name": "paragonie/csp-builder",
-            "version": "v2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paragonie/csp-builder.git",
-                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/csp-builder/zipball/a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
-                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
-                "shasum": ""
-            },
-            "require": {
-                "paragonie/constant_time_encoding": "^2",
-                "php": "^7"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "psr/http-message": "^1",
-                "squizlabs/php_codesniffer": "^3",
-                "vimeo/psalm": "^0.3"
-            },
-            "suggest": {
-                "psr/http-message": "For CSPBuilder::injectCSPHeader()"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ParagonIE\\CSPBuilder\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "security@paragonie.com",
-                    "homepage": "https://paragonie.com",
-                    "role": "Owner"
-                }
-            ],
-            "description": "Easily add and update Content-Security-Policy headers for your project",
-            "keywords": [
-                "content-security-policy",
-                "csp",
-                "headers",
-                "http",
-                "security",
-                "xss"
-            ],
-            "time": "2017-11-20T16:18:59+00:00"
-        },
-        {
-            "name": "paragonie/hpkp-builder",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paragonie/hpkp-builder.git",
-                "reference": "9fb17828da24a88cf823c695273703dfbd939a86"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/hpkp-builder/zipball/9fb17828da24a88cf823c695273703dfbd939a86",
-                "reference": "9fb17828da24a88cf823c695273703dfbd939a86",
-                "shasum": ""
-            },
-            "require": {
-                "paragonie/constant_time_encoding": "^2",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ParagonIE\\HPKPBuilder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0+",
-                "MIT",
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "info@paragonie.com",
-                    "homepage": "https://paragonie.com",
-                    "role": "Development Team"
-                }
-            ],
-            "description": "Easily integrate HTTP Public-Key-Pinning headers into your application.",
-            "homepage": "https://paragonie.com",
-            "keywords": [
-                "Hypertext",
-                "headers",
-                "hpkp",
-                "public key",
-                "public key pinning",
-                "security",
-                "security headers"
-            ],
-            "time": "2016-06-19T16:02:40+00:00"
-        },
-        {
             "name": "paragonie/random_compat",
             "version": "v9.99.99",
             "source": {
@@ -3043,6 +2942,104 @@
                 "spatie"
             ],
             "time": "2018-08-27T14:44:11+00:00"
+        },
+        {
+            "name": "spatie/macroable",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/macroable.git",
+                "reference": "74b0d189ce75142f1706aad834d5a428dfc7c3c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/macroable/zipball/74b0d189ce75142f1706aad834d5a428dfc7c3c3",
+                "reference": "74b0d189ce75142f1706aad834d5a428dfc7c3c3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Macroable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A trait to dynamically add methods to a class",
+            "homepage": "https://github.com/spatie/macroable",
+            "keywords": [
+                "macroable",
+                "spatie"
+            ],
+            "time": "2017-09-18T09:51:20+00:00"
+        },
+        {
+            "name": "spatie/ssl-certificate",
+            "version": "1.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/ssl-certificate.git",
+                "reference": "b9d3dc15b0d1ba419b9753027ba2ca4d1297595a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/ssl-certificate/zipball/b9d3dc15b0d1ba419b9753027ba2ca4d1297595a",
+                "reference": "b9d3dc15b0d1ba419b9753027ba2ca4d1297595a",
+                "shasum": ""
+            },
+            "require": {
+                "nesbot/carbon": "^1.15",
+                "php": "^7.0",
+                "spatie/macroable": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4",
+                "spatie/phpunit-snapshot-assertions": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\SslCertificate\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A class to easily query the properties of an ssl certificate",
+            "homepage": "https://github.com/spatie/ssl-certificate",
+            "keywords": [
+                "spatie",
+                "ssl-certificate"
+            ],
+            "time": "2018-02-26T14:27:51+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -4880,6 +4877,116 @@
                 "symfony"
             ],
             "time": "2018-02-07T10:42:20+00:00"
+        },
+        {
+            "name": "paragonie/csp-builder",
+            "version": "v2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/csp-builder.git",
+                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/csp-builder/zipball/a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
+                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/constant_time_encoding": "^2",
+                "php": "^7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "psr/http-message": "^1",
+                "squizlabs/php_codesniffer": "^3",
+                "vimeo/psalm": "^0.3"
+            },
+            "suggest": {
+                "psr/http-message": "For CSPBuilder::injectCSPHeader()"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ParagonIE\\CSPBuilder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "Owner"
+                }
+            ],
+            "description": "Easily add and update Content-Security-Policy headers for your project",
+            "keywords": [
+                "content-security-policy",
+                "csp",
+                "headers",
+                "http",
+                "security",
+                "xss"
+            ],
+            "time": "2017-11-20T16:18:59+00:00"
+        },
+        {
+            "name": "paragonie/hpkp-builder",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/hpkp-builder.git",
+                "reference": "9fb17828da24a88cf823c695273703dfbd939a86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/hpkp-builder/zipball/9fb17828da24a88cf823c695273703dfbd939a86",
+                "reference": "9fb17828da24a88cf823c695273703dfbd939a86",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/constant_time_encoding": "^2",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ParagonIE\\HPKPBuilder\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+",
+                "MIT",
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "Development Team"
+                }
+            ],
+            "description": "Easily integrate HTTP Public-Key-Pinning headers into your application.",
+            "homepage": "https://paragonie.com",
+            "keywords": [
+                "Hypertext",
+                "headers",
+                "hpkp",
+                "public key",
+                "public key pinning",
+                "security",
+                "security headers"
+            ],
+            "time": "2016-06-19T16:02:40+00:00"
         },
         {
             "name": "phar-io/manifest",

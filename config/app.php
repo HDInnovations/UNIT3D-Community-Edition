@@ -75,7 +75,7 @@ return [
 	|
 	*/
 
-    'timezone' => 'America/New_York',
+    'timezone' => 'UTC',
 
     /*
 	|--------------------------------------------------------------------------
@@ -167,7 +167,6 @@ return [
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Gstt\Achievements\AchievementsServiceProvider::class,
         Infinety\ConfigManager\ConfigManagerServiceProvider::class,
-        Bepsvpt\SecureHeaders\SecureHeadersServiceProvider::class,
         ChristofferOK\LaravelEmojiOne\LaravelEmojiOneServiceProvider::class,
         Way\Generators\GeneratorsServiceProvider::class,
         Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
