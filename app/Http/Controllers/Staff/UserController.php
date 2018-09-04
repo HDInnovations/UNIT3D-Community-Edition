@@ -190,7 +190,7 @@ class UserController extends Controller
                 ->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
             // Removes UserID from Torrents if any and replaces with System UserID (1)
-            foreach (Torrent::where('user_id', $user->id)->get() as $tor) {
+            foreach (Torrent::withAnyStatus()->where('user_id', $user->id)->get() as $tor) {
                 $tor->user_id = 1;
                 $tor->save();
             }
