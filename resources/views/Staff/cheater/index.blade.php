@@ -54,6 +54,9 @@
                                         <td>
                                             {{ $cheater->user->created_at->toDayDateTimeString() }}
                                         </td>
+                                        <td>
+                                            {{ $cheater->user->last_login->toDayDateTimeString() }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
