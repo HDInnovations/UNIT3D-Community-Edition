@@ -4,19 +4,19 @@ $(function () {
   // Check for on keypress
   $('input').on('keydown', function (event) {
 
-    let self = $(this)
+    let self = $(this);
 
     // Keyboard Controls
-    let controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127, 27, 32]
+    let controls = [8, 16, 18, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 9, 91, 93, 224, 13, 127, 27, 32];
 
     // Special Chars
-    let specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222]
+    let specialChars = [43, 61, 186, 187, 188, 189, 190, 191, 192, 219, 220, 221, 222];
 
     // Numbers
-    let numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+    let numbers = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
 
-    let preCombined = controls.concat(numbers)
-    let combined = preCombined
+    let preCombined = controls.concat(numbers);
+    let combined = preCombined;
 
     // Allow Letter
     for (let i = 65; i <= 90; i++) {
@@ -39,16 +39,16 @@ $(function () {
       }, 1)
     }
 
-  })
+  });
   // Check for copy and paste
   $('input').on('input', function () {
-    let regexp = /[^a-zA-Z0-9]/g
+    let regexp = /[^a-zA-Z0-9]/g;
     if ($(this).val().match(regexp)) {
       $(this).val($(this).val().replace(regexp, ''))
     }
   })
 
-})
+});
 
 // Verify
 $.ajaxSetup({
@@ -57,16 +57,16 @@ $.ajaxSetup({
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     }
   },
-})
+});
 
 $('.code-inputs').on('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
   $('.code-inputs').delay(200).removeClass('invalid-shake')
-})
+});
 
 $('#submit_verification').click(function (event) {
-  event.preventDefault()
+  event.preventDefault();
 
-  let formData = $('#verification_form').serialize()
+  let formData = $('#verification_form').serialize();
 
   $.ajax({
     url: '{{ route(\'verify\') }}',
@@ -79,43 +79,43 @@ $('#submit_verification').click(function (event) {
     error: function (response, status, error) {
       if (response.status === 418) {
 
-        let remainingAttempts = response.responseJSON.remainingAttempts
-        let submitTrigger = $('#submit_verification')
-        let varificationForm = $('#verification_form')
+        let remainingAttempts = response.responseJSON.remainingAttempts;
+        let submitTrigger = $('#submit_verification');
+        let varificationForm = $('#verification_form');
 
-        $('.code-inputs').addClass('invalid-shake')
-        varificationForm[0].reset()
-        $('#remaining_attempts').text(remainingAttempts)
+        $('.code-inputs').addClass('invalid-shake');
+        varificationForm[0].reset();
+        $('#remaining_attempts').text(remainingAttempts);
 
         switch (remainingAttempts) {
           case 0:
-            submitTrigger.addClass('btn-danger')
+            submitTrigger.addClass('btn-danger');
             swal(
               '{{ trans(\'auth.verificationLockedTitle\') }}',
               '{{ trans(\'auth.verificationLockedMessage\') }}',
               'error'
-            )
-            break
+            );
+            break;
 
           case 1:
-            submitTrigger.addClass('btn-danger')
+            submitTrigger.addClass('btn-danger');
             swal(
               '{{ trans(\'auth.verificationWarningTitle\') }}',
               '{{ trans(\'auth.verificationWarningMessage\', [\'hours\' => $hoursToExpire, \'minutes\' => $minutesToExpire,]) }}',
               'error'
-            )
-            break
+            );
+            break;
 
           case 2:
-            submitTrigger.addClass('btn-warning')
-            break
+            submitTrigger.addClass('btn-warning');
+            break;
 
           case 3:
-            submitTrigger.addClass('btn-info')
-            break
+            submitTrigger.addClass('btn-info');
+            break;
 
           default:
-            submitTrigger.addClass('btn-success')
+            submitTrigger.addClass('btn-success');
             break
         }
 
@@ -124,7 +124,7 @@ $('#submit_verification').click(function (event) {
 
           varificationForm.fadeOut(100, function () {
 
-            $('#failed_login_alert').show()
+            $('#failed_login_alert').show();
 
             setTimeout(function () {
               $('body').fadeOut(100, function () {
@@ -138,25 +138,25 @@ $('#submit_verification').click(function (event) {
 
     }
   })
-})
+});
 
 // Resend
 $.ajaxSetup({
   headers: {
     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
-})
+});
 
 $('#resend_code_trigger').click(function (event) {
-  event.preventDefault()
+  event.preventDefault();
 
-  let self = $(this)
-  let resultStatus
-  let resultData
-  let endpoint = '{{ route(\'resend\') }}'
+  let self = $(this);
+  let resultStatus;
+  let resultData;
+  let endpoint = '{{ route(\'resend\') }}';
 
   self.addClass('disabled')
-    .attr('disabled', true)
+    .attr('disabled', true);
 
   swal({
     text: 'Sending verification code ...',
@@ -164,7 +164,7 @@ $('#resend_code_trigger').click(function (event) {
     grow: false,
     animation: false,
     onOpen: () => {
-      swal.showLoading()
+      swal.showLoading();
       $.ajax({
         type: 'POST',
         url: endpoint,
@@ -176,7 +176,7 @@ $('#resend_code_trigger').click(function (event) {
         }
       })
     }
-  })
+  });
 
   function swalCallback (title, message, status) {
     swal({
@@ -189,7 +189,7 @@ $('#resend_code_trigger').click(function (event) {
       buttonsStyling: false,
       confirmButtonClass: 'btn btn-lg btn-' + status,
       confirmButtonText: '{{ trans(\'auth.verificationModalConfBtn\') }}',
-    })
+    });
     self.removeClass('disabled').attr('disabled', false)
   }
-})
+});

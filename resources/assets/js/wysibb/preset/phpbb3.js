@@ -49,7 +49,7 @@ WBBPRESET = {
 		}
 	},
 	smilefind: "#smiley-box"
-}
+};
 
 //hide smilelist
 $(document).ready(function() {
@@ -76,7 +76,7 @@ $(document).ready(function() {
 			this.insertAtCursor(this.getHTML(data,true));
 			this.$txtArea.val("");
 		}
-	}
+	};
 	
 	$.wysibb.prototype.txtAreaInitContent = function() { 
 		let tdata = this.txtArea.value;
@@ -95,12 +95,12 @@ $(document).ready(function() {
 			}
 		});
 		this.$body.html(this.getHTML(tdata,true));
-	}
+	};
 	
 	$.fn.closeModal = function() {
 		this.data("wbb").closeModal();
 		return this.data("wbb");
-	}
+	};
 	$.fn.insertAttach = function(id,alt,isimg) {
 		let num=0;
 		while (num<30) {

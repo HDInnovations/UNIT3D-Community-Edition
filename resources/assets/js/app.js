@@ -4,9 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap')
+require('./bootstrap');
 
-window.Vue = require('vue')
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,14 +16,14 @@ window.Vue = require('vue')
 
 /* Plugins*/
 import VTooltip from 'v-tooltip'
-Vue.use(VTooltip)
+Vue.use(VTooltip);
 
 /* Components */
-Vue.component('version', require('./components/Version'))
-Vue.component('chatbox', require('./components/chat/Chatbox'))
-Vue.component('bookmark', require('./components/BookmarkButton'))
-Vue.component('smallbookmark', require('./components/SmallBookmarkButton'))
+Vue.component('version', require('./components/Version'));
+Vue.component('chatbox', require('./components/chat/Chatbox'));
+Vue.component('bookmark', require('./components/BookmarkButton'));
+Vue.component('smallbookmark', require('./components/SmallBookmarkButton'));
 
 const app = new Vue({
   el: '#app'
-})
+});

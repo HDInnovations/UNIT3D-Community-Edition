@@ -96,13 +96,13 @@
       },
       keydown (e) {
         if (e.keyCode === 13 && !e.shiftKey) {
-          e.preventDefault()
+          e.preventDefault();
           this.sendMessage()
         }
       },
       sendMessage () {
 
-        let msg = this.editor.bbcode().trim()
+        let msg = this.editor.bbcode().trim();
 
         if (msg !== null && msg !== '') {
 
@@ -110,7 +110,7 @@
             message: msg,
             save: true,
             user_id: this.user.id,
-          })
+          });
 
           this.input.html('')
         }
@@ -119,14 +119,14 @@
     },
 
     mounted () {
-      this.editor = $('#chat-message').wysibb()
+      this.editor = $('#chat-message').wysibb();
 
       // Initialize emojis
-      emoji.textcomplete()
+      emoji.textcomplete();
 
-      this.input = $('.wysibb-body')
+      this.input = $('.wysibb-body');
 
-      this.input.keyup(this.keyup)
+      this.input.keyup(this.keyup);
       this.input.keydown(this.keydown)
 
     }

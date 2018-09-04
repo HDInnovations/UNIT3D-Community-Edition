@@ -291,7 +291,7 @@
                         }
                     }
                 }
-            }
+            };
 
             let editor = $("#topic-response").wysibb(wbbOpt);
 

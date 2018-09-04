@@ -58,16 +58,16 @@
 @section('javascripts')
     <script type="text/javascript">
       $(document).ready(function () {
-        var title = '{{ $title }}'
+        var title = '{{ $title }}';
         if (title.length != 0) {
           $('#thread-title').text(': ' + title)
         }
 
         $('#input-thread-title').on('input', function () {
           $('#thread-title').text(': ' + $('#input-thread-title').val())
-        })
+        });
 
-        $('#new-thread-content').wysibb({})
+        $('#new-thread-content').wysibb({});
 
         emoji.textcomplete()
       })

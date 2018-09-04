@@ -142,9 +142,9 @@
         this.changeStatus(this.auth.chat_status.id)
       },
       room (newVal, oldVal) {
-        window.Echo.leave(`chatroom.${oldVal}`)
+        window.Echo.leave(`chatroom.${oldVal}`);
 
-        this.channel = window.Echo.join(`chatroom.${newVal}`)
+        this.channel = window.Echo.join(`chatroom.${newVal}`);
         this.listenForEvents()
       },
     },
@@ -160,7 +160,7 @@
         if (this.statuses.length > 0) {
           let i = _.findIndex(this.statuses, (o) => {
             return o.id === this.status
-          })
+          });
 
           return this.statuses[i].color
         }
@@ -177,7 +177,7 @@
 
       fetchRooms () {
         axios.get('/api/chat/rooms').then(response => {
-          this.chatrooms = response.data.data
+          this.chatrooms = response.data.data;
 
           this.fetchConfiguration()
         })
@@ -190,7 +190,7 @@
       },
 
       changeRoom (id) {
-        this.room = id
+        this.room = id;
 
         if (this.auth.chatroom.id !== id) {
           /* Update the users chatroom in the database */
@@ -198,7 +198,7 @@
             'room_id': id
           }).then(response => {
             // reassign the auth variable to the response data
-            this.auth = response.data
+            this.auth = response.data;
 
             this.fetchMessages()
           })
@@ -209,8 +209,8 @@
 
       fetchMessages () {
         axios.get(`/api/chat/messages/${this.room}`).then(response => {
-          this.messages = _.reverse(response.data.data)
-          this.scrollToBottom(true)
+          this.messages = _.reverse(response.data.data);
+          this.scrollToBottom(true);
 
           this.state.connecting = false
         })
@@ -223,8 +223,8 @@
       },
 
       changeStatus (status_id) {
-        this.status = status_id
-        this.showStatuses = false
+        this.status = status_id;
+        this.showStatuses = false;
 
         if (this.auth.chat_status.id !== status_id) {
 
@@ -233,7 +233,7 @@
             'status_id': status_id
           }).then(response => {
             // reassign the auth variable to the response data
-            this.auth = response.data
+            this.auth = response.data;
 
             /* Add system message */
             this.createMessage(
@@ -257,17 +257,17 @@
       },
 
       scrollToBottom (force = false) {
-        let container = $('.messages .list-group')
+        let container = $('.messages .list-group');
 
         if (this.scroll || force) {
           container.animate({scrollTop: container.prop('scrollHeight')}, 0)
         }
 
         container.scroll(() => {
-          this.scroll = false
+          this.scroll = false;
 
-          let scrollTop = container.scrollTop() + container.prop('clientHeight')
-          let scrollHeight = container.prop('scrollHeight')
+          let scrollTop = container.scrollTop() + container.prop('clientHeight');
+          let scrollHeight = container.prop('scrollHeight');
 
           this.scroll = scrollTop >= scrollHeight - 50
         })
@@ -276,8 +276,8 @@
       listenForEvents () {
         this.channel
           .here(users => {
-            this.users = users
-            this.state.connecting = false
+            this.users = users;
+            this.state.connecting = false;
 
             setInterval(() => {
               this.scrollToBottom()
@@ -290,7 +290,7 @@
             // this.createMessage(`${user.username} has LEFT the chat ...`)
           })
           .listen('.new.message', e => {
-            let count = this.messages.push(e.message)
+            let count = this.messages.push(e.message);
 
             if (count > this.config.message_limit) {
               this.messages.splice(0, 1)
@@ -302,8 +302,8 @@
 
           })
           .listen('.delete.message', e => {
-            let msgs = this.messages
-            let index = msgs.findIndex(msg => msg.id === e.message.id)
+            let msgs = this.messages;
+            let index = msgs.findIndex(msg => msg.id === e.message.id);
 
             this.messages.splice(index, 1)
           })
@@ -319,8 +319,8 @@
       }
     },
     created () {
-      this.auth = this.user
-      this.fetchRooms()
+      this.auth = this.user;
+      this.fetchRooms();
       this.fetchStatuses()
     },
   }

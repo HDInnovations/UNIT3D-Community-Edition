@@ -125,7 +125,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#upload-form-description').wysibb({})
+        $('#upload-form-description').wysibb({});
         emoji.textcomplete()
       })
     </script>

@@ -1,16 +1,16 @@
 // emoji list for .textcomplete() sourced from node_modules/emojione-assets/emoji.json
-export const emojiStrategy = require('../../../../node_modules/emojione-assets/emoji.json')
+export const emojiStrategy = require('../../../../node_modules/emojione-assets/emoji.json');
 
 export function textcomplete(selector = null) {
-  selector = selector === null ? '.wysibb-body' : selector
+  selector = selector === null ? '.wysibb-body' : selector;
 
   $(selector).textcomplete([{
     match: /\B:([\-+\w]*)$/,
     search (term, callback) {
 
-      let results = []
-      let results2 = []
-      let results3 = []
+      let results = [];
+      let results2 = [];
+      let results3 = [];
 
       _.each(emojiStrategy, (data, basename) => {
         if (data.shortname.indexOf(term) > -1) {
@@ -26,22 +26,22 @@ export function textcomplete(selector = null) {
           }
 
         }
-      })
+      });
 
       if (term.length >= 3) {
 
         results.sort((a, b) => {
           return (a.length > b.length)
-        })
+        });
 
         results2.sort((a, b) => {
           return (a.length > b.length)
-        })
+        });
 
         results3.sort()
       }
 
-      let newResults = results.concat(results2).concat(results3)
+      let newResults = results.concat(results2).concat(results3);
 
       callback(newResults)
     },

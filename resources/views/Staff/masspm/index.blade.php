@@ -44,7 +44,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#message').wysibb({})
+        $('#message').wysibb({});
         emoji.textcomplete()
       })
     </script>

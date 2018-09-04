@@ -111,7 +111,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#request-form-description').wysibb({})
+        $('#request-form-description').wysibb({});
         emoji.textcomplete()
       })
     </script>
