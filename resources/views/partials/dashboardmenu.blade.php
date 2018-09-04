@@ -1,4 +1,4 @@
-<div class="col-sm-4 col-lg-3">
+<div class="col-sm-2 col-lg-2">
     <div class="block">
         <ul class="nav nav-list">
             <li class="nav-header head"><i class="{{ config('other.font-awesome') }} fa-link"></i> {{ trans('staff.links') }}</li>
