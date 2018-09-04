@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Requests - {{ config('other.title') }}</title>
+    <title>Requests - </title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
+        <a href="" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title"></span>
         </a>
     </li>
 @endsection
@@ -18,10 +18,10 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                        <i class=" fa-times text-danger"></i> 
                     </h1>
                     <div class="separator"></div>
-                    <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
+                    <p class="text-center">!</p>
                 </div>
             </div>
         </div>
@@ -29,33 +29,33 @@
         <!-- Search -->
         <div class="container box">
             <div class="well">
-                <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
+                <p class="lead text-orange text-center"></p>
             </div>
             <div class="text-center">
                 <h3 class="filter-title">Current Filters</h3>
                 <span id="filter-item-category"></span>
                 <span id="filter-item-type"></span>
             </div>
-            <hr> {{ Form::open(['action'=>'RequestController@requests','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
+            <hr> 
             <div class="form-group">
                 <label for="name" class="col-sm-1 label label-default">Name</label>
                 <div class="col-sm-9">
-                    {{ Form::text('search',null,['id'=>'search','placeholder'=>'Name or Title','class'=>'form-control']) }}
+                    
                 </div>
             </div>
             <div class="form-group">
                 <label for="imdb" class="col-sm-1 label label-default">Number</label>
                 <div class="col-sm-2">
-                    {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
+                    
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('tvdb',null,['id'=>'tvdb','placeholder'=>'TVDB #','class'=>'form-control']) }}
+                    
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('tmdb',null,['id'=>'tmdb','placeholder'=>'TMDB #','class'=>'form-control']) }}
+                    
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('mal',null,['id'=>'mal','placeholder'=>'MAL #','class'=>'form-control']) }}
+                    
                 </div>
             </div>
             <div class="form-group">
@@ -63,8 +63,8 @@
                 <div class="col-sm-10">
                     @foreach($repository->categories() as $id => $category)
                         <span class="badge-user">
-            {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
-                            {{ Form::label($category,$category,['class'=>'inline']) }}
+            
+                            
         </span>
                     @endforeach
                 </div>
@@ -74,8 +74,8 @@
                 <div class="col-sm-10">
                     @foreach($repository->types() as $id => $type)
                         <span class="badge-user">
-            {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
-                            {{ Form::label($type,$type,['class'=>'inline']) }}
+            
+                            
         </span>
                     @endforeach
                 </div>
@@ -85,49 +85,49 @@
                 <div class="col-sm-10">
         <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('myrequests',$user->id,false,['id'=>'myrequests']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My Requests
+             <span
+                    class=" fa-user text-blue"></span> My Requests
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('unfilled','1',false,['id'=>'unfilled']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> Unfilled
+             <span
+                    class=" fa-times-circle text-blue"></span> Unfilled
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('claimed','1',false,['id'=>'claimed']) }} <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> Claimed
+             <span class=" fa-suitcase text-blue"></span> Claimed
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('pending','1',false,['id'=>'pending']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> Pending
+             <span
+                    class=" fa-question-circle text-blue"></span> Pending
         </label>
         </span>
                     <span class="badge-user">
         <label class="inline">
-            {{ Form::checkbox('filled','1',false,['id'=>'filled']) }} <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> Filled
+             <span class=" fa-check-circle text-blue"></span> Filled
         </label>
         </span>
                 </div>
             </div>
-            {{ Form::close() }}
+            
             <br>
             <br>
             <div class="form-horizontal">
                 <div class="form-group">
-                    {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}
+                    
                     <div class="col-sm-2">
-                        {{ Form::select('sorting',$repository->sorting(),'created_at',['class'=>'form-control','id'=>'sorting','placeholder'=>'Select for sorting']) }}
+                        
                     </div>
                     <div class="col-sm-3">
-                        {{ Form::select('direction',$repository->direction(),'desc',['class'=>'form-control','id'=>'direction']) }}
+                        
                     </div>
-                    {{ Form::label('qty','Display:',['class'=>'control-label col-sm-2']) }}
+                    
                     <div class="col-sm-2">
-                        {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
+                        
                     </div>
                 </div>
             </div>
@@ -137,20 +137,20 @@
         <div class="container-fluid">
             <div class="block">
                 <span class="badge-user" style="float: right;">
-                    <strong>{{ trans('request.requests') }}:</strong> {{ $num_req }} |
-                    <strong>{{ trans('request.filled') }}:</strong> {{ $num_fil }} |
-                    <strong>{{ trans('request.unfilled') }}:</strong> {{ $num_unfil }} |
-                    <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
+                    <strong>:</strong>  |
+                    <strong>:</strong>  |
+                    <strong>:</strong>  |
+                    <strong>:</strong>   |
+                    <strong>:</strong>   |
+                    <strong>:</strong>  
                 </span>
-                <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
-                    {{ trans('request.add-request') }}
+                <a href="" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="!" class="btn btn btn-success">
+                    
                 </a>
                 <div class="header gradient green">
                     <div class="inner_content">
                         <h1>
-                            {{ trans('request.requests') }}
+                            
                         </h1>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
         var xhr = new XMLHttpRequest();
 
         function faceted(page) {
-            var csrf = "{{ csrf_token() }}";
+            var csrf = "";
             var search = $("#search").val();
             var imdb = $("#imdb").val();
             var tvdb = $("#tvdb").val();
@@ -250,7 +250,7 @@
                 },
                 type: 'get',
                 beforeSend: function () {
-                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    $("#result").html('<i class=" fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function (e) {
               $data = $(e);

@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('graveyard.graveyard') }} - {{ config('other.title') }}</title>
+    <title> - </title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('graveyard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('graveyard.graveyard') }}</span>
+        <a href="" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title"></span>
         </a>
     </li>
 @endsection
@@ -21,26 +21,26 @@
             <span id="filter-item-type"></span>
         </div>
         <hr>
-        {{ Form::open(['action'=>'GraveyardController@index','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
+        
         <div class="form-group">
             <label for="name" class="col-sm-1 label label-default">Name</label>
             <div class="col-sm-9">
-                {{ Form::text('search',null,['id'=>'search','placeholder'=>'Name or Title','class'=>'form-control']) }}
+                
             </div>
         </div>
         <div class="form-group">
             <label for="imdb" class="col-sm-1 label label-default">Number</label>
             <div class="col-sm-2">
-                {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
+                
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tvdb',null,['id'=>'tvdb','placeholder'=>'TVDB #','class'=>'form-control']) }}
+                
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tmdb',null,['id'=>'tmdb','placeholder'=>'TMDB #','class'=>'form-control']) }}
+                
             </div>
             <div class="col-sm-2">
-                {{ Form::text('mal',null,['id'=>'mal','placeholder'=>'MAL #','class'=>'form-control']) }}
+                
             </div>
         </div>
         <div class="form-group">
@@ -48,8 +48,8 @@
             <div class="col-sm-10">
                 @foreach($repository->categories() as $id => $category)
                     <span class="badge-user">
-                        {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
-                        {{ Form::label($category,$category,['class'=>'inline']) }}
+                        
+                        
                     </span>
                 @endforeach
             </div>
@@ -59,26 +59,26 @@
                 <div class="col-sm-10">
                     @foreach($repository->types() as $id => $type)
                         <span class="badge-user">
-                            {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
-                            {{ Form::label($type,$type,['class'=>'inline']) }}
+                            
+                            
                         </span>
                     @endforeach
                 </div>
             </div>
-        {{ Form::close() }}
+        
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
-                {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}
+                
                 <div class="col-sm-2">
-                    {{ Form::select('sorting',$repository->sorting(),'leechers',['class'=>'form-control','id'=>'sorting','placeholder'=>'Select for sorting']) }}
+                    
                 </div>
                 <div class="col-sm-3">
-                    {{ Form::select('direction',$repository->direction(),'desc',['class'=>'form-control','id'=>'direction']) }}
+                    
                 </div>
-                {{ Form::label('qty','Display:',['class'=>'control-label col-sm-2']) }}
+                
                 <div class="col-sm-2">
-                    {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
+                    
                 </div>
             </div>
         </div>
@@ -90,8 +90,8 @@
         <div class="block">
             <div class="header gradient silver">
                 <div class="inner_content">
-                    <h1>{{ trans('graveyard.graveyard') }}
-                        <span class="text-red">({{ $deadcount }} {{ trans('graveyard.dead') }}!)</span>
+                    <h1>
+                        <span class="text-red">( !)</span>
                     </h1>
                 </div>
             </div>
@@ -107,7 +107,7 @@
         var xhr = new XMLHttpRequest();
 
         function faceted(page) {
-          var csrf = "{{ csrf_token() }}";
+          var csrf = "";
           var search = $("#search").val();
           var imdb = $("#imdb").val();
           var tvdb = $("#tvdb").val();
@@ -157,7 +157,7 @@
             },
             type: 'get',
             beforeSend: function () {
-              $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+              $("#result").html('<i class=" fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
           }).done(function (e) {
             $data = $(e);

@@ -27,7 +27,7 @@
         <tr>
             <td align="center">
                 <table class="content" width="100%" cellpadding="0" cellspacing="0">
-                    {{ $header or '' }}
+                    
 
                     <!-- Email Body -->
                     <tr>
@@ -36,16 +36,16 @@
                                 <!-- Body content -->
                                 <tr>
                                     <td class="content-cell">
-                                        {{ Illuminate\Mail\Markdown::parse($slot) }}
+                                        
 
-                                        {{ $subcopy or '' }}
+                                        
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
 
-                    {{ $footer or '' }}
+                    
                 </table>
             </td>
         </tr>
