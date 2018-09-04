@@ -21,7 +21,7 @@
             </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('get_notifications') }}" class="dropdown-toggle icon-circle">
+                <a href="{{ route('get_notifications') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
                     @if(auth()->user()->unreadNotifications->count() > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
@@ -30,49 +30,22 @@
             </li>
 
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                <a href="{{ route('achievements') }}" class="dropdown-toggle icon-circle">
+                <a href="{{ route('achievements') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
                 </a>
             </li>
 
             @if(auth()->user()->group->is_modo)
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
-                    <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown" aria-expanded="false">
+                    <a href="{{ route('moderation') }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
                         @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
                         @if($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                         @endif
                     </a>
-                    <ul class="dropdown-menu ">
-                        <li class="hoe-submenu-label">
-                            <h3> {{ trans('staff.you-have') }} <span
-                                        class="bold">{{ $modder }}  </span>{{ strtolower(trans('common.pending-torrents')) }}
-                                <a href="{{ route('moderation') }}">{{ trans('common.view-all') }}</a></h3>
-                        </li>
-                        <li>
-                            @php $pending = DB::table('torrents')->where('status', '=', '0')->get(); @endphp
-                            @foreach($pending as $p)
-                                <a href="#" class="clearfix">
-                                    <span class="notification-title"> {{ $p->name }} </span>
-                                    <span class="notification-ago-1 ">{{ $p->created_at }}</span>
-                                    <p class="notification-message">{{ trans('staff.please-moderate') }}</p>
-                                </a>
-                            @endforeach
-                        </li>
-                    </ul>
                 </li>
             @endif
-
-            <li>
-                <form class="hoe-searchbar" role="form" method="GET"
-                      action="{{ action('TorrentController@torrents') }}">
-                    @csrf
-                    <input name="search" type="text" id="name" placeholder="{{ trans('common.quick-search') }}"
-                           class="form-control">
-                    <span class="search-icon"><i class="{{ config('other.font-awesome') }} fa-search"></i></span>
-                </form>
-            </li>
         </ul>
 
         <ul class="right-navbar">
