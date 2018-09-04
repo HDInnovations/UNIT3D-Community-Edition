@@ -1,4 +1,4 @@
-window._ = require('lodash')
+window._ = require('lodash');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -8,7 +8,7 @@ window._ = require('lodash')
 
 try {
   // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
-  window.$ = window.jQuery = require('jquery')
+  window.$ = window.jQuery = require('jquery');
 
   require('bootstrap-sass')
 } catch (e) {}
@@ -25,9 +25,9 @@ $.ajaxSetup({
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios')
+window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -35,7 +35,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
  * a simple convenience so we don't have to attach every token manually.
  */
 
-let token = document.head.querySelector('meta[name="csrf-token"]')
+let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
@@ -65,26 +65,25 @@ window.Echo = new Echo({
 /**
  * UNIT3D
  */
-require('select2')
-window.Ladda = require('ladda')
+require('select2');
+window.Ladda = require('ladda');
 
 /*
  * jQuery Extensions
  *
  * Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
  */
-require('jquery-textcomplete')
-require('jquery.flot')
+require('jquery-textcomplete');
 
 // countUp JS from npm
-window.CountUp = require('countup.js')
+window.CountUp = require('countup.js');
 
 // wysibb editor
-require('./wysibb/jquery.wysibb')
+require('./wysibb/jquery.wysibb');
 
 // emojis
-window.emoji = require('./unit3d/emoji')
+window.emoji = require('./unit3d/emoji');
 
 window.Raphael = require('raphael');
-window.swal = require('sweetalert2')
-window.toastr = require('toastr')
+window.swal = require('sweetalert2');
+window.toastr = require('toastr');
