@@ -18,7 +18,8 @@ use App\Peer;
 use App\User;
 use App\Client;
 use App\Report;
-use App\Poll;
+use App\Helpers\SystemInformation;
+use Spatie\SslCertificate\SslCertificate;
 
 class HomeController extends Controller
 {
@@ -29,33 +30,40 @@ class HomeController extends Controller
      */
     public function home()
     {
-        //User Info
+        // User Info
         $num_user = User::all()->count();
         $banned = User::where('group_id', 5)->count();
         $validating = User::where('group_id', 1)->count();
 
-        //Torrent Info
+        // Torrent Info
         $num_torrent = Torrent::all()->count();
         $pending = Torrent::pending()->count();
         $rejected = Torrent::rejected()->count();
 
-        //Peers Info
+        // Peers Info
         $peers = Peer::all()->count();
         $seeders = Peer::where('seeder', 1)->count();
         $leechers = Peer::where('seeder', 0)->count();
 
-        //Seedbox Info
+        // Seedbox Info
         $seedboxes = Client::all()->count();
         $highspeed_users = Client::all()->count();
         $highspeed_torrents = Torrent::where('highspeed', 1)->count();
 
-        //User Info
+        // User Info
         $reports = Report::all()->count();
         $unsolved = Report::where('solved', 0)->count();
         $solved = Report::where('solved', 1)->count();
 
-        //Polls
-        $pollCount = Poll::count();
+        // SSL Info
+        $certificate = SslCertificate::createForHostName(config('app.url'));
+
+        // System Information
+        $sys = new SystemInformation();
+        $uptime = $sys->uptime();
+        $ram = $sys->memory();
+        $disk = $sys->disk();
+        $avg = $sys->avg();
 
         return view('Staff.home.index', [
             'num_user' => $num_user,
@@ -73,7 +81,11 @@ class HomeController extends Controller
             'reports' => $reports,
             'unsolved' => $unsolved,
             'solved' => $solved,
-            'pollCount' => $pollCount
+            'certificate' => $certificate,
+            'uptime' => $uptime,
+            'ram' => $ram,
+            'disk' => $disk,
+            'avg' => $avg
         ]);
     }
 }
