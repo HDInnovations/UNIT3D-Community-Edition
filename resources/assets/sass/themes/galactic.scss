@@ -120,17 +120,17 @@
 }
 
 .panel-success > .panel-heading {
-  background-color: var(--color-dark-green) !important;
+  background-color: var(--color-dark-green);
   border: 0
 }
 
 .panel-info > .panel-heading {
-  background-color: var(--color-dark-magenta) !important;
+  background-color: var(--color-dark-magenta);
   border: 0
 }
 
 .panel-primary > .panel-heading {
-  background-color: var(--color-dark-purple) !important;
+  background-color: var(--color-dark-purple);
   border: 0
 }
 
@@ -143,7 +143,7 @@
 }
 
 .panel-chat > .panel-heading {
-  background-color: var(--color-dark-blue) !important
+  background-color: var(--color-dark-blue);
 }
 
 .col-md-10 {
@@ -151,7 +151,7 @@
 }
 
 .badge-extra.text-red {
-  color: var(--color-light-red) !important
+  color: var(--color-light-red);
 }
 
 .panel-footer {
@@ -383,7 +383,7 @@ a.view-torrent, a.view-torrent:hover {
 
 .form-control {
   background-color: #c6c6c6;
-  color: #000 !important;
+  color: #000;
   border: 1px solid #000;
 }
 
@@ -504,7 +504,7 @@ span.badge-user {
   color: var(--text-color)
 }
 
-.form-control, .wysibb-textarea {
+.wysibb-textarea {
   box-shadow: none !important;
   color: var(--text-color)
 }
@@ -562,7 +562,7 @@ i.torrent-icon {
 }
 
 .decoda-quote {
-  background-color: #353535 !important
+  background-color: #353535;
 }
 
 .topic .topic-posts .post article.post-content blockquote {
