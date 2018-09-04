@@ -39,7 +39,6 @@ class BackupController extends Controller
 
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
-
                 // only take the zip files into account
                 if (substr($f, -4) == '.zip' && $disk->exists($f)) {
                     $data['backups'][] = [
