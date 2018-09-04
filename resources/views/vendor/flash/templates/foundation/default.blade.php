@@ -7,7 +7,7 @@
                 'body'       => $message['message']
             ])
         @else
-            <div data-alert class="alert-box {{ $message['level'] }} {{ $styleClass or '' }}">
+            <div data-alert class="alert-box {{ $message['level'] }} {{ $styleClass ?? '' }}">
                 @if (is_a($message['message'], 'Illuminate\Support\MessageBag'))
                 <strong>Whoops!</strong> There were some problems with your input.<br><br>
                 <ul>
