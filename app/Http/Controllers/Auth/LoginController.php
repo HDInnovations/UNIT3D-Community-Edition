@@ -48,11 +48,19 @@ class LoginController extends Controller
      */
     protected function validateLogin(Request $request)
     {
+        if (config('captcha.enabled') == true) {
+            $this->validate($request, [
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+                'g-recaptcha-response' => new Captcha()
+            ]);
+        }
+
         $this->validate($request, [
             $this->username() => 'required|string',
             'password' => 'required|string',
-            'g-recaptcha-response' => new Captcha()
         ]);
+
     }
 
     protected function authenticated(Request $request, $user)

@@ -79,28 +79,56 @@ class RegisterController extends Controller
         $user->style = config('other.default_style', 0);
         $user->group_id = $group->id;
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password' => 'required|min:8',
                 'g-recaptcha-response' => new Captcha()
             ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
+        }
+
+        if (config('email-white-blacklist.enabled') === 'allow') {
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
+                'password' => 'required|min:8',
+            ]);
+        }
+
+        if (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password' => 'required|min:8',
                 'g-recaptcha-response' => new Captcha()
             ]);
-        } else {
+        }
+
+        if (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
+                'password' => 'required|min:8',
+            ]);
+        }
+
+        if (config('captcha.enabled') == true) {
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:8',
                 'g-recaptcha-response' => new Captcha()
             ]);
         }
+
+
+            $v = validator($request->all(), [
+                'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:8',
+            ]);
+
 
         if ($v->fails()) {
             return redirect()->route('register', ['code' => $code])
