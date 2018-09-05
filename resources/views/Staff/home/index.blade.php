@@ -211,6 +211,7 @@
                                 </div>
                             </div>
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -223,8 +224,50 @@
                         </h1>
                     </div>
                     <div class="panel-body">
-                        <div class="row black-list">
 
+                        <div class="row black-list">
+                            <div class="col-xs-6 col-sm-3 col-md-3">
+                                <div class="text-center black-item">
+                                    <h1>OS</h1>
+                                    <span class="badge-user">Currently Running</span>
+                                    <br>
+                                    <span class="badge-user">{{ $basic['os'] }}</span>
+                                    <i class=" {{ config('other.font-awesome') }} fa-desktop black-icon text-green"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 col-md-3">
+                                <div class="text-center black-item">
+                                    <h1>PHP</h1>
+                                    <span class="badge-user">Currently Running</span>
+                                    <br>
+                                    <span class="badge-user">php{{ $basic['php'] }}</span>
+                                    <i class=" {{ config('other.font-awesome') }} fa-terminal black-icon text-green"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 col-md-3">
+                                <div class="text-center black-item">
+                                    <h1>DATABASE</h1>
+                                    <span class="badge-user">Currently Running</span>
+                                    <br>
+                                    <span class="badge-user">{{ $basic['database'] }}</span>
+                                    <i class=" {{ config('other.font-awesome') }} fa-database black-icon text-green"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-3 col-md-3">
+                                <div class="text-center black-item">
+                                    <h1>LARAVEL</h1>
+                                    <span class="badge-user">Currently Running</span>
+                                    <br>
+                                    <span class="badge-user">Ver. {{ $basic['laravel'] }}</span>
+                                    <i class=" {{ config('other.font-awesome') }} fa-code-merge black-icon text-green"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
                                     <h1>RAM</h1>
@@ -256,6 +299,7 @@
                                     <i class=" {{ config('other.font-awesome') }} fa-balance-scale-right black-icon text-green"></i>
                                 </div>
                             </div>
+                        </div>
 
                         </div>
                     </div>
