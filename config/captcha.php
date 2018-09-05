@@ -16,7 +16,7 @@ return [
     | Enabled
     |--------------------------------------------------------------------------
     |
-    | Graveyard On/Off
+    | Recaptcha On/Off
     |
     */
 
@@ -25,11 +25,9 @@ return [
     /*
      |------------------------------------------------------------------------------------------------
      |  Credentials
-     |
-     |  Grab captcha keys from .env file. Default uses default test keys.
      | ------------------------------------------------------------------------------------------------
      */
 
-    'secretkey' => env('CAPTCHA_SECRETKEY', '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'),
-    'sitekey' => env('CAPTCHA_SITEKEY', '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'),
+    'secretkey' =>'YOURKEYHERE',
+    'sitekey' => 'YOURKEYHERE',
 ];
