@@ -73,7 +73,7 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 text-right">
-                                                    <span class="text-bold text-green" style="font-size: 18px; padding-bottom: 10px;">Total Torrents</span>
+                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Total Torrents</span>
                                                     <div class="number" id="myTargetElement1"></div>
                                                 </div>
                                                 <i class="livicon  pull-right" data-name="doc-portrait" data-l="true"
@@ -102,7 +102,7 @@
                                     <div class="col-xs-12 pull-left nopadmar">
                                         <div class="row">
                                             <div class="square_box col-xs-7 pull-left">
-                                                <span class="text-bold text-green" style="font-size: 18px; padding-bottom: 10px;">Peers</span>
+                                                <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Peers</span>
                                                 <div class="number" id="myTargetElement2"></div>
                                             </div>
                                             <i class="livicon pull-right" data-name="wifi-alt" data-l="true"
@@ -130,7 +130,7 @@
                                     <div class="col-xs-12 pull-left nopadmar">
                                         <div class="row">
                                             <div class="square_box col-xs-7 pull-left">
-                                                <span class="text-bold text-green" style="font-size: 18px; padding-bottom: 10px;">Seedboxes</span>
+                                                <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Seedboxes</span>
                                                 <div class="number" id="myTargetElement3"></div>
                                             </div>
                                             <i class="livicon pull-right" data-name="servers" data-l="true"
@@ -159,7 +159,7 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 pull-left">
-                                                    <span class="text-bold text-green" style="font-size: 18px; padding-bottom: 10px;">Users</span>
+                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Users</span>
                                                     <div class="number" id="myTargetElement4"></div>
                                                 </div>
                                                 <i class="livicon pull-right" data-name="users" data-l="true"
@@ -189,7 +189,7 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 pull-left">
-                                                    <span class="text-bold text-green" style="font-size: 18px; padding-bottom: 10px;">Reports</span>
+                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Reports</span>
                                                     <div class="number" id="myTargetElement5"></div>
                                                 </div>
                                                 <i class="livicon pull-right" data-name="list" data-l="true"
@@ -228,7 +228,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1>OS</h1>
+                                    <h1 style=" color: #fff;">OS</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['os'] }}</span>
@@ -238,7 +238,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1>PHP</h1>
+                                    <h1 style=" color: #fff;">PHP</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">php{{ $basic['php'] }}</span>
@@ -248,7 +248,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1>DATABASE</h1>
+                                    <h1 style=" color: #fff;">DATABASE</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['database'] }}</span>
@@ -258,7 +258,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1>LARAVEL</h1>
+                                    <h1 style=" color: #fff;">LARAVEL</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">Ver. {{ $basic['laravel'] }}</span>
@@ -270,7 +270,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1>RAM</h1>
+                                    <h1 style=" color: #fff;">RAM</h1>
                                     <span class="badge-user">Total: {{ $ram['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $ram['free'] }}</span>
@@ -281,7 +281,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1>DISK</h1>
+                                    <h1 style=" color: #fff;">DISK</h1>
                                     <span class="badge-user">Total: {{ $disk['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $disk['free'] }}</span>
@@ -292,7 +292,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1>LOAD</h1>
+                                    <h1 style=" color: #fff;">LOAD</h1>
                                     <span class="badge-user">Average: {{ $avg }}</span>
                                     <br>
                                     <span class="badge-user">Estimated</span>
