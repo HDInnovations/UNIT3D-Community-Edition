@@ -64,6 +64,7 @@ class HomeController extends Controller
         $ram = $sys->memory();
         $disk = $sys->disk();
         $avg = $sys->avg();
+        $basic = $sys->basic();
 
         return view('Staff.home.index', [
             'num_user' => $num_user,
@@ -85,7 +86,8 @@ class HomeController extends Controller
             'uptime' => $uptime,
             'ram' => $ram,
             'disk' => $disk,
-            'avg' => $avg
+            'avg' => $avg,
+            'basic' => $basic
         ]);
     }
 }

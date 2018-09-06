@@ -13,6 +13,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class SystemInformation
@@ -86,5 +87,29 @@ class SystemInformation
     public function systemTime(): Carbon
     {
         return Carbon::now();
+    }
+  
+    public function basic()
+    {
+        return [
+            'os' => php_uname('s'),
+            'php' => phpversion(),
+            'database' => $this->getDatabase(),
+            'laravel' => app()->version(),
+        ];
+    }
+    private function getDatabase()
+    {
+        $knownDatabases = [
+            'sqlite',
+            'mysql',
+            'pgsql',
+            'sqlsrv',
+        ];
+        if (! in_array(config('database.default'), $knownDatabases)) {
+            return 'Unkown';
+        }
+        $results = DB::select(DB::raw("select version()"));
+        return $results[0]->{'version()'};
     }
 }

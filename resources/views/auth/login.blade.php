@@ -86,6 +86,22 @@
                     </div>
                 </div>
             </div>
+
+            @if (config('captcha.enabled') == true)
+                <div class="text-center">
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="invalid-feedback" style="display: block;">
+                                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <button type="submit" class="fadeIn fourth" id="login-button">{{ trans('auth.login') }}</button>
         </form>
 
@@ -99,6 +115,7 @@
 </div>
 
 <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 {!! Toastr::message() !!}
 
 </body>

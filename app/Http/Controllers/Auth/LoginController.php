@@ -15,16 +15,21 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Rules\Captcha;
 use \Toastr;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
+    // Upon Successful Login
     protected $redirectTo = '/';
 
-    public $maxAttempts = 5; // Max Attempts Until Lockout
-    public $decayMinutes = 30; // Minutes
+    // Max Attempts Until Lockout
+    public $maxAttempts = 5;
+
+    // Minutes Lockout
+    public $decayMinutes = 60;
 
     public function __construct()
     {
@@ -34,6 +39,28 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * Validate The User Login Request
+     *
+     * @param \Illuminate\Http\Request $request
+     */
+    protected function validateLogin(Request $request)
+    {
+        if (config('captcha.enabled') == true) {
+            $this->validate($request, [
+                $this->username() => 'required|string',
+                'password' => 'required|string',
+                'g-recaptcha-response' => new Captcha()
+            ]);
+        }
+
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
+
     }
 
     protected function authenticated(Request $request, $user)
