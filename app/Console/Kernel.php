@@ -46,8 +46,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('autoGroup')->daily();
         $schedule->command('autoNerdStat')->hourly();
-        $schedule->command('bonAllocation')->hourly();
+        $schedule->command('autoGraveyard')->daily();
         $schedule->command('autoSeedbox')->hourly();
         //$schedule->command('autoPreWarning')->hourly();
         $schedule->command('autoWarning')->hourly();
@@ -55,10 +56,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('revokePermissions')->hourly();
         $schedule->command('autoBan')->hourly();
         $schedule->command('FlushPeers')->hourly();
-        $schedule->command('autoGroup')->daily();
+        $schedule->command('bonAllocation')->hourly();        
         $schedule->command('removePersonalFreeleech')->hourly();
-        $schedule->command('removeFeaturedTorrent')->hourly();
-        $schedule->command('autoGraveyard')->daily();
+        $schedule->command('removeFeaturedTorrent')->hourly();        
         $schedule->command('recycleInvites')->daily();
         $schedule->command('recycleActivityLog')->daily();
         $schedule->command('recycleFailedLogins')->daily();
