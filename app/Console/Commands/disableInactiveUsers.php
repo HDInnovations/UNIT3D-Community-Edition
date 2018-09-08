@@ -43,16 +43,17 @@ class disableInactiveUsers extends Command
      */
     public function handle()
     {
-        $group = Group::where('slug', '=', 'disabled')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
 
         $current = Carbon::now();
-        $users = User::where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
+        $users = User::where('group_id', '!=', $disabledGroup->id)
+            ->where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
             ->where('last_login', '<', $current->copy()->subDays(config('other.last_login'))->toDateTimeString())
             ->orWhereNull('last_login')
             ->get();
 
         foreach ($users as $user) {
-            $user->group_id = $group->id;
+            $user->group_id = $disabledGroup->id;
             $user->can_upload = 0;
             $user->can_download = 0;
             $user->can_comment = 0;
