@@ -43,10 +43,11 @@ class softDeleteDisabledUsers extends Command
      */
     public function handle()
     {
-        $group = Group::where('slug', '=', 'disabled')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
 
         $current = Carbon::now();
-        $users = User::where('group_id', '=', $group->id)
+        $users = User::where('group_id', '=', $disabledGroup->id)
             ->where('disabled_at', '<', $current->copy()->subDays(config('other.soft_delete'))->toDateTimeString())
             ->get();
 
@@ -55,6 +56,7 @@ class softDeleteDisabledUsers extends Command
             // Send Email
             Mail::to($user->email)->send(new DeletedUser($user));
 
+            $user->group = $prunedGroup->id;
             $user->deleted_by = 1;
             $user->save();
             $user->delete();
