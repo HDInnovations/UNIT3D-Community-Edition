@@ -59,6 +59,7 @@ class disableInactiveUsers extends Command
             $user->can_invite = 0;
             $user->can_request = 0;
             $user->can_chat = 0;
+            $user->disabled_at = Carbon::now();
             $user->save();
 
             // Send Email
