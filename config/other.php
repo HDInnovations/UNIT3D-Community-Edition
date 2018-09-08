@@ -181,4 +181,17 @@ return [
     | fal = Light
     */
     'font-awesome' => 'fas',
+
+    /*
+    |--------------------------------------------------------------------------
+    | User Pruning
+    |--------------------------------------------------------------------------
+    | Disable Users Account Must Be Atleast x Days Old
+    | Disable Users After x Days Of Inactivity
+    | Soft Delete Disabled Users After x Days
+    |
+    */
+    'account_age' => 90,
+    'last_login' => 90,
+    'soft_delete' => 120,
 ];
