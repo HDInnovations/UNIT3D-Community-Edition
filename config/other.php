@@ -186,9 +186,9 @@ return [
     |--------------------------------------------------------------------------
     | User Pruning
     |--------------------------------------------------------------------------
-    | Disable Users Account Must Be Atleast x Days Old
-    | Disable Users After x Days Of Inactivity
-    | Soft Delete Disabled Users After x Days
+    | Users Account Must Be Atleast x Days Old
+    | Users Last Login Atleast x Days Ago
+    | Soft Delete Disabled Users After x Days (Pruned Group)
     |
     */
     'account_age' => 90,
