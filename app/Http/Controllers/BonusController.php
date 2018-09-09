@@ -243,8 +243,9 @@ class BonusController extends Controller
             $pm = new PrivateMessage;
             $pm->sender_id = $user->id;
             $pm->receiver_id = $recipient->id;
-            $pm->subject = "You Have Received A Gift";
-            $pm->message = $transaction->comment;
+            $pm->subject = "You Have Received A BON Gift";
+            $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has gifted you " . $value . " BON.
+                            Gift Note:" .$transaction->comment;
             $pm->save();
 
             return redirect('/bonus')
