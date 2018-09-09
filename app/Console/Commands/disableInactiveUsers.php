@@ -44,9 +44,11 @@ class disableInactiveUsers extends Command
     public function handle()
     {
         $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->first();
 
         $current = Carbon::now();
-        $users = User::where('group_id', '!=', $disabledGroup->id)
+        $users = User::whereIn('group_id', '!=', [$disabledGroup->id, $bannedGroup->id, $validatingGroup->id])
             ->where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
             ->where('last_login', '<', $current->copy()->subDays(config('other.last_login'))->toDateTimeString())
             ->orWhereNull('last_login')
