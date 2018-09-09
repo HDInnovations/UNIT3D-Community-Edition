@@ -35,7 +35,9 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\demoSeed::class,
         \App\Console\Commands\gitUpdater::class,
         \App\Console\Commands\clearCache::class,
-        \App\Console\Commands\testMailSettings::class
+        \App\Console\Commands\testMailSettings::class,
+        \App\Console\Commands\disableInactiveUsers::class,
+        \App\Console\Commands\softDeleteDisabledUsers::class
     ];
 
     /**
