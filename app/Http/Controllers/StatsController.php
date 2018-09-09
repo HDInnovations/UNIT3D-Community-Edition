@@ -32,58 +32,90 @@ class StatsController extends Controller
     public function index()
     {
         // Total Members Count
-        $num_user = cache()->remember('num_user', 60, function () {
+        $all_user = cache()->remember('all_user', 60, function () {
+            return User::withTrashed()->count();
+        });
+
+        // Total Active Members Count
+        $active_user = cache()->remember('active_user', 60, function () {
             return User::all()->count();
         });
+
+        // Total Disabled Members Count
+        $disabled_user = cache()->remember('disabled_user', 60, function () {
+            $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+            return User::where('group_id', '=', $disabledGroup->id)->count();
+        });
+
+        // Total Pruned Members Count
+        $pruned_user = cache()->remember('pruned_user', 60, function () {
+            return User::onlyTrashed()->count();
+        });
+
         // Total Torrents Count
         $num_torrent = cache()->remember('num_torrent', 60, function () {
             return Torrent::all()->count();
         });
+
         // Total Categories With Torrent Count
         $categories = Category::select('name', 'position', 'num_torrent')->oldest('position')->get();
+
         // Total HD Count
         $num_hd = cache()->remember('num_hd', 60, function () {
             return Torrent::where('sd', 0)->count();
         });
+
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
             return Torrent::where('sd', 1)->count();
         });
+
         // Total Seeders
         $num_seeders = cache()->remember('num_seeders', 60, function () {
             return Peer::where('seeder', 1)->count();
         });
+
         // Total Leechers
         $num_leechers = cache()->remember('num_leechers', 60, function () {
             return Peer::where('seeder', 0)->count();
         });
+
         // Total Peers
         $num_peers = cache()->remember('num_peers', 60, function () {
             return Peer::all()->count();
         });
+
         //Total Upload Traffic Without Double Upload
         $actual_upload = cache()->remember('actual_upload', 60, function () {
             return History::all()->sum('actual_uploaded');
         });
+
         //Total Upload Traffic With Double Upload
         $credited_upload = cache()->remember('credited_upload', 60, function () {
             return History::all()->sum('uploaded');
         });
+
         //Total Download Traffic Without Freeleech
         $actual_download = cache()->remember('actual_download', 60, function () {
             return History::all()->sum('actual_downloaded');
         });
+
         //Total Download Traffic With Freeleech
         $credited_download = cache()->remember('credited_download', 60, function () {
             return History::all()->sum('downloaded');
         });
+
         //Total Up/Down Traffic without perks
         $actual_up_down = $actual_upload + $actual_download;
+
         //Total Up/Down Traffic with perks
         $credited_up_down = $credited_upload + $credited_download;
 
         return view('stats.index', [
-            'num_user' => $num_user,
+            'all_user' => $all_user,
+            'active_user' => $active_user,
+            'disabled_user' => $disabled_user,
+            'pruned_user' => $pruned_user,
             'num_torrent' => $num_torrent,
             'categories' => $categories,
             'num_hd' => $num_hd,
@@ -99,8 +131,6 @@ class StatsController extends Controller
             'credited_up_down' => $credited_up_down,
         ]);
     }
-
-    //USER CATEGORY
 
     /**
      * Show Extra-Stats Users
@@ -206,8 +236,6 @@ class StatsController extends Controller
         return view('stats.users.seedsize', ['seedsize' => $seedsize]);
     }
 
-    //TORRENT CATEGORY
-
     /**
      * Show Extra-Stats Torrents
      *
@@ -273,8 +301,6 @@ class StatsController extends Controller
         return view('stats.torrents.dead', ['dead' => $dead]);
     }
 
-    //TORRENT REQUEST CATEGORY
-
     /**
      * Show Extra-Stats Torrent Requests
      *
@@ -287,8 +313,6 @@ class StatsController extends Controller
 
         return view('stats.requests.bountied', ['bountied' => $bountied]);
     }
-
-    //GROUPS CATEGORY
 
     /**
      * Show Extra-Stats Groups
@@ -312,7 +336,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::where('group_id', $group->id)->latest()->paginate(100);
+        $users = User::withTrashed()->where('group_id', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }
