@@ -13,11 +13,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\DisableUser;
 use App\User;
 use App\Group;
+use App\Jobs\SendDisableUserMail;
 use Carbon\Carbon;
 
 class disableInactiveUsers extends Command
@@ -66,7 +64,7 @@ class disableInactiveUsers extends Command
             $user->save();
 
             // Send Email
-            Mail::to($user->email)->send(new DisableUser($user));
+            $this->dispatch(new SendDisableUserMail($user));
         }
     }
 }

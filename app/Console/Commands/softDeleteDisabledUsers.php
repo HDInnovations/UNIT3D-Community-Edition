@@ -13,11 +13,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\DeleteUser;
 use App\User;
 use App\Group;
+use App\Jobs\SendDeleteUserMail;
 use Carbon\Carbon;
 
 class softDeleteDisabledUsers extends Command
@@ -52,9 +50,8 @@ class softDeleteDisabledUsers extends Command
             ->get();
 
         foreach ($users as $user) {
-
             // Send Email
-            Mail::to($user->email)->send(new DeleteUser($user));
+            $this->dispatch(new SendDeleteUserMail($user));
 
             $user->can_upload = 0;
             $user->can_download = 0;
