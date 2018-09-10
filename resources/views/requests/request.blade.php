@@ -489,6 +489,7 @@
                     <!-- /Add comment -->
                 </div>
             </div>
-    </div>
+        </div>
     @include('requests.request_modals')
+    @endif
 @endsection
