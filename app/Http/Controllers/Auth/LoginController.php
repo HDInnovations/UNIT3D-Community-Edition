@@ -93,6 +93,7 @@ class LoginController extends Controller
             $user->can_request = 1;
             $user->can_chat = 1;
             $user->disabled_at = null;
+            $user->save();
             return redirect('/')
                 ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
