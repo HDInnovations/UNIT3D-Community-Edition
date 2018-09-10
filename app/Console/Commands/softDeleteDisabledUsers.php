@@ -51,7 +51,7 @@ class softDeleteDisabledUsers extends Command
 
         foreach ($users as $user) {
             // Send Email
-            $this->dispatch(new SendDeleteUserMail($user));
+            dispatch(new SendDeleteUserMail($user));
 
             $user->can_upload = 0;
             $user->can_download = 0;
