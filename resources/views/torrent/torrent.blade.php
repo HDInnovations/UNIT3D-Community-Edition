@@ -247,7 +247,7 @@
 
                         <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
                                 class="btn btn-labeled btn-warning btn-xs @if($torrent->isPostponed()) disabled @endif">
-                            <i class="{{ config('other.font-awesome') }} fa-pause"></i> Postpone
+                            <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Postpone
                         </button>
 
                         <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
