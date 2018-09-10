@@ -42,14 +42,12 @@ class disableInactiveUsers extends Command
     public function handle()
     {
         $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-        $bannedGroup = Group::where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->first();
-
         $current = Carbon::now();
-        $users = User::whereIn('group_id', '!=', [$disabledGroup->id, $bannedGroup->id, $validatingGroup->id])
-            ->where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
+
+        $matches = User::whereIn('group_id', [config('other.group_ids')]);
+
+        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
             ->where('last_login', '<', $current->copy()->subDays(config('other.last_login'))->toDateTimeString())
-            ->orWhereNull('last_login')
             ->get();
 
         foreach ($users as $user) {
@@ -64,7 +62,9 @@ class disableInactiveUsers extends Command
             $user->save();
 
             // Send Email
-            $this->dispatch(new SendDisableUserMail($user));
+            dispatch(new SendDisableUserMail($user));
         }
+
+        info("disableInactiveUsers Command Ran Successful! {$users->count()} Disabled!");
     }
 }
