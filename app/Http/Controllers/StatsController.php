@@ -31,14 +31,18 @@ class StatsController extends Controller
      */
     public function index()
     {
-        // Total Members Count
+        // Total Members Count (All Groups)
         $all_user = cache()->remember('all_user', 60, function () {
             return User::withTrashed()->count();
         });
 
-        // Total Active Members Count
+        // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
         $active_user = cache()->remember('active_user', 60, function () {
-            return User::all()->count();
+            $validatingGroup = Group::where('slug', '=', 'validating')->first();
+            $bannedGroup = Group::where('slug', '=', 'banned')->first();
+            $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+            $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+            return User::whereNotIn('group_id', [$validatingGroup, $bannedGroup, $disabledGroup, $prunedGroup])->count();
         });
 
         // Total Disabled Members Count
@@ -50,6 +54,12 @@ class StatsController extends Controller
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', 60, function () {
             return User::onlyTrashed()->count();
+        });
+
+        // Total Banned Members Count
+        $banned_user = cache()->remember('banned_user', 60, function () {
+            $bannedGroup = Group::where('slug', '=', 'banned')->first();
+            return User::where('group_id', '=', $bannedGroup->id)->count();
         });
 
         // Total Torrents Count
@@ -116,6 +126,7 @@ class StatsController extends Controller
             'active_user' => $active_user,
             'disabled_user' => $disabled_user,
             'pruned_user' => $pruned_user,
+            'banned_user' => $banned_user,
             'num_torrent' => $num_torrent,
             'categories' => $categories,
             'num_hd' => $num_hd,

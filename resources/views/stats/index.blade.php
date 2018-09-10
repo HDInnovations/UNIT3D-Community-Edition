@@ -71,6 +71,11 @@
                         </div>
 
                         <div class="stat">
+                            <p>{{ $banned_user }}</p>
+                            <span class="badge-extra">Banned {{ trans('common.users') }}</span>
+                        </div>
+
+                        <div class="stat">
                             <p>{{ $num_seeders }}</p>
                             <span class="badge-extra">{{ trans('torrent.seeders') }}</span>
                         </div>
