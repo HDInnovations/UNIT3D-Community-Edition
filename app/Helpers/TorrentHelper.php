@@ -12,10 +12,12 @@
 
 namespace App\Helpers;
 
+use App\Notifications\NewFollowerUpload;
 use App\Torrent;
 use App\PrivateMessage;
 use App\Wish;
 use App\Follow;
+use App\User;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -61,14 +63,7 @@ class TorrentHelper
             $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
             if ($followers) {
                 foreach ($followers as $follower) {
-                    // Send Private Message
-                    $pm = new PrivateMessage;
-                    $pm->sender_id = 1;
-                    $pm->receiver_id = $follower->user_id;
-                    $pm->subject = "New Upload Notice: {$torrent->name}";
-                    $pm->message = "We just wanted to let you know that the user, {$torrent->user->username}, whom you are following has uploaded a new torrent to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] here. [/url]
-                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-                    $pm->save();
+                    User::find($follower->user_id)->notify(new NewFollowerUpload($torrent));
                 }
             }
         }
