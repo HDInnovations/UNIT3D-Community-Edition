@@ -13,8 +13,9 @@
         <div class="col-md-12 page">
             <div class="header gradient teal">
                 <div class="inner_content">
-                    <div class="page-title"><h1><i class="{{ config('other.font-awesome') }} fa-bell"></i>{{ trans('notification.notifications') }}
-                        </h1></div>
+                    <div class="page-title">
+                        <h1>{{ trans('notification.notifications') }}</h1>
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
@@ -74,6 +75,7 @@
                     @endforelse
                     </tbody>
                 </table>
+                <div class="text-center">{{ $notification->links() }}</div>
             </div>
         </div>
     </div>

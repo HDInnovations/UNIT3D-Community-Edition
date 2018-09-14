@@ -15,7 +15,7 @@ class NotificationController extends Controller
      */
     public function get()
     {
-        $notification = auth()->user()->notifications;
+        $notification = auth()->user()->notifications()->paginate(25);
 
         return view('notification.notifications', ['notification' => $notification]);
     }
