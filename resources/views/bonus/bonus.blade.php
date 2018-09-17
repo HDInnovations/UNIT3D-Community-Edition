@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('bonus') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
                   class="l-breadcrumb-item-link-title">{{ trans('bon.bonus') }} {{ trans('bon.points') }}</span>
         </a>
@@ -235,6 +235,7 @@
                 <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
                 <div class="col-sm-9">
                     <select class="form-control user-select-placeholder-single" name="to_username">
+                        <option value="{{ $username }}">{{ $username }}</option>
                         @foreach($users as $user)
                             <option value="{{ $user->username }}">{{ $user->username }}</option>
                         @endforeach
@@ -272,9 +273,8 @@
 
 @section('javascripts')
     <script type="text/javascript">
-        $('.user-select-placeholder-single').select2({
-            placeholder: "Select A User",
-            allowClear: true
-        });
+      $(document).ready(function () {
+        $('.user-select-placeholder-single').select2()
+      })
     </script>
 @endsection

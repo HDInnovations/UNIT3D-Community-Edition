@@ -96,6 +96,9 @@
                                     <a href="{{ route('create', ['receiver_id' => $user->id, 'username' => $user->username]) }}">
                                         <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                                     </a>
+                                    <a href="{{ route('bonus', ['username' => $user->username]) }}">
+                                        <i class="{{ config('other.font-awesome') }} fa-gift text-info"></i>
+                                    </a>
                                     @if($user->getWarning() > 0)
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}">

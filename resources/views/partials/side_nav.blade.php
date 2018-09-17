@@ -88,7 +88,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('bonus') }}">
+            <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}">
                 <i class="livicon" data-name="star-full" data-c="#BF55EC" data-hc="#BF55EC" data-size="18"
                    data-loop="true"></i>
                 <span class="menu-text">{{ trans('bon.bon') }} {{ trans('bon.store') }}</span>

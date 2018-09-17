@@ -41,7 +41,7 @@ class BonusController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bonus()
+    public function bonus($username = '')
     {
         $user = auth()->user();
         $users = User::oldest('username')->get();
@@ -103,7 +103,8 @@ class BonusController extends Controller
             'committed' => $committed,
             'mvp' => $mvp,
             'legend' => $legend,
-            'total' => $total
+            'total' => $total,
+            'username' => $username
         ]);
     }
 
@@ -248,10 +249,10 @@ class BonusController extends Controller
                             Gift Note:" .$transaction->comment;
             $pm->save();
 
-            return redirect('/bonus')
+            return redirect()->route('bonus', ['username' => $user->username])
             ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
         } else {
-            return redirect('/bonus')
+            return redirect()->route('bonus', ['username' => $user->username])
             ->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
         }
     }

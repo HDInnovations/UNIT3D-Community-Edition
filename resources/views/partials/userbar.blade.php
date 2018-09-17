@@ -39,7 +39,7 @@
                         :</span></a> {{ auth()->user()->getWarning() }}
             </li>
             <li><i class="{{ config('other.font-awesome') }} fa-star text-purple text-bold"></i>
-                <a href="{{ route('bonus') }}" title="{{ trans('user.my-bonus-points') }}"><span class="text-blue"> {{ trans('bon.bon') }}
+                <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" title="{{ trans('user.my-bonus-points') }}"><span class="text-blue"> {{ trans('bon.bon') }}
                         :</span></a> {{ auth()->user()->getSeedbonus() }}
             </li>
             <li><i class="{{ config('other.font-awesome') }} fa-coins text-bold"></i>
