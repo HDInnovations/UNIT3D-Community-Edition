@@ -19,19 +19,20 @@ use \Toastr;
 
 class ActivationController extends Controller
 {
-    protected $group_id = 3;
-
     public function activate($token)
     {
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+        $defaultGroup = Group::where('slug', '=', 'member')->first();
+
         $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
-        if (!empty($activation->user->id) && $activation->user->group->id != 5) {
+        if ($activation->user->id && $activation->user->group->id != $bannedGroup->id) {
             $activation->user->active = 1;
             $activation->user->can_upload = 1;
             $activation->user->can_download = 1;
             $activation->user->can_request = 1;
             $activation->user->can_comment = 1;
             $activation->user->can_invite = 1;
-            $activation->user->group_id = $this->group_id;
+            $activation->user->group_id = $defaultGroup->id;
             $activation->user->save();
 
             // Activity Log
