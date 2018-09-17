@@ -48,12 +48,13 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
 
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
-            $user->group_id = 5;
+            $user->group_id = $bannedGroup->id;
             $user->can_upload = 0;
             $user->can_download = 0;
             $user->can_comment = 0;

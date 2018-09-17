@@ -22,7 +22,7 @@ class ActivationController extends Controller
     public function activate($token)
     {
         $bannedGroup = Group::where('slug', '=', 'banned')->first();
-        $defaultGroup = Group::where('slug', '=', 'member')->first();
+        $memberGroup = Group::where('slug', '=', 'member')->first();
 
         $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup->id) {
@@ -32,7 +32,7 @@ class ActivationController extends Controller
             $activation->user->can_request = 1;
             $activation->user->can_comment = 1;
             $activation->user->can_invite = 1;
-            $activation->user->group_id = $defaultGroup->id;
+            $activation->user->group_id = $memberGroup->id;
             $activation->user->save();
 
             // Activity Log

@@ -150,8 +150,13 @@ class StatsController extends Controller
      */
     public function uploaded()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+
         // Fetch Top Uploaders
-        $uploaded = User::latest('uploaded')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validatingGroup, $bannedGroup, $disabledGroup, $prunedGroup])->take(100)->get();
 
         return view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
@@ -163,8 +168,13 @@ class StatsController extends Controller
      */
     public function downloaded()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+
         // Fetch Top Downloaders
-        $downloaded = User::latest('downloaded')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validatingGroup, $bannedGroup, $disabledGroup, $prunedGroup])->take(100)->get();
 
         return view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
@@ -215,8 +225,13 @@ class StatsController extends Controller
      */
     public function bankers()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validatingGroup, $bannedGroup, $disabledGroup, $prunedGroup])->take(100)->get();
 
         return view('stats.users.bankers', ['bankers' => $bankers]);
     }

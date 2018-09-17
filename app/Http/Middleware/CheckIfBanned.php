@@ -20,18 +20,21 @@ class CheckIfBanned
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @param  string|null $guard
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
         $user = auth()->user();
-        if ($user and $user->group_id == 5) {
+        $bannedGroup = Group::where('slug', '=', 'banned')->first();
+
+        if ($user && $user->group_id == $bannedGroup) {
             auth()->logout();
             $request->session()->flush();
-            return redirect('login')->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
+            return redirect('login')
+                ->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
 
         return $next($request);

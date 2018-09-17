@@ -69,6 +69,7 @@ class LoginController extends Controller
         $bannedGroup = Group::where('slug', '=', 'banned')->first();
         $validatingGroup = Group::where('slug', '=', 'validating')->first();
         $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+        $memberGroup = Group::where('slug', '=', 'member')->first();
 
         if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
             auth()->logout();
@@ -85,7 +86,7 @@ class LoginController extends Controller
         }
 
         if ($user->group_id == $disabledGroup->id) {
-            $user->group_id = 3;
+            $user->group_id = $memberGroup->id;
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
