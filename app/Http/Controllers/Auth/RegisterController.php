@@ -88,7 +88,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        elseif (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
@@ -96,7 +96,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        if (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
+        elseif (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
@@ -105,7 +105,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        if (config('email-white-blacklist.enabled') === 'block') {
+        elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
@@ -113,7 +113,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        if (config('captcha.enabled') == true) {
+        elseif (config('captcha.enabled') == true) {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
                 'email' => 'required|email|max:255|unique:users',
@@ -122,12 +122,13 @@ class RegisterController extends Controller
             ]);
         }
 
-
+        else {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:8',
             ]);
+        }
 
 
         if ($v->fails()) {
