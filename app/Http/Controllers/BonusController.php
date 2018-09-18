@@ -126,18 +126,18 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (!$flag) {
-                return redirect('/bonus')
+                return redirect()->route('bonus', ['username' => $user->username])
                     ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect('/bonus')
+            return redirect()->route('bonus', ['username' => $user->username])
                 ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
         }
 
-        return redirect('/bonus')
+        return redirect()->route('bonus', ['username' => $user->username])
             ->with(Toastr::success('Bonus Exchange Successful', 'Yay!', ['options']));
     }
 
@@ -250,10 +250,10 @@ class BonusController extends Controller
             $pm->save();
 
             return redirect()->route('bonus', ['username' => $user->username])
-            ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
+                ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
         } else {
             return redirect()->route('bonus', ['username' => $user->username])
-            ->with(Toastr::error('Gifting Failed', 'Whoops!', ['options']));
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         }
     }
 
