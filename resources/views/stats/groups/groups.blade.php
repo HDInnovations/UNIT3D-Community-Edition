@@ -32,7 +32,7 @@
                             <a href="{{ route('group', ['id' => $group->id]) }}"><h2 style="color:{{ $group->color }};">
                                     <i class="{{ $group->icon }}" aria-hidden="true"></i>&nbsp;{{ $group->name }}</h2>
                             </a>
-                            <p class="lead text-blue">{{ $group->users->count() }} Users</p>
+                            <p class="lead text-blue">{{ $group->users()->withTrashed()->count() }} Users</p>
                         </div>
                     </div>
                 @endforeach

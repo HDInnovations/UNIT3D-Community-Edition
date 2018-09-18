@@ -53,7 +53,8 @@ class StatsController extends Controller
 
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', 60, function () {
-            return User::onlyTrashed()->count();
+            $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+            return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
         });
 
         // Total Banned Members Count
