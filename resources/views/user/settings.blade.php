@@ -200,10 +200,8 @@
                 {{ Form::open(array('url' => '/{username}.{id}/settings/change_email','role' => 'form', 'class' => 'login-frm')) }}
                 <label for="current_email">Current Email</label>
                 <p class="text-primary">{{ $user->email }}</p>
-                <label for="current_password">Current Password</label>
-                <input type="password" name="current_password" class="form-control" placeholder="Current Password">
                 <label for="email">New Email</label>
-                <input class="form-control" placeholder="New Email" name="new_email" type="text" id="new_email">
+                <input class="form-control" placeholder="New Email" name="email" type="email">
                 <br>
                 <button type="submit" class="btn btn-primary">Make The Switch!</button>
                 {{ Form::close() }}

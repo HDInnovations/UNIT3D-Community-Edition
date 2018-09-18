@@ -271,11 +271,25 @@ class UserController extends Controller
     protected function changeEmail(Request $request, $username, $id)
     {
         $user = auth()->user();
-        $v = validator($request->all(), [
-            'current_password' => 'required',
-            'new_email' => 'required',
-        ]);
-        if ($v->passes()) {
+
+        if (config('email-white-blacklist.enabled') === 'allow') {
+            $v = validator($request->all(), [
+                'email' => 'required|email|unique:users|email_list:allow', // Whitelist
+            ]);
+        } elseif (config('email-white-blacklist.enabled') === 'block') {
+            $v = validator($request->all(), [
+                'email' => 'required|email|unique:users|email_list:block', // Blacklist
+            ]);
+        } else {
+            $v = validator($request->all(), [
+                'email' => 'required|email|unique:users', // Default
+            ]);
+        }
+
+        if ($v->fails()) {
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
             $user->email = $request->input('new_email');
             $user->save();
 

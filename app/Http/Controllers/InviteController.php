@@ -67,11 +67,10 @@ class InviteController extends Controller
         }
 
         $exist = Invite::where('email', $request->input('email'))->first();
-        $member = User::where('email', $request->input('email'))->first();
 
-        if ($exist || $member) {
+        if ($exist) {
             return redirect()->route('invite')
-                ->with(Toastr::error('The email address your trying to send a invite to has already been sent one or is a used already.', 'Whoops!', ['options']));
+                ->with(Toastr::error('The email address your trying to send a invite to has already been sent one.', 'Whoops!', ['options']));
         }
 
         $code = Uuid::uuid4()->toString();
@@ -84,17 +83,17 @@ class InviteController extends Controller
 
         if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($invite->toArray(), [
-            "email" => "required|email|email_list:allow", // Whitelist
+            "email" => "required|email|unique:users|email_list:allow", // Whitelist
             "custom" => "required"
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($invite->toArray(), [
-            "email" => "required|email|email_list:block", // Blacklist
+            "email" => "required|email|unique:users|email_list:block", // Blacklist
             "custom" => "required"
             ]);
         } else {
             $v = validator($invite->toArray(), [
-            "email" => "required|email", // Default
+            "email" => "required|email|unique:users", // Default
             "custom" => "required"
             ]);
         }
