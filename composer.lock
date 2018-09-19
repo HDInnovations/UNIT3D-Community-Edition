@@ -249,16 +249,16 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "5.3.0",
+            "version": "5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BePsvPT/secure-headers.git",
-                "reference": "37959847d0d18f41a1a9fcf51041b976fbde4a2f"
+                "reference": "487f3291df89fb703720d5e287ec1331540342d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/37959847d0d18f41a1a9fcf51041b976fbde4a2f",
-                "reference": "37959847d0d18f41a1a9fcf51041b976fbde4a2f",
+                "url": "https://api.github.com/repos/BePsvPT/secure-headers/zipball/487f3291df89fb703720d5e287ec1331540342d3",
+                "reference": "487f3291df89fb703720d5e287ec1331540342d3",
                 "shasum": ""
             },
             "require": {
@@ -266,8 +266,7 @@
                 "php": "^7.0"
             },
             "require-dev": {
-                "codeclimate/php-test-reporter": "0.4.*",
-                "doctrine/instantiator": "1.0.*",
+                "ext-xdebug": "*",
                 "orchestra/testbench": "3.5.*",
                 "phpunit/phpunit": "6.5.*"
             },
@@ -307,7 +306,7 @@
                 "https",
                 "laravel"
             ],
-            "time": "2018-08-05T11:10:43+00:00"
+            "time": "2018-09-06T14:13:03+00:00"
         },
         {
             "name": "brian2694/laravel-toastr",
@@ -1407,25 +1406,25 @@
         },
         {
             "name": "kyslik/column-sortable",
-            "version": "5.5.7",
+            "version": "5.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kyslik/column-sortable.git",
-                "reference": "7601316a70287e27b958ceccd0a78c2aa890a9ee"
+                "reference": "db597b886cefc0cadb21b0fa5c9350fc44577bfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/7601316a70287e27b958ceccd0a78c2aa890a9ee",
-                "reference": "7601316a70287e27b958ceccd0a78c2aa890a9ee",
+                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/db597b886cefc0cadb21b0fa5c9350fc44577bfb",
+                "reference": "db597b886cefc0cadb21b0fa5c9350fc44577bfb",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.5.*|5.6.*",
-                "illuminate/support": "5.5.*|5.6.*",
+                "illuminate/database": "5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.5.*|5.6.*|5.7.*",
                 "php": ">=7.0"
             },
             "require-dev": {
-                "orchestra/testbench": "3.5.*|3.6.*",
+                "orchestra/testbench": "3.5.*|3.6.*|3.7.*",
                 "phpunit/phpunit": "^6.0|^7.0"
             },
             "type": "package",
@@ -1460,20 +1459,20 @@
                 "sortable",
                 "sorting"
             ],
-            "time": "2018-05-16T22:35:58+00:00"
+            "time": "2018-09-04T15:41:33+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.37",
+            "version": "v5.6.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "975e182d42403b0efdf847c05f6bfb99144f95f5"
+                "reference": "38d838bab9434af79e8ab274ae63f52f7ed45d6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/975e182d42403b0efdf847c05f6bfb99144f95f5",
-                "reference": "975e182d42403b0efdf847c05f6bfb99144f95f5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/38d838bab9434af79e8ab274ae63f52f7ed45d6e",
+                "reference": "38d838bab9434af79e8ab274ae63f52f7ed45d6e",
                 "shasum": ""
             },
             "require": {
@@ -1599,7 +1598,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-09-02T13:51:42+00:00"
+            "time": "2018-09-04T13:15:09+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1734,26 +1733,26 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.46",
+            "version": "1.0.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2"
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2",
-                "reference": "f3e0d925c18b92cf3ce84ea5cc58d62a1762a2b2",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a11e4a75f256bdacf99d20780ce42d3b8272975c",
+                "reference": "a11e4a75f256bdacf99d20780ce42d3b8272975c",
                 "shasum": ""
             },
             "require": {
+                "ext-fileinfo": "*",
                 "php": ">=5.5.9"
             },
             "conflict": {
                 "league/flysystem-sftp": "<1.0.6"
             },
             "require-dev": {
-                "ext-fileinfo": "*",
                 "phpspec/phpspec": "^3.4",
                 "phpunit/phpunit": "^5.7.10"
             },
@@ -1814,7 +1813,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2018-08-22T07:45:22+00:00"
+            "time": "2018-09-14T15:30:29+00:00"
         },
         {
             "name": "mjohnson/decoda",
@@ -2043,16 +2042,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -2090,7 +2089,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -2445,16 +2444,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.9.7",
+            "version": "v0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "4f5b6c090948773a8bfeea6a0f07ab7d0b24e932"
+                "reference": "ed3c32c4304e1a678a6e0f9dc11dd2d927d89555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/4f5b6c090948773a8bfeea6a0f07ab7d0b24e932",
-                "reference": "4f5b6c090948773a8bfeea6a0f07ab7d0b24e932",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/ed3c32c4304e1a678a6e0f9dc11dd2d927d89555",
+                "reference": "ed3c32c4304e1a678a6e0f9dc11dd2d927d89555",
                 "shasum": ""
             },
             "require": {
@@ -2515,7 +2514,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-08-11T15:54:43+00:00"
+            "time": "2018-09-05T11:40:09+00:00"
         },
         {
             "name": "rachidlaasri/laravel-installer",
@@ -2701,16 +2700,16 @@
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "1530d6cf72070068eecab150ffb73466c3806bdd"
+                "reference": "0cc312a83186afc586df0cb034c4303c3d7cf629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/1530d6cf72070068eecab150ffb73466c3806bdd",
-                "reference": "1530d6cf72070068eecab150ffb73466c3806bdd",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/0cc312a83186afc586df0cb034c4303c3d7cf629",
+                "reference": "0cc312a83186afc586df0cb034c4303c3d7cf629",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2745,7 @@
                 "image-optimizer",
                 "spatie"
             ],
-            "time": "2018-06-05T07:36:17+00:00"
+            "time": "2018-09-10T10:21:45+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -2991,19 +2990,20 @@
         },
         {
             "name": "spatie/ssl-certificate",
-            "version": "1.12.3",
+            "version": "1.12.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ssl-certificate.git",
-                "reference": "b9d3dc15b0d1ba419b9753027ba2ca4d1297595a"
+                "reference": "648fee31f110d34e7771cbac87bc497e2652ff64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ssl-certificate/zipball/b9d3dc15b0d1ba419b9753027ba2ca4d1297595a",
-                "reference": "b9d3dc15b0d1ba419b9753027ba2ca4d1297595a",
+                "url": "https://api.github.com/repos/spatie/ssl-certificate/zipball/648fee31f110d34e7771cbac87bc497e2652ff64",
+                "reference": "648fee31f110d34e7771cbac87bc497e2652ff64",
                 "shasum": ""
             },
             "require": {
+                "ext-intl": "*",
                 "nesbot/carbon": "^1.15",
                 "php": "^7.0",
                 "spatie/macroable": "^1.0"
@@ -3039,7 +3039,7 @@
                 "spatie",
                 "ssl-certificate"
             ],
-            "time": "2018-02-26T14:27:51+00:00"
+            "time": "2018-06-25T12:42:42+00:00"
         },
         {
             "name": "spatie/temporary-directory",
@@ -3089,16 +3089,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.16.0",
+            "version": "v6.17.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "8094ae22db6ce887f073f456127175837a35b2b1"
+                "reference": "df73bb330c35ee14ed443723a6fe122dbc954497"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/8094ae22db6ce887f073f456127175837a35b2b1",
-                "reference": "8094ae22db6ce887f073f456127175837a35b2b1",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/df73bb330c35ee14ed443723a6fe122dbc954497",
+                "reference": "df73bb330c35ee14ed443723a6fe122dbc954497",
                 "shasum": ""
             },
             "require": {
@@ -3140,20 +3140,20 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-08-23T08:19:12+00:00"
+            "time": "2018-09-18T13:48:26+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v6.1.2",
+            "version": "v6.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "7d760881d266d63c5e7a1155cbcf2ac656a31ca8"
+                "reference": "8ddcb66ac10c392d3beb54829eef8ac1438595f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
-                "reference": "7d760881d266d63c5e7a1155cbcf2ac656a31ca8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/8ddcb66ac10c392d3beb54829eef8ac1438595f4",
+                "reference": "8ddcb66ac10c392d3beb54829eef8ac1438595f4",
                 "shasum": ""
             },
             "require": {
@@ -3199,7 +3199,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2018-07-13T07:04:35+00:00"
+            "time": "2018-09-11T07:12:52+00:00"
         },
         {
             "name": "symfony/console",
@@ -4550,16 +4550,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "181c4502d8f34db7aed7bfe88d4f87875b8e947a"
+                "reference": "e79cd403fb77fc8963a99ecc30e80ddd885b3311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/181c4502d8f34db7aed7bfe88d4f87875b8e947a",
-                "reference": "181c4502d8f34db7aed7bfe88d4f87875b8e947a",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/e79cd403fb77fc8963a99ecc30e80ddd885b3311",
+                "reference": "e79cd403fb77fc8963a99ecc30e80ddd885b3311",
                 "shasum": ""
             },
             "require": {
@@ -4578,7 +4578,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -4607,7 +4607,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2018-03-03T17:56:25+00:00"
+            "time": "2018-06-30T13:14:06+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -4877,116 +4877,6 @@
                 "symfony"
             ],
             "time": "2018-02-07T10:42:20+00:00"
-        },
-        {
-            "name": "paragonie/csp-builder",
-            "version": "v2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paragonie/csp-builder.git",
-                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/csp-builder/zipball/a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
-                "reference": "a0d1bbf37abfcde3ff676dcf1c9fc913025cfcb6",
-                "shasum": ""
-            },
-            "require": {
-                "paragonie/constant_time_encoding": "^2",
-                "php": "^7"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*|5.*",
-                "psr/http-message": "^1",
-                "squizlabs/php_codesniffer": "^3",
-                "vimeo/psalm": "^0.3"
-            },
-            "suggest": {
-                "psr/http-message": "For CSPBuilder::injectCSPHeader()"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ParagonIE\\CSPBuilder\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "security@paragonie.com",
-                    "homepage": "https://paragonie.com",
-                    "role": "Owner"
-                }
-            ],
-            "description": "Easily add and update Content-Security-Policy headers for your project",
-            "keywords": [
-                "content-security-policy",
-                "csp",
-                "headers",
-                "http",
-                "security",
-                "xss"
-            ],
-            "time": "2017-11-20T16:18:59+00:00"
-        },
-        {
-            "name": "paragonie/hpkp-builder",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/paragonie/hpkp-builder.git",
-                "reference": "9fb17828da24a88cf823c695273703dfbd939a86"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/hpkp-builder/zipball/9fb17828da24a88cf823c695273703dfbd939a86",
-                "reference": "9fb17828da24a88cf823c695273703dfbd939a86",
-                "shasum": ""
-            },
-            "require": {
-                "paragonie/constant_time_encoding": "^2",
-                "php": "^7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ParagonIE\\HPKPBuilder\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0+",
-                "MIT",
-                "proprietary"
-            ],
-            "authors": [
-                {
-                    "name": "Paragon Initiative Enterprises",
-                    "email": "info@paragonie.com",
-                    "homepage": "https://paragonie.com",
-                    "role": "Development Team"
-                }
-            ],
-            "description": "Easily integrate HTTP Public-Key-Pinning headers into your application.",
-            "homepage": "https://paragonie.com",
-            "keywords": [
-                "Hypertext",
-                "headers",
-                "hpkp",
-                "public key",
-                "public key pinning",
-                "security",
-                "security headers"
-            ],
-            "time": "2016-06-19T16:02:40+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -5556,16 +5446,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "6.5.12",
+            "version": "6.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "24da433d7384824d65ea93fbb462e2f31bbb494e"
+                "reference": "0973426fb012359b2f18d3bd1e90ef1172839693"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/24da433d7384824d65ea93fbb462e2f31bbb494e",
-                "reference": "24da433d7384824d65ea93fbb462e2f31bbb494e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0973426fb012359b2f18d3bd1e90ef1172839693",
+                "reference": "0973426fb012359b2f18d3bd1e90ef1172839693",
                 "shasum": ""
             },
             "require": {
@@ -5636,7 +5526,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-08-22T06:32:48+00:00"
+            "time": "2018-09-08T15:10:43+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
