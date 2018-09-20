@@ -1,6 +1,7 @@
 ### Issue Type
 - [ ] Bug Report
 - [ ] Feature Idea
+- [ ] Enhancement
 - [ ] Technical Discussion
 - [ ] Question
 
