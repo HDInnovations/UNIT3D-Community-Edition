@@ -699,6 +699,8 @@ class TorrentController extends Controller
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
+        $torrent->moderated_at = Carbon::now();
+        $torrent->moderated_by = 1; //System ID
 
         // Validation
         $v = validator($torrent->toArray(), [
