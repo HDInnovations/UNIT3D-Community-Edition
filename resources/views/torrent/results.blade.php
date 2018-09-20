@@ -1,12 +1,13 @@
+@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
 <div class="table-responsive">
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
-            {{--@if($user->show_poster == 1)
+            @if($user->show_poster == 1)
                 <th>Poster</th>
             @else
                 <th></th>
-            @endif--}}
+            @endif
             <th>Category/Type</th>
             <th>{{ trans('common.name') }}</th>
             <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
@@ -19,8 +20,6 @@
 
         <tbody>
         @foreach($torrents as $torrent)
-
-            {{--@php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
             @if ($torrent->category_id == 2)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
                     @php $movie = $client->scrape('tv', null, $torrent->tmdb); @endphp
@@ -33,14 +32,14 @@
                 @else
                     @php $movie = $client->scrape('movie', 'tt'. $torrent->imdb); @endphp
                 @endif
-            @endif--}}
+            @endif
 
             @if ($torrent->sticky == 1)
                 <tr class="success">
             @else
                 <tr>
             @endif
-                    {{--<td>
+                    <td>
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
@@ -50,7 +49,7 @@
                         @else
                             <div class="torrent-poster pull-left"></div>
                         @endif
-                    </td>--}}
+                    </td>
 
                     <td>
                         <a href="{{ route('category', ['slug' => $torrent->category->slug, 'id' => $torrent->category->id]) }}">
@@ -139,7 +138,7 @@
                             </span>
                         @endif
 
-                        {{--@if ($torrent->category->meta == 1)
+                        @if ($torrent->category->meta == 1)
                             @if ($user->ratings == 1) {
                             <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
@@ -165,7 +164,7 @@
                             </span>
                             </a>
                             @endif
-                        @endif--}}
+                        @endif
 
                         <span class="badge-extra text-bold text-pink">
                             <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" title="" data-original-title="Thanks Given"></i>
