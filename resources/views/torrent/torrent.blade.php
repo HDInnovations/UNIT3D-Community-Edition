@@ -254,6 +254,13 @@
                                 class="btn btn-labeled btn-danger btn-xs @if($torrent->isRejected()) disabled @endif">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Reject
                         </button>
+
+                        <span>
+                            &nbsp;[ Moderated By
+                            <a href="{{ route('profile', ['username' => $torrent->moderated->username, 'id' => $torrent->moderated->id]) }}" style="color:{{ $torrent->moderated->group->color }};">
+                                <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip" data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
+                            </a>]
+                        </span>
                     </td>
                 </tr>
                 @endif
