@@ -151,6 +151,20 @@
 
                 <br>
 
+                @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    <label for="internal" class="control-label">Internal?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="internal" value="1">YES</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="internal" checked="checked" value="0">NO</label>
+                    </div>
+
+                    <br>
+                @else
+                    <input type="hidden" name="internal" value="0">
+                @endif
+
                 <div class="text-center">
                     <button id="add" type="button" class="btn btn-primary">Add MediaInfo Parser</button>
                     <button type="submit" name="post" value="true" id="post" class="btn btn-success">Upload</button>

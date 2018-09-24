@@ -178,6 +178,7 @@ class TorrentController extends Controller
         $stream = $request->input('stream');
         $highspeed = $request->input('highspeed');
         $sd = $request->input('sd');
+        $internal = $request->input('internal');
         $alive = $request->input('alive');
         $dying = $request->input('dying');
         $dead = $request->input('dead');
@@ -268,6 +269,10 @@ class TorrentController extends Controller
 
         if ($request->has('sd') && $request->input('sd') != null) {
             $torrent->where('sd', $sd);
+        }
+
+        if ($request->has('internal') && $request->input('internal') != null) {
+            $torrent->where('internal', $internal);
         }
 
         if ($request->has('alive') && $request->input('alive') != null) {
@@ -471,6 +476,7 @@ class TorrentController extends Controller
             $torrent->anon = $request->input('anonymous');
             $torrent->stream = $request->input('stream');
             $torrent->sd = $request->input('sd');
+            $torrent->internal = $request->input('internal');
 
             $v = validator($torrent->toArray(), [
                 'name' => 'required',
@@ -697,6 +703,7 @@ class TorrentController extends Controller
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
+        $torrent->internal = $request->input('internal');
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = 1; //System ID
 

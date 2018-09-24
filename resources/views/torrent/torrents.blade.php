@@ -128,6 +128,11 @@
                         {{ Form::checkbox('sd','1',false,['id'=>'sd']) }} <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> SD Content
                     </label>
                 </span>
+                <span class="badge-user">
+                    <label class="inline">
+                        {{ Form::checkbox('internal','1',false,['id'=>'internal']) }} <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> Internal
+                    </label>
+                </span>
             </div>
         </div>
 
@@ -291,6 +296,11 @@
                     return $("#sd").val();
                 }
             })();
+            var internal = (function () {
+              if ($("#internal").is(":checked")) {
+                return $("#internal").val();
+              }
+            })();
             var alive = (function () {
                 if ($("#alive").is(":checked")) {
                     return $("#alive").val();
@@ -347,6 +357,7 @@
                     stream: stream,
                     highspeed: highspeed,
                     sd: sd,
+                    internal: internal,
                     alive: alive,
                     dying: dying,
                     dead: dead,
@@ -409,7 +420,7 @@
         });
     </script>
     <script>
-        $("#freeleech,#doubleupload,#featured,#stream,#highspeed,#sd,#alive,#dying,#dead").on("click", function () {
+        $("#freeleech,#doubleupload,#featured,#stream,#highspeed,#sd,#internal,#alive,#dying,#dead").on("click", function () {
             faceted();
         });
     </script>

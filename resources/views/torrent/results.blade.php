@@ -176,6 +176,13 @@
                                 {{ $torrent->comments()->count() }}
                         </span>
 
+                        @if ($torrent->internal == 1)
+                            <span class='badge-extra text-bold'>
+                                <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
+                                   data-original-title='Internal Release' style="color: #BAAF92"></i> Internal
+                            </span>
+                        @endif
+
                         @if ($torrent->stream == 1)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-play text-red' data-toggle='tooltip' title=''

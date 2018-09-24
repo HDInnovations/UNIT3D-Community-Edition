@@ -115,6 +115,21 @@
                 </div>
                 <br>
                 <br>
+                @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    <label for="internal" class="control-label">Internal?</label>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="internal" @if($torrent->internal == 1) checked
+                                      @endif value="1">{{ trans('common.yes') }}</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="internal" @if($torrent->internal == 0) checked
+                                      @endif value="0">{{ trans('common.no') }}</label>
+                    </div>
+                    <br>
+                    <br>
+                @else
+                    <input type="hidden" name="internal" value="0">
+                @endif
                 <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
                 {{ Form::close() }}
             </div>
