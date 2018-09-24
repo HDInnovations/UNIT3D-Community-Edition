@@ -332,7 +332,7 @@
                            data-original-title="{{ trans('torrent.thank') }}">
                             <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ trans('torrent.thank') }}</a>
                         <span class="badge-extra text-pink"><i
-                                    class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $thanks }} {{ trans('torrent.thanks') }}</span>
+                                    class="{{ config('other.font-awesome') }} fa-heart"></i> {{ $torrent->thanks()->count() }} {{ trans('torrent.thanks') }}</span>
                     </td>
                 </tr>
 

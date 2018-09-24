@@ -337,13 +337,12 @@ class TorrentController extends Controller
      */
     public function torrent($slug, $id)
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent = Torrent::withAnyStatus()->with('comments')->findOrFail($id);
         $uploader = $torrent->user;
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
         $comments = $torrent->comments()->latest()->paginate(6);
-        $thanks = $torrent->thanks()->count();
         $total_tips = BonTransactions::where('torrent_id', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', $id)->where('sender', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', $torrent->info_hash)->where('seeder', 1)->latest('updated_at')->first();
@@ -400,7 +399,6 @@ class TorrentController extends Controller
         return view('torrent.torrent', [
             'torrent' => $torrent,
             'comments' => $comments,
-            'thanks' => $thanks,
             'user' => $user,
             'personal_freeleech' => $personal_freeleech,
             'freeleech_token' => $freeleech_token,
