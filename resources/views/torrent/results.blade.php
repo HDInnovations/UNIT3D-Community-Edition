@@ -171,6 +171,11 @@
                                 {{ $torrent->thanks()->count() }}
                         </span>
 
+                        <span class="badge-extra text-bold text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" title="" data-original-title="Comments Left"></i>
+                                {{ $torrent->comments()->count() }}
+                        </span>
+
                         @if ($torrent->stream == 1)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-play text-red' data-toggle='tooltip' title=''
