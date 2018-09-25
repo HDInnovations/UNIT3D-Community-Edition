@@ -51,20 +51,20 @@ class disableInactiveUsers extends Command
             ->get();
 
         foreach ($users as $user) {
-            $user->group_id = $disabledGroup->id;
-            $user->can_upload = 0;
-            $user->can_download = 0;
-            $user->can_comment = 0;
-            $user->can_invite = 0;
-            $user->can_request = 0;
-            $user->can_chat = 0;
-            $user->disabled_at = Carbon::now();
-            $user->save();
+            if ($user->getSeeding() !== 0) {
+                $user->group_id = $disabledGroup->id;
+                $user->can_upload = 0;
+                $user->can_download = 0;
+                $user->can_comment = 0;
+                $user->can_invite = 0;
+                $user->can_request = 0;
+                $user->can_chat = 0;
+                $user->disabled_at = Carbon::now();
+                $user->save();
 
-            // Send Email
-            dispatch(new SendDisableUserMail($user));
+                // Send Email
+                dispatch(new SendDisableUserMail($user));
+            }
         }
-
-        info("disableInactiveUsers Command Ran Successful! {$users->count()} Disabled!");
     }
 }
