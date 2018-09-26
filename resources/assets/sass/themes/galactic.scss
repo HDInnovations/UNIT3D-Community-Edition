@@ -276,12 +276,12 @@ a:hover {
 }
 
 .btn-warning {
-  background-color: var(--color-yellow) !important;
+  background-color: var(--color-yellow);
   background-image: none
 }
 
 .btn-warning:active, .btn-warning:hover {
-  background-color: var(--color-light-yellow) !important;
+  background-color: var(--color-light-yellow);
   background-image: none;
   box-shadow: none;
   border: 0
