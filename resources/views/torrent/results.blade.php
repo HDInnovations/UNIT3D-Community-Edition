@@ -43,8 +43,8 @@
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
-                                     data-poster-mid="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
-                                     class="img-tor-poster torrent-poster-img-small" alt="Poster">
+                                     data-name='<i style="color: #a5a5a5;">{{ $movie->title }}</i>' data-image='<img src="{{ $movie->poster }}" alt="Poster" style="height: 1000px;">'
+                                     class="torrent-poster-img-small show-poster" alt="Poster">
                             </div>
                         @else
                             <div class="torrent-poster pull-left"></div>
@@ -319,4 +319,25 @@
         {{ $torrents->links() }}
     </div>
 </div>
+
+<script>
+  $(function() {
+    $('.show-poster').click(function(e) {
+      e.preventDefault();
+
+      var name = $(this).attr('data-name');
+      var image = $(this).attr('data-image');
+
+      swal({
+        showConfirmButton: false,
+        showCloseButton: true,
+        background: '#232323',
+        width: 970,
+        html: image,
+        title: name,
+        text: '',
+      });
+    });
+  });
+</script>
 
