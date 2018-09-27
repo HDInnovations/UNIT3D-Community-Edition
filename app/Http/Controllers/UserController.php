@@ -290,7 +290,7 @@ class UserController extends Controller
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $user->email = $request->input('new_email');
+            $user->email = $request->input('email');
             $user->save();
 
             // Activity Log
