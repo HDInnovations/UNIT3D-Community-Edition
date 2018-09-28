@@ -288,7 +288,12 @@
                                            class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
                                         </a>
                                     @endif @else
-                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }} <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                    @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                            ({{ $torrentRequestClaim->username }})
+                                        @endif
+                                            <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span>
+                                    @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
