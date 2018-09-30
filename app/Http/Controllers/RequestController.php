@@ -255,6 +255,7 @@ class RequestController extends Controller
         $tr->type = $request->input('type');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
+        $tr->anon = $request->input('anon');
 
         $v = validator($tr->toArray(), [
             "name" => "required|max:180",
@@ -265,7 +266,8 @@ class RequestController extends Controller
             "category_id" => "required|exists:categories,id",
             "type" => "required",
             "description" => "required|string",
-            "bounty" => "required|numeric|min:0|max:{$user->seedbonus}"
+            "bounty" => "required|numeric|min:0|max:{$user->seedbonus}",
+            "anon" => "required",
         ]);
 
         if ($v->fails()) {
@@ -278,6 +280,7 @@ class RequestController extends Controller
             $requestsBounty->user_id = $user->id;
             $requestsBounty->seedbonus = $request->input('bounty');
             $requestsBounty->requests_id = $tr->id;
+            $requestsBounty->anon = $request->input('anon');
             $requestsBounty->save();
 
             $BonTransactions = new BonTransactions();
@@ -296,9 +299,15 @@ class RequestController extends Controller
             $profile_url = hrefProfile($user);
 
             // Auto Shout
-            $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
-            );
+            if ($tr->anon == 0) {
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                );
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
@@ -347,6 +356,7 @@ class RequestController extends Controller
             $category = $request->input('category_id');
             $type = $request->input('type');
             $description = $request->input('description');
+            $anon = $request->input('anon');
 
             $torrentRequest->name = $name;
             $torrentRequest->imdb = $imdb;
@@ -356,6 +366,7 @@ class RequestController extends Controller
             $torrentRequest->category_id = $category;
             $torrentRequest->type = $type;
             $torrentRequest->description = $description;
+            $torrentRequest->anon = $anon;
 
             $v = validator($torrentRequest->toArray(), [
                 "name" => "required|max:180",
@@ -365,8 +376,8 @@ class RequestController extends Controller
                 "mal" => "required|numeric",
                 "category_id" => "required|exists:categories,id",
                 "type" => "required",
-                "description" => "required|string"
-
+                "description" => "required|string",
+                "anon" => "required",
             ]);
 
             if ($v->fails()) {
@@ -419,6 +430,7 @@ class RequestController extends Controller
             $requestsBounty->user_id = $user->id;
             $requestsBounty->seedbonus = $request->input('bonus_value');
             $requestsBounty->requests_id = $tr->id;
+            $requestsBounty->anon = $request->input('anon');
             $requestsBounty->save();
 
             $BonTransactions = new BonTransactions();
@@ -437,9 +449,15 @@ class RequestController extends Controller
             $profile_url = hrefProfile($user);
 
             // Auto Shout
-            $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has addded {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
-            );
+            if ($requestsBounty->anon == 0) {
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                );
+            }
 
             // Send Private Message
             if ($user->id != $tr->user_id) {
@@ -448,7 +466,11 @@ class RequestController extends Controller
                 $pm->receiver_id = $tr->user_id;
                 $pm->subject = "Your Request " . $tr->name . " Has A New Bounty!";
                 $profile_url = hrefProfile($user);
-                $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                if ($requestsBounty->anon == 0) {
+                    $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                } else {
+                    $pm->message = "An Anonymous User Has Added A Bounty To " . "[url={$tr_url}]" . $tr->name . "[/url]";
+                }
                 $pm->save();
             }
 
@@ -471,66 +493,45 @@ class RequestController extends Controller
     {
         $user = auth()->user();
 
-            $v = validator($request->all(), [
-                'request_id' => "required|exists:requests,id",
-                'info_hash' => "required|exists:torrents,info_hash",
-            ]);
-
-        if ($v->passes()) {
-            $torrent = Torrent::where('info_hash', $request->input('info_hash'))->firstOrFail();
-
-            if ($user->id == $torrent->user_id) {
-                $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
-
-                return redirect()->route('request', ['id' => $request->input('request_id')])
-                    ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
-            } elseif ($user->id != $torrent->user_id && Carbon::now()->addDay() > $torrent->created_at) {
-                $this->addRequestModeration($request->input('request_id'), $request->input('info_hash'));
-
-                return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with(Toastr::success('Your request fill is pending approval by the Requestor.', 'Yay!', ['options']));
-            } else {
-                return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with(Toastr::error('You cannot fill this request for some weird reason', 'Whoops!', ['options']));
-            }
-        } else {
-            return redirect()->route('request', ['id' => $request->input('request_id')])
-            ->with(Toastr::error('You failed to adhere to the requirements.', 'Whoops!', ['options']));
-        }
-    }
-
-    /**
-     * Function that handles the actual filling of requests
-     * @method addRequestModeration
-     *
-     * @param $request_id ID of the Request being handled
-     * @param $info_hash Hash of the torrent filling the hash
-     */
-    public function addRequestModeration($request_id, $info_hash)
-    {
-        $user = auth()->user();
-
-        $torrentRequest = TorrentRequest::findOrFail($request_id);
-
+        $torrentRequest = TorrentRequest::findOrFail($id);
         $torrentRequest->filled_by = $user->id;
-        $torrentRequest->filled_hash = $info_hash;
+        $torrentRequest->filled_hash = $request->input('info_hash');
         $torrentRequest->filled_when = Carbon::now();
+        $torrentRequest->filled_anon = $request->input('filled_anon');
 
-        $torrentRequest->save();
+        $v = validator($request->all(), [
+            'request_id' => "required|exists:requests,id",
+            'info_hash' => "required|exists:torrents,info_hash",
+            'filled_anon' => "required",
+        ]);
 
-        // Send Private Message
-        $appurl = config('app.url');
+        if ($v->fails()) {
+            return redirect()->route('request', ['id' => $request->input('request_id')])
+                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
+            $torrentRequest->save();
 
-        $pm = new PrivateMessage;
-        $pm->sender_id = 1;
-        $pm->receiver_id = $torrentRequest->user_id;
-        $pm->subject = "Your Request " . $torrentRequest->name . " Has Been Filled!";
-        $profile_url = hrefProfile($user);
-        $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
-        $pm->save();
+            // Send Private Message
+            $appurl = config('app.url');
 
-        // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
+            $pm = new PrivateMessage;
+            $pm->sender_id = 1;
+            $pm->receiver_id = $torrentRequest->user_id;
+            $pm->subject = "Your Request " . $torrentRequest->name . " Has Been Filled!";
+            $profile_url = hrefProfile($user);
+            if ($torrentRequest->filled_anon == 0) {
+                $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
+            } else {
+                $pm->message = "An Anonymous User Filled Your Request [url={$appurl}/request/" . $torrentRequest->id . "]" . $torrentRequest->name . "[/url]" . " Please Approve or Decline The FullFill! ";
+            }
+            $pm->save();
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
+
+            return redirect()->route('request', ['id' => $request->input('request_id')])
+                ->with(Toastr::success('Your request fill is pending approval by the Requester.', 'Yay!', ['options']));
+        }
     }
 
     /**
@@ -564,12 +565,11 @@ class RequestController extends Controller
             $BonTransactions->cost = $fill_amount;
             $BonTransactions->sender = 0;
             $BonTransactions->receiver = $fill_user->id;
-            $BonTransactions->comment = "{$fill_user->username} has filled {$tr->name} and has been awared {$fill_amount} BONUS.";
+            $BonTransactions->comment = "{$fill_user->username} has filled {$tr->name} and has been awarded {$fill_amount} BONUS.";
             $BonTransactions->save();
 
             $fill_user->seedbonus += $fill_amount;
             $fill_user->save();
-            //End BON code here.
 
             // Achievements
             $fill_user->addProgress(new UserFilled25Requests(), 1);
@@ -581,9 +581,15 @@ class RequestController extends Controller
             $profile_url = hrefProfile($fill_user);
 
             // Auto Shout
-            $this->chat->systemMessage(
-                "[url={$profile_url}]{$fill_user->username}[/url] has filled [url={$tr_url}]{$tr->name}[/url]"
-            );
+            if ($tr->filled_anon == 0) {
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$fill_user->username}[/url] has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                );
+            }
 
             // Send Private Message
             $pm = new PrivateMessage;
@@ -597,8 +603,13 @@ class RequestController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
-            return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
+            if ($tr->filled_anon == 0) {
+                return redirect()->route('request', ['id' => $id])
+                    ->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
+            } else {
+                return redirect()->route('request', ['id' => $id])
+                    ->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to a anonymous user", "Yay!", ['options']));
+            }
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->with(Toastr::error("You don't have access to approve this request", 'Whoops!', ['options']));

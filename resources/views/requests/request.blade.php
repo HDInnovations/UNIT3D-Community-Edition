@@ -63,7 +63,7 @@
                             @endif @if($user->group->is_modo || ($torrentRequest->user->id == $user->id && $torrentRequest->filled_hash == null))
                                 <a class="btn btn-warning btn-xs"
                                    href="{{ route('edit_request', ['id' => $torrentRequest->id]) }}" role="button"><i
-                                            class="{{ config('other.font-awesome') }} fa-pencil-square"
+                                            class="{{ config('other.font-awesome') }} fa-edit"
                                             aria-hidden="true"> {{ trans('request.edit-request') }}</i></a>
                                 <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete"><i
                                             class="{{ config('other.font-awesome') }} fa-trash">
@@ -251,9 +251,24 @@
                                 <strong>{{ trans('request.requested-by') }}</strong>
                             </td>
                             <td>
-                                <span class="badge-user"><a
-                                            href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}"
-                                            title="">{{ $torrentRequest->user->username }} <em>({{ $torrentRequest->created_at->diffForHumans() }})</em></a></span>
+                                @if ($torrentRequest->anon == 0)
+                                <span class="badge-user">
+                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}" title="">
+                                        {{ $torrentRequest->user->username }}
+                                    </a>
+                                </span>
+                                @else
+                                <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                @if($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}" title="">
+                                        ({{ $torrentRequest->user->username }})
+                                    </a>
+                                @endif
+                                </span>
+                                @endif
+                                <span class="badge-user">
+                                    <em>({{ $torrentRequest->created_at->diffForHumans() }})</em>
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -276,34 +291,38 @@
                                 @elseif($torrentRequest->filled_hash != null)
                                     <button class="btn btn-xs btn-success" disabled><i
                                                 class="{{ config('other.font-awesome') }} fa-check-square"></i>{{ trans('request.filled') }}</button>
-                                @else @if($torrentRequestClaim->anon == 0)
-                                    <span class="badge-user">{{ $torrentRequestClaim->username }} <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span> @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
-                                        <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
-                                           class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
-                                           data-original-title="{{ trans('request.unclaim') }}">
-                                            <span class="icon"><i
-                                                        class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}</span>
+                                @else
+                                    @if($torrentRequestClaim->anon == 0)
+                                    <span class="badge-user">
+                                        <a href="{{ route('profile', ['username' => $torrentRequestClaim->username, 'id' => $torrentRequestClaim->user_id]) }}">
+                                            {{ $torrentRequestClaim->username }}
                                         </a>
-                                        <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
-                                           class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
-                                        </a>
-                                    @endif @else
+                                    </span>
+                                    @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                    @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
+                                        @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                             ({{ $torrentRequestClaim->username }})
                                         @endif
-                                            <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em></span>
+                                    </span>
+                                    @endif
+
+                                    <span class="badge-user">
+                                        <em>({{ $torrentRequestClaim->created_at->diffForHumans() }})</em>
+                                    </span>
+
                                     @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
                                            class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('request.unclaim') }}">
-                                            <span class="icon"><i
-                                                        class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}</span>
+                                            <span class="icon">
+                                                <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}
+                                            </span>
                                         </a>
                                         <a href="{{ route('upload_form', ['title' => $movie->title, 'imdb' => $movie->imdb, 'tmdb' => $movie->tmdb]) }}"
                                            class="btn btn-xs btn-success"> {{ trans('common.upload') }} {{ $movie->title ?? ''}}
                                         </a>
-                                    @endif @endif @endif
+                                    @endif
+                                @endif
                             </td>
                         </tr>
                         @if($torrentRequest->filled_hash != null && $torrentRequest->approved_by != null)
@@ -312,10 +331,24 @@
                                     <strong>{{ trans('request.filled-by') }}</strong>
                                 </td>
                                 <td>
-                                    <span class="badge-user"><a
-                                                href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}"
-                                                title="">{{ $torrentRequest->FillUser->username }}</a></span>
-                                    <span class="badge-extra">{{ $torrentRequest->approved_when->diffForHumans() }}</span>
+                                    @if ($torrentRequest->filled_anon == 0)
+                                    <span class="badge-user">
+                                        <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                            {{ $torrentRequest->FillUser->username }}
+                                        </a>
+                                    </span>
+                                    @else
+                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        @if($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                            <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                                ({{ $torrentRequest->FillUser->username }})
+                                            </a>
+                                        @endif
+                                    </span>
+                                    @endif
+                                    <span class="badge-user">
+                                        {{ $torrentRequest->approved_when->diffForHumans() }}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -326,20 +359,40 @@
                                     <a href="{{ route('torrent', ['slug' => $torrentRequest->torrent->slug, 'id' => $torrentRequest->torrent->id]) }}">{{ $torrentRequest->torrent->name }}</a>
                                 </td>
                             </tr>
-                        @endif @if($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null || auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
+                        @endif
+
+                        @if($torrentRequest->user_id == $user->id && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null || auth()->user()->group->is_modo && $torrentRequest->filled_hash != null && $torrentRequest->approved_by == null)
                             <tr>
                                 <td>
                                     <strong>{{ trans('request.filled-by') }}</strong>
                                 </td>
                                 <td>
-                                    <span class="badge-user"><a
-                                                href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}"
-                                                title="">{{ $torrentRequest->FillUser->username }}</a></span>
-                                    <span class="badge-extra">{{ $torrentRequest->filled_when->diffForHumans() }}</span>
-                                    <span class="badge-extra"><a
-                                                href="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}">{{ trans('request.approve') }}</a></span>
-                                    <span class="badge-extra"><a
-                                                href="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}">{{ trans('request.reject') }}</a></span>
+                                    @if ($torrentRequest->filled_anon == 0)
+                                    <span class="badge-user">
+                                        <a href="{{ route('profile', ['username' => $torrentRequest->FillUser->username, 'id' => $torrentRequest->FillUser->id ]) }}">
+                                            {{ $torrentRequest->FillUser->username }}
+                                        </a>
+                                    </span>
+                                    @else
+                                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                        @if($user->group->is_modo || $torrentRequestClaim->FillUser->username == $user->username)
+                                            ({{ $torrentRequestClaim->FillUser->username }})
+                                        @endif
+                                    </span>
+                                    @endif
+                                    <span class="badge-extra">
+                                        {{ $torrentRequest->filled_when->diffForHumans() }}
+                                    </span>
+                                    <span class="badge-extra">
+                                        <a href="{{ route('approveRequest', ['id' => $torrentRequest->id]) }}">
+                                            {{ trans('request.approve') }}
+                                        </a>
+                                    </span>
+                                    <span class="badge-extra">
+                                        <a href="{{ route('rejectRequest', ['id' => $torrentRequest->id]) }}">
+                                            {{ trans('request.reject') }}
+                                        </a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -379,9 +432,21 @@
                                 @foreach($voters as $voter)
                                     <tr>
                                         <td>
-                                            <span class="badge-user"><a
-                                                        href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}"
-                                                        title="">{{ $voter->user->username }}</a></span>
+                                            @if ($voter->anon == 0)
+                                            <span class="badge-user">
+                                                <a href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}">
+                                                    {{ $voter->user->username }}
+                                                </a>
+                                            </span>
+                                            @else
+                                            <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                                                @if($user->group->is_modo || $voter->user->username == $user->username)
+                                                    <a href="{{ route('profile', ['username' => $voter->user->username, 'id' => $voter->user->id ]) }}">
+                                                        ({{ $voter->user->username }})
+                                                    </a>
+                                                @endif
+                                            </span>
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $voter->seedbonus }}

@@ -9,19 +9,23 @@
             </div>
             <form role="form" method="POST" action="{{ route('add_votes',['id' => $torrentRequest->id]) }}">
                 @csrf
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.enter-bp') }}.</p>
+                <div class="modal-body text-center">
+                    <p>{{ trans('request.enter-bp') }}</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
                         <input type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                        <p>Anonymous Bounty?</p>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" value="1">{{ trans('common.yes') }}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" value="0" checked>{{ trans('common.no') }}</label>
+                        </div>
                     </fieldset>
                     <br>
                     <div class="btns">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" @if($user->seedbonus < 100) disabled
-                                title='{{ trans('request.dont-have-bps') }}'
-                                @endif class="btn btn-success">{{ trans('request.vote') }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                        <button type="submit" @if($user->seedbonus < 100) disabled title='{{ trans('request.dont-have-bps') }}' @endif class="btn btn-success">{{ trans('request.vote') }}</button>
                     </div>
                 </div>
             </form>
@@ -40,17 +44,22 @@
             </div>
             <form role="form" method="POST" action="{{ route('fill_request',['id' => $torrentRequest->id]) }}">
                 @csrf
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.enter-hash') }}.</p>
+                <div class="modal-body text-center">
+                    <p>{{ trans('request.enter-hash') }}.</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
-                        <input type="text" tabindex="3" name='info_hash'
-                               placeholder="{{ trans('request.torrent-hash') }}">
+                        <input type="text" tabindex="3" name='info_hash' placeholder="{{ trans('request.torrent-hash') }}">
+                        <p>Anonymous Fill?</p>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="filled_anon" value="1">{{ trans('common.yes') }}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="filled_anon" value="0" checked>{{ trans('common.no') }}</label>
+                        </div>
                     </fieldset>
                     <br>
                     <div class="btns">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
                         <button type="submit" class="btn btn-success">{{ trans('request.fill') }}</button>
                     </div>
                 </div>
@@ -124,16 +133,16 @@
             </div>
             <form role="form" method="POST" action="{{ route('claimRequest',['id' => $torrentRequest->id]) }}">
                 @csrf
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.claim-as-anon') }}?</p>
+                <div class="modal-body text-center">
+                    <p>{{ trans('request.claim-as-anon') }}?</p>
                     <br>
                     <fieldset>
                         <p>{{ trans('request.claim-anon-choose') }}</p>
                         <div class="radio-inline">
-                            <label><input type="radio" name="anon" value="1">{{ trans('request.yes') }}</label>
+                            <label><input type="radio" name="anon" value="1">{{ trans('common.yes') }}</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="anon" value="0" checked>{{ trans('request.no') }}</label>
+                            <label><input type="radio" name="anon" value="0" checked>{{ trans('common.no') }}</label>
                         </div>
                     </fieldset>
                     <br>
