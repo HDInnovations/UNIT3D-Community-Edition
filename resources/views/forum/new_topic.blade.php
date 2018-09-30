@@ -8,10 +8,6 @@
     <meta name="description" content="{{ $forum->name . ' - ' . trans('forum.create-new-topic') }}">
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">

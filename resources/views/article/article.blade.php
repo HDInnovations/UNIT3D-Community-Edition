@@ -4,10 +4,6 @@
     <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('meta')
     <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
 @endsection

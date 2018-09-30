@@ -1,9 +1,5 @@
 @extends('layout.default')
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"

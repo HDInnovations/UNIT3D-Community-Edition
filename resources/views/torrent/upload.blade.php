@@ -4,10 +4,6 @@
     <title>Upload - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">

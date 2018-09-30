@@ -4,10 +4,6 @@
     <title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('meta')
     <meta name="description" content="{{ trans('torrent.meta-desc', ['name' => $torrent->name]) }}!">
 @endsection
