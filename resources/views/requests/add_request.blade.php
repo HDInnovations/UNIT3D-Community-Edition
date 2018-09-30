@@ -101,7 +101,7 @@
                             <label><input type="radio" name="anon" value="1">{{ trans('common.yes') }}</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="anon" checked="checked" value="0">{{ trans('common.yes') }}</label>
+                            <label><input type="radio" name="anon" checked="checked" value="0">{{ trans('common.no') }}</label>
                         </div>
                     </div>
 
