@@ -46,7 +46,7 @@
                     <td><a href="{{ route('staff_forum_delete', ['slug' => $c->slug, 'id' => $c->id]) }}"
                            class="btn btn-danger">Delete</a></td>
                 </tr>
-                @foreach($c->getForumsInCategory() as $f)
+                @foreach($c->getForumsInCategory()->sortBy('position') as $f)
                     <tr>
                         <td>
                             <a href="{{ route('staff_forum_edit', ['slug' => $f->slug, 'id' => $f->id]) }}">---- {{ $f->name }}</a>
