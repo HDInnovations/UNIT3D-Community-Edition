@@ -301,11 +301,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has created a new request [url={$tr_url}]{$tr->name}[/url]"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has created a new request [url={$tr_url}]{$tr->name}[/url]"
                 );
             }
 
@@ -451,11 +451,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($requestsBounty->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user added {$request->input('bonus_value')} BON bounty to request [url={$tr_url}]{$tr->name}[/url]"
                 );
             }
 
@@ -583,11 +583,11 @@ class RequestController extends Controller
             // Auto Shout
             if ($tr->filled_anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$fill_user->username}[/url] has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$fill_user->username}[/url] has filled request, [url={$tr_url}]{$tr->name}[/url]"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has filled request, [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has filled request, [url={$tr_url}]{$tr->name}[/url]"
                 );
             }
 

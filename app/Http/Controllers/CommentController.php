@@ -93,7 +93,7 @@ class CommentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
             );
 
             if ($this->tag->hasTags($request->input('content'))) {
@@ -174,11 +174,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has left a comment on torrent [url={$torrent_url}]{$torrent->name}[/url]"
                 );
             }
 
@@ -268,11 +268,11 @@ class CommentController extends Controller
             // Auto Shout
             if ($comment->anon == 0) {
                 $this->chat->systemMessage(
-                    "[url={$profile_url}]{$user->username}[/url] has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has left a comment on Request [url={$tr_url}]{$tr->name}[/url]"
                 );
             }
 
@@ -392,7 +392,7 @@ class CommentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
+                ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has left a comment on Torrent [url={$torrent_url}]{$torrent->name}[/url]"
             );
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])

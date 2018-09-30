@@ -291,7 +291,7 @@ class ForumController extends Controller
             $appurl = config('app.url');
             $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
-            $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
+            $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
             $topic->notifySubscribers($post);
@@ -425,7 +425,7 @@ class ForumController extends Controller
                 $topicUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}";
                 $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
-                $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+                $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
                 //Achievements
                 $user->unlock(new UserMadeFirstPost(), 1);

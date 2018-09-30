@@ -167,7 +167,7 @@ class RegisterController extends Controller
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
             $this->chat->systemMessage(
-                "$welcomeArray[$selected]"
+                ":robot: [b][color=#fb9776]System[/color][/b] : {$welcomeArray[$selected]}"
             );
 
             // Send Welcome PM
