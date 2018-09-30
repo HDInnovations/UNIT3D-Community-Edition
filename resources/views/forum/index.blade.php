@@ -46,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($category->getForumsInCategory() as $categoryChild)
+                        @foreach($category->getForumsInCategory()->sortBy('position') as $categoryChild)
                             <tr>
                                 <td><img src="{{ url('img/forum.png') }}"></td>
                                 <td>
