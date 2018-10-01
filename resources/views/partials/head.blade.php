@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ mix('css/themes/blur.css') }}">
 @elseif(auth()->user()->style == 3)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+@elseif(auth()->user()->style == 4)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/halloween.css') }}">
 @endif
 
 @if(isset(auth()->user()->custom_css))

@@ -58,6 +58,11 @@ mix
    * Compiling the galactic theme (uses default wysibb theme)
    */
   .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
+  
+  /*
+   * Compiling the halloween theme
+   */
+  .styles('resources/assets/sass/themes/halloween.scss', 'public/css/themes/halloween.css')
 
   /*
    * Login and TwoStep Auth styles
