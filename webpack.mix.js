@@ -35,16 +35,7 @@ mix
    * Note: Default wysibb theme is compiled into public/css/app.css from resources/assets/sass/app.scss
    *
    */
-  .sass('resources/assets/sass/themes/blur.scss', 'tmp/blur.css')
   .sass('resources/assets/sass/themes/dark.scss', 'tmp/dark.css')
-
-  /*
-   * Compiling the blur theme and blur wysibb theme into a single file
-   */
-  .styles([
-    'public/tmp/blur.css',
-    'resources/assets/js/wysibb/theme/blur/wbbtheme.css'
-  ], 'public/css/themes/blur.css')
 
   /*
    * Compiling the dark theme and dark wysibb theme into a single file
@@ -53,19 +44,11 @@ mix
     'public/tmp/dark.css',
     'resources/assets/js/wysibb/theme/dark/wbbtheme.css'
   ], 'public/css/themes/dark.css')
-
-  /*
-   * Compiling the galactic theme (uses default wysibb theme)
-   */
-  .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
   
   /*
    * Compiling themes
-   */
-  .sass('resources/assets/sass/themes/blutopian.scss', 'public/css/themes/blutopian.css')
-  
-  .sass('resources/assets/sass/themes/halloween.scss', 'public/css/themes/halloween.css')
-  
+   */  
+  .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
   .sass('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
   .sass('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
   .sass('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
