@@ -62,17 +62,17 @@ mix
   /*
    * Compiling themes
    */
-  .styles('resources/assets/sass/themes/blutopian.scss', 'public/css/themes/blutopian.css')
+  .sass('resources/assets/sass/themes/blutopian.scss', 'public/css/themes/blutopian.css')
   
-  .styles('resources/assets/sass/themes/halloween.scss', 'public/css/themes/halloween.css')
+  .sass('resources/assets/sass/themes/halloween.scss', 'public/css/themes/halloween.css')
   
-  .styles('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
-  .styles('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
-  .styles('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
-  .styles('resources/assets/sass/themes/dark-purple.scss', 'public/css/themes/dark-purple.css')
-  .styles('resources/assets/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
-  .styles('resources/assets/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
-  .styles('resources/assets/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
+  .sass('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
+  .sass('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
+  .sass('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
+  .sass('resources/assets/sass/themes/dark-purple.scss', 'public/css/themes/dark-purple.css')
+  .sass('resources/assets/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
+  .sass('resources/assets/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
+  .sass('resources/assets/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
   
   /*
    * Login and TwoStep Auth styles
