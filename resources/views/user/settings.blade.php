@@ -67,18 +67,14 @@
                     <label for="theme" class="control-label">Theme</label>
                     <select class="form-control" id="theme" name="theme">
                         <option @if($user->style == 0) selected @endif value="0">Light Theme</option>
-                        <option @if($user->style == 1) selected @endif value="1">Dark Theme</option>
-                        <option @if($user->style == 2) selected @endif value="2">Blur Theme</option>
-                        <option @if($user->style == 3) selected @endif value="3">Galactic Theme</option>
-                        <option @if($user->style == 4) selected @endif value="4">Blutopian Theme</option>
-                        <option @if($user->style == 5) selected @endif value="5">Halloween Theme</option>
-                        <option @if($user->style == 6) selected @endif value="6">Dark Blue Theme</option>
-                        <option @if($user->style == 7) selected @endif value="7">Dark Green Theme</option>
-                        <option @if($user->style == 8) selected @endif value="8">Dark Pink Theme</option>
-                        <option @if($user->style == 9) selected @endif value="9">Dark Purple Theme</option>
-                        <option @if($user->style == 10) selected @endif value="10">Dark Red Theme</option>
-                        <option @if($user->style == 11) selected @endif value="11">Dark Teal Theme</option>
-                        <option @if($user->style == 12) selected @endif value="12">Dark Yellow Theme</option>
+                        <option @if($user->style == 1) selected @endif value="3">Galactic Theme</option>
+                        <option @if($user->style == 2) selected @endif value="6">Dark Blue Theme</option>
+                        <option @if($user->style == 3) selected @endif value="7">Dark Green Theme</option>
+                        <option @if($user->style == 4) selected @endif value="8">Dark Pink Theme</option>
+                        <option @if($user->style == 5) selected @endif value="9">Dark Purple Theme</option>
+                        <option @if($user->style == 6) selected @endif value="10">Dark Red Theme</option>
+                        <option @if($user->style == 7) selected @endif value="11">Dark Teal Theme</option>
+                        <option @if($user->style == 8) selected @endif value="12">Dark Yellow Theme</option>
                     </select>
                 </div>
                 <div class="form-group">
