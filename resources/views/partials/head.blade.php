@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}">
 @elseif(auth()->user()->style == 3)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-gren.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}">
 @elseif(auth()->user()->style == 4)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}">
