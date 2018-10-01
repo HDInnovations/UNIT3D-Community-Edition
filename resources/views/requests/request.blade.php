@@ -375,8 +375,8 @@
                                     </span>
                                     @else
                                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                                        @if($user->group->is_modo || $torrentRequestClaim->FillUser->username == $user->username)
-                                            ({{ $torrentRequestClaim->FillUser->username }})
+                                        @if($user->group->is_modo || $torrentRequest->FillUser->username == $user->username)
+                                            ({{ $torrentRequest->FillUser->username }})
                                         @endif
                                     </span>
                                     @endif
