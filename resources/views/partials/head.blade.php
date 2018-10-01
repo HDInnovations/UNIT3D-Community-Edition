@@ -25,6 +25,27 @@
 @elseif(auth()->user()->style == 4)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/halloween.css') }}">
+@elseif(auth()->user()->style == 5)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}">
+@elseif(auth()->user()->style == 6)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-gren.css') }}">
+@elseif(auth()->user()->style == 7)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}">
+@elseif(auth()->user()->style == 8)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}">
+@elseif(auth()->user()->style == 9)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}">
+@elseif(auth()->user()->style == 10)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}">
+@elseif(auth()->user()->style == 11)
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}">
 @endif
 
 @if(isset(auth()->user()->custom_css))

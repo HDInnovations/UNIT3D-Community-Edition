@@ -70,7 +70,14 @@
                         <option @if($user->style == 1) selected @endif value="1">Dark Theme</option>
                         <option @if($user->style == 2) selected @endif value="2">Blur Theme</option>
                         <option @if($user->style == 3) selected @endif value="3">Galactic Theme</option>
-                        <option @if($user->style == 4) selected @endif value="4">Halloween</option>
+                        <option @if($user->style == 4) selected @endif value="4">Halloween Theme</option>
+                        <option @if($user->style == 5) selected @endif value="5">Dark Blue Theme</option>
+                        <option @if($user->style == 6) selected @endif value="6">Dark Green Theme</option>
+                        <option @if($user->style == 7) selected @endif value="7">Dark Pink Theme</option>
+                        <option @if($user->style == 8) selected @endif value="8">Dark Purple Theme</option>
+                        <option @if($user->style == 9) selected @endif value="9">Dark Red Theme</option>
+                        <option @if($user->style == 10) selected @endif value="10">Dark Teal Theme</option>
+                        <option @if($user->style == 11) selected @endif value="11">Dark Yellow Theme</option>
                     </select>
                 </div>
                 <div class="form-group">
