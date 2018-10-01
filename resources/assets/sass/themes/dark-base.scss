@@ -292,15 +292,3 @@ div.header.red div.inner_content,
 .table > tbody > tr > td.text-red {
     color: var(--color-light-red) !important;
 }
-
-/* for REDT */
-a {
-    color: var(--color-blue);
-}
-a:hover {
-    color: var(--color-light-blue);
-}
-.nav-tabs>li, .nav-tabs>li.active {
-    border:none !important;
-    background-color: #000 !important;
-}
