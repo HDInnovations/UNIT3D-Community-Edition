@@ -60,13 +60,12 @@ mix
   .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
   
   /*
-   * Compiling the halloween theme
+   * Compiling themes
    */
+  .styles('resources/assets/sass/themes/blutopian.scss', 'public/css/themes/blutopian.css')
+  
   .styles('resources/assets/sass/themes/halloween.scss', 'public/css/themes/halloween.css')
-
-  /*
-   * Compiling the dark themes
-   */
+  
   .styles('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
   .styles('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
   .styles('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')

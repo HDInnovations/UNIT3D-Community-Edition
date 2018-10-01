@@ -1,0 +1,361 @@
+#hoeapp-wrapper, #main-content, .inner-content {
+    background-color: #353d53;
+}
+
+.hoe-right-header[hoe-color-type="header-bg5"] {
+    background: #1b2438;
+}
+
+#hoeapp-container[hoe-color-type="lpanel-bg5"].hoe-minimized-lpanel #hoe-left-panel {
+    background: #1b2438;
+}
+
+.ratio-bar {
+    background-color: #232b41;
+}
+
+.breadcrumb {
+    background-color: #232b41;
+}
+
+.col-md-10 {
+    background-color:#232b41;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+
+.panel-chat > .panel-heading {
+    background-color: #1d212f;
+}
+
+.hoe-left-header {
+    background: #1b2438;
+}
+
+#hoeapp-container[hoe-color-type="lpanel-bg5"] #hoe-left-panel .panel-list > li > a {
+    background: #1b2438;
+    border-top: 1px solid #1b2438;
+    color: #8d8d94;
+    border-right: 1px solid #1b2438;
+}
+
+#hoeapp-container[hoe-color-type="lpanel-bg5"] #hoe-left-panel .panel-list > li > a:focus, #hoeapp-container[hoe-color-type="lpanel-bg5"] #hoe-left-panel .panel-list > li > a:hover {
+    background: #191e2e;
+}
+
+#hoeapp-container[hoe-color-type="lpanel-bg5"] #hoe-left-panel {
+    background: #1b2438 none repeat scroll 0 0;
+    color: #8d8d94;
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .2);
+}
+
+.container > .block, .container > .well, .container > .box {
+    background: #232b41;
+    box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.20)
+}
+
+#l-footer {
+    background-color:#1b2438;
+}
+
+.profile-footer {
+    background-color: #353d53;
+}
+
+.container.box, .torrent-desc {
+    background: #232b41;
+    box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.20)
+}
+
+.ratio-bar .badge-user {
+    background: #1b2438;
+}
+
+.container.box {
+    background: #232b41;
+    box-shadow: 2px 2px 4px 2px rgba(0,0,0,0.20)
+}
+
+.alert-info {
+    background-color: #1d212f;
+    border-color: #1d212f;
+}
+
+.notify .point {
+    background-color: #9ab0ff;
+}
+
+.notify .heartbit {
+    border: 4px solid #9ab0ff;
+}
+
+.post-signature {
+    background-color: #232b41;
+}
+
+.topic-info {
+    color: #fff;
+}
+
+.profil {
+    background: #232b41;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #fff;
+}
+
+.head {
+    background-color: rgba(66, 63, 65, 0.58);
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.56);
+}
+
+hr {
+    border-top: 1px solid #525252;
+}
+
+.label-default {
+    background-color: rgba(75, 82, 111, 0.74);
+    margin-top: 3px;
+}
+
+.form-bordered .form-group {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-left: 150px;
+}
+
+.form-control {
+    margin-top: 0;
+}
+
+.form-control:focus {
+    border-color: #7289DA;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+.gradient.silver {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.pink {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.purple {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.green {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.teal {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.light_blue {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.blue {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.orange {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.yellow {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+.gradient.red {
+    background-image: radial-gradient(at 30% top, #341a38 0, #081c24 70%)
+}
+
+div.header.silver div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.pink div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.purple div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.green div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.teal div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.light_blue div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.blue div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.orange div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.yellow div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+div.header.red div.inner_content {
+    background-image: url("https://www.themoviedb.org/assets/1/v4/account_pipes/pink-37bff5abbba8578bee5e51fc0115cf819c4918f4f6dfe3804737eb5f9b84f2a0.svg")
+}
+
+.mb-5 {
+    background-color: #353535;
+}
+
+ul.nav.nav-tabs.mb-5 {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding: 0;
+}
+
+.alert-danger, .btn-danger, .panel-danger, .panel-danger > .panel-heading {
+    background-color: rgba(255, 94, 187, 0.31);
+}
+
+.alert-success, .btn-success, .panel-success, .panel-success > .panel-heading {
+    background-color: rgba(111, 255, 175, 0.31);
+}
+
+.alert-primary, .btn-primary, .panel-primary, .panel-primary > .panel-heading {
+    background-color: rgba(117, 144, 206, 1);
+}
+
+.decoda-code, .decoda-quote {
+    border: 1px solid #494949;
+}
+
+.text-red {
+    color: rgb(224, 102, 102);
+}
+
+.text-green {
+    color: rgb(99, 206, 159);
+}
+
+.text-orange {
+    color: rgb(224, 139, 61);
+}
+
+.text-purple {    
+    color: rgb(192, 159, 224);
+}
+
+.text-info {
+    color: rgba(115, 194, 219, 0.83)
+}
+
+.text-danger {
+    color: rgb(224, 102, 102);
+}
+
+.text-success {
+    color: rgb(99, 206, 159);
+}
+
+.text-pink {
+    color: rgba(255, 124, 209, 0.82);
+}
+
+a {
+    color: rgb(143, 168, 224);
+}
+
+.badge-extra {
+    border: 1px solid rgba(66, 70, 92, 0.61);
+    border-radius: 0px;
+}
+
+.badge-extra.text-red {
+    color: rgb(224, 102, 102);
+}
+
+.label-success {
+    background-color: rgb(99, 206, 159);
+}
+
+i.torrent-icon {
+    color: rgba(201, 181, 255, 0.87);
+}
+
+a.view-torrent, a.view-torrent:hover {
+    font-size: 20px;
+}
+
+div.stats {
+    background-color: rgba(30, 30, 30, .51);
+}
+
+.label.label-danger {
+    background-color: rgb(224, 102, 102);
+}
+
+.progress-bar {
+    background-color: #46548b;
+    border-bottom: none;
+}
+
+.lead, blockquote {
+    color: #fff;
+}
+
+.media {
+    border-left-color: rgb(78, 107, 188);
+}
+
+.topic .topic-posts .post article.post-content blockquote {
+    background-color: #354054;
+    border-left: 4px solid #6496d1;
+}
+
+select option {
+  background-color: #464d60;
+}
+
+.jumbotron {
+    border: 1px solid #32385a;
+    background-color: #32385a;
+    box-shadow: 2px 2px 10px 1px #252426;
+}
+
+.hoe-searchbar input {
+    color: #111;
+}
+
+.badge-user {
+    border-radius: 0px;
+}
+
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 1) 5.46%, rgba(45, 71, 131, 0.46));
+}
+
