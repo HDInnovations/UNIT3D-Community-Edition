@@ -5,7 +5,7 @@
                 <div class="panel-heading">
                     <h4 class="text-center">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapse4" style="color:#fff">{{ trans('blocks.new-news') }}</a>
+                           href="#collapse4" style="color:#fff">@emojione(':rotating_light:') {{ trans('blocks.new-news') }} @emojione(':rotating_light:')</a>
                     </h4>
                 </div>
                 @else
