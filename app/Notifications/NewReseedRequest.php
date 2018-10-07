@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Request;
 
 use App\Torrent;
 
-class NewFollowerUpload extends Notification implements ShouldQueue
+class NewReseedRequest extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -58,8 +58,8 @@ class NewFollowerUpload extends Notification implements ShouldQueue
     {
         $appurl = config('app.url');
         return [
-            'title' => "New Follower Upload Notice",
-            'body' => "{$this->torrent->user->username} , whom you are following has uploaded has uploaded {$this->torrent->name}",
+            'title' => "New Reseed Request",
+            'body' => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
             'url' => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}"
         ];
     }

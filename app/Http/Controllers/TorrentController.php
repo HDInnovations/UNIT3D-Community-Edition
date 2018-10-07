@@ -12,7 +12,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Category;
@@ -33,9 +32,11 @@ use App\FreeleechToken;
 use App\Helpers\TorrentHelper;
 use App\Helpers\MediaInfo;
 use App\Repositories\TorrentFacetedRepository;
+use App\Repositories\ChatRepository;
 use App\Services\Bencode;
 use App\Services\TorrentTools;
 use App\Bots\IRCAnnounceBot;
+use App\Notifications\NewReseedRequest;
 use Carbon\Carbon;
 use Decoda\Decoda;
 use \Toastr;
@@ -1112,31 +1113,23 @@ class TorrentController extends Controller
         $reseed = History::where('info_hash', $torrent->info_hash)->where('active', 0)->get();
 
         if ($torrent->seeders <= 2) {
-            // Send Private Messages
-            foreach ($reseed as $pm) {
-                $pmuser = new PrivateMessage();
-                $pmuser->sender_id = 1;
-                $pmuser->receiver_id = $pm->user_id;
-                $pmuser->subject = "New Reseed Request!";
-                $pmuser->message = "Some time ago, you downloaded: [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]
-                                    Now, it has no seeds, and {$user->username} would still like to download it.
-                                    If you still have this torrent in storage, please consider reseeding it! Thanks!
-                                    [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-                $pmuser->save();
+            // Send Notification
+            foreach ($reseed as $r) {
+                User::find($r->user_id)->notify(new NewReseedRequest($torrent));
             }
 
             $torrent_url = hrefTorrent($torrent);
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$profile_url}]{$user->username}[/url] has requested a reseed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
             );
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has requested a reseed request on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::success('A PM has been sent to all users that downloaded this torrent along with original uploader!', 'Yay!', ['options']));
+                ->with(Toastr::success('A notification has been sent to all users that downloaded this torrent along with original uploader!', 'Yay!', ['options']));
         } else {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with(Toastr::error('This torrent doesnt meet the requirments for a reseed request.', 'Whoops!', ['options']));
