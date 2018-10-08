@@ -59,7 +59,7 @@ class NewFollowerUpload extends Notification implements ShouldQueue
         $appurl = config('app.url');
         return [
             'title' => "New Follower Upload Notice",
-            'body' => "{$this->torrent->user->username} , whom you are following has uploaded has uploaded {$this->torrent->name}",
+            'body' => "{$this->torrent->user->username} , whom you are following has uploaded {$this->torrent->name}",
             'url' => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}"
         ];
     }
