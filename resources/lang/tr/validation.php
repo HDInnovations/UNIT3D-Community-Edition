@@ -27,7 +27,7 @@ return [
         'string' => ':attribute :min and :max karakter aralığında olmak zorundadır.',
         'array' => ':attribute :min and :max eşya aralığında olmak zorundadır.',
     ],
-    'boolean' => ':attribute boşluğu doğru ya da yanlış olmak zorundadır.'
+    'boolean' => ':attribute boşluğu doğru ya da yanlış olmak zorundadır.',
     'confirmed' => ':attribute doğrulaması uyuşmuyor.',
     'date' => ':attribute geçerli bir tarih değil.',
     'date_format' => ':attribute formatıyla eşleşmemektedir. :format ',
