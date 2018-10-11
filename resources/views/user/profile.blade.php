@@ -354,19 +354,17 @@
                 <tr>
                     <td class="col-sm-3"> {{ trans('user.passkey') }}</td>
                     <td>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse"
-                                        data-target="#pid_block"
-                                        aria-expanded="false">{{ trans('user.show-passkey') }}</button>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse"
+                                    data-target="#pid_block"
+                                    aria-expanded="false">{{ trans('user.show-passkey') }}</button>
+                        </div>
+                        <div class="col-sm-10">
+                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
+                                <span class="text-monospace">{{ $user->passkey }}</span>
+                                <br>
                             </div>
-                            <div class="col-sm-10">
-                                <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
-                                    <span class="text-monospace">{{ $user->passkey }}</span>
-                                    <br>
-                                </div>
-                                <span class="small text-red">{{ trans('user.passkey-warning') }}</span>
-                            </div>
+                            <span class="small text-red">{{ trans('user.passkey-warning') }}</span>
                         </div>
                     </td>
                 </tr>
