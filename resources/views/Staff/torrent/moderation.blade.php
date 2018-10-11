@@ -44,7 +44,7 @@
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $p->name }}</span></a>
                         </td>
-                        <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $p->category->name }} Torrent"></i></td>
                         <td>{{ $p->type }}</td>
                         <td>{{ $p->getSize() }}</td>
@@ -190,7 +190,7 @@
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $post->name }}</span></a>
                         </td>
-                        <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $post->category->name }} Torrent"></i></td>
                         <td>{{ $post->type }}</td>
                         <td>{{ $post->getSize() }}</td>
@@ -300,7 +300,7 @@
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->name }}</span></a>
                         </td>
-                        <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                         <td>{{ $reject->type }}</td>
                         <td>{{ $reject->getSize() }}</td>

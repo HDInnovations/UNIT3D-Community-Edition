@@ -38,7 +38,7 @@
                         <tr class="">
                             <td>
                                 <div class="text-center">
-                                    <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                                    <i class="{{ $t->category->icon }} torrent-icon" data-toggle="tooltip"
                                        data-original-title="{{ $t->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                 </div>
                             </td>
@@ -47,7 +47,7 @@
                                     <div>
                                         <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
                                            href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                                           data-toggle="tooltip" title=""
+                                           data-toggle="tooltip"
                                            data-original-title="{{ $t->name }}">{{ $t->name }}</a>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                             <td>
                                 <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                     <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                            title="" data-original-title="{{ strtoupper(trans('common.download')) }}"><i
+                                            data-original-title="{{ strtoupper(trans('common.download')) }}"><i
                                                 class="livicon" data-name="download" data-size="18" data-color="white"
                                                 data-hc="white" data-l="true"></i></button>
                                 </a>
@@ -72,7 +72,7 @@
                                 <a href="{{ route('unbookmark', ['id' => $t->id]) }}">
                                     <button type="button" id="{{ $t->id }}"
                                             class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip"
-                                            title="" data-original-title="{{ trans('torrent.delete-bookmark') }}"><i
+                                            data-original-title="{{ trans('torrent.delete-bookmark') }}"><i
                                                 class="{{ config('other.font-awesome') }} fa-times"></i></button>
                                 </a>
                             </td>

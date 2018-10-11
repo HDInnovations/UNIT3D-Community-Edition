@@ -64,7 +64,7 @@
                                                 class="badge-user text-bold"
                                                 style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i
                                                     class="{{ $hpeers->user->group->icon }}" data-toggle="tooltip"
-                                                    title=""
+
                                                     data-original-title="{{ $hpeers->user->group->name }}"></i> {{ $hpeers->user->username }}</span></a>
                                 </td>
                             @endif
@@ -76,12 +76,12 @@
                                 <td class="text-red">{{ strtolower(trans('common.no')) }}</td> @endif
                             <td>
                                 <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_uploaded,2) }}</span>
-                                <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                                <span class="badge-extra text-blue" data-toggle="tooltip"
                                       data-original-title="{{ trans('torrent.credited') }} {{ strtolower(trans('common.upload')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->uploaded,2) }}</span>
                             </td>
                             <td>
                                 <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($hpeers->actual_downloaded,2) }}</span>
-                                <span class="badge-extra text-orange" data-toggle="tooltip" title=""
+                                <span class="badge-extra text-orange" data-toggle="tooltip"
                                       data-original-title="{{ trans('torrent.credited') }} {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded,2) }}</span>
                             </td>
                             <td>{{ $hpeers->created_at->diffForHumans() }}</td>

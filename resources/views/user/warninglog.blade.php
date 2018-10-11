@@ -28,12 +28,12 @@
                         </span>
                         <div class="pull-right">
                             <a href="{{ route('massDeactivateWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
-                                <button type="button" class="btn btn btn-success" data-toggle="tooltip" title=""
+                                <button type="button" class="btn btn btn-success" data-toggle="tooltip"
                                         data-original-title="Deactivate All"><i
                                             class="{{ config('other.font-awesome') }} fa-check"></i> Deactivate All</button>
                             </a>
                             <a href="{{ route('massDeleteWarnings', ['username' =>  $user->username, 'id' => $user->id]) }}">
-                                <button type="button" class="btn btn btn-danger" data-toggle="tooltip" title=""
+                                <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
                                         data-original-title="Delete All"><i
                                             class="{{ config('other.font-awesome') }} fa-times"></i> Delete All</button>
                             </a>

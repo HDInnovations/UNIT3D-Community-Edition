@@ -62,7 +62,7 @@
                                 <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                             class="badge-user text-bold"
                                             style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip" title=""
+                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip"
                                                 data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a>
                             </td>
                         @endif

@@ -26,13 +26,13 @@
                             <div class="btn-group">
                                 <a href="{{ route('mark-all-read') }}">
                                     <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle"
-                                            data-toggle="tooltip" data-placement="top" title=""
+                                            data-toggle="tooltip" data-placement="top"
                                             data-original-title="{{ trans('pm.mark-all-read') }}"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                                 <a href="{{ route('inbox') }}">
                                     <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
-                                            data-toggle="tooltip" data-placement="top" title=""
+                                            data-toggle="tooltip" data-placement="top"
                                             data-original-title="{{ trans('pm.refresh') }}"><i
                                                 class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
@@ -64,7 +64,7 @@
                                 <tr>
                                     <td class="col-sm-2">
                                         <a href="{{ route('profile', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}"
-                                           title="">{{ $p->sender->username}}
+                                          >{{ $p->sender->username}}
                                         </a>
                                     </td>
                                     <td class="col-sm-5">

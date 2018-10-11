@@ -14,16 +14,16 @@
                               style="margin-bottom: 10px;"><i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }} @if(auth()->user()->group->is_modo)
                                 <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"> {{ $u->username }} @if($u->getWarning() > 0)
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                           data-toggle="tooltip" title=""
+                                           data-toggle="tooltip"
                                            data-original-title="{{ trans('common.active-warning') }}"></i>@endif</a>@endif</span>
                     @else
                         <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}"><span
                                     class="badge-user text-bold"
                                     style="color:{{ $u->group->color }}; background-image:{{ $u->group->effect }}; margin-bottom: 10px;"><i
-                                        class="{{ $u->group->icon }}" data-toggle="tooltip" title=""
+                                        class="{{ $u->group->icon }}" data-toggle="tooltip"
                                         data-original-title="{{ $u->group->name }}"></i> {{ $u->username }} @if($u->getWarning() > 0)
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                       data-toggle="tooltip" title=""
+                                       data-toggle="tooltip"
                                        data-original-title="{{ trans('common.active-warning') }}"></i>
                                 @endif
       </span></a>

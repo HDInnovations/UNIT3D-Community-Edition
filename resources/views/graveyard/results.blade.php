@@ -18,7 +18,7 @@
                 <tr class="">
                     <td>
                         <div class="text-center">
-                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i>
                         </div>
                     </td>
@@ -27,14 +27,14 @@
                             <div>
                                 <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}"
                                    href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
-                                   data-toggle="tooltip" title=""
+                                   data-toggle="tooltip"
                                    data-original-title="{{ $torrent->name }}">{{ $torrent->name }} </a><span
                                         class="label label-success">{{ $torrent->type }}</span>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <span data-toggle="tooltip" title="" data-original-title="">
+                        <span data-toggle="tooltip" data-original-title="">
                             {{ $torrent->created_at->diffForHumans() }}
                         </span>
                     </td>

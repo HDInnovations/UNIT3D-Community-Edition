@@ -144,7 +144,7 @@
                     <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
                     <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
                 </span>
-                <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" title="" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
+                <a href="{{ route('add_request') }}" role="button" data-id="0" data-toggle="tooltip" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
                     {{ trans('request.add-request') }}
                 </a>
                 <div class="header gradient green">

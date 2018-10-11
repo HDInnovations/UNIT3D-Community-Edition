@@ -61,12 +61,12 @@
                             </td>
                             <td>
                                 @if ($torrent->isPending())
-                                    <span class='label label-warning' data-toggle="tooltip" title="">PENDING</span>
+                                    <span class='label label-warning' data-toggle="tooltip">PENDING</span>
                                 @elseif ($torrent->isApproved())
-                                    <span class='label label-success' data-toggle="tooltip" title=""
+                                    <span class='label label-success' data-toggle="tooltip"
                                           data-original-title="Moderated By {{ $torrent->moderated->username }} {{ $torrent->moderated_at->diffForHumans() }}">APPROVED</span>
                                 @elseif ($torrent->isRejected())
-                                    <span class='label label-danger' data-toggle="tooltip" title=""
+                                    <span class='label label-danger' data-toggle="tooltip"
                                           data-original-title="Moderated By {{ $torrent->moderated->username }} {{ $torrent->moderated_at->diffForHumans() }}">REJECTED</span>
                                 @endif
                             </td>

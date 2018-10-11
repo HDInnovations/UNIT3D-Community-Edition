@@ -47,7 +47,7 @@
                                 <td>
                                     <a class="view-torrent" data-id="{{ $l->id }}" data-slug="{{ $l->slug }}"
                                        href="{{ route('torrent', ['slug' => $l->slug, 'id' => $l->id]) }}"
-                                       data-toggle="tooltip" title=""
+                                       data-toggle="tooltip"
                                        data-original-title="{{ $l->name }}">{{ $l->name }}</a>
                                 </td>
                                 <td>{{ $l->seeders }}</td>

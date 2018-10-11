@@ -28,7 +28,7 @@
                                 @foreach($achievements as $item)
                                     <tr>
                                         <td><img src="/img/badges/{{ $item->details->name }}.png"
-                                                 data-toggle="tooltip" title=""
+                                                 data-toggle="tooltip"
                                                  data-original-title="{{ $item->details->name }}"></td>
                                         <td>{{ $item->details->description }}</td>
                                         @if($item->isUnlocked())
@@ -80,7 +80,7 @@
                                 @foreach($pending as $p)
                                     <tr>
                                         <td><img src="/img/badges/{{ $p->details->name }}.png"
-                                                 data-toggle="tooltip" title=""
+                                                 data-toggle="tooltip"
                                                  data-original-title="{{ $p->details->name }}"></td>
                                         <td>{{ $p->details->description }}</td>
                                         <td><span class="label label-warning">{{
@@ -112,7 +112,7 @@
                                 @foreach($locked as $l)
                                     <tr>
                                         <td><img src="/img/badges/{{ $l->details->name }}.png"
-                                                 data-toggle="tooltip" title=""
+                                                 data-toggle="tooltip"
                                                  data-original-title="{{ $l->details->name }}"></td>
                                         <td>{{ $l->details->description }}</td>
                                         <td><span class="label label-danger">{{ trans('user.locked') }}</span></td>

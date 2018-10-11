@@ -68,10 +68,10 @@
                    <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
                       class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if($p->user->isOnline())
-                        <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip" title=""
+                        <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"
                            data-original-title="Online"></i>
                     @else
-                        <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip" title=""
+                        <i class="{{ config('other.font-awesome') }} fa-circle text-red" data-toggle="tooltip"
                            data-original-title="Offline"></i>
                     @endif
                     <a href="{{ route('create', ['receiver_id' => $p->user->id, 'username' => $p->user->username]) }}">
@@ -81,7 +81,7 @@
                 </p>
                                 <p><span class="badge-user text-bold"
                                          style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip" title=""
+                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip"
                                                 data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->group->name }}</span>
                                 </p>
                                 <p class="pre">{{ $p->user->title }}</p>

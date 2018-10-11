@@ -159,25 +159,25 @@
                         <td>
                             @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
                                 @if($freeleech_token)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.fl_token') }}"></i> {{ trans('common.fl_token') }}</span> @endif
                                 @if($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.special') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.special') }} {{ trans('torrent.freeleech') }}</span> @endif
                                 @if($personal_freeleech)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-id-badge text-orange" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-id-badge text-orange" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.personal') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.personal') }} {{ trans('torrent.freeleech') }}</span> @endif
                                 @if($torrent->doubleup == "1")<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip"
                                             data-original-title="{{ trans('torrent.double-upload') }}"></i> {{ trans('torrent.double-upload') }}</span> @endif
                                 @if($torrent->free == "1")<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
                                             data-original-title="100% {{ trans('common.free') }}"></i> 100% {{ trans('common.free') }}</span> @endif
                                 @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.global') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.global') }} {{ trans('torrent.freeleech') }}</span> @endif
                                 @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip" title=""
+                                            class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}"></i> {{ trans('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}</span> @endif
                             @else
                                 <span class="text-bold text-danger"><i
@@ -320,11 +320,11 @@
                             <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span
                                         class="badge-user text-bold"
                                         style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i
-                                            class="{{ $uploader->group->icon }}" data-toggle="tooltip" title=""
+                                            class="{{ $uploader->group->icon }}" data-toggle="tooltip"
                                             data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
                         @endif
                         <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                           class="btn btn-xs btn-success" data-id="" data-toggle="tooltip" title=""
+                           class="btn btn-xs btn-success" data-id="" data-toggle="tooltip"
                            data-original-title="{{ trans('torrent.thank') }}">
                             <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ trans('torrent.thank') }}</a>
                         <span class="badge-extra text-pink"><i
@@ -350,7 +350,7 @@
                 <tr>
                     <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
                     <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip"
-                           title=""
+
                            data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i> {{ $torrent->category->name }}
                     </td>
                 </tr>

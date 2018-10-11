@@ -18,7 +18,7 @@
                 <tr>
                 <td>
                     <div class="text-center">
-                        <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
                            data-original-title="{{ $torrentRequest->category->name }} {{ trans('request.request') }}"></i>
                     </div>
                 </td>

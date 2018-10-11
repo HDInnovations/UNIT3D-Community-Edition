@@ -7,7 +7,7 @@
                         <strong>{{ auth()->user()->username }}</strong>
                         @if(auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip"
-                               title="" data-original-title="{{ trans('common.active-warning') }}"></i>
+                               data-original-title="{{ trans('common.active-warning') }}"></i>
                         @endif
                     </span>
                 </a>

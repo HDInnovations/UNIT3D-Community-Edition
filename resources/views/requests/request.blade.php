@@ -211,7 +211,7 @@
                             </td>
                             <td>
                                 <i class="{{ $torrentRequest->category->icon }} torrent-icon torrent-icon-small"
-                                   data-toggle="tooltip" title=""
+                                   data-toggle="tooltip"
                                    data-original-title="{{ $torrentRequest->category->name }} Torrent"></i> {{ $torrentRequest->category->name }}
                             </td>
                         </tr>
@@ -253,14 +253,14 @@
                             <td>
                                 @if ($torrentRequest->anon == 0)
                                 <span class="badge-user">
-                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}" title="">
+                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
                                         {{ $torrentRequest->user->username }}
                                     </a>
                                 </span>
                                 @else
                                 <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
                                 @if($user->group->is_modo || $torrentRequest->user->username == $user->username)
-                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}" title="">
+                                    <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
                                         ({{ $torrentRequest->user->username }})
                                     </a>
                                 @endif
@@ -312,7 +312,7 @@
 
                                     @if($user->group->is_modo || $torrentRequestClaim->username == $user->username)
                                         <a href="{{ route('unclaimRequest', ['id' => $torrentRequest->id]) }}"
-                                           class="btn btn-xs btn-danger" role="button" data-toggle="tooltip" title=""
+                                           class="btn btn-xs btn-danger" role="button" data-toggle="tooltip"
                                            data-original-title="{{ trans('request.unclaim') }}">
                                             <span class="icon">
                                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('request.unclaim') }}
