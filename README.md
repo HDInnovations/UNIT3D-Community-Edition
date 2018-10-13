@@ -20,6 +20,8 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
+4.1 [Auto-Installer](#installation)
+4.2 [Manual Instal](#installation)
 5. [Packages](#packages)
 6. [Security](#security)
 7. [Contributing](#contributing)
@@ -79,10 +81,15 @@ Traffic: Unlimited
 
 ## <a name="installation"></a> Installation
 
+### <a name="auto-install"></a> Using Installer
+<pre>
+cd deplyment/installer
+sudo ./install.sh
+</pre>
 **A UNIT3D Installer has been released by Poppabear.**
-
 Check it out here: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
+### <a name="manual-install"></a> Manual Instal
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
  
 ## <a name="packages"></a> Packages
