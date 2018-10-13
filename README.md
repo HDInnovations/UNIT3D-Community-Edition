@@ -83,8 +83,7 @@ Traffic: Unlimited
 
 ### <a name="auto-install"></a> Using Installer
 <pre>
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
-cd installer
+cd deployment/installer
 sudo ./install.sh
 </pre>
 **A UNIT3D Installer has been released by Poppabear.**
