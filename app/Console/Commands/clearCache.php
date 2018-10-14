@@ -18,7 +18,7 @@ class clearCache extends Command
      *
      * @var string
      */
-    protected $description = 'Clears several common cache\'s ...';
+    protected $description = 'Clears / Refreshes several common cache\'s ...';
 
     /**
      * Create a new command instance.
@@ -37,10 +37,10 @@ class clearCache extends Command
      */
     public function handle()
     {
-        $this->comment('Clearing several common cache\'s ...');
+        $this->comment('Clearing / Refreshing several common cache\'s ...');
         $this->call('view:cache');
         $this->call('route:cache');
-        $this->call('config:clear');
+        $this->call('config:cache');
         //$this->call('cache:clear');
     }
 }
