@@ -38,10 +38,10 @@ class StatsController extends Controller
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
         $active_user = cache()->remember('active_user', 60, function () {
-            $validatingGroup = Group::where('slug', '=', 'validating')->first();
-            $bannedGroup = Group::where('slug', '=', 'banned')->first();
-            $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-            $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+            $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
+            $bannedGroup = Group::where('slug', '=', 'banned')->pluck('id');
+            $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
+            $prunedGroup = Group::where('slug', '=', 'pruned')->pluck('id');
             return User::whereNotIn('group_id', [$validatingGroup, $bannedGroup, $disabledGroup, $prunedGroup])->count();
         });
 
