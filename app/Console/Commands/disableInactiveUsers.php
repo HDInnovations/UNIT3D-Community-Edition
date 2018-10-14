@@ -44,10 +44,10 @@ class disableInactiveUsers extends Command
         $disabledGroup = Group::where('slug', '=', 'disabled')->first();
         $current = Carbon::now();
 
-        $matches = User::whereIn('group_id', [config('other.group_ids')]);
+        $matches = User::whereIn('group_id', [config('pruning.group_ids')]);
 
-        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('other.account_age'))->toDateTimeString())
-            ->where('last_login', '<', $current->copy()->subDays(config('other.last_login'))->toDateTimeString())
+        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
+            ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
             ->get();
 
         foreach ($users as $user) {

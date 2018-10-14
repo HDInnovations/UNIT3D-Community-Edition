@@ -46,7 +46,7 @@ class softDeleteDisabledUsers extends Command
 
         $current = Carbon::now();
         $users = User::where('group_id', '=', $disabledGroup->id)
-            ->where('disabled_at', '<', $current->copy()->subDays(config('other.soft_delete'))->toDateTimeString())
+            ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
             ->get();
 
         foreach ($users as $user) {

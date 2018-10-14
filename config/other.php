@@ -180,19 +180,5 @@ return [
     | far = Regular
     | fal = Light
     */
-    'font-awesome' => 'fas',
-
-    /*
-    |--------------------------------------------------------------------------
-    | User Pruning
-    |--------------------------------------------------------------------------
-    | Users Account Must Be Atleast x Days Old
-    | Users Last Login Atleast x Days Ago
-    | Soft Delete Disabled Users After x Days (Pruned Group)
-    | Groups That Can Be Auto Disabled [DEFAULT] (User, PowerUser, SuperUser, Leech)
-    */
-    'account_age' => 90,
-    'last_login' => 90,
-    'soft_delete' => 120,
-    'group_ids' => [3, 11, 12, 15],
+    'font-awesome' => 'fal',
 ];
