@@ -99,6 +99,20 @@ class LoginController extends Controller
                 ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
+        if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup->id) {
+            $user->group_id = $memberGroup->id;
+            $user->can_upload = 1;
+            $user->can_download = 1;
+            $user->can_comment = 1;
+            $user->can_invite = 1;
+            $user->can_request = 1;
+            $user->can_chat = 1;
+            $user->disabled_at = null;
+            $user->save();
+            return redirect('/')
+                ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
+        }
+
         return redirect('/')
             ->with(Toastr::info('Welcome Back!', $user->username, ['options']));
     }
