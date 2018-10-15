@@ -57,7 +57,6 @@ class TorrentController extends Controller
     {
         $this->faceted = $faceted;
         $this->chat = $chat;
-        view()->share('pages', Page::all());
     }
 
     /**
