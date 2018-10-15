@@ -21,7 +21,7 @@ return [
     | Soft Delete Disabled Users After x Days (Pruned Group)
     | Groups That Can Be Auto Disabled [DEFAULT] (User, PowerUser, SuperUser, Leech)
     */
-    'user_pruning' => true,
+    'user_pruning' => false,
     'account_age' => 90,
     'last_login' => 90,
     'soft_delete' => 120,

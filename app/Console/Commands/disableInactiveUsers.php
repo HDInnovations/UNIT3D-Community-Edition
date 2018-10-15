@@ -41,29 +41,31 @@ class disableInactiveUsers extends Command
      */
     public function handle()
     {
-        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-        $current = Carbon::now();
+        if (config('pruning.user_pruning') == true) {
+            $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+            $current = Carbon::now();
 
-        $matches = User::whereIn('group_id', [config('pruning.group_ids')]);
+            $matches = User::whereIn('group_id', [config('pruning.group_ids')]);
 
-        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
-            ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
-            ->get();
+            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
+                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
+                ->get();
 
-        foreach ($users as $user) {
-            if ($user->getSeeding() !== 0) {
-                $user->group_id = $disabledGroup->id;
-                $user->can_upload = 0;
-                $user->can_download = 0;
-                $user->can_comment = 0;
-                $user->can_invite = 0;
-                $user->can_request = 0;
-                $user->can_chat = 0;
-                $user->disabled_at = Carbon::now();
-                $user->save();
+            foreach ($users as $user) {
+                if ($user->getSeeding() !== 0) {
+                    $user->group_id = $disabledGroup->id;
+                    $user->can_upload = 0;
+                    $user->can_download = 0;
+                    $user->can_comment = 0;
+                    $user->can_invite = 0;
+                    $user->can_request = 0;
+                    $user->can_chat = 0;
+                    $user->disabled_at = Carbon::now();
+                    $user->save();
 
-                // Send Email
-                dispatch(new SendDisableUserMail($user));
+                    // Send Email
+                    dispatch(new SendDisableUserMail($user));
+                }
             }
         }
     }

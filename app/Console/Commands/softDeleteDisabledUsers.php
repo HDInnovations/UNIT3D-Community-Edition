@@ -41,28 +41,30 @@ class softDeleteDisabledUsers extends Command
      */
     public function handle()
     {
-        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+        if (config('pruning.user_pruning') == true) {
+            $disabledGroup = Group::where('slug', '=', 'disabled')->first();
+            $prunedGroup = Group::where('slug', '=', 'pruned')->first();
 
-        $current = Carbon::now();
-        $users = User::where('group_id', '=', $disabledGroup->id)
-            ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
-            ->get();
+            $current = Carbon::now();
+            $users = User::where('group_id', '=', $disabledGroup->id)
+                ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
+                ->get();
 
-        foreach ($users as $user) {
-            // Send Email
-            dispatch(new SendDeleteUserMail($user));
+            foreach ($users as $user) {
+                // Send Email
+                dispatch(new SendDeleteUserMail($user));
 
-            $user->can_upload = 0;
-            $user->can_download = 0;
-            $user->can_comment = 0;
-            $user->can_invite = 0;
-            $user->can_request = 0;
-            $user->can_chat = 0;
-            $user->group = $prunedGroup->id;
-            $user->deleted_by = 1;
-            $user->save();
-            $user->delete();
+                $user->can_upload = 0;
+                $user->can_download = 0;
+                $user->can_comment = 0;
+                $user->can_invite = 0;
+                $user->can_request = 0;
+                $user->can_chat = 0;
+                $user->group = $prunedGroup->id;
+                $user->deleted_by = 1;
+                $user->save();
+                $user->delete();
+            }
         }
     }
 }

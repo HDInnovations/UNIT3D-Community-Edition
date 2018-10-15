@@ -64,6 +64,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('recycleInvites')->daily();
         $schedule->command('recycleActivityLog')->daily();
         $schedule->command('recycleFailedLogins')->daily();
+        $schedule->command('disableInactiveUsers')->daily();
+        $schedule->command('softDeleteDisabledUsers')->daily();
     }
 
     /**
