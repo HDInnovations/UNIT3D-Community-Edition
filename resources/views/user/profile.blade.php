@@ -260,63 +260,88 @@
                     <span class="badge-extra">@emojione($user->getAboutHtml())</span>
                 </td>
             </tr>
-            <tr>
-                <td>{{ trans('user.extra') }}</td>
-                <td>
-                    <ul class="list-inline mb-0">
-                        <li>
+                    <tr>
+                        <td>{{ trans('user.extra') }}</td>
+                        <td>
+                            <ul class="list-inline mb-0">
+                                <li>
           <span class="badge-extra"><strong>{{ trans('bon.bon') }}:</strong>
             <span class="text-green text-bold">{{ $user->getSeedbonus() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('common.fl_tokens') }}:</strong>
             <span class="text-green text-bold">{{ $user->fl_tokens }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.thanks-received') }}:</strong>
-            <span class="text-pink text-bold">{{ $user->thanksReceived->count() }}</span>
+            <span class="text-pink text-bold">{{ $user->thanksReceived()->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.thanks-given') }}:</strong>
-            <span class="text-pink text-bold"> {{ $user->thanksGiven->count() }}</span>
+            <span class="text-pink text-bold"> {{ $user->thanksGiven()->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.tips-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.tips-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.gift-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.gift-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.bounty-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.bounty-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.article-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('article_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.torrent-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('torrent_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.request-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('requests_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.topics') }}:</strong>
             <span class="text-green text-bold">{{ $user->topics->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.posts') }}:</strong>
             <span class="text-green text-bold">{{ $user->posts->count() }}</span>
           </span>
-                        </li>
-                        <li>
-          <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
-            <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
-          </span>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
             <tr>
                 <td>Warnings</td>
                 <td>
@@ -325,6 +350,11 @@
                     @if (auth()->check() && auth()->user()->group->is_modo)
                         <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
                                     class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
+                        <li>
+          <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
+            <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
+          </span>
+                        </li>
                     @endif
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"

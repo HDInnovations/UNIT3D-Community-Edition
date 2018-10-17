@@ -411,6 +411,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Given Many BON Tips
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bonGiven()
+    {
+        return $this->hasMany(BonTransactions::class, 'sender');
+    }
+
+    /**
+     * Has Recieved Many BON Tips
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bonReceived()
+    {
+        return $this->hasMany(BonTransactions::class, 'receiver');
+    }
+
+    /**
      * Has Many Subscriptions
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
