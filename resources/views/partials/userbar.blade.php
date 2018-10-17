@@ -73,7 +73,7 @@
             </li>
             <li>
                 <span class="badge-user text-bold">
-                    <i class="{{ config('other.font-awesome') }} fa-star text-purple"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-shopping-cart text-purple"></i>
                         <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" title="{{ trans('user.my-bonus-points') }}">
                             <span class="text-blue"> {{ trans('bon.bon') }}:</span>
                         </a>
