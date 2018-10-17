@@ -42,17 +42,15 @@ class ModerationController extends Controller
     public function moderation()
     {
         $current = Carbon::now();
-        $pending = Torrent::pending()->get();
-        $postponed = Torrent::postponed()->get();
-        $rejected = Torrent::rejected()->get();
-        $modder = Torrent::where('status', 0)->count();
+        $pending = Torrent::with('user','category')->pending()->get();
+        $postponed = Torrent::with('user','category')->postponed()->get();
+        $rejected = Torrent::with('user','category')->rejected()->get();
 
         return view('Staff.torrent.moderation', [
             'current' => $current,
             'pending' => $pending,
             'postponed' => $postponed,
             'rejected' => $rejected,
-            'modder' => $modder
         ]);
     }
 

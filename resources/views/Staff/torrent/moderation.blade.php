@@ -18,8 +18,6 @@
 @endsection
 
 @section('content')
-    <div class="text-center"><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1>
-    </div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
