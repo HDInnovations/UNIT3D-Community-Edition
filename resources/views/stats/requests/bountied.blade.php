@@ -38,7 +38,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($bountied as $key => $b)
+                        @foreach ($bountied as $key => $b)
                             <tr>
                                 <td>
                                     {{ ++$key }}
@@ -50,11 +50,11 @@
                                 </td>
                                 <td><span class="text-green">{{ $b->bounty }}</span></td>
                                 <td>
-                                    @if($b->filled_hash == null)
+                                    @if ($b->filled_hash == null)
                                         <button class="btn btn-xxs" data-toggle="tooltip"
                                                 data-original-title="{{ trans('stat.request-not-fulfilled') }}">
                                             <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i></button>
-                                    @elseif($b->filled_hash != null && $b->approved_by == null)
+                                    @elseif ($b->filled_hash != null && $b->approved_by == null)
                                         <button class="btn btn-xxs" data-toggle="tooltip"
                                                 data-original-title="{{ trans('stat.request-pending-aproval') }}">
                                             <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i></button>

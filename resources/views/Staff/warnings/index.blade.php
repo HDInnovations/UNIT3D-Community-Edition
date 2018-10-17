@@ -44,10 +44,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($warnings) == 0)
+                        @if (count($warnings) == 0)
                             <p>The are no warnings in the database!</p>
                         @else
-                            @foreach($warnings as $warning)
+                            @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
                                         <a class="view-user" data-id="{{ $warning->warneduser->id }}"
@@ -74,7 +74,7 @@
                                         {{ $warning->expires_on }}
                                     </td>
                                     <td>
-                                        @if($warning->active == 1)
+                                        @if ($warning->active == 1)
                                             <span class='label label-success'>Yes</span>
                                         @else
                                             <span class='label label-danger'>Expired</span>

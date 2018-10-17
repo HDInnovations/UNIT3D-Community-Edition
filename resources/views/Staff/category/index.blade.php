@@ -30,14 +30,14 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($categories as $c)
+            @foreach ($categories as $c)
                 <tr>
                     <td>{{ $c->position }}</td>
                     <td>
                         <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
                     </td>
                     <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
-                    <td>@if($c->meta == 1) YES @else NO @endif</td>
+                    <td>@if ($c->meta == 1) YES @else NO @endif</td>
                     <td>
                         <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}"
                            class="btn btn-warning">Edit</a>

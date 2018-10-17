@@ -26,7 +26,7 @@
             <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-users"></i> {{ trans('stat.groups') }}</strong>
                 ({{ trans('stat.users-per-group') }})</p>
             <div class="row col-md-offset-2">
-                @foreach($groups as $group)
+                @foreach ($groups as $group)
                     <div class="well col-md-3" style="margin: 10px;">
                         <div class="text-center">
                             <a href="{{ route('group', ['id' => $group->id]) }}"><h2 style="color:{{ $group->color }};">

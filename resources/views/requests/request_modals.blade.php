@@ -25,7 +25,7 @@
                     <br>
                     <div class="btns">
                         <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" @if($user->seedbonus < 100) disabled title='{{ trans('request.dont-have-bps') }}' @endif class="btn btn-success">{{ trans('request.vote') }}</button>
+                        <button type="submit" @if ($user->seedbonus < 100) disabled title='{{ trans('request.dont-have-bps') }}' @endif class="btn btn-success">{{ trans('request.vote') }}</button>
                     </div>
                 </div>
             </form>
@@ -85,7 +85,7 @@
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">{{ trans('common.cancel') }}</button>
                         <button type="submit"
-                                @if(!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
+                                @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
                                 @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                     <div class="btns">
                         <button type="button" class="btn btn-default"
                                 data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" @if($torrentRequest->filled_hash != null) disabled
+                        <button type="submit" @if ($torrentRequest->filled_hash != null) disabled
                                 @endif class="btn btn-warning">{{ trans('common.delete') }}</button>
                     </div>
                 </div>

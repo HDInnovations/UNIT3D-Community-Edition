@@ -43,8 +43,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if($activities->count())
-                        @foreach($activities as $key => $activity)
+                    @if ($activities->count())
+                        @foreach ($activities as $key => $activity)
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $activity->subject }}</td>

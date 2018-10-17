@@ -24,12 +24,12 @@
             </div>
         </div>
         <section class="articles">
-            @foreach($articles as $a)
+            @foreach ($articles as $a)
                 <article class="article col-md-12">
                     <div class="row">
                         <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}"
                            class="article-thumb col-md-2">
-                            @if( ! is_null($a->image))
+                            @if ( ! is_null($a->image))
                                 <img src="{{ url('files/img/' . $a->image) }}" class="article-thumb-img"
                                      alt="{{ $a->title }}">
                             @else

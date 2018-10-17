@@ -26,7 +26,7 @@
             </div>
             <div class="row black-list">
                 <h2>{{ trans('page.blacklist-clients') }}</h2>
-                @foreach($clients as $client)
+                @foreach ($clients as $client)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
                             <h4>{{ $client }}</h4>
@@ -40,7 +40,7 @@
             <hr>
             <div class="row black-list">
                 <h2>{{ trans('page.blacklist-browsers') }}</h2>
-                @foreach($browsers as $browser)
+                @foreach ($browsers as $browser)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
                             <h4>{{ $browser }}</h4>

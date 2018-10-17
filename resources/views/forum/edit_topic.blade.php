@@ -47,7 +47,7 @@
                         <option value="{{ $topic->forum_id }}" selected>{{ $topic->forum->name  }}
                             ({{ trans('forum.current') }})
                         </option>
-                        @foreach($categories as $c)
+                        @foreach ($categories as $c)
                             <option value="{{ $c->id }}">{{ $c->name }}</option>
                         @endforeach
                     </select>

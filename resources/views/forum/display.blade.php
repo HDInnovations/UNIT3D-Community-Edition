@@ -28,7 +28,7 @@
             <div class="f-display-info col-md-12">
                 <h1 class="f-display-info-title">{{ $forum->name }}</h1>
                 <p class="f-display-info-description">{{ $forum->description }}
-                    @if($category->getPermission()->start_topic == true)
+                    @if ($category->getPermission()->start_topic == true)
                         <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
                            class="btn btn-primary" style="float:right;">{{ trans('forum.create-new-topic') }}</a>
                     @endif
@@ -46,9 +46,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($topics as $t)
+                    @foreach ($topics as $t)
                         <tr>
-                            @if($t->pinned == 0)
+                            @if ($t->pinned == 0)
                                 <td class="f-display-topic-icon"><img src="{{ url('img/f_icon_read.png') }}"></td>
                             @else
                                 <td class="f-display-topic-icon"><span class="text-green"><i
@@ -56,21 +56,21 @@
                             @endif
                             <td class="f-display-topic-title">
                                 <strong><a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></strong>
-                                @if($t->state == "close") <span
+                                @if ($t->state == "close") <span
                                         class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
-                                @if($t->approved == "1") <span
+                                @if ($t->approved == "1") <span
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
-                                @if($t->denied == "1") <span
+                                @if ($t->denied == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
-                                @if($t->solved == "1") <span
+                                @if ($t->solved == "1") <span
                                         class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                                @if($t->invalid == "1") <span
+                                @if ($t->invalid == "1") <span
                                         class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
-                                @if($t->bug == "1") <span
+                                @if ($t->bug == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                                @if($t->suggestion == "1") <span
+                                @if ($t->suggestion == "1") <span
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
-                                @if($t->implemented == "1") <span
+                                @if ($t->implemented == "1") <span
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a

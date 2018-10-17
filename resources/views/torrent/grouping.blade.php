@@ -33,7 +33,7 @@
                 <h1>{{ $category->name }} Grouping</h1>
             </div>
         </div>
-        @foreach($torrents as $t)
+        @foreach ($torrents as $t)
             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
             @if ($t->category_id == 2)
                 @if ($t->tmdb || $t->tmdb != 0)
@@ -64,7 +64,7 @@
             <span class="movie-rating-stars">
               <i class="{{ config('other.font-awesome') }} fa-star"></i>
             </span>
-                            @if($user->ratings == 1)
+                            @if ($user->ratings == 1)
                                 {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
                             @else
                                 {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
@@ -79,8 +79,8 @@
                         <span class="badge-user"><a rel="nofollow"
                                                     href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                         <strong>Genre: </strong>
-                        @if($movie->genres)
-                            @foreach($movie->genres as $genre)
+                        @if ($movie->genres)
+                            @foreach ($movie->genres as $genre)
                                 <span class="badge-user text-bold text-green">{{ $genre }}</span>
                             @endforeach
                         @endif

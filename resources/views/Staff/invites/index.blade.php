@@ -44,10 +44,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($invites) == 0)
+                        @if (count($invites) == 0)
                             <p>The are no invite logs in the database for this user!</p>
                         @else
-                            @foreach($invites as $invite)
+                            @foreach ($invites as $invite)
                                 <tr>
                                     <td>
                                         <a href="{{ route('profile', ['username' => $invite->sender->username, 'id' => $invite->sender->id]) }}">
@@ -69,7 +69,7 @@
                                         {{ $invite->expires_on }}
                                     </td>
                                     <td>
-                                        @if($invite->accepted_by != null && $invite->accepted_by != 1)
+                                        @if ($invite->accepted_by != null && $invite->accepted_by != 1)
                                             <a href="{{ route('profile', ['username' => $invite->receiver->username, 'id' => $invite->receiver->id]) }}">
                                                 <span class="text-bold" style="color: {{ $invite->receiver->group->color }}">
                                                     <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
@@ -80,7 +80,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($invite->accepted_at != null)
+                                        @if ($invite->accepted_at != null)
                                             {{ $invite->accepted_at }}
                                         @else
                                             N/A

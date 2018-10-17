@@ -57,7 +57,7 @@
     <div class="container">
         <div class="block">
             <div class="row">
-                <h2>Number of Catalogs: @if(count($catalogs) == 0) The are no catalogs in database @else
+                <h2>Number of Catalogs: @if (count($catalogs) == 0) The are no catalogs in database @else
                         <strong>{{count($catalogs)}}</strong> @endif
                 </h2>
                 <hr>
@@ -71,7 +71,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($catalogs as $catalog)
+                        @foreach ($catalogs as $catalog)
                             <tr>
                                 <td>
                                     {{$catalog->name}}

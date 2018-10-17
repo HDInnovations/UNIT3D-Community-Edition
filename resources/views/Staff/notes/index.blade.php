@@ -42,10 +42,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(count($notes) == 0)
+                            @if (count($notes) == 0)
                                 <p>The are no notes in database for this user!</p>
                             @else
-                                @foreach($notes as $n)
+                                @foreach ($notes as $n)
                                     <tr>
                                         <td>
                                             <a class="name"

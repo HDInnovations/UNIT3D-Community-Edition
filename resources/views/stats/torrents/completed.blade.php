@@ -40,7 +40,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($completed as $key => $c)
+                        @foreach ($completed as $key => $c)
                             <tr>
                                 <td>
                                     {{ ++$key }}

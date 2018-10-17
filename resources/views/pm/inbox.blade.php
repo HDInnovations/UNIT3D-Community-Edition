@@ -60,7 +60,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($pms as $p)
+                            @foreach ($pms as $p)
                                 <tr>
                                     <td class="col-sm-2">
                                         <a href="{{ route('profile', ['username' => $p->sender->username, 'id' => $p->sender->id]) }}"

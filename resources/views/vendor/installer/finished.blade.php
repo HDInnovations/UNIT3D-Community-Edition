@@ -11,7 +11,7 @@
 
 @section('container')
 
-	@if(session('message')['dbOutputLog'])
+	@if (session('message')['dbOutputLog'])
 		<p><strong><small>{{ trans('installer_messages.final.migration') }}</small></strong></p>
 		<pre><code>{{ session('message')['dbOutputLog'] }}</code></pre>
 	@endif

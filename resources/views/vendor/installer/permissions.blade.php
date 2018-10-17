@@ -12,7 +12,7 @@
 @section('container')
 
     <ul class="list">
-        @foreach($permissions['permissions'] as $permission)
+        @foreach ($permissions['permissions'] as $permission)
         <li class="list__item list__item--permissions {{ $permission['isSet'] ? 'success' : 'error' }}">
             {{ $permission['folder'] }}
             <span>

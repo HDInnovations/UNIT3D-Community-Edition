@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="blocks">
-            @foreach($categories as $category)
+            @foreach ($categories as $category)
                 <a href="{{ route('grouping', ['category_id' => $category->id]) }}"
                    title="{{ $category->name }}">
                     <div class="blu media_blocks">

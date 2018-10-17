@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($dying as $key => $d)
+                        @foreach ($dying as $key => $d)
                             <tr>
                                 <td>
                                     {{ ++$key }}

@@ -4,7 +4,7 @@
     <div class="container-fluid">
         @include('blocks.news')
 
-        @if(!auth()->user()->chat_hidden)
+        @if (!auth()->user()->chat_hidden)
             @include('blocks.chat')
         @endif
 

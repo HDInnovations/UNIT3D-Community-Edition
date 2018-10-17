@@ -26,7 +26,7 @@
                     <p>{{ trans('stat.nerd-stats-desc') }}. <b>(Updated Every 60 Minutes!)</b></p>
 
                     <div class="inner_stats">
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <div class="stat">
                                 <p>{{ $category->num_torrent }}</p>
                                 <span class="badge-extra">{{ $category->name }} {{ trans('torrent.category') }}</span>

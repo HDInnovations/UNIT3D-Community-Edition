@@ -5,7 +5,7 @@
             <li><a href="{{ route('home') }}"><i class="{{ config('other.font-awesome') }} fa-columns"></i> {{ trans('staff.frontend') }}</a></li>
             <li><a href="{{ route('staff_dashboard') }}"><i
                             class="{{ config('other.font-awesome') }} fa-columns"></i> {{ trans('staff.staff-dashboard') }}</a></li>
-            @if(auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_admin)
                 <li><a href="{{ route('backupManager') }}"><i
                                 class="{{ config('other.font-awesome') }} fa-hdd"></i> {{ trans('backup.backup') }} {{ trans('backup.manager') }}</a>
                 </li>
@@ -16,7 +16,7 @@
             <li class="nav-header head"><i class="{{ config('other.font-awesome') }} fa-wrench"></i> {{ trans('staff.general-tools') }}</li>
             <li><a href="{{ route('staff_article_index') }}"><i
                             class="{{ config('other.font-awesome') }} fa-newspaper"></i> {{ trans('staff.articles') }}</a></li>
-            @if(auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_admin)
                 <li><a href="{{ route('staff_forum_index') }}"><i class="fab fa-wpforms"></i> {{ trans('staff.forums') }}
                     </a></li>
                 <li><a href="{{ route('staff_groups_index') }}"><i class="{{ config('other.font-awesome') }} fa-users"></i> {{ trans('staff.groups') }}
@@ -61,7 +61,7 @@
                             class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.failed-login-log') }}</a></li>
             <li><a href="{{ route('getInvites') }}"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.invites-log') }}</a></li>
             <li><a href="{{ route('getNotes') }}"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.user-notes') }}</a></li>
-            @if(auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_admin)
                 <li><a href="/staff/log-viewer"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.laravel-log') }}</a></li>
             @endif
             <li><a href="{{ route('getReports') }}"><i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('staff.reports-log') }}</a></li>

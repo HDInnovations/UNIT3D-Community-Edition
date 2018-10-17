@@ -44,7 +44,7 @@
                     <th>@sortablelink('completed_at', trans('torrent.completed_at'))</th>
                     </thead>
                     <tbody>
-                    @foreach($history as $his)
+                    @foreach ($history as $his)
                         <tr>
                             <td>
                                 <a class="view-torrent" data-id="{{ $his->torrent_id }}"
@@ -56,10 +56,10 @@
                             <td>
                                 <span class="badge-extra text-purple">{{ $his->agent ? $his->agent : trans('common.unknown') }}</span>
                             </td>
-                            @if($his->active == 1)
+                            @if ($his->active == 1)
                                 <td class="text-green">{{ trans('common.yes') }}</td> @else
                                 <td class="text-red">{{ trans('common.no') }}</td> @endif
-                            @if($his->seeder == 1)
+                            @if ($his->seeder == 1)
                                 <td class="text-green">{{ trans('common.yes') }}</td> @else
                                 <td class="text-red">{{ trans('common.no') }}</td> @endif
                             <td>
@@ -72,7 +72,7 @@
                                 <span class="badge-extra text-orange" data-toggle="tooltip"
                                       data-original-title="{{ trans('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his->downloaded , 2) }}</span>
                             </td>
-                            @if($his->seedtime < config('hitrun.seedtime'))
+                            @if ($his->seedtime < config('hitrun.seedtime'))
                                 <td>
                                     <span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                 </td>

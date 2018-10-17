@@ -51,9 +51,9 @@
                 <tbody>
                 @foreach ($peers as $p)
                     <tr>
-                        @if($p->user->peer_hidden == 1)
+                        @if ($p->user->peer_hidden == 1)
                             <td><span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)
+                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }}
                                             )</span></a>@endif</td>
@@ -97,7 +97,7 @@
                             <span class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
                         </td>
                         <td><span class="badge-extra text-purple text-bold">{{ $p->agent }}</span></td>
-                        @if(auth()->user()->group->is_modo)
+                        @if (auth()->user()->group->is_modo)
                             <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
                             <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
                         @else

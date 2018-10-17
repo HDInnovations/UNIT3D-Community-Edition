@@ -41,7 +41,7 @@
                     </span>
                     @else
                     <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
-                        @if($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                        @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
                             <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
                                 ({{ $torrentRequest->user->username }})
                             </a>

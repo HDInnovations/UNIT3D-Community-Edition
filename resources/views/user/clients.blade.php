@@ -58,7 +58,7 @@
     <div class="row">
         <div class="container box">
             <h3 class="text-center">{{ trans('user.my-seedboxes') }}</h3>
-            @if(count($clients) > 0)
+            @if (count($clients) > 0)
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered table-striped table-hover">
                         <tr>
@@ -67,7 +67,7 @@
                             <th>{{ trans('common.added') }}</th>
                             <th>{{ trans('common.remove') }}</th>
                         </tr>
-                        @foreach($clients as $client)
+                        @foreach ($clients as $client)
                             <tr>
                                 <td>{{ $client->name }}</td>
                                 <td>{{ $client->ip }}</td>

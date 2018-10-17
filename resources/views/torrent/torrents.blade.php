@@ -68,7 +68,7 @@
         <div class="form-group">
             <label for="category" class="col-sm-1 label label-default">Category</label>
             <div class="col-sm-10">
-                @foreach($repository->categories() as $id => $category)
+                @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
                         {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
                         {{ Form::label($category,$category,['class'=>'inline']) }}
@@ -80,7 +80,7 @@
         <div class="form-group">
             <label for="type" class="col-sm-1 label label-default">Type</label>
             <div class="col-sm-10">
-                @foreach($repository->types() as $id => $type)
+                @foreach ($repository->types() as $id => $type)
                     <span class="badge-user">
                         {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
                         {{ Form::label($type,$type,['class'=>'inline']) }}

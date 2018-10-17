@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($seeded as $key => $s)
+                        @foreach ($seeded as $key => $s)
                             <tr>
                                 <td>
                                     {{ ++$key }}

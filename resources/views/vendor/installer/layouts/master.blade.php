@@ -30,7 +30,7 @@
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelInstaller::environment')}} {{ isActive('LaravelInstaller::environmentWizard')}} {{ isActive('LaravelInstaller::environmentClassic')}}">
-                        @if(Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
+                        @if (Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
                             <a href="{{ route('LaravelInstaller::environment') }}">
                                 <i class="step__icon {{ config('other.font-awesome') }} fa-cog" aria-hidden="true"></i>
                             </a>
@@ -40,7 +40,7 @@
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelInstaller::permissions') }}">
-                        @if(Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
+                        @if (Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
                             <a href="{{ route('LaravelInstaller::permissions') }}">
                                 <i class="step__icon {{ config('other.font-awesome') }} fa-key" aria-hidden="true"></i>
                             </a>
@@ -50,7 +50,7 @@
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelInstaller::requirements') }}">
-                        @if(Request::is('install') || Request::is('install/requirements') || Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
+                        @if (Request::is('install') || Request::is('install/requirements') || Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
                             <a href="{{ route('LaravelInstaller::requirements') }}">
                                 <i class="step__icon {{ config('other.font-awesome') }} fa-list" aria-hidden="true"></i>
                             </a>
@@ -60,7 +60,7 @@
                     </li>
                     <li class="step__divider"></li>
                     <li class="step__item {{ isActive('LaravelInstaller::welcome') }}">
-                        @if(Request::is('install') || Request::is('install/requirements') || Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
+                        @if (Request::is('install') || Request::is('install/requirements') || Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
                             <a href="{{ route('LaravelInstaller::welcome') }}">
                                 <i class="step__icon {{ config('other.font-awesome') }} fa-home" aria-hidden="true"></i>
                             </a>
@@ -74,7 +74,7 @@
                     @if (session('message'))
                         <p class="alert text-center">
                             <strong>
-                                @if(is_array(session('message')))
+                                @if (is_array(session('message')))
                                     {{ session('message')['message'] }}
                                 @else
                                     {{ session('message') }}
@@ -82,7 +82,7 @@
                             </strong>
                         </p>
                     @endif
-                    @if(session()->has('errors'))
+                    @if (session()->has('errors'))
                         <div class="alert alert-danger" id="error_alert">
                             <button type="button" class="close" id="close_alert" data-dismiss="alert" aria-hidden="true">
                                  <i class="{{ config('other.font-awesome') }} fa-close" aria-hidden="true"></i>
@@ -92,7 +92,7 @@
                                 {{ trans('installer_messages.forms.errorTitle') }}
                             </h4>
                             <ul>
-                                @foreach($errors->all() as $error)
+                                @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>

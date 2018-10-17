@@ -5,7 +5,7 @@
     @include('partials.head')
 </head>
 
-@if(auth()->user()->nav == 0)
+@if (auth()->user()->nav == 0)
     <body hoe-navigation-type="vertical-compact" hoe-nav-placement="left" theme-layout="wide-layout">
     @else
         <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
@@ -77,7 +77,7 @@
             </script>
         @endif
 
-        @if(Session::has('achievement'))
+        @if (Session::has('achievement'))
             <script type="text/javascript">
                 swal({
                     title: '{{ trans('common.achievement-title') }}!',
@@ -91,7 +91,7 @@
         @yield('javascripts')
         @yield('scripts')
 
-        @if(config('app.debug') == false)
+        @if (config('app.debug') == false)
             <!-- INSERT YOUR ANALYTICS CODE HERE -->
         @else
             <!-- INSERT DEBUG CODE HERE -->

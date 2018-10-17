@@ -5,7 +5,7 @@
                 <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
                     <span class="badge-user text-bold" style="color:{{ auth()->user()->group->color }}">
                         <strong>{{ auth()->user()->username }}</strong>
-                        @if(auth()->user()->getWarning() > 0)
+                        @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip"
                                data-original-title="{{ trans('common.active-warning') }}"></i>
                         @endif

@@ -10,7 +10,7 @@
         <div class="col-md-9">
             <section class="box-body">
                 <div class="row">
-                    @foreach($percents as $level => $item)
+                    @foreach ($percents as $level => $item)
                         <div class="col-md-4">
                             <div class="info-box level level-{{ $level }} {{ $item['count'] === 0 ? 'level-empty' : '' }}">
                                 <span class="info-box-icon">

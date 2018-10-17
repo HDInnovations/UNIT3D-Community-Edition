@@ -16,32 +16,32 @@
 
 <link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
 
-@if(auth()->user()->style == 1)
+@if (auth()->user()->style == 1)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-@elseif(auth()->user()->style == 2)
+@elseif (auth()->user()->style == 2)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}">
-@elseif(auth()->user()->style == 3)
+@elseif (auth()->user()->style == 3)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}">
-@elseif(auth()->user()->style == 4)
+@elseif (auth()->user()->style == 4)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}">
-@elseif(auth()->user()->style == 5)
+@elseif (auth()->user()->style == 5)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}">
-@elseif(auth()->user()->style == 6)
+@elseif (auth()->user()->style == 6)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}">
-@elseif(auth()->user()->style == 7)
+@elseif (auth()->user()->style == 7)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}">
-@elseif(auth()->user()->style == 8)
+@elseif (auth()->user()->style == 8)
     <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
     <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}">
 @endif
 
-@if(isset(auth()->user()->custom_css))
+@if (isset(auth()->user()->custom_css))
     <link rel="stylesheet" href="{{auth()->user()->custom_css}}"/>
 @endif
 @yield('stylesheets')

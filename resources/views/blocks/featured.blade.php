@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($featured as $key => $feature)
+                    @foreach ($featured as $key => $feature)
                         @if ($feature->torrent->category_id == 2)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
                                 @php $movie = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
@@ -63,8 +63,8 @@
                                                 <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
-                                                    @if($movie->genres)
-                                                        @foreach($movie->genres as $genre)
+                                                    @if ($movie->genres)
+                                                        @foreach ($movie->genres as $genre)
                                                             | {{ $genre }} |
                                                         @endforeach
                                                     @endif

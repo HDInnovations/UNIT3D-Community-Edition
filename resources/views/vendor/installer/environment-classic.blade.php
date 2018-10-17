@@ -21,7 +21,7 @@
         </div>
     </form>
 
-    @if( ! isset($environment['errors']))
+    @if ( ! isset($environment['errors']))
         <div class="buttons-container">
             <a class="button float-left" href="{{ route('LaravelInstaller::environmentWizard') }}">
                 <i class="{{ config('other.font-awesome') }} fa-sliders fa-fw" aria-hidden="true"></i>

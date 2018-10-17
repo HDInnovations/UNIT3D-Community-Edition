@@ -3,7 +3,7 @@
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
-            @if($user->show_poster == 1)
+            @if ($user->show_poster == 1)
                 <th>Poster</th>
             @else
                 <th></th>
@@ -19,7 +19,7 @@
         </thead>
 
         <tbody>
-        @foreach($torrents as $torrent)
+        @foreach ($torrents as $torrent)
             @if ($torrent->category_id == 2)
                 @if ($torrent->tmdb || $torrent->tmdb != 0)
                     @php $movie = $client->scrape('tv', null, $torrent->tmdb); @endphp

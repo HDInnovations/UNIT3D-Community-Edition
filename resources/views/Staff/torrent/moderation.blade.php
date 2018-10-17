@@ -35,7 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($pending as $p)
+                @foreach ($pending as $p)
                     <tr>
                         <td><span class="text-red text-bold">{{ $p->created_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $p->slug, 'id' => $p->id]) }}" itemprop="url"
@@ -181,7 +181,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($postponed as $post)
+                @foreach ($postponed as $post)
                     <tr>
                         <td><span class="text-red text-bold">{{ $post->moderated_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url"
@@ -291,7 +291,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($rejected as $reject)
+                @foreach ($rejected as $reject)
                     <tr>
                         <td><span class="text-red text-red">{{ $reject->created_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $reject->slug, 'id' => $reject->id]) }}"
@@ -302,7 +302,7 @@
                                data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                         <td>{{ $reject->type }}</td>
                         <td>{{ $reject->getSize() }}</td>
-                        <td>@if($reject->user) <a
+                        <td>@if ($reject->user) <a
                                     href="{{ route('profile', ['username' => $reject->user->username, 'id' => $reject->user->id]) }}"
                                     itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                         class="l-breadcrumb-item-link-title">{{ $reject->user->username }}

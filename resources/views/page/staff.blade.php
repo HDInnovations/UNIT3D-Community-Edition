@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="row oper-list">
-                @foreach($staff as $s)
+                @foreach ($staff as $s)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center oper-item" style="background-color: {{ $s->color }};">
                             <a href="{{ route('profile', ['username' => $s->username, 'id' => $s->id]) }}"

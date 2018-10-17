@@ -33,7 +33,7 @@
 
 @section('content')
     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
-    @if($category->id == 2)
+    @if ($category->id == 2)
         @php $movie = $client->scrape('tv', 'tt'.$imdb); @endphp
     @else
         @php $movie = $client->scrape('movie', 'tt'.$imdb); @endphp
@@ -58,7 +58,7 @@
           <span class="movie-rating-stars">
             <i class="{{ config('other.font-awesome') }} fa-star"></i>
           </span>
-                        @if($user->ratings == 1)
+                        @if ($user->ratings == 1)
                             {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
                         @else
                             {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
@@ -73,8 +73,8 @@
                     <span class="badge-user"><a rel="nofollow"
                                                 href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     <strong>Genre: </strong>
-                    @if($movie->genres)
-                        @foreach($movie->genres as $genre)
+                    @if ($movie->genres)
+                        @foreach ($movie->genres as $genre)
                             <span class="badge-user text-bold text-green">{{ $genre }}</span>
                         @endforeach
                     @endif
@@ -107,7 +107,7 @@
                     </tr>
                     </thead>
                     <tbody id="result">
-                    @foreach($torrents as $k => $t)
+                    @foreach ($torrents as $k => $t)
                         <tr>
                             <td>
                                 <div class="torrent-poster pull-left"><img src="{{ $movie->poster }}"
@@ -195,33 +195,33 @@
                                                                                      data-toggle="tooltip"
 
                                                                                      data-original-title="Thanks Given"></i> {{ $t->thanks()->count() }}</span>
-                                    @if($t->stream == "1")<span class="badge-extra text-bold"><i
+                                    @if ($t->stream == "1")<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-play text-red" data-toggle="tooltip"
                                                 data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-                                    @if($t->doubleup == "1")<span class="badge-extra text-bold"><i
+                                    @if ($t->doubleup == "1")<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip"
                                                 data-original-title="Double upload"></i> Double Upload</span> @endif
-                                    @if($t->free == "1")<span class="badge-extra text-bold"><i
+                                    @if ($t->free == "1")<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
                                                 data-original-title="100% Free"></i> 100% Free</span> @endif
-                                    @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i
+                                    @if (config('other.freeleech') == true)<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                                 data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-                                    @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i
+                                    @if (config('other.doubleup') == true)<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                                 data-original-title="Double Upload"></i> Global Double Upload</span> @endif
-                                    @if($t->leechers >= "5") <span class="badge-extra text-bold"><i
+                                    @if ($t->leechers >= "5") <span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-fire text-orange" data-toggle="tooltip"
                                                 data-original-title="Hot!"></i> Hot!</span> @endif
-                                    @if($t->sticky == 1) <span class="badge-extra text-bold"><i
+                                    @if ($t->sticky == 1) <span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-thumbtack text-black" data-toggle="tooltip"
 
                                                 data-original-title="Sticky!"></i> Sticky!</span> @endif
-                                    @if($user->updated_at->getTimestamp() < $t->created_at->getTimestamp())
+                                    @if ($user->updated_at->getTimestamp() < $t->created_at->getTimestamp())
                                         <span class="badge-extra text-bold"><i class="{{ config('other.font-awesome') }} fa-magic text-black"
                                                                                data-toggle="tooltip"
                                                                                data-original-title="NEW!"></i> NEW!</span> @endif
-                                    @if($t->highspeed == 1)<span class="badge-extra text-bold"><i
+                                    @if ($t->highspeed == 1)<span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-tachometer text-red" data-toggle="tooltip"
                                                 data-original-title="High Speeds!"></i> High Speeds!</span> @endif
                                 </strong>

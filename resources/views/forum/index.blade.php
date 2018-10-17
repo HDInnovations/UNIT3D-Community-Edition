@@ -27,8 +27,8 @@
                    class="form-control">
         </form>
         <div class="forum-categories">
-            @foreach($categories as $category)
-                @if($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
+            @foreach ($categories as $category)
+                @if ($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
                     <div class="header gradient teal">
                         <div class="inner_content">
                             <h1>{{ $category->name }}</h1>
@@ -46,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($category->getForumsInCategory()->sortBy('position') as $categoryChild)
+                        @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
                             <tr>
                                 <td><img src="{{ url('img/forum.png') }}"></td>
                                 <td>

@@ -25,7 +25,7 @@
                 <a href="{{ route('create_album_form') }}" class="btn btn-md btn-success">Create New Album</a>
             </div>
             <div class="row">
-                @foreach($albums as $album)
+                @foreach ($albums as $album)
                     <div class="col-md-3 text-center">
                         <div class="thumbnail" style="min-height: 435px;">
                             <img alt="{{$album->name}}" src="{{ url('files/img/' . $album->cover_image) }}">

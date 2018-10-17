@@ -43,10 +43,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($reports) == 0)
+                        @if (count($reports) == 0)
                             <p>The are no reports in database</p>
                         @else
-                            @foreach($reports as $r)
+                            @foreach ($reports as $r)
                                 <tr>
                                     <td>
                                         {{ $r->id }}
@@ -73,7 +73,7 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if($r->solved == 0)
+                                        @if ($r->solved == 0)
                                             <span class="text-red">
                                                 <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> NO</strong>
                                             </span>

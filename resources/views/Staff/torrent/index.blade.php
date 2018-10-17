@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($torrents as $t)
+            @foreach ($torrents as $t)
                 <tr>
                     <td>{{ $t->id }}</a>
                     </td>

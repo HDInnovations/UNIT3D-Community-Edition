@@ -54,14 +54,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($warnings) == 0)
+                        @if (count($warnings) == 0)
                             <tr>
                                 <td>
                                     <p>The are no warnings in the database for this user!</p>
                                 </td>
                             </tr>
                         @else
-                            @foreach($warnings as $warning)
+                            @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
                                         <a data-id="{{ $warning->staffuser->id }}"
@@ -83,14 +83,14 @@
                                         {{ $warning->expires_on }}
                                     </td>
                                     <td>
-                                        @if($warning->active == 1)
+                                        @if ($warning->active == 1)
                                             <span class='label label-success'>Yes</span>
                                         @else
                                             <span class='label label-danger'>Expired</span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if($warning->active == 1)
+                                        @if ($warning->active == 1)
                                             <a href="{{ route('deactivateWarning', ['id' => $warning->id]) }}" class="btn btn-xs btn-warning">
                                                 <i class="{{ config('other.font-awesome') }} fa-power-off"></i>
                                             </a>
@@ -142,14 +142,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(count($softDeletedWarnings) == 0)
+                            @if (count($softDeletedWarnings) == 0)
                                 <tr>
                                     <td>
                                         <p>The are soft deleted warnings in the database for this user!</p>
                                     </td>
                                 </tr>
                             @else
-                                @foreach($softDeletedWarnings as $softDeletedWarning)
+                                @foreach ($softDeletedWarnings as $softDeletedWarning)
                                     <tr>
                                         <td>
                                             <a data-id="{{ $softDeletedWarning->staffuser->id }}"

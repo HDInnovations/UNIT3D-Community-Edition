@@ -16,7 +16,7 @@
     <div class="contrainer">
 
 
-        @foreach($labourTypes as $id => $name)
+        @foreach ($labourTypes as $id => $name)
             <div class="checkbox">
                 <label>
                     {!! Form::checkbox("labour_types[]", $id) !!} {{$name}}

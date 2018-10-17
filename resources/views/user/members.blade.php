@@ -39,10 +39,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach ($users as $user)
                     <tr>
                         <td>
-                            @if($user->image != null)
+                            @if ($user->image != null)
                                 <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
                                      class="members-table-img img-thumbnail">
                             @else

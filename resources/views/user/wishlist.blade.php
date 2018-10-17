@@ -55,16 +55,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($wishes as $wish)
+                        @foreach ($wishes as $wish)
                             <tr>
                                 <td>
-                                    @if($wish->source !== null)
+                                    @if ($wish->source !== null)
                                         <a href="{{$wish->source}}">
                                             @endif
 
                                             {{ $wish->title }}
 
-                                            @if($wish->source !== null)
+                                            @if ($wish->source !== null)
                                         </a>
                                     @endif
                                 </td>
@@ -74,7 +74,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @if($wish->source === null)
+                                    @if ($wish->source === null)
                                         <i class="{{ config('other.font-awesome') }} fa-times red-text"></i>
                                     @else
                                         <i class="{{ config('other.font-awesome') }} fa-check green-text"></i>
@@ -96,7 +96,7 @@
                         {{ $wishes->links() }}
                     </div>
 
-                    @if(count($wishes) <= 0)
+                    @if (count($wishes) <= 0)
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i> No Wishes</h1>

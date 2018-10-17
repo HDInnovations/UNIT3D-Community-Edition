@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($leeched as $key => $l)
+                        @foreach ($leeched as $key => $l)
                             <tr>
                                 <td>
                                     {{ ++$key }}

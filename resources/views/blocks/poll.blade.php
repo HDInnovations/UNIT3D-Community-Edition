@@ -1,4 +1,4 @@
-@if($poll && $poll->voters->where('user_id', auth()->user()->id)->isEmpty())
+@if ($poll && $poll->voters->where('user_id', auth()->user()->id)->isEmpty())
     <div class="col-md-10 col-sm-10 col-md-offset-1">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
@@ -24,7 +24,7 @@
 
                                     {!! csrf_field() !!}
 
-                                    @if($poll->multiple_choice)
+                                    @if ($poll->multiple_choice)
                                         @foreach ($poll->options as $option)
                                             <a class="forum-category-childs-forum col-md-4">
                                                 <div class="checkbox">
@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                @if($poll->multiple_choice)
+                                @if ($poll->multiple_choice)
                                     <span class="badge-user text-bold text-red">{{ trans('poll.multiple-choice') }}</span>
                                 @endif
                             </div>

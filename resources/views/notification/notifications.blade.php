@@ -59,7 +59,7 @@
                                 <a href="{{ route('read_notification', ['id' => $n->id]) }}">
                                     <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip"
                                             data-original-title="{{ trans('notification.mark-read') }}"
-                                            @if($n->read_at != null) disabled @endif><i class="{{ config('other.font-awesome') }} fa-eye"></i></button>
+                                            @if ($n->read_at != null) disabled @endif><i class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                             </td>
                             <td>

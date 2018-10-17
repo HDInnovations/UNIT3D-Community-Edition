@@ -195,7 +195,7 @@
                             <td>{{ $pf['description'] }}</td>
                             <td>{{ $pf['cost'] }}</td>
                             <td>
-                                @if($activefl)
+                                @if ($activefl)
                                     <form method="post" action="{{ route('bonusexchange', ['id' => $pf['id']]) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
@@ -247,7 +247,7 @@
                 <div class="col-sm-9">
                     <select class="form-control user-select-placeholder-single" name="to_username">
                         <option value="{{ $username }}">{{ $username }}</option>
-                        @foreach($users as $user)
+                        @foreach ($users as $user)
                             <option value="{{ $user->username }}">{{ $user->username }}</option>
                         @endforeach
                     </select>

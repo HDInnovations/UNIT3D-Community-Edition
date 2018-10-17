@@ -11,11 +11,11 @@
 
 @section('container')
 
-    @foreach($requirements['requirements'] as $type => $requirement)
+    @foreach ($requirements['requirements'] as $type => $requirement)
         <ul class="list">
             <li class="list__item list__title {{ $phpSupportInfo['supported'] ? 'success' : 'error' }}">
                 <strong>{{ ucfirst($type) }}</strong>
-                @if($type == 'php')
+                @if ($type == 'php')
                     <strong>
                         <small>
                             (version {{ $phpSupportInfo['minimum'] }} required)
@@ -29,7 +29,7 @@
                     </span>
                 @endif
             </li>
-            @foreach($requirements['requirements'][$type] as $extention => $enabled)
+            @foreach ($requirements['requirements'][$type] as $extention => $enabled)
                 <li class="list__item {{ $enabled ? 'success' : 'error' }}">
                     {{ $extention }}
                     <i class="{{ config('other.font-awesome') }} fa-fw fa-{{ $enabled ? 'check-circle' : 'exclamation-circle' }} row-icon" aria-hidden="true"></i>

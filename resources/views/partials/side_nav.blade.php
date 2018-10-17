@@ -10,9 +10,9 @@
             </a>
         </li>
         <li>
-            @if(auth()->user()->torrent_layout == 1)
+            @if (auth()->user()->torrent_layout == 1)
                 <a href="{{ route('grouping_categories') }}">
-            @elseif(auth()->user()->torrent_layout == 2)
+            @elseif (auth()->user()->torrent_layout == 2)
                 <a href="{{ route('cards') }}">
             @else
                 <a href="{{ route('torrents') }}">
@@ -133,7 +133,7 @@
             <span class="selected"></span>
           </a>
         </li>--}}
-        @if(auth()->user()->group->is_modo)
+        @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff_dashboard') }}">
                     <i class="livicon" data-name="gears" data-c="#E74C3C" data-hc="#E74C3C" data-size="18"

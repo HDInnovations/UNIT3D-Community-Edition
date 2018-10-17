@@ -15,7 +15,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($posts as $p)
+                @foreach ($posts as $p)
                     @if ($p->topic->viewable())
                         <tr class="">
                             <td>

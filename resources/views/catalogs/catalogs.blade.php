@@ -20,7 +20,7 @@
                     <h1>{{ trans('torrent.catalogs') }}</h1>
                 </div>
             </div>
-            @foreach($catalogs as $c)
+            @foreach ($catalogs as $c)
                 <a href="{{ route('catalog', ['slug' => $c->slug, 'id' => $c->id]) }}" class="well col-md-2"
                    style="margin: 10px;">
                     <h2>{{ $c->name }}</h2>

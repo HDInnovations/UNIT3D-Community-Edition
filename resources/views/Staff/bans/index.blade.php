@@ -43,10 +43,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($bans) == 0)
+                        @if (count($bans) == 0)
                             <p>The are no bans in database</p>
                         @else
-                            @foreach($bans as $b)
+                            @foreach ($bans as $b)
                                 <tr>
                                     <td>
                                         {{ $b->id }}

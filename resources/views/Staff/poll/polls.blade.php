@@ -26,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($polls as $poll)
+            @foreach ($polls as $poll)
                 <tr>
                     <td><a href="{{ url('/staff_dashboard/poll/' . $poll->id) }}">{{ $poll->title }}</a></td>
                     <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>

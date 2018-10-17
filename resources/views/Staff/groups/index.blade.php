@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($groups as $group)
+                @foreach ($groups as $group)
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
@@ -48,21 +48,21 @@
                         <td><i class="{{ config('other.font-awesome') }} fa-circle" style="color: {{ $group->color }};"></i> {{ $group->color }}</td>
                         <td><i class="{{ $group->icon }}"></i> [{{ $group->icon }}]</td>
                         <td>{{ $group->effect }}</td>
-                        <td>@if($group->is_internal == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_internal == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->is_modo == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_modo == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->is_admin == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_admin == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->is_trusted == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_trusted == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->is_immune == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_immune == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->is_freeleech == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->is_freeleech == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->can_upload == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->can_upload == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
-                        <td>@if($group->autogroup == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                        <td>@if ($group->autogroup == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                     </tr>
                 @endforeach
