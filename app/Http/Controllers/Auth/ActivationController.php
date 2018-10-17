@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\UserActivation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Group;
 use \Toastr;
 
 class ActivationController extends Controller

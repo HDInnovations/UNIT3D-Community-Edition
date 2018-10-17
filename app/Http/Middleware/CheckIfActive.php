@@ -13,6 +13,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Group;
 use \Toastr;
 
 class CheckIfActive

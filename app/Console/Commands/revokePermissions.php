@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\PrivateMessage;
 use App\Warning;
 use App\User;
+use App\Group;
 
 class revokePermissions extends Command
 {
@@ -41,11 +42,11 @@ class revokePermissions extends Command
      */
     public function handle()
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->first();
-        $leechGroup = Group::where('slug', '=', 'leech')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-        $prunedGroup = Group::where('slug', '=', 'pruned')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->pluck('id');
+        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
+        $leechGroup = Group::where('slug', '=', 'leech')->pluck('id');
+        $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
+        $prunedGroup = Group::where('slug', '=', 'pruned')->pluck('id');
 
         User::whereNotIn('group_id', [$bannedGroup,$validatingGroup,$leechGroup,$disabledGroup,$prunedGroup])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$bannedGroup,$validatingGroup,$leechGroup,$disabledGroup,$prunedGroup])->update(['can_download' => '0', 'can_request' => '0']);

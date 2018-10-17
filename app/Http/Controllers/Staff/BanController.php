@@ -19,6 +19,7 @@ use App\Mail\BanUser;
 use App\Mail\UnbanUser;
 use App\User;
 use App\Ban;
+use App\Group;
 use Carbon\Carbon;
 use \Toastr;
 
