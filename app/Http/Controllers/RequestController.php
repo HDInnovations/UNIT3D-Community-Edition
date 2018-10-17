@@ -66,7 +66,7 @@ class RequestController extends Controller
         $claimed_bounty = TorrentRequest::whereNotNull('filled_by')->sum('bounty');
         $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
-        $torrentRequests = TorrentRequest::query()->paginate(25);
+        $torrentRequests = TorrentRequest::with('user','category')->paginate(25);
         $repository = $this->repository;
 
         return view('requests.requests', [
@@ -107,7 +107,7 @@ class RequestController extends Controller
             $search .= '%' . $term . '%';
         }
 
-        $torrentRequest = $torrentRequest->newQuery();
+        $torrentRequest = $torrentRequest->with('user','category');
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrentRequest->where('name', 'like', $search);

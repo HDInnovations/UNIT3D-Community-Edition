@@ -68,7 +68,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::query()->paginate(25);
+        $torrents = Torrent::with('user','category')->paginate(25);
         $repository = $this->faceted;
 
         return view('torrent.torrents', [
@@ -201,7 +201,7 @@ class TorrentController extends Controller
             $description .= '%' . $keyword . '%';
         }
 
-        $torrent = $torrent->newQuery();
+        $torrent = $torrent->with('user','category');
 
         if ($request->has('search')) {
             $torrent->where(function ($query) use ($search) {

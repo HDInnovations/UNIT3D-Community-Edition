@@ -39,7 +39,7 @@ class GraveyardController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $torrents = Torrent::query()->paginate(25);
+        $torrents = Torrent::with('category')->paginate(25);
         $repository = $this->faceted;
         $deadcount = Torrent::where('seeders', 0)->count();
 
@@ -75,7 +75,7 @@ class GraveyardController extends Controller
             $search .= '%' . $term . '%';
         }
 
-        $torrent = $torrent->where('seeders', 0);
+        $torrent = $torrent->with('category')->where('seeders', 0);
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
