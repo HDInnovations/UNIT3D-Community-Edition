@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function members()
     {
-        $users = User::latest()->paginate(50);
+        $users = User::with('group')->latest()->paginate(50);
 
         return view('user.members', ['users' => $users]);
     }

@@ -40,11 +40,11 @@ class UserController extends Controller
      */
     public function members()
     {
-        $users = User::latest()->paginate(25);
-        $uploaders = User::where('group_id', 7)->latest()->paginate(25);
-        $mods = User::where('group_id', 6)->latest()->paginate(25);
-        $admins = User::where('group_id', 4)->latest()->paginate(25);
-        $coders = User::where('group_id', 10)->latest()->paginate(25);
+        $users = User::with('group')->latest()->paginate(25);
+        $uploaders = User::with('group')->where('group_id', 7)->latest()->paginate(25);
+        $mods = User::with('group')->where('group_id', 6)->latest()->paginate(25);
+        $admins = User::with('group')->where('group_id', 4)->latest()->paginate(25);
+        $coders = User::with('group')->where('group_id', 10)->latest()->paginate(25);
 
         return view('Staff.user.user_search', [
             'users' => $users,
