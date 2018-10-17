@@ -350,11 +350,9 @@
                     @if (auth()->check() && auth()->user()->group->is_modo)
                         <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
                                     class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
-                        <li>
           <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
-                        </li>
                     @endif
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
