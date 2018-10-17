@@ -66,27 +66,27 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->first();
-        $memberGroup = Group::where('slug', '=', 'member')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->pluck('id');
+        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
+        $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
+        $memberGroup = Group::where('slug', '=', 'member')->pluck('id');
 
-        if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
+        if ($user->active == 0 || $user->group_id == $validatingGroup) {
             auth()->logout();
             $request->session()->flush();
             return redirect()->route('login')
                 ->with(Toastr::error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
 
-        if ($user->group_id == $bannedGroup->id) {
+        if ($user->group_id == $bannedGroup) {
             auth()->logout();
             $request->session()->flush();
             return redirect()->route('login')
                 ->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
         }
 
-        if ($user->group_id == $disabledGroup->id) {
-            $user->group_id = $memberGroup->id;
+        if ($user->group_id == $disabledGroup) {
+            $user->group_id = $memberGroup;
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;
@@ -99,8 +99,8 @@ class LoginController extends Controller
                 ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
-        if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup->id) {
-            $user->group_id = $memberGroup->id;
+        if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup) {
+            $user->group_id = $memberGroup;
             $user->can_upload = 1;
             $user->can_download = 1;
             $user->can_comment = 1;

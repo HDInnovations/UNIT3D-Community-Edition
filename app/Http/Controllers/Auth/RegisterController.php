@@ -67,7 +67,7 @@ class RegisterController extends Controller
                 ->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }
 
-        $validatingGroup = Group::where('slug', '=', 'validating')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
@@ -77,7 +77,7 @@ class RegisterController extends Controller
         $user->uploaded = config('other.default_upload');
         $user->downloaded = config('other.default_download');
         $user->style = config('other.default_style', 0);
-        $user->group_id = $validatingGroup->id;
+        $user->group_id = $validatingGroup;
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [

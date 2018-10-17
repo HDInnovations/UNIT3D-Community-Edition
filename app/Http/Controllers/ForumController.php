@@ -84,11 +84,11 @@ class ForumController extends Controller
         $categories = Forum::oldest('position')->get();
 
         // Total Forums Count
-        $num_forums = Forum::all()->count();
+        $num_forums = Forum::count();
         // Total Posts Count
-        $num_posts = Post::all()->count();
+        $num_posts = Post::count();
         // Total Topics Count
-        $num_topics = Topic::all()->count();
+        $num_topics = Topic::count();
 
         return view('forum.index', [
             'categories' => $categories,
