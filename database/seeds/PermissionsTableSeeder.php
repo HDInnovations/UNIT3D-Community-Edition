@@ -399,7 +399,7 @@ class PermissionsTableSeeder extends Seeder
             ),
             38 =>
                 array (
-                    'id' => 1,
+                    'id' => 39,
                     'forum_id' => 1,
                     'group_id' => 20,
                     'show_forum' => 0,
@@ -409,7 +409,7 @@ class PermissionsTableSeeder extends Seeder
                 ),
             39 =>
                 array (
-                    'id' => 1,
+                    'id' => 40,
                     'forum_id' => 1,
                     'group_id' => 21,
                     'show_forum' => 0,
@@ -419,7 +419,7 @@ class PermissionsTableSeeder extends Seeder
                 ),
             40 =>
                 array (
-                    'id' => 1,
+                    'id' => 41,
                     'forum_id' => 2,
                     'group_id' => 20,
                     'show_forum' => 0,
@@ -429,7 +429,7 @@ class PermissionsTableSeeder extends Seeder
                 ),
             41 =>
                 array (
-                    'id' => 1,
+                    'id' => 42,
                     'forum_id' => 2,
                     'group_id' => 21,
                     'show_forum' => 0,
