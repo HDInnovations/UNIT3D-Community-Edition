@@ -12,6 +12,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Bookmark;
+use App\PersonalFreeleech;
+
 class BookmarkController extends Controller
 {
     /**
@@ -21,8 +24,14 @@ class BookmarkController extends Controller
      */
     public function bookmarks()
     {
-        $myBookmarks = auth()->user()->bookmarks;
+        $user = auth()->user();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $bookmarks = Bookmark::with('torrent')->where('user_id', '=', auth()->user()->id)->paginate(25);
 
-        return view('bookmark.bookmarks', ['myBookmarks' => $myBookmarks]);
+        return view('bookmark.bookmarks', [
+            'user' => $user,
+            'personal_freeleech' => $personal_freeleech,
+            'bookmarks' => $bookmarks
+        ]);
     }
 }
