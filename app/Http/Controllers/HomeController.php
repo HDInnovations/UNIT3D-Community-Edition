@@ -37,11 +37,11 @@ class HomeController extends Controller
         $articles = Article::latest()->take(1)->get();
 
         // Latest Torrents Block
-        $torrents = Torrent::latest()->take(5)->get();
-        $best = Torrent::latest('seeders')->take(5)->get();
-        $leeched = Torrent::latest('leechers')->take(5)->get();
-        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();
-        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(5)->get();
+        $torrents = Torrent::with('category')->latest()->take(5)->get();
+        $best = Torrent::with('category')->latest('seeders')->take(5)->get();
+        $leeched = Torrent::with('category')->latest('leechers')->take(5)->get();
+        $dying = Torrent::with('category')->where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();
+        $dead = Torrent::with('category')->where('seeders', 0)->latest('leechers')->take(5)->get();
 
         // Latest Topics Block
         $topics = Topic::latest()->take(5)->get();
