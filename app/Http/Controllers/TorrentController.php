@@ -68,7 +68,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with('user','category')->paginate(25);
+        $torrents = Torrent::with(['user', 'category'])->paginate(25);
         $repository = $this->faceted;
 
         return view('torrent.torrents', [
@@ -87,7 +87,7 @@ class TorrentController extends Controller
     public function cardsLayout()
     {
         $user = auth()->user();
-        $torrents = Torrent::latest()->paginate(33);
+        $torrents = Torrent::with(['user', 'category'])->latest()->paginate(33);
 
         return view('torrent.cards', ['user' => $user, 'torrents' => $torrents]);
     }
@@ -201,7 +201,7 @@ class TorrentController extends Controller
             $description .= '%' . $keyword . '%';
         }
 
-        $torrent = $torrent->with('user','category');
+        $torrent = $torrent->with(['user', 'category']);
 
         if ($request->has('search')) {
             $torrent->where(function ($query) use ($search) {

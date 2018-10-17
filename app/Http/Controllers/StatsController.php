@@ -258,7 +258,7 @@ class StatsController extends Controller
     public function seedsize()
     {
         // Fetch Top Total Seedsize Users
-        $seedsize = User::with('peers', 'torrents')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
+        $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
 
         return view('stats.users.seedsize', ['seedsize' => $seedsize]);
     }
