@@ -12,6 +12,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Gstt\Achievements\Achiever;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +25,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
+    use SoftDeletes;
 
     /**
      * The Attributes Excluded From The Model's JSON Form.
@@ -41,7 +43,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['last_login'];
+    protected $dates = ['last_login', 'deleted_at'];
 
     /**
      * Belongs To A Group

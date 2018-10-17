@@ -35,5 +35,7 @@ return [
     'report-link-hash' => 'Actual link',
     'unban-footer' => 'Welcome back!',
     'unban-header' => 'You Have Been Unbanned',
-    'unban-reason' => 'Reason'
+    'unban-reason' => 'Reason',
+    'disabled-header' => 'Your Account Has Been Disabled',
+    'pruned-header' => 'Your Account Has Been Pruned',
 ];

@@ -185,5 +185,5 @@ return [
     | far = Regular
     | fal = Light
     */
-    'font-awesome' => 'fas',
+    'font-awesome' => 'fal',
 ];
