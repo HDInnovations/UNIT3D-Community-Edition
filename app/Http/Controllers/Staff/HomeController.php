@@ -32,12 +32,12 @@ class HomeController extends Controller
     public function home()
     {
         // User Info
-        $bannedGroup = Group::where('slug', '=', 'banned')->pluck('id');
-        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
 
         $num_user = User::count();
-        $banned = User::where('group_id', $bannedGroup)->count();
-        $validating = User::where('group_id', $validatingGroup)->count();
+        $banned = User::where('group_id', $bannedGroup->id)->count();
+        $validating = User::where('group_id', $validatingGroup->id)->count();
 
         // Torrent Info
         $num_torrent = Torrent::count();

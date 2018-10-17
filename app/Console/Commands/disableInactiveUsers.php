@@ -42,7 +42,7 @@ class disableInactiveUsers extends Command
     public function handle()
     {
         if (config('pruning.user_pruning') == true) {
-            $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
+            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
             $current = Carbon::now();
 
             $matches = User::whereIn('group_id', [config('pruning.group_ids')]);
@@ -53,7 +53,7 @@ class disableInactiveUsers extends Command
 
             foreach ($users as $user) {
                 if ($user->getSeeding() !== 0) {
-                    $user->group_id = $disabledGroup;
+                    $user->group_id = $disabledGroup->id;
                     $user->can_upload = 0;
                     $user->can_download = 0;
                     $user->can_comment = 0;

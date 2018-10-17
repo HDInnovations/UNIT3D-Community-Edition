@@ -42,11 +42,11 @@ class softDeleteDisabledUsers extends Command
     public function handle()
     {
         if (config('pruning.user_pruning') == true) {
-            $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
-            $prunedGroup = Group::where('slug', '=', 'pruned')->pluck('id');
+            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+            $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
 
             $current = Carbon::now();
-            $users = User::where('group_id', '=', $disabledGroup)
+            $users = User::where('group_id', '=', $disabledGroup->id)
                 ->where('disabled_at', '<', $current->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
                 ->get();
 
@@ -60,7 +60,7 @@ class softDeleteDisabledUsers extends Command
                 $user->can_invite = 0;
                 $user->can_request = 0;
                 $user->can_chat = 0;
-                $user->group = $prunedGroup;
+                $user->group = $prunedGroup->id;
                 $user->deleted_by = 1;
                 $user->save();
                 $user->delete();

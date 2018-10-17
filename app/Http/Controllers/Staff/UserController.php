@@ -278,12 +278,12 @@ class UserController extends Controller
      */
     public function massValidateUsers()
     {
-        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
-        $memberGroup = Group::where('slug', '=', 'member')->pluck('id');
-        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup)->get();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $memberGroup = Group::where('slug', '=', 'member')->select('id')->first();
+        $users = User::where('active', '=', 0)->where('group_id', '=', $validatingGroup->id)->get();
 
         foreach ($users as $user) {
-            $user->group_id = $memberGroup;
+            $user->group_id = $memberGroup->id;
             $user->active = 1;
             $user->can_upload = 1;
             $user->can_download = 1;

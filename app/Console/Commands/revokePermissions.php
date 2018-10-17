@@ -42,14 +42,14 @@ class revokePermissions extends Command
      */
     public function handle()
     {
-        $bannedGroup = Group::where('slug', '=', 'banned')->pluck('id');
-        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
-        $leechGroup = Group::where('slug', '=', 'leech')->pluck('id');
-        $disabledGroup = Group::where('slug', '=', 'disabled')->pluck('id');
-        $prunedGroup = Group::where('slug', '=', 'pruned')->pluck('id');
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $leechGroup = Group::where('slug', '=', 'leech')->select('id')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
 
-        User::whereNotIn('group_id', [$bannedGroup,$validatingGroup,$leechGroup,$disabledGroup,$prunedGroup])->update(['can_download' => '1', 'can_request' => '1']);
-        User::whereIn('group_id', [$bannedGroup,$validatingGroup,$leechGroup,$disabledGroup,$prunedGroup])->update(['can_download' => '0', 'can_request' => '0']);
+        User::whereNotIn('group_id', [$bannedGroup->id,$validatingGroup->id,$leechGroup->id,$disabledGroup->id,$prunedGroup->id])->update(['can_download' => '1', 'can_request' => '1']);
+        User::whereIn('group_id', [$bannedGroup->id,$validatingGroup->id,$leechGroup->id,$disabledGroup->id,$prunedGroup->id])->update(['can_download' => '0', 'can_request' => '0']);
 
         $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
 

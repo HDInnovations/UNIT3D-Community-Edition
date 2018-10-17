@@ -21,13 +21,13 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
-        $validatingGroup = Group::where('slug', '=', 'validating')->pluck('id');
-        $memberGroup = Group::where('slug', '=', 'member')->pluck('id');
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $memberGroup = Group::where('slug', '=', 'member')->select('id')->first();
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
 
-        if ($user->group_id === $validatingGroup) {
-            $user->group_id = $memberGroup;
+        if ($user->group_id === $validatingGroup->id) {
+            $user->group_id = $memberGroup->id;
         }
 
         $user->active = true;
