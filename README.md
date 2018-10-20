@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
 <p align="center">
-    <b>A Special Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a></b>
+    💛<b>A Big Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a> and Patrons</b>💛
 </p>
 <hr>
 
@@ -29,13 +29,14 @@
 9. [Homestead (For local developement)](#homestead)
 10. [Demo](#demo)
 11. [Donate](#donate)
+11. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
 
 I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.6.39, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
-## <a name="features"></a> :blue_heart: Some Features
+## <a name="features"></a> 💎 Some Features
 
 UNIT3D currently offers the following features:
   - Internal Forums System
@@ -144,3 +145,7 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+## <a name="thanks"></a> :blue_heart: Special Thanks
+
+<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
