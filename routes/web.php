@@ -234,6 +234,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
+        
+        Route::get('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
 
         // User Wishlist
         Route::get('/wishlist/{uid}', 'WishController@index')->name('wishlist');

@@ -17,6 +17,19 @@
     <div class="container-fluid">
         <h1 class="title">Uploads Table</h1>
         <div class="block">
+        
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="input-group pull-right">
+                  <form role="form" method="GET" action="{{ route('myuploadssearch', ['username' => $user->username, 'id' => $user->id]) }}">
+                    @csrf
+                    <input type="text" name="name" id="name" class="form-control"
+                      placeholder="Search...">
+                  </form>
+                </div>
+              </div>
+            </div>
+        
             <!-- Uploads -->
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
