@@ -160,8 +160,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/stats/groups/group/{id}', 'StatsController@group')->name('group');
 
         // Private Messages System
-        Route::get('/mail/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
-        Route::get('/mail/searchPMOutbox', 'PrivateMessageController@searchPMOutbox')->name('searchPMOutbox');
+        Route::post('/mail/searchPMInbox', 'PrivateMessageController@searchPMInbox')->name('searchPMInbox');
+        Route::post('/mail/searchPMOutbox', 'PrivateMessageController@searchPMOutbox')->name('searchPMOutbox');
         Route::get('/mail/inbox', 'PrivateMessageController@getPrivateMessages')->name('inbox');
         Route::get('/mail/message/{id}', 'PrivateMessageController@getPrivateMessageById')->name('message');
         Route::get('/mail/outbox', 'PrivateMessageController@getPrivateMessagesSent')->name('outbox');
@@ -235,7 +235,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
         
-        Route::get('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
+        Route::post('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
 
         // User Wishlist
         Route::get('/wishlist/{uid}', 'WishController@index')->name('wishlist');

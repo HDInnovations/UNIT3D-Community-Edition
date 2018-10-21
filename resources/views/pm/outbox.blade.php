@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="input-group pull-right">
-                                <form role="form" method="GET" action="{{ route('searchPMOutbox') }}">
+                                <form role="form" method="POST" action="{{ route('searchPMOutbox') }}">
                                     @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
                                            placeholder="{{ trans('pm.search') }}">

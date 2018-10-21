@@ -21,7 +21,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <div class="input-group pull-right">
-                  <form role="form" method="GET" action="{{ route('myuploadssearch', ['username' => $user->username, 'id' => $user->id]) }}">
+                  <form role="form" method="POST" action="{{ route('myuploadssearch', ['username' => $user->username, 'id' => $user->id]) }}">
                     @csrf
                     <input type="text" name="name" id="name" class="form-control"
                       placeholder="Search...">
