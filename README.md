@@ -20,8 +20,8 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
-4.1 [Automated-Installer](#auto-install)
-4.2 [Manual Install](#manual-install)
+4.1. [Automated-Installer](#auto-install)
+4.2. [Manual Install](#manual-install)
 5. [Packages](#packages)
 6. [Security](#security)
 7. [Contributing](#contributing)
@@ -86,8 +86,7 @@ Traffic: Unlimited
 **A UNIT3D Installer has been released by Poppabear.**
 
 <pre>
-git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
-cd installer
+cd deployment/installer
 sudo ./install.sh
 </pre>
 
