@@ -67,7 +67,7 @@ class RegisterController extends Controller
                 ->with(Toastr::error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }
 
-        $group = Group::where('slug', '=', 'validating')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');
@@ -77,7 +77,7 @@ class RegisterController extends Controller
         $user->uploaded = config('other.default_upload');
         $user->downloaded = config('other.default_download');
         $user->style = config('other.default_style', 0);
-        $user->group_id = $group->id;
+        $user->group_id = $validatingGroup->id;
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
@@ -167,7 +167,7 @@ class RegisterController extends Controller
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
             $this->chat->systemMessage(
-                "$welcomeArray[$selected]"
+                ":robot: [b][color=#fb9776]System[/color][/b] : {$welcomeArray[$selected]}"
             );
 
             // Send Welcome PM

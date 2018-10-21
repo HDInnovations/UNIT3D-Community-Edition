@@ -29,7 +29,7 @@
                     : {{ $catalog->name }} {{ strtolower(trans('torrent.catalog')) }}</h1>
             </div>
         </div>
-        @foreach($records as $r)
+        @foreach ($records as $r)
             <div class="row">
                 @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
                 @if ($r->category_id == 2)

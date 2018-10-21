@@ -26,7 +26,7 @@
                     <p>{{ trans('stat.nerd-stats-desc') }}. <b>(Updated Every 60 Minutes!)</b></p>
 
                     <div class="inner_stats">
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <div class="stat">
                                 <p>{{ $category->num_torrent }}</p>
                                 <span class="badge-extra">{{ $category->name }} {{ trans('torrent.category') }}</span>
@@ -51,8 +51,28 @@
                         <br>
 
                         <div class="stat">
-                            <p>{{ $num_user }}</p>
-                            <span class="badge-extra">{{ trans('common.users') }}</span>
+                            <p>{{ $all_user }}</p>
+                            <span class="badge-extra">All {{ trans('common.users') }}</span>
+                        </div>
+
+                        <div class="stat">
+                            <p>{{ $active_user }}</p>
+                            <span class="badge-extra">Active {{ trans('common.users') }}</span>
+                        </div>
+
+                        <div class="stat">
+                            <p>{{ $disabled_user }}</p>
+                            <span class="badge-extra">Disabled {{ trans('common.users') }}</span>
+                        </div>
+
+                        <div class="stat">
+                            <p>{{ $pruned_user }}</p>
+                            <span class="badge-extra">Pruned {{ trans('common.users') }}</span>
+                        </div>
+
+                        <div class="stat">
+                            <p>{{ $banned_user }}</p>
+                            <span class="badge-extra">Banned {{ trans('common.users') }}</span>
                         </div>
 
                         <div class="stat">

@@ -2,12 +2,12 @@
     <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
 <p align="center">
-    <b>A Special Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a></b>
+    💛<b>A Big Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a> and Patrons</b>💛
 </p>
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.6.38-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.6.39-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
 <a href="https://trello.com/b/tUDsQ0Gs/unit3d"><img src="https://img.shields.io/badge/Trello-HERE-green.svg" /></a>
 <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
 <a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>	
@@ -20,7 +20,7 @@
 2. [Some Features](#features)
 3. [Requirements](#requirements)
 4. [Installation](#installation)
-4.1 [Auto-Installer](#auto-install)
+4.1 [Automated-Installer](#auto-install)
 4.2 [Manual Install](#manual-install)
 5. [Packages](#packages)
 6. [Security](#security)
@@ -29,13 +29,14 @@
 9. [Homestead (For local developement)](#homestead)
 10. [Demo](#demo)
 11. [Donate](#donate)
+11. [Special Thanks](#thanks)
 
 
-## <a name="introduction"></a> Introduction
+## <a name="introduction"></a> :page_facing_up: Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.6.38, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.6.39, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
-## <a name="features"></a> Some Features
+## <a name="features"></a> 💎 Some Features
 
 UNIT3D currently offers the following features:
   - Internal Forums System
@@ -54,7 +55,7 @@ UNIT3D currently offers the following features:
   - DB + Files Backup Manager
   - and MUCH MORE!
 
-## <a name="requirements"></a> Requirements
+## <a name="requirements"></a> :white_check_mark: Requirements
 
 - A Web server (NGINX is recommended)
 - PHP 7.1.3 + is required (7.2 for Argon2 Support)
@@ -79,45 +80,50 @@ Traffic: Unlimited
 <b>Is Under $50 A Month</b>
 </pre>
 
-## <a name="installation"></a> Installation
+## <a name="installation"></a> :computer: Installation
 
-### <a name="auto-install"></a> Using Installer
-<pre>
-cd deployment/installer
-sudo ./install.sh
-</pre>
+### <a name="auto-install"></a> Automated Installer
 **A UNIT3D Installer has been released by Poppabear.**
 
-Check it out here: https://github.com/poppabear8883/UNIT3D-INSTALLER
+<pre>
+git clone https://github.com/poppabear8883/UNIT3D-INSTALLER.git installer
+cd installer
+sudo ./install.sh
+</pre>
+
+Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
 ### <a name="manual-install"></a> Manual Install
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
+
+## <a name="docs"></a> :book: Documentation
+WIP - https://github.com/HDInnovations/UNIT3D-Docs
  
-## <a name="packages"></a> Packages
+## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
 - [An artisan package to import a XBTIT database into UNIT3D](https://github.com/HDInnovations/xbtit-to-unit3d).
 - [An artisan package to import a Gazelle database into UNIT3D](https://github.com/HDInnovations/gazelle-to-unit3d).
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
 
-## <a name="security"></a> Security
+## <a name="security"></a> :lock: Security
 
 If you discover any security related issues, please email unit3d@protonmail.com instead of using the issue tracker.
 
-## <a name="contributing"></a> Contributing
+## <a name="contributing"></a> :muscle: Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
 
-## <a name="license"></a> License
+## <a name="license"></a> 📝 License
 
 UNIT3D is open-sourced software licensed under the [GNU General Public License v3.0](https://github.com/HDVinnie/UNIT3D/blob/master/LICENSE).
 
 <b> As per license do not remove the license from sourcecode or from footer in /resources/views/partials/footer.blade.php</b>
 
-## <a name="homestead"></a> Homestead (for local developement)
+## <a name="homestead"></a> :computer: Homestead (for local developement)
 
 For instructions on how to use Homestead for running UNIT3D in a local development environment check here: https://github.com/HDInnovations/UNIT3D/wiki/Homestead
 
-## <a name="demo"></a> Demo
+## <a name="demo"></a> :computer: Demo
 
 URL: https://unit3d.org
 
@@ -125,7 +131,7 @@ Username: UNIT3D
 
 Password: UNIT3D
 
-## <a name="donate"></a> Support UNIT3D
+## <a name="donate"></a> :star: Support UNIT3D
 
 You can support my work if you are enjoying UNIT3D, this really keeps me up for fixing problems and adding new features. Also helps pay for the demo server + domain. Plus some beer to keep me sane. Some folks have asked me if it's possible to do a one-time donation, or if I accept cryptocurrency. Yes, and yes!
 
@@ -139,3 +145,7 @@ Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
 Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+
+## <a name="thanks"></a> :blue_heart: Special Thanks
+
+<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>

@@ -42,11 +42,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($pms as $p)
+                        @foreach ($pms as $p)
                             <tr>
                                 <td class="col-sm-2"><a
                                             href="{{ route('profile', ['username' => $p->receiver->username, 'id' => $p->receiver->id]) }}"
-                                            title="">{{ $p->receiver->username}}</a></td>
+                                           >{{ $p->receiver->username}}</a></td>
                                 <td class="col-sm-5"><a
                                             href="{{ route('message', ['id' => $p->id]) }}">{{ $p->subject }}</a>
                                 </td>

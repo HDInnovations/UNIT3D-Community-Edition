@@ -10,9 +10,9 @@
             </a>
         </li>
         <li>
-            @if(auth()->user()->torrent_layout == 1)
+            @if (auth()->user()->torrent_layout == 1)
                 <a href="{{ route('grouping_categories') }}">
-            @elseif(auth()->user()->torrent_layout == 2)
+            @elseif (auth()->user()->torrent_layout == 2)
                 <a href="{{ route('cards') }}">
             @else
                 <a href="{{ route('torrents') }}">
@@ -89,7 +89,7 @@
         </li>
         <li>
             <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}">
-                <i class="livicon" data-name="star-full" data-c="#BF55EC" data-hc="#BF55EC" data-size="18"
+                <i class="livicon" data-name="shopping-cart" data-c="#BF55EC" data-hc="#BF55EC" data-size="18"
                    data-loop="true"></i>
                 <span class="menu-text">{{ trans('bon.bon') }} {{ trans('bon.store') }}</span>
                 <span class="selected"></span>
@@ -133,7 +133,7 @@
             <span class="selected"></span>
           </a>
         </li>--}}
-        @if(auth()->user()->group->is_modo)
+        @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff_dashboard') }}">
                     <i class="livicon" data-name="gears" data-c="#E74C3C" data-hc="#E74C3C" data-size="18"

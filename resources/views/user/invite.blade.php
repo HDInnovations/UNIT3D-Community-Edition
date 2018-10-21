@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-        @elseif($user->can_invite == 0)
+        @elseif ($user->can_invite == 0)
             <div class="container">
                 <div class="jumbotron shadowed">
                     <div class="container">

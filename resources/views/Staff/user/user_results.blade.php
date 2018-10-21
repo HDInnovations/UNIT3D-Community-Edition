@@ -46,10 +46,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($users as $user)
+                        @foreach ($users as $user)
                             <tr>
                                 <td class="user-image hidden-xs hidden-sm">
-                                    @if($user->image != null)
+                                    @if ($user->image != null)
                                         <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
                                              class="img-circle"> @else
                                         <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
@@ -59,7 +59,7 @@
                                             href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}"
                                             class="name">{{ $user->username }}</a> <span>{{ $user->group->name }}</span>
                                 </td>
-                                @if(auth()->user()->group->is_modo)
+                                @if (auth()->user()->group->is_modo)
                                     <td class="hidden-xs hidden-sm"><span class="email">{{ $user->email }}</span></td>
                                     <td class="user-id">
                                         {{ $user->id }}

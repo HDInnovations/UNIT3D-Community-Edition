@@ -12,7 +12,7 @@
     <div class="container-fluid">
         <div class="block">
             <div class="row">
-                @foreach($torrents as $k => $t)
+                @foreach ($torrents as $k => $t)
                     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
                     @if ($t->category_id == 2)
                         @if ($t->tmdb || $t->tmdb != 0)
@@ -50,8 +50,8 @@
                                                 <span class="text-bold text-pink"> {{ $movie->releaseYear }}</span>
                                             </a>
                                         </h3>
-                                    @if($movie->genres)
-                                        @foreach($movie->genres as $genre)
+                                    @if ($movie->genres)
+                                        @foreach ($movie->genres as $genre)
                                             <span class="genre-label">{{ $genre }}</span>
                                         @endforeach
                                     @endif
@@ -63,8 +63,8 @@
 
                         <div class="card_footer">
                             <div style="float: left;">
-                                @if($t->anon == 1)
-                                    <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
+                                @if ($t->anon == 1)
+                                    <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $t->user->id || auth()->user()->group->is_modo)
                                             <a href="{{ route('profile', ['username' => $t->user->username, 'id' => $t->user->id]) }}">({{ $t->user->username }}
                                                 )</a>@endif</span>
                                 @else
@@ -79,7 +79,7 @@
 
                             <span class="badge-user text-bold" style="float: right;">
                                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                                    @if($user->ratings == 1)
+                                    @if ($user->ratings == 1)
                                         {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
                                     @else
                                         {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})

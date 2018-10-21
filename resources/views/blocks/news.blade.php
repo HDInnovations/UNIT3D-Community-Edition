@@ -1,11 +1,11 @@
-@foreach($articles as $a)
+@foreach ($articles as $a)
     <div class="col-md-10 col-sm-10 col-md-offset-1">
-        @if(auth()->user()->updated_at->getTimestamp() < $a->created_at->getTimestamp())
+        @if (auth()->user()->updated_at->getTimestamp() < $a->created_at->getTimestamp())
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h4 class="text-center">
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                           href="#collapse4" style="color:#fff">{{ trans('blocks.new-news') }}</a>
+                           href="#collapse4" style="color:#fff">@emojione(':rotating_light:') {{ trans('blocks.new-news') }} @emojione(':rotating_light:')</a>
                     </h4>
                 </div>
                 @else
@@ -26,7 +26,7 @@
                                             <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}"
                                                class="article-thumb col-md-2">
                                                 <!-- Image -->
-                                                @if( ! is_null($a->image))
+                                                @if ( ! is_null($a->image))
                                                     <img src="{{ url('files/img/' . $a->image) }}"
                                                          class="article-thumb-img" alt="{{ $a->title }}"> @else
                                                     <img src="{{ url('img/missing-image.jpg') }}"

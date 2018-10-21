@@ -21,7 +21,7 @@ return [
     |
     */
 
-    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.8.6',
+    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.8.7',
 
     /*
     |--------------------------------------------------------------------------
@@ -165,10 +165,15 @@ return [
     |--------------------------------------------------------------------------
     | Default Site Style
     |--------------------------------------------------------------------------
-    | 0 = Light
-    | 1 = Dark
-    | 2 = Blur
-    | 3 = Galatic
+    | 0 = Light Theme
+    | 1 = Galactic Theme
+    | 2 = Dark Blue Theme
+    | 3 = Dark Green Theme
+    | 4 = Dark Pink Theme
+    | 5 = Dark Purple Theme
+    | 6 = Dark Red Theme
+    | 7 = Dark Teal Theme
+    | 8 = Dark Yellow Theme
     */
     'default_style' => 0,
 
@@ -180,5 +185,5 @@ return [
     | far = Regular
     | fal = Light
     */
-    'font-awesome' => 'fas',
+    'font-awesome' => 'fal',
 ];

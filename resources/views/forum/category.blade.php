@@ -41,7 +41,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($c->getForumsInCategory() as $f)
+                    @foreach ($c->getForumsInCategory() as $f)
                         <tr>
                             <!-- Icon -->
                             <td class="f-category-forums-icon">

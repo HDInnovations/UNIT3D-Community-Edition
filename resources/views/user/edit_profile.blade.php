@@ -47,7 +47,7 @@
                           class="form-control">{{ $user->signature }}</textarea>
             </div>
 
-            @if( !is_null($user->signature))
+            @if ( !is_null($user->signature))
                 <div class="text-center"><p>{{ trans('user.forum-signature') }} </p> {!! $user->getSignature() !!}</div>
             @endif
 

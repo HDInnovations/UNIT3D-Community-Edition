@@ -4,10 +4,6 @@
     <title>{{ trans('request.add-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ url('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -23,7 +19,7 @@
 
 @section('content')
     <div class="container">
-        @if($user->can_request == 0)
+        @if ($user->can_request == 0)
             <div class="container">
                 <div class="jumbotron shadowed">
                     <div class="container">
@@ -38,8 +34,7 @@
         @else
             <div class="col-sm-12">
                 <div class="well well-sm mt-20">
-                    <p class="lead text-orange text-center">{{ trans('request.no-imdb-id') }}</strong>
-                    </p>
+                    <p class="lead text-orange text-center"><strong>{{ trans('request.no-imdb-id') }}</strong></p>
                 </div>
             </div>
             <h1 class="upload-title">{{ trans('request.add-request') }}</h1>
@@ -75,7 +70,7 @@
                         <div class="form-group">
                             <label for="category_id">{{ trans('request.category') }}</label>
                             <select name="category_id" class="form-control">
-                                @foreach($categories as $category)
+                                @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
@@ -84,7 +79,7 @@
                         <div class="form-group">
                             <label for="type">{{ trans('request.type') }}</label>
                             <select name="type" class="form-control">
-                                @foreach($types as $type)
+                                @foreach ($types as $type)
                                     <option value="{{ $type->name }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
@@ -97,18 +92,26 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="bonus_point">{{ trans('request.reward') }}</label>
+                            <label for="bonus_point">{{ trans('request.reward') }} <small><em>({{ trans('request.reward-desc') }})</em></small></label>
                             <input class="form-control" name="bounty" type="number" min='100' value="100" required>
-                            <span class="help-block">{{ trans('request.reward-desc') }}</span>
+                        </div>
+
+                        <label for="anon" class="control-label">Anonymous Torrent Request?</label>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" value="1">{{ trans('common.yes') }}</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" checked="checked" value="0">{{ trans('common.no') }}</label>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    <br>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    </div>
+                </div>
             </form>
-            <br>
-    </div>
-    </div>
-    @endif
+        @endif
     </div>
 @endsection
 

@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($dying as $key => $d)
+                        @foreach ($dying as $key => $d)
                             <tr>
                                 <td>
                                     {{ ++$key }}
@@ -47,7 +47,7 @@
                                 <td>
                                     <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}"
                                        href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}"
-                                       data-toggle="tooltip" title=""
+                                       data-toggle="tooltip"
                                        data-original-title="{{ $d->name }}">{{ $d->name }}</a>
                                 </td>
                                 <td>{{ $d->seeders }}</td>

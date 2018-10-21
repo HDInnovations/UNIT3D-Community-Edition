@@ -39,7 +39,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($seeded as $key => $s)
+                        @foreach ($seeded as $key => $s)
                             <tr>
                                 <td>
                                     {{ ++$key }}
@@ -47,7 +47,7 @@
                                 <td>
                                     <a class="view-torrent" data-id="{{ $s->id }}" data-slug="{{ $s->slug }}"
                                        href="{{ route('torrent', ['slug' => $s->slug, 'id' => $s->id]) }}"
-                                       data-toggle="tooltip" title=""
+                                       data-toggle="tooltip"
                                        data-original-title="{{ $s->name }}">{{ $s->name }}</a>
                                 </td>
                                 <td><span class="text-green">{{ $s->seeders }}</span></td>

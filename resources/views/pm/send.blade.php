@@ -27,7 +27,7 @@
                             <label for="users">{{ trans('pm.select') }}</label>
                             <select class="js-example-basic-single form-control" name="receiver_id">
                                     <option value="{{ $receiver_id }}">{{ $username }}</option>
-                                @foreach($usernames as $username)
+                                @foreach ($usernames as $username)
                                     <option value="{{ $username->id }}">{{ $username->username }}</option>
                                 @endforeach
                             </select>

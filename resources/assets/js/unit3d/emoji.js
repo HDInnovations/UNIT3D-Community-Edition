@@ -47,7 +47,7 @@ export function textcomplete(selector = null) {
     },
 
     template: function (basename) {
-      return '<img class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/3.1/png/32/' + basename + '.png"> ' + emojiStrategy[basename].shortname + ''
+      return '<img class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/32/' + basename + '.png"> ' + emojiStrategy[basename].shortname + ''
     },
 
     replace: function (basename) {

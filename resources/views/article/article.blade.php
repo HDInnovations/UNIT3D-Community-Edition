@@ -4,10 +4,6 @@
     <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('meta')
     <meta name="description" content="{{ substr(strip_tags($article->content), 0, 200) }}...">
 @endsection
@@ -61,19 +57,19 @@
 
         <div class="comments col-md-12">
             <ul class="media-list comments-list">
-                @foreach($comments as $comment)
+                @foreach ($comments as $comment)
                     <li class="media" style="border-left: 5px solid #01BC8C">
                         <div class="media-body">
-                            @if($comment->anon == 1)
+                            @if ($comment->anon == 1)
                                 <a href="#" class="pull-left" style="padding-right: 10px">
                                     <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}"
                                          class="img-avatar-48"></a>
-                                <strong>{{ str_upper(trans('common.anonymous')) }} @if(auth()->user()->group->is_modo)<a
+                                <strong>{{ str_upper(trans('common.anonymous')) }} @if (auth()->user()->group->is_modo)<a
                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a></strong> @endif
                             @else
                                 <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
                                    class="pull-left" style="padding-right: 10px">
-                                    @if($comment->user->image != null)
+                                    @if ($comment->user->image != null)
                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                 @else
@@ -82,7 +78,7 @@
                                 @endif
                                 <strong><a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                            @if($comment->user_id == auth()->user()->id || auth()->user()->group->is_modo)
+                            @if ($comment->user_id == auth()->user()->id || auth()->user()->group->is_modo)
                                 <a title="{{ trans('common.delete') }}"
                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                             class="pull-right {{ config('other.font-awesome') }} fa-lg fa-times" aria-hidden="true"></i></a>

@@ -37,7 +37,7 @@
             <br><br>
             <div class="text-center"><h3><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Laravel Log Viewer</h3>
             </div>
-            @foreach($files as $file)
+            @foreach ($files as $file)
                 <a href="?l={{ base64_encode($file) }}" class="log_file @if ($current_file == $file) llv-active @endif">
                     {{ $file }}
                 </a>
@@ -59,7 +59,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach($logs as $key => $log)
+                        @foreach ($logs as $key => $log)
                             <tr>
                                 <td class="text-{{ $log['level_class'] }}"><span
                                             class="glyphicon glyphicon-{{ $log['level_img'] }}-sign"

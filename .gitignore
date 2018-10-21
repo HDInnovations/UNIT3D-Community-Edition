@@ -16,6 +16,7 @@
 /public/tmp
 /public/fonts/fa-*
 /public/img/emojione
+/public/images
 /storage/backups
 /storage/gitupdate
 /storage/*.key

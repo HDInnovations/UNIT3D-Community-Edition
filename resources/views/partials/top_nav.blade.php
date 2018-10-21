@@ -14,7 +14,7 @@
                 <a href="{{ route('inbox', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
                    class="dropdown-toggle icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-blue"></i>
-                    @if($pm > 0)
+                    @if ($pm > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                     @endif
                 </a>
@@ -23,7 +23,7 @@
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('get_notifications') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
-                    @if(auth()->user()->unreadNotifications->count() > 0)
+                    @if (auth()->user()->unreadNotifications->count() > 0)
                         <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                     @endif
                 </a>
@@ -35,12 +35,12 @@
                 </a>
             </li>
 
-            @if(auth()->user()->group->is_modo)
+            @if (auth()->user()->group->is_modo)
                 <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                     <a href="{{ route('moderation') }}" class="icon-circle">
                         <i class="{{ config('other.font-awesome') }} fa-tasks text-red"></i>
                         @php $modder = DB::table('torrents')->where('status', '=', '0')->count(); @endphp
-                        @if($modder > 0)
+                        @if ($modder > 0)
                             <div class="notify"><span class="heartbit"></span><span class="point"></span></div>
                         @endif
                     </a>
@@ -52,7 +52,7 @@
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span>
-                <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle"/>
+                <img src="{{ url('img/flags/'.strtolower(auth()->user()->locale).'.png') }}" class="img-circle {{ auth()->user()->locale }}"/>
             </span>
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
@@ -61,9 +61,12 @@
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', ['local' => $code]) }}">
                                 <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}"
+                                     class="img-circle {{ $code }}"
                                      width="{{ config('language.flags.width') }}"/>
-                                &nbsp;{{ $name }} @if(auth()->user()->locale == $code)<span
-                                        class="text-orange text-bold">({{ trans('common.active') }}!)</span>@endif
+                                    {{ $name }}
+                                @if (auth()->user()->locale == $code)
+                                    <span class="text-orange text-bold">({{ trans('common.active') }}!)</span>
+                                @endif
                             </a>
                         </li>
                     @endforeach
@@ -72,7 +75,7 @@
             <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <span>
-            @if(auth()->user()->image != null)
+            @if (auth()->user()->image != null)
                   <img src="{{ url('files/img/' . auth()->user()->image) }}" alt="{{ auth()->user()->username }}"
                        class="img-circle">
               @else

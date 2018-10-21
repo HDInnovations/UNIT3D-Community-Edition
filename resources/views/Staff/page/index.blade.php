@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($page as $p)
+            @foreach ($page as $p)
                 <tr>
                     <td>
                         <a href="{{ route('staff_page_edit_form', ['slug' => $p->slug, 'id' => $p->id]) }}">{{ $p->name }}</a>

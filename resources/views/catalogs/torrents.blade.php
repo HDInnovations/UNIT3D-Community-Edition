@@ -33,7 +33,7 @@
                 <h1>{{ trans('common.results') }}</h1>
             </div>
         </div>
-        @if(count($torrents) == 0)
+        @if (count($torrents) == 0)
             <p>{{ trans('common.no-result') }}</p>
         @else
             <div class="torrents col-md-12">
@@ -52,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody id="result">
-                        @foreach($torrents as $k => $t)
+                        @foreach ($torrents as $k => $t)
                             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
                             @if ($t->category_id == 2)
                                 @if ($t->tmdb || $t->tmdb != 0)
@@ -76,14 +76,14 @@
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        @if($t->category_id == "1")
-                                            <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip" title=""
+                                        @if ($t->category_id == "1")
+                                            <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip"
                                                data-original-title="Movie Torrent"></i>
-                                        @elseif($t->category_id == "2")
-                                            <i class="{{ config('other.font-awesome') }} fa-tv torrent-icon" data-toggle="tooltip" title=""
+                                        @elseif ($t->category_id == "2")
+                                            <i class="{{ config('other.font-awesome') }} fa-tv torrent-icon" data-toggle="tooltip"
                                                data-original-title="TV-Show Torrent"></i>
                                         @else
-                                            <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip" title=""
+                                            <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip"
                                                data-original-title="Movie Torrent"></i>
                                         @endif
                                         <br>
@@ -94,11 +94,11 @@
                                 <td>
                                     <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
                                        href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                                       data-toggle="tooltip" title=""
+                                       data-toggle="tooltip"
                                        data-original-title="{{ $t->name }}">{{ $t->name }}</a>
                                     <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                                title="" data-original-title="DOWNLOAD!"><i class="livicon"
+                                                data-original-title="DOWNLOAD!"><i class="livicon"
                                                                                             data-name="download"
                                                                                             data-size="18"
                                                                                             data-color="white"
@@ -126,7 +126,7 @@
                                             <a rel="nofollow" href="http://www.imdb.com/title/tt{{ $t->imdb }}">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
-                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
                   {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
               </span>
@@ -136,7 +136,7 @@
                                                 <a rel="nofollow" href="https://www.themoviedb.org/tv/34307">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
-                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
                   {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
               </span>
@@ -145,7 +145,7 @@
                                                 <a rel="nofollow" href="https://www.themoviedb.org/movie/34307">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
-                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                  <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
                   {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
               </span>
@@ -153,35 +153,35 @@
                                             @endif
                                         @endif
                                         <span class="badge-extra text-bold text-pink"><i class="{{ config('other.font-awesome') }} fa-heart"
-                                                                                         data-toggle="tooltip" title=""
+                                                                                         data-toggle="tooltip"
                                                                                          data-original-title="Thanks Given"></i> {{ $t->thanks()->count() }}</span>
-                                        @if($t->stream == "1")<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-play text-red" data-toggle="tooltip" title=""
+                                        @if ($t->stream == "1")<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-play text-red" data-toggle="tooltip"
                                                     data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-                                        @if($t->doubleup == "1")<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip" title=""
+                                        @if ($t->doubleup == "1")<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip"
                                                     data-original-title="Double upload"></i> Double Upload</span> @endif
-                                        @if($t->free == "1")<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip" title=""
+                                        @if ($t->free == "1")<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
                                                     data-original-title="100% Free"></i> 100% Free</span> @endif
-                                        @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip" title=""
+                                        @if (config('other.freeleech') == true)<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                                     data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-                                        @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip" title=""
+                                        @if (config('other.doubleup') == true)<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                                     data-original-title="Double Upload"></i> Global Double Upload</span> @endif
-                                        @if($t->leechers >= "5") <span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-fire text-orange" data-toggle="tooltip" title=""
+                                        @if ($t->leechers >= "5") <span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-fire text-orange" data-toggle="tooltip"
                                                     data-original-title="Hot!"></i> Hot!</span> @endif
-                                        @if($t->sticky == 1) <span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-thumbtack text-black" data-toggle="tooltip" title=""
+                                        @if ($t->sticky == 1) <span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-thumbtack text-black" data-toggle="tooltip"
                                                     data-original-title="Sticky!"></i> Sticky!</span> @endif
-                                        @if($user->updated_at->getTimestamp() < $t->created_at->getTimestamp()) <span
+                                        @if ($user->updated_at->getTimestamp() < $t->created_at->getTimestamp()) <span
                                                 class="badge-extra text-bold"><i class="{{ config('other.font-awesome') }} fa-magic text-black"
-                                                                                 data-toggle="tooltip" title=""
+                                                                                 data-toggle="tooltip"
                                                                                  data-original-title="NEW!"></i> NEW!</span> @endif
-                                        @if($t->highspeed == 1)<span class="badge-extra text-bold"><i
-                                                    class="{{ config('other.font-awesome') }} fa-tachometer text-red" data-toggle="tooltip" title=""
+                                        @if ($t->highspeed == 1)<span class="badge-extra text-bold"><i
+                                                    class="{{ config('other.font-awesome') }} fa-tachometer text-red" data-toggle="tooltip"
                                                     data-original-title="High Speeds!"></i> High Speeds!</span> @endif
                                     </strong>
                                 </td>

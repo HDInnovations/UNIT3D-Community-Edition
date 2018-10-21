@@ -40,7 +40,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($cheaters as $cheater)
+                                @foreach ($cheaters as $cheater)
                                     <tr>
                                         <td>
                                             <a class="text-bold" href="{{ route('profile', ['username' => $cheater->user->username, 'id' => $cheater->user->id ]) }}">{{ $cheater->user->username }}</a>

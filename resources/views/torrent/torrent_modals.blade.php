@@ -109,7 +109,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($torrent->files as $k => $f)
+                        @foreach ($torrent->files as $k => $f)
                             <tr>
                                 <td>{{ $k + 1 }}</td>
                                 <td>{{ $f->name }}</td>
@@ -128,7 +128,7 @@
 </div>
 
 {{-- NFO Modal --}}
-@if($torrent->nfo != null)
+@if ($torrent->nfo != null)
     <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
         <div class="modal-dialog" role="document">
             <div class="modal-content ">

@@ -31,59 +31,103 @@ class StatsController extends Controller
      */
     public function index()
     {
-        // Total Members Count
-        $num_user = cache()->remember('num_user', 60, function () {
-            return User::all()->count();
+        // Total Members Count (All Groups)
+        $all_user = cache()->remember('all_user', 60, function () {
+            return User::withTrashed()->count();
         });
+
+        // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
+        $active_user = cache()->remember('active_user', 60, function () {
+            $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+            $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+            $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+            return User::whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->count();
+        });
+
+        // Total Disabled Members Count
+        $disabled_user = cache()->remember('disabled_user', 60, function () {
+            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+            return User::where('group_id', '=', $disabledGroup->id)->count();
+        });
+
+        // Total Pruned Members Count
+        $pruned_user = cache()->remember('pruned_user', 60, function () {
+            $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+            return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
+        });
+
+        // Total Banned Members Count
+        $banned_user = cache()->remember('banned_user', 60, function () {
+            $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+            return User::where('group_id', '=', $bannedGroup->id)->count();
+        });
+
         // Total Torrents Count
         $num_torrent = cache()->remember('num_torrent', 60, function () {
-            return Torrent::all()->count();
+            return Torrent::count();
         });
+
         // Total Categories With Torrent Count
         $categories = Category::select('name', 'position', 'num_torrent')->oldest('position')->get();
+
         // Total HD Count
         $num_hd = cache()->remember('num_hd', 60, function () {
             return Torrent::where('sd', 0)->count();
         });
+
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
             return Torrent::where('sd', 1)->count();
         });
+
         // Total Seeders
         $num_seeders = cache()->remember('num_seeders', 60, function () {
             return Peer::where('seeder', 1)->count();
         });
+
         // Total Leechers
         $num_leechers = cache()->remember('num_leechers', 60, function () {
             return Peer::where('seeder', 0)->count();
         });
+
         // Total Peers
         $num_peers = cache()->remember('num_peers', 60, function () {
-            return Peer::all()->count();
+            return Peer::count();
         });
+
         //Total Upload Traffic Without Double Upload
         $actual_upload = cache()->remember('actual_upload', 60, function () {
             return History::all()->sum('actual_uploaded');
         });
+
         //Total Upload Traffic With Double Upload
         $credited_upload = cache()->remember('credited_upload', 60, function () {
             return History::all()->sum('uploaded');
         });
+
         //Total Download Traffic Without Freeleech
         $actual_download = cache()->remember('actual_download', 60, function () {
             return History::all()->sum('actual_downloaded');
         });
+
         //Total Download Traffic With Freeleech
         $credited_download = cache()->remember('credited_download', 60, function () {
             return History::all()->sum('downloaded');
         });
+
         //Total Up/Down Traffic without perks
         $actual_up_down = $actual_upload + $actual_download;
+
         //Total Up/Down Traffic with perks
         $credited_up_down = $credited_upload + $credited_download;
 
         return view('stats.index', [
-            'num_user' => $num_user,
+            'all_user' => $all_user,
+            'active_user' => $active_user,
+            'disabled_user' => $disabled_user,
+            'pruned_user' => $pruned_user,
+            'banned_user' => $banned_user,
             'num_torrent' => $num_torrent,
             'categories' => $categories,
             'num_hd' => $num_hd,
@@ -100,8 +144,6 @@ class StatsController extends Controller
         ]);
     }
 
-    //USER CATEGORY
-
     /**
      * Show Extra-Stats Users
      *
@@ -109,8 +151,13 @@ class StatsController extends Controller
      */
     public function uploaded()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
         // Fetch Top Uploaders
-        $uploaded = User::latest('uploaded')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $uploaded = User::latest('uploaded')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
 
         return view('stats.users.uploaded', ['uploaded' => $uploaded]);
     }
@@ -122,8 +169,13 @@ class StatsController extends Controller
      */
     public function downloaded()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
         // Fetch Top Downloaders
-        $downloaded = User::latest('downloaded')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $downloaded = User::latest('downloaded')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
 
         return view('stats.users.downloaded', ['downloaded' => $downloaded]);
     }
@@ -174,8 +226,13 @@ class StatsController extends Controller
      */
     public function bankers()
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
         // Fetch Top Bankers
-        $bankers = User::latest('seedbonus')->where('group_id', '!=', 1)->where('group_id', '!=', 5)->take(100)->get();
+        $bankers = User::latest('seedbonus')->whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->take(100)->get();
 
         return view('stats.users.bankers', ['bankers' => $bankers]);
     }
@@ -201,12 +258,10 @@ class StatsController extends Controller
     public function seedsize()
     {
         // Fetch Top Total Seedsize Users
-        $seedsize = User::with('peers', 'torrents')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
+        $seedsize = User::with(['peers', 'torrents'])->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(100)->sum('size');
 
         return view('stats.users.seedsize', ['seedsize' => $seedsize]);
     }
-
-    //TORRENT CATEGORY
 
     /**
      * Show Extra-Stats Torrents
@@ -273,8 +328,6 @@ class StatsController extends Controller
         return view('stats.torrents.dead', ['dead' => $dead]);
     }
 
-    //TORRENT REQUEST CATEGORY
-
     /**
      * Show Extra-Stats Torrent Requests
      *
@@ -287,8 +340,6 @@ class StatsController extends Controller
 
         return view('stats.requests.bountied', ['bountied' => $bountied]);
     }
-
-    //GROUPS CATEGORY
 
     /**
      * Show Extra-Stats Groups
@@ -312,7 +363,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::where('group_id', $group->id)->latest()->paginate(100);
+        $users = User::withTrashed()->where('group_id', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }

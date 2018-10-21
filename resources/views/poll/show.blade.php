@@ -27,10 +27,10 @@
                 <div class="forum-category-title col-md-12">
                     <div class="forum-category-childs">
                         @include('poll.forms.vote')
-                        @if($poll->multiple_choice)
+                        @if ($poll->multiple_choice)
                             <span class="badge-user text-bold text-red">{{ trans('poll.multiple-choice') }}</span>
                         @endif
-                        @if($poll->ip_checking)
+                        @if ($poll->ip_checking)
                             <span class="badge-user text-bold text-red">{{ trans('poll.ip-checking') }}</span>
                         @endif
                     </div>

@@ -30,14 +30,14 @@
         	@endphp
 	        <select class="file-select">
 	        	<option value="">Select a config file</option>
-	        	@foreach($configFiles as $file)
-	        	@if($file->parent != null) {
+	        	@foreach ($configFiles as $file)
+	        	@if ($file->parent != null) {
 		        	@php
 		        		$optgroup = true;
 		        	@endphp
 					<optgroup label="{{ $file->parent }}">
 				@else
-					@if($optgroup == true)
+					@if ($optgroup == true)
 						</optgroup>
 					@endif
 					@php
@@ -50,14 +50,14 @@
 	    </div>
 	</div>
 
-	@if(isset($fileData))
+	@if (isset($fileData))
 	<div class="panel panel-primary">
 	    <div class="panel-heading">
 
 			<div class="pull-left">
 				<span class="panel-title">{{ trans('configmanager.file') }}: {{ $fileData->name }}.php</span>
 	        </div>
-	        @if($fileData->parent)
+	        @if ($fileData->parent)
 	        <div class="pull-right">
 				<span class="panel-title">{{ trans('configmanager.path') }}: {{ $fileData->parent }}/{{ $fileData->name }}</span>
 	        </div>
@@ -74,7 +74,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($fileParsed as $values)
+				@foreach ($fileParsed as $values)
 					<tr id="key_{{ $values["key"] }}">
 						<td class="key">{{ $values["key"] }}</td>
 						<td class="value">{{ (!$values["value"]) ? 'null' : $values["value"] }}</td>
@@ -126,7 +126,7 @@
 	            }
 	        });
 
-			@if(isset($fileData))
+			@if (isset($fileData))
 
 	        $('.edit').popover({
 			    html: true,
@@ -205,7 +205,7 @@
 			@endif
 
 		});
-		@if(isset($fileData))
+		@if (isset($fileData))
 		$(document).on('click', function (e) {
 		    $('[data-toggle="popover"],[data-original-title]').each(function(){
 		        //the 'is' for buttons that trigger popups

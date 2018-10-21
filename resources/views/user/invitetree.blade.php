@@ -36,10 +36,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($records) == 0)
+                        @if (count($records) == 0)
                             <p>{{ trans('user.no-logs') }}</p>
                         @else
-                            @foreach($records as $record)
+                            @foreach ($records as $record)
                                 <tr>
                                     <td>
                                         <a href="{{ route('profile', ['username' => $record->sender->username, 'id' => $record->sender->id]) }}">
@@ -61,7 +61,7 @@
                                         {{ $record->expires_on }}
                                     </td>
                                     <td>
-                                        @if($record->accepted_by != null && $record->accepted_by != 1)
+                                        @if ($record->accepted_by != null && $record->accepted_by != 1)
                                             <a href="{{ route('profile', ['username' => $record->receiver->username, 'id' => $record->receiver->id]) }}">
                                                 <span class="text-bold" style="color: {{ $record->receiver->group->color }}">
                                                     <i class="{{ $record->receiver->group->icon }}"></i> {{ $record->receiver->username }}
@@ -72,7 +72,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if($record->accepted_at != null)
+                                        @if ($record->accepted_at != null)
                                             {{ $record->accepted_at }}
                                         @else
                                             N/A

@@ -20,7 +20,7 @@
 
 @section('content')
     <div class="container">
-        @if( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
+        @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
             <div class="container">
                 <div class="jumbotron shadowed">
                     <div class="container">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-12 profile-footer">
                         {{ $user->username }} - {{ trans('user.recent-achievements') }}:
-                        @foreach($user->unlockedAchievements() as $a)
+                        @foreach ($user->unlockedAchievements() as $a)
                             <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title=""
                                  height="50px" data-original-title="{{ $a->details->name }}">
                         @endforeach
@@ -51,8 +51,8 @@
                 <div class="row">
                     <div class="col-md-12 profile-footer">
                         {{ $user->username }} - {{ trans('user.followers') }}:
-                        @foreach($followers as $f)
-                            @if($f->user->image != null)
+                        @foreach ($followers as $f)
+                            @if ($f->user->image != null)
                                 <a href="{{ route('profile', ['username' => $f->user->username, 'id' => $f->user_id]) }}">
                                     <img src="{{ url('files/img/' . $f->user->image) }}" data-toggle="tooltip"
                                          title="{{ $f->user->username }}" height="50px"
@@ -76,7 +76,7 @@
                     <div class="inner_content">
                         <div class="content">
                             <div class="col-md-2">
-                                @if($user->image != null)
+                                @if ($user->image != null)
                                     <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
                                          class="img-circle">
                                 @else
@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-lg-10">
                                 <h2>{{ $user->username }}
-                                    @if($user->isOnline())
+                                    @if ($user->isOnline())
                                         <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip" title=""
                                            data-original-title="{{ trans('user.online') }}"></i>
                                     @else
@@ -99,12 +99,12 @@
                                     <a href="{{ route('bonus', ['username' => $user->username]) }}">
                                         <i class="{{ config('other.font-awesome') }} fa-gift text-info"></i>
                                     </a>
-                                    @if($user->getWarning() > 0)
+                                    @if ($user->getWarning() > 0)
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
                                            data-toggle="tooltip" title="" data-original-title="{{ trans('user.active-warning') }}">
                                         </i>
                                     @endif
-                                    @if($user->notes->count() > 0 && auth()->user()->group->is_modo)
+                                    @if ($user->notes->count() > 0 && auth()->user()->group->is_modo)
                                         <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
                                            class="edit">
                                         <i class="{{ config('other.font-awesome') }} fa-comment fa-beat text-danger" aria-hidden="true" data-toggle="tooltip"
@@ -120,8 +120,8 @@
                                 </h4>
                                 <h4>{{ trans('user.registration-date') }} {{ $user->created_at === null ? "N/A" : date('M d Y', $user->created_at->getTimestamp()) }}</h4>
                                 <span style="float:left;">
-        @if(auth()->user()->id != $user->id)
-                                        @if(auth()->user()->isFollowing($user->id))
+        @if (auth()->user()->id != $user->id)
+                                        @if (auth()->user()->isFollowing($user->id))
                                             <a href="{{ route('unfollow', ['user' => $user->id]) }}"
                                                id="delete-follow-{{ $user->target_id }}" class="btn btn-xs btn-info"
                                                title="{{ trans('user.unfollow') }}"><i
@@ -137,8 +137,8 @@
                                                     class="{{ config('other.font-awesome') }} fa-eye"></i> {{ trans('user.report') }}</button>
         </span>
                                 <span style="float:right;">
-        @if(auth()->check() && auth()->user()->group->is_modo)
-                                        @if($user->group->id == 5)
+        @if (auth()->check() && auth()->user()->group->is_modo)
+                                        @if ($user->group->id == 5)
                                             <button class="btn btn-xs btn-warning" data-toggle="modal"
                                                     data-target="#modal_user_unban"><span
                                                         class="{{ config('other.font-awesome') }} fa-undo"></span> {{ trans('user.unban') }} </button>
@@ -231,17 +231,17 @@
             <tr>
                 <td>{{ trans('user.badges') }}</td>
                 <td>
-                    @if($user->getSeeding() >= 150)
+                    @if ($user->getSeeding() >= 150)
                         <span class="badge-user" style="background-color:#3fb618; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-seeder-desc') }}"><i
                                     class="{{ config('other.font-awesome') }} fa-upload"></i> {{ trans('user.certified-seeder') }}!</span>
                     @endif
-                    @if($history->where('actual_downloaded', '>', 0)->count() >= 100)
+                    @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
                         <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-downloader-desc') }}"><i
                                     class="{{ config('other.font-awesome') }} fa-download"></i> {{ trans('user.certified-downloader') }}!</span>
                     @endif
-                    @if($user->getSeedbonus() >= 50000)
+                    @if ($user->getSeedbonus() >= 50000)
                         <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip"
                               title="" data-original-title="{{ trans('user.certified-banker-desc') }}"><i
                                     class="{{ config('other.font-awesome') }} fa-star"></i> {{ trans('user.certified-banker') }}!</span>
@@ -260,78 +260,106 @@
                     <span class="badge-extra">@emojione($user->getAboutHtml())</span>
                 </td>
             </tr>
-            <tr>
-                <td>{{ trans('user.extra') }}</td>
-                <td>
-                    <ul class="list-inline mb-0">
-                        <li>
+                    <tr>
+                        <td>{{ trans('user.extra') }}</td>
+                        <td>
+                            <ul class="list-inline mb-0">
+                                <li>
           <span class="badge-extra"><strong>{{ trans('bon.bon') }}:</strong>
             <span class="text-green text-bold">{{ $user->getSeedbonus() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('common.fl_tokens') }}:</strong>
             <span class="text-green text-bold">{{ $user->fl_tokens }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.thanks-received') }}:</strong>
-            <span class="text-pink text-bold">{{ $user->thanksReceived->count() }}</span>
+            <span class="text-pink text-bold">{{ $user->thanksReceived()->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.thanks-given') }}:</strong>
-            <span class="text-pink text-bold"> {{ $user->thanksGiven->count() }}</span>
+            <span class="text-pink text-bold"> {{ $user->thanksGiven()->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.tips-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'tip')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.tips-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'tip')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.gift-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'gift')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.gift-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'gift')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.bounty-received') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonReceived()->where('name', '=', 'request')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
+          <span class="badge-extra"><strong>{{ trans('user.bounty-given') }}:</strong>
+            <span class="text-pink text-bold">{{ number_format($user->bonGiven()->where('name', '=', 'request')->sum('cost'), 2) }} {{ trans('bon.bon') }}</span>
+          </span>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.article-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('article_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.torrent-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('torrent_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.request-comments') }}:</strong>
             <span class="text-green text-bold">{{ $user->comments()->where('requests_id', '>', 0)->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.topics') }}:</strong>
             <span class="text-green text-bold">{{ $user->topics->count() }}</span>
           </span>
-                        </li>
-                        <li>
+                                </li>
+                                <li>
           <span class="badge-extra"><strong>{{ trans('user.posts') }}:</strong>
             <span class="text-green text-bold">{{ $user->posts->count() }}</span>
           </span>
-                        </li>
-                        <li>
-          <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
-            <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
-          </span>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
             <tr>
                 <td>Warnings</td>
                 <td>
                     <span class="badge-extra text-red text-bold"><strong>{{ trans('user.active-warnings') }}
                             : {{ $warnings->count() }} / {!! config('hitrun.max_warnings') !!}</strong></span>
-                    @if(auth()->check() && auth()->user()->group->is_modo)
+                    @if (auth()->check() && auth()->user()->group->is_modo)
                         <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
                                     class="badge-extra text-bold"><strong>{{ trans('user.warning-log') }}</strong></span></a>
+          <span class="badge-extra"><strong>{{ trans('user.hit-n-runs-count') }}:</strong>
+            <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
+          </span>
                     @endif
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
                              style="width:.1%; border-bottom-color: #8c0408">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
-                        @foreach($warnings as $warning)
+                        @foreach ($warnings as $warning)
                             <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
                                  style="width: {{ $percent }}%; border-bottom-color: #8c0408">
                                 {{ strtoupper(trans('user.warning')) }}
@@ -345,7 +373,7 @@
             </div>
     </div>
 
-    @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+    @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
         <div class="block">
             <h3><i class="{{ config('other.font-awesome') }} fa-lock"></i> {{ trans('user.private-info') }}</h3>
             <div class="table-responsive">
@@ -354,19 +382,17 @@
                 <tr>
                     <td class="col-sm-3"> {{ trans('user.passkey') }}</td>
                     <td>
-                        <div class="row">
-                            <div class="col-sm-2">
-                                <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse"
-                                        data-target="#pid_block"
-                                        aria-expanded="false">{{ trans('user.show-passkey') }}</button>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse"
+                                    data-target="#pid_block"
+                                    aria-expanded="false">{{ trans('user.show-passkey') }}</button>
+                        </div>
+                        <div class="col-sm-10">
+                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
+                                <span class="text-monospace">{{ $user->passkey }}</span>
+                                <br>
                             </div>
-                            <div class="col-sm-10">
-                                <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
-                                    <span class="text-monospace">{{ $user->passkey }}</span>
-                                    <br>
-                                </div>
-                                <span class="small text-red">{{ trans('user.passkey-warning') }}</span>
-                            </div>
+                            <span class="small text-red">{{ trans('user.passkey-warning') }}</span>
                         </div>
                     </td>
                 </tr>
@@ -380,12 +406,12 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.last-login') }}</td>
-                    <td>@if($user->last_login != null){{ $user->last_login->toDayDateTimeString() }}
+                    <td>@if ($user->last_login != null){{ $user->last_login->toDayDateTimeString() }}
                         ({{ $user->last_login->diffForHumans() }})@else N/A @endif</td>
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-upload') }}</td>
-                    @if($user->can_upload == 1)
+                    @if ($user->can_upload == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -393,7 +419,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-download') }}</td>
-                    @if($user->can_download == 1)
+                    @if ($user->can_download == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -401,7 +427,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-comment') }}</td>
-                    @if($user->can_comment == 1)
+                    @if ($user->can_comment == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -409,7 +435,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-request') }}</td>
-                    @if($user->can_request == 1)
+                    @if ($user->can_request == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -417,7 +443,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-chat') }}</td>
-                    @if($user->can_chat == 1)
+                    @if ($user->can_chat == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -425,7 +451,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.can-invite') }}</td>
-                    @if($user->can_invite == 1)
+                    @if ($user->can_invite == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                     @else
                         <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
@@ -433,7 +459,7 @@
                 </tr>
                 <tr>
                     <td> {{ trans('user.invites') }}</td>
-                    @if($user->invites > 0)
+                    @if ($user->invites > 0)
                         <td><span class="text-success text-bold"> {{ $user->invites }}</span><a
                                     href="{{ route('inviteTree', ['username' => $user->username, 'id' => $user->id]) }}"><span
                                         class="badge-extra text-bold"><strong>{{ trans('user.invite-tree') }}</strong></span></a>
@@ -448,7 +474,7 @@
                 <tr>
                     <td>Invited By</td>
                     <td>
-                    @if($invitedBy)
+                    @if ($invitedBy)
                         <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
                             <span class="text-bold" style="color: {{ $invitedBy->sender->group->color }}">
                                 <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
@@ -465,7 +491,7 @@
             <br>
         </div>
 
-        @if(auth()->check() && auth()->user()->id == $user->id)
+        @if (auth()->check() && auth()->user()->id == $user->id)
             <div class="block">
                 <div class="text-center">
                     <a href="{{ route('user_settings_form', ['username' => $user->username, 'id' => $user->id]) }}">
@@ -492,7 +518,7 @@
             </div>
         @endif
 
-        @if(auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+        @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
             <div class="block">
                 <div class="text-center">
                     <a href="{{ route('myuploads', ['username' => $user->username, 'id' => $user->id]) }}">
@@ -532,7 +558,7 @@
                             <th>{{ trans('user.active') }}</th>
                             </thead>
                             <tbody>
-                            @foreach($hitrun as $hr)
+                            @foreach ($hitrun as $hr)
                                 <tr>
                                     <td>
                                         <a class="view-torrent" data-id="{{ $hr->torrenttitle->id }}"
@@ -548,7 +574,7 @@
                                         {{ $hr->expires_on }}
                                     </td>
                                     <td>
-                                        @if($hr->active == 1)
+                                        @if ($hr->active == 1)
                                             <span class='label label-success'>{{ trans('common.yes') }}</span>
                                         @else
                                             <span class='label label-danger'>{{ trans('user.expired') }}</span>

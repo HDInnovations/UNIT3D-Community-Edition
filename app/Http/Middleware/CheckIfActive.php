@@ -13,6 +13,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Group;
 use \Toastr;
 
 class CheckIfActive
@@ -28,12 +29,13 @@ class CheckIfActive
     public function handle($request, Closure $next, $guard = null)
     {
         $user = auth()->user();
-        if ($user and $user->group_id == 1 || $user->active == 0) {
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+
+        if ($user && $user->group_id == $validatingGroup->id || $user->active == 0) {
             auth()->logout();
             $request->session()->flush();
             return redirect('login')
                 ->with(Toastr::warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
-            ;
         }
 
         return $next($request);

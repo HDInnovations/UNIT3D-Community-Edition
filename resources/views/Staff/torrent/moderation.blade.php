@@ -18,8 +18,6 @@
 @endsection
 
 @section('content')
-    <div class="text-center"><h1>There are <span class="badge badge-danger">{{ $modder }}</span> torrents pending staff moderation!</h1>
-    </div>
     <div class="container box">
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
@@ -37,14 +35,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($pending as $p)
+                @foreach ($pending as $p)
                     <tr>
                         <td><span class="text-red text-bold">{{ $p->created_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $p->slug, 'id' => $p->id]) }}" itemprop="url"
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $p->name }}</span></a>
                         </td>
-                        <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $p->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $p->category->name }} Torrent"></i></td>
                         <td>{{ $p->type }}</td>
                         <td>{{ $p->getSize() }}</td>
@@ -183,14 +181,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($postponed as $post)
+                @foreach ($postponed as $post)
                     <tr>
                         <td><span class="text-red text-bold">{{ $post->moderated_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $post->slug, 'id' => $post->id]) }}" itemprop="url"
                                class="l-breadcrumb-item-link"><span itemprop="title"
                                                                     class="l-breadcrumb-item-link-title">{{ $post->name }}</span></a>
                         </td>
-                        <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $post->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $post->category->name }} Torrent"></i></td>
                         <td>{{ $post->type }}</td>
                         <td>{{ $post->getSize() }}</td>
@@ -293,18 +291,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($rejected as $reject)
+                @foreach ($rejected as $reject)
                     <tr>
                         <td><span class="text-red text-red">{{ $reject->created_at->diffForHumans() }}</span></td>
                         <td><a href="{{ route('torrent', ['slug' => $reject->slug, 'id' => $reject->id]) }}"
                                itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                    class="l-breadcrumb-item-link-title">{{ $reject->name }}</span></a>
                         </td>
-                        <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <td><i class="{{ $reject->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $reject->category->name }} Torrent"></i></td>
                         <td>{{ $reject->type }}</td>
                         <td>{{ $reject->getSize() }}</td>
-                        <td>@if($reject->user) <a
+                        <td>@if ($reject->user) <a
                                     href="{{ route('profile', ['username' => $reject->user->username, 'id' => $reject->user->id]) }}"
                                     itemprop="url" class="l-breadcrumb-item-link"><span itemprop="title"
                                                                                         class="l-breadcrumb-item-link-title">{{ $reject->user->username }}

@@ -38,10 +38,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($records) == 0)
+                    @if (count($records) == 0)
                         <p>The are no records in database for the catalog</p>
                     @else
-                        @foreach($records as $record)
+                        @foreach ($records as $record)
                             <?php $client = new \App\Services\MovieScrapper('aa8b43b8cbce9d1689bef3d0c3087e4d', '3DF2684FC0240D28', 'b8272f7d'); ?>
                             <?php $movie = $client->scrape('movie', 'tt' . $record->imdb); ?>
                             <tr>

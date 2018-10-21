@@ -4,10 +4,6 @@
     <title>{{ $torrent->name }} - {{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('meta')
     <meta name="description" content="{{ trans('torrent.meta-desc', ['name' => $torrent->name]) }}!">
 @endsection
@@ -31,7 +27,7 @@
         <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
-        @if($torrent->category->meta == 1)
+        @if ($torrent->category->meta == 1)
             <div class="movie-wrapper">
                 <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                     <div class="tags">
@@ -43,18 +39,18 @@
                     <div class="row movie-row ">
                         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                             <h1 class="movie-heading">
-                                @if($movie->title)
+                                @if ($movie->title)
                                 <span class="text-bold">{{ $movie->title }}</span><span
                                         class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
                                 @else
                                     <span class="text-bold">No Meta Data Found</span>
                                 @endif
-                                @if($movie->imdbRating || $movie->tmdbRating)
+                                @if ($movie->imdbRating || $movie->tmdbRating)
                                 <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
                     <span class="movie-rating-stars">
                       <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     </span>
-                                    @if($user->ratings == 1)
+                                    @if ($user->ratings == 1)
                                         {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} {{ trans('torrent.votes') }}
                                         )
                                     @else
@@ -70,52 +66,52 @@
                         </span>
                             <ul class="movie-details">
                                 <li>
-                                    @if($movie->genres)
-                                        @foreach($movie->genres as $genre)
+                                    @if ($movie->genres)
+                                        @foreach ($movie->genres as $genre)
                                             <span class="badge-user text-bold text-green">{{ $genre }}</span>
                                         @endforeach
                                     @endif
-                                    @if($movie->rated )
+                                    @if ($movie->rated )
                                     <span class="badge-user text-bold text-orange">{{ trans('torrent.rated') }}
                                         : {{ $movie->rated }} </span>
                                         @endif
-                                        @if($movie->runtime )
+                                        @if ($movie->runtime )
                                         <span class="badge-user text-bold text-orange">{{ trans('torrent.runtime') }}
                                         : {{ $movie->runtime }} {{ trans('common.minute') }}{{ trans('common.plural-suffix') }}</span>
                                             @endif
                                 </li>
                                 <li>
-                                    @if($torrent->imdb != 0 && $torrent->imdb != null)
+                                    @if ($torrent->imdb != 0 && $torrent->imdb != null)
                   <span class="badge-user text-bold text-orange">
                     <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrent->imdb }}</a>
                   </span>
                                     @endif
-                                    @if($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
+                                    @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
                       <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                     </span>
-                                    @elseif($torrent->tmdb != 0 && $torrent->tmdb != null)
+                                    @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
                       <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                     </span>
                                     @endif
-                                    @if($torrent->mal != 0 && $torrent->mal != null)
+                                    @if ($torrent->mal != 0 && $torrent->mal != null)
                                         <span class="badge-user text-bold text-pink">
                       <a rel="nofollow" href="https://anon.to?https://myanimelist.net/anime/{{ $torrent->mal }}"
                          title="MAL" target="_blank">MAL: {{ $torrent->mal }}</a>
                     </span>
                                     @endif
-                                    @if($torrent->category_id == "2" && $torrent->tvdb != 0 && $torrent->tvdb != null)
+                                    @if ($torrent->category_id == "2" && $torrent->tvdb != 0 && $torrent->tvdb != null)
                                         <span class="badge-user text-bold text-pink">
                       <a rel="nofollow"
                          href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}" title="TVDB"
                          target="_blank">TVDB: {{ $torrent->tvdb }}</a>
                     </span>
                                     @endif
-                                    @if($movie->videoTrailer != '')
+                                    @if ($movie->videoTrailer != '')
                                         <span onclick="showTrailer()" style="cursor: pointer;"
                                               class="badge-user text-bold">
                             <a class="text-pink" title="View Trailer">{{ trans('torrent.view-trailer') }} <i
@@ -125,9 +121,9 @@
                                 </li>
                                 <li>
                                     <div class="row cast-list">
-                                        @if($movie->actors)
+                                        @if ($movie->actors)
                                             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                                            @foreach(array_slice($movie->actors, 0,6) as $actor)
+                                            @foreach (array_slice($movie->actors, 0,6) as $actor)
                                                 @php $person = $client->person($actor->tmdb); @endphp
                                                 <div class="col-xs-4 col-md-2 text-center">
                                                     <img class="img-people" src="{{ $person->photo }}">
@@ -157,31 +153,31 @@
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <tbody>
-                @if($torrent->featured == 0)
+                @if ($torrent->featured == 0)
                     <tr class="success">
                         <td><strong>{{ trans('torrent.discounts') }}</strong></td>
                         <td>
-                            @if($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
-                                @if($freeleech_token)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip" title=""
+                            @if ($torrent->doubleup == "1" || $torrent->free == "1" || config('other.freeleech') == true || config('other.doubleup') == true || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token)
+                                @if ($freeleech_token)<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-coins text-bold" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.fl_token') }}"></i> {{ trans('common.fl_token') }}</span> @endif
-                                @if($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip" title=""
+                                @if ($user->group->is_freeleech == 1)<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-trophy text-purple" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.special') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.special') }} {{ trans('torrent.freeleech') }}</span> @endif
-                                @if($personal_freeleech)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-id-badge text-orange" data-toggle="tooltip" title=""
+                                @if ($personal_freeleech)<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-id-badge text-orange" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.personal') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.personal') }} {{ trans('torrent.freeleech') }}</span> @endif
-                                @if($torrent->doubleup == "1")<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip" title=""
+                                @if ($torrent->doubleup == "1")<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip"
                                             data-original-title="{{ trans('torrent.double-upload') }}"></i> {{ trans('torrent.double-upload') }}</span> @endif
-                                @if($torrent->free == "1")<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip" title=""
+                                @if ($torrent->free == "1")<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
                                             data-original-title="100% {{ trans('common.free') }}"></i> 100% {{ trans('common.free') }}</span> @endif
-                                @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip" title=""
+                                @if (config('other.freeleech') == true)<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.global') }} {{ trans('torrent.freeleech') }}"></i> {{ trans('common.global') }} {{ trans('torrent.freeleech') }}</span> @endif
-                                @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i
-                                            class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip" title=""
+                                @if (config('other.doubleup') == true)<span class="badge-extra text-bold"><i
+                                            class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                             data-original-title="{{ trans('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}"></i> {{ trans('common.global') }} {{ strtolower(trans('torrent.double-upload')) }}</span> @endif
                             @else
                                 <span class="text-bold text-danger"><i
@@ -189,7 +185,7 @@
                             @endif
                         </td>
                     </tr>
-                    @if($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
+                    @if ($torrent->free == "0" && config('other.freeleech') == false && !$personal_freeleech && $user->group->is_freeleech == 0 && !$freeleech_token)
                         <tr>
                             <td><strong>{{ trans('common.fl_token') }}</strong></td>
                             <td>
@@ -207,7 +203,7 @@
                     @endif
                 @endif
 
-                @if($torrent->featured == 1)
+                @if ($torrent->featured == 1)
                     <tr class="info">
                         <td><strong>{{ trans('torrent.featured') }}</strong></td>
                         <td>
@@ -222,12 +218,12 @@
                 <tr>
                     <td class="col-sm-2"><strong>{{ trans('torrent.name') }}</strong></td>
                     <td>{{ $torrent->name }} &nbsp; &nbsp;
-                        @if(auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
+                        @if (auth()->user()->group->is_modo || auth()->user()->id == $uploader->id)
                             <a class="btn btn-warning btn-xs" href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-pencil-alt"></i> {{ trans('common.edit') }}
                             </a>
                         @endif
-                        @if(auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
+                        @if (auth()->user()->group->is_modo || ( auth()->user()->id == $uploader->id && Carbon\Carbon::now()->lt($torrent->created_at->addDay())))
                             <button class="btn btn-danger btn-xs" data-toggle="modal"
                                     data-target="#modal_torrent_delete">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> {{ trans('common.delete') }}
@@ -236,22 +232,22 @@
                     </td>
                 </tr>
 
-                @if(auth()->user()->group->is_modo)
+                @if (auth()->user()->group->is_modo)
                 <tr>
                     <td class="col-sm-2"><strong>Moderation</strong></td>
                     <td>
                         <a href="{{ route('moderation_approve', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                           role='button' class='btn btn-labeled btn-success btn-xs @if($torrent->isApproved()) disabled @endif'>
+                           role='button' class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> Approve
                         </a>
 
                         <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
-                                class="btn btn-labeled btn-warning btn-xs @if($torrent->isPostponed()) disabled @endif">
+                                class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Postpone
                         </button>
 
                         <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
-                                class="btn btn-labeled btn-danger btn-xs @if($torrent->isRejected()) disabled @endif">
+                                class="btn btn-labeled btn-danger btn-xs @if ($torrent->isRejected()) disabled @endif">
                             <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Reject
                         </button>
 
@@ -266,11 +262,11 @@
                 @endif
 
 
-                @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                 <tr>
                     <td class="col-sm-2"><strong>Staff Tools</strong></td>
                     <td>
-                        @if($torrent->free == 0)
+                        @if ($torrent->free == 0)
                             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-star"></i> {{ trans('torrent.grant') }} {{ trans('torrent.freeleech') }}
                             </a>
@@ -279,7 +275,7 @@
                                 <i class="{{ config('other.font-awesome') }} fa-star"></i> {{ trans('torrent.revoke') }} {{ trans('torrent.freeleech') }}
                             </a>
                         @endif
-                        @if($torrent->doubleup == 0)
+                        @if ($torrent->doubleup == 0)
                             <a href="{{ route('torrent_doubleup', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> {{ trans('torrent.grant') }} {{ trans('torrent.double-upload') }}
                             </a>
@@ -288,7 +284,7 @@
                                 <i class="{{ config('other.font-awesome') }} fa-chevron-double-up"></i> {{ trans('torrent.revoke') }} {{ trans('torrent.double-upload') }}
                             </a>
                         @endif
-                        @if($torrent->sticky == 0)
+                        @if ($torrent->sticky == 0)
                             <a href="{{ route('torrent_sticky', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-thumbtack"></i> {{ trans('torrent.sticky') }}
                             </a>
@@ -300,7 +296,7 @@
                             <a href="{{ route('bumpTorrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-primary btn-xs" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-arrow-to-top"></i> {{ trans('torrent.bump') }}
                             </a>
-                        @if($torrent->featured == 0)
+                        @if ($torrent->featured == 0)
                             <a href="{{ route('torrent_feature', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-default btn-xs" role="button">
                                 <i class="{{ config('other.font-awesome') }} fa-certificate"></i> {{ trans('torrent.feature') }}
                             </a>
@@ -316,19 +312,19 @@
                 <tr>
                     <td class="col-sm-2"><strong>{{ trans('torrent.uploader') }}</strong></td>
                     <td>
-                        @if($torrent->anon == 1)
-                            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if(auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
+                        @if ($torrent->anon == 1)
+                            <span class="badge-user text-orange text-bold">{{ strtoupper(trans('common.anonymous')) }} @if (auth()->user()->id == $uploader->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}">({{ $uploader->username }}
                                         )</a>@endif</span>
                         @else
                             <a href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}"><span
                                         class="badge-user text-bold"
                                         style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i
-                                            class="{{ $uploader->group->icon }}" data-toggle="tooltip" title=""
+                                            class="{{ $uploader->group->icon }}" data-toggle="tooltip"
                                             data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
                         @endif
                         <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                           class="btn btn-xs btn-success" data-id="" data-toggle="tooltip" title=""
+                           class="btn btn-xs btn-success" data-id="" data-toggle="tooltip"
                            data-original-title="{{ trans('torrent.thank') }}">
                             <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ trans('torrent.thank') }}</a>
                         <span class="badge-extra text-pink"><i
@@ -354,7 +350,7 @@
                 <tr>
                     <td class="col-sm-2"><strong>{{ trans('torrent.category') }}</strong></td>
                     <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip"
-                           title=""
+
                            data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i> {{ $torrent->category->name }}
                     </td>
                 </tr>
@@ -367,7 +363,7 @@
                 <tr>
                     <td class="col-sm-2"><strong>{{ trans('torrent.stream-optimized') }}?</strong></td>
                     <td>
-                        @if($torrent->stream == "1") {{ trans('common.yes') }} @else {{ trans('common.no') }} @endif
+                        @if ($torrent->stream == "1") {{ trans('common.yes') }} @else {{ trans('common.no') }} @endif
                     </td>
                 </tr>
 
@@ -394,11 +390,11 @@
                     </td>
                 </tr>
 
-                @if($torrent->seeders == 0)
+                @if ($torrent->seeders == 0)
                     <tr>
                         <td class="col-sm-2"><strong>{{ trans('torrent.last-seed-activity') }}</strong></td>
                         <td>
-                            @if($last_seed_activity)
+                            @if ($last_seed_activity)
                                 <span class="badge-extra text-orange"><i
                                             class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i> {{ $last_seed_activity->updated_at->diffForHumans() }}</span>
                             @else
@@ -412,7 +408,7 @@
             </table>
         </div>
 
-        @if($torrent->mediainfo != null)
+        @if ($torrent->mediainfo != null)
             <div class="table-responsive">
                 <table class="table table-condensed table-bordered table-striped">
                     <tbody>
@@ -423,20 +419,20 @@
                                             class="text-bold text-blue">@emojione(':blue_heart:') {{ trans('torrent.media-info') }}
                                         @emojione(':blue_heart:')</span></div>
                                 <br>
-                                @if($general !== null && isset($general['file_name']))
+                                @if ($general !== null && isset($general['file_name']))
                                     <span class="text-bold text-blue">@emojione(':name_badge:') {{ strtoupper(trans('torrent.file')) }}
                                         :</span>
                                     <span class="text-bold"><em>{{ $general['file_name'] }}</em></span>
                                     <br>
                                     <br>
                                 @endif
-                                @if($general_crumbs !== null)
+                                @if ($general_crumbs !== null)
                                     <span class="text-bold text-blue">@emojione(':information_source:') {{ strtoupper(trans('torrent.general')) }}
                                         :</span>
                                     <span class="text-bold"><em>
-                      @foreach($general_crumbs as $crumb)
+                      @foreach ($general_crumbs as $crumb)
                                                 {{ $crumb }}
-                                                @if(!$loop->last)
+                                                @if (!$loop->last)
                                                     /
                                                 @endif
                                             @endforeach
@@ -444,14 +440,14 @@
                                     <br>
                                     <br>
                                 @endif
-                                @if($video_crumbs !== null)
-                                    @foreach($video_crumbs as $key => $v)
+                                @if ($video_crumbs !== null)
+                                    @foreach ($video_crumbs as $key => $v)
                                         <span class="text-bold text-blue">@emojione(':projector:') {{ strtoupper(trans('torrent.video')) }}
                                             :</span>
                                         <span class="text-bold"><em>
-                        @foreach($v as $crumb)
+                        @foreach ($v as $crumb)
                                                     {{ $crumb }}
-                                                    @if(!$loop->last)
+                                                    @if (!$loop->last)
                                                         /
                                                     @endif
                                                 @endforeach
@@ -460,14 +456,14 @@
                                         <br>
                                     @endforeach
                                 @endif
-                                @if($audio_crumbs !== null)
-                                    @foreach($audio_crumbs as $key => $a)
+                                @if ($audio_crumbs !== null)
+                                    @foreach ($audio_crumbs as $key => $a)
                                         <span class="text-bold text-blue">@emojione(':loud_sound:') {{ strtoupper(trans('torrent.audio')) }} {{ ++$key }}
                                             :</span>
                                         <span class="text-bold"><em>
-                      @foreach($a as $crumb)
+                      @foreach ($a as $crumb)
                                                     {{ $crumb }}
-                                                    @if(!$loop->last)
+                                                    @if (!$loop->last)
                                                         /
                                                     @endif
                                                 @endforeach
@@ -476,14 +472,14 @@
                                     @endforeach
                                 @endif
                                 <br>
-                                @if($text_crumbs !== null)
-                                    @foreach($text_crumbs as $key => $s)
+                                @if ($text_crumbs !== null)
+                                    @foreach ($text_crumbs as $key => $s)
                                         <span class="text-bold text-blue">@emojione(':speech_balloon:') {{ strtoupper(trans('torrent.subtitle')) }} {{ ++$key }}
                                             :</span>
                                         <span class="text-bold"><em>
-                      @foreach($s as $crumb)
+                      @foreach ($s as $crumb)
                                                     {{ $crumb }}
-                                                    @if(!$loop->last)
+                                                    @if (!$loop->last)
                                                         /
                                                     @endif
                                                 @endforeach
@@ -491,7 +487,7 @@
                                         <br>
                                     @endforeach
                                 @endif
-                                @if($settings)
+                                @if ($settings)
                                     <br>
                                     <span class="text-bold text-blue">@emojione(':gear:') {{ strtoupper(trans('torrent.encode-settings')) }}
                                         :</span>
@@ -582,13 +578,13 @@
                             </span>
                         </a>
                     @endif
-            @if($torrent->imdb != 0)
+            @if ($torrent->imdb != 0)
                 <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
                    role="button"
                    class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> Similar Torrents</a>
             @endif
-            @if($torrent->nfo != null)
+            @if ($torrent->nfo != null)
                 <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('common.view') }} NFO</button>
             @endif
@@ -600,7 +596,7 @@
 
             <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
 
-            @if($torrent->seeders <= 2)
+            @if ($torrent->seeders <= 2)
                 <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button"
                    class="btn btn-labeled btn-warning">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-envelope'></i></span> {{ trans('torrent.request-reseed') }}</a>
@@ -627,24 +623,24 @@
                     </div>
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
-                            @if(count($comments) == 0)
+                            @if (count($comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
                                                 class="{{ config('other.font-awesome') }} fa-frown"></i> {{ trans('common.no-comments') }}!</h4>
                                 </div>
                             @else
-                                @foreach($comments as $comment)
+                                @foreach ($comments as $comment)
                                     <li class="media" style="border-left: 5px solid #01BC8C">
                                         <div class="media-body">
-                                            @if($comment->anon == 1)
+                                            @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px">
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
-                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if(auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
                                                     <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
                                                    class="pull-left" style="padding-right: 10px">
-                                                    @if($comment->user->image != null)
+                                                    @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @else
@@ -654,7 +650,7 @@
                                                 <strong><a
                                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                                            @if($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                            @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="{{ trans('common.delete-comment') }}"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                                             class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>

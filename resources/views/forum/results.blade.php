@@ -40,25 +40,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($results as $r)
+                    @foreach ($results as $r)
                         <tr>
                             <td class="f-display-topic-icon"><span
                                         class="badge-extra text-bold">{{ $r->forum->name }}</span></td>
                             <td class="f-display-topic-title">
                                 <strong><a href="{{ route('forum_topic', ['slug' => $r->slug, 'id' => $r->id]) }}">{{ $r->name }}</a></strong>
-                                @if($r->state == "close") <span
+                                @if ($r->state == "close") <span
                                         class='label label-sm label-default'>{{ strtoupper(trans('forum.closed')) }}</span> @endif
-                                @if($r->approved == "1") <span
+                                @if ($r->approved == "1") <span
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.approved')) }}</span> @endif
-                                @if($r->denied == "1") <span
+                                @if ($r->denied == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.denied')) }}</span> @endif
-                                @if($r->solved == "1") <span
+                                @if ($r->solved == "1") <span
                                         class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
-                                @if($r->invalid == "1") <span
+                                @if ($r->invalid == "1") <span
                                         class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
-                                @if($r->bug == "1") <span
+                                @if ($r->bug == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
-                                @if($r->suggestion == "1") <span
+                                @if ($r->suggestion == "1") <span
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a

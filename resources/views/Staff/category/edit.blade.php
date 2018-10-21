@@ -37,10 +37,10 @@
         </div>
         <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
         <div class="radio-inline">
-            <label><input type="radio" name="meta" @if($category->meta == 1) checked @endif value="1">Yes</label>
+            <label><input type="radio" name="meta" @if ($category->meta == 1) checked @endif value="1">Yes</label>
         </div>
         <div class="radio-inline">
-            <label><input type="radio" name="meta" @if($category->meta == 0) checked @endif value="0">No</label>
+            <label><input type="radio" name="meta" @if ($category->meta == 0) checked @endif value="0">No</label>
         </div>
         <br>
         <br>

@@ -17,12 +17,12 @@
     <div class="container-fluid">
     <span class="badge-user" style="float: right;"><strong>{{ trans('user.total-download') }}:</strong>
         <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his_downl,2) }}</span>
-        <span class="badge-extra text-orange" data-toggle="tooltip" title=""
+        <span class="badge-extra text-orange" data-toggle="tooltip"
               data-original-title="{{ trans('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his_downl_cre,2) }}</span>
     </span>
         <span class="badge-user" style="float: right;"><strong>{{ trans('user.total-upload') }}:</strong>
         <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his_upl,2) }}</span>
-        <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+        <span class="badge-extra text-blue" data-toggle="tooltip"
               data-original-title="{{ trans('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre,2) }}</span>
     </span>
         <h1 class="title">{{ trans('user.history-table') }}</h1>
@@ -44,7 +44,7 @@
                     <th>@sortablelink('completed_at', trans('torrent.completed_at'))</th>
                     </thead>
                     <tbody>
-                    @foreach($history as $his)
+                    @foreach ($history as $his)
                         <tr>
                             <td>
                                 <a class="view-torrent" data-id="{{ $his->torrent_id }}"
@@ -56,23 +56,23 @@
                             <td>
                                 <span class="badge-extra text-purple">{{ $his->agent ? $his->agent : trans('common.unknown') }}</span>
                             </td>
-                            @if($his->active == 1)
+                            @if ($his->active == 1)
                                 <td class="text-green">{{ trans('common.yes') }}</td> @else
                                 <td class="text-red">{{ trans('common.no') }}</td> @endif
-                            @if($his->seeder == 1)
+                            @if ($his->seeder == 1)
                                 <td class="text-green">{{ trans('common.yes') }}</td> @else
                                 <td class="text-red">{{ trans('common.no') }}</td> @endif
                             <td>
                                 <span class="badge-extra text-green">{{ App\Helpers\StringHelper::formatBytes($his->actual_uploaded , 2) }}</span>
-                                <span class="badge-extra text-blue" data-toggle="tooltip" title=""
+                                <span class="badge-extra text-blue" data-toggle="tooltip"
                                       data-original-title="{{ trans('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($his->uploaded , 2) }}</span>
                             </td>
                             <td>
                                 <span class="badge-extra text-red">{{ App\Helpers\StringHelper::formatBytes($his->actual_downloaded , 2) }}</span>
-                                <span class="badge-extra text-orange" data-toggle="tooltip" title=""
+                                <span class="badge-extra text-orange" data-toggle="tooltip"
                                       data-original-title="{{ trans('user.credited-download') }}">{{ App\Helpers\StringHelper::formatBytes($his->downloaded , 2) }}</span>
                             </td>
-                            @if($his->seedtime < config('hitrun.seedtime'))
+                            @if ($his->seedtime < config('hitrun.seedtime'))
                                 <td>
                                     <span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                 </td>

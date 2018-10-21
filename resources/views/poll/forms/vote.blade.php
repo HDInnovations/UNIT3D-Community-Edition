@@ -12,7 +12,7 @@
 
     {!! csrf_field() !!}
 
-    @if($poll->multiple_choice)
+    @if ($poll->multiple_choice)
         @foreach ($poll->options as $option)
             <a class="forum-category-childs-forum col-md-4">
                 <div class="checkbox">

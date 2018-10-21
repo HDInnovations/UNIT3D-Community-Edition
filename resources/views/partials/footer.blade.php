@@ -12,7 +12,7 @@
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.account') }}</h2>
             <ul>
-                @if(auth()->check())
+                @if (auth()->check())
                     <li>
                         <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">{{ trans('user.my-profile') }}</a>
                     </li>
@@ -35,11 +35,11 @@
             </ul>
         </div>
 
-        @if($pages)
+        @if ($pages)
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.pages') }}</h2>
             <ul>
-                @foreach($pages as $p)
+                @foreach ($pages as $p)
                     <li><a href="{{ route('page', ['slug' => $p->slug, 'id' => $p->id]) }}">{{ $p->name }}</a></li>
                 @endforeach
             </ul>

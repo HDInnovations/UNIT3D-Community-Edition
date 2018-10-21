@@ -4,10 +4,6 @@
     <title>{{ trans('request.edit-request') }} - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ url('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -23,7 +19,7 @@
 
 @section('content')
     <div class="container">
-        @if($user->can_request == 0)
+        @if ($user->can_request == 0)
             <div class="container">
                 <div class="jumbotron shadowed">
                     <div class="container">
@@ -76,7 +72,7 @@
                             <option value="{{ $torrentRequest->category->id }}"
                                     selected>{{ $torrentRequest->category->name  }} ({{ trans('request.current') }})
                             </option>
-                            @foreach($categories as $category)
+                            @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
@@ -88,7 +84,7 @@
                             <option value="{{ $torrentRequest->type }}" selected>{{ $torrentRequest->type  }}
                                 ({{ trans('request.current') }})
                             </option>
-                            @foreach($types as $type)
+                            @foreach ($types as $type)
                                 <option value="{{ $type->name }}">{{ $type->name }}</option>
                             @endforeach
                         </select>
@@ -100,12 +96,29 @@
                                   class="form-control">{{ $torrentRequest->description }}</textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    <br>
+
+                    <label for="anon" class="control-label">Anonymous Request?</label>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="anon" @if ($torrentRequest->anon == 1) checked @endif value="1">{{ trans('common.yes') }}
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="anon" @if ($torrentRequest->anon == 0) checked @endif value="0">{{ trans('common.no') }}
+                        </label>
+                    </div>
+
+                    <br>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    </div>
+                </div>
             </form>
-            <br>
-    </div>
+        </div>
     @endif
-    </div>
 @endsection
 
 @section('javascripts')

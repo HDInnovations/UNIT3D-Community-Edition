@@ -4,10 +4,6 @@
     <title>Upload - {{ config('other.title') }}</title>
 @endsection
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
@@ -22,7 +18,7 @@
 @endsection
 
 @section('content')
-    @if($user->can_upload == 0 || $user->group->can_upload == 0)
+    @if ($user->can_upload == 0 || $user->group->can_upload == 0)
         <div class="container">
             <div class="jumbotron shadowed">
                 <div class="container">
@@ -93,7 +89,7 @@
                 <div class="form-group">
                     <label for="category_id">Category</label>
                     <select name="category_id" class="form-control">
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
@@ -102,7 +98,7 @@
                 <div class="form-group">
                     <label for="type">Type</label>
                     <select name="type" class="form-control">
-                        @foreach($types as $type)
+                        @foreach ($types as $type)
                             <option value="{{ $type->name }}">{{ $type->name }}</option>
                         @endforeach
                     </select>
@@ -151,7 +147,7 @@
 
                 <br>
 
-                @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                     <label for="internal" class="control-label">Internal?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="internal" value="1">YES</label>

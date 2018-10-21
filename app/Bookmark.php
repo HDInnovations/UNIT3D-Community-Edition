@@ -16,5 +16,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
 {
-    //
+    /**
+     * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id' => '1'
+        ]);
+    }
+
+    /**
+     * Belongs To A Torrent
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(Torrent::class);
+    }
 }

@@ -13,12 +13,12 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($torrents as $torrent)
+            @foreach ($torrents as $torrent)
                 @php $history = DB::table('history')->where('info_hash', '=', $torrent->info_hash)->where('user_id', '=', $user->id)->first(); @endphp
                 <tr class="">
                     <td>
                         <div class="text-center">
-                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                            <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
                                data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i>
                         </div>
                     </td>
@@ -27,14 +27,14 @@
                             <div>
                                 <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}"
                                    href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
-                                   data-toggle="tooltip" title=""
+                                   data-toggle="tooltip"
                                    data-original-title="{{ $torrent->name }}">{{ $torrent->name }} </a><span
                                         class="label label-success">{{ $torrent->type }}</span>
                             </div>
                         </div>
                     </td>
                     <td>
-                        <span data-toggle="tooltip" title="" data-original-title="">
+                        <span data-toggle="tooltip" data-original-title="">
                             {{ $torrent->created_at->diffForHumans() }}
                         </span>
                     </td>
@@ -54,7 +54,7 @@
                     </td>
                     <td>
                         @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->first(); @endphp
-                        @if(!$resurrected)
+                        @if (!$resurrected)
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}" class="btn btn-sm btn-default">
                                 <span class="icon">
                                     @emojione(':zombie:') {{ trans('graveyard.ressurect') }}
@@ -87,7 +87,7 @@
                                             <div class="text-center">
                                                 <p>{!! trans('graveyard.howto-desc1', ['name' => $torrent->name]) !!}
                                                     <span class="text-red text-bold">
-                                                        @if(!$history)
+                                                        @if (!$history)
                                                             0
                                                         @else
                                                             {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }}
@@ -95,7 +95,7 @@
                                                     </span>
                                                         {{ strtolower(trans('graveyard.howto-hits')) }}
                                                     <span class="text-red text-bold">
-                                                        @if(!$history)
+                                                        @if (!$history)
                                                             {{ App\Helpers\StringHelper::timeElapsed(config('graveyard.time')) }}
                                                         @else
                                                             {{ App\Helpers\StringHelper::timeElapsed($history->seedtime + config('graveyard.time')) }}
@@ -110,7 +110,7 @@
                                                     <form id="resurrect-torrent" role="form" method="POST"
                                                           action="{{ route('resurrect', ['torrent_id' => $torrent->id]) }}">
                                                         @csrf
-                                                        @if(!$history)
+                                                        @if (!$history)
                                                             <input hidden="seedtime" name="seedtime" id="seedtime"
                                                                    value="{{ config('graveyard.time') }}">
                                                         @else

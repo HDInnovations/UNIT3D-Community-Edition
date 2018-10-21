@@ -42,17 +42,15 @@ class ModerationController extends Controller
     public function moderation()
     {
         $current = Carbon::now();
-        $pending = Torrent::pending()->get();
-        $postponed = Torrent::postponed()->get();
-        $rejected = Torrent::rejected()->get();
-        $modder = Torrent::where('status', 0)->count();
+        $pending = Torrent::with(['user', 'category'])->pending()->get();
+        $postponed = Torrent::with(['user', 'category'])->postponed()->get();
+        $rejected = Torrent::with(['user', 'category'])->rejected()->get();
 
         return view('Staff.torrent.moderation', [
             'current' => $current,
             'pending' => $pending,
             'postponed' => $postponed,
             'rejected' => $rejected,
-            'modder' => $modder
         ]);
     }
 
@@ -77,11 +75,11 @@ class ModerationController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chat->systemMessage(
-                    "User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
                 );
             } else {
                 $this->chat->systemMessage(
-                    "An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
                 );
             }
 

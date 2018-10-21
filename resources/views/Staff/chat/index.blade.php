@@ -58,7 +58,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($chatstatuses as $chatstatus)
+                @foreach ($chatstatuses as $chatstatus)
                     <tr>
                         <td>
                             {{ $chatstatus->id }}
@@ -130,7 +130,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($chatrooms as $chatroom)
+                @foreach ($chatrooms as $chatroom)
                     <tr>
                         <td>
                             {{ $chatroom->id }}

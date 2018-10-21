@@ -49,7 +49,7 @@
             <label for="parent_id">Parent forum</label>
             <select name="parent_id" class="form-control">
                 <option value="0">New Category</option>
-                @foreach($categories as $c)
+                @foreach ($categories as $c)
                     <option value="{{ $c->id }}">New Forum In {{ $c->name }} Category</option>
                 @endforeach
             </select>
@@ -72,7 +72,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($groups as $g)
+            @foreach ($groups as $g)
                 <tr>
                     <td>{{ $g->name }}</td>
                     <td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked></td>

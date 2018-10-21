@@ -18,6 +18,7 @@ use App\Peer;
 use App\User;
 use App\Client;
 use App\Report;
+use App\Group;
 use App\Helpers\SystemInformation;
 use Spatie\SslCertificate\SslCertificate;
 
@@ -31,27 +32,30 @@ class HomeController extends Controller
     public function home()
     {
         // User Info
-        $num_user = User::all()->count();
-        $banned = User::where('group_id', 5)->count();
-        $validating = User::where('group_id', 1)->count();
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+
+        $num_user = User::count();
+        $banned = User::where('group_id', $bannedGroup->id)->count();
+        $validating = User::where('group_id', $validatingGroup->id)->count();
 
         // Torrent Info
-        $num_torrent = Torrent::all()->count();
+        $num_torrent = Torrent::count();
         $pending = Torrent::pending()->count();
         $rejected = Torrent::rejected()->count();
 
         // Peers Info
-        $peers = Peer::all()->count();
+        $peers = Peer::count();
         $seeders = Peer::where('seeder', 1)->count();
         $leechers = Peer::where('seeder', 0)->count();
 
         // Seedbox Info
-        $seedboxes = Client::all()->count();
-        $highspeed_users = Client::all()->count();
+        $seedboxes = Client::count();
+        $highspeed_users = Client::count();
         $highspeed_torrents = Torrent::where('highspeed', 1)->count();
 
         // User Info
-        $reports = Report::all()->count();
+        $reports = Report::count();
         $unsolved = Report::where('solved', 0)->count();
         $solved = Report::where('solved', 1)->count();
 

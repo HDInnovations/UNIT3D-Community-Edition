@@ -39,16 +39,16 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($uploaded as $key => $u)
+                        @foreach ($uploaded as $key => $u)
                             <tr>
                                 <td>
                                     {{ ++$key }}
                                 </td>
-                                <td @if(auth()->user()->username == $u->username) class="mentions" @endif>
-                                    @if($u->private_profile == 1)
+                                <td @if (auth()->user()->username == $u->username) class="mentions" @endif>
+                                    @if ($u->private_profile == 1)
                                         <span class="badge-user text-bold"><span class="text-orange"><i
                                                         class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if(auth()->user()->id == $u->id || auth()->user()->group->is_modo)
+                                                        aria-hidden="true"></i>{{ strtoupper(trans('common.hidden')) }}</span>@if (auth()->user()->id == $u->id || auth()->user()->group->is_modo)
                                                 <a href="{{ route('profile', ['username' => $u->username, 'id' => $u->id]) }}">({{ $u->username }}
                                                     )</a></span>
                                     @endif

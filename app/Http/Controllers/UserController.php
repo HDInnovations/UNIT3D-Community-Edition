@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function members()
     {
-        $users = User::latest()->paginate(50);
+        $users = User::with('group')->latest()->paginate(50);
 
         return view('user.members', ['users' => $users]);
     }
@@ -290,7 +290,7 @@ class UserController extends Controller
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $user->email = $request->input('new_email');
+            $user->email = $request->input('email');
             $user->save();
 
             // Activity Log

@@ -14,7 +14,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($topics as $t)
+                @foreach ($topics as $t)
                     @if ($t->viewable())
                         <tr class="">
                             <td>

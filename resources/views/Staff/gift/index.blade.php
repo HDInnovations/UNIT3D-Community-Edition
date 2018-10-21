@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label for="users">Select a User</label>
                 <select class="form-control user-select-placeholder-single" name="username">
-                    @foreach($users as $user)
+                    @foreach ($users as $user)
                         <option value="{{ $user->username }}">{{ $user->username }}</option>
                     @endforeach
                 </select>

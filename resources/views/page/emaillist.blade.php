@@ -62,7 +62,7 @@
 
             @if (config('email-white-blacklist.enabled') == 'allow')
             <div class="row black-list">
-                @foreach($whitelist as $w)
+                @foreach ($whitelist as $w)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
                             <span class="text-bold">{{ $w }}</span>
@@ -76,7 +76,7 @@
 
             @if (config('email-white-blacklist.enabled') == 'block')
             <div class="row black-list">
-                @foreach($blacklist as $b)
+                @foreach ($blacklist as $b)
                     <div class="col-xs-6 col-sm-4 col-md-3">
                         <div class="text-center black-item">
                             <span class="text-bold">{{ $b }}</span>

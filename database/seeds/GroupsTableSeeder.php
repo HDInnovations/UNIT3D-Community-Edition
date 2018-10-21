@@ -27,7 +27,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Validating',
             'slug' => 'validating',
-            'position' => 2,
+            'position' => 4,
             'color' => '#95A5A6',
             'icon' => config("other.font-awesome") . ' fa-question-circle',
             'can_upload' => 0
@@ -37,7 +37,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Guest',
             'slug' => 'guest',
-            'position' => 1,
+            'position' => 3,
             'color' => '#575757',
             'icon' => config("other.font-awesome") . ' fa-question-circle',
             'can_upload' => 0
@@ -47,7 +47,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'User',
             'slug' => 'user',
-            'position' => 4,
+            'position' => 6,
             'color' => '#7289DA',
             'icon' => config("other.font-awesome") . ' fa-user',
             'autogroup' => 1
@@ -57,7 +57,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Administrator',
             'slug' => 'administrator',
-            'position' => 15,
+            'position' => 18,
             'color' => '#f92672',
             'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_admin' => 1,
@@ -70,7 +70,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Banned',
             'slug' => 'banned',
-            'position' => 0,
+            'position' => 1,
             'color' => 'red',
             'icon' => config("other.font-awesome") . ' fa-ban',
             'can_upload' => 0
@@ -80,7 +80,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Moderator',
             'slug' => 'moderator',
-            'position' => 14,
+            'position' => 17,
             'color' => '#4ECDC4',
             'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_modo' => 1,
@@ -92,7 +92,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Uploader',
             'slug' => 'uploader',
-            'position' => 12,
+            'position' => 15,
             'color' => '#2ECC71',
             'icon' => config("other.font-awesome") . ' fa-upload',
             'is_trusted' => 1,
@@ -104,7 +104,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Trustee',
             'slug' => 'trustee',
-            'position' => 13,
+            'position' => 16,
             'color' => '#BF55EC',
             'icon' => config("other.font-awesome") . ' fa-shield',
             'is_trusted' => 1,
@@ -116,7 +116,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Bot',
             'slug' => 'bot',
-            'position' => 17,
+            'position' => 20,
             'color' => '#f1c40f',
             'icon' => 'fab fa-android',
             'is_modo' => 1,
@@ -128,7 +128,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Owner',
             'slug' => 'owner',
-            'position' => 16,
+            'position' => 19,
             'color' => '#00abff',
             'icon' => config("other.font-awesome") . ' fa-user-secret',
             'is_admin' => 1,
@@ -141,7 +141,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'PowerUser',
             'slug' => 'poweruser',
-            'position' => 5,
+            'position' => 7,
             'color' => '#3c78d8',
             'icon' => config("other.font-awesome") . ' fa-user-circle',
             'autogroup' => 1
@@ -151,7 +151,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'SuperUser',
             'slug' => 'superuser',
-            'position' => 6,
+            'position' => 8,
             'color' => '#1155cc',
             'icon' => config("other.font-awesome") . ' fa-power-off',
             'autogroup' => 1
@@ -161,7 +161,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'ExtremeUser',
             'slug' => 'extremeuser',
-            'position' => 7,
+            'position' => 9,
             'color' => '#1c4587',
             'icon' => config("other.font-awesome") . ' fa-bolt',
             'is_trusted' => 1,
@@ -172,7 +172,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'InsaneUser',
             'slug' => 'insaneuser',
-            'position' => 8,
+            'position' => 10,
             'color' => '#1c4587',
             'icon' => config("other.font-awesome") . ' fa-rocket',
             'is_trusted' => 1,
@@ -183,7 +183,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Leech',
             'slug' => 'leech',
-            'position' => 3,
+            'position' => 5,
             'color' => '#96281B',
             'icon' => config("other.font-awesome") . ' fa-times',
             'autogroup' => 1
@@ -193,7 +193,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Veteran',
             'slug' => 'veteran',
-            'position' => 9,
+            'position' => 11,
             'color' => '#1c4587',
             'icon' => config("other.font-awesome") . ' fa-key',
             'effect' => 'url(https://i.imgur.com/F0UCb7A.gif)',
@@ -207,7 +207,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Seeder',
             'slug' => 'seeder',
-            'position' => 10,
+            'position' => 12,
             'color' => '#1c4587',
             'icon' => config("other.font-awesome") . ' fa-hdd',
             'is_trusted' => 1,
@@ -219,7 +219,7 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Archivist',
             'slug' => 'archivist',
-            'position' => 11,
+            'position' => 13,
             'color' => '#1c4587',
             'icon' => config("other.font-awesome") . ' fa-server',
             'effect' => 'url(https://i.imgur.com/F0UCb7A.gif)',
@@ -233,13 +233,33 @@ class GroupsTableSeeder extends Seeder
         Group::create([
             'name' => 'Internal',
             'slug' => 'internal',
-            'position' => 11,
+            'position' => 14,
             'color' => '#BAAF92',
             'icon' => config("other.font-awesome") . ' fa-magic',
             'is_trusted' => 1,
             'is_immune' => 1,
             'is_freeleech' => 1,
             'is_internal' => 1,
+        ]);
+
+        //20
+        Group::create([
+            'name' => 'Disabled',
+            'slug' => 'disabled',
+            'position' => 2,
+            'color' => '#8D6262',
+            'icon' => config("other.font-awesome") . ' fa-pause-circle',
+            'can_upload' => 0
+        ]);
+
+        //21
+        Group::create([
+            'name' => 'Pruned',
+            'slug' => 'pruned',
+            'position' => 0,
+            'color' => '#8D6262',
+            'icon' => config("other.font-awesome") . ' fa-times-circle',
+            'can_upload' => 0
         ]);
     }
 }

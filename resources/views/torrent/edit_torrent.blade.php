@@ -1,9 +1,5 @@
 @extends('layout.default')
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li>
         <a href="{{ route('edit_form', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
@@ -52,7 +48,7 @@
                         <option value="{{ $torrent->category->id }}" selected>{{ $torrent->category->name  }}
                             ({{ trans('torrent.current') }})
                         </option>
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
@@ -63,7 +59,7 @@
                     <select name="type" class="form-control">
                         <option value="{{ $torrent->type }}" selected>{{ $torrent->type  }} ({{ trans('torrent.current') }})
                         </option>
-                        @foreach($types as $type)
+                        @foreach ($types as $type)
                             <option value="{{ $type->name }}">{{ $type->name }}</option>
                         @endforeach
                     </select>
@@ -84,45 +80,45 @@
                        class="control-label">{{ trans('common.anonymous') }} {{ strtolower(trans('common.upload')) }}
                     ?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="anonymous" @if($torrent->anon == 1) checked
+                    <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked
                                   @endif value="1">{{ trans('common.yes') }}</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="anonymous" @if($torrent->anon == 0) checked
+                    <label><input type="radio" name="anonymous" @if ($torrent->anon == 0) checked
                                   @endif value="0">{{ trans('common.no') }}</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">{{ trans('torrent.stream-optimized') }}?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="stream" @if($torrent->stream == 1) checked
+                    <label><input type="radio" name="stream" @if ($torrent->stream == 1) checked
                                   @endif value="1">{{ trans('common.yes') }}</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="stream" @if($torrent->stream == 0) checked
+                    <label><input type="radio" name="stream" @if ($torrent->stream == 0) checked
                                   @endif value="0">{{ trans('common.no') }}</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">{{ trans('torrent.sd-content') }}?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="sd" @if($torrent->sd == 1) checked
+                    <label><input type="radio" name="sd" @if ($torrent->sd == 1) checked
                                   @endif value="1">{{ trans('common.yes') }}</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="sd" @if($torrent->sd == 0) checked
+                    <label><input type="radio" name="sd" @if ($torrent->sd == 0) checked
                                   @endif value="0">{{ trans('common.no') }}</label>
                 </div>
                 <br>
                 <br>
-                @if(auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                     <label for="internal" class="control-label">Internal?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="internal" @if($torrent->internal == 1) checked
+                        <label><input type="radio" name="internal" @if ($torrent->internal == 1) checked
                                       @endif value="1">{{ trans('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="internal" @if($torrent->internal == 0) checked
+                        <label><input type="radio" name="internal" @if ($torrent->internal == 0) checked
                                       @endif value="0">{{ trans('common.no') }}</label>
                     </div>
                     <br>

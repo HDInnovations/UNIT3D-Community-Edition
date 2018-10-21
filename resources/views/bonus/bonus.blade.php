@@ -169,8 +169,10 @@
                             <td>{{ $uu['description'] }}</td>
                             <td>{{ $uu['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', ['id' => $uu['id']]) }}" role="button"
-                                   class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
+                                <form method="post" action="{{ route('bonusexchange', ['id' => $uu['id']]) }}">
+                                    @csrf
+                                    <button type="sumbit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -180,7 +182,10 @@
                             <td>{{ $dO['description'] }}</td>
                             <td>{{ $dO['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', ['id' => $dO['id']]) }}" role="button" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
+                                <form method="post" action="{{ route('bonusexchange', ['id' => $dO['id']]) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach--}}
@@ -190,13 +195,17 @@
                             <td>{{ $pf['description'] }}</td>
                             <td>{{ $pf['cost'] }}</td>
                             <td>
-                                @if($activefl)
-                                    <a href="{{ route('bonusexchange', ['id' => $pf['id']]) }}" role="button"
-                                       class="btn btn-sm btn-success btn-exchange disabled">{{ trans('bon.activated') }}
-                                        !</a>
+                                @if ($activefl)
+                                    <form method="post" action="{{ route('bonusexchange', ['id' => $pf['id']]) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
+                                            {{ trans('bon.activated') }}!</button>
+                                    </form>
                                 @else
-                                    <a href="{{ route('bonusexchange', ['id' => $pf['id']]) }}" role="button"
-                                       class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
+                                    <form method="post" action="{{ route('bonusexchange', ['id' => $pf['id']]) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
@@ -207,8 +216,10 @@
                             <td>{{ $in['description'] }}</td>
                             <td>{{ $in['cost'] }}</td>
                             <td>
-                                <a href="{{ route('bonusexchange', ['id' => $in['id']]) }}" role="button"
-                                   class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</a>
+                                <form method="post" action="{{ route('bonusexchange', ['id' => $in['id']]) }}">
+                                    @csrf
+                                    <button class="btn btn-sm btn-info btn-exchange" type="submit">{{ trans('bon.exchange') }}</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -236,7 +247,7 @@
                 <div class="col-sm-9">
                     <select class="form-control user-select-placeholder-single" name="to_username">
                         <option value="{{ $username }}">{{ $username }}</option>
-                        @foreach($users as $user)
+                        @foreach ($users as $user)
                             <option value="{{ $user->username }}">{{ $user->username }}</option>
                         @endforeach
                     </select>

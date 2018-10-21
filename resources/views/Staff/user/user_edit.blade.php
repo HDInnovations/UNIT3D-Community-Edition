@@ -77,7 +77,7 @@
                 <div class="form-group">
                     <select name="group_id" class="form-control">
                         <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                        @foreach($groups as $g)
+                        @foreach ($groups as $g)
                             <option value="{{ $g->id }}">{{ $g->name }}</option>
                         @endforeach
                     </select>
@@ -93,58 +93,58 @@
                 {{ Form::open(array('route' => ['user_permissions', 'username' => $user->username, 'id' => $user->id])) }}
                 <label for="hidden" class="control-label">Can Upload?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if($user->can_upload == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if($user->can_upload == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Download?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_download" @if($user->can_download == 1) checked
+                    <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
                                   @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_download" @if($user->can_download == 0) checked
+                    <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
                                   @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Comment?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if($user->can_comment == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if($user->can_comment == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Invite?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if($user->can_invite == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if($user->can_invite == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Request?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if($user->can_request == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if($user->can_request == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Chat?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_chat" @if($user->can_chat == 1) checked
+                    <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
                                   @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_chat" @if($user->can_chat == 0) checked
+                    <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
                                   @endif value="0">NO</label>
                 </div>
                 <br>
@@ -179,10 +179,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($notes) == 0)
+                    @if (count($notes) == 0)
                         <p>The are no notes in database for this user!</p>
                     @else
-                        @foreach($notes as $n)
+                        @foreach ($notes as $n)
                             <tr>
                                 <td>
                                     {{ $n->noteduser->username }}

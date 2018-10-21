@@ -42,7 +42,7 @@ class AchievementUnlocked
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                "User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
+                ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
             );
         }
     }

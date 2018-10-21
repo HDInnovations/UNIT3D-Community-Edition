@@ -59,7 +59,7 @@ class autoGroup extends Command
                 $user->can_download = 0;
                 $user->save();
             }
-            //Member >= 0 but < 1TB and ratio above sites minimum
+            //User >= 0 but < 1TB and ratio above sites minimum
             if ($user->uploaded >= 0 && $user->getRatio() >= config('other.ratio') && $user->group_id != 3) {
                 $user->group_id = 3;
                 $user->can_download = 1;
@@ -68,38 +68,38 @@ class autoGroup extends Command
                 $user->save();
             }
 
-            //BluMember >= 1TB but < 5TB and account 1 month old
+            //PowerUser >= 1TB but < 5TB and account 1 month old
             if ($user->uploaded >= 1073741824000 && $user->uploaded < 1073741824000 * 5 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 11) {
                 $user->group_id = 11;
                 $user->save();
             }
-            //BluMaster >= 5TB but < 20TB and account 1 month old
+            //SuperUser >= 5TB but < 20TB and account 1 month old
             if ($user->uploaded >= 1073741824000 * 5 && $user->uploaded < 1073741824000 * 20 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 12) {
                 $user->group_id = 12;
                 $user->save();
             }
-            //BluExtremist >= 20TB but < 50TB and account 3 month old
+            //ExtremeUser >= 20TB but < 50TB and account 3 month old
             if ($user->uploaded >= 1073741824000 * 20 && $user->uploaded < 1073741824000 * 50 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 13) {
                 $user->group_id = 13;
                 $user->save();
             }
-            //BluLegend >= 50TB but < 100TB and account 6 month old
+            //InsaneUser >= 50TB but < 100TB and account 6 month old
             if ($user->uploaded >= 1073741824000 * 50 && $user->uploaded < 1073741824000 * 100 && $user->created_at < $current->copy()->subDays(180)->toDateTimeString() && $user->group_id != 14) {
                 $user->group_id = 14;
                 $user->save();
             }
-            //Blutopian >= 100TB and account 1 year old
+            //Veteran >= 100TB and account 1 year old
             if ($user->uploaded >= 1073741824000 * 100 && $user->created_at < $current->copy()->subDays(365)->toDateTimeString() && $user->group_id != 16) {
                 $user->group_id = 16;
                 $user->save();
             }
 
-            //BluSeeder seeding >= 150 and account 1 month old and seedtime average 30 days or better
+            //Seeder seeding >= 150 and account 1 month old and seedtime average 30 days or better
             if ($user->getSeeding() >= 150 && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
                 $user->group_id = 17;
                 $user->save();
             }
-            //BluArchivist seeding >= 300 and account 3 month old and seedtime average 60 days or better
+            //Archivist seeding >= 300 and account 3 month old and seedtime average 60 days or better
             if ($user->getSeeding() >= 300 && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 * 2 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 18) {
                 $user->group_id = 18;
                 $user->save();

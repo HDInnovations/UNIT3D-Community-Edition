@@ -37,7 +37,7 @@
                         <a href="{{ route('add_image', ['id' => $album->id]) }}">
                             <button type="button" class="btn btn-success btn-md">Add New Image to Album</button>
                         </a>
-                        @if(auth()->user()->group->is_modo || auth()->user()->id == $album->user_id && Carbon\Carbon::now()->lt($album->created_at->addDay()))
+                        @if (auth()->user()->group->is_modo || auth()->user()->id == $album->user_id && Carbon\Carbon::now()->lt($album->created_at->addDay()))
                         <a href="{{ route('delete_album', ['id' => $album->id]) }}"
                            onclick="return confirm('Are you sure?')">
                             <button type="button" class="btn btn-danger btn-md">Delete Album</button>
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach($album->images as $photo)
+                @foreach ($album->images as $photo)
                     <div class="col-lg-3">
                         <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
                             <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
@@ -64,7 +64,7 @@
                                             class="{{ config('other.font-awesome') }} fa-download text-green"> {{ $photo->downloads }}</i>
                                 </button>
                                 </a>
-                                @if(auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
+                                @if (auth()->user()->group->is_modo || auth()->user()->id === $photo->user_id)
                                 <a href="{{ route('delete_image', ['id' => $photo->id]) }}">
                                     <button type="button" class="btn btn-sm"><i class="{{ config('other.font-awesome') }} fa-times text-red"> </i>
                                     </button>

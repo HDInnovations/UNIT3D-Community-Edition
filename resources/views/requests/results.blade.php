@@ -3,6 +3,7 @@
         <thead>
         <tr>
             <th class="torrents-icon">{{ trans('torrent.category') }}</th>
+            <th>{{ trans('torrent.type') }}</th>
             <th class="torrents-filename col-sm-6">{{ trans('request.request') }}</th>
             <th>{{ trans('common.author') }}</th>
             <th>{{ trans('request.votes') }}</th>
@@ -17,24 +18,36 @@
                 <tr>
                 <td>
                     <div class="text-center">
-                        <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip" title=""
+                        <i class="{{ $torrentRequest->category->icon }} torrent-icon" data-toggle="tooltip"
                            data-original-title="{{ $torrentRequest->category->name }} {{ trans('request.request') }}"></i>
                     </div>
                 </td>
                 <td>
-                    <a class="view-torrent" data-id="{{ $torrentRequest->id }}" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
-                        {{ $torrentRequest->name }}
-                    </a>
                     <span class="label label-success">
                         {{ $torrentRequest->type }}
                     </span>
                 </td>
                 <td>
+                    <a class="view-torrent" data-id="{{ $torrentRequest->id }}" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                        {{ $torrentRequest->name }}
+                    </a>
+                </td>
+                <td>
+                    @if ($torrentRequest->anon == 0)
                     <span class="badge-user">
                         <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
                             {{ $torrentRequest->user->username }}
                         </a>
                     </span>
+                    @else
+                    <span class="badge-user">{{ strtoupper(trans('common.anonymous')) }}
+                        @if ($user->group->is_modo || $torrentRequest->user->username == $user->username)
+                            <a href="{{ route('profile', ['username' => $torrentRequest->user->username, 'id' => $torrentRequest->user->id]) }}">
+                                ({{ $torrentRequest->user->username }})
+                            </a>
+                        @endif
+                    </span>
+                    @endif
                 </td>
                 <td>
                     <span class="badge-user">

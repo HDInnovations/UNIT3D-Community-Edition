@@ -29,36 +29,18 @@ mix
   /*
    * Themes
    *
-   * Here we are compiling blur and dark themes to temporary files to later "merge" the corresponding wysibb editor
-   * theme into a single theme file.
-   *
    * Note: Default wysibb theme is compiled into public/css/app.css from resources/assets/sass/app.scss
    *
    */
-  .sass('resources/assets/sass/themes/blur.scss', 'tmp/blur.css')
-  .sass('resources/assets/sass/themes/dark.scss', 'tmp/dark.css')
-
-  /*
-   * Compiling the blur theme and blur wysibb theme into a single file
-   */
-  .styles([
-    'public/tmp/blur.css',
-    'resources/assets/js/wysibb/theme/blur/wbbtheme.css'
-  ], 'public/css/themes/blur.css')
-
-  /*
-   * Compiling the dark theme and dark wysibb theme into a single file
-   */
-  .styles([
-    'public/tmp/dark.css',
-    'resources/assets/js/wysibb/theme/dark/wbbtheme.css'
-  ], 'public/css/themes/dark.css')
-
-  /*
-   * Compiling the galactic theme (uses default wysibb theme)
-   */
   .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
-
+  .sass('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
+  .sass('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
+  .sass('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
+  .sass('resources/assets/sass/themes/dark-purple.scss', 'public/css/themes/dark-purple.css')
+  .sass('resources/assets/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
+  .sass('resources/assets/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
+  .sass('resources/assets/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
+  
   /*
    * Login and TwoStep Auth styles
    *

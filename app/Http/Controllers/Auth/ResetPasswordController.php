@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\UserActivation;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
+use App\Group;
 
 class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
     protected $redirectTo = '/';
-    protected $group_id = 3;
 
     public function __construct()
     {
@@ -21,11 +21,15 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword($user, $password)
     {
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
-        if ($user->group_id === 1) {
-            $user->group_id = $this->group_id;
+
+        if ($user->group_id === $validatingGroup->id) {
+            $user->group_id = $memberGroup->id;
         }
+
         $user->active = true;
         $user->save();
 

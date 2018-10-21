@@ -48,10 +48,10 @@
         <div class="form-group">
             <label for="parent_id">Parent forum</label>
             <select name="parent_id" class="form-control">
-                @if($forum->getCategory() != null)
+                @if ($forum->getCategory() != null)
                     <option value="{{ $forum->parent_id }}" selected>{{ $forum->getCategory()->name }}(Current)</option>
                 @endif
-                @foreach($categories as $c)
+                @foreach ($categories as $c)
                     <option value="{{ $c->id }}">{{ $c->name }}</option>
                 @endforeach
             </select>
@@ -75,32 +75,32 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($groups as $g)
+            @foreach ($groups as $g)
                 <tr>
                     <td>{{ $g->name }}</td>
                     <td>
-                        @if($g->getPermissionsByForum($forum)->show_forum == true)
+                        @if ($g->getPermissionsByForum($forum)->show_forum == true)
                             <input type="checkbox" checked name="permissions[{{ $g->id }}][show_forum]" value="1">
                         @else
                             <input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1">
                         @endif
                     </td>
                     <td>
-                        @if($g->getPermissionsByForum($forum)->read_topic == true)
+                        @if ($g->getPermissionsByForum($forum)->read_topic == true)
                             <input type="checkbox" checked name="permissions[{{ $g->id }}][read_topic]" value="1">
                         @else
                             <input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1">
                         @endif
                     </td>
                     <td>
-                        @if($g->getPermissionsByForum($forum)->start_topic == true)
+                        @if ($g->getPermissionsByForum($forum)->start_topic == true)
                             <input type="checkbox" checked name="permissions[{{ $g->id }}][start_topic]" value="1">
                         @else
                             <input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1">
                         @endif
                     </td>
                     <td>
-                        @if($g->getPermissionsByForum($forum)->reply_topic == true)
+                        @if ($g->getPermissionsByForum($forum)->reply_topic == true)
                             <input type="checkbox" checked name="permissions[{{ $g->id }}][reply_topic]" value="1">
                         @else
                             <input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1">

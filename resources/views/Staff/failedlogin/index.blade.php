@@ -41,10 +41,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($attempts) == 0)
+                        @if (count($attempts) == 0)
                             <p>The are no failed login entries in the database!</p>
                         @else
-                            @foreach($attempts as $attempt)
+                            @foreach ($attempts as $attempt)
                                 <tr>
                                     <td>
                                         {{ $attempt->id }}

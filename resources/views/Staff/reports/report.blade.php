@@ -29,7 +29,7 @@
     <div class="container">
         <div class="block">
             <h2>Report Details
-                @if($report->solved == 0)
+                @if ($report->solved == 0)
                     <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED </strong></span>
                 @else
                     <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY <a class="name"
@@ -66,7 +66,7 @@
 
                     <h3>Referenced Links:</h3>
                     <p class="well">
-                        @foreach($urls as $url)
+                        @foreach ($urls as $url)
                             <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
                         @endforeach
                     </p>
@@ -79,7 +79,7 @@
                 <div class="col-sm-12">
                     <form role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
                         @csrf
-                        @if($report->solved == 0)
+                        @if ($report->solved == 0)
                             <div class="form-group">
                                 <label for="message">Verdict</label>
                                 <textarea name="verdict" class="form-control"></textarea>

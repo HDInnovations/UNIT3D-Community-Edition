@@ -28,7 +28,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($types as $t)
+            @foreach ($types as $t)
                 <tr>
                     <td>{{ $t->position }}</td>
                     <td>

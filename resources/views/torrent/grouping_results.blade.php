@@ -33,7 +33,7 @@
 
 @section('content')
     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
-    @if($category->id == 2)
+    @if ($category->id == 2)
         @php $movie = $client->scrape('tv', 'tt'.$imdb); @endphp
     @else
         @php $movie = $client->scrape('movie', 'tt'.$imdb); @endphp
@@ -58,7 +58,7 @@
           <span class="movie-rating-stars">
             <i class="{{ config('other.font-awesome') }} fa-star"></i>
           </span>
-                        @if($user->ratings == 1)
+                        @if ($user->ratings == 1)
                             {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
                         @else
                             {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
@@ -73,8 +73,8 @@
                     <span class="badge-user"><a rel="nofollow"
                                                 href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     <strong>Genre: </strong>
-                    @if($movie->genres)
-                        @foreach($movie->genres as $genre)
+                    @if ($movie->genres)
+                        @foreach ($movie->genres as $genre)
                             <span class="badge-user text-bold text-green">{{ $genre }}</span>
                         @endforeach
                     @endif
@@ -107,7 +107,7 @@
                     </tr>
                     </thead>
                     <tbody id="result">
-                    @foreach($torrents as $k => $t)
+                    @foreach ($torrents as $k => $t)
                         <tr>
                             <td>
                                 <div class="torrent-poster pull-left"><img src="{{ $movie->poster }}"
@@ -117,7 +117,7 @@
                             </td>
                             <td>
                                 <div class="text-center">
-                                    <i class="{{ $t->category->icon }}" data-toggle="tooltip" title=""
+                                    <i class="{{ $t->category->icon }}" data-toggle="tooltip"
                                        data-original-title="{{ $t->category->name }} Torrent"></i>
                                     <br>
                                     <br>
@@ -127,18 +127,18 @@
                             <td>
                                 <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
                                    href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                                   data-toggle="tooltip" title=""
+                                   data-toggle="tooltip"
                                    data-original-title="{{ $t->name }}">{{ $t->name }}</a>
                                 @if (config('torrent.download_check_page') == 1)
                                     <a href="{{ route('download_check', ['slug' => $t->slug, 'id' => $t->id]) }}">
-                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
                                     <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">
-                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip" title=""
+                                        <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
@@ -165,7 +165,7 @@
                                         <a rel="nofollow" href="http://www.imdb.com/title/tt{{ $t->imdb }}">
                 <span class="badge-extra text-bold">
                   <span class="text-gold movie-rating-stars">
-                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                   </span>
                     {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
                 </span>
@@ -175,7 +175,7 @@
                                             <a rel="nofollow" href="https://www.themoviedb.org/tv/34307">
                 <span class="badge-extra text-bold">
                   <span class="text-gold movie-rating-stars">
-                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                   </span>
                     {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
                 </span>
@@ -184,7 +184,7 @@
                                             <a rel="nofollow" href="https://www.themoviedb.org/movie/34307">
                 <span class="badge-extra text-bold">
                   <span class="text-gold movie-rating-stars">
-                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" title="" data-original-title="View More"></i>
+                    <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                   </span>
                     {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
                 </span>
@@ -193,36 +193,36 @@
                                     @endif
                                     <span class="badge-extra text-bold text-pink"><i class="{{ config('other.font-awesome') }} fa-heart"
                                                                                      data-toggle="tooltip"
-                                                                                     title=""
+
                                                                                      data-original-title="Thanks Given"></i> {{ $t->thanks()->count() }}</span>
-                                    @if($t->stream == "1")<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-play text-red" data-toggle="tooltip" title=""
+                                    @if ($t->stream == "1")<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-play text-red" data-toggle="tooltip"
                                                 data-original-title="Stream Optimized"></i> Stream Optimized</span> @endif
-                                    @if($t->doubleup == "1")<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip" title=""
+                                    @if ($t->doubleup == "1")<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-gem text-green" data-toggle="tooltip"
                                                 data-original-title="Double upload"></i> Double Upload</span> @endif
-                                    @if($t->free == "1")<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip" title=""
+                                    @if ($t->free == "1")<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
                                                 data-original-title="100% Free"></i> 100% Free</span> @endif
-                                    @if(config('other.freeleech') == true)<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip" title=""
+                                    @if (config('other.freeleech') == true)<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                                 data-original-title="Global FreeLeech"></i> Global FreeLeech</span> @endif
-                                    @if(config('other.doubleup') == true)<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip" title=""
+                                    @if (config('other.doubleup') == true)<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-globe text-green" data-toggle="tooltip"
                                                 data-original-title="Double Upload"></i> Global Double Upload</span> @endif
-                                    @if($t->leechers >= "5") <span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-fire text-orange" data-toggle="tooltip" title=""
+                                    @if ($t->leechers >= "5") <span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-fire text-orange" data-toggle="tooltip"
                                                 data-original-title="Hot!"></i> Hot!</span> @endif
-                                    @if($t->sticky == 1) <span class="badge-extra text-bold"><i
+                                    @if ($t->sticky == 1) <span class="badge-extra text-bold"><i
                                                 class="{{ config('other.font-awesome') }} fa-thumbtack text-black" data-toggle="tooltip"
-                                                title=""
+
                                                 data-original-title="Sticky!"></i> Sticky!</span> @endif
-                                    @if($user->updated_at->getTimestamp() < $t->created_at->getTimestamp())
+                                    @if ($user->updated_at->getTimestamp() < $t->created_at->getTimestamp())
                                         <span class="badge-extra text-bold"><i class="{{ config('other.font-awesome') }} fa-magic text-black"
-                                                                               data-toggle="tooltip" title=""
+                                                                               data-toggle="tooltip"
                                                                                data-original-title="NEW!"></i> NEW!</span> @endif
-                                    @if($t->highspeed == 1)<span class="badge-extra text-bold"><i
-                                                class="{{ config('other.font-awesome') }} fa-tachometer text-red" data-toggle="tooltip" title=""
+                                    @if ($t->highspeed == 1)<span class="badge-extra text-bold"><i
+                                                class="{{ config('other.font-awesome') }} fa-tachometer text-red" data-toggle="tooltip"
                                                 data-original-title="High Speeds!"></i> High Speeds!</span> @endif
                                 </strong>
                             </td>

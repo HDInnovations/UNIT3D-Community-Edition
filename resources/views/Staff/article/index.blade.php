@@ -32,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($articles as $article)
+            @foreach ($articles as $article)
                 <tr>
                     <td>
                         <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}">{{ $article->title }}</a>
