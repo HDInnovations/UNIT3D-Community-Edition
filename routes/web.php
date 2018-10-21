@@ -230,11 +230,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/massDeactivateWarnings', 'UserController@deactivateAllWarnings')->name('massDeactivateWarnings');
         Route::get('/{username}.{id}/massDeleteWarnings', 'UserController@deleteAllWarnings')->name('massDeleteWarnings');
         Route::get('/restoreWarning/{id}', 'UserController@restoreWarning')->name('restoreWarning');
-
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
-        Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
-        
+        Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');   
         Route::post('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
 
         // User Wishlist
