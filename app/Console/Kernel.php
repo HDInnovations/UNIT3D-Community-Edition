@@ -37,7 +37,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\clearCache::class,
         \App\Console\Commands\testMailSettings::class,
         \App\Console\Commands\disableInactiveUsers::class,
-        \App\Console\Commands\softDeleteDisabledUsers::class
+        \App\Console\Commands\softDeleteDisabledUsers::class,
+        \App\Console\Commands\recycleClaimedTorrentRequests::class
     ];
 
     /**
@@ -66,6 +67,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('recycleFailedLogins')->daily();
         $schedule->command('disableInactiveUsers')->daily();
         $schedule->command('softDeleteDisabledUsers')->daily();
+        $schedule->command('recycleClaimedTorrentRequests')->daily();
     }
 
     /**
