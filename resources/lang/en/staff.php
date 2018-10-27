@@ -42,5 +42,8 @@ return [
     'user-search' => 'User Search',
     'user-tools' => 'User Tools',
     'warnings-log' => 'Warnings Log',
-    'you-have' => 'You Have'
+    'you-have' => 'You Have',
+    'possible-leech-cheaters' => 'Possible Cheaters',
+    'chat-tools' => 'Chat Tools',
+    'flush-chat' => 'Flush Chatbox'
 ];

@@ -12,12 +12,14 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
+use App\Events\MessageDeleted;
 use App\Chatroom;
 use App\ChatStatus;
-use App\Http\Controllers\Controller;
-use App\Repositories\ChatRepository;
-use Brian2694\Toastr\Toastr;
-use Illuminate\Http\Request;
+use App\Message;
+use \Toastr;
 
 class ChatController extends Controller
 {
@@ -194,5 +196,26 @@ class ChatController extends Controller
         $chatstatus->delete();
         return redirect()->route('chatManager')
             ->with($this->toastr->success('Chat Status Successfully Deleted', 'Yay!', ['options']));
+    }
+
+    /**
+     * Flush Chat Messages
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function flushChat()
+    {
+        foreach (Message::all() as $message) {
+            broadcast(new MessageDeleted($message));
+            $message->delete();
+        }
+
+        $this->chat->systemMessage(
+            ":robot: [b][color=#fb9776]System[/color][/b] : Chatbox Has Been Flushed! :broom:"
+        );
+
+        return redirect('staff_dashboard')
+            ->with(Toastr::success('Chatbox Has Been Flushed', 'Yay!', ['options']));
     }
 }
