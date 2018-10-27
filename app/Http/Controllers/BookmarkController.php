@@ -26,7 +26,7 @@ class BookmarkController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $bookmarks = Bookmark::with('torrent')->where('user_id', '=', auth()->user()->id)->paginate(25);
+        $bookmarks = $user->bookmarks()->paginate(25);
 
         return view('bookmark.bookmarks', [
             'user' => $user,

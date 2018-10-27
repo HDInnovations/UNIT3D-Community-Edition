@@ -42,32 +42,32 @@
                     @foreach ($bookmarks as $bookmark)
                         <tr>
                             <td>
-                                <a href="{{ route('category', ['slug' => $bookmark->torrent->category->slug, 'id' => $bookmark->torrent->category->id]) }}">
+                                <a href="{{ route('category', ['slug' => $bookmark->category->slug, 'id' => $bookmark->category->id]) }}">
                                     <div class="text-center">
-                                        <i class="{{ $bookmark->torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                           data-original-title="{{ $bookmark->torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                        <i class="{{ $bookmark->category->icon }} torrent-icon" data-toggle="tooltip"
+                                           data-original-title="{{ $bookmark->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                            style="padding-bottom: 6px;"></i>
                                     </div>
                                 </a>
                                 <div class="text-center">
                                     <span class="label label-success" data-toggle="tooltip" data-original-title="Type">
-                                        {{ $bookmark->torrent->type }}
+                                        {{ $bookmark->type }}
                                     </span>
                                 </div>
                             </td>
                             <td>
-                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
-                                    {{ $bookmark->torrent->name }}
+                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    {{ $bookmark->name }}
                                 </a>
                                 @if (config('torrent.download_check_page') == 1)
-                                    <a href="{{ route('download_check', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
+                                    <a href="{{ route('download_check', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
                                         </button>
                                     </a>
                                 @else
-                                    <a href="{{ route('download', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
+                                    <a href="{{ route('download', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="Download Torrent">
                                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
@@ -75,7 +75,7 @@
                                     </a>
                                 @endif
                                 
-                                @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $bookmark->torrent->info_hash)->first(); @endphp
+                                @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $bookmark->info_hash)->first(); @endphp
                                 @if ($history)
                                     @if ($history->seeder == 1 && $history->active == 1)
                                         <button class="btn btn-success btn-circle" type="button" data-toggle="tooltip"
@@ -108,53 +108,53 @@
 
                                 <br>
                                 
-                                @if ($bookmark->torrent->anon == 1)
+                                @if ($bookmark->anon == 1)
                                     <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By ANONYMOUS USER
-                                        @if ($user->id == $bookmark->torrent->user->id || $user->group->is_modo)
-                                            <a href="{{ route('profile', ['username' => $bookmark->torrent->user->username, 'id' => $bookmark->torrent->user->id]) }}">
-                                                ({{ $bookmark->torrent->user->username }})
+                                        @if ($user->id == $bookmark->user->id || $user->group->is_modo)
+                                            <a href="{{ route('profile', ['username' => $bookmark->user->username, 'id' => $bookmark->user->id]) }}">
+                                                ({{ $bookmark->user->username }})
                                             </a>
                                         @endif
                                     </span>
                                 @else
                                     <span class="badge-extra text-bold">
                                         <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="Uploaded By"></i> By
-                                        <a href="{{ route('profile', ['username' => $bookmark->torrent->user->username, 'id' => $bookmark->torrent->user->id]) }}">
-                                            {{ $bookmark->torrent->user->username }}
+                                        <a href="{{ route('profile', ['username' => $bookmark->user->username, 'id' => $bookmark->user->id]) }}">
+                                            {{ $bookmark->user->username }}
                                         </a>
                                     </span>
                                 @endif
 
                                 <span class="badge-extra text-bold text-pink">
                                     <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                    {{ $bookmark->torrent->thanks()->count() }}
+                                    {{ $bookmark->thanks()->count() }}
                                 </span>
                                         
                                 <span class="badge-extra text-bold text-green">
                                     <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                    {{ $bookmark->torrent->comments()->count() }}
+                                    {{ $bookmark->comments()->count() }}
                                 </span>
 
-                                @if ($bookmark->torrent->internal == 1)
+                                @if ($bookmark->internal == 1)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' data-original-title='Internal Release' style="color: #BAAF92"></i> Internal
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->stream == 1)
+                                @if ($bookmark->stream == 1)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-play text-red' data-toggle='tooltip' data-original-title='Stream Optimized'></i> Stream Optimized
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->featured == 0)
-                                    @if ($bookmark->torrent->doubleup == 1)
+                                @if ($bookmark->featured == 0)
+                                    @if ($bookmark->doubleup == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-gem text-green' data-toggle='tooltip' data-original-title='Double upload'></i> Double Upload
                                         </span>
                                     @endif
-                                    @if ($bookmark->torrent->free == 1)
+                                    @if ($bookmark->free == 1)
                                         <span class='badge-extra text-bold'>
                                             <i class='{{ config("other.font-awesome") }} fa-star text-gold' data-toggle='tooltip' data-original-title='100% Free'></i> 100% Free
                                         </span>
@@ -167,14 +167,14 @@
                                     </span>
                                 @endif
 
-                                @php $freeleech_token = \App\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $bookmark->torrent->id)->first(); @endphp
+                                @php $freeleech_token = \App\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $bookmark->id)->first(); @endphp
                                 @if ($freeleech_token)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-viacoin text-bold' data-toggle='tooltip' data-original-title='Freeleech Token'></i> Freeleech Token
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->featured == 1)
+                                @if ($bookmark->featured == 1)
                                     <span class='badge-extra text-bold' style='background-image:url(https://i.imgur.com/F0UCb7A.gif);'>
                                         <i class='{{ config("other.font-awesome") }} fa-certificate text-pink' data-toggle='tooltip' data-original-title='Featured Torrent'></i> Featured
                                     </span>
@@ -198,31 +198,31 @@
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->leechers >= 5)
+                                @if ($bookmark->leechers >= 5)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-fire text-orange' data-toggle='tooltip' data-original-title='Hot!'></i> Hot
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->sticky == 1)
+                                @if ($bookmark->sticky == 1)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-thumbtack text-black' data-toggle='tooltip' data-original-title='Sticky!'></i> Sticky
                                     </span>
                                 @endif
 
-                                @if ($user->updated_at->getTimestamp() < $bookmark->torrent->created_at->getTimestamp())
+                                @if ($user->updated_at->getTimestamp() < $bookmark->created_at->getTimestamp())
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-magic text-black' data-toggle='tooltip' data-original-title='NEW!'></i> NEW
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->highspeed == 1)
+                                @if ($bookmark->highspeed == 1)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-tachometer text-red' data-toggle='tooltip' data-original-title='High Speeds!'></i> High Speeds
                                     </span>
                                 @endif
 
-                                @if ($bookmark->torrent->sd == 1)
+                                @if ($bookmark->sd == 1)
                                     <span class='badge-extra text-bold'>
                                         <i class='{{ config("other.font-awesome") }} fa-ticket text-orange' data-toggle='tooltip' data-original-title='SD Content!'></i> SD Content
                                     </span>
@@ -231,38 +231,38 @@
 
                             <td>
                                 <time>
-                                    {{ $bookmark->torrent->created_at->diffForHumans() }}
+                                    {{ $bookmark->created_at->diffForHumans() }}
                                 </time>
                             </td>
                             <td>
                                 <span class='badge-extra text-blue text-bold'>
-                                    {{ $bookmark->torrent->getSize() }}
+                                    {{ $bookmark->getSize() }}
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
+                                <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-orange text-bold'>
-                                        {{ $bookmark->torrent->times_completed }} {{ trans('common.times') }}
+                                        {{ $bookmark->times_completed }} {{ trans('common.times') }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
+                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-green text-bold'>
-                                        {{ $bookmark->torrent->seeders }}
+                                        {{ $bookmark->seeders }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('peers', ['slug' => $bookmark->torrent->slug, 'id' => $bookmark->torrent->id]) }}">
+                                <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-red text-bold'>
-                                        {{ $bookmark->torrent->leechers }}
+                                        {{ $bookmark->leechers }}
                                     </span>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('unbookmark', ['id' => $bookmark->torrent->id]) }}">
-                                    <button type="button" id="{{ $bookmark->torrent->id }}"
+                                <a href="{{ route('unbookmark', ['id' => $bookmark->id]) }}">
+                                    <button type="button" id="{{ $bookmark->id }}"
                                             class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip"
                                             data-original-title="{{ trans('torrent.delete-bookmark') }}">
                                         <i class="{{ config('other.font-awesome') }} fa-times"></i>
