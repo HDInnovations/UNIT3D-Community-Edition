@@ -1,5 +1,5 @@
 // emoji list for .textcomplete() sourced from node_modules/emojione-assets/emoji.json
-export const emojiStrategy = require('../../../../node_modules/emojione-assets/emoji.json');
+export const emojiStrategy = require('../../../node_modules/emojione-assets/emoji.json');
 
 export function textcomplete(selector = null) {
   selector = selector === null ? '.wysibb-body' : selector;
