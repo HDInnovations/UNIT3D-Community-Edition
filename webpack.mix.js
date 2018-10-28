@@ -23,23 +23,23 @@ mix
   /*
    * Sourced asset dependencies via node_modules and JS bootstrapping
    */
-  .js('resources/assets/js/app.js', 'public/js')
-  .sass('resources/assets/sass/app.scss', 'public/css')
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
 
   /*
    * Themes
    *
-   * Note: Default wysibb theme is compiled into public/css/app.css from resources/assets/sass/app.scss
+   * Note: Default wysibb theme is compiled into public/css/app.css from resources/sass/app.scss
    *
    */
-  .sass('resources/assets/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
-  .sass('resources/assets/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
-  .sass('resources/assets/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
-  .sass('resources/assets/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
-  .sass('resources/assets/sass/themes/dark-purple.scss', 'public/css/themes/dark-purple.css')
-  .sass('resources/assets/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
-  .sass('resources/assets/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
-  .sass('resources/assets/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
+  .sass('resources/sass/themes/galactic.scss', 'public/css/themes/galactic.css')
+  .sass('resources/sass/themes/dark-blue.scss', 'public/css/themes/dark-blue.css')
+  .sass('resources/sass/themes/dark-green.scss', 'public/css/themes/dark-green.css')
+  .sass('resources/sass/themes/dark-pink.scss', 'public/css/themes/dark-pink.css')
+  .sass('resources/sass/themes/dark-purple.scss', 'public/css/themes/dark-purple.css')
+  .sass('resources/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
+  .sass('resources/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
+  .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
   
   /*
    * Login and TwoStep Auth styles
@@ -48,9 +48,9 @@ mix
    *
    * Note: These will likely be reworked into VueJS component(s)
    */
-  .sass('resources/assets/sass/main/login.scss', 'public/css/main/login.css')
-  .sass('resources/assets/sass/main/twostep.scss', 'public/css/main/twostep.css')
-  .babel('resources/assets/js/unit3d/twostep.js', 'public/js/twostep.js')
+  .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
+  .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
+  .babel('resources/js/unit3d/twostep.js', 'public/js/twostep.js')
 
   /*
    * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'
@@ -58,9 +58,9 @@ mix
    * Note: The order of this array will matter, no different then linking these assets manually in the html
    */
   .babel([
-    'resources/assets/js/unit3d/hoe.js',
-    'resources/assets/js/unit3d/vendor/livicons.js',
-    'resources/assets/js/unit3d/blutopia.js'
+    'resources/js/unit3d/hoe.js',
+    'resources/js/unit3d/vendor/livicons.js',
+    'resources/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
   
   /*

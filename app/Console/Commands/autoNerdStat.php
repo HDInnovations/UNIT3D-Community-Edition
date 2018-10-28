@@ -55,7 +55,6 @@ class autoNerdStat extends Command
     public function handle()
     {
         if (config('chat.nerd_bot') == true) {
-
             // Current Timestamp
             $current = Carbon::now();
             // Site Birthday
