@@ -59,9 +59,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('revokePermissions')->hourly();
         $schedule->command('autoBan')->hourly();
         $schedule->command('FlushPeers')->hourly();
-        $schedule->command('bonAllocation')->hourly();        
+        $schedule->command('bonAllocation')->hourly();
         $schedule->command('removePersonalFreeleech')->hourly();
-        $schedule->command('removeFeaturedTorrent')->hourly();        
+        $schedule->command('removeFeaturedTorrent')->hourly();
         $schedule->command('recycleInvites')->daily();
         $schedule->command('recycleActivityLog')->daily();
         $schedule->command('recycleFailedLogins')->daily();

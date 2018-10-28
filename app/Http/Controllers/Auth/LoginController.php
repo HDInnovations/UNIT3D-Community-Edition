@@ -61,7 +61,6 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string',
         ]);
-
     }
 
     protected function authenticated(Request $request, $user)

@@ -128,11 +128,11 @@ class ForumController extends Controller
             $forum->position = $request->input('position');
             $forum->slug = str_slug($request->input('title'));
             $forum->description = $request->input('description');
-            if ($request->input('forum_type') == 'category') {
-                $forum->parent_id = 0;
-            } else {
-                $forum->parent_id = $request->input('parent_id');
-            }
+        if ($request->input('forum_type') == 'category') {
+            $forum->parent_id = 0;
+        } else {
+            $forum->parent_id = $request->input('parent_id');
+        }
             $forum->save();
 
         // Permissions

@@ -114,7 +114,6 @@ class gitUpdater extends Command
             $this->io->listing($updating);
 
             if ($this->io->confirm('Start the update process', false)) {
-
                 $this->call('down', [
                     '--message' => "Currently Updating",
                     '--retry' => '300'
@@ -158,7 +157,6 @@ class gitUpdater extends Command
                 $this->clear();
 
                 $this->call('up');
-
             } else {
                 $this->alertDanger('Aborted Update');
                 die();
@@ -187,11 +185,9 @@ class gitUpdater extends Command
         $this->red("Updating will cause you to LOSE any changes you might have made to the file!");
 
         foreach ($updating as $file) {
-
             if ($this->io->confirm("Update $file", false)) {
                 $this->updateFile($file);
             }
-
         }
 
         $this->done();
@@ -225,7 +221,6 @@ class gitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-
             $to = str_replace_last('/.', '', base_path(dirname($path)));
             $from = storage_path('gitupdate') . '/' . $path;
 

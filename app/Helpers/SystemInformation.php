@@ -28,8 +28,7 @@ class SystemInformation
 
     public function memory()
     {
-        if(is_readable('/proc/meminfo'))
-        {
+        if (is_readable('/proc/meminfo')) {
             $content = file_get_contents('/proc/meminfo');
             preg_match('/^MemTotal: \s*(\d*)/m', $content, $matches);
             $total = $matches[1] * 1024;
@@ -49,10 +48,10 @@ class SystemInformation
             'free' => 0,
             'used' => 0
         ];
-
     }
 
-    protected function formatBytes($bytes, $precision = 2) {
+    protected function formatBytes($bytes, $precision = 2)
+    {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
         $bytes = max($bytes, 0);

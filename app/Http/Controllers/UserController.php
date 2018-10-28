@@ -686,7 +686,7 @@ class UserController extends Controller
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
             $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->where([
              ['name', 'like', '%' . $request->input('name') . '%'],
-        ])->paginate(50);
+            ])->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
         } else {
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));

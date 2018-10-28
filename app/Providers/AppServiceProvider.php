@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 60, function() {
+            $pages = cache()->remember('cached-pages', 60, function () {
                 return Page::select('id', 'name', 'slug')->take(5)->get();
             });
 
