@@ -59,7 +59,8 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+                    <form method="POST" action="{{ route('delete') }}">
+                    @csrf
                     <input id="type" name="type" type="hidden" value="Torrent">
                     <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                     <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
@@ -79,13 +80,13 @@
                     <div class="col-sm-10 col-sm-offset-2">
                         <input class="btn btn-danger" type="submit" value="{{ trans('common.delete') }}">
                     </div>
-                    {{ Form::close() }}
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button"
                         data-dismiss="modal">{{ trans('common.close') }}</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

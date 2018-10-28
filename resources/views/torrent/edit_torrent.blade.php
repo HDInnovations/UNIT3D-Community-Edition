@@ -15,7 +15,7 @@
         <div class="col-md-10">
             <h2>{{ trans('common.edit') }}: {{ $torrent->name }}</h2>
             <div class="block">
-                {{ Form::open(array('route' => array('edit', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
+                <form role="form" method="POST" action="{{ route('edit', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                 @csrf
                 <div class="form-group">
                     <label for="title">{{ trans('torrent.title') }}</label>
@@ -127,7 +127,7 @@
                     <input type="hidden" name="internal" value="0">
                 @endif
                 <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-                {{ Form::close() }}
+                </form>
             </div>
         </div>
     </div>

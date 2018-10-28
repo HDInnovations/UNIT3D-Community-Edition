@@ -21,7 +21,8 @@
 @section('content')
     <div class="container box">
         <h2>Add A Category</h2>
-        {{ Form::open(array('route' => 'staff_category_add')) }}
+        <form role="form" method="POST" action="{{ route('staff_category_add') }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name">
@@ -44,6 +45,6 @@
         <br>
         <br>
         <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

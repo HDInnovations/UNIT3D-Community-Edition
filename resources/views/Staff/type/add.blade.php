@@ -21,7 +21,8 @@
 @section('content')
     <div class="container box">
         <h2>Add A Torrent Type</h2>
-        {{ Form::open(array('route' => 'staff_type_add')) }}
+        <form role="form" method="POST" action="{{ route('staff_type_add') }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name">
@@ -32,6 +33,6 @@
         </div>
 
         <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

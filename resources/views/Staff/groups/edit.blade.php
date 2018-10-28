@@ -60,73 +60,73 @@
                         <td>
                             @if ($group->is_internal == 1)
                                 <input type="hidden" name="is_internal" value="0">
-                                {{ Form::checkbox('is_internal', '1', true) }}
+                                <input type="checkbox" name="is_internal" value="1" checked>
                             @else
                                 <input type="hidden" name="is_internal" value="0">
-                                {{ Form::checkbox('is_internal', '1', false) }}
+                                <input type="checkbox" name="is_internal" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->is_modo == 1)
                                 <input type="hidden" name="is_modo" value="0">
-                                {{ Form::checkbox('is_modo', '1', true) }}
+                                <input type="checkbox" name="is_modo" value="1" checked>
                             @else
                                 <input type="hidden" name="is_modo" value="0">
-                                {{ Form::checkbox('is_modo', '1', false) }}
+                                <input type="checkbox" name="is_modo" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->is_admin == 1)
                                 <input type="hidden" name="is_admin" value="0">
-                                {{ Form::checkbox('is_admin', '1', true) }}
+                                <input type="checkbox" name="is_admin" value="1" checked>
                             @else
                                 <input type="hidden" name="is_admin" value="0">
-                                {{ Form::checkbox('is_admin', '1', false) }}
+                                <input type="checkbox" name="is_admin" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->is_trusted == 1)
                                 <input type="hidden" name="is_trusted" value="0">
-                                {{ Form::checkbox('is_trusted', '1', true) }}
+                                <input type="checkbox" name="is_trusted" value="1" checked>
                             @else
                                 <input type="hidden" name="is_trusted" value="0">
-                                {{ Form::checkbox('is_trusted', '1', false) }}
+                                <input type="checkbox" name="is_trusted" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->is_immune == 1)
                                 <input type="hidden" name="is_immune" value="0">
-                                {{ Form::checkbox('is_immune', '1', true) }}
+                                <input type="checkbox" name="is_immune" value="1" checked>
                             @else
                                 <input type="hidden" name="is_immune" value="0">
-                                {{ Form::checkbox('is_immune', '1', false) }}
+                                <input type="checkbox" name="is_immune" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->is_freeleech == 1)
                                 <input type="hidden" name="is_freeleech" value="0">
-                                {{ Form::checkbox('is_freeleech', '1', true) }}
+                                <input type="checkbox" name="is_freeleech" value="1" checked>
                             @else
                                 <input type="hidden" name="is_freeleech" value="0">
-                                {{ Form::checkbox('is_freeleech', '1', false) }}
+                                <input type="checkbox" name="is_freeleech" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->can_upload == 1)
                                 <input type="hidden" name="can_upload" value="0">
-                                {{ Form::checkbox('can_upload', '1', true) }}
+                                <input type="checkbox" name="can_upload" value="1" checked>
                             @else
                                 <input type="hidden" name="can_upload" value="0">
-                                {{ Form::checkbox('can_upload', '1', false) }}
+                                <input type="checkbox" name="can_upload" value="1">
                             @endif
                         </td>
                         <td>
                             @if ($group->autogroup == 1)
                                 <input type="hidden" name="autogroup" value="0">
-                                {{ Form::checkbox('autogroup', '1', true) }}
+                                <input type="checkbox" name="autogroup" value="1" checked>
                             @else
                                 <input type="hidden" name="autogroup" value="0">
-                                {{ Form::checkbox('autogroup', '1', false) }}
+                                <input type="checkbox" name="autogroup" value="1">
                             @endif
                         </td>
                     </tr>

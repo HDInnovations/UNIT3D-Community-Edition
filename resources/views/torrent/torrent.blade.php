@@ -534,7 +534,8 @@
                     <td>
                         <p>{!! trans('torrent.torrent-tips', ['total' => $total_tips, 'user' => $user_tips]) !!}.</p>
                         <span class="text-red text-bold">({{ trans('torrent.torrent-tips-desc') }})</span>
-                        {{ Form::open(array('route' => array('tip_uploader', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
+                        <form role="form" method="POST" action="{{ route('tip_uploader', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                        @csrf
                         <input type="number" name="tip" value="0" placeholder="0" class="form-control">
                         <button type="submit" class="btn btn-primary">{{ trans('torrent.leave-tip') }}</button>
                         <br>
@@ -552,7 +553,7 @@
                         </button>
                         <button type="submit" value="1000" name="tip" class="btn"><img src="/img/coins/1000coin.png"/>
                         </button>
-                        {{ Form::close() }}
+                        </form>
                     </td>
                 </tr>
                 </tbody>
@@ -680,7 +681,8 @@
 
             <!-- Add comment -->
             <div class="col-md-12">
-                {{ Form::open(array('route' => array('comment_torrent', 'slug' => $torrent->slug, 'id' => $torrent->id))) }}
+                <form role="form" method="POST" action="{{ route('comment_torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                @csrf
                 <div class="form-group">
                     <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }}
                         <strong>:</strong> {{ trans('common.for') }} emoji</span> <span
@@ -692,7 +694,7 @@
                         :</strong></label>
                 <input type="radio" value="1" name="anonymous"> {{ trans('common.yes') }}
                 <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }}
-                {{ Form::close() }}
+                </form>
             </div>
             <!-- /Add comment -->
         </div>

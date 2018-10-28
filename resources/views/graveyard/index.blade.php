@@ -21,64 +21,85 @@
             <span id="filter-item-type"></span>
         </div>
         <hr>
-        {{ Form::open(['action'=>'GraveyardController@index','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
+        <form role="form" method="GET" action="GraveyardController@index" class="form-horizontal form-condensed form-torrent-search form-bordered">
+        @csrf
         <div class="form-group">
             <label for="name" class="col-sm-1 label label-default">Name</label>
             <div class="col-sm-9">
-                {{ Form::text('search',null,['id'=>'search','placeholder'=>'Name or Title','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="search" placeholder="Name / Title">
             </div>
         </div>
+
         <div class="form-group">
             <label for="imdb" class="col-sm-1 label label-default">Number</label>
             <div class="col-sm-2">
-                {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tvdb',null,['id'=>'tvdb','placeholder'=>'TVDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tmdb',null,['id'=>'tmdb','placeholder'=>'TMDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('mal',null,['id'=>'mal','placeholder'=>'MAL #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="mal" placeholder="MAL #">
             </div>
         </div>
+
         <div class="form-group">
             <label for="category" class="col-sm-1 label label-default">Category</label>
             <div class="col-sm-10">
                 @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
-                        {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
-                        {{ Form::label($category,$category,['class'=>'inline']) }}
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $category }}" value="{{ $id }}" class="category"> {{ $category }}
+                        </label>
                     </span>
                 @endforeach
             </div>
         </div>
+
         <div class="form-group">
             <label for="type" class="col-sm-1 label label-default">Type</label>
-                <div class="col-sm-10">
-                    @foreach ($repository->types() as $id => $type)
-                        <span class="badge-user">
-                            {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
-                            {{ Form::label($type,$type,['class'=>'inline']) }}
-                        </span>
-                    @endforeach
-                </div>
+            <div class="col-sm-10">
+                @foreach ($repository->types() as $id => $type)
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                        </label>
+                    </span>
+                @endforeach
             </div>
-        {{ Form::close() }}
+        </div>
+        </form>
+
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
-                {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}
+                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
                 <div class="col-sm-2">
-                    {{ Form::select('sorting',$repository->sorting(),'leechers',['class'=>'form-control','id'=>'sorting','placeholder'=>'Select for sorting']) }}
+                    <select id="sorting" name="sorting" class="form-control">
+                        <option value="created_at" selected>Created At</option>
+                        @foreach ($repository->sorting() as $sort)
+                            <option value="{{ $sort }}">{{ $sort }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-3">
-                    {{ Form::select('direction',$repository->direction(),'desc',['class'=>'form-control','id'=>'direction']) }}
+                    <select id="direction" name="direction" class="form-control">
+                        <option value="desc" selected>Decending</option>
+                        @foreach ($repository->direction() as $dir)
+                            <option value="{{ $dir }}">{{ $dir }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                {{ Form::label('qty','Display:',['class'=>'control-label col-sm-2']) }}
+                <label class="control-label col-sm-2" for="qty">Quanity:</label>
                 <div class="col-sm-2">
-                    {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
+                    <select id="qty" name="qty" class="form-control">
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
             </div>
         </div>

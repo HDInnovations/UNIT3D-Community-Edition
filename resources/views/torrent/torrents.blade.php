@@ -26,42 +26,42 @@
         </div>
         <hr>
 
-        {{ Form::open(['action'=>'TorrentController@torrents','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
-
+        <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
+        @csrf
         <div class="form-group">
             <label for="name" class="col-sm-1 label label-default">Name</label>
             <div class="col-sm-9">
-                {{ Form::text('search',null,['id'=>'search','placeholder'=>'Name / Title','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="search" placeholder="Name / Title">
             </div>
         </div>
 
         <div class="form-group">
             <label for="name" class="col-sm-1 label label-default">Description</label>
             <div class="col-sm-9">
-                {{ Form::text('description',null,['id'=>'description','placeholder'=>'Mediainfo or Description','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="description" placeholder="Mediainfo / Description">
             </div>
         </div>
 
         <div class="form-group">
             <label for="uploader" class="col-sm-1 label label-default">Uploader</label>
             <div class="col-sm-9">
-                {{ Form::text('uploader',null,['id'=>'uploader','placeholder'=>'Uploader Username','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="uploader" placeholder="Uploaders Username">
             </div>
         </div>
 
         <div class="form-group">
             <label for="imdb" class="col-sm-1 label label-default">Number</label>
             <div class="col-sm-2">
-                {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tvdb',null,['id'=>'tvdb','placeholder'=>'TVDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('tmdb',null,['id'=>'tmdb','placeholder'=>'TMDB #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
             </div>
             <div class="col-sm-2">
-                {{ Form::text('mal',null,['id'=>'mal','placeholder'=>'MAL #','class'=>'form-control']) }}
+                <input type="text" class="form-control" id="mal" placeholder="MAL #">
             </div>
         </div>
 
@@ -70,8 +70,9 @@
             <div class="col-sm-10">
                 @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
-                        {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
-                        {{ Form::label($category,$category,['class'=>'inline']) }}
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $category }}" value="{{ $id }}" class="category"> {{ $category }}
+                        </label>
                     </span>
                 @endforeach
             </div>
@@ -82,8 +83,9 @@
             <div class="col-sm-10">
                 @foreach ($repository->types() as $id => $type)
                     <span class="badge-user">
-                        {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
-                        {{ Form::label($type,$type,['class'=>'inline']) }}
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                        </label>
                     </span>
                 @endforeach
             </div>
@@ -94,17 +96,17 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('freeleech','1',false,['id'=>'freeleech']) }} <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> 100% Free
+                        <input type="checkbox" id="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> 100% Free
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('doubleupload','1',false,['id'=>'doubleupload']) }}<span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> Double Upload
+                        <input type="checkbox" id="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> Double Upload
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('featured','1',false,['id'=>'featured']) }}<span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> Featured Torrent
+                        <input type="checkbox" id="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> Featured Torrent
                     </label>
                 </span>
             </div>
@@ -115,22 +117,22 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('stream','1',false,['id'=>'stream']) }} <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> Stream Optimized
+                        <input type="checkbox" id="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> Stream Optimized
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('highspeed','1',false,['id'=>'highspeed']) }} <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> High Speeds
+                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> High Speeds
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('sd','1',false,['id'=>'sd']) }} <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> SD Content
+                        <input type="checkbox" id="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> SD Content
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('internal','1',false,['id'=>'internal']) }} <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> Internal
+                        <input type="checkbox" id="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> Internal
                     </label>
                 </span>
             </div>
@@ -141,37 +143,51 @@
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('alive','1',false,['id'=>'alive']) }} <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> Alive
+                        <input type="checkbox" id="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> Alive
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('dying','1',false,['id'=>'dying']) }} <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> Dying
+                        <input type="checkbox" id="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> Dying
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        {{ Form::checkbox('dead','0',false,['id'=>'dead']) }} <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> Dead
+                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> Dead
                     </label>
                 </span>
             </div>
         </div>
 
-        {{ Form::close() }}
+        </form>
         <hr>
 
         <div class="form-horizontal">
             <div class="form-group">
-                {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}
+                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
                 <div class="col-sm-2">
-                    {{ Form::select('sorting',$repository->sorting(),'created_at',['class'=>'form-control','id'=>'sorting','placeholder'=>'Select for sorting']) }}
+                    <select id="sorting" name="sorting" class="form-control">
+                        <option value="created_at" selected>Created At</option>
+                        @foreach ($repository->sorting() as $sort)
+                            <option value="{{ $sort }}">{{ $sort }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-3">
-                    {{ Form::select('direction',$repository->direction(),'desc',['class'=>'form-control','id'=>'direction']) }}
+                    <select id="direction" name="direction" class="form-control">
+                        <option value="desc" selected>Decending</option>
+                        @foreach ($repository->direction() as $dir)
+                            <option value="{{ $dir }}">{{ $dir }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                {{ Form::label('qty','Display:',['class'=>'control-label col-sm-2']) }}
+                <label class="control-label col-sm-2" for="qty">Quanity:</label>
                 <div class="col-sm-2">
-                    {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
+                    <select id="qty" name="qty" class="form-control">
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
                 </div>
             </div>
         </div>

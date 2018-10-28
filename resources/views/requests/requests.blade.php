@@ -26,7 +26,6 @@
             </div>
         </div>
     @else
-        <!-- Search -->
         <div class="container box">
             <div class="well">
                 <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
@@ -36,103 +35,127 @@
                 <span id="filter-item-category"></span>
                 <span id="filter-item-type"></span>
             </div>
-            <hr> {{ Form::open(['action'=>'RequestController@requests','method'=>'get','class'=>'form-horizontal form-condensed form-torrent-search form-bordered']) }}
+            <hr>
+            <form role="form" method="GET" action="RequestController@requests" class="form-horizontal form-condensed form-torrent-search form-bordered">
+            @csrf
             <div class="form-group">
                 <label for="name" class="col-sm-1 label label-default">Name</label>
                 <div class="col-sm-9">
-                    {{ Form::text('search',null,['id'=>'search','placeholder'=>'Name or Title','class'=>'form-control']) }}
+                    <input type="text" class="form-control" id="search" placeholder="Name / Title">
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="imdb" class="col-sm-1 label label-default">Number</label>
                 <div class="col-sm-2">
-                    {{ Form::text('imdb',null,['id'=>'imdb','placeholder'=>'IMDB #','class'=>'form-control']) }}
+                    <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('tvdb',null,['id'=>'tvdb','placeholder'=>'TVDB #','class'=>'form-control']) }}
+                    <input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('tmdb',null,['id'=>'tmdb','placeholder'=>'TMDB #','class'=>'form-control']) }}
+                    <input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
                 </div>
                 <div class="col-sm-2">
-                    {{ Form::text('mal',null,['id'=>'mal','placeholder'=>'MAL #','class'=>'form-control']) }}
+                    <input type="text" class="form-control" id="mal" placeholder="MAL #">
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="category" class="col-sm-1 label label-default">Category</label>
                 <div class="col-sm-10">
                     @foreach ($repository->categories() as $id => $category)
                         <span class="badge-user">
-            {{ Form::checkbox($category,$id,false,['class'=>'category']) }}
-                            {{ Form::label($category,$category,['class'=>'inline']) }}
-        </span>
+                            <label class="inline">
+                                <input type="checkbox" id="{{ $category }}" value="{{ $id }}" class="category"> {{ $category }}
+                            </label>
+                        </span>
                     @endforeach
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="type" class="col-sm-1 label label-default">Type</label>
                 <div class="col-sm-10">
                     @foreach ($repository->types() as $id => $type)
                         <span class="badge-user">
-            {{ Form::checkbox($type,$type,false,['class'=>'type']) }}
-                            {{ Form::label($type,$type,['class'=>'inline']) }}
-        </span>
+                            <label class="inline">
+                                <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                            </label>
+                        </span>
                     @endforeach
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="type" class="col-sm-1 label label-default">Extra</label>
                 <div class="col-sm-10">
-        <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('myrequests',$user->id,false,['id'=>'myrequests']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My Requests
-        </label>
-        </span>
                     <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('unfilled','1',false,['id'=>'unfilled']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> Unfilled
-        </label>
-        </span>
+                        <label class="inline">
+                            <input type="checkbox" id="myrequests" value="{{ $user->id }}">
+                            <span class="{{ config('other.font-awesome') }} fa-user text-blue"></span> My Requests
+                        </label>
+                    </span>
                     <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('claimed','1',false,['id'=>'claimed']) }} <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> Claimed
-        </label>
-        </span>
+                        <label class="inline">
+                            <input type="checkbox" id="unfilled" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-times-circle text-blue"></span> Unfilled
+                        </label>
+                    </span>
                     <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('pending','1',false,['id'=>'pending']) }} <span
-                    class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> Pending
-        </label>
-        </span>
+                        <label class="inline">
+                            <input type="checkbox" id="claimed" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-suitcase text-blue"></span> Claimed
+                        </label>
+                    </span>
                     <span class="badge-user">
-        <label class="inline">
-            {{ Form::checkbox('filled','1',false,['id'=>'filled']) }} <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> Filled
-        </label>
-        </span>
+                        <label class="inline">
+                            <input type="checkbox" id="pending" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-question-circle text-blue"></span> Pending
+                        </label>
+                    </span>
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="filled" value="1">
+                            <span class="{{ config('other.font-awesome') }} fa-check-circle text-blue"></span> Filled
+                        </label>
+                    </span>
                 </div>
             </div>
-            {{ Form::close() }}
+            </form>
+
             <br>
             <br>
+
             <div class="form-horizontal">
                 <div class="form-group">
-                    {{ Form::label('sorting','Sort By:',['class'=>'control-label col-sm-2']) }}
+                    <label class="control-label col-sm-2" for="sorting">SortBy:</label>
                     <div class="col-sm-2">
-                        {{ Form::select('sorting',$repository->sorting(),'created_at',['class'=>'form-control','id'=>'sorting','placeholder'=>'Select for sorting']) }}
+                        <select id="sorting" name="sorting" class="form-control">
+                            <option value="created_at" selected>Created At</option>
+                            @foreach ($repository->sorting() as $sort)
+                                <option value="{{ $sort }}">{{ $sort }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-sm-3">
-                        {{ Form::select('direction',$repository->direction(),'desc',['class'=>'form-control','id'=>'direction']) }}
+                        <select id="direction" name="direction" class="form-control">
+                            <option value="desc" selected>Decending</option>
+                            @foreach ($repository->direction() as $dir)
+                                <option value="{{ $dir }}">{{ $dir }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                    {{ Form::label('qty','Display:',['class'=>'control-label col-sm-2']) }}
+                    <label class="control-label col-sm-2" for="qty">Quanity:</label>
                     <div class="col-sm-2">
-                        {{ Form::select('qty',[25=>25,50=>50,100=>100],25,['class'=>'form-control','id'=>'qty']) }}
+                        <select id="qty" name="qty" class="form-control">
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- /Search -->
 
         <div class="container-fluid">
             <div class="block">

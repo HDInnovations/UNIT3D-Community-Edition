@@ -24,7 +24,8 @@
         <div class="col-sm-2 col-sm-offset-1">
             <div class="well well-sm mt-0">
                 <h3>{{ trans('user.add-seedbox') }}</h3>
-                {{ Form::open(['route' => ['addcli', 'username' => $user->username, 'id' => $user->id], 'method' => 'post' , 'role' => 'form', 'class' => 'login-frm']) }}
+                <form role="form" method="POST" action="{{ route('addcli', ['username' => $user->username, 'id' => $user->id]) }}">
+                @csrf
                 <div class="form-group input-group">
                     <input type="password" name="password" class="form-control"
                            placeholder="{{ trans('user.current-password') }}" required>
@@ -38,9 +39,9 @@
                            placeholder="{{ trans('user.username-seedbox') }}" required>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</a>
+                    <button type="submit" class="btn btn-primary btn-sm">{{ trans('common.submit') }}</button>
                 </div>
-                {{ Form::close() }}
+                </form>
             </div>
         </div>
         <div class="col-sm-8">
@@ -73,11 +74,12 @@
                                 <td>{{ $client->ip }}</td>
                                 <td>{{ $client->created_at }}</td>
                                 <td>
-                                    {{ Form::open(['route' => ['rmcli', 'username' => $user->username , 'id' => $user->id], 'role' => 'form', 'class' => 'login-frm']) }}
+                                    <form role="form" method="POST" action="{{ route('rmcli', ['username' => $user->username, 'id' => $user->id]) }}">
+                                    @csrf
                                     <input type='hidden' name="cliid" value="{{ $client->id }}">
                                     <input type="hidden" name="userid" value="{{ $user->id }}">
                                     <button type="submit" class="btn btn-danger">{{ trans('common.delete') }}</button>
-                                    {{ Form::close() }}
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

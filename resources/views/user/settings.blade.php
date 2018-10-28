@@ -36,7 +36,8 @@
         <div class="tab-content block block-titled">
             <div role="tabpanel" class="tab-pane active" id="welcome">
 
-                {{ Form::open(array('url' => '/{username}.{id}/settings','role' => 'form', 'class' => 'login-frm')) }}
+                <form role="form" method="POST" action="{{ route('user_settings', ['username' => $user->username, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                @csrf
                 <br>
                 <div class="well">
                 <h2 class="text-bold">General Settings</h2>
@@ -175,7 +176,7 @@
                 <div class="form-group">
                     <div class="text-center"><input class="btn btn-primary" type="submit" value="Save"></div>
                 </div>
-                {{ Form::close() }}
+                </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="password">
@@ -183,7 +184,8 @@
                             class="small">You will have to login again, after you change your password.</span>
                 </h3>
                 <hr>
-                {{ Form::open(array('url' => '/{username}.{id}/settings/change_password','role' => 'form', 'class' => 'login-frm')) }}
+                <form role="form" method="POST" action="{{ route('change_password', ['username' => $user->username, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
                     <label for="current_password">Current Password</label>
                     <input type="password" name="current_password" class="form-control" placeholder="Current Password">
@@ -195,21 +197,22 @@
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Make The Switch!</button>
-                {{ Form::close() }}
+                </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="email">
                 <h3>Change Email Address. <span class="small">You will have to re-confirm your account, after you change your email.</span>
                 </h3>
                 <hr>
-                {{ Form::open(array('url' => '/{username}.{id}/settings/change_email','role' => 'form', 'class' => 'login-frm')) }}
+                <form role="form" method="POST" action="{{ route('change_email', ['username' => $user->username, 'id' => $user->id]) }}">
+                @csrf
                 <label for="current_email">Current Email</label>
                 <p class="text-primary">{{ $user->email }}</p>
                 <label for="email">New Email</label>
                 <input class="form-control" placeholder="New Email" name="email" type="email">
                 <br>
                 <button type="submit" class="btn btn-primary">Make The Switch!</button>
-                {{ Form::close() }}
+                </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="pid">
@@ -217,7 +220,8 @@
                     <span class="small">You will have to re-download/re-upload all your active torrents, after resetting the PID.</span>
                 </h3>
                 <hr>
-                {{ Form::open(array('url' => '/{username}.{id}/settings/change_pid','role' => 'form', 'class' => 'login-frm')) }}
+                <form role="form" method="POST" action="{{ route('change_pid', ['username' => $user->username, 'id' => $user->id]) }}">
+                @csrf
                 <div class="form-group">
                     <label for="current_pid">Current pid</label>
                     <p class="form-control-static text-monospace current_pid">{{ $user->passkey }}</p>
@@ -225,7 +229,7 @@
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" value="Reset PID">
                 </div>
-                {{ Form::close() }}
+                </form>
             </div>
         </div>
     </div>

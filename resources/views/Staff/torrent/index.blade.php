@@ -36,7 +36,7 @@
             <tbody>
             @foreach ($torrents as $t)
                 <tr>
-                    <td>{{ $t->id }}</a>
+                    <td>{{ $t->id }}
                     </td>
                     <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></td>
                     <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}"
@@ -59,7 +59,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+                                            <form method="POST" action="{{ route('delete') }}">
+                                            @csrf
                                             <input id="type" type="hidden" name="type" value="Torrent">
                                             <input id="id" type="hidden" name="id" value="{{ $t->id }}">
                                             <input id="slug" type="hidden" name="slug" value="{{ $t->slug }}">
@@ -81,7 +82,6 @@
                                             <div class="col-sm-10 col-sm-offset-2">
                                                 <input class="btn btn-danger" type="submit" value="Delete">
                                             </div>
-                                            {{ Form::close() }}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -89,6 +89,7 @@
                                             Close
                                         </button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

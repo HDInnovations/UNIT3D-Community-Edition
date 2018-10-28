@@ -22,7 +22,8 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Torrent Type</h2>
-        {{ Form::open(['route' => ['staff_type_edit', 'slug' => $type->slug, 'id' => $type->id]]) }}
+        <form role="form" method="POST" action="{{ route('staff_type_edit', ['slug' => $type->slug, 'id' => $type->id]) }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{ $type->name }}">
@@ -34,6 +35,6 @@
         </div>
 
         <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

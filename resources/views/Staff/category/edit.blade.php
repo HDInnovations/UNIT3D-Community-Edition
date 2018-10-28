@@ -22,7 +22,8 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Category</h2>
-        {{ Form::open(['route' => ['staff_category_edit', 'slug' => $category->slug, 'id' => $category->id]]) }}
+        <form role="form" method="POST" action="{{ route('staff_category_edit', ['slug' => $category->slug, 'id' => $category->id]) }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{ $category->name }}">
@@ -45,6 +46,6 @@
         <br>
         <br>
         <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

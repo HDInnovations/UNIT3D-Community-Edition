@@ -19,8 +19,7 @@
     <div class="container">
         <div class="block block-form">
             <h1>{{ trans('user.edit-profile') }}</h1>
-
-            {{ Form::open(array('route' => array('user_edit_profile', 'username' => $user->username, 'id' => $user->id), 'files' => true)) }}
+            <form role="form" method="POST" action="{{ route('user_edit_profile', ['username' => $user->username, 'id' => $user->id]) }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="image">{{ trans('user.avatar') }}</label>
@@ -52,8 +51,7 @@
             @endif
 
             <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
-            {{ Form::close() }}
-
+            </form>
         </div>
     </div>
 @endsection

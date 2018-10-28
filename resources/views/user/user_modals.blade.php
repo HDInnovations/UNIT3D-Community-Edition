@@ -4,10 +4,12 @@
         <div class="modal-content">
             <meta charset="utf-8">
             <title>Ban User: {{ $user->username }}</title>
-            {{ Form::open(array('route' => array('ban', $user->username, $user->id))) }}
+            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username, 'id' => $user->id]) }}">
+            @csrf
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">×</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
                 <h4 class="modal-title" id="myModalLabel">Ban User: {{ $user->username }}</h4>
             </div>
             <div class="modal-body">
@@ -28,11 +30,11 @@
                         <input class="btn btn-danger" type="submit" value="Ban">
                     </div>
                 </div>
-                {{ Form::close() }}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -43,7 +45,8 @@
         <div class="modal-content">
             <meta charset="utf-8">
             <title>Unban User: {{ $user->username }}</title>
-            {{ Form::open(array('route' => array('unban', $user->username, $user->id))) }}
+            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username, 'id' => $user->id]) }}">
+            @csrf
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>
@@ -79,11 +82,11 @@
                         <input class="btn btn-primary" type="submit" value="Unban">
                     </div>
                 </div>
-                {{ Form::close() }}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
