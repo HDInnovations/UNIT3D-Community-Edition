@@ -11,7 +11,7 @@
                         <div class="forum-category-title col-md-12">
                             <div class="forum-category-childs">
                                 <form class="form-horizontal" method="POST" action="/poll/vote">
-
+                                @csrf
                                     @if (count($errors) > 0)
                                         <div class="alert alert-danger">
                                             <ul>
