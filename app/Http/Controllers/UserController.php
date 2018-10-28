@@ -672,4 +672,24 @@ class UserController extends Controller
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
+    
+    /**
+     * Search A User's Uploads
+     *
+     * @param $username
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myUploadsSearch(Request $request, $username, $id)
+    {
+        $user = User::findOrFail($id);
+        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
+            $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->where([
+             ['name', 'like', '%' . $request->input('name') . '%'],
+        ])->paginate(50);
+            return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
+        } else {
+            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
 }
