@@ -40,7 +40,6 @@
 
                 <div :class="['messages-container', message.user.id === 1 ? 'system' : null]"
                      v-html="message.message">
-
                 </div>
 
 
