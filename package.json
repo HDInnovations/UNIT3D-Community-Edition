@@ -23,7 +23,6 @@
     "laravel-mix": "^2.1.14",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
-    "raphael": "^2.2.7",
     "select2": "^4.0.6-rc.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",

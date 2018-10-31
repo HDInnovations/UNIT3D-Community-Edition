@@ -84,6 +84,6 @@ require('./wysibb/jquery.wysibb');
 // emojis
 window.emoji = require('./unit3d/emoji');
 
-window.Raphael = require('raphael');
+//alerts
 window.swal = require('sweetalert2');
 window.toastr = require('toastr');

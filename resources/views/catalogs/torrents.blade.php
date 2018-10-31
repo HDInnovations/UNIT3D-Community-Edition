@@ -98,12 +98,9 @@
                                        data-original-title="{{ $t->name }}">{{ $t->name }}</a>
                                     <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
-                                                data-original-title="DOWNLOAD!"><i class="livicon"
-                                                                                            data-name="download"
-                                                                                            data-size="18"
-                                                                                            data-color="white"
-                                                                                            data-hc="white"
-                                                                                            data-l="true"></i></button>
+                                                data-original-title="DOWNLOAD!">
+                                            <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                                        </button>
                                     </a>
                                     <br>
                                     <strong>

@@ -618,8 +618,7 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading border-light">
                         <h4 class="panel-title">
-                            <i class="livicon" data-name="mail" data-size="18" data-color="white" data-hc="white"
-                               data-l="true"></i> {{ trans('common.comments') }}
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ trans('common.comments') }}
                         </h4>
                     </div>
                     <div class="panel-body no-padding">

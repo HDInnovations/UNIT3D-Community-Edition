@@ -59,7 +59,6 @@ mix
    */
   .babel([
     'resources/js/unit3d/hoe.js',
-    'resources/js/unit3d/vendor/livicons.js',
     'resources/js/unit3d/blutopia.js'
   ], 'public/js/unit3d.js')
   

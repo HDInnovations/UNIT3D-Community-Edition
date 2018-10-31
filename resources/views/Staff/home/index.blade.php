@@ -76,9 +76,8 @@
                                                     <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Total Torrents</span>
                                                     <div class="number" id="myTargetElement1"></div>
                                                 </div>
-                                                <i class="livicon  pull-right" data-name="doc-portrait" data-l="true"
-                                                   data-c="#fff"
-                                                   data-hc="#fff" data-s="70"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-magnet pull-right"
+                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -105,9 +104,8 @@
                                                 <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Peers</span>
                                                 <div class="number" id="myTargetElement2"></div>
                                             </div>
-                                            <i class="livicon pull-right" data-name="wifi-alt" data-l="true"
-                                               data-c="#fff"
-                                               data-hc="#fff" data-s="70"></i>
+                                            <i class="{{ config('other.font-awesome') }} fa-wifi pull-right"
+                                               style=" font-size: 57px; margin-bottom: 15px"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -133,9 +131,8 @@
                                                 <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Seedboxes</span>
                                                 <div class="number" id="myTargetElement3"></div>
                                             </div>
-                                            <i class="livicon pull-right" data-name="servers" data-l="true"
-                                               data-c="#fff"
-                                               data-hc="#fff" data-s="70"></i>
+                                            <i class="{{ config('other.font-awesome') }} fa-server pull-right"
+                                               style=" font-size: 57px; margin-bottom: 15px"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -162,9 +159,8 @@
                                                     <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Users</span>
                                                     <div class="number" id="myTargetElement4"></div>
                                                 </div>
-                                                <i class="livicon pull-right" data-name="users" data-l="true"
-                                                   data-c="#fff"
-                                                   data-hc="#fff" data-s="70"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-users pull-right"
+                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -192,9 +188,8 @@
                                                     <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Reports</span>
                                                     <div class="number" id="myTargetElement5"></div>
                                                 </div>
-                                                <i class="livicon pull-right" data-name="list" data-l="true"
-                                                   data-c="#fff"
-                                                   data-hc="#fff" data-s="70"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-clipboard-list pull-right"
+                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
