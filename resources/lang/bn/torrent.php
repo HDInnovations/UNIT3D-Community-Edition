@@ -45,7 +45,7 @@ return [
     'featured-desc' => '<strong> 100% ফ্রি </strong> এবং <i class="fal fa-gem text-green"> </i><strong> ডাবল আপলোড! </strong>',
     'featured-until' => 'এই পর্যন্ত একটি বৈশিষ্ট্যযুক্ত টরেন্ট হয়',
     'file' => 'ফাইল',
-    'fl-tokens-left' => 'আপনি <strong> <i class="fal fa-viacoin"> </i>:tokens</strong> বামে',
+    'fl-tokens-left' => 'আপনি <strong> <i class="fal fa-coins"> </i>:tokens</strong> বামে',
     'freeleech' => 'Freeleech',
     'general' => 'সাধারণ',
     'grant' => 'প্রদান',

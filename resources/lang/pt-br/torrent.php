@@ -42,7 +42,7 @@ return [
     'featured-desc' => 'Os torrents em destaque são <i class="fal fa-star text-gold"></i><strong> 100% Livre</strong> e com o <i class="fal fa-gem text-green"></i><strong> dobro de upload!</strong>',
     'featured-until' => 'Este torrent irá ficar em destaque até',
     'file' => 'Arquivo',
-    'fl-tokens-left' => 'Você tem <strong><i class="fal fa-viacoin"></i>:tokens</strong> restante(s)',
+    'fl-tokens-left' => 'Você tem <strong><i class="fal fa-coins"></i>:tokens</strong> restante(s)',
     'freeleech' => 'Freeleech',
     'general' => 'Geral',
     'grant' => 'Conceder',

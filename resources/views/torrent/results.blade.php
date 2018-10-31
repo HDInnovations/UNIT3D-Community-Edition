@@ -215,7 +215,7 @@
                         @php $freeleech_token = \App\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first(); @endphp
                         @if ($freeleech_token)
                             <span class='badge-extra text-bold'>
-                                <i class='{{ config("other.font-awesome") }} fa-viacoin text-bold' data-toggle='tooltip' title=''
+                                <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' title=''
                                     data-original-title='Freeleech Token'></i> Freeleech Token
                             </span>
                         @endif

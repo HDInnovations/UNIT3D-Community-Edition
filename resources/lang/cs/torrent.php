@@ -45,7 +45,7 @@ return [
     'featured-desc' => 'Doporučené torrenty jsou <i class="fal fa-star text-gold"></i> <strong> 100% zdarma </strong> <strong> Dvojité nahrávání! </strong>',
     'featured-until' => 'Toto je doporučený torrent až',
     'file' => 'Soubor',
-    'fl-tokens-left' => 'Máte <strong><i class="fal fa-viacoin"></i>:tokens</strong> vlevo',
+    'fl-tokens-left' => 'Máte <strong><i class="fal fa-coins"></i>:tokens</strong> vlevo',
     'freeleech' => 'Freeleech',
     'general' => 'Všeobecné',
     'grant' => 'Grant',

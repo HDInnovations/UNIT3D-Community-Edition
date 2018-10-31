@@ -45,7 +45,7 @@ return [
     'featured-desc' => 'Ausgewählte Torrents sind <i class="fal fa-star text-gold"> </i> <strong> 100% kostenlos </strong> und <i class="fal fa-gem text-green"> </i> <strong> Doppelter Upload! </strong>',
     'featured-until' => 'Dies ist ein Featured Torrent bis',
     'file' => 'Datei',
-    'fl-tokens-left' => 'Sie haben <strong> <i class="fal fa-viacoin"> </ i>:tokens</strong> links',
+    'fl-tokens-left' => 'Sie haben <strong> <i class="fal fa-coins"> </ i>:tokens</strong> links',
     'freeleech' => 'Freeleech',
     'general' => 'Allgemeines',
     'grant' => 'Gewähren',

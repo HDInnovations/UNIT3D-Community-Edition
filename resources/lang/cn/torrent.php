@@ -45,7 +45,7 @@ return [
     'featured-desc' => '精选的种子包括<i class="fal fa-star text-gold"> </i> <strong> 100％免费</strong>和<i class="fal fa-gem text-green"> </i> <strong>双上传！</strong>',
     'featured-until' => '这是一个精选的激流直到',
     'file' => '文件',
-    'fl-tokens-left' => '你有<strong> <i class="fal fa-viacoin"> </i>:tokens</strong>离开',
+    'fl-tokens-left' => '你有<strong> <i class="fal fa-coins"> </i>:tokens</strong>离开',
     'freeleech' => 'Freeleech',
     'general' => '一般',
     'grant' => '格兰特',

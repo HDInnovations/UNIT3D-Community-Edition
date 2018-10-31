@@ -45,7 +45,7 @@ return [
     'featured-desc' => 'Препоръчаните торенти са <i class="fal fa-star text-gold"> </i> <strong> 100% безплатен </strong> <strong> Двойно качване! </strong>',
     'featured-until' => 'Това е препоръчителен торент до',
     'file' => 'досие',
-    'fl-tokens-left' => 'Имате <strong> <i class="fal fa-viacoin"> </i>:tokens</strong> наляво',
+    'fl-tokens-left' => 'Имате <strong> <i class="fal fa-coins"> </i>:tokens</strong> наляво',
     'freeleech' => 'Freeleech',
     'general' => 'Общ',
     'grant' => 'Грант',

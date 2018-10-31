@@ -42,7 +42,7 @@ return [
     'featured-desc' => 'Wyróżnione torrenty są <i class="fal fa-star text-gold"></i><strong>w 100% darmowe</strong> oraz dają <i class="fal fa-gem text-green"></i><strong>podwójny upload</strong>!',
     'featured-until' => 'Torrent jest wyróżniony jeszcze przez',
     'file' => 'Plik',
-    'fl-tokens-left' => 'Pozostało <strong><i class="fal fa-viacoin"></i>:tokens</strong> tokenów',
+    'fl-tokens-left' => 'Pozostało <strong><i class="fal fa-coins"></i>:tokens</strong> tokenów',
     'freeleech' => 'Freeleech',
     'general' => 'Ogólne',
     'grant' => 'Nadaj',

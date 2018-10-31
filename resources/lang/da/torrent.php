@@ -45,7 +45,7 @@ return [
     'featured-desc' => 'Udvalgte torrenter er <i class = "fal fa-star text-gold"> </ i> <strong> 100% gratis </ strong> og <i class = "fal fa-gem text-green"> </ i> <strong> Dobbelt upload! </ strong>',
     'featured-until' => 'Dette er en fremvist Torrent til',
     'file' => 'Fil',
-    'fl-tokens-left' => 'Du har <strong> <i class = "fal fa-viacoin"> </ i>:tokens</ strong> til venstre',
+    'fl-tokens-left' => 'Du har <strong> <i class = "fal fa-coins"> </ i>:tokens</ strong> til venstre',
     'freeleech' => 'Freeleech',
     'general' => 'Generel',
     'grant' => 'Give',
