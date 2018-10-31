@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function categories()
     {
-        $categories = Category::all()->sortBy('position');
+        $categories = Category::withCount('torrents')->get()->sortBy('position');
 
         return view('category.categories', ['categories' => $categories]);
     }

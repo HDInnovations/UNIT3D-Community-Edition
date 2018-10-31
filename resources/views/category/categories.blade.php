@@ -20,12 +20,12 @@
             </div>
         </div>
         <div class="blocks">
-            @foreach ($categories as $c)
-                <a href="{{ route('category', ['slug' => $c->slug, 'id' => $c->id]) }}">
+            @foreach ($categories as $category)
+                <a href="{{ route('category', ['slug' => $category->slug, 'id' => $category->id]) }}">
                     <div class="general media_blocks">
-                        <h2><i class="{{ $c->icon }}"></i> {{ $c->name }}</h2>
+                        <h2><i class="{{ $category->icon }}"></i> {{ $category->name }}</h2>
                         <span></span>
-                        <h2>{{ $c->num_torrent }} {{ trans('torrent.torrents') }}</h2>
+                        <h2>{{ $category->torrents->count() }} {{ trans('torrent.torrents') }}</h2>
                     </div>
                 </a>
             @endforeach

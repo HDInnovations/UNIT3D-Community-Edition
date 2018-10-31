@@ -100,7 +100,7 @@ class TorrentController extends Controller
     public function groupingCategories()
     {
         $user = auth()->user();
-        $categories = Category::where('meta', 1)->get()->sortBy('position');
+        $categories = Category::withCount('torrents')->where('meta', '=', 1)->get()->sortBy('position');
 
         return view('torrent.grouping_categories', ['user' => $user, 'categories' => $categories]);
     }
