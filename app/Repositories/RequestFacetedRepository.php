@@ -20,6 +20,7 @@ class RequestFacetedRepository
 {
     /**
      * Return a collection of Category Name from storage
+     *
      * @return \Illuminate\Support\Collection
      */
     public function categories()
@@ -29,6 +30,7 @@ class RequestFacetedRepository
 
     /**
      * Return a collection of Type Name from storage
+     *
      * @return \Illuminate\Support\Collection
      */
     public function types()
@@ -38,6 +40,7 @@ class RequestFacetedRepository
 
     /**
      * Options for sort the search result
+     *
      * @return array
      */
     public function sorting()
@@ -52,13 +55,14 @@ class RequestFacetedRepository
 
     /**
      * Options for sort the search result by direction
+     *
      * @return array
      */
     public function direction()
     {
         return [
-            'asc' => 'Ascending',
-            'desc' => 'Descending'
+            'desc' => 'Descending',
+            'asc' => 'Ascending'
         ];
     }
 }

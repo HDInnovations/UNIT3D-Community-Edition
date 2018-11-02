@@ -79,17 +79,15 @@
                 <label class="control-label col-sm-2" for="sorting">SortBy:</label>
                 <div class="col-sm-2">
                     <select id="sorting" name="sorting" class="form-control">
-                        <option value="created_at" selected>Created At</option>
-                        @foreach ($repository->sorting() as $sort)
-                            <option value="{{ $sort }}">{{ $sort }}</option>
+                        @foreach ($repository->sorting() as $value => $sort)
+                            <option value="{{ $value }}">{{ $sort }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-sm-3">
                     <select id="direction" name="direction" class="form-control">
-                        <option value="desc" selected>Decending</option>
-                        @foreach ($repository->direction() as $dir)
-                            <option value="{{ $dir }}">{{ $dir }}</option>
+                        @foreach ($repository->direction() as $value => $dir)
+                            <option value="{{ $value }}">{{ $dir }}</option>
                         @endforeach
                     </select>
                 </div>
