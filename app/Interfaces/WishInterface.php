@@ -10,7 +10,7 @@
  * @author     Poppabear
  */
 
-namespace App\Repositories;
+namespace App\Interfaces;
 
 interface WishInterface
 {

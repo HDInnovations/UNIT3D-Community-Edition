@@ -12,7 +12,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\WishInterface;
+use App\Interfaces\WishInterface;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 

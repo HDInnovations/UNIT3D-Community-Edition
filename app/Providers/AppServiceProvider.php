@@ -14,7 +14,7 @@ namespace App\Providers;
 
 use Illuminate\View\View;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\WishInterface;
+use App\Interfaces\WishInterface;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use App\Page;

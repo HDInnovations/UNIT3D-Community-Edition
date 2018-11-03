@@ -12,6 +12,7 @@
 
 namespace App\Repositories;
 
+use App\Interfaces\WishInterface;
 use App\Services\Clients\OmdbClient;
 use App\Torrent;
 use App\User;
