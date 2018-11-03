@@ -60,7 +60,11 @@ class HomeController extends Controller
         $solved = Report::where('solved', 1)->count();
 
         // SSL Info
-        $certificate = SslCertificate::createForHostName(config('app.url'));
+        if (request()->secure()) {
+            $certificate = SslCertificate::createForHostName(config('app.url'));
+        } else {
+            $certificate ='';
+        }
 
         // System Information
         $sys = new SystemInformation();

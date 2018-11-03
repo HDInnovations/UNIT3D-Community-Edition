@@ -46,14 +46,29 @@
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
+                    @if (request()->secure())
                         <h2 class="text-bold text-center text-green">
                             <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
                         </h2>
-                        <h3 class="text-bold text-center">{{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span></h3>
+                        <h3 class="text-bold text-center">
+                            {{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span>
+                        </h3>
                         <div style="padding-top: 15px">
                             <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
                             <span class="text-red" style="float: right">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
                         </div>
+                    @else
+                        <h2 class="text-bold text-center text-red">
+                            <i class=" {{ config('other.font-awesome') }} fa-unlock"></i> SSL Cert
+                        </h2>
+                        <h3 class="text-bold text-center">
+                            {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
+                        </h3>
+                        <div style="padding-top: 15px">
+                            <span class="text-red text-left">Issued By: N/A}</span>
+                            <span class="text-red" style="float: right">Expires: N/A</span>
+                        </div>
+                    @endif
                     </div>
                 </div>
             </div>
