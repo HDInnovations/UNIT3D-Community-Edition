@@ -619,6 +619,7 @@
                 </tbody>
             </table>
         </div>
+    </div>
     <!-- /Info-->
 
     <div class="torrent box container">
