@@ -368,19 +368,21 @@
                                             class="{{ $uploader->group->icon }}" data-toggle="tooltip"
                                             data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
                         @endif
-                            @if ($torrent->anon == 1)
-                                <a style="display: none"></a>
-                            @elseif (auth()->user()->isFollowing($uploader->id))
-                                <a href="{{ route('unfollow', ['user' => $uploader->id]) }}"
-                                   id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
-                                   title="{{ trans('user.unfollow') }}"><i
-                                            class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.unfollow') }}</a>
-                            @else
-                                <a href="{{ route('follow', ['user' => $uploader->id]) }}"
-                                   id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
-                                   title="{{ trans('user.follow') }}"><i
-                                            class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }}</a>
-                            @endif
+                        @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
+                        @if (auth()->user()->isFollowing($uploader->id))
+                            <a href="{{ route('unfollow', ['user' => $uploader->id]) }}"
+                                id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
+                                title="{{ trans('user.unfollow') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.unfollow') }}
+                             </a>
+                        @else
+                            <a href="{{ route('follow', ['user' => $uploader->id]) }}"
+                                id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
+                                title="{{ trans('user.follow') }}">
+                                <i lass="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }}
+                            </a>
+                        @endif
+                        @endif
                         <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            class="btn btn-xs btn-success" data-id="" data-toggle="tooltip"
                            data-original-title="{{ trans('torrent.thank') }}">
