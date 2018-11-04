@@ -20,7 +20,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class demoSeed extends Command
+class DemoSeed extends Command
 {
 
     /**
@@ -35,7 +35,7 @@ class demoSeed extends Command
      *
      * @var string
      */
-    protected $description = 'Seeds fake data for demonstration or testing purposes';
+    protected $description = 'Seeds Fake Data For Demonstration Or Testing Purposes';
 
     /**
      * Create a new command instance.

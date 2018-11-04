@@ -18,21 +18,21 @@ use App\TorrentRequest;
 use App\TorrentRequestClaim;
 use Carbon\Carbon;
 
-class recycleClaimedTorrentRequests extends Command
+class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'recycleClaimedTorrentRequests';
+    protected $signature = 'auto:recycle_claimed_torrent_requests';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle torrent requests that were claimed but not filled within 7 days.';
+    protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
 
     /**
      * @var ChatRepository

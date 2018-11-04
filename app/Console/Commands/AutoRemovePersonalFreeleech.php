@@ -7,31 +7,31 @@
  *
  * @project    UNIT3D
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Mr.G
+ * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\PrivateMessage;
-use App\Warning;
+use App\PersonalFreeleech;
 use Carbon\Carbon;
 
-class deactivateWarning extends Command
+class AutoRemovePersonalFreeleech extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'deactivateWarning';
+    protected $signature = 'auto:remove_personal_freeleech';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Automatically Deactivates User Warnings If Expired';
+    protected $description = 'Automatically Removes A Users Personal Freeleech If It Has Expired';
 
     /**
      * Execute the console command.
@@ -41,20 +41,19 @@ class deactivateWarning extends Command
     public function handle()
     {
         $current = Carbon::now();
-        $warnings = Warning::with(['warneduser', 'torrenttitle'])->where('active', 1)->where('expires_on', '<', $current)->get();
+        $personal_freeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays(1)->toDateTimeString())->get();
 
-        foreach ($warnings as $warning) {
-            // Set Records Active To 0 in warnings table
-            $warning->active = "0";
-            $warning->save();
-
+        foreach ($personal_freeleech as $pfl) {
             // Send Private Message
             $pm = new PrivateMessage;
             $pm->sender_id = 1;
-            $pm->receiver_id = $warning->warneduser->id;
-            $pm->subject = "Hit and Run Warning Deactivated";
-            $pm->message = "The [b]WARNING[/b] you received relating to Torrent " . $warning->torrenttitle->name . " has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+            $pm->receiver_id = $pfl->user_id;
+            $pm->subject = "Personal 24 Hour Freeleech";
+            $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
+
+            // Delete The Record From DB
+            $pfl->delete();
         }
     }
 }

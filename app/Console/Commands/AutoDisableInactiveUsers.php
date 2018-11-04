@@ -18,14 +18,14 @@ use App\Group;
 use App\Jobs\SendDisableUserMail;
 use Carbon\Carbon;
 
-class disableInactiveUsers extends Command
+class AutoDisableInactiveUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'disableInactiveUsers';
+    protected $signature = 'auto:disable_inactive_users';
 
     /**
      * The console command description.

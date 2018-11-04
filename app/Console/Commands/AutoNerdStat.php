@@ -19,7 +19,7 @@ use App\User;
 use App\Torrent;
 use Carbon\Carbon;
 
-class autoNerdStat extends Command
+class AutoNerdStat extends Command
 {
     /**
      * @var ChatRepository
@@ -38,7 +38,7 @@ class autoNerdStat extends Command
      *
      * @var string
      */
-    protected $signature = 'autoNerdStat';
+    protected $signature = 'auto:nerdstat';
 
     /**
      * The console command description.

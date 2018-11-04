@@ -21,7 +21,7 @@ use App\PrivateMessage;
 use App\User;
 use App\Message;
 
-class autoGraveyard extends Command
+class AutoGraveyard extends Command
 {
 
     /**
@@ -41,7 +41,7 @@ class autoGraveyard extends Command
      *
      * @var string
      */
-    protected $signature = 'autoGraveyard';
+    protected $signature = 'auto:graveyard';
 
     /**
      * The console command description.

@@ -19,7 +19,7 @@ use App\FeaturedTorrent;
 use App\Torrent;
 use Carbon\Carbon;
 
-class removeFeaturedTorrent extends Command
+class AutoRemoveFeaturedTorrent extends Command
 {
     /**
      * @var ChatRepository
@@ -38,7 +38,7 @@ class removeFeaturedTorrent extends Command
      *
      * @var string
      */
-    protected $signature = 'removeFeaturedTorrent';
+    protected $signature = 'auto:remove_featured_torrent';
 
     /**
      * The console command description.

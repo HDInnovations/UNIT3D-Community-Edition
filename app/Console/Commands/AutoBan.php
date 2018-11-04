@@ -20,21 +20,21 @@ use App\Warning;
 use App\Ban;
 use App\Group;
 
-class autoBan extends Command
+class AutoBan extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'autoBan';
+    protected $signature = 'auto:ban';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Ban if user has more than x Active Warnings';
+    protected $description = 'Ban User If Has More Than X Active Warnings';
 
     /**
      * Execute the console command.

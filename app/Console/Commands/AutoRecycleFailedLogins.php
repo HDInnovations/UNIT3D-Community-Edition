@@ -13,24 +13,24 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\LogActivity;
+use App\FailedLoginAttempt;
 use Carbon\Carbon;
 
-class recycleActivityLog extends Command
+class AutoRecycleFailedLogins extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'recycleActivityLog';
+    protected $signature = 'auto:recycle_failed_logins';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle activity from log once 30 days old.';
+    protected $description = 'Recycle Failed Logins Once 30 Days Old.';
 
     /**
      * Execute the console command.
@@ -40,10 +40,10 @@ class recycleActivityLog extends Command
     public function handle()
     {
         $current = Carbon::now();
-        $activities = LogActivity::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
+        $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
 
-        foreach ($activities as $activity) {
-            $activity->delete();
+        foreach ($failedLogins as $failedLogin) {
+            $failedLogin->delete();
         }
     }
 }

@@ -18,14 +18,14 @@ use App\PrivateMessage;
 use App\Warning;
 use Carbon\Carbon;
 
-class autoWarning extends Command
+class AutoWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'autoWarning';
+    protected $signature = 'auto:warning';
 
     /**
      * The console command description.

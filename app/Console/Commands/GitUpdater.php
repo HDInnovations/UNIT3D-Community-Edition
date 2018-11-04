@@ -21,7 +21,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use App\Console\ConsoleTools;
 
-class gitUpdater extends Command
+class GitUpdater extends Command
 {
     use ConsoleTools;
 
@@ -42,7 +42,7 @@ class gitUpdater extends Command
      *
      * @var string
      */
-    protected $description = 'Executes the commands necessary to update your website using git';
+    protected $description = 'Executes The Commands Necessary To Update Your Website Using Git';
 
     /**
      * Create a new command instance.

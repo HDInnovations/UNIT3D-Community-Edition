@@ -18,14 +18,14 @@ use App\Group;
 use App\History;
 use Carbon\Carbon;
 
-class autoGroup extends Command
+class AutoGroup extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'autoGroup';
+    protected $signature = 'auto:group';
 
     /**
      * The console command description.

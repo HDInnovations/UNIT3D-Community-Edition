@@ -16,21 +16,21 @@ use Illuminate\Console\Command;
 use App\History;
 use App\Peer;
 
-class FlushPeers extends Command
+class AutoFlushPeers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'FlushPeers';
+    protected $signature = 'auto:flush_peers';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Flushes ghost peers every hour.';
+    protected $description = 'Flushes Ghost Peers';
 
     /**
      * Create a new command instance.

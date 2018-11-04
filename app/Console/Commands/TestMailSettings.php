@@ -17,7 +17,7 @@ use Illuminate\Console\Command;
 use App\Mail\TestEmail;
 use App\User;
 
-class testMailSettings extends Command
+class TestMailSettings extends Command
 {
     /**
      * The name and signature of the console command.
@@ -31,7 +31,7 @@ class testMailSettings extends Command
      *
      * @var string
      */
-    protected $description = 'Send a test email to owner account using the current mail configuration';
+    protected $description = 'Send A Test Email To Owner Account Using The Current Mail Configuration';
 
 
     /**

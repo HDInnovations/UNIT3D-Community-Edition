@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use App\Bots\IRCAnnounceBot;
 
-class ircMessage extends Command
+class IrcMessage extends Command
 {
 
     /**

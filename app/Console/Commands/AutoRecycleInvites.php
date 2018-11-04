@@ -16,21 +16,21 @@ use Illuminate\Console\Command;
 use App\Invite;
 use Carbon\Carbon;
 
-class recycleInvites extends Command
+class AutoRecycleInvites extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'recycleInvites';
+    protected $signature = 'auto:recycle_invites';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle invites that are expired.';
+    protected $description = 'Recycle Invites That Are Expired.';
 
     /**
      * Execute the console command.

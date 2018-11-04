@@ -19,14 +19,14 @@ use App\User;
 use App\Warning;
 use Carbon\Carbon;
 
-class autoPreWarning extends Command
+class AutoPreWarning extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'autoPreWarning';
+    protected $signature = 'auto:prewarning';
 
     /**
      * The console command description.

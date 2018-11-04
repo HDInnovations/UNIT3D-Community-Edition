@@ -18,21 +18,21 @@ use App\BonTransactions;
 use App\Peer;
 use App\User;
 
-class bonAllocation extends Command
+class AutoBonAllocation extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'bonAllocation';
+    protected $signature = 'auto:bon_allocation';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Allocates Bonus Points to users based on Peer Activity.';
+    protected $description = 'Allocates Bonus Points To Users Based On Peer Activity.';
 
     /**
      * Execute the console command.

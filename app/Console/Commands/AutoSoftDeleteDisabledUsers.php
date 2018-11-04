@@ -18,14 +18,14 @@ use App\Group;
 use App\Jobs\SendDeleteUserMail;
 use Carbon\Carbon;
 
-class softDeleteDisabledUsers extends Command
+class AutoSoftDeleteDisabledUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'softDeleteDisabledUsers';
+    protected $signature = 'auto:softdelete_disabled_users';
 
     /**
      * The console command description.

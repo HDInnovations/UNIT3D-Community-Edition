@@ -19,21 +19,21 @@ use App\Warning;
 use App\User;
 use App\Group;
 
-class revokePermissions extends Command
+class AutoRevokePermissions extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'revokePermissions';
+    protected $signature = 'auto:revoke_permissions';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Revokes certain permissions of users who have above x active warnings';
+    protected $description = 'Revokes Certain Permissions Of Users Who Have Above X Active Warnings';
 
     /**
      * Execute the console command.

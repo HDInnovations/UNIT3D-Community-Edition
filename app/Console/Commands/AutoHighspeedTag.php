@@ -18,21 +18,21 @@ use App\Torrent;
 use App\Peer;
 use App\Client;
 
-class autoSeedbox extends Command
+class AutoHighspeedTag extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'autoSeedbox';
+    protected $signature = 'auto:highspeed_tag';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Updates Torrents Highspeed Tag based on registered seedboxes.';
+    protected $description = 'Updates Torrents Highspeed Tag Based On Registered Seedboxes.';
 
     /**
      * Execute the console command.

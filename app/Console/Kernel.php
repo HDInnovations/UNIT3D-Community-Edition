@@ -14,31 +14,35 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\autoNerdStat::class,
-        \App\Console\Commands\bonAllocation::class,
-        \App\Console\Commands\autoSeedbox::class,
-        //\App\Console\Commands\autoPreWarning::class,
-        \App\Console\Commands\autoWarning::class,
-        \App\Console\Commands\deactivateWarning::class,
-        \App\Console\Commands\revokePermissions::class,
-        \App\Console\Commands\autoBan::class,
-        \App\Console\Commands\FlushPeers::class,
-        \App\Console\Commands\autoGroup::class,
-        \App\Console\Commands\removePersonalFreeleech::class,
-        \App\Console\Commands\removeFeaturedTorrent::class,
-        \App\Console\Commands\autoGraveyard::class,
-        \App\Console\Commands\ircBroadcast::class,
-        \App\Console\Commands\ircMessage::class,
-        \App\Console\Commands\recycleInvites::class,
-        \App\Console\Commands\recycleActivityLog::class,
-        \App\Console\Commands\recycleFailedLogins::class,
-        \App\Console\Commands\demoSeed::class,
-        \App\Console\Commands\gitUpdater::class,
-        \App\Console\Commands\clearCache::class,
-        \App\Console\Commands\testMailSettings::class,
-        \App\Console\Commands\disableInactiveUsers::class,
-        \App\Console\Commands\softDeleteDisabledUsers::class,
-        \App\Console\Commands\recycleClaimedTorrentRequests::class
+        // Scheduled Commands
+        \App\Console\Commands\AutoNerdStat::class,
+        \App\Console\Commands\AutoBonAllocation::class,
+        \App\Console\Commands\AutoHighspeedTag::class,
+        //\App\Console\Commands\AutoPreWarning::class,
+        \App\Console\Commands\AutoWarning::class,
+        \App\Console\Commands\AutoDeactivateWarning::class,
+        \App\Console\Commands\AutoRevokePermissions::class,
+        \App\Console\Commands\AutoBan::class,
+        \App\Console\Commands\AutoFlushPeers::class,
+        \App\Console\Commands\AutoGroup::class,
+        \App\Console\Commands\AutoRemovePersonalFreeleech::class,
+        \App\Console\Commands\AutoRemoveFeaturedTorrent::class,
+        \App\Console\Commands\AutoGraveyard::class,
+        \App\Console\Commands\IrcBroadcast::class,
+        \App\Console\Commands\IrcMessage::class,
+        \App\Console\Commands\AutoRecycleInvites::class,
+        \App\Console\Commands\AutoRecycleActivityLog::class,
+        \App\Console\Commands\AutoRecycleFailedLogins::class,
+        \App\Console\Commands\AutoDisableInactiveUsers::class,
+        \App\Console\Commands\AutoSoftDeleteDisabledUsers::class,
+        \App\Console\Commands\AutoRecycleClaimedTorrentRequests::class,
+
+        // Manually Run Commands
+        \App\Console\Commands\DemoSeed::class,
+        \App\Console\Commands\GitUpdater::class,
+        \App\Console\Commands\ClearCache::class,
+        \App\Console\Commands\SetCache::class,
+        \App\Console\Commands\TestMailSettings::class
     ];
 
     /**
@@ -49,25 +53,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('autoGroup')->daily();
-        $schedule->command('autoNerdStat')->hourly();
-        $schedule->command('autoGraveyard')->daily();
-        $schedule->command('autoSeedbox')->hourly();
-        //$schedule->command('autoPreWarning')->hourly();
-        $schedule->command('autoWarning')->hourly();
-        $schedule->command('deactivateWarning')->hourly();
-        $schedule->command('revokePermissions')->hourly();
-        $schedule->command('autoBan')->hourly();
-        $schedule->command('FlushPeers')->hourly();
-        $schedule->command('bonAllocation')->hourly();
-        $schedule->command('removePersonalFreeleech')->hourly();
-        $schedule->command('removeFeaturedTorrent')->hourly();
-        $schedule->command('recycleInvites')->daily();
-        $schedule->command('recycleActivityLog')->daily();
-        $schedule->command('recycleFailedLogins')->daily();
-        $schedule->command('disableInactiveUsers')->daily();
-        $schedule->command('softDeleteDisabledUsers')->daily();
-        $schedule->command('recycleClaimedTorrentRequests')->daily();
+        $schedule->command('AutoGroup')->daily();
+        $schedule->command('AutoNerdStat')->hourly();
+        $schedule->command('AutoGraveyard')->daily();
+        $schedule->command('AutoHighspeedTag')->hourly();
+        //$schedule->command('AutoPreWarning')->hourly();
+        $schedule->command('AutoWarning')->hourly();
+        $schedule->command('AutoDeactivateWarning')->hourly();
+        $schedule->command('AutoRevokePermissions')->hourly();
+        $schedule->command('AutoBan')->hourly();
+        $schedule->command('AutoFlushPeers')->hourly();
+        $schedule->command('AutoBonAllocation')->hourly();
+        $schedule->command('AutoRemovePersonalFreeleech')->hourly();
+        $schedule->command('AutoRemoveFeaturedTorrent')->hourly();
+        $schedule->command('AutoRecycleInvites')->daily();
+        $schedule->command('AutoRecycleActivityLog')->daily();
+        $schedule->command('AutoRecycleFailedLogins')->daily();
+        $schedule->command('AutoDisableInactiveUsers')->daily();
+        $schedule->command('AutoSoftDeleteDisabledUsers')->daily();
+        $schedule->command('AutoRecycleClaimedTorrentRequests')->daily();
     }
 
     /**
