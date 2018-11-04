@@ -5,7 +5,7 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'aboutus-header' => 'Hi there',
+    'aboutus-header' => 'Bonjour',
     'aboutus-welcome' => 'Let\'s talk about',
     'aboutus-welcome-desc' => ':title is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. :title\'s strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly Staff team.',
     'aboutus-advantage' => 'The advantage',
@@ -21,10 +21,10 @@ return [
     
     'blacklist-desc' => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
     'blacklist-clients' => 'Clients',
-    'blacklist-btclient' => 'BitTorrent Client',
+    'blacklist-btclient' => 'Client BitTorrent',
     'blacklist-browsers' => 'Browsers',
-    'blacklist-webbrowser' => 'Web Browser',
+    'blacklist-webbrowser' => 'Navigateur Web',
     
-    'staff-group' => 'Group',
-    'staff-title' => 'Title'
+    'staff-group' => 'Groupe',
+    'staff-title' => 'Titre'
 ];

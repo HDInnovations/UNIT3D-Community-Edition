@@ -5,6 +5,6 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'requests' => 'Requêtes',
+    'requests' => 'Demandes',
     'request' => 'Demande'
 ];

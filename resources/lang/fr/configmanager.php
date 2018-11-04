@@ -17,8 +17,8 @@ return [
     'actions' => [
         'edit' => 'Modifier',
         'confirm' => 'Enregistrer la nouvelle clé',
-        'save' => 'Sauvegarder!',
+        'save' => 'Sauvegarder !',
         'cancel' => 'Annuler'
     ],
-    'sure' => 'Êtes-vous sûr?'
+    'sure' => 'Êtes-vous sûr ?'
 ];

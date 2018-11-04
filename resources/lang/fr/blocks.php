@@ -12,7 +12,7 @@ return [
     'featured-torrents' => 'Torrents en vedette',
     
     // Latest Torrents
-    'latest-torrents' => 'Derniers Torrents',
+    'latest-torrents' => 'Derniers torrents',
     
     // Latest Posts
     'latest-posts' => 'Derniers messages',
@@ -25,5 +25,5 @@ return [
     
     // News/Articles
     'new-news' => 'Nouvelles informations',
-    'check-news' => 'Nouvelles (Vérifier quotidiennement)'
+    'check-news' => 'Actualités'
 ];
