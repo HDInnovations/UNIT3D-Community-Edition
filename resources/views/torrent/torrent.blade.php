@@ -152,6 +152,51 @@
     <!-- Info -->
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
+                <div class="text-center">
+                <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px;">
+                    @if (config('torrent.download_check_page') == 1)
+                        <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                           role="button" class="btn btn-labeled btn-success">
+                            <span class='btn-label'>
+                                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ trans('common.download') }}
+                            </span>
+                        </a>
+                    @else
+                        <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
+                           role="button" class="btn btn-labeled btn-success">
+                            <span class='btn-label'>
+                                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ trans('common.download') }}
+                            </span>
+                        </a>
+                    @endif
+                    @if ($torrent->imdb != 0)
+                        <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
+                           role="button"
+                           class="btn btn-labeled btn-primary">
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> Similar Torrents</a>
+                    @endif
+                    @if ($torrent->nfo != null)
+                        <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('common.view') }} NFO</button>
+                    @endif
+                    <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button"
+                       class="btn btn-labeled btn-primary">
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-heart'></i></span> {{ trans('torrent.quick-comment') }}</a>
+        <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('torrent.show-files') }}</a>
+
+            <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
+
+                    @if ($torrent->seeders <= 2)
+                        <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button"
+                           class="btn btn-labeled btn-warning">
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-envelope'></i></span> {{ trans('torrent.request-reseed') }}</a>
+                    @endif
+                    <button class="btn btn-labeled btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
+          <span class="btn-label"><i
+                      class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i></span> {{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
+      </span>
+                </div>
                 <tbody>
                 @if ($torrent->featured == 0)
                     <tr class="success">
@@ -243,7 +288,7 @@
 
                         <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
                                 class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
-                            <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Postpone
+                            <i class="{{ config('other.font-awesome') }} fa-pause"></i> Postpone
                         </button>
 
                         <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
@@ -322,6 +367,21 @@
                                         style="color:{{ $uploader->group->color }}; background-image:{{ $uploader->group->effect }};"><i
                                             class="{{ $uploader->group->icon }}" data-toggle="tooltip"
                                             data-original-title="{{ $uploader->group->name }}"></i> {{ $uploader->username }}</span></a>
+                        @endif
+                        @if ($torrent->anon !== 1 && $uploader->private_profile !== 1)
+                        @if (auth()->user()->isFollowing($uploader->id))
+                            <a href="{{ route('unfollow', ['user' => $uploader->id]) }}"
+                                id="delete-follow-{{ $uploader->target_id }}" class="btn btn-xs btn-info"
+                                title="{{ trans('user.unfollow') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.unfollow') }}
+                             </a>
+                        @else
+                            <a href="{{ route('follow', ['user' => $uploader->id]) }}"
+                                id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
+                                title="{{ trans('user.follow') }}">
+                                <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }}
+                            </a>
+                        @endif
                         @endif
                         <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            class="btn btn-xs btn-success" data-id="" data-toggle="tooltip"
@@ -420,7 +480,7 @@
                                         @emojione(':blue_heart:')</span></div>
                                 <br>
                                 @if ($general !== null && isset($general['file_name']))
-                                    <span class="text-bold text-blue">@emojione(':name_badge:') {{ strtoupper(trans('torrent.file')) }}
+                                    <span class="text-bold text-blue">@emojione(':file_folder:') {{ strtoupper(trans('torrent.file')) }}
                                         :</span>
                                     <span class="text-bold"><em>{{ $general['file_name'] }}</em></span>
                                     <br>
@@ -559,56 +619,8 @@
                 </tbody>
             </table>
         </div>
-        <!-- /Info-->
-
-        <div class="torrent-bottom col-md-12">
-            <div class="text-center">
-                <span class="badge-user">
-                    @if (config('torrent.download_check_page') == 1)
-                        <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                                role="button" class="btn btn-labeled btn-success">
-                            <span class='btn-label'>
-                                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ trans('common.download') }}
-                            </span>
-                        </a>
-                    @else
-                        <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                           role="button" class="btn btn-labeled btn-success">
-                            <span class='btn-label'>
-                                <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ trans('common.download') }}
-                            </span>
-                        </a>
-                    @endif
-            @if ($torrent->imdb != 0)
-                <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
-                   role="button"
-                   class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> Similar Torrents</a>
-            @endif
-            @if ($torrent->nfo != null)
-                <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('common.view') }} NFO</button>
-            @endif
-            <a href="{{ route('comment_thanks', ['id' => $torrent->id]) }}" role="button"
-               class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-heart'></i></span> {{ trans('torrent.quick-comment') }}</a>
-        <a data-toggle="modal" href="#myModal" role="button" class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('torrent.show-files') }}</a>
-
-            <bookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></bookmark>
-
-            @if ($torrent->seeders <= 2)
-                <a href="{{ route('reseed', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" role="button"
-                   class="btn btn-labeled btn-warning">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-envelope'></i></span> {{ trans('torrent.request-reseed') }}</a>
-            @endif
-            <button class="btn btn-labeled btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
-          <span class="btn-label"><i
-                      class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i></span> {{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
-      </span>
-            </div>
-        </div>
     </div>
+    <!-- /Info-->
 
     <div class="torrent box container">
         <!-- Comments -->
