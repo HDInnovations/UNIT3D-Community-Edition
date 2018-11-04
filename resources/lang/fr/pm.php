@@ -6,9 +6,9 @@
  */
 return [
     'unread' => 'Non lu',
-    'read' => 'Lis',
+    'read' => 'Lu',
     'inbox' => 'Boîte de réception',
-    'outbox' => 'Boîte denvoi',
+    'outbox' => 'Boîte d\'envoi',
     'message' => 'Message',
     'messages' => 'Messages',
     'private' => 'Privé',
@@ -17,9 +17,9 @@ return [
     'to' => 'À',
     'sent' => 'Envoyé',
     'sent-at' => 'Envoyé à',
-    'subject' => 'Assujettir',
+    'subject' => 'Sujet',
     'recieved-at' => 'Reçu à',
-    'search' => 'Recherche par sujet',
+    'search' => 'Rechercher par sujet',
     'reply' => 'Répondre',
     'send' => 'Envoyer',
     'create' => 'Créer',

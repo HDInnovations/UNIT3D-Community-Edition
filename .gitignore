@@ -1,8 +1,7 @@
-.DS_store
+# NodeJS
+/node_modules
 
 # Laravel
-
-/node_modules
 
 # Ignore everything in the public/files directory EXCEPT the .gitkeep
 /public/files
@@ -28,9 +27,12 @@ npm-debug.log
 .env
 laravel-echo-server.json
 
-# IntelliJ
+# OS X
+.DS_store
 
+# IDEs
 /.idea
+/.vscode
 
 # Vim
 .*.swp

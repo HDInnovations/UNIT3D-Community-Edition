@@ -6,13 +6,13 @@
  */
 return [
     'notifications' => 'Notifications',
-    'mark-all-read' => 'Mark all as read',
-    'mark-read' => 'Mark as read',
-    'delete-all' => 'Delete all notifications',
-    'title' => 'Title',
+    'mark-all-read' => 'Tout marquer comme étant lu',
+    'mark-read' => 'Marquer comme étant lu',
+    'delete-all' => 'Supprimer toutes les notifications',
+    'title' => 'Titre',
     'message' => 'Message',
     'date' => 'Date',
-    'read' => 'Read',
-    'delete' => 'Delete',
-    'no-notifications' => 'There are no notifications found'
+    'read' => 'Lire',
+    'delete' => 'Supprimer',
+    'no-notifications' => 'Aucune notification trouvée'
 ];

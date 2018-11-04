@@ -8,7 +8,7 @@ return [
     'forum' => 'Forum',
     'forums' => 'Forums',
     'topics' => 'Les sujets',
-    'post' => 'Poster',
+    'post' => 'Topic',
     'replies' => 'Réponses',
     'views' => 'Vues',
     'meta-category' => 'Liste des forums dans la catégorie',
@@ -16,7 +16,7 @@ return [
     'topic-title' => 'Titre de ce sujet',
     'send-new-topic' => 'Sauvegarder ce sujet',
     'read-topic' => 'Lisez le sujet',
-    'mark-as-resolved' => 'Lock Topic',
+    'mark-as-resolved' => 'Vérouiller le topic',
     'delete-topic' => 'Verrouiller le sujet',
     'display-forum' => 'Afficher les sujets dans '
 ];

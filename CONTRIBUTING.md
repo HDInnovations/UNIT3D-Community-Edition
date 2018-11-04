@@ -5,7 +5,19 @@ Contributions are **welcome**.
 We accept contributions via Pull Requests on [Github](https://github.com/UNIT3D/UNIT3D).
 
 
-## Pull Requests
+## Pull Requests / Commits
+
+**Commit Title Standard**
+
+Please use the following title schema. 
+- (PREFIX) Title
+
+Examples:
+- (Update) French Translations
+- (Fix) French Translations
+- (Security Fix) French Translations
+- (Remove) French Translations
+- (Add) French Translations
 
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
