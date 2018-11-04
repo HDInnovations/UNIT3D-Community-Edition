@@ -379,7 +379,7 @@
                             <a href="{{ route('follow', ['user' => $uploader->id]) }}"
                                 id="follow-user-{{ $uploader->id }}" class="btn btn-xs btn-success"
                                 title="{{ trans('user.follow') }}">
-                                <i lass="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }}
+                                <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.follow') }}
                             </a>
                         @endif
                         @endif
