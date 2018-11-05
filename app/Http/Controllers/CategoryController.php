@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function category($slug, $id)
     {
         $user = auth()->user();
-        $category = Category::findOrFail($id);
+        $category = Category::select(['id', 'name', 'slug'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
