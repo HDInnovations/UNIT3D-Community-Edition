@@ -150,6 +150,7 @@ class BonusController extends Controller
      */
     public function doItemExchange($userID, $itemID)
     {
+        $current = Carbon::now();
         $item = BonExchange::where('id', $itemID)->get()->toArray()[0];
 
         $user_acc = User::findOrFail($userID);
@@ -171,6 +172,15 @@ class BonusController extends Controller
                 $personal_freeleech = new PersonalFreeleech();
                 $personal_freeleech->user_id = $user_acc->id;
                 $personal_freeleech->save();
+
+                // Send Private Message
+                $pm = new PrivateMessage;
+                $pm->sender_id = 1;
+                $pm->receiver_id = $user_acc->id;
+                $pm->subject = "Personal 24 Hour Freeleech Activated";
+                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]" . config('app.timezone') . "[/b]! 
+                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                $pm->save();
             } else {
                 return false;
             }

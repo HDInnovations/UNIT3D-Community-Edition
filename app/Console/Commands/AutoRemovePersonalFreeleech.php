@@ -48,7 +48,7 @@ class AutoRemovePersonalFreeleech extends Command
             $pm = new PrivateMessage;
             $pm->sender_id = 1;
             $pm->receiver_id = $pfl->user_id;
-            $pm->subject = "Personal 24 Hour Freeleech";
+            $pm->subject = "Personal 24 Hour Freeleech Expired";
             $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();
 
