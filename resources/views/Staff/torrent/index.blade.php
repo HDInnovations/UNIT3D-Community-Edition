@@ -21,17 +21,17 @@
     <div class="container box">
         <h2>Torrents</h2>
         <form action="{{route('torrent-search')}}" method="any">
-            <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control"
-                   style="float:right;">
+            <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control" style="float:right;">
         </form>
-        <div class="table-responsive">
-            <table class="table table-condensed table-striped table-bordered table-hover">
+
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <div class="table-responsive">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
             @foreach ($torrents as $t)
@@ -44,7 +44,6 @@
                         <button data-target="#staffdelete-{{ $t->id }}" data-toggle="modal" class="btn btn-danger">
                             Delete
                         </button>
-                        <!-- Torrent Delete Modal -->
                         {{-- Torrent Delete Modal --}}
                         <div class="modal fade" id="staffdelete-{{ $t->id }}" tabindex="-1" role="dialog"
                              aria-hidden="true">
@@ -93,13 +92,13 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Torrent Delete Modal -->
+                        {{-- Torrent Delete Modal --}}
                     </td>
                 </tr>
             @endforeach
             </tbody>
+            </div>
         </table>
-        </div>
 
         <div class="text-center">
             {{ $torrents->links() }}
