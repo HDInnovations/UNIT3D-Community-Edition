@@ -69,7 +69,7 @@ class StatsController extends Controller
         });
 
         // Total Categories With Torrent Count
-        $categories = Category::select('name', 'position', 'num_torrent')->oldest('position')->get();
+        $categories = Category::withCount('torrents')->get()->sortBy('position');
 
         // Total HD Count
         $num_hd = cache()->remember('num_hd', 60, function () {
