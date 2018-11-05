@@ -18,6 +18,7 @@ Examples:
 - (Security Fix) French Translations
 - (Remove) French Translations
 - (Add) French Translations
+- (Optimize) French Translations
 
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
