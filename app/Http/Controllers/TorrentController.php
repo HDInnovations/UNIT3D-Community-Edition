@@ -679,7 +679,7 @@ class TorrentController extends Controller
         // Torrent Info
         $info = Bencode::bdecode_getinfo(getcwd() . '/files/torrents/' . $fileName, true);
         // Find the right category
-        $category = Category::findOrFail($request->input('category_id'));
+        $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
         // Create the torrent (DB)
         $torrent = new Torrent();
@@ -740,7 +740,7 @@ class TorrentController extends Controller
             $torrent->save();
 
             // Count and save the torrent number in this category
-            $category->num_torrent = Torrent::where('category_id', $category->id)->count();
+            $category->num_torrent = $category->torrents_count;
             $category->save();
 
             // Torrent Tags System
