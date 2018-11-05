@@ -53,25 +53,25 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('AutoGroup')->daily();
-        $schedule->command('AutoNerdStat')->hourly();
-        $schedule->command('AutoGraveyard')->daily();
-        $schedule->command('AutoHighspeedTag')->hourly();
-        //$schedule->command('AutoPreWarning')->hourly();
-        $schedule->command('AutoWarning')->hourly();
-        $schedule->command('AutoDeactivateWarning')->hourly();
-        $schedule->command('AutoRevokePermissions')->hourly();
-        $schedule->command('AutoBan')->hourly();
-        $schedule->command('AutoFlushPeers')->hourly();
-        $schedule->command('AutoBonAllocation')->hourly();
-        $schedule->command('AutoRemovePersonalFreeleech')->hourly();
-        $schedule->command('AutoRemoveFeaturedTorrent')->hourly();
-        $schedule->command('AutoRecycleInvites')->daily();
-        $schedule->command('AutoRecycleActivityLog')->daily();
-        $schedule->command('AutoRecycleFailedLogins')->daily();
-        $schedule->command('AutoDisableInactiveUsers')->daily();
-        $schedule->command('AutoSoftDeleteDisabledUsers')->daily();
-        $schedule->command('AutoRecycleClaimedTorrentRequests')->daily();
+        $schedule->command('auto:group ')->daily();
+        $schedule->command('auto:nerdstat ')->hourly();
+        $schedule->command('auto:graveyard')->daily();
+        $schedule->command('auto:highspeed_tag')->hourly();
+        //$schedule->command('auto:prewarning')->hourly();
+        $schedule->command('auto:warning')->hourly();
+        $schedule->command('auto:deactivate_warning')->hourly();
+        $schedule->command('auto:revoke_permissions')->hourly();
+        $schedule->command('auto:ban')->hourly();
+        $schedule->command('auto:flush_peers')->hourly();
+        $schedule->command('auto:bon_allocation')->hourly();
+        $schedule->command('auto:remove_personal_freeleech')->hourly();
+        $schedule->command('auto:remove_featured_torrent')->hourly();
+        $schedule->command('auto:recycle_invites')->daily();
+        $schedule->command('auto:recycle_activity_log')->daily();
+        $schedule->command('auto:recycle_failed_logins')->daily();
+        $schedule->command('auto:disable_inactive_users')->daily();
+        $schedule->command('auto:softdelete_disabled_users')->daily();
+        $schedule->command('auto:recycle_claimed_torrent_requests')->daily();
     }
 
     /**
