@@ -25,7 +25,7 @@
                     <div class="general media_blocks">
                         <h2><i class="{{ $category->icon }}"></i> {{ $category->name }}</h2>
                         <span></span>
-                        <h2>{{ $category->torrents->count() }} {{ trans('torrent.torrents') }}</h2>
+                        <h2>{{ $category->torrents_count }} {{ trans('torrent.torrents') }}</h2>
                     </div>
                 </a>
             @endforeach
