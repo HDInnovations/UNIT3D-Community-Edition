@@ -71,8 +71,7 @@ class ArticleController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'content' => 'required|min:100',
-            'user_id' => 'required',
-            'image' => 'required'
+            'user_id' => 'required'
         ]);
 
         if ($v->fails()) {
