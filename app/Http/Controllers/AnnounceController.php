@@ -152,7 +152,7 @@ class AnnounceController extends Controller
         }
 
         // Check Info Hash Against Torrents Table
-        $torrent = Torrent::select('id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers')
+        $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])
             ->with('peers')
             ->withAnyStatus()
             ->where('info_hash', $info_hash)
