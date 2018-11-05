@@ -35,9 +35,8 @@ class ArticleController extends Controller
      */
     public function post($slug, $id)
     {
-        $article = Article::findOrFail($id);
-        $comments = $article->comments()->latest()->get();
+        $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return view('article.article', ['article' => $article, 'comments' => $comments]);
+        return view('article.article', ['article' => $article]);
     }
 }

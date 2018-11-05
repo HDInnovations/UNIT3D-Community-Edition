@@ -74,13 +74,15 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->content = $request->input('content');
+        $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->article_id = $article->id;
 
         $v = validator($comment->toArray(), [
             'content' => 'required',
             'user_id' => 'required',
-            'article_id' => 'required'
+            'article_id' => 'required',
+            'anon' => 'required'
         ]);
 
         if ($v->fails()) {
@@ -120,6 +122,20 @@ class CommentController extends Controller
                 }
             }
 
+            // Achievements
+            $user->unlock(new UserMadeComment(), 1);
+            $user->addProgress(new UserMadeTenComments(), 1);
+            $user->addProgress(new UserMade50Comments(), 1);
+            $user->addProgress(new UserMade100Comments(), 1);
+            $user->addProgress(new UserMade200Comments(), 1);
+            $user->addProgress(new UserMade300Comments(), 1);
+            $user->addProgress(new UserMade400Comments(), 1);
+            $user->addProgress(new UserMade500Comments(), 1);
+            $user->addProgress(new UserMade600Comments(), 1);
+            $user->addProgress(new UserMade700Comments(), 1);
+            $user->addProgress(new UserMade800Comments(), 1);
+            $user->addProgress(new UserMade900Comments(), 1);
+
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
                 ->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
@@ -145,7 +161,6 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $comment->content = $request->input('content');
-        ;
         $comment->anon = $request->input('anonymous');
         $comment->user_id = $user->id;
         $comment->torrent_id = $torrent->id;
