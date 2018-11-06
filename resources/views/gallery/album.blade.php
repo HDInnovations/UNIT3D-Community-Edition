@@ -51,7 +51,9 @@
                     <div class="col-lg-3">
                         <div class="thumbnail" style="max-height: 450px; min-height: 400px;">
                             <img alt="{{ $album->name }}" src="{{ url('files/img/' . $photo->image) }}"
-                                 style="max-height: 300px; min-height: 300px; border: 6px solid gray; border-radius: 5px;">
+                                 style="max-height: 300px; min-height: 300px; border: 6px solid gray; border-radius: 5px;"
+                                 data-image='<img src="{{ url('files/img/' . $photo->image) }}" alt="Poster" style="height: 1000px;">'
+                                 class="show-image">
                             <div class="caption text-center">
                                 <h4 class="label label-success">{{ $photo->type }}</h4>
                                 <br>
@@ -79,3 +81,23 @@
     </div>
 @endsection
 
+@section('javascripts')
+<script>
+  $('.show-image').click(function(e) {
+    e.preventDefault();
+
+    var name = $(this).attr('data-name');
+    var image = $(this).attr('data-image');
+
+    swal({
+      showConfirmButton: false,
+      showCloseButton: true,
+      background: '#232323',
+      width: 1200,
+      html: image,
+      title: name,
+      text: '',
+    });
+  });
+</script>
+@endsection

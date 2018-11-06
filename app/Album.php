@@ -18,6 +18,8 @@ class Album extends Model
 {
     /**
      * Belongs To A User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -29,6 +31,8 @@ class Album extends Model
 
     /**
      * Has Many Images
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function images()
     {

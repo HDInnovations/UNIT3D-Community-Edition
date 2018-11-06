@@ -43,7 +43,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::with('images')->get();
+        $albums = Album::withCount('images')->get();
 
         return view('gallery.index')->with('albums', $albums);
     }
