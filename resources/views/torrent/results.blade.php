@@ -168,12 +168,12 @@
 
                         <span class="badge-extra text-bold text-pink">
                             <i class="{{ config('other.font-awesome') }} fa-heart" data-toggle="tooltip" data-original-title="Thanks Given"></i>
-                                {{ $torrent->thanks()->count() }}
+                            {{ $torrent->thanks_count }}
                         </span>
 
                         <span class="badge-extra text-bold text-green">
                             <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="Comments Left"></i>
-                                {{ $torrent->comments()->count() }}
+                            {{ $torrent->comments_count }}
                         </span>
 
                         @if ($torrent->internal == 1)

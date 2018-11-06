@@ -68,7 +68,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user', 'category'])->paginate(25);
+        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->paginate(25);
         $repository = $this->faceted;
 
         return view('torrent.torrents', [
@@ -141,11 +141,18 @@ class TorrentController extends Controller
     public function groupingResults($category_id, $imdb)
     {
         $user = auth()->user();
-        $category = Category::where('id', $category_id)->first();
-        $torrents = Torrent::where('category_id', $category_id)->where('imdb', $imdb)->latest()->get();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $category = Category::select(['id', 'name', 'slug'])->findOrFail($category_id);
+        $torrents = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->where('category_id', $category_id)
+            ->where('imdb', $imdb)
+            ->latest()
+            ->get();
 
         return view('torrent.grouping_results', [
             'user' => $user,
+            'personal_freeleech' => $personal_freeleech,
             'torrents' => $torrents,
             'imdb' => $imdb,
             'category' => $category
@@ -201,7 +208,7 @@ class TorrentController extends Controller
             $description .= '%' . $keyword . '%';
         }
 
-        $torrent = $torrent->with(['user', 'category']);
+        $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
 
         if ($request->has('search')) {
             $torrent->where(function ($query) use ($search) {
