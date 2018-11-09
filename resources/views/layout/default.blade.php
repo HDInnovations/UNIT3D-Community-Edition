@@ -81,7 +81,7 @@
             <script type="text/javascript">
                 swal({
                     title: '{{ trans('common.achievement-title') }}!',
-                    text: 'You Unlocked "{{Session::get('achievement')}}" Achievment',
+                    text: '{{ trans('common.unlocked-achievement', ['achievement' => Session::get('achievement')]) }}',
                     type: 'success'
                 });
             </script>

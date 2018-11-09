@@ -130,6 +130,7 @@ return [
     'tracker-codes' => 'Kody trackera',
     'type' => 'Naciśnij',
     'unknown' => 'Nieznane',
+    'unlocked-achievement' => 'Odblokowałeś osiągnięcie :achievement',
     'upload' => 'Wysłane',
     'upload-guide' => 'Poradnik uploadu',
     'user' => 'Użytkownik',
