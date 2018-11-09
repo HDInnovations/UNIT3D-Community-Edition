@@ -14,6 +14,6 @@ return [
     'howto-desc2' => 'W nagrodę otrzymasz',
     'howto-hits' => 'Osiągnie',
     'pending' => 'W trakcie',
-    'ressurect' => 'Wskrzeszenie',
+    'resurrect' => 'Wskrzeszenie',
     'reward' => 'Freeleech tokenów'
 ];

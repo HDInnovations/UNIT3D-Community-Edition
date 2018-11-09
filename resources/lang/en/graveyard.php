@@ -14,6 +14,6 @@ return [
     'howto-desc2' => 'You will be rewarded',
     'howto-hits' => 'Hits',
     'pending' => 'Pending',
-    'ressurect' => 'Ressurect',
+    'resurrect' => 'resurrect',
     'reward' => 'Freeleech tokens'
 ];

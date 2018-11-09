@@ -9,7 +9,7 @@
             <th>{{ trans('torrent.short-seeds') }}</th>
             <th>{{ trans('torrent.short-leechs') }}</th>
             <th>{{ trans('torrent.short-completed') }}</th>
-            <th>{{ trans('graveyard.ressurect') }}</th>
+            <th>{{ trans('graveyard.resurrect') }}</th>
         </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@
                         @if (!$resurrected)
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}" class="btn btn-sm btn-default">
                                 <span class="icon">
-                                    @emojione(':zombie:') {{ trans('graveyard.ressurect') }}
+                                    @emojione(':zombie:') {{ trans('graveyard.resurrect') }}
                                 </span>
                             </button>
                             {{-- Resurrect Modal --}}
@@ -70,7 +70,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                             <h2>
-                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent')) }} ?
+                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('graveyard.resurrect') }} {{ strtolower(trans('torrent.torrent')) }} ?
                                             </h2>
                                         </div>
 
@@ -118,7 +118,7 @@
                                                                    value="{{ $history->seedtime + config('graveyard.time') }}">
                                                         @endif
                                                         <button type="submit" class="btn btn-success">
-                                                            {{ trans('graveyard.ressurect') }} !
+                                                            {{ trans('graveyard.resurrect') }} !
                                                         </button>
                                                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                                                             {{ trans('common.cancel') }}

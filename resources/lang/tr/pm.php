@@ -18,7 +18,7 @@ return [
     'sent' => 'Gönderildi',
     'sent-at' => 'da gönderildi',
     'subject' => 'Konu',
-    'recieved-at' => 'da alındı',
+    'received-at' => 'da alındı',
     'search' => 'Konuya Göre Ara',
     'reply' => 'Cevapla',
     'send' => 'Yolla',

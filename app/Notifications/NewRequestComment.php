@@ -58,13 +58,13 @@ class NewRequestComment extends Notification
         $appurl = config('app.url');
         if ($this->comment->anon == 0) {
             return [
-                'title' => "New Request Comment Recieved",
+                'title' => "New Request Comment Received",
                 'body' => $this->comment->user->username . " has left you a comment on " . $this->comment->request->name,
                 'url' => $appurl . '/request/' . $this->comment->request->id
             ];
         } else {
             return [
-                'title' => "New Request Comment Recieved",
+                'title' => "New Request Comment Received",
                 'body' => "A anonymous member has left you a comment on " . $this->comment->request->name,
                 'url' => $appurl . '/request/' . $this->comment->request->id
             ];

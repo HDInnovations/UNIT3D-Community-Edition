@@ -21,7 +21,7 @@ return [
     'outbox' => 'আউটবক্স',
     'private' => 'ব্যক্তিগত',
     'read' => 'পড়া',
-    'recieved-at' => 'এ',
+    'received-at' => 'এ',
     'refresh' => 'সতেজ করা',
     'reply' => 'উত্তর',
     'search' => 'অনুসন্ধান করুন',

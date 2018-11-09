@@ -54,7 +54,7 @@
                             <tr>
                                 <td class="col-sm-2">{{ trans('pm.from') }}</td>
                                 <td class="col-sm-5">{{ trans('pm.subject') }}</td>
-                                <td class="col-sm-2">{{ trans('pm.recieved-at') }}</td>
+                                <td class="col-sm-2">{{ trans('pm.received-at') }}</td>
                                 <td class="col-sm-2">{{ trans('pm.read') }}</td>
                                 <td class="col-sm-2">{{ trans('pm.delete') }}</td>
                             </tr>

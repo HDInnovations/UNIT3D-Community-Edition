@@ -21,7 +21,7 @@ return [
     'outbox' => 'Outbox',
     'private' => 'Soukromé',
     'read' => 'Číst',
-    'recieved-at' => 'Přijato na',
+    'received-at' => 'Přijato na',
     'refresh' => 'Obnovit',
     'reply' => 'Odpověď',
     'search' => 'Vyhledávání podle předmětu',

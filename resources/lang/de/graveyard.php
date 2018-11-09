@@ -18,6 +18,6 @@ return [
     'howto-desc2' => 'Du wirst belohnt',
     'howto-hits' => 'Zugriffe',
     'pending' => 'steht aus',
-    'ressurect' => 'Wiederbeleben',
+    'resurrect' => 'Wiederbeleben',
     'reward' => 'Freeleech Token',
 ];

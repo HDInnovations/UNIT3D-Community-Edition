@@ -21,7 +21,7 @@ return [
     'outbox' => 'Udbakke',
     'private' => 'Privat',
     'read' => 'Læs',
-    'recieved-at' => 'Modtaget på',
+    'received-at' => 'Modtaget på',
     'refresh' => 'Opdater',
     'reply' => 'Svar',
     'search' => 'Søg efter emne',

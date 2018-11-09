@@ -18,7 +18,7 @@ return [
     'sent' => 'Envoyé',
     'sent-at' => 'Envoyé à',
     'subject' => 'Sujet',
-    'recieved-at' => 'Reçu à',
+    'received-at' => 'Reçu à',
     'search' => 'Rechercher par sujet',
     'reply' => 'Répondre',
     'send' => 'Envoyer',

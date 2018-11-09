@@ -18,6 +18,6 @@ return [
     'howto-desc2' => 'Ще бъдете възнаградени',
     'howto-hits' => 'Хитове',
     'pending' => 'в очакване на',
-    'ressurect' => 'възкресявам',
+    'resurrect' => 'възкресявам',
     'reward' => 'Freeleech жетони',
 ];

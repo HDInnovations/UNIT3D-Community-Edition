@@ -21,7 +21,7 @@ return [
     'outbox' => '发件箱',
     'private' => '私人的',
     'read' => '读',
-    'recieved-at' => '收到At',
+    'received-at' => '收到At',
     'refresh' => '刷新',
     'reply' => '回复',
     'search' => '按主题搜索',

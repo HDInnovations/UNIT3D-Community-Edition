@@ -18,6 +18,6 @@ return [
     'howto-desc2' => 'Budete odměněni',
     'howto-hits' => 'Hity',
     'pending' => 'čekající',
-    'ressurect' => 'Vzkřísit',
+    'resurrect' => 'Vzkřísit',
     'reward' => 'Freeleech tokeny',
 ];

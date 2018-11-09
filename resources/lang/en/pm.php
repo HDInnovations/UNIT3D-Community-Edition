@@ -17,7 +17,7 @@ return [
     'outbox' => 'Outbox',
     'private' => 'Private',
     'read' => 'Read',
-    'recieved-at' => 'Recieved At',
+    'received-at' => 'Received At',
     'refresh' => 'Refresh',
     'reply' => 'Reply',
     'search' => 'Search By Subject',

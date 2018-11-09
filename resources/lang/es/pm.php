@@ -21,7 +21,7 @@ return [
     'outbox' => 'Bandeja de salida',
     'private' => 'Privado',
     'read' => 'Leer',
-    'recieved-at' => 'Recibido en',
+    'received-at' => 'Recibido en',
     'refresh' => 'Refrescar',
     'reply' => 'Respuesta',
     'search' => 'Búsqueda por tema',

@@ -18,7 +18,7 @@ return [
     'sent' => '發送',
     'sent-at' => '發送時間',
     'subject' => '主題',
-    'recieved-at' => '收訊時間',
+    'received-at' => '收訊時間',
     'search' => '按主題搜索',
     'reply' => '回復',
     'send' => '發送',

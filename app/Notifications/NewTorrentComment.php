@@ -58,13 +58,13 @@ class NewTorrentComment extends Notification
         $appurl = config('app.url');
         if ($this->comment->anon == 0) {
             return [
-                'title' => "New Torrent Comment Recieved",
+                'title' => "New Torrent Comment Received",
                 'body' => $this->comment->user->username . " has left you a comment on " . $this->comment->torrent->name,
                 'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
             ];
         } else {
             return [
-                'title' => "New Torrent Comment Recieved",
+                'title' => "New Torrent Comment Received",
                 'body' => "A anonymous member has left you a comment on " . $this->comment->torrent->name,
                 'url' => $appurl . '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id
             ];

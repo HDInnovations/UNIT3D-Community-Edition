@@ -18,7 +18,7 @@ return [
     'sent' => 'Sent',
     'sent-at' => 'Sent At',
     'subject' => 'Subject',
-    'recieved-at' => 'Recieved At',
+    'received-at' => 'Received At',
     'search' => 'Search By Subject',
     'reply' => 'Reply',
     'send' => 'Send',

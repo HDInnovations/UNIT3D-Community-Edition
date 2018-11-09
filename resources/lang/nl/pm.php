@@ -18,7 +18,7 @@ return [
     'sent' => 'Verzonden',
     'sent-at' => 'Verzonden Op',
     'subject' => 'Onderwerp',
-    'recieved-at' => 'Ontvangen Op',
+    'received-at' => 'Ontvangen Op',
     'search' => 'Zoeken Op Onderwerp',
     'reply' => 'Antwoord',
     'send' => 'Verzenden',

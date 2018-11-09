@@ -18,6 +18,6 @@ return [
     'howto-desc2' => '你将获得奖励',
     'howto-hits' => '点击',
     'pending' => '有待',
-    'ressurect' => '复活',
+    'resurrect' => '复活',
     'reward' => 'Freeleech代币',
 ];

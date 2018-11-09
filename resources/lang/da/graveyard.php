@@ -18,6 +18,6 @@ return [
     'howto-desc2' => 'Du vil blive belønnet',
     'howto-hits' => 'Hits',
     'pending' => 'Verserende',
-    'ressurect' => 'genoplive',
+    'resurrect' => 'genoplive',
     'reward' => 'Freeleech tokens',
 ];

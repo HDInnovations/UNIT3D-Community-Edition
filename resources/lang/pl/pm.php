@@ -17,7 +17,7 @@ return [
     'outbox' => 'Wychodzące',
     'private' => 'Prywatne',
     'read' => 'Przeczytane',
-    'recieved-at' => 'Odebrano',
+    'received-at' => 'Odebrano',
     'refresh' => 'Odśwież',
     'reply' => 'Odpowiedz',
     'search' => 'Szukaj po temacie',

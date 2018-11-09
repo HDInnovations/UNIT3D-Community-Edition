@@ -17,7 +17,7 @@ return [
     'outbox' => 'Caixa de saída',
     'private' => 'Privada',
     'read' => 'Lida',
-    'recieved-at' => 'Recebida em',
+    'received-at' => 'Recebida em',
     'refresh' => 'Atualizar',
     'reply' => 'Responder',
     'search' => 'Pesquisar por assunto',

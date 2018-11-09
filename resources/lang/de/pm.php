@@ -21,7 +21,7 @@ return [
     'outbox' => 'Postausgang',
     'private' => 'Privatgelände',
     'read' => 'Lesen',
-    'recieved-at' => 'Empfangen bei',
+    'received-at' => 'Empfangen bei',
     'refresh' => 'Aktualisierung',
     'reply' => 'Antworten',
     'search' => 'Suche nach Thema',
