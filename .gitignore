@@ -33,6 +33,7 @@ laravel-echo-server.json
 # IDEs
 /.idea
 /.vscode
+/nbproject
 
 # Vim
 .*.swp
