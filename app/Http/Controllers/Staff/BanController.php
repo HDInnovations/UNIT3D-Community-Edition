@@ -83,7 +83,7 @@ class BanController extends Controller
                 \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
 
                 // Send Email
-                Mail::to($user->email)->send(new BanUser($user));
+                Mail::to($user->email)->send(new BanUser($user, $ban));
 
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                     ->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
@@ -139,7 +139,7 @@ class BanController extends Controller
                 \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
 
                 // Send Email
-                Mail::to($user->email)->send(new UnbanUser($user));
+                Mail::to($user->email)->send(new UnbanUser($user, $ban));
 
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                     ->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
