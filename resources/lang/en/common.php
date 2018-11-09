@@ -133,6 +133,7 @@ return [
     'tracker-codes' => 'Tracker codes',
     'type' => 'Type',
     'unknown' => 'Unknown',
+    'unlocked-achievement' => 'You unlocked :achievement achievement',
     'upload' => 'Upload',
     'upload-guide' => 'Upload guide',
     'user' => 'User',

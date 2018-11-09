@@ -61,6 +61,7 @@ UNIT3D currently offers the following features:
 - PHP 7.1.3 + is required (7.2 for Argon2 Support)
 - Dependencies for PHP,
   -   php-curl -> This is specifically needed for the various APIs we have running.
+  -   php-intl -> This is required for the Spatie\SslCertificate.
   -   php-zip -> This is required for the Backup Manager.
 - Crontab access
 - A Redis server
