@@ -192,7 +192,7 @@
                         </td>
                     </tr>
             <tr>
-                <td>{{ trans('torrent.downloaded') }}</td>
+                <td class="col-md-2">{{ trans('torrent.downloaded') }}</td>
                 <td>
                     <span class="badge-extra text-red" data-toggle="tooltip" title=""
                           data-original-title="{{ trans('user.download-recorded') }}">{{ $user->getDownloaded() }}</span>
@@ -226,6 +226,12 @@
                 <td>{{ trans('user.avg-seedtime') }}</td>
                 <td>
                     <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed(round($history->sum('seedtime') / max(1, $history->count()))) }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Seeding Size</td>
+                <td>
+                    <span class="badge-user group-member">{{ App\Helpers\StringHelper::formatBytes($user->getTotalSeedSize() , 2) }}</span>
                 </td>
             </tr>
             <tr>
@@ -380,14 +386,14 @@
                 <table class="table table-condensed table-striped table-bordered">
                 <tbody>
                 <tr>
-                    <td class="col-sm-3"> {{ trans('user.passkey') }}</td>
+                    <td class="col-md-2"> {{ trans('user.passkey') }}</td>
                     <td>
-                        <div class="col-sm-2">
+                        <div class="col-md-2">
                             <button type="button" class="btn btn-xxs btn-info collapsed" data-toggle="collapse"
                                     data-target="#pid_block"
                                     aria-expanded="false">{{ trans('user.show-passkey') }}</button>
                         </div>
-                        <div class="col-sm-10">
+                        <div class="col-md-8">
                             <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
                                 <span class="text-monospace">{{ $user->passkey }}</span>
                                 <br>

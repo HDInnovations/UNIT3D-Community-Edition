@@ -381,11 +381,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Recieved Many Invites
+     * Has Received Many Invites
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function recievedInvite()
+    public function receivedInvite()
     {
         return $this->hasMany(Invite::class, 'accepted_by');
     }
@@ -421,7 +421,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Recieved Many BON Tips
+     * Has Received Many BON Tips
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -654,6 +654,21 @@ class User extends Authenticatable
     {
         return History::where('user_id', '=', $this->id)
             ->sum('seedtime');
+    }
+
+    /**
+     * @method getTotalSeedSize
+     *
+     * Gets the users total seedsoze
+     *
+     * @access public
+     * @return integer
+     */
+    public function getTotalSeedSize()
+    {
+        $peers = Peer::where('user_id', '=', $this->id)->pluck('torrent_id');
+
+        return Torrent::whereIn('id', $peers)->sum('size');
     }
 
     /**
