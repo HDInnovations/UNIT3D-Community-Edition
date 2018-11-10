@@ -154,7 +154,9 @@ class GitUpdater extends Command
                     $this->composer();
                 }
 
-                $this->clear();
+                $this->clearCache();
+
+                $this->setCache();
 
                 $this->call('up');
             } else {
@@ -264,10 +266,17 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function clear()
+    private function clearCache()
     {
         $this->header("Clearing Cache");
-        $this->call('clear:all');
+        $this->call('clear:all_cache');
+        $this->done();
+    }
+
+    private function setCache()
+    {
+        $this->header("Setting Cache");
+        $this->call('set:all_cache');
         $this->done();
     }
 
