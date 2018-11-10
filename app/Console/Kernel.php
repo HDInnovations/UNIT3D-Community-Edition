@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\AutoNerdStat::class,
         \App\Console\Commands\AutoBonAllocation::class,
         \App\Console\Commands\AutoHighspeedTag::class,
-        //\App\Console\Commands\AutoPreWarning::class,
+        \App\Console\Commands\AutoPreWarning::class,
         \App\Console\Commands\AutoWarning::class,
         \App\Console\Commands\AutoDeactivateWarning::class,
         \App\Console\Commands\AutoRevokePermissions::class,
@@ -57,8 +57,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:nerdstat ')->hourly();
         $schedule->command('auto:graveyard')->daily();
         $schedule->command('auto:highspeed_tag')->hourly();
-        //$schedule->command('auto:prewarning')->hourly();
-        $schedule->command('auto:warning')->hourly();
+        $schedule->command('auto:prewarning')->hourly();
+        $schedule->command('auto:warning')->daily();
         $schedule->command('auto:deactivate_warning')->hourly();
         $schedule->command('auto:revoke_permissions')->hourly();
         $schedule->command('auto:ban')->hourly();

@@ -42,16 +42,17 @@
                     <th>@sortablelink('created_at', trans('torrent.created_at'))</th>
                     <th>@sortablelink('updated_at', trans('torrent.updated_at'))</th>
                     <th>@sortablelink('completed_at', trans('torrent.completed_at'))</th>
+                    <th>@sortablelink('prewarn', trans('torrent.prewarn'))</th>
+                    <th>@sortablelink('hitrun', trans('torrent.hitrun'))</th>
+                    <th>@sortablelink('immune', trans('torrent.immune'))</th>
                     </thead>
                     <tbody>
                     @foreach ($history as $his)
                         <tr>
                             <td>
-                                <a class="view-torrent" data-id="{{ $his->torrent_id }}"
-                                   data-slug="{{ $his->torrent->slug }}"
-                                   href="{{ route('torrent', ['slug' => $his->torrent->slug, 'id' => $his->torrent->id]) }}"
-                                   data-toggle="tooltip" title="{{ $his->torrent->name }}"
-                                   data-original-title="{{ trans('user.moderated-by', ['mod' => App\User::find($his->torrent->moderated_by)->username]) }} {{ $his->torrent->moderated_at->diffForHumans() }}">{{ $his->torrent->name }}</a>
+                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $his->torrent->slug, 'id' => $his->torrent->id]) }}">
+                                    {{ $his->torrent->name }}
+                                </a>
                             </td>
                             <td>
                                 <span class="badge-extra text-purple">{{ $his->agent ? $his->agent : trans('common.unknown') }}</span>
@@ -84,6 +85,21 @@
                             <td>{{ $his->created_at->diffForHumans() }}</td>
                             <td>{{ $his->updated_at->diffForHumans() }}</td>
                             <td>{{ $his->completed_at ? $his->completed_at->diffForHumans() : "N/A"}}</td>
+                            @if ($his->prewarn == 1)
+                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                            @else
+                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                            @endif
+                            @if ($his->hitrun == 1)
+                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                            @else
+                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                            @endif
+                            @if ($his->immune == 1)
+                                <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
+                            @else
+                                <td><i class="{{ config('other.font-awesome') }} fa-times text-red"></i></td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

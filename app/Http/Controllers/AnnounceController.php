@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\History;
 use App\Peer;
 use App\Torrent;
@@ -89,10 +90,20 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']), 200, ['Content-Type' => 'text/plain']);
         }
 
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+
         // If User Is Banned Return Error to Client
-        if ($user->group->id == 5) {
+        if ($user->group->id == $bannedGroup->id) {
             //info('A Banned User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'You are no longer welcome here']), 200, ['Content-Type' => 'text/plain']);
+        }
+
+        // If User Is Disabled Return Error to Client
+        if ($user->group->id == $disabledGroup->id) {
+            //info('A Disabled User (' . $user->username . ') Attempted To Announce');
+            return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If User Account Is Unactivated Return Error to Client
@@ -102,15 +113,10 @@ class AnnounceController extends Controller
         }
 
         // If User Is Validating Return Error to Client
-        if ($user->group->id == 1) {
+        if ($user->group->id == $validatingGroup->id) {
             //info('A Validating User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is still validating']), 200, ['Content-Type' => 'text/plain']);
         }
-
-        // If User Is Leech Or Download Rights Disabled Return Error to Client
-        /*if ($user->group->id == 15 || $user->can_download == 0) {
-            return response(Bencode::bencode(['failure reason' => 'Your download rights are disabled']), 200, ['Content-Type' => 'text/plain']);
-        }*/
 
         // Standard Information Fields
         $event = $request->input('event');
@@ -227,13 +233,13 @@ class AnnounceController extends Controller
         $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
         $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
 
-        if (config('other.freeleech') == true || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
+        if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;
         } else {
             $mod_downloaded = $downloaded;
         }
 
-        if (config('other.doubleup') == true || $torrent->doubleup == 1) {
+        if (config('other.doubleup') == 1 || $torrent->doubleup == 1) {
             $mod_uploaded = $uploaded * 2;
         } else {
             $mod_uploaded = $uploaded;
@@ -242,8 +248,8 @@ class AnnounceController extends Controller
         if ($event == 'started') {
             // Set the torrent data
             $history->agent = $agent;
-            $history->active = true;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->active = 1;
+            $history->seeder = ($left == 0) ? 1 : 0;
             $history->uploaded += 0;
             $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
@@ -263,7 +269,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = ($left == 0) ? 1 : 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -273,8 +279,9 @@ class AnnounceController extends Controller
         } elseif ($event == 'completed') {
             // Set the torrent data
             $history->agent = $agent;
-            $history->active = true;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->active = 1;
+            $history->seeder = ($left == 0) ? 1 : 0;
+            $history->immune = ($user->group->is_immune == 1) ? 1 : 0;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -299,7 +306,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = true;
+            $client->seeder = 1;
             $client->left = 0;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -317,8 +324,8 @@ class AnnounceController extends Controller
         } elseif ($event == 'stopped') {
             // Set the torrent data
             $history->agent = $agent;
-            $history->active = false;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->active = 0;
+            $history->seeder = ($left == 0) ? 1 : 0;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
@@ -342,7 +349,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = ($left == 0) ? 1 : 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -362,8 +369,8 @@ class AnnounceController extends Controller
         } else {
             // Set the torrent data
             $history->agent = $agent;
-            $history->active = true;
-            $history->seeder = ($left == 0) ? true : false;
+            $history->active = 1;
+            $history->seeder = ($left == 0) ? 1 : 0;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -387,7 +394,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? true : false;
+            $client->seeder = ($left == 0) ? 1 : 0;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;

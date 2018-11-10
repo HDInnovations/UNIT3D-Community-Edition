@@ -100,6 +100,6 @@ return [
     |
     */
 
-    'prewarn' => 2,
+    'prewarn' => 1,
 
 ];

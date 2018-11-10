@@ -44,16 +44,22 @@ class AutoWarning extends Command
         if (config('hitrun.enabled') == true) {
             $current = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
-                            ->where('actual_downloaded', '>', 0)
-                            ->where('active', 0)
-                            ->where('seedtime', '<=', config('hitrun.seedtime'))
-                            ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
-                            ->get();
+                ->where('actual_downloaded', '>', 0)
+                ->where('prewarn', 1)
+                ->where('hitrun', 0)
+                ->where('immune', 0)
+                ->where('active', 0)
+                ->where('seedtime', '<=', config('hitrun.seedtime'))
+                ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
+                ->get();
 
             foreach ($hitrun as $hr) {
                 if (!$hr->user->group->is_immune) {
                     if ($hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
-                        $exsist = Warning::where('torrent', $hr->torrent->id)->where('user_id', $hr->user->id)->withTrashed()->first();
+                        $exsist = Warning::withTrashed()
+                            ->where('torrent', $hr->torrent->id)
+                            ->where('user_id', $hr->user->id)
+                            ->first();
 
                         // Insert Warning Into Warnings Table if doesnt already exsist
                         if (!$exsist) {
@@ -78,6 +84,10 @@ class AutoWarning extends Command
                             $pm->message = "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b]
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                             $pm->save();
+
+                            // Set History Hitrun
+                            $hr->hitrun = 1;
+                            $hr->save();
                         }
 
                         unset($exist);

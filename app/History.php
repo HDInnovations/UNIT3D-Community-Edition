@@ -34,7 +34,10 @@ class History extends Model
         'seedtime',
         'created_at',
         'updated_at',
-        'completed_at'
+        'completed_at',
+        'prewarn',
+        'hitrun',
+        'immune'
     ];
 
     /**
