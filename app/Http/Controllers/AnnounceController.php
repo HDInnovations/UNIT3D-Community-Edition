@@ -249,7 +249,7 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? 1 : 0;
+            $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += 0;
             $history->actual_uploaded += 0;
             $history->client_uploaded = $real_uploaded;
@@ -269,7 +269,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? 1 : 0;
+            $client->seeder = ($left == 0) ? true : false;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -280,8 +280,8 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? 1 : 0;
-            $history->immune = ($user->group->is_immune == 1) ? 1 : 0;
+            $history->seeder = ($left == 0) ? true : false;
+            $history->immune = ($user->group->is_immune == 1) ? true : false;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -325,7 +325,7 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 0;
-            $history->seeder = ($left == 0) ? 1 : 0;
+            $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = 0;
@@ -349,7 +349,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? 1 : 0;
+            $client->seeder = ($left == 0) ? true : false;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
@@ -370,7 +370,7 @@ class AnnounceController extends Controller
             // Set the torrent data
             $history->agent = $agent;
             $history->active = 1;
-            $history->seeder = ($left == 0) ? 1 : 0;
+            $history->seeder = ($left == 0) ? true : false;
             $history->uploaded += $mod_uploaded;
             $history->actual_uploaded += $uploaded;
             $history->client_uploaded = $real_uploaded;
@@ -394,7 +394,7 @@ class AnnounceController extends Controller
             $client->agent = $agent;
             $client->uploaded = $real_uploaded;
             $client->downloaded = $real_downloaded;
-            $client->seeder = ($left == 0) ? 1 : 0;
+            $client->seeder = ($left == 0) ? true : false;
             $client->left = $left;
             $client->torrent_id = $torrent->id;
             $client->user_id = $user->id;
