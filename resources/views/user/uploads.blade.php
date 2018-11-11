@@ -48,8 +48,9 @@
                     @foreach ($torrents as $torrent)
                         <tr>
                             <td>
-                                <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}"
-                                   href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
+                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
+                                    {{ $torrent->name }}
+                                </a>
                                 <div class="pull-right">
                                     <a href="{{ route('download', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                                         <button class="btn btn-primary btn-circle" type="button"><i

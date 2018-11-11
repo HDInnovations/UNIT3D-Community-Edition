@@ -153,7 +153,7 @@
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
-                <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px;">
+                <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px; background-color: rgba(0, 0, 0, 0.19);">
                     @if (config('torrent.download_check_page') == 1)
                         <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            role="button" class="btn btn-labeled btn-success">
@@ -384,7 +384,7 @@
                         @endif
                         @endif
                         <a href="{{ route('torrentThank', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                           class="btn btn-xs btn-success" data-id="" data-toggle="tooltip"
+                           class="btn btn-xs btn-success" data-toggle="tooltip"
                            data-original-title="{{ trans('torrent.thank') }}">
                             <i class="{{ config('other.font-awesome') }} fa-heart"></i> {{ trans('torrent.thank') }}</a>
                         <span class="badge-extra text-pink"><i

@@ -16,9 +16,12 @@
     {{--Warnings--}}
     <div class="container">
         <div class="block">
-            <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}"
-                   href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
-                Warnings Log</h2>
+            <h2>
+                <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                    {{ $user->username }}
+                </a>
+                Warnings Log
+            </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
@@ -64,14 +67,14 @@
                             @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
-                                        <a data-id="{{ $warning->staffuser->id }}"
-                                           data-slug="{{ $warning->staffuser->username }}"
-                                           href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">{{ $warning->staffuser->username }}</a>
+                                        <a href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">
+                                            {{ $warning->staffuser->username }}
+                                        </a>
                                     </td>
                                     <td>
-                                        <a data-id="{{ $warning->torrenttitle->id }}"
-                                           data-slug="{{ $warning->torrenttitle->name }}"
-                                           href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">{{ $warning->torrenttitle->name }}</a>
+                                        <a href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">
+                                            {{ $warning->torrenttitle->name }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $warning->reason }}
@@ -152,14 +155,14 @@
                                 @foreach ($softDeletedWarnings as $softDeletedWarning)
                                     <tr>
                                         <td>
-                                            <a data-id="{{ $softDeletedWarning->staffuser->id }}"
-                                               data-slug="{{ $softDeletedWarning->staffuser->username }}"
-                                               href="{{ route('profile', ['username' => $softDeletedWarning->staffuser->username, 'id' => $softDeletedWarning->staffuser->id]) }}">{{ $softDeletedWarning->staffuser->username }}</a>
+                                            <a href="{{ route('profile', ['username' => $softDeletedWarning->staffuser->username, 'id' => $softDeletedWarning->staffuser->id]) }}">
+                                                {{ $softDeletedWarning->staffuser->username }}
+                                            </a>
                                         </td>
                                         <td>
-                                            <a data-id="{{ $softDeletedWarning->torrenttitle->id }}"
-                                               data-slug="{{ $softDeletedWarning->torrenttitle->name }}"
-                                               href="{{ route('torrent', ['slug' =>$softDeletedWarning->torrenttitle->slug, 'id' => $softDeletedWarning->torrenttitle->id]) }}">{{ $softDeletedWarning->torrenttitle->name }}</a>
+                                            <a href="{{ route('torrent', ['slug' =>$softDeletedWarning->torrenttitle->slug, 'id' => $softDeletedWarning->torrenttitle->id]) }}">
+                                                {{ $softDeletedWarning->torrenttitle->name }}
+                                            </a>
                                         </td>
                                         <td>
                                             {{ $softDeletedWarning->reason }}
@@ -171,9 +174,9 @@
                                             {{ $softDeletedWarning->deleted_at }}
                                         </td>
                                         <td>
-                                            <a data-id="{{ $softDeletedWarning->deletedBy->id }}"
-                                               data-slug="{{ $softDeletedWarning->deletedBy->username }}"
-                                               href="{{ route('profile', ['username' => $softDeletedWarning->deletedBy->username, 'id' => $softDeletedWarning->deletedBy->id]) }}">{{ $softDeletedWarning->deletedBy->username }}</a>
+                                            <a href="{{ route('profile', ['username' => $softDeletedWarning->deletedBy->username, 'id' => $softDeletedWarning->deletedBy->id]) }}">
+                                                {{ $softDeletedWarning->deletedBy->username }}
+                                            </a>
                                         </td>
                                         <td>
                                             <a href="{{ route('restoreWarning', ['id' => $softDeletedWarning->id]) }}" class="btn btn-xs btn-info">

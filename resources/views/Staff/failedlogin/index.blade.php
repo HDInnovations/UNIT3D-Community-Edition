@@ -56,9 +56,8 @@
                                         @if ($attempt->user_id == null)
                                             {{ $attempt->username }}
                                         @else
-                                            <a class="view-user" data-id="{{ $attempt->user_id }}"
-                                               data-slug="{{ $attempt->username }}"
-                                               href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">{{ $attempt->username }}
+                                            <a class="text-bold" href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">
+                                                {{ $attempt->username }}
                                             </a>
                                         @endif
                                     </td>

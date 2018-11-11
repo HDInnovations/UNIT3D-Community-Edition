@@ -92,10 +92,9 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a class="view-torrent" data-id="{{ $t->id }}" data-slug="{{ $t->slug }}"
-                                       href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}"
-                                       data-toggle="tooltip"
-                                       data-original-title="{{ $t->name }}">{{ $t->name }}</a>
+                                    <a class="view-torrent" href="{{ route('torrent', ['slug' => $t->slug, 'id' => $t->id]) }}">
+                                        {{ $t->name }}
+                                    </a>
                                     <a href="{{ route('download', ['slug' => $t->slug, 'id' => $t->id]) }}">&nbsp;&nbsp;
                                         <button class="btn btn-primary btn-circle" type="button" data-toggle="tooltip"
                                                 data-original-title="DOWNLOAD!">

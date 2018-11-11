@@ -25,11 +25,10 @@
                     <td>
                         <div class="torrent-file">
                             <div>
-                                <a class="view-torrent" data-id="{{ $torrent->id }}" data-slug="{{ $torrent->slug }}"
-                                   href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}"
-                                   data-toggle="tooltip"
-                                   data-original-title="{{ $torrent->name }}">{{ $torrent->name }} </a><span
-                                        class="label label-success">{{ $torrent->type }}</span>
+                                <a class="view-torrent" href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">
+                                    {{ $torrent->name }}
+                                </a>
+                                <span class="label label-success">{{ $torrent->type }}</span>
                             </div>
                         </div>
                     </td>

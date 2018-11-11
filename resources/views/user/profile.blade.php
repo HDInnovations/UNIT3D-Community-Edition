@@ -567,11 +567,9 @@
                             @foreach ($hitrun as $hr)
                                 <tr>
                                     <td>
-                                        <a class="view-torrent" data-id="{{ $hr->torrenttitle->id }}"
-                                           data-slug="{{ $hr->torrenttitle->slug }}"
-                                           href="{{ route('torrent', ['slug' => $hr->torrenttitle->slug, 'id' => $hr->torrenttitle->id]) }}"
-                                           data-toggle="tooltip" title=""
-                                           data-original-title="{{ $hr->torrenttitle->name }}">{{ $hr->torrenttitle->name }}</a>
+                                        <a class="text-bold" href="{{ route('torrent', ['slug' => $hr->torrenttitle->slug, 'id' => $hr->torrenttitle->id]) }}">
+                                            {{ $hr->torrenttitle->name }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $hr->created_at }}

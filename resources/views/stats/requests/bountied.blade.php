@@ -44,24 +44,27 @@
                                     {{ ++$key }}
                                 </td>
                                 <td>
-                                    <a class="view-torrent" data-id="{{ $b->id }}"
-                                       href="{{ route('request', ['id' => $b->id]) }}" data-toggle="tooltip"
-                                       data-original-title="{{ $b->name }}">{{ $b->name }}</a>
+                                    <a class="text-bold" href="{{ route('request', ['id' => $b->id]) }}">
+                                        {{ $b->name }}
+                                    </a>
                                 </td>
                                 <td><span class="text-green">{{ $b->bounty }}</span></td>
                                 <td>
                                     @if ($b->filled_hash == null)
-                                        <button class="btn btn-xxs" data-toggle="tooltip"
+                                        <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="{{ trans('stat.request-not-fulfilled') }}">
-                                            <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-times-circle text-danger"></i>
+                                        </span>
                                     @elseif ($b->filled_hash != null && $b->approved_by == null)
-                                        <button class="btn btn-xxs" data-toggle="tooltip"
+                                        <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="{{ trans('stat.request-pending-aproval') }}">
-                                            <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-question-circle text-info"></i>
+                                        </span>
                                     @else
-                                        <button class="btn btn-xxs" data-toggle="tooltip"
+                                        <span class="label label-default" data-toggle="tooltip"
                                                 data-original-title="{{ trans('stat.request-fulfilled') }}">
-                                            <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i></button>
+                                            <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i>
+                                        </span>
                                     @endif
                                 </td>
                             </tr>

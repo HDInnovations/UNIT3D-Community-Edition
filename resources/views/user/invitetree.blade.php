@@ -15,9 +15,12 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2><a class="view-user" data-id="{{ $user->id }}" data-slug="{{ $user->username }}"
-                   href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
-                {{ trans('user.invite-tree') }}</h2>
+            <h2>
+                <a href="{{ route('profile', ['username' =>  $user->username, 'id' => $user->id]) }}">
+                    {{ $user->username }}
+                </a>
+                {{ trans('user.invite-tree') }}
+            </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">

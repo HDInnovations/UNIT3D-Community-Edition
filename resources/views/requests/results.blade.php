@@ -28,7 +28,7 @@
                     </span>
                 </td>
                 <td>
-                    <a class="view-torrent" data-id="{{ $torrentRequest->id }}" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
+                    <a class="view-torrent" href="{{ route('request', ['id' => $torrentRequest->id]) }}">
                         {{ $torrentRequest->name }}
                     </a>
                 </td>

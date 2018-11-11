@@ -44,10 +44,9 @@
                                     {{ ++$key }}
                                 </td>
                                 <td>
-                                    <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}"
-                                       href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}"
-                                       data-toggle="tooltip"
-                                       data-original-title="{{ $d->name }}">{{ $d->name }}</a>
+                                    <a class="text-bold" href="{{ route('torrent', ['slug' => $d->slug, 'id' => $d->id]) }}">
+                                        {{ $d->name }}
+                                    </a>
                                 </td>
                                 <td>{{ $d->seeders }}</td>
                                 <td>{{ $d->leechers }}</td>
