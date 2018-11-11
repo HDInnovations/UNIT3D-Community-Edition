@@ -33,7 +33,7 @@ class HomeController extends Controller
      */
     public function home()
     {
-        // Latest Articles Block
+        // Latest Articles/News Block
         $articles = Article::latest()->take(1)->get();
 
         // Latest Torrents Block
@@ -49,18 +49,18 @@ class HomeController extends Controller
         // Latest Posts Block
         $posts = Post::latest()->take(5)->get();
 
-        //Online Block
-        $user = User::oldest('username')->get();
-        $groups = Group::oldest('position')->get();
+        // Online Block
+        $users = User::with('group')->oldest('username')->get();
+        $groups = Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();
 
-        //Featured Torrents
+        // Featured Torrents
         $featured = FeaturedTorrent::with('torrent')->get();
 
-        //Latest Poll
+        // Latest Poll
         $poll = Poll::latest()->first();
 
         return view('home.home', [
-            'user' => $user,
+            'users' => $users,
             'groups' => $groups,
             'articles' => $articles,
             'torrents' => $torrents,
@@ -71,8 +71,7 @@ class HomeController extends Controller
             'topics' => $topics,
             'posts' => $posts,
             'featured' => $featured,
-            'poll' => $poll,
-
+            'poll' => $poll
         ]);
     }
 }
