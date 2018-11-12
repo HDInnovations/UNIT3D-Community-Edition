@@ -19,7 +19,7 @@ use App\Events\MessageDeleted;
 use App\Chatroom;
 use App\ChatStatus;
 use App\Message;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ChatController extends Controller
 {
@@ -34,7 +34,8 @@ class ChatController extends Controller
     private $toastr;
 
     /**
-     * WishController constructor.
+     * ChatController Constructor
+     *
      * @param ChatRepository $chat
      * @param Toastr $toastr
      */
@@ -216,6 +217,6 @@ class ChatController extends Controller
         );
 
         return redirect('staff_dashboard')
-            ->with(Toastr::success('Chatbox Has Been Flushed', 'Yay!', ['options']));
+            ->with($this->toastr->success('Chatbox Has Been Flushed', 'Yay!', ['options']));
     }
 }

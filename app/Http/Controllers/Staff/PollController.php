@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use App\Poll;
 use App\Option;
 use App\Http\Requests\StorePoll;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class PollController extends Controller
 {
@@ -27,9 +27,21 @@ class PollController extends Controller
      */
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * PollController Constructor
+     *
+     * @param ChatRepository $chat
+     * @param Toastr $toastr
+     */
+    public function __construct(ChatRepository $chat, Toastr $toastr)
     {
         $this->chat = $chat;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -97,6 +109,6 @@ class PollController extends Controller
         );
 
         return redirect('poll/' . $poll->slug)
-            ->with(Toastr::success('Your poll has been created.', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your poll has been created.', 'Yay!', ['options']));
     }
 }

@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\PrivateMessage;
 use App\Report;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ReportController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ReportController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Reports
      *
@@ -66,7 +81,7 @@ class ReportController extends Controller
 
         if ($report->solved == 1) {
             return redirect()->route('getReports')
-                ->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This Report Has Already Been Solved', 'Whoops!', ['options']));
         }
 
         $report->verdict = $request->input('verdict');
@@ -87,6 +102,6 @@ class ReportController extends Controller
         $pm->save();
 
         return redirect()->route('getReports')
-            ->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
+            ->with($this->toastr->success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }

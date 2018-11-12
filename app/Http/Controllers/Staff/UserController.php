@@ -29,10 +29,25 @@ use App\Thank;
 use App\Follow;
 use App\Invite;
 use App\Peer;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class UserController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * UserController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Users List
      *
@@ -116,7 +131,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
         return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-            ->with(Toastr::success('Account Was Updated Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -144,7 +159,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
         return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-            ->with(Toastr::success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
     }
 
     /**
@@ -168,7 +183,7 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
         return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-            ->with(Toastr::success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -187,7 +202,7 @@ class UserController extends Controller
 
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('home')
-                ->with(Toastr::error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
             // Removes UserID from Torrents if any and replaces with System UserID (1)
             foreach (Torrent::withAnyStatus()->where('user_id', $user->id)->get() as $tor) {
@@ -263,10 +278,10 @@ class UserController extends Controller
 
             if ($user->delete()) {
                 return redirect('staff_dashboard')
-                    ->with(Toastr::success('Account Has Been Removed', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
             } else {
                 return redirect('staff_dashboard')
-                    ->with(Toastr::error('Something Went Wrong!', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
             }
         }
     }
@@ -293,6 +308,6 @@ class UserController extends Controller
             $user->save();
         }
         return redirect('staff_dashboard')
-            ->with(Toastr::success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
+            ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
     }
 }

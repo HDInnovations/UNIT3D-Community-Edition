@@ -34,7 +34,7 @@ use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Notifications\NewTorrentComment;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class CommentController extends Controller
 {
@@ -48,10 +48,23 @@ class CommentController extends Controller
      */
     private $chat;
 
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * CommentController Constructor
+     *
+     * @param TaggedUserRepository $tag
+     * @param ChatRepository $chat
+     * @param Toastr $toastr
+     */
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Toastr $toastr)
     {
         $this->tag = $tag;
         $this->chat = $chat;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -69,7 +82,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -87,7 +100,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $comment->save();
 
@@ -137,7 +150,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('article', ['slug' => $article->slug, 'id' => $article->id])
-                ->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }
 
@@ -156,7 +169,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -174,7 +187,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $comment->save();
 
@@ -236,7 +249,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade900Comments(), 1);
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }
 
@@ -255,7 +268,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -273,7 +286,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $comment->save();
 
@@ -340,7 +353,7 @@ class CommentController extends Controller
             }
 
             return redirect()->route('request', ['id' => $tr->id])
-                ->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }
 
@@ -357,7 +370,7 @@ class CommentController extends Controller
 
         if ($user->can_comment == 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your Comment Rights Have Benn Revoked!!!', 'Whoops!', ['options']));
         }
 
         $comment = new Comment();
@@ -379,7 +392,7 @@ class CommentController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $comment->save();
 
@@ -411,7 +424,7 @@ class CommentController extends Controller
             );
 
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::success('Your Comment Has Been Added!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }
 
@@ -432,9 +445,9 @@ class CommentController extends Controller
             $comment->content = $content;
             $comment->save();
 
-            return back()->with(Toastr::success('Comment Has Been Edited.', 'Yay!', ['options']));
+            return back()->with($this->toastr->success('Comment Has Been Edited.', 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -452,9 +465,9 @@ class CommentController extends Controller
         if ($user->group->is_modo || $user->id == $comment->user_id) {
             $comment->delete();
 
-            return back()->with(Toastr::success('Comment Has Been Deleted.', 'Yay!', ['options']));
+            return back()->with($this->toastr->success('Comment Has Been Deleted.', 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

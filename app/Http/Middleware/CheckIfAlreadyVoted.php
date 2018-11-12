@@ -15,10 +15,25 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Voter;
 use App\Option;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class CheckIfAlreadyVoted
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * CheckIfAlreadyVoted Middleware Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -39,7 +54,7 @@ class CheckIfAlreadyVoted
         //flash a Toastr and redirect to results.
         if ($poll->ip_checking == 1) {
             if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-                Toastr::error('There is already a vote on this poll from your IP. Your vote has not been counted.', 'Whoops!', ['options']);
+                $this->toastr->error('There is already a vote on this poll from your IP. Your vote has not been counted.', 'Whoops!', ['options']);
 
                 return redirect('poll/' . $poll->slug . '/result');
             }

@@ -15,10 +15,25 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Peer;
 use App\History;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class FlushController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * FlushController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Delete All Old Peers From Database
      *
@@ -37,6 +52,6 @@ class FlushController extends Controller
             }
         }
         return redirect('staff_dashboard')
-            ->with(Toastr::success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
+            ->with($this->toastr->success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
     }
 }

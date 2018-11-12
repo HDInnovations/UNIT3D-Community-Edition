@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Catalog;
 use App\CatalogTorrent;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class CatalogController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * CatalogController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Catalogs
      *
@@ -45,7 +60,7 @@ class CatalogController extends Controller
         $catalog = Catalog::where('name', $request->input('catalog'))->first();
         if ($catalog) {
             return redirect()->route('catalogs')
-                ->with(Toastr::error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
         }
         $catalog = new Catalog();
         $catalog->name = $request->input('catalog');
@@ -53,7 +68,7 @@ class CatalogController extends Controller
         $catalog->save();
 
         return redirect()->route('getCatalog')
-            ->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     /**
@@ -71,12 +86,12 @@ class CatalogController extends Controller
         $catalog = Catalog::findOrFail($catalog_id);
         if (!$catalog) {
             return redirect()->route('getCatalog')
-                ->with(Toastr::error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
         }
         $catalog->name = $request->input('catalog');
         $catalog->save();
         return redirect()->route('getCatalog')
-            ->with(Toastr::success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
     }
 
     /**
@@ -90,11 +105,11 @@ class CatalogController extends Controller
         $catalog = Catalog::findOrFail($catalog_id);
         if (!$catalog) {
             return redirect()->route('getCatalog')
-                ->with(Toastr::error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
         }
         $catalog->delete();
         return redirect()->route('getCatalog')
-            ->with(Toastr::success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
     }
 
 
@@ -122,7 +137,7 @@ class CatalogController extends Controller
         ]);
         $torrent = CatalogTorrent::where('imdb', $request->input('imdb'))->first();
         if ($torrent) {
-            return redirect()->route('getCatalogTorrent')->with(Toastr::error('IMDB# ' . $torrent->imdb . ' is already in database', 'Whoops!', ['options']));
+            return redirect()->route('getCatalogTorrent')->with($this->toastr->error('IMDB# ' . $torrent->imdb . ' is already in database', 'Whoops!', ['options']));
         }
         $torrent = new CatalogTorrent();
         $torrent->imdb = $request->input('imdb');
@@ -132,7 +147,7 @@ class CatalogController extends Controller
         $catalog->num_torrent = CatalogTorrent::where('catalog_id', $catalog->id)->count();
         $catalog->save();
 
-        return redirect()->route('getCatalogTorrent')->with(Toastr::success('IMDB# ' . $request->input('imdb') . ' has been successfully added', 'Yay!', ['options']));
+        return redirect()->route('getCatalogTorrent')->with($this->toastr->success('IMDB# ' . $request->input('imdb') . ' has been successfully added', 'Yay!', ['options']));
     }
 
     // Get Catalogs Records

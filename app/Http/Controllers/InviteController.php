@@ -17,12 +17,27 @@ use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Invite;
 use App\Mail\InviteUser;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * InviteController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Invite Form
      *
@@ -34,11 +49,11 @@ class InviteController extends Controller
 
         if (config('other.invite-only') == false) {
             return redirect()->route('home')
-            ->with(Toastr::error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']));
+            ->with($this->toastr->error('Invitations Are Disabled Due To Open Registration!', 'Whoops!', ['options']));
         }
         if ($user->can_invite == 0) {
             return redirect()->route('home')
-            ->with(Toastr::error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+            ->with($this->toastr->error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
         return view('user.invite', ['user' => $user]);
     }
@@ -58,19 +73,19 @@ class InviteController extends Controller
 
         if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
             return redirect()->route('invite')
-                ->with(Toastr::error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }
 
         if ($user->invites <= 0) {
             return redirect()->route('invite')
-                ->with(Toastr::error('You do not have enough invites!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You do not have enough invites!', 'Whoops!', ['options']));
         }
 
         $exist = Invite::where('email', $request->input('email'))->first();
 
         if ($exist) {
             return redirect()->route('invite')
-                ->with(Toastr::error('The email address your trying to send a invite to has already been sent one.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('The email address your trying to send a invite to has already been sent one.', 'Whoops!', ['options']));
         }
 
         $code = Uuid::uuid4()->toString();
@@ -101,7 +116,7 @@ class InviteController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('invite')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             Mail::to($request->input('email'))->send(new InviteUser($invite));
             $invite->save();
@@ -113,7 +128,7 @@ class InviteController extends Controller
             \LogActivity::addToLog("Member {$user->username} has sent a invite to {$invite->email} .");
 
             return redirect()->route('invite')
-                ->with(Toastr::success('Invite was sent successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Invite was sent successfully!', 'Yay!', ['options']));
         }
     }
 

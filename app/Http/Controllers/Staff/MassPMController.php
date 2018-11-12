@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\PrivateMessage;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class MassPMController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * MassPMController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Mass PM Form
      *
@@ -52,7 +67,7 @@ class MassPMController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('massPM')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             foreach ($users as $user) {
                 // Send Private Message
@@ -68,7 +83,7 @@ class MassPMController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
 
             return redirect()->route('massPM')
-                ->with(Toastr::success('MassPM Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('MassPM Sent', 'Yay!', ['options']));
         }
     }
 }

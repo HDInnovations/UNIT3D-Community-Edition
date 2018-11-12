@@ -17,10 +17,25 @@ use Illuminate\Http\Request;
 use App\Group;
 use App\Forum;
 use App\Permission;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class GroupsController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * GroupsController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Groups
      *
@@ -77,7 +92,7 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
 
@@ -93,7 +108,7 @@ class GroupsController extends Controller
             }
 
             return redirect()->route('staff_groups_index')
-                ->with(Toastr::success('Group Was Created Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Group Was Created Successfully!', 'Yay!', ['options']));
         }
     }
 
@@ -148,11 +163,11 @@ class GroupsController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_groups_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
             return redirect()->route('staff_groups_index')
-                ->with(Toastr::success('Group Was Updated Successfully!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Group Was Updated Successfully!', 'Yay!', ['options']));
         }
     }
 }

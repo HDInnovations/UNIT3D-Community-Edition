@@ -17,7 +17,7 @@ use App\Services\Clients\OmdbClient;
 use App\Album;
 use Image;
 use Carbon\Carbon;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class AlbumController extends Controller
 {
@@ -27,13 +27,20 @@ class AlbumController extends Controller
     private $client;
 
     /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
      * AlbumController Constructor
      *
      * @param OmdbClient $client
+     * @param Toastr $toastr
      */
-    public function __construct(OmdbClient $client)
+    public function __construct(OmdbClient $client, Toastr $toastr)
     {
         $this->client = $client;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -85,7 +92,7 @@ class AlbumController extends Controller
 
         if ($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
-                ->with(Toastr::error('Bad IMDB Request!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Bad IMDB Request!', 'Whoops!', ['options']));
         };
 
         $album = new Album();
@@ -111,12 +118,12 @@ class AlbumController extends Controller
         if ($v->fails()) {
             return redirect()->route('create_album_form')
                 ->withInput()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $album->save();
 
             return redirect()->route('show_album', ['id' => $album->id])
-                ->with(Toastr::success('Your album has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your album has successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -134,9 +141,9 @@ class AlbumController extends Controller
             $album->delete();
 
             return redirect()->route('home')
-                ->with(Toastr::success('Album has successfully been deleted', 'Yay!', ['options']));
+                ->with($this->toastr->success('Album has successfully been deleted', 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

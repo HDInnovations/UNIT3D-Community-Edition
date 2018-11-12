@@ -20,7 +20,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
 use Carbon\Carbon;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ModerationController extends Controller
 {
@@ -29,9 +29,21 @@ class ModerationController extends Controller
      */
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ModerationController Constructor
+     *
+     * @param ChatRepository $chat
+     * @param Toastr $toastr
+     */
+    public function __construct(ChatRepository $chat, Toastr $toastr)
     {
         $this->chat = $chat;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -86,10 +98,10 @@ class ModerationController extends Controller
             TorrentHelper::approveHelper($torrent->slug, $torrent->id);
 
             return redirect()->route('moderation')
-                ->with(Toastr::success('Torrent Approved', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Approved', 'Yay!', ['options']));
         } else {
             return redirect()->back()
-                ->with(Toastr::error('Torrent Already Approved', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Already Approved', 'Whoops!', ['options']));
         }
     }
 
@@ -109,7 +121,7 @@ class ModerationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('moderation')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
@@ -123,7 +135,7 @@ class ModerationController extends Controller
             $pm->save();
 
             return redirect()->route('moderation')
-                ->with(Toastr::success('Torrent Postponed', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Postponed', 'Yay!', ['options']));
         }
     }
 
@@ -143,7 +155,7 @@ class ModerationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('moderation')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
             $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
@@ -157,7 +169,7 @@ class ModerationController extends Controller
             $pm->save();
 
             return redirect()->route('moderation')
-                ->with(Toastr::success('Torrent Rejected', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Rejected', 'Yay!', ['options']));
         }
     }
 
@@ -181,10 +193,10 @@ class ModerationController extends Controller
             $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::success("The request has been reset!", 'Yay!', ['options']));
+                ->with($this->toastr->success("The request has been reset!", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::error("You don't have access to this operation!", 'Whoops!', ['options']));
+                ->with($this->toastr->error("You don't have access to this operation!", 'Whoops!', ['options']));
         }
     }
 }

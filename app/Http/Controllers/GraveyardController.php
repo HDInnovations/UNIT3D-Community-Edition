@@ -17,7 +17,7 @@ use App\Repositories\TorrentFacetedRepository;
 use App\Torrent;
 use App\Graveyard;
 use Carbon\Carbon;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class GraveyardController extends Controller
 {
@@ -26,9 +26,21 @@ class GraveyardController extends Controller
      */
     private $faceted;
 
-    public function __construct(TorrentFacetedRepository $faceted)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * GraveyardController Constructor
+     *
+     * @param TorrentFacetedRepository $faceted
+     * @param Toastr $toastr
+     */
+    public function __construct(TorrentFacetedRepository $faceted, Toastr $toastr)
     {
         $this->faceted = $faceted;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -139,12 +151,12 @@ class GraveyardController extends Controller
 
         if ($resurrected) {
             return redirect()->route('graveyard')
-                ->with(Toastr::error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }
 
         if ($user->id === $torrent->user_id) {
             return redirect()->route('graveyard')
-                ->with(Toastr::error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
         }
 
         $resurrection = new Graveyard();
@@ -160,11 +172,11 @@ class GraveyardController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('graveyard')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $resurrection->save();
             return redirect()->route('graveyard')
-                ->with(Toastr::success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
+                ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }
     }
 }

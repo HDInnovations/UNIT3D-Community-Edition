@@ -15,10 +15,25 @@ namespace App\Http\Controllers\Staff;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * CategoryController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get The Categories
      *
@@ -66,11 +81,11 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
             return redirect()->route('staff_category_index')
-                ->with(Toastr::success('Category Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Category Successfully Added', 'Yay!', ['options']));
         }
     }
 
@@ -115,11 +130,11 @@ class CategoryController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_category_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
             return redirect()->route('staff_category_index')
-                ->with(Toastr::success('Category Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Category Successfully Modified', 'Yay!', ['options']));
         }
     }
 
@@ -135,6 +150,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
         return redirect()->route('staff_category_index')
-            ->with(Toastr::success('Category Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Category Successfully Deleted', 'Yay!', ['options']));
     }
 }

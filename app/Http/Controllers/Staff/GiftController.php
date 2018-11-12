@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\PrivateMessage;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class GiftController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * GiftController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Send Gift Form
      *
@@ -56,13 +71,13 @@ class GiftController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('systemGift')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $recipient = User::where('username', 'LIKE', $username)->first();
 
             if (!$recipient) {
                 return redirect()->route('systemGift')
-                    ->with(Toastr::error('Unable To Find Specified User', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
             }
 
             $recipient->seedbonus += $seedbonus;
@@ -83,7 +98,7 @@ class GiftController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
             return redirect()->route('systemGift')
-                ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
         }
     }
 }

@@ -23,7 +23,6 @@ use App\User;
 use App\Post;
 use App\FeaturedTorrent;
 use App\PersonalFreeleech;
-use \Toastr;
 
 class HomeController extends Controller
 {

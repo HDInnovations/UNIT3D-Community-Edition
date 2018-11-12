@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Article;
 use Image;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ArticleController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ArticleController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Articles
      *
@@ -76,11 +91,11 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $article->save();
             return redirect()->route('staff_article_index')
-                ->with(Toastr::success('Your article has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your article has successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -132,11 +147,11 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $article->save();
             return redirect()->route('staff_article_index')
-                ->with(Toastr::success('Your article changes have successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your article changes have successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -153,6 +168,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('staff_article_index')
-            ->with(Toastr::success('Article has successfully been deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Article has successfully been deleted', 'Yay!', ['options']));
     }
 }

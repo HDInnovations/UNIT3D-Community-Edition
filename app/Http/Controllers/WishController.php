@@ -24,15 +24,13 @@ class WishController extends Controller
     private $wish;
 
     /**
-     * todo: create interface for this class and register it to the service container.
-     * Then we can inject the interface.
-     *
      * @var Toastr
      */
     private $toastr;
 
     /**
-     * WishController constructor.
+     * WishController Constructor
+     *
      * @param WishInterface $wish
      * @param Toastr $toastr
      */
@@ -43,6 +41,8 @@ class WishController extends Controller
     }
 
     /**
+     * Get Wish List
+     *
      * @param $uid
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -54,6 +54,8 @@ class WishController extends Controller
     }
 
     /**
+     * Add New Wish
+     *
      * @param \Illuminate\Http\Request $request
      * @param $uid
      * @return \Illuminate\Http\RedirectResponse
@@ -91,6 +93,8 @@ class WishController extends Controller
     }
 
     /**
+     * Delete A Wish
+     *
      * @param $uid
      * @param $id
      * @return \Illuminate\Http\RedirectResponse

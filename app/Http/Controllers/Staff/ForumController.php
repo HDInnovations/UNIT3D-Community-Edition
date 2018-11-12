@@ -17,10 +17,24 @@ use Illuminate\Http\Request;
 use App\Forum;
 use App\Group;
 use App\Permission;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ForumController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ForumController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
 
     /**
      * Show Forums
@@ -88,7 +102,7 @@ class ForumController extends Controller
         }
 
             return redirect()->route('staff_forum_index')
-                ->with(Toastr::success('Forum has been created successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Forum has been created successfully', 'Yay!', ['options']));
     }
 
     /**
@@ -158,7 +172,7 @@ class ForumController extends Controller
         }
 
             return redirect()->route('staff_forum_index')
-                ->with(Toastr::success('Forum has been edited successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Forum has been edited successfully', 'Yay!', ['options']));
     }
 
     /**
@@ -216,6 +230,6 @@ class ForumController extends Controller
             $forum->delete();
         }
         return redirect()->route('staff_forum_index')
-            ->with(Toastr::success('Forum has been deleted successfully', 'Yay!', ['options']));
+            ->with($this->toastr->success('Forum has been deleted successfully', 'Yay!', ['options']));
     }
 }

@@ -16,10 +16,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Mail\Contact;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ContactController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ContactController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Contact Form
      *
@@ -44,6 +59,6 @@ class ContactController extends Controller
         $input = $request->all();
         Mail::to($user->email, $user->username)->send(new Contact($input));
         return redirect()->route('home')
-            ->with(Toastr::success('Your Message Was Successfully Sent', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Message Was Successfully Sent', 'Yay!', ['options']));
     }
 }

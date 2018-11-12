@@ -21,10 +21,25 @@ use App\User;
 use App\Ban;
 use App\Group;
 use Carbon\Carbon;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class BanController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * BanController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Bans
      *
@@ -53,7 +68,7 @@ class BanController extends Controller
 
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = $bannedGroup->id;
             $user->can_upload = 0;
@@ -74,7 +89,7 @@ class BanController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 $user->save();
                 $ban->save();
@@ -86,7 +101,7 @@ class BanController extends Controller
                 Mail::to($user->email)->send(new BanUser($user, $ban));
 
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with(Toastr::success('User Is Now Banned!', 'Yay!', ['options']));
+                    ->with($this->toastr->success('User Is Now Banned!', 'Yay!', ['options']));
             }
         }
     }
@@ -107,7 +122,7 @@ class BanController extends Controller
 
         if ($user->group->is_modo || auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
         } else {
             $user->group_id = $request->input('group_id');
             $user->can_upload = 1;
@@ -130,7 +145,7 @@ class BanController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 $user->save();
                 $ban->save();
@@ -142,7 +157,7 @@ class BanController extends Controller
                 Mail::to($user->email)->send(new UnbanUser($user, $ban));
 
                 return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with(Toastr::success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
+                    ->with($this->toastr->success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
             }
         }
     }

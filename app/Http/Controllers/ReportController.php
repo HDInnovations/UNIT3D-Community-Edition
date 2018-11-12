@@ -15,7 +15,7 @@ namespace App\Http\Controllers;
 use App\Report;
 use App\Torrent;
 use Illuminate\Http\Request;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ReportController extends Controller
 {
@@ -30,10 +30,23 @@ class ReportController extends Controller
      */
     private $torrent;
 
-    public function __construct(Report $report, Torrent $torrent)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * PrivateMessageController Constructor
+     *
+     * @param Report $report
+     * @param Torrent $torrent
+     * @param Toastr $toastr
+     */
+    public function __construct(Report $report, Torrent $torrent, Toastr $toastr)
     {
         $this->report = $report;
         $this->torrent = $torrent;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -62,6 +75,6 @@ class ReportController extends Controller
         \LogActivity::addToLog("Member {$reported_by->username} has made a new {$request->get('type')} report.");
 
         return redirect()->route('home')
-            ->with(Toastr::success('Your report has been successfully sent', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
     }
 }

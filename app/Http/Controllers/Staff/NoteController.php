@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Note;
 use App\User;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class NoteController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * NoteController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All User Notes
      *
@@ -58,7 +73,7 @@ class NoteController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $note->save();
 
@@ -66,7 +81,7 @@ class NoteController extends Controller
             \LogActivity::addToLog("Staff Member {$staff->username} has added a note on {$user->username} account.");
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::success('Note Has Successfully Posted', 'Yay!', ['options']));
+                ->with($this->toastr->success('Note Has Successfully Posted', 'Yay!', ['options']));
         }
     }
 
@@ -82,6 +97,6 @@ class NoteController extends Controller
         $note->delete();
 
         return redirect()->back()
-            ->with(Toastr::success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }

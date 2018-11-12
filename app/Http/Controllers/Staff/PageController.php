@@ -15,10 +15,25 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Page;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class PageController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * PageController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Pages
      *
@@ -62,11 +77,11 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
             return redirect()->route('staff_page_index')
-                ->with(Toastr::success('Page has been created successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Page has been created successfully', 'Yay!', ['options']));
         }
     }
 
@@ -107,11 +122,11 @@ class PageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_page_index')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
             return redirect()->route('staff_page_index')
-                ->with(Toastr::success('Page has been edited successfully', 'Yay!', ['options']));
+                ->with($this->toastr->success('Page has been edited successfully', 'Yay!', ['options']));
         }
     }
 
@@ -127,6 +142,6 @@ class PageController extends Controller
         Page::findOrFail($id)->delete();
 
         return redirect()->route('staff_page_index')
-            ->with(Toastr::success('Page has been deleted successfully', 'Yay!', ['options']));
+            ->with($this->toastr->success('Page has been deleted successfully', 'Yay!', ['options']));
     }
 }

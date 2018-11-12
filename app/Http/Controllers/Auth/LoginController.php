@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Group;
 use App\Rules\Captcha;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class LoginController extends Controller
 {
@@ -32,9 +32,20 @@ class LoginController extends Controller
     // Minutes Lockout
     public $decayMinutes = 60;
 
-    public function __construct()
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * LoginController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
     {
         $this->middleware('guest', ['except' => 'logout']);
+        $this->toastr = $toastr;
     }
 
     public function username()
@@ -74,14 +85,14 @@ class LoginController extends Controller
             auth()->logout();
             $request->session()->flush();
             return redirect()->route('login')
-                ->with(Toastr::error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
 
         if ($user->group_id == $bannedGroup->id) {
             auth()->logout();
             $request->session()->flush();
             return redirect()->route('login')
-                ->with(Toastr::error('This account is Banned!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
         }
 
         if ($user->group_id == $disabledGroup->id) {
@@ -95,7 +106,7 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
             return redirect('/')
-                ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
+                ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
         if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup->id) {
@@ -109,10 +120,10 @@ class LoginController extends Controller
             $user->disabled_at = null;
             $user->save();
             return redirect('/')
-                ->with(Toastr::info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
+                ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
         return redirect('/')
-            ->with(Toastr::info('Welcome Back!', $user->username, ['options']));
+            ->with($this->toastr->info('Welcome Back!', $user->username, ['options']));
     }
 }

@@ -31,24 +31,37 @@ use App\Achievements\UserFilled75Requests;
 use App\Achievements\UserFilled100Requests;
 use Carbon\Carbon;
 use Decoda\Decoda;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class RequestController extends Controller
 {
     /**
      * @var RequestFacetedRepository
      */
-    private $repository;
+    private $faceted;
 
     /**
      * @var ChatRepository
      */
     private $chat;
 
-    public function __construct(RequestFacetedRepository $repository, ChatRepository $chat)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * RequestController Constructor
+     *
+     * @param RequestFacetedRepository $faceted
+     * @param ChatRepository $chat
+     * @param Toastr $toastr
+     */
+    public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat, Toastr $toastr)
     {
-        $this->repository = $repository;
+        $this->faceted = $faceted;
         $this->chat = $chat;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -67,7 +80,7 @@ class RequestController extends Controller
         $unclaimed_bounty = TorrentRequest::whereNull('filled_by')->sum('bounty');
 
         $torrentRequests = TorrentRequest::with(['user', 'category'])->paginate(25);
-        $repository = $this->repository;
+        $repository = $this->faceted;
 
         return view('requests.requests', [
             'torrentRequests' => $torrentRequests,
@@ -272,7 +285,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('requests')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tr->save();
 
@@ -313,7 +326,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
             return redirect('/requests')
-                ->with(Toastr::success('Request Added.', 'Yay!', ['options']));
+                ->with($this->toastr->success('Request Added.', 'Yay!', ['options']));
         }
     }
 
@@ -382,7 +395,7 @@ class RequestController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('requests')
-                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 $torrentRequest->save();
 
@@ -395,7 +408,7 @@ class RequestController extends Controller
                 }
 
                 return redirect()->route('requests', ['id' => $torrentRequest->id])
-                    ->with(Toastr::success('Request Edited Successfully.', 'Yay!', ['options']));
+                    ->with($this->toastr->success('Request Edited Successfully.', 'Yay!', ['options']));
             }
         }
     }
@@ -422,7 +435,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tr->save();
 
@@ -478,7 +491,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with(Toastr::success('Your bonus has been successfully added.', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your bonus has been successfully added.', 'Yay!', ['options']));
         }
     }
 
@@ -507,7 +520,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $torrentRequest->save();
 
@@ -530,7 +543,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
 
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with(Toastr::success('Your request fill is pending approval by the Requester.', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your request fill is pending approval by the Requester.', 'Yay!', ['options']));
         }
     }
 
@@ -549,7 +562,7 @@ class RequestController extends Controller
         if ($user->id == $tr->user_id || auth()->user()->group->is_modo) {
             if ($tr->approved_by != null) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::error("Seems this request was already approved", 'Whoops!', ['options']));
+                    ->with($this->toastr->error("Seems this request was already approved", 'Whoops!', ['options']));
             }
             $tr->approved_by = $user->id;
             $tr->approved_when = Carbon::now();
@@ -605,14 +618,14 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
+                    ->with($this->toastr->success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", "Yay!", ['options']));
             } else {
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::success("You have approved {$tr->name} and the bounty has been awarded to a anonymous user", "Yay!", ['options']));
+                    ->with($this->toastr->success("You have approved {$tr->name} and the bounty has been awarded to a anonymous user", "Yay!", ['options']));
             }
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::error("You don't have access to approve this request", 'Whoops!', ['options']));
+                ->with($this->toastr->error("You don't have access to approve this request", 'Whoops!', ['options']));
         }
     }
 
@@ -631,7 +644,7 @@ class RequestController extends Controller
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::error("Seems this request was already rejected", 'Whoops!', ['options']));
+                    ->with($this->toastr->error("Seems this request was already rejected", 'Whoops!', ['options']));
             }
 
             // Send Private Message
@@ -652,10 +665,10 @@ class RequestController extends Controller
             $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::success("This request has been reset.", 'Yay!', ['options']));
+                ->with($this->toastr->success("This request has been reset.", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::success("You don't have access to approve this request", 'Yay!', ['options']));
+                ->with($this->toastr->success("You don't have access to approve this request", 'Yay!', ['options']));
         }
     }
 
@@ -678,10 +691,10 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has deleted torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('requests')
-                ->with(Toastr::success("You have deleted {$name}", 'Yay!', ['options']));
+                ->with($this->toastr->success("You have deleted {$name}", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::error("You don't have access to delete this request.", 'Whoops!', ['options']));
+                ->with($this->toastr->error("You don't have access to delete this request.", 'Whoops!', ['options']));
         }
     }
 
@@ -711,10 +724,10 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::success("Request Successfully Claimed", 'Yay!', ['options']));
+                ->with($this->toastr->success("Request Successfully Claimed", 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with(Toastr::error("Someone else has already claimed this request buddy.", 'Whoops!', ['options']));
+                ->with($this->toastr->error("Someone else has already claimed this request buddy.", 'Whoops!', ['options']));
         }
     }
 
@@ -742,13 +755,13 @@ class RequestController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::success("Request Successfully Un-Claimed", 'Yay!', ['options']));
+                    ->with($this->toastr->success("Request Successfully Un-Claimed", 'Yay!', ['options']));
             } else {
                 return redirect()->route('request', ['id' => $id])
-                    ->with(Toastr::error("Nothing To Unclaim.", 'Whoops!', ['options']));
+                    ->with($this->toastr->error("Nothing To Unclaim.", 'Whoops!', ['options']));
             }
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

@@ -22,7 +22,7 @@ use App\PrivateMessage;
 use App\PersonalFreeleech;
 use App\Torrent;
 use Carbon\Carbon;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class BonusController extends Controller
 {
@@ -31,9 +31,21 @@ class BonusController extends Controller
      */
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * BonusController Constructor
+     *
+     * @param ChatRepository $chat
+     * @param Toastr $toastr
+     */
+    public function __construct(ChatRepository $chat, Toastr $toastr)
     {
         $this->chat = $chat;
+        $this->toastr = $toastr;
     }
 
     /**
@@ -127,18 +139,18 @@ class BonusController extends Controller
 
             if (!$flag) {
                 return redirect()->route('bonus', ['username' => $user->username])
-                    ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
             return redirect()->route('bonus', ['username' => $user->username])
-                ->with(Toastr::error('Bonus Exchange Failed!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
         }
 
         return redirect()->route('bonus', ['username' => $user->username])
-            ->with(Toastr::success('Bonus Exchange Successful', 'Yay!', ['options']));
+            ->with($this->toastr->success('Bonus Exchange Successful', 'Yay!', ['options']));
     }
 
     /**
@@ -224,7 +236,7 @@ class BonusController extends Controller
 
             if (!$recipient || $recipient->id == $user->id) {
                 return redirect('/bonus')
-                    ->with(Toastr::error('Unable to find specified user', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
             }
 
             $value = $request->input('bonus_points');
@@ -260,10 +272,10 @@ class BonusController extends Controller
             $pm->save();
 
             return redirect()->route('bonus', ['username' => $user->username])
-                ->with(Toastr::success('Gift Sent', 'Yay!', ['options']));
+                ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
         } else {
             return redirect()->route('bonus', ['username' => $user->username])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         }
     }
 
@@ -284,15 +296,15 @@ class BonusController extends Controller
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Your To Broke To Tip The Uploader!', 'Whoops!', ['options']));
         }
         if ($user->id == $torrent->user_id) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
         }
         if ($tip_amount <= 0) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with(Toastr::error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
         }
         $uploader->seedbonus += $tip_amount;
         $uploader->save();
@@ -320,7 +332,7 @@ class BonusController extends Controller
         $pm->save();
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-            ->with(Toastr::success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 
 

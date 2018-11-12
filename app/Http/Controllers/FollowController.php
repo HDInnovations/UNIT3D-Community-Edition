@@ -14,10 +14,25 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Follow;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class FollowController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * FollowController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Follow A User
      *
@@ -28,7 +43,7 @@ class FollowController extends Controller
     {
         if (auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error("Nice try, but sadly you can not follow yourself.", 'Whoops!', ['options']));
+                ->with($this->toastr->error("Nice try, but sadly you can not follow yourself.", 'Whoops!', ['options']));
         } elseif (!auth()->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = auth()->user()->id;
@@ -36,10 +51,10 @@ class FollowController extends Controller
             $follow->save();
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::success('You are now following ' . $user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are now following ' . $user->username, 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error('You are already following this user', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You are already following this user', 'Whoops!', ['options']));
         }
     }
 
@@ -56,10 +71,10 @@ class FollowController extends Controller
             $follow->delete();
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::success('You are no longer following ' . $user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are no longer following ' . $user->username, 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with(Toastr::error('You are not following this user to begin with', 'Whoops!', ['options']));
+                ->with($this->toastr->error('You are not following this user to begin with', 'Whoops!', ['options']));
         }
     }
 }

@@ -16,10 +16,25 @@ use App\Http\Controllers\Controller;
 use App\UserActivation;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Group;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ActivationController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ActivationController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     public function activate($token)
     {
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
@@ -40,9 +55,9 @@ class ActivationController extends Controller
             \LogActivity::addToLog("Member " . $activation->user->username . " has successfully activated his/her account.");
 
             $activation->delete();
-            return redirect()->route('login')->with(Toastr::success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
         } else {
-            return redirect()->route('login')->with(Toastr::error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
         }
     }
 }

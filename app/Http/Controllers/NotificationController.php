@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
 
 class NotificationController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * NotificationController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Show All Notifications
      *
@@ -31,7 +46,7 @@ class NotificationController extends Controller
         auth()->user()->unreadNotifications()->findOrFail($id)->markAsRead();
 
         return redirect()->route('get_notifications')
-            ->with(Toastr::success('Notification Marked As Read!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
     }
 
     /**
@@ -45,7 +60,7 @@ class NotificationController extends Controller
         auth()->user()->unreadNotifications()->update(['read_at' => $current]);
 
         return redirect()->route('get_notifications')
-            ->with(Toastr::success('All Notifications Marked As Read!', 'Yay!', ['options']));
+            ->with($this->toastr->success('All Notifications Marked As Read!', 'Yay!', ['options']));
     }
 
     /**
@@ -59,7 +74,7 @@ class NotificationController extends Controller
         auth()->user()->notifications()->findOrFail($id)->delete();
 
         return redirect()->route('get_notifications')
-            ->with(Toastr::success('Notification Deleted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('Notification Deleted!', 'Yay!', ['options']));
     }
 
     /**
@@ -72,6 +87,6 @@ class NotificationController extends Controller
         auth()->user()->notifications()->delete();
 
         return redirect()->route('get_notifications')
-            ->with(Toastr::success('All Notifications Deleted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('All Notifications Deleted!', 'Yay!', ['options']));
     }
 }

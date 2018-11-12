@@ -15,10 +15,25 @@ namespace App\Http\Controllers\Staff;
 use App\Type;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class TypeController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * TypeController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Types
      *
@@ -62,11 +77,11 @@ class TypeController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();
             return redirect()->route('staff_type_index')
-                ->with(Toastr::success('Type Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Type Successfully Added', 'Yay!', ['options']));
         }
     }
 
@@ -107,11 +122,11 @@ class TypeController extends Controller
 
         if ($v->fails()) {
             return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();
             return redirect()->route('staff_type_index')
-                ->with(Toastr::success('Type Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Type Successfully Modified', 'Yay!', ['options']));
         }
     }
 
@@ -128,6 +143,6 @@ class TypeController extends Controller
         $type->delete();
 
         return redirect()->route('staff_type_index')
-            ->with(Toastr::success('Type Successfully Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Type Successfully Deleted', 'Yay!', ['options']));
     }
 }

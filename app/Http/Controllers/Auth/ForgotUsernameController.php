@@ -15,18 +15,23 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\UsernameReminder;
 use App\User;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ForgotUsernameController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var Toastr
      */
-    public function __construct()
+    private $toastr;
+
+    /**
+     * ForgotUsernameController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
     {
-        $this->middleware('guest');
+        $this->toastr = $toastr;
     }
 
     /**
@@ -54,20 +59,20 @@ class ForgotUsernameController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('username.request')
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = User::where('email', $email)->first();
 
             if (empty($user)) {
                 return redirect()->route('username.request')
-                    ->with(Toastr::error('We could not find this email in our system!', 'Whoops!', ['options']));
+                    ->with($this->toastr->error('We could not find this email in our system!', 'Whoops!', ['options']));
             }
 
             //send username reminder notification
             $user->notify(new UsernameReminder());
 
             return redirect()->route('login')
-                ->with(Toastr::success('Your username has been sent to your email address!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your username has been sent to your email address!', 'Yay!', ['options']));
         }
     }
 }

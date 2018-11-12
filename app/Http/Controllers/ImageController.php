@@ -15,10 +15,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Album;
 use App\Image;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ImageController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ImageController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Image Add Form
      *
@@ -64,12 +79,12 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $image->save();
 
             return redirect()->route('show_album', ['id' => $request->input('album_id')])
-                ->with(Toastr::success('Your image has successfully published!', 'Yay!', ['options']));
+                ->with($this->toastr->success('Your image has successfully published!', 'Yay!', ['options']));
         }
     }
 
@@ -92,14 +107,14 @@ class ImageController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('gallery')
-                    ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 $image->save();
 
                 return redirect()->route('show_album', ['id' => $request->input('new_album')]);
             }
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 
@@ -116,7 +131,7 @@ class ImageController extends Controller
 
         if (!file_exists(getcwd() . '/files/img/' . $filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
-                ->with(Toastr::error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
+                ->with($this->toastr->error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
         }
 
         $image->downloads++;
@@ -139,9 +154,9 @@ class ImageController extends Controller
             $image->delete();
 
             return redirect()->route('show_album', ['id' => $image->album_id])
-                ->with(Toastr::success('Image has successfully been deleted', 'Yay!', ['options']));
+                ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
         } else {
-            return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
     }
 }

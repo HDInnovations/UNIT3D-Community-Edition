@@ -14,10 +14,24 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\LogActivity;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class ActivityLogController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ActivityLogController Constructor
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
 
     /**
      * Display All Activities
@@ -43,6 +57,6 @@ class ActivityLogController extends Controller
         $activity->delete();
 
         return redirect()->route('getActivity')
-            ->with(Toastr::success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }
