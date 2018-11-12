@@ -636,7 +636,12 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $active = Peer::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->with('torrent')->distinct('hash')->paginate(50);
+            $active = Peer::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->sortable(['created_at' => 'desc'])
+                ->where('user_id', $user->id)
+                ->distinct('hash')
+                ->paginate(50);
             return view('user.active', ['user' => $user, 'active' => $active]);
         } else {
             return back()->with(Toastr::error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
@@ -658,7 +663,11 @@ class UserController extends Controller
             $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
             $his_downl = History::where('user_id', $id)->sum('actual_downloaded');
             $his_downl_cre = History::where('user_id', $id)->sum('downloaded');
-            $history = History::sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
+            $history = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->sortable(['created_at' => 'desc'])
+                ->where('user_id', $user->id)
+                ->paginate(50);
 
             return view('user.history', [
                 'user' => $user,
