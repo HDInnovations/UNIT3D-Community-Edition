@@ -22,6 +22,7 @@ use App\Torrent;
 use App\User;
 use App\Post;
 use App\FeaturedTorrent;
+use App\PersonalFreeleech;
 use \Toastr;
 
 class HomeController extends Controller
@@ -33,15 +34,47 @@ class HomeController extends Controller
      */
     public function home()
     {
+        // Authorized User
+        $user = auth()->user();
+
         // Latest Articles/News Block
         $articles = Article::latest()->take(1)->get();
 
         // Latest Torrents Block
-        $torrents = Torrent::with('category')->latest()->take(5)->get();
-        $best = Torrent::with('category')->latest('seeders')->take(5)->get();
-        $leeched = Torrent::with('category')->latest('leechers')->take(5)->get();
-        $dying = Torrent::with('category')->where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(5)->get();
-        $dead = Torrent::with('category')->where('seeders', 0)->latest('leechers')->take(5)->get();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+
+        $newest = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        $seeded = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->latest('seeders')
+            ->take(5)
+            ->get();
+
+        $leeched = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->latest('leechers')
+            ->take(5)
+            ->get();
+
+        $dying = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->where('seeders', '=', 1)
+            ->where('times_completed', '>=', 1)
+            ->latest('leechers')
+            ->take(5)
+            ->get();
+
+        $dead = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->where('seeders', '=', 0)
+            ->latest('leechers')
+            ->take(5)
+            ->get();
 
         // Latest Topics Block
         $topics = Topic::latest()->take(5)->get();
@@ -62,11 +95,13 @@ class HomeController extends Controller
         $poll = Poll::latest()->first();
 
         return view('home.home', [
+            'user' => $user,
+            'personal_freeleech' => $personal_freeleech,
             'users' => $users,
             'groups' => $groups,
             'articles' => $articles,
-            'torrents' => $torrents,
-            'best' => $best,
+            'newest' => $newest,
+            'seeded' => $seeded,
             'dying' => $dying,
             'leeched' => $leeched,
             'dead' => $dead,

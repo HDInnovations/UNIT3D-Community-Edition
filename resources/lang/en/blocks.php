@@ -17,7 +17,7 @@ return [
     'featured-until' => 'This is featured torrent until',
     
     // Latest Torrents
-    'latest-torrents' => 'Latest Torrents',
+    'top-torrents' => 'Top Torrents',
     
     // Latest Posts
     'latest-posts' => 'Latest Posts',
