@@ -71,8 +71,13 @@
                     <strong>ID:</strong>
                     <span class="badge-user"><a rel="nofollow"
                                                 href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
+                    @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                     <span class="badge-user"><a rel="nofollow"
-                                                href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
+                                                href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
+                    @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
+                    <span class="badge-user"><a rel="nofollow"
+                                                href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
+                    @endif
                     <strong>{{ trans('torrent.genre') }}: </strong>
                     @if ($movie->genres)
                         @foreach ($movie->genres as $genre)
