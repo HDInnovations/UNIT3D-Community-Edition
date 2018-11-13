@@ -140,7 +140,7 @@ return [
     'type' => 'Naciśnij',
     'unknown' => 'Nieznane',
     'unlocked-achievement' => 'Odblokowałeś osiągnięcie :achievement',
-    'upload' => 'Wysłane',
+    'upload' => 'Upload',
     'upload-guide' => 'Poradnik uploadu',
     'user' => 'Użytkownik',
     'username' => 'Nazwa użytkownika',
