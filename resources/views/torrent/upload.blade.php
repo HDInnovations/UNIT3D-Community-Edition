@@ -162,7 +162,7 @@
 
                 <div class="text-center">
                     <button id="add" type="button" class="btn btn-primary">{{ trans('common.add') }} {{ trans('torrent.media-info-parser') }}</button>
-                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">{{ trans('torrent.upload') }}</button>
+                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">{{ trans('common.upload') }}</button>
                 </div>
                 <br>
                 </form>
