@@ -70,6 +70,7 @@ return [
     'large' => 'Large',
     'latest' => 'Latest',
     'legal' => 'Legal',
+    'legend' => 'Legend',
     'lists' => 'Lists',
     'lock-account' => 'Lock account',
     'logout' => 'Logout',

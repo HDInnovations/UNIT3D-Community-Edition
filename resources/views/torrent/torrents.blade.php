@@ -45,7 +45,7 @@
         <div class="form-group">
             <label for="uploader" class="col-sm-1 label label-default">{{ trans('torrent.uploader') }}</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="uploader" placeholder="{{ trans('torrent.Uploader') }}">
+                <input type="text" class="form-control" id="uploader" placeholder="{{ trans('torrent.uploader') }}">
             </div>
         </div>
 
@@ -122,7 +122,7 @@
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> {{ trans('torrent.high-speeds') }}
+                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> {{ trans('common.high-speeds') }}
                     </label>
                 </span>
                 <span class="badge-user">
@@ -153,7 +153,7 @@
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> {{ trans('torrent.died-torrent') }}
+                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> {{ trans('torrent.dead-torrent') }}
                     </label>
                 </span>
             </div>
@@ -195,7 +195,7 @@
     <div class="container-fluid">
         <div class="block">
             <div style="float:left;">
-                <strong>Extra:</strong>
+                <strong>{{ trans('common.extra') }}:</strong>
                 <a href="{{ route('categories') }}" class="btn btn-xs btn-primary">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('torrent.categories') }}
                 </a>
@@ -204,7 +204,7 @@
                 </a>
             </div>
             <div style="float:right;">
-                <strong>View:</strong>
+                <strong>{{ trans('common.view') }}:</strong>
                 <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
                     <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ trans('torrent.list') }}
                 </a>
@@ -238,7 +238,7 @@
     <div class="container-fluid">
         <div class="block">
             <div class="text-center">
-                <strong>Activity Legend:</strong>
+                <strong>{{ trans('common.legend') }}:</strong>
                 <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='{{ trans('torrent.currently-seeding') }}!'>
                     <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
