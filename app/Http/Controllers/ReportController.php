@@ -59,7 +59,7 @@ class ReportController extends Controller
     {
         $torrent = $this->torrent->find($request->get('torrent_id'));
         $reported_by = auth()->user();
-        $reported_user = $torrent->user;
+        $reported_user = $torrent->user_id;
 
         $this->report->create([
             'type' => $request->get('type'),
