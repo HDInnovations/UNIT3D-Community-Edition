@@ -8,7 +8,7 @@
             @else
                 <th></th>
             @endif
-            <th>Category/Type</th>
+            <th>{{ trans('torrent.category') }}/{{ trans('torrent.type') }}</th>
             <th>{{ trans('common.name') }}</th>
             <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
             <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
@@ -43,7 +43,7 @@
                         @if ($user->show_poster == 1)
                             <div class="torrent-poster pull-left">
                                 <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900'}}"
-                                     data-name='<i style="color: #a5a5a5;">{{ $movie->title }}</i>' data-image='<img src="{{ $movie->poster }}" alt="Poster" style="height: 1000px;">'
+                                     data-name='<i style="color: #a5a5a5;">{{ $movie->title }}</i>' data-image='<img src="{{ $movie->poster }}" alt="{{ trans('torrent.poster') }}" style="height: 1000px;">'
                                      class="torrent-poster-img-small show-poster" alt="{{ trans('torrent.poster') }}">
                             </div>
                         @else
