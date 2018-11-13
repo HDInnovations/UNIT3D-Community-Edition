@@ -16,7 +16,7 @@
     </li>
     <li>
         <a href="{{ route('grouping_categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Grouping Categories</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.grouping-categories') }}</span>
         </a>
     </li>
 @endsection
@@ -25,7 +25,7 @@
     <div class="container box">
         <div class="header gradient blue">
             <div class="inner_content">
-                <h1>What category would you like to group?</h1>
+                <h1>{{ trans('torrent.grouping-categories-desc') }}</h1>
             </div>
         </div>
         <div class="blocks">

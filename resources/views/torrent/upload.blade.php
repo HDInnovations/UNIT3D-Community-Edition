@@ -7,12 +7,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
         </a>
     </li>
     <li>
         <a href="{{ route('upload_form') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Upload</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.upload') }}</span>
         </a>
     </li>
 @endsection
@@ -23,48 +23,45 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> Error: Your Upload Rights Are Disabled!
+                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('torrent.cant-upload') }}!
                     </h1>
                     <div class="separator"></div>
-                    <p class="text-center">If You Feel This Is In Error, Please Contact Staff!</p>
+                    <p class="text-center">{{ trans('torrent.cant-upload-desc') }}!</p>
                 </div>
             </div>
         </div>
     @else
         <div class="torrent box container">
             <div class="alert alert-info text-center">
-                <h2 class="mt-10"><strong>Announce URL:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}
+                <h2 class="mt-10"><strong>{{ trans('torrent.announce-url') }}:</strong> {{ route('announce', ['passkey' => $user->passkey]) }}
                 </h2>
-                <p>Please use the announce URL above when creating a new torrent. If you want to use your torrent
-                    without downloading it from the site you need to set the private flag and the source
-                    to {{config('torrent.source')}}.</p>
+                <p>{{ trans('torrent.announce-url-desc', ['source' => config('torrent.source')]) }}.</p>
             </div>
             <br>
             <div class="text-center">
-                <p class="text-success">Having Trouble? See Our Guide <a href="{{ url('page/upload-guide.5') }}">HERE</a>
+                <p class="text-success">{{ trans('torrent.announce-url-desc-url', ['url' => url('page/upload-guide.5')]) }}
                 </p>
-                <p class="text-danger">TMDB and IMDB is required for all uploads! It is used to grab
-                    Posters/Backdrops and ExtraInfo!</p>
+                <p class="text-danger">{{ trans('torrent.announce-url-desc2') }}!</p>
             </div>
 
             <div class="upload col-md-12">
-                <h3 class="upload-title">Upload A Torrent</h3>
+                <h3 class="upload-title">{{ trans('torrent.torrent') }}</h3>
                 <form name="upload" class="upload-form" method="POST" action="{{ route('upload') }}"
                       enctype="multipart/form-data">
                     @csrf
                 <div class="form-group">
-                    <label for="torrent">Torrent File</label>
+                    <label for="torrent">{{ trans('torrent.file') }}</label>
                     <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent"
                            onchange="updateTorrentName()" required>
                 </div>
 
                 {{--<div class="form-group">
-                  <label for="nfo">NFO File (Optional)</label>
+                  <label for="nfo">NFO {{ trans('torrent.file') }} ({{ trans('torrent.optional') }})</label>
                   <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
                 </div>--}}
 
                 <div class="form-group">
-                    <label for="name">Title</label>
+                    <label for="name">{{ trans('torrent.title') }}</label>
                     <input type="text" name="name" id="title" class="form-control" value="{{$title}}" required>
                 </div>
 
@@ -79,17 +76,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name">TVDB ID (Optional)</label>
+                    <label for="name">TVDB ID ({{ trans('torrent.optional') }})</label>
                     <input type="number" name="tvdb" value="0" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="name">MAL ID (Optional)</label>
+                    <label for="name">MAL ID ({{ trans('torrent.optional') }})</label>
                     <input type="number" name="mal" value="0" class="form-control" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="category_id">Category</label>
+                    <label for="category_id">{{ trans('torrent.category') }}</label>
                     <select name="category_id" class="form-control">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -98,7 +95,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="type">Type</label>
+                    <label for="type">{{ trans('torrent.type') }}</label>
                     <select name="type" class="form-control">
                         @foreach ($types as $type)
                             <option value="{{ $type->name }}">{{ $type->name }}</option>
@@ -112,50 +109,50 @@
                 </div>-->
 
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label for="description">{{ trans('torrent.description') }}</label>
                     <textarea id="upload-form-description" name="description" cols="30" rows="10"
                               class="form-control"></textarea>
                 </div>
 
                 <div class="parser"></div>
 
-                <label for="anonymous" class="control-label">Anonymous Upload?</label>
+                <label for="anonymous" class="control-label">{{ trans('common.anynomous') }}?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="anonymous" value="1">YES</label>
+                    <label><input type="radio" name="anonymous" value="1">{{ trans('common.yes') }}</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="anonymous" checked="checked" value="0">NO</label>
-                </div>
-
-                <br>
-
-                <label for="stream" class="control-label">Stream Optimized?</label>
-                <div class="radio-inline">
-                    <label><input type="radio" name="stream" value="1">YES</label>
-                </div>
-                <div class="radio-inline">
-                    <label><input type="radio" name="stream" checked="checked" value="0">NO</label>
+                    <label><input type="radio" name="anonymous" checked="checked" value="0">{{ trans('common.no') }}</label>
                 </div>
 
                 <br>
 
-                <label for="sd" class="control-label">SD Content?</label>
+                <label for="stream" class="control-label">{{ trans('torrent.stream-optimized') }}?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="sd" value="1">YES</label>
+                    <label><input type="radio" name="stream" value="1">{{ trans('common.yes') }}</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="sd" checked="checked" value="0">NO</label>
+                    <label><input type="radio" name="stream" checked="checked" value="0">{{ trans('common.no') }}</label>
+                </div>
+
+                <br>
+
+                <label for="sd" class="control-label">{{ trans('torrent.sd-content') }}?</label>
+                <div class="radio-inline">
+                    <label><input type="radio" name="sd" value="1">{{ trans('common.yes') }}</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" name="sd" checked="checked" value="0">{{ trans('common.no') }}</label>
                 </div>
 
                 <br>
 
                 @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
-                    <label for="internal" class="control-label">Internal?</label>
+                    <label for="internal" class="control-label">{{ trans('torrent.internal') }}?</label>
                     <div class="radio-inline">
-                        <label><input type="radio" name="internal" value="1">YES</label>
+                        <label><input type="radio" name="internal" value="1">{{ trans('common.yes') }}</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="internal" checked="checked" value="0">NO</label>
+                        <label><input type="radio" name="internal" checked="checked" value="0">{{ trans('common.no') }}</label>
                     </div>
 
                     <br>
@@ -164,8 +161,8 @@
                 @endif
 
                 <div class="text-center">
-                    <button id="add" type="button" class="btn btn-primary">Add MediaInfo Parser</button>
-                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">Upload</button>
+                    <button id="add" type="button" class="btn btn-primary">{{ trans('common.add') }} {{ trans('torrent.media-info-parser') }}</button>
+                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">{{ trans('torrent.upload') }}</button>
                 </div>
                 <br>
                 </form>
@@ -184,7 +181,7 @@
 
     <script type="text/javascript">
       document.querySelector("#add").addEventListener("click", () => {
-        var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo Parser</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo Dump Here"></textarea></div>';
+        var optionHTML = '<div class="form-group"><label for="mediainfo">{{ trans('torrent.media-info-parser') }}</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="{{ trans('torrent.media-info-paste') }}"></textarea></div>';
         document.querySelector(".parser").innerHTML = optionHTML;
       });
     </script>

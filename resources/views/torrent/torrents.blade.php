@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ 'Torrents ' . config('other.title') }}">
+    <meta name="description" content="{{ trans('torrent.torrents') }} {{ config('other.title') }}">
 @endsection
 
 @section('breadcrumb')
@@ -20,7 +20,7 @@
     <div class="container box">
 
         <div class="text-center">
-            <h3 class="filter-title">Current Filters</h3>
+            <h3 class="filter-title">{{ trans('torrent.current-filters') }}</h3>
             <span id="filter-item-category"></span>
             <span id="filter-item-type"></span>
         </div>
@@ -29,28 +29,28 @@
         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
         <div class="form-group">
-            <label for="name" class="col-sm-1 label label-default">Name</label>
+            <label for="name" class="col-sm-1 label label-default">{{ trans('torrent.name') }}</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="search" placeholder="Name / Title">
+                <input type="text" class="form-control" id="search" placeholder="{{ trans('torrent.name') }}">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="name" class="col-sm-1 label label-default">Description</label>
+            <label for="name" class="col-sm-1 label label-default">{{ trans('torrent.description') }}</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="description" placeholder="Mediainfo / Description">
+                <input type="text" class="form-control" id="description" placeholder="{{ trans('torrent.description') }}">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="uploader" class="col-sm-1 label label-default">Uploader</label>
+            <label for="uploader" class="col-sm-1 label label-default">{{ trans('torrent.uploader') }}</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="uploader" placeholder="Uploaders Username">
+                <input type="text" class="form-control" id="uploader" placeholder="{{ trans('torrent.Uploader') }}">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="imdb" class="col-sm-1 label label-default">Number</label>
+            <label for="imdb" class="col-sm-1 label label-default">ID</label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
             </div>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-sm-1 label label-default">Category</label>
+            <label for="category" class="col-sm-1 label label-default">{{ trans('torrent.category') }}</label>
             <div class="col-sm-10">
                 @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
@@ -79,7 +79,7 @@
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">Type</label>
+            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.type') }}</label>
             <div class="col-sm-10">
                 @foreach ($repository->types() as $id => $type)
                     <span class="badge-user">
@@ -92,68 +92,68 @@
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">Discount</label>
+            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.discounts') }}</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> 100% Free
+                        <input type="checkbox" id="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> {{ trans('torrent.freeleech') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> Double Upload
+                        <input type="checkbox" id="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> {{ trans('torrent.double-upload') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> Featured Torrent
+                        <input type="checkbox" id="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> {{ trans('torrent.featured') }}
                     </label>
                 </span>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">Special</label>
+            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.special') }}</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> Stream Optimized
+                        <input type="checkbox" id="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> {{ trans('torrent.stream-optimized') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> High Speeds
+                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> {{ trans('torrent.high-speeds') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> SD Content
+                        <input type="checkbox" id="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> {{ trans('torrent.sd-content') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> Internal
+                        <input type="checkbox" id="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> {{ trans('torrent.internal') }}
                     </label>
                 </span>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">Health</label>
+            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.health') }}</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> Alive
+                        <input type="checkbox" id="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> {{ trans('torrent.alive') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> Dying
+                        <input type="checkbox" id="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> {{ trans('torrent.dying-torrent') }}
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> Dead
+                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> {{ trans('torrent.died-torrent') }}
                     </label>
                 </span>
             </div>
@@ -164,7 +164,7 @@
 
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
+                <label class="control-label col-sm-2" for="sorting">{{ trans('common.sort') }}:</label>
                 <div class="col-sm-2">
                     <select id="sorting" name="sorting" class="form-control">
                         @foreach ($repository->sorting() as $value => $sort)
@@ -179,7 +179,7 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="control-label col-sm-2" for="qty">Quanity:</label>
+                <label class="control-label col-sm-2" for="qty">{{ trans('common.quantity') }}:</label>
                 <div class="col-sm-2">
                     <select id="qty" name="qty" class="form-control">
                         <option value="25">25</option>
@@ -197,22 +197,22 @@
             <div style="float:left;">
                 <strong>Extra:</strong>
                 <a href="{{ route('categories') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-file"></i> Torrent Categories
+                    <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('torrent.categories') }}
                 </a>
                 <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> Torrent Catalogs
+                    <i class="{{ config('other.font-awesome') }} fa-book"></i> {{ trans('torrent.catalogs') }}
                 </a>
             </div>
             <div style="float:right;">
                 <strong>View:</strong>
                 <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-list"></i> Torrent List
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ trans('torrent.list') }}
                 </a>
                 <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-image"></i> Torrent Cards
+                    <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ trans('torrent.cards') }}
                 </a>
                 <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-list"></i> Torrent Grouping
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ trans('torrent.grouping') }}
                 </a>
             </div>
             <br>
@@ -240,19 +240,19 @@
             <div class="text-center">
                 <strong>Activity Legend:</strong>
                 <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='Currently Seeding!'>
+                        data-original-title='{{ trans('torrent.currently-seeding') }}!'>
                     <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
                 </button>
                 <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='Currently Leeching!'>
+                        data-original-title='{{ trans('torrent.currently-leeching') }}!'>
                     <i class='{{ config("other.font-awesome") }} fa-arrow-down'></i>
                 </button>
                 <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='Started Downloading But Never Completed!'>
+                        data-original-title='{{ trans('torrent.not-completed') }}!'>
                     <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
                 </button>
                 <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='You Completed This Download But Are No Longer Seeding It!'>
+                        data-original-title='{{ trans('torrent.completed-not-seeding') }}!'>
                     <i class='{{ config("other.font-awesome") }} fa-thumbs-down'></i>
                 </button>
             </div>

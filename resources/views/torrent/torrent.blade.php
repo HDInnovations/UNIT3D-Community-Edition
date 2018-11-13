@@ -43,7 +43,7 @@
                                 <span class="text-bold">{{ $movie->title }}</span><span
                                         class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
                                 @else
-                                    <span class="text-bold">No Meta Data Found</span>
+                                    <span class="text-bold">{{ trans('torrent.no-meta') }}</span>
                                 @endif
                                 @if ($movie->imdbRating || $movie->tmdbRating)
                                 <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
@@ -114,7 +114,7 @@
                                     @if ($movie->videoTrailer != '')
                                         <span onclick="showTrailer()" style="cursor: pointer;"
                                               class="badge-user text-bold">
-                            <a class="text-pink" title="View Trailer">{{ trans('torrent.view-trailer') }} <i
+                            <a class="text-pink" title="{{ trans('torrent.trailer') }}">{{ trans('torrent.trailer') }} <i
                                         class="{{ config('other.font-awesome') }} fa-external-link"></i></a>
                         </span>
                                     @endif
@@ -173,7 +173,7 @@
                         <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
                            role="button"
                            class="btn btn-labeled btn-primary">
-          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> Similar Torrents</a>
+          <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> {{ trans('torrent.similar') }}</a>
                     @endif
                     @if ($torrent->nfo != null)
                         <button class="btn btn-labeled btn-primary" data-toggle="modal" data-target="#modal-10">
@@ -279,25 +279,25 @@
 
                 @if (auth()->user()->group->is_modo)
                 <tr>
-                    <td class="col-sm-2"><strong>Moderation</strong></td>
+                    <td class="col-sm-2"><strong>{{ trans('common.moderation') }}</strong></td>
                     <td>
                         <a href="{{ route('moderation_approve', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            role='button' class='btn btn-labeled btn-success btn-xs @if ($torrent->isApproved()) disabled @endif'>
-                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> Approve
+                            <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> {{ trans('common.moderation-approve') }}
                         </a>
 
                         <button data-target="#postpone-{{ $torrent->id }}" data-toggle="modal"
                                 class="btn btn-labeled btn-warning btn-xs @if ($torrent->isPostponed()) disabled @endif">
-                            <i class="{{ config('other.font-awesome') }} fa-pause"></i> Postpone
+                            <i class="{{ config('other.font-awesome') }} fa-pause"></i> {{ trans('common.moderation-postpone') }}
                         </button>
 
                         <button data-target="#reject-{{ $torrent->id }}" data-toggle="modal"
                                 class="btn btn-labeled btn-danger btn-xs @if ($torrent->isRejected()) disabled @endif">
-                            <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> Reject
+                            <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i> {{ trans('common.moderation-reject') }}
                         </button>
 
                         <span>
-                            &nbsp;[ Moderated By
+                            &nbsp;[ {{ trans('common.moderated-by') }}
                             <a href="{{ route('profile', ['username' => $torrent->moderated->username, 'id' => $torrent->moderated->id]) }}" style="color:{{ $torrent->moderated->group->color }};">
                                 <i class="{{ $torrent->moderated->group->icon }}" data-toggle="tooltip" data-original-title="{{ $torrent->moderated->group->name }}"></i> {{ $torrent->moderated->username }}
                             </a>]
@@ -443,10 +443,10 @@
                                     class="{{ config('other.font-awesome') }} fa-fw fa-check"></i>{{ $torrent->times_completed }} {{ strtolower(trans('common.times')) }}</span>
                         <span class="badge-extra"><a
                                     href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                                    title="View Torrent Peers">{{ trans('common.view') }} {{ trans('torrent.peers') }}</a></span>
+                                    title="{{ trans('common.view') }} {{ trans('torrent.peers') }}">{{ trans('common.view') }} {{ trans('torrent.peers') }}</a></span>
                         <span class="badge-extra"><a
                                     href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
-                                    title="View Torrent History">{{ trans('common.view') }} {{ trans('torrent.history') }}</a></span>
+                                    title="{{ trans('common.view') }} {{ trans('torrent.history') }}">{{ trans('common.view') }} {{ trans('torrent.history') }}</a></span>
                     </td>
                 </tr>
 

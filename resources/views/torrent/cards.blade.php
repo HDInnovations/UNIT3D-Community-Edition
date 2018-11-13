@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('cards') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Torrents Card View</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.cards-view') }}</span>
         </a>
     </li>
 @endsection

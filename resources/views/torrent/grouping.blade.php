@@ -16,12 +16,12 @@
     </li>
     <li>
         <a href="{{ route('grouping_categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">Grouping Categories</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.grouping-categories') }}</span>
         </a>
     </li>
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }} Grouping</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }} {{ trans('torrent.grouping') }}</span>
         </a>
     </li>
 @endsection
@@ -53,21 +53,21 @@
                     <div class="pull-left">
                         <a href="#">
                             <img src="{{ $movie->poster }}" style="height:200px; margin-right:10px;"
-                                 alt="{{ $movie->title }} Poster">
+                                 alt="{{ $movie->title }} {{ trans('torrent.poster') }}">
                         </a>
                     </div>
                     <h2 class="movie-title">
                         <a href="{{ route('grouping_results', ['category_id' => $t->category_id, 'imdb' => $t->imdb]) }}"
                            title="{{ $movie->title }} ({{ $movie->releaseYear }})">{{ $movie->title }}
                             ({{ $movie->releaseYear }})</a>
-                        <span class="badge-user text-bold text-gold">Rating:
+                        <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
             <span class="movie-rating-stars">
               <i class="{{ config('other.font-awesome') }} fa-star"></i>
             </span>
                             @if ($user->ratings == 1)
-                                {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
+                                {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
                             @else
-                                {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
+                                {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
                             @endif
          </span>
                     </h2>
@@ -78,7 +78,7 @@
                                                     href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                         <span class="badge-user"><a rel="nofollow"
                                                     href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
-                        <strong>Genre: </strong>
+                        <strong>{{ trans('torrent.genre') }}: </strong>
                         @if ($movie->genres)
                             @foreach ($movie->genres as $genre)
                                 <span class="badge-user text-bold text-green">{{ $genre }}</span>
@@ -88,7 +88,7 @@
                     <br>
                     <ul class="list-inline">
                         @php $count = DB::table('torrents')->where('imdb',$t->imdb)->where('category_id', $category->id)->count(); @endphp
-                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>Torrents: </strong> {{ $count }}</li>
+                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>{{ trans('torrent.torrents') }}: </strong> {{ $count }}</li>
                     </ul>
                 </div>
             </div>
