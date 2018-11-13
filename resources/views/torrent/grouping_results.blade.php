@@ -68,13 +68,13 @@
                 </h2>
                 <div class="movie-details">
                     <p class="movie-plot">{{ $movie->plot }}</p>
-                    <strong>ID:</strong>
+                    <strong>ID:</strong>@php exit(var_dump($movie)) @endphp
                     <span class="badge-user"><a rel="nofollow"
                                                 href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
-                    @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
+                    @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
                     <span class="badge-user"><a rel="nofollow"
                                                 href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
-                    @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
+                    @elseif ($torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
                     <span class="badge-user"><a rel="nofollow"
                                                 href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     @endif
