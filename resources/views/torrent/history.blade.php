@@ -27,7 +27,7 @@
         <h1 class="title">{{ trans('torrent.torrent') }} {{ trans('torrent.history') }}</h1>
         <div class="block">
             <div class="">
-                <p class="lead">{{ trans('torrent.history') }} For
+                <p class="lead">{{ trans('torrent.history') }} {{ trans('common.for') }}
                     <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>

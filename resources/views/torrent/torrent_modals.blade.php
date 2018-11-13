@@ -160,7 +160,7 @@
                     <button type="button" class="close" data-dismiss="modal"
                             aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Postpone Torrent: {{ $torrent->name }}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ trans('common.moderation-postpone') }}: {{ $torrent->name }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -171,12 +171,12 @@
                         <label for="postpone_reason"
                                class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                         <div class="col-sm-10">
-                            <textarea title="Postpone message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                            <textarea title="{{ trans('common.reason') }}" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <button class="btn btn-danger" type="submit">Postpone</button>
+                            <button class="btn btn-danger" type="submit">{{ trans('common.moderation-postpone') }}</button>
                         </div>
                     </div>
                 </div>
@@ -199,7 +199,7 @@
                     <button type="button" class="close" data-dismiss="modal"
                             aria-label="{{ trans('common.close') }}"><span aria-hidden="true">×</span>
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">Reject Torrent: {{ $torrent->name }}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{ trans('common.moderation-reject') }}: {{ $torrent->name }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -207,7 +207,7 @@
                                value="{{ trans('torrent.torrent') }}">
                         <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">
                         <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
-                        <label for="file_name" class="col-sm-2 control-label">Torrent</label>
+                        <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
                         <div class="col-sm-10">
                             <label id="title" name="title" type="hidden">{{ $torrent->name }}</label>
                         </div>
@@ -216,12 +216,12 @@
                         <label for="report_reason"
                                class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
                         <div class="col-sm-10">
-                            <textarea title="Rejection Message" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                            <textarea title="{{ trans('common.reason') }}" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <button class="btn btn-danger" type="submit">Reject</button>
+                            <button class="btn btn-danger" type="submit">{{ trans('common.moderation-reject') }}</button>
                         </div>
                     </div>
                 </div>
