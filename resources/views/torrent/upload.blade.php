@@ -39,7 +39,7 @@
             </div>
             <br>
             <div class="text-center">
-                <p class="text-success">{{ trans('torrent.announce-url-desc-url', ['url' => url('page/upload-guide.5')]) }}
+                <p class="text-success">{!! trans('torrent.announce-url-desc-url', ['url' => url('page/upload-guide.5')]) !!}
                 </p>
                 <p class="text-danger">{{ trans('torrent.announce-url-desc2') }}!</p>
             </div>
