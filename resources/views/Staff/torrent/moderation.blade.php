@@ -54,9 +54,8 @@
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
-                            <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal"
-                                    class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Postpone
+                            <button data-target="#pendpostpone-{{ $p->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
+                                <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
                             </button>
                             <!-- Torrent Postpone Modal-->
                             {{-- Torrent Postpone Modal --}}
@@ -316,9 +315,8 @@
                                role='button' class='btn btn-labeled btn-success'><span class="btn-label"><i
                                             class="{{ config('other.font-awesome') }} fa-thumbs-up"></i></span>Approve</a></td>
                         <td>
-                            <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal"
-                                    class="btn btn-labeled btn-danger"><span class="btn-label"><i
-                                            class="{{ config('other.font-awesome') }} fa-thumbs-down"></i></span>Postpone
+                            <button data-target="#rejectpost-{{ $reject->id }}" data-toggle="modal" class="btn btn-labeled btn-danger">
+                                    <span class="btn-label"><i class="{{ config('other.font-awesome') }} fa-pause"></i></span> Postpone
                             </button>
                             <!-- Torrent Postpone Modal-->
                             {{-- Torrent Postpone Modal --}}
