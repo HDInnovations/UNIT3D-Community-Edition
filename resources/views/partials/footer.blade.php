@@ -64,9 +64,9 @@
 
         <div class="col-md-1 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.other') }}</h2>
-            <a href="https://anon.to/?https://www.patreon.com/UNIT3D"
+            <a href="https://www.patreon.com/UNIT3D"
                class="btn btn-xs btn-primary">{{ trans('common.patron') }}</a>
-            <a href="https://anon.to/?https://github.com/UNIT3D/UNIT3D"
+            <a href="https://github.com/UNIT3D/UNIT3D"
                class="btn btn-xs btn-primary">{{ trans('common.powered-by') }}</a>
         </div>
     </div>

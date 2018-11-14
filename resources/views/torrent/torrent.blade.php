@@ -83,31 +83,31 @@
                                 <li>
                                     @if ($torrent->imdb != 0 && $torrent->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
+                    <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrent->imdb }}</a>
                   </span>
                                     @endif
                                     @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
-                      <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
+                      <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                     </span>
                                     @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
-                      <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
+                      <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
                     </span>
                                     @endif
                                     @if ($torrent->mal != 0 && $torrent->mal != null)
                                         <span class="badge-user text-bold text-pink">
-                      <a href="https://anon.to?https://myanimelist.net/anime/{{ $torrent->mal }}"
+                      <a href="https://myanimelist.net/anime/{{ $torrent->mal }}"
                          title="MAL" target="_blank">MAL: {{ $torrent->mal }}</a>
                     </span>
                                     @endif
                                     @if ($torrent->category_id == "2" && $torrent->tvdb != 0 && $torrent->tvdb != null)
                                         <span class="badge-user text-bold text-pink">
                       <a
-                         href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}" title="TVDB"
+                         href="https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}" title="TVDB"
                          target="_blank">TVDB: {{ $torrent->tvdb }}</a>
                     </span>
                                     @endif
@@ -128,7 +128,7 @@
                                                 <div class="col-xs-4 col-md-2 text-center">
                                                     <img class="img-people" src="{{ $person->photo }}">
                                                     <a
-                                                       href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}"
+                                                       href="https://www.themoviedb.org/person/{{ $actor->tmdb }}"
                                                        title="TheMovieDatabase" target="_blank">
                                                         <span class="badge-user"
                                                               style="white-space:normal;"><strong>{{ $actor->name }}</strong></span>
