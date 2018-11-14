@@ -140,7 +140,7 @@
 
                         @if ($torrent->category->meta == 1)
                             @if ($user->ratings == 1)
-                            <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                            <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
@@ -151,9 +151,9 @@
                             </a>
                             @else
                             @if ($torrent->category_id == 2)
-                                <a rel="nofollow" href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
+                                <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
                             @else
-                                <a rel="nofollow" href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
+                                <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
                             @endif
                             <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">
