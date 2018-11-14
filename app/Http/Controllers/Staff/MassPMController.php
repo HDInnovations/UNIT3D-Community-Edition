@@ -70,11 +70,8 @@ class MassPMController extends Controller
             return redirect()->route('massPM')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $sender_id = 1;
             foreach ($users as $user) {
-                $receiver_id = $user->id;
-                
-                $this->dispatch(new ProcessMassPM($sender_id, $receiver_id, $subject, $message));
+                $this->dispatch(new ProcessMassPM(1, $user->id, $subject, $message));
             }
 
             // Activity Log
