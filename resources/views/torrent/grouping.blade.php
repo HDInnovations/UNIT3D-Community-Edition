@@ -74,9 +74,9 @@
                     <div class="movie-details">
                         <p class="movie-plot">{{ $movie->plot }}</p>
                         <strong>ID:</strong>
-                        <span class="badge-user"><a rel="nofollow"
+                        <span class="badge-user"><a
                                                     href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
-                        <span class="badge-user"><a rel="nofollow"
+                        <span class="badge-user"><a
                                                     href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                         <strong>{{ trans('torrent.genre') }}: </strong>
                         @if ($movie->genres)

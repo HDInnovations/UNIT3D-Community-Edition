@@ -119,7 +119,7 @@
                                         @endif
 
                                         @if ($user->ratings == 1)
-                                            <a rel="nofollow" href="http://www.imdb.com/title/tt{{ $t->imdb }}">
+                                            <a href="http://www.imdb.com/title/tt{{ $t->imdb }}">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
@@ -129,7 +129,7 @@
                                             </a>
                                         @else
                                             @if ($t->category_id == '2')
-                                                <a rel="nofollow" href="https://www.themoviedb.org/tv/34307">
+                                                <a href="https://www.themoviedb.org/tv/34307">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
@@ -138,7 +138,7 @@
               </span>
                                                 </a>
                                             @else
-                                                <a rel="nofollow" href="https://www.themoviedb.org/movie/34307">
+                                                <a href="https://www.themoviedb.org/movie/34307">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>

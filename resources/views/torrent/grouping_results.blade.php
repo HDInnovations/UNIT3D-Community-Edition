@@ -69,13 +69,13 @@
                 <div class="movie-details">
                     <p class="movie-plot">{{ $movie->plot }}</p>
                     <strong>ID:</strong>@php exit(var_dump($movie)) @endphp
-                    <span class="badge-user"><a rel="nofollow"
+                    <span class="badge-user"><a
                                                 href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                     @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
-                    <span class="badge-user"><a rel="nofollow"
+                    <span class="badge-user"><a
                                                 href="https://anon.to?https://www.themoviedb.org/tv/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     @elseif ($torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
-                    <span class="badge-user"><a rel="nofollow"
+                    <span class="badge-user"><a
                                                 href="https://anon.to?https://www.themoviedb.org/movie/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
                     @endif
                     <strong>{{ trans('torrent.genre') }}: </strong>
@@ -206,7 +206,7 @@
 
                                     @if ($torrent->category->meta == 1)
                                         @if ($user->ratings == 1)
-                                            <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                                            <a href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
@@ -217,9 +217,9 @@
                                             </a>
                                         @else
                                             @if ($torrent->category_id == 2)
-                                                <a rel="nofollow" href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
+                                                <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">
                                                     @else
-                                                        <a rel="nofollow" href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
+                                                        <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}">
                                                             @endif
                                                             <span class="badge-extra text-bold">
                                 <span class="text-gold movie-rating-stars">

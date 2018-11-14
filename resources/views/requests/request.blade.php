@@ -128,30 +128,30 @@
                                         <li>
                                             @if ($torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a rel="nofollow" href="https://anon.to?http://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
+                    <a href="https://anon.to?http://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrentRequest->imdb }}</a>
                   </span>
                                             @endif
                                                 @if ($torrentRequest->category_id == "2" && $torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}"
+                      <a href="https://anon.to?https://www.themoviedb.org/tv/{{ $torrentRequest->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                                 @elseif ($torrentRequest->tmdb != 0 && $torrentRequest->tmdb != null)
                                                 <span class="badge-user text-bold text-orange">
-                      <a rel="nofollow" href="https://anon.to?https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}"
+                      <a href="https://anon.to?https://www.themoviedb.org/movie/{{ $torrentRequest->tmdb }}"
                          title="TheMovieDatabase" target="_blank">TMDB: {{ $torrentRequest->tmdb }}</a>
                     </span>
                                             @endif
                                             @if ($torrentRequest->mal != 0 && $torrentRequest->mal != null)
                                                 <span class="badge-user text-bold text-pink">
-                      <a rel="nofollow" href="https://anon.to?https://myanimelist.net/anime/{{ $torrentRequest->mal }}"
+                      <a href="https://anon.to?https://myanimelist.net/anime/{{ $torrentRequest->mal }}"
                          title="MAL" target="_blank">MAL: {{ $torrentRequest->mal }}</a>
                     </span>
                                             @endif
                                             @if ($torrentRequest->category_id == "2" && $torrentRequest->tvdb != 0 && $torrentRequest->tvdb != null)
                                                 <span class="badge-user text-bold text-pink">
-                      <a rel="nofollow"
+                      <a
                          href="https://anon.to?https://www.thetvdb.com/?tab=series&id={{ $torrentRequest->tvdb }}"
                          title="TVDB" target="_blank">TVDB: {{ $torrentRequest->tvdb }}</a>
                     </span>
@@ -173,7 +173,7 @@
                                                         @php $person = $client->person($actor->tmdb); @endphp
                                                         <div class="col-xs-4 col-md-2 text-center">
                                                             <img class="img-people" src="{{ $person->photo }}">
-                                                            <a rel="nofollow"
+                                                            <a
                                                                href="https://anon.to?https://www.themoviedb.org/person/{{ $actor->tmdb }}"
                                                                title="TheMovieDatabase" target="_blank">
                                                                 <span class="badge-user"
