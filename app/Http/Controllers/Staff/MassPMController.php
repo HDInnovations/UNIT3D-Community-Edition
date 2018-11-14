@@ -14,6 +14,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Jobs\ProcessMassPM;
 use App\User;
 use App\PrivateMessage;
 use Brian2694\Toastr\Toastr;
@@ -70,13 +71,7 @@ class MassPMController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             foreach ($users as $user) {
-                // Send Private Message
-                $pm = new PrivateMessage;
-                $pm->sender_id = 1;
-                $pm->receiver_id = $user->id;
-                $pm->subject = $subject;
-                $pm->message = $message;
-                $pm->save();
+                $this->dispatch(new ProcessMassPM(1, $user->id, $subject, $message));
             }
 
             // Activity Log
