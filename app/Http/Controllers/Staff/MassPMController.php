@@ -57,6 +57,7 @@ class MassPMController extends Controller
         $staff = auth()->user();
         $users = User::all();
 
+        $sender_id = 1;
         $subject = $request->input('subject');
         $message = $request->input('message');
 
@@ -70,7 +71,6 @@ class MassPMController extends Controller
             return redirect()->route('massPM')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $sender_id = 1;
             foreach ($users as $user) {
                 $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
             }
