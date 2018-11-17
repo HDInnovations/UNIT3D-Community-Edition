@@ -230,7 +230,7 @@
                         @if ($user->group->is_freeleech == 1)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-trophy text-purple' data-toggle='tooltip' title=''
-                                    data-original-title='{{ trans('torrent.special-freelech') }}'></i> {{ trans('torrent.special-freelech') }}
+                                    data-original-title='{{ trans('torrent.special-freeleech') }}'></i> {{ trans('torrent.special-freeleech') }}
                             </span>
                         @endif
 
