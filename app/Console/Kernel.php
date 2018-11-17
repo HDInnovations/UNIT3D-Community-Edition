@@ -36,6 +36,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\AutoDisableInactiveUsers::class,
         \App\Console\Commands\AutoSoftDeleteDisabledUsers::class,
         \App\Console\Commands\AutoRecycleClaimedTorrentRequests::class,
+        \App\Console\Commands\AutoCorrectHistory::class,
 
         // Manually Run Commands
         \App\Console\Commands\DemoSeed::class,
@@ -63,6 +64,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:revoke_permissions')->hourly();
         $schedule->command('auto:ban')->hourly();
         $schedule->command('auto:flush_peers')->hourly();
+        $schedule->command('auto:correct_history')->hourly();
         $schedule->command('auto:bon_allocation')->hourly();
         $schedule->command('auto:remove_personal_freeleech')->hourly();
         $schedule->command('auto:remove_featured_torrent')->hourly();
