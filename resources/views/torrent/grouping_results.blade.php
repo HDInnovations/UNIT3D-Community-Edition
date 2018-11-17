@@ -68,7 +68,7 @@
                 </h2>
                 <div class="movie-details">
                     <p class="movie-plot">{{ $movie->plot }}</p>
-                    <strong>ID:</strong>@php exit(var_dump($movie)) @endphp
+                    <strong>ID:</strong>
                     <span class="badge-user"><a
                                                 href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                     @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
