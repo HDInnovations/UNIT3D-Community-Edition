@@ -55,7 +55,11 @@
                                             {{ $cheater->user->created_at->toDayDateTimeString() }}
                                         </td>
                                         <td>
-                                            {{ $cheater->user->last_login->toDayDateTimeString() }}
+                                            @if ($cheater->user->last_login != null)
+                                                {{ $cheater->user->last_login->toDayDateTimeString() }}
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
