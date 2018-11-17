@@ -42,7 +42,7 @@ class FlushController extends Controller
     public function deleteOldPeers()
     {
         foreach (Peer::all() as $peer) {
-            if ((time() - strtotime($peer->updated_at)) > (60 * 60)) {
+            if ((time() - strtotime($peer->updated_at)) > (60 * 60 * 2)) {
                 $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
                 if ($history) {
                     $history->active = false;
