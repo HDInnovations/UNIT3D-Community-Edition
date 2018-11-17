@@ -49,13 +49,15 @@ class AutoFlushPeers extends Command
      */
     public function handle()
     {
-        Peer::chunk(250, function ($section) {
-            foreach ($section as $data) {
-                if ((time() - strtotime($data->updated_at)) > (60 * 60 * 2)) {
-                    History::where("info_hash", $data->hash)->where("user_id", $data->user_id)->update(['active' => false]);
-                    $data->delete();
+        foreach (Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->get() as $peer) {
+            if ((time() - strtotime($peer->updated_at)) > (60 * 60 * 2)) {
+                $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
+                if ($history) {
+                    $history->active = false;
+                    $history->save();
                 }
+                $peer->delete();
             }
-        });
+        }
     }
 }
