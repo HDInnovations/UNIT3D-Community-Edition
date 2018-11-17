@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Peer;
 use App\History;
+use Carbon\Carbon;
 use Brian2694\Toastr\Toastr;
 
 class FlushController extends Controller
@@ -41,16 +42,18 @@ class FlushController extends Controller
      */
     public function deleteOldPeers()
     {
-        foreach (Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->get() as $peer) {
-            if ((time() - strtotime($peer->updated_at)) > (60 * 60 * 2)) {
-                $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
-                if ($history) {
-                    $history->active = false;
-                    $history->save();
-                }
-                $peer->delete();
+        $current = new Carbon();
+        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
+
+        foreach ($peers as $peer) {
+            $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
+            if ($history) {
+                $history->active = false;
+                $history->save();
             }
+            $peer->delete();
         }
+
         return redirect('staff_dashboard')
             ->with($this->toastr->success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
     }

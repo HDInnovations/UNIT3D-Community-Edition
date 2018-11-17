@@ -15,6 +15,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\History;
 use App\Peer;
+use Carbon\Carbon;
 
 class AutoFlushPeers extends Command
 {
@@ -49,15 +50,16 @@ class AutoFlushPeers extends Command
      */
     public function handle()
     {
-        foreach (Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->get() as $peer) {
-            if ((time() - strtotime($peer->updated_at)) > (60 * 60 * 2)) {
-                $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
-                if ($history) {
-                    $history->active = false;
-                    $history->save();
-                }
-                $peer->delete();
+        $current = new Carbon();
+        $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
+
+        foreach ($peers as $peer) {
+            $history = History::where("info_hash", $peer->info_hash)->where("user_id", $peer->user_id)->first();
+            if ($history) {
+                $history->active = false;
+                $history->save();
             }
+            $peer->delete();
         }
     }
 }
