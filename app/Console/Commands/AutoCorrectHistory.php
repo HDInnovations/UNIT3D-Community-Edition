@@ -14,6 +14,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\History;
+use Carbon\Carbon;
 
 class AutoCorrectHistory extends Command
 {
@@ -48,11 +49,12 @@ class AutoCorrectHistory extends Command
      */
     public function handle()
     {
-        foreach (History::select(['id', 'updated_at', 'active'])->get() as $history) {
-            if ((time() - strtotime($history->updated_at)) > (60 * 60 * 2)) {
-                $history->active = false;
-                $history->save();
-            }
+        $current = new Carbon();
+        $history = History::select(['id', 'active', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
+
+        foreach ($history as $h) {
+            $h->active = false;
+            $h->save();
         }
     }
 }
