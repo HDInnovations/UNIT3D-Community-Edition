@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2defc4d4b8dd85e111b725eca95e6195",
+    "content-hash": "acb2b1e4fe2e1429db5770b9918fc647",
     "packages": [
         {
             "name": "appstract/laravel-opcache",
@@ -421,6 +421,50 @@
                 "laravel"
             ],
             "time": "2018-09-06T07:21:06+00:00"
+        },
+        {
+            "name": "coderello/laravel-proximage",
+            "version": "0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/coderello/laravel-proximage.git",
+                "reference": "80be6c31efe9d13211676eebfb3184434763b58b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/coderello/laravel-proximage/zipball/80be6c31efe9d13211676eebfb3184434763b58b",
+                "reference": "80be6c31efe9d13211676eebfb3184434763b58b",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.5.*|5.6.*|5.7.*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Coderello\\Proximage\\Providers\\ProximageServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coderello\\Proximage\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Image proxy for Laravel.",
+            "time": "2018-10-24T07:56:01+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2050,16 +2094,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.34.1",
+            "version": "1.35.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9"
+                "reference": "5c05a2be472b22f63291d192410df9f0e0de3b19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9",
-                "reference": "19201b87f7dba2a7cbf1cccdf0e1da13c04ee9c9",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5c05a2be472b22f63291d192410df9f0e0de3b19",
+                "reference": "5c05a2be472b22f63291d192410df9f0e0de3b19",
                 "shasum": ""
             },
             "require": {
@@ -2067,8 +2111,11 @@
                 "symfony/translation": "~2.6 || ~3.0 || ~4.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2",
                 "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "suggest": {
+                "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style.",
+                "phpstan/phpstan": "Needed for the `composer phpstan` command. Allow to detect potential errors."
             },
             "type": "library",
             "extra": {
@@ -2101,7 +2148,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2018-11-08T13:33:47+00:00"
+            "time": "2018-11-14T21:55:58+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2941,16 +2988,16 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.4.1",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "7075db91a0f3bf5a8b6f0fd6a050e6ecdd29cf7a"
+                "reference": "d729b6c48980ecd10e5039fd0c62066f391fbcbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/7075db91a0f3bf5a8b6f0fd6a050e6ecdd29cf7a",
-                "reference": "7075db91a0f3bf5a8b6f0fd6a050e6ecdd29cf7a",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/d729b6c48980ecd10e5039fd0c62066f391fbcbe",
+                "reference": "d729b6c48980ecd10e5039fd0c62066f391fbcbe",
                 "shasum": ""
             },
             "require": {
@@ -3005,7 +3052,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2018-09-03T12:48:24+00:00"
+            "time": "2018-11-12T14:28:44+00:00"
         },
         {
             "name": "spatie/laravel-image-optimizer",
@@ -3213,16 +3260,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.21.0",
+            "version": "v6.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "77eb5bb91e29981eea29b552fc648dbcb55a97f5"
+                "reference": "2a87430d6cefe71c6b618e163aa05e7de97d2619"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/77eb5bb91e29981eea29b552fc648dbcb55a97f5",
-                "reference": "77eb5bb91e29981eea29b552fc648dbcb55a97f5",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/2a87430d6cefe71c6b618e163aa05e7de97d2619",
+                "reference": "2a87430d6cefe71c6b618e163aa05e7de97d2619",
                 "shasum": ""
             },
             "require": {
@@ -3264,7 +3311,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-11-09T01:33:39+00:00"
+            "time": "2018-11-15T22:35:15+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4891,16 +4938,16 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "0.9.9",
+            "version": "0.9.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "6fdb61243844dc924071d3404bb23994ea0b6856"
+                "reference": "4876fc0c7d9e5da49712554a35c94d84ed1e9ee5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/6fdb61243844dc924071d3404bb23994ea0b6856",
-                "reference": "6fdb61243844dc924071d3404bb23994ea0b6856",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/4876fc0c7d9e5da49712554a35c94d84ed1e9ee5",
+                "reference": "4876fc0c7d9e5da49712554a35c94d84ed1e9ee5",
                 "shasum": ""
             },
             "require": {
@@ -4952,7 +4999,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2017-02-28T12:52:32+00:00"
+            "time": "2018-11-13T20:50:16+00:00"
         },
         {
             "name": "myclabs/deep-copy",
