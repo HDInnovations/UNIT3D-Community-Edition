@@ -80,8 +80,6 @@ class AutoPreWarning extends Command
                             $pre->prewarn = 1;
                             $pre->save();
                         }
-
-                        unset($exist);
                     }
                 }
             }

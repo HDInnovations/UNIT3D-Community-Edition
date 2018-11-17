@@ -73,6 +73,7 @@ class AutoWarning extends Command
                             $warning->save();
 
                             // Add +1 To Users Warnings Count In Users Table
+                            $hr->hitrun = 1;
                             $hr->user->hitandruns++;
                             $hr->user->save();
 
@@ -84,13 +85,7 @@ class AutoWarning extends Command
                             $pm->message = "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b]
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
                             $pm->save();
-
-                            // Set History Hitrun
-                            $hr->hitrun = 1;
-                            $hr->save();
                         }
-
-                        unset($exist);
                     }
                 }
             }
