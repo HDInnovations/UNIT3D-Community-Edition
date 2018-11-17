@@ -26,7 +26,7 @@ return [
         ],
         'numeric' => [
             'rows' => ['created_at', 'updated_at', 'id', 'seeders', 'leechers', 'times_completed', 'size', 'uploaded', 'downloaded', 'left', 'seeder',
-                'active', 'seedtime', 'updated_at', 'completed_at', 'hitrun', 'prewarn', 'immune'],
+                'active', 'seedtime', 'updated_at', 'completed_at', 'hitrun', 'prewarn'],
             'class' => 'fal fa-sort-numeric',
         ],
     ],
