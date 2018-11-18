@@ -116,7 +116,7 @@
 
                 <div class="parser"></div>
 
-                <label for="anonymous" class="control-label">{{ trans('common.anynomous') }}?</label>
+                <label for="anonymous" class="control-label">{{ trans('common.anonymous') }}?</label>
                 <div class="radio-inline">
                     <label><input type="radio" name="anonymous" value="1">{{ trans('common.yes') }}</label>
                 </div>
