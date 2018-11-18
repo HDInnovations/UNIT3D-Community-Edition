@@ -60,11 +60,18 @@ class AutoGraveyard extends Command
         $rewardable = Graveyard::where('rewarded', '!=', 1)->oldest()->get();
 
         foreach ($rewardable as $reward) {
-            $user = User::where('id', $reward->user_id)->first();
-            $torrent = Torrent::where('id', $reward->torrent_id)->first();
-            $history = History::where('info_hash', $torrent->info_hash)->where('user_id', $user->id)->first();
+            $user = User::where('id', '=', $reward->user_id)->first();
 
-            if ($history && $history->seedtime >= $reward->seedtime) {
+            $torrent = Torrent::where('id', '=', $reward->torrent_id)->first();
+
+            if ($user && $torrent) {
+                $history = History::where('info_hash', '=', $torrent->info_hash)
+                    ->where('user_id', '=', $user->id)
+                    ->where('seedtime', '>=', $reward->seedtime)
+                    ->first();
+            }
+
+            if ($history) {
                 $reward->rewarded = 1;
                 $reward->save();
 
