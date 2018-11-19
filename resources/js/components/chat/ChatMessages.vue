@@ -15,12 +15,10 @@
 
                 <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
 
-                    <span class="badge-user text-bold">
+                    <span class="badge-user text-bold" :style="userEffect(message.user)">
 
-                        <i v-tooltip="`${message.user.group.name}`" :class="message.user.group.icon"></i>
-
-                        <a data-toggle="tooltip" :style="userStyles(message.user)">
-					        {{ message.user.username }}
+                        <a data-toggle="tooltip" :style="userColor(message.user)">
+					       <i v-tooltip="`${message.user.group.name}`" :class="message.user.group.icon"></i> {{ message.user.username }}
                         </a>
 
                         <i v-if="canMod(message)"
@@ -101,8 +99,11 @@
       deleteMessage (id) {
         axios.get(`/api/chat/message/${id}/delete`)
       },
-      userStyles (user) {
-        return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+      userEffect (user) {
+        return `cursor: pointer; background-image: ${user.group.effect};`
+      },
+      userColor (user) {
+        return `cursor: pointer; color: ${user.group.color};`
       }
     },
     filters: {
