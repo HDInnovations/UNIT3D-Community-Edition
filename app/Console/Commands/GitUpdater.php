@@ -154,6 +154,8 @@ class GitUpdater extends Command
                     $this->composer();
                 }
 
+                $this->updateUNIT3DConfig();
+
                 $this->clearCache();
 
                 $this->setCache();
@@ -263,6 +265,13 @@ class GitUpdater extends Command
             'npm run prod'
         ]);
 
+        $this->done();
+    }
+
+    private function updateUNIT3DConfig()
+    {
+        $this->header("Updating UNIT3D Configuration File");
+        $this->process("git fetch origin && git checkout origin/master -- config/unit3d.php");
         $this->done();
     }
 
