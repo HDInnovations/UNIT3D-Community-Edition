@@ -31,6 +31,9 @@ class StatsController extends Controller
      */
     public function index()
     {
+        // Extend The Maximum Execution Time
+        set_time_limit(300);
+
         // Total Members Count (All Groups)
         $all_user = cache()->remember('all_user', 60, function () {
             return User::withTrashed()->count();
