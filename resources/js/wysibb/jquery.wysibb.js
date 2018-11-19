@@ -207,7 +207,7 @@ wbbdebug=true;
 					},
 					transform : {
 						'<img src="{SRC}" />':"[img]{SRC}[/img]",
-						'<img src="{SRC}" width="{WIDTH}" height="{HEIGHT}"/>':"[img width={WIDTH},height={HEIGHT}]{SRC}[/img]"
+						'<img src="{SRC}" width="{WIDTH}" height="{HEIGHT}"/>':"[img {WIDTH}x{HEIGHT}]{SRC}[/img]"
 					}
 				},
 				bullist : {
@@ -1664,7 +1664,7 @@ wbbdebug=true;
 			if (window.getSelection) {
 				return window.getSelection();
 			}else if (document.selection) {
-				return (this.options.bbmode) ? document.selection.createRange():document.selection.createRange();
+				return document.selection.createRange();
 			}
 		},
 		getSelectText: function(fromTxtArea,range) {
@@ -1703,13 +1703,13 @@ wbbdebug=true;
 				if (sel.getRangeAt && sel.rangeCount>0) {
 					return sel.getRangeAt(0);
 				}else if (sel.anchorNode) {
-					let range = (this.options.bbmode) ? document.createRange() : document.createRange();
+					let range = document.createRange();
 					range.setStart (sel.anchorNode, sel.anchorOffset);
 					range.setEnd (sel.focusNode, sel.focusOffset);
 					return range;
 				}
 			}else{
-				return (this.options.bbmode===true) ? document.selection.createRange():document.selection.createRange();
+				return document.selection.createRange();
 			}
 		},
 		insertAtCursor: function(code,forceBBMode) {
@@ -2412,7 +2412,7 @@ wbbdebug=true;
 		},
 		smileFind: function() {
 			if (this.options.smilefind) {
-				let $smlist = $(this.options.smilefind).find('img[alt]');
+				let $smlist = $(this.options.smilefind).find('[img=359x477][alt]');
 				if ($smlist.length>0) {
 					this.options.smileList=[];
 					$smlist.each($.proxy(function(i,el) {
