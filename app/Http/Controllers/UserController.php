@@ -722,7 +722,7 @@ class UserController extends Controller
     /**
      * Download All History Torrents
      *
-     * @param $slug
+     * @param $username
      * @param $id
      * @return \ZipArchive
      */
@@ -736,14 +736,12 @@ class UserController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
+            return back()->with($this->toastr->error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && $torrent->user_id != $user->id) {
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+        if ($user->can_download == 0) {
+            return back()->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
 
         if (auth()->user()->id == $user->id) {
@@ -770,8 +768,7 @@ class UserController extends Controller
 
                     // The Torrent File Exist?
                     if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
-                        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                            ->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
+                        return back()->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
                     } else {
                         // Delete The Last Torrent Tmp File If Exist
                         if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
