@@ -194,7 +194,7 @@
                     @endif
                     <button class="btn btn-labeled btn-danger" data-toggle="modal" data-target="#modal_torrent_report">
           <span class="btn-label"><i
-                      class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i></span> {{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}</button>
+                      class="{{ config('other.font-awesome') }} fa-fw fa-eye"></i></span> {{ trans('common.report') }} {{ trans('torrent.torrent') }}</button>
       </span>
                 </div>
                 <tbody>
