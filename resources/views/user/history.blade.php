@@ -25,7 +25,14 @@
         <span class="badge-extra text-blue" data-toggle="tooltip"
               data-original-title="{{ trans('user.credited-upload') }}">{{ App\Helpers\StringHelper::formatBytes($his_upl_cre,2) }}</span>
     </span>
-        <h1 class="title">{{ trans('user.history-table') }}</h1>
+        <h1 class="title">
+            {{ trans('user.history-table') }}
+            <a href="{{ route('download_history_torrents', ['username' => $user->username, 'id' => $user->id]) }}" role="button" class="btn btn-labeled btn-success">
+                <span class='btn-label'>
+                    <i class='{{ config("other.font-awesome") }} fa-download'></i> {{ trans('torrent.download-all') }} {{ trans('torrent.torrent') }}
+                </span>
+            </a>
+        </h1>
         <div class="block">
             <!-- History -->
             <div class="table-responsive">

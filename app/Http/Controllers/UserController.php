@@ -26,8 +26,10 @@ use App\History;
 use App\Warning;
 use App\BonTransactions;
 use App\Invite;
+use App\Services\Bencode;
 use Brian2694\Toastr\Toastr;
 use Image;
+use ZipArchive;
 use Carbon\Carbon;
 
 class UserController extends Controller
@@ -712,6 +714,95 @@ class UserController extends Controller
              ['name', 'like', '%' . $request->input('name') . '%'],
             ])->paginate(50);
             return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
+        } else {
+            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        }
+    }
+
+    /**
+     * Download All History Torrents
+     *
+     * @param $slug
+     * @param $id
+     * @return \ZipArchive
+     */
+    public function downloadHistoryTorrents($username, $id)
+    {
+        //  Extend The Maximum Execution Time
+        set_time_limit(300);
+
+        // Authorized User
+        $user = User::findOrFail($id);
+
+        // User's ratio is too low
+        if ($user->getRatio() < config('other.ratio')) {
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->error('Your Ratio Is To Low To Download!!!', 'Whoops!', ['options']));
+        }
+
+        // User's download rights are revoked
+        if ($user->can_download == 0 && $torrent->user_id != $user->id) {
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
+        }
+
+        if (auth()->user()->id == $user->id) {
+            // Define Dir Folder
+            $path = getcwd() . '/files/tmp_zip/';
+
+            // Zip File Name
+            $zipFileName = "{$user->username}.zip";
+
+            // Create ZipArchive Obj
+            $zip = new ZipArchive();
+
+            // Get Users History
+            $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
+
+            if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === TRUE) {
+                // Match History Results To Torrents
+                foreach ($historyTorrents as $historyTorrent) {
+                    // Get Torrent
+                    $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
+
+                    // Define The Torrent Filename
+                    $tmpFileName = "{$torrent->slug}.torrent";
+
+                    // The Torrent File Exist?
+                    if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
+                        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                            ->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
+                    } else {
+                        // Delete The Last Torrent Tmp File If Exist
+                        if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
+                            unlink(getcwd() . '/files/tmp/' . $tmpFileName);
+                        }
+                    }
+
+                    // Get The Content Of The Torrent
+                    $dict = Bencode::bdecode(file_get_contents(getcwd() . '/files/torrents/' . $torrent->file_name));
+                    // Set the announce key and add the user passkey
+                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
+                    // Remove Other announce url
+                    unset($dict['announce-list']);
+
+                    $fileToDownload = Bencode::bencode($dict);
+                    file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
+
+                    // Add Files To ZipArchive
+                    $zip->addFile(getcwd() . '/files/tmp/' . $tmpFileName, $tmpFileName);
+                }
+                // Close ZipArchive
+                $zip->close();
+            }
+
+            $zip_file = $path.'/'.$zipFileName;
+
+            if (file_exists($zip_file)) {
+                return response()->download($zip_file)->deleteFileAfterSend(true);
+            } else {
+                return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
+            }
         } else {
             return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
         }
