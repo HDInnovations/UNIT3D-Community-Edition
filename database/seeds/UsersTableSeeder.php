@@ -11,10 +11,10 @@
  */
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class UsersTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
         $users = [
             [
                 'username' => 'System',
@@ -41,19 +40,24 @@ class UsersTableSeeder extends Seeder
                 'active' => 1
             ],
             [
-                'username' => env('DEFAULT_OWNER_NAME'),
-                'email' => env('DEFAULT_OWNER_EMAIL'),
+                'username' => env('DEFAULT_OWNER_NAME', 'UNIT3D'),
+                'email' => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
                 'group_id' => 10,
-                'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD', 'UNIT3D')),
                 'passkey' => md5(uniqid() . time() . microtime()),
                 'active' => 1
             ]
         ];
 
-        \DB::table('users')->delete();
-
         foreach ($users as $user) {
-            App\User::create($user);
+            User::create([
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'group_id' => $user['group_id'],
+                'password' => $user['password'],
+                'passkey' => $user['passkey'],
+                'active' => $user['active']
+            ]);
         }
     }
 }
