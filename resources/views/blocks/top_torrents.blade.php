@@ -25,14 +25,14 @@
                 <a href="#dyingtorrents" role="tab" data-toggle="tab" aria-expanded="false">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i> {{ trans('torrent.dying-torrents') }}
                     <i class="{{ config('other.font-awesome') }} fa-recycle text-red" data-toggle="tooltip"
-                       data-original-title="{{ trans('blocks.requires-reseed') }}"></i>
+                       data-original-title="{{ trans('torrent.requires-reseed') }}"></i>
                 </a>
             </li>
             <li class="">
                 <a href="#deadtorrents" role="tab" data-toggle="tab" aria-expanded="false">
                     <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle text-red"></i> {{ trans('torrent.dead-torrents') }}
                     <i class="{{ config('other.font-awesome') }} fa-recycle text-red" data-toggle="tooltip"
-                       data-original-title="{{ trans('blocks.requires-reseed') }}"></i>
+                       data-original-title="{{ trans('torrent.requires-reseed') }}"></i>
                 </a>
             </li>
         </ul>
