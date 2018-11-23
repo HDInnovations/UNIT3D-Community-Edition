@@ -14,7 +14,7 @@ return [
     'lost-password' => 'Forgot Your Password?',
     'lost-username' => 'Forgot Your Username?',
     'need-invite' => 'Open Registration Is Disabled and You Will Need A Invite To Gain Access!',
-    'no-a-member' => 'Not yet member ? Signup in less than 30s.',
+    'not-a-member' => 'Not yet member ? Signup in less than 30s.',
     'password' => 'Password',
     'recover-my-password' => 'Recover My Password',
     'remember-me' => 'Remember Me',
