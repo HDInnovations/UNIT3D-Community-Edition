@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use function theodorejb\polycast\to_int;
 use App\Helpers\StringHelper;
 use App\Helpers\Bbcode;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -596,7 +597,25 @@ class User extends Authenticatable
     }
 
     /**
-     * @method getSeeding
+     * @method getLast30Uploads
+     *
+     * Gets the amount of torrents a user seeds
+     *
+     * @access public
+     * @return integer
+     */
+    public function getLast30Uploads()
+    {
+        $current = Carbon::now();
+
+        return Torrent::withAnyStatus()
+            ->where('user_id', '=', $this->id)
+            ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
+            ->count();
+    }
+
+    /**
+     * @method getUploads
      *
      * Gets the amount of torrents a user seeds
      *

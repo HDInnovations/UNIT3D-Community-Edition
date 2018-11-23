@@ -13,6 +13,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use App\Poll;
 use App\Article;
@@ -23,6 +24,7 @@ use App\User;
 use App\Post;
 use App\FeaturedTorrent;
 use App\PersonalFreeleech;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -87,11 +89,16 @@ class HomeController extends Controller
         }])->select(['id', 'username', 'hidden', 'group_id'])->oldest('username')->get();
         $groups = Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();
 
-        // Featured Torrents
+        // Featured Torrents Block
         $featured = FeaturedTorrent::with('torrent')->get();
 
-        // Latest Poll
+        // Latest Poll Block
         $poll = Poll::latest()->first();
+
+        // Top Uploaders Block
+        $current = Carbon::now();
+        $uploaders = Torrent::with('user')->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(10)->get();
+        $past_uploaders = Torrent::with('user')->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(10)->get();
 
         return view('home.home', [
             'user' => $user,
@@ -107,7 +114,9 @@ class HomeController extends Controller
             'topics' => $topics,
             'posts' => $posts,
             'featured' => $featured,
-            'poll' => $poll
+            'poll' => $poll,
+            'uploaders' => $uploaders,
+            'past_uploaders' => $past_uploaders
         ]);
     }
 }
