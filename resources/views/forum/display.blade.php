@@ -84,8 +84,8 @@
                             <td class="f-display-topic-last-post">
                                 <a href="{{ route('profile', ['username' => $t->last_post_user_username, 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>
                                 on
-                                <time datetime="{{ date('M d Y', strtotime($last_post->created_at)) }}">
-                                    {{ date('M d Y', strtotime($last_post->created_at)) }}
+                                <time datetime="{{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}">
+                                    {{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}
                                 </time>
                             </td>
                         </tr>
