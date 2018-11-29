@@ -128,22 +128,20 @@ class AlbumController extends Controller
     }
 
     /**
-     * Delete A Article
+     * Delete A Album
      *
      * @param $id
      * @return Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
+        $user = auth()->user();
         $album = Album::findOrFail($id);
 
-        if (auth()->user()->group->is_modo || (auth()->user()->id == $album->user_id && Carbon::now()->lt($album->created_at->addDay()))) {
-            $album->delete();
+        abort_unless($user->group->is_modo || $user->id === $album->user_id && Carbon::now()->lt($album->created_at->addDay()), 403);
+        $album->delete();
 
-            return redirect()->route('home')
-                ->with($this->toastr->success('Album has successfully been deleted', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return redirect()->route('home')
+            ->with($this->toastr->success('Album has successfully been deleted', 'Yay!', ['options']));
     }
 }

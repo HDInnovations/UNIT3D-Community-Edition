@@ -438,24 +438,22 @@ class UserController extends Controller
      */
     public function getWarnings($username, $id)
     {
-        if (auth()->user()->group->is_modo) {
-            $user = User::findOrFail($id);
-            $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
-            $warningcount = Warning::where('user_id', $id)->count();
+        abort_unless(auth()->user()->group->is_modo, 403);
 
-            $softDeletedWarnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
-            $softDeletedWarningCount = Warning::where('user_id', $id)->onlyTrashed()->count();
+        $user = User::findOrFail($id);
+        $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
+        $warningcount = Warning::where('user_id', $id)->count();
 
-            return view('user.warninglog', [
-                'warnings' => $warnings,
-                'warningcount' => $warningcount,
-                'softDeletedWarnings' => $softDeletedWarnings,
-                'softDeletedWarningCount' => $softDeletedWarningCount,
-                'user' => $user
-            ]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        $softDeletedWarnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
+        $softDeletedWarningCount = Warning::where('user_id', $id)->onlyTrashed()->count();
+
+        return view('user.warninglog', [
+            'warnings' => $warnings,
+            'warningcount' => $warningcount,
+            'softDeletedWarnings' => $softDeletedWarnings,
+            'softDeletedWarningCount' => $softDeletedWarningCount,
+            'user' => $user
+        ]);
     }
 
     /**
@@ -466,29 +464,26 @@ class UserController extends Controller
      */
     public function deactivateWarning($id)
     {
-        if (auth()->user()->group->is_modo) {
-            $staff = auth()->user();
-            $warning = Warning::findOrFail($id);
-            $warning->expires_on = Carbon::now();
-            $warning->active = 0;
-            $warning->save();
+        abort_unless(auth()->user()->group->is_modo, 403);
+        $staff = auth()->user();
+        $warning = Warning::findOrFail($id);
+        $warning->expires_on = Carbon::now();
+        $warning->active = 0;
+        $warning->save();
 
-            // Send Private Message
-            $pm = new PrivateMessage;
-            $pm->sender_id = $staff->id;
-            $pm->receiver_id = $warning->user_id;
-            $pm->subject = "Hit and Run Warning Deactivated";
-            $pm->message = $staff->username . " has decided to deactivate your active warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-            $pm->save();
+        // Send Private Message
+        $pm = new PrivateMessage;
+        $pm->sender_id = $staff->id;
+        $pm->receiver_id = $warning->user_id;
+        $pm->subject = "Hit and Run Warning Deactivated";
+        $pm->message = $staff->username . " has decided to deactivate your active warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+        $pm->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated a warning on {$warning->warneduser->username} account.");
 
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-                ->with($this->toastr->success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+            ->with($this->toastr->success('Warning Was Successfully Deactivated', 'Yay!', ['options']));
     }
 
     /**
@@ -499,34 +494,31 @@ class UserController extends Controller
      */
     public function deactivateAllWarnings($username, $id)
     {
-        if (auth()->user()->group->is_modo) {
-            $staff = auth()->user();
-            $user = User::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo, 403);
+        $staff = auth()->user();
+        $user = User::findOrFail($id);
 
-            $warnings = Warning::where('user_id', $user->id)->get();
+        $warnings = Warning::where('user_id', $user->id)->get();
 
-            foreach ($warnings as $warning) {
-                $warning->expires_on = Carbon::now();
-                $warning->active = 0;
-                $warning->save();
-            }
-
-            // Send Private Message
-            $pm = new PrivateMessage;
-            $pm->sender_id = $staff->id;
-            $pm->receiver_id = $warning->user_id;
-            $pm->subject = "All Hit and Run Warning Deactivated";
-            $pm->message = $staff->username . " has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-            $pm->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deactivated all warnings on {$warning->warneduser->username} account.");
-
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-                ->with($this->toastr->success('All Warnings Were Successfully Deactivated', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        foreach ($warnings as $warning) {
+            $warning->expires_on = Carbon::now();
+            $warning->active = 0;
+            $warning->save();
         }
+
+        // Send Private Message
+        $pm = new PrivateMessage;
+        $pm->sender_id = $staff->id;
+        $pm->receiver_id = $warning->user_id;
+        $pm->subject = "All Hit and Run Warning Deactivated";
+        $pm->message = $staff->username . " has decided to deactivate all of your active hit and run warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+        $pm->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deactivated all warnings on {$warning->warneduser->username} account.");
+
+        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+            ->with($this->toastr->success('All Warnings Were Successfully Deactivated', 'Yay!', ['options']));
     }
 
     /**
@@ -537,30 +529,28 @@ class UserController extends Controller
      */
     public function deleteWarning($id)
     {
-        if (auth()->user()->group->is_modo) {
-            $staff = auth()->user();
-            $warning = Warning::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo, 403);
 
-            // Send Private Message
-            $pm = new PrivateMessage;
-            $pm->sender_id = $staff->id;
-            $pm->receiver_id = $warning->user_id;
-            $pm->subject = "Hit and Run Warning Deleted";
-            $pm->message = $staff->username . " has decided to delete your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-            $pm->save();
+        $staff = auth()->user();
+        $warning = Warning::findOrFail($id);
 
-            $warning->deleted_by = $staff->id;
-            $warning->save();
-            $warning->delete();
+        // Send Private Message
+        $pm = new PrivateMessage;
+        $pm->sender_id = $staff->id;
+        $pm->receiver_id = $warning->user_id;
+        $pm->subject = "Hit and Run Warning Deleted";
+        $pm->message = $staff->username . " has decided to delete your warning for torrent " . $warning->torrent . " You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+        $pm->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deleted a warning on {$warning->warneduser->username} account.");
+        $warning->deleted_by = $staff->id;
+        $warning->save();
+        $warning->delete();
 
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-                ->with($this->toastr->success('Warning Was Successfully Deleted', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deleted a warning on {$warning->warneduser->username} account.");
+
+        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+            ->with($this->toastr->success('Warning Was Successfully Deleted', 'Yay!', ['options']));
     }
 
     /**
@@ -571,34 +561,32 @@ class UserController extends Controller
      */
     public function deleteAllWarnings($username, $id)
     {
-        if (auth()->user()->group->is_modo) {
-            $staff = auth()->user();
-            $user = User::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo, 403);
 
-            $warnings = Warning::where('user_id', $user->id)->get();
+        $staff = auth()->user();
+        $user = User::findOrFail($id);
 
-            foreach ($warnings as $warning) {
-                $warning->deleted_by = $staff->id;
-                $warning->save();
-                $warning->delete();
-            }
+        $warnings = Warning::where('user_id', $user->id)->get();
 
-            // Send Private Message
-            $pm = new PrivateMessage;
-            $pm->sender_id = $staff->id;
-            $pm->receiver_id = $warning->user_id;
-            $pm->subject = "All Hit and Run Warnings Deleted";
-            $pm->message = $staff->username . " has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
-            $pm->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deleted all warnings on {$warning->warneduser->username} account.");
-
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-                ->with($this->toastr->success('All Warnings Were Successfully Deleted', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        foreach ($warnings as $warning) {
+            $warning->deleted_by = $staff->id;
+            $warning->save();
+            $warning->delete();
         }
+
+        // Send Private Message
+        $pm = new PrivateMessage;
+        $pm->sender_id = $staff->id;
+        $pm->receiver_id = $warning->user_id;
+        $pm->subject = "All Hit and Run Warnings Deleted";
+        $pm->message = $staff->username . " has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+        $pm->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deleted all warnings on {$warning->warneduser->username} account.");
+
+        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+            ->with($this->toastr->success('All Warnings Were Successfully Deleted', 'Yay!', ['options']));
     }
 
     /**
@@ -609,19 +597,17 @@ class UserController extends Controller
      */
     public function restoreWarning($id)
     {
-        if (auth()->user()->group->is_modo) {
-            $staff = auth()->user();
-            $warning = Warning::findOrFail($id);
-            $warning->restore();
+        abort_unless(auth()->user()->group->is_modo, 403);
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has restore a soft deleted warning on {$warning->warneduser->username} account.");
+        $staff = auth()->user();
+        $warning = Warning::findOrFail($id);
+        $warning->restore();
 
-            return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
-                ->with($this->toastr->success('Warning Was Successfully Restored', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has restore a soft deleted warning on {$warning->warneduser->username} account.");
+
+        return redirect()->route('warninglog', ['username' => $warning->warneduser->username, 'id' => $warning->warneduser->id])
+            ->with($this->toastr->success('Warning Was Successfully Restored', 'Yay!', ['options']));
     }
 
     /**
@@ -634,12 +620,11 @@ class UserController extends Controller
     public function myUploads($username, $id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
-            return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
+
+        return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
     }
 
     /**
@@ -652,17 +637,16 @@ class UserController extends Controller
     public function myActive($username, $id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $active = Peer::with(['torrent' => function ($query) {
-                $query->withAnyStatus();
-            }])->sortable(['created_at' => 'desc'])
-                ->where('user_id', $user->id)
-                ->distinct('hash')
-                ->paginate(50);
-            return view('user.active', ['user' => $user, 'active' => $active]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $active = Peer::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->sortable(['created_at' => 'desc'])
+            ->where('user_id', $user->id)
+            ->distinct('hash')
+            ->paginate(50);
+
+        return view('user.active', ['user' => $user, 'active' => $active]);
     }
 
     /**
@@ -675,28 +659,26 @@ class UserController extends Controller
     public function myHistory($username, $id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $his_upl = History::where('user_id', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', $id)->sum('downloaded');
-            $history = History::with(['torrent' => function ($query) {
-                $query->withAnyStatus();
-            }])->sortable(['created_at' => 'desc'])
-                ->where('user_id', $user->id)
-                ->paginate(50);
 
-            return view('user.history', [
-                'user' => $user,
-                'history' => $history,
-                'his_upl' => $his_upl,
-                'his_upl_cre' => $his_upl_cre,
-                'his_downl' => $his_downl,
-                'his_downl_cre' => $his_downl_cre
-            ]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $his_upl = History::where('user_id', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', $id)->sum('downloaded');
+        $history = History::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->sortable(['created_at' => 'desc'])
+            ->where('user_id', $user->id)
+            ->paginate(50);
+
+        return view('user.history', [
+            'user' => $user,
+            'history' => $history,
+            'his_upl' => $his_upl,
+            'his_upl_cre' => $his_upl_cre,
+            'his_downl' => $his_downl,
+            'his_downl_cre' => $his_downl_cre
+        ]);
     }
     
     /**
@@ -709,14 +691,14 @@ class UserController extends Controller
     public function myUploadsSearch(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->group->is_modo || auth()->user()->id == $user->id) {
-            $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->where([
-             ['name', 'like', '%' . $request->input('name') . '%'],
-            ])->paginate(50);
-            return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])
+            ->where('user_id', $user->id)
+            ->where('name', 'like', '%' . $request->input('name') . '%')
+            ->paginate(50);
+
+        return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
     }
 
     /**
@@ -744,64 +726,61 @@ class UserController extends Controller
             return back()->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
 
-        if (auth()->user()->id == $user->id) {
-            // Define Dir Folder
-            $path = getcwd() . '/files/tmp_zip/';
+        abort_unless(auth()->user()->id == $user->id, 403);
+        // Define Dir Folder
+        $path = getcwd() . '/files/tmp_zip/';
 
-            // Zip File Name
-            $zipFileName = "{$user->username}.zip";
+        // Zip File Name
+        $zipFileName = "{$user->username}.zip";
 
-            // Create ZipArchive Obj
-            $zip = new ZipArchive();
+        // Create ZipArchive Obj
+        $zip = new ZipArchive();
 
-            // Get Users History
-            $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
+        // Get Users History
+        $historyTorrents = History::where('user_id', '=', $user->id)->pluck('info_hash');
 
-            if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === TRUE) {
-                // Match History Results To Torrents
-                foreach ($historyTorrents as $historyTorrent) {
-                    // Get Torrent
-                    $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
+        if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === TRUE) {
+            // Match History Results To Torrents
+            foreach ($historyTorrents as $historyTorrent) {
+                // Get Torrent
+                $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
 
-                    // Define The Torrent Filename
-                    $tmpFileName = "{$torrent->slug}.torrent";
+                // Define The Torrent Filename
+                $tmpFileName = "{$torrent->slug}.torrent";
 
-                    // The Torrent File Exist?
-                    if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
-                        return back()->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
-                    } else {
-                        // Delete The Last Torrent Tmp File If Exist
-                        if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
-                            unlink(getcwd() . '/files/tmp/' . $tmpFileName);
-                        }
+                // The Torrent File Exist?
+                if (!file_exists(getcwd() . '/files/torrents/' . $torrent->file_name)) {
+                    return back()->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
+                } else {
+                    // Delete The Last Torrent Tmp File If Exist
+                    if (file_exists(getcwd() . '/files/tmp/' . $tmpFileName)) {
+                        unlink(getcwd() . '/files/tmp/' . $tmpFileName);
                     }
-
-                    // Get The Content Of The Torrent
-                    $dict = Bencode::bdecode(file_get_contents(getcwd() . '/files/torrents/' . $torrent->file_name));
-                    // Set the announce key and add the user passkey
-                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
-                    // Remove Other announce url
-                    unset($dict['announce-list']);
-
-                    $fileToDownload = Bencode::bencode($dict);
-                    file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
-
-                    // Add Files To ZipArchive
-                    $zip->addFile(getcwd() . '/files/tmp/' . $tmpFileName, $tmpFileName);
                 }
-                // Close ZipArchive
-                $zip->close();
-            }
 
-            $zip_file = $path.'/'.$zipFileName;
+                // Get The Content Of The Torrent
+                $dict = Bencode::bdecode(file_get_contents(getcwd() . '/files/torrents/' . $torrent->file_name));
+                // Set the announce key and add the user passkey
+                $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
+                // Remove Other announce url
+                unset($dict['announce-list']);
 
-            if (file_exists($zip_file)) {
-                return response()->download($zip_file)->deleteFileAfterSend(true);
-            } else {
-                return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
+                $fileToDownload = Bencode::bencode($dict);
+                file_put_contents(getcwd() . '/files/tmp/' . $tmpFileName, $fileToDownload);
+
+                // Add Files To ZipArchive
+                $zip->addFile(getcwd() . '/files/tmp/' . $tmpFileName, $tmpFileName);
             }
+            // Close ZipArchive
+            $zip->close();
+        }
+
+        $zip_file = $path.'/'.$zipFileName;
+
+        if (file_exists($zip_file)) {
+            return response()->download($zip_file)->deleteFileAfterSend(true);
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 }

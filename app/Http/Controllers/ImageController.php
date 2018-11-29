@@ -96,25 +96,24 @@ class ImageController extends Controller
      */
     public function move(Request $request)
     {
-        if (auth()->user()->group->is_modo) {
-            $image = Image::findOrFail($request->input('photo'));
-            $image->album_id = $request->input('new_album');
+        $user = auth()->user();
 
-            $v = validator($image->toArray(), [
-                'new_album' => 'required|numeric|exists:albums,id',
-                'image' => 'required|numeric|exists:images,id'
-            ]);
+        abort_unless($user->group->is_modo, 403);
+        $image = Image::findOrFail($request->input('photo'));
+        $image->album_id = $request->input('new_album');
 
-            if ($v->fails()) {
-                return redirect()->route('gallery')
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-            } else {
-                $image->save();
+        $v = validator($image->toArray(), [
+            'new_album' => 'required|numeric|exists:albums,id',
+            'image' => 'required|numeric|exists:images,id'
+        ]);
 
-                return redirect()->route('show_album', ['id' => $request->input('new_album')]);
-            }
+        if ($v->fails()) {
+            return redirect()->route('gallery')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            $image->save();
+
+            return redirect()->route('show_album', ['id' => $request->input('new_album')]);
         }
     }
 
@@ -148,15 +147,13 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
+        $user = auth()->user();
         $image = Image::findOrFail($id);
 
-        if (auth()->user()->group->is_modo || auth()->user()->id === $image->user_id) {
-            $image->delete();
+        abort_unless($user->group->is_modo || $user->id === $image->user_id, 403);
+        $image->delete();
 
-            return redirect()->route('show_album', ['id' => $image->album_id])
-                ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return redirect()->route('show_album', ['id' => $image->album_id])
+            ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
     }
 }

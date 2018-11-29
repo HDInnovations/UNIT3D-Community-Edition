@@ -440,15 +440,12 @@ class CommentController extends Controller
         $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
-        if ($user->group->is_modo || $user->id == $comment->user_id) {
-            $content = $request->input('comment-edit');
-            $comment->content = $content;
-            $comment->save();
+        abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        $content = $request->input('comment-edit');
+        $comment->content = $content;
+        $comment->save();
 
-            return back()->with($this->toastr->success('Comment Has Been Edited.', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return back()->with($this->toastr->success('Comment Has Been Edited.', 'Yay!', ['options']));
     }
 
     /**
@@ -462,12 +459,9 @@ class CommentController extends Controller
         $user = auth()->user();
         $comment = Comment::findOrFail($comment_id);
 
-        if ($user->group->is_modo || $user->id == $comment->user_id) {
-            $comment->delete();
+        abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
+        $comment->delete();
 
-            return back()->with($this->toastr->success('Comment Has Been Deleted.', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return back()->with($this->toastr->success('Comment Has Been Deleted.', 'Yay!', ['options']));
     }
 }

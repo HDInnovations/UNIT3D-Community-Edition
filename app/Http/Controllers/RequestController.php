@@ -743,25 +743,23 @@ class RequestController extends Controller
         $torrentRequest = TorrentRequest::findOrFail($id);
         $claimer = TorrentRequestClaim::where('request_id', $id)->first();
 
-        if ($user->group->is_modo || $user->username == $claimer->username) {
-            if ($torrentRequest->claimed == 1) {
-                $requestClaim = TorrentRequestClaim::where('request_id', $id)->firstOrFail();
-                $requestClaim->delete();
+        abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
 
-                $torrentRequest->claimed = null;
-                $torrentRequest->save();
+        if ($torrentRequest->claimed == 1) {
+            $requestClaim = TorrentRequestClaim::where('request_id', $id)->firstOrFail();
+            $requestClaim->delete();
 
-                // Activity Log
-                \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+            $torrentRequest->claimed = null;
+            $torrentRequest->save();
 
-                return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->success("Request Successfully Un-Claimed", 'Yay!', ['options']));
-            } else {
-                return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->error("Nothing To Unclaim.", 'Whoops!', ['options']));
-            }
+            // Activity Log
+            \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
+
+            return redirect()->route('request', ['id' => $id])
+                ->with($this->toastr->success("Request Successfully Un-Claimed", 'Yay!', ['options']));
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return redirect()->route('request', ['id' => $id])
+                ->with($this->toastr->error("Nothing To Unclaim.", 'Whoops!', ['options']));
         }
     }
 }

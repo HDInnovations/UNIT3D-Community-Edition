@@ -487,19 +487,15 @@ class ForumController extends Controller
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
 
-        if ($user->group->is_modo) {
-            $name = $request->input('name');
-            $forum_id = $request->input('forum_id');
+        abort_unless($user->group->is_modo, 403);
+        $name = $request->input('name');
+        $forum_id = $request->input('forum_id');
+        $topic->name = $name;
+        $topic->forum_id = $forum_id;
+        $topic->save();
 
-            $topic->name = $name;
-            $topic->forum_id = $forum_id;
-            $topic->save();
-
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->success('Topic Successfully Edited', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with($this->toastr->success('Topic Successfully Edited', 'Yay!', ['options']));
     }
 
     /**

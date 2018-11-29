@@ -458,15 +458,13 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        if ($user->group->is_modo || $user->id == $torrent->user_id) {
-            return view('torrent.edit_torrent', [
-                'categories' => Category::all()->sortBy('position'),
-                'types' => Type::all()->sortBy('position'),
-                'torrent' => $torrent
-            ]);
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
-        }
+        abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+
+        return view('torrent.edit_torrent', [
+            'categories' => Category::all()->sortBy('position'),
+            'types' => Type::all()->sortBy('position'),
+            'torrent' => $torrent
+        ]);
     }
 
     /**
@@ -482,56 +480,53 @@ class TorrentController extends Controller
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-        if ($user->group->is_modo || $user->id == $torrent->user_id) {
-            $torrent->name = $request->input('name');
-            $torrent->slug = str_slug($torrent->name);
-            $torrent->description = $request->input('description');
-            $torrent->category_id = $request->input('category_id');
-            $torrent->imdb = $request->input('imdb');
-            $torrent->tvdb = $request->input('tvdb');
-            $torrent->tmdb = $request->input('tmdb');
-            $torrent->mal = $request->input('mal');
-            $torrent->type = $request->input('type');
-            $torrent->mediainfo = $request->input('mediainfo');
-            $torrent->anon = $request->input('anonymous');
-            $torrent->stream = $request->input('stream');
-            $torrent->sd = $request->input('sd');
-            $torrent->internal = $request->input('internal');
+        abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
+        $torrent->name = $request->input('name');
+        $torrent->slug = str_slug($torrent->name);
+        $torrent->description = $request->input('description');
+        $torrent->category_id = $request->input('category_id');
+        $torrent->imdb = $request->input('imdb');
+        $torrent->tvdb = $request->input('tvdb');
+        $torrent->tmdb = $request->input('tmdb');
+        $torrent->mal = $request->input('mal');
+        $torrent->type = $request->input('type');
+        $torrent->mediainfo = $request->input('mediainfo');
+        $torrent->anon = $request->input('anonymous');
+        $torrent->stream = $request->input('stream');
+        $torrent->sd = $request->input('sd');
+        $torrent->internal = $request->input('internal');
 
-            $v = validator($torrent->toArray(), [
-                'name' => 'required',
-                'slug' => 'required',
-                'description' => 'required',
-                'category_id' => 'required',
-                'imdb' => 'required|numeric',
-                'tvdb' => 'required|numeric',
-                'tmdb' => 'required|numeric',
-                'mal' => 'required|numeric',
-                'type' => 'required',
-                'anon' => 'required',
-                'stream' => 'required',
-                'sd' => 'required'
-            ]);
+        $v = validator($torrent->toArray(), [
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required',
+            'category_id' => 'required',
+            'imdb' => 'required|numeric',
+            'tvdb' => 'required|numeric',
+            'tmdb' => 'required|numeric',
+            'mal' => 'required|numeric',
+            'type' => 'required',
+            'anon' => 'required',
+            'stream' => 'required',
+            'sd' => 'required'
+        ]);
 
-            if ($v->fails()) {
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-            } else {
-                $torrent->save();
-
-                if ($user->group->is_modo) {
-                    // Activity Log
-                    \LogActivity::addToLog("Staff Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                } else {
-                    // Activity Log
-                    \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-                }
-
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                    ->with($this->toastr->success('Successfully Edited!!!', 'Yay!', ['options']));
-            }
+        if ($v->fails()) {
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            $torrent->save();
+
+            if ($user->group->is_modo) {
+                // Activity Log
+                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            } else {
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has edited torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            }
+
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->success('Successfully Edited!!!', 'Yay!', ['options']));
         }
     }
 
@@ -896,36 +891,33 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            $torrent->created_at = Carbon::now();
-            $torrent->save();
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent->created_at = Carbon::now();
+        $torrent->save();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member " . $user->username . " has bumped torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+        // Activity Log
+        \LogActivity::addToLog("Staff Member " . $user->username . " has bumped torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-            // Announce To Chat
-            $torrent_url = hrefTorrent($torrent);
-            $profile_url = hrefProfile($user);
+        // Announce To Chat
+        $torrent_url = hrefTorrent($torrent);
+        $profile_url = hrefProfile($user);
 
-            $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
-            );
+        $this->chat->systemMessage(
+            ":robot: [b][color=#fb9776]System[/color][/b] : Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+        );
 
-            // Announce To IRC
-            if (config('irc-bot.enabled') == true) {
-                $appname = config('app.name');
-                $bot = new IRCAnnounceBot();
-                $bot->message("#announce", "[" . $appname . "] User " . $user->username . " has bumped " . $torrent->name . " , it could use more seeds!");
-                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: $torrent_url]");
-            }
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
-        } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+        // Announce To IRC
+        if (config('irc-bot.enabled') == true) {
+            $appname = config('app.name');
+            $bot = new IRCAnnounceBot();
+            $bot->message("#announce", "[" . $appname . "] User " . $user->username . " has bumped " . $torrent->name . " , it could use more seeds!");
+            $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
+            $bot->message("#announce", "[Link: $torrent_url]");
         }
+
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Torrent Has Been Bumped To Top Successfully!', 'Yay!', ['options']));
     }
 
     /**
@@ -972,23 +964,22 @@ class TorrentController extends Controller
      */
     public function sticky($slug, $id)
     {
-        if (auth()->user()->group->is_modo || auth()->user()->group->is_internal) {
-            $torrent = Torrent::withAnyStatus()->findOrFail($id);
-            if ($torrent->sticky == 0) {
-                $torrent->sticky = "1";
-            } else {
-                $torrent->sticky = "0";
-            }
-            $torrent->save();
+        $user = auth()->user();
 
-            // Activity Log
-            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        if ($torrent->sticky == 0) {
+            $torrent->sticky = "1";
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            $torrent->sticky = "0";
         }
+        $torrent->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has stickied torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Torrent Sticky Status Has Been Adjusted!', 'Yay!', ['options']));
     }
 
     /**
@@ -1001,35 +992,32 @@ class TorrentController extends Controller
     public function grantFL($slug, $id)
     {
         $user = auth()->user();
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-            $torrent_url = hrefTorrent($torrent);
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent_url = hrefTorrent($torrent);
 
-            if ($torrent->free == 0) {
-                $torrent->free = "1";
+        if ($torrent->free == 0) {
+            $torrent->free = "1";
 
-                $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
-                );
-            } else {
-                $torrent->free = "0";
-
-                $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
-                );
-            }
-
-            $torrent->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Staff Member " . $user->username . " has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
+            $this->chat->systemMessage(
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+            );
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            $torrent->free = "0";
+
+            $this->chat->systemMessage(
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+            );
         }
+
+        $torrent->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Staff Member " . $user->username . " has granted freeleech on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Torrent FL Has Been Adjusted!', 'Yay!', ['options']));
     }
 
     /**
@@ -1043,37 +1031,34 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
-            if ($torrent->featured == 0) {
-                $torrent->free = "1";
-                $torrent->doubleup = "1";
-                $torrent->featured = "1";
-                $torrent->save();
+        if ($torrent->featured == 0) {
+            $torrent->free = "1";
+            $torrent->doubleup = "1";
+            $torrent->featured = "1";
+            $torrent->save();
 
-                $featured = new FeaturedTorrent();
-                $featured->user_id = $user->id;
-                $featured->torrent_id = $torrent->id;
-                $featured->save();
+            $featured = new FeaturedTorrent();
+            $featured->user_id = $user->id;
+            $featured->torrent_id = $torrent->id;
+            $featured->save();
 
-                $torrent_url = hrefTorrent($torrent);
-                $profile_url = hrefProfile($user);
-                $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
-                );
+            $torrent_url = hrefTorrent($torrent);
+            $profile_url = hrefProfile($user);
+            $this->chat->systemMessage(
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+            );
 
-                // Activity Log
-                \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+            // Activity Log
+            \LogActivity::addToLog("Staff Member " . auth()->user()->username . " has featured torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
 
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                    ->with($this->toastr->success('Torrent Is Now Featured!', 'Yay!', ['options']));
-            } else {
-                return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                    ->with($this->toastr->error('Torrent Is Already Featured!', 'Whoops!', ['options']));
-            }
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->success('Torrent Is Now Featured!', 'Yay!', ['options']));
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+                ->with($this->toastr->error('Torrent Is Already Featured!', 'Whoops!', ['options']));
         }
     }
 
@@ -1088,33 +1073,29 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->group->is_modo || $user->group->is_internal) {
-            $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $torrent_url = hrefTorrent($torrent);
 
-            $torrent_url = hrefTorrent($torrent);
+        if ($torrent->doubleup == 0) {
+            $torrent->doubleup = "1";
 
-            if ($torrent->doubleup == 0) {
-                $torrent->doubleup = "1";
-
-                $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
-                );
-            } else {
-                $torrent->doubleup = "0";
-                $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
-                );
-            }
-            $torrent->save();
-
-            // Activity Log
-            \LogActivity::addToLog("Staff Member " . $user->username . " has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
-
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
-                ->with($this->toastr->success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
+            $this->chat->systemMessage(
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+            );
         } else {
-            return back()->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Error 403', ['options']));
+            $torrent->doubleup = "0";
+            $this->chat->systemMessage(
+                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+            );
         }
+        $torrent->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Staff Member " . $user->username . " has granted double upload on torrent, ID: {$torrent->id} NAME: {$torrent->name} .");
+
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Torrent DoubleUpload Has Been Adjusted!', 'Yay!', ['options']));
     }
 
     /**
