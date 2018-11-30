@@ -1,8 +1,9 @@
 <header id="hoe-header" hoe-color-type="header-bg5" hoe-lpanel-effect="shrink" class="hoe-minimized-lpanel">
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home') }}">
-            <div class="banner"><i class="{{ config('other.font-awesome') }} fa-rocket" style="display: inline;"></i>
-                <span>{{ config('other.title') }}</span></div>
+            <div class="banner">
+                <i class="{{ config('other.font-awesome') }} fa-rocket" style="display: inline;"></i>
+            </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
     </div>
