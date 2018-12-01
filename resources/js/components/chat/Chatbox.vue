@@ -1,5 +1,5 @@
 <template>
-    <div class="col-md-10 col-sm-10 col-md-offset-1 chatbox">
+    <div>
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat">
             <div class="panel-heading">

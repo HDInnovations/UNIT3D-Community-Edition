@@ -12,6 +12,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -27,37 +28,30 @@ class UsersTableSeeder extends Seeder
                 'username' => 'System',
                 'email' => 'system@none.com',
                 'group_id' => 9,
-                'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'password' => Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
+                'active' => 1,
             ],
             [
                 'username' => 'Bot',
                 'email' => 'bot@none.com',
                 'group_id' => 9,
-                'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
+                'password' => Hash::make(env('DEFAULT_OWNER_PASSWORD')),
                 'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
+                'active' => 1,
             ],
             [
                 'username' => env('DEFAULT_OWNER_NAME', 'UNIT3D'),
                 'email' => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
                 'group_id' => 10,
-                'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD', 'UNIT3D')),
+                'password' => Hash::make(env('DEFAULT_OWNER_PASSWORD', 'UNIT3D')),
                 'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
-            ]
+                'active' => 1,
+            ],
         ];
 
         foreach ($users as $user) {
-            User::create([
-                'username' => $user['username'],
-                'email' => $user['email'],
-                'group_id' => $user['group_id'],
-                'password' => $user['password'],
-                'passkey' => $user['passkey'],
-                'active' => $user['active']
-            ]);
+            User::create($user);
         }
     }
 }

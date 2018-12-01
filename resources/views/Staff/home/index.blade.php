@@ -37,7 +37,8 @@
                         <h2 class="text-bold text-center text-green">
                             <i class=" {{ config('other.font-awesome') }} fa-terminal"></i> Codebase
                         </h2>
-                        <h3 class="text-bold text-center">Currently Running {{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h3>
+                        <h3 class="text-bold text-center">Currently
+                            Running {{ config('unit3d.codebase') }} {{ config('unit3d.version') }}</h3>
                         <version></version>
                     </div>
                 </div>
@@ -46,29 +47,30 @@
             <div class="col-sm-5 col-lg-5">
                 <div class="block">
                     <div class="panel-body">
-                    @if (request()->secure())
-                        <h2 class="text-bold text-center text-green">
-                            <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
-                        </h2>
-                        <h3 class="text-bold text-center">
-                            {{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span>
-                        </h3>
-                        <div style="padding-top: 15px">
-                            <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
-                            <span class="text-red" style="float: right">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
-                        </div>
-                    @else
-                        <h2 class="text-bold text-center text-red">
-                            <i class=" {{ config('other.font-awesome') }} fa-unlock"></i> SSL Cert
-                        </h2>
-                        <h3 class="text-bold text-center">
-                            {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
-                        </h3>
-                        <div style="padding-top: 15px">
-                            <span class="text-red text-left">Issued By: N/A}</span>
-                            <span class="text-red" style="float: right">Expires: N/A</span>
-                        </div>
-                    @endif
+                        @if($certificate)
+                            <h2 class="text-bold text-center text-green">
+                                <i class=" {{ config('other.font-awesome') }} fa-lock"></i> SSL Cert
+                            </h2>
+                            <h3 class="text-bold text-center">
+                                {{ config('app.url') }} -- <span class="text-muted">{{ $certificate->isValid() ? 'VALID' : 'INVALID' }}</span>
+                            </h3>
+                            <div style="padding-top: 15px">
+                                <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
+                                <span class="text-red"
+                                      style="float: right">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                            </div>
+                        @else
+                            <h2 class="text-bold text-center text-red">
+                                <i class=" {{ config('other.font-awesome') }} fa-unlock"></i> SSL Cert
+                            </h2>
+                            <h3 class="text-bold text-center">
+                                {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
+                            </h3>
+                            <div style="padding-top: 15px">
+                                <span class="text-red text-left">Issued By: N/A</span>
+                                <span class="text-red" style="float: right">Expires: N/A</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -88,7 +90,8 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 text-right">
-                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Total Torrents</span>
+                                                    <span class="text-bold"
+                                                          style="font-size: 18px; padding-bottom: 10px;">Total Torrents</span>
                                                     <div class="number" id="myTargetElement1"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-magnet pull-right"
@@ -171,7 +174,8 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 pull-left">
-                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Users</span>
+                                                    <span class="text-bold"
+                                                          style="font-size: 18px; padding-bottom: 10px;">Users</span>
                                                     <div class="number" id="myTargetElement4"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-users pull-right"
@@ -200,7 +204,8 @@
                                         <div class="col-xs-12 pull-left nopadmar">
                                             <div class="row">
                                                 <div class="square_box col-xs-7 pull-left">
-                                                    <span class="text-bold" style="font-size: 18px; padding-bottom: 10px;">Reports</span>
+                                                    <span class="text-bold"
+                                                          style="font-size: 18px; padding-bottom: 10px;">Reports</span>
                                                     <div class="number" id="myTargetElement5"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-clipboard-list pull-right"
@@ -311,65 +316,65 @@
                             </div>
                         </div>
 
-                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
+    </div>
     </div>
 @endsection
 
 @section('javascripts')
     <script>
-      var useOnComplete = false,
-        useEasing = false,
-        useGrouping = false,
-        options = {
-          useEasing: useEasing, // toggle easing
-          useGrouping: useGrouping, // 1,000,000 vs 1000000
-          separator: ',', // character to use as a separator
-          decimal: '.' // character to use as a decimal
-        };
+        var useOnComplete = false,
+            useEasing = false,
+            useGrouping = false,
+            options = {
+                useEasing: useEasing, // toggle easing
+                useGrouping: useGrouping, // 1,000,000 vs 1000000
+                separator: ',', // character to use as a separator
+                decimal: '.' // character to use as a decimal
+            };
 
-      // Torrents
-      var demo = new CountUp('myTargetElement1', 0, {{ $num_torrent }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement1.1', 0, {{ $pending }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement1.2', 0, {{ $rejected }}, 0, 4, options);
-      demo.start();
+        // Torrents
+        var demo = new CountUp('myTargetElement1', 0, {{ $num_torrent }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement1.1', 0, {{ $pending }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement1.2', 0, {{ $rejected }}, 0, 4, options);
+        demo.start();
 
-      // Peers
-      var demo = new CountUp('myTargetElement2', 0, {{ $peers }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement2.1', 0, {{ $seeders }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement2.2', 0, {{ $leechers }}, 0, 4, options);
-      demo.start();
+        // Peers
+        var demo = new CountUp('myTargetElement2', 0, {{ $peers }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement2.1', 0, {{ $seeders }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement2.2', 0, {{ $leechers }}, 0, 4, options);
+        demo.start();
 
-      // Seedboxes
-      var demo = new CountUp('myTargetElement3', 0, {{ $seedboxes }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement3.1', 0, {{ $highspeed_users }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement3.2', 0, {{ $highspeed_torrents }}, 0, 4, options);
-      demo.start();
+        // Seedboxes
+        var demo = new CountUp('myTargetElement3', 0, {{ $seedboxes }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement3.1', 0, {{ $highspeed_users }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement3.2', 0, {{ $highspeed_torrents }}, 0, 4, options);
+        demo.start();
 
-      // Users
-      var demo = new CountUp('myTargetElement4', 0, {{ $num_user }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement4.1', 0, {{ $validating }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement4.2', 0, {{ $banned }}, 0, 4, options);
-      demo.start();
+        // Users
+        var demo = new CountUp('myTargetElement4', 0, {{ $num_user }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement4.1', 0, {{ $validating }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement4.2', 0, {{ $banned }}, 0, 4, options);
+        demo.start();
 
-      // Reports
-      var demo = new CountUp('myTargetElement5', 0, {{ $reports }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement5.1', 0, {{ $solved }}, 0, 4, options);
-      demo.start();
-      var demo = new CountUp('myTargetElement5.2', 0, {{ $unsolved }}, 0, 4, options);
-      demo.start();
+        // Reports
+        var demo = new CountUp('myTargetElement5', 0, {{ $reports }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement5.1', 0, {{ $solved }}, 0, 4, options);
+        demo.start();
+        var demo = new CountUp('myTargetElement5.2', 0, {{ $unsolved }}, 0, 4, options);
+        demo.start();
     </script>
 @endsection

@@ -12,11 +12,16 @@
 
 namespace App;
 
+use App\Interfaces\PresentableInterface;
+use App\Presenters\ArticlePresenter;
+use App\Traits\Presentable;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-class Article extends Model
+class Article extends Model implements PresentableInterface
 {
+    use Presentable;
+
     /**
      * Belongs To A User
      *
@@ -81,5 +86,15 @@ class Article extends Model
     public function getContentHtml()
     {
         return Bbcode::parse($this->content);
+    }
+
+    /**
+     * Return the presenter for this model.
+     *
+     * @return string
+     */
+    public function getPresenterClass(): string
+    {
+        return ArticlePresenter::class;
     }
 }

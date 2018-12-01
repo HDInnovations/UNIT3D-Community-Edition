@@ -12,11 +12,16 @@
 
 namespace App;
 
+use App\Interfaces\PresentableInterface;
+use App\Presenters\PostPresenter;
+use App\Traits\Presentable;
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
 
-class Post extends Model
+class Post extends Model implements PresentableInterface
 {
+    use Presentable;
+
     /**
      * Belongs To A Topic
      *
@@ -114,5 +119,13 @@ class Post extends Model
         $result = floor($result);
 
         return $result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPresenterClass(): string
+    {
+        return PostPresenter::class;
     }
 }
