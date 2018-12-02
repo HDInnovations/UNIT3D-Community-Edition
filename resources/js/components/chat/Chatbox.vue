@@ -4,9 +4,7 @@
         <div class="panel panel-chat">
             <div class="panel-heading">
                 <h4>
-                    Chatbox 2.1 Beta
-                    ( <a target="_blank"
-                         href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
+                    Chatbox
                 </h4>
             </div>
 
