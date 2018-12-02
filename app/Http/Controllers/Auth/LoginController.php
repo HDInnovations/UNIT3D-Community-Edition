@@ -82,15 +82,15 @@ class LoginController extends Controller
         $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
 
         if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
-            auth()->logout();
-            $request->session()->flush();
+            $this->guard()->logout();
+            $request->session()->invalidate();
             return redirect()->route('login')
                 ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
 
         if ($user->group_id == $bannedGroup->id) {
-            auth()->logout();
-            $request->session()->flush();
+            $this->guard()->logout();
+            $request->session()->invalidate();
             return redirect()->route('login')
                 ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
         }
