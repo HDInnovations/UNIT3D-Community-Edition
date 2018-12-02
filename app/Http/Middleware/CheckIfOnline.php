@@ -13,6 +13,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Group;
 use Carbon\Carbon;
 
 class CheckIfOnline
