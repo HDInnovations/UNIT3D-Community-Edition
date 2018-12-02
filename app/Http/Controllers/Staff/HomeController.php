@@ -74,28 +74,28 @@ class HomeController extends Controller
         $avg = $sys->avg();
         $basic = $sys->basic();
 
-        return view('Staff.home.index', compact(
-            'num_user',
-            'banned',
-            'validating',
-            'num_torrent',
-            'pending',
-            'rejected',
-            'peers',
-            'seeders',
-            'leechers',
-            'seedboxes',
-            'highspeed_users',
-            'highspeed_torrents',
-            'reports',
-            'unsolved',
-            'solved',
-            'certificate',
-            'uptime',
-            'ram',
-            'disk',
-            'avg',
-            'basic'
-        ));
+        return view('Staff.home.index', [
+            'num_user' => $num_user,
+            'banned' => $banned,
+            'validating' => $validating,
+            'num_torrent' => $num_torrent,
+            'pending' => $pending,
+            'rejected' => $rejected,
+            'peers' => $peers,
+            'seeders' => $seeders,
+            'leechers' => $leechers,
+            'seedboxes' => $seedboxes,
+            'highspeed_users' => $highspeed_users,
+            'highspeed_torrents' => $highspeed_torrents,
+            'reports' => $reports,
+            'unsolved' => $unsolved,
+            'solved' => $solved,
+            'certificate' => $certificate,
+            'uptime' => $uptime,
+            'ram' => $ram,
+            'disk' => $disk,
+            'avg' => $avg,
+            'basic' => $basic,
+        ]);
     }
 }
