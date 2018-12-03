@@ -116,6 +116,7 @@ return [
     'reason' => 'Reason',
     'remove' => 'Remove',
     'report' => 'Report',
+    'resend' => 'Resend',
     'reporter' => 'Reporter',
     'required' => 'Required',
     'results' => 'Results',

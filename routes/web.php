@@ -266,6 +266,7 @@ Route::group(['middleware' => 'language'], function () {
         // Invite System
         Route::get('/invite', 'InviteController@invite')->name('invite');
         Route::post('/invite', 'InviteController@process')->name('process');
+        Route::post('/resendinvite/{id}', 'InviteController@reProcess')->name('reProcess');
         Route::get('/invite/tree/{username}.{id}', 'InviteController@inviteTree')->name('inviteTree');
 
         // Poll System

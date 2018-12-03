@@ -133,6 +133,33 @@ class InviteController extends Controller
     }
 
     /**
+     * Resend Invite
+     *
+     * @param $id
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function reProcess($id)
+    {
+        $user = auth()->user();
+        $invite = Invite::findOrFail($id);
+
+        abort_unless($invite->user_id === $user->id, 403);
+
+        if ($invite->accepted_by !== null) {
+            return redirect()->back()
+                ->with($this->toastr->error('The invite you are trying to resend has already been used.', 'Whoops!', ['options']));
+        }
+
+        Mail::to($invite->email)->send(new InviteUser($invite));
+
+        // Activity Log
+        \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
+
+        return redirect()->back()
+            ->with($this->toastr->success('Invite was resent successfully!', 'Yay!', ['options']));
+    }
+
+    /**
      * Invite Tree
      *
      * @param $username
@@ -141,13 +168,12 @@ class InviteController extends Controller
      */
     public function inviteTree($username, $id)
     {
-        if (auth()->user()->group->is_modo) {
-            $user = User::findOrFail($id);
-            $records = Invite::with(['sender', 'receiver'])->where('user_id', $user->id)->latest()->paginate(25);
-        } else {
-            $user = auth()->user();
-            $records = Invite::with(['sender', 'receiver'])->where('user_id', $user->id)->latest()->paginate(25);
-        }
-        return view('user.invitetree', ['user' => $user, 'records' => $records]);
+        $user = auth()->user();
+        $owner = User::findOrFail($id);
+        abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
+
+        $invites = Invite::with(['sender', 'receiver'])->where('user_id', $id)->latest()->paginate(25);
+
+        return view('user.invitetree', ['owner' => $owner, 'invites' => $invites]);
     }
 }
