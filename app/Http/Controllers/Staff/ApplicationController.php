@@ -40,7 +40,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::with(['user', 'moderated', 'imageProofs', 'urlProofs'])->latest()->paginate(25);
+        $applications = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->latest()->paginate(25);
 
         return view('application.index', ['applications' => $applications]);
     }
@@ -53,7 +53,7 @@ class ApplicationController extends Controller
      */
     public function show($id)
     {
-        $application = Application::with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
+        $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
         return view('application.application', ['application' => $application]);
     }

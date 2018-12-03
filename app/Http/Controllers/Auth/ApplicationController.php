@@ -42,7 +42,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return view('auth.create_application');
+        return view('auth.application.create');
     }
 
     /**
@@ -96,5 +96,6 @@ class ApplicationController extends Controller
     public function show($email)
     {
         // Coming Soon!
+        return view('auth.application.application');
     }
 }
