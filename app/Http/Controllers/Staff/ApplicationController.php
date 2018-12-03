@@ -71,8 +71,50 @@ class ApplicationController extends Controller
 
         if ($application->status !== 1) {
             $application->markApproved();
-            return redirect()->route('staff_applications')
-                ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
+
+            $current = new Carbon();
+            $user = auth()->user();
+
+            $code = Uuid::uuid4()->toString();
+            $invite = new Invite();
+            $invite->user_id = $user->id;
+            $invite->email = $application->email;
+            $invite->code = $code;
+            $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
+            $invite->custom = "Your Application Has Been Approved!";
+
+            if (config('email-white-blacklist.enabled') === 'allow') {
+                $v = validator($invite->toArray(), [
+                    "email" => "required|email|unique:invites|unique:users|email_list:allow", // Whitelist
+                    "custom" => "required"
+                ]);
+            } elseif (config('email-white-blacklist.enabled') === 'block') {
+                $v = validator($invite->toArray(), [
+                    "email" => "required|email|unique:invites|unique:users|email_list:block", // Blacklist
+                    "custom" => "required"
+                ]);
+            } else {
+                $v = validator($invite->toArray(), [
+                    "email" => "required|email|unique:invites|unique:users", // Default
+                    "custom" => "required"
+                ]);
+            }
+
+
+            if ($v->fails()) {
+                return redirect()->route('invite')
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            } else {
+                Mail::to($application->email)->send(new InviteUser($invite));
+                $invite->save();
+
+                // Activity Log
+                \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
+
+                return redirect()->route('staff_applications')
+                    ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
+            }
+
         } else {
             return redirect()->back()
                 ->with($this->toastr->error('Application Already Approved', 'Whoops!', ['options']));

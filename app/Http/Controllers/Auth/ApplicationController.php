@@ -59,11 +59,25 @@ class ApplicationController extends Controller
         $application->email = $request->input('email');
         $application->referer = $request->input('referer');
 
-        $v = validator($application->toArray(), [
-            'type' => 'required|unique:groups',
-            'email' => 'required|unique:applications',
-            'referer' => 'required'
-        ]);
+        if (config('email-white-blacklist.enabled') === 'allow') {
+            $v = validator($application->toArray(), [
+                'type' => 'required',
+                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                'referer' => 'required'
+            ]);
+        } elseif (config('email-white-blacklist.enabled') === 'block') {
+            $v = validator($application->toArray(), [
+                'type' => 'required',
+                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                'referer' => 'required'
+            ]);
+        } else {
+            $v = validator($application->toArray(), [
+                'type' => 'required',
+                'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                'referer' => 'required'
+            ]);
+        }
 
         if ($v->fails()) {
             return redirect()->route('create_application')
