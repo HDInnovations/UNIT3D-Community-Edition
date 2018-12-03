@@ -72,7 +72,7 @@ abstract class Client
         $key = 'movietvdb:' . $key;
 
         if ($data) {
-            $this->redis->setex($key, 86400, serialize($data));
+            $this->redis->setex($key, 604800, serialize($data));
 
             return $data;
         }
