@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Group;
 use App\User;
+use App\Group;
 use App\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

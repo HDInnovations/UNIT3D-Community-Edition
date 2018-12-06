@@ -108,7 +108,7 @@ class SystemInformation
             'pgsql',
             'sqlsrv',
         ];
-        if (!in_array(config('database.default'), $knownDatabases)) {
+        if (! in_array(config('database.default'), $knownDatabases)) {
             return 'Unkown';
         }
         $results = DB::select(DB::raw('select version()'));

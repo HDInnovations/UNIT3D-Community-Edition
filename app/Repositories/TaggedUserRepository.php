@@ -13,8 +13,8 @@
 
 namespace App\Repositories;
 
-use App\PrivateMessage;
 use App\User;
+use App\PrivateMessage;
 
 class TaggedUserRepository
 {
@@ -162,7 +162,7 @@ class TaggedUserRepository
     protected function validate($user)
     {
         if (is_object($user)) {
-            if (!$this->debug || $user->id === auth()->user()->id) {
+            if (! $this->debug || $user->id === auth()->user()->id) {
                 return false;
             }
 

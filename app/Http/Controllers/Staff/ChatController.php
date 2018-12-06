@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Message;
 use App\Chatroom;
 use App\ChatStatus;
-use App\Events\MessageDeleted;
-use App\Http\Controllers\Controller;
-use App\Message;
-use App\Repositories\ChatRepository;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Events\MessageDeleted;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 
 class ChatController extends Controller
 {

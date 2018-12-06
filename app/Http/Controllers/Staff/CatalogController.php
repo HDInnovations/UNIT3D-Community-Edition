@@ -15,9 +15,9 @@ namespace App\Http\Controllers\Staff;
 
 use App\Catalog;
 use App\CatalogTorrent;
-use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CatalogController extends Controller
 {
@@ -88,7 +88,7 @@ class CatalogController extends Controller
             'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u',
         ]);
         $catalog = Catalog::findOrFail($catalog_id);
-        if (!$catalog) {
+        if (! $catalog) {
             return redirect()->route('getCatalog')
                 ->with($this->toastr->error('Catalog '.$request->input('catalog').' is not in our DB!', 'Whoops!', ['options']));
         }
@@ -109,7 +109,7 @@ class CatalogController extends Controller
     public function deleteCatalog($catalog_id)
     {
         $catalog = Catalog::findOrFail($catalog_id);
-        if (!$catalog) {
+        if (! $catalog) {
             return redirect()->route('getCatalog')
                 ->with($this->toastr->error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
         }

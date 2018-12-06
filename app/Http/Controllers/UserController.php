@@ -13,24 +13,24 @@
 
 namespace App\Http\Controllers;
 
-use App\BonTransactions;
+use Image;
+use App\Peer;
+use App\User;
+use App\Group;
 use App\Client;
 use App\Follow;
-use App\Group;
-use App\History;
 use App\Invite;
-use App\Peer;
-use App\PrivateMessage;
-use App\Services\Bencode;
+use ZipArchive;
+use App\History;
 use App\Torrent;
-use App\User;
 use App\Warning;
-use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
+use App\PrivateMessage;
+use App\BonTransactions;
+use App\Services\Bencode;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Image;
-use ZipArchive;
 
 class UserController extends Controller
 {
@@ -771,7 +771,7 @@ class UserController extends Controller
                 $tmpFileName = "{$torrent->slug}.torrent";
 
                 // The Torrent File Exist?
-                if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     return back()->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
                 } else {
                     // Delete The Last Torrent Tmp File If Exist

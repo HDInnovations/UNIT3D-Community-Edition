@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\FailedLoginAttempt;
 use Carbon\Carbon;
+use App\FailedLoginAttempt;
 use Illuminate\Console\Command;
 
 class AutoRecycleFailedLogins extends Command

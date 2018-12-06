@@ -13,24 +13,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Achievements\UserFilled100Requests;
+use App\Type;
+use App\User;
+use App\Torrent;
+use App\Category;
+use Carbon\Carbon;
+use App\PrivateMessage;
+use App\TorrentRequest;
+use App\BonTransactions;
+use App\TorrentRequestClaim;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\TorrentRequestBounty;
+use App\Repositories\ChatRepository;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\BonTransactions;
-use App\Category;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
+use App\Achievements\UserFilled100Requests;
 use App\Repositories\RequestFacetedRepository;
-use App\Torrent;
-use App\TorrentRequest;
-use App\TorrentRequestBounty;
-use App\TorrentRequestClaim;
-use App\Type;
-use App\User;
-use Brian2694\Toastr\Toastr;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class RequestController extends Controller
 {

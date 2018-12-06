@@ -13,27 +13,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Like;
+use App\Post;
+use App\User;
+use App\Forum;
+use App\Topic;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
+use App\Achievements\UserMade25Posts;
+use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade100Posts;
 use App\Achievements\UserMade200Posts;
-use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade300Posts;
 use App\Achievements\UserMade400Posts;
 use App\Achievements\UserMade500Posts;
-use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
 use App\Achievements\UserMadeFirstPost;
-use App\Forum;
-use App\Like;
-use App\Post;
-use App\Repositories\ChatRepository;
 use App\Repositories\TaggedUserRepository;
-use App\Topic;
-use App\User;
-use Brian2694\Toastr\Toastr;
-use Illuminate\Http\Request;
 
 class ForumController extends Controller
 {
@@ -226,7 +226,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == 'close' && !auth()->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! auth()->user()->group->is_modo)) {
             return redirect()->route('forum_index')
                 ->with($this->toastr->error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }

@@ -13,8 +13,8 @@
 
 namespace App\Services\Clients;
 
-use App\Services\Contracts\MangaInterface;
 use Symfony\Component\DomCrawler\Crawler;
+use App\Services\Contracts\MangaInterface;
 
 class MangaUpdatesClient extends Client implements MangaInterface
 {

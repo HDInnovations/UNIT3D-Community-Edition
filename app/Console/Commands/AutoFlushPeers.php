@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\History;
 use App\Peer;
+use App\History;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

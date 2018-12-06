@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Invite;
-use App\Mail\InviteUser;
 use App\User;
-use Brian2694\Toastr\Toastr;
+use App\Invite;
 use Carbon\Carbon;
+use Ramsey\Uuid\Uuid;
+use App\Mail\InviteUser;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
 {
@@ -74,7 +74,7 @@ class InviteController extends Controller
         $invites_restricted = config('other.invites_restriced', false);
         $invite_groups = config('other.invite_groups', []);
 
-        if ($invites_restricted && !in_array($user->group->name, $invite_groups)) {
+        if ($invites_restricted && ! in_array($user->group->name, $invite_groups)) {
             return redirect()->route('invite')
                 ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }

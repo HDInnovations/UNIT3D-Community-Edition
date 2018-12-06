@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Torrent;
+use Carbon\Carbon;
 use App\BonExchange;
+use App\PrivateMessage;
 use App\BonTransactions;
 use App\PersonalFreeleech;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
-use App\Torrent;
-use App\User;
 use Brian2694\Toastr\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\ChatRepository;
 
 class BonusController extends Controller
 {
@@ -139,7 +139,7 @@ class BonusController extends Controller
         if ($userbon >= $itemCost) {
             $flag = $this->doItemExchange($user->id, $id);
 
-            if (!$flag) {
+            if (! $flag) {
                 return redirect()->route('bonus', ['username' => $user->username])
                     ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
@@ -183,7 +183,7 @@ class BonusController extends Controller
                 return false;
             }
         } elseif ($item['personal_freeleech'] == true) {
-            if (!$activefl) {
+            if (! $activefl) {
                 $personal_freeleech = new PersonalFreeleech();
                 $personal_freeleech->user_id = $user_acc->id;
                 $personal_freeleech->save();
@@ -238,7 +238,7 @@ class BonusController extends Controller
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
-            if (!$recipient || $recipient->id == $user->id) {
+            if (! $recipient || $recipient->id == $user->id) {
                 return redirect('/bonus')
                     ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
             }

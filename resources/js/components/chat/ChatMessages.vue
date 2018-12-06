@@ -46,76 +46,68 @@
     </div>
 </template>
 <style lang="scss" scoped>
-    .messages {
-        h4 {
-            i {
-                &.fa-times {
-                    margin-left: 10px;
+.messages {
+    h4 {
+        i {
+            &.fa-times {
+                margin-left: 10px;
 
-                    &:hover {
-                        cursor: pointer;
-                    }
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }
     }
+}
 </style>
 <script>
-  import moment from 'moment'
+import moment from 'moment';
 
-  export default {
+export default {
     props: {
-      messages: {required: true},
+        messages: { required: true },
     },
     methods: {
-      canMod (message) {
-        /*
+        canMod(message) {
+            /*
             A user can Mod his own messages
             A user in a is_modo group can Mod messages
             A is_modo CAN NOT Mod another is_modo message
         */
 
-        return (
-          /* CAN NOT mod an automated message */
-          !message.message.includes('Updated their status') &&
-
-          (
-              /* Owner can mod all */
-              this.$parent.auth.group.id === 10 ||
-
-              /* User can mod his own message */
-              message.user.id === this.$parent.auth.id ||
-
-              /* is_admin can mod messages except for Owner messages */
-              this.$parent.auth.group.is_admin &&
-              message.user.group.id !== 10 ||
-
-              /* Mods CAN NOT mod other mods messages */
-              this.$parent.auth.group.is_modo &&
-              !message.user.group.is_modo
-          )
-        )
-      },
-      deleteMessage (id) {
-        axios.get(`/api/chat/message/${id}/delete`)
-      },
-      userEffect (user) {
-        return `cursor: pointer; background-image: ${user.group.effect};`
-      },
-      userColor (user) {
-        return `cursor: pointer; color: ${user.group.color};`
-      }
+            return (
+                /* CAN NOT mod an automated message */
+                !message.message.includes('Updated their status') &&
+                /* Owner can mod all */
+                (this.$parent.auth.group.id === 10 ||
+                    /* User can mod his own message */
+                    message.user.id === this.$parent.auth.id ||
+                    /* is_admin can mod messages except for Owner messages */
+                    (this.$parent.auth.group.is_admin && message.user.group.id !== 10) ||
+                    /* Mods CAN NOT mod other mods messages */
+                    (this.$parent.auth.group.is_modo && !message.user.group.is_modo))
+            );
+        },
+        deleteMessage(id) {
+            axios.get(`/api/chat/message/${id}/delete`);
+        },
+        userEffect(user) {
+            return `cursor: pointer; background-image: ${user.group.effect};`;
+        },
+        userColor(user) {
+            return `cursor: pointer; color: ${user.group.color};`;
+        },
     },
     filters: {
-      fromNow (dt) {
-        return moment(String(dt)).fromNow()
-      }
+        fromNow(dt) {
+            return moment(String(dt)).fromNow();
+        },
     },
-    created () {
-      this.interval = setInterval(() => this.$forceUpdate(), 30000)
+    created() {
+        this.interval = setInterval(() => this.$forceUpdate(), 30000);
     },
-    beforeDestroy () {
-      clearInterval(this.interval)
-    }
-  }
+    beforeDestroy() {
+        clearInterval(this.interval);
+    },
+};
 </script>

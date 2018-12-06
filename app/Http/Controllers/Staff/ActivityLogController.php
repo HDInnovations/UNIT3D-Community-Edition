@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
 use App\LogActivity;
 use Brian2694\Toastr\Toastr;
+use App\Http\Controllers\Controller;
 
 class ActivityLogController extends Controller
 {

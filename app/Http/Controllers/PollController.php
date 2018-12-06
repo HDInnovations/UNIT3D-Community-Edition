@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VoteOnPoll;
-use App\Option;
 use App\Poll;
-use App\Repositories\ChatRepository;
 use App\Voter;
+use App\Option;
 use Brian2694\Toastr\Toastr;
+use App\Http\Requests\VoteOnPoll;
+use App\Repositories\ChatRepository;
 
 class PollController extends Controller
 {

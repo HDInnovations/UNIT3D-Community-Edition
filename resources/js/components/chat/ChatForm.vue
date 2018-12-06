@@ -55,80 +55,77 @@
     </div>
 </template>
 <style lang="scss" scoped>
-    .col-md-4, .col-md-12 {
-        padding: 0;
+.col-md-4,
+.col-md-12 {
+    padding: 0;
+}
+
+.info {
+    .badge-extra {
+        margin: 8px;
     }
 
-    .info {
-        .badge-extra {
+    i {
+        &.fa {
             margin: 8px;
-        }
 
-        i {
-            &.fa {
-                margin: 8px;
-
-                &:hover {
-                    cursor: pointer;
-                }
+            &:hover {
+                cursor: pointer;
             }
         }
     }
+}
 </style>
 <script>
-  import ChatroomsDropdown from './ChatroomsDropdown'
+import ChatroomsDropdown from './ChatroomsDropdown';
 
-  export default {
+export default {
     props: ['user'],
     components: {
-      ChatroomsDropdown
+        ChatroomsDropdown,
     },
-    data () {
-      return {
-        editor: null,
-        input: null,
-      }
+    data() {
+        return {
+            editor: null,
+            input: null,
+        };
     },
 
     methods: {
-      keyup (e) {
-        this.$emit('typing', this.user)
-      },
-      keydown (e) {
-        if (e.keyCode === 13 && !e.shiftKey) {
-          e.preventDefault();
-          this.sendMessage()
-        }
-      },
-      sendMessage () {
+        keyup(e) {
+            this.$emit('typing', this.user);
+        },
+        keydown(e) {
+            if (e.keyCode === 13 && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        },
+        sendMessage() {
+            let msg = this.editor.bbcode().trim();
 
-        let msg = this.editor.bbcode().trim();
+            if (msg !== null && msg !== '') {
+                this.$emit('message-sent', {
+                    message: msg,
+                    save: true,
+                    user_id: this.user.id,
+                });
 
-        if (msg !== null && msg !== '') {
-
-          this.$emit('message-sent', {
-            message: msg,
-            save: true,
-            user_id: this.user.id,
-          });
-
-          this.input.html('')
-        }
-
-      }
+                this.input.html('');
+            }
+        },
     },
 
-    mounted () {
-      this.editor = $('#chat-message').wysibb();
+    mounted() {
+        this.editor = $('#chat-message').wysibb();
 
-      // Initialize emojis
-      emoji.textcomplete();
+        // Initialize emojis
+        emoji.textcomplete();
 
-      this.input = $('.wysibb-body');
+        this.input = $('.wysibb-body');
 
-      this.input.keyup(this.keyup);
-      this.input.keydown(this.keydown)
-
-    }
-  }
+        this.input.keyup(this.keyup);
+        this.input.keydown(this.keydown);
+    },
+};
 </script>

@@ -13,10 +13,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Option;
-use App\Voter;
-use Brian2694\Toastr\Toastr;
 use Closure;
+use App\Voter;
+use App\Option;
+use Brian2694\Toastr\Toastr;
 
 class CheckIfAlreadyVoted
 {
@@ -46,7 +46,7 @@ class CheckIfAlreadyVoted
     public function handle($request, Closure $next)
     {
         //If user hasn't selected any options, carry on to form validation / rejection
-        if (!$request->input('option.0')) {
+        if (! $request->input('option.0')) {
             return $next($request);
         }
 

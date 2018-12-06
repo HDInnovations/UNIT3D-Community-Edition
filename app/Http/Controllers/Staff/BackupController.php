@@ -16,9 +16,9 @@ namespace App\Http\Controllers\Staff;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use League\Flysystem\Adapter\Local;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Adapter\Local;
 
 class BackupController extends Controller
 {
@@ -27,7 +27,7 @@ class BackupController extends Controller
      */
     public function index()
     {
-        if (!count(config('backup.backup.destination.disks'))) {
+        if (! count(config('backup.backup.destination.disks'))) {
             dd(trans('backup.no_disks_configured'));
         }
 

@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Client;
 use App\Peer;
+use App\Client;
 use App\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

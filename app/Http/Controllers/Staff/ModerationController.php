@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Helpers\TorrentHelper;
-use App\Http\Controllers\Controller;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
 use App\Torrent;
+use Carbon\Carbon;
+use App\PrivateMessage;
 use App\TorrentRequest;
 use Brian2694\Toastr\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Helpers\TorrentHelper;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 
 class ModerationController extends Controller
 {

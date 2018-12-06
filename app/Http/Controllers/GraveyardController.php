@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Graveyard;
-use App\Repositories\TorrentFacetedRepository;
 use App\Torrent;
+use App\Graveyard;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Repositories\TorrentFacetedRepository;
 
 class GraveyardController extends Controller
 {

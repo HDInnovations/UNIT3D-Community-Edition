@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Group;
-use App\Jobs\SendDisableUserMail;
 use App\User;
+use App\Group;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Jobs\SendDisableUserMail;
 
 class AutoDisableInactiveUsers extends Command
 {

@@ -13,8 +13,8 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use ReCaptcha\ReCaptcha;
+use Illuminate\Contracts\Validation\Rule;
 
 class Captcha implements Rule
 {

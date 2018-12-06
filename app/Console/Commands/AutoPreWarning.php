@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\History;
-use App\PrivateMessage;
 use App\User;
+use App\History;
 use App\Warning;
 use Carbon\Carbon;
+use App\PrivateMessage;
 use Illuminate\Console\Command;
 
 class AutoPreWarning extends Command
@@ -56,7 +56,7 @@ class AutoPreWarning extends Command
                 ->get();
 
             foreach ($prewarn as $pre) {
-                if (!$pre->user->group->is_immune) {
+                if (! $pre->user->group->is_immune) {
                     if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
                             ->where('torrent', $pre->torrent->id)
@@ -64,7 +64,7 @@ class AutoPreWarning extends Command
                             ->first();
 
                         // Send Pre Warning PM If Actual Warning Doesnt Already Exsist
-                        if (!$exsist) {
+                        if (! $exsist) {
                             $timeleft = config('hitrun.grace') - config('hitrun.prewarn');
 
                             // Send Private Message

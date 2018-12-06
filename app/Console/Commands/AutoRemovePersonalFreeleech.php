@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\PersonalFreeleech;
-use App\PrivateMessage;
 use Carbon\Carbon;
+use App\PrivateMessage;
+use App\PersonalFreeleech;
 use Illuminate\Console\Command;
 
 class AutoRemovePersonalFreeleech extends Command

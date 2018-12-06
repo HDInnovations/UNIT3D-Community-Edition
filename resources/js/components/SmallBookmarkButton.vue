@@ -6,62 +6,61 @@
 </template>
 
 <script>
-  import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
-  export default {
+export default {
     // you could create a endpoint also to get the "state" using axios.get(`/torrent/${id}/bookmarked`)
     // then you would be able to remove the "state" prop
     props: ['id', 'state'],
 
     data() {
-      return {
-        bookmarked: 0,
-      }
+        return {
+            bookmarked: 0,
+        };
     },
 
     mounted() {
-      this.bookmarked = this.state;
+        this.bookmarked = this.state;
     },
 
     methods: {
+        bookmark(id) {
+            axios
+                .get('/torrents/bookmark/' + id)
+                .then(response => {
+                    this.bookmarked = true;
 
-      bookmark(id) {
-        axios.get('/torrents/bookmark/' + id)
-          .then((response) => {
-            this.bookmarked = true;
+                    Swal({
+                        position: 'center',
+                        type: 'success',
+                        title: 'Torrent Has Been Bookmarked Successfully!',
+                        showConfirmButton: false,
+                        timer: 4500,
+                    });
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                });
+        },
 
-            Swal({
-              position: 'center',
-              type: 'success',
-              title: 'Torrent Has Been Bookmarked Successfully!',
-              showConfirmButton: false,
-              timer: 4500
-            })
-          })
-          .catch((error) => {
-            console.log(error.response.data)
-          });
-      },
+        unBookmark(id) {
+            axios
+                .get('/torrents/unbookmark/' + id)
+                .then(response => {
+                    this.bookmarked = false;
 
-      unBookmark(id) {
-        axios.get('/torrents/unbookmark/' + id)
-          .then((response) => {
-            this.bookmarked = false;
-
-            Swal({
-              position: 'center',
-              type: 'success',
-              title: 'Torrent Has Been Unbookmarked Successfully!',
-              showConfirmButton: false,
-              timer: 4500
-            })
-          })
-          .catch((error) => {
-            console.log(error.response.data)
-          });
-
-      },
-
-    }
-  };
+                    Swal({
+                        position: 'center',
+                        type: 'success',
+                        title: 'Torrent Has Been Unbookmarked Successfully!',
+                        showConfirmButton: false,
+                        timer: 4500,
+                    });
+                })
+                .catch(error => {
+                    console.log(error.response.data);
+                });
+        },
+    },
+};
 </script>

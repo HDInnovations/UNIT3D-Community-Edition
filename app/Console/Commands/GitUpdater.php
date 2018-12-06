@@ -16,8 +16,8 @@ namespace App\Console\Commands;
 use App\Console\ConsoleTools;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class GitUpdater extends Command
 {
@@ -83,7 +83,7 @@ class GitUpdater extends Command
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
-        if (!$this->io->confirm('Would you like to proceed', false)) {
+        if (! $this->io->confirm('Would you like to proceed', false)) {
             $this->line('<fg=red>Aborted ...</>');
             die();
         }
@@ -296,7 +296,7 @@ class GitUpdater extends Command
 
     private function validatePath($path)
     {
-        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
+        if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
             $this->red("The path '$path' is invalid");
             $this->call('up');
             die();
@@ -305,11 +305,11 @@ class GitUpdater extends Command
 
     private function createBackupPath($path)
     {
-        if (!is_dir(storage_path("gitupdate/$path")) && !is_file(base_path($path))) {
+        if (! is_dir(storage_path("gitupdate/$path")) && ! is_file(base_path($path))) {
             mkdir(storage_path("gitupdate/$path"), 0775, true);
         } elseif (is_file(base_path($path)) && dirname($path) !== '.') {
             $path = dirname($path);
-            if (!is_dir(storage_path("gitupdate/$path"))) {
+            if (! is_dir(storage_path("gitupdate/$path"))) {
                 mkdir(storage_path("gitupdate/$path"), 0775, true);
             }
         }

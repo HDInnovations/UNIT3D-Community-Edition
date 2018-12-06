@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\PrivateMessage;
 use App\User;
+use App\PrivateMessage;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GiftController extends Controller
 {
@@ -77,7 +77,7 @@ class GiftController extends Controller
         } else {
             $recipient = User::where('username', 'LIKE', $username)->first();
 
-            if (!$recipient) {
+            if (! $recipient) {
                 return redirect()->route('systemGift')
                     ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
             }

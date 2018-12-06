@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Traits\TwoStep;
 use Closure;
+use App\Traits\TwoStep;
 use Illuminate\Http\Request;
 
 class TwoStepAuth

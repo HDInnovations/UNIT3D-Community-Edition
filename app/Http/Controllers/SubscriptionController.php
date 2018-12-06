@@ -43,7 +43,7 @@ class SubscriptionController extends Controller
      */
     public function subscribe(Topic $topic)
     {
-        if (!auth()->user()->isSubscribed($topic->id)) {
+        if (! auth()->user()->isSubscribed($topic->id)) {
             $subscription = new TopicSubscription();
             $subscription->user_id = auth()->user()->id;
             $subscription->topic_id = $topic->id;

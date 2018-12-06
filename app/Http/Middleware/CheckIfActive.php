@@ -13,9 +13,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use App\Group;
 use Brian2694\Toastr\Toastr;
-use Closure;
 
 class CheckIfActive
 {

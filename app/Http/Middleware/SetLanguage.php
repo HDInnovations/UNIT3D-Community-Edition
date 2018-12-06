@@ -13,9 +13,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use App\Language;
 use Carbon\Carbon;
-use Closure;
 use Illuminate\Support\Facades\App;
 
 class SetLanguage
@@ -28,7 +28,7 @@ class SetLanguage
     private function setLocale($locale)
     {
         // Check if is allowed and set default locale if not
-        if (!Language::allowed($locale)) {
+        if (! Language::allowed($locale)) {
             $locale = config('app.locale');
         }
 

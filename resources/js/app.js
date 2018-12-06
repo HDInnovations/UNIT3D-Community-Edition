@@ -15,7 +15,7 @@ window.Vue = require('vue');
  */
 
 /* Plugins*/
-import VTooltip from 'v-tooltip'
+import VTooltip from 'v-tooltip';
 Vue.use(VTooltip);
 
 /* Components */
@@ -25,5 +25,5 @@ Vue.component('bookmark', require('./components/BookmarkButton'));
 Vue.component('smallbookmark', require('./components/SmallBookmarkButton'));
 
 const app = new Vue({
-  el: '#app'
+    el: '#app',
 });

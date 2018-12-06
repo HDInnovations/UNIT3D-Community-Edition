@@ -13,8 +13,8 @@
 
 namespace App\Helpers;
 
-use App\Hook\ClickableHook;
 use Decoda\Decoda;
+use App\Hook\ClickableHook;
 
 class Bbcode
 {

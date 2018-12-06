@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Rss;
-use App\Torrent;
 use App\User;
+use App\Torrent;
+use App\Category;
 
 /*TODO Finish RSS System*/
 class RssController extends Controller

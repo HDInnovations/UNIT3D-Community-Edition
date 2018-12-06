@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\UserActivation;
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {

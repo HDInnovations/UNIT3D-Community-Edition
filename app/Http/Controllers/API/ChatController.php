@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ChatMessageResource;
-use App\Http\Resources\ChatRoomResource;
-use App\Repositories\ChatRepository;
 use App\User;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\ChatMessageResource;
 
 class ChatController extends Controller
 {
@@ -79,7 +79,7 @@ class ChatController extends Controller
 
         $message = $this->chat->message($user_id, $room_id, $message);
 
-        if (!$save) {
+        if (! $save) {
             $message->delete();
         }
 

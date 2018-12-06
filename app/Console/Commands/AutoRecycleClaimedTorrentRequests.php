@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
+use Carbon\Carbon;
 use App\TorrentRequest;
 use App\TorrentRequestClaim;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Repositories\ChatRepository;
 
 class AutoRecycleClaimedTorrentRequests extends Command
 {

@@ -13,9 +13,9 @@
 
 namespace App\Services\Clients;
 
-use App\Services\Contracts\MovieTvInterface;
-use App\Services\Data\Movie;
 use App\Services\Data\Tv;
+use App\Services\Data\Movie;
+use App\Services\Contracts\MovieTvInterface;
 
 class OmdbClient extends Client implements MovieTvInterface
 {
@@ -90,7 +90,7 @@ class OmdbClient extends Client implements MovieTvInterface
     private function formatLanguages($languages)
     {
         $movie_languages = [];
-        if (!empty($languages)) {
+        if (! empty($languages)) {
             $languages = explode(',', $languages);
             foreach ($languages as $language) {
                 $movie_languages[] = [
@@ -106,7 +106,7 @@ class OmdbClient extends Client implements MovieTvInterface
     private function formatGenres($genres)
     {
         $movie_genres = [];
-        if (!empty($genres)) {
+        if (! empty($genres)) {
             $genres = explode(',', $genres);
             foreach ($genres as $genre) {
                 $movie_genres[] = trim($genre);

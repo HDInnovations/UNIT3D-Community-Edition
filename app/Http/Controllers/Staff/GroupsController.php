@@ -15,10 +15,10 @@ namespace App\Http\Controllers\Staff;
 
 use App\Forum;
 use App\Group;
-use App\Http\Controllers\Controller;
 use App\Permission;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GroupsController extends Controller
 {

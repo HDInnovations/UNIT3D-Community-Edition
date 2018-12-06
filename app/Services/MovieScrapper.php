@@ -13,11 +13,11 @@
 
 namespace App\Services;
 
+use App\Services\Data\Tv;
+use App\Services\Data\Movie;
 use App\Services\Clients\OmdbClient;
 use App\Services\Clients\TmdbClient;
 use App\Services\Clients\TvdbClient;
-use App\Services\Data\Movie;
-use App\Services\Data\Tv;
 
 class MovieScrapper
 {
@@ -44,7 +44,7 @@ class MovieScrapper
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {
-        if (!$imdb && !$tmdb && !$tvdb) {
+        if (! $imdb && ! $tmdb && ! $tvdb) {
             throw new \ErrorException('Either $imdb, $tmdb or $tvdb is required');
         }
 
@@ -57,7 +57,7 @@ class MovieScrapper
             }
 
             if ($imdb) {
-                if (!$tmdb_movie->title) {
+                if (! $tmdb_movie->title) {
                     $tmdb_movie = $this->tmdbClient->find(['imdb' => $imdb], $type);
                 }
                 $omdb_movie = $this->omdbClient->movie($imdb);
@@ -75,7 +75,7 @@ class MovieScrapper
             }
 
             if ($imdb) {
-                if (!$tmdb_tv->title) {
+                if (! $tmdb_tv->title) {
                     $tmdb_tv = $this->tmdbClient->find(['imdb' => $imdb], 'tv');
                 }
                 $omdb_tv = $this->omdbClient->tv($imdb);

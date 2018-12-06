@@ -13,18 +13,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Group;
-use App\Http\Controllers\Controller;
-use App\Invite;
-use App\Jobs\SendActivationMail;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
-use App\Rules\Captcha;
 use App\User;
+use App\Group;
+use App\Invite;
+use Carbon\Carbon;
+use App\Rules\Captcha;
+use App\PrivateMessage;
 use App\UserActivation;
 use Brian2694\Toastr\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Jobs\SendActivationMail;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -73,7 +73,7 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return view('auth.register', ['code' => $code])
                 ->with($this->toastr->error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }

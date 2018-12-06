@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Notifications\UsernameReminder;
 use App\User;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Notifications\UsernameReminder;
 
 class ForgotUsernameController extends Controller
 {

@@ -15,8 +15,8 @@ namespace App\Console\Commands;
 
 use App\Ban;
 use App\Group;
-use App\Mail\BanUser;
 use App\Warning;
+use App\Mail\BanUser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -48,7 +48,7 @@ class AutoBan extends Command
         $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
-            if ($ban->warneduser->group_id != $bannedGroup->id && !$ban->warneduser->group->is_immune) {
+            if ($ban->warneduser->group_id != $bannedGroup->id && ! $ban->warneduser->group->is_immune) {
                 // If User Has x or More Active Warnings Ban Set The Users Group To Banned
                 $ban->warneduser->group_id = $bannedGroup->id;
                 $ban->warneduser->can_upload = 0;

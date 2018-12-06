@@ -13,10 +13,10 @@
 
 namespace App\Services\Clients;
 
-use App\Services\Contracts\MovieTvInterface;
-use App\Services\Data\Episode;
 use App\Services\Data\Tv;
+use App\Services\Data\Episode;
 use Moinax\TvDb\Client as MoinaxTvDbClient;
+use App\Services\Contracts\MovieTvInterface;
 
 class TvdbClient extends Client implements MovieTvInterface
 {
@@ -42,12 +42,12 @@ class TvdbClient extends Client implements MovieTvInterface
 
         $key = 'tvdb'.$keys['imdb'];
         $result = $this->cache($key);
-        if (!$result) {
+        if (! $result) {
             $result = $this->tvdb_api->getSerieByRemoteId(['imdbid' => $keys['imdb']]);
             $this->cache($key, $result);
         }
 
-        if (!empty($result->id)) {
+        if (! empty($result->id)) {
             return $this->tv($result->id);
         }
 
@@ -65,7 +65,7 @@ class TvdbClient extends Client implements MovieTvInterface
 
         $key = 'tvdb'.$id;
         $result = $this->cache($key);
-        if (!$result) {
+        if (! $result) {
             $result = $this->tvdb_api->getSerieEpisodes($id);
             $this->cache($key, $result);
         }
@@ -92,7 +92,7 @@ class TvdbClient extends Client implements MovieTvInterface
             'runtime'     => $tv->runtime,
             'tvdbRating'  => $tv->rating,
             'tvdbVotes'   => $tv->ratingCount,
-            'poster'      => !empty($tv->poster) ? $this->imagePath.$tv->poster : null,
+            'poster'      => ! empty($tv->poster) ? $this->imagePath.$tv->poster : null,
             'episodes'    => $this->formatEpisodes($data['episodes']),
         ]);
     }
@@ -100,7 +100,7 @@ class TvdbClient extends Client implements MovieTvInterface
     private function formatEpisodes($episodes)
     {
         $tv_episodes = [];
-        if (!empty($episodes)) {
+        if (! empty($episodes)) {
             foreach ($episodes as $episode) {
                 $tv_episodes[] = new Episode([
                     'episode'     => $episode->number,
@@ -108,7 +108,7 @@ class TvdbClient extends Client implements MovieTvInterface
                     'title'       => $episode->name,
                     'releaseDate' => $episode->firstAired,
                     'plot'        => $episode->overview,
-                    'photo'       => !empty($episode->thumbnail) ? $this->imagePath.$episode->thumbnail : null,
+                    'photo'       => ! empty($episode->thumbnail) ? $this->imagePath.$episode->thumbnail : null,
                 ]);
             }
         }

@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use App\FreeleechToken;
+use App\Peer;
+use App\User;
 use App\Group;
 use App\History;
-use App\Peer;
-use App\PersonalFreeleech;
-use App\Services\Bencode;
 use App\Torrent;
-use App\User;
 use Carbon\Carbon;
+use App\FreeleechToken;
+use App\Services\Bencode;
+use App\PersonalFreeleech;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
@@ -48,37 +48,37 @@ class AnnounceController extends Controller
         }
 
         // If Infohash Is Not Provided Return Error to Client
-        if (!$request->has('info_hash')) {
+        if (! $request->has('info_hash')) {
             //info('Client Attempted To Connect To Announce Without A Infohash');
             return response(Bencode::bencode(['failure reason' => 'Missing info_hash']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If Peerid Is Not Provided Return Error to Client
-        if (!$request->has('peer_id')) {
+        if (! $request->has('peer_id')) {
             //info('Client Attempted To Connect To Announce Without A Peerid');
             return response(Bencode::bencode(['failure reason' => 'Missing peer_id']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If Port Is Not Provided Return Error to Client
-        if (!$request->has('port')) {
+        if (! $request->has('port')) {
             //info('Client Attempted To Connect To Announce Without A Specified Port');
             return response(Bencode::bencode(['failure reason' => 'Missing port']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If "Left" Is Not Provided Return Error to Client
-        if (!$request->has('left')) {
+        if (! $request->has('left')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing left']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If "Upload" Is Not Provided Return Error to Client
-        if (!$request->has('uploaded')) {
+        if (! $request->has('uploaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing upload']), 200, ['Content-Type' => 'text/plain']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
-        if (!$request->has('downloaded')) {
+        if (! $request->has('downloaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing download']), 200, ['Content-Type' => 'text/plain']);
         }
@@ -87,7 +87,7 @@ class AnnounceController extends Controller
         $user = User::with('history')->where('passkey', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
-        if (!$user) {
+        if (! $user) {
             //info('Client Attempted To Connect To Announce With A Invalid Passkey');
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']), 200, ['Content-Type' => 'text/plain']);
         }
@@ -154,7 +154,7 @@ class AnnounceController extends Controller
         }
 
         // If User Client Does Not Support Compact Return Error to Client
-        if (!$compact) {
+        if (! $compact) {
             //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]), 200, ['Content-Type' => 'text/plain']);
         }
@@ -167,7 +167,7 @@ class AnnounceController extends Controller
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
-        if (!$torrent || $torrent->id < 0) {
+        if (! $torrent || $torrent->id < 0) {
             //info('Client Attempted To Connect To Announce But The Torrent Doesn't Exist Using Hash '  . $info_hash);
             return response(Bencode::bencode(['failure reason' => 'Torrent not found']), 200, ['Content-Type' => 'text/plain']);
         }
@@ -202,9 +202,9 @@ class AnnounceController extends Controller
         $ghost = false;
 
         // Creates a new client if not existing
-        if (!$client && $event == 'completed') {
+        if (! $client && $event == 'completed') {
             return response(Bencode::bencode(['failure reason' => 'Torrent is complete but no record found.']), 200, ['Content-Type' => 'text/plain']);
-        } elseif (!$client) {
+        } elseif (! $client) {
             if ($uploaded > 0 || $downloaded > 0) {
                 $ghost = true;
                 $event = 'started';
@@ -215,7 +215,7 @@ class AnnounceController extends Controller
         // Get history information
         $history = $user->history->where('info_hash', $info_hash)->first();
 
-        if (!$history) {
+        if (! $history) {
             $history = new History();
             $history->user_id = $user->id;
             $history->info_hash = $info_hash;

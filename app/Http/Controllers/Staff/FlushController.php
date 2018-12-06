@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\History;
-use App\Http\Controllers\Controller;
 use App\Peer;
-use Brian2694\Toastr\Toastr;
+use App\History;
 use Carbon\Carbon;
+use Brian2694\Toastr\Toastr;
+use App\Http\Controllers\Controller;
 
 class FlushController extends Controller
 {

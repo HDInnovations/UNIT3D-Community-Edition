@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
+use Brian2694\Toastr\Toastr;
 
 class NotificationController extends Controller
 {

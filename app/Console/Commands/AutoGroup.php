@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use App\Group;
 use App\History;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

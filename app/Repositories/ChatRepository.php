@@ -13,12 +13,12 @@
 
 namespace App\Repositories;
 
+use App\User;
+use App\Message;
 use App\Chatroom;
 use App\ChatStatus;
-use App\Events\MessageDeleted;
 use App\Events\MessageSent;
-use App\Message;
-use App\User;
+use App\Events\MessageDeleted;
 
 class ChatRepository
 {

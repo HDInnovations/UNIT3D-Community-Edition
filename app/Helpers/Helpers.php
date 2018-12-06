@@ -1,13 +1,13 @@
 <?php
 
-if (!function_exists('appurl')) {
+if (! function_exists('appurl')) {
     function appurl()
     {
         return config('app.url');
     }
 }
 
-if (!function_exists('hrefProfile')) {
+if (! function_exists('hrefProfile')) {
     function hrefProfile($user)
     {
         $appurl = appurl();
@@ -16,7 +16,7 @@ if (!function_exists('hrefProfile')) {
     }
 }
 
-if (!function_exists('hrefArticle')) {
+if (! function_exists('hrefArticle')) {
     function hrefArticle($article)
     {
         $appurl = appurl();
@@ -25,7 +25,7 @@ if (!function_exists('hrefArticle')) {
     }
 }
 
-if (!function_exists('hrefTorrent')) {
+if (! function_exists('hrefTorrent')) {
     function hrefTorrent($torrent)
     {
         $appurl = appurl();
@@ -34,7 +34,7 @@ if (!function_exists('hrefTorrent')) {
     }
 }
 
-if (!function_exists('hrefTorrentRequest')) {
+if (! function_exists('hrefTorrentRequest')) {
     function hrefTorrentRequest($torrentRequest)
     {
         $appurl = appurl();
@@ -44,7 +44,7 @@ if (!function_exists('hrefTorrentRequest')) {
     }
 }
 
-if (!function_exists('hrefPoll')) {
+if (! function_exists('hrefPoll')) {
     function hrefPoll($poll)
     {
         $appurl = appurl();

@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Torrent;
 use App\Category;
 use App\PersonalFreeleech;
-use App\Torrent;
 
 class CategoryController extends Controller
 {

@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\BonTransactions;
 use App\Peer;
 use App\User;
+use App\BonTransactions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

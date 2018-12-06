@@ -7,16 +7,16 @@ window._ = require('lodash');
  */
 
 try {
-  // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
-  window.$ = window.jQuery = require('jquery');
+    // Note: Eventually we will end up 100% jQuery free with the conversion to VueJS
+    window.$ = window.jQuery = require('jquery');
 
-  require('bootstrap-sass')
+    require('bootstrap-sass');
 } catch (e) {}
 
 $.ajaxSetup({
-  headers: {
-    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]')
-  }
+    headers: {
+        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]'),
+    },
 });
 
 /**
@@ -38,9 +38,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -51,16 +51,14 @@ if (token) {
 
 //
 
-import Echo from "laravel-echo"
+import Echo from 'laravel-echo';
 
 window.io = require('socket.io-client');
 
 window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  host: window.location.hostname + ':6001'
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001',
 });
-
-
 
 /**
  * UNIT3D

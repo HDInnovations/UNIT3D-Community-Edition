@@ -14,11 +14,11 @@
 namespace App\Console\Commands;
 
 use App\Peer;
-use App\Repositories\ChatRepository;
-use App\Torrent;
 use App\User;
+use App\Torrent;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Repositories\ChatRepository;
 
 class AutoNerdStat extends Command
 {
