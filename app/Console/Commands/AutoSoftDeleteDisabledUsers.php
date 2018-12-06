@@ -13,11 +13,11 @@
 
 namespace App\Console\Commands;
 
-use App\Group;
-use App\Jobs\SendDeleteUserMail;
 use App\User;
+use App\Group;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Jobs\SendDeleteUserMail;
 
 class AutoSoftDeleteDisabledUsers extends Command
 {

@@ -15,9 +15,9 @@ namespace App\Notifications;
 
 use App\Torrent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class NewReseedRequest extends Notification implements ShouldQueue
 {

@@ -22,21 +22,21 @@ A700 #00BFA5
 */
 
 :root {
-    --color-light-blue: #4DB6AC;
-    --color-light-green: #4DB6AC;
-    --color-light-magenta: #4DB6AC;
-    --color-light-purple: #4DB6AC;
-    --color-400: #26A69A;
+    --color-light-blue: #4db6ac;
+    --color-light-green: #4db6ac;
+    --color-light-magenta: #4db6ac;
+    --color-light-purple: #4db6ac;
+    --color-400: #26a69a;
     --color-blue: #009688;
     --color-green: #009688;
     --color-yellow: #009688;
-    --color-magenta:  #00897B;
-    --color-red: #00695C;
-    --color-dark-green: #00695C;
-    --color-A200: #64FFDA;
-    --color-A400: #1DE9B6;
-    --color-purple: #00BFA5;
-    
+    --color-magenta: #00897b;
+    --color-red: #00695c;
+    --color-dark-green: #00695c;
+    --color-A200: #64ffda;
+    --color-A400: #1de9b6;
+    --color-purple: #00bfa5;
+
     --color-dark-blue: #181818;
     --color-dark-red: #181818;
 
@@ -45,4 +45,4 @@ A700 #00BFA5
     --gradient-background: radial-gradient(at 30% top, #073d3f 0%, #081c24 70%);
 }
 
-@import "dark-base";
+@import 'dark-base';

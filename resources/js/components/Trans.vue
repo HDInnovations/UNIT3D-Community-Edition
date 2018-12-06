@@ -4,29 +4,31 @@
     </div>
 </template>
 <script>
-  export default {
+export default {
     name: 'trans',
 
     props: ['path'],
 
     data() {
-      return {
-        result: ''
-      }
+        return {
+            result: '',
+        };
     },
     methods: {
-      getTranslation () {
-        axios.get(`/api/lang/${this.path}`)
-          .then((response) => {
-            this.result = response.data.results;
-          }).catch((error) => {
-            console.error(`Something went wrong fetching ${this.path}`);
-        })
-      }
+        getTranslation() {
+            axios
+                .get(`/api/lang/${this.path}`)
+                .then(response => {
+                    this.result = response.data.results;
+                })
+                .catch(error => {
+                    console.error(`Something went wrong fetching ${this.path}`);
+                });
+        },
     },
 
     created() {
-      this.getTranslation();
-    }
-  }
+        this.getTranslation();
+    },
+};
 </script>

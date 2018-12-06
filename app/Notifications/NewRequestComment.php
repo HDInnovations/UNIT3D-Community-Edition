@@ -15,8 +15,8 @@ namespace App\Notifications;
 
 use App\Comment;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Notifications\Notification;
 
 class NewRequestComment extends Notification
 {

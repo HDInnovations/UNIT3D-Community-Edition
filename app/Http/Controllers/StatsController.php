@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Peer;
+use App\User;
 use App\Group;
 use App\History;
-use App\Peer;
 use App\Torrent;
+use App\Category;
 use App\TorrentRequest;
-use App\User;
 use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller

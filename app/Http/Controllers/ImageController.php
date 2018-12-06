@@ -133,7 +133,7 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         $filename = $image->image;
 
-        if (!file_exists(getcwd().'/files/img/'.$filename)) {
+        if (! file_exists(getcwd().'/files/img/'.$filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
                 ->with($this->toastr->error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
         }

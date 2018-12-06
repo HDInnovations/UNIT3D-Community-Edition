@@ -14,14 +14,14 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Ban;
+use App\User;
 use App\Group;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;
-use App\User;
 use Brian2694\Toastr\Toastr;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class BanController extends Controller

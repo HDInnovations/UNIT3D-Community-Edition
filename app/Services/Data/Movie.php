@@ -156,7 +156,7 @@ class Movie
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
-                if (is_array($value) && !count($value)) {
+                if (is_array($value) && ! count($value)) {
                     $value = null;
                 }
                 $this->$key = $value;
@@ -173,7 +173,7 @@ class Movie
 
         $this->title = $this->cleanTitle($this->title);
 
-        $this->genres = !empty($this->genres) ? $this->cleanGenres($this->genres) : null;
+        $this->genres = ! empty($this->genres) ? $this->cleanGenres($this->genres) : null;
     }
 
     public function merge(self $data, self $data2 = null)
@@ -186,7 +186,7 @@ class Movie
                     $this->aka[] = $movie_value;
                 }
 
-                if ($movie_key == 'genres' && !empty($movie_value)) {
+                if ($movie_key == 'genres' && ! empty($movie_value)) {
                     $this->genreMerge($movie_value);
                 }
 
@@ -196,7 +196,7 @@ class Movie
             }
         }
 
-        if (!empty($this->aka)) {
+        if (! empty($this->aka)) {
             $this->aka = $this->removeSimilar($this->aka, $this->title, 90);
         }
 

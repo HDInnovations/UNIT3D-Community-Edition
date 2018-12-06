@@ -13,9 +13,9 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
-use Illuminate\Support\Facades\Crypt;
 
 trait Encryptable
 {
@@ -94,7 +94,7 @@ trait Encryptable
      */
     protected function doEncryptAttribute($key)
     {
-        if ($this->shouldEncrypt($key) && !$this->isEncrypted($this->attributes[$key])) {
+        if ($this->shouldEncrypt($key) && ! $this->isEncrypted($this->attributes[$key])) {
             try {
                 $this->attributes[$key] = $this->encryptedAttribute($this->attributes[$key]);
             } catch (EncryptException $e) {

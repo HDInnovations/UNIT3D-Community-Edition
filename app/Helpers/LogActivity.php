@@ -13,8 +13,8 @@
 
 namespace App\Helpers;
 
-use App\LogActivity as LogActivityModel;
 use Illuminate\Support\Facades\Request;
+use App\LogActivity as LogActivityModel;
 
 class LogActivity
 {

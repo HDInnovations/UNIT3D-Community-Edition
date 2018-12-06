@@ -13,14 +13,14 @@
 
 namespace App\Console\Commands;
 
-use App\Graveyard;
+use App\User;
 use App\History;
 use App\Message;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
 use App\Torrent;
-use App\User;
+use App\Graveyard;
+use App\PrivateMessage;
 use Illuminate\Console\Command;
+use App\Repositories\ChatRepository;
 
 class AutoGraveyard extends Command
 {

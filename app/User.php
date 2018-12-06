@@ -13,14 +13,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
-use Carbon\Carbon;
 use Gstt\Achievements\Achiever;
+use function theodorejb\polycast\to_int;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use function theodorejb\polycast\to_int;
 
 class User extends Authenticatable
 {

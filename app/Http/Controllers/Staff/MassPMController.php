@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\ProcessMassPM;
 use App\User;
+use App\Jobs\ProcessMassPM;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MassPMController extends Controller
 {

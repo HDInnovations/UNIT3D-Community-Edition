@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Follow;
 use App\User;
+use App\Follow;
 use Brian2694\Toastr\Toastr;
 
 class FollowController extends Controller
@@ -46,7 +46,7 @@ class FollowController extends Controller
         if (auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with($this->toastr->error('Nice try, but sadly you can not follow yourself.', 'Whoops!', ['options']));
-        } elseif (!auth()->user()->isFollowing($user->id)) {
+        } elseif (! auth()->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = auth()->user()->id;
             $follow->target_id = $user->id;

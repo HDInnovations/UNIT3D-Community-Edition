@@ -13,32 +13,32 @@
 
 namespace App\Http\Controllers;
 
-use App\BonTransactions;
-use App\Bots\IRCAnnounceBot;
-use App\Category;
-use App\FeaturedTorrent;
-use App\FreeleechToken;
-use App\Helpers\MediaInfo;
-use App\Helpers\TorrentHelper;
-use App\History;
-use App\Notifications\NewReseedRequest;
 use App\Peer;
-use App\PersonalFreeleech;
-use App\PrivateMessage;
-use App\Repositories\ChatRepository;
-use App\Repositories\TorrentFacetedRepository;
-use App\Services\Bencode;
-use App\Services\TorrentTools;
-use App\Torrent;
-use App\TorrentFile;
-use App\TorrentRequest;
 use App\Type;
 use App\User;
+use App\History;
+use App\Torrent;
 use App\Warning;
-use Brian2694\Toastr\Toastr;
+use App\Category;
 use Carbon\Carbon;
+use App\TorrentFile;
+use App\FreeleechToken;
+use App\PrivateMessage;
+use App\TorrentRequest;
+use App\BonTransactions;
+use App\FeaturedTorrent;
+use App\Services\Bencode;
+use App\Helpers\MediaInfo;
+use App\PersonalFreeleech;
+use App\Bots\IRCAnnounceBot;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Helpers\TorrentHelper;
+use App\Services\TorrentTools;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\ChatRepository;
+use App\Notifications\NewReseedRequest;
+use App\Repositories\TorrentFacetedRepository;
 
 class TorrentController extends Controller
 {
@@ -870,7 +870,7 @@ class TorrentController extends Controller
         $tmpFileName = $torrent->slug.'.torrent';
 
         // The torrent file exist ?
-        if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->error('Torrent File Not Found! Please Report This Torrent!', 'Error!', ['options']));
         } else {
@@ -1175,7 +1175,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $active_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
 
-        if ($user->fl_tokens >= 1 && !$active_token) {
+        if ($user->fl_tokens >= 1 && ! $active_token) {
             $token = new FreeleechToken();
             $token->user_id = $user->id;
             $token->torrent_id = $torrent->id;

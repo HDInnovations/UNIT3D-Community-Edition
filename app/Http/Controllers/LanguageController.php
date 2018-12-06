@@ -27,7 +27,7 @@ class LanguageController extends Controller
     private function setLocale($locale, $request)
     {
         // Check if is allowed and set default locale if not
-        if (!Language::allowed($locale)) {
+        if (! Language::allowed($locale)) {
             $locale = config('app.locale');
         }
 

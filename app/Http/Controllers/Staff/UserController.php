@@ -13,23 +13,23 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Comment;
-use App\Follow;
-use App\Group;
-use App\Http\Controllers\Controller;
-use App\Invite;
 use App\Like;
-use App\Message;
 use App\Note;
 use App\Peer;
 use App\Post;
-use App\PrivateMessage;
+use App\User;
+use App\Group;
 use App\Thank;
 use App\Topic;
+use App\Follow;
+use App\Invite;
+use App\Comment;
+use App\Message;
 use App\Torrent;
-use App\User;
+use App\PrivateMessage;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller

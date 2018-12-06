@@ -13,25 +13,25 @@
 
 namespace App\Helpers;
 
+use App\User;
+use App\Wish;
+use App\Follow;
+use App\Torrent;
+use App\PrivateMessage;
+use App\Bots\IRCAnnounceBot;
+use App\Achievements\UserMadeUpload;
+use App\Achievements\UserMade25Uploads;
+use App\Achievements\UserMade50Uploads;
 use App\Achievements\UserMade100Uploads;
 use App\Achievements\UserMade200Uploads;
-use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade300Uploads;
 use App\Achievements\UserMade400Uploads;
 use App\Achievements\UserMade500Uploads;
-use App\Achievements\UserMade50Uploads;
 use App\Achievements\UserMade600Uploads;
 use App\Achievements\UserMade700Uploads;
 use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
-use App\Achievements\UserMadeUpload;
-use App\Bots\IRCAnnounceBot;
-use App\Follow;
 use App\Notifications\NewFollowerUpload;
-use App\PrivateMessage;
-use App\Torrent;
-use App\User;
-use App\Wish;
 
 class TorrentHelper
 {

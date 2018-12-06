@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use App\Services\Clients\OmdbClient;
-use App\Torrent;
 use App\User;
+use App\Torrent;
 use Illuminate\Console\Command;
+use App\Services\Clients\OmdbClient;
 
 class DemoSeed extends Command
 {

@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
-use App\FeaturedTorrent;
-use App\Group;
-use App\PersonalFreeleech;
 use App\Poll;
 use App\Post;
-use App\Topic;
-use App\Torrent;
 use App\User;
+use App\Group;
+use App\Topic;
+use App\Article;
+use App\Torrent;
 use Carbon\Carbon;
+use App\FeaturedTorrent;
+use App\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
