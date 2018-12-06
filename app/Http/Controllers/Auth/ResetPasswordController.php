@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Group;
 use App\Http\Controllers\Controller;
 use App\UserActivation;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Support\Str;
-use App\Group;
 
 class ResetPasswordController extends Controller
 {
@@ -34,7 +34,7 @@ class ResetPasswordController extends Controller
         $user->save();
 
         // Activity Log
-        \LogActivity::addToLog("Member " . $user->username . " has successfully reset his/her password.");
+        \LogActivity::addToLog('Member '.$user->username.' has successfully reset his/her password.');
 
         UserActivation::where('user_id', $user->id)->delete();
 

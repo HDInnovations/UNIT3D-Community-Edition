@@ -3,17 +3,16 @@
 namespace App\Jobs;
 
 use App\PrivateMessage;
-use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class ProcessMassPM implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    
+
     protected $sender_id;
     protected $receiver_id;
     protected $subject;
@@ -39,7 +38,7 @@ class ProcessMassPM implements ShouldQueue
      */
     public function handle()
     {
-        $pm = new PrivateMessage;
+        $pm = new PrivateMessage();
         $pm->sender_id = $this->sender_id;
         $pm->receiver_id = $this->receiver_id;
         $pm->subject = $this->subject;

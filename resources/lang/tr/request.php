@@ -6,5 +6,5 @@
  */
 return [
     'requests' => 'Talepler',
-    'request' => 'Talep Et'
+    'request'  => 'Talep Et',
 ];

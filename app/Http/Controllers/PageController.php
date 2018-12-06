@@ -1,27 +1,29 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Page;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
     /**
-     * Show A Page
+     * Show A Page.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function page($slug, $id)
@@ -32,7 +34,7 @@ class PageController extends Controller
     }
 
     /**
-     * Show Staff Page
+     * Show Staff Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -44,7 +46,7 @@ class PageController extends Controller
     }
 
     /**
-     * Show Internals Page
+     * Show Internals Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,7 +58,7 @@ class PageController extends Controller
     }
 
     /**
-     * Show Blacklist Page
+     * Show Blacklist Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -69,7 +71,7 @@ class PageController extends Controller
     }
 
     /**
-     * Show About Us Page
+     * Show About Us Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -79,7 +81,7 @@ class PageController extends Controller
     }
 
     /**
-     * Show Email Whitelist / Blacklist Page
+     * Show Email Whitelist / Blacklist Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

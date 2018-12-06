@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Providers;
 
-use Illuminate\View\View;
-use Illuminate\Support\ServiceProvider;
 use App\Interfaces\WishInterface;
+use App\Page;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
-use App\Page;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -55,6 +56,7 @@ class AppServiceProvider extends ServiceProvider
         // we can now inject this class and it will auto resolve for us
         $this->app->bind(OmdbClient::class, function ($app) {
             $key = config('api-keys.omdb');
+
             return new OmdbClient($key);
         });
 

@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -175,7 +176,7 @@ class Movie
         $this->genres = !empty($this->genres) ? $this->cleanGenres($this->genres) : null;
     }
 
-    public function merge(Movie $data, Movie $data2 = null)
+    public function merge(self $data, self $data2 = null)
     {
         $movies = func_get_args();
 
@@ -219,20 +220,21 @@ class Movie
 
     private function cleanGenres($genres)
     {
-        $genres = new Genre((array)$genres);
+        $genres = new Genre((array) $genres);
 
         return $genres->genres;
     }
 
     /**
-     * Remove similar data from array using similar_text
+     * Remove similar data from array using similar_text.
      *
      * @param $data
      * @param null|string $title
      * @param $diff
+     *
      * @return array
      */
-    private function removeSimilar($data, $title = null, $diff)
+    private function removeSimilar($data, $title, $diff)
     {
         if ($title) {
             foreach ($data as $key => $value) {

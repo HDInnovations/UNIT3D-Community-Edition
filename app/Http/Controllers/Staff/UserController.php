@@ -1,35 +1,36 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
+use App\Comment;
+use App\Follow;
+use App\Group;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Invite;
+use App\Like;
+use App\Message;
+use App\Note;
+use App\Peer;
+use App\Post;
+use App\PrivateMessage;
+use App\Thank;
+use App\Topic;
 use App\Torrent;
 use App\User;
-use App\Group;
-use App\Comment;
-use App\Post;
-use App\Topic;
-use App\PrivateMessage;
-use App\Note;
-use App\Message;
-use App\Like;
-use App\Thank;
-use App\Follow;
-use App\Invite;
-use App\Peer;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
     private $toastr;
 
     /**
-     * UserController Constructor
+     * UserController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -49,7 +50,7 @@ class UserController extends Controller
     }
 
     /**
-     * Users List
+     * Users List.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -62,35 +63,35 @@ class UserController extends Controller
         $coders = User::with('group')->where('group_id', 10)->latest()->paginate(25);
 
         return view('Staff.user.user_search', [
-            'users' => $users,
+            'users'     => $users,
             'uploaders' => $uploaders,
-            'mods' => $mods,
-            'admins' => $admins,
-            'coders' => $coders
+            'mods'      => $mods,
+            'admins'    => $admins,
+            'coders'    => $coders,
         ]);
     }
 
     /**
-     * Search For A User
+     * Search For A User.
      *
-     * @access public
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)
     {
         $users = User::where([
-            ['username', 'like', '%' . $request->input('username') . '%'],
+            ['username', 'like', '%'.$request->input('username').'%'],
         ])->paginate(25);
-        $users->setPath('?username=' . $request->input('username'));
+        $users->setPath('?username='.$request->input('username'));
 
         return view('Staff.user.user_results', ['users' => $users]);
     }
 
     /**
-     * User Edit Form
+     * User Edit Form.
      *
      * @param $username
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSettings($username, $id)
@@ -100,18 +101,19 @@ class UserController extends Controller
         $notes = Note::where('user_id', $id)->latest()->paginate(25);
 
         return view('Staff.user.user_edit', [
-            'user' => $user,
+            'user'   => $user,
             'groups' => $groups,
-            'notes' => $notes
+            'notes'  => $notes,
         ]);
     }
 
     /**
-     * Edit A User
+     * Edit A User.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @@return Illuminate\Http\RedirectResponse
      */
     public function userEdit(Request $request, $username, $id)
@@ -124,7 +126,7 @@ class UserController extends Controller
         $user->uploaded = $request->input('uploaded');
         $user->downloaded = $request->input('downloaded');
         $user->about = $request->input('about');
-        $user->group_id = (int)$request->input('group_id');
+        $user->group_id = (int) $request->input('group_id');
         $user->save();
 
         // Activity Log
@@ -135,11 +137,12 @@ class UserController extends Controller
     }
 
     /**
-     * Edit A Users Permissions
+     * Edit A Users Permissions.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function userPermissions(Request $request, $username, $id)
@@ -163,11 +166,12 @@ class UserController extends Controller
     }
 
     /**
-     * Edit A Users Password
+     * Edit A Users Password.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function userPassword(Request $request, $username, $id)
@@ -187,10 +191,11 @@ class UserController extends Controller
     }
 
     /**
-     * Delete A User
+     * Delete A User.
      *
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      *
      * Todo: Refactor Once New Migrations Are In Place And Soft Deletes Are Added
@@ -287,7 +292,7 @@ class UserController extends Controller
     }
 
     /**
-     * Mass Validate Unvalidated Users
+     * Mass Validate Unvalidated Users.
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -307,6 +312,7 @@ class UserController extends Controller
             $user->can_invite = 1;
             $user->save();
         }
+
         return redirect('staff_dashboard')
             ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
     }

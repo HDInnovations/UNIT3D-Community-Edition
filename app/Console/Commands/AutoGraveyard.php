@@ -1,29 +1,29 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
-use Illuminate\Console\Command;
-use App\Torrent;
-use App\History;
 use App\Graveyard;
-use App\PrivateMessage;
-use App\User;
+use App\History;
 use App\Message;
+use App\PrivateMessage;
+use App\Repositories\ChatRepository;
+use App\Torrent;
+use App\User;
+use Illuminate\Console\Command;
 
 class AutoGraveyard extends Command
 {
-
     /**
      * @var ChatRepository
      */
@@ -86,12 +86,12 @@ class AutoGraveyard extends Command
                 );
 
                 // Send Private Message
-                $pm = new PrivateMessage;
+                $pm = new PrivateMessage();
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user->id;
-                $pm->subject = "Successful Graveyard Resurrection";
-                $pm->message = "You have successfully resurrected [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
-                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                $pm->subject = 'Successful Graveyard Resurrection';
+                $pm->message = "You have successfully resurrected [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }
         }

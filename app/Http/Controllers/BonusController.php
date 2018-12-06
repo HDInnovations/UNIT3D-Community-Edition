@@ -1,28 +1,29 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\User;
 use App\BonExchange;
 use App\BonTransactions;
-use App\PrivateMessage;
 use App\PersonalFreeleech;
+use App\PrivateMessage;
+use App\Repositories\ChatRepository;
 use App\Torrent;
-use Carbon\Carbon;
+use App\User;
 use Brian2694\Toastr\Toastr;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BonusController extends Controller
 {
@@ -37,10 +38,10 @@ class BonusController extends Controller
     private $toastr;
 
     /**
-     * BonusController Constructor
+     * BonusController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param Toastr         $toastr
      */
     public function __construct(ChatRepository $chat, Toastr $toastr)
     {
@@ -49,7 +50,7 @@ class BonusController extends Controller
     }
 
     /**
-     * Show Bonus System
+     * Show Bonus System.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -97,33 +98,34 @@ class BonusController extends Controller
             + ($participant * 0.25) + ($teamplayer * 0.50) + ($committed * 0.75) + ($mvp * 1) + ($legend * 2);
 
         return view('bonus.bonus', [
-            'users' => $users,
-            'userbon' => $userbon,
-            'activefl' => $activefl,
-            'uploadOptions' => $uploadOptions,
-            'downloadOptions' => $downloadOptions,
+            'users'             => $users,
+            'userbon'           => $userbon,
+            'activefl'          => $activefl,
+            'uploadOptions'     => $uploadOptions,
+            'downloadOptions'   => $downloadOptions,
             'personalFreeleech' => $personalFreeleech,
-            'invite' => $invite,
-            'dying' => $dying,
-            'legendary' => $legendary,
-            'old' => $old,
-            'huge' => $huge,
-            'large' => $large,
-            'regular' => $regular,
-            'participant' => $participant,
-            'teamplayer' => $teamplayer,
-            'committed' => $committed,
-            'mvp' => $mvp,
-            'legend' => $legend,
-            'total' => $total,
-            'username' => $username
+            'invite'            => $invite,
+            'dying'             => $dying,
+            'legendary'         => $legendary,
+            'old'               => $old,
+            'huge'              => $huge,
+            'large'             => $large,
+            'regular'           => $regular,
+            'participant'       => $participant,
+            'teamplayer'        => $teamplayer,
+            'committed'         => $committed,
+            'mvp'               => $mvp,
+            'legend'            => $legend,
+            'total'             => $total,
+            'username'          => $username,
         ]);
     }
 
     /**
-     * Exchange Points For A Item
+     * Exchange Points For A Item.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function exchange($id)
@@ -154,10 +156,11 @@ class BonusController extends Controller
     }
 
     /**
-     * Do Item Exchange
+     * Do Item Exchange.
      *
      * @param $userID
      * @param $itemID
+     *
      * @return string
      */
     public function doItemExchange($userID, $itemID)
@@ -186,12 +189,12 @@ class BonusController extends Controller
                 $personal_freeleech->save();
 
                 // Send Private Message
-                $pm = new PrivateMessage;
+                $pm = new PrivateMessage();
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
-                $pm->subject = "Personal 24 Hour Freeleech Activated";
-                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]" . config('app.timezone') . "[/b]! 
-                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                $pm->subject = 'Personal 24 Hour Freeleech Activated';
+                $pm->message = "Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on {$current->addDays(1)->toDayDateTimeString()} [b]".config('app.timezone').'[/b]! 
+                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
                 return false;
@@ -216,19 +219,20 @@ class BonusController extends Controller
     }
 
     /**
-     * Gift Points To A User
+     * Gift Points To A User.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
     {
         $user = auth()->user();
 
-            $v = validator($request->all(), [
-                'to_username' => "required|exists:users,username|max:180",
-                'bonus_points' => "required|numeric|min:1|max:{$user->seedbonus}",
-                'bonus_message' => "required|string"
+        $v = validator($request->all(), [
+                'to_username'   => 'required|exists:users,username|max:180',
+                'bonus_points'  => "required|numeric|min:1|max:{$user->seedbonus}",
+                'bonus_message' => 'required|string',
             ]);
 
         if ($v->passes()) {
@@ -263,12 +267,12 @@ class BonusController extends Controller
                 ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
 
-            $pm = new PrivateMessage;
+            $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $recipient->id;
-            $pm->subject = "You Have Received A BON Gift";
-            $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has gifted you " . $value . " BON.
-                            Gift Note:" .$transaction->comment;
+            $pm->subject = 'You Have Received A BON Gift';
+            $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has gifted you ".$value.' BON.
+                            Gift Note:'.$transaction->comment;
             $pm->save();
 
             return redirect()->route('bonus', ['username' => $user->username])
@@ -280,11 +284,12 @@ class BonusController extends Controller
     }
 
     /**
-     * Tip Points To A Uploader
+     * Tip Points To A Uploader.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function tipUploader(Request $request, $slug, $id)
@@ -322,26 +327,23 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $pm = new PrivateMessage;
+        $pm = new PrivateMessage();
         $pm->sender_id = 1;
         $pm->receiver_id = $uploader->id;
-        $pm->subject = "You Have Received A BON Tip";
+        $pm->subject = 'You Have Received A BON Tip';
         $profile_url = hrefProfile($user);
         $torrent_url = hrefTorrent($torrent);
-        $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has left a tip of " . $tip_amount . " BON on your upload [url={$torrent_url}]{$torrent->name}[/url].";
+        $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has left a tip of ".$tip_amount." BON on your upload [url={$torrent_url}]{$torrent->name}[/url].";
         $pm->save();
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 
-
     /**
      * @method getDyingCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getDyingCount()
     {
@@ -360,9 +362,7 @@ class BonusController extends Controller
     /**
      * @method getLegendaryCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getLegendaryCount()
     {
@@ -381,9 +381,7 @@ class BonusController extends Controller
     /**
      * @method getOldCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getOldCount()
     {
@@ -403,9 +401,7 @@ class BonusController extends Controller
     /**
      * @method getHugeCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getHugeCount()
     {
@@ -423,9 +419,7 @@ class BonusController extends Controller
     /**
      * @method getLargeCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getLargeCount()
     {
@@ -444,9 +438,7 @@ class BonusController extends Controller
     /**
      * @method getRegularCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getRegularCount()
     {
@@ -465,9 +457,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getParticipaintSeedCount()
     {
@@ -486,9 +476,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getTeamPlayerSeedCount()
     {
@@ -507,9 +495,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getCommitedSeedCount()
     {
@@ -528,9 +514,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getMVPSeedCount()
     {
@@ -549,9 +533,7 @@ class BonusController extends Controller
     /**
      * @method getParticipaintSeedCount
      *
-     * @access public
-     *
-     * @return Integer
+     * @return int
      */
     public function getLegendarySeedCount()
     {

@@ -1,23 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Graveyard;
 use App\Repositories\TorrentFacetedRepository;
 use App\Torrent;
-use App\Graveyard;
-use Carbon\Carbon;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class GraveyardController extends Controller
 {
@@ -32,10 +32,10 @@ class GraveyardController extends Controller
     private $toastr;
 
     /**
-     * GraveyardController Constructor
+     * GraveyardController Constructor.
      *
      * @param TorrentFacetedRepository $faceted
-     * @param Toastr $toastr
+     * @param Toastr                   $toastr
      */
     public function __construct(TorrentFacetedRepository $faceted, Toastr $toastr)
     {
@@ -44,7 +44,7 @@ class GraveyardController extends Controller
     }
 
     /**
-     * Show The Graveyard
+     * Show The Graveyard.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,18 +56,19 @@ class GraveyardController extends Controller
         $deadcount = Torrent::where('seeders', 0)->count();
 
         return view('graveyard.index', [
-            'user' => $user,
-            'torrents' => $torrents,
+            'user'       => $user,
+            'torrents'   => $torrents,
             'repository' => $repository,
-            'deadcount' => $deadcount,
+            'deadcount'  => $deadcount,
         ]);
     }
 
     /**
-     * Uses Input's To Put Together A Search
+     * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
      * @param $torrent Torrent
+     *
      * @return array
      */
     public function faceted(Request $request, Torrent $torrent)
@@ -84,7 +85,7 @@ class GraveyardController extends Controller
         $terms = explode(' ', $search);
         $search = '';
         foreach ($terms as $term) {
-            $search .= '%' . $term . '%';
+            $search .= '%'.$term.'%';
         }
 
         $torrent = $torrent->with('category')->where('seeders', 0);
@@ -131,16 +132,17 @@ class GraveyardController extends Controller
         }
 
         return view('graveyard.results', [
-            'user' => $user,
-            'torrents' => $torrents
+            'user'     => $user,
+            'torrents' => $torrents,
         ])->render();
     }
 
     /**
-     * Resurrect A Torrent
+     * Resurrect A Torrent.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function resurrect(Request $request, $id)
@@ -165,9 +167,9 @@ class GraveyardController extends Controller
         $resurrection->seedtime = $request->input('seedtime');
 
         $v = validator($resurrection->toArray(), [
-            'user_id' => 'required',
+            'user_id'    => 'required',
             'torrent_id' => 'required',
-            'seedtime' => 'required'
+            'seedtime'   => 'required',
         ]);
 
         if ($v->fails()) {
@@ -175,6 +177,7 @@ class GraveyardController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $resurrection->save();
+
             return redirect()->route('graveyard')
                 ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }

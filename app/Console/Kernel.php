@@ -7,7 +7,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-
     /**
      * The Artisan commands provided by your application.
      *
@@ -43,13 +42,14 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\GitUpdater::class,
         \App\Console\Commands\ClearCache::class,
         \App\Console\Commands\SetCache::class,
-        \App\Console\Commands\TestMailSettings::class
+        \App\Console\Commands\TestMailSettings::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     *
      * @return void
      */
     protected function schedule(Schedule $schedule)

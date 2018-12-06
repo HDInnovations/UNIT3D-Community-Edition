@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,11 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
-use App\Poll;
-use App\Option;
 use App\Http\Requests\StorePoll;
+use App\Option;
+use App\Poll;
+use App\Repositories\ChatRepository;
 use Brian2694\Toastr\Toastr;
 
 class PollController extends Controller
@@ -33,10 +33,10 @@ class PollController extends Controller
     private $toastr;
 
     /**
-     * PollController Constructor
+     * PollController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param Toastr         $toastr
      */
     public function __construct(ChatRepository $chat, Toastr $toastr)
     {
@@ -45,7 +45,7 @@ class PollController extends Controller
     }
 
     /**
-     * Show All Polls
+     * Show All Polls.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -57,7 +57,7 @@ class PollController extends Controller
     }
 
     /**
-     * Show A Poll
+     * Show A Poll.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -69,7 +69,7 @@ class PollController extends Controller
     }
 
     /**
-     * Poll Add Form
+     * Poll Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -79,9 +79,10 @@ class PollController extends Controller
     }
 
     /**
-     * Add A Poll
+     * Add A Poll.
      *
      * @param StorePoll $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function store(StorePoll $request)
@@ -108,7 +109,7 @@ class PollController extends Controller
             ":robot: [b][color=#fb9776]System[/color][/b] : A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
         );
 
-        return redirect('poll/' . $poll->slug)
+        return redirect('poll/'.$poll->slug)
             ->with($this->toastr->success('Your poll has been created.', 'Yay!', ['options']));
     }
 }

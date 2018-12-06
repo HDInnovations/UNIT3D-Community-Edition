@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
-use Illuminate\Console\Command;
 use App\Peer;
-use App\User;
+use App\Repositories\ChatRepository;
 use App\Torrent;
+use App\User;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class AutoNerdStat extends Command
 {
@@ -81,18 +82,18 @@ class AutoNerdStat extends Command
             $peers = Peer::count();
 
             // Select A Random Nerd Stat
-            $statArray = ["In The Last 24 Hours " . $logins . " Unique Users Have Logged Into " . config('other.title') . "!",
-                "In The Last 24 Hours " . $uploads . " Torrents Have Been Uploaded To " . config('other.title') . "!",
-                "In The Last 24 Hours " . $users . " Users Have Registered To " . config('other.title') . "!",
-                "There Are Currently " . $fl . " Freeleech Torrents On " . config('other.title') . "!",
-                "There Are Currently " . $du . " DoubleUpload Torrents On " . config('other.title') . "!",
-                "Currently " . $seeders->name . " Is The Best Seeded Torrent On " . config('other.title') . "!",
-                "Currently " . $leechers->name . " Is The Most Leeched Torrent On " . config('other.title') . "!",
-                "Currently " . $snatched->name . " Is The Most Snatched Torrent On " . config('other.title') . "!",
-                "Currently " . $banker->username . " Is The Top BON Holder On " . config('other.title') . "!",
-                config('other.title') . " Birthday Is " . $bday . "!",
-                config('other.title') . "  Is King!",
-                "Currently There Is " . $peers . " Peers On " . config('other.title') . "!",
+            $statArray = ['In The Last 24 Hours '.$logins.' Unique Users Have Logged Into '.config('other.title').'!',
+                'In The Last 24 Hours '.$uploads.' Torrents Have Been Uploaded To '.config('other.title').'!',
+                'In The Last 24 Hours '.$users.' Users Have Registered To '.config('other.title').'!',
+                'There Are Currently '.$fl.' Freeleech Torrents On '.config('other.title').'!',
+                'There Are Currently '.$du.' DoubleUpload Torrents On '.config('other.title').'!',
+                'Currently '.$seeders->name.' Is The Best Seeded Torrent On '.config('other.title').'!',
+                'Currently '.$leechers->name.' Is The Most Leeched Torrent On '.config('other.title').'!',
+                'Currently '.$snatched->name.' Is The Most Snatched Torrent On '.config('other.title').'!',
+                'Currently '.$banker->username.' Is The Top BON Holder On '.config('other.title').'!',
+                config('other.title').' Birthday Is '.$bday.'!',
+                config('other.title').'  Is King!',
+                'Currently There Is '.$peers.' Peers On '.config('other.title').'!',
             ];
             $selected = mt_rand(0, count($statArray) - 1);
 

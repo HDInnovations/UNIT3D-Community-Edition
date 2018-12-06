@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
@@ -20,7 +21,7 @@ class Peer extends Model
     use Sortable;
 
     /**
-     * The Columns That Are Sortable
+     * The Columns That Are Sortable.
      *
      * @var array
      */
@@ -31,11 +32,11 @@ class Peer extends Model
         'downloaded',
         'left',
         'seeder',
-        'created_at'
+        'created_at',
     ];
 
     /**
-     * Belongs To A User
+     * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -43,12 +44,12 @@ class Peer extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Belongs To A Torrent
+     * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

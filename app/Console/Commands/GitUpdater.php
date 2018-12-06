@@ -1,32 +1,30 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Console\Commands;
 
+use App\Console\ConsoleTools;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
-use App\Console\ConsoleTools;
 
 class GitUpdater extends Command
 {
     use ConsoleTools;
 
     /**
-     * The copy command
+     * The copy command.
      */
     protected $copy_command = 'cp -Rfp';
 
@@ -115,11 +113,11 @@ class GitUpdater extends Command
 
             if ($this->io->confirm('Start the update process', false)) {
                 $this->call('down', [
-                    '--message' => "Currently Updating",
-                    '--retry' => '300'
+                    '--message' => 'Currently Updating',
+                    '--retry'   => '300',
                 ]);
 
-                $this->process("git add .");
+                $this->process('git add .');
 
                 $paths = $this->paths();
 
@@ -166,13 +164,13 @@ class GitUpdater extends Command
                 die();
             }
         } else {
-            $this->alertSuccess("No Available Updates Found");
+            $this->alertSuccess('No Available Updates Found');
         }
     }
 
     private function checkForUpdates()
     {
-        $this->header("Checking For Updates");
+        $this->header('Checking For Updates');
 
         $this->process('git fetch origin');
         $process = $this->process('git diff ..origin/master --name-only');
@@ -185,8 +183,8 @@ class GitUpdater extends Command
 
     private function manualUpdate($updating)
     {
-        $this->alertInfo("Manual Update");
-        $this->red("Updating will cause you to LOSE any changes you might have made to the file!");
+        $this->alertInfo('Manual Update');
+        $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
             if ($this->io->confirm("Update $file", false)) {
@@ -207,14 +205,14 @@ class GitUpdater extends Command
         $this->header('Backing Up Files');
 
         $this->commands([
-            'rm -rf ' . storage_path('gitupdate'),
-            'mkdir ' . storage_path('gitupdate')
+            'rm -rf '.storage_path('gitupdate'),
+            'mkdir '.storage_path('gitupdate'),
         ], true);
 
         foreach ($paths as $path) {
             $this->validatePath($path);
             $this->createBackupPath($path);
-            $this->process($this->copy_command . ' ' . base_path($path) . ' ' . storage_path('gitupdate') . '/' . $path);
+            $this->process($this->copy_command.' '.base_path($path).' '.storage_path('gitupdate').'/'.$path);
         }
 
         $this->done();
@@ -226,7 +224,7 @@ class GitUpdater extends Command
 
         foreach ($paths as $path) {
             $to = str_replace_last('/.', '', base_path(dirname($path)));
-            $from = storage_path('gitupdate') . '/' . $path;
+            $from = storage_path('gitupdate').'/'.$path;
 
             if (is_dir($from)) {
                 $to .= '/'.basename($from).'/';
@@ -239,17 +237,17 @@ class GitUpdater extends Command
         $this->commands([
             'git add .',
             'git checkout origin/master -- package-lock.json',
-            'git checkout origin/master -- composer.lock'
+            'git checkout origin/master -- composer.lock',
         ]);
     }
 
     private function composer()
     {
-        $this->header("Installing Composer Packages");
+        $this->header('Installing Composer Packages');
 
         $this->commands([
             'composer install',
-            'composer dump-autoload'
+            'composer dump-autoload',
         ]);
 
         $this->done();
@@ -262,7 +260,7 @@ class GitUpdater extends Command
         $this->commands([
             'rm -rf node_modules',
             'npm install',
-            'npm run prod'
+            'npm run prod',
         ]);
 
         $this->done();
@@ -270,28 +268,28 @@ class GitUpdater extends Command
 
     private function updateUNIT3DConfig()
     {
-        $this->header("Updating UNIT3D Configuration File");
-        $this->process("git fetch origin && git checkout origin/master -- config/unit3d.php");
+        $this->header('Updating UNIT3D Configuration File');
+        $this->process('git fetch origin && git checkout origin/master -- config/unit3d.php');
         $this->done();
     }
 
     private function clearCache()
     {
-        $this->header("Clearing Cache");
+        $this->header('Clearing Cache');
         $this->call('clear:all_cache');
         $this->done();
     }
 
     private function setCache()
     {
-        $this->header("Setting Cache");
+        $this->header('Setting Cache');
         $this->call('set:all_cache');
         $this->done();
     }
 
     private function migrations()
     {
-        $this->header("Running New Migrations");
+        $this->header('Running New Migrations');
         $this->call('migrate');
         $this->done();
     }
@@ -334,7 +332,7 @@ class GitUpdater extends Command
      */
     private function paths()
     {
-        $p = $this->process("git diff master --name-only");
+        $p = $this->process('git diff master --name-only');
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
 
         $additional = [

@@ -14,8 +14,6 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $addHttpCookie = true;
 
-
-
     /**
      * The URIs that should be excluded from CSRF verification.
      *
@@ -28,8 +26,9 @@ class VerifyCsrfToken extends BaseVerifier
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)

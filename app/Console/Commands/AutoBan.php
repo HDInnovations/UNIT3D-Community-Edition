@@ -1,24 +1,25 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Console\Commands;
 
+use App\Ban;
+use App\Group;
+use App\Mail\BanUser;
+use App\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\BanUser;
-use App\Warning;
-use App\Ban;
-use App\Group;
 
 class AutoBan extends Command
 {
@@ -62,8 +63,8 @@ class AutoBan extends Command
                 $logban = new Ban();
                 $logban->owned_by = $ban->warneduser->id;
                 $logban->created_by = 1;
-                $logban->ban_reason = "Warning Limit Reached, has " . $ban->value . " warnings.";
-                $logban->unban_reason = "";
+                $logban->ban_reason = 'Warning Limit Reached, has '.$ban->value.' warnings.';
+                $logban->unban_reason = '';
                 $logban->save();
 
                 // Send Email

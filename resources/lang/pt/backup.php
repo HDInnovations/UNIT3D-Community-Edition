@@ -8,7 +8,7 @@ return [
      */
     'actions'                        => 'Ações',
     'backup'                         => 'Backup',
-    'backup_doesnt_exist'            => "O arquivo de backup não existe.",
+    'backup_doesnt_exist'            => 'O arquivo de backup não existe.',
     'create_a_new_backup'            => 'Criar novo backup',
     'create_confirmation_message'    => 'Recarregando a página em 3 segundos.',
     'create_confirmation_title'      => 'Backup efetuado',
@@ -19,7 +19,7 @@ return [
     'date'                           => 'Data',
     'delete'                         => 'Excluir',
     'delete_cancel_message'          => 'O arquivo de backup NÃO foi excluído.',
-    'delete_cancel_title'            => "Está bem",
+    'delete_cancel_title'            => 'Está bem',
     'delete_confirm'                 => 'Você tem certeza de que deseja excluir este arquivo de backup?',
     'delete_confirmation_message'    => 'O arquivo de backup foi excluído.',
     'delete_confirmation_title'      => 'Pronto',

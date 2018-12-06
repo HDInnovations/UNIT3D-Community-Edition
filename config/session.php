@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -36,7 +37,7 @@
      | to immediately expire on the browser closing, set that option.
      |
      */
-     'lifetime' => env('SESSION_LIFETIME', 120),
+     'lifetime'        => env('SESSION_LIFETIME', 120),
      'expire_on_close' => false,
 
      /*
@@ -173,7 +174,7 @@
      |
      */
      'http_only' => true,
-     
+
      /*
      |--------------------------------------------------------------------------
      | Same-Site Cookies

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddCanUploadToGroupsTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddCanUploadToGroupsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->boolean("can_upload")->after("is_freeleech")->default(1);
+            $table->boolean('can_upload')->after('is_freeleech')->default(1);
         });
     }
 

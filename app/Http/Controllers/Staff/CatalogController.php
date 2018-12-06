@@ -1,22 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Catalog;
 use App\CatalogTorrent;
+use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
@@ -26,7 +27,7 @@ class CatalogController extends Controller
     private $toastr;
 
     /**
-     * CatalogController Constructor
+     * CatalogController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -36,31 +37,33 @@ class CatalogController extends Controller
     }
 
     /**
-     * Get All Catalogs
+     * Get All Catalogs.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCatalogs()
     {
         $catalogs = Catalog::latest('name')->get();
+
         return view('Staff.catalog.catalogs', ['catalogs' => $catalogs]);
     }
 
     /**
-     * Create A Catalog
+     * Create A Catalog.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postCatalog(Request $request)
     {
         $v = validator($request->all(), [
-            'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u'
+            'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u',
         ]);
         $catalog = Catalog::where('name', $request->input('catalog'))->first();
         if ($catalog) {
             return redirect()->route('catalogs')
-                ->with($this->toastr->error('Catalog ' . $catalog->name . ' is already in database', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Catalog '.$catalog->name.' is already in database', 'Whoops!', ['options']));
         }
         $catalog = new Catalog();
         $catalog->name = $request->input('catalog');
@@ -68,36 +71,39 @@ class CatalogController extends Controller
         $catalog->save();
 
         return redirect()->route('getCatalog')
-            ->with($this->toastr->success('Catalog ' . $request->input('catalog') . ' has been successfully added', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog '.$request->input('catalog').' has been successfully added', 'Yay!', ['options']));
     }
 
     /**
-     * Edit A Catalog
+     * Edit A Catalog.
      *
      * @param \Illuminate\Http\Request $request
      * @param $catalog_id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function editCatalog(Request $request, $catalog_id)
     {
         $v = validator($request->all(), [
-            'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u'
+            'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u',
         ]);
         $catalog = Catalog::findOrFail($catalog_id);
         if (!$catalog) {
             return redirect()->route('getCatalog')
-                ->with($this->toastr->error('Catalog ' . $request->input('catalog') . ' is not in our DB!', 'Whoops!', ['options']));
+                ->with($this->toastr->error('Catalog '.$request->input('catalog').' is not in our DB!', 'Whoops!', ['options']));
         }
         $catalog->name = $request->input('catalog');
         $catalog->save();
+
         return redirect()->route('getCatalog')
-            ->with($this->toastr->success('Catalog ' . $request->input('catalog') . ' has been successfully edited', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog '.$request->input('catalog').' has been successfully edited', 'Yay!', ['options']));
     }
 
     /**
-     * Delete A Catalog
+     * Delete A Catalog.
      *
      * @param $catalog_id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteCatalog($catalog_id)
@@ -108,15 +114,13 @@ class CatalogController extends Controller
                 ->with($this->toastr->error('That Catalog Is Not In Our DB!', 'Whoops!', ['options']));
         }
         $catalog->delete();
+
         return redirect()->route('getCatalog')
-            ->with($this->toastr->success('Catalog ' . $catalog->name . ' has been successfully deleted', 'Yay!', ['options']));
+            ->with($this->toastr->success('Catalog '.$catalog->name.' has been successfully deleted', 'Yay!', ['options']));
     }
 
-
     /**
-     * Catalog Torrent System
-     *
-     *
+     * Catalog Torrent System.
      */
     public function getCatalogTorrent()
     {
@@ -131,13 +135,13 @@ class CatalogController extends Controller
         // Find the right catalog
         $catalog = Catalog::findOrFail($request->input('catalog_id'));
         $v = validator($request->all(), [
-            'imdb' => 'required|numeric',
-            'tvdb' => 'required|numeric',
-            'catalog_id' => 'required|numeric|exists:catalog_id'
+            'imdb'       => 'required|numeric',
+            'tvdb'       => 'required|numeric',
+            'catalog_id' => 'required|numeric|exists:catalog_id',
         ]);
         $torrent = CatalogTorrent::where('imdb', $request->input('imdb'))->first();
         if ($torrent) {
-            return redirect()->route('getCatalogTorrent')->with($this->toastr->error('IMDB# ' . $torrent->imdb . ' is already in database', 'Whoops!', ['options']));
+            return redirect()->route('getCatalogTorrent')->with($this->toastr->error('IMDB# '.$torrent->imdb.' is already in database', 'Whoops!', ['options']));
         }
         $torrent = new CatalogTorrent();
         $torrent->imdb = $request->input('imdb');
@@ -147,7 +151,7 @@ class CatalogController extends Controller
         $catalog->num_torrent = CatalogTorrent::where('catalog_id', $catalog->id)->count();
         $catalog->save();
 
-        return redirect()->route('getCatalogTorrent')->with($this->toastr->success('IMDB# ' . $request->input('imdb') . ' has been successfully added', 'Yay!', ['options']));
+        return redirect()->route('getCatalogTorrent')->with($this->toastr->success('IMDB# '.$request->input('imdb').' has been successfully added', 'Yay!', ['options']));
     }
 
     // Get Catalogs Records

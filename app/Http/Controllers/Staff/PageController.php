@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,9 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Page;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -25,7 +26,7 @@ class PageController extends Controller
     private $toastr;
 
     /**
-     * PageController Constructor
+     * PageController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -35,7 +36,7 @@ class PageController extends Controller
     }
 
     /**
-     * Get All Pages
+     * Get All Pages.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -47,7 +48,7 @@ class PageController extends Controller
     }
 
     /**
-     * Page Add Form
+     * Page Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -57,9 +58,10 @@ class PageController extends Controller
     }
 
     /**
-     * Add A Page
+     * Add A Page.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -70,9 +72,9 @@ class PageController extends Controller
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
-            'content' => 'required'
+            'name'    => 'required',
+            'slug'    => 'required',
+            'content' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -80,16 +82,18 @@ class PageController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
+
             return redirect()->route('staff_page_index')
                 ->with($this->toastr->success('Page has been created successfully', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Page Edit Form
+     * Page Edit Form.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function editForm($slug, $id)
@@ -100,11 +104,12 @@ class PageController extends Controller
     }
 
     /**
-     * Edit A Page
+     * Edit A Page.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $slug, $id)
@@ -115,9 +120,9 @@ class PageController extends Controller
         $page->content = $request->input('content');
 
         $v = validator($page->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
-            'content' => 'required'
+            'name'    => 'required',
+            'slug'    => 'required',
+            'content' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -125,16 +130,18 @@ class PageController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
+
             return redirect()->route('staff_page_index')
                 ->with($this->toastr->success('Page has been edited successfully', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Delete A Page
+     * Delete A Page.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function delete($slug, $id)

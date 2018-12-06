@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Yapılandırma Yöneticisi',
+    'title'       => 'Yapılandırma Yöneticisi',
     'info_choose' => 'Düzenlemeye başlamak için bir dosya seç',
-    'file' => 'Dosya',
-    'path' => 'Yol',
-    'header' => [
-        'key' => 'Anahtar',
-        'value' => 'Değer',
-        'actions' => 'Hareketler'
+    'file'        => 'Dosya',
+    'path'        => 'Yol',
+    'header'      => [
+        'key'     => 'Anahtar',
+        'value'   => 'Değer',
+        'actions' => 'Hareketler',
     ],
     'actions' => [
-        'edit' => 'Düzenle',
+        'edit'    => 'Düzenle',
         'confirm' => 'Yeni Anahtarı Kaydet',
-        'save' => 'Kaydet!',
-        'cancel' => 'İptal'
+        'save'    => 'Kaydet!',
+        'cancel'  => 'İptal',
     ],
-    'sure' => 'Emin misin?'
+    'sure' => 'Emin misin?',
 ];
