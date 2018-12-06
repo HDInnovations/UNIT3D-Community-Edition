@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,10 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Note;
 use App\User;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
@@ -26,7 +27,7 @@ class NoteController extends Controller
     private $toastr;
 
     /**
-     * NoteController Constructor
+     * NoteController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -36,7 +37,7 @@ class NoteController extends Controller
     }
 
     /**
-     * Get All User Notes
+     * Get All User Notes.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -48,11 +49,12 @@ class NoteController extends Controller
     }
 
     /**
-     * Post A User Note
+     * Post A User Note.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postNote(Request $request, $username, $id)
@@ -66,9 +68,9 @@ class NoteController extends Controller
         $note->message = $request->input('message');
 
         $v = validator($note->toArray(), [
-            'user_id' => 'required',
+            'user_id'  => 'required',
             'staff_id' => 'required',
-            'message' => 'required'
+            'message'  => 'required',
         ]);
 
         if ($v->fails()) {
@@ -86,9 +88,10 @@ class NoteController extends Controller
     }
 
     /**
-     * Delete A User Note
+     * Delete A User Note.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteNote($id)

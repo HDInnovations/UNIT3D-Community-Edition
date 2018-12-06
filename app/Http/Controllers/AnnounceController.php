@@ -1,41 +1,43 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
 
+use App\FreeleechToken;
 use App\Group;
 use App\History;
 use App\Peer;
+use App\PersonalFreeleech;
+use App\Services\Bencode;
 use App\Torrent;
 use App\User;
-use App\PersonalFreeleech;
-use App\FreeleechToken;
 use Carbon\Carbon;
-use App\Services\Bencode;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller
 {
     /**
-     * Announce Code
+     * Announce Code.
      *
      * @param $passkey
+     *
      * @return Bencode response for the torrent client
      */
     public function announce(Request $request, $passkey)
     {
         $this->checkRequestType();
 
-        $agent = $request->server('HTTP_USER_AGENT') ?: "Unknown";
+        $agent = $request->server('HTTP_USER_AGENT') ?: 'Unknown';
 
         $this->checkBlacklist($agent);
 
@@ -82,7 +84,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::with('history')->where("passkey", $passkey)->first();
+        $user = User::with('history')->where('passkey', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (!$user) {
@@ -124,11 +126,11 @@ class AnnounceController extends Controller
         $peer_id = bin2hex($request->input('peer_id'));
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
-        $port = (int)$request->input('port');
-        $left = (float)$request->input('left');
-        $uploaded = (float)$request->input('uploaded');
+        $port = (int) $request->input('port');
+        $left = (float) $request->input('left');
+        $uploaded = (float) $request->input('uploaded');
         $real_uploaded = $uploaded;
-        $downloaded = (float )$request->input('downloaded');
+        $downloaded = (float) $request->input('downloaded');
         $real_downloaded = $downloaded;
 
         //Extra Information Fields
@@ -433,7 +435,7 @@ class AnnounceController extends Controller
         foreach ($blockedBrowsers as $b) {
             if ($b == $client) {
                 //info('Blacklist Browser Attempted To Connect To Announce');
-                abort(405, "You Cannot Access This Through A Browser Bro!");
+                abort(405, 'You Cannot Access This Through A Browser Bro!');
                 die();
             }
         }
@@ -453,6 +455,7 @@ class AnnounceController extends Controller
         // Check Announce Request Method
         if ($_SERVER['REQUEST_METHOD'] != 'GET') {
             info('Announce Request Method Was Not GET');
+
             return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
         }
     }
@@ -460,21 +463,24 @@ class AnnounceController extends Controller
     private function givePeers($peers, $compact, $no_peer_id)
     {
         if ($compact) {
-            $pcomp = "";
+            $pcomp = '';
             foreach ($peers as &$p) {
                 if (isset($p['ip']) && isset($p['port'])) {
-                    $pcomp .= pack('Nn', ip2long($p['ip']), (int)$p['port']);
+                    $pcomp .= pack('Nn', ip2long($p['ip']), (int) $p['port']);
                 }
             }
+
             return $pcomp;
         } elseif ($no_peer_id) {
             foreach ($peers as &$p) {
                 unset($p['peer_id']);
             }
+
             return $peers;
         } else {
             return $peers;
         }
+
         return $peers;
     }
 }

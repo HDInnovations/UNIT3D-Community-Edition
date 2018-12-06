@@ -1,31 +1,31 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use App\User;
-use App\Torrent;
-use App\Peer;
-use App\History;
 use App\Category;
 use App\Group;
+use App\History;
+use App\Peer;
+use App\Torrent;
 use App\TorrentRequest;
-use Carbon\Carbon;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller
 {
     /**
-     * Show Extra-Stats Index
+     * Show Extra-Stats Index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -45,24 +45,28 @@ class StatsController extends Controller
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
             $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
             return User::whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->count();
         });
 
         // Total Disabled Members Count
         $disabled_user = cache()->remember('disabled_user', 60, function () {
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+
             return User::where('group_id', '=', $disabledGroup->id)->count();
         });
 
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', 60, function () {
             $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
             return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
         });
 
         // Total Banned Members Count
         $banned_user = cache()->remember('banned_user', 60, function () {
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+
             return User::where('group_id', '=', $bannedGroup->id)->count();
         });
 
@@ -126,29 +130,29 @@ class StatsController extends Controller
         $credited_up_down = $credited_upload + $credited_download;
 
         return view('stats.index', [
-            'all_user' => $all_user,
-            'active_user' => $active_user,
-            'disabled_user' => $disabled_user,
-            'pruned_user' => $pruned_user,
-            'banned_user' => $banned_user,
-            'num_torrent' => $num_torrent,
-            'categories' => $categories,
-            'num_hd' => $num_hd,
-            'num_sd' => $num_sd,
-            'num_seeders' => $num_seeders,
-            'num_leechers' => $num_leechers,
-            'num_peers' => $num_peers,
-            'actual_upload' => $actual_upload,
-            'actual_download' => $actual_download,
-            'actual_up_down' => $actual_up_down,
-            'credited_upload' => $credited_upload,
+            'all_user'          => $all_user,
+            'active_user'       => $active_user,
+            'disabled_user'     => $disabled_user,
+            'pruned_user'       => $pruned_user,
+            'banned_user'       => $banned_user,
+            'num_torrent'       => $num_torrent,
+            'categories'        => $categories,
+            'num_hd'            => $num_hd,
+            'num_sd'            => $num_sd,
+            'num_seeders'       => $num_seeders,
+            'num_leechers'      => $num_leechers,
+            'num_peers'         => $num_peers,
+            'actual_upload'     => $actual_upload,
+            'actual_download'   => $actual_download,
+            'actual_up_down'    => $actual_up_down,
+            'credited_upload'   => $credited_upload,
             'credited_download' => $credited_download,
-            'credited_up_down' => $credited_up_down,
+            'credited_up_down'  => $credited_up_down,
         ]);
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -166,7 +170,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -184,7 +188,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -197,7 +201,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -210,7 +214,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -223,7 +227,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -241,7 +245,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -254,7 +258,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -267,7 +271,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -280,7 +284,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -293,7 +297,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -306,7 +310,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -319,7 +323,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -332,7 +336,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrent Requests
+     * Show Extra-Stats Torrent Requests.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -345,7 +349,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups
+     * Show Extra-Stats Groups.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -358,7 +362,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups
+     * Show Extra-Stats Groups.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

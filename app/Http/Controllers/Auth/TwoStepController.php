@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,9 +14,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\TwoStep;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Traits\TwoStep;
 
 class TwoStepController extends Controller
 {
@@ -44,24 +45,24 @@ class TwoStepController extends Controller
     }
 
     /**
-     * Set the User2Step Variables
+     * Set the User2Step Variables.
      *
      * @return void
      */
     private function setUser2StepData()
     {
-        $user                       = auth()->user();
-        $twoStepAuth                = $this->getTwoStepAuthStatus($user->id);
-        $authCount                  = $twoStepAuth->authCount;
-        $this->_user                = $user;
-        $this->_twoStepAuth         = $twoStepAuth;
-        $this->_authCount           = $authCount;
-        $this->_authStatus          = $twoStepAuth->authStatus;
-        $this->_remainingAttempts   = config('auth.TwoStepExceededCount') - $authCount;
+        $user = auth()->user();
+        $twoStepAuth = $this->getTwoStepAuthStatus($user->id);
+        $authCount = $twoStepAuth->authCount;
+        $this->_user = $user;
+        $this->_twoStepAuth = $twoStepAuth;
+        $this->_authCount = $authCount;
+        $this->_authStatus = $twoStepAuth->authStatus;
+        $this->_remainingAttempts = config('auth.TwoStepExceededCount') - $authCount;
     }
 
     /**
-     * Validation and Invalid code failed actions and return message
+     * Validation and Invalid code failed actions and return message.
      *
      * @param array $errors (optional)
      *
@@ -97,7 +98,7 @@ class TwoStepController extends Controller
         }
 
         $twoStepAuth = $this->_twoStepAuth;
-        $authStatus  = $this->_authStatus;
+        $authStatus = $this->_authStatus;
 
         if ($this->checkExceededTime($twoStepAuth->updated_at)) {
             $this->resetExceededTime($twoStepAuth);
@@ -111,7 +112,7 @@ class TwoStepController extends Controller
         if ($this->_authCount > config('auth.TwoStepExceededCount')) {
             $exceededTimeDetails = $this->exceededTimeParser($twoStepAuth->updated_at);
 
-            $data['timeUntilUnlock']     = $exceededTimeDetails['tomorrow'];
+            $data['timeUntilUnlock'] = $exceededTimeDetails['tomorrow'];
             $data['timeCountdownUnlock'] = $exceededTimeDetails['remaining'];
 
             return view('auth.twostep-exceeded')->with($data);
@@ -141,9 +142,9 @@ class TwoStepController extends Controller
     }
 
     /**
-     * Verify the user code input
+     * Verify the user code input.
      *
-     * @param  Request $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -167,8 +168,8 @@ class TwoStepController extends Controller
                 return response()->json($returnData, 418);
             }
 
-            $code       = $request->v_input_1 . $request->v_input_2 . $request->v_input_3 . $request->v_input_4;
-            $validCode  = $this->_twoStepAuth->authCode;
+            $code = $request->v_input_1.$request->v_input_2.$request->v_input_3.$request->v_input_4;
+            $validCode = $this->_twoStepAuth->authCode;
 
             if ($validCode != $code) {
                 $returnData = $this->invalidCodeReturnData();
@@ -190,7 +191,7 @@ class TwoStepController extends Controller
     }
 
     /**
-     * Resend the validation code triggered by user
+     * Resend the validation code triggered by user.
      *
      * @return \Illuminate\Http\Response
      */
@@ -204,7 +205,7 @@ class TwoStepController extends Controller
         $this->sendVerificationCodeNotification($twoStepAuth);
 
         $returnData = [
-            'title' => trans('auth.verificationEmailSuccess'),
+            'title'   => trans('auth.verificationEmailSuccess'),
             'message' => trans('auth.verificationEmailSentMsg'),
         ];
 

@@ -1,31 +1,32 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use App\Torrent;
-use App\Peer;
-use App\User;
 use App\Client;
-use App\Report;
 use App\Group;
 use App\Helpers\SystemInformation;
+use App\Http\Controllers\Controller;
+use App\Peer;
+use App\Report;
+use App\Torrent;
+use App\User;
 use Spatie\SslCertificate\SslCertificate;
 
 class HomeController extends Controller
 {
     /**
-     * Staff Dashboard Index
+     * Staff Dashboard Index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -63,7 +64,7 @@ class HomeController extends Controller
         if (request()->secure()) {
             $certificate = SslCertificate::createForHostName(config('app.url'));
         } else {
-            $certificate ='';
+            $certificate = '';
         }
 
         // System Information
@@ -75,27 +76,27 @@ class HomeController extends Controller
         $basic = $sys->basic();
 
         return view('Staff.home.index', [
-            'num_user' => $num_user,
-            'banned' => $banned,
-            'validating' => $validating,
-            'num_torrent' => $num_torrent,
-            'pending' => $pending,
-            'rejected' => $rejected,
-            'peers' => $peers,
-            'seeders' => $seeders,
-            'leechers' => $leechers,
-            'seedboxes' => $seedboxes,
-            'highspeed_users' => $highspeed_users,
+            'num_user'           => $num_user,
+            'banned'             => $banned,
+            'validating'         => $validating,
+            'num_torrent'        => $num_torrent,
+            'pending'            => $pending,
+            'rejected'           => $rejected,
+            'peers'              => $peers,
+            'seeders'            => $seeders,
+            'leechers'           => $leechers,
+            'seedboxes'          => $seedboxes,
+            'highspeed_users'    => $highspeed_users,
             'highspeed_torrents' => $highspeed_torrents,
-            'reports' => $reports,
-            'unsolved' => $unsolved,
-            'solved' => $solved,
-            'certificate' => $certificate,
-            'uptime' => $uptime,
-            'ram' => $ram,
-            'disk' => $disk,
-            'avg' => $avg,
-            'basic' => $basic
+            'reports'            => $reports,
+            'unsolved'           => $unsolved,
+            'solved'             => $solved,
+            'certificate'        => $certificate,
+            'uptime'             => $uptime,
+            'ram'                => $ram,
+            'disk'               => $disk,
+            'avg'                => $avg,
+            'basic'              => $basic,
         ]);
     }
 }

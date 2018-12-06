@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddLastReplyAtToTopicsTable extends Migration
 {
@@ -14,7 +14,7 @@ class AddLastReplyAtToTopicsTable extends Migration
     public function up()
     {
         Schema::table('topics', function (Blueprint $table) {
-            $table->timestamp('last_reply_at')->nullable()->after("last_post_user_username");
+            $table->timestamp('last_reply_at')->nullable()->after('last_post_user_username');
         });
     }
 

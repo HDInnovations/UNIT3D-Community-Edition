@@ -1,24 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\Request;
-
 use App\Torrent;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Request;
 
 class NewReseedRequest extends Notification implements ShouldQueue
 {
@@ -30,6 +29,7 @@ class NewReseedRequest extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * @param Post $post
+     *
      * @return void
      */
     public function __construct(Torrent $torrent)
@@ -40,7 +40,8 @@ class NewReseedRequest extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -51,16 +52,18 @@ class NewReseedRequest extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function toArray($notifiable)
     {
         $appurl = config('app.url');
+
         return [
-            'title' => "New Reseed Request",
-            'body' => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
-            'url' => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}"
+            'title' => 'New Reseed Request',
+            'body'  => "Some time ago, you downloaded: {$this->torrent->name}. Now its dead and someone has requested a reseed on it. If you still have this torrent in storage, please consider reseeding it!",
+            'url'   => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
     }
 }

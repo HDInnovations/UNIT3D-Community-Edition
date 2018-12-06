@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -30,7 +31,6 @@ class IRCAnnounceBot
         $this->joinchannels = config('irc-bot.joinchannels');
         $this->socket = fsockopen($this->server, $this->port);
 
-
         $this->send_data("NICK {$this->username}");
         $this->send_data("USER {$this->username} {$this->hostname} {$this->server} {$this->username}");
 
@@ -48,13 +48,14 @@ class IRCAnnounceBot
     {
         while ($data = fgets($this->socket)) {
             flush();
-            $ex = explode(" ", $data);
+            $ex = explode(' ', $data);
 
-            if ($ex[0] == "PING") {
-                $this->send_data("PONG " . $ex[1]);
+            if ($ex[0] == 'PING') {
+                $this->send_data('PONG '.$ex[1]);
                 if ($this->nickservpass) {
                     $this->send_data("NICKSERV IDENTIFY {$this->nickservpass}");
                 }
+
                 return;
             }
         }
@@ -62,7 +63,7 @@ class IRCAnnounceBot
 
     private function send_data($data)
     {
-        fputs($this->socket, "$data\r\n");
+        fwrite($this->socket, "$data\r\n");
     }
 
     private function say($channel, $string)

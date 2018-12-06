@@ -1,24 +1,25 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\User;
 use App\Invite;
 use App\Mail\InviteUser;
+use App\User;
 use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Ramsey\Uuid\Uuid;
 
 class InviteController extends Controller
@@ -29,7 +30,7 @@ class InviteController extends Controller
     private $toastr;
 
     /**
-     * InviteController Constructor
+     * InviteController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -39,7 +40,7 @@ class InviteController extends Controller
     }
 
     /**
-     * Invite Form
+     * Invite Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -55,13 +56,15 @@ class InviteController extends Controller
             return redirect()->route('home')
             ->with($this->toastr->error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
+
         return view('user.invite', ['user' => $user]);
     }
 
     /**
-     * Send Invite
+     * Send Invite.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function process(Request $request)
@@ -98,21 +101,20 @@ class InviteController extends Controller
 
         if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($invite->toArray(), [
-            "email" => "required|email|unique:users|email_list:allow", // Whitelist
-            "custom" => "required"
+            'email'  => 'required|email|unique:users|email_list:allow', // Whitelist
+            'custom' => 'required',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($invite->toArray(), [
-            "email" => "required|email|unique:users|email_list:block", // Blacklist
-            "custom" => "required"
+            'email'  => 'required|email|unique:users|email_list:block', // Blacklist
+            'custom' => 'required',
             ]);
         } else {
             $v = validator($invite->toArray(), [
-            "email" => "required|email|unique:users", // Default
-            "custom" => "required"
+            'email'  => 'required|email|unique:users', // Default
+            'custom' => 'required',
             ]);
         }
-
 
         if ($v->fails()) {
             return redirect()->route('invite')
@@ -133,9 +135,10 @@ class InviteController extends Controller
     }
 
     /**
-     * Resend Invite
+     * Resend Invite.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function reProcess($id)
@@ -160,10 +163,11 @@ class InviteController extends Controller
     }
 
     /**
-     * Invite Tree
+     * Invite Tree.
      *
      * @param $username
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function inviteTree($username, $id)

@@ -1,21 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
+
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Notifications\UsernameReminder;
 use App\User;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class ForgotUsernameController extends Controller
 {
@@ -25,7 +27,7 @@ class ForgotUsernameController extends Controller
     private $toastr;
 
     /**
-     * ForgotUsernameController Constructor
+     * ForgotUsernameController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -35,7 +37,7 @@ class ForgotUsernameController extends Controller
     }
 
     /**
-     * Forgot Username Form
+     * Forgot Username Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -45,7 +47,7 @@ class ForgotUsernameController extends Controller
     }
 
     /**
-     * Send Username Reminder
+     * Send Username Reminder.
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -54,7 +56,7 @@ class ForgotUsernameController extends Controller
         $email = $request->get('email');
 
         $v = validator($request->all(), [
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         if ($v->fails()) {

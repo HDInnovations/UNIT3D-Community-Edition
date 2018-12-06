@@ -1,21 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\PrivateMessage;
 use App\User;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class PrivateMessageController extends Controller
 {
@@ -25,7 +26,7 @@ class PrivateMessageController extends Controller
     private $toastr;
 
     /**
-     * PrivateMessageController Constructor
+     * PrivateMessageController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -35,39 +36,41 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * Search PM Inbox
+     * Search PM Inbox.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function searchPMInbox(Request $request)
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('receiver_id', $user->id)->where([
-            ['subject', 'like', '%' . $request->input('subject') . '%'],
+            ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
-     * Search PM Outbox
+     * Search PM Outbox.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function searchPMOutbox(Request $request)
     {
         $user = auth()->user();
         $pms = PrivateMessage::where('sender_id', $user->id)->where([
-            ['subject', 'like', '%' . $request->input('subject') . '%'],
+            ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
         return view('pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
 
     /**
-     * View Inbox
+     * View Inbox.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -80,7 +83,7 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * View Outbox
+     * View Outbox.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -93,9 +96,10 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * View A Message
+     * View A Message.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getPrivateMessageById($id)
@@ -117,9 +121,10 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * Create Message Form
+     * Create Message Form.
      *
      * @param $receiver_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function makePrivateMessage($receiver_id = '', $username = '')
@@ -128,13 +133,14 @@ class PrivateMessageController extends Controller
         $usernames = User::oldest('username')->get();
 
         return view('pm.send', ['usernames' => $usernames, 'user' => $user, 'receiver_id' => $receiver_id,
-            'username' => $username]);
+            'username'                      => $username, ]);
     }
 
     /**
-     * Create A Message
+     * Create A Message.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function sendPrivateMessage(Request $request)
@@ -148,13 +154,12 @@ class PrivateMessageController extends Controller
         $pm->message = $request->input('message');
         $pm->read = 0;
 
-
         $v = validator($pm->toArray(), [
-            'sender_id' => 'required',
+            'sender_id'   => 'required',
             'receiver_id' => 'required',
-            'subject' => 'required',
-            'message' => 'required',
-            'read' => 'required',
+            'subject'     => 'required',
+            'message'     => 'required',
+            'read'        => 'required',
         ]);
 
         if ($v->fails()) {
@@ -162,16 +167,18 @@ class PrivateMessageController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $pm->save();
+
             return redirect()->route('inbox')
                 ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Reply To A Message
+     * Reply To A Message.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function replyPrivateMessage(Request $request, $id)
@@ -188,14 +195,13 @@ class PrivateMessageController extends Controller
         $pm->related_to = $message->id;
         $pm->read = 0;
 
-
         $v = validator($pm->toArray(), [
-            'sender_id' => 'required',
+            'sender_id'   => 'required',
             'receiver_id' => 'required',
-            'subject' => 'required',
-            'message' => 'required',
-            'related_to' => 'required',
-            'read' => 'required',
+            'subject'     => 'required',
+            'message'     => 'required',
+            'related_to'  => 'required',
+            'read'        => 'required',
         ]);
 
         if ($v->fails()) {
@@ -210,9 +216,10 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * Delete A Message
+     * Delete A Message.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deletePrivateMessage($id)
@@ -222,6 +229,7 @@ class PrivateMessageController extends Controller
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
+
             return redirect()->route('inbox')
                 ->with($this->toastr->success('PM Was Deleted Successfully!', 'Yay!', ['options']));
         } else {
@@ -231,7 +239,7 @@ class PrivateMessageController extends Controller
     }
 
     /**
-     * Mark All Messages As Read
+     * Mark All Messages As Read.
      *
      * @return Illuminate\Http\RedirectResponse
      */

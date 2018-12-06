@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -14,12 +15,11 @@ namespace App\Http\Controllers;
 
 use App\Report;
 use App\Torrent;
-use Illuminate\Http\Request;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-
     /**
      * @var Report
      */
@@ -36,11 +36,11 @@ class ReportController extends Controller
     private $toastr;
 
     /**
-     * PrivateMessageController Constructor
+     * PrivateMessageController Constructor.
      *
-     * @param Report $report
+     * @param Report  $report
      * @param Torrent $torrent
-     * @param Toastr $toastr
+     * @param Toastr  $toastr
      */
     public function __construct(Report $report, Torrent $torrent, Toastr $toastr)
     {
@@ -50,9 +50,10 @@ class ReportController extends Controller
     }
 
     /**
-     * Create A Report
+     * Create A Report.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postReport(Request $request)
@@ -62,13 +63,13 @@ class ReportController extends Controller
         $reported_user = $torrent->user;
 
         $this->report->create([
-            'type' => $request->get('type'),
-            'torrent_id' => $torrent->id,
-            'reporter_id' => $reported_by->id,
+            'type'          => $request->get('type'),
+            'torrent_id'    => $torrent->id,
+            'reporter_id'   => $reported_by->id,
             'reported_user' => $reported_user->id,
-            'title' => $torrent->name,
-            'message' => $request->get('message'),
-            'solved' => 0
+            'title'         => $torrent->name,
+            'message'       => $request->get('message'),
+            'solved'        => 0,
         ]);
 
         // Activity Log

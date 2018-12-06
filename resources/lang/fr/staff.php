@@ -5,9 +5,9 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'moderation' => 'Modération',
+    'moderation'      => 'Modération',
     'please-moderate' => 'S\'il vous plaît modérer ce torrent!',
-    'you-have' => 'Vous avez',
-    'dashboard' => 'Tableau de bord',
-    'staff-dashboard' => 'Tableau de bord du personnel'
+    'you-have'        => 'Vous avez',
+    'dashboard'       => 'Tableau de bord',
+    'staff-dashboard' => 'Tableau de bord du personnel',
 ];

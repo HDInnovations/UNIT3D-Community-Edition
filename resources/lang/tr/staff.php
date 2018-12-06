@@ -5,9 +5,9 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'moderation' => 'Moderasyon',
+    'moderation'      => 'Moderasyon',
     'please-moderate' => 'Lütfen bu Torrenti Düzeltin !',
-    'you-have' => 'Sahipsin',
-    'dashboard' => 'Panel',
-    'staff-dashboard' => 'Görevli Paneli'
+    'you-have'        => 'Sahipsin',
+    'dashboard'       => 'Panel',
+    'staff-dashboard' => 'Görevli Paneli',
 ];

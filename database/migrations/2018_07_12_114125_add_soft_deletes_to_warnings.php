@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class AddSoftDeletesToWarnings extends Migration
 {
@@ -14,8 +14,8 @@ class AddSoftDeletesToWarnings extends Migration
     public function up()
     {
         Schema::table('warnings', function (Blueprint $table) {
-            $table->integer('deleted_by')->after("active")->nullable();
-            $table->softDeletes()->after("deleted_by");
+            $table->integer('deleted_by')->after('active')->nullable();
+            $table->softDeletes()->after('deleted_by');
         });
     }
 

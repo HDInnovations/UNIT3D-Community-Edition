@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
@@ -21,7 +22,6 @@ use App\User;
 
 class ChatRepository
 {
-
     /**
      * @var Message
      */
@@ -41,7 +41,6 @@ class ChatRepository
      * @var User
      */
     private $user;
-
 
     public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user)
     {
@@ -72,11 +71,10 @@ class ChatRepository
             $message = $this->censorMessage($message);
         }
 
-
         $message = $this->message->create([
-            'user_id' => $user_id,
+            'user_id'     => $user_id,
             'chatroom_id' => $room_id,
-            'message' => $message
+            'message'     => $message,
         ]);
 
         $this->checkMessageLimits($room_id);
@@ -114,7 +112,7 @@ class ChatRepository
         if ($count > $limit) {
             for ($x = 1; $x <= $count - $limit; $x++) {
                 $message = array_pop($messages);
-                echo $message['id'] . "\n";
+                echo $message['id']."\n";
 
                 $this->message->find($message['id'])->delete();
             }
@@ -176,6 +174,7 @@ class ChatRepository
 
     /**
      * @param $message
+     *
      * @return string
      */
     protected function censorMessage($message)

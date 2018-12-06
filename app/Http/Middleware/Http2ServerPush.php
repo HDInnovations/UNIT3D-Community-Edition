@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -30,7 +31,7 @@ class Http2ServerPush
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -122,16 +123,15 @@ class Http2ServerPush
     }
 
     /**
-     * Add Link Header
+     * Add Link Header.
      *
      * @param \Illuminate\Http\Response $response
-     *
      * @param $link
      */
     private function addLinkHeader(Response $response, $link)
     {
         if ($response->headers->get('Link')) {
-            $link = $response->headers->get('Link') . ',' . $link;
+            $link = $response->headers->get('Link').','.$link;
         }
 
         $response->header('Link', $link);

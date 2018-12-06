@@ -1,15 +1,16 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Services\Clients;
 
 use App\Services\Contracts\MovieTvInterface;
@@ -19,7 +20,6 @@ use Moinax\TvDb\Client as MoinaxTvDbClient;
 
 class TvdbClient extends Client implements MovieTvInterface
 {
-
     protected $apiUrl = 'thetvdb.com';
     protected $apiSecure = false;
 
@@ -40,7 +40,7 @@ class TvdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys($keys);
 
-        $key = 'tvdb' . $keys['imdb'];
+        $key = 'tvdb'.$keys['imdb'];
         $result = $this->cache($key);
         if (!$result) {
             $result = $this->tvdb_api->getSerieByRemoteId(['imdbid' => $keys['imdb']]);
@@ -63,7 +63,7 @@ class TvdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tvdb' => $id]);
 
-        $key = 'tvdb' . $id;
+        $key = 'tvdb'.$id;
         $result = $this->cache($key);
         if (!$result) {
             $result = $this->tvdb_api->getSerieEpisodes($id);
@@ -82,18 +82,18 @@ class TvdbClient extends Client implements MovieTvInterface
         $tv = $data['serie'];
 
         return new Tv([
-            'imdb' => $tv->imdbId,
-            'tvdb' => $tv->id,
-            'title' => $tv->name,
+            'imdb'        => $tv->imdbId,
+            'tvdb'        => $tv->id,
+            'title'       => $tv->name,
             'releaseDate' => $tv->firstAired,
-            'plot' => $tv->overview,
-            'genres' => $tv->genres,
-            'network' => $tv->network,
-            'runtime' => $tv->runtime,
-            'tvdbRating' => $tv->rating,
-            'tvdbVotes' => $tv->ratingCount,
-            'poster' => !empty($tv->poster) ? $this->imagePath . $tv->poster : null,
-            'episodes' => $this->formatEpisodes($data['episodes'])
+            'plot'        => $tv->overview,
+            'genres'      => $tv->genres,
+            'network'     => $tv->network,
+            'runtime'     => $tv->runtime,
+            'tvdbRating'  => $tv->rating,
+            'tvdbVotes'   => $tv->ratingCount,
+            'poster'      => !empty($tv->poster) ? $this->imagePath.$tv->poster : null,
+            'episodes'    => $this->formatEpisodes($data['episodes']),
         ]);
     }
 
@@ -103,12 +103,12 @@ class TvdbClient extends Client implements MovieTvInterface
         if (!empty($episodes)) {
             foreach ($episodes as $episode) {
                 $tv_episodes[] = new Episode([
-                    'episode' => $episode->number,
-                    'season' => $episode->season,
-                    'title' => $episode->name,
+                    'episode'     => $episode->number,
+                    'season'      => $episode->season,
+                    'title'       => $episode->name,
                     'releaseDate' => $episode->firstAired,
-                    'plot' => $episode->overview,
-                    'photo' => !empty($episode->thumbnail) ? $this->imagePath . $episode->thumbnail : null,
+                    'plot'        => $episode->overview,
+                    'photo'       => !empty($episode->thumbnail) ? $this->imagePath.$episode->thumbnail : null,
                 ]);
             }
         }

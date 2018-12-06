@@ -1,22 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\History;
 use App\PrivateMessage;
 use App\Warning;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class AutoWarning extends Command
 {
@@ -65,11 +66,11 @@ class AutoWarning extends Command
                         if (!$exsist) {
                             $warning = new Warning();
                             $warning->user_id = $hr->user->id;
-                            $warning->warned_by = "1";
+                            $warning->warned_by = '1';
                             $warning->torrent = $hr->torrent->id;
                             $warning->reason = "Hit and Run Warning For Torrent {$hr->torrent->name}";
                             $warning->expires_on = $current->copy()->addDays(config('hitrun.expire'));
-                            $warning->active = "1";
+                            $warning->active = '1';
                             $warning->save();
 
                             // Add +1 To Users Warnings Count In Users Table
@@ -78,12 +79,12 @@ class AutoWarning extends Command
                             $hr->user->save();
 
                             // Send Private Message
-                            $pm = new PrivateMessage;
+                            $pm = new PrivateMessage();
                             $pm->sender_id = 1;
                             $pm->receiver_id = $hr->user->id;
-                            $pm->subject = "Hit and Run Warning Received";
-                            $pm->message = "You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent " . $hr->torrent->name . "[/b]
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                            $pm->subject = 'Hit and Run Warning Received';
+                            $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
+                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                             $pm->save();
                         }
                     }

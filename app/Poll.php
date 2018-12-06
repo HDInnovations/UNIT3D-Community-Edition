@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Poll extends Model
 {
     /**
-     * The Attributes That Are Mass Assignable
+     * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
@@ -25,11 +26,11 @@ class Poll extends Model
         'title',
         'slug',
         'ip_checking',
-        'multiple_choice'
+        'multiple_choice',
     ];
 
     /**
-     * Belongs To A User
+     * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -37,12 +38,12 @@ class Poll extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * A Poll Has Many Options
+     * A Poll Has Many Options.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -52,7 +53,7 @@ class Poll extends Model
     }
 
     /**
-     * A Poll Has Many Voters
+     * A Poll Has Many Voters.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -62,24 +63,26 @@ class Poll extends Model
     }
 
     /**
-     * Set The Poll's Title, Adds A Question Mark (?) If Needed
+     * Set The Poll's Title, Adds A Question Mark (?) If Needed.
      *
      * @param $title
+     *
      * @return string
      */
     public function setTitleAttribute($title)
     {
         if (substr($title, -1) != '?') {
-            return $this->attributes['title'] = $title . '?';
+            return $this->attributes['title'] = $title.'?';
         }
 
         return $this->attributes['title'] = $title;
     }
 
     /**
-     * Create A Poll Title Slug
+     * Create A Poll Title Slug.
      *
      * @param $title
+     *
      * @return string
      */
     public function makeSlugFromTitle($title)
@@ -91,7 +94,7 @@ class Poll extends Model
     }
 
     /**
-     * Get Total Votes On A Poll Option
+     * Get Total Votes On A Poll Option.
      *
      * @return string
      */
@@ -101,16 +104,18 @@ class Poll extends Model
         foreach ($this->options as $option) {
             $result += $option->votes;
         }
+
         return $result;
     }
 
     protected static function boot()
     {
         parent::boot();
-        Poll::creating(function ($poll) {
+        self::creating(function ($poll) {
             if (empty($poll->slug)) {
                 $poll->slug = $poll->makeSlugFromTitle($poll->title);
             }
+
             return true;
         });
     }

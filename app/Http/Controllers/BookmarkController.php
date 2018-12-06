@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -18,7 +19,7 @@ use App\PersonalFreeleech;
 class BookmarkController extends Controller
 {
     /**
-     * Get Torrent Bookmarks
+     * Get Torrent Bookmarks.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,9 +30,9 @@ class BookmarkController extends Controller
         $bookmarks = $user->bookmarks()->paginate(25);
 
         return view('bookmark.bookmarks', [
-            'user' => $user,
+            'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
-            'bookmarks' => $bookmarks
+            'bookmarks'          => $bookmarks,
         ]);
     }
 }

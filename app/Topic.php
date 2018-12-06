@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     /**
-     * Belongs To A Forum
+     * Belongs To A Forum.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -27,7 +28,7 @@ class Topic extends Model
     }
 
     /**
-     * Has Many Posts
+     * Has Many Posts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -37,7 +38,7 @@ class Topic extends Model
     }
 
     /**
-     * Has Many Subscriptions
+     * Has Many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -47,7 +48,7 @@ class Topic extends Model
     }
 
     /**
-     * Notify Subscribers Of A Topic When New Post Is Made
+     * Notify Subscribers Of A Topic When New Post Is Made.
      *
      * @return string
      */
@@ -57,7 +58,7 @@ class Topic extends Model
     }
 
     /**
-     * Does User Have Permission To View Topic
+     * Does User Have Permission To View Topic.
      *
      * @return string
      */
@@ -71,9 +72,10 @@ class Topic extends Model
     }
 
     /**
-     * Get Post Number From ID
+     * Get Post Number From ID.
      *
      * @param $searchId
+     *
      * @return string
      */
     public function postNumberFromId($searchId)
@@ -85,6 +87,7 @@ class Topic extends Model
                 break;
             }
         }
+
         return $count;
     }
 }

@@ -15,6 +15,6 @@ class TrimStrings extends BaseTrimmer
         'password',
         'password_confirmation',
         'info_hash',
-        'peer_id'
+        'peer_id',
     ];
 }

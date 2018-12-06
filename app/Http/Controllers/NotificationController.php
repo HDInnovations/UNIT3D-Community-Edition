@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
 
@@ -14,7 +13,7 @@ class NotificationController extends Controller
     private $toastr;
 
     /**
-     * NotificationController Constructor
+     * NotificationController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -24,7 +23,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Show All Notifications
+     * Show All Notifications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -36,9 +35,10 @@ class NotificationController extends Controller
     }
 
     /**
-     * Set A Notification To Read
+     * Set A Notification To Read.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function read($id)
@@ -50,7 +50,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Mass Update All Notification's To Read
+     * Mass Update All Notification's To Read.
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -64,9 +64,10 @@ class NotificationController extends Controller
     }
 
     /**
-     * Delete A Notification
+     * Delete A Notification.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function delete($id)
@@ -78,7 +79,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * Mass Delete All Notification's
+     * Mass Delete All Notification's.
      *
      * @return Illuminate\Http\RedirectResponse
      */

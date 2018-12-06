@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
@@ -42,10 +43,11 @@ class WishRepository implements WishInterface
 
     /**
      * WishRepository constructor.
-     * @param Wish $wish
-     * @param User $user
+     *
+     * @param Wish       $wish
+     * @param User       $user
      * @param OmdbClient $client
-     * @param Torrent $torrent
+     * @param Torrent    $torrent
      */
     public function __construct(Wish $wish, User $user, OmdbClient $client, Torrent $torrent)
     {
@@ -57,6 +59,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param null $paginate
+     *
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function all($paginate = null)
@@ -66,6 +69,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param array $data
+     *
      * @return mixed
      */
     public function create(array $data)
@@ -75,6 +79,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function findById($id)
@@ -84,6 +89,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $title
+     *
      * @return mixed
      */
     public function findByTitle($title)
@@ -94,6 +100,7 @@ class WishRepository implements WishInterface
     /**
      * @param $uid
      * @param $id
+     *
      * @return bool
      */
     public function exists($uid, $id)
@@ -106,11 +113,13 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
+     *
      * @return bool
      */
     public function isGranted($id)
     {
         $id = str_replace('tt', '', $id);
+
         return $this->torrent
             ->where('imdb', $id)
             ->where('seeders', '>', 0)
@@ -120,6 +129,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
+     *
      * @return null|string
      */
     public function getSource($id)
@@ -140,6 +150,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $uid
+     *
      * @return mixed
      */
     public function getUserWishes($uid)
@@ -149,6 +160,7 @@ class WishRepository implements WishInterface
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function delete($id)
@@ -159,6 +171,7 @@ class WishRepository implements WishInterface
     /**
      * @param $imdb
      * @param string $type
+     *
      * @return array|mixed|null
      */
     public function omdbRequest($imdb)

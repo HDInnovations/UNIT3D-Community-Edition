@@ -5,5 +5,5 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'my-profile' => 'Il mio profilo'
+    'my-profile' => 'Il mio profilo',
 ];

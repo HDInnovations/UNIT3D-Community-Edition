@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Services\Clients\OmdbClient;
 use App\Album;
-use Image;
-use Carbon\Carbon;
+use App\Services\Clients\OmdbClient;
 use Brian2694\Toastr\Toastr;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Image;
 
 class AlbumController extends Controller
 {
@@ -32,10 +33,10 @@ class AlbumController extends Controller
     private $toastr;
 
     /**
-     * AlbumController Constructor
+     * AlbumController Constructor.
      *
      * @param OmdbClient $client
-     * @param Toastr $toastr
+     * @param Toastr     $toastr
      */
     public function __construct(OmdbClient $client, Toastr $toastr)
     {
@@ -44,7 +45,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Get All Albums
+     * Get All Albums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,9 +57,10 @@ class AlbumController extends Controller
     }
 
     /**
-     * Get A Album
+     * Get A Album.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getAlbum($id)
@@ -70,7 +72,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Album Add Form
+     * Album Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -80,39 +82,40 @@ class AlbumController extends Controller
     }
 
     /**
-     * Add A Album
+     * Add A Album.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
     {
-        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt' . $request->input('imdb');
+        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
         if ($omdb === null || $omdb === false) {
             return redirect()->route('create_album_form')
                 ->with($this->toastr->error('Bad IMDB Request!', 'Whoops!', ['options']));
-        };
+        }
 
         $album = new Album();
         $album->user_id = auth()->user()->id;
-        $album->name = $omdb['Title'] . ' (' . $omdb['Year'] . ')';
+        $album->name = $omdb['Title'].' ('.$omdb['Year'].')';
         $album->description = $request->input('description');
         $album->imdb = $request->input('imdb');
 
         $image = $request->file('cover_image');
-        $filename = 'album-cover_' . uniqid() . '.' . $image->getClientOriginalExtension();
-        $path = public_path('/files/img/' . $filename);
+        $filename = 'album-cover_'.uniqid().'.'.$image->getClientOriginalExtension();
+        $path = public_path('/files/img/'.$filename);
         Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         $album->cover_image = $filename;
 
         $v = validator($album->toArray(), [
-            'user_id' => 'required',
-            'name' => 'required',
+            'user_id'     => 'required',
+            'name'        => 'required',
             'description' => 'required',
-            'imdb' => 'required',
-            'cover_image' => 'required'
+            'imdb'        => 'required',
+            'cover_image' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -128,9 +131,10 @@ class AlbumController extends Controller
     }
 
     /**
-     * Delete A Album
+     * Delete A Album.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function destroy($id)

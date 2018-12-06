@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 trait ConsoleTools
 {
     /**
-     * @var SymfonyStyle $io
+     * @var SymfonyStyle
      */
     protected $io;
 
@@ -46,7 +46,7 @@ trait ConsoleTools
 
     private function done()
     {
-        $this->green("<fg=white>[</>Done<fg=white>]</>");
+        $this->green('<fg=white>[</>Done<fg=white>]</>');
     }
 
     private function header($line)
@@ -147,7 +147,7 @@ trait ConsoleTools
      */
     protected function progressStop(ProgressBar $bar)
     {
-        $bar->setMessage("<fg=green>Done!</>");
+        $bar->setMessage('<fg=green>Done!</>');
         $bar->finish();
     }
 }

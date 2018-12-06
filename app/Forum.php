@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Forum extends Model
 {
     /**
-     * Has Many Topic
+     * Has Many Topic.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -27,7 +28,7 @@ class Forum extends Model
     }
 
     /**
-     * Has Many Permissions
+     * Has Many Permissions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -37,54 +38,56 @@ class Forum extends Model
     }
 
     /**
-     * Returns A Table With The Forums In The Category
+     * Returns A Table With The Forums In The Category.
      *
      * @return string
      */
     public function getForumsInCategory()
     {
-        return Forum::where('parent_id', '=', $this->id)->get();
+        return self::where('parent_id', '=', $this->id)->get();
     }
 
     /**
-     * Returns The Category Nn Which The Forum Is Located
+     * Returns The Category Nn Which The Forum Is Located.
      *
      * @return string
      */
     public function getCategory()
     {
-        return Forum::find($this->parent_id);
+        return self::find($this->parent_id);
     }
 
     /**
-     * Count The Number Of Posts In The Forum
+     * Count The Number Of Posts In The Forum.
      *
      * @return string
      */
     public function getPostCount($forumId)
     {
-        $forum = Forum::find($forumId);
+        $forum = self::find($forumId);
         $topics = $forum->topics;
         $count = 0;
         foreach ($topics as $t) {
             $count += $t->posts()->count();
         }
+
         return $count;
     }
 
     /**
-     * Count The Number Of Topics In The Forum
+     * Count The Number Of Topics In The Forum.
      *
      * @return string
      */
     public function getTopicCount($forumId)
     {
-        $forum = Forum::find($forumId);
+        $forum = self::find($forumId);
+
         return Topic::where('forum_id', '=', $forum->id)->count();
     }
 
     /**
-     * Returns The Permission Field
+     * Returns The Permission Field.
      *
      * @return string
      */
@@ -95,6 +98,7 @@ class Forum extends Model
         } else {
             $group = Group::find(2);
         }
+
         return Permission::whereRaw('forum_id = ? AND group_id = ?', [$this->id, $group->id])->first();
     }
 }
