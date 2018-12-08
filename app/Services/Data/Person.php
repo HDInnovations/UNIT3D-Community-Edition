@@ -40,8 +40,14 @@ class Person
     public $photos;
 
     public $character;
+
     public $order;
+
     public $job;
+
+    public $moviecredits;
+
+    public $tvcredits;
 
     public function __construct($data = [])
     {
