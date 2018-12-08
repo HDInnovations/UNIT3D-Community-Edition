@@ -23,6 +23,7 @@ use App\FreeleechToken;
 use App\Services\Bencode;
 use App\PersonalFreeleech;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AnnounceController extends Controller
 {
@@ -84,7 +85,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::with('history')->where('passkey', $passkey)->first();
+        $user = User::where('passkey', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
@@ -213,7 +214,7 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = $user->history->where('info_hash', $info_hash)->first();
+        $history = History::where('user_id', $user->id)->where('info_hash', $info_hash)->first();
 
         if (! $history) {
             $history = new History();
