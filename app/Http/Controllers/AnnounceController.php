@@ -23,7 +23,6 @@ use App\FreeleechToken;
 use App\Services\Bencode;
 use App\PersonalFreeleech;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AnnounceController extends Controller
 {
