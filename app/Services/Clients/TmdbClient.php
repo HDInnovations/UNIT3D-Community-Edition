@@ -88,7 +88,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=movie_credits,tv_credits,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
         $movie = $this->toArray($this->request($url));
 
 //        dump($movie);
@@ -109,7 +109,7 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.'person/'.$id.'?append_to_response=external_ids,images&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.'person/'.$id.'?append_to_response=movie_credits,tv_credits,external_ids,images&api_key='.$this->apiKey.'&language='.config('app.locale');
 
         return $this->formatPerson($this->toArray($this->request($url)));
     }
