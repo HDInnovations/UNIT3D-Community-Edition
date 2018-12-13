@@ -62,34 +62,34 @@
 
                 <div class="form-group">
                     <label for="name">{{ trans('torrent.title') }}</label>
-                    <input type="text" name="name" id="title" class="form-control" value="{{$title}}" required>
+                    <input type="text" name="name" id="title" class="form-control" value="{{ old('name') ?? $title }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">IMDB ID <b>({{ trans('request.required') }})</b></label>
-                    <input type="number" name="imdb" class="form-control" value="{{$imdb}}" required>
+                    <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">TMDB ID <b>({{ trans('request.required') }})</b></label>
-                    <input type="number" name="tmdb" class="form-control" value="{{$tmdb}}" required>
+                    <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">TVDB ID ({{ trans('torrent.optional') }})</label>
-                    <input type="number" name="tvdb" value="0" class="form-control" required>
+                    <input type="number" name="tvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="name">MAL ID ({{ trans('torrent.optional') }})</label>
-                    <input type="number" name="mal" value="0" class="form-control" required>
+                    <input type="number" name="mal" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
                     <label for="category_id">{{ trans('torrent.category') }}</label>
                     <select name="category_id" class="form-control">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @if (old('category_id') == $category->id) selected="selected" @endif>{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -98,7 +98,7 @@
                     <label for="type">{{ trans('torrent.type') }}</label>
                     <select name="type" class="form-control">
                         @foreach ($types as $type)
-                            <option value="{{ $type->name }}">{{ $type->name }}</option>
+                            <option value="{{ $type->name }}" @if (old('type') == $type->name) selected="selected" @endif>{{ $type->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -110,8 +110,9 @@
 
                 <div class="form-group">
                     <label for="description">{{ trans('torrent.description') }}</label>
-                    <textarea id="upload-form-description" name="description" cols="30" rows="10"
-                              class="form-control"></textarea>
+                    <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control">
+                        {{ old('description') }}
+                    </textarea>
                 </div>
 
                 <div class="parser"></div>

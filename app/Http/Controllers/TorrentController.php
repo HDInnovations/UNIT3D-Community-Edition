@@ -762,7 +762,7 @@ class TorrentController extends Controller
             }
 
             return redirect()->route('upload_form')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']))->withInput();
         } else {
             // Save The Torrent
             $torrent->save();
