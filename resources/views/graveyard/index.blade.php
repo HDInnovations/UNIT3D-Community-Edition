@@ -16,11 +16,8 @@
     <!-- Search -->
     <div class="container box">
         <div class="text-center">
-            <h3 class="filter-title">Current Filters</h3>
-            <span id="filter-item-category"></span>
-            <span id="filter-item-type"></span>
+            <h3 class="filter-title">Search Filters</h3>
         </div>
-        <hr>
         <form role="form" method="GET" action="GraveyardController@index" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
         <div class="form-group">
@@ -137,24 +134,13 @@
           var sorting = $("#sorting").val();
           var direction = $("#direction").val();
           var qty = $("#qty").val();
-          var categoryName = [];
-          var typeName = [];
           $(".category:checked").each(function () {
             categories.push($(this).val());
-            categoryName.push(this.name);
-            $("#filter-item-category").html('<label class="label label-default">Category:</label>' + categoryName);
           });
           $(".type:checked").each(function () {
             types.push($(this).val());
-            typeName.push(this.name);
-            $("#filter-item-type").html('<label class="label label-default">Type:</label>' + typeName);
           });
-          if (categories.length == 0) {
-            $("#filter-item-category").html('')
-          }
-          if (types.length == 0) {
-            $("#filter-item-type").html('')
-          }
+
           if (xhr !== 'undefined') {
             xhr.abort();
           }
