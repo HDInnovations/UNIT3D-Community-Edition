@@ -43,6 +43,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
 
+        // Application Routes
+        Route::get('/application', 'Auth\ApplicationController@create')->name('create_application');
+        Route::post('/application', 'Auth\ApplicationController@store')->name('add_application');
+        Route::get('/application/{email}', 'Auth\ApplicationController@show')->name('get_application');
+
         // Activation Routes
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
 
