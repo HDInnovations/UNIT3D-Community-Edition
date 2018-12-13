@@ -15,6 +15,7 @@ namespace App\Http\Controllers;
 
 use App\Torrent;
 use App\Graveyard;
+use Carbon\Carbon;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;
@@ -50,10 +51,11 @@ class GraveyardController extends Controller
      */
     public function index()
     {
+        $current = Carbon::now();
         $user = auth()->user();
-        $torrents = Torrent::with('category')->paginate(25);
+        $torrents = Torrent::with('category')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
         $repository = $this->faceted;
-        $deadcount = Torrent::where('seeders', 0)->count();
+        $deadcount = Torrent::where('seeders', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
         return view('graveyard.index', [
             'user'       => $user,
@@ -73,6 +75,7 @@ class GraveyardController extends Controller
      */
     public function faceted(Request $request, Torrent $torrent)
     {
+        $current = Carbon::now();
         $user = auth()->user();
         $search = $request->input('search');
         $imdb = $request->input('imdb');
@@ -88,7 +91,7 @@ class GraveyardController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrent = $torrent->with('category')->where('seeders', 0);
+        $torrent = $torrent->with('category')->where('seeders', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
