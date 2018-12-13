@@ -36,21 +36,22 @@
             <div class="well">
                 <div class="row">
                     <div class="col-md-12 profile-footer">
-                        {{ $user->username }} - {{ trans('user.recent-achievements') }}:
+                        {{ $user->username }} - {{ trans('user.recent-achievements') }}
+                        <i class="{{ config('other.font-awesome') }} fa-trophy text-success"></i>
+                        <span>{{ $user->unlockedAchievements()->count() }} :</span>
                         @foreach ($user->unlockedAchievements() as $a)
                             <img src="/img/badges/{{ $a->details->name }}.png" data-toggle="tooltip" title=""
                                  height="50px" data-original-title="{{ $a->details->name }}">
                         @endforeach
-                        <div class="col-xs-1 matches-won"><i
-                                    class="{{ config('other.font-awesome') }} fa-trophy text-success"></i><span>{{ $user->unlockedAchievements()->count() }}</span>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="well">
                 <div class="row">
-                    <div class="col-md-12 profile-footer">
-                        {{ $user->username }} - {{ trans('user.followers') }}:
+                    <div class="col-md-12 profile-footer followers">
+                        {{ $user->username }} - {{ trans('user.followers') }}
+                        <i class="{{ config('other.font-awesome') }} fa-users text-success"></i>
+                        <span>{{ $followers->count() }} :</span>
                         @foreach ($followers as $f)
                             @if ($f->user->image != null)
                                 <a href="{{ route('profile', ['username' => $f->user->username, 'id' => $f->user_id]) }}">
@@ -66,8 +67,6 @@
                                 </a>
                             @endif
                         @endforeach
-                        <div class="col-xs-1 matches-won"><i
-                                    class="{{ config('other.font-awesome') }} fa-group text-success"></i><span>{{ $followers->count() }}</span></div>
                     </div>
                 </div>
             </div>
