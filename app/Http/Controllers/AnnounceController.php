@@ -187,10 +187,10 @@ class AnnounceController extends Controller
         $peers = $torrent->peers->where('info_hash', $info_hash)->take(100)->toArray();
 
         // Pull Count On Users Peers Per Torrent
-        $limit = $torrent->peers->where('user_id', $user->id)->count();
+        $connections = $torrent->peers->where('user_id', $user->id)->count();
 
-        // If Users Peer Count On A Single Torrent Is Greater Than 3 Return Error to Client
-        if ($limit > 3) {
+        // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
+        if ($connections > config('announce.rate_limit')) {
             //info('Client Attempted To Connect To Announce But Has Hit Rate Limits');
             return response(Bencode::bencode(['failure reason' => 'You have reached the rate limit']), 200, ['Content-Type' => 'text/plain']);
         }
