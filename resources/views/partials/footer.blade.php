@@ -2,7 +2,7 @@
 <br>
 <div id="l-footer" style="background-image: url('/img/footer/<?php echo $bgchange; ?>');">
     <div class="container">
-        <div class="col-md-3 l-footer-section">
+        <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title"><span class="text-bold">{{ config('other.title') }}</span></h2>
             <footer>{{ config('other.meta_description') }}</footer>
             <br>
@@ -62,7 +62,7 @@
             </ul>
         </div>
 
-        <div class="col-md-1 l-footer-section">
+        <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">{{ trans('common.other') }}</h2>
             <a href="https://www.patreon.com/UNIT3D"
                class="btn btn-xs btn-primary">{{ trans('common.patron') }}</a>
