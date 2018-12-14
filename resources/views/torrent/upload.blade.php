@@ -82,7 +82,7 @@
 
                 <div class="form-group">
                     <label for="name">MAL ID ({{ trans('torrent.optional') }})</label>
-                    <input type="number" name="mal" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
+                    <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
                 </div>
 
                 <div class="form-group">
