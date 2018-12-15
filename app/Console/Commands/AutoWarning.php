@@ -50,7 +50,7 @@ class AutoWarning extends Command
                 ->where('hitrun', 0)
                 ->where('immune', 0)
                 ->where('active', 0)
-                ->where('seedtime', '<=', config('hitrun.seedtime'))
+                ->where('seedtime', '<', config('hitrun.seedtime'))
                 ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
                 ->get();
 
@@ -86,6 +86,8 @@ class AutoWarning extends Command
                             $pm->message = 'You have received a automated [b]WARNING[/b] from the system because [b]you failed to follow the Hit and Run rules in relation to Torrent '.$hr->torrent->name.'[/b]
                             [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                             $pm->save();
+
+                            $hr->save();
                         }
                     }
                 }
