@@ -538,6 +538,10 @@
                         <button class="btn btn-success"><span
                                     class="{{ config('other.font-awesome') }} fa-history"></span> {{ trans('user.history-table') }} </button>
                     </a>
+                    <a href="{{ route('myResurrections', ['username' => $user->username, 'id' => $user->id]) }}">
+                        <button class="btn btn-success"><span
+                                    class="fab fa-snapchat-ghost"></span> My Resurrections</button>
+                    </a>
                 </div>
             </div>
         @endif

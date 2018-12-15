@@ -23,4 +23,24 @@ class Graveyard extends Model
      * @var string
      */
     protected $table = 'graveyard';
+
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(Torrent::class);
+    }
 }

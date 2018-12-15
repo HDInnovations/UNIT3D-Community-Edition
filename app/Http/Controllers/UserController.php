@@ -24,6 +24,7 @@ use ZipArchive;
 use App\History;
 use App\Torrent;
 use App\Warning;
+use App\Graveyard;
 use Carbon\Carbon;
 use App\PrivateMessage;
 use App\BonTransactions;
@@ -804,5 +805,25 @@ class UserController extends Controller
         } else {
             return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
+    }
+
+    /**
+     * Get A Users Graveyard Resurrections
+     *
+     * @param $username
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myResurrections($username, $id)
+    {
+        $user = User::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+
+        $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(25);
+
+        return view('user.resurrections', [
+            'user' => $user,
+            'resurrections' => $resurrections,
+        ]);
     }
 }
