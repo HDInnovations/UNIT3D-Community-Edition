@@ -54,7 +54,7 @@ class ContactController extends Controller
     public function contact(Request $request)
     {
         // Fetch owner account
-        $user = User::where('id', 3)->first();
+        $user = User::where('id', '=', 3)->first();
 
         $input = $request->all();
         Mail::to($user->email, $user->username)->send(new Contact($input));

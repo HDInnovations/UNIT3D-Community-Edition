@@ -450,7 +450,7 @@ class User extends Authenticatable
      */
     public function isSubscribed($topic_id)
     {
-        return (bool) $this->subscriptions()->where('topic_id', $topic_id)->first(['id']);
+        return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
     }
 
     /**
@@ -462,7 +462,7 @@ class User extends Authenticatable
      */
     public function isFollowing($target_id)
     {
-        return (bool) $this->follows()->where('target_id', $target_id)->first(['id']);
+        return (bool) $this->follows()->where('target_id', '=', $target_id)->first(['id']);
     }
 
     /**

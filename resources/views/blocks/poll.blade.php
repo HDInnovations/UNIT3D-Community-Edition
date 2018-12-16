@@ -1,4 +1,4 @@
-@if ($poll && $poll->voters->where('user_id', auth()->user()->id)->isEmpty())
+@if ($poll && $poll->voters->where('user_id', '=', auth()->user()->id)->isEmpty())
     <div class="col-md-10 col-sm-10 col-md-offset-1">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">

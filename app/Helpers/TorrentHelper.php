@@ -43,7 +43,7 @@ class TorrentHelper
         Torrent::approve($id);
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
 
-        $wishes = Wish::where('imdb', 'tt'.$torrent->imdb)->whereNull('source')->get();
+        $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
         if ($wishes) {
             foreach ($wishes as $wish) {
                 $wish->source = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";

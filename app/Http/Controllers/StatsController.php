@@ -80,22 +80,22 @@ class StatsController extends Controller
 
         // Total HD Count
         $num_hd = cache()->remember('num_hd', 60, function () {
-            return Torrent::where('sd', 0)->count();
+            return Torrent::where('sd', '=', 0)->count();
         });
 
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
-            return Torrent::where('sd', 1)->count();
+            return Torrent::where('sd', '=', 1)->count();
         });
 
         // Total Seeders
         $num_seeders = cache()->remember('num_seeders', 60, function () {
-            return Peer::where('seeder', 1)->count();
+            return Peer::where('seeder', '=', 1)->count();
         });
 
         // Total Leechers
         $num_leechers = cache()->remember('num_leechers', 60, function () {
-            return Peer::where('seeder', 0)->count();
+            return Peer::where('seeder', '=', 0)->count();
         });
 
         // Total Peers
@@ -195,7 +195,7 @@ class StatsController extends Controller
     public function seeders()
     {
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return view('stats.users.seeders', ['seeders' => $seeders]);
     }
@@ -208,7 +208,7 @@ class StatsController extends Controller
     public function leechers()
     {
         // Fetch Top Leechers
-        $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', 0)->groupBy('user_id')->latest('value')->take(100)->get();
+        $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return view('stats.users.leechers', ['leechers' => $leechers]);
     }
@@ -317,7 +317,7 @@ class StatsController extends Controller
     public function dying()
     {
         // Fetch Top Dying
-        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
+        $dying = Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
 
         return view('stats.torrents.dying', ['dying' => $dying]);
     }
@@ -330,7 +330,7 @@ class StatsController extends Controller
     public function dead()
     {
         // Fetch Top Dead
-        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(100)->get();
+        $dead = Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
 
         return view('stats.torrents.dead', ['dead' => $dead]);
     }
@@ -370,7 +370,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::withTrashed()->where('group_id', $group->id)->latest()->paginate(100);
+        $users = User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }

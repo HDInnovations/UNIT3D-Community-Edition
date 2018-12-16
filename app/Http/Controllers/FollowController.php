@@ -70,7 +70,7 @@ class FollowController extends Controller
     public function unfollow(User $user)
     {
         if (auth()->user()->isFollowing($user->id)) {
-            $follow = auth()->user()->follows()->where('target_id', $user->id)->first();
+            $follow = auth()->user()->follows()->where('target_id', '=', $user->id)->first();
             $follow->delete();
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])

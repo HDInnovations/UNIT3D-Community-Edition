@@ -46,11 +46,11 @@ class AutoPreWarning extends Command
         if (config('hitrun.enabled') == true) {
             $current = new Carbon();
             $prewarn = History::with(['user', 'torrent'])
-                ->where('prewarn', 0)
-                ->where('hitrun', 0)
-                ->where('immune', 0)
+                ->where('prewarn', '=', 0)
+                ->where('hitrun', '=', 0)
+                ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
-                ->where('active', 0)
+                ->where('active', '=', 0)
                 ->where('seedtime', '<=', config('hitrun.seedtime'))
                 ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
                 ->get();
@@ -59,8 +59,8 @@ class AutoPreWarning extends Command
                 if (! $pre->user->group->is_immune) {
                     if ($pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
-                            ->where('torrent', $pre->torrent->id)
-                            ->where('user_id', $pre->user->id)
+                            ->where('torrent', '=', $pre->torrent->id)
+                            ->where('user_id', '=', $pre->user->id)
                             ->first();
 
                         // Send Pre Warning PM If Actual Warning Doesnt Already Exsist

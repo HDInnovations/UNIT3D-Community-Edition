@@ -87,7 +87,7 @@
                     </div>
                     <br>
                     <ul class="list-inline">
-                        @php $count = DB::table('torrents')->where('imdb',$t->imdb)->where('category_id', $category->id)->count(); @endphp
+                        @php $count = DB::table('torrents')->where('imdb',$t->imdb)->where('category_id', '=', $category->id)->count(); @endphp
                         <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>@lang('torrent.torrents'): </strong> {{ $count }}</li>
                     </ul>
                 </div>

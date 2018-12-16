@@ -44,7 +44,7 @@ class ForumController extends Controller
      */
     public function index()
     {
-        $categories = Forum::where('parent_id', 0)->get();
+        $categories = Forum::where('parent_id', '=', 0)->get();
 
         return view('Staff.forum.index', ['categories' => $categories]);
     }
@@ -56,7 +56,7 @@ class ForumController extends Controller
      */
     public function addForm()
     {
-        $categories = Forum::where('parent_id', 0)->get();
+        $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
         return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
@@ -118,7 +118,7 @@ class ForumController extends Controller
     public function editForm($slug, $id)
     {
         $forum = Forum::findOrFail($id);
-        $categories = Forum::where('parent_id', 0)->get();
+        $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
         return view('Staff.forum.edit', [
@@ -192,7 +192,7 @@ class ForumController extends Controller
         // Forum to delete
         $forum = Forum::findOrFail($id);
 
-        $permissions = Permission::where('forum_id', $forum->id)->get();
+        $permissions = Permission::where('forum_id', '=', $forum->id)->get();
         foreach ($permissions as $p) {
             $p->delete();
         }
@@ -200,14 +200,14 @@ class ForumController extends Controller
 
         if ($forum->parent_id == 0) {
             $category = $forum;
-            $permissions = Permission::where('forum_id', $category->id)->get();
+            $permissions = Permission::where('forum_id', '=', $category->id)->get();
             foreach ($permissions as $p) {
                 $p->delete();
             }
 
             $forums = $category->getForumsInCategory();
             foreach ($forums as $forum) {
-                $permissions = Permission::where('forum_id', $forum->id)->get();
+                $permissions = Permission::where('forum_id', '=', $forum->id)->get();
                 foreach ($permissions as $p) {
                     $p->delete();
                 }
@@ -222,7 +222,7 @@ class ForumController extends Controller
             }
             $category->delete();
         } else {
-            $permissions = Permission::where('forum_id', $forum->id)->get();
+            $permissions = Permission::where('forum_id', '=', $forum->id)->get();
             foreach ($permissions as $p) {
                 $p->delete();
             }

@@ -187,7 +187,7 @@ class ForumController extends Controller
         $posts = $topic->posts()->paginate(25);
 
         // First post
-        $firstPost = Post::where('topic_id', $topic->id)->first();
+        $firstPost = Post::where('topic_id', '=', $topic->id)->first();
 
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
@@ -281,7 +281,7 @@ class ForumController extends Controller
             $topic->last_post_user_username = $user->username;
 
             // Count post in topic
-            $topic->num_post = Post::where('topic_id', $topic->id)->count();
+            $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
 
             // Update time
             $topic->last_reply_at = $post->created_at;
@@ -799,8 +799,8 @@ class ForumController extends Controller
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
-        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
+        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
+        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
@@ -831,8 +831,8 @@ class ForumController extends Controller
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
-        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
+        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
+        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])

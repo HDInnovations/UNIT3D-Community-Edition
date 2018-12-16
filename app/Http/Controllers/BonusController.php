@@ -59,7 +59,7 @@ class BonusController extends Controller
         $user = auth()->user();
         $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
-        $activefl = PersonalFreeleech::where('user_id', $user->id)->first();
+        $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
 
         $BonExchange = new BonExchange();
 
@@ -166,10 +166,10 @@ class BonusController extends Controller
     public function doItemExchange($userID, $itemID)
     {
         $current = Carbon::now();
-        $item = BonExchange::where('id', $itemID)->get()->toArray()[0];
+        $item = BonExchange::where('id', '=', $itemID)->get()->toArray()[0];
 
         $user_acc = User::findOrFail($userID);
-        $activefl = PersonalFreeleech::where('user_id', $user_acc->id)->first();
+        $activefl = PersonalFreeleech::where('user_id', '=', $user_acc->id)->first();
         $bon_transactions = new BonTransactions();
 
         if ($item['upload'] == true) {
@@ -296,7 +296,7 @@ class BonusController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $uploader = User::where('id', $torrent->user_id)->first();
+        $uploader = User::where('id', '=', $torrent->user_id)->first();
 
         $tip_amount = $request->input('tip');
         if ($tip_amount > $user->seedbonus) {

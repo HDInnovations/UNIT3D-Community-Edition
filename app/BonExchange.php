@@ -50,7 +50,7 @@ class BonExchange extends Model
      */
     public function getDownloadOptions()
     {
-        return self::where('download', true)
+        return self::where('download', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -63,7 +63,7 @@ class BonExchange extends Model
      */
     public function getUploadOptions()
     {
-        return self::where('upload', true)
+        return self::where('upload', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -76,7 +76,7 @@ class BonExchange extends Model
      */
     public function getPersonalFreeleechOption()
     {
-        return self::where('personal_freeleech', true)
+        return self::where('personal_freeleech', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -89,7 +89,7 @@ class BonExchange extends Model
      */
     public function getInviteOption()
     {
-        return self::where('invite', true)
+        return self::where('invite', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();

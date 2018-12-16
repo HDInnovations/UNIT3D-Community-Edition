@@ -63,7 +63,7 @@ class PollController extends Controller
      */
     public function poll($id)
     {
-        $poll = Poll::where('id', $id)->firstOrFail();
+        $poll = Poll::where('id', '=', $id)->firstOrFail();
 
         return view('Staff.poll.poll', ['poll' => $poll]);
     }

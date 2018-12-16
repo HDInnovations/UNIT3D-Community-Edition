@@ -127,7 +127,7 @@ class ModerationController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
-            $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
+            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markPostponed();
 
             $pm = new PrivateMessage();
@@ -162,7 +162,7 @@ class ModerationController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
-            $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
+            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markRejected();
 
             $pm = new PrivateMessage();

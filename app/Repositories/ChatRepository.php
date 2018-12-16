@@ -96,7 +96,7 @@ class ChatRepository
     public function messages($room_id)
     {
         return $this->message->with(['user.group', 'user.chatStatus'])
-            ->where('chatroom_id', $room_id)
+            ->where('chatroom_id', '=', $room_id)
             ->latest()
             ->limit(config('chat.message_limit'))
             ->get();
@@ -157,11 +157,11 @@ class ChatRepository
     public function status($user)
     {
         if ($user instanceof User) {
-            $status = $this->status->where('user_id', $user->id)->first();
+            $status = $this->status->where('user_id', '=', $user->id)->first();
         }
 
         if (is_int($user)) {
-            $status = $this->status->where('user_id', $user)->first();
+            $status = $this->status->where('user_id', '=', $user)->first();
         }
 
         return $status;

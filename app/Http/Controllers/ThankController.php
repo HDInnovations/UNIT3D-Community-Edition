@@ -47,7 +47,7 @@ class ThankController extends Controller
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
 
-        $thank = Thank::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
+        $thank = Thank::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         if ($thank) {
             return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->error('You Have Already Thanked On This Torrent!', 'Whoops!', ['options']));

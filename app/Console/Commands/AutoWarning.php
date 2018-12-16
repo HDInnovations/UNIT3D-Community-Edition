@@ -46,10 +46,10 @@ class AutoWarning extends Command
             $current = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
-                ->where('prewarn', 1)
-                ->where('hitrun', 0)
-                ->where('immune', 0)
-                ->where('active', 0)
+                ->where('prewarn', '=', 1)
+                ->where('hitrun', '=', 0)
+                ->where('immune', '=', 0)
+                ->where('active', '=', 0)
                 ->where('seedtime', '<', config('hitrun.seedtime'))
                 ->where('updated_at', '<', $current->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
                 ->get();
@@ -58,8 +58,8 @@ class AutoWarning extends Command
                 if (! $hr->user->group->is_immune) {
                     if ($hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
                         $exsist = Warning::withTrashed()
-                            ->where('torrent', $hr->torrent->id)
-                            ->where('user_id', $hr->user->id)
+                            ->where('torrent', '=', $hr->torrent->id)
+                            ->where('user_id', '=', $hr->user->id)
                             ->first();
 
                         // Insert Warning Into Warnings Table if doesnt already exsist

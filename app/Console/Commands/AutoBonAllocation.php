@@ -260,7 +260,7 @@ class AutoBonAllocation extends Command
 
         //Move data from array to Users table
         foreach ($array as $key => $value) {
-            $user = User::where('id', $key)->first();
+            $user = User::where('id', '=', $key)->first();
             $user->seedbonus += $value;
             $user->save();
         }

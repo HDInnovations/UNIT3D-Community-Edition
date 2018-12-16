@@ -56,8 +56,8 @@ class Group extends Model
      */
     public function getPermissionsByForum($forum)
     {
-        return Permission::where('forum_id', $forum->id)
-            ->where('group_id', $this->id)
+        return Permission::where('forum_id', '=', $forum->id)
+            ->where('group_id', '=', $this->id)
             ->first();
     }
 }

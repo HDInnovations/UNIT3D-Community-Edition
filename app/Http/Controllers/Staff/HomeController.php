@@ -37,8 +37,8 @@ class HomeController extends Controller
         $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
 
         $num_user = User::count();
-        $banned = User::where('group_id', $bannedGroup->id)->count();
-        $validating = User::where('group_id', $validatingGroup->id)->count();
+        $banned = User::where('group_id', '=', $bannedGroup->id)->count();
+        $validating = User::where('group_id', '=', $validatingGroup->id)->count();
 
         // Torrent Info
         $num_torrent = Torrent::count();
@@ -47,18 +47,18 @@ class HomeController extends Controller
 
         // Peers Info
         $peers = Peer::count();
-        $seeders = Peer::where('seeder', 1)->count();
-        $leechers = Peer::where('seeder', 0)->count();
+        $seeders = Peer::where('seeder', '=', 1)->count();
+        $leechers = Peer::where('seeder', '=', 0)->count();
 
         // Seedbox Info
         $seedboxes = Client::count();
         $highspeed_users = Client::count();
-        $highspeed_torrents = Torrent::where('highspeed', 1)->count();
+        $highspeed_torrents = Torrent::where('highspeed', '=', 1)->count();
 
         // User Info
         $reports = Report::count();
-        $unsolved = Report::where('solved', 0)->count();
-        $solved = Report::where('solved', 1)->count();
+        $unsolved = Report::where('solved', '=', 0)->count();
+        $solved = Report::where('solved', '=', 1)->count();
 
         // SSL Info
         if (request()->secure()) {

@@ -45,7 +45,7 @@ class AutoBan extends Command
     public function handle()
     {
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
+        $bans = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
         foreach ($bans as $ban) {
             if ($ban->warneduser->group_id != $bannedGroup->id && ! $ban->warneduser->group->is_immune) {

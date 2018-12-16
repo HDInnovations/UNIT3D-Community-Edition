@@ -47,10 +47,10 @@ class AutoHighspeedTag extends Command
         $seedboxips = Client::select('ip')->get()->toArray();
 
         if (is_array($seedboxips) && count($seedboxips) > 0) {
-            $torid = Peer::select('torrent_id')->whereIn('ip', $seedboxips)->where('seeder', 1)->get()->toArray();
+            $torid = Peer::select('torrent_id')->whereIn('ip', $seedboxips)->where('seeder', '=', 1)->get()->toArray();
 
             foreach ($torid as $id) {
-                $torrent = Torrent::where('id', $id)->first();
+                $torrent = Torrent::where('id', '=', $id)->first();
                 $torrent->highspeed = 1;
                 $torrent->save();
 

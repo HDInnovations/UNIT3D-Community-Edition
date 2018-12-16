@@ -51,7 +51,7 @@ class AutoRevokePermissions extends Command
         User::whereNotIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '1', 'can_request' => '1']);
         User::whereIn('group_id', [$bannedGroup->id, $validatingGroup->id, $leechGroup->id, $disabledGroup->id, $prunedGroup->id])->update(['can_download' => '0', 'can_request' => '0']);
 
-        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
+        $warning = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.revoke'))->get();
 
         foreach ($warning as $deny) {
             if ($deny->warneduser->can_download == 1 && $deny->warneduser->can_request == 1) {

@@ -63,7 +63,7 @@ class ForgotUsernameController extends Controller
             return redirect()->route('username.request')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $user = User::where('email', $email)->first();
+            $user = User::where('email', '=', $email)->first();
 
             if (empty($user)) {
                 return redirect()->route('username.request')

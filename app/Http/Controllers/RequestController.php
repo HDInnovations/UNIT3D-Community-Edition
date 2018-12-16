@@ -127,19 +127,19 @@ class RequestController extends Controller
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrentRequest->where('imdb', $imdb);
+            $torrentRequest->where('imdb', '=', $imdb);
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrentRequest->where('tvdb', $tvdb);
+            $torrentRequest->where('tvdb', '=', $tvdb);
         }
 
         if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrentRequest->where('tmdb', $tmdb);
+            $torrentRequest->where('tmdb', '=', $tmdb);
         }
 
         if ($request->has('mal') && $request->input('mal') != null) {
-            $torrentRequest->where('mal', $mal);
+            $torrentRequest->where('mal', '=', $mal);
         }
 
         if ($request->has('categories') && $request->input('categories') != null) {
@@ -151,19 +151,19 @@ class RequestController extends Controller
         }
 
         if ($request->has('myrequests') && $request->input('myrequests') != null) {
-            $torrentRequest->where('user_id', $myrequests);
+            $torrentRequest->where('user_id', '=', $myrequests);
         }
 
         if ($request->has('unfilled') && $request->input('unfilled') != null) {
-            $torrentRequest->where('filled_hash', null);
+            $torrentRequest->where('filled_hash', '=', null);
         }
 
         if ($request->has('claimed') && $request->input('claimed') != null) {
-            $torrentRequest->where('claimed', '!=', null)->where('filled_hash', null);
+            $torrentRequest->where('claimed', '!=', null)->where('filled_hash', '=', null);
         }
 
         if ($request->has('pending') && $request->input('pending') != null) {
-            $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', null);
+            $torrentRequest->where('filled_hash', '!=', null)->where('approved_by', '=', null);
         }
 
         if ($request->has('filled') && $request->input('filled') != null) {
@@ -201,7 +201,7 @@ class RequestController extends Controller
         // Find the torrent in the database
         $torrentRequest = TorrentRequest::findOrFail($id);
         $user = auth()->user();
-        $torrentRequestClaim = TorrentRequestClaim::where('request_id', $id)->first();
+        $torrentRequestClaim = TorrentRequestClaim::where('request_id', '=', $id)->first();
         $voters = $torrentRequest->requestBounty()->get();
         $comments = $torrentRequest->comments()->latest('created_at')->paginate(6);
         $carbon = Carbon::now()->addDay();
@@ -752,12 +752,12 @@ class RequestController extends Controller
     {
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        $claimer = TorrentRequestClaim::where('request_id', $id)->first();
+        $claimer = TorrentRequestClaim::where('request_id', '=', $id)->first();
 
         abort_unless($user->group->is_modo || $user->username == $claimer->username, 403);
 
         if ($torrentRequest->claimed == 1) {
-            $requestClaim = TorrentRequestClaim::where('request_id', $id)->firstOrFail();
+            $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
             $requestClaim->delete();
 
             $torrentRequest->claimed = null;

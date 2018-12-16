@@ -84,7 +84,7 @@ class InviteController extends Controller
                 ->with($this->toastr->error('You do not have enough invites!', 'Whoops!', ['options']));
         }
 
-        $exist = Invite::where('email', $request->input('email'))->first();
+        $exist = Invite::where('email', '=', $request->input('email'))->first();
 
         if ($exist) {
             return redirect()->route('invite')
@@ -176,7 +176,7 @@ class InviteController extends Controller
         $owner = User::findOrFail($id);
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 
-        $invites = Invite::with(['sender', 'receiver'])->where('user_id', $id)->latest()->paginate(25);
+        $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $id)->latest()->paginate(25);
 
         return view('user.invitetree', ['owner' => $owner, 'invites' => $invites]);
     }

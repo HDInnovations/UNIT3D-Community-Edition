@@ -67,7 +67,7 @@ class PollController extends Controller
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
         $user = auth()->user();
-        $user_has_voted = $poll->voters->where('user_id', $user->id)->isNotEmpty();
+        $user_has_voted = $poll->voters->where('user_id', '=', $user->id)->isNotEmpty();
 
         if ($user_has_voted) {
             return redirect('poll/'.$poll->slug.'/result')
@@ -93,7 +93,7 @@ class PollController extends Controller
             Option::findOrFail($option)->increment('votes');
         }
 
-        if (Voter::where('user_id', $user->id)->where('poll_id', $poll->id)->exists()) {
+        if (Voter::where('user_id', '=', $user->id)->where('poll_id', '=', $poll->id)->exists()) {
             return redirect('poll/'.$poll->slug.'/result')
                 ->with($this->toastr->error('Bro have already vote on this poll. Your vote has not been counted.', 'Whoops!', ['options']));
         }

@@ -109,7 +109,7 @@
                             @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=', 1)->count(); @endphp
                             <div class="likes">
           <span class="badge-extra">
-            @if (auth()->user()->likes()->where('post_id', $p->id)->where('like', '=', 1)->first())
+            @if (auth()->user()->likes()->where('post_id', '=', $p->id)->where('like', '=', 1)->first())
                   <a href="{{ route('like', ['postId' => $p->id]) }}" class="text-green" data-toggle="tooltip"
                      style="margin-right: 16px;" data-original-title="@lang('forum.like-post')"><i
                               class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x fa-beat"></i>
@@ -120,7 +120,7 @@
                               class="icon-like {{ config('other.font-awesome') }} fa-thumbs-up fa-2x"></i>
               <span class="count" style="font-size: 20px;">{{ $likes }}</span></a>
               @endif
-              @if (auth()->user()->likes()->where('post_id', $p->id)->where('dislike', '=', 1)->first())
+              @if (auth()->user()->likes()->where('post_id', '=', $p->id)->where('dislike', '=', 1)->first())
                   <a href="{{ route('dislike', ['postId' => $p->id]) }}" class="text-red" data-toggle="tooltip"
                      data-original-title="@lang('forum.dislike-post')"><i
                               class="icon-dislike {{ config('other.font-awesome') }} fa-thumbs-down fa-2x fa-beat"></i>

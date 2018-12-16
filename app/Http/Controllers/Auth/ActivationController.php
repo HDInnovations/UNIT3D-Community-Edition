@@ -40,7 +40,7 @@ class ActivationController extends Controller
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
         $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
 
-        $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
+        $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup->id) {
             $activation->user->active = 1;
             $activation->user->can_upload = 1;

@@ -55,7 +55,7 @@ class GraveyardController extends Controller
         $user = auth()->user();
         $torrents = Torrent::with('category')->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->paginate(25);
         $repository = $this->faceted;
-        $deadcount = Torrent::where('seeders', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
+        $deadcount = Torrent::where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->count();
 
         return view('graveyard.index', [
             'user'       => $user,
@@ -91,26 +91,26 @@ class GraveyardController extends Controller
             $search .= '%'.$term.'%';
         }
 
-        $torrent = $torrent->with('category')->where('seeders', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
+        $torrent = $torrent->with('category')->where('seeders', '=', 0)->where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString());
 
         if ($request->has('search') && $request->input('search') != null) {
             $torrent->where('name', 'like', $search);
         }
 
         if ($request->has('imdb') && $request->input('imdb') != null) {
-            $torrent->where('imdb', $imdb);
+            $torrent->where('imdb', '=', $imdb);
         }
 
         if ($request->has('tvdb') && $request->input('tvdb') != null) {
-            $torrent->where('tvdb', $tvdb);
+            $torrent->where('tvdb', '=', $tvdb);
         }
 
         if ($request->has('tmdb') && $request->input('tmdb') != null) {
-            $torrent->where('tmdb', $tmdb);
+            $torrent->where('tmdb', '=', $tmdb);
         }
 
         if ($request->has('mal') && $request->input('mal') != null) {
-            $torrent->where('mal', $mal);
+            $torrent->where('mal', '=', $mal);
         }
 
         if ($request->has('categories') && $request->input('categories') != null) {
@@ -152,7 +152,7 @@ class GraveyardController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
-        $resurrected = Graveyard::where('torrent_id', $torrent->id)->first();
+        $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
             return redirect()->route('graveyard')

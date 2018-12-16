@@ -67,7 +67,7 @@ class SubscriptionController extends Controller
     public function unsubscribe(Topic $topic)
     {
         if (auth()->user()->isSubscribed($topic->id)) {
-            $subscription = auth()->user()->subscriptions()->where('topic_id', $topic->id)->first();
+            $subscription = auth()->user()->subscriptions()->where('topic_id', '=', $topic->id)->first();
             $subscription->delete();
 
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])

@@ -84,7 +84,7 @@ class AnnounceController extends Controller
         }
 
         // Check Passkey Against Users Table
-        $user = User::where('passkey', $passkey)->first();
+        $user = User::where('passkey', '=', $passkey)->first();
 
         // If Passkey Doesn't Exist Return Error to Client
         if (! $user) {
@@ -163,7 +163,7 @@ class AnnounceController extends Controller
         $torrent = Torrent::select(['id', 'status', 'free', 'doubleup', 'times_completed', 'seeders', 'leechers'])
             ->with('peers')
             ->withAnyStatus()
-            ->where('info_hash', $info_hash)
+            ->where('info_hash', '=', $info_hash)
             ->first();
 
         // If Torrent Doesnt Exsist Return Error to Client
@@ -184,10 +184,10 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Torrent has been rejected']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        $peers = $torrent->peers->where('info_hash', $info_hash)->take(100)->toArray();
+        $peers = $torrent->peers->where('info_hash', '=', $info_hash)->take(100)->toArray();
 
         // Pull Count On Users Peers Per Torrent
-        $connections = $torrent->peers->where('user_id', $user->id)->count();
+        $connections = $torrent->peers->where('user_id', '=', $user->id)->count();
 
         // If Users Peer Count On A Single Torrent Is Greater Than X Return Error to Client
         if ($connections > config('announce.rate_limit')) {
@@ -196,7 +196,7 @@ class AnnounceController extends Controller
         }
 
         // Get The Current Peer
-        $client = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', $user->id)->first();
+        $client = $torrent->peers->where('md5_peer_id', $md5_peer_id)->where('user_id', '=', $user->id)->first();
 
         // Flag is tripped if new session is created but client reports up/down > 0
         $ghost = false;
@@ -213,7 +213,7 @@ class AnnounceController extends Controller
         }
 
         // Get history information
-        $history = History::where('user_id', $user->id)->where('info_hash', $info_hash)->first();
+        $history = History::where('user_id', '=', $user->id)->where('info_hash', '=', $info_hash)->first();
 
         if (! $history) {
             $history = new History();
@@ -232,8 +232,8 @@ class AnnounceController extends Controller
         $old_update = $client->updated_at ? $client->updated_at->timestamp : Carbon::now()->timestamp;
 
         // Modification of upload and Download
-        $personal_freeleech = PersonalFreeleech::where('user_id', $user->id)->first();
-        $freeleech_token = FreeleechToken::where('user_id', $user->id)->where('torrent_id', $torrent->id)->first();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
 
         if (config('other.freeleech') == 1 || $torrent->free == 1 || $personal_freeleech || $user->group->is_freeleech == 1 || $freeleech_token) {
             $mod_downloaded = 0;

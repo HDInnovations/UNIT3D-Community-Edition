@@ -291,7 +291,7 @@
                             </span>
                         @endif
 
-                        {{--@php $torrent_tags = App\TagTorrent::where('torrent_id', $torrent->id)->get(); @endphp
+                        {{--@php $torrent_tags = App\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
                         @if ($torrent_tags)
                         @foreach($torrent_tags as $torrent_tag)
                             <span class="badge-extra text-bold">

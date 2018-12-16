@@ -45,7 +45,7 @@ class PrivateMessageController extends Controller
     public function searchPMInbox(Request $request)
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('receiver_id', $user->id)->where([
+        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->where([
             ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
@@ -62,7 +62,7 @@ class PrivateMessageController extends Controller
     public function searchPMOutbox(Request $request)
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('sender_id', $user->id)->where([
+        $pms = PrivateMessage::where('sender_id', '=', $user->id)->where([
             ['subject', 'like', '%'.$request->input('subject').'%'],
         ])->latest()->paginate(20);
 
@@ -77,7 +77,7 @@ class PrivateMessageController extends Controller
     public function getPrivateMessages()
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('receiver_id', $user->id)->latest()->paginate(25);
+        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->latest()->paginate(25);
 
         return view('pm.inbox', ['pms' => $pms, 'user' => $user]);
     }
@@ -90,7 +90,7 @@ class PrivateMessageController extends Controller
     public function getPrivateMessagesSent()
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('sender_id', $user->id)->latest()->paginate(20);
+        $pms = PrivateMessage::where('sender_id', '=', $user->id)->latest()->paginate(20);
 
         return view('pm.outbox', ['pms' => $pms, 'user' => $user]);
     }
@@ -105,7 +105,7 @@ class PrivateMessageController extends Controller
     public function getPrivateMessageById($id)
     {
         $user = auth()->user();
-        $pm = PrivateMessage::where('id', $id)->firstOrFail();
+        $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             if ($user->id === $pm->receiver_id && $pm->read === 0) {
@@ -185,7 +185,7 @@ class PrivateMessageController extends Controller
     {
         $user = auth()->user();
 
-        $message = PrivateMessage::where('id', $id)->firstOrFail();
+        $message = PrivateMessage::where('id', '=', $id)->firstOrFail();
 
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
@@ -225,7 +225,7 @@ class PrivateMessageController extends Controller
     public function deletePrivateMessage($id)
     {
         $user = auth()->user();
-        $pm = PrivateMessage::where('id', $id)->firstOrFail();
+        $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
 
         if ($pm->sender_id == $user->id || $pm->receiver_id == $user->id) {
             $pm->delete();
@@ -246,7 +246,7 @@ class PrivateMessageController extends Controller
     public function markAllAsRead()
     {
         $user = auth()->user();
-        $pms = PrivateMessage::where('receiver_id', $user->id)->get();
+        $pms = PrivateMessage::where('receiver_id', '=', $user->id)->get();
         foreach ($pms as $pm) {
             $pm->read = 1;
             $pm->save();

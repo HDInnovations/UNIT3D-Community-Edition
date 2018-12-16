@@ -75,9 +75,9 @@ class AutoNerdStat extends Command
             // Most Leeched Torrent
             $leechers = Torrent::latest('leechers')->first();
             // FL Torrents
-            $fl = Torrent::where('free', 1)->count();
+            $fl = Torrent::where('free', '=', 1)->count();
             // DU Torrents
-            $du = Torrent::where('doubleup', 1)->count();
+            $du = Torrent::where('doubleup', '=', 1)->count();
             // Peers Count
             $peers = Peer::count();
 

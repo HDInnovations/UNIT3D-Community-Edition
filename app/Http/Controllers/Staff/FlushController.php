@@ -47,7 +47,7 @@ class FlushController extends Controller
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($peers as $peer) {
-            $history = History::where('info_hash', $peer->info_hash)->where('user_id', $peer->user_id)->first();
+            $history = History::where('info_hash', '=', $peer->info_hash)->where('user_id', '=', $peer->user_id)->first();
             if ($history) {
                 $history->active = false;
                 $history->save();

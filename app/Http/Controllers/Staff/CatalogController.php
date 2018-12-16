@@ -60,7 +60,7 @@ class CatalogController extends Controller
         $v = validator($request->all(), [
             'catalog' => 'required|min:3|max:20|regex:/^[(a-zA-Z\-)]+$/u',
         ]);
-        $catalog = Catalog::where('name', $request->input('catalog'))->first();
+        $catalog = Catalog::where('name', '=', $request->input('catalog'))->first();
         if ($catalog) {
             return redirect()->route('catalogs')
                 ->with($this->toastr->error('Catalog '.$catalog->name.' is already in database', 'Whoops!', ['options']));
@@ -139,7 +139,7 @@ class CatalogController extends Controller
             'tvdb'       => 'required|numeric',
             'catalog_id' => 'required|numeric|exists:catalog_id',
         ]);
-        $torrent = CatalogTorrent::where('imdb', $request->input('imdb'))->first();
+        $torrent = CatalogTorrent::where('imdb', '=', $request->input('imdb'))->first();
         if ($torrent) {
             return redirect()->route('getCatalogTorrent')->with($this->toastr->error('IMDB# '.$torrent->imdb.' is already in database', 'Whoops!', ['options']));
         }
@@ -148,7 +148,7 @@ class CatalogController extends Controller
         $torrent->catalog_id = $request->input('catalog_id');
         $torrent->save();
         // Count and save the torrent number in this catalog
-        $catalog->num_torrent = CatalogTorrent::where('catalog_id', $catalog->id)->count();
+        $catalog->num_torrent = CatalogTorrent::where('catalog_id', '=', $catalog->id)->count();
         $catalog->save();
 
         return redirect()->route('getCatalogTorrent')->with($this->toastr->success('IMDB# '.$request->input('imdb').' has been successfully added', 'Yay!', ['options']));
@@ -158,7 +158,7 @@ class CatalogController extends Controller
     public function getCatalogRecords($catalog_id)
     {
         $catalogs = Catalog::findOrFail($catalog_id);
-        $records = CatalogTorrent::where('catalog_id', $catalog_id)->latest('imdb')->get();
+        $records = CatalogTorrent::where('catalog_id', '=', $catalog_id)->latest('imdb')->get();
 
         return view('Staff.catalog.catalog_records', ['catalog' => $catalogs, 'records' => $records]);
     }

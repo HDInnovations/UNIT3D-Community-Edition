@@ -91,15 +91,15 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $followers = Follow::where('target_id', $id)->get();
+        $followers = Follow::where('target_id', '=', $id)->get();
         $history = $user->history;
-        $warnings = Warning::where('user_id', $id)->whereNotNull('torrent')->where('active', 1)->take(3)->get();
-        $hitrun = Warning::where('user_id', $id)->latest()->paginate(10);
-        $bonupload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
+        $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
+        $bonupload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
         $realupload = $user->uploaded - $bonupload;
-        $bondownload = BonTransactions::where('sender', $id)->where([['name', 'like', '%Download%']])->sum('cost');
+        $bondownload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Download%']])->sum('cost');
         $realdownload = $user->downloaded + $bondownload;
-        $invitedBy = Invite::where('accepted_by', $user->id)->first();
+        $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
         return view('user.profile', [
             'user'         => $user,
@@ -359,7 +359,7 @@ class UserController extends Controller
     public function clients($username, $id)
     {
         $user = auth()->user();
-        $cli = Client::where('user_id', $user->id)->get();
+        $cli = Client::where('user_id', '=', $user->id)->get();
 
         return view('user.clients', ['user' => $user, 'clients' => $cli]);
     }
@@ -384,7 +384,7 @@ class UserController extends Controller
         $user = auth()->user();
         if ($v->passes()) {
             if (Hash::check($request->input('password'), $user->password)) {
-                if (Client::where('user_id', $user->id)->get()->count() >= config('other.max_cli')) {
+                if (Client::where('user_id', '=', $user->id)->get()->count() >= config('other.max_cli')) {
                     return redirect()->route('user_clients', ['username' => $user->username, 'id' => $user->id])
                         ->with($this->toastr->error('Max Clients Reached!', 'Whoops!', ['options']));
                 }
@@ -427,7 +427,7 @@ class UserController extends Controller
 
         $user = auth()->user();
         if ($v->passes()) {
-            $cli = Client::where('id', $request->input('cliid'));
+            $cli = Client::where('id', '=', $request->input('cliid'));
             $cli->delete();
 
             // Activity Log
@@ -454,11 +454,11 @@ class UserController extends Controller
         abort_unless(auth()->user()->group->is_modo, 403);
 
         $user = User::findOrFail($id);
-        $warnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
-        $warningcount = Warning::where('user_id', $id)->count();
+        $warnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
+        $warningcount = Warning::where('user_id', '=', $id)->count();
 
-        $softDeletedWarnings = Warning::where('user_id', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
-        $softDeletedWarningCount = Warning::where('user_id', $id)->onlyTrashed()->count();
+        $softDeletedWarnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('created_at')->onlyTrashed()->paginate(25);
+        $softDeletedWarningCount = Warning::where('user_id', '=', $id)->onlyTrashed()->count();
 
         return view('user.warninglog', [
             'warnings'                => $warnings,
@@ -513,7 +513,7 @@ class UserController extends Controller
         $staff = auth()->user();
         $user = User::findOrFail($id);
 
-        $warnings = Warning::where('user_id', $user->id)->get();
+        $warnings = Warning::where('user_id', '=', $user->id)->get();
 
         foreach ($warnings as $warning) {
             $warning->expires_on = Carbon::now();
@@ -583,7 +583,7 @@ class UserController extends Controller
         $staff = auth()->user();
         $user = User::findOrFail($id);
 
-        $warnings = Warning::where('user_id', $user->id)->get();
+        $warnings = Warning::where('user_id', '=', $user->id)->get();
 
         foreach ($warnings as $warning) {
             $warning->deleted_by = $staff->id;
@@ -641,7 +641,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', $user->id)->paginate(50);
+        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->paginate(50);
 
         return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
     }
@@ -662,7 +662,7 @@ class UserController extends Controller
         $active = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->sortable(['created_at' => 'desc'])
-            ->where('user_id', $user->id)
+            ->where('user_id', '=', $user->id)
             ->distinct('hash')
             ->paginate(50);
 
@@ -682,14 +682,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $his_upl = History::where('user_id', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', $id)->sum('downloaded');
+        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
         $history = History::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->sortable(['created_at' => 'desc'])
-            ->where('user_id', $user->id)
+            ->where('user_id', '=', $user->id)
             ->paginate(50);
 
         return view('user.history', [
@@ -716,7 +716,7 @@ class UserController extends Controller
 
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
         $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])
-            ->where('user_id', $user->id)
+            ->where('user_id', '=', $user->id)
             ->where('name', 'like', '%'.$request->input('name').'%')
             ->paginate(50);
 

@@ -94,7 +94,7 @@ class WishRepository implements WishInterface
      */
     public function findByTitle($title)
     {
-        return $this->wish->where('title', $title)->first();
+        return $this->wish->where('title', '=', $title)->first();
     }
 
     /**
@@ -107,7 +107,7 @@ class WishRepository implements WishInterface
     {
         return $this->user->find($uid)
             ->wishes()
-            ->where('imdb', $id)
+            ->where('imdb', '=', $id)
             ->first() ? true : false;
     }
 
@@ -121,9 +121,9 @@ class WishRepository implements WishInterface
         $id = str_replace('tt', '', $id);
 
         return $this->torrent
-            ->where('imdb', $id)
+            ->where('imdb', '=', $id)
             ->where('seeders', '>', 0)
-            ->where('status', 1)
+            ->where('status', '=', 1)
             ->first() ? true : false;
     }
 
@@ -137,9 +137,9 @@ class WishRepository implements WishInterface
         if ($this->isGranted($id)) {
             $id = str_replace('tt', '', $id);
             $source = $this->torrent
-                ->where('imdb', $id)
+                ->where('imdb', '=', $id)
                 ->where('seeders', '>', 0)
-                ->where('status', 1)
+                ->where('status', '=', 1)
                 ->first();
 
             return route('torrent', ['slug' => str_slug($source->name), 'id' => $source->id]);
