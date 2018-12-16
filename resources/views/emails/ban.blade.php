@@ -1,7 +1,7 @@
 @component('mail::message')
-# {{ trans('email.banned-header') }}!
+# @lang('email.banned-header')!
 
-**Reason:** {{ $ban->ban_reason }}
+**Reason:** {{ $logban->ban_reason }}
 
-*{{ trans('email.banned-footer') }}*
+*@lang('email.banned-footer')*
 @endcomponent
