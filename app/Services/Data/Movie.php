@@ -152,6 +152,11 @@ class Movie
      */
     public $imdbVotes;
 
+    /**
+     * @var int
+     */
+    public $recommendations;
+
     public function __construct($data = [])
     {
         foreach ($data as $key => $value) {

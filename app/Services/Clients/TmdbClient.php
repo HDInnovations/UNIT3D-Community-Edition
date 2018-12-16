@@ -88,10 +88,8 @@ class TmdbClient extends Client implements MovieTvInterface
     {
         $this->validateKeys(['tmdb' => $id]);
 
-        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
+        $url = $this->apiUrl.$type.'/'.$id.'?append_to_response=recommendations,alternative_titles,credits,videos,images,keywords,external_ids&api_key='.$this->apiKey.'&language='.config('app.locale');
         $movie = $this->toArray($this->request($url));
-
-//        dump($movie);
 
         if ($type == 'tv') {
             return $this->formatTv($movie);
@@ -152,6 +150,7 @@ class TmdbClient extends Client implements MovieTvInterface
             ) : 'https://via.placeholder.com/1400x800',
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes'  => $movie['vote_count'],
+            'recommendations' => $movie['recommendations'],
         ]);
     }
 
