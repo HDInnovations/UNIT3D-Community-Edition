@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('stat.stats') }} - {{ config('other.title') }}</title>
+    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('uploaders') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-uploaders') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-uploaders')</span>
         </a>
     </li>
 @endsection
@@ -22,18 +22,18 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>{{ trans('stat.top-uploaders') }} ({{ strtoupper(trans('stat.by-count')) }})</h2>
+            <h2>@lang('stat.top-uploaders') ({{ strtoupper(trans('stat.by-count')) }})</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> {{ trans('stat.top-uploaders') }}
+                    <p class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> @lang('stat.top-uploaders')
                         </strong> ({{ strtoupper(trans('stat.by-count')) }})</p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ trans('common.user') }}</th>
-                            <th>{{ trans('torrent.uploaded') }}</th>
+                            <th>@lang('common.user')</th>
+                            <th>@lang('torrent.uploaded')</th>
                         </tr>
                         </thead>
                         <tbody>

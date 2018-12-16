@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('graveyard.graveyard') }} - {{ config('other.title') }}</title>
+    <title>@lang('graveyard.graveyard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('graveyard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('graveyard.graveyard') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('graveyard.graveyard')</span>
         </a>
     </li>
 @endsection
@@ -106,8 +106,8 @@
         <div class="block">
             <div class="header gradient silver">
                 <div class="inner_content">
-                    <h1>{{ trans('graveyard.graveyard') }}
-                        <span class="text-red">({{ $deadcount }} {{ trans('graveyard.dead') }}!)</span>
+                    <h1>@lang('graveyard.graveyard')
+                        <span class="text-red">({{ $deadcount }} @lang('graveyard.dead')!)</span>
                     </h1>
                 </div>
             </div>

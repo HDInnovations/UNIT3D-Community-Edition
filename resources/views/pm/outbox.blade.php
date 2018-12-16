@@ -4,7 +4,7 @@
     <li class="active">
         <a href="{{ route('outbox') }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ trans('pm.outbox') }}
+                @lang('pm.outbox')
             </span>
         </a>
     </li>
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header gradient silver">
             <div class="inner_content">
-                <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.outbox') }}</h1>
+                <h1>@lang('pm.private') @lang('pm.messages') - @lang('pm.outbox')</h1>
             </div>
         </div>
         <div class="row">
@@ -27,7 +27,7 @@
                                 <form role="form" method="POST" action="{{ route('searchPMOutbox') }}">
                                     @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
-                                           placeholder="{{ trans('pm.search') }}">
+                                           placeholder="@lang('pm.search')">
                                 </form>
                             </div>
                         </div>
@@ -36,9 +36,9 @@
                         <table class="table table-condensed table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <td class="col-sm-2">{{ trans('pm.to') }}</td>
-                            <td class="col-sm-6">{{ trans('pm.subject') }}</td>
-                            <td class="col-sm-2">{{ trans('pm.sent-at') }}</td>
+                            <td class="col-sm-2">@lang('pm.to')</td>
+                            <td class="col-sm-6">@lang('pm.subject')</td>
+                            <td class="col-sm-2">@lang('pm.sent-at')</td>
                         </tr>
                         </thead>
                         <tbody>

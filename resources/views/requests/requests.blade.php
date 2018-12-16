@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('request.requests')</span>
         </a>
     </li>
 @endsection
@@ -18,10 +18,10 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('request.no-privileges')
                     </h1>
                     <div class="separator"></div>
-                    <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
+                    <p class="text-center">@lang('request.no-privileges-desc')!</p>
                 </div>
             </div>
         </div>
@@ -156,20 +156,20 @@
         <div class="container-fluid">
             <div class="block">
                 <span class="badge-user" style="float: right;">
-                    <strong>{{ trans('request.requests') }}:</strong> {{ $num_req }} |
-                    <strong>{{ trans('request.filled') }}:</strong> {{ $num_fil }} |
-                    <strong>{{ trans('request.unfilled') }}:</strong> {{ $num_unfil }} |
-                    <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
+                    <strong>@lang('request.requests'):</strong> {{ $num_req }} |
+                    <strong>@lang('request.filled'):</strong> {{ $num_fil }} |
+                    <strong>@lang('request.unfilled'):</strong> {{ $num_unfil }} |
+                    <strong>@lang('request.total-bounty'):</strong> {{ $total_bounty }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-claimed'):</strong> {{ $claimed_bounty }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-unclaimed'):</strong> {{ $unclaimed_bounty }} @lang('bon.bon')
                 </span>
-                <a href="{{ route('add_request') }}" role="button" data-toggle="tooltip" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
-                    {{ trans('request.add-request') }}
+                <a href="{{ route('add_request') }}" role="button" data-toggle="tooltip" data-original-title="@lang('request.add-request')!" class="btn btn btn-success">
+                    @lang('request.add-request')
                 </a>
                 <div class="header gradient green">
                     <div class="inner_content">
                         <h1>
-                            {{ trans('request.requests') }}
+                            @lang('request.requests')
                         </h1>
                     </div>
                 </div>

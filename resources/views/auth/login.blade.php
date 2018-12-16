@@ -2,10 +2,10 @@
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{ trans('auth.login') }} - {{ config('other.title') }}</title>
+    <title>@lang('auth.login') - {{ config('other.title') }}</title>
     @section('meta')
         <meta name="description"
-            content="{{ trans('auth.login-now-on') }} {{ config('other.title') }} . {{ trans('auth.not-a-member') }}">
+            content="@lang('auth.login-now-on') {{ config('other.title') }} . @lang('auth.not-a-member')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="{{ config('other.title') }}">
         <meta property="og:type" content="website">
@@ -40,17 +40,17 @@
     </svg>
 
     <div id="formContent">
-        <a href="{{ route('login') }}"><h2 class="active">{{ trans('auth.login') }} </h2></a>
-        <a href="{{ route('registrationForm', ['code' => 'null']) }}"><h2 class="inactive underlineHover">{{ trans('auth.signup') }} </h2></a>
+        <a href="{{ route('login') }}"><h2 class="active">@lang('auth.login') </h2></a>
+        <a href="{{ route('registrationForm', ['code' => 'null']) }}"><h2 class="inactive underlineHover">@lang('auth.signup') </h2></a>
 
         <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}"/>
+            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="@lang('auth.user-icon')"/>
         </div>
 
         <form role="form" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                <label for="username" class="col-md-4 control-label">{{ trans('auth.username') }}</label>
+                <label for="username" class="col-md-4 control-label">@lang('auth.username')</label>
                 <div class="col-md-6">
                     <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}"
                            required autofocus>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <label for="password" class="col-md-4 control-label">{{ trans('auth.password') }}</label>
+                <label for="password" class="col-md-4 control-label">@lang('auth.password')</label>
                 <div class="col-md-6">
                     <input id="password" type="password" class="form-control" name="password" required>
                     @if ($errors->has('password'))
@@ -81,7 +81,7 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                   name="remember" {{ old('remember') ? 'checked' : '' }}> {{ trans('auth.remember-me') }}
+                                   name="remember" {{ old('remember') ? 'checked' : '' }}> @lang('auth.remember-me')
                         </label>
                     </div>
                 </div>
@@ -102,14 +102,14 @@
                 </div>
             @endif
 
-            <button type="submit" class="fadeIn fourth" id="login-button">{{ trans('auth.login') }}</button>
+            <button type="submit" class="fadeIn fourth" id="login-button">@lang('auth.login')</button>
         </form>
 
         <div id="formFooter">
             <a href="{{ route('password.request') }}"><h2
-                        class="inactive underlineHover">{{ trans('auth.lost-password') }} </h2></a>
+                        class="inactive underlineHover">@lang('auth.lost-password') </h2></a>
             <a href="{{ route('username.request') }}"><h2
-                        class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
+                        class="inactive underlineHover">@lang('auth.lost-username') </h2></a>
         </div>
     </div>
 </div>

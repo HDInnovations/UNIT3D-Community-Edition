@@ -32,7 +32,7 @@
             <input type="text" class="form-control" name="position">
         </div>
 
-        <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
+        <button type="submit" class="btn btn-default">@lang('common.add')</button>
         </form>
     </div>
 @endsection

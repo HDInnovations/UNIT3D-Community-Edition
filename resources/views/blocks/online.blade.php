@@ -2,8 +2,8 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>{{ trans('blocks.users-online') }}
-                <small> ({{ trans('blocks.active-in-last') }} 15 min)</small>
+            <h4>@lang('blocks.users-online')
+                <small> (@lang('blocks.active-in-last') 15 min)</small>
             </h4>
         </div>
         <div class="panel-body">
@@ -17,7 +17,7 @@
                                     {{ $user->username }}
                                     @if ($user->getWarning() > 0)
                                         <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                           data-toggle="tooltip" data-original-title="{{ trans('common.active-warning') }}"></i>
+                                           data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
                                     @endif
                                 </a>
                             @endif
@@ -29,7 +29,7 @@
                                 {{ $user->username }}
                                 @if ($user->getWarning() > 0)
                                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true"
-                                       data-toggle="tooltip" data-original-title="{{ trans('common.active-warning') }}"></i>
+                                       data-toggle="tooltip" data-original-title="@lang('common.active-warning')"></i>
                                 @endif
                             </span>
                         </a>

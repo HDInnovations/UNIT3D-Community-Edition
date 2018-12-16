@@ -23,11 +23,11 @@
                 <thead>
                 <tr>
                     <th class="torrents-icon">Category</th>
-                    <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                    <th>{{ trans('torrent.size') }}</th>
-                    <th>{{ trans('torrent.short-seeds') }}</th>
-                    <th>{{ trans('torrent.short-leechs') }}</th>
-                    <th>{{ trans('torrent.short-completed') }}</th>
+                    <th class="torrents-filename">@lang('torrent.name')</th>
+                    <th>@lang('torrent.size')</th>
+                    <th>@lang('torrent.short-seeds')</th>
+                    <th>@lang('torrent.short-leechs')</th>
+                    <th>@lang('torrent.short-completed')</th>
                     <th>Resurrect Date</th>
                     <th>Current Seedtime</th>
                     <th>Seedtime Goal</th>
@@ -41,7 +41,7 @@
                         <td>
                             <div class="text-center">
                                 <i class="{{ $resurrection->torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                                   data-original-title="{{ $resurrection->torrent->category->name }} {{ trans('torrent.torrent') }}"></i>
+                                   data-original-title="{{ $resurrection->torrent->category->name }} @lang('torrent.torrent')"></i>
                             </div>
                         </td>
                         <td>

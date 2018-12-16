@@ -3,13 +3,13 @@
         <thead>
         <tr>
             <th class="torrents-icon"></th>
-            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-            <th>{{ trans('torrent.age') }}</th>
-            <th>{{ trans('torrent.size') }}</th>
-            <th>{{ trans('torrent.short-seeds') }}</th>
-            <th>{{ trans('torrent.short-leechs') }}</th>
-            <th>{{ trans('torrent.short-completed') }}</th>
-            <th>{{ trans('graveyard.resurrect') }}</th>
+            <th class="torrents-filename">@lang('torrent.name')</th>
+            <th>@lang('torrent.age')</th>
+            <th>@lang('torrent.size')</th>
+            <th>@lang('torrent.short-seeds')</th>
+            <th>@lang('torrent.short-leechs')</th>
+            <th>@lang('torrent.short-completed')</th>
+            <th>@lang('graveyard.resurrect')</th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                     <td>
                         <div class="text-center">
                             <i class="{{ $torrent->category->icon }} torrent-icon" data-toggle="tooltip"
-                               data-original-title="{{ $torrent->category->name }} {{ trans('torrent.torrent') }}"></i>
+                               data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i>
                         </div>
                     </td>
                     <td>
@@ -56,7 +56,7 @@
                         @if (!$resurrected)
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}" class="btn btn-sm btn-default">
                                 <span class="icon">
-                                    @emojione(':zombie:') {{ trans('graveyard.resurrect') }}
+                                    @emojione(':zombie:') @lang('graveyard.resurrect')
                                 </span>
                             </button>
                             {{-- Resurrect Modal --}}
@@ -69,7 +69,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                             <h2>
-                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>{{ trans('graveyard.resurrect') }} {{ strtolower(trans('torrent.torrent')) }} ?
+                                                <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('graveyard.resurrect') {{ strtolower(trans('torrent.torrent')) }} ?
                                             </h2>
                                         </div>
 
@@ -80,7 +80,7 @@
                                                 </span>
                                             </p>
                                             <p class="text-center text-bold">
-                                                {{ trans('graveyard.howto') }}
+                                                @lang('graveyard.howto')
                                             </p>
                                             <br>
                                             <div class="text-center">
@@ -102,7 +102,7 @@
                                                     </span>
                                                         {{ strtolower(trans('graveyard.howto-desc2')) }}
                                                     <span class="badge-user text-bold text-pink" style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">
-                                                        {{ config('graveyard.reward') }} {{ trans('torrent.freeleech') }} Token(s)!
+                                                        {{ config('graveyard.reward') }} @lang('torrent.freeleech') Token(s)!
                                                     </span>
                                                 </p>
                                                 <div class="btns">
@@ -117,10 +117,10 @@
                                                                    value="{{ $history->seedtime + config('graveyard.time') }}">
                                                         @endif
                                                         <button type="submit" class="btn btn-success">
-                                                            {{ trans('graveyard.resurrect') }} !
+                                                            @lang('graveyard.resurrect') !
                                                         </button>
                                                         <button type="button" class="btn btn-warning" data-dismiss="modal">
-                                                            {{ trans('common.cancel') }}
+                                                            @lang('common.cancel')
                                                         </button>
                                                     </form>
                                                 </div>

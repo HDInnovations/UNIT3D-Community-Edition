@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $c->name }} - {{ trans('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>{{ $c->name }} - @lang('forum.forums') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('forum.meta-category') . ' ' . $c->name }}">
+    <meta name="description" content="@lang('forum.meta-category')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
@@ -35,9 +35,9 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th>{{ trans('forum.forum') }}</th>
-                        <th>{{ trans('forum.stats') }}</th>
-                        <th>{{ trans('forum.last-message') }}</th>
+                        <th>@lang('forum.forum')</th>
+                        <th>@lang('forum.stats')</th>
+                        <th>@lang('forum.last-message')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -58,8 +58,8 @@
                             <!-- Stats -->
                             <td class="f-category-forums-stats">
                                 <ul>
-                                    <li class="f-category-forums-item">{{ $f->num_topic }} {{ trans('forum.topics') }}</li>
-                                    <li class="f-category-forums-item">{{ $f->num_post }} {{ trans('forum.replies') }}</li>
+                                    <li class="f-category-forums-item">{{ $f->num_topic }} @lang('forum.topics')</li>
+                                    <li class="f-category-forums-item">{{ $f->num_post }} @lang('forum.replies')</li>
                                 </ul>
                             </td><!-- /Stats -->
                             <!-- Last post -->

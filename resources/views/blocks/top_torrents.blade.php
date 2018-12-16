@@ -2,37 +2,37 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>{{ trans('blocks.top-torrents') }}</h4>
+            <h4>@lang('blocks.top-torrents')</h4>
         </div>
 
         <ul class="nav nav-tabs mb-5" role="tablist">
             <li class="active">
                 <a href="#newtorrents" role="tab" data-toggle="tab" aria-expanded="true">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i> {{ trans('blocks.new-torrents') }}
+                    <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i> @lang('blocks.new-torrents')
                 </a>
             </li>
             <li class="">
                 <a href="#topseeded" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-up text-success"></i> {{ trans('torrent.top-seeded') }}
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-up text-success"></i> @lang('torrent.top-seeded')
                 </a>
             </li>
             <li class="">
                 <a href="#topleeched" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-down text-danger"></i> {{ trans('torrent.top-leeched') }}
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-down text-danger"></i> @lang('torrent.top-leeched')
                 </a>
             </li>
             <li class="">
                 <a href="#dyingtorrents" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i> {{ trans('torrent.dying-torrents') }}
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i> @lang('torrent.dying-torrents')
                     <i class="{{ config('other.font-awesome') }} fa-recycle text-red" data-toggle="tooltip"
-                       data-original-title="{{ trans('torrent.requires-reseed') }}"></i>
+                       data-original-title="@lang('torrent.requires-reseed')"></i>
                 </a>
             </li>
             <li class="">
                 <a href="#deadtorrents" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle text-red"></i> {{ trans('torrent.dead-torrents') }}
+                    <i class="{{ config('other.font-awesome') }} fa-exclamation-triangle text-red"></i> @lang('torrent.dead-torrents')
                     <i class="{{ config('other.font-awesome') }} fa-recycle text-red" data-toggle="tooltip"
-                       data-original-title="{{ trans('torrent.requires-reseed') }}"></i>
+                       data-original-title="@lang('torrent.requires-reseed')"></i>
                 </a>
             </li>
         </ul>
@@ -45,12 +45,12 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                            <th>{{ trans('torrent.age') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
-                            <th>{{ trans('torrent.short-seeds') }}</th>
-                            <th>{{ trans('torrent.short-leechs') }}</th>
-                            <th>{{ trans('torrent.short-completed') }}</th>
+                            <th class="torrents-filename">@lang('torrent.name')</th>
+                            <th>@lang('torrent.age')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.short-seeds')</th>
+                            <th>@lang('torrent.short-leechs')</th>
+                            <th>@lang('torrent.short-completed')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -255,12 +255,12 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                            <th>{{ trans('torrent.age') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
-                            <th>{{ trans('torrent.short-seeds') }}</th>
-                            <th>{{ trans('torrent.short-leechs') }}</th>
-                            <th>{{ trans('torrent.short-completed') }}</th>
+                            <th class="torrents-filename">@lang('torrent.name')</th>
+                            <th>@lang('torrent.age')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.short-seeds')</th>
+                            <th>@lang('torrent.short-leechs')</th>
+                            <th>@lang('torrent.short-completed')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -466,12 +466,12 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                            <th>{{ trans('torrent.age') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
-                            <th>{{ trans('torrent.short-seeds') }}</th>
-                            <th>{{ trans('torrent.short-leechs') }}</th>
-                            <th>{{ trans('torrent.short-completed') }}</th>
+                            <th class="torrents-filename">@lang('torrent.name')</th>
+                            <th>@lang('torrent.age')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.short-seeds')</th>
+                            <th>@lang('torrent.short-leechs')</th>
+                            <th>@lang('torrent.short-completed')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -677,12 +677,12 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                            <th>{{ trans('torrent.age') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
-                            <th>{{ trans('torrent.short-seeds') }}</th>
-                            <th>{{ trans('torrent.short-leechs') }}</th>
-                            <th>{{ trans('torrent.short-completed') }}</th>
+                            <th class="torrents-filename">@lang('torrent.name')</th>
+                            <th>@lang('torrent.age')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.short-seeds')</th>
+                            <th>@lang('torrent.short-leechs')</th>
+                            <th>@lang('torrent.short-completed')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -887,12 +887,12 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                            <th>{{ trans('torrent.age') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
-                            <th>{{ trans('torrent.short-seeds') }}</th>
-                            <th>{{ trans('torrent.short-leechs') }}</th>
-                            <th>{{ trans('torrent.short-completed') }}</th>
+                            <th class="torrents-filename">@lang('torrent.name')</th>
+                            <th>@lang('torrent.age')</th>
+                            <th>@lang('torrent.size')</th>
+                            <th>@lang('torrent.short-seeds')</th>
+                            <th>@lang('torrent.short-leechs')</th>
+                            <th>@lang('torrent.short-completed')</th>
                         </tr>
                         </thead>
                         <tbody>

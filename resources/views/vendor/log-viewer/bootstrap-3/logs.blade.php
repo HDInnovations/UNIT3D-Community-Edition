@@ -56,7 +56,7 @@
                 @else
                     <tr>
                         <td colspan="11" class="text-center">
-                            <span class="label label-default">{{ trans('log-viewer::general.empty-logs') }}</span>
+                            <span class="label label-default">@lang('log-viewer::general.empty-logs')</span>
                         </td>
                     </tr>
                 @endif

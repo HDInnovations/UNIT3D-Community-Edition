@@ -1,29 +1,29 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>@lang('forum.forums') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ config('other.title') }} - {{ trans('forum.forums') }}">
+    <meta name="description" content="{{ config('other.title') }} - @lang('forum.forums')">
 @endsection
 
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="box container">
-        <span class="badge-user" style="float: right;"><strong>{{ trans('forum.forums') }}:</strong> {{ $num_forums }} | <strong>{{ trans('forum.topics') }}
-                :</strong> {{ $num_topics }} | <strong>{{ trans('forum.posts') }}:</strong> {{ $num_posts }}</span>
+        <span class="badge-user" style="float: right;"><strong>@lang('forum.forums'):</strong> {{ $num_forums }} | <strong>@lang('forum.topics')
+                :</strong> {{ $num_topics }} | <strong>@lang('forum.posts'):</strong> {{ $num_posts }}</span>
         <form role="form" method="GET" action="{{ route('forum_search') }}">
             @csrf
-            <input type="text" name="name" id="name" placeholder="{{ trans('forum.topic-quick-search') }}"
+            <input type="text" name="name" id="name" placeholder="@lang('forum.topic-quick-search')"
                    class="form-control">
         </form>
         <div class="forum-categories">
@@ -57,11 +57,11 @@
                                 <td>{{ $categoryChild->num_post }}</td>
                                 <td>{{ $categoryChild->num_topic }}</td>
                                 <td>
-                                    <span>{{ trans('forum.last-message') }} - {{ strtolower(trans('forum.author')) }} <i
+                                    <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }} <i
                                                 class="{{ config('other.font-awesome') }} fa-user"></i> <a
                                                 href="{{ route('profile', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
                                     <br>
-                                    <span>{{ trans('forum.topic') }} <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
+                                    <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
                                                 href="{{ route('forum_topic', ['slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>
                                     <br>
                                     <span><i class="{{ config('other.font-awesome') }} fa-clock"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>

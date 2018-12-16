@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.my-wishlist') }} - {{ config('other.title') }}</title>
+    <title>@lang('user.my-wishlist') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.my-wishlist') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.my-wishlist')</span>
         </a>
     </li>
 @endsection
@@ -35,7 +35,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-success mt-10">
-                            <span class="{{ config('other.font-awesome') }} fa-plus"></span> {{ trans('common.add') }}
+                            <span class="{{ config('other.font-awesome') }} fa-plus"></span> @lang('common.add')
                         </button>
 
                     </form>

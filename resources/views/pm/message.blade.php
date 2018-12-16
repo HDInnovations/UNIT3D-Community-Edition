@@ -4,7 +4,7 @@
     <li class="active">
         <a href="{{ route('message', ['id' => $pm->id]) }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ trans('pm.message') }}
+                @lang('pm.message')
             </span>
         </a>
     </li>
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header gradient silver">
             <div class="inner_content">
-                <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.message') }}</h1>
+                <h1>@lang('pm.private') @lang('pm.messages') - @lang('pm.message')</h1>
             </div>
         </div>
         <div class="row">
@@ -29,20 +29,20 @@
                                     @endif
                                     <div class="row message-headers">
                                         <div class="col-sm-4">
-                                            <div><strong>{{ trans('pm.from') }}:</strong> <a
+                                            <div><strong>@lang('pm.from'):</strong> <a
                                                         href="{{ route('profile', ['username' => $pm->sender->username, 'id' => $pm->sender->id]) }}"
                                                        >{{ $pm->sender->username }}</a>
                                             </div>
-                                            <div><strong>{{ trans('pm.to') }}:</strong> <a
+                                            <div><strong>@lang('pm.to'):</strong> <a
                                                         href="{{ route('profile', ['username' => $pm->receiver->username, 'id' => $pm->receiver->id]) }}"
                                                        >{{ $pm->receiver->username }}</a>
                                             </div>
                                         </div>
                                         <div class="col-sm-7">
-                                            <div><strong>{{ trans('pm.subject') }}:</strong> Re: {{ $pm->subject }}
+                                            <div><strong>@lang('pm.subject'):</strong> Re: {{ $pm->subject }}
                                             </div>
                                             <div>
-                                                <strong>{{ trans('pm.sent') }}:</strong> {{ $pm->created_at }}
+                                                <strong>@lang('pm.sent'):</strong> {{ $pm->created_at }}
                                             </div>
                                         </div>
                                         <form role="form" method="POST"
@@ -50,7 +50,7 @@
                                             @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-sm btn-danger pull-right"
-                                                        title="{{ trans('pm.delete') }}"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                        title="@lang('pm.delete')"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>
                                         </form>
@@ -67,7 +67,7 @@
                                 <textarea id="message" name="message" cols="30" rows="10"
                                           class="form-control"></textarea>
                                         <button type="submit" class="btn btn-primary"
-                                                style="float:right;">{{ trans('pm.reply') }}</button>
+                                                style="float:right;">@lang('pm.reply')</button>
                                     </div>
                                 </form>
                         </div>

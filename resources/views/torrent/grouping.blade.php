@@ -1,27 +1,27 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
+    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('torrent.torrents') }}">
+    <meta name="description" content="@lang('torrent.torrents')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('grouping_categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.grouping-categories') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.grouping-categories')</span>
         </a>
     </li>
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }} {{ trans('torrent.grouping') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $category->name }} @lang('torrent.grouping')</span>
         </a>
     </li>
 @endsection
@@ -53,21 +53,21 @@
                     <div class="pull-left">
                         <a href="#">
                             <img src="{{ $movie->poster }}" style="height:200px; margin-right:10px;"
-                                 alt="{{ $movie->title }} {{ trans('torrent.poster') }}">
+                                 alt="{{ $movie->title }} @lang('torrent.poster')">
                         </a>
                     </div>
                     <h2 class="movie-title">
                         <a href="{{ route('grouping_results', ['category_id' => $t->category_id, 'imdb' => $t->imdb]) }}"
                            title="{{ $movie->title }} ({{ $movie->releaseYear }})">{{ $movie->title }}
                             ({{ $movie->releaseYear }})</a>
-                        <span class="badge-user text-bold text-gold">{{ trans('torrent.rating') }}:
+                        <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
             <span class="movie-rating-stars">
               <i class="{{ config('other.font-awesome') }} fa-star"></i>
             </span>
                             @if ($user->ratings == 1)
-                                {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
+                                {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} @lang('torrent.votes'))
                             @else
-                                {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
+                                {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} @lang('torrent.votes'))
                             @endif
          </span>
                     </h2>
@@ -78,7 +78,7 @@
                                                     href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                         <span class="badge-user"><a
                                                     href="https://www.themoviedb.org/{{ strtolower($category->name) }}/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
-                        <strong>{{ trans('torrent.genre') }}: </strong>
+                        <strong>@lang('torrent.genre'): </strong>
                         @if ($movie->genres)
                             @foreach ($movie->genres as $genre)
                                 <span class="badge-user text-bold text-green">{{ $genre }}</span>
@@ -88,7 +88,7 @@
                     <br>
                     <ul class="list-inline">
                         @php $count = DB::table('torrents')->where('imdb',$t->imdb)->where('category_id', $category->id)->count(); @endphp
-                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>{{ trans('torrent.torrents') }}: </strong> {{ $count }}</li>
+                        <li><i class="{{ config('other.font-awesome') }} fa-files"></i> <strong>@lang('torrent.torrents'): </strong> {{ $count }}</li>
                     </ul>
                 </div>
             </div>

@@ -151,7 +151,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center">
-                                        <span class="badge badge-secondary">{{ trans('log-viewer::general.empty-logs') }}</span>
+                                        <span class="badge badge-secondary">@lang('log-viewer::general.empty-logs')</span>
                                     </td>
                                 </tr>
                             @endforelse

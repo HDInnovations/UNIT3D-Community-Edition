@@ -7,7 +7,7 @@
                         <strong>{{ auth()->user()->username }}</strong>
                         @if (auth()->user()->getWarning() > 0)
                             <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange" aria-hidden="true" data-toggle="tooltip"
-                               data-original-title="{{ trans('common.active-warning') }}"></i>
+                               data-original-title="@lang('common.active-warning')"></i>
                         @endif
                     </span>
                 </a>
@@ -21,33 +21,33 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                    {{ trans('common.upload') }} : {{ auth()->user()->getUploaded() }}
+                    @lang('common.upload') : {{ auth()->user()->getUploaded() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                    {{ trans('common.download') }} : {{ auth()->user()->getDownloaded() }}
+                    @lang('common.download') : {{ auth()->user()->getDownloaded() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                    {{ trans('common.ratio') }} : {{ auth()->user()->getRatioString() }}
+                    @lang('common.ratio') : {{ auth()->user()->getRatioString() }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-exchange text-orange"></i>
-                    {{ trans('common.buffer') }} : {{ auth()->user()->untilRatio(config('other.ratio')) }}
+                    @lang('common.buffer') : {{ auth()->user()->untilRatio(config('other.ratio')) }}
                 </span>
             </li>
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-upload text-green"></i>
                         <a href="{{ route('myactive', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
-                            title="{{ trans('torrent.my-active-torrents') }}">
-                            <span class="text-blue"> {{ trans('torrent.seeding') }}:</span>
+                            title="@lang('torrent.my-active-torrents')">
+                            <span class="text-blue"> @lang('torrent.seeding'):</span>
                         </a>
                     {{ auth()->user()->getSeeding() }}
                 </span>
@@ -56,8 +56,8 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-download text-red"></i>
                         <a href="{{ route('myactive', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
-                            title="{{ trans('torrent.my-active-torrents') }}">
-                            <span class="text-blue"> {{ trans('torrent.leeching') }}:</span>
+                            title="@lang('torrent.my-active-torrents')">
+                            <span class="text-blue"> @lang('torrent.leeching'):</span>
                         </a>
                     {{ auth()->user()->getLeeching() }}
                 </span>
@@ -65,8 +65,8 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"></i>
-                        <a href="#" title="{{ trans('torrent.hit-and-runs') }}">
-                            <span class="text-blue"> {{ trans('common.warnings') }}:</span>
+                        <a href="#" title="@lang('torrent.hit-and-runs')">
+                            <span class="text-blue"> @lang('common.warnings'):</span>
                         </a>
                     {{ auth()->user()->getWarning() }}
                 </span>
@@ -74,8 +74,8 @@
             <li>
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-shopping-cart text-purple"></i>
-                        <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" title="{{ trans('user.my-bonus-points') }}">
-                            <span class="text-blue"> {{ trans('bon.bon') }}:</span>
+                        <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" title="@lang('user.my-bonus-points')">
+                            <span class="text-blue"> @lang('bon.bon'):</span>
                         </a>
                     {{ auth()->user()->getSeedbonus() }}
                 </span>
@@ -84,8 +84,8 @@
                 <span class="badge-user text-bold">
                     <i class="{{ config('other.font-awesome') }} fa-coins text-gold"></i>
                         <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}"
-                            title="{{ trans('user.my-fl-tokens') }}">
-                            <span class="text-blue"> {{ trans('common.fl_tokens') }} :</span>
+                            title="@lang('user.my-fl-tokens')">
+                            <span class="text-blue"> @lang('common.fl_tokens') :</span>
                         </a>
                     {{ auth()->user()->fl_tokens }}
                 </span>

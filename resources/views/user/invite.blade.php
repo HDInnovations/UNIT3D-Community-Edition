@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.invites') }} - {{ config('other.title') }}</title>
+    <title>@lang('user.invites') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('invite') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invites') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.invites')</span>
         </a>
     </li>
 @endsection
@@ -19,10 +19,10 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('user.invites-disabled') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('user.invites-disabled')
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">{{ trans('user.invites-disabled-desc') }}</p>
+                        <p class="text-center">@lang('user.invites-disabled-desc')</p>
                     </div>
                 </div>
             </div>
@@ -31,31 +31,31 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('user.invites-banned') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('user.invites-banned')
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">{{ trans('user.invites-banned-desc') }}</p>
+                        <p class="text-center">@lang('user.invites-banned-desc')</p>
                     </div>
                 </div>
             </div>
         @else
             <div class="block block-titled">
-                <h2>{{ trans('user.invites-count', ['count' => $user->invites]) }}</h2>
-                <p class="text-danger text-bold">{{ trans('user.important') }}</p>
+                <h2>@lang('user.invites-count', ['count' => $user->invites])</h2>
+                <p class="text-danger text-bold">@lang('user.important')</p>
                 <ul>
                     {!! trans('user.invites-rules') !!}
                 </ul>
             </div>
 
-            <h3>{{ trans('user.invite-friend') }}</h3>
+            <h3>@lang('user.invite-friend')</h3>
             <div class="block block-form">
                 <form action="{{ route('invite') }}" method="post">
                     @csrf
-                    <label for="email" class="col-sm-2 control-label">{{ trans('common.email') }}</label>
+                    <label for="email" class="col-sm-2 control-label">@lang('common.email')</label>
                     <input class="form-control" name="email" type="email" id="email" size="10" required>
-                    <label for="message" class="col-sm-2 control-label">{{ trans('common.message') }}</label>
+                    <label for="message" class="col-sm-2 control-label">@lang('common.message')</label>
                     <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea>
-                    <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                 </form>
             </div>
     </div>

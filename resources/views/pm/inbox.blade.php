@@ -4,7 +4,7 @@
     <li class="active">
         <a href="{{ route('inbox') }}">
             <span itemprop="title" class="l-breadcrumb-item-link-title">
-                {{ trans('pm.inbox') }}
+                @lang('pm.inbox')
             </span>
         </a>
     </li>
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="header gradient silver">
             <div class="inner_content">
-                <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.inbox') }}</h1>
+                <h1>@lang('pm.private') @lang('pm.messages') - @lang('pm.inbox')</h1>
             </div>
         </div>
         <div class="row">
@@ -27,13 +27,13 @@
                                 <a href="{{ route('mark-all-read') }}">
                                     <button type="button" id="mark-all-read" class="btn btn-success dropdown-toggle"
                                             data-toggle="tooltip" data-placement="top"
-                                            data-original-title="{{ trans('pm.mark-all-read') }}"><i
+                                            data-original-title="@lang('pm.mark-all-read')"><i
                                                 class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                                 <a href="{{ route('inbox') }}">
                                     <button type="button" id="btn_refresh" class="btn btn-primary dropdown-toggle"
                                             data-toggle="tooltip" data-placement="top"
-                                            data-original-title="{{ trans('pm.refresh') }}"><i
+                                            data-original-title="@lang('pm.refresh')"><i
                                                 class="{{ config('other.font-awesome') }} fa-sync-alt"></i></button>
                                 </a>
                             </div>
@@ -43,7 +43,7 @@
                                 <form role="form" method="POST" action="{{ route('searchPMInbox') }}">
                                     @csrf
                                     <input type="text" name="subject" id="subject" class="form-control"
-                                           placeholder="{{ trans('pm.search') }}">
+                                           placeholder="@lang('pm.search')">
                                 </form>
                             </div>
                         </div>
@@ -52,11 +52,11 @@
                         <table class="table table-condensed table-bordered table-striped table-hover">
                             <thead>
                             <tr>
-                                <td class="col-sm-2">{{ trans('pm.from') }}</td>
-                                <td class="col-sm-5">{{ trans('pm.subject') }}</td>
-                                <td class="col-sm-2">{{ trans('pm.received-at') }}</td>
-                                <td class="col-sm-2">{{ trans('pm.read') }}</td>
-                                <td class="col-sm-2">{{ trans('pm.delete') }}</td>
+                                <td class="col-sm-2">@lang('pm.from')</td>
+                                <td class="col-sm-5">@lang('pm.subject')</td>
+                                <td class="col-sm-2">@lang('pm.received-at')</td>
+                                <td class="col-sm-2">@lang('pm.read')</td>
+                                <td class="col-sm-2">@lang('pm.delete')</td>
                             </tr>
                             </thead>
                             <tbody>
@@ -78,13 +78,13 @@
                                     @if ($p->read == 0)
                                         <td class="col-sm-2">
                                             <span class='label label-danger'>
-                                                {{ trans('pm.unread') }}
+                                                @lang('pm.unread')
                                             </span>
                                         </td>
                                     @else ($p->read >= 1)
                                         <td class="col-sm-2">
                                             <span class='label label-success'>
-                                                {{ trans('pm.read') }}
+                                                @lang('pm.read')
                                             </span>
                                         </td>
                                     @endif
@@ -93,7 +93,7 @@
                                             @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-xs btn-danger"
-                                                        title="{{ trans('pm.delete') }}"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                                        title="@lang('pm.delete')"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>
                                         </form>

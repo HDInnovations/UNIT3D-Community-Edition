@@ -1,22 +1,22 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
+    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('torrent.torrents') }}">
+    <meta name="description" content="@lang('torrent.torrents')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('grouping_categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.grouping-categories') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.grouping-categories')</span>
         </a>
     </li>
 @endsection
@@ -25,7 +25,7 @@
     <div class="container box">
         <div class="header gradient blue">
             <div class="inner_content">
-                <h1>{{ trans('torrent.grouping-categories-desc') }}</h1>
+                <h1>@lang('torrent.grouping-categories-desc')</h1>
             </div>
         </div>
         <div class="blocks">
@@ -35,7 +35,7 @@
                     <div class="blu media_blocks">
                         <h2><i class="{{ $category->icon }}"></i> {{ $category->name }}</h2>
                         <span></span>
-                        <h2>{{ $category->torrents_count }} {{ trans('torrent.torrents') }}</h2>
+                        <h2>{{ $category->torrents_count }} @lang('torrent.torrents')</h2>
                     </div>
                 </a>
             @endforeach

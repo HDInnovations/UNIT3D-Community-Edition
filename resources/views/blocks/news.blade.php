@@ -6,7 +6,7 @@
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                        href="#collapse4" style="color:#fff">
-                        @emojione(':rotating_light:') {{ trans('blocks.new-news') }} @emojione(':rotating_light:')
+                        @emojione(':rotating_light:') @lang('blocks.new-news') @emojione(':rotating_light:')
                     </a>
                 </h4>
             </div>
@@ -16,7 +16,7 @@
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                        href="#collapse4" style="color:#fff">
-                        {{ trans('blocks.check-news') }}
+                        @lang('blocks.check-news')
                     </a>
                 </h4>
             </div>
@@ -36,7 +36,7 @@
                     <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
                     <p class="text-muted">
-                        <em>{{ trans('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
+                        <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
                     </p>
 
                     <p style="margin-top: 20px;">
@@ -44,12 +44,12 @@
                     </p>
 
                     <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" class="btn btn-success">
-                        {{ trans('articles.read-more') }}
+                        @lang('articles.read-more')
                     </a>
 
                     <div class="pull-right">
                         <a href="{{ route('articles') }}" class="btn btn-primary">
-                            {{ trans('common.view-all') }}
+                            @lang('common.view-all')
                         </a>
                     </div>
                 </div>
