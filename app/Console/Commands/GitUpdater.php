@@ -140,15 +140,15 @@ class GitUpdater extends Command
                     $this->manualUpdate($conflicts);
                 }
 
-                if ($this->io->confirm('Run new migrations (php artisan migrate)', false)) {
+                if ($this->io->confirm('Run new migrations (php artisan migrate)', true)) {
                     $this->migrations();
                 }
 
-                if ($this->io->confirm('Compile assets (npm run prod)', false)) {
+                if ($this->io->confirm('Compile assets (npm run prod)', true)) {
                     $this->compile();
                 }
 
-                if ($this->io->confirm('Install new packages (composer install)', false)) {
+                if ($this->io->confirm('Install new packages (composer install)', true)) {
                     $this->composer();
                 }
 
@@ -187,7 +187,7 @@ class GitUpdater extends Command
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
-            if ($this->io->confirm("Update $file", false)) {
+            if ($this->io->confirm("Update $file", true)) {
                 $this->updateFile($file);
             }
         }
