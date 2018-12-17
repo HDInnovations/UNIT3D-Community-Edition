@@ -6,5 +6,5 @@
  */
 return [
     'requests' => 'Demandes',
-    'request' => 'Demande'
+    'request'  => 'Demande',
 ];

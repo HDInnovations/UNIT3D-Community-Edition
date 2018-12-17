@@ -1,33 +1,31 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\ChatRepository;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Contracts\Auth\Authenticatable;
-use App\Http\Requests\ValidateSecretRequest;
-use App\Jobs\SendActivationMail;
-use App\UserActivation;
 use App\User;
-use App\PrivateMessage;
 use App\Group;
 use App\Invite;
-use App\Rules\Captcha;
-use Brian2694\Toastr\Toastr;
 use Carbon\Carbon;
+use App\Rules\Captcha;
+use App\PrivateMessage;
+use App\UserActivation;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Jobs\SendActivationMail;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -42,10 +40,10 @@ class RegisterController extends Controller
     private $toastr;
 
     /**
-     * RegisterController Constructor
+     * RegisterController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param Toastr         $toastr
      */
     public function __construct(ChatRepository $chat, Toastr $toastr)
     {
@@ -54,9 +52,10 @@ class RegisterController extends Controller
     }
 
     /**
-     * Registration Form
+     * Registration Form.
      *
      * @param $code
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function registrationForm($code = null)
@@ -74,7 +73,7 @@ class RegisterController extends Controller
     {
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
-        if (config('other.invite-only') == 1 && (!$key || $key->accepted_by !== null)) {
+        if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return view('auth.register', ['code' => $code])
                 ->with($this->toastr->error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }
@@ -84,8 +83,8 @@ class RegisterController extends Controller
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
-        $user->passkey = md5(uniqid() . time() . microtime());
-        $user->rsskey = md5(uniqid() . time() . microtime() . $user->password);
+        $user->passkey = md5(uniqid().time().microtime());
+        $user->rsskey = md5(uniqid().time().microtime().$user->password);
         $user->uploaded = config('other.default_upload');
         $user->downloaded = config('other.default_download');
         $user->style = config('other.default_style', 0);
@@ -93,45 +92,44 @@ class RegisterController extends Controller
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
-                'password' => 'required|min:8',
-                'g-recaptcha-response' => new Captcha()
+                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email'                => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
+                'password'             => 'required|min:8',
+                'g-recaptcha-response' => new Captcha(),
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
+                'email'    => 'required|email|max:255|unique:users|email_list:allow', // Whitelist
                 'password' => 'required|min:8',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block' && config('captcha.enabled') == true) {
             $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
-                'password' => 'required|min:8',
-                'g-recaptcha-response' => new Captcha()
+                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email'                => 'required|email|max:255|unique:users|email_list:block', // Blacklist
+                'password'             => 'required|min:8',
+                'g-recaptcha-response' => new Captcha(),
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users|email_list:block', // Blacklist
+                'email'    => 'required|email|max:255|unique:users|email_list:block', // Blacklist
                 'password' => 'required|min:8',
             ]);
         } elseif (config('captcha.enabled') == true) {
             $v = validator($request->all(), [
-                'username' => 'required|alpha_dash|min:3|max:20|unique:users',
-                'email' => 'required|email|max:255|unique:users',
-                'password' => 'required|min:8',
-                'g-recaptcha-response' => new Captcha()
+                'username'             => 'required|alpha_dash|min:3|max:20|unique:users',
+                'email'                => 'required|email|max:255|unique:users',
+                'password'             => 'required|min:8',
+                'g-recaptcha-response' => new Captcha(),
             ]);
         } else {
             $v = validator($request->all(), [
                 'username' => 'required|alpha_dash|min:3|max:20|unique:users', //Default
-                'email' => 'required|email|max:255|unique:users',
+                'email'    => 'required|email|max:255|unique:users',
                 'password' => 'required|min:8',
             ]);
         }
-
 
         if ($v->fails()) {
             return redirect()->route('register', ['code' => $code])
@@ -147,7 +145,7 @@ class RegisterController extends Controller
             }
 
             // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username . $user->email . str_random(16), config('app.key'));
+            $token = hash_hmac('sha256', $user->username.$user->email.str_random(16), config('app.key'));
             $activation = new UserActivation();
             $activation->user_id = $user->id;
             $activation->token = $token;
@@ -158,13 +156,13 @@ class RegisterController extends Controller
             $profile_url = hrefProfile($user);
 
             $welcomeArray = [
-                "[url={$profile_url}]{$user->username}[/url], Welcome to " .config('other.title') . "! Hope you enjoy the community :rocket:",
+                "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :rocket:',
                 "[url={$profile_url}]{$user->username}[/url], We've been expecting you :space_invader:",
                 "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
                 "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
                 "Ready player [url={$profile_url}]{$user->username}[/url].",
                 "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
-                "Welcome to " .config('other.title') . " [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)"
+                'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",
             ];
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
@@ -173,7 +171,7 @@ class RegisterController extends Controller
             );
 
             // Send Welcome PM
-            $pm = new PrivateMessage;
+            $pm = new PrivateMessage();
             $pm->sender_id = 1;
             $pm->receiver_id = $user->id;
             $pm->subject = config('welcomepm.subject');
@@ -181,7 +179,7 @@ class RegisterController extends Controller
             $pm->save();
 
             // Activity Log
-            \LogActivity::addToLog("Member " . $user->username . " has successfully registered to site.");
+            \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
 
             return redirect()->route('login')
                 ->with($this->toastr->success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));

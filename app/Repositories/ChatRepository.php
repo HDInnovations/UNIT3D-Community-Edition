@@ -1,27 +1,27 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Repositories;
 
+use App\User;
+use App\Message;
 use App\Chatroom;
 use App\ChatStatus;
-use App\Events\MessageDeleted;
 use App\Events\MessageSent;
-use App\Message;
-use App\User;
+use App\Events\MessageDeleted;
 
 class ChatRepository
 {
-
     /**
      * @var Message
      */
@@ -41,7 +41,6 @@ class ChatRepository
      * @var User
      */
     private $user;
-
 
     public function __construct(Message $message, Chatroom $room, ChatStatus $status, User $user)
     {
@@ -72,11 +71,10 @@ class ChatRepository
             $message = $this->censorMessage($message);
         }
 
-
         $message = $this->message->create([
-            'user_id' => $user_id,
+            'user_id'     => $user_id,
             'chatroom_id' => $room_id,
-            'message' => $message
+            'message'     => $message,
         ]);
 
         $this->checkMessageLimits($room_id);
@@ -98,7 +96,7 @@ class ChatRepository
     public function messages($room_id)
     {
         return $this->message->with(['user.group', 'user.chatStatus'])
-            ->where('chatroom_id', $room_id)
+            ->where('chatroom_id', '=', $room_id)
             ->latest()
             ->limit(config('chat.message_limit'))
             ->get();
@@ -114,7 +112,7 @@ class ChatRepository
         if ($count > $limit) {
             for ($x = 1; $x <= $count - $limit; $x++) {
                 $message = array_pop($messages);
-                echo $message['id'] . "\n";
+                echo $message['id']."\n";
 
                 $this->message->find($message['id'])->delete();
             }
@@ -159,11 +157,11 @@ class ChatRepository
     public function status($user)
     {
         if ($user instanceof User) {
-            $status = $this->status->where('user_id', $user->id)->first();
+            $status = $this->status->where('user_id', '=', $user->id)->first();
         }
 
         if (is_int($user)) {
-            $status = $this->status->where('user_id', $user)->first();
+            $status = $this->status->where('user_id', '=', $user)->first();
         }
 
         return $status;
@@ -176,6 +174,7 @@ class ChatRepository
 
     /**
      * @param $message
+     *
      * @return string
      */
     protected function censorMessage($message)

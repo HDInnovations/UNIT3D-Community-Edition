@@ -1,23 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
-use App\Repositories\ChatRepository;
-use Illuminate\Console\Command;
-use App\Message;
-use App\FeaturedTorrent;
 use App\Torrent;
 use Carbon\Carbon;
+use App\FeaturedTorrent;
+use Illuminate\Console\Command;
+use App\Repositories\ChatRepository;
 
 class AutoRemoveFeaturedTorrent extends Command
 {
@@ -59,7 +59,7 @@ class AutoRemoveFeaturedTorrent extends Command
 
         foreach ($featured_torrents as $featured_torrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', 1)->where('id', $featured_torrent->torrent_id)->first();
+            $torrent = Torrent::where('featured', '=', 1)->where('id', '=', $featured_torrent->torrent_id)->first();
             $torrent->free = 0;
             $torrent->doubleup = 0;
             $torrent->featured = 0;

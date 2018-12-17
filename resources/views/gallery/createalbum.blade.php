@@ -47,7 +47,7 @@
                     <input type="file" name="cover_image">
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">{{ trans('common.add') }}</button>
+                    <button type="submit" class="btn btn-primary">@lang('common.add')</button>
                 </div>
             </form>
         </div>

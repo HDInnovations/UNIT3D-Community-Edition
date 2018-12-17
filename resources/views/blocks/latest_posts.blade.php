@@ -2,16 +2,16 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>{{ trans('blocks.latest-posts') }}</h4>
+            <h4>@lang('blocks.latest-posts')</h4>
         </div>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th class="torrents-filename">{{ trans('forum.post') }}</th>
-                    <th>{{ trans('forum.topic') }}</th>
-                    <th>{{ trans('forum.author') }}</th>
-                    <th>{{ trans('forum.created') }}</th>
+                    <th class="torrents-filename">@lang('forum.post')</th>
+                    <th>@lang('forum.topic')</th>
+                    <th>@lang('forum.author')</th>
+                    <th>@lang('forum.created')</th>
                 </tr>
                 </thead>
                 <tbody>

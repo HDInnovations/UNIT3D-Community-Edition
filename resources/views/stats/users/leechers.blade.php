@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('stat.stats') }} - {{ config('other.title') }}</title>
+    <title>@lang('stat.stats') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('stats') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.stats') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.stats')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('leechers') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('stat.top-leechers') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('stat.top-leechers')</span>
         </a>
     </li>
 @endsection
@@ -22,18 +22,18 @@
         @include('partials.statsusermenu')
 
         <div class="block">
-            <h2>{{ trans('stat.top-leechers') }}</h2>
+            <h2>@lang('stat.top-leechers')</h2>
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> {{ trans('stat.top-leechers') }}
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> @lang('stat.top-leechers')
                         </strong></p>
                     <table class="table table-condensed table-striped table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ trans('common.user') }}</th>
-                            <th>{{ trans('torrent.leeching') }}</th>
+                            <th>@lang('common.user')</th>
+                            <th>@lang('torrent.leeching')</th>
                         </tr>
                         </thead>
                         <tbody>

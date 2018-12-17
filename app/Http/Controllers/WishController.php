@@ -1,20 +1,21 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\WishInterface;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Interfaces\WishInterface;
 
 class WishController extends Controller
 {
@@ -29,10 +30,10 @@ class WishController extends Controller
     private $toastr;
 
     /**
-     * WishController Constructor
+     * WishController Constructor.
      *
      * @param WishInterface $wish
-     * @param Toastr $toastr
+     * @param Toastr        $toastr
      */
     public function __construct(WishInterface $wish, Toastr $toastr)
     {
@@ -41,9 +42,10 @@ class WishController extends Controller
     }
 
     /**
-     * Get Wish List
+     * Get Wish List.
      *
      * @param $uid
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($uid)
@@ -54,15 +56,16 @@ class WishController extends Controller
     }
 
     /**
-     * Add New Wish
+     * Add New Wish.
      *
      * @param \Illuminate\Http\Request $request
      * @param $uid
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $uid)
     {
-        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt' . $request->get('imdb');
+        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
@@ -75,16 +78,16 @@ class WishController extends Controller
             return redirect()
                 ->route('wishlist', ['id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
-        };
+        }
 
         $source = $this->wish->getSource($imdb);
 
         $this->wish->create([
-            'title' => $omdb['Title'] . ' (' . $omdb['Year'] . ')',
-            'type' => $omdb['Type'],
-            'imdb' => $imdb,
-            'source' => $source,
-            'user_id' => $uid
+            'title'   => $omdb['Title'].' ('.$omdb['Year'].')',
+            'type'    => $omdb['Type'],
+            'imdb'    => $imdb,
+            'source'  => $source,
+            'user_id' => $uid,
         ]);
 
         return redirect()
@@ -93,10 +96,11 @@ class WishController extends Controller
     }
 
     /**
-     * Delete A Wish
+     * Delete A Wish.
      *
      * @param $uid
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($uid, $id)

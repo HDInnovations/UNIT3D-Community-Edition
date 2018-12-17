@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 use App\Group;
 use App\Rules\Captcha;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -38,7 +39,7 @@ class LoginController extends Controller
     private $toastr;
 
     /**
-     * LoginController Constructor
+     * LoginController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -54,7 +55,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Validate The User Login Request
+     * Validate The User Login Request.
      *
      * @param \Illuminate\Http\Request $request
      */
@@ -62,15 +63,15 @@ class LoginController extends Controller
     {
         if (config('captcha.enabled') == true) {
             $this->validate($request, [
-                $this->username() => 'required|string',
-                'password' => 'required|string',
-                'g-recaptcha-response' => new Captcha()
+                $this->username()      => 'required|string',
+                'password'             => 'required|string',
+                'g-recaptcha-response' => new Captcha(),
             ]);
         }
 
         $this->validate($request, [
             $this->username() => 'required|string',
-            'password' => 'required|string',
+            'password'        => 'required|string',
         ]);
     }
 
@@ -84,6 +85,7 @@ class LoginController extends Controller
         if ($user->active == 0 || $user->group_id == $validatingGroup->id) {
             $this->guard()->logout();
             $request->session()->invalidate();
+
             return redirect()->route('login')
                 ->with($this->toastr->error('This account has not been activated and is still in validating group. Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
         }
@@ -91,6 +93,7 @@ class LoginController extends Controller
         if ($user->group_id == $bannedGroup->id) {
             $this->guard()->logout();
             $request->session()->invalidate();
+
             return redirect()->route('login')
                 ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
         }
@@ -105,6 +108,7 @@ class LoginController extends Controller
             $user->can_chat = 1;
             $user->disabled_at = null;
             $user->save();
+
             return redirect('/')
                 ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
@@ -119,6 +123,7 @@ class LoginController extends Controller
             $user->can_chat = 1;
             $user->disabled_at = null;
             $user->save();
+
             return redirect('/')
                 ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }

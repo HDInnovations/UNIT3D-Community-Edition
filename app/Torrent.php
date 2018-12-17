@@ -1,27 +1,27 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Hootlex\Moderation\Moderatable;
-use Kyslik\ColumnSortable\Sortable;
+use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
-use App\Helpers\Bbcode;
+use Hootlex\Moderation\Moderatable;
+use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Torrent model
- *
+ * Torrent model.
  */
 class Torrent extends Model
 {
@@ -29,7 +29,7 @@ class Torrent extends Model
     use Sortable;
 
     /**
-     * The Columns That Are Sortable
+     * The Columns That Are Sortable.
      *
      * @var array
      */
@@ -40,11 +40,11 @@ class Torrent extends Model
         'seeders',
         'leechers',
         'times_completed',
-        'created_at'
+        'created_at',
     ];
 
     /**
-     * Belongs To A User
+     * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -52,12 +52,12 @@ class Torrent extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Belongs To A Category
+     * Belongs To A Category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -67,7 +67,7 @@ class Torrent extends Model
     }
 
     /**
-     * Belongs To A Type
+     * Belongs To A Type.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -77,7 +77,7 @@ class Torrent extends Model
     }
 
     /**
-     * Torrent Has Been Moderated By
+     * Torrent Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -85,12 +85,12 @@ class Torrent extends Model
     {
         return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * One Title Belongs To Many Catalogs
+     * One Title Belongs To Many Catalogs.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -100,7 +100,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Tags
+     * Has Many Tags.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -110,17 +110,17 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many History
+     * Has Many History.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function history()
     {
-        return $this->hasMany(History::class, "info_hash", "info_hash");
+        return $this->hasMany(History::class, 'info_hash', 'info_hash');
     }
 
     /**
-     * Has Many Thank
+     * Has Many Thank.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -130,7 +130,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many HitRuns
+     * Has Many HitRuns.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -140,7 +140,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Featured
+     * Has Many Featured.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -150,7 +150,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Files
+     * Has Many Files.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -160,7 +160,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Comments
+     * Has Many Comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -170,7 +170,7 @@ class Torrent extends Model
     }
 
     /**
-     * Has Many Peers
+     * Has Many Peers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -180,7 +180,7 @@ class Torrent extends Model
     }
 
     /**
-     * Relationship To A Single Request
+     * Relationship To A Single Request.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -190,7 +190,7 @@ class Torrent extends Model
     }
 
     /**
-     * Parse Description And Return Valid HTML
+     * Parse Description And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML
      */
@@ -200,40 +200,42 @@ class Torrent extends Model
     }
 
     /**
-     * Formats The Output Of The Media Info Dump
+     * Formats The Output Of The Media Info Dump.
      *
      * @return array
      */
     public function getMediaInfo()
     {
-        $parser = new MediaInfo;
+        $parser = new MediaInfo();
         $parsed = $parser->parse($this->mediaInfo);
+
         return $parsed;
     }
 
     /**
-     * Returns The Size In Human Format
+     * Returns The Size In Human Format.
      *
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Bookmarks
+     * Bookmarks.
      */
     public function bookmarked()
     {
-        return Bookmark::where('user_id', auth()->user()->id)
-            ->where('torrent_id', $this->id)
+        return Bookmark::where('user_id', '=', auth()->user()->id)
+            ->where('torrent_id', '=', $this->id)
             ->first() ? true : false;
     }
 
     /**
-     * Torrent Is Freeleech
+     * Torrent Is Freeleech.
      */
     public function isFreeleech($user = null)
     {

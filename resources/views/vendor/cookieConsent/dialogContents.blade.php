@@ -5,7 +5,7 @@
     </span>
 
         <button class="btn btn-sm btn-primary">
-            {{ trans('cookieConsent::texts.agree') }}
+            @lang('cookieConsent::texts.agree')
         </button>
     </div>
 </div>

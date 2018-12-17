@@ -1,22 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\User;
 use App\PrivateMessage;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GiftController extends Controller
 {
@@ -26,7 +27,7 @@ class GiftController extends Controller
     private $toastr;
 
     /**
-     * GiftController Constructor
+     * GiftController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -36,7 +37,7 @@ class GiftController extends Controller
     }
 
     /**
-     * Send Gift Form
+     * Send Gift Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -48,9 +49,10 @@ class GiftController extends Controller
     }
 
     /**
-     * Send The Gift
+     * Send The Gift.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function gift(Request $request)
@@ -63,10 +65,10 @@ class GiftController extends Controller
         $fl_tokens = $request->input('fl_tokens');
 
         $v = validator($request->all(), [
-            'username' => "required|exists:users,username|max:180",
-            'seedbonus' => "required|numeric|min:0",
-            'invites' => "required|numeric|min:0",
-            'fl_tokens' => "required|numeric|min:0"
+            'username'  => 'required|exists:users,username|max:180',
+            'seedbonus' => 'required|numeric|min:0',
+            'invites'   => 'required|numeric|min:0',
+            'fl_tokens' => 'required|numeric|min:0',
         ]);
 
         if ($v->fails()) {
@@ -75,7 +77,7 @@ class GiftController extends Controller
         } else {
             $recipient = User::where('username', 'LIKE', $username)->first();
 
-            if (!$recipient) {
+            if (! $recipient) {
                 return redirect()->route('systemGift')
                     ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
             }
@@ -86,10 +88,10 @@ class GiftController extends Controller
             $recipient->save();
 
             // Send Private Message
-            $pm = new PrivateMessage;
+            $pm = new PrivateMessage();
             $pm->sender_id = 1;
             $pm->receiver_id = $recipient->id;
-            $pm->subject = "You Have Received A System Generated Gift";
+            $pm->subject = 'You Have Received A System Generated Gift';
             $pm->message = "We just wanted to let you know that staff member, {$staff->username}, has credited your account with {$seedbonus} Bonus Points, {$invites} Invites and {$fl_tokens} Freeleech Tokens.
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
             $pm->save();

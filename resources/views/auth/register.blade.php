@@ -2,10 +2,10 @@
 <html lang="{{ config('app.locale') }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{ trans('auth.signup') }} - {{ config('other.title') }}</title>
+    <title>@lang('auth.signup') - {{ config('other.title') }}</title>
     @section('meta')
         <meta name="description"
-              content="{{ trans('auth.login-now-on') }} {{ config('other.title') }} . {{ trans('auth.not-a-member') }}">
+              content="@lang('auth.login-now-on') {{ config('other.title') }} . @lang('auth.not-a-member')">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="{{ config('other.title') }}">
         <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
 <div class="wrapper fadeInDown">
     @if (config('other.invite-only') == true && !$code)
         <div class="alert alert-info">
-            {{ trans('auth.need-invite') }}
+            @lang('auth.need-invite')
         </div>
     @endif
     <svg viewBox="0 0 1320 100">
@@ -45,24 +45,24 @@
     </svg>
 
     <div id="formContent">
-        <a href="{{ route('login') }}"><h2 class="inactive underlineHover">{{ trans('auth.login') }} </h2></a>
-        <a href="{{ route('registrationForm', ['code' => $code]) }}"><h2 class="active">{{ trans('auth.signup') }} </h2></a>
+        <a href="{{ route('login') }}"><h2 class="inactive underlineHover">@lang('auth.login') </h2></a>
+        <a href="{{ route('registrationForm', ['code' => $code]) }}"><h2 class="active">@lang('auth.signup') </h2></a>
 
         <div class="fadeIn first">
-            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="{{ trans('auth.user-icon') }}"/>
+            <img src="{{ url('/img/icon.svg') }}" id="icon" alt="@lang('auth.user-icon')"/>
         </div>
 
         <form role="form" method="POST" action="{{ route('register', ['code' => $code]) }}">
             @csrf
             <input type="text" id="username" class="fadeIn second" name="username"
-                   placeholder="{{ trans('auth.username') }}" required autofocus>
+                   placeholder="@lang('auth.username')" required autofocus>
             @if ($errors->has('username'))
                 <br>
                 <span class="help-block text-red">
                     <strong>{{ $errors->first('username') }}</strong>
                 </span>
             @endif
-            <input type="email" id="email" class="fadeIn third" name="email" placeholder="{{ trans('auth.email') }}"
+            <input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
                    required>
             @if ($errors->has('email'))
                 <br>
@@ -71,7 +71,7 @@
                 </span>
             @endif
             <input type="password" id="password" class="fadeIn third" name="password"
-                   placeholder="{{ trans('auth.password') }}" required>
+                   placeholder="@lang('auth.password')" required>
             @if ($errors->has('password'))
                 <br>
                 <span class="help-block text-red">
@@ -92,14 +92,14 @@
                     </div>
                 </div>
             @endif
-            <button type="submit" class="fadeIn fourth">{{ trans('auth.signup') }}</button>
+            <button type="submit" class="fadeIn fourth">@lang('auth.signup')</button>
         </form>
 
         <div id="formFooter">
             <a href="{{ route('password.request') }}"><h2
-                        class="inactive underlineHover">{{ trans('auth.lost-password') }} </h2></a>
+                        class="inactive underlineHover">@lang('auth.lost-password') </h2></a>
             <a href="{{ route('username.request') }}"><h2
-                        class="inactive underlineHover">{{ trans('auth.lost-username') }} </h2></a>
+                        class="inactive underlineHover">@lang('auth.lost-username') </h2></a>
         </div>
     </div>
 </div>

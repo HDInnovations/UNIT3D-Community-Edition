@@ -4,7 +4,7 @@
     <li>
         <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ trans('bon.bonus') }} {{ trans('bon.points') }}</span>
+                  class="l-breadcrumb-item-link-title">@lang('bon.bonus') @lang('bon.points')</span>
         </a>
     </li>
 @endsection
@@ -13,10 +13,10 @@
     <div class="container box">
         <div class="header gradient purple">
             <div class="inner_content">
-                <h1>{{ trans('bon.bon') }} {{ trans('bon.store') }}</h1>
+                <h1>@lang('bon.bon') @lang('bon.store')</h1>
             </div>
         </div>
-        <h3>{{ trans('bon.earning') }}</h3>
+        <h3>@lang('bon.earning')</h3>
         <div class="row">
             <div class="col-sm-9">
                 <table class="table table-condensed table-striped">
@@ -25,142 +25,142 @@
                         <td class="col-sm-8">
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.dying-torrent') }}</strong><br>
-                            <small>{{ trans('torrent.last-seeder') }}</small>
+                            <strong>@lang('torrent.dying-torrent')</strong><br>
+                            <small>@lang('torrent.last-seeder')</small>
                         </td>
                         <td><strong>{{ $dying }} x 2</strong></td>
-                        <td>{{ $dying * 2 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $dying * 2 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.legendary-torrent') }}</strong><br>
-                            <small>{{ trans('common.older-than') }} 12 {{ strtolower(trans('common.months')) }}</small>
+                            <strong>@lang('torrent.legendary-torrent')</strong><br>
+                            <small>@lang('common.older-than') 12 {{ strtolower(trans('common.months')) }}</small>
                         </td>
                         <td><strong>{{ $legendary }} x 1.5</strong></td>
-                        <td>{{ $legendary * 1.5 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $legendary * 1.5 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.old-torrent') }}</strong><br>
-                            <small>{{ trans('common.older-than') }} 6 {{ strtolower(trans('common.months')) }}</small>
+                            <strong>@lang('torrent.old-torrent')</strong><br>
+                            <small>@lang('common.older-than') 6 {{ strtolower(trans('common.months')) }}</small>
                         </td>
                         <td><strong>{{ $old }} x 1</strong></td>
-                        <td>{{ $old * 1 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $old * 1 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('common.huge') }} {{ trans('torrent.torrents') }}</strong><br>
-                            <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span
+                            <strong>@lang('common.huge') @lang('torrent.torrents')</strong><br>
+                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
                                         class="text-bold">></span> 100GB
                             </small>
                         </td>
                         <td><strong>{{ $huge }} x 0.75</strong></td>
-                        <td>{{ $huge * 0.75 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $huge * 0.75 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('common.large') }} {{ trans('torrent.torrents') }}</strong><br>
-                            <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span
+                            <strong>@lang('common.large') @lang('torrent.torrents')</strong><br>
+                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
                                         class="text-bold">>=</span> 25GB {{ strtolower(trans('common.but')) }} < 100GB
                             </small>
                         </td>
                         <td><strong>{{ $large }} x 0.50</strong></td>
-                        <td>{{ $large * 0.50 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $large * 0.50 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('common.everyday') }} {{ trans('torrent.torrents') }}</strong><br>
-                            <small>{{ trans('torrent.torrents') }} {{ strtolower(trans('torrent.size')) }} <span
+                            <strong>@lang('common.everyday') @lang('torrent.torrents')</strong><br>
+                            <small>@lang('torrent.torrents') {{ strtolower(trans('torrent.size')) }} <span
                                         class="text-bold">>=</span> 1GB {{ strtolower(trans('common.but')) }} < 25GB
                             </small>
                         </td>
                         <td><strong>{{ $regular }} x 0.25</strong></td>
-                        <td>{{ $regular * 0.25 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $regular * 0.25 }} @lang('bon.per-hour')</td>
                     </tr>
 
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.legendary-seeder') }}</strong><br>
-                            <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
+                            <strong>@lang('torrent.legendary-seeder')</strong><br>
+                            <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                 1 {{ strtolower(trans('common.year')) }}</small>
                         </td>
                         <td><strong>{{ $legend }} x 2</strong></td>
-                        <td>{{ $legend * 2 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $legend * 2 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.mvp') }} {{ trans('torrent.seeder') }}</strong><br>
-                            <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
+                            <strong>@lang('torrent.mvp') @lang('torrent.seeder')</strong><br>
+                            <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                 6 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 1 {{ strtolower(trans('common.year')) }}</small>
                         </td>
                         <td><strong>{{ $mvp }} x 1</strong></td>
-                        <td>{{ $mvp * 1 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $mvp * 1 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.commited') }} {{ trans('torrent.seeder') }}</strong><br>
-                            <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
+                            <strong>@lang('torrent.commited') @lang('torrent.seeder')</strong><br>
+                            <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                 3 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 6 {{ strtolower(trans('common.months')) }}</small>
                         </td>
                         <td><strong>{{ $committed }} x 0.75</strong></td>
-                        <td>{{ $committed * 0.75 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $committed * 0.75 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.team-player') }} {{ trans('torrent.seeder') }}</strong><br>
-                            <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
+                            <strong>@lang('torrent.team-player') @lang('torrent.seeder')</strong><br>
+                            <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                 2 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 3 {{ strtolower(trans('common.months')) }}</small>
                         </td>
                         <td><strong>{{ $teamplayer }} x 0.50</strong></td>
-                        <td>{{ $teamplayer * 0.50 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $teamplayer * 0.50 }} @lang('bon.per-hour')</td>
                     </tr>
                     <tr>
                         <td>
-                            <strong>{{ trans('torrent.participant') }} {{ trans('torrent.seeder') }}</strong><br>
-                            <small>{{ trans('torrent.seed-time') }} <span class="text-bold">>=</span>
+                            <strong>@lang('torrent.participant') @lang('torrent.seeder')</strong><br>
+                            <small>@lang('torrent.seed-time') <span class="text-bold">>=</span>
                                 1 {{ strtolower(trans('common.months')) }} {{ strtolower(trans('common.but')) }} <
                                 2 {{ strtolower(trans('common.months')) }}</small>
                         </td>
                         <td><strong>{{ $participant }} x 0.25</strong></td>
-                        <td>{{ $participant * 0.25 }} {{ trans('bon.per-hour') }}</td>
+                        <td>{{ $participant * 0.25 }} @lang('bon.per-hour')</td>
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <td>
-                            <strong>{{ trans('bon.total') }}</strong><br>
+                            <strong>@lang('bon.total')</strong><br>
                             <small></small>
                         </td>
                         <td>-</td>
-                        <td><strong>{{ $total }}</strong> {{ trans('bon.per-hour') }}</td>
+                        <td><strong>{{ $total }}</strong> @lang('bon.per-hour')</td>
                     </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="col-sm-3 text-center">
                 <div class="text-blue well well-sm">
-                    <h2><strong>{{ trans('bon.your-points') }}: <br></strong>{{ $userbon }}</h2>
+                    <h2><strong>@lang('bon.your-points'): <br></strong>{{ $userbon }}</h2>
                 </div>
                 <div class="text-green well well-sm">
-                    <h3>{{ trans('bon.earning') }} <strong>{{ $total }}</strong> {{ trans('bon.per-hour') }}</h3>
+                    <h3>@lang('bon.earning') <strong>{{ $total }}</strong> @lang('bon.per-hour')</h3>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="container box">
-        <h3>{{ trans('bon.exchange') }}</h3>
+        <h3>@lang('bon.exchange')</h3>
         <div class="row">
             <div class="col-sm-8">
                 <table class="table table-condensed table-striped">
                     <thead>
                     <tr>
-                        <th>{{ trans('bon.item') }}</th>
-                        <th>{{ trans('bon.points') }}</th>
-                        <th>{{ trans('bon.exchange') }}</th>
+                        <th>@lang('bon.item')</th>
+                        <th>@lang('bon.points')</th>
+                        <th>@lang('bon.exchange')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -171,7 +171,7 @@
                             <td>
                                 <form method="post" action="{{ route('bonusexchange', ['id' => $uu['id']]) }}">
                                     @csrf
-                                    <button type="sumbit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                    <button type="sumbit" class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
                                 </form>
                             </td>
                         </tr>
@@ -184,7 +184,7 @@
                             <td>
                                 <form method="post" action="{{ route('bonusexchange', ['id' => $dO['id']]) }}">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                    <button type="submit" class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
                                 </form>
                             </td>
                         </tr>
@@ -199,12 +199,12 @@
                                     <form method="post" action="{{ route('bonusexchange', ['id' => $pf['id']]) }}">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-success btn-exchange disabled">
-                                            {{ trans('bon.activated') }}!</button>
+                                            @lang('bon.activated')!</button>
                                     </form>
                                 @else
                                     <form method="post" action="{{ route('bonusexchange', ['id' => $pf['id']]) }}">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-info btn-exchange">{{ trans('bon.exchange') }}</button>
+                                        <button type="submit" class="btn btn-sm btn-info btn-exchange">@lang('bon.exchange')</button>
                                     </form>
                                 @endif
                             </td>
@@ -218,7 +218,7 @@
                             <td>
                                 <form method="post" action="{{ route('bonusexchange', ['id' => $in['id']]) }}">
                                     @csrf
-                                    <button class="btn btn-sm btn-info btn-exchange" type="submit">{{ trans('bon.exchange') }}</button>
+                                    <button class="btn btn-sm btn-info btn-exchange" type="submit">@lang('bon.exchange')</button>
                                 </form>
                             </td>
                         </tr>
@@ -228,8 +228,8 @@
             </div>
             <div class="col-sm-4">
                 <div class="well well-sm mt-20">
-                    <p class="lead text-orange text-center">{{ trans('bon.exchange-warning') }}
-                        <br><strong>{{ trans('bon.no-refund') }}</strong>
+                    <p class="lead text-orange text-center">@lang('bon.exchange-warning')
+                        <br><strong>@lang('bon.no-refund')</strong>
                     </p>
                 </div>
             </div>
@@ -238,12 +238,12 @@
 
 
     <div class="container box">
-        <h3>{{ trans('bon.gift') }}</h3>
+        <h3>@lang('bon.gift')</h3>
         <form role="form" method="POST" action="{{ route('bongift') }}" id="send_bonus">
             @csrf
 
             <div class="form-group">
-                <label for="to_username" class="col-sm-3 control-label">{{ trans('bon.gift-to') }}</label>
+                <label for="to_username" class="col-sm-3 control-label">@lang('bon.gift-to')</label>
                 <div class="col-sm-9">
                     <select class="form-control user-select-placeholder-single" name="to_username">
                         <option value="{{ $username }}">{{ $username }}</option>
@@ -256,16 +256,16 @@
 
             <div class="form-group">
                 <label for="bonus_points"
-                       class="col-sm-3 control-label">{{ trans('bon.bon') }} {{ trans('bon.points') }}</label>
+                       class="col-sm-3 control-label">@lang('bon.bon') @lang('bon.points')</label>
                 <div class="col-sm-9">
                     <input class="form-control"
-                           placeholder="{{ trans('common.enter') }} {{ strtolower(trans('common.amount')) }}"
+                           placeholder="@lang('common.enter') {{ strtolower(trans('common.amount')) }}"
                            name="bonus_points" type="number" id="bonus_points" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="bonus_message" class="col-sm-3 control-label">{{ trans('pm.message') }}</label>
+                <label for="bonus_message" class="col-sm-3 control-label">@lang('pm.message')</label>
                 <div class="col-sm-9">
                     <textarea class="form-control" name="bonus_message" cols="50" rows="10"
                               id="bonus_message"></textarea>
@@ -274,7 +274,7 @@
 
             <div class="form-group">
                 <div class="col-sm-9 col-sm-offset-3">
-                    <input class="btn btn-primary" type="submit" value="{{ trans('common.submit') }}">
+                    <input class="btn btn-primary" type="submit" value="@lang('common.submit')">
                 </div>
             </div>
 

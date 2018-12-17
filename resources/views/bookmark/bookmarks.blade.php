@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.bookmarks') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.bookmarks')</span>
         </a>
     </li>
 @endsection
@@ -13,7 +13,7 @@
         <div class="block">
             <div class="header gradient orange">
                 <div class="inner_content">
-                    <h1>{{ trans('common.my') }} {{ strtolower(trans('torrent.bookmarks')) }}</h1>
+                    <h1>@lang('common.my') {{ strtolower(trans('torrent.bookmarks')) }}</h1>
                 </div>
             </div>
             <div class="table-responsive">
@@ -22,7 +22,7 @@
                     <thead>
                     <tr>
                         <th class="col-md-1">Category/Type</th>
-                        <th>{{ trans('common.name') }}</th>
+                        <th>@lang('common.name')</th>
                         <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
@@ -35,7 +35,7 @@
                     @if (count($bookmarks) == 0)
                         <tr>
                             <td>
-                                <p>{{ trans('torrent.no-bookmarks') }}</p>
+                                <p>@lang('torrent.no-bookmarks')</p>
                             </td>
                         </tr>
                     @else
@@ -242,7 +242,7 @@
                             <td>
                                 <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-orange text-bold'>
-                                        {{ $bookmark->times_completed }} {{ trans('common.times') }}
+                                        {{ $bookmark->times_completed }} @lang('common.times')
                                     </span>
                                 </a>
                             </td>
@@ -264,7 +264,7 @@
                                 <a href="{{ route('unbookmark', ['id' => $bookmark->id]) }}">
                                     <button type="button" id="{{ $bookmark->id }}"
                                             class="btn btn-xxs btn-danger btn-delete-wishlist" data-toggle="tooltip"
-                                            data-original-title="{{ trans('torrent.delete-bookmark') }}">
+                                            data-original-title="@lang('torrent.delete-bookmark')">
                                         <i class="{{ config('other.font-awesome') }} fa-times"></i>
                                     </button>
                                 </a>

@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Helpers;
 
-use App\Notifications\NewFollowerUpload;
-use App\Torrent;
-use App\PrivateMessage;
+use App\User;
 use App\Wish;
 use App\Follow;
-use App\User;
+use App\Torrent;
+use App\PrivateMessage;
+use App\Bots\IRCAnnounceBot;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -30,7 +31,7 @@ use App\Achievements\UserMade600Uploads;
 use App\Achievements\UserMade700Uploads;
 use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
-use App\Bots\IRCAnnounceBot;
+use App\Notifications\NewFollowerUpload;
 
 class TorrentHelper
 {
@@ -42,19 +43,19 @@ class TorrentHelper
         Torrent::approve($id);
         $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
 
-        $wishes = Wish::where('imdb', 'tt'.$torrent->imdb)->whereNull('source')->get();
+        $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
         if ($wishes) {
             foreach ($wishes as $wish) {
                 $wish->source = "{$appurl}/torrents/{$torrent->slug}.{$torrent->id}";
                 $wish->save();
 
                 // Send Private Message
-                $pm = new PrivateMessage;
+                $pm = new PrivateMessage();
                 $pm->sender_id = 1;
                 $pm->receiver_id = $wish->user_id;
-                $pm->subject = "Wish List Notice!";
-                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "] HERE [/url]
-                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]";
+                $pm->subject = 'Wish List Notice!';
+                $pm->message = "The following item, {$wish->title}, from your wishlist has been uploaded to {$appname}! You can view it [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.'] HERE [/url]
+                                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }
         }
@@ -93,17 +94,17 @@ class TorrentHelper
             $appname = config('app.name');
             $bot = new IRCAnnounceBot();
             if ($anon == 0) {
-                $bot->message("#announce", "[" . $appname . "] User " . $username . " has uploaded " . $torrent->name . " grab it now!");
-                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size:" . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
+                $bot->message('#announce', '['.$appname.'] User '.$username.' has uploaded '.$torrent->name.' grab it now!');
+                $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size:'.$torrent->getSize().']');
+                $bot->message('#announce', "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
             } else {
-                $bot->message("#announce", "[" . $appname . "] An anonymous user has uploaded " . $torrent->name . " grab it now!");
-                $bot->message("#announce", "[Category: " . $torrent->category->name . "] [Type: " . $torrent->type . "] [Size: " . $torrent->getSize() . "]");
-                $bot->message("#announce", "[Link: {$appurl}/torrents/" . $slug . "." . $id . "]");
+                $bot->message('#announce', '['.$appname.'] An anonymous user has uploaded '.$torrent->name.' grab it now!');
+                $bot->message('#announce', '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type.'] [Size: '.$torrent->getSize().']');
+                $bot->message('#announce', "[Link: {$appurl}/torrents/".$slug.'.'.$id.']');
             }
         }
 
         // Activity Log
-        \LogActivity::addToLog("Torrent " . $torrent->name . " uploaded by " . $username . " has been approved.");
+        \LogActivity::addToLog('Torrent '.$torrent->name.' uploaded by '.$username.' has been approved.');
     }
 }

@@ -21,10 +21,10 @@
 
 	<div class="panel panel-primary">
 	    <div class="panel-heading">
-	        <span class="panel-title">{{ trans('configmanager.title') }}</span>
+	        <span class="panel-title">@lang('configmanager.title')</span>
 	    </div>
 	    <div class="panel-body">
-	        <p>{{ trans('configmanager.info_choose') }}</p>
+	        <p>@lang('configmanager.info_choose')</p>
 	        @php
         		$optgroup = false;
         	@endphp
@@ -55,11 +55,11 @@
 	    <div class="panel-heading">
 
 			<div class="pull-left">
-				<span class="panel-title">{{ trans('configmanager.file') }}: {{ $fileData->name }}.php</span>
+				<span class="panel-title">@lang('configmanager.file'): {{ $fileData->name }}.php</span>
 	        </div>
 	        @if ($fileData->parent)
 	        <div class="pull-right">
-				<span class="panel-title">{{ trans('configmanager.path') }}: {{ $fileData->parent }}/{{ $fileData->name }}</span>
+				<span class="panel-title">@lang('configmanager.path'): {{ $fileData->parent }}/{{ $fileData->name }}</span>
 	        </div>
 	        @endif
 	        <div class="clearfix"></div>
@@ -68,9 +68,9 @@
 	    	<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
-					<th>{{ trans('configmanager.header.key') }}</th>
-					<th>{{ trans('configmanager.header.value') }}</th>
-					<th class="w25">{{ trans('configmanager.header.actions') }}</th>
+					<th>@lang('configmanager.header.key')</th>
+					<th>@lang('configmanager.header.value')</th>
+					<th class="w25">@lang('configmanager.header.actions')</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -92,18 +92,18 @@
             <input type="text" class="form-control" placeholder="New value…">
         </div>
         <div class="first-step">
-			<button type="submit" id="confirm-new-key" class="btn btn-primary btn-block">{{ trans('configmanager.actions.confirm') }}</button>
+			<button type="submit" id="confirm-new-key" class="btn btn-primary btn-block">@lang('configmanager.actions.confirm')</button>
         </div>
         <div class="second-step" style="display:none">
         	<div class="alert alert-warning">
 				<i class="{{ config('other.font-awesome') }} fa-exclamation-triangle pr10"></i>
-				{{ trans('configmanager.sure') }}
+				@lang('configmanager.sure')
 			</div>
 			<div class="col-xs-6 text-left no-padding">
-				<button type="submit" id="save-new-key" class="btn btn-primary w90">{{ trans('configmanager.actions.save') }}</button>
+				<button type="submit" id="save-new-key" class="btn btn-primary w90">@lang('configmanager.actions.save')</button>
 			</div>
 			<div class="col-xs-6 text-right no-padding">
-				<button type="submit" id="cancel-new-key" class="btn btn-danger w90">{{ trans('configmanager.actions.cancel') }}</button>
+				<button type="submit" id="cancel-new-key" class="btn btn-danger w90">@lang('configmanager.actions.cancel')</button>
 			</div>
 			<div class="clearfix"></div>
         </div>
@@ -131,7 +131,7 @@
 	        $('.edit').popover({
 			    html: true,
 			    title: function () {
-			        return "{{ trans('configmanager.actions.edit') }}: " + $(this).parent().parent().find('.key').html();
+			        return "@lang('configmanager.actions.edit'): " + $(this).parent().parent().find('.key').html();
 			    },
 			    content: function () {
 			        return $('#content-edit').html();

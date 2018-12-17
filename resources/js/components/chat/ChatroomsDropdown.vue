@@ -10,38 +10,37 @@
     </div>
 </template>
 <style lang="scss" scoped>
-    .chat-dropdown {
+.chat-dropdown {
+    width: 100%;
 
-        width: 100%;
-
-        .form-control {
-            margin: 0;
-        }
-
-        .input-group-addon {
-            background-color: transparent;
-            border: none;
-        }
+    .form-control {
+        margin: 0;
     }
+
+    .input-group-addon {
+        background-color: transparent;
+        border: none;
+    }
+}
 </style>
 <script>
-  export default {
+export default {
     props: {
-      current: {type: Number, default: 1},
-      chatrooms: {required: true}
+        current: { type: Number, default: 1 },
+        chatrooms: { required: true },
     },
-    data () {
-      return {
-        selected: 1
-      }
+    data() {
+        return {
+            selected: 1,
+        };
     },
     methods: {
-      changedRoom (event) {
-        this.$emit('changedRoom', this.selected)
-      }
+        changedRoom(event) {
+            this.$emit('changedRoom', this.selected);
+        },
     },
-    created () {
-      this.selected = this.current
-    }
-  }
+    created() {
+        this.selected = this.current;
+    },
+};
 </script>

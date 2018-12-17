@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
+    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,17 +11,17 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('catalogs') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.catalogs')</span>
         </a>
     </li>
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.catalog')</span>
         </a>
     </li>
     <li class="active">
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
         </a>
     </li>
 @endsection
@@ -30,11 +30,11 @@
     <div class="container box">
         <div class="header gradient yellow">
             <div class="inner_content">
-                <h1>{{ trans('common.results') }}</h1>
+                <h1>@lang('common.results')</h1>
             </div>
         </div>
         @if (count($torrents) == 0)
-            <p>{{ trans('common.no-result') }}</p>
+            <p>@lang('common.no-result')</p>
         @else
             <div class="torrents col-md-12">
                 <div class="table-responsive">
@@ -187,7 +187,7 @@
                                 </td>
                                 <td><span class="badge-extra text-blue text-bold">{{ $t->getSize() }}</span></td>
                                 <td>
-                                    <span class="badge-extra text-orange text-bold">{{ $t->times_completed }} {{ trans('common.times') }}</span>
+                                    <span class="badge-extra text-orange text-bold">{{ $t->times_completed }} @lang('common.times')</span>
                                 </td>
                                 <td><span class="badge-extra text-green text-bold">{{ $t->seeders }}</span></td>
                                 <td><span class="badge-extra text-red text-bold">{{ $t->leechers }}</span></td>

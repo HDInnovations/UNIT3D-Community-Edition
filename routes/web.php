@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -240,6 +241,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
         Route::post('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
         Route::get('/{username}.{id}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
+        Route::get('/{username}.{id}/myresurrections', 'UserController@myResurrections')->name('myResurrections');
 
         // User Wishlist
         Route::get('/wishlist/{uid}', 'WishController@index')->name('wishlist');
@@ -374,7 +376,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/subscribe/{topic}', 'SubscriptionController@subscribe')->name('subscribe');
         Route::get('/unsubscribe/{topic}', 'SubscriptionController@unsubscribe')->name('unsubscribe');
     });
-
 
     /*
     |-----------------------------------------------------------------
@@ -516,7 +517,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/backup', 'BackupController@index')->name('backupManager');
         Route::post('/backup/create', 'BackupController@create');
         Route::get('/backup/download/{file_name?}', 'BackupController@download');
-        Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '(.*)');
+        Route::post('/backup/delete/{file_name?}', 'BackupController@delete')->where('file_name', '=', '(.*)');
 
         // Mass Validate Users
         Route::get('/massValidateUsers', 'UserController@massValidateUsers')->name('massValidateUsers');

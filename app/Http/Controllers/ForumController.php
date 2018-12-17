@@ -1,26 +1,26 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Forum;
-use App\Post;
-use App\Topic;
-use App\User;
 use App\Like;
-use App\TopicSubscription;
-use App\Achievements\UserMadeFirstPost;
+use App\Post;
+use App\User;
+use App\Forum;
+use App\Topic;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
 use App\Achievements\UserMade100Posts;
@@ -32,10 +32,8 @@ use App\Achievements\UserMade600Posts;
 use App\Achievements\UserMade700Posts;
 use App\Achievements\UserMade800Posts;
 use App\Achievements\UserMade900Posts;
-use App\Repositories\ChatRepository;
+use App\Achievements\UserMadeFirstPost;
 use App\Repositories\TaggedUserRepository;
-use Decoda\Decoda;
-use Brian2694\Toastr\Toastr;
 
 class ForumController extends Controller
 {
@@ -55,11 +53,11 @@ class ForumController extends Controller
     private $toastr;
 
     /**
-     * ForumController Constructor
+     * ForumController Constructor.
      *
      * @param TaggedUserRepository $tag
-     * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param ChatRepository       $chat
+     * @param Toastr               $toastr
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Toastr $toastr)
     {
@@ -69,25 +67,26 @@ class ForumController extends Controller
     }
 
     /**
-     * Search For Topics
+     * Search For Topics.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function search(Request $request)
     {
         $user = auth()->user();
         $results = Topic::where([
-            ['name', 'like', '%' . $request->input('name') . '%'],
+            ['name', 'like', '%'.$request->input('name').'%'],
         ])->latest()->paginate(25);
 
-        $results->setPath('?name=' . $request->input('name'));
+        $results->setPath('?name='.$request->input('name'));
 
         return view('forum.results', ['results' => $results, 'user' => $user]);
     }
 
     /**
-     * Show All Forums
+     * Show All Forums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -104,17 +103,18 @@ class ForumController extends Controller
 
         return view('forum.index', [
             'categories' => $categories,
-            'num_posts' => $num_posts,
+            'num_posts'  => $num_posts,
             'num_forums' => $num_forums,
-            'num_topics' => $num_topics
+            'num_topics' => $num_topics,
         ]);
     }
 
     /**
-     * Show The Forum Category
+     * Show The Forum Category.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function category($slug, $id)
@@ -130,10 +130,11 @@ class ForumController extends Controller
     }
 
     /**
-     * Show Forums And Topics Inside
+     * Show Forums And Topics Inside.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function display($slug, $id)
@@ -157,17 +158,18 @@ class ForumController extends Controller
         $topics = $forum->topics()->latest('pinned')->latest('last_reply_at')->latest()->paginate(25);
 
         return view('forum.display', [
-            'forum' => $forum,
-            'topics' => $topics,
-            'category' => $category
+            'forum'    => $forum,
+            'topics'   => $topics,
+            'category' => $category,
         ]);
     }
 
     /**
-     * Show The Topic
+     * Show The Topic.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function topic($slug, $id)
@@ -185,7 +187,7 @@ class ForumController extends Controller
         $posts = $topic->posts()->paginate(25);
 
         // First post
-        $firstPost = Post::where('topic_id', $topic->id)->first();
+        $firstPost = Post::where('topic_id', '=', $topic->id)->first();
 
         // The user can post a topic here ?
         if ($category->getPermission()->read_topic != true) {
@@ -199,20 +201,21 @@ class ForumController extends Controller
         $topic->save();
 
         return view('forum.topic', [
-            'topic' => $topic,
-            'forum' => $forum,
-            'category' => $category,
-            'posts' => $posts,
-            'firstPost' => $firstPost
+            'topic'     => $topic,
+            'forum'     => $forum,
+            'category'  => $category,
+            'posts'     => $posts,
+            'firstPost' => $firstPost,
         ]);
     }
 
     /**
-     * Add A Post To A Topic
+     * Add A Post To A Topic.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function reply(Request $request, $slug, $id)
@@ -223,7 +226,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // The user has the right to create a topic here?
-        if (!$category->getPermission()->reply_topic || ($topic->state == "close" && !auth()->user()->group->is_modo)) {
+        if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! auth()->user()->group->is_modo)) {
             return redirect()->route('forum_index')
                 ->with($this->toastr->error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
         }
@@ -234,9 +237,9 @@ class ForumController extends Controller
         $post->topic_id = $topic->id;
 
         $v = validator($post->toArray(), [
-            'content' => 'required|min:1',
-            'user_id' => 'required',
-            'topic_id' => 'required'
+            'content'  => 'required|min:1',
+            'user_id'  => 'required',
+            'topic_id' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -261,7 +264,7 @@ class ForumController extends Controller
 
                     $this->tag->messageUsers(
                         $users,
-                        "You are being notified by staff!",
+                        'You are being notified by staff!',
                         $message
                     );
                 } else {
@@ -278,7 +281,7 @@ class ForumController extends Controller
             $topic->last_post_user_username = $user->username;
 
             // Count post in topic
-            $topic->num_post = Post::where('topic_id', $topic->id)->count();
+            $topic->num_post = Post::where('topic_id', '=', $topic->id)->count();
 
             // Update time
             $topic->last_reply_at = $post->created_at;
@@ -328,11 +331,12 @@ class ForumController extends Controller
     }
 
     /**
-     * Topic Add Form
+     * Topic Add Form.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm(Request $request, $slug, $id)
@@ -347,18 +351,19 @@ class ForumController extends Controller
         }
 
         return view('forum.new_topic', [
-            'forum' => $forum,
+            'forum'    => $forum,
             'category' => $category,
-            'title' => $request->input('title')
+            'title'    => $request->input('title'),
         ]);
     }
 
     /**
-     * Create A New Topic In The Forum
+     * Create A New Topic In The Forum.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function newTopic(Request $request, $slug, $id)
@@ -385,17 +390,17 @@ class ForumController extends Controller
         $topic->forum_id = $forum->id;
 
         $v = validator($topic->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
-            'state' => 'required',
-            'num_post' => '',
-            'first_post_user_id' => 'required',
+            'name'                     => 'required',
+            'slug'                     => 'required',
+            'state'                    => 'required',
+            'num_post'                 => '',
+            'first_post_user_id'       => 'required',
             'first_post_user_username' => 'required',
-            'last_post_user_id' => '',
-            'last_post_user_username' => '',
-            'views' => '',
-            'pinned' => '',
-            'forum_id' => 'required'
+            'last_post_user_id'        => '',
+            'last_post_user_username'  => '',
+            'views'                    => '',
+            'pinned'                   => '',
+            'forum_id'                 => 'required',
         ]);
 
         if ($v->fails()) {
@@ -410,9 +415,9 @@ class ForumController extends Controller
             $post->topic_id = $topic->id;
 
             $v = validator($post->toArray(), [
-                'content' => 'required',
-                'user_id' => 'required',
-                'topic_id' => 'required'
+                'content'  => 'required',
+                'user_id'  => 'required',
+                'topic_id' => 'required',
             ]);
 
             if ($v->fails()) {
@@ -460,10 +465,11 @@ class ForumController extends Controller
     }
 
     /**
-     * Topic Edit Form
+     * Topic Edit Form.
      *
      * @param $slug
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function editForm($slug, $id)
@@ -475,11 +481,12 @@ class ForumController extends Controller
     }
 
     /**
-     * Edit Topic In The Forum
+     * Edit Topic In The Forum.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function editTopic(Request $request, $slug, $id)
@@ -499,11 +506,12 @@ class ForumController extends Controller
     }
 
     /**
-     * Edit Post Form
+     * Edit Post Form.
      *
      * @param $slug
      * @param $id
      * @param $postId
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function postEditForm($slug, $id, $postId)
@@ -514,20 +522,21 @@ class ForumController extends Controller
         $post = Post::findOrFail($postId);
 
         return view('forum.post_edit', [
-            'topic' => $topic,
-            'forum' => $forum,
-            'post' => $post,
+            'topic'    => $topic,
+            'forum'    => $forum,
+            'post'     => $post,
             'category' => $category,
         ]);
     }
 
     /**
-     * Edit A Post In A Topic
+     * Edit A Post In A Topic.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      * @param $postId
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postEdit(Request $request, $slug, $id, $postId)
@@ -550,11 +559,12 @@ class ForumController extends Controller
     }
 
     /**
-     * Delete A Post
+     * Delete A Post.
      *
      * @param $slug
      * @param $id
      * @param $postId
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postDelete($slug, $id, $postId)
@@ -575,18 +585,18 @@ class ForumController extends Controller
             ->with($this->toastr->success('This Post Is Now Deleted!', 'Success', ['options']));
     }
 
-
     /**
-     * Close The Topic
+     * Close The Topic.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function closeTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-        $topic->state = "close";
+        $topic->state = 'close';
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
@@ -594,16 +604,17 @@ class ForumController extends Controller
     }
 
     /**
-     * Open The Topic
+     * Open The Topic.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function openTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
-        $topic->state = "open";
+        $topic->state = 'open';
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
@@ -611,10 +622,11 @@ class ForumController extends Controller
     }
 
     /**
-     * Delete The Topic and The Posts
+     * Delete The Topic and The Posts.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteTopic($slug, $id)
@@ -625,6 +637,7 @@ class ForumController extends Controller
             $posts = $topic->posts();
             $posts->delete();
             $topic->delete();
+
             return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
                 ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
         } else {
@@ -634,10 +647,11 @@ class ForumController extends Controller
     }
 
     /**
-     * Pin The Topic
+     * Pin The Topic.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function pinTopic($slug, $id)
@@ -651,10 +665,11 @@ class ForumController extends Controller
     }
 
     /**
-     * Unpin The Topic
+     * Unpin The Topic.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function unpinTopic($slug, $id)
@@ -668,19 +683,20 @@ class ForumController extends Controller
     }
 
     /**
-     * Forum Tag System
+     * Forum Tag System.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function approvedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
         if ($topic->approved == 0) {
-            $topic->approved = "1";
+            $topic->approved = '1';
         } else {
-            $topic->approved = "0";
+            $topic->approved = '0';
         }
         $topic->save();
 
@@ -692,9 +708,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->denied == 0) {
-            $topic->denied = "1";
+            $topic->denied = '1';
         } else {
-            $topic->denied = "0";
+            $topic->denied = '0';
         }
         $topic->save();
 
@@ -706,9 +722,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->solved == 0) {
-            $topic->solved = "1";
+            $topic->solved = '1';
         } else {
-            $topic->solved = "0";
+            $topic->solved = '0';
         }
         $topic->save();
 
@@ -720,9 +736,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->invalid == 0) {
-            $topic->invalid = "1";
+            $topic->invalid = '1';
         } else {
-            $topic->invalid = "0";
+            $topic->invalid = '0';
         }
         $topic->save();
 
@@ -734,9 +750,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->bug == 0) {
-            $topic->bug = "1";
+            $topic->bug = '1';
         } else {
-            $topic->bug = "0";
+            $topic->bug = '0';
         }
         $topic->save();
 
@@ -748,9 +764,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->suggestion == 0) {
-            $topic->suggestion = "1";
+            $topic->suggestion = '1';
         } else {
-            $topic->suggestion = "0";
+            $topic->suggestion = '0';
         }
         $topic->save();
 
@@ -762,9 +778,9 @@ class ForumController extends Controller
     {
         $topic = Topic::findOrFail($id);
         if ($topic->implemented == 0) {
-            $topic->implemented = "1";
+            $topic->implemented = '1';
         } else {
-            $topic->implemented = "0";
+            $topic->implemented = '0';
         }
         $topic->save();
 
@@ -773,17 +789,18 @@ class ForumController extends Controller
     }
 
     /**
-     * Like A Post
+     * Like A Post.
      *
      * @param $postId
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function likePost($postId)
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
-        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
+        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
+        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
@@ -804,17 +821,18 @@ class ForumController extends Controller
     }
 
     /**
-     * Dislike A Post
+     * Dislike A Post.
      *
      * @param $postId
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function dislikePost($postId)
     {
         $post = Post::findOrFail($postId);
         $user = auth()->user();
-        $like = $user->likes()->where('post_id', $post->id)->where('like', 1)->first();
-        $dislike = $user->likes()->where('post_id', $post->id)->where('dislike', 1)->first();
+        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
+        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
         if ($like || $dislike) {
             return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])

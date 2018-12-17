@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,14 +18,14 @@ use Illuminate\Database\Eloquent\Model;
 class TwoStepAuth extends Model
 {
     /**
-     * The Database Table Used By The Model
+     * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'twostep_auth';
 
     /**
-     * Indicates If The Model Should Be Timestamped
+     * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
@@ -40,7 +41,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * The Attributes That Should Be Mutated To Dates
+     * The Attributes That Should Be Mutated To Dates.
      *
      * @var array
      */
@@ -52,7 +53,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * The Attributes That Are Mass Assignable
+     * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
@@ -66,7 +67,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * The Attributes That Should Be Casted To Native Types
+     * The Attributes That Should Be Casted To Native Types.
      *
      * @var array
      */
@@ -91,7 +92,7 @@ class TwoStepAuth extends Model
             'userId'     => 'required|integer',
             'authCode'   => 'required|string|max:4|min:4',
             'authCount'  => 'required|integer',
-            'authStatus' => 'required|boolean'
+            'authStatus' => 'required|boolean',
             ],
             $merge
         );

@@ -1,13 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.invite-tree') }} - {{ config('other.title') }}</title>
+    <title>@lang('user.invite-tree') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invite-tree') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.invite-tree')</span>
         </a>
     </li>
 @endsection
@@ -19,29 +19,29 @@
                 <a href="{{ route('profile', ['username' => $owner->username, 'id' => $owner->id]) }}">
                     {{ $owner->username }}
                 </a>
-                {{ trans('user.invite-tree') }}
+                @lang('user.invite-tree')
             </h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>{{ trans('user.invites-send') }}</h2>
+                    <h2>@lang('user.invites-send')</h2>
                     <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>{{ trans('user.sender') }}</th>
-                            <th>{{ trans('common.email') }}</th>
-                            <th>{{ trans('user.code') }}</th>
-                            <th>{{ trans('user.created-on') }}</th>
-                            <th>{{ trans('user.expires-on') }}</th>
-                            <th>{{ trans('user.accepted-by') }}</th>
-                            <th>{{ trans('user.accepted-at') }}</th>
-                            <th>{{ trans('common.resend') }}</th>
+                            <th>@lang('user.sender')</th>
+                            <th>@lang('common.email')</th>
+                            <th>@lang('user.code')</th>
+                            <th>@lang('user.created-on')</th>
+                            <th>@lang('user.expires-on')</th>
+                            <th>@lang('user.accepted-by')</th>
+                            <th>@lang('user.accepted-at')</th>
+                            <th>@lang('common.resend')</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if (count($invites) == 0)
-                            <p>{{ trans('user.no-logs') }}</p>
+                            <p>@lang('user.no-logs')</p>
                         @else
                             @foreach ($invites as $invite)
                                 <tr>

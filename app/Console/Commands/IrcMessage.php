@@ -1,25 +1,25 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
+use App\Bots\IRCAnnounceBot;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use App\Bots\IRCAnnounceBot;
 
 class IrcMessage extends Command
 {
-
     /**
      * The console command name.
      *
@@ -51,7 +51,7 @@ class IrcMessage extends Command
      */
     public function handle()
     {
-        $this->info('Messaging ' . $this->argument('channel') . ": " . $this->argument('message'));
+        $this->info('Messaging '.$this->argument('channel').': '.$this->argument('message'));
         $bot = new IRCAnnounceBot();
         $bot->message($this->argument('channel'), $this->argument('message'));
     }
@@ -69,7 +69,7 @@ class IrcMessage extends Command
         ];
     }
 
-    /**
+    /*
      * Get the console command options.
      *
      * @return array

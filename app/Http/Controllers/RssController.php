@@ -1,21 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Rss;
-use App\Torrent;
 use App\User;
+use App\Torrent;
+use App\Category;
 
 /*TODO Finish RSS System*/
 class RssController extends Controller
@@ -24,10 +25,11 @@ class RssController extends Controller
 
     private function auth($passkey)
     {
-        $id = User::select('id')->where('rsskey', $passkey)->first();
+        $id = User::select('id')->where('rsskey', '=', $passkey)->first();
 
         if ($user) {
             $this->userID = $id;
+
             return true;
         }
 
@@ -36,7 +38,7 @@ class RssController extends Controller
 
     private function getUserData()
     {
-        $catArray = Rss::select('category')->where('user_id', $this->userID)->first();
+        $catArray = Rss::select('category')->where('user_id', '=', $this->userID)->first();
 
         if ($catArray) {
             return explode(',', $catArray);
@@ -87,7 +89,7 @@ class RssController extends Controller
     {
         $user = auth()->user();
 
-        $rssData = RSS::select('category')->where('user_id', $user->id)->first();
+        $rssData = RSS::select('category')->where('user_id', '=', $user->id)->first();
 
         $category = Category::select('id', 'name')->get();
     }

@@ -15,27 +15,27 @@ class ChatStatusSeeder extends Seeder
         $statuses = [
             'Online' => [
                 'color' => '#2ECC40',
-                'icon' => config("other.font-awesome") .' fa-comment-smile'
+                'icon'  => config('other.font-awesome').' fa-comment-smile',
             ],
             'Away' => [
                 'color' => '#FFDC00',
-                'icon' => config("other.font-awesome") . ' fa-comment-minus'
+                'icon'  => config('other.font-awesome').' fa-comment-minus',
             ],
             'Busy' => [
                 'color' => '#FF4136',
-                'icon' => config("other.font-awesome") . ' fa-comment-exclamation'
+                'icon'  => config('other.font-awesome').' fa-comment-exclamation',
             ],
             'Offline' => [
                 'color' => '#AAAAAA',
-                'icon' => config("other.font-awesome") . ' fa-comment-slash'
-            ]
+                'icon'  => config('other.font-awesome').' fa-comment-slash',
+            ],
         ];
 
         foreach ($statuses as $status => $columns) {
             ChatStatus::create([
-                'name' => $status,
+                'name'  => $status,
                 'color' => $columns['color'],
-                'icon' => $columns['icon']
+                'icon'  => $columns['icon'],
             ]);
         }
     }

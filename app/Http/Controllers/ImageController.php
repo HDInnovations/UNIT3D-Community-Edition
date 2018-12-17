@@ -1,21 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Album;
 use App\Image;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
@@ -25,7 +26,7 @@ class ImageController extends Controller
     private $toastr;
 
     /**
-     * ImageController Constructor
+     * ImageController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -35,9 +36,10 @@ class ImageController extends Controller
     }
 
     /**
-     * Image Add Form
+     * Image Add Form.
      *
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addForm($id)
@@ -48,9 +50,10 @@ class ImageController extends Controller
     }
 
     /**
-     * Add A Image To A Album
+     * Add A Image To A Album.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -65,16 +68,16 @@ class ImageController extends Controller
         $random_name = uniqid();
         $destinationPath = public_path('/files/img/');
         $extension = $file->getClientOriginalExtension();
-        $filename = 'album-image_' . $random_name . '.' . $extension;
+        $filename = 'album-image_'.$random_name.'.'.$extension;
         $uploadSuccess = $request->file('image')->move($destinationPath, $filename);
         $image->image = $filename;
 
         $v = validator($image->toArray(), [
-            'album_id' => 'required|numeric|exists:albums,id',
-            'user_id' => 'required',
+            'album_id'    => 'required|numeric|exists:albums,id',
+            'user_id'     => 'required',
             'description' => 'required',
-            'type' => 'required',
-            'image' => 'required'
+            'type'        => 'required',
+            'image'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -89,9 +92,10 @@ class ImageController extends Controller
     }
 
     /**
-     * Move A Image
+     * Move A Image.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function move(Request $request)
@@ -104,7 +108,7 @@ class ImageController extends Controller
 
         $v = validator($image->toArray(), [
             'new_album' => 'required|numeric|exists:albums,id',
-            'image' => 'required|numeric|exists:images,id'
+            'image'     => 'required|numeric|exists:images,id',
         ]);
 
         if ($v->fails()) {
@@ -118,9 +122,10 @@ class ImageController extends Controller
     }
 
     /**
-     * Download A Image
+     * Download A Image.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function download($id)
@@ -128,7 +133,7 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         $filename = $image->image;
 
-        if (!file_exists(getcwd() . '/files/img/' . $filename)) {
+        if (! file_exists(getcwd().'/files/img/'.$filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
                 ->with($this->toastr->error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
         }
@@ -136,13 +141,14 @@ class ImageController extends Controller
         $image->downloads++;
         $image->save();
 
-        return response()->download(getcwd() . '/files/img/' . $filename);
+        return response()->download(getcwd().'/files/img/'.$filename);
     }
 
     /**
-     * Delete A Image
+     * Delete A Image.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function destroy($id)

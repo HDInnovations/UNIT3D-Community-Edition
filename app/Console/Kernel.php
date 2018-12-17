@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -7,7 +19,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-
     /**
      * The Artisan commands provided by your application.
      *
@@ -43,13 +54,14 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\GitUpdater::class,
         \App\Console\Commands\ClearCache::class,
         \App\Console\Commands\SetCache::class,
-        \App\Console\Commands\TestMailSettings::class
+        \App\Console\Commands\TestMailSettings::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     *
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -64,7 +76,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:revoke_permissions')->hourly();
         $schedule->command('auto:ban')->hourly();
         $schedule->command('auto:flush_peers')->hourly();
-        $schedule->command('auto:correct_history')->hourly();
+        //$schedule->command('auto:correct_history')->hourly();
         $schedule->command('auto:bon_allocation')->hourly();
         $schedule->command('auto:remove_personal_freeleech')->hourly();
         $schedule->command('auto:remove_featured_torrent')->hourly();

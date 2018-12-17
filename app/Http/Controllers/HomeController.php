@@ -1,35 +1,34 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use App\Poll;
-use App\Article;
+use App\Post;
+use App\User;
 use App\Group;
 use App\Topic;
+use App\Article;
 use App\Torrent;
-use App\User;
-use App\Post;
+use Carbon\Carbon;
 use App\FeaturedTorrent;
 use App\PersonalFreeleech;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     /**
-     * Home Page
+     * Home Page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -101,22 +100,22 @@ class HomeController extends Controller
         $past_uploaders = Torrent::with('user')->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())->select(DB::raw('user_id, count(*) as value'))->groupBy('user_id')->latest('value')->take(10)->get();
 
         return view('home.home', [
-            'user' => $user,
+            'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
-            'users' => $users,
-            'groups' => $groups,
-            'articles' => $articles,
-            'newest' => $newest,
-            'seeded' => $seeded,
-            'dying' => $dying,
-            'leeched' => $leeched,
-            'dead' => $dead,
-            'topics' => $topics,
-            'posts' => $posts,
-            'featured' => $featured,
-            'poll' => $poll,
-            'uploaders' => $uploaders,
-            'past_uploaders' => $past_uploaders
+            'users'              => $users,
+            'groups'             => $groups,
+            'articles'           => $articles,
+            'newest'             => $newest,
+            'seeded'             => $seeded,
+            'dying'              => $dying,
+            'leeched'            => $leeched,
+            'dead'               => $dead,
+            'topics'             => $topics,
+            'posts'              => $posts,
+            'featured'           => $featured,
+            'poll'               => $poll,
+            'uploaders'          => $uploaders,
+            'past_uploaders'     => $past_uploaders,
         ]);
     }
 }

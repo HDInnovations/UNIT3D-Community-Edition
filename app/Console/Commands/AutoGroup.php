@@ -1,22 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\User;
 use App\Group;
 use App\History;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class AutoGroup extends Command
 {
@@ -43,11 +44,11 @@ class AutoGroup extends Command
     {
         // Temp Hard Coding of Immune Groups (Config Files To Come)
         $current = Carbon::now();
-        $groups = Group::select('id')->where('autogroup', 1)->get()->toArray();
+        $groups = Group::select('id')->where('autogroup', '=', 1)->get()->toArray();
         $users = User::whereIn('group_id', $groups)->get();
 
         foreach ($users as $user) {
-            $hiscount = History::where('user_id', $user->id)->count();
+            $hiscount = History::where('user_id', '=', $user->id)->count();
 
             // Temp Hard Coding of Group Requirements (Config Files To Come) (Upload in Bytes!) (Seedtime in Seconds!)
 

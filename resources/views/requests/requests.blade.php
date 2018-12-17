@@ -7,7 +7,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('requests') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('request.requests') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('request.requests')</span>
         </a>
     </li>
 @endsection
@@ -18,10 +18,10 @@
             <div class="jumbotron shadowed">
                 <div class="container">
                     <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> {{ trans('request.no-privileges') }}
+                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('request.no-privileges')
                     </h1>
                     <div class="separator"></div>
-                    <p class="text-center">{{ trans('request.no-privileges-desc') }}!</p>
+                    <p class="text-center">@lang('request.no-privileges-desc')!</p>
                 </div>
             </div>
         </div>
@@ -31,11 +31,8 @@
                 <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
             </div>
             <div class="text-center">
-                <h3 class="filter-title">Current Filters</h3>
-                <span id="filter-item-category"></span>
-                <span id="filter-item-type"></span>
+                <h3 class="filter-title">Search Filters</h3>
             </div>
-            <hr>
             <form role="form" method="GET" action="RequestController@requests" class="form-horizontal form-condensed form-torrent-search form-bordered">
             @csrf
             <div class="form-group">
@@ -159,20 +156,20 @@
         <div class="container-fluid">
             <div class="block">
                 <span class="badge-user" style="float: right;">
-                    <strong>{{ trans('request.requests') }}:</strong> {{ $num_req }} |
-                    <strong>{{ trans('request.filled') }}:</strong> {{ $num_fil }} |
-                    <strong>{{ trans('request.unfilled') }}:</strong> {{ $num_unfil }} |
-                    <strong>{{ trans('request.total-bounty') }}:</strong> {{ $total_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-claimed') }}:</strong> {{ $claimed_bounty }} {{ trans('bon.bon') }} |
-                    <strong>{{ trans('request.bounty-unclaimed') }}:</strong> {{ $unclaimed_bounty }} {{ trans('bon.bon') }}
+                    <strong>@lang('request.requests'):</strong> {{ $num_req }} |
+                    <strong>@lang('request.filled'):</strong> {{ $num_fil }} |
+                    <strong>@lang('request.unfilled'):</strong> {{ $num_unfil }} |
+                    <strong>@lang('request.total-bounty'):</strong> {{ $total_bounty }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-claimed'):</strong> {{ $claimed_bounty }} @lang('bon.bon') |
+                    <strong>@lang('request.bounty-unclaimed'):</strong> {{ $unclaimed_bounty }} @lang('bon.bon')
                 </span>
-                <a href="{{ route('add_request') }}" role="button" data-toggle="tooltip" data-original-title="{{ trans('request.add-request') }}!" class="btn btn btn-success">
-                    {{ trans('request.add-request') }}
+                <a href="{{ route('add_request') }}" role="button" data-toggle="tooltip" data-original-title="@lang('request.add-request')!" class="btn btn btn-success">
+                    @lang('request.add-request')
                 </a>
                 <div class="header gradient green">
                     <div class="inner_content">
                         <h1>
-                            {{ trans('request.requests') }}
+                            @lang('request.requests')
                         </h1>
                     </div>
                 </div>
@@ -200,8 +197,6 @@
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
             var qty = $("#qty").val();
-            var categoryName = [];
-            var typeName = [];
             var myrequests = (function () {
                 if ($("#myrequests").is(":checked")) {
                     return $("#myrequests").val();
@@ -229,21 +224,10 @@
             })();
             $(".category:checked").each(function () {
                 categories.push($(this).val());
-                categoryName.push(this.name);
-                $("#filter-item-category").html('<label class="label label-default">Category:</label>' + categoryName);
             });
             $(".type:checked").each(function () {
                 types.push($(this).val());
-                typeName.push(this.name);
-                $("#filter-item-type").html('<label class="label label-default">Type:</label>' + typeName);
             });
-
-            if (categories.length == 0) {
-                $("#filter-item-category").html('')
-            }
-            if (types.length == 0) {
-                $("#filter-item-type").html('')
-            }
 
             if (xhr !== 'undefined') {
                 xhr.abort();

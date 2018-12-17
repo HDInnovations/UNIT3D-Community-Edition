@@ -66,7 +66,7 @@
                                      width="{{ config('language.flags.width') }}"/>
                                     {{ $name }}
                                 @if (auth()->user()->locale == $code)
-                                    <span class="text-orange text-bold">({{ trans('common.active') }}!)</span>
+                                    <span class="text-orange text-bold">(@lang('common.active')!)</span>
                                 @endif
                             </a>
                         </li>
@@ -88,23 +88,23 @@
                 <ul class="dropdown-menu ">
                     <li>
                         <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-user"></i> {{ trans('user.my-profile') }}
+                            <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('user_settings', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> {{ trans('user.account-settings') }}
+                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.account-settings')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> {{ trans('user.my-wishlist') }}
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> {{ trans('auth.logout') }}
+                            <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> @lang('auth.logout')
                         </a>
 
                         <form id="logout-form"

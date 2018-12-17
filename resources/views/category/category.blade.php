@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $category->name }} {{ trans('torrent.category') }} - {{ config('other.title') }}</title>
+    <title>{{ $category->name }} @lang('torrent.category') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.categories') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.categories')</span>
         </a>
     </li>
     <li>
@@ -28,7 +28,7 @@
         <div class="block">
         <div class="header gradient green">
             <div class="inner_content">
-                <h1>{{ trans('torrent.torrents') }} in {{ $category->name }}</h1>
+                <h1>@lang('torrent.torrents') in {{ $category->name }}</h1>
             </div>
         </div>
         <div class="table-responsive">
@@ -41,7 +41,7 @@
                         <th></th>
                     @endif
                     <th>Category/Type</th>
-                    <th>{{ trans('common.name') }}</th>
+                    <th>@lang('common.name')</th>
                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
                     <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
@@ -324,7 +324,7 @@
                             <td>
                                 <a href="{{ route('history', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                             <span class='badge-extra text-orange text-bold'>
-                                {{ $torrent->times_completed }} {{ trans('common.times') }}
+                                {{ $torrent->times_completed }} @lang('common.times')
                             </span>
                                 </a>
                             </td>

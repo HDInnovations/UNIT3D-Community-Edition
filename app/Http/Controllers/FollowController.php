@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -24,7 +25,7 @@ class FollowController extends Controller
     private $toastr;
 
     /**
-     * FollowController Constructor
+     * FollowController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -34,24 +35,25 @@ class FollowController extends Controller
     }
 
     /**
-     * Follow A User
+     * Follow A User.
      *
      * @param User $user
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function follow(User $user)
     {
         if (auth()->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error("Nice try, but sadly you can not follow yourself.", 'Whoops!', ['options']));
-        } elseif (!auth()->user()->isFollowing($user->id)) {
+                ->with($this->toastr->error('Nice try, but sadly you can not follow yourself.', 'Whoops!', ['options']));
+        } elseif (! auth()->user()->isFollowing($user->id)) {
             $follow = new Follow();
             $follow->user_id = auth()->user()->id;
             $follow->target_id = $user->id;
             $follow->save();
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('You are now following ' . $user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are now following '.$user->username, 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with($this->toastr->error('You are already following this user', 'Whoops!', ['options']));
@@ -59,19 +61,20 @@ class FollowController extends Controller
     }
 
     /**
-     * Un Follow A User
+     * Un Follow A User.
      *
      * @param User $user
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function unfollow(User $user)
     {
         if (auth()->user()->isFollowing($user->id)) {
-            $follow = auth()->user()->follows()->where('target_id', $user->id)->first();
+            $follow = auth()->user()->follows()->where('target_id', '=', $user->id)->first();
             $follow->delete();
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->success('You are no longer following ' . $user->username, 'Yay!', ['options']));
+                ->with($this->toastr->success('You are no longer following '.$user->username, 'Yay!', ['options']));
         } else {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with($this->toastr->error('You are not following this user to begin with', 'Whoops!', ['options']));

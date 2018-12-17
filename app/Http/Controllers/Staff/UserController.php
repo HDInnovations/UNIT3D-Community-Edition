@@ -1,35 +1,36 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Torrent;
+use App\Like;
+use App\Note;
+use App\Peer;
+use App\Post;
 use App\User;
 use App\Group;
-use App\Comment;
-use App\Post;
-use App\Topic;
-use App\PrivateMessage;
-use App\Note;
-use App\Message;
-use App\Like;
 use App\Thank;
+use App\Topic;
 use App\Follow;
 use App\Invite;
-use App\Peer;
+use App\Comment;
+use App\Message;
+use App\Torrent;
+use App\PrivateMessage;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
     private $toastr;
 
     /**
-     * UserController Constructor
+     * UserController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -49,69 +50,70 @@ class UserController extends Controller
     }
 
     /**
-     * Users List
+     * Users List.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function members()
     {
         $users = User::with('group')->latest()->paginate(25);
-        $uploaders = User::with('group')->where('group_id', 7)->latest()->paginate(25);
-        $mods = User::with('group')->where('group_id', 6)->latest()->paginate(25);
-        $admins = User::with('group')->where('group_id', 4)->latest()->paginate(25);
-        $coders = User::with('group')->where('group_id', 10)->latest()->paginate(25);
+        $uploaders = User::with('group')->where('group_id', '=', 7)->latest()->paginate(25);
+        $mods = User::with('group')->where('group_id', '=', 6)->latest()->paginate(25);
+        $admins = User::with('group')->where('group_id', '=', 4)->latest()->paginate(25);
+        $coders = User::with('group')->where('group_id', '=', 10)->latest()->paginate(25);
 
         return view('Staff.user.user_search', [
-            'users' => $users,
+            'users'     => $users,
             'uploaders' => $uploaders,
-            'mods' => $mods,
-            'admins' => $admins,
-            'coders' => $coders
+            'mods'      => $mods,
+            'admins'    => $admins,
+            'coders'    => $coders,
         ]);
     }
 
     /**
-     * Search For A User
+     * Search For A User.
      *
-     * @access public
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)
     {
         $users = User::where([
-            ['username', 'like', '%' . $request->input('username') . '%'],
+            ['username', 'like', '%'.$request->input('username').'%'],
         ])->paginate(25);
-        $users->setPath('?username=' . $request->input('username'));
+        $users->setPath('?username='.$request->input('username'));
 
         return view('Staff.user.user_results', ['users' => $users]);
     }
 
     /**
-     * User Edit Form
+     * User Edit Form.
      *
      * @param $username
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSettings($username, $id)
     {
         $user = User::findOrFail($id);
         $groups = Group::all();
-        $notes = Note::where('user_id', $id)->latest()->paginate(25);
+        $notes = Note::where('user_id', '=', $id)->latest()->paginate(25);
 
         return view('Staff.user.user_edit', [
-            'user' => $user,
+            'user'   => $user,
             'groups' => $groups,
-            'notes' => $notes
+            'notes'  => $notes,
         ]);
     }
 
     /**
-     * Edit A User
+     * Edit A User.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @@return Illuminate\Http\RedirectResponse
      */
     public function userEdit(Request $request, $username, $id)
@@ -124,7 +126,7 @@ class UserController extends Controller
         $user->uploaded = $request->input('uploaded');
         $user->downloaded = $request->input('downloaded');
         $user->about = $request->input('about');
-        $user->group_id = (int)$request->input('group_id');
+        $user->group_id = (int) $request->input('group_id');
         $user->save();
 
         // Activity Log
@@ -135,11 +137,12 @@ class UserController extends Controller
     }
 
     /**
-     * Edit A Users Permissions
+     * Edit A Users Permissions.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function userPermissions(Request $request, $username, $id)
@@ -163,11 +166,12 @@ class UserController extends Controller
     }
 
     /**
-     * Edit A Users Password
+     * Edit A Users Password.
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     protected function userPassword(Request $request, $username, $id)
@@ -187,10 +191,11 @@ class UserController extends Controller
     }
 
     /**
-     * Delete A User
+     * Delete A User.
      *
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      *
      * Todo: Refactor Once New Migrations Are In Place And Soft Deletes Are Added
@@ -205,72 +210,72 @@ class UserController extends Controller
                 ->with($this->toastr->error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
         } else {
             // Removes UserID from Torrents if any and replaces with System UserID (1)
-            foreach (Torrent::withAnyStatus()->where('user_id', $user->id)->get() as $tor) {
+            foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
                 $tor->user_id = 1;
                 $tor->save();
             }
             // Removes UserID from Comments if any and replaces with System UserID (1)
-            foreach (Comment::where('user_id', $user->id)->get() as $com) {
+            foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
                 $com->user_id = 1;
                 $com->save();
             }
             // Removes UserID from Posts if any and replaces with System UserID (1)
-            foreach (Post::where('user_id', $user->id)->get() as $post) {
+            foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
                 $post->user_id = 1;
                 $post->save();
             }
             // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-            foreach (Topic::where('first_post_user_id', $user->id)->get() as $topic) {
+            foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
                 $topic->first_post_user_id = 1;
                 $topic->save();
             }
             // Removes UserID from Topic if any and replaces with System UserID (1)
-            foreach (Topic::where('last_post_user_id', $user->id)->get() as $topic) {
+            foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
                 $topic->last_post_user_id = 1;
                 $topic->save();
             }
             // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('sender_id', $user->id)->get() as $sent) {
+            foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
                 $sent->sender_id = 1;
                 $sent->save();
             }
             // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('receiver_id', $user->id)->get() as $received) {
+            foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
                 $received->receiver_id = 1;
                 $received->save();
             }
             // Removes all Posts made by User from the shoutbox
-            foreach (Message::where('user_id', $user->id)->get() as $shout) {
+            foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
                 $shout->delete();
             }
             // Removes all notes for user
-            foreach (Note::where('user_id', $user->id)->get() as $note) {
+            foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
                 $note->delete();
             }
             // Removes all likes for user
-            foreach (Like::where('user_id', $user->id)->get() as $like) {
+            foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
                 $like->delete();
             }
             // Removes all thanks for user
-            foreach (Thank::where('user_id', $user->id)->get() as $thank) {
+            foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
                 $thank->delete();
             }
             // Removes all follows for user
-            foreach (Follow::where('user_id', $user->id)->get() as $follow) {
+            foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
                 $follow->delete();
             }
             // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-            foreach (Invite::where('user_id', $user->id)->get() as $sent_invite) {
+            foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
                 $sent_invite->user_id = 1;
                 $sent_invite->save();
             }
             // Removes UserID from Received Invite if any and replaces with System UserID (1)
-            foreach (Invite::where('accepted_by', $user->id)->get() as $received_invite) {
+            foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
                 $received_invite->accepted_by = 1;
                 $received_invite->save();
             }
             // Removes all Peers for user
-            foreach (Peer::where('user_id', $user->id)->get() as $peer) {
+            foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
                 $peer->delete();
             }
             // Activity Log
@@ -287,7 +292,7 @@ class UserController extends Controller
     }
 
     /**
-     * Mass Validate Unvalidated Users
+     * Mass Validate Unvalidated Users.
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -307,6 +312,7 @@ class UserController extends Controller
             $user->can_invite = 1;
             $user->save();
         }
+
         return redirect('staff_dashboard')
             ->with($this->toastr->success('Unvalidated Accounts Are Now Validated', 'Yay!', ['options']));
     }

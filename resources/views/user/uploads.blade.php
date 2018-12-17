@@ -71,7 +71,7 @@
                                 <span class="badge-extra text-red text-bold"> {{ $torrent->leechers }}</span>
                             </td>
                             <td>
-                                <span class="badge-extra text-orange text-bold"> {{ $torrent->times_completed }} {{ trans('common.times') }}</span>
+                                <span class="badge-extra text-orange text-bold"> {{ $torrent->times_completed }} @lang('common.times')</span>
                             </td>
                             <td>
                                 @if ($torrent->isPending())

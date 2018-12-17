@@ -1,16 +1,28 @@
 <?php
 
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+
 namespace App\Console;
 
+use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
-use Symfony\Component\Process\Process;
 
 trait ConsoleTools
 {
     /**
-     * @var SymfonyStyle $io
+     * @var SymfonyStyle
      */
     protected $io;
 
@@ -46,7 +58,7 @@ trait ConsoleTools
 
     private function done()
     {
-        $this->green("<fg=white>[</>Done<fg=white>]</>");
+        $this->green('<fg=white>[</>Done<fg=white>]</>');
     }
 
     private function header($line)
@@ -81,7 +93,7 @@ trait ConsoleTools
         foreach ($commands as $command) {
             $process = $this->process($command, $silent);
 
-            if (!$silent) {
+            if (! $silent) {
                 echo "\n\n";
                 $this->warn($process->getOutput());
             }
@@ -90,7 +102,7 @@ trait ConsoleTools
 
     private function process($command, $silent = false)
     {
-        if (!$silent) {
+        if (! $silent) {
             $this->cyan($command);
             $bar = $this->progressStart();
         }
@@ -106,20 +118,20 @@ trait ConsoleTools
                 $this->red("'{$command}' timed out.!");
             }
 
-            if (!$silent) {
+            if (! $silent) {
                 $bar->advance();
             }
 
             usleep(200000);
         }
 
-        if (!$silent) {
+        if (! $silent) {
             $this->progressStop($bar);
         }
 
         $process->stop();
 
-        if (!$process->isSuccessful()) {
+        if (! $process->isSuccessful()) {
             $this->red($process->getErrorOutput());
             die();
         }
@@ -147,7 +159,7 @@ trait ConsoleTools
      */
     protected function progressStop(ProgressBar $bar)
     {
-        $bar->setMessage("<fg=green>Done!</>");
+        $bar->setMessage('<fg=green>Done!</>');
         $bar->finish();
     }
 }

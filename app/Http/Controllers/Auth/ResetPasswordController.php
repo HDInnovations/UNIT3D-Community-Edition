@@ -1,12 +1,24 @@
 <?php
 
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\UserActivation;
-use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Support\Str;
 use App\Group;
+use App\UserActivation;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -34,9 +46,9 @@ class ResetPasswordController extends Controller
         $user->save();
 
         // Activity Log
-        \LogActivity::addToLog("Member " . $user->username . " has successfully reset his/her password.");
+        \LogActivity::addToLog('Member '.$user->username.' has successfully reset his/her password.');
 
-        UserActivation::where('user_id', $user->id)->delete();
+        UserActivation::where('user_id', '=', $user->id)->delete();
 
         $this->guard()->login($user);
     }

@@ -133,7 +133,7 @@
                     </tbody>
                 </table>
                 </div>
-                <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
             </form>
         </div>
     </div>

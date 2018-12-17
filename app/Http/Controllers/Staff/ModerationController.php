@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,14 +14,14 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Torrent;
-use App\TorrentRequest;
+use Carbon\Carbon;
 use App\PrivateMessage;
+use App\TorrentRequest;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
-use Carbon\Carbon;
-use Brian2694\Toastr\Toastr;
 
 class ModerationController extends Controller
 {
@@ -35,10 +36,10 @@ class ModerationController extends Controller
     private $toastr;
 
     /**
-     * ModerationController Constructor
+     * ModerationController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param Toastr         $toastr
      */
     public function __construct(ChatRepository $chat, Toastr $toastr)
     {
@@ -47,7 +48,7 @@ class ModerationController extends Controller
     }
 
     /**
-     * Torrent Moderation Panel
+     * Torrent Moderation Panel.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -59,18 +60,19 @@ class ModerationController extends Controller
         $rejected = Torrent::with(['user', 'category'])->rejected()->get();
 
         return view('Staff.torrent.moderation', [
-            'current' => $current,
-            'pending' => $pending,
+            'current'   => $current,
+            'pending'   => $pending,
             'postponed' => $postponed,
-            'rejected' => $rejected,
+            'rejected'  => $rejected,
         ]);
     }
 
     /**
-     * Approve A Torrent
+     * Approve A Torrent.
      *
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function approve($slug, $id)
@@ -87,11 +89,11 @@ class ModerationController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/" . $username . "." . $user_id . "]" . $username . "[/url] has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/" . $torrent->slug . "." . $torrent->id . "]" . $torrent->name . "[/url] grab it now! :slight_smile:"
+                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
@@ -106,17 +108,18 @@ class ModerationController extends Controller
     }
 
     /**
-     * Postpone A Torrent
+     * Postpone A Torrent.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function postpone(Request $request)
     {
         $v = validator($request->all(), [
-            'id' => "required|exists:torrents",
-            'slug' => "required|exists:torrents",
-            'message' => "required"
+            'id'      => 'required|exists:torrents',
+            'slug'    => 'required|exists:torrents',
+            'message' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -124,10 +127,10 @@ class ModerationController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
-            $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
+            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markPostponed();
 
-            $pm = new PrivateMessage;
+            $pm = new PrivateMessage();
             $pm->sender_id = $user->id;
             $pm->receiver_id = $torrent->user_id;
             $pm->subject = "Your upload, {$torrent->name} ,has been postponed by {$user->username}";
@@ -140,17 +143,18 @@ class ModerationController extends Controller
     }
 
     /**
-     * Reject A Torrent
+     * Reject A Torrent.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function reject(Request $request)
     {
         $v = validator($request->all(), [
-            'id' => "required|exists:torrents",
-            'slug' => "required|exists:torrents",
-            'message' => "required"
+            'id'      => 'required|exists:torrents',
+            'slug'    => 'required|exists:torrents',
+            'message' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -158,7 +162,7 @@ class ModerationController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user = auth()->user();
-            $torrent = Torrent::withAnyStatus()->where('id', $request->input('id'))->first();
+            $torrent = Torrent::withAnyStatus()->where('id', '=', $request->input('id'))->first();
             $torrent->markRejected();
 
             $pm = new PrivateMessage();
@@ -174,9 +178,10 @@ class ModerationController extends Controller
     }
 
     /**
-     * Resets the filled and approved attributes on a given request
+     * Resets the filled and approved attributes on a given request.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function resetRequest($id)
@@ -193,7 +198,7 @@ class ModerationController extends Controller
             $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success("The request has been reset!", 'Yay!', ['options']));
+                ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
         } else {
             return redirect()->route('request', ['id' => $id])
                 ->with($this->toastr->error("You don't have access to this operation!", 'Whoops!', ['options']));

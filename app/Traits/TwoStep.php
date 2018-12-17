@@ -1,27 +1,28 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Traits;
 
+use Carbon\Carbon;
 use App\TwoStepAuth;
 use App\Notifications\TwoStepAuthCode;
-use Carbon\Carbon;
 
 trait TwoStep
 {
     /**
-     * Check if the user is authorized
+     * Check if the user is authorized.
      *
-     * @return boolean
+     * @return bool
      */
     private function twoStepVerification()
     {
@@ -35,24 +36,26 @@ trait TwoStep
                     return false;
                 }
             }
+
             return true;
         }
+
         return true;
     }
 
     /**
-     * Check time since user was last verified and take apprpriate action
+     * Check time since user was last verified and take apprpriate action.
      *
      * @param collection $twoStepAuth
      *
-     * @return boolean
+     * @return bool
      */
     private function checkTimeSinceVerified($twoStepAuth)
     {
-        $expireMinutes  = config('auth.TwoStepVerifiedLifetimeMinutes');
-        $now            = Carbon::now();
-        $expire         = Carbon::parse($twoStepAuth->authDate)->addMinutes($expireMinutes);
-        $expired        = $now->gt($expire);
+        $expireMinutes = config('auth.TwoStepVerifiedLifetimeMinutes');
+        $now = Carbon::now();
+        $expire = Carbon::parse($twoStepAuth->authDate)->addMinutes($expireMinutes);
+        $expired = $now->gt($expire);
 
         if ($expired) {
             $this->resetAuthStatus($twoStepAuth);
@@ -64,7 +67,7 @@ trait TwoStep
     }
 
     /**
-     * Reset TwoStepAuth collection item and code
+     * Reset TwoStepAuth collection item and code.
      *
      * @param collection $twoStepAuth
      *
@@ -72,10 +75,10 @@ trait TwoStep
      */
     private function resetAuthStatus($twoStepAuth)
     {
-        $twoStepAuth->authCode    = $this->generateCode();
-        $twoStepAuth->authCount   = 0;
-        $twoStepAuth->authStatus  = 0;
-        $twoStepAuth->authDate    = null;
+        $twoStepAuth->authCode = $this->generateCode();
+        $twoStepAuth->authCount = 0;
+        $twoStepAuth->authStatus = 0;
+        $twoStepAuth->authDate = null;
         $twoStepAuth->requestDate = null;
 
         $twoStepAuth->save();
@@ -84,9 +87,9 @@ trait TwoStep
     }
 
     /**
-     * Generate Authorization Code
+     * Generate Authorization Code.
      *
-     * @param integer $length
+     * @param int    $length
      * @param string $prefix
      * @param string $suffix
      *
@@ -98,11 +101,11 @@ trait TwoStep
             $prefix .= random_int(0, 1) ? chr(random_int(65, 90)) : random_int(0, 9);
         }
 
-        return $prefix . $suffix;
+        return $prefix.$suffix;
     }
 
     /**
-     * Create/retreive 2step verification object
+     * Create/retreive 2step verification object.
      *
      * @param int $userId
      *
@@ -125,7 +128,7 @@ trait TwoStep
     }
 
     /**
-     * Retreive the Verification Status
+     * Retreive the Verification Status.
      *
      * @param int $userId
      *
@@ -133,11 +136,11 @@ trait TwoStep
      */
     protected function getTwoStepAuthStatus(int $userId)
     {
-        return TwoStepAuth::where('userId', $userId)->firstOrFail();
+        return TwoStepAuth::where('userId', '=', $userId)->firstOrFail();
     }
 
     /**
-     * Format verification exceeded timings with Carbon
+     * Format verification exceeded timings with Carbon.
      *
      * @param string $time
      *
@@ -145,8 +148,8 @@ trait TwoStep
      */
     protected function exceededTimeParser($time)
     {
-        $tomorrow   = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
-        $remaining  = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
+        $tomorrow = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->format('l, F jS Y h:i:sa');
+        $remaining = $time->addMinutes(config('auth.TwoStepExceededCountdownMinutes'))->diffForHumans(null, true);
 
         $data = [
             'tomorrow'  => $tomorrow,
@@ -157,16 +160,16 @@ trait TwoStep
     }
 
     /**
-     * Check if time since account lock has expired and return true if account verification can be reset
+     * Check if time since account lock has expired and return true if account verification can be reset.
      *
      * @param datetime $time
      *
-     * @return boolean
+     * @return bool
      */
     protected function checkExceededTime($time)
     {
-        $now     = Carbon::now();
-        $expire  = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
+        $now = Carbon::now();
+        $expire = Carbon::parse($time)->addMinutes(config('auth.TwoStepExceededCountdownMinutes'));
         $expired = $now->gt($expire);
 
         if ($expired) {
@@ -186,14 +189,14 @@ trait TwoStep
     protected function resetExceededTime($twoStepEntry)
     {
         $twoStepEntry->authCount = 0;
-        $twoStepEntry->authCode  = $this->generateCode();
+        $twoStepEntry->authCode = $this->generateCode();
         $twoStepEntry->save();
 
         return $twoStepEntry;
     }
 
     /**
-     * Successful activation actions
+     * Successful activation actions.
      *
      * @param collection $twoStepAuth
      *
@@ -201,10 +204,10 @@ trait TwoStep
      */
     protected function resetActivationCountdown($twoStepAuth)
     {
-        $twoStepAuth->authCode    = $this->generateCode();
-        $twoStepAuth->authCount   = 0;
-        $twoStepAuth->authStatus  = 1;
-        $twoStepAuth->authDate    = Carbon::now();
+        $twoStepAuth->authCode = $this->generateCode();
+        $twoStepAuth->authCount = 0;
+        $twoStepAuth->authStatus = 1;
+        $twoStepAuth->authDate = Carbon::now();
         $twoStepAuth->requestDate = null;
 
         $twoStepAuth->save();
@@ -213,7 +216,7 @@ trait TwoStep
     /**
      * Send verification code via notify.
      *
-     * @param array $user
+     * @param array  $user
      * @param string $deliveryMethod (nullable)
      * @param string $code
      *

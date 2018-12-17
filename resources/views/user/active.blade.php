@@ -1,29 +1,29 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.active-table') }} - {{ config('other.title') }}</title>
+    <title>@lang('user.active-table') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('myactive', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.active-table') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.active-table')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="title">{{ trans('user.active-table') }}</h1>
+        <h1 class="title">@lang('user.active-table')</h1>
         <div class="block">
             <!-- Active -->
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
-                    <div class="head"><strong>{{ trans('user.active-torrents') }}</strong></div>
+                    <div class="head"><strong>@lang('user.active-torrents')</strong></div>
                     <thead>
                     <th>@sortablelink('name', trans('torrent.name'))</th>
-                    <th>{{ trans('torrent.category') }}</th>
+                    <th>@lang('torrent.category')</th>
                     <th>@sortablelink('size', trans('torrent.size'))</th>
                     <th>@sortablelink('uploaded', trans('torrent.uploaded'))</th>
                     <th>@sortablelink('downloaded', trans('torrent.downloaded'))</th>

@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('cards') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.cards-view') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.cards-view')</span>
         </a>
     </li>
 @endsection
@@ -80,9 +80,9 @@
                             <span class="badge-user text-bold" style="float: right;">
                                 <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
                                     @if ($user->ratings == 1)
-                                        {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} {{ trans('torrent.votes') }})
+                                        {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} @lang('torrent.votes'))
                                     @else
-                                        {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} {{ trans('torrent.votes') }})
+                                        {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} @lang('torrent.votes'))
                                     @endif
                             </span>
                         </div>

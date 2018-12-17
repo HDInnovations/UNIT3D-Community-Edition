@@ -1,25 +1,26 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Repositories\ChatRepository;
-use App\Events\MessageDeleted;
+use App\Message;
 use App\Chatroom;
 use App\ChatStatus;
-use App\Message;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Events\MessageDeleted;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
 
 class ChatController extends Controller
 {
@@ -34,10 +35,10 @@ class ChatController extends Controller
     private $toastr;
 
     /**
-     * ChatController Constructor
+     * ChatController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param Toastr         $toastr
      */
     public function __construct(ChatRepository $chat, Toastr $toastr)
     {
@@ -46,7 +47,7 @@ class ChatController extends Controller
     }
 
     /**
-     * Chat Management
+     * Chat Management.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -56,15 +57,16 @@ class ChatController extends Controller
         $chatstatuses = $this->chat->statuses();
 
         return view('Staff.chat.index', [
-            'chatrooms' => $chatrooms,
-            'chatstatuses' => $chatstatuses
+            'chatrooms'    => $chatrooms,
+            'chatstatuses' => $chatstatuses,
         ]);
     }
 
     /**
-     * Add A Chatroom
+     * Add A Chatroom.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function addChatroom(Request $request)
@@ -73,7 +75,7 @@ class ChatController extends Controller
         $chatroom->name = $request->input('name');
 
         $v = validator($chatroom->toArray(), [
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -81,16 +83,18 @@ class ChatController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $chatroom->save();
+
             return redirect()->route('chatManager')
                 ->with($this->toastr->success('Chatroom Successfully Added', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Edit A Chatroom
+     * Edit A Chatroom.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function editChatroom(Request $request, $id)
@@ -99,7 +103,7 @@ class ChatController extends Controller
         $chatroom->name = $request->input('name');
 
         $v = validator($chatroom->toArray(), [
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -107,29 +111,33 @@ class ChatController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $chatroom->save();
+
             return redirect()->route('chatManager')
                 ->with($this->toastr->success('Chatroom Successfully Modified', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Delete A Chatroom
+     * Delete A Chatroom.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteChatroom($id)
     {
         $chatroom = Chatroom::findOrFail($id);
         $chatroom->delete();
+
         return redirect()->route('chatManager')
             ->with($this->toastr->success('Chatroom Successfully Deleted', 'Yay!', ['options']));
     }
 
     /**
-     * Add A Chat Status
+     * Add A Chat Status.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function addChatStatus(Request $request)
@@ -140,9 +148,9 @@ class ChatController extends Controller
         $chatstatus->icon = $request->input('icon');
 
         $v = validator($chatstatus->toArray(), [
-            'name' => 'required',
+            'name'  => 'required',
             'color' => 'required',
-            'icon' => 'required'
+            'icon'  => 'required',
         ]);
 
         if ($v->fails()) {
@@ -150,16 +158,18 @@ class ChatController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $chatstatus->save();
+
             return redirect()->route('chatManager')
                 ->with($this->toastr->success('Chat Status Successfully Added', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Edit A Chat Status
+     * Edit A Chat Status.
      *
      * @param \Illuminate\Http\Request $request
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function editChatStatus(Request $request, $id)
@@ -170,9 +180,9 @@ class ChatController extends Controller
         $chatstatus->icon = $request->input('icon');
 
         $v = validator($chatstatus->toArray(), [
-            'name' => 'required',
+            'name'  => 'required',
             'color' => 'required',
-            'icon' => 'required'
+            'icon'  => 'required',
         ]);
 
         if ($v->fails()) {
@@ -180,29 +190,33 @@ class ChatController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $chatstatus->save();
+
             return redirect()->route('chatManager')
                 ->with($this->toastr->success('Chat Status Successfully Modified', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Delete A Chat Status
+     * Delete A Chat Status.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteChatStatus($id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
+
         return redirect()->route('chatManager')
             ->with($this->toastr->success('Chat Status Successfully Deleted', 'Yay!', ['options']));
     }
 
     /**
-     * Flush Chat Messages
+     * Flush Chat Messages.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function flushChat()
@@ -213,7 +227,7 @@ class ChatController extends Controller
         }
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : Chatbox Has Been Flushed! :broom:"
+            ':robot: [b][color=#fb9776]System[/color][/b] : Chatbox Has Been Flushed! :broom:'
         );
 
         return redirect('staff_dashboard')

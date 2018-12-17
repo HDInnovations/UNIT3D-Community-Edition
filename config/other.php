@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -131,13 +132,13 @@ return [
     | Restricted mode for invites. If set to true, invites will be restricted
     | Exempt these groups from the invite restrictions
     */
-    'invite-only' => true,
+    'invite-only'   => true,
     'invite_expire' => '14',
-    
+
     'invites_restriced' => false,
-    'invite_groups' => [
+    'invite_groups'     => [
         'Administrator',
-        'Owner'
+        'Owner',
     ],
 
     /*
@@ -158,9 +159,9 @@ return [
     | This will be the upload and download given to new members. (In Bytes!)
     | Default: 50GB Upload and 1GB Download
     */
-    'default_upload' => '53687091200',
+    'default_upload'   => '53687091200',
     'default_download' => '1073741824',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Site Style

@@ -1,51 +1,46 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
+    <title>@lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('torrent.torrents') }} {{ config('other.title') }}">
+    <meta name="description" content="@lang('torrent.torrents') {{ config('other.title') }}">
 @endsection
 
 @section('breadcrumb')
     <li class="active">
         <a href="{{ route('torrents') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrents') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrents')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container box">
-
         <div class="text-center">
-            <h3 class="filter-title">{{ trans('torrent.current-filters') }}</h3>
-            <span id="filter-item-category"></span>
-            <span id="filter-item-type"></span>
+            <h3 class="filter-title">Search Filters</h3>
         </div>
-        <hr>
-
         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
         <div class="form-group">
-            <label for="name" class="col-sm-1 label label-default">{{ trans('torrent.name') }}</label>
+            <label for="name" class="col-sm-1 label label-default">@lang('torrent.name')</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="search" placeholder="{{ trans('torrent.name') }}">
+                <input type="text" class="form-control" id="search" placeholder="@lang('torrent.name')">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="name" class="col-sm-1 label label-default">{{ trans('torrent.description') }}</label>
+            <label for="name" class="col-sm-1 label label-default">@lang('torrent.description')</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="description" placeholder="{{ trans('torrent.description') }}">
+                <input type="text" class="form-control" id="description" placeholder="@lang('torrent.description')">
             </div>
         </div>
 
         <div class="form-group">
-            <label for="uploader" class="col-sm-1 label label-default">{{ trans('torrent.uploader') }}</label>
+            <label for="uploader" class="col-sm-1 label label-default">@lang('torrent.uploader')</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="uploader" placeholder="{{ trans('torrent.uploader') }}">
+                <input type="text" class="form-control" id="uploader" placeholder="@lang('torrent.uploader')">
             </div>
         </div>
 
@@ -66,7 +61,7 @@
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-sm-1 label label-default">{{ trans('torrent.category') }}</label>
+            <label for="category" class="col-sm-1 label label-default">@lang('torrent.category')</label>
             <div class="col-sm-10">
                 @foreach ($repository->categories() as $id => $category)
                     <span class="badge-user">
@@ -79,7 +74,7 @@
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.type') }}</label>
+            <label for="type" class="col-sm-1 label label-default">@lang('torrent.type')</label>
             <div class="col-sm-10">
                 @foreach ($repository->types() as $id => $type)
                     <span class="badge-user">
@@ -92,68 +87,68 @@
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.discounts') }}</label>
+            <label for="type" class="col-sm-1 label label-default">@lang('torrent.discounts')</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> {{ trans('torrent.freeleech') }}
+                        <input type="checkbox" id="freeleech" value="1"> <span class="{{ config('other.font-awesome') }} fa-star text-gold"></span> @lang('torrent.freeleech')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> {{ trans('torrent.double-upload') }}
+                        <input type="checkbox" id="doubleupload" value="1"> <span class="{{ config('other.font-awesome') }} fa-gem text-green"></span> @lang('torrent.double-upload')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> {{ trans('torrent.featured') }}
+                        <input type="checkbox" id="featured" value="1"> <span class="{{ config('other.font-awesome') }} fa-certificate text-pink"></span> @lang('torrent.featured')
                     </label>
                 </span>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.special') }}</label>
+            <label for="type" class="col-sm-1 label label-default">@lang('torrent.special')</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> {{ trans('torrent.stream-optimized') }}
+                        <input type="checkbox" id="stream" value="1"> <span class="{{ config('other.font-awesome') }} fa-play text-red"></span> @lang('torrent.stream-optimized')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> {{ trans('common.high-speeds') }}
+                        <input type="checkbox" id="highspeed" value="1"> <span class="{{ config('other.font-awesome') }} fa-tachometer text-red"></span> @lang('common.high-speeds')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> {{ trans('torrent.sd-content') }}
+                        <input type="checkbox" id="sd" value="1"> <span class="{{ config('other.font-awesome') }} fa-ticket text-orange"></span> @lang('torrent.sd-content')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> {{ trans('torrent.internal') }}
+                        <input type="checkbox" id="internal" value="1"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
                     </label>
                 </span>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="type" class="col-sm-1 label label-default">{{ trans('torrent.health') }}</label>
+            <label for="type" class="col-sm-1 label label-default">@lang('torrent.health')</label>
             <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> {{ trans('torrent.alive') }}
+                        <input type="checkbox" id="alive" value="1"> <span class="{{ config('other.font-awesome') }} fa-smile text-green"></span> @lang('torrent.alive')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> {{ trans('torrent.dying-torrent') }}
+                        <input type="checkbox" id="dying" value="1"> <span class="{{ config('other.font-awesome') }} fa-meh text-orange"></span> @lang('torrent.dying-torrent')
                     </label>
                 </span>
                 <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> {{ trans('torrent.dead-torrent') }}
+                        <input type="checkbox" id="dead" value="0"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> @lang('torrent.dead-torrent')
                     </label>
                 </span>
             </div>
@@ -164,7 +159,7 @@
 
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="sorting">{{ trans('common.sort') }}:</label>
+                <label class="control-label col-sm-2" for="sorting">@lang('common.sort'):</label>
                 <div class="col-sm-2">
                     <select id="sorting" name="sorting" class="form-control">
                         @foreach ($repository->sorting() as $value => $sort)
@@ -179,7 +174,7 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="control-label col-sm-2" for="qty">{{ trans('common.quantity') }}:</label>
+                <label class="control-label col-sm-2" for="qty">@lang('common.quantity'):</label>
                 <div class="col-sm-2">
                     <select id="qty" name="qty" class="form-control">
                         <option value="25">25</option>
@@ -195,24 +190,24 @@
     <div class="container-fluid">
         <div class="block">
             <div style="float:left;">
-                <strong>{{ trans('common.extra') }}:</strong>
+                <strong>@lang('common.extra'):</strong>
                 <a href="{{ route('categories') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-file"></i> {{ trans('torrent.categories') }}
+                    <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
                 </a>
                 <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> {{ trans('torrent.catalogs') }}
+                    <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('torrent.catalogs')
                 </a>
             </div>
             <div style="float:right;">
-                <strong>{{ trans('common.view') }}:</strong>
+                <strong>@lang('common.view'):</strong>
                 <a href="{{ route('torrents') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ trans('torrent.list') }}
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
                 </a>
                 <a href="{{ route('cards') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-image"></i> {{ trans('torrent.cards') }}
+                    <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
                 </a>
                 <a href="{{ route('grouping_categories') }}" class="btn btn-xs btn-primary">
-                    <i class="{{ config('other.font-awesome') }} fa-list"></i> {{ trans('torrent.grouping') }}
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.grouping')
                 </a>
             </div>
             <br>
@@ -225,7 +220,7 @@
             <div class="header gradient blue">
                 <div class="inner_content">
                     <h1>
-                        {{ trans('torrent.torrents') }}
+                        @lang('torrent.torrents')
                     </h1>
                 </div>
             </div>
@@ -238,21 +233,21 @@
     <div class="container-fluid">
         <div class="block">
             <div class="text-center">
-                <strong>{{ trans('common.legend') }}:</strong>
+                <strong>@lang('common.legend'):</strong>
                 <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='{{ trans('torrent.currently-seeding') }}!'>
+                        data-original-title='@lang('torrent.currently-seeding')!'>
                     <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
                 </button>
                 <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='{{ trans('torrent.currently-leeching') }}!'>
+                        data-original-title='@lang('torrent.currently-leeching')!'>
                     <i class='{{ config("other.font-awesome") }} fa-arrow-down'></i>
                 </button>
                 <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='{{ trans('torrent.not-completed') }}!'>
+                        data-original-title='@lang('torrent.not-completed')!'>
                     <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
                 </button>
                 <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
-                        data-original-title='{{ trans('torrent.completed-not-seeding') }}!'>
+                        data-original-title='@lang('torrent.completed-not-seeding')!'>
                     <i class='{{ config("other.font-awesome") }} fa-thumbs-down'></i>
                 </button>
             </div>
@@ -278,8 +273,6 @@
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
             var qty = $("#qty").val();
-            var categoryName = [];
-            var typeName = [];
             var freeleech = (function () {
                 if ($("#freeleech").is(":checked")) {
                     return $("#freeleech").val();
@@ -332,21 +325,11 @@
             })();
             $(".category:checked").each(function () {
                 categories.push($(this).val());
-                categoryName.push(this.name);
-                $("#filter-item-category").html('<label class="label label-default">Category:</label>' + categoryName);
             });
             $(".type:checked").each(function () {
                 types.push($(this).val());
-                typeName.push(this.name);
-                $("#filter-item-type").html('<label class="label label-default">Type:</label>' + typeName);
             });
 
-            if (categories.length == 0) {
-                $("#filter-item-category").html('')
-            }
-            if (types.length == 0) {
-                $("#filter-item-type").html('')
-            }
 
             if (xhr !== 'undefined') {
                 xhr.abort();

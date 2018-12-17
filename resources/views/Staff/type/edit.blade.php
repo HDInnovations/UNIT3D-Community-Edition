@@ -34,7 +34,7 @@
             <input type="text" class="form-control" name="position" value="{{ $type->position }}">
         </div>
 
-        <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
+        <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
 @endsection

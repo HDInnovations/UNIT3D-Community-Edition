@@ -44,7 +44,7 @@
                     var timer;
 
                     function formatUnit(text, v) {
-                        let suffix = "{{ trans('common.plural-suffix') }}";
+                        let suffix = "@lang('common.plural-suffix')";
                         if (v === 1) {
                             suffix = "";
                         }
@@ -80,8 +80,8 @@
         @if (Session::has('achievement'))
             <script type="text/javascript">
                 swal({
-                    title: '{{ trans('common.achievement-title') }}!',
-                    text: '{{ trans('common.unlocked-achievement', ['achievement' => Session::get('achievement')]) }}',
+                    title: '@lang('common.achievement-title')!',
+                    text: '@lang('common.unlocked-achievement', ['achievement' => Session::get('achievement')])',
                     type: 'success'
                 });
             </script>

@@ -5,5 +5,5 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'graveyard' => 'Torrent Begraafplaats'
+    'graveyard' => 'Torrent Begraafplaats',
 ];

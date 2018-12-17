@@ -1,27 +1,28 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\BanUser;
-use App\Mail\UnbanUser;
-use App\User;
 use App\Ban;
+use App\User;
 use App\Group;
 use Carbon\Carbon;
+use App\Mail\BanUser;
+use App\Mail\UnbanUser;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class BanController extends Controller
 {
@@ -31,7 +32,7 @@ class BanController extends Controller
     private $toastr;
 
     /**
-     * BanController Constructor
+     * BanController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -41,7 +42,7 @@ class BanController extends Controller
     }
 
     /**
-     * Get All Bans
+     * Get All Bans.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -53,11 +54,12 @@ class BanController extends Controller
     }
 
     /**
-     * Ban A User (current_group -> banned)
+     * Ban A User (current_group -> banned).
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function ban(Request $request, $username, $id)
@@ -84,7 +86,7 @@ class BanController extends Controller
             $ban->ban_reason = $request->input('ban_reason');
 
             $v = validator($ban->toArray(), [
-                'ban_reason' => 'required'
+                'ban_reason' => 'required',
             ]);
 
             if ($v->fails()) {
@@ -106,13 +108,13 @@ class BanController extends Controller
         }
     }
 
-
     /**
-     * Unban A User (banned -> new_group)
+     * Unban A User (banned -> new_group).
      *
      * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function unban(Request $request, $username, $id)
@@ -139,8 +141,8 @@ class BanController extends Controller
             $ban->removed_at = Carbon::now();
 
             $v = validator($request->all(), [
-                'group_id' => 'required',
-                'unban_reason' => 'required'
+                'group_id'     => 'required',
+                'unban_reason' => 'required',
             ]);
 
             if ($v->fails()) {

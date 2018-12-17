@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>{{ config('other.title') }}</title>
-        <description>{{ config('other.title') }} {{ trans('common.rss-system') }}</description>
+        <description>{{ config('other.title') }} @lang('common.rss-system')</description>
         <link>{{ url('/') }}</link>
         <language>{{ config('app.locale') }}</language>
         @foreach ($torrents as $data)

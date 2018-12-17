@@ -1,23 +1,24 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Group;
 use App\Forum;
+use App\Group;
 use App\Permission;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class GroupsController extends Controller
 {
@@ -27,7 +28,7 @@ class GroupsController extends Controller
     private $toastr;
 
     /**
-     * GroupsController Constructor
+     * GroupsController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -37,7 +38,7 @@ class GroupsController extends Controller
     }
 
     /**
-     * Get All Groups
+     * Get All Groups.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -49,7 +50,7 @@ class GroupsController extends Controller
     }
 
     /**
-     * Group Add Form
+     * Group Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -59,9 +60,10 @@ class GroupsController extends Controller
     }
 
     /**
-     * Add A Group
+     * Add A Group.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function add(Request $request)
@@ -83,11 +85,11 @@ class GroupsController extends Controller
         $group->autogroup = $request->input('autogroup');
 
         $v = validator($group->toArray(), [
-            'name' => 'required|unique:groups',
-            'slug' => 'required|unique:groups',
+            'name'     => 'required|unique:groups',
+            'slug'     => 'required|unique:groups',
             'position' => 'required',
-            'color' => 'required',
-            'icon' => 'required'
+            'color'    => 'required',
+            'icon'     => 'required',
         ]);
 
         if ($v->fails()) {
@@ -113,10 +115,11 @@ class GroupsController extends Controller
     }
 
     /**
-     * Group Edit Form
+     * Group Edit Form.
      *
      * @param $group
      * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function editForm($group, $id)
@@ -127,11 +130,12 @@ class GroupsController extends Controller
     }
 
     /**
-     * Edit A Group
+     * Edit A Group.
      *
      * @param \Illuminate\Http\Request $request
      * @param $group
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function edit(Request $request, $group, $id)
@@ -154,11 +158,11 @@ class GroupsController extends Controller
         $group->autogroup = $request->input('autogroup');
 
         $v = validator($group->toArray(), [
-            'name' => 'required',
-            'slug' => 'required',
+            'name'     => 'required',
+            'slug'     => 'required',
             'position' => 'required',
-            'color' => 'required',
-            'icon' => 'required'
+            'color'    => 'required',
+            'icon'     => 'required',
         ]);
 
         if ($v->fails()) {
@@ -166,6 +170,7 @@ class GroupsController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
+
             return redirect()->route('staff_groups_index')
                 ->with($this->toastr->success('Group Was Updated Successfully!', 'Yay!', ['options']));
         }

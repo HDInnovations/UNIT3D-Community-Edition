@@ -1,22 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-
-use Illuminate\Database\Seeder;
 use App\User;
+use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
 {
     /**
-     * Auto generated seed file
+     * Auto generated seed file.
      *
      * @return void
      */
@@ -25,38 +25,38 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'username' => 'System',
-                'email' => 'system@none.com',
+                'email'    => 'system@none.com',
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
-                'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
+                'passkey'  => md5(uniqid().time().microtime()),
+                'active'   => 1,
             ],
             [
                 'username' => 'Bot',
-                'email' => 'bot@none.com',
+                'email'    => 'bot@none.com',
                 'group_id' => 9,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD')),
-                'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
+                'passkey'  => md5(uniqid().time().microtime()),
+                'active'   => 1,
             ],
             [
                 'username' => env('DEFAULT_OWNER_NAME', 'UNIT3D'),
-                'email' => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
+                'email'    => env('DEFAULT_OWNER_EMAIL', 'none@none.com'),
                 'group_id' => 10,
                 'password' => \Hash::make(env('DEFAULT_OWNER_PASSWORD', 'UNIT3D')),
-                'passkey' => md5(uniqid() . time() . microtime()),
-                'active' => 1
-            ]
+                'passkey'  => md5(uniqid().time().microtime()),
+                'active'   => 1,
+            ],
         ];
 
         foreach ($users as $user) {
             User::create([
                 'username' => $user['username'],
-                'email' => $user['email'],
+                'email'    => $user['email'],
                 'group_id' => $user['group_id'],
                 'password' => $user['password'],
-                'passkey' => $user['passkey'],
-                'active' => $user['active']
+                'passkey'  => $user['passkey'],
+                'active'   => $user['active'],
             ]);
         }
     }

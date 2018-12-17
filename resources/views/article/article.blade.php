@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ config('other.title') }}</title>
+    <title>{{ $article->title }} - @lang('articles.articles') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('articles.articles') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
         </a>
     </li>
     <li>
@@ -36,7 +36,7 @@
         <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
         <p class="text-muted">
-            <em>{{ trans('articles.published-at') }} {{ $article->created_at->toDayDateTimeString() }}</em>
+            <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
         </p>
 
         <p style="margin-top: 20px;">@emojione($article->getContentHtml())</p>
@@ -49,14 +49,14 @@
                 <div class="panel panel-danger">
                     <div class="panel-heading border-light">
                         <h4 class="panel-title">
-                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> {{ trans('common.comments') }}
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
                         </h4>
                     </div>
                     <div class="panel-body no-padding">
                         <ul class="media-list comments-list">
                             @if (count($article->comments) == 0)
                                 <div class="text-center"><h4 class="text-bold text-danger"><i
-                                                class="{{ config('other.font-awesome') }} fa-frown"></i> {{ trans('common.no-comments') }}!</h4>
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!</h4>
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
@@ -82,10 +82,10 @@
                                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
-                                                <a title="{{ trans('common.delete-comment') }}"
+                                                <a title="@lang('common.delete-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
                                                             class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
-                                                <a title="{{ trans('common.edit-comment') }}" data-toggle="modal"
+                                                <a title="@lang('common.edit-comment')" data-toggle="modal"
                                                    data-target="#modal-comment-edit-{{ $comment->id }}"><i
                                                             class="pull-right {{ config('other.font-awesome') }} fa-pencil"
                                                             aria-hidden="true"></i></a>
@@ -109,16 +109,16 @@
                 <form role="form" method="POST" action="{{ route('comment_article', ['slug' => $article->slug, 'id' => $article->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="content">{{ trans('common.your-comment') }}:</label><span class="badge-extra">{{ trans('common.type') }}
-                            <strong>:</strong> {{ trans('common.for') }} emoji</span> <span
-                                class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
+                        <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
+                            <strong>:</strong> @lang('common.for') emoji</span> <span
+                                class="badge-extra">BBCode @lang('common.is-allowed')</span>
                         <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger">{{ trans('common.submit') }}</button>
-                    <label class="radio-inline"><strong>{{ trans('common.anonymous') }} {{ trans('common.comment') }}
+                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
+                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
                             :</strong></label>
-                    <input type="radio" value="1" name="anonymous"> {{ trans('common.yes') }}
-                    <input type="radio" value="0" checked="checked" name="anonymous"> {{ trans('common.no') }}
+                    <input type="radio" value="1" name="anonymous"> @lang('common.yes')
+                    <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
                 </form>
             </div>
         </div>

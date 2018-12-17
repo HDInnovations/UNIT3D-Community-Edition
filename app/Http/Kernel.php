@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
+
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -64,21 +76,21 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'auth'          => \App\Http\Middleware\Authenticate::class,
+        'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
-        'admin' => \App\Http\Middleware\CheckForAdmin::class,
-        'private' => \App\Http\Middleware\CheckForPrivate::class,
-        'modo' => \App\Http\Middleware\CheckForModo::class,
-        'check_ip' => \App\Http\Middleware\CheckIfAlreadyVoted::class,
-        'language' => \App\Http\Middleware\SetLanguage::class,
-        'banned' => \App\Http\Middleware\CheckIfBanned::class,
-        'active' => \App\Http\Middleware\CheckIfActive::class,
-        'online' => \App\Http\Middleware\CheckIfOnline::class,
-        'twostep' => \App\Http\Middleware\TwoStepAuth::class,
+        'can'           => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
+        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
+        'private'       => \App\Http\Middleware\CheckForPrivate::class,
+        'modo'          => \App\Http\Middleware\CheckForModo::class,
+        'check_ip'      => \App\Http\Middleware\CheckIfAlreadyVoted::class,
+        'language'      => \App\Http\Middleware\SetLanguage::class,
+        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
+        'active'        => \App\Http\Middleware\CheckIfActive::class,
+        'online'        => \App\Http\Middleware\CheckIfOnline::class,
+        'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
     ];
 }

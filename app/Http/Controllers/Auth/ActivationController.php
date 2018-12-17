@@ -1,22 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\UserActivation;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Group;
+use App\UserActivation;
 use Brian2694\Toastr\Toastr;
+use App\Http\Controllers\Controller;
 
 class ActivationController extends Controller
 {
@@ -26,7 +26,7 @@ class ActivationController extends Controller
     private $toastr;
 
     /**
-     * ActivationController Constructor
+     * ActivationController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -40,7 +40,7 @@ class ActivationController extends Controller
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
         $memberGroup = Group::where('slug', '=', 'user')->select('id')->first();
 
-        $activation = UserActivation::with('user')->where('token', $token)->firstOrFail();
+        $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();
         if ($activation->user->id && $activation->user->group->id != $bannedGroup->id) {
             $activation->user->active = 1;
             $activation->user->can_upload = 1;
@@ -52,9 +52,10 @@ class ActivationController extends Controller
             $activation->user->save();
 
             // Activity Log
-            \LogActivity::addToLog("Member " . $activation->user->username . " has successfully activated his/her account.");
+            \LogActivity::addToLog('Member '.$activation->user->username.' has successfully activated his/her account.');
 
             $activation->delete();
+
             return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
         } else {
             return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));

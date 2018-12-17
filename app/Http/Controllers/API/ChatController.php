@@ -1,28 +1,28 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\ChatMessageResource;
-use App\Http\Resources\ChatRoomResource;
-use App\Repositories\ChatRepository;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Auth\AuthManager;
+use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\ChatMessageResource;
 
 class ChatController extends Controller
 {
-
     /**
      * @var ChatRepository
      */
@@ -79,7 +79,7 @@ class ChatController extends Controller
 
         $message = $this->chat->message($user_id, $room_id, $message);
 
-        if (!$save) {
+        if (! $save) {
             $message->delete();
         }
 
@@ -89,6 +89,7 @@ class ChatController extends Controller
     public function deleteMessage($id)
     {
         $this->chat->deleteMessage($id);
+
         return response('success', 200);
     }
 

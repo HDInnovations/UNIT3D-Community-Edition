@@ -45,7 +45,7 @@
         </div>
         <br>
         <br>
-        <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
+        <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>
 @endsection

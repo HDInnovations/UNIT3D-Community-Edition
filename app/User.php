@@ -1,26 +1,26 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Gstt\Achievements\Achiever;
-use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use function theodorejb\polycast\to_int;
-use App\Helpers\StringHelper;
-use App\Helpers\Bbcode;
 use Carbon\Carbon;
+use App\Helpers\Bbcode;
+use App\Helpers\StringHelper;
+use Gstt\Achievements\Achiever;
+use function theodorejb\polycast\to_int;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -36,18 +36,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'passkey',
-        'remember_token'
+        'remember_token',
     ];
 
     /**
-     * The Attributes That Should Be Mutated To Dates
+     * The Attributes That Should Be Mutated To Dates.
      *
      * @var array
      */
     protected $dates = ['last_login', 'deleted_at'];
 
     /**
-     * Belongs To A Group
+     * Belongs To A Group.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs To A Chatroom
+     * Belongs To A Chatroom.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs To A Chat Status
+     * Belongs To A Chat Status.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -77,7 +77,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Belongs To Many Bookmarks
+     * Belongs To Many Bookmarks.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -92,7 +92,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Messages
+     * Has Many Messages.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -102,7 +102,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Thanks Given
+     * Has Many Thanks Given.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -112,7 +112,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Wish's
+     * Has Many Wish's.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -122,7 +122,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Thanks Received
+     * Has Many Thanks Received.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -132,7 +132,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Polls
+     * Has Many Polls.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -142,7 +142,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Torrents
+     * Has Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -152,27 +152,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Sent PM's
+     * Has Many Sent PM's.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_sender()
     {
-        return $this->hasMany(PrivateMessage::class, "sender_id");
+        return $this->hasMany(PrivateMessage::class, 'sender_id');
     }
 
     /**
-     * Has Many Received PM's
+     * Has Many Received PM's.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_receiver()
     {
-        return $this->hasMany(PrivateMessage::class, "receiver_id");
+        return $this->hasMany(PrivateMessage::class, 'receiver_id');
     }
 
     /**
-     * Has Many Peers
+     * Has Many Peers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -182,7 +182,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Followers
+     * Has Many Followers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -192,7 +192,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Articles
+     * Has Many Articles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -202,7 +202,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Topics
+     * Has Many Topics.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -212,7 +212,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Posts
+     * Has Many Posts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -222,7 +222,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Comments
+     * Has Many Comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -232,7 +232,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Torrent Requests
+     * Has Many Torrent Requests.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -242,7 +242,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Approved Many Torrent Requests
+     * Has Approved Many Torrent Requests.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -252,7 +252,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Filled Many Torrent Requests
+     * Has Filled Many Torrent Requests.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -262,7 +262,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Torrent Request BON Bounties
+     * Has Many Torrent Request BON Bounties.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -272,7 +272,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Moderated Many Torrents
+     * Has Moderated Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -282,7 +282,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Notes
+     * Has Many Notes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -292,7 +292,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Reports
+     * Has Many Reports.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -302,7 +302,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Solved Many Reports
+     * Has Solved Many Reports.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -312,37 +312,37 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Torrent History
+     * Has Many Torrent History.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function history()
     {
-        return $this->hasMany(History::class, "user_id");
+        return $this->hasMany(History::class, 'user_id');
     }
 
     /**
-     * Has Many Bans
+     * Has Many Bans.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function userban()
     {
-        return $this->hasMany(Ban::class, "owned_by");
+        return $this->hasMany(Ban::class, 'owned_by');
     }
 
     /**
-     * Has Given Many Bans
+     * Has Given Many Bans.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function staffban()
     {
-        return $this->hasMany(Ban::class, "created_by");
+        return $this->hasMany(Ban::class, 'created_by');
     }
 
     /**
-     * Has Given Many Warnings
+     * Has Given Many Warnings.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -352,7 +352,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Deleted Many Warnings
+     * Has Deleted Many Warnings.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -362,7 +362,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Warnings
+     * Has Many Warnings.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -372,7 +372,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Given Many Invites
+     * Has Given Many Invites.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -382,7 +382,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Received Many Invites
+     * Has Received Many Invites.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -392,7 +392,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Featured Torrents
+     * Has Many Featured Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -402,7 +402,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Post Likes
+     * Has Many Post Likes.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -412,7 +412,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Given Many BON Tips
+     * Has Given Many BON Tips.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -422,7 +422,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Received Many BON Tips
+     * Has Received Many BON Tips.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -432,7 +432,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Has Many Subscriptions
+     * Has Many Subscriptions.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -442,56 +442,59 @@ class User extends Authenticatable
     }
 
     /**
-     * Does Subscription Exist
+     * Does Subscription Exist.
      *
      * @param $topic_id
+     *
      * @return string
      */
     public function isSubscribed($topic_id)
     {
-        return (bool)$this->subscriptions()->where('topic_id', $topic_id)->first(['id']);
+        return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
     }
 
     /**
-     * Get All Followers Of A User
+     * Get All Followers Of A User.
      *
      * @param $target_id
+     *
      * @return string
      */
     public function isFollowing($target_id)
     {
-        return (bool)$this->follows()->where('target_id', $target_id)->first(['id']);
+        return (bool) $this->follows()->where('target_id', '=', $target_id)->first(['id']);
     }
 
     /**
-     * Return Upload In Human Format
+     * Return Upload In Human Format.
      */
     public function getUploaded($bytes = null, $precision = 2)
     {
         $bytes = $this->uploaded;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Return Download In Human Format
-     *
+     * Return Download In Human Format.
      */
     public function getDownloaded($bytes = null, $precision = 2)
     {
         $bytes = $this->downloaded;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Return The Ratio
-     *
+     * Return The Ratio.
      */
     public function getRatio()
     {
         if ($this->downloaded == 0) {
             return INF;
         }
-        return (float)round($this->uploaded / $this->downloaded, 2);
+
+        return (float) round($this->uploaded / $this->downloaded, 2);
     }
 
     // Return the ratio pretty formated as a string.
@@ -499,9 +502,9 @@ class User extends Authenticatable
     {
         $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
-            return "∞";
+            return '∞';
         } else {
-            return (string)$ratio;
+            return (string) $ratio;
         }
     }
 
@@ -511,7 +514,8 @@ class User extends Authenticatable
         if ($this->downloaded + $size == 0) {
             return INF;
         }
-        return (float)round($this->uploaded / ($this->downloaded + $size), 2);
+
+        return (float) round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
@@ -519,14 +523,14 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
-            return $this->getRatioString() . " (Freeleech)";
+            return $this->getRatioString().' (Freeleech)';
         }
 
         $ratio = $this->ratioAfterSize($size);
         if (is_infinite($ratio)) {
-            return "∞";
+            return '∞';
         } else {
-            return (string)$ratio;
+            return (string) $ratio;
         }
     }
 
@@ -535,17 +539,17 @@ class User extends Authenticatable
     public function untilRatio($ratio)
     {
         if ($ratio == 0.0) {
-            return "∞";
+            return '∞';
         }
 
         $bytes = to_int(round($this->uploaded / $ratio));
+
         return StringHelper::formatBytes($bytes);
     }
 
     /**
-     * Returns the HTML of the user's signature
+     * Returns the HTML of the user's signature.
      *
-     * @access public
      * @return string html
      */
     public function getSignature()
@@ -554,14 +558,14 @@ class User extends Authenticatable
     }
 
     /**
-     * Parse About Me And Return Valid HTML
+     * Parse About Me And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml()
     {
         if (empty($this->about)) {
-            return ('N/A');
+            return 'N/A';
         } else {
             return Bbcode::parse($this->about);
         }
@@ -572,7 +576,6 @@ class User extends Authenticatable
      *
      * Formats the seebonus of the User
      *
-     * @access public
      * @return decimal
      */
     public function getSeedbonus()
@@ -585,8 +588,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getSeeding()
     {
@@ -601,8 +603,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getLast30Uploads()
     {
@@ -619,8 +620,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getUploads()
     {
@@ -634,8 +634,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getLeeching()
     {
@@ -650,8 +649,7 @@ class User extends Authenticatable
      *
      * Gets count on users active warnings
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getWarning()
     {
@@ -666,8 +664,7 @@ class User extends Authenticatable
      *
      * Gets the users total seedtime
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getTotalSeedTime()
     {
@@ -680,8 +677,7 @@ class User extends Authenticatable
      *
      * Gets the users total seedsoze
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getTotalSeedSize()
     {
@@ -697,6 +693,6 @@ class User extends Authenticatable
      */
     public function isOnline()
     {
-        return cache()->has('user-is-online-' . $this->id);
+        return cache()->has('user-is-online-'.$this->id);
     }
 }

@@ -1,29 +1,30 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ChatRepository;
-use App\Repositories\TaggedUserRepository;
-use Illuminate\Http\Request;
 use App\User;
 use App\Article;
 use App\Comment;
 use App\Torrent;
-use App\TorrentRequest;
 use App\PrivateMessage;
+use App\TorrentRequest;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Repositories\ChatRepository;
 use App\Achievements\UserMadeComment;
-use App\Achievements\UserMadeTenComments;
 use App\Achievements\UserMade50Comments;
+use App\Notifications\NewTorrentComment;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -33,8 +34,8 @@ use App\Achievements\UserMade600Comments;
 use App\Achievements\UserMade700Comments;
 use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
-use App\Notifications\NewTorrentComment;
-use Brian2694\Toastr\Toastr;
+use App\Achievements\UserMadeTenComments;
+use App\Repositories\TaggedUserRepository;
 
 class CommentController extends Controller
 {
@@ -54,11 +55,11 @@ class CommentController extends Controller
     private $toastr;
 
     /**
-     * CommentController Constructor
+     * CommentController Constructor.
      *
      * @param TaggedUserRepository $tag
-     * @param ChatRepository $chat
-     * @param Toastr $toastr
+     * @param ChatRepository       $chat
+     * @param Toastr               $toastr
      */
     public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Toastr $toastr)
     {
@@ -68,11 +69,12 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Article
+     * Add A Comment To A Article.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function article(Request $request, $slug, $id)
@@ -92,10 +94,10 @@ class CommentController extends Controller
         $comment->article_id = $article->id;
 
         $v = validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'    => 'required',
+            'user_id'    => 'required',
             'article_id' => 'required',
-            'anon' => 'required'
+            'anon'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -123,7 +125,7 @@ class CommentController extends Controller
 
                     $this->tag->messageUsers(
                         $users,
-                        "You are being notified by staff!",
+                        'You are being notified by staff!',
                         $pm
                     );
                 } else {
@@ -155,11 +157,12 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent
+     * Add A Comment To A Torrent.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function torrent(Request $request, $slug, $id)
@@ -179,10 +182,10 @@ class CommentController extends Controller
         $comment->torrent_id = $torrent->id;
 
         $v = validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'    => 'required',
+            'user_id'    => 'required',
             'torrent_id' => 'required',
-            'anon' => 'required'
+            'anon'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -222,7 +225,7 @@ class CommentController extends Controller
 
                     $this->tag->messageUsers(
                         $users,
-                        "You are being notified by staff!",
+                        'You are being notified by staff!',
                         $message
                     );
                 } else {
@@ -254,11 +257,12 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Request
+     * Add A Comment To A Request.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function request(Request $request, $id)
@@ -278,10 +282,10 @@ class CommentController extends Controller
         $comment->requests_id = $tr->id;
 
         $v = validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
+            'content'     => 'required',
+            'user_id'     => 'required',
             'requests_id' => 'required',
-            'anon' => 'required'
+            'anon'        => 'required',
         ]);
 
         if ($v->fails()) {
@@ -316,7 +320,7 @@ class CommentController extends Controller
 
                     $this->tag->messageUsers(
                         $users,
-                        "You are being notified by staff!",
+                        'You are being notified by staff!',
                         $message
                     );
                 } else {
@@ -344,11 +348,11 @@ class CommentController extends Controller
 
             // Auto PM
             if ($user->id != $tr->user_id) {
-                $pm = new PrivateMessage;
+                $pm = new PrivateMessage();
                 $pm->sender_id = 1;
                 $pm->receiver_id = $tr->user_id;
-                $pm->subject = "Your Request " . $tr->name . " Has A New Comment!";
-                $pm->message = $comment->user->username . " Has Left A Comment On [url={$tr_url}]" . $tr->name . "[/url]";
+                $pm->subject = 'Your Request '.$tr->name.' Has A New Comment!';
+                $pm->message = $comment->user->username." Has Left A Comment On [url={$tr_url}]".$tr->name.'[/url]';
                 $pm->save();
             }
 
@@ -358,9 +362,10 @@ class CommentController extends Controller
     }
 
     /**
-     * Add A Comment To A Torrent Via Quick Thanks
+     * Add A Comment To A Torrent Via Quick Thanks.
      *
      * @param $id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function quickthanks($id)
@@ -375,9 +380,9 @@ class CommentController extends Controller
 
         $comment = new Comment();
         $thankArray = [
-            "Thanks for the upload! :thumbsup_tone2:",
-            "Time and effort is much appreciated :thumbsup_tone2:",
-            "Great upload! :fire:", "Thankyou :smiley:"
+            'Thanks for the upload! :thumbsup_tone2:',
+            'Time and effort is much appreciated :thumbsup_tone2:',
+            'Great upload! :fire:', 'Thankyou :smiley:',
         ];
         $selected = mt_rand(0, count($thankArray) - 1);
         $comment->content = $thankArray[$selected];
@@ -385,9 +390,9 @@ class CommentController extends Controller
         $comment->torrent_id = $torrent->id;
 
         $v = validator($comment->toArray(), [
-            'content' => 'required',
-            'user_id' => 'required',
-            'torrent_id' => 'required'
+            'content'    => 'required',
+            'user_id'    => 'required',
+            'torrent_id' => 'required',
         ]);
 
         if ($v->fails()) {
@@ -429,10 +434,11 @@ class CommentController extends Controller
     }
 
     /**
-     * Edit A Comment
+     * Edit A Comment.
      *
      * @param \Illuminate\Http\Request $request
      * @param $comment_id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function editComment(Request $request, $comment_id)
@@ -449,9 +455,10 @@ class CommentController extends Controller
     }
 
     /**
-     * Delete A Comment
+     * Delete A Comment.
      *
      * @param $comment_id
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function deleteComment($comment_id)

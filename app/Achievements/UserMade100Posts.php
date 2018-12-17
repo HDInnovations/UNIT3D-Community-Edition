@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -19,12 +20,12 @@ class UserMade100Posts extends Achievement
     /*
      * The achievement name
      */
-    public $name = "100Posts";
+    public $name = '100Posts';
 
     /*
      * A small description for the achievement
      */
-    public $description = "Wow! You have already made 100 posts!";
+    public $description = 'Wow! You have already made 100 posts!';
 
     /*
     * The amount of "points" this user need to obtain in order to complete this achievement

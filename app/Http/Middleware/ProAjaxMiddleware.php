@@ -1,15 +1,16 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -17,10 +18,9 @@ use Illuminate\Http\JsonResponse;
 
 class ProAjaxMiddleware
 {
-
     /**
      * All your flash names.
-     * E.g. you might have a flash message named "flash_message" for your standard bootstrap alert flash messages,
+     * E.g. you might have a flash message named "flash_message" for your standard bootstrap alert flash messages,.
      *
      * @var array
      */
@@ -30,8 +30,9 @@ class ProAjaxMiddleware
      * After the request has been made, determine if an alert should be shown,
      * or if the user should be redirected to another page.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -45,7 +46,7 @@ class ProAjaxMiddleware
         // We do not need to do anything, just skip and continue
         //dd(!$response->isSuccessful());
         //if ($response instanceof JsonResponse || !$this->isAjaxRequest($request) || $response->isSuccessful()) {
-        if ($response instanceof JsonResponse || !$this->isAjaxRequest($request) || $response->isServerError() || $response->isSuccessful()) {
+        if ($response instanceof JsonResponse || ! $this->isAjaxRequest($request) || $response->isServerError() || $response->isSuccessful()) {
             return $response;
         }
 
@@ -71,7 +72,7 @@ class ProAjaxMiddleware
 
             // Finally, let's return a json with the flash message
             return response()->json([
-                'type' => $flash_message['type'],
+                'type'    => $flash_message['type'],
                 'message' => $flash_message['message'],
                 //'redirect' => $flash_message['redirect'], // Returns false if no redirect request
             ]);
@@ -83,9 +84,10 @@ class ProAjaxMiddleware
     }
 
     /**
-     * Determine if the request is an ajax request
+     * Determine if the request is an ajax request.
      *
      * @param $request
+     *
      * @return bool
      */
     public function isAjaxRequest($request)
@@ -94,9 +96,10 @@ class ProAjaxMiddleware
     }
 
     /**
-     * Check if the session has flash data
+     * Check if the session has flash data.
      *
      * @param $request
+     *
      * @return bool
      */
     public function sessionHasFlashData($request)
@@ -108,6 +111,7 @@ class ProAjaxMiddleware
      * Get the flash message itself.
      *
      * @param $request
+     *
      * @return array
      */
     public function getFlashMessage($request)
@@ -116,20 +120,22 @@ class ProAjaxMiddleware
 
         $flash_message['type'] = $session->get("{$this->flash_name}.type");
         $flash_message['message'] = $session->get("{$this->flash_name}.message");
+
         return $flash_message;
     }
 
     /**
-     * Check if the user should be redirected
+     * Check if the user should be redirected.
      *
      * @param $request
      * @param $response
+     *
      * @return bool
      */
     public function shouldRedirectRequest($request, $response)
     {
         // If there is no target URL, we know that it is not a redirect request
-        if (!method_exists($response, 'getTargetUrl')) {
+        if (! method_exists($response, 'getTargetUrl')) {
             return false;
         }
 

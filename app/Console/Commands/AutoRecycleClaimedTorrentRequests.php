@@ -1,22 +1,23 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Repositories\ChatRepository;
+use Carbon\Carbon;
 use App\TorrentRequest;
 use App\TorrentRequestClaim;
-use Carbon\Carbon;
+use Illuminate\Console\Command;
+use App\Repositories\ChatRepository;
 
 class AutoRecycleClaimedTorrentRequests extends Command
 {
@@ -61,7 +62,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             ->get();
 
         foreach ($torrentRequests as $torrentRequest) {
-            $requestClaim = TorrentRequestClaim::where('request_id', $torrentRequest->id)
+            $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
                 ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
                 ->first();
             if ($requestClaim) {

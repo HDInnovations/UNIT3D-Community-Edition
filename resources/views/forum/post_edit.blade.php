@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('common.edit') }} {{ trans('forum.post') }} - {{ $topic->name }}
+    <title>@lang('common.edit') @lang('forum.post') - {{ $topic->name }}
         - {{ config('other.title') }}</title>
 @endsection
 
@@ -12,7 +12,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
@@ -37,7 +37,7 @@
         <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ trans('common.edit') }} {{ trans('forum.post') }}</span>
+                  class="l-breadcrumb-item-link-title">@lang('common.edit') @lang('forum.post')</span>
         </a>
     </li>
 @endsection
@@ -45,7 +45,7 @@
 @section('content')
     <div class="forum box container">
         <div class="col-md-12">
-            <h2>{{ trans('common.edit') }} {{ trans('forum.post') }} {{ strtolower(trans('forum.in')) }}
+            <h2>@lang('common.edit') @lang('forum.post') {{ strtolower(trans('forum.in')) }}
                 : {{ $forum->name }}</h2>
             <form role="form" method="POST"
                   action="{{ route('forum_post_edit',['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $post->id]) }}">
@@ -54,7 +54,7 @@
                     <textarea id="content" name="content" cols="30" rows="10"
                               class="form-control">{{ $post->content }}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
             </form>
         </div>
     </div>

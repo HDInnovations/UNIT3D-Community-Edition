@@ -26,8 +26,8 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th>{{ trans('common.user') }}</th>
-                            <th>{{ trans('user.total-uploads') }}</th>
+                            <th>@lang('common.user')</th>
+                            <th>@lang('user.total-uploads')</th>
                             <th>Place</th>
                         </tr>
                         </thead>
@@ -81,8 +81,8 @@
                         <thead>
                         <tr>
                             <th class="torrents-icon"></th>
-                            <th>{{ trans('common.user') }}</th>
-                            <th>{{ trans('user.total-uploads') }}</th>
+                            <th>@lang('common.user')</th>
+                            <th>@lang('user.total-uploads')</th>
                             <th>Place</th>
                         </tr>
                         </thead>

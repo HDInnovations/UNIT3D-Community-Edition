@@ -1,20 +1,21 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\EncryptException;
-use Illuminate\Support\Facades\Crypt;
 
 trait Encryptable
 {
@@ -66,7 +67,7 @@ trait Encryptable
      */
     public function encryptedAttribute($value)
     {
-        return $this->getCryptPrefix() . Crypt::encrypt($value);
+        return $this->getCryptPrefix().Crypt::encrypt($value);
     }
 
     /**

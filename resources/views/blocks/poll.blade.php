@@ -1,4 +1,4 @@
-@if ($poll && $poll->voters->where('user_id', auth()->user()->id)->isEmpty())
+@if ($poll && $poll->voters->where('user_id', '=', auth()->user()->id)->isEmpty())
     <div class="col-md-10 col-sm-10 col-md-offset-1">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
@@ -53,12 +53,12 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <button type="submit"
-                                                    class="btn btn-primary">{{ trans('poll.vote') }}</button>
+                                                    class="btn btn-primary">@lang('poll.vote')</button>
                                         </div>
                                     </div>
                                 </form>
                                 @if ($poll->multiple_choice)
-                                    <span class="badge-user text-bold text-red">{{ trans('poll.multiple-choice') }}</span>
+                                    <span class="badge-user text-bold text-red">@lang('poll.multiple-choice')</span>
                                 @endif
                             </div>
                         </div>

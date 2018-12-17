@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  * NOTICE OF LICENSE
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0

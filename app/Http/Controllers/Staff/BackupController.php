@@ -1,32 +1,33 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Adapter\Local;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use League\Flysystem\Adapter\Local;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class BackupController extends Controller
 {
     /**
-     * Display All Backups
+     * Display All Backups.
      */
     public function index()
     {
-        if (!count(config('backup.backup.destination.disks'))) {
+        if (! count(config('backup.backup.destination.disks'))) {
             dd(trans('backup.no_disks_configured'));
         }
 
@@ -61,7 +62,7 @@ class BackupController extends Controller
     }
 
     /**
-     * Create A Backup
+     * Create A Backup.
      */
     public function create()
     {
@@ -72,7 +73,7 @@ class BackupController extends Controller
             $output = Artisan::output();
 
             // log the results
-            info("A new backup was initiated from the staff dashboard ".$output);
+            info('A new backup was initiated from the staff dashboard '.$output);
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $e) {
@@ -83,7 +84,7 @@ class BackupController extends Controller
     }
 
     /**
-     * Download A Backup
+     * Download A Backup.
      *
      * @param \Illuminate\Http\Request $request
      */
@@ -107,7 +108,7 @@ class BackupController extends Controller
     }
 
     /**
-     * Deletes A Backup
+     * Deletes A Backup.
      *
      * @param \Illuminate\Http\Request $request
      * @param $file_name

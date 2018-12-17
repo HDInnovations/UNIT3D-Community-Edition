@@ -1,24 +1,25 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Repositories;
 
-use App\PrivateMessage;
 use App\User;
+use App\PrivateMessage;
 
 class TaggedUserRepository
 {
     /**
-     * Enables various debugging options:
+     * Enables various debugging options:.
      *
      * 1. Allows you to tag yourself while testing and debugging
      *
@@ -43,7 +44,8 @@ class TaggedUserRepository
 
     /**
      * TaggedUserRepository constructor.
-     * @param User $user
+     *
+     * @param User           $user
      * @param PrivateMessage $message
      */
     public function __construct(User $user, PrivateMessage $message)
@@ -54,16 +56,19 @@ class TaggedUserRepository
 
     /**
      * @param $content
+     *
      * @return mixed
      */
     public function getTags($content)
     {
         preg_match_all($this->regex, $content, $tagged);
+
         return $tagged[0];
     }
 
     /**
      * @param $content
+     *
      * @return bool
      */
     public function hasTags($content)
@@ -74,6 +79,7 @@ class TaggedUserRepository
     /**
      * @param $haystack
      * @param $needle
+     *
      * @return bool
      */
     public function contains($haystack, $needle)
@@ -100,6 +106,7 @@ class TaggedUserRepository
      * @param $users
      * @param $subject
      * @param $message
+     *
      * @return bool
      */
     public function messageUsers($users, $subject, $message)
@@ -132,6 +139,7 @@ class TaggedUserRepository
             $pm->message = $message;
             $pm->save();
         }
+
         return true;
     }
 
@@ -154,7 +162,7 @@ class TaggedUserRepository
     protected function validate($user)
     {
         if (is_object($user)) {
-            if (!$this->debug || $user->id === auth()->user()->id) {
+            if (! $this->debug || $user->id === auth()->user()->id) {
                 return false;
             }
 

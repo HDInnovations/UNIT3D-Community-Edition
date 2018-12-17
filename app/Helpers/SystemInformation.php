@@ -1,29 +1,29 @@
 <?php
 
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class SystemInformation
 {
     public function avg()
     {
         if (is_readable('/proc/loadavg')) {
-            return (float)file_get_contents('/proc/loadavg');
+            return (float) file_get_contents('/proc/loadavg');
         }
-        return null;
     }
 
     public function memory()
@@ -39,14 +39,15 @@ class SystemInformation
 
             return [
                 'total' => $this->formatBytes($total),
-                'free' => $this->formatBytes($free),
-                'used' => $this->formatBytes($total - $free)
+                'free'  => $this->formatBytes($free),
+                'used'  => $this->formatBytes($total - $free),
             ];
         }
+
         return [
             'total' => 0,
-            'free' => 0,
-            'used' => 0
+            'free'  => 0,
+            'used'  => 0,
         ];
     }
 
@@ -62,26 +63,26 @@ class SystemInformation
         // $bytes /= pow(1024, $pow);
         $bytes /= (1 << (10 * $pow));
 
-        return round($bytes, $precision) . ' ' . $units[$pow];
+        return round($bytes, $precision).' '.$units[$pow];
     }
 
     public function disk()
     {
         $total = disk_total_space(base_path());
         $free = disk_free_space(base_path());
+
         return [
             'total' => $this->formatBytes($total),
-            'free' => $this->formatBytes($free),
-            'used' => $this->formatBytes($total - $free)
+            'free'  => $this->formatBytes($free),
+            'used'  => $this->formatBytes($total - $free),
         ];
     }
 
     public function uptime()
     {
         if (is_readable('/proc/uptime')) {
-            return (float)file_get_contents('/proc/uptime');
+            return (float) file_get_contents('/proc/uptime');
         }
-        return null;
     }
 
     public function systemTime(): Carbon
@@ -92,12 +93,13 @@ class SystemInformation
     public function basic()
     {
         return [
-            'os' => php_uname('s'),
-            'php' => phpversion(),
+            'os'       => php_uname('s'),
+            'php'      => phpversion(),
             'database' => $this->getDatabase(),
-            'laravel' => app()->version(),
+            'laravel'  => app()->version(),
         ];
     }
+
     private function getDatabase()
     {
         $knownDatabases = [
@@ -109,7 +111,8 @@ class SystemInformation
         if (! in_array(config('database.default'), $knownDatabases)) {
             return 'Unkown';
         }
-        $results = DB::select(DB::raw("select version()"));
+        $results = DB::select(DB::raw('select version()'));
+
         return $results[0]->{'version()'};
     }
 }

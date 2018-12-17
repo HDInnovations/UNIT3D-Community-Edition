@@ -1,31 +1,31 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use App\User;
-use App\Torrent;
 use App\Peer;
-use App\History;
-use App\Category;
+use App\User;
 use App\Group;
+use App\History;
+use App\Torrent;
+use App\Category;
 use App\TorrentRequest;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class StatsController extends Controller
 {
     /**
-     * Show Extra-Stats Index
+     * Show Extra-Stats Index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -45,24 +45,28 @@ class StatsController extends Controller
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
             $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
             return User::whereNotIn('group_id', [$validatingGroup->id, $bannedGroup->id, $disabledGroup->id, $prunedGroup->id])->count();
         });
 
         // Total Disabled Members Count
         $disabled_user = cache()->remember('disabled_user', 60, function () {
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+
             return User::where('group_id', '=', $disabledGroup->id)->count();
         });
 
         // Total Pruned Members Count
         $pruned_user = cache()->remember('pruned_user', 60, function () {
             $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+
             return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
         });
 
         // Total Banned Members Count
         $banned_user = cache()->remember('banned_user', 60, function () {
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+
             return User::where('group_id', '=', $bannedGroup->id)->count();
         });
 
@@ -76,22 +80,22 @@ class StatsController extends Controller
 
         // Total HD Count
         $num_hd = cache()->remember('num_hd', 60, function () {
-            return Torrent::where('sd', 0)->count();
+            return Torrent::where('sd', '=', 0)->count();
         });
 
         // Total SD Count
         $num_sd = cache()->remember('num_sd', 60, function () {
-            return Torrent::where('sd', 1)->count();
+            return Torrent::where('sd', '=', 1)->count();
         });
 
         // Total Seeders
         $num_seeders = cache()->remember('num_seeders', 60, function () {
-            return Peer::where('seeder', 1)->count();
+            return Peer::where('seeder', '=', 1)->count();
         });
 
         // Total Leechers
         $num_leechers = cache()->remember('num_leechers', 60, function () {
-            return Peer::where('seeder', 0)->count();
+            return Peer::where('seeder', '=', 0)->count();
         });
 
         // Total Peers
@@ -126,29 +130,29 @@ class StatsController extends Controller
         $credited_up_down = $credited_upload + $credited_download;
 
         return view('stats.index', [
-            'all_user' => $all_user,
-            'active_user' => $active_user,
-            'disabled_user' => $disabled_user,
-            'pruned_user' => $pruned_user,
-            'banned_user' => $banned_user,
-            'num_torrent' => $num_torrent,
-            'categories' => $categories,
-            'num_hd' => $num_hd,
-            'num_sd' => $num_sd,
-            'num_seeders' => $num_seeders,
-            'num_leechers' => $num_leechers,
-            'num_peers' => $num_peers,
-            'actual_upload' => $actual_upload,
-            'actual_download' => $actual_download,
-            'actual_up_down' => $actual_up_down,
-            'credited_upload' => $credited_upload,
+            'all_user'          => $all_user,
+            'active_user'       => $active_user,
+            'disabled_user'     => $disabled_user,
+            'pruned_user'       => $pruned_user,
+            'banned_user'       => $banned_user,
+            'num_torrent'       => $num_torrent,
+            'categories'        => $categories,
+            'num_hd'            => $num_hd,
+            'num_sd'            => $num_sd,
+            'num_seeders'       => $num_seeders,
+            'num_leechers'      => $num_leechers,
+            'num_peers'         => $num_peers,
+            'actual_upload'     => $actual_upload,
+            'actual_download'   => $actual_download,
+            'actual_up_down'    => $actual_up_down,
+            'credited_upload'   => $credited_upload,
             'credited_download' => $credited_download,
-            'credited_up_down' => $credited_up_down,
+            'credited_up_down'  => $credited_up_down,
         ]);
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -166,7 +170,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -184,33 +188,33 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function seeders()
     {
         // Fetch Top Seeders
-        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', 1)->groupBy('user_id')->latest('value')->take(100)->get();
+        $seeders = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 1)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return view('stats.users.seeders', ['seeders' => $seeders]);
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function leechers()
     {
         // Fetch Top Leechers
-        $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', 0)->groupBy('user_id')->latest('value')->take(100)->get();
+        $leechers = Peer::with('user')->select(DB::raw('user_id, count(*) as value'))->where('seeder', '=', 0)->groupBy('user_id')->latest('value')->take(100)->get();
 
         return view('stats.users.leechers', ['leechers' => $leechers]);
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -223,7 +227,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -241,7 +245,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -254,7 +258,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Users
+     * Show Extra-Stats Users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -267,7 +271,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -280,7 +284,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -293,7 +297,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -306,33 +310,33 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function dying()
     {
         // Fetch Top Dying
-        $dying = Torrent::where('seeders', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
+        $dying = Torrent::where('seeders', '=', 1)->where('times_completed', '>=', '1')->latest('leechers')->take(100)->get();
 
         return view('stats.torrents.dying', ['dying' => $dying]);
     }
 
     /**
-     * Show Extra-Stats Torrents
+     * Show Extra-Stats Torrents.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function dead()
     {
         // Fetch Top Dead
-        $dead = Torrent::where('seeders', 0)->latest('leechers')->take(100)->get();
+        $dead = Torrent::where('seeders', '=', 0)->latest('leechers')->take(100)->get();
 
         return view('stats.torrents.dead', ['dead' => $dead]);
     }
 
     /**
-     * Show Extra-Stats Torrent Requests
+     * Show Extra-Stats Torrent Requests.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -345,7 +349,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups
+     * Show Extra-Stats Groups.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -358,7 +362,7 @@ class StatsController extends Controller
     }
 
     /**
-     * Show Extra-Stats Groups
+     * Show Extra-Stats Groups.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -366,7 +370,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::withTrashed()->where('group_id', $group->id)->latest()->paginate(100);
+        $users = User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }

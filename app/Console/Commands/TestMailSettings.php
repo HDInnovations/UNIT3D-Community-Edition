@@ -1,21 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Console\Command;
-use App\Mail\TestEmail;
 use App\User;
+use App\Mail\TestEmail;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class TestMailSettings extends Command
 {
@@ -33,7 +34,6 @@ class TestMailSettings extends Command
      */
     protected $description = 'Send A Test Email To Owner Account Using The Current Mail Configuration';
 
-
     /**
      * Execute the console command.
      *
@@ -43,7 +43,7 @@ class TestMailSettings extends Command
     {
         $owner = User::where('id', '=', 3)->pluck('email');
 
-        $this->info('Sending Test Email To ' . $owner);
+        $this->info('Sending Test Email To '.$owner);
         sleep(5);
 
         try {

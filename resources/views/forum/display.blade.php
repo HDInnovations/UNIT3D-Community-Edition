@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $forum->name }} - {{ trans('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>{{ $forum->name }} - @lang('forum.forums') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('forum.display-forum') . $forum->name }}">
+    <meta name="description" content="@lang('forum.display-forum')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('forum.forums') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
         </a>
     </li>
     <li>
@@ -30,7 +30,7 @@
                 <p class="f-display-info-description">{{ $forum->description }}
                     @if ($category->getPermission()->start_topic == true)
                         <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
-                           class="btn btn-primary" style="float:right;">{{ trans('forum.create-new-topic') }}</a>
+                           class="btn btn-primary" style="float:right;">@lang('forum.create-new-topic')</a>
                     @endif
                 </p>
             </div>
@@ -39,10 +39,10 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th>{{ trans('forum.topic') }}</th>
-                        <th>{{ trans('forum.author') }}</th>
-                        <th>{{ trans('forum.stats') }}</th>
-                        <th>{{ trans('forum.last-post-info') }}</th>
+                        <th>@lang('forum.topic')</th>
+                        <th>@lang('forum.author')</th>
+                        <th>@lang('forum.stats')</th>
+                        <th>@lang('forum.last-post-info')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -77,8 +77,8 @@
                                         href="{{ route('profile', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
-                                {{ $t->num_post - 1 }} {{ trans('forum.replies') }}
-                                \ {{ $t->views }} {{ trans('forum.views') }}
+                                {{ $t->num_post - 1 }} @lang('forum.replies')
+                                \ {{ $t->views }} @lang('forum.views')
                             </td>
                             @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id', 'desc')->first(); @endphp
                             <td class="f-display-topic-last-post">

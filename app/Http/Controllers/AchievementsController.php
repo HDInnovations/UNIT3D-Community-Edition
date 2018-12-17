@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -15,7 +16,7 @@ namespace App\Http\Controllers;
 class AchievementsController extends Controller
 {
     /**
-     * Show User Achievements
+     * Show User Achievements.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -27,10 +28,10 @@ class AchievementsController extends Controller
         $pending = $user->inProgressAchievements();
 
         return view('user.achievements', [
-            'user' => $user,
+            'user'         => $user,
             'achievements' => $achievements,
-            'locked' => $locked,
-            'pending' => $pending
+            'locked'       => $locked,
+            'pending'      => $pending,
         ]);
     }
 }
