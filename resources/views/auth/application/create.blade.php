@@ -104,7 +104,7 @@
                             <hr>
 
                             <div class="form-group">
-                                <label for="referer">How Did You Hear About BLU? <span class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span></label>
+                                <label for="referer">How Did You Hear About {{ config('other.title') }}? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
                                 <textarea name="referer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                             </div>
 
@@ -113,7 +113,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Submit Application
                                     </button>
-
+                                    <br>
                                     <a class="btn btn-link" href="#">
                                         Already Submitted One?
                                     </a>
