@@ -31,7 +31,7 @@
                         <div class="text-center black-item">
                             <h4>{{ $client }}</h4>
                             <span>@lang('page.blacklist-btclient')</span>
-                            <i class="{{ config('other.font-awesome') }} fa-ban text-red black-icon"></i>
+                            <i class="fal fa-ban text-red black-icon"></i>
                         </div>
                     </div>
                 @endforeach
