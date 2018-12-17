@@ -41,9 +41,13 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->latest()->paginate(25);
+        $applications = Application::withAnyStatus()
+            ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
+            ->withCount(['imageProofs', 'urlProofs'])
+            ->latest()
+            ->paginate(25);
 
-        return view('application.index', ['applications' => $applications]);
+        return view('Staff.application.index', ['applications' => $applications]);
     }
 
     /**
@@ -56,7 +60,7 @@ class ApplicationController extends Controller
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
-        return view('application.application', ['application' => $application]);
+        return view('Staff.application.application', ['application' => $application]);
     }
 
     /**

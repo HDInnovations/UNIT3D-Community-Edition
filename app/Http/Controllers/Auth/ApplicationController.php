@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -12,12 +12,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Application;
-use App\ApplicationImageProof;
+use Illuminate\Http\Request;
 use App\ApplicationUrlProof;
 use Brian2694\Toastr\Toastr;
+use App\ApplicationImageProof;
+use App\Http\Controllers\Controller;
 
 class ApplicationController extends Controller
 {
@@ -27,7 +27,7 @@ class ApplicationController extends Controller
     private $toastr;
 
     /**
-     * ApplicationController Constructor
+     * ApplicationController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -37,7 +37,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Application Add Form
+     * Application Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -47,7 +47,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Add A Application
+     * Add A Application.
      *
      * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
@@ -83,7 +83,6 @@ class ApplicationController extends Controller
             return redirect()->route('create_application')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $application->save();
 
             // Map And Save IMG Proofs
             $imgs = collect($request->input('img_proofs'))->map(function ($value) {
@@ -97,13 +96,15 @@ class ApplicationController extends Controller
             });
             $application->urlProofs()->saveMany($urls);
 
+            $application->save();
+
             return redirect()->route('login')
                 ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Get A Application (User Can Check Status)
+     * Get A Application (User Can Check Status).
      *
      * @param  $email
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
