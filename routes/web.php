@@ -534,5 +534,11 @@ Route::group(['middleware' => 'language'], function () {
 
         // Possible Cheaters
         Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
+
+        // Applications System
+        Route::get('/applications', 'ApplicationController@index')->name('applications');
+        Route::get('/application/{id}', 'ApplicationController@show')->name('application');
+        Route::get('/application/{id}/approve', 'ModerationController@approve')->name('moderation_approve');
+        Route::post('/application/{id}/reject', 'ModerationController@reject')->name('moderation_reject');
     });
 });
