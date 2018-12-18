@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -17,10 +17,9 @@ use Carbon\Carbon;
 use App\Application;
 use Ramsey\Uuid\Uuid;
 use App\Mail\InviteUser;
-use Illuminate\Http\Request;
 use Brian2694\Toastr\Toastr;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicationController extends Controller
 {
@@ -30,7 +29,7 @@ class ApplicationController extends Controller
     private $toastr;
 
     /**
-     * ApplicationController Constructor
+     * ApplicationController Constructor.
      *
      * @param Toastr $toastr
      */
@@ -40,7 +39,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Get All Applications
+     * Get All Applications.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -55,7 +54,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Get A Application
+     * Get A Application.
      *
      * @param  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -68,7 +67,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Approve A Application
+     * Approve A Application.
      *
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -89,25 +88,24 @@ class ApplicationController extends Controller
             $invite->email = $application->email;
             $invite->code = $code;
             $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
-            $invite->custom = "Your Application Has Been Approved!";
+            $invite->custom = 'Your Application Has Been Approved!';
 
             if (config('email-white-blacklist.enabled') === 'allow') {
                 $v = validator($invite->toArray(), [
-                    "email" => "required|email|unique:invites|unique:users|email_list:allow", // Whitelist
-                    "custom" => "required"
+                    'email' => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
+                    'custom' => 'required',
                 ]);
             } elseif (config('email-white-blacklist.enabled') === 'block') {
                 $v = validator($invite->toArray(), [
-                    "email" => "required|email|unique:invites|unique:users|email_list:block", // Blacklist
-                    "custom" => "required"
+                    'email' => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
+                    'custom' => 'required',
                 ]);
             } else {
                 $v = validator($invite->toArray(), [
-                    "email" => "required|email|unique:invites|unique:users", // Default
-                    "custom" => "required"
+                    'email' => 'required|email|unique:invites|unique:users', // Default
+                    'custom' => 'required',
                 ]);
             }
-
 
             if ($v->fails()) {
                 return redirect()->route('applications')
@@ -122,7 +120,6 @@ class ApplicationController extends Controller
                 return redirect()->route('applications')
                     ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
             }
-
         } else {
             return redirect()->back()
                 ->with($this->toastr->error('Application Already Approved', 'Whoops!', ['options']));
@@ -130,7 +127,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Reject A Application
+     * Reject A Application.
      *
      * @param $id
      * @return Illuminate\Http\RedirectResponse
@@ -141,6 +138,7 @@ class ApplicationController extends Controller
 
         if ($application->status !== 2) {
             $application->markRejected();
+
             return redirect()->route('applications')
                 ->with($this->toastr->info('Application Rejected', 'Info!', ['options']));
         } else {

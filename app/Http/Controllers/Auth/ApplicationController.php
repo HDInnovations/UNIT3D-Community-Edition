@@ -13,9 +13,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Application;
-use Illuminate\Http\Request;
 use App\ApplicationUrlProof;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\ApplicationImageProof;
 use App\Http\Controllers\Controller;
 
