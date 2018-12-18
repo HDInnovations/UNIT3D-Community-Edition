@@ -39,6 +39,7 @@
                         <th>Profile Links</th>
                         <th>Created On</th>
                         <th>Status</th>
+                        <th>Moderated By</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -47,9 +48,9 @@
                         @foreach ($applications as $key => $application)
                             <tr>
                                 <td>{{ ++$key }}</td>
-                                <td>{{ $application->user->username ?? 'Unknown' }}</td>
+                                <td>{{ $application->user->username ?? 'N/A' }}</td>
                                 <td>{{ $application->email }}</td>
-                                <td class="text-success">{{ $application->type }}</td>
+                                <td>{{ $application->type }}</td>
                                 <td>{{ $application->imageProofs->count() }}</td>
                                 <td>{{ $application->urlProofs->count() }}</td>
                                 <td>
@@ -65,14 +66,10 @@
                                         <span class="text-danger">REJECTED</span>
                                     @endif
                                 </td>
+                                <td>{{ $application->moderated->username ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{ route('application_approve', ['id' => $application->id]) }}"
-                                       class="btn btn-xs btn-success">
-                                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                                    </a>
-                                    <a href="{{ route('application_reject', ['id' => $application->id]) }}"
-                                       class="btn btn-xs btn-danger">
-                                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                                    <a href="{{ route('application', ['id' => $application->id]) }}" class="btn btn-xs btn-success">
+                                        <i class="{{ config('other.font-awesome') }} fa-eye"></i> View App
                                     </a>
                                 </td>
                             </tr>

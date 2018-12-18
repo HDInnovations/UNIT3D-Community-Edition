@@ -41,18 +41,18 @@
                         <form role="form" method="POST" action="{{ route('add_application') }}">
                             @csrf
 
-                            <label for="type" class="control-label">Type:</label>
+                            <label for="type" class="control-label">Are You:</label>
                             <br>
                             <div class="radio-inline">
                                 <label>
-                                    <input type="radio" name="type" value="Im New To The Game!" checked>
-                                    Im New To The Game!
+                                    <input type="radio" name="type" value="New To The Game" checked>
+                                    New To The Game
                                 </label>
                             </div>
                             <div class="radio-inline">
                                 <label>
-                                    <input type="radio" name="type" value="Im A Boss!">
-                                    Im A Boss!
+                                    <input type="radio" name="type" value="Experianced With Private Trackers">
+                                    Experianced With Private Trackers
                                 </label>
                             </div>
 
@@ -66,7 +66,7 @@
                             <hr>
 
                             <div class="form-group">
-                                <label for="image1">Proof Image URL 1:</label>
+                                <label for="image1">Proof Image URL 1: (Minimum 2, Recommended 3)</label>
                                 <input type="text" name="images[]" class="form-control" value="">
                             </div>
 
@@ -85,7 +85,7 @@
                             <hr>
 
                             <div class="form-group">
-                                <label for="link1">Profile Link URL 1:</label>
+                                <label for="link1">Profile Link URL 1: (Minimum 2, Recommended 3)</label>
                                 <input type="text" name="links[]" class="form-control" value="">
                             </div>
 
@@ -104,19 +104,19 @@
                             <hr>
 
                             <div class="form-group">
-                                <label for="referer">How Did You Hear About {{ config('other.title') }}? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
+                                <label for="referer">How Did You Hear About {{ config('other.title') }} And Why Do You Want In? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
                                 <textarea name="referer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
+                                <div class="text-center">
                                     <button type="submit" class="btn btn-primary">
                                         Submit Application
                                     </button>
                                     <br>
-                                    <a class="btn btn-link" href="#">
+                                    <button class="btn btn-info" disabled>
                                         Already Submitted One?
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
