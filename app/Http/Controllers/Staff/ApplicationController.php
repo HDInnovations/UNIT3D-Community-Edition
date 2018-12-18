@@ -12,10 +12,15 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Invite;
+use Carbon\Carbon;
 use App\Application;
+use Ramsey\Uuid\Uuid;
+use App\Mail\InviteUser;
+use Illuminate\Http\Request;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 
 class ApplicationController extends Controller
 {
@@ -43,7 +48,6 @@ class ApplicationController extends Controller
     {
         $applications = Application::withAnyStatus()
             ->with(['user', 'moderated', 'imageProofs', 'urlProofs'])
-            ->withCount(['imageProofs', 'urlProofs'])
             ->latest()
             ->paginate(25);
 
@@ -106,7 +110,7 @@ class ApplicationController extends Controller
 
 
             if ($v->fails()) {
-                return redirect()->route('invite')
+                return redirect()->route('applications')
                     ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 Mail::to($application->email)->send(new InviteUser($invite));
@@ -115,7 +119,7 @@ class ApplicationController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
 
-                return redirect()->route('staff_applications')
+                return redirect()->route('applications')
                     ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
             }
 
@@ -137,7 +141,7 @@ class ApplicationController extends Controller
 
         if ($application->status !== 2) {
             $application->markRejected();
-            return redirect()->route('staff_applications')
+            return redirect()->route('applications')
                 ->with($this->toastr->info('Application Rejected', 'Info!', ['options']));
         } else {
             return redirect()->back()

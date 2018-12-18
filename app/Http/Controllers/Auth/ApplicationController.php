@@ -60,22 +60,34 @@ class ApplicationController extends Controller
         $application->referer = $request->input('referer');
 
         if (config('email-white-blacklist.enabled') === 'allow') {
-            $v = validator($application->toArray(), [
+            $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
-                'referer' => 'required'
+                'referer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*' => 'filled',
+                'links'   => 'min:2',
             ]);
         } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($application->toArray(), [
+            $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
-                'referer' => 'required'
+                'referer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*' => 'filled',
+                'links'   => 'min:2',
             ]);
         } else {
-            $v = validator($application->toArray(), [
+            $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                'referer' => 'required'
+                'referer' => 'required',
+                'images.*' => 'filled',
+                'images'   => 'min:2',
+                'links.*' => 'filled',
+                'links'   => 'min:2',
             ]);
         }
 
@@ -83,20 +95,19 @@ class ApplicationController extends Controller
             return redirect()->route('create_application')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
+            $application->save();
 
             // Map And Save IMG Proofs
-            $imgs = collect($request->input('img_proofs'))->map(function ($value) {
-                return new ApplicationImageProof(['img' => $value]);
+            $imgs = collect($request->input('images'))->map(function ($value) {
+                return new ApplicationImageProof(['image' => $value]);
             });
             $application->imageProofs()->saveMany($imgs);
 
             // Map And Save URL Proofs
-            $urls = collect($request->input('url_proofs'))->map(function ($value) {
+            $urls = collect($request->input('links'))->map(function ($value) {
                 return new ApplicationUrlProof(['url' => $value]);
             });
             $application->urlProofs()->saveMany($urls);
-
-            $application->save();
 
             return redirect()->route('login')
                 ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
