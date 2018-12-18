@@ -50,6 +50,12 @@
                     <i class="{{ config('other.font-awesome') }} fa-newspaper"></i> @lang('staff.articles')
                 </a>
             </li>
+            <li>
+                <a href="{{ route('applications') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.applications')
+                    <span class="badge badge-danger"> {{ $app_count }} </span>
+                </a>
+            </li>
             @if (auth()->user()->group->is_admin)
                 <li>
                     <a href="{{ route('staff_forum_index') }}">
@@ -70,11 +76,6 @@
             <li>
                 <a href="{{ route('getPolls') }}">
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('applications') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.applications')
                 </a>
             </li>
 
