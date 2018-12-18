@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -12,15 +12,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Hootlex\Moderation\Moderatable;
+use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
     use Moderatable;
 
     /**
-     * Belongs To A User
+     * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -30,7 +30,7 @@ class Application extends Model
     }
 
     /**
-     * Application Has Been Moderated By
+     * Application Has Been Moderated By.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -40,7 +40,7 @@ class Application extends Model
     }
 
     /**
-     * A Application Has Many Image Proofs
+     * A Application Has Many Image Proofs.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -50,7 +50,7 @@ class Application extends Model
     }
 
     /**
-     * A Application Has Many URL Proofs
+     * A Application Has Many URL Proofs.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

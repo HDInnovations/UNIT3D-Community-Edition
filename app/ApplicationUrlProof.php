@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -27,7 +27,7 @@ class ApplicationUrlProof extends Model
     ];
 
     /**
-     * Belongs To A Application
+     * Belongs To A Application.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -808,7 +808,7 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Graveyard Resurrections
+     * Get A Users Graveyard Resurrections.
      *
      * @param $username
      * @param $id
