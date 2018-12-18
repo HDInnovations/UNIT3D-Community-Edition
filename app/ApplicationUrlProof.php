@@ -17,6 +17,16 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationUrlProof extends Model
 {
     /**
+     * The Attributes That Are Mass Assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'application_id',
+        'url',
+    ];
+
+    /**
      * Belongs To A Application
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

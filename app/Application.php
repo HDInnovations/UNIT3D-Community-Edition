@@ -26,10 +26,7 @@ class Application extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id' => '1'
-        ]);
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -39,10 +36,7 @@ class Application extends Model
      */
     public function moderated()
     {
-        return $this->belongsTo(User::class, 'moderated_by')->withDefault([
-            'username' => 'System',
-            'id' => '1'
-        ]);
+        return $this->belongsTo(User::class, 'moderated_by');
     }
 
     /**
