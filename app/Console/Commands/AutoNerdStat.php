@@ -18,7 +18,6 @@ use App\Peer;
 use App\User;
 use App\Torrent;
 use App\Warning;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
 
@@ -89,18 +88,18 @@ class AutoNerdStat extends Command
 
             // Select A Random Nerd Stat
             $statArray = [
-                "In The Last 24 Hours {$logins} Unique Users Have Logged Into ".config('other.title')."!",
-                "In The Last 24 Hours {$uploads} Torrents Have Been Uploaded To ".config('other.title')."!",
-                "In The Last 24 Hours {$users} Users Have Registered To ".config('other.title')."!",
-                "There Are Currently {$fl} Freeleech Torrents On ".config('other.title')."!",
-                "There Are Currently {$du} DoubleUpload Torrents On ".config('other.title')."!",
-                "Currently {$seeders->name} Is The Best Seeded Torrent On ".config('other.title')."!",
-                "Currently {$leechers->name} Is The Most Leeched Torrent On ".config('other.title')."!",
-                "Currently {$snatched->name} Is The Most Snatched Torrent On ".config('other.title')."!",
-                "Currently {$banker->username} Is The Top BON Holder On ".config('other.title')."!",
-                "Currently There Is {$peers} Peers On ".config('other.title')."!",
-                "In The Last 24 Hours {$bans} Users Have Been Banned From ".config('other.title')."!",
-                "In The Last 24 Hours {$warnings} Hit and Run Warnings Have Been Issued On  ".config('other.title')."!",
+                "In The Last 24 Hours {$logins} Unique Users Have Logged Into ".config('other.title').'!',
+                "In The Last 24 Hours {$uploads} Torrents Have Been Uploaded To ".config('other.title').'!',
+                "In The Last 24 Hours {$users} Users Have Registered To ".config('other.title').'!',
+                "There Are Currently {$fl} Freeleech Torrents On ".config('other.title').'!',
+                "There Are Currently {$du} DoubleUpload Torrents On ".config('other.title').'!',
+                "Currently {$seeders->name} Is The Best Seeded Torrent On ".config('other.title').'!',
+                "Currently {$leechers->name} Is The Most Leeched Torrent On ".config('other.title').'!',
+                "Currently {$snatched->name} Is The Most Snatched Torrent On ".config('other.title').'!',
+                "Currently {$banker->username} Is The Top BON Holder On ".config('other.title').'!',
+                "Currently There Is {$peers} Peers On ".config('other.title').'!',
+                "In The Last 24 Hours {$bans} Users Have Been Banned From ".config('other.title').'!',
+                "In The Last 24 Hours {$warnings} Hit and Run Warnings Have Been Issued On  ".config('other.title').'!',
                 config('other.title')." Birthday Is {$bday}!",
                 config('other.title').' Is King!',
             ];
