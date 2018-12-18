@@ -538,7 +538,7 @@ Route::group(['middleware' => 'language'], function () {
         // Applications System
         Route::get('/applications', 'ApplicationController@index')->name('applications');
         Route::get('/application/{id}', 'ApplicationController@show')->name('application');
-        Route::get('/application/{id}/approve', 'ModerationController@approve')->name('application_approve');
-        Route::post('/application/{id}/reject', 'ModerationController@reject')->name('application_reject');
+        Route::get('/application/{id}/approve', 'ApplicationController@approve')->name('application_approve');
+        Route::get('/application/{id}/reject', 'ApplicationController@reject')->name('application_reject');
     });
 });
