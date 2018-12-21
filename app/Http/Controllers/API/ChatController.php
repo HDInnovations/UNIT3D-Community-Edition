@@ -77,6 +77,11 @@ class ChatController extends Controller
             return response('error', 401);
         }
 
+        // Temp Fix For HTMLPurifier
+        if ($message === '<') {
+            return response('error', 401);
+        }
+
         $message = $this->chat->message($user_id, $room_id, $message);
 
         if (! $save) {
