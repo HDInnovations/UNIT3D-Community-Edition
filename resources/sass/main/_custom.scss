@@ -8848,7 +8848,6 @@ section.tall_categories {
     width: auto;
     display: flex;
     justify-content: space-between;
-    margin: 30px 120px;
 }
 
 section.tall_categories div.category {
@@ -8896,13 +8895,16 @@ section.tall_categories div.category.tv {
     }
 }
 
-section.tall_categories div.category.music {
-    background-image: url('/img/music.png');
+section.tall_categories div.category.trailer {
+    background-image: url('/img/trailer.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover
 }
 
 @media only screen and (min-resolution: 2dppx) {
-    section.tall_categories div.category.music {
-        background-image: url('/img/music.png');
+    section.tall_categories div.category.trailer {
+        background-image: url('/img/trailer.png');
     }
 }
 
@@ -8952,7 +8954,7 @@ section.tall_categories div.category.tv span {
     background-color: #865bfd;
 }
 
-section.tall_categories div.category.music span {
+section.tall_categories div.category.trailer span {
     background-color: #0084ea;
 }
 
@@ -9320,4 +9322,9 @@ img.emojione {
         border: 4px solid rgba(129, 149, 174, 0.74);
         margin-left: -3px;
     }
+}
+
+// Google ReCaptcha
+.g-recaptcha {
+    display: inline-block;
 }
