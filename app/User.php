@@ -53,8 +53,10 @@ class User extends Authenticatable
      */
     public function group()
     {
-        return $this->belongsTo(Group::class);
-    }
+        return $this->belongsTo(Group::class)->withDefault([
+            'color' => '#FF9966',
+            'icon'  => 'fal fa-robot',
+        ]);    }
 
     /**
      * Belongs To A Chatroom.
