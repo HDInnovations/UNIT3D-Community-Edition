@@ -534,3 +534,8 @@ input[type='email']::placeholder {
         -webkit-transform-origin: 0 0;
     }
 }
+
+// Google ReCaptcha
+.g-recaptcha {
+    display: inline-block;
+}
