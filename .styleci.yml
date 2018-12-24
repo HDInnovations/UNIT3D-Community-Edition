@@ -2,6 +2,7 @@ php:
   preset: laravel
   risky: true
   enabled:
+      - no_superfluous_elseif
   disabled:
   finder:
     exclude:
