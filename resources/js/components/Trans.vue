@@ -1,7 +1,5 @@
 <template>
-    <div id="tran">
-        {{ result }}
-    </div>
+    <div id="tran">{{ result }}</div>
 </template>
 <script>
 export default {

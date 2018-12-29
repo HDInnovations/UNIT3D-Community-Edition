@@ -1,11 +1,7 @@
 <template>
     <div class="input-group chat-dropdown">
-        <select id='currentChatroom'
-                v-model="selected"
-                class="form-control"
-                @change='changedRoom'>
-
-            <option v-for="chatroom in chatrooms" :value='chatroom.id'>{{ chatroom.name }}</option>
+        <select id="currentChatroom" v-model="selected" class="form-control" @change="changedRoom">
+            <option v-for="chatroom in chatrooms" :value="chatroom.id">{{ chatroom.name }}</option>
         </select>
     </div>
 </template>
