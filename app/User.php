@@ -56,7 +56,8 @@ class User extends Authenticatable
         return $this->belongsTo(Group::class)->withDefault([
             'color' => '#FF9966',
             'icon'  => 'fal fa-robot',
-        ]);    }
+        ]);
+    }
 
     /**
      * Belongs To A Chatroom.
