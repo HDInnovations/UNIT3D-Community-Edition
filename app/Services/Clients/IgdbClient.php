@@ -29,7 +29,7 @@ class IgdbClient
     protected $httpClient;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $cache;
 
@@ -62,7 +62,6 @@ class IgdbClient
         'pages' => 'pages',
     ];
 
-
     /**
      * IgdbClient constructor.
      *
@@ -72,11 +71,11 @@ class IgdbClient
      */
     public function __construct($key, $url, $cache)
     {
-        if (!is_string($key) || empty($key)) {
+        if (! is_string($key) || empty($key)) {
             throw new \Exception('IGDB API key is required, please visit https://api.igdb.com/ to request a key');
         }
 
-        if (!is_string($url) || empty($url)) {
+        if (! is_string($url) || empty($url)) {
             throw new \Exception('IGDB Request URL is required, please visit https://api.igdb.com/ to get your Request URL');
         }
 
@@ -89,28 +88,25 @@ class IgdbClient
     /**
      * Get character information.
      *
-     * @param integer $characterId
+     * @param int $characterId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
      */
     public function getCharacter($characterId, $fields = ['*'])
     {
-
         $apiUrl = $this->getEndpoint('characters');
         $apiUrl .= $characterId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
-
-
     }
 
     /**
@@ -118,8 +114,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -128,20 +124,19 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('characters');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
-
     }
 
     /**
@@ -149,8 +144,8 @@ class IgdbClient
      *
      * @param array $filters
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -159,27 +154,26 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('release_dates');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'filters' => $filters,
             'limit' => $limit,
             'offset' => $offset,
             'order' => $order,
-            'expand' => implode(',', $expand)
-        );
+            'expand' => implode(',', $expand),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
-
     }
 
     /**
      * Get company information by ID.
      *
-     * @param integer $companyId
+     * @param int $companyId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -189,13 +183,13 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('companies');
         $apiUrl .= $companyId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
@@ -205,8 +199,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -215,17 +209,17 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('companies');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
@@ -233,7 +227,7 @@ class IgdbClient
     /**
      * Get franchise information.
      *
-     * @param integer $franchiseId
+     * @param int $franchiseId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -243,13 +237,13 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('franchises');
         $apiUrl .= $franchiseId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
@@ -259,8 +253,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -269,17 +263,17 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('franchises');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
@@ -287,7 +281,7 @@ class IgdbClient
     /**
      * Get game mode information by ID.
      *
-     * @param integer $gameModeId
+     * @param int $gameModeId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -297,13 +291,13 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('game_modes');
         $apiUrl .= $gameModeId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
@@ -313,8 +307,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -323,17 +317,17 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('game_modes');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
@@ -341,7 +335,7 @@ class IgdbClient
     /**
      * Get game information by ID.
      *
-     * @param integer $gameId
+     * @param int $gameId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -351,13 +345,13 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('games');
         $apiUrl .= $gameId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
@@ -367,8 +361,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @param array $filters
      * @return \StdClass
@@ -378,19 +372,21 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('games');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'filters' => $filters,
             'order' => $order,
             'search' => $search,
-        );
-        if ($search == '') unset($params['search']);
+        ];
+        if ($search == '') {
+            unset($params['search']);
+        }
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
@@ -398,7 +394,7 @@ class IgdbClient
     /**
      * Get genre information by ID.
      *
-     * @param integer $genreId
+     * @param int $genreId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -408,13 +404,13 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('genres');
         $apiUrl .= $genreId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
@@ -424,8 +420,8 @@ class IgdbClient
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -434,17 +430,17 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('genres');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
@@ -452,7 +448,7 @@ class IgdbClient
     /**
      * Get keyword information by ID.
      *
-     * @param integer $keywordId
+     * @param int $keywordId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -462,24 +458,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('keywords');
         $apiUrl .= $keywordId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search keywords by name
+     * Search keywords by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -488,25 +484,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('keywords');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
     /**
-     * Get people information by ID
+     * Get people information by ID.
      *
-     * @param integer $personId
+     * @param int $personId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -516,24 +512,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('people');
         $apiUrl .= $personId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search people by name
+     * Search people by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -542,25 +538,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('people');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
     /**
-     * Get platform information by ID
+     * Get platform information by ID.
      *
-     * @param integer $platformId
+     * @param int $platformId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -570,24 +566,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('platforms');
         $apiUrl .= $platformId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search platforms by name
+     * Search platforms by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -596,25 +592,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('platforms');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
     /**
-     * Get player perspective information by ID
+     * Get player perspective information by ID.
      *
-     * @param integer $perspectiveId
+     * @param int $perspectiveId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -624,24 +620,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('player_perspectives');
         $apiUrl .= $perspectiveId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search player perspective by name
+     * Search player perspective by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -650,26 +646,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('player_perspectives');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
-
     /**
-     * Get page information by ID
+     * Get page information by ID.
      *
-     * @param integer $pageId
+     * @param int $pageId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -679,23 +674,21 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('pages');
         $apiUrl .= $pageId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
-
-
     /**
-     * Get pulse information by ID
+     * Get pulse information by ID.
      *
-     * @param integer $pulseId
+     * @param int $pulseId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -705,21 +698,21 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('pulses');
         $apiUrl .= $pulseId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Get pulse information by ID
+     * Get pulse information by ID.
      *
-     * @param integer $pulseId
+     * @param int $pulseId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -729,23 +722,23 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('pulse_sources');
         $apiUrl .= $sourceId;
 
-        $params = array(
+        $params = [
 
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search pulses by title
+     * Search pulses by title.
      *
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @return \StdClass
      * @throws \Exception
      */
@@ -753,25 +746,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('pulses');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'filters' => $filters,
             'order' => $order,
-            'offset' => $offset
-        );
+            'offset' => $offset,
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
     /**
-     * Get collection information by ID
+     * Get collection information by ID.
      *
-     * @param integer $collectionId
+     * @param int $collectionId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -781,24 +774,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('collections');
         $apiUrl .= $collectionId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search collections by name
+     * Search collections by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -807,25 +800,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('collections');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
     /**
-     * Get themes information by ID
+     * Get themes information by ID.
      *
-     * @param integer $themeId
+     * @param int $themeId
      * @param array $fields
      * @return \StdClass
      * @throws \Exception
@@ -835,24 +828,24 @@ class IgdbClient
         $apiUrl = $this->getEndpoint('themes');
         $apiUrl .= $themeId;
 
-        $params = array(
-            'fields' => implode(',', $fields)
-        );
+        $params = [
+            'fields' => implode(',', $fields),
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeSingle($apiData);
         });
     }
 
     /**
-     * Search themes by name
+     * Search themes by name.
      *
      * @param string $search
      * @param array $fields
-     * @param integer $limit
-     * @param integer $offset
+     * @param int $limit
+     * @param int $offset
      * @param string $order
      * @return \StdClass
      * @throws \Exception
@@ -861,25 +854,25 @@ class IgdbClient
     {
         $apiUrl = $this->getEndpoint('themes');
 
-        $params = array(
+        $params = [
             'fields' => implode(',', $fields),
             'limit' => $limit,
             'offset' => $offset,
             'search' => $search,
             'order' => $order,
-        );
+        ];
 
-        return Cache::remember(md5($apiUrl . json_encode($params)), $this->cache, function () use ($apiUrl, $params)
-        {
+        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
+
             return $this->decodeMultiple($apiData);
         });
     }
 
-
     /*
      *  Internally used Methods, set visibility to public to enable more flexibility
      */
+
     /**
      * @param $name
      * @return mixed
@@ -891,7 +884,7 @@ class IgdbClient
 
     /**
      * Decode the response from IGDB, extract the single resource object.
-     * (Don't use this to decode the response containing list of objects)
+     * (Don't use this to decode the response containing list of objects).
      *
      * @param  string $apiData the api response from IGDB
      * @throws \Exception
@@ -902,11 +895,11 @@ class IgdbClient
         $resObj = json_decode($apiData);
 
         if (isset($resObj->status)) {
-            $msg = "Error " . $resObj->status . " " . $resObj->message;
+            $msg = 'Error '.$resObj->status.' '.$resObj->message;
             throw new \Exception($msg);
         }
 
-        if (!is_array($resObj) || count($resObj) == 0) {
+        if (! is_array($resObj) || count($resObj) == 0) {
             return false;
         }
 
@@ -925,11 +918,11 @@ class IgdbClient
         $resObj = json_decode($apiData);
 
         if (isset($resObj->status)) {
-            $msg = "Error " . $resObj->status . " " . $resObj->message;
+            $msg = 'Error '.$resObj->status.' '.$resObj->message;
             throw new \Exception($msg);
         } else {
             //$itemsArray = $resObj->items;
-            if (!is_array($resObj)) {
+            if (! is_array($resObj)) {
                 return false;
             } else {
                 return $resObj;
@@ -938,7 +931,7 @@ class IgdbClient
     }
 
     /**
-     * Using CURL to issue a GET request
+     * Using CURL to issue a GET request.
      *
      * @param $url
      * @param $params
@@ -955,14 +948,14 @@ class IgdbClient
             unset($params['filters']);
         }
 
-        $url = $url . (strpos($url, '?') === false ? '?' : '') . http_build_query($params);
+        $url = $url.(strpos($url, '?') === false ? '?' : '').http_build_query($params);
 
         try {
             $response = $this->httpClient->request('GET', $url, [
                 'headers' => [
                     'user-key' => $this->igdbKey,
-                    'Accept' => 'application/json'
-                ]
+                    'Accept' => 'application/json',
+                ],
             ]);
         } catch (RequestException $exception) {
             if ($response = $exception->getResponse()) {
@@ -975,5 +968,4 @@ class IgdbClient
 
         return $response->getBody();
     }
-
 }

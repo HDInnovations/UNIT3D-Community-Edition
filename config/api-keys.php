@@ -46,7 +46,7 @@ return [
     */
     'igdb' => [
         'key' => env('IGDB_KEY', ''),
-        'url' => env('IGDB_URL', '')
-    ]
+        'url' => env('IGDB_URL', ''),
+    ],
 
 ];
