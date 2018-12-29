@@ -23,13 +23,14 @@
 4.1 [Automated-Installer](#auto-install)
 4.2 [Manual Install](#manual-install)
 5. [Packages](#packages)
-6. [Security](#security)
-7. [Contributing](#contributing)
-8. [License](#license)
-9. [Homestead (For local developement)](#homestead)
-10. [Demo](#demo)
-11. [Donate](#donate)
-11. [Special Thanks](#thanks)
+6. [Version Support Information](#versions)
+7. [Security](#security)
+8. [Contributing](#contributing)
+9. [License](#license)
+10. [Homestead (For local developement)](#homestead)
+11. [Demo](#demo)
+12. [Donate](#donate)
+13. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
@@ -105,6 +106,19 @@ Here are some packages that are built for UNIT3D.
 - [An artisan package to import a XBTIT database into UNIT3D](https://github.com/HDInnovations/xbtit-to-unit3d).
 - [An artisan package to import a Gazelle database into UNIT3D](https://github.com/HDInnovations/gazelle-to-unit3d).
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
+
+## <a name="versions"></a> 🚨 Version Support Information
+ Version   | Status                   | PHP Version
+:----------|:-------------------------|:------------
+ 1.8.8     |  Active support :rocket: | >= 7.1.3
+ 1.8.7     |  Active support :rocket: | >= 7.1.3
+ 1.8.6     |  End of life             | >= 7.1.3
+ 1.8.5     |  End of life             | >= 7.1.3
+ 1.8       |  End of life             | >= 7.1.3
+ 1.7       |  End of life             | >= 7.1.3
+ 1.6.x     |  End of life             | >= 7.0.13
+ 1.5.x     |  End of life             | >= 7.0.13
+ 1.0       |  End of life             | >= 7.0.13
 
 ## <a name="security"></a> :lock: Security
 
