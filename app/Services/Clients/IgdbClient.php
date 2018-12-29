@@ -102,7 +102,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -132,7 +132,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -163,7 +163,7 @@ class IgdbClient
             'expand' => implode(',', $expand),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -187,7 +187,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -217,7 +217,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -241,7 +241,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -271,7 +271,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -295,7 +295,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -325,7 +325,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -349,7 +349,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -384,7 +384,7 @@ class IgdbClient
             unset($params['search']);
         }
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -408,7 +408,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -438,7 +438,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -462,7 +462,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -492,7 +492,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -516,7 +516,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -546,7 +546,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -570,7 +570,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -600,7 +600,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -624,7 +624,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -654,7 +654,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -678,7 +678,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -702,7 +702,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -726,7 +726,7 @@ class IgdbClient
 
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -754,7 +754,7 @@ class IgdbClient
             'offset' => $offset,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -778,7 +778,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -808,7 +808,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
@@ -832,7 +832,7 @@ class IgdbClient
             'fields' => implode(',', $fields),
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeSingle($apiData);
@@ -862,7 +862,7 @@ class IgdbClient
             'order' => $order,
         ];
 
-        return Cache::remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
+        return cache()->remember(md5($apiUrl.json_encode($params)), $this->cache, function () use ($apiUrl, $params) {
             $apiData = $this->apiGet($apiUrl, $params);
 
             return $this->decodeMultiple($apiData);
