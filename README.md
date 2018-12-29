@@ -68,7 +68,6 @@ UNIT3D currently offers the following features:
 - A Redis server
 - MySQL 5.7 + or MariaDB 10.2 +
 - TheMovieDB API Key: https://www.themoviedb.org/documentation/api
-- TheTVDB API Key: https://api.thetvdb.com/swagger
 - OMDB API Key: http://www.omdbapi.com/
 - A decent dedicated server. Dont try running this on some crappy server!
 <pre>
