@@ -529,5 +529,12 @@ Route::group(['middleware' => 'language'], function () {
 
         // Possible Cheaters
         Route::get('/cheaters', 'CheaterController@leechCheaters')->name('leechCheaters');
+
+        // Tag (Genres)
+        Route::get('/tags', 'TagController@index')->name('staff_tag_index');
+        Route::get('/tag/new', 'TagController@addForm')->name('staff_tag_add_form');
+        Route::post('/tag/new', 'TagController@add')->name('staff_tag_add');
+        Route::get('/tag/edit/{slug}.{id}', 'TagController@editForm')->name('staff_tag_edit_form');
+        Route::post('/tag/edit/{slug}.{id}', 'TagController@edit')->name('staff_tag_edit');
     });
 });
