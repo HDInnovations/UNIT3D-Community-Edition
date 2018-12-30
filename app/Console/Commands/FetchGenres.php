@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -12,9 +12,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Torrent;
 use App\TagTorrent;
+use Illuminate\Console\Command;
 
 class FetchGenres extends Command
 {
@@ -31,7 +31,6 @@ class FetchGenres extends Command
      * @var string
      */
     protected $description = 'Fetch Genres For Torrents In DB';
-
 
     /**
      * Execute the console command.
@@ -51,13 +50,13 @@ class FetchGenres extends Command
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $movie = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             } else {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $movie = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 

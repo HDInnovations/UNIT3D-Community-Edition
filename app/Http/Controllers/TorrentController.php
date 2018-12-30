@@ -826,13 +826,13 @@ class TorrentController extends Controller
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $movie = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
             } else {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
                     $movie = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
