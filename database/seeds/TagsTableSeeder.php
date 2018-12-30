@@ -110,47 +110,47 @@ class TagsTableSeeder extends Seeder
                 "name" => "Science Fiction",
                 "slug" => "science-fiction",
             ],
-            16 => [
+            17 => [
                 "id" => 18,
                 "name" => "Sport",
                 "slug" => "sport",
             ],
-            17 => [
+            18 => [
                 "id" => 19,
                 "name" => "Thriller",
                 "slug" => "thriller",
             ],
-            18 => [
+            19 => [
                 "id" => 20,
                 "name" => "War",
                 "slug" => "war",
             ],
-            19 => [
+            20 => [
                 "id" => 21,
                 "name" => "Western",
                 "slug" => "western",
             ],
-            20 => [
+            21 => [
                 "id" => 22,
                 "name" => "Game-Show",
                 "slug" => "game-show",
             ],
-            21 => [
+            22 => [
                 "id" => 23,
                 "name" => "News",
                 "slug" => "news",
             ],
-            22 => [
+            23 => [
                 "id" => 24,
                 "name" => "Reality-TV",
                 "slug" => "reality-tv",
             ],
-            23 => [
+            24 => [
                 "id" => 25,
                 "name" => "Sitcom",
                 "slug" => "sitcom",
             ],
-            24 => [
+            25 => [
                 "id" => 26,
                 "name" => "Talk-Show",
                 "slug" => "talk-show",
