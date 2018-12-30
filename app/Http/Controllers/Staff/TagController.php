@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -12,15 +12,15 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Toastr;
 use App\Tag;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use \Toastr;
+use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
     /**
-     * Get All Tags
+     * Get All Tags.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -32,7 +32,7 @@ class TagController extends Controller
     }
 
     /**
-     * Tag Add Form
+     * Tag Add Form.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -42,7 +42,7 @@ class TagController extends Controller
     }
 
     /**
-     * Add A Tag
+     * Add A Tag.
      *
      * @param \Illuminate\Http\Request $request
      * @return Illuminate\Http\RedirectResponse
@@ -63,13 +63,14 @@ class TagController extends Controller
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();
+
             return redirect()->route('staff_tag_index')
                 ->with(Toastr::success('Tag Successfully Added', 'Yay!', ['options']));
         }
     }
 
     /**
-     * Tag Edit Form
+     * Tag Edit Form.
      *
      * @param $slug
      * @param $id
@@ -83,7 +84,7 @@ class TagController extends Controller
     }
 
     /**
-     * Edit A Tag
+     * Edit A Tag.
      *
      * @param \Illuminate\Http\Request $request
      * @param $slug
@@ -106,6 +107,7 @@ class TagController extends Controller
                 ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();
+
             return redirect()->route('staff_tag_index')
                 ->with(Toastr::success('Tag Successfully Modified', 'Yay!', ['options']));
         }

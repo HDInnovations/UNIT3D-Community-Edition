@@ -40,7 +40,7 @@ class TorrentFacetedRepository
     }
 
     /**
-     * Return a collection of Tag Name from storage
+     * Return a collection of Tag Name from storage.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -50,7 +50,7 @@ class TorrentFacetedRepository
     }
 
     /**
-     * Options for sort the search result
+     * Options for sort the search result.
      *
      * @return array
      */
