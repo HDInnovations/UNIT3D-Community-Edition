@@ -21,6 +21,7 @@ use App\Torrent;
 use App\Warning;
 use App\Category;
 use Carbon\Carbon;
+use App\TagTorrent;
 use App\TorrentFile;
 use App\FreeleechToken;
 use App\PrivateMessage;
@@ -194,6 +195,7 @@ class TorrentController extends Controller
         $mal = $request->input('mal');
         $categories = $request->input('categories');
         $types = $request->input('types');
+        $genres = $request->input('genres');
         $freeleech = $request->input('freeleech');
         $doubleupload = $request->input('doubleupload');
         $featured = $request->input('featured');
@@ -267,6 +269,11 @@ class TorrentController extends Controller
 
         if ($request->has('types') && $request->input('types') != null) {
             $torrent->whereIn('type', $types);
+        }
+
+        if ($request->has('genres') && $request->input('genres') != null) {
+            $genreID = TagTorrent::select('torrent_id')->whereIn('tag_name', $genres)->get();
+            $torrent->whereIn('id', $genreID);
         }
 
         if ($request->has('freeleech') && $request->input('freeleech') != null) {
@@ -681,6 +688,7 @@ class TorrentController extends Controller
     public function upload(Request $request)
     {
         $user = auth()->user();
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         $requestFile = $request->file('torrent');
 
         if ($request->hasFile('torrent') == false) {
@@ -812,6 +820,29 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
             } else {
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
+            }
+
+            if ($torrent->category_id == 2) {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+                }
+            } else {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+                }
+            }
+
+            if ($movie->genres) {
+                foreach ($movie->genres as $genre) {
+                    $tag = new TagTorrent();
+                    $tag->torrent_id = $torrent->id;
+                    $tag->tag_name = $genre;
+                    $tag->save();
+                }
             }
 
             return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])

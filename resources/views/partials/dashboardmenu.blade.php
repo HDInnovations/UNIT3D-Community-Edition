@@ -92,6 +92,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('staff_tag_index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Torrent Tags (Genres)
+                </a>
+            </li>
+            <li>
                 <a href="{{ route('getCatalog') }}">
                     <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('staff.catalog-groups')
                 </a>

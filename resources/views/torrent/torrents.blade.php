@@ -18,9 +18,6 @@
 
 @section('content')
     <div class="container box">
-        <div class="text-center">
-            <h3 class="filter-title">Search Filters</h3>
-        </div>
         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
         <div class="form-group">
@@ -80,6 +77,19 @@
                     <span class="badge-user">
                         <label class="inline">
                             <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                        </label>
+                    </span>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="genre" class="col-sm-1 label label-default">Genre</label>
+            <div class="col-sm-10">
+                @foreach ($repository->tags() as $id => $genre)
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $genre }}" value="{{ $genre}}" class="genre"> {{ $genre }}
                         </label>
                     </span>
                 @endforeach
@@ -184,7 +194,7 @@
                 </div>
             </div>
         </div>
-
+    
     </div>
 
     <div class="container-fluid">
@@ -270,6 +280,7 @@
             var mal = $("#mal").val();
             var categories = [];
             var types = [];
+            var genres = [];
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
             var qty = $("#qty").val();
@@ -329,7 +340,9 @@
             $(".type:checked").each(function () {
                 types.push($(this).val());
             });
-
+            $(".genre:checked").each(function () {
+                genres.push($(this).val());
+            });
 
             if (xhr !== 'undefined') {
                 xhr.abort();
@@ -348,6 +361,7 @@
                     mal: mal,
                     categories: categories,
                     types: types,
+                    genres: genres,
                     freeleech: freeleech,
                     doubleupload: doubleupload,
                     featured: featured,
@@ -412,7 +426,7 @@
         })
     </script>
     <script>
-        $(".category,.type").on("click", function () {
+        $(".category,.type,.genre").on("click", function () {
             faceted();
         });
     </script>

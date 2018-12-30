@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use App\Tag;
 use App\Type;
 use App\Category;
 
@@ -39,7 +40,17 @@ class TorrentFacetedRepository
     }
 
     /**
-     * Options for sort the search result.
+     * Return a collection of Tag Name from storage
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function tags()
+    {
+        return Tag::all()->sortBy('name')->pluck('name', 'id');
+    }
+
+    /**
+     * Options for sort the search result
      *
      * @return array
      */
