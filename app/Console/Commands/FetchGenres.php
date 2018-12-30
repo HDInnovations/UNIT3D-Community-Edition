@@ -42,8 +42,8 @@ class FetchGenres extends Command
     {
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
-        $torrents = Torrent::withAnyStatus()->select(['id', 'category_id', 'imdb', 'tmdb'])
-            ->whereBetween('id', [21640, 21869])
+        $torrents = Torrent::withAnyStatus()
+            ->select(['id', 'category_id', 'imdb', 'tmdb'])
             ->get();
 
         foreach ($torrents as $torrent) {
