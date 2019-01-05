@@ -19,7 +19,7 @@ return [
     'recover-my-password' => 'Recuperar senha',
     'remember-me'         => 'Manter ligado',
     'signup'              => 'Registar',
-    'throttle'            => 'Demasiadas de login. Por favor, tenta novamente em :seconds segundos.',
+    'throttle'            => 'Demasiadas tentativas de login. Por favor, tenta novamente em :seconds segundos.',
     'unlock'              => 'Desbloquear',
     'user-icon'           => 'Ícone do utilizador',
     'username'            => 'Nome de utilizador',
