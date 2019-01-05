@@ -15,7 +15,7 @@ return [
     'dashboard'          => 'Painel de controlo',
     'failed-login-log'   => 'Registo de Logins falhados',
     'flush-ghost-peers'  => 'Limpar peers fantasma',
-    'forums'             => 'Forúns',
+    'forums'             => 'Foruns',
     'frontend'           => 'Frontend',
     'general-tools'      => 'Ferramentas Gerais',
     'groups'             => 'Grupos',
