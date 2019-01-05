@@ -13,7 +13,7 @@ return [
     'catalog-torrents'   => 'Catálogo de torrents',
     'config-manager'     => 'Gestor de configuração',
     'dashboard'          => 'Painel de controlo',
-    'failed-login-log'   => 'Falha do login no registo',
+    'failed-login-log'   => 'Registo de Logins falhados',
     'flush-ghost-peers'  => 'Limpar peers fantasma',
     'forums'             => 'Forúns',
     'frontend'           => 'Frontend',
