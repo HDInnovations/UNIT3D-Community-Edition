@@ -5,15 +5,15 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'activated'        => 'Ativado',
-    'active'           => 'Ativado!',
+    'activated'        => 'Activado',
+    'active'           => 'Activado!',
     'bon'              => 'BON',
-    'bonus'            => 'Bônus',
-    'earning'          => 'Ganhando',
+    'bonus'            => 'Bónus',
+    'earning'          => 'Ganho',
     'exchange'         => 'Trocar',
-    'exchange-warning' => 'Trocas de pontos não podem ser desfeitas. Por favor, verifique suas escolhas antes de fazer uma troca.',
-    'gift'             => 'Doar pontos de bônus',
-    'gift-to'          => 'Doar pontos de bônus para?',
+    'exchange-warning' => 'Trocas de pontos não podem ser desfeitas. Por favor, verifique as suas escolhas antes de fazer uma troca.',
+    'gift'             => 'Doar pontos de bónus',
+    'gift-to'          => 'Doar pontos de bónus para?',
     'item'             => 'Item',
     'no-refund'        => 'NENHUM REEMBOLSO!',
     'per-hour'         => 'Pontos por hora',
