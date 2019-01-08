@@ -74,7 +74,7 @@ class TorrentHelper
         $anon = $torrent->anon;
 
         if ($anon == 0) {
-            // Auto Shout and Achievements
+            // Achievements
             $user->unlock(new UserMadeUpload(), 1);
             $user->addProgress(new UserMade25Uploads(), 1);
             $user->addProgress(new UserMade50Uploads(), 1);

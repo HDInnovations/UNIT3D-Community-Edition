@@ -779,12 +779,6 @@ class TorrentController extends Controller
             $category->num_torrent = $category->torrents_count;
             $category->save();
 
-            // Torrent Tags System
-            /*foreach(explode(',', Input::get('tags')) as $k => $v)
-            {
-
-            }*/
-
             // Backup the files contained in the torrent
             $fileList = TorrentTools::getTorrentFiles($decodedTorrent);
             foreach ($fileList as $file) {
@@ -794,6 +788,30 @@ class TorrentController extends Controller
                 $f->torrent_id = $torrent->id;
                 $f->save();
                 unset($f);
+            }
+
+            // Torrent Tags System
+            if ($torrent->category_id == 2) {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                }
+            } else {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                }
+            }
+
+            if ($movie->genres) {
+                foreach ($movie->genres as $genre) {
+                    $tag = new TagTorrent();
+                    $tag->torrent_id = $torrent->id;
+                    $tag->tag_name = $genre;
+                    $tag->save();
+                }
             }
 
             // check for trusted user and update torrent
@@ -820,29 +838,6 @@ class TorrentController extends Controller
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent has been auto approved by the System.");
             } else {
                 \LogActivity::addToLog("Member {$user->username} has uploaded torrent, ID: {$torrent->id} NAME: {$torrent->name} . \nThis torrent is pending approval from satff.");
-            }
-
-            if ($torrent->category_id == 2) {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
-                } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
-                }
-            } else {
-                if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
-                } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
-                }
-            }
-
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
-                    $tag = new TagTorrent();
-                    $tag->torrent_id = $torrent->id;
-                    $tag->tag_name = $genre;
-                    $tag->save();
-                }
             }
 
             return redirect()->route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id])
