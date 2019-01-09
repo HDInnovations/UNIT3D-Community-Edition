@@ -81,6 +81,7 @@ class GroupsController extends Controller
         $group->is_trusted = $request->input('is_trusted');
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');
+        $group->is_incognito = $request->input('is_incognito');
         $group->can_upload = $request->input('can_upload');
         $group->autogroup = $request->input('autogroup');
 
@@ -154,6 +155,7 @@ class GroupsController extends Controller
         $group->is_trusted = $request->input('is_trusted');
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');
+        $group->is_incognito = $request->input('is_incognito');
         $group->can_upload = $request->input('can_upload');
         $group->autogroup = $request->input('autogroup');
 

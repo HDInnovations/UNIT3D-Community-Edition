@@ -13,20 +13,21 @@
 
 namespace App\Helpers;
 
-use Illuminate\Support\Facades\Request;
 use App\LogActivity as LogActivityModel;
 
 class LogActivity
 {
     public static function addToLog($subject)
     {
+        $user = auth()->user();
+
         $log = [];
         $log['subject'] = $subject;
-        $log['url'] = Request::fullUrl();
-        $log['method'] = Request::method();
-        $log['ip'] = Request::ip();
-        $log['agent'] = Request::header('user-agent');
-        $log['user_id'] = auth()->check() ? auth()->user()->id : 0;
+        $log['url'] = request()->fullUrl();
+        $log['method'] = request()->method();
+        $log['ip'] = $user->group->is_incognito ? '0.0.0.0' : request()->ip();
+        $log['agent'] = $user->group->is_incognito ? 'Unknown' : request()->header('user-agent');
+        $log['user_id'] = auth()->check() ? $user->id : 0;
         LogActivityModel::create($log);
     }
 
