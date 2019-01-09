@@ -103,11 +103,6 @@
                     </select>
                 </div>
 
-                <!--<div class="form-group">
-                  <label for="tags">Tags (separated by a comma!)</label>
-                  <input type="text" name="tags" class="form-control" placeholder="Some tags to identify your torrent">
-                </div>-->
-
                 <div class="form-group">
                     <label for="description">@lang('torrent.description')</label>
                     <textarea id="upload-form-description" name="description" cols="30" rows="10" class="form-control">
@@ -191,10 +186,10 @@
       function updateTorrentName () {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
-        let fileEndings = ['.mkv.torrent', '.torrent'];
-        let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
-        let separators = ['-', ' ', '.'];
-        if (name !== null && torrent !== null) {
+        if (!name.value) {
+          let fileEndings = ['.mkv.torrent', '.torrent'];
+          let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
+          let separators = ['-', ' ', '.'];
           let value = torrent.value.split('\\').pop().split('/').pop();
           fileEndings.forEach(function (e) {
             if (value.endsWith(e)) {
