@@ -230,7 +230,7 @@
 
     <div class="container-fluid">
         <div class="block">
-            <div class="header gradient blue">
+            <div id="result-header" class="header gradient blue">
                 <div class="inner_content">
                     <h1>
                         @lang('torrent.torrents')
@@ -385,13 +385,36 @@
                     $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
                 }
             }).done(function (e) {
-              $data = $(e);
-              $("#result").html($data);
+                $data = $(e);
+                $("#result").html($data);
+                if(page) {
+                    if(document.getElementById('result-header') && document.getElementById('result-header').scrollIntoView) {
+                        document.getElementById('result-header').scrollIntoView();
+                    }
+                }
+                else {
+                    if(window.location.hash && window.location.hash.indexOf('page')) {
+                        if (window.history && window.history.replaceState) {
+                            window.history.replaceState(null, null, ' ');
+                        }
+                    }
+                }
             });
         }
     </script>
     <script>
-        $(window).on("load", faceted())
+        $(window).on("load", function() { facetedBoot(); });
+        function facetedBoot() {
+            var page = 0;
+            if(window.location.hash && window.location.hash.indexOf('page')) {
+                page = parseInt(window.location.hash.split('=')[1]);
+                if(page) {
+                    faceted(page);
+                    return;
+                }
+            }
+            faceted();
+        }
     </script>
     <script>
         $("#search").keyup(function () {
@@ -399,9 +422,9 @@
         })
     </script>
     <script>
-      $("#description").keyup(function () {
-        faceted();
-      })
+        $("#description").keyup(function () {
+            faceted();
+        })
     </script>
     <script>
         $("#uploader").keyup(function () {
@@ -444,17 +467,37 @@
         });
     </script>
     <script>
-      $(document).on('click', '.pagination a', function (e) {
-        e.preventDefault();
-        var url = $(this).attr('href');
-        var page = url.split('page=')[1];
-        window.history.pushState("", "", url);
-        faceted(page);
-      })
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            var link_url = $(this).attr('href');
+            var page = link_url.split('page=')[1];
+            var url = (window.location.href.split("#")[0]) + '#page=' + page;
+            if (window.history && window.history.pushState) {
+                window.history.pushState("", "", url);
+            }
+            faceted(page);
+        });
     </script>
     <script>
       $(document).ajaxComplete(function () {
         $('[data-toggle="tooltip"]').tooltip();
       });
+    </script>
+    <script>
+        $('.show-poster').click(function (e) {
+            e.preventDefault();
+            var name = $(this).attr('data-name');
+            var image = $(this).attr('data-image');
+
+            swal({
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: '#232323',
+                width: 970,
+                html: image,
+                title: name,
+                text: '',
+            });
+        });
     </script>
 @endsection
