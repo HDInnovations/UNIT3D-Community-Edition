@@ -337,23 +337,3 @@
         {{ $torrents->links() }}
     </div>
 </div>
-
-<script>
-    $('.show-poster').click(function(e) {
-      e.preventDefault();
-
-      var name = $(this).attr('data-name');
-      var image = $(this).attr('data-image');
-
-      swal({
-        showConfirmButton: false,
-        showCloseButton: true,
-        background: '#232323',
-        width: 970,
-        html: image,
-        title: name,
-        text: '',
-      });
-    });
-</script>
-
