@@ -20,7 +20,7 @@ class LogActivity
     public static function addToLog($subject)
     {
         $user = auth()->user();
-        if($user) {
+        if ($user) {
             $log = [];
             $log['subject'] = $subject;
             $log['url'] = request()->fullUrl();
