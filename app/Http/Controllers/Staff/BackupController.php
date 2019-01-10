@@ -67,7 +67,7 @@ class BackupController extends Controller
     public function create()
     {
         try {
-            ini_set('max_execution_time', 300);
+            ini_set('max_execution_time', 900);
             // start the backup process
             Artisan::call('backup:run');
             $output = Artisan::output();
