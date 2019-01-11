@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Like;
 use App\Post;
 use App\User;
 use App\Forum;
@@ -325,7 +324,7 @@ class ForumController extends Controller
             $user->addProgress(new UserMade800Posts(), 1);
             $user->addProgress(new UserMade900Posts(), 1);
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            return redirect($postUrl)
                 ->with($this->toastr->success('Post Successfully Posted', 'Yay!', ['options']));
         }
     }
@@ -533,52 +532,38 @@ class ForumController extends Controller
      * Edit A Post In A Topic.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $slug
-     * @param $id
      * @param $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postEdit(Request $request, $slug, $id, $postId)
+    public function postEdit(Request $request, $postId)
     {
         $user = auth()->user();
-        $topic = Topic::findOrFail($id);
         $post = Post::findOrFail($postId);
+        $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        if ($user->group->is_modo == false) {
-            if ($post->user_id != $user->id) {
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                    ->with($this->toastr->error('You Cannot Edit This!', 'Whoops!', ['options']));
-            }
-        }
+        abort_unless($user->group->is_modo || $post->user_id != $user->id, 403);
         $post->content = $request->input('content');
         $post->save();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect($postUrl)
             ->with($this->toastr->success('Post Successfully Edited!', 'Yay!', ['options']));
     }
 
     /**
      * Delete A Post.
      *
-     * @param $slug
-     * @param $id
      * @param $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postDelete($slug, $id, $postId)
+    public function postDelete($postId)
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
         $post = Post::findOrFail($postId);
 
-        if ($user->group->is_modo == false) {
-            if ($post->user_id != $user->id) {
-                return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                    ->with($this->toastr->error('You Cannot Delete This!', 'Whoops!', ['options']));
-            }
-        }
+        abort_unless($user->group->is_modo || $post->user_id != $user->id, 403);
         $post->delete();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
@@ -786,69 +771,5 @@ class ForumController extends Controller
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
-    }
-
-    /**
-     * Like A Post.
-     *
-     * @param $postId
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function likePost($postId)
-    {
-        $post = Post::findOrFail($postId);
-        $user = auth()->user();
-        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
-        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
-        if ($like || $dislike) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
-        } elseif ($user->id == $post->user_id) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You cannot like your own post!', 'Umm', ['options']));
-        } else {
-            $new = new Like();
-            $new->user_id = $user->id;
-            $new->post_id = $post->id;
-            $new->like = 1;
-            $new->save();
-
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->success('Like Successfully Applied!', 'Yay', ['options']));
-        }
-    }
-
-    /**
-     * Dislike A Post.
-     *
-     * @param $postId
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function dislikePost($postId)
-    {
-        $post = Post::findOrFail($postId);
-        $user = auth()->user();
-        $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
-        $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
-
-        if ($like || $dislike) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
-        } elseif ($user->id == $post->user_id) {
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->error('You cannot like your own post!', 'Umm', ['options']));
-        } else {
-            $new = new Like();
-            $new->user_id = $user->id;
-            $new->post_id = $post->id;
-            $new->dislike = 1;
-            $new->save();
-
-            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-                ->with($this->toastr->success('Dislike Successfully Applied!', 'Yay', ['options']));
-        }
     }
 }

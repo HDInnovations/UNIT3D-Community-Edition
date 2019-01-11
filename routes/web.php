@@ -340,10 +340,10 @@ Route::group(['middleware' => 'language'], function () {
         // Open Topic
         Route::get('/topic/{slug}.{id}/open', 'ForumController@openTopic')->name('forum_open');
         // Edit Post
-        Route::get('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
-        Route::post('/topic/{slug}.{id}/post-{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
+        Route::get('/posts/{slug}.{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
+        Route::post('/posts/{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
         // Delete Post
-        Route::get('/topic/{slug}.{id}/post-{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
+        Route::get('/posts/{postId}/delete', 'ForumController@postDelete')->name('forum_post_delete');
         // Reply To Topic
         Route::post('/topic/{slug}.{id}/reply', 'ForumController@reply')->name('forum_reply');
         // Edit Topic
@@ -366,8 +366,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
 
         // Like - Dislike System
-        Route::any('/like/post/{postId}', 'ForumController@likePost')->name('like');
-        Route::any('/dislike/post/{postId}', 'ForumController@dislikePost')->name('dislike');
+        Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
+        Route::any('/dislike/post/{postId}', 'LikeController@destroy')->name('dislike');
 
         // Subscription System
         Route::get('/subscribe/{topic}', 'SubscriptionController@subscribe')->name('subscribe');
