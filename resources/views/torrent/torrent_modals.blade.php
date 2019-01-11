@@ -12,10 +12,9 @@
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                     <div class="form-group">
                         @csrf
-                        <input id="type" name="type" type="hidden" value="Torrent">
                         <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                         <div class="col-sm-10">
                             <input type="hidden" name="torrent_id" value="{{ $torrent->id }}">
