@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 use App\Report;
 use App\Torrent;
 use App\TorrentRequest;
+use App\User;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 
@@ -122,6 +123,47 @@ class ReportController extends Controller
             \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent report.");
 
             return redirect()->route('torrent', ['slug' => $slug, 'id' => $id])
+                ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
+        }
+    }
+
+    /**
+     * Create A User Report.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function user(Request $request, $username, int $id)
+    {
+        $reported_user = User::findOrFail($id);
+        $reported_by = auth()->user();
+
+        $v = validator($request->all(), [
+            'message' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('profile', ['username' => $username, 'id' => $id])
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
+            $this->report->create([
+                'type' => 'User',
+                'torrent_id' => 0,
+                'request_id' => 0,
+                'reporter_id' => $reported_by->id,
+                'reported_user' => $reported_user->id,
+                'title' => $reported_user->username,
+                'message' => $request->get('message'),
+                'solved' => 0,
+            ]);
+
+            // Activity Log
+            \LogActivity::addToLog("Member {$reported_by->username} has made a new User report.");
+
+            return redirect()->route('profile', ['username' => $username, 'id' => $id])
                 ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
         }
     }
