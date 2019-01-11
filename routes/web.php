@@ -94,6 +94,7 @@ Route::group(['middleware' => 'language'], function () {
         // User Reports
         Route::post('/report/torrent/{slug}.{id}', 'ReportController@torrent')->name('report_torrent');
         Route::post('/report/request/{id}', 'ReportController@request')->name('report_request');
+        Route::post('/report/user/{username}.{id}', 'ReportController@user')->name('report_user');
 
         // Bug Report
         Route::get('/bug', 'BugController@bugForm')->name('bug');
