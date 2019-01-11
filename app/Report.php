@@ -84,5 +84,4 @@ class Report extends Model
             'id'       => '1',
         ]);
     }
-
 }
