@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Report;
 use App\Torrent;
 use App\TorrentRequest;
-use App\User;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 
@@ -80,7 +80,7 @@ class ReportController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$reported_by->username} has made a new Torrent Request report.");
 
-            return redirect()->route('request',['id' => $id])
+            return redirect()->route('request', ['id' => $id])
                 ->with($this->toastr->success('Your report has been successfully sent', 'Yay!', ['options']));
         }
     }
