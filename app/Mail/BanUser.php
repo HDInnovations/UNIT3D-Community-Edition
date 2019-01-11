@@ -21,16 +21,18 @@ class BanUser extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $logban;
+    public $email;
+    public $ban;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($logban)
+    public function __construct($email, $ban)
     {
-        $this->logban = $logban;
+        $this->email = $email;
+        $this->ban = $ban;
     }
 
     /**
