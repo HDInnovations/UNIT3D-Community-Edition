@@ -72,7 +72,11 @@
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
                 </a>
             </li>
-
+            <li>
+                <a href="{{ route('Staff.rss.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss')
+                </a>
+            </li>
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.torrent-tools')
             </li>

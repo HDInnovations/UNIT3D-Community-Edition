@@ -116,6 +116,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has Many RSS Feeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rss()
+    {
+        return $this->hasMany(Rss::class);
+    }
+
+    /**
      * Has Many Thanks Given.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
