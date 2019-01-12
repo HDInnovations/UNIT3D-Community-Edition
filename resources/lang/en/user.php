@@ -85,6 +85,7 @@ return [
     'members-desc'              => 'List of users registered on :title with all groups. Find an user now.',
     'moderated-by'              => 'Moderated by :mod on',
     'my-bonus-points'           => 'My bonus points',
+    'my-bookmarks'              => 'My Bookmarks',
     'my-fl-tokens'              => 'My FL tokens',
     'my-profile'                => 'My Profile',
     'my-seedboxes'              => 'My Seedboxes',

@@ -519,6 +519,10 @@
                         <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-list"></span> @lang('user.my-wishlist')
                         </button>
                     </a>
+                    <a href="{{ route('bookmarks') }}">
+                        <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-bookmark"></span> @lang('user.my-bookmarks')
+                        </button>
+                    </a>
                 </div>
             </div>
         @endif

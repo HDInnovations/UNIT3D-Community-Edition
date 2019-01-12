@@ -50,13 +50,6 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('bookmarks') }}">
-                <i class="{{ config('other.font-awesome') }} fa-bookmark" style=" font-size: 18px; color: #fff;"></i>
-                <span class="menu-text">@lang('torrent.bookmarks')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
             <a href="{{ route('gallery') }}">
                 <i class="{{ config('other.font-awesome') }} fa-images" style=" font-size: 18px; color: #fff;"></i>
                 <span class="menu-text">Gallery</span>
