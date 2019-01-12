@@ -17,6 +17,7 @@ use App\Peer;
 use App\Type;
 use App\User;
 use App\History;
+use App\Rss;
 use App\Torrent;
 use App\Warning;
 use App\Category;
@@ -61,7 +62,7 @@ class TorrentController extends Controller
     /**
      * RequestController Constructor.
      *
-     * @param RequestFacetedRepository $faceted
+     * @param TorrentFacetedRepository $faceted
      * @param ChatRepository           $chat
      * @param Toastr                   $toastr
      */
@@ -166,11 +167,11 @@ class TorrentController extends Controller
             ->get();
 
         return view('torrent.grouping_results', [
-            'user'               => $user,
+            'user' => $user,
             'personal_freeleech' => $personal_freeleech,
-            'torrents'           => $torrents,
-            'imdb'               => $imdb,
-            'category'           => $category,
+            'torrents' => $torrents,
+            'imdb' => $imdb,
+            'category' => $category,
         ]);
     }
 
@@ -866,13 +867,19 @@ class TorrentController extends Controller
      *
      * @param $slug
      * @param $id
+     * @param $rsskey
      *
      * @return TorrentFile
      */
-    public function download($slug, $id)
+    public function download($slug, $id, $rsskey = null)
     {
-        $torrent = Torrent::withAnyStatus()->findOrFail($id);
+
         $user = auth()->user();
+        if(!$user && $rsskey) {
+            $user = User::where('rsskey','=',$rsskey)->firstOrFail();
+        }
+
+        $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
