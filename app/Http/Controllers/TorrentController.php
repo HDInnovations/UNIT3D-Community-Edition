@@ -17,7 +17,6 @@ use App\Peer;
 use App\Type;
 use App\User;
 use App\History;
-use App\Rss;
 use App\Torrent;
 use App\Warning;
 use App\Category;
@@ -873,10 +872,9 @@ class TorrentController extends Controller
      */
     public function download($slug, $id, $rsskey = null)
     {
-
         $user = auth()->user();
-        if(!$user && $rsskey) {
-            $user = User::where('rsskey','=',$rsskey)->firstOrFail();
+        if (! $user && $rsskey) {
+            $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);

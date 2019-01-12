@@ -58,7 +58,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // RSS Custom Routes (RSS Key Auth)
         Route::get('/rss/{id}.{rsskey}', 'RssController@show')->name('rss.show.rsskey');
-        Route::get('/torrent/download/{slug}.{id}.{rsskey}','TorrentController@download')->name('torrent.download.rsskey');
+        Route::get('/torrent/download/{slug}.{id}.{rsskey}', 'TorrentController@download')->name('torrent.download.rsskey');
     });
 
     /*
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // RSS CRUD
         Route::resource('rss', 'RssController')->except([
-            'show'
+            'show',
         ]);
 
         // Two Step Auth
@@ -392,7 +392,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // RSS CRUD
         Route::resource('rss', 'RssController')->except([
-            'show'
+            'show',
         ])->names([
             'create' => 'Staff.rss.create',
             'index' => 'Staff.rss.index',
