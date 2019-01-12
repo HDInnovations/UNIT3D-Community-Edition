@@ -1,27 +1,27 @@
 <?php
 /**
-* NOTICE OF LICENSE.
-*
-* UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
-* The details is bundled with this project in the file LICENSE.txt.
-*
-* @project    UNIT3D
-*
-* @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
-* @author     singularity43
-*/
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     singularity43
+ */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Rss;
+use App\Type;
 use App\User;
 use App\Group;
 use App\Torrent;
 use App\Category;
-use App\Type;
 use App\TagTorrent;
 use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;
 
 class RssController extends Controller
@@ -37,7 +37,7 @@ class RssController extends Controller
     private $toastr;
 
     /**
-     * RssController Constructor
+     * RssController Constructor.
      *
      * @param TorrentFacetedRepository $torrent_faceted
      * @param Toastr $toastr
@@ -47,7 +47,6 @@ class RssController extends Controller
         $this->torrent_faceted = $torrent_faceted;
         $this->toastr = $toastr;
     }
-
 
     /**
      * @param Toastr $toastr
@@ -68,7 +67,7 @@ class RssController extends Controller
         $user = auth()->user();
 
         $public_rss = Rss::public()->orderBy('position', 'ASC')->get();
-        $private_rss = Rss::private()->where('user_id',$user->id)->latest()->get();
+        $private_rss = Rss::private()->where('user_id', $user->id)->latest()->get();
 
         return view('rss.index', [
             'hash' => $hash,
@@ -92,8 +91,9 @@ class RssController extends Controller
             'torrent_repository' => $torrent_repository,
             'categories'     => Category::all()->sortBy('position'),
             'types'          => Type::all()->sortBy('position'),
-            'user'           => $user ]);
+            'user'           => $user, ]);
     }
+
     /**
      * Store a newly created RSS resource in storage.
      *
@@ -110,14 +110,14 @@ class RssController extends Controller
             'search' => 'max:255',
             'description' => 'max:255',
             'uploader' => 'max:255',
-            'categories' => "sometimes|array|max:999",
+            'categories' => 'sometimes|array|max:999',
             'types' => 'sometimes|array|max:999',
             'genres' => 'sometimes|array|max:999',
             'position' => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['name', 'search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech' ,'doubleupload','featured','stream','highspeed','sd','internal','alive','dying','dead']);
+            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
@@ -127,19 +127,21 @@ class RssController extends Controller
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
             $expected = $rss->expected;
-            $rss->json_torrent = array_merge($expected,$params);
+            $rss->json_torrent = array_merge($expected, $params);
             $rss->is_private = 1;
             $rss->save();
-            $success = "Private RSS Feed Created";
+            $success = 'Private RSS Feed Created';
         }
-        if(!$success) {
-            $error = "Unable To Process Request";
+        if (! $success) {
+            $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
             }
+
             return redirect()->route('rss.create')
                 ->with($this->toastr->error($error, 'Uhoh!', ['options']));
         }
+
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
             ->with($this->toastr->success($success, 'Congratulations!', ['options']));
     }
@@ -154,7 +156,7 @@ class RssController extends Controller
     public function show($id, $rsskey)
     {
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
-        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)',[$user->id,1])->firstOrFail();
+        $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
         $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
@@ -305,7 +307,7 @@ class RssController extends Controller
 
         return view('rss.show', [
             'torrents'        => $torrents,
-            'rsskey'          => $user->rsskey ])->render();
+            'rsskey'          => $user->rsskey, ])->render();
     }
 
     /**
@@ -317,7 +319,7 @@ class RssController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private',1)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', 1)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
         return view('rss.edit', [
@@ -339,40 +341,42 @@ class RssController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private',1)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
             'search' => 'max:255',
             'description' => 'max:255',
             'uploader' => 'max:255',
-            'categories' => "sometimes|array|max:999",
+            'categories' => 'sometimes|array|max:999',
             'types' => 'sometimes|array|max:999',
             'genres' => 'sometimes|array|max:999',
             'position' => 'sometimes|integer|max:9999',
         ]);
 
         $params = $request->only(['search', 'description', 'uploader', 'imdb', 'tvdb', 'tmdb', 'mal', 'categories',
-            'types', 'genres', 'freeleech' ,'doubleupload','featured','stream','highspeed','sd','internal','alive','dying','dead']);
+            'types', 'genres', 'freeleech', 'doubleupload', 'featured', 'stream', 'highspeed', 'sd', 'internal', 'alive', 'dying', 'dead', ]);
 
         $error = null;
         $success = null;
         $redirect = null;
         if ($v->passes()) {
             $expected = $rss->expected;
-            $push = array_merge($expected,$params);
-            $rss->json_torrent = array_merge($rss->json_torrent,$push);
+            $push = array_merge($expected, $params);
+            $rss->json_torrent = array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
             $rss->save();
-            $success = "Private RSS Feed Updated";
+            $success = 'Private RSS Feed Updated';
         }
-        if(!$success) {
-            $error = "Unable To Process Request";
+        if (! $success) {
+            $error = 'Unable To Process Request';
             if ($v->errors()) {
                 $error = $v->errors();
             }
+
             return redirect()->route('rss.edit', ['id' => $id])
                 ->with($this->toastr->error($error, 'Uhoh!', ['options']));
         }
+
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
             ->with($this->toastr->success($success, 'Congratulations!', ['options']));
     }
@@ -386,11 +390,13 @@ class RssController extends Controller
     public function destroy($id)
     {
         $rss = auth()->user()->rss()->findOrFail($id);
-        if($rss->is_private) {
+        if ($rss->is_private) {
             $rss->delete();
+
             return redirect()->route('rss.index.hash', ['hash' => 'private'])
                 ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
         }
+
         return redirect()->route('rss.index')
             ->with($this->toastr->error('You are not authorized to carry out this action', 'Uhoh!', ['options']));
     }

@@ -18,20 +18,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rss extends Model
 {
-
     use SoftDeletes;
 
     public $expected;
 
     /**
-     * The Database Table Used By The Model
+     * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'rss';
 
     /**
-     * Indicates If The Model Should Be Timestamped
+     * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
@@ -57,7 +56,7 @@ class Rss extends Model
         $this->expected = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
             'mal' => null, 'categories' => null, 'types' => null, 'genres' => null, 'freeleech' => null,
             'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null,
-            'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null];
+            'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
     }
 
     /**
@@ -92,10 +91,12 @@ class Rss extends Model
     public function getObjectTorrentAttribute()
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
-        if($this->json_torrent) {
+        if ($this->json_torrent) {
             $expected = $this->expected;
+
             return (object) array_merge($expected, $this->json_torrent);
         }
+
         return false;
     }
 

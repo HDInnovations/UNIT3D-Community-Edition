@@ -13,12 +13,11 @@ class AlterRssTable extends Migration
      */
     public function up()
     {
-
         Schema::dropIfExists('rss');
         Schema::create('rss', function (Blueprint $table) {
             $table->integer('id', true);
             $table->integer('position')->default(0);
-            $table->string('name','255')->default('Default');
+            $table->string('name', '255')->default('Default');
             $table->integer('user_id')->default(1);
             $table->integer('staff_id')->default(0);
             $table->boolean('is_private')->default(0)->index();
