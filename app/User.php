@@ -695,7 +695,7 @@ class User extends Authenticatable
      */
     public function getTotalSeedSize()
     {
-        $peers = Peer::where('user_id', '=', $this->id)->pluck('torrent_id');
+        $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
         return Torrent::whereIn('id', $peers)->sum('size');
     }
