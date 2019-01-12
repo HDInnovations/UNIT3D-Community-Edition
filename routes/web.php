@@ -56,9 +56,9 @@ Route::group(['middleware' => 'language'], function () {
         // Announce
         Route::get('/announce/{passkey}', 'AnnounceController@announce')->name('announce');
 
-        // RSS
-        //Route::get('/torrents/rss/{passkey}', 'RssController@getData')->name('rss');
-        //Route::get('/rss/{passkey}/download/{id}','RssController@download')->name('rssDownload');
+        // RSS Custom Routes (RSS Key Auth)
+        Route::get('/rss/{id}.{rsskey}', 'RssController@show')->name('rss.show.rsskey');
+        Route::get('/torrent/download/{slug}.{id}.{rsskey}','TorrentController@download')->name('torrent.download.rsskey');
     });
 
     /*
@@ -67,6 +67,14 @@ Route::group(['middleware' => 'language'], function () {
     |------------------------------------------
     */
     Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+
+        // RSS Custom Routes
+        Route::get('/rss#{hash?}', 'RssController@index')->name('rss.index.hash');
+
+        // RSS CRUD
+        Route::resource('rss', 'RssController')->except([
+            'show'
+        ]);
 
         // Two Step Auth
         Route::get('/twostep/needed', 'Auth\TwoStepController@showVerification')->name('verificationNeeded');
@@ -191,6 +199,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/request/{id}/unclaim', 'RequestController@unclaimRequest')->name('unclaimRequest');
 
         // Torrent
+        Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
         Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
         Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
@@ -380,6 +389,18 @@ Route::group(['middleware' => 'language'], function () {
     |-----------------------------------------------------------------
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
+
+        // RSS CRUD
+        Route::resource('rss', 'RssController')->except([
+            'show'
+        ])->names([
+            'create' => 'Staff.rss.create',
+            'index' => 'Staff.rss.index',
+            'edit' => 'Staff.rss.edit',
+            'update' => 'Staff.rss.update',
+            'store' => 'Staff.rss.store',
+            'destroy' => 'Staff.rss.destroy',
+        ]);
 
         // Staff Dashboard
         Route::get('/', 'HomeController@home')->name('staff_dashboard');
