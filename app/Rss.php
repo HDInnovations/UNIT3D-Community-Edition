@@ -108,7 +108,7 @@ class Rss extends Model
      */
     public function scopePrivate($query)
     {
-        return $query->where('is_private', 1);
+        return $query->where('is_private', '=', 1);
     }
 
     /**
@@ -119,6 +119,6 @@ class Rss extends Model
      */
     public function scopePublic($query)
     {
-        return $query->where('is_private', 0);
+        return $query->where('is_private', '=', 0);
     }
 }

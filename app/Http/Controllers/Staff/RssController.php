@@ -133,11 +133,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.create')
-                ->with($this->toastr->error($error, 'Uhoh!', ['options']));
+                ->with($this->toastr->error($error, 'Whoops!', ['options']));
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Congratulations!', ['options']));
+            ->with($this->toastr->success($success, 'Yay!', ['options']));
     }
 
     /**
@@ -149,7 +149,7 @@ class RssController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', 0)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
         return view('Staff.rss.edit', [
@@ -171,7 +171,7 @@ class RssController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', 0)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [
             'name' => 'required|min:3|max:255',
@@ -208,11 +208,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('Staff.rss.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Uhoh!', ['options']));
+                ->with($this->toastr->error($error, 'Whoops!', ['options']));
         }
 
         return redirect()->route('Staff.rss.index')
-            ->with($this->toastr->success($success, 'Congratulations!', ['options']));
+            ->with($this->toastr->success($success, 'Yay!', ['options']));
     }
 
     /**
@@ -223,7 +223,7 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $rss = auth()->user()->rss()->where('is_private', 0)->findOrFail($id);
+        $rss = auth()->user()->rss()->where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
         return redirect()->route('Staff.rss.index')

@@ -49,14 +49,6 @@ class RssController extends Controller
     }
 
     /**
-     * @param Toastr $toastr
-     */
-    public function setToastr($toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
-    /**
      * Display a listing of the RSS resource.
      *
      * @param  string  $hash
@@ -67,7 +59,7 @@ class RssController extends Controller
         $user = auth()->user();
 
         $public_rss = Rss::public()->orderBy('position', 'ASC')->get();
-        $private_rss = Rss::private()->where('user_id', $user->id)->latest()->get();
+        $private_rss = Rss::private()->where('user_id', '=', $user->id)->latest()->get();
 
         return view('rss.index', [
             'hash' => $hash,
@@ -139,11 +131,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('rss.create')
-                ->with($this->toastr->error($error, 'Uhoh!', ['options']));
+                ->with($this->toastr->error($error, 'Whoops!', ['options']));
         }
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
-            ->with($this->toastr->success($success, 'Congratulations!', ['options']));
+            ->with($this->toastr->success($success, 'Yay!', ['options']));
     }
 
     /**
@@ -319,7 +311,7 @@ class RssController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', 1)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', '=', 1)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
         return view('rss.edit', [
@@ -341,7 +333,7 @@ class RssController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', 1)->findOrFail($id);
+        $rss = $user->rss()->where('is_private', '=', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
             'search' => 'max:255',
@@ -374,11 +366,11 @@ class RssController extends Controller
             }
 
             return redirect()->route('rss.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Uhoh!', ['options']));
+                ->with($this->toastr->error($error, 'Whoops!', ['options']));
         }
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
-            ->with($this->toastr->success($success, 'Congratulations!', ['options']));
+            ->with($this->toastr->success($success, 'Yay!', ['options']));
     }
 
     /**
@@ -398,6 +390,6 @@ class RssController extends Controller
         }
 
         return redirect()->route('rss.index')
-            ->with($this->toastr->error('You are not authorized to carry out this action', 'Uhoh!', ['options']));
+            ->with($this->toastr->error('You are not authorized to carry out this action', 'Whoops!', ['options']));
     }
 }
