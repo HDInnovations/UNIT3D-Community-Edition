@@ -15,8 +15,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Interfaces\ScheduledDowntimeInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class ScheduledDowntime extends Command
 {
@@ -35,7 +33,7 @@ class ScheduledDowntime extends Command
      */
     protected $description = 'Show the "there will be scheduled downtime in x minutes"';
 
-    /** @var  WillBeDown object that holds most of the logic */
+    /** @var WillBeDown object that holds most of the logic */
     protected $will_be_down;
 
     public function __construct(ScheduledDowntimeInterface $will_be_down)
@@ -51,7 +49,7 @@ class ScheduledDowntime extends Command
      */
     public function handle()
     {
-        $in = (int)trim($this->argument('in_minutes'));
+        $in = (int) trim($this->argument('in_minutes'));
 
         $expected_downtime_in_minutes = $this->option('expected_downtime_duration') ?? 10;
 
@@ -66,23 +64,23 @@ class ScheduledDowntime extends Command
     }
 
     /**
-     * Output some helper messages to the user to explain what was going on
+     * Output some helper messages to the user to explain what was going on.
      *
      * @param $downtime_due_to_start_in_x_minutes
      */
     protected function outputSuccessMessages(int $downtime_due_to_start_in_x_minutes)
     {
-        $this->line("Success!");
+        $this->line('Success!');
         $this->line('');
-        $this->info('Scheduled downtime message (in ' . $downtime_due_to_start_in_x_minutes . ' minutes) has been added!');
+        $this->info('Scheduled downtime message (in '.$downtime_due_to_start_in_x_minutes.' minutes) has been added!');
 
         $this->line('');
 
-        $this->question("In " . $downtime_due_to_start_in_x_minutes . " minutes YOU must run `php artisan down` - this is NOT automatic!");
+        $this->question('In '.$downtime_due_to_start_in_x_minutes.' minutes YOU must run `php artisan down` - this is NOT automatic!');
         $this->line('');
-        $this->question("Once you have done your work and want to make the site live again, please run:");
-        $this->question("`php artisan scheduled_downtime:stop`");
-        $this->question("(running that command automatically also runs `php artisan up`)");
+        $this->question('Once you have done your work and want to make the site live again, please run:');
+        $this->question('`php artisan scheduled_downtime:stop`');
+        $this->question('(running that command automatically also runs `php artisan up`)');
     }
 
     /**
@@ -93,12 +91,12 @@ class ScheduledDowntime extends Command
      */
     protected function checkForErrors(int $downtime_due_to_start_in_x_minutes, $expected_downtime_in_mins)
     {
-        if (!is_numeric($downtime_due_to_start_in_x_minutes) || $downtime_due_to_start_in_x_minutes < 1) {
-            throw new \Exception("The minutes must be at least in 1 minute");
+        if (! is_numeric($downtime_due_to_start_in_x_minutes) || $downtime_due_to_start_in_x_minutes < 1) {
+            throw new \Exception('The minutes must be at least in 1 minute');
         }
 
-        if (!is_numeric($expected_downtime_in_mins) || $expected_downtime_in_mins < 1) {
-            throw new \Exception("The expected downtime in minutes is not a valid number");
+        if (! is_numeric($expected_downtime_in_mins) || $expected_downtime_in_mins < 1) {
+            throw new \Exception('The expected downtime in minutes is not a valid number');
         }
 
         // no errors! we can return false
