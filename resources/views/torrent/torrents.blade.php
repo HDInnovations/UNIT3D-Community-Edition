@@ -166,8 +166,8 @@
                 </span>
             </div>
         </div>
-
         </form>
+
         <hr>
 
         <div class="form-horizontal">
@@ -197,7 +197,7 @@
                 </div>
             </div>
         </div>
-    
+
     </div>
 
     <div class="container-fluid">
@@ -209,6 +209,9 @@
                 </a>
                 <a href="{{ route('catalogs') }}" class="btn btn-xs btn-primary">
                     <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('torrent.catalogs')
+                </a>
+                <a href="{{ route('rss.index') }}" class="btn btn-xs btn-warning">
+                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.public') / @lang('rss.private') @lang('rss.rss') @lang('rss.feeds')
                 </a>
             </div>
             <div style="float:right;">
@@ -270,8 +273,8 @@
 
 @section('javascripts')
     <script>
+        import Vue from 'vue';
         var xhr = new XMLHttpRequest();
-
         function faceted(page) {
             var csrf = "{{ csrf_token() }}";
             var search = $("#search").val();
@@ -337,6 +340,7 @@
                     return $("#dead").val();
                 }
             })();
+
             $(".category:checked").each(function () {
                 categories.push($(this).val());
             });
@@ -387,18 +391,17 @@
             }).done(function (e) {
                 $data = $(e);
                 $("#result").html($data);
-                if(page) {
-                    if(document.getElementById('result-header') && document.getElementById('result-header').scrollIntoView) {
+                if (page) {
+                    if (document.getElementById('result-header') && document.getElementById('result-header').scrollIntoView) {
                         document.getElementById('result-header').scrollIntoView();
                     }
-                }
-                else {
-                    if(window.location.hash && window.location.hash.indexOf('page')) {
+                    if (window.location.hash && window.location.hash.indexOf('page')) {
                         if (window.history && window.history.replaceState) {
                             window.history.replaceState(null, null, ' ');
                         }
                     }
                 }
+                Vue.forceUpdate();
             });
         }
     </script>
