@@ -10,13 +10,6 @@ let mix = require('laravel-mix');
  */
 
 mix.version()
-
-    .webpackConfig({
-        module: {
-            // configuration regarding modules
-            loaders: [{ test: /\.js$/, loader: 'babel', query: { compact: false } }],
-        },
-    })
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
      */
