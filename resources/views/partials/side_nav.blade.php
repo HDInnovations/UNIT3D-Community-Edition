@@ -112,12 +112,13 @@
                 <span class="selected"></span>
             </a>
         </li>
-        {{--<li>
-          <a href="{{ route('rss', ['passkey' => auth()->user()->passkey]) }}">
-            <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #fff;">@lang('torrent.rss')</span>
-            <span class="selected"></span>
-          </a>
-        </li>--}}
+        <li>
+            <a href="{{ route('rss.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #fff;"></i>
+                <span class="menu-text">@lang('rss.rss')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
         @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff_dashboard') }}">
