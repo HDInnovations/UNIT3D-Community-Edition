@@ -19,7 +19,7 @@
                 </div>
 
                 <div id="frame">
-                    <div class="content">
+                    <div class="content" @mouseover="freezeChat()" @mouseleave="unfreezeChat()">
                         <div class="text-center">
                             <h4 v-if="state.connecting" class="text-red">Connecting ...</h4>
                             <h4 v-else class="text-green">Connected with {{ users.length }} users</h4>
@@ -120,7 +120,7 @@ export default {
             channel: null,
             config: {},
             activePeer: false,
-
+            frozen: false,
             /* Developer Settings */
             showDevMsg: false,
         };
@@ -164,6 +164,14 @@ export default {
             this.channel.whisper('typing', {
                 username: e.username,
             });
+        },
+
+        freezeChat() {
+            this.frozen = true;
+        },
+
+        unfreezeChat() {
+            this.frozen = false;
         },
 
         fetchRooms() {
@@ -253,6 +261,8 @@ export default {
 
         scrollToBottom(force = false) {
             let container = $('.messages .list-group');
+
+            if (this.frozen) return;
 
             if (this.scroll || force) {
                 container.animate({ scrollTop: container.prop('scrollHeight') }, 0);
