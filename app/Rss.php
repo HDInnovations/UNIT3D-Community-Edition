@@ -20,7 +20,7 @@ class Rss extends Model
 {
     use SoftDeletes;
 
-    public $expected;
+    protected $dates = ['deleted_at'];
 
     /**
      * The Database Table Used By The Model.
@@ -44,20 +44,8 @@ class Rss extends Model
     protected $casts = [
         'name' => 'string',
         'json_torrent' => 'array',
+        'expected_fields' => 'array',
     ];
-
-    /**
-     * Create a new RSS instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->expected = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
-            'mal' => null, 'categories' => null, 'types' => null, 'genres' => null, 'freeleech' => null,
-            'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null,
-            'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
-    }
 
     /**
      * Belongs To A User.
@@ -92,12 +80,28 @@ class Rss extends Model
     {
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {
-            $expected = $this->expected;
+            $expected = $this->expected_fields;
 
             return (object) array_merge($expected, $this->json_torrent);
         }
 
         return false;
+    }
+
+    /**
+     * Get the RSS feeds expected fields for form validation.
+     *
+     * @return array
+     */
+    public function getExpectedFieldsAttribute()
+    {
+        // Just Torrents for now... extendable to check on feed type in future.
+        $expected_fields = ['search' => null, 'description' => null, 'uploader' => null, 'imdb' => null,
+            'mal' => null, 'categories' => null, 'types' => null, 'genres' => null, 'freeleech' => null,
+            'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null,
+            'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
+
+        return $expected_fields;
     }
 
     /**
