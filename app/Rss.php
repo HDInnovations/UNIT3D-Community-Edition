@@ -20,8 +20,6 @@ class Rss extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-
     /**
      * The Database Table Used By The Model.
      *
@@ -46,6 +44,13 @@ class Rss extends Model
         'json_torrent' => 'array',
         'expected_fields' => 'array',
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * Belongs To A User.

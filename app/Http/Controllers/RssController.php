@@ -295,11 +295,12 @@ class RssController extends Controller
             $torrent->where('seeders', '=', $dead);
         }
 
-        $torrents = $torrent->paginate(50);
+        $torrents = $torrent->latest()->paginate(50);
 
         return view('rss.show', [
             'torrents'        => $torrents,
-            'rsskey'          => $user->rsskey, ])->render();
+            'rsskey'          => $user->rsskey,
+        ])->render();
     }
 
     /**
