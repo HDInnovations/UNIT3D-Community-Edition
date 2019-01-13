@@ -26,7 +26,6 @@ use App\Repositories\TorrentFacetedRepository;
 
 class RssController extends Controller
 {
-
     /**
      * @var TorrentFacetedRepository
      */
@@ -384,6 +383,7 @@ class RssController extends Controller
     {
         $rss = auth()->user()->rss()->where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
+
         return redirect()->route('rss.index.hash', ['hash' => 'private'])
             ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
     }

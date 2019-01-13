@@ -81,6 +81,7 @@ class Rss extends Model
         // Went with attribute to avoid () calls in views. Uniform ->object_torrent vs ->json_torrent.
         if ($this->json_torrent) {
             $expected = $this->expected_fields;
+
             return (object) array_merge($expected, $this->json_torrent);
         }
 
@@ -99,6 +100,7 @@ class Rss extends Model
             'mal' => null, 'categories' => null, 'types' => null, 'genres' => null, 'freeleech' => null,
             'doubleupload' => null, 'featured' => null, 'stream' => null, 'highspeed' => null, 'internal' => null,
             'alive' => null, 'dying' => null, 'dead' => null, 'sd' => null, ];
+
         return $expected_fields;
     }
 

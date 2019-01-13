@@ -217,6 +217,7 @@ class RssController extends Controller
     {
         $rss = auth()->user()->rss()->where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
+
         return redirect()->route('Staff.rss.index')
             ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
     }

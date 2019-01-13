@@ -872,12 +872,10 @@ class TorrentController extends Controller
      */
     public function download($slug, $id, $rsskey = null)
     {
-
         $user = auth()->user();
-        if (!$user && $rsskey) {
+        if (! $user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->firstOrFail();
         }
-
 
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
