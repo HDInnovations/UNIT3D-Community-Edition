@@ -54,6 +54,7 @@ UNIT3D currently offers the following features:
   - Multilingual Support
   - TwoStep Auth System
   - DB + Files Backup Manager
+  - RSS System
   - and MUCH MORE!
 
 ## <a name="requirements"></a> :white_check_mark: Requirements
@@ -109,6 +110,7 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version   | Status                   | PHP Version
 :----------|:-------------------------|:------------
+ 1.8.9     |  Active support :rocket: | >= 7.1.3
  1.8.8     |  Active support :rocket: | >= 7.1.3
  1.8.7     |  Active support :rocket: | >= 7.1.3
  1.8.6     |  End of life             | >= 7.1.3
