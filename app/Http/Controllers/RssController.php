@@ -311,7 +311,7 @@ class RssController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
         return view('rss.edit', [
@@ -333,7 +333,7 @@ class RssController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
 
         $v = validator($request->all(), [
             'search' => 'max:255',
@@ -381,7 +381,7 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $rss = auth()->user()->rss()->where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
         $rss->delete();
 
         return redirect()->route('rss.index.hash', ['hash' => 'private'])

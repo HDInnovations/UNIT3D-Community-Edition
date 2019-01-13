@@ -53,7 +53,7 @@ class RssController extends Controller
      */
     public function index($hash = null)
     {
-        $public_rss = Rss::public()->orderBy('position', 'ASC')->get();
+        $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
 
         return view('Staff.rss.index', [
             'hash' => $hash,
@@ -141,7 +141,7 @@ class RssController extends Controller
     public function edit($id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', '=', 0)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $torrent_repository = $this->torrent_faceted;
 
         return view('Staff.rss.edit', [
@@ -163,7 +163,7 @@ class RssController extends Controller
     public function update(Request $request, $id)
     {
         $user = auth()->user();
-        $rss = $user->rss()->where('is_private', '=', 0)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
 
         $v = validator($request->all(), [
             'name' => 'required|min:3|max:255',
@@ -215,7 +215,7 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $rss = auth()->user()->rss()->where('is_private', '=', 0)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
 
         return redirect()->route('Staff.rss.index')

@@ -103,26 +103,4 @@ class Rss extends Model
 
         return $expected_fields;
     }
-
-    /**
-     * Scope a query to only include private RSS feeds.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopePrivate($query)
-    {
-        return $query->where('is_private', '=', 1);
-    }
-
-    /**
-     * Scope a query to only include public RSS feeds.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopePublic($query)
-    {
-        return $query->where('is_private', '=', 0);
-    }
 }
