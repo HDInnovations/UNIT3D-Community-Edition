@@ -26,6 +26,7 @@ use App\Repositories\TorrentFacetedRepository;
 
 class RssController extends Controller
 {
+
     /**
      * @var TorrentFacetedRepository
      */
@@ -58,8 +59,8 @@ class RssController extends Controller
     {
         $user = auth()->user();
 
-        $public_rss = Rss::public()->orderBy('position', 'ASC')->get();
-        $private_rss = Rss::private()->where('user_id', '=', $user->id)->latest()->get();
+        $public_rss = Rss::where('is_private', '=', 0)->orderBy('position', 'ASC')->get();
+        $private_rss = Rss::where('is_private', '=', 1)->where('user_id', '=', $user->id)->latest()->get();
 
         return view('rss.index', [
             'hash' => $hash,
@@ -118,7 +119,7 @@ class RssController extends Controller
             $rss = new Rss();
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
-            $expected = $rss->expected;
+            $expected = $rss->expected_fields;
             $rss->json_torrent = array_merge($expected, $params);
             $rss->is_private = 1;
             $rss->save();
@@ -352,7 +353,7 @@ class RssController extends Controller
         $success = null;
         $redirect = null;
         if ($v->passes()) {
-            $expected = $rss->expected;
+            $expected = $rss->expected_fields;
             $push = array_merge($expected, $params);
             $rss->json_torrent = array_merge($rss->json_torrent, $push);
             $rss->is_private = 1;
@@ -381,15 +382,9 @@ class RssController extends Controller
      */
     public function destroy($id)
     {
-        $rss = auth()->user()->rss()->findOrFail($id);
-        if ($rss->is_private) {
-            $rss->delete();
-
-            return redirect()->route('rss.index.hash', ['hash' => 'private'])
-                ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
-        }
-
-        return redirect()->route('rss.index')
-            ->with($this->toastr->error('You are not authorized to carry out this action', 'Whoops!', ['options']));
+        $rss = auth()->user()->rss()->where('is_private', '=', 1)->findOrFail($id);
+        $rss->delete();
+        return redirect()->route('rss.index.hash', ['hash' => 'private'])
+            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
     }
 }
