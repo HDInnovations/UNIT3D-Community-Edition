@@ -273,7 +273,8 @@
 
 @section('javascripts')
     <script>
-        import Vue from 'vue';
+        $(function(){
+
         var xhr = new XMLHttpRequest();
         function faceted(page) {
             var csrf = "{{ csrf_token() }}";
@@ -401,11 +402,8 @@
                         }
                     }
                 }
-                Vue.forceUpdate();
             });
         }
-    </script>
-    <script>
         $(window).on("load", function() { facetedBoot(); });
         function facetedBoot() {
             var page = 0;
@@ -416,60 +414,38 @@
                     return;
                 }
             }
-            faceted();
+            // faceted();
         }
-    </script>
-    <script>
         $("#search").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#description").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#uploader").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#imdb").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#tvdb").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#tmdb").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $("#mal").keyup(function () {
             faceted();
         })
-    </script>
-    <script>
         $(".category,.type,.genre").on("click", function () {
             faceted();
         });
-    </script>
-    <script>
         $("#freeleech,#doubleupload,#featured,#stream,#highspeed,#sd,#internal,#alive,#dying,#dead").on("click", function () {
             faceted();
         });
-    </script>
-    <script>
         $("#sorting,#direction,#qty").on('change', function () {
             faceted();
         });
-    </script>
-    <script>
         $(document).on('click', '.pagination a', function (e) {
             e.preventDefault();
             var link_url = $(this).attr('href');
@@ -480,18 +456,13 @@
             }
             faceted(page);
         });
-    </script>
-    <script>
-      $(document).ajaxComplete(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
-    <script>
+        $(document).ajaxComplete(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
         $('.show-poster').click(function (e) {
             e.preventDefault();
             var name = $(this).attr('data-name');
             var image = $(this).attr('data-image');
-
             swal({
                 showConfirmButton: false,
                 showCloseButton: true,
@@ -501,6 +472,8 @@
                 title: name,
                 text: '',
             });
+        });
+
         });
     </script>
 @endsection
