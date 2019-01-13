@@ -275,205 +275,203 @@
     <script>
         $(function(){
 
-        var xhr = new XMLHttpRequest();
-        function faceted(page) {
-            var csrf = "{{ csrf_token() }}";
-            var search = $("#search").val();
-            var description = $("#description").val();
-            var uploader = $("#uploader").val();
-            var imdb = $("#imdb").val();
-            var tvdb = $("#tvdb").val();
-            var tmdb = $("#tmdb").val();
-            var mal = $("#mal").val();
-            var categories = [];
-            var types = [];
-            var genres = [];
-            var sorting = $("#sorting").val();
-            var direction = $("#direction").val();
-            var qty = $("#qty").val();
-            var freeleech = (function () {
-                if ($("#freeleech").is(":checked")) {
-                    return $("#freeleech").val();
-                }
-            })();
-            var doubleupload = (function () {
-                if ($("#doubleupload").is(":checked")) {
-                    return $("#doubleupload").val();
-                }
-            })();
-            var featured = (function () {
-                if ($("#featured").is(":checked")) {
-                    return $("#featured").val();
-                }
-            })();
-            var stream = (function () {
-                if ($("#stream").is(":checked")) {
-                    return $("#stream").val();
-                }
-            })();
-            var highspeed = (function () {
-                if ($("#highspeed").is(":checked")) {
-                    return $("#highspeed").val();
-                }
-            })();
-            var sd = (function () {
-                if ($("#sd").is(":checked")) {
-                    return $("#sd").val();
-                }
-            })();
-            var internal = (function () {
-              if ($("#internal").is(":checked")) {
-                return $("#internal").val();
-              }
-            })();
-            var alive = (function () {
-                if ($("#alive").is(":checked")) {
-                    return $("#alive").val();
-                }
-            })();
-            var dying = (function () {
-                if ($("#dying").is(":checked")) {
-                    return $("#dying").val();
-                }
-            })();
-            var dead = (function () {
-                if ($("#dead").is(":checked")) {
-                    return $("#dead").val();
-                }
-            })();
-
-            $(".category:checked").each(function () {
-                categories.push($(this).val());
-            });
-            $(".type:checked").each(function () {
-                types.push($(this).val());
-            });
-            $(".genre:checked").each(function () {
-                genres.push($(this).val());
-            });
-
-            if (xhr !== 'undefined') {
-                xhr.abort();
-            }
-
-            xhr = $.ajax({
-                url: 'filterTorrents',
-                data: {
-                    _token: csrf,
-                    search: search,
-                    description: description,
-                    uploader: uploader,
-                    imdb: imdb,
-                    tvdb: tvdb,
-                    tmdb: tmdb,
-                    mal: mal,
-                    categories: categories,
-                    types: types,
-                    genres: genres,
-                    freeleech: freeleech,
-                    doubleupload: doubleupload,
-                    featured: featured,
-                    stream: stream,
-                    highspeed: highspeed,
-                    sd: sd,
-                    internal: internal,
-                    alive: alive,
-                    dying: dying,
-                    dead: dead,
-                    sorting: sorting,
-                    direction: direction,
-                    page: page,
-                    qty: qty
-                },
-                type: 'get',
-                beforeSend: function () {
-                    $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
-                }
-            }).done(function (e) {
-                $data = $(e);
-                $("#result").html($data);
-                if (page) {
-                    if (document.getElementById('result-header') && document.getElementById('result-header').scrollIntoView) {
-                        document.getElementById('result-header').scrollIntoView();
+            var xhr = new XMLHttpRequest();
+            function faceted(page) {
+                var csrf = "{{ csrf_token() }}";
+                var search = $("#search").val();
+                var description = $("#description").val();
+                var uploader = $("#uploader").val();
+                var imdb = $("#imdb").val();
+                var tvdb = $("#tvdb").val();
+                var tmdb = $("#tmdb").val();
+                var mal = $("#mal").val();
+                var categories = [];
+                var types = [];
+                var genres = [];
+                var sorting = $("#sorting").val();
+                var direction = $("#direction").val();
+                var qty = $("#qty").val();
+                var freeleech = (function () {
+                    if ($("#freeleech").is(":checked")) {
+                        return $("#freeleech").val();
                     }
-                    if (window.location.hash && window.location.hash.indexOf('page')) {
-                        if (window.history && window.history.replaceState) {
-                            window.history.replaceState(null, null, ' ');
+                })();
+                var doubleupload = (function () {
+                    if ($("#doubleupload").is(":checked")) {
+                        return $("#doubleupload").val();
+                    }
+                })();
+                var featured = (function () {
+                    if ($("#featured").is(":checked")) {
+                        return $("#featured").val();
+                    }
+                })();
+                var stream = (function () {
+                    if ($("#stream").is(":checked")) {
+                        return $("#stream").val();
+                    }
+                })();
+                var highspeed = (function () {
+                    if ($("#highspeed").is(":checked")) {
+                        return $("#highspeed").val();
+                    }
+                })();
+                var sd = (function () {
+                    if ($("#sd").is(":checked")) {
+                        return $("#sd").val();
+                    }
+                })();
+                var internal = (function () {
+                if ($("#internal").is(":checked")) {
+                    return $("#internal").val();
+                  }
+                })();
+                var alive = (function () {
+                    if ($("#alive").is(":checked")) {
+                        return $("#alive").val();
+                    }
+                })();
+                var dying = (function () {
+                    if ($("#dying").is(":checked")) {
+                        return $("#dying").val();
+                    }
+                })();
+                var dead = (function () {
+                    if ($("#dead").is(":checked")) {
+                        return $("#dead").val();
+                    }
+                })();
+
+                $(".category:checked").each(function () {
+                    categories.push($(this).val());
+                });
+                $(".type:checked").each(function () {
+                    types.push($(this).val());
+                });
+                $(".genre:checked").each(function () {
+                    genres.push($(this).val());
+                });
+
+                if (xhr !== 'undefined') {
+                    xhr.abort();
+                }
+
+                xhr = $.ajax({
+                    url: 'filterTorrents',
+                    data: {
+                        _token: csrf,
+                        search: search,
+                        description: description,
+                        uploader: uploader,
+                        imdb: imdb,
+                        tvdb: tvdb,
+                        tmdb: tmdb,
+                        mal: mal,
+                        categories: categories,
+                        types: types,
+                        genres: genres,
+                        freeleech: freeleech,
+                        doubleupload: doubleupload,
+                        featured: featured,
+                        stream: stream,
+                        highspeed: highspeed,
+                        sd: sd,
+                        internal: internal,
+                        alive: alive,
+                        dying: dying,
+                        dead: dead,
+                        sorting: sorting,
+                        direction: direction,
+                        page: page,
+                        qty: qty
+                    },
+                    type: 'get',
+                    beforeSend: function () {
+                        $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+                    }
+                }).done(function (e) {
+                    $data = $(e);
+                    $("#result").html($data);
+                    if (page) {
+                        if (document.getElementById('result-header') && document.getElementById('result-header').scrollIntoView) {
+                            document.getElementById('result-header').scrollIntoView();
+                        }
+                        if (window.location.hash && window.location.hash.indexOf('page')) {
+                            if (window.history && window.history.replaceState) {
+                                window.history.replaceState(null, null, ' ');
+                            }
                         }
                     }
-                }
-            });
-        }
-        $(window).on("load", function() { facetedBoot(); });
-        function facetedBoot() {
-            var page = 0;
-            if(window.location.hash && window.location.hash.indexOf('page')) {
-                page = parseInt(window.location.hash.split('=')[1]);
-                if(page) {
-                    faceted(page);
-                    return;
+                });
+            }
+            $(window).on("load", function() { facetedBoot(); });
+            function facetedBoot() {
+                var page = 0;
+                if(window.location.hash && window.location.hash.indexOf('page')) {
+                    page = parseInt(window.location.hash.split('=')[1]);
+                    if(page) {
+                        faceted(page);
+                        return;
+                    }
                 }
             }
-            // faceted();
-        }
-        $("#search").keyup(function () {
-            faceted();
-        })
-        $("#description").keyup(function () {
-            faceted();
-        })
-        $("#uploader").keyup(function () {
-            faceted();
-        })
-        $("#imdb").keyup(function () {
-            faceted();
-        })
-        $("#tvdb").keyup(function () {
-            faceted();
-        })
-        $("#tmdb").keyup(function () {
-            faceted();
-        })
-        $("#mal").keyup(function () {
-            faceted();
-        })
-        $(".category,.type,.genre").on("click", function () {
-            faceted();
-        });
-        $("#freeleech,#doubleupload,#featured,#stream,#highspeed,#sd,#internal,#alive,#dying,#dead").on("click", function () {
-            faceted();
-        });
-        $("#sorting,#direction,#qty").on('change', function () {
-            faceted();
-        });
-        $(document).on('click', '.pagination a', function (e) {
-            e.preventDefault();
-            var link_url = $(this).attr('href');
-            var page = link_url.split('page=')[1];
-            var url = (window.location.href.split("#")[0]) + '#page=' + page;
-            if (window.history && window.history.pushState) {
-                window.history.pushState("", "", url);
-            }
-            faceted(page);
-        });
-        $(document).ajaxComplete(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-        $('.show-poster').click(function (e) {
-            e.preventDefault();
-            var name = $(this).attr('data-name');
-            var image = $(this).attr('data-image');
-            swal({
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: '#232323',
-                width: 970,
-                html: image,
-                title: name,
-                text: '',
+            $("#search").keyup(function () {
+                faceted();
+            })
+            $("#description").keyup(function () {
+                faceted();
+            })
+            $("#uploader").keyup(function () {
+                faceted();
+            })
+            $("#imdb").keyup(function () {
+                faceted();
+            })
+            $("#tvdb").keyup(function () {
+                faceted();
+            })
+            $("#tmdb").keyup(function () {
+                faceted();
+            })
+            $("#mal").keyup(function () {
+                faceted();
+            })
+            $(".category,.type,.genre").on("click", function () {
+                faceted();
             });
-        });
-
+            $("#freeleech,#doubleupload,#featured,#stream,#highspeed,#sd,#internal,#alive,#dying,#dead").on("click", function () {
+                faceted();
+            });
+            $("#sorting,#direction,#qty").on('change', function () {
+                faceted();
+            });
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                var link_url = $(this).attr('href');
+                var page = link_url.split('page=')[1];
+                var url = (window.location.href.split("#")[0]) + '#page=' + page;
+                if (window.history && window.history.pushState) {
+                    window.history.pushState("", "", url);
+                }
+                faceted(page);
+            });
+            $(document).ajaxComplete(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+            $('.show-poster').click(function (e) {
+                e.preventDefault();
+                var name = $(this).attr('data-name');
+                var image = $(this).attr('data-image');
+                swal({
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: '#232323',
+                    width: 970,
+                    html: image,
+                    title: name,
+                    text: '',
+                });
+            });
         });
     </script>
 @endsection
