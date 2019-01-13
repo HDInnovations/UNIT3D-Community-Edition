@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Ban;
 use App\Peer;
 use App\User;
 use App\Group;
@@ -824,6 +825,27 @@ class UserController extends Controller
         return view('user.resurrections', [
             'user' => $user,
             'resurrections' => $resurrections,
+        ]);
+    }
+
+    /**
+     * Get A Users Bans.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getBans($username, $id)
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $user = User::findOrFail($id);
+        $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
+
+        return view('user.banlog', [
+            'user'      => $user,
+            'bans'  => $bans,
         ]);
     }
 }

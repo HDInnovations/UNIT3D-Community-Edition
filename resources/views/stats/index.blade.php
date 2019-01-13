@@ -48,6 +48,10 @@
                             <span class="badge-extra">SD @lang('torrent.torrents')</span>
                         </div>
 
+                        <div class="stat">
+                            <p>{{ App\Helpers\StringHelper::formatBytes($torrent_size  , 2) }}</p>
+                            <span class="badge-extra">@lang('stat.total-torrents') @lang('torrent.size')</span>
+                        </div>
                         <br>
 
                         <div class="stat">

@@ -88,6 +88,11 @@ class StatsController extends Controller
             return Torrent::where('sd', '=', 1)->count();
         });
 
+        // Total Torrent Size
+        $torrent_size = cache()->remember('torrent_size', 60, function () {
+            return Torrent::select(['size'])->sum('size');
+        });
+
         // Total Seeders
         $num_seeders = cache()->remember('num_seeders', 60, function () {
             return Peer::where('seeder', '=', 1)->count();
@@ -139,6 +144,7 @@ class StatsController extends Controller
             'categories'        => $categories,
             'num_hd'            => $num_hd,
             'num_sd'            => $num_sd,
+            'torrent_size'      => $torrent_size,
             'num_seeders'       => $num_seeders,
             'num_leechers'      => $num_leechers,
             'num_peers'         => $num_peers,

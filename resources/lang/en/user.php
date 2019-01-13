@@ -22,6 +22,7 @@ return [
     'avg-seedtime'              => 'Average Seedtime (Per Torrent)',
     'badges'                    => 'Badges',
     'ban'                       => 'Ban User',
+    'ban-log'                   => 'Ban Log',
     'bounty-given'              => 'Bounty Given',
     'bounty-received'           => 'Bounty Received',
     'can-chat'                  => 'Can Chat',
