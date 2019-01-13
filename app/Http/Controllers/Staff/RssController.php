@@ -46,14 +46,6 @@ class RssController extends Controller
     }
 
     /**
-     * @param Toastr $toastr
-     */
-    public function setToastr($toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
-    /**
      * Display a listing of the RSS resource.
      *
      * @param  string  $hash
@@ -118,7 +110,7 @@ class RssController extends Controller
             $rss = new Rss();
             $rss->name = $request->input('name');
             $rss->user_id = $user->id;
-            $expected = $rss->expected;
+            $expected = $rss->expected_fields;
             $rss->json_torrent = array_merge($expected, $params);
             $rss->is_private = 0;
             $rss->staff_id = $user->id;
@@ -192,7 +184,7 @@ class RssController extends Controller
         $redirect = null;
 
         if ($v->passes()) {
-            $expected = $rss->expected;
+            $expected = $rss->expected_fields;
             $push = array_merge($expected, $params);
             $rss->json_torrent = array_merge($rss->json_torrent, $push);
             $rss->is_private = 0;
@@ -225,8 +217,7 @@ class RssController extends Controller
     {
         $rss = auth()->user()->rss()->where('is_private', '=', 0)->findOrFail($id);
         $rss->delete();
-
         return redirect()->route('Staff.rss.index')
-               ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
+            ->with($this->toastr->success('RSS Feed Deleted!', 'Yay!', ['options']));
     }
 }
