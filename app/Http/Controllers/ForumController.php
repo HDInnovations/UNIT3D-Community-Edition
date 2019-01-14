@@ -560,7 +560,6 @@ class ForumController extends Controller
     public function postDelete($postId)
     {
         $user = auth()->user();
-        $topic = Topic::findOrFail($id);
         $post = Post::findOrFail($postId);
 
         abort_unless($user->group->is_modo || $post->user_id != $user->id, 403);
