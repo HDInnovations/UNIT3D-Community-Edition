@@ -163,7 +163,7 @@ class RssController extends Controller
             abort(404);
         }
 
-        $torrent = new Torrent();
+        $torrent = Torrent::with(['user', 'category']);
 
         $search = $rss->object_torrent->search;
         $description = $rss->object_torrent->description;
@@ -251,8 +251,8 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
-            $genreID = TagTorrent::select('torrent_id')->whereIn('tag_name', $genres)->get();
-            $torrent->whereIn('id', $genreID);
+            $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
+            $torrent->whereIn('id', $genreID)->cursor();
         }
 
         if ($rss->object_torrent->freeleech && $rss->object_torrent->freeleech != null) {
