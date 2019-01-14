@@ -272,7 +272,7 @@ class TorrentController extends Controller
         }
 
         if ($request->has('genres') && $request->input('genres') != null) {
-            $genreID = TagTorrent::select('torrent_id')->whereIn('tag_name', $genres)->get();
+            $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
             $torrent->whereIn('id', $genreID);
         }
 
