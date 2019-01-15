@@ -54,8 +54,8 @@
                                    href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
                                             class="{{ config('other.font-awesome') }} fa-cloud-download"></i> @lang('backup.download')</a>
                             @endif
-                            <a class="btn btn-xs btn-danger" data-button-type="delete"
-                               href="{{ url('staff_dashboard/backup/delete/'.$b['file_name']) }}?disk={{ $b['disk'] }}"><i
+                            <a class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}" data-button-type="delete"
+                               href="{{ url('staff_dashboard/backup/delete') }}"><i
                                         class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('backup.delete')</a>
                         </td>
                     </tr>
@@ -126,11 +126,13 @@
                 e.preventDefault();
                 var delete_button = $(this);
                 var delete_url = $(this).attr('href');
+                var disk = $(this).attr('data-disk');
+                var file = $(this).attr('data-file');
 
                 if (confirm("@lang('backup.delete_confirm')") == true) {
                     $.ajax({
                         url: delete_url,
-                        data: {_token: '{{csrf_token()}}'},
+                        data: {_token: '{{csrf_token()}}', disk: disk, file_name: file },
                         type: 'POST',
                         success: function (result) {
                             // Show an alert with the result
