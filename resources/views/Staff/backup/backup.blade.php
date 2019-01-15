@@ -55,7 +55,7 @@
                                             class="{{ config('other.font-awesome') }} fa-cloud-download"></i> @lang('backup.download')</a>
                             @endif
                             <a class="btn btn-xs btn-danger" data-button-type="delete"
-                               href="{{ url('staff_dashboard/backup/delete/'.$b['file_name']) }}?disk={{ $b['disk'] }}"><i
+                               href="{{ url('staff_dashboard/backup/delete/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
                                         class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('backup.delete')</a>
                         </td>
                     </tr>
