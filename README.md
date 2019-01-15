@@ -22,15 +22,16 @@
 4. [Installation](#installation)
 4.1 [Automated-Installer](#auto-install)
 4.2 [Manual Install](#manual-install)
-5. [Packages](#packages)
-6. [Version Support Information](#versions)
-7. [Security](#security)
-8. [Contributing](#contributing)
-9. [License](#license)
-10. [Homestead (For local developement)](#homestead)
-11. [Demo](#demo)
-12. [Donate](#donate)
-13. [Special Thanks](#thanks)
+5. [Updating](#updating)
+6. [Packages](#packages)
+7. [Version Support Information](#versions)
+8. [Security](#security)
+9. [Contributing](#contributing)
+10. [License](#license)
+11. [Homestead (For local developement)](#homestead)
+12. [Demo](#demo)
+13. [Donate](#donate)
+14. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
@@ -95,11 +96,20 @@ sudo ./install.sh
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
+Video Tutorial Can Be Seen Here:
+https://www.youtube.com/watch?v=f2tiMWZ3KbA
+
 ### <a name="manual-install"></a> Manual Install
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
 
-## <a name="docs"></a> :book: Documentation
+## <a name="updating"></a> :book: Documentation
 WIP - https://github.com/HDInnovations/UNIT3D-Docs
+
+## <a name="docs"></a> :computer: Updating
+`php artisan git:update`
+
+Video Tutorial Can Be Seen Here:
+https://www.youtube.com/watch?v=tlNUjS1dYMs
  
 ## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
