@@ -121,6 +121,7 @@ class BackupController extends Controller
         if ($adapter instanceof Local) {
             if ($disk->exists($file_name)) {
                 $disk->delete($file_name);
+
                 return 'success';
             } else {
                 return abort(404, trans('backup.backup_doesnt_exist'));
