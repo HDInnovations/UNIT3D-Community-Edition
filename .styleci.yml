@@ -1,13 +1,13 @@
-php:
-  preset: laravel
-  risky: true
-  enabled:
-  disabled:
-  finder:
-    exclude:
-      - modules
-      - node_modules
-      - storage
-      - vendor
-    name: "*.php"
-    not-name: "*.blade.php"
+preset: laravel
+
+risky: true
+
+finder:
+  exclude:
+    - "modules"
+    - "node_modules"
+    - "storage"
+    - "vendor"
+  name:
+    - "*.php"
+  not-name:
