@@ -9,12 +9,12 @@
                 <th></th>
             @endif
             <th>@lang('torrent.category')/@lang('torrent.type')</th>
-            <th>@lang('common.name')</th>
-            <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+            <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '', ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "name" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-clock"></i> @sortablelink('created_at', 'S', '', ['id'=>'created_at','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "created_at" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-file"></i> @sortablelink('size', 'S', '', ['id'=>'size','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "size" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-check-square"></i> @sortablelink('times_completed', 'S', '', ['id'=>'times_completed','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "times_completed" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i> @sortablelink('seeders', 'S', '', ['id'=>'seeders','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "seeders" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i> @sortablelink('leechers', 'S', '', ['id'=>'leechers','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "leechers" ? $direction : 0)])</th>
         </tr>
         </thead>
 
@@ -94,7 +94,7 @@
                             </a>
                         @endif
 
-                        <span id="bookmarkId{{ $torrent->id }}" torrentId="{{ $torrent->id }}" torrentState="{{ $torrent->bookmarked() ? 1 : 0}}" class="bookmark"></span>
+                        <span id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
 
                         @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
                         @if ($history)
