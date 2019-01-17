@@ -153,7 +153,7 @@ class TorrentController extends Controller
         $cache=array();
         $attributes=array();
 
-        $torrent = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+        $torrent = Torrent::orderBy('sticky', 'desc')->orderBy($sorting, $order);
         $prelauncher = $torrent->pluck('imdb')->map(function ($imdb) {
             $dupes = array();
             if(in_array($imdb,$dupes)) return false;
@@ -167,7 +167,7 @@ class TorrentController extends Controller
         $hungry = array_chunk($prelauncher,$qty);
         if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
         $totals=array();
-        $launcher = Torrent::whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+        $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
         foreach($launcher->cursor() as $chunk) {
             if($chunk->imdb) {
                 if(!array_key_exists($chunk->imdb,$totals)) {
@@ -460,7 +460,7 @@ class TorrentController extends Controller
             $hungry = array_chunk($prelauncher,$qty);
             if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
             $totals=array();
-            $launcher = Torrent::whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+            $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
             foreach($launcher->cursor() as $chunk) {
                 if($chunk->imdb) {
                     if(!array_key_exists($chunk->imdb,$totals)) {
