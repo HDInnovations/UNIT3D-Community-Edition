@@ -542,7 +542,7 @@ class ForumController extends Controller
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        abort_unless($user->group->is_modo || $post->user_id != $user->id, 403);
+        abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
         $post->content = $request->input('content');
         $post->save();
 
@@ -562,7 +562,7 @@ class ForumController extends Controller
         $user = auth()->user();
         $post = Post::findOrFail($postId);
 
-        abort_unless($user->group->is_modo || $post->user_id != $user->id, 403);
+        abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
         $post->delete();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
