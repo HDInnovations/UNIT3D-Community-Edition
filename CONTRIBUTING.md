@@ -59,6 +59,8 @@ Trait | adjective | Notifiable | ~~NotificationTrait~~
 
 - **Use Laravel helpers when possible and not facades** - auth(), info(), cache(), response(), ext. [Laravel Helpers](https://laravel.com/docs/5.6/helpers)
 
+- **Use shortened syntax when possible** - Example: `[]` and not `array()`.
+
 
 
 **Happy coding**!
