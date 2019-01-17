@@ -10,7 +10,7 @@
         </li>
         <li>
             @if (auth()->user()->torrent_layout == 1)
-                <a href="{{ route('grouping_categories') }}">
+                <a href="{{ route('groupings') }}">
             @elseif (auth()->user()->torrent_layout == 2)
                 <a href="{{ route('cards') }}">
             @else
