@@ -209,7 +209,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/upload', 'TorrentController@upload')->name('upload');
         Route::get('/download_check/{slug}.{id}', 'TorrentController@downloadCheck')->name('download_check');
         Route::get('/download/{slug}.{id}', 'TorrentController@download')->name('download');
-        Route::get('/torrents/cards', 'TorrentController@cardsLayout')->name('cards');
+        Route::get('/torrents/cards', 'TorrentController@cardLayout')->name('cards');
+        Route::get('/torrents/groupings', 'TorrentController@groupingLayout')->name('groupings');
         Route::post('/torrents/delete', 'TorrentController@deleteTorrent')->name('delete');
         Route::get('/torrents/{slug}.{id}/edit', 'TorrentController@editForm')->name('edit_form');
         Route::post('/torrents/{slug}.{id}/edit', 'TorrentController@edit')->name('edit');
@@ -221,9 +222,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
         Route::post('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
         Route::get('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
-        Route::get('torrents/grouping/categories', 'TorrentController@groupingCategories')->name('grouping_categories');
-        Route::get('torrents/grouping/{category_id}', 'TorrentController@groupingLayout')->name('grouping');
-        Route::get('torrents/grouping/{category_id}/{imdb}', 'TorrentController@groupingResults')->name('grouping_results');
+
+        // Doesn't follow naming convention but prepping for switch to object.dot
+
+        Route::get('/torrents/similar/{imdb}', 'TorrentController@similar')->name('torrents.similar');
 
         // User
         Route::get('/members', 'UserController@members')->name('members');

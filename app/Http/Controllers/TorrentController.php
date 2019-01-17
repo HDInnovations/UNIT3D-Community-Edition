@@ -39,6 +39,7 @@ use App\Services\TorrentTools;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
+use Illuminate\Pagination\LengthAwarePaginator as Paginator;
 use App\Repositories\TorrentFacetedRepository;
 
 class TorrentController extends Controller
@@ -81,7 +82,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->paginate(25);
+        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->orderBy('created_at','desc')->paginate(25);
         $repository = $this->faceted;
 
         return view('torrent.torrents', [
@@ -89,89 +90,193 @@ class TorrentController extends Controller
             'repository'         => $repository,
             'torrents'           => $torrents,
             'user'               => $user,
+            'sorting'            => '',
+            'direction'          => 1,
         ]);
     }
+
+    /**
+     * Torrent Similar Results.
+     *
+     * @param $imdb
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function similar($imdb)
+    {
+        $user = auth()->user();
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $torrents = Torrent::with(['user', 'category'])
+            ->withCount(['thanks', 'comments'])
+            ->where('imdb', '=', $imdb)
+            ->latest()
+            ->get();
+
+        if(!$torrents || $torrents->count() < 1) { abort(404); }
+
+        return view('torrent.similar', [
+            'user' => $user,
+            'personal_freeleech' => $personal_freeleech,
+            'torrents' => $torrents,
+            'imdb' => $imdb,
+        ]);
+    }
+
 
     /**
      * Displays Torrent Cards View.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function cardsLayout()
+    public function cardLayout()
     {
         $user = auth()->user();
         $torrents = Torrent::with(['user', 'category'])->latest()->paginate(33);
+        $repository = $this->faceted;
 
-        return view('torrent.cards', ['user' => $user, 'torrents' => $torrents]);
-    }
-
-    /**
-     * Torrent Grouping Categories.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function groupingCategories()
-    {
-        $user = auth()->user();
-        $categories = Category::withCount('torrents')->where('meta', '=', 1)->get()->sortBy('position');
-
-        return view('torrent.grouping_categories', ['user' => $user, 'categories' => $categories]);
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+        foreach($torrents as $torrent) {
+            $movie = null;
+            if ($torrent->category_id == 2) {
+                if ($torrent->tmdb || $torrent->tmdb != 0) {
+                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                } else if ($torrent->imdb && $torrent->imdb != 0) {
+                    $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+                }
+            } else {
+                if ($torrent->tmdb || $torrent->tmdb != 0) {
+                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                } else if ($torrent->imdb && $torrent->imdb != 0) {
+                    $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+                }
+            }
+            if($movie) {
+                $torrent->movie = $movie;
+            }
+        }
+        return view('torrent.cards', [
+            'user' => $user,
+            'torrents' => $torrents,
+            'repository' => $repository,
+        ]);
     }
 
     /**
      * Torrent Grouping.
      *
-     * @param $category_id
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function groupingLayout($category_id)
+    public function groupingLayout()
     {
         $user = auth()->user();
-        $category = Category::where('id', '=', $category_id)->first();
-
-        $torrents = DB::table('torrents')
-            ->select('*')
-            ->join(
-                DB::raw("(SELECT MAX(id) AS id FROM torrents WHERE category_id = {$category_id} GROUP BY torrents.imdb) AS unique_torrents"),
-                function ($join) {
-                    $join->on('torrents.id', '=', 'unique_torrents.id');
-                }
-            )
-            ->where('imdb', '!=', 0)
-            ->orderBy('torrents.created_at', 'DESC')
-            ->paginate(25);
-
-        return view('torrent.grouping', ['user' => $user, 'torrents' => $torrents, 'category' => $category]);
-    }
-
-    /**
-     * Torrent Grouping Results.
-     *
-     * @param $category_id
-     * @param $imdb
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function groupingResults($category_id, $imdb)
-    {
-        $user = auth()->user();
+        $repository = $this->faceted;
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $category = Category::select(['id', 'name', 'slug'])->findOrFail($category_id);
-        $torrents = Torrent::with(['user', 'category'])
-            ->withCount(['thanks', 'comments'])
-            ->where('category_id', '=', $category_id)
-            ->where('imdb', '=', $imdb)
-            ->latest()
-            ->get();
 
-        return view('torrent.grouping_results', [
-            'user' => $user,
+        $page = 0;
+        $sorting = 'created_at';
+        $direction = 2;
+        $order = "desc";
+        $qty = 25;
+        $logger = null;
+        $cache=array();
+        $attributes=array();
+
+        $torrent = Torrent::orderBy('sticky', 'desc')->orderBy($sorting, $order);
+        $prelauncher = $torrent->pluck('imdb')->map(function ($imdb) {
+            $dupes = array();
+            if(in_array($imdb,$dupes)) return false;
+            array_push($dupes,$imdb);
+            return $imdb;
+        })->toArray();
+
+        if(!is_array($prelauncher)) { $prelauncher=array(); }
+        $links = new Paginator(array(), count($prelauncher), $qty);
+
+        $hungry = array_chunk($prelauncher,$qty);
+        if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
+        $totals=array();
+        $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+        foreach($launcher->cursor() as $chunk) {
+            if($chunk->imdb) {
+                if(!array_key_exists($chunk->imdb,$totals)) {
+                    $totals[$chunk->imdb]=1;
+                } else {
+                    $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
+                }
+                if(!array_key_exists('imdb'.$chunk->imdb,$cache)) {
+                    $cache['imdb' . $chunk->imdb] = array();
+                }
+                if(!array_key_exists('imdb'.$chunk->imdb,$attributes)) {
+                    $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
+                    $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
+                    $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
+                    $attributes['imdb'.$chunk->imdb]['types'] = array();
+                    $attributes['imdb'.$chunk->imdb]['categories'] = array();
+                    $attributes['imdb'.$chunk->imdb]['genres'] = array();
+                }
+                $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
+                $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
+                $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
+                if(!array_key_exists($chunk->type,$attributes['imdb'.$chunk->imdb])) {
+                    $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                }
+                if(!array_key_exists($chunk->category_id,$attributes['imdb'.$chunk->imdb])) {
+                    $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                }
+                $cache['imdb'.$chunk->imdb]['torrent'.$chunk->id] = array(
+                    'created_at' => $chunk->created_at,
+                    'seeders' => $chunk->seeders,
+                    'leechers' => $chunk->leechers,
+                    'name' => $chunk->name,
+                    'times_completed' => $chunk->times_completed,
+                    'size' => $chunk->size,
+                    'chunk' => $chunk,
+                );
+            }
+        }
+        if(count($cache) > 0) {
+            $torrents = $cache;
+        } else {
+            $torrents = null;
+        }
+
+        if (is_array($torrents)) {
+            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            foreach ($torrents as $k1 => $c) {
+                foreach ($c as $k2 => $d) {
+                    $movie = null;
+                    if ($d['chunk']->category_id == 2) {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                        } else if ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $movie = $client->scrape('tv', 'tt' . $d['chunk']->imdb);
+                        }
+                    } else {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
+                        } else if ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $movie = $client->scrape('movie', 'tt' . $d['chunk']->imdb);
+                        }
+                    }
+                    if ($movie) {
+                        $d['chunk']->movie = $movie;
+                    }
+                }
+            }
+        }
+
+        return view('torrent.groupings', [
+            'torrents'           => $torrents,
+            'user'               => $user,
+            'sorting'            => $sorting,
+            'direction'          => $direction,
+            'links'              => $links,
+            'totals'             => $totals,
             'personal_freeleech' => $personal_freeleech,
-            'torrents' => $torrents,
-            'imdb' => $imdb,
-            'category' => $category,
-        ]);
+            'repository'         => $repository,
+            'attributes'         => $attributes,
+        ])->render();
+
     }
 
     /**
@@ -185,7 +290,14 @@ class TorrentController extends Controller
     public function faceted(Request $request, Torrent $torrent)
     {
         $user = auth()->user();
+        $repository = $this->faceted;
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $collection = null;
+
+        if($request->has('view') && $request->input('view') == 'group') {
+            $collection = 1;
+        }
+
         $search = $request->input('search');
         $description = $request->input('description');
         $uploader = $request->input('uploader');
@@ -206,6 +318,12 @@ class TorrentController extends Controller
         $alive = $request->input('alive');
         $dying = $request->input('dying');
         $dead = $request->input('dead');
+        $page = (int) $request->input('page');
+
+        $totals = null;
+        $links = null;
+        $order = null;
+        $sorting = null;
 
         $terms = explode(' ', $search);
         $search = '';
@@ -214,7 +332,7 @@ class TorrentController extends Controller
         }
 
         $usernames = explode(' ', $uploader);
-        $uploader = '';
+        $uploader = null;
         foreach ($usernames as $username) {
             $uploader .= '%'.$username.'%';
         }
@@ -225,22 +343,47 @@ class TorrentController extends Controller
             $description .= '%'.$keyword.'%';
         }
 
-        $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+        if ($request->has('sorting') && $request->input('sorting') != null) {
+            $sorting = $request->input('sorting');
+        }
+        if ($request->has('direction') && $request->input('direction') != null) {
+            $order = $request->input('direction');
+        }
+        if (!$sorting || $sorting == null || !$order || $order == null) {
+            $sorting = 'created_at';
+            $order = 'desc';
+        }
 
-        if ($request->has('search')) {
+        if($order == "asc") {
+            $direction = 1;
+        }
+        else {
+            $direction = 2;
+        }
+
+        // Redundant... but I am leaving this as a placeholder for now.
+
+        if($collection == 1) {
+            $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+        }
+        else {
+            $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+        }
+
+        if ($request->has('search') && $request->input('search') != null) {
             $torrent->where(function ($query) use ($search) {
                 $query->where('name', 'like', $search);
             });
         }
 
-        if ($request->has('description')) {
+        if ($request->has('description') && $request->input('description') != null) {
             $torrent->where(function ($query) use ($description) {
                 $query->where('description', 'like', $description)->orWhere('mediainfo', 'like', $description);
             });
         }
 
         if ($request->has('uploader') && $request->input('uploader') != null) {
-            $match = User::where('username', 'like', $uploader)->first();
+            $match = User::whereRaw('(username like ?)', [$uploader])->first();
             if (null === $match) {
                 return ['result' => [], 'count' => 0];
             }
@@ -316,23 +459,146 @@ class TorrentController extends Controller
             $torrent->where('seeders', '=', $dead);
         }
 
-        if ($request->has('sorting') && $request->input('sorting') != null) {
-            $sorting = $request->input('sorting');
-            $order = $request->input('direction');
-            $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order);
-        }
-
         if ($request->has('qty')) {
             $qty = $request->input('qty');
-            $torrents = $torrent->paginate($qty);
-        } else {
-            $torrents = $torrent->paginate(25);
+        }
+        else {
+            $qty = 25;
         }
 
-        return view('torrent.results', [
+        $logger = null;
+        $cache=array();
+        $attributes=array();
+        if($collection == 1) {
+
+            if ($logger == null) {
+                $logger = 'torrent.results_groupings';
+            }
+            $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+            $prelauncher = $torrent->pluck('imdb')->map(function ($imdb) {
+                $dupes = array();
+                if(in_array($imdb,$dupes)) return false;
+                array_push($dupes,$imdb);
+                return $imdb;
+            })->toArray();
+
+            if(!is_array($prelauncher)) { $prelauncher=array(); }
+            $links = new Paginator(array(), count($prelauncher), $qty);
+
+            $hungry = array_chunk($prelauncher,$qty);
+            if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
+            $totals=array();
+            $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy('sticky', 'desc')->orderBy($sorting, $order);
+            foreach($launcher->cursor() as $chunk) {
+                if($chunk->imdb) {
+                    if(!array_key_exists($chunk->imdb,$totals)) {
+                        $totals[$chunk->imdb]=1;
+                    } else {
+                        $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
+                    }
+                    if(!array_key_exists('imdb'.$chunk->imdb,$cache)) {
+                        $cache['imdb' . $chunk->imdb] = array();
+                    }
+                    if(!array_key_exists('imdb'.$chunk->imdb,$attributes)) {
+                        $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
+                        $attributes['imdb'.$chunk->imdb]['leechers'] = 0;
+                        $attributes['imdb'.$chunk->imdb]['times_completed'] = 0;
+                        $attributes['imdb'.$chunk->imdb]['types'] = array();
+                        $attributes['imdb'.$chunk->imdb]['categories'] = array();
+                        $attributes['imdb'.$chunk->imdb]['genres'] = array();
+                    }
+                    $attributes['imdb'.$chunk->imdb]['times_completed'] += $chunk->times_completed;
+                    $attributes['imdb'.$chunk->imdb]['seeders'] += $chunk->seeders;
+                    $attributes['imdb'.$chunk->imdb]['leechers'] += $chunk->leechers;
+                    if(!array_key_exists($chunk->type,$attributes['imdb'.$chunk->imdb])) {
+                        $attributes['imdb'.$chunk->imdb]['types'][$chunk->type] = $chunk->type;
+                    }
+                    if(!array_key_exists($chunk->category_id,$attributes['imdb'.$chunk->imdb])) {
+                        $attributes['imdb'.$chunk->imdb]['categories'][$chunk->category_id] = $chunk->category_id;
+                    }
+                    $cache['imdb'.$chunk->imdb]['torrent'.$chunk->id] = array(
+                        'created_at' => $chunk->created_at,
+                        'seeders' => $chunk->seeders,
+                        'leechers' => $chunk->leechers,
+                        'name' => $chunk->name,
+                        'times_completed' => $chunk->times_completed,
+                        'size' => $chunk->size,
+                        'chunk' => $chunk,
+                    );
+                }
+            }
+            if(count($cache) > 0) {
+                $torrents = $cache;
+            } else {
+                $torrents = null;
+            }
+
+        }
+        else {
+            $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
+        }
+        if ($collection == 1 && is_array($torrents)) {
+            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            foreach ($torrents as $k1 => $c) {
+                foreach ($c as $k2 => $d) {
+                    $movie = null;
+                    if ($d['chunk']->category_id == 2) {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                        } else if ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $movie = $client->scrape('tv', 'tt' . $d['chunk']->imdb);
+                        }
+                    } else {
+                        if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
+                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
+                        } else if ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
+                            $movie = $client->scrape('movie', 'tt' . $d['chunk']->imdb);
+                        }
+                    }
+                    if ($movie) {
+                        $d['chunk']->movie = $movie;
+                    }
+                }
+            }
+        }
+        if ($request->has('view') && $request->input('view') == 'card') {
+            if ($logger == null) {
+                $logger = 'torrent.results_cards';
+            }
+            $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
+            foreach($torrents as $torrent) {
+                $movie = null;
+                if ($torrent->category_id == 2) {
+                    if ($torrent->tmdb || $torrent->tmdb != 0) {
+                        $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    } else if ($torrent->imdb && $torrent->imdb != 0) {
+                        $movie = $client->scrape('tv', 'tt' . $torrent->imdb);
+                    }
+                } else {
+                    if ($torrent->tmdb || $torrent->tmdb != 0) {
+                        $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    } else if ($torrent->imdb && $torrent->imdb != 0) {
+                        $movie = $client->scrape('movie', 'tt' . $torrent->imdb);
+                    }
+                }
+                if($movie) {
+                    $torrent->movie = $movie;
+                }
+            }
+        }
+        if($logger == null) {
+            $logger = 'torrent.results';
+        }
+        return view($logger, [
             'torrents'           => $torrents,
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
+            'sorting'            => $sorting,
+            'direction'          => $direction,
+            'links'              => $links,
+            'totals'             => $totals,
+            'repository'         => $repository,
+            'attributes'         => $attributes,
         ])->render();
     }
 

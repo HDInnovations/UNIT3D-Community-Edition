@@ -9070,6 +9070,10 @@ section.tall_categories div.category.movie span {
     border-radius: 5px;
 }
 
+.card.is-group {
+    height: auto !important;
+}
+
 @media screen and (min-width: 768px) {
     .card.is-torrent {
         margin-top: 30px;
@@ -9098,6 +9102,10 @@ section.tall_categories div.category.movie span {
 .card.is-torrent .card_body {
     display: flex;
     height: 231px;
+}
+
+.card.is-torrent .card_alt {
+    display: flex;
 }
 
 .card.is-torrent .poster_placeholder {
@@ -9140,6 +9148,14 @@ section.tall_categories div.category.movie span {
 
 .card.is-torrent .body_description:hover {
     overflow-y: auto;
+}
+
+.card.is-torrent .body_grouping {
+    padding: 14px 17px;
+}
+
+.card.is-torrent .body_grouping:hover {
+
 }
 
 .card.is-torrent .footer_network:before {
