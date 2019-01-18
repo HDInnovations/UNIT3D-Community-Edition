@@ -82,7 +82,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy('created_at','desc')->paginate(25);
+        $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->orderBy('sticky', 'desc')->orderBy('created_at', 'desc')->paginate(25);
 
         $repository = $this->faceted;
 
@@ -173,19 +173,17 @@ class TorrentController extends Controller
     public function filtered(Request $request)
     {
         $user = auth()->user();
-        if($user) {
-            if($request->has('force')) {
-                if($request->input('force') == 1) {
-                    $user->torrent_filters=0;
+        if ($user) {
+            if ($request->has('force')) {
+                if ($request->input('force') == 1) {
+                    $user->torrent_filters = 0;
                     $user->save();
-                }
-                else if($request->input('force') == 2) {
-                    $user->torrent_filters=1;
+                } elseif ($request->input('force') == 2) {
+                    $user->torrent_filters = 1;
                     $user->save();
                 }
             }
         }
-        return;
     }
 
     /**
@@ -205,33 +203,37 @@ class TorrentController extends Controller
         $order = 'desc';
         $qty = 25;
         $logger = null;
-        $cache=[];
-        $attributes=[];
+        $cache = [];
+        $attributes = [];
 
         $torrent = Torrent::orderBy($sorting, $order);
         $prelauncher = $torrent->pluck('imdb')->unique()->values()->toArray();
 
-        if(!is_array($prelauncher)) { $prelauncher=[]; }
+        if (! is_array($prelauncher)) {
+            $prelauncher = [];
+        }
         $links = new Paginator([], count($prelauncher), $qty);
 
-        $hungry = array_chunk($prelauncher,$qty);
-        $fed=[];
-        if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
-        $totals=[];
-        $counts=[];
+        $hungry = array_chunk($prelauncher, $qty);
+        $fed = [];
+        if (is_array($hungry) && array_key_exists($page, $hungry)) {
+            $fed = $hungry[$page];
+        }
+        $totals = [];
+        $counts = [];
         $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
-        foreach($launcher->cursor() as $chunk) {
-            if($chunk->imdb) {
-                if(!array_key_exists($chunk->imdb,$totals)) {
-                    $totals[$chunk->imdb]=1;
+        foreach ($launcher->cursor() as $chunk) {
+            if ($chunk->imdb) {
+                if (! array_key_exists($chunk->imdb, $totals)) {
+                    $totals[$chunk->imdb] = 1;
                 } else {
                     $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
                 }
-                if(!array_key_exists('imdb'.$chunk->imdb,$cache)) {
-                    $cache['imdb' . $chunk->imdb] = [];
+                if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
+                    $cache['imdb'.$chunk->imdb] = [];
                 }
-                if(!array_key_exists('imdb'.$chunk->imdb,$counts)) {
-                    $counts['imdb' . $chunk->imdb] = 0;
+                if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
+                    $counts['imdb'.$chunk->imdb] = 0;
                 }
                 if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
                     $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
@@ -502,27 +504,31 @@ class TorrentController extends Controller
             $torrent->orderBy($sorting, $order);
             $prelauncher = $torrent->pluck('imdb')->unique()->values()->toArray();
 
-            if(!is_array($prelauncher)) { $prelauncher=[]; }
-            $links = new Paginator(array(), count($prelauncher), $qty);
+            if (! is_array($prelauncher)) {
+                $prelauncher = [];
+            }
+            $links = new Paginator([], count($prelauncher), $qty);
 
-            $hungry = array_chunk($prelauncher,$qty);
+            $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
-            if(is_array($hungry) && array_key_exists($page,$hungry)) { $fed=$hungry[$page]; }
-            $totals=[];
-            $counts=[];
+            if (is_array($hungry) && array_key_exists($page, $hungry)) {
+                $fed = $hungry[$page];
+            }
+            $totals = [];
+            $counts = [];
             $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
-            foreach($launcher->cursor() as $chunk) {
-                if($chunk->imdb) {
-                    if(!array_key_exists($chunk->imdb,$totals)) {
-                        $totals[$chunk->imdb]=1;
+            foreach ($launcher->cursor() as $chunk) {
+                if ($chunk->imdb) {
+                    if (! array_key_exists($chunk->imdb, $totals)) {
+                        $totals[$chunk->imdb] = 1;
                     } else {
                         $totals[$chunk->imdb] = $totals[$chunk->imdb] + 1;
                     }
-                    if(!array_key_exists('imdb'.$chunk->imdb,$cache)) {
-                        $cache['imdb' . $chunk->imdb] = [];
+                    if (! array_key_exists('imdb'.$chunk->imdb, $cache)) {
+                        $cache['imdb'.$chunk->imdb] = [];
                     }
-                    if(!array_key_exists('imdb'.$chunk->imdb,$counts)) {
-                        $counts['imdb' . $chunk->imdb] = 0;
+                    if (! array_key_exists('imdb'.$chunk->imdb, $counts)) {
+                        $counts['imdb'.$chunk->imdb] = 0;
                     }
                     if (! array_key_exists('imdb'.$chunk->imdb, $attributes)) {
                         $attributes['imdb'.$chunk->imdb]['seeders'] = 0;
