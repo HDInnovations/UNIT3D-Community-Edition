@@ -232,27 +232,27 @@
             <div id="facetedSearch" type="list" class="mt-10" font-awesome="{{ config('other.font-awesome') }}">
                 @include('torrent.results')
             </div>
-            <div class="container-fluid">
-            <div class="text-center">
-                <strong>@lang('common.legend'):</strong>
-                <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
+            <div class="container-fluid well">
+                <div class="text-center">
+                    <strong>@lang('common.legend'):</strong>
+                    <button class='btn btn-success btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.currently-seeding')!'>
-                    <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
-                </button>
-                <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
+                        <i class='{{ config("other.font-awesome") }} fa-arrow-up'></i>
+                    </button>
+                    <button class='btn btn-warning btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.currently-leeching')!'>
-                    <i class='{{ config("other.font-awesome") }} fa-arrow-down'></i>
-                </button>
-                <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
+                        <i class='{{ config("other.font-awesome") }} fa-arrow-down'></i>
+                    </button>
+                    <button class='btn btn-info btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.not-completed')!'>
-                    <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
-                </button>
-                <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
+                        <i class='{{ config("other.font-awesome") }} fa-hand-paper'></i>
+                    </button>
+                    <button class='btn btn-danger btn-circle' type='button' data-toggle='tooltip' title=''
                         data-original-title='@lang('torrent.completed-not-seeding')!'>
-                    <i class='{{ config("other.font-awesome") }} fa-thumbs-down'></i>
-                </button>
+                        <i class='{{ config("other.font-awesome") }} fa-thumbs-down'></i>
+                    </button>
+                </div>
             </div>
-    </div>
-    </div>
+        </div>
     </div>
 @endsection
