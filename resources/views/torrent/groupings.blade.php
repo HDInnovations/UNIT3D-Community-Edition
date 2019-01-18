@@ -59,7 +59,19 @@
                     </h1>
                 </div>
             </div>
-            <div id="facetedFilters" style="display: none;">
+            <div id="facetedDefault" style="{{ ($user->torrent_filters ? 'display: none;' : '') }}">
+                <div class="box">
+                    <div class="container mt-5">
+                        <div class="mx-0 mt-5 form-group">
+                            <div>
+                                <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="padding: 5px 0; margin: 0;">
+                </div>
+            </div>
+            <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
                 <div class="box">
                     <div class="container search mt-5">
                 <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
@@ -229,11 +241,10 @@
                     </div>
                 </form>
                     </div>
-                    <hr style="padding: 5px 0 !important; margin: 5px 0 !important;">
                 </div>
             </div>
             <span id="facetedHeader"></span>
-            <div id="facetedSearch" type="group">
+            <div id="facetedSearch" type="group" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @if($torrents && is_array($torrents))
@@ -251,16 +262,17 @@
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-arrow-down text-red"></i> {{ $attributes[$k]['leechers'] }} /
                                     <i class="{{ config('other.font-awesome') }} fa-fw fa-check text-orange"></i>{{ $attributes[$k]['times_completed'] }}
                                 </span>&nbsp;
-                                                @php $cats = $repository->categories()->toArray(); @endphp
-                                                @foreach($attributes[$k]['types'] as $a => $attr)
-                                                    <span class="badge-user text-bold text-blue" style="float:right;">{{ $attr }}</span>&nbsp;
-                                                @endforeach
-                                                @foreach($attributes[$k]['categories'] as $a => $attr)
-                                                    @if(array_key_exists($attr,$cats))
-                                                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $cats[$attr] }}</span>
-                                                    @endif
-                                                @endforeach
                                             @endif
+                                                <span class="badge-user text-bold" style="float: right;">
+                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
+                                                @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
+                                                        @if ($user->ratings == 1)
+                                                            {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))
+                                                        @else
+                                                            {{ $t->movie->tmdbRating }}/10 ({{ $t->movie->tmdbVotes }} @lang('torrent.votes'))
+                                                        @endif
+                                                    @endif
+                                            </span>
                                         </div>
                                         <div class="card_alt">
                                             <div class="body_poster">
@@ -304,12 +316,28 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                @foreach($c as $d)
-                                                                    @php $current = $d['chunk'] @endphp
+                                                                @php
+                                                                    $class = "";
+                                                                    $hidden = "";
+                                                                    $attr = "";
+                                                                @endphp
+                                                                @for($x = 0; $x<count($c); $x++)
+                                                                    @php
+                                                                        if(array_key_exists('torrent'.$x,$c)) {
+                                                                            $current = $c['torrent'.$x]['chunk'];
+                                                                        } else {
+                                                                            continue;
+                                                                        }
+                                                                        if($x > 5) {
+                                                                            $class=" facetedLoading";
+                                                                            $hidden="display: none;";
+                                                                            $attr = $k;
+                                                                        }
+                                                                    @endphp
                                                                     @if ($current->sticky == 1)
-                                                                        <tr class="success">
+                                                                        <tr class="success{{ $class }}" style="{{ $hidden }}" torrent="{{ $attr }}">
                                                                     @else
-                                                                        <tr>
+                                                                        <tr class="{{ $class }}" style="{{ $hidden }}" torrent="{{ $attr }}">
                                                                             @endif
                                                                             <td>
                                                                                 <a href="{{ route('category', ['slug' => $current->category->slug, 'id' => $current->category->id]) }}">
@@ -509,7 +537,18 @@
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
-                                                                        @endforeach
+                                                                        @endfor
+                                                                        @if($x >= 5)
+                                                                            <tr id="facetedCell{{ $k }}">
+                                                                                <td colspan="7" class="text-center">
+                                                                                    <a href="#/" class="facetedLoader" torrent="{{ $k }}">
+                            <span class='btn btn-sm btn-warning'>
+                                Load All {{ $x }} Torrents
+                            </span>
+                                                                                    </a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endif
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -518,19 +557,19 @@
                                             </div>
                                         </div>
                                         <div class="card_footer">
-                                            <div style="float: left;">
-
-                                            </div>
-                                            <span class="badge-user text-bold" style="float: right;">
-                                                <i class="{{ config('other.font-awesome') }} fa-star text-gold"></i>
-                                                @if($t->movie && ($t->movie->imdbRating || $t->movie->tmdbVotes))
-                                                    @if ($user->ratings == 1)
-                                                        {{ $t->movie->imdbRating }}/10 ({{ $t->movie->imdbVotes }} @lang('torrent.votes'))
-                                                    @else
-                                                        {{ $t->movie->tmdbRating }}/10 ({{ $t->movie->tmdbVotes }} @lang('torrent.votes'))
+                                            <div style="float: right;">
+                                                @if($attributes && is_array($attributes))
+                                                @php $cats = $repository->categories()->toArray(); @endphp
+                                                @foreach($attributes[$k]['types'] as $a => $attr)
+                                                    <span class="badge-user text-bold text-blue" style="float:right;">{{ $attr }}</span>&nbsp;
+                                                @endforeach
+                                                @foreach($attributes[$k]['categories'] as $a => $attr)
+                                                    @if(array_key_exists($attr,$cats))
+                                                        <span class="badge-user text-bold text-blue" style="float:right;">{{ $cats[$attr] }}</span>
                                                     @endif
-                                                @endif
-                                            </span>
+                                                @endforeach
+                                                    @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
