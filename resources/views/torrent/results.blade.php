@@ -94,7 +94,7 @@
                             </a>
                         @endif
 
-                        <span id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
 
                         @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
                         @if ($history)

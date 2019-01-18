@@ -16,9 +16,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            @include('torrent.torrent_filters')
-            <span id="facetedHeader"></span>
-            <div id="facetedSearch" type="card">
+         @include('torrent.torrent_filters')
+        <span id="facetedHeader"></span>
+            <div id="facetedSearch" type="card" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @foreach ($torrents as $k => $t)

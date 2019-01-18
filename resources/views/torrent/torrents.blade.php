@@ -54,18 +54,30 @@
                     </h1>
                 </div>
             </div>
-            <div id="facetedFilters" style="display: none;">
+            <div id="facetedDefault" style="{{ ($user->torrent_filters ? 'display: none;' : '') }}">
                 <div class="box">
-            <div class="container well search mt-5">
-                <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
-                    @csrf
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="name" class="mt-5 col-sm-1 label label-default">@lang('torrent.name')</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                    <div class="container mt-5">
+                        <div class="mx-0 mt-5 form-group">
+                            <div>
+                                <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                            </div>
                         </div>
                     </div>
+                    <hr style="padding: 5px 0; margin: 0;">
+                </div>
+            </div>
+            <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
+                <div class="box">
+                    <div class="container well search mt-5">
+                        <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
+                            @csrf
 
+                            <div class="mx-0 mt-5 form-group">
+                                <label for="name" class="mt-5 col-sm-1 label label-default">@lang('torrent.name')</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                                </div>
+                            </div>
                     <div class="mx-0 mt-5 form-group">
                         <label for="name" class="mt-5 col-sm-1 label label-default">@lang('torrent.description')</label>
                         <div class="col-sm-9">
@@ -205,7 +217,7 @@
                     <div class="mx-0 mt-5 form-group">
                         <label for="qty" class="mt-5 col-sm-1 label label-default">@lang('common.quantity')</label>
                         <div class="col-sm-2">
-                            <select id="qty" name="qty" class="form-control">
+                            <select id="qty" name="qty" trigger="change" class="form-control facetedSearch">
                                 <option value="25">25</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
@@ -214,11 +226,10 @@
                     </div>
                 </form>
             </div>
-                    <hr style="padding: 5px 0 !important; margin: 5px 0 !important;">
                 </div>
             </div>
             <span id="facetedHeader"></span>
-            <div id="facetedSearch" type="list" class="mt-10">
+            <div id="facetedSearch" type="list" class="mt-10" font-awesome="{{ config('other.font-awesome') }}">
                 @include('torrent.results')
             </div>
             <div class="container-fluid">

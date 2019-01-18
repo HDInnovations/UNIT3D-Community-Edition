@@ -201,6 +201,7 @@ Route::group(['middleware' => 'language'], function () {
         // Torrent
         Route::get('/feedizeTorrents/{type}', 'TorrentController@feedize')->name('feedizeTorrents')->middleware('modo');
         Route::get('/filterTorrents', 'TorrentController@faceted');
+        Route::get('/filterSettings', 'TorrentController@filtered');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
         Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');

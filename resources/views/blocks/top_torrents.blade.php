@@ -91,6 +91,9 @@
                                             </button>
                                         </a>
                                     @endif
+
+                                    <span data-toggle="tooltip" data-original-title="Bookmark Torrent" custom="newTorrentBookmark{{ $new->id }}" id="newTorrentBookmark{{ $new->id }}" torrent="{{ $new->id }}" state="{{ $new->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+
                                     <br>
                                     @if ($new->anon == 1)
                                         <span class="badge-extra text-bold">
@@ -301,6 +304,9 @@
                                             </button>
                                         </a>
                                     @endif
+
+                                    <span data-toggle="tooltip" data-original-title="Bookmark Torrent" custom="seededTorrentBookmark{{ $seed->id }}" id="seededTorrentBookmark{{ $seed->id }}" torrent="{{ $seed->id }}" state="{{ $seed->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+
                                     <br>
                                     @if ($seed->anon == 1)
                                         <span class="badge-extra text-bold">
@@ -512,6 +518,9 @@
                                             </button>
                                         </a>
                                     @endif
+
+                                    <span data-toggle="tooltip" data-original-title="Bookmark Torrent" custom="leechedTorrentBookmark{{ $leech->id }}" id="leechedTorrentBookmark{{ $leech->id }}" torrent="{{ $leech->id }}" state="{{ $leech->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+
                                     <br>
                                     @if ($leech->anon == 1)
                                         <span class="badge-extra text-bold">
@@ -723,6 +732,9 @@
                                             </button>
                                         </a>
                                     @endif
+
+                                    <span data-toggle="tooltip" data-original-title="Bookmark Torrent" custom="dyingTorrentBookmark{{ $d->id }}" id="dyingTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $d->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+
                                     <br>
                                     @if ($d->anon == 1)
                                         <span class="badge-extra text-bold">
@@ -933,6 +945,9 @@
                                             </button>
                                         </a>
                                     @endif
+
+                                    <span data-toggle="tooltip" data-original-title="Bookmark Torrent" custom="deadTorrentBookmark{{ $d->id }}" id="deadTorrentBookmark{{ $d->id }}" torrent="{{ $d->id }}" state="{{ $d->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
+
                                     <br>
                                     @if ($d->anon == 1)
                                         <span class="badge-extra text-bold">
