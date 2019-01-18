@@ -51,7 +51,19 @@
                     </h1>
                 </div>
             </div>
-            <div id="facetedFilters" style="display: none;">
+            <div id="facetedDefault" style="{{ ($user->torrent_filters ? 'display: none;' : '') }}">
+                <div class="box">
+                    <div class="container mt-5">
+                        <div class="mx-0 mt-5 form-group">
+                            <div>
+                                <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="padding: 5px 0; margin: 0;">
+                </div>
+            </div>
+            <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
                 <div class="box">
                     <div class="container search mt-5">
                 <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
@@ -221,11 +233,10 @@
                     </div>
                 </form>
             </div>
-                    <hr style="padding: 5px 0 !important; margin: 5px 0 !important;">
                 </div>
             </div>
             <span id="facetedHeader"></span>
-            <div id="facetedSearch" type="card">
+            <div id="facetedSearch" type="card" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @foreach ($torrents as $k => $t)
