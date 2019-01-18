@@ -9344,3 +9344,15 @@ img.emojione {
 .g-recaptcha {
     display: inline-block;
 }
+
+
+.form-bordered .form-group {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-left: 150px;
+    margin-top: 0;
+}
+
+.form-control {
+    margin-top: 0;
+}
