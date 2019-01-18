@@ -1,14 +1,49 @@
 class facetedSearchBuilder {
     constructor() {
+        this.lazyloader = '';
         this.active = '';
         this.start = 0;
         this.memory = {};
         this.api = '';
-        this.xhr = new XMLHttpRequest();
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        if($('#facetedSearch') && $('#facetedSearch').attr('font-awesome')) {
+            this.font = $('#facetedSearch').attr('font-awesome');
+        } else {
+            this.font = 'fal';
+        }
+    }
+    put(id) {
+        this.lazyloader = id;
+    }
+    get() {
+        return this.lazyloader;
+    }
+    settings() {
+        if ($('#facetedDefault').is(':visible')){
+            var force = 2;
+        } else {
+            var force = 1;
+        }
+        var localXHR = new XMLHttpRequest();
+        localXHR = $.ajax({
+            url: '/filterSettings',
+            data: {
+                _token: this.csrf,
+                force: force,
+            },
+            type: 'get'
+        }).done(function (e) { });
     }
     show(page,nav) {
-        var search = $("#search").val();
+        if(facetedSearchXHR != null) {
+            facetedSearchXHR.abort();
+        }
+        facetedSearchXHR = new XMLHttpRequest();
+        if ($('#facetedDefault').is(':visible')){
+            var search = $("#query").val();
+        } else {
+            var search = $("#search").val();
+        }
         var description = $("#description").val();
         var uploader = $("#uploader").val();
         var imdb = $("#imdb").val();
@@ -79,6 +114,7 @@ class facetedSearchBuilder {
             genres.push($(this).val());
         });
 
+
         if (this.view == 'card') {
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
@@ -87,7 +123,6 @@ class facetedSearchBuilder {
             var sorting = $("#sorting").val();
             var direction = $("#direction").val();
         } else {
-
             if ($('#created_at').attr('state') && $('#created_at').attr('state') > 0) {
                 var sorting = 'created_at';
                 if ($('#created_at').attr('state') == 1) {
@@ -136,9 +171,8 @@ class facetedSearchBuilder {
                     var direction = 'desc';
                 }
             }
-
         }
-        this.xhr = $.ajax({
+        facetedSearchXHR = $.ajax({
             url: this.api,
             data: {
                 _token: this.csrf,
@@ -170,7 +204,7 @@ class facetedSearchBuilder {
             },
             type: 'get',
             beforeSend: function () {
-                $("#facetedSearch").html('<i class="fa-spinner fa-spin fa-3x fa-fw"></i>')
+                $("#facetedSearch").html('<i class="'+this.font+' fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
         }).done(function (e) {
             $data = $(e);
@@ -185,6 +219,7 @@ class facetedSearchBuilder {
             }
             torrentBookmark.update();
             facetedSearch.refresh();
+            facetedSearchXHR = null;
         });
     }
     inform() {
@@ -200,6 +235,9 @@ class facetedSearchBuilder {
         } else if(trigger && trigger == 'sort') {
             $('.facetedSort').each(function() {
                 if($(this).attr('id') && $(this).attr('id') == facetedSearch.inform()) {
+
+                    if($('#'+id).length == 0) { return; }
+
                     if($('#'+id).attr('state') && ($('#'+id).attr('state') == 0 || $('#'+id).attr('state') == 2)) {
                         $('#'+id).attr('state',1);
                     } else if($('#'+id).attr('state') && ($('#'+id).attr('state') == 1)) {
@@ -227,14 +265,33 @@ class facetedSearchBuilder {
                 facetedSearch.handle($(this).attr('id'));
             });
         });
+        $('.facetedLoader').each(function() {
+            $(this).off('click');
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                if($(this).attr('torrent')) {
+                    facetedSearch.put($(this).attr('torrent'));
+                    $('.facetedLoading').each(function () {
+                        var check = facetedSearch.get();
+                        if ($(this).attr('torrent') && $(this).attr('torrent') == check) {
+                            $(this).show();
+                        }
+                    });
+                    $('#facetedCell'+$(this).attr('torrent')).hide();
+                }
+            });
+        });
         $('#facetedFiltersToggle').off('click');
         $('#facetedFiltersToggle').on('click', function(e) {
+            facetedSearch.settings();
             e.preventDefault();
-            if ($('#facetedFilters').css('display') == 'none'){
-                $('#facetedFilters').css({ 'display': 'block' });
+            if ($('#facetedDefault').is(':visible')){
+                $('#facetedFilters').show();
+                $('#facetedDefault').hide();
                 return;
             }
-            $('#facetedFilters').css({ 'display': 'none' });
+            $('#facetedFilters').hide();
+            $('#facetedDefault').show();
         });
         if(callback) {
             callback();
@@ -277,29 +334,46 @@ class facetedSearchBuilder {
 }
 class torrentBookmarkBuilder {
     constructor() {
-        this.xhr = new XMLHttpRequest();
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        if($('#facetedBookmark') && $('#facetedBookmark').attr('font-awesome')) {
+            this.font = $('#facetedBookmark').attr('font-awesome');
+        } else {
+            this.font = 'fal';
+        }
     }
     update() {
         $('.torrentBookmark').each(function() {
             var active = $(this).attr("state") ? $(this).attr("state") : 0;
             var id = $(this).attr("id") ? $(this).attr("id") : 0;
+            var custom = $(this).attr("custom") ? $(this).attr("custom") : '';
             $(this).off('click');
-            $(this).html('<button data-toggle="tooltip" data-original-title="Bookmark" state="'+active+'" torrent="'+id+'" class="btn ' + (active > 0 ? 'btn-circle btn-danger' : 'btn-circle btn-primary') + '"><i class="fal fa-bookmark"></i></button>');
+            if(active == 1) {
+                $(this).attr("data-original-title","Unbookmark Torrent");
+            } else {
+                $(this).attr("data-original-title","Bookmark Torrent");
+            }
+            $(this).html('<button custom="'+custom+'" state="'+active+'" torrent="'+id+'" class="btn ' + (active > 0 ? 'btn-circle btn-danger' : 'btn-circle btn-primary') + '"><i class="'+this.font+' fal fa-bookmark"></i></button>');
             $(this).on('click', function() {
-                torrentBookmark.handle($(this).attr("torrent"),$(this).attr("state"));
+                torrentBookmark.handle($(this).attr("torrent"),$(this).attr("state"),$(this).attr("custom"));
             });
         });
     }
-    handle(id,active) {
+    handle(id,active,custom) {
         if(!active || active == 0) {
-            this.create(id);
+            this.create(id,custom);
             return;
         }
-        this.destroy(id);
+        this.destroy(id,custom);
     }
-    create(id) {
-        this.xhr = $.ajax({
+    create(id,custom) {
+
+        if(torrentBookmarkXHR != null) {
+            torrentBookmarkXHR.abort();
+        }
+
+        torrentBookmarkXHR = new XMLHttpRequest();
+
+        torrentBookmarkXHR = $.ajax({
             url: '/torrents/bookmark/' + id,
             data: {
                 _token: this.csrf,
@@ -313,12 +387,27 @@ class torrentBookmarkBuilder {
                 showConfirmButton: false,
                 timer: 4500,
             });
-            $('#torrentBookmark'+id).html('<button data-toggle="tooltip" data-original-title="Bookmark" state="1" torrent="'+id+'" class="btn btn-circle btn-danger"><i class="fal fa-bookmark"></i></button>');
-            $('#torrentBookmark'+id).attr("state",'1');
+            if(custom && custom != '') {
+                $('#'+custom).html('<button custom="'+custom+'" state="1" torrent="' + id + '" class="btn btn-circle btn-danger"><i class="' + this.font + ' fal fa-bookmark"></i></button>');
+                $('#'+custom).attr("state", '1');
+                $('#'+custom).attr("data-original-title", 'Unbookmark Torrent');
+            } else {
+                $('#torrentBookmark' + id).html('<button custom="'+custom+'" state="1" torrent="' + id + '" class="btn btn-circle btn-danger"><i class="' + this.font + ' fal fa-bookmark"></i></button>');
+                $('#torrentBookmark' + id).attr("state", '1');
+                $('#torrentBookmark' + id).attr("data-original-title", 'Unbookmark Torrent');
+            }
+            torrentBookmarkXHR = null;
         });
     }
-    destroy(id) {
-        this.xhr = $.ajax({
+    destroy(id,custom) {
+
+        if(torrentBookmarkXHR != null) {
+            return;
+        }
+
+        torrentBookmarkXHR = new XMLHttpRequest();
+
+        torrentBookmarkXHR = $.ajax({
             url: '/torrents/unbookmark/' + id,
             data: {
                 _token: this.csrf,
@@ -332,8 +421,16 @@ class torrentBookmarkBuilder {
                 showConfirmButton: false,
                 timer: 4500,
             });
-            $('#torrentBookmark'+id).html('<button data-toggle="tooltip" data-original-title="Bookmark" state="0" torrent="'+id+'" class="btn btn-circle btn-primary"><i class="fal fa-bookmark"></i></button>');
-            $('#torrentBookmark'+id).attr("state",'0');
+            if(custom && custom != '') {
+                $('#' + custom).html('<button custom="'+custom+'" state="0" torrent="' + id + '" class="btn btn-circle btn-primary"><i class="' + this.font + ' fal fa-bookmark"></i></button>');
+                $('#' + custom).attr("state", '0');
+                $('#' + custom).attr("data-original-title", 'Bookmark Torrent');
+            } else {
+                $('#torrentBookmark' + id).html('<button custom="'+custom+'" state="0" torrent="' + id + '" class="btn btn-circle btn-primary"><i class="' + this.font + ' fal fa-bookmark"></i></button>');
+                $('#torrentBookmark' + id).attr("state", '0');
+                $('#torrentBookmark' + id).attr("data-original-title", 'Bookmark Torrent');
+            }
+            torrentBookmarkXHR = null;
         });
     }
 }
@@ -371,3 +468,6 @@ $(document).on('click', '.pagination a', function (e) {
 });
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
+
+var facetedSearchXHR = null;
+var torrentBookmarkXHR = null;
