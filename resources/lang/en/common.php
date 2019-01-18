@@ -34,6 +34,7 @@ return [
     'delete'               => 'Delete',
     'delete-your-comment'  => 'Delete your comment',
     'description'          => 'Description',
+    'direction'            => 'Direction',
     'doubleup_activated'   => 'Global Double upload mode activated',
     'download'             => 'Download',
     'edit'                 => 'Edit',

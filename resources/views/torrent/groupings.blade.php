@@ -243,6 +243,7 @@
                     </div>
                 </div>
             </div>
+
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="group" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
