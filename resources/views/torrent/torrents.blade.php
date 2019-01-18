@@ -56,7 +56,7 @@
             </div>
             <div id="facetedDefault" style="{{ ($user->torrent_filters ? 'display: none;' : '') }}">
                 <div class="box">
-                    <div class="container well mt-5">
+                    <div class="container mt-5">
                         <div class="mx-0 mt-5 form-group">
                             <div>
                                 <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
@@ -68,7 +68,7 @@
             </div>
             <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
                 <div class="box">
-                    <div class="container search mt-5">
+                    <div class="container well search mt-5">
                         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
 
