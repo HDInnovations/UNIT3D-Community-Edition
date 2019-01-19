@@ -322,9 +322,29 @@ class TorrentController extends Controller
         $repository = $this->faceted;
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $collection = null;
+        $seedling = null;
+        $notdownloaded = null;
+        $downloaded = null;
+        $leeching = null;
+        $idling = null;
 
         if ($request->has('view') && $request->input('view') == 'group') {
             $collection = 1;
+        }
+        if($request->has('seeding') && $request->input('seeding') != null) {
+            $seedling = 1;
+        }
+        if($request->has('notdownloaded') && $request->input('notdownloaded') != null) {
+            $notdownloaded = 1;
+        }
+        if($request->has('downloaded') && $request->input('downloaded') != null) {
+            $downloaded = 1;
+        }
+        if($request->has('leeching') && $request->input('leeching') != null) {
+            $leeching = 1;
+        }
+        if($request->has('idling') && $request->input('idling') != null) {
+            $idling = 1;
         }
 
         $search = $request->input('search');
@@ -481,17 +501,53 @@ class TorrentController extends Controller
                 $torrent->where('torrentsl.seeders', '=', $dead);
             }
         } else {
-            $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+
+            if($seedling == 1 || $notdownloaded == 1 || $downloaded == 1 || $leeching == 1 || $idling == 1) {
+
+                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader','category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
+
+                $torrent->orWhere(function ($query) use($user,$seedling,$notdownloaded,$downloaded,$leeching,$idling) {
+                    if($seedling == 1) {
+                        $query->orWhere(function ($query) use ($user){
+                            $query->where('historyl.user_id', '=', $user->id)->where('historyl.seeder', '=', '1');
+                        });
+                    }
+                    if($notdownloaded == 1) {
+                        $query->orWhere(function ($query) use ($user){
+                            $query->whereRaw('historyl.id is null');
+                        });
+                    }
+                    if($downloaded == 1) {
+                        $query->orWhere(function ($query) use ($user){
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.seeder = ? OR historyl.completed_at is not null)',[1]);
+                        });
+                    }
+                    if($leeching == 1) {
+                        $query->orWhere(function ($query) use ($user){
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = 0))',[1]);
+                        });
+                    }
+                    if($idling == 1) {
+                        $query->orWhere(function ($query) use ($user){
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = ?))',[0,1]);
+                        });
+                    }
+                });
+
+            }
+            else {
+                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader','category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
+            }
 
             if ($request->has('search') && $request->input('search') != null) {
                 $torrent->where(function ($query) use ($search) {
-                    $query->where('name', 'like', $search);
+                    $query->where('torrents.name', 'like', $search);
                 });
             }
 
             if ($request->has('description') && $request->input('description') != null) {
                 $torrent->where(function ($query) use ($description) {
-                    $query->where('description', 'like', $description)->orWhere('mediainfo', 'like', $description);
+                    $query->where('torrents.description', 'like', $description)->orWhere('mediainfo', 'like', $description);
                 });
             }
 
@@ -500,7 +556,7 @@ class TorrentController extends Controller
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
-                $torrent->where('user_id', '=', $match->id)->where('anon', '=', 0);
+                $torrent->where('torrents.user_id', '=', $match->id)->where('anon', '=', 0);
             }
 
             if ($request->has('imdb') && $request->input('imdb') != null) {
@@ -529,7 +585,7 @@ class TorrentController extends Controller
 
             if ($request->has('genres') && $request->input('genres') != null) {
                 $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
-                $torrent->whereIn('id', $genreID);
+                $torrent->whereIn('torrents.id', $genreID);
             }
 
             if ($request->has('freeleech') && $request->input('freeleech') != null) {
@@ -561,16 +617,17 @@ class TorrentController extends Controller
             }
 
             if ($request->has('alive') && $request->input('alive') != null) {
-                $torrent->where('seeders', '>=', $alive);
+                $torrent->where('torrents.seeders', '>=', $alive);
             }
 
             if ($request->has('dying') && $request->input('dying') != null) {
-                $torrent->where('seeders', '=', $dying)->where('times_completed', '>=', 3);
+                $torrent->where('torrents.seeders', '=', $dying)->where('times_completed', '>=', 3);
             }
 
             if ($request->has('dead') && $request->input('dead') != null) {
-                $torrent->where('seeders', '=', $dead);
+                $torrent->where('torrents.seeders', '=', $dead);
             }
+
         }
 
         if ($request->has('qty')) {
@@ -601,7 +658,7 @@ class TorrentController extends Controller
             }
             $totals = [];
             $counts = [];
-            $launcher = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
+            $launcher = Torrent::with(['uploader', 'category'])->withCount(['thanks', 'comments'])->whereIn('imdb', $fed)->orderBy($sorting, $order);
             foreach ($launcher->cursor() as $chunk) {
                 if ($chunk->imdb) {
                     if (! array_key_exists($chunk->imdb, $totals)) {
@@ -650,7 +707,7 @@ class TorrentController extends Controller
                 $torrents = null;
             }
         } else {
-            $torrents = $torrent->orderBy('sticky', 'desc')->orderBy($sorting, $order)->paginate($qty);
+            $torrents = $torrent->orderBy('torrents.sticky', 'desc')->orderBy('torrents.'.$sorting, $order)->paginate($qty);
         }
         if ($collection == 1 && is_array($torrents)) {
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
