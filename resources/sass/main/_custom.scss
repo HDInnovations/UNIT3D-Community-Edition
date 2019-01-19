@@ -4917,6 +4917,9 @@ pre {
     .container {
         width: 1300px;
     }
+    .fatten-me {
+        max-width: 1300px !important;
+    }
 }
 
 .btn-group-xxs > .btn,
@@ -5617,7 +5620,19 @@ a.sort {
     text-align: right;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 1280px) {
+    .fatten-me {
+        margin-left: 20px !important;
+    }
+}
+@media screen and (max-width: 768px) {
+    .fatten-me {
+        margin-left: 0px !important;
+        margin-bottom: 5px !important;
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
     .button-holder {
         display: block;
         width: 100%;
