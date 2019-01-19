@@ -3,6 +3,7 @@ class userFilterBuilder {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
         this.api = '';
         this.filter = '';
+        this.start = 0;
         this.view = 'history';
     }
     set(filter) {
@@ -10,6 +11,9 @@ class userFilterBuilder {
     }
     get() {
         return this.filter;
+    }
+    force() {
+        this.handle(this.start,true);
     }
     handle(page,nav) {
 
@@ -103,6 +107,15 @@ class userFilterBuilder {
                  userFilter.handle();
             });
         });
+
+        var page = 0;
+        if (window.location.hash && window.location.hash.indexOf('page')) {
+            page = parseInt(window.location.hash.split('/')[1]);
+        }
+        if (page && page > 0) {
+            this.start = page;
+            this.force();
+        }
     }
 }
 class facetedSearchBuilder {
@@ -161,6 +174,26 @@ class facetedSearchBuilder {
         var types = [];
         var genres = [];
         var qty = $("#qty").val();
+        var notdownloaded = (function () {
+            if ($("#notdownloaded").is(":checked")) {
+                return $("#notdownloaded").val();
+            }
+        })();
+        var downloaded = (function () {
+            if ($("#downloaded").is(":checked")) {
+                return $("#downloaded").val();
+            }
+        })();
+        var idling = (function () {
+            if ($("#idling").is(":checked")) {
+                return $("#idling").val();
+            }
+        })();
+        var leeching = (function () {
+            if ($("#leeching").is(":checked")) {
+                return $("#leeching").val();
+            }
+        })();
         var freeleech = (function () {
             if ($("#freeleech").is(":checked")) {
                 return $("#freeleech").val();
@@ -174,6 +207,11 @@ class facetedSearchBuilder {
         var featured = (function () {
             if ($("#featured").is(":checked")) {
                 return $("#featured").val();
+            }
+        })();
+        var seeding = (function () {
+            if ($("#seeding").is(":checked")) {
+                return $("#seeding").val();
             }
         })();
         var stream = (function () {
@@ -288,6 +326,11 @@ class facetedSearchBuilder {
                 uploader: uploader,
                 imdb: imdb,
                 tvdb: tvdb,
+                notdownloaded: notdownloaded,
+                downloaded: downloaded,
+                idling: idling,
+                leeching: leeching,
+                seeding: seeding,
                 view: this.view,
                 tmdb: tmdb,
                 mal: mal,
