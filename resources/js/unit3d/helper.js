@@ -471,3 +471,18 @@ const torrentBookmark = new torrentBookmarkBuilder();
 
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
+
+$('.show-poster').click(function (e) {
+  e.preventDefault();
+  var name = $(this).attr('data-name');
+  var image = $(this).attr('data-image');
+  swal({
+    showConfirmButton: false,
+    showCloseButton: true,
+    background: '#232323',
+    width: 970,
+    html: image,
+    title: name,
+    text: '',
+  });
+});
