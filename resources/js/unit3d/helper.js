@@ -1,3 +1,123 @@
+class userFilterBuilder {
+    constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        this.api = '';
+        this.filter = '';
+        this.start = 0;
+        this.view = 'history';
+    }
+    set(filter) {
+        this.filter = filter;
+    }
+    get() {
+        return this.filter;
+    }
+    force() {
+        this.handle(this.start,true);
+    }
+    handle(page,nav) {
+
+        var userId = $('#userFilter').attr('userId');
+        var userName = $('#userFilter').attr('userName');
+
+        var active = (function () {
+            if ($("#active").is(":checked")) {
+                return $("#active").val();
+            }
+        })();
+
+        var seeding = (function () {
+            if ($("#seeding").is(":checked")) {
+                return $("#seeding").val();
+            }
+        })();
+
+        var prewarned = (function () {
+            if ($("#prewarned").is(":checked")) {
+                return $("#prewarned").val();
+            }
+        })();
+
+        var hr = (function () {
+            if ($("#hr").is(":checked")) {
+                return $("#hr").val();
+            }
+        })();
+
+        var immune = (function () {
+            if ($("#immune").is(":checked")) {
+                return $("#immune").val();
+            }
+        })();
+
+        var completed = (function () {
+            if ($("#completed").is(":checked")) {
+                return $("#completed").val();
+            }
+        })();
+
+        var sorting = $("#sorting").val();
+        var direction = $("#direction").val();
+
+        if(userFilterXHR != null) {
+            userFilterXHR.abort();
+        }
+        userFilterXHR = $.ajax({
+            url: '/'+userName+'.'+userId+'/userFilters',
+            data: {
+                _token: this.csrf,
+                page: page,
+                active: active,
+                sorting: sorting,
+                direction: direction,
+                seeding: seeding,
+                prewarned: prewarned,
+                completed: completed,
+                hr: hr,
+                immune: immune,
+                view: this.view,
+            },
+            type: 'post',
+            beforeSend: function () {
+                $("#userFilter").html('<i class="'+this.font+' fa-spinner fa-spin fa-3x fa-fw"></i>')
+            }
+        }).done(function (e) {
+            $data = $(e);
+            $("#userFilter").html($data);
+            if (page) {
+                $("#filterHeader")[0].scrollIntoView();
+            }
+            if (!nav) {
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, null, ' ');
+                }
+            }
+            userFilterXHR = null;
+        });
+    }
+    init() {
+        $('.userFilter').each(function() {
+            if($(this).attr('trigger')) {
+                var trigger = $(this).attr('trigger');
+            } else {
+                var trigger = 'click';
+            }
+            $(this).off(trigger);
+            $(this).on(trigger, function(e) {
+                 userFilter.handle();
+            });
+        });
+
+        var page = 0;
+        if (window.location.hash && window.location.hash.indexOf('page')) {
+            page = parseInt(window.location.hash.split('/')[1]);
+        }
+        if (page && page > 0) {
+            this.start = page;
+            this.force();
+        }
+    }
+}
 class facetedSearchBuilder {
     constructor() {
         this.lazyloader = '';
@@ -54,6 +174,26 @@ class facetedSearchBuilder {
         var types = [];
         var genres = [];
         var qty = $("#qty").val();
+        var notdownloaded = (function () {
+            if ($("#notdownloaded").is(":checked")) {
+                return $("#notdownloaded").val();
+            }
+        })();
+        var downloaded = (function () {
+            if ($("#downloaded").is(":checked")) {
+                return $("#downloaded").val();
+            }
+        })();
+        var idling = (function () {
+            if ($("#idling").is(":checked")) {
+                return $("#idling").val();
+            }
+        })();
+        var leeching = (function () {
+            if ($("#leeching").is(":checked")) {
+                return $("#leeching").val();
+            }
+        })();
         var freeleech = (function () {
             if ($("#freeleech").is(":checked")) {
                 return $("#freeleech").val();
@@ -67,6 +207,11 @@ class facetedSearchBuilder {
         var featured = (function () {
             if ($("#featured").is(":checked")) {
                 return $("#featured").val();
+            }
+        })();
+        var seeding = (function () {
+            if ($("#seeding").is(":checked")) {
+                return $("#seeding").val();
             }
         })();
         var stream = (function () {
@@ -181,6 +326,11 @@ class facetedSearchBuilder {
                 uploader: uploader,
                 imdb: imdb,
                 tvdb: tvdb,
+                notdownloaded: notdownloaded,
+                downloaded: downloaded,
+                idling: idling,
+                leeching: leeching,
+                seeding: seeding,
                 view: this.view,
                 tmdb: tmdb,
                 mal: mal,
@@ -446,10 +596,13 @@ $(document).ready(function () {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
     }
+    if(document.getElementById('userFilter')) {
+        userFilter.init();
+    }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
-    if(!document.getElementById('facetedSearch')) return;
+    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) return;
     e.preventDefault();
     var sub = null;
     if (window.location.hash && window.location.hash.substring) {
@@ -464,11 +617,18 @@ $(document).on('click', '.pagination a', function (e) {
     if (window.history && window.history.pushState) {
         window.history.pushState("", "", url);
     }
-    facetedSearch.show(page,true);
+    if(document.getElementById('facetedSearch')) {
+        facetedSearch.show(page, true);
+    }
+    if(document.getElementById('userFilter')) {
+        userFilter.handle(page, true);
+    }
 });
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
+const userFilter = new userFilterBuilder();
 
+var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
 

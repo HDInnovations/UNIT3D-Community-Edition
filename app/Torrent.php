@@ -57,6 +57,19 @@ class Torrent extends Model
     }
 
     /**
+     * Belongs To A Uploader.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function uploader()
+    {
+        return $this->belongsTo(User::class, 'creator')->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
+
+    /**
      * Belongs To A Category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

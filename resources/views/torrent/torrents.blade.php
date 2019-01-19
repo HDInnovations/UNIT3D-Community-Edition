@@ -41,7 +41,7 @@
             </div>
             <div id="facetedFilters" style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
                 <div class="box">
-                    <div class="container well search mt-5">
+                    <div class="container well search mt-5 fatten-me">
                         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
 
@@ -63,6 +63,7 @@
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="uploader" placeholder="@lang('torrent.uploader')">
                         </div>
                     </div>
+                    
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="imdb" class="mt-5 col-sm-1 label label-default fatten-me">ID</label>
                         <div class="col-sm-2">
@@ -183,8 +184,44 @@
                         <input type="checkbox" id="dead" value="0" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-frown text-red"></span> @lang('torrent.dead-torrent')
                     </label>
                 </span>
+
                         </div>
                     </div>
+
+                            <div class="mx-0 mt-5 form-group fatten-me">
+                                <label for="type" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.activity')</label>
+                                <div class="col-sm-10">
+
+                                <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="seeding" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.seeding')
+                    </label>
+                                </span>
+                                    <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="downloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-downloaded')
+                    </label>
+                                </span>
+                                    <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="notdownloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-not-downloaded')
+                    </label>
+                                </span>
+                                    <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="leeching" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.leeching')
+                    </label>
+                                </span>
+                                    <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="idling" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-not-completed')
+                    </label>
+                                </span>
+
+
+                                </div>
+                            </div>
+
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>
                         <div class="col-sm-2">

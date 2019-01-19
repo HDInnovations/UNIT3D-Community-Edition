@@ -131,17 +131,17 @@
                         @if ($torrent->anon == 1)
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-                                @if ($user->id == $torrent->user->id || $user->group->is_modo)
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
-                                        ({{ $torrent->user->username }})
+                                @if ($user->id == $torrent->uploader->id || $user->group->is_modo)
+                                    <a href="{{ route('profile', ['username' => $torrent->uploader->username, 'id' => $torrent->uploader->id]) }}">
+                                        ({{ $torrent->uploader->username }})
                                     </a>
                                 @endif
                             </span>
                         @else
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i>
-                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
-                                        {{ $torrent->user->username }}
+                                    <a href="{{ route('profile', ['username' => $torrent->uploader->username, 'id' => $torrent->uploader->id]) }}">
+                                        {{ $torrent->uploader->username }}
                                     </a>
                             </span>
                         @endif
