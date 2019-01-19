@@ -1,6 +1,9 @@
-class historyFilterBuilder {
+class userFilterBuilder {
     constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        this.api = '';
         this.filter = '';
+        this.view = 'history';
     }
     set(filter) {
         this.filter = filter;
@@ -8,44 +11,96 @@ class historyFilterBuilder {
     get() {
         return this.filter;
     }
-    handle() {
-        $('.historyFiltered').each(function() {
-            var filter = historyFilter.get();
-            if(filter == 'active' && (!$(this).attr('active') || $(this).attr('active') != 1)) {
-                $(this).hide();
-                return;
+    handle(page,nav) {
+
+        var userId = $('#userFilter').attr('userId');
+        var userName = $('#userFilter').attr('userName');
+
+        var active = (function () {
+            if ($("#active").is(":checked")) {
+                return $("#active").val();
             }
-            if(filter == 'seeding' && (!$(this).attr('seeding') || $(this).attr('seeding') != 1)) {
-                $(this).hide();
-                return;
+        })();
+
+        var seeding = (function () {
+            if ($("#seeding").is(":checked")) {
+                return $("#seeding").val();
             }
-            if(filter == 'prewarned' && (!$(this).attr('prewarned') || $(this).attr('prewarned') != 1)) {
-                $(this).hide();
-                return;
+        })();
+
+        var prewarned = (function () {
+            if ($("#prewarned").is(":checked")) {
+                return $("#prewarned").val();
             }
-            if(filter == 'hr' && (!$(this).attr('hr') || $(this).attr('hr') != 1)) {
-                $(this).hide();
-                return;
+        })();
+
+        var hr = (function () {
+            if ($("#hr").is(":checked")) {
+                return $("#hr").val();
             }
-            if(filter == 'immune' && (!$(this).attr('immune') || $(this).attr('immune') != 1)) {
-                $(this).hide();
-                return;
+        })();
+
+        var immune = (function () {
+            if ($("#immune").is(":checked")) {
+                return $("#immune").val();
             }
-            $(this).show();
+        })();
+
+        var completed = (function () {
+            if ($("#completed").is(":checked")) {
+                return $("#completed").val();
+            }
+        })();
+
+        var sorting = $("#sorting").val();
+        var direction = $("#direction").val();
+
+        if(userFilterXHR != null) {
+            userFilterXHR.abort();
+        }
+        userFilterXHR = $.ajax({
+            url: '/'+userName+'.'+userId+'/userFilters',
+            data: {
+                _token: this.csrf,
+                page: page,
+                active: active,
+                sorting: sorting,
+                direction: direction,
+                seeding: seeding,
+                prewarned: prewarned,
+                completed: completed,
+                hr: hr,
+                immune: immune,
+                view: this.view,
+            },
+            type: 'post',
+            beforeSend: function () {
+                $("#userFilter").html('<i class="'+this.font+' fa-spinner fa-spin fa-3x fa-fw"></i>')
+            }
+        }).done(function (e) {
+            $data = $(e);
+            $("#userFilter").html($data);
+            if (page) {
+                $("#filterHeader")[0].scrollIntoView();
+            }
+            if (!nav) {
+                if (window.history && window.history.replaceState) {
+                    window.history.replaceState(null, null, ' ');
+                }
+            }
+            userFilterXHR = null;
         });
     }
     init() {
-        $('.historyFilter').each(function() {
-            $(this).off('click');
-            $(this).on('click', function(e) {
-                var filter = $(this).attr('filter');
-                e.preventDefault();
-                $('.historyList').each(function() {
-                   $(this).removeClass('active');
-                });
-                $('#'+filter).addClass('active');
-                historyFilter.set(filter);
-                historyFilter.handle();
+        $('.userFilter').each(function() {
+            if($(this).attr('trigger')) {
+                var trigger = $(this).attr('trigger');
+            } else {
+                var trigger = 'click';
+            }
+            $(this).off(trigger);
+            $(this).on(trigger, function(e) {
+                 userFilter.handle();
             });
         });
     }
@@ -498,13 +553,13 @@ $(document).ready(function () {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
     }
-    if(document.getElementById('historyFilter')) {
-        historyFilter.init();
+    if(document.getElementById('userFilter')) {
+        userFilter.init();
     }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
-    if(!document.getElementById('facetedSearch')) return;
+    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) return;
     e.preventDefault();
     var sub = null;
     if (window.location.hash && window.location.hash.substring) {
@@ -519,12 +574,18 @@ $(document).on('click', '.pagination a', function (e) {
     if (window.history && window.history.pushState) {
         window.history.pushState("", "", url);
     }
-    facetedSearch.show(page,true);
+    if(document.getElementById('facetedSearch')) {
+        facetedSearch.show(page, true);
+    }
+    if(document.getElementById('userFilter')) {
+        userFilter.handle(page, true);
+    }
 });
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
-const historyFilter = new historyFilterBuilder();
+const userFilter = new userFilterBuilder();
 
+var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
 
