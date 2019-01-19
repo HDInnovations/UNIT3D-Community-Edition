@@ -45,26 +45,25 @@
                         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
 
-                            <div class="mx-0 mt-5 form-group fatten-me">
-                                <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
-                                </div>
-                            </div>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+                        <div class="col-sm-9 fatten-me">
+                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                        </div>
+                    </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 fatten-me">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
                         </div>
                     </div>
-
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="uploader" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-9 fatten-me">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="uploader" placeholder="@lang('torrent.uploader')">
                         </div>
                     </div>
-
+                    
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="imdb" class="mt-5 col-sm-1 label label-default fatten-me">ID</label>
                         <div class="col-sm-2">
@@ -222,6 +221,7 @@
 
                                 </div>
                             </div>
+
                     <div class="mx-0 mt-5 form-group fatten-me">
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>
                         <div class="col-sm-2">
