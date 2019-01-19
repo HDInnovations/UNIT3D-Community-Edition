@@ -331,19 +331,19 @@ class TorrentController extends Controller
         if ($request->has('view') && $request->input('view') == 'group') {
             $collection = 1;
         }
-        if($request->has('seeding') && $request->input('seeding') != null) {
+        if ($request->has('seeding') && $request->input('seeding') != null) {
             $seedling = 1;
         }
-        if($request->has('notdownloaded') && $request->input('notdownloaded') != null) {
+        if ($request->has('notdownloaded') && $request->input('notdownloaded') != null) {
             $notdownloaded = 1;
         }
-        if($request->has('downloaded') && $request->input('downloaded') != null) {
+        if ($request->has('downloaded') && $request->input('downloaded') != null) {
             $downloaded = 1;
         }
-        if($request->has('leeching') && $request->input('leeching') != null) {
+        if ($request->has('leeching') && $request->input('leeching') != null) {
             $leeching = 1;
         }
-        if($request->has('idling') && $request->input('idling') != null) {
+        if ($request->has('idling') && $request->input('idling') != null) {
             $idling = 1;
         }
 
@@ -501,42 +501,38 @@ class TorrentController extends Controller
                 $torrent->where('torrentsl.seeders', '=', $dead);
             }
         } else {
+            if ($seedling == 1 || $notdownloaded == 1 || $downloaded == 1 || $leeching == 1 || $idling == 1) {
+                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader', 'category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
 
-            if($seedling == 1 || $notdownloaded == 1 || $downloaded == 1 || $leeching == 1 || $idling == 1) {
-
-                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader','category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
-
-                $torrent->orWhere(function ($query) use($user,$seedling,$notdownloaded,$downloaded,$leeching,$idling) {
-                    if($seedling == 1) {
-                        $query->orWhere(function ($query) use ($user){
+                $torrent->orWhere(function ($query) use ($user,$seedling,$notdownloaded,$downloaded,$leeching,$idling) {
+                    if ($seedling == 1) {
+                        $query->orWhere(function ($query) use ($user) {
                             $query->where('historyl.user_id', '=', $user->id)->where('historyl.seeder', '=', '1');
                         });
                     }
-                    if($notdownloaded == 1) {
-                        $query->orWhere(function ($query) use ($user){
+                    if ($notdownloaded == 1) {
+                        $query->orWhere(function ($query) use ($user) {
                             $query->whereRaw('historyl.id is null');
                         });
                     }
-                    if($downloaded == 1) {
-                        $query->orWhere(function ($query) use ($user){
-                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.seeder = ? OR historyl.completed_at is not null)',[1]);
+                    if ($downloaded == 1) {
+                        $query->orWhere(function ($query) use ($user) {
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.seeder = ? OR historyl.completed_at is not null)', [1]);
                         });
                     }
-                    if($leeching == 1) {
-                        $query->orWhere(function ($query) use ($user){
-                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = 0))',[1]);
+                    if ($leeching == 1) {
+                        $query->orWhere(function ($query) use ($user) {
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = 0))', [1]);
                         });
                     }
-                    if($idling == 1) {
-                        $query->orWhere(function ($query) use ($user){
-                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = ?))',[0,1]);
+                    if ($idling == 1) {
+                        $query->orWhere(function ($query) use ($user) {
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = ?))', [0, 1]);
                         });
                     }
                 });
-
-            }
-            else {
-                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader','category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
+            } else {
+                $torrent = $torrent->distinct()->select('torrents.id')->selectRaw('historyl.seeder as seeding,torrents.*,torrents.user_id as creator')->with(['uploader', 'category'])->withCount(['thanks', 'comments'])->leftJoin('history as historyl', 'torrents.info_hash', '=', 'historyl.info_hash');
             }
 
             if ($request->has('search') && $request->input('search') != null) {
@@ -627,7 +623,6 @@ class TorrentController extends Controller
             if ($request->has('dead') && $request->input('dead') != null) {
                 $torrent->where('torrents.seeders', '=', $dead);
             }
-
         }
 
         if ($request->has('qty')) {
