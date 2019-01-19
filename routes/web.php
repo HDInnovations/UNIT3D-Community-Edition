@@ -248,6 +248,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{username}.{id}/myuploads', 'UserController@myUploads')->name('myuploads');
         Route::get('/{username}.{id}/myactive', 'UserController@myActive')->name('myactive');
         Route::get('/{username}.{id}/myhistory', 'UserController@myHistory')->name('myhistory');
+        Route::post('/{username}.{id}/userFilters', 'UserController@myFilter')->name('myfilter');
         Route::post('/{username}.{id}/myuploadssearch', 'UserController@myUploadsSearch')->name('myuploadssearch');
         Route::get('/{username}.{id}/downloadHistoryTorrents', 'UserController@downloadHistoryTorrents')->name('download_history_torrents');
         Route::get('/{username}.{id}/myresurrections', 'UserController@myResurrections')->name('myResurrections');
