@@ -5599,6 +5599,42 @@ a.sort {
     margin-bottom: 20px;
 }
 
+.button-holder {
+    line-height: normal !important;
+    display: table;
+    width: 100%;
+    margin: 0px 0px 5px 0px !important;
+    padding: 0px !important;
+}
+.button-left {
+    display: table-cell;
+    width: 50%;
+    text-align: left;
+}
+.button-right {
+    display: table-cell;
+    width: 50%;
+    text-align: right;
+}
+
+@media screen and (max-width: 640px) {
+    .button-holder {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-left {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-right {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
 .space-top {
     padding-top: 20px;
 }
