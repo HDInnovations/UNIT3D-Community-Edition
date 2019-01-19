@@ -736,7 +736,12 @@ class UserController extends Controller
                 $history->where('immune','=',1);
             }
 
-            $table = $history->where('history.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            if($sorting != "name") {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('history.' . $sorting, $order)->paginate(50);
+            }
+            else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('torrents.' . $sorting, $order)->paginate(50);
+            }
 
             return view('user.filters', [
                 'user' => $user,
