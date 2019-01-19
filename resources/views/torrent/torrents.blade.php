@@ -19,7 +19,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            @include('partials.buttons')
+            @include('torrent.buttons')
             <div class="header gradient blue">
                 <div class="inner_content">
                     <h1>
