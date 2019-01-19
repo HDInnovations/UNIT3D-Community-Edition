@@ -29,11 +29,20 @@
             @lang('user.history-table')
             <a href="{{ route('download_history_torrents', ['username' => $user->username, 'id' => $user->id]) }}" role="button" class="btn btn-labeled btn-success">
                 <span class='btn-label'>
-                    <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('torrent.download-all') @lang('torrent.torrent')
+                    <i class='{{ config("other.font-awesome") }} fa-download'></i> @lang('torrent.download-all') @lang('torrent.torrents')
                 </span>
             </a>
         </h1>
+
         <div class="block">
+            <ul class="nav nav-tabs" id="historyFilter">
+                <li class="historyList active" id="all"><a href="#all" class="historyFilter" filter="all">All</a></li>
+                <li class="historyList" id="active"><a href="#active" class="historyFilter" filter="active">Active</a></li>
+                <li class="historyList" id="seeding"><a href="#seeding" class="historyFilter" filter="seeding">Seeding</a></li>
+                <li class="historyList" id="prewarned"><a href="#prewarned" class="historyFilter" filter="prewarned">Prewarned</a></li>
+                <li class="historyList" id="hr"><a href="#hr" class="historyFilter" filter="hr">H&R</a></li>
+                <li class="historyList" id="immune"><a href="#immune" class="historyFilter" filter="immune">Immune</a></li>
+            </ul>
             <!-- History -->
             <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered">
@@ -55,7 +64,7 @@
                     </thead>
                     <tbody>
                     @foreach ($history as $his)
-                        <tr>
+                        <tr class="historyFiltered" active="{{ ($his->active ? '1' : '0') }}" seeding="{{ ($his->seeder == 1 ? '1' : '0') }}" prewarned="{{ ($his->prewarn ? '1' : '0') }}" hr="{{ ($his->hr ? '1' : '0') }}" immune="{{ ($his->immune ? '1' : '0') }}">
                             <td>
                                 <a class="view-torrent" href="{{ route('torrent', ['slug' => $his->torrent->slug, 'id' => $his->torrent->id]) }}">
                                     {{ $his->torrent->name }}
