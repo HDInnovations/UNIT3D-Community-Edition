@@ -5,6 +5,7 @@
  * |--------------------------------------------------------------------------
  */
 return [
+    'activity'                 => 'Activity',
     'age'                      => 'Age',
     'agent'                    => 'Agent',
     'alive'                    => 'Alive',
@@ -71,6 +72,9 @@ return [
     'grouping-categories-desc' => 'What category would you like to group?',
     'grouping-results'         => 'Grouping Results',
     'groupings-view'           => 'Groupings View',
+    'have-downloaded'          => 'Downloaded',
+    'have-not-completed'       => 'Not Completed',
+    'have-not-downloaded'      => 'Not Downloaded',
     'health'                   => 'Health',
     'history'                  => 'History',
     'hitrun'                   => 'H&R?',
@@ -90,6 +94,7 @@ return [
     'legendary-seeder'         => 'Legendary seeder',
     'legendary-torrent'        => 'Legendary torrent',
     'list'                     => 'List',
+    'me'                       => 'Me',
     'media-info'               => 'MediaInfo',
     'media-info-parser'        => 'MediaInfo Parser',
     'media-info-paste'         => 'Paste MediaInfo dump here',
@@ -103,6 +108,7 @@ return [
     'no-privileges'            => 'You are not able to download this file - please check below for more info',
     'no-privileges-desc'       => 'Please solve the failed results above for download button to appear',
     'not-completed'            => 'Started Downloading But Never Completed',
+    'not-downloaded'           => 'Not Downloaded',
     'old-torrent'              => 'Old torrent',
     'optional'                 => 'Optional',
     'original-output'          => 'Show / Hide original output',
