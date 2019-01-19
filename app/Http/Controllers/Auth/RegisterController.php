@@ -88,6 +88,7 @@ class RegisterController extends Controller
         $user->uploaded = config('other.default_upload');
         $user->downloaded = config('other.default_download');
         $user->style = config('other.default_style', 0);
+        $user->locale = config('app.locale');
         $user->group_id = $validatingGroup->id;
 
         if (config('email-white-blacklist.enabled') === 'allow' && config('captcha.enabled') == true) {
