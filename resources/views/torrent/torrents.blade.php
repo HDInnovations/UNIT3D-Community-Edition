@@ -30,7 +30,7 @@
             <div id="facetedDefault" style="{{ ($user->torrent_filters ? 'display: none;' : '') }}">
                 <div class="box">
                     <div class="container mt-5">
-                        <div class="mx-0 mt-5 form-group">
+                        <div class="mx-0 mt-5 form-group fatten-me">
                             <div>
                                 <input type="text" class="form-control facetedSearch" trigger="keyup" id="query" placeholder="@lang('torrent.search')">
                             </div>
@@ -45,28 +45,26 @@
                         <form role="form" method="GET" action="TorrentController@torrents" class="form-horizontal form-condensed form-torrent-search form-bordered">
                             @csrf
 
-                            <div class="mx-0 mt-5 form-group">
-                                <label for="name" class="mt-5 col-sm-1 label label-default">@lang('torrent.name')</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
-                                </div>
-                            </div>
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="name" class="mt-5 col-sm-1 label label-default">@lang('torrent.description')</label>
-                        <div class="col-sm-9">
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.name')</label>
+                        <div class="col-sm-9 fatten-me">
+                            <input type="text" class="form-control facetedSearch" trigger="keyup" id="search" placeholder="@lang('torrent.name')">
+                        </div>
+                    </div>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.description')</label>
+                        <div class="col-sm-9 fatten-me">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="description" placeholder="@lang('torrent.description')">
                         </div>
                     </div>
-
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="uploader" class="mt-5 col-sm-1 label label-default">@lang('torrent.uploader')</label>
-                        <div class="col-sm-9">
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="uploader" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.uploader')</label>
+                        <div class="col-sm-9 fatten-me">
                             <input type="text" class="form-control facetedSearch" trigger="keyup" id="uploader" placeholder="@lang('torrent.uploader')">
                         </div>
                     </div>
-
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="imdb" class="mt-5 col-sm-1 label label-default">ID</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="imdb" class="mt-5 col-sm-1 label label-default fatten-me">ID</label>
                         <div class="col-sm-2">
                             <input type="text" class="form-control facetedSearch" trigger="keyup"id="imdb" placeholder="IMDB #">
                         </div>
@@ -81,8 +79,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="category" class="mt-5 col-sm-1 label label-default">@lang('torrent.category')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="category" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.category')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->categories() as $id => $category)
                                 <span class="badge-user">
@@ -94,8 +92,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="type" class="mt-5 col-sm-1 label label-default">@lang('torrent.type')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="type" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.type')</label>
                         <div class="col-sm-10">
                             @foreach ($repository->types() as $id => $type)
                                 <span class="badge-user">
@@ -107,8 +105,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="genre" class="mt-5 col-sm-1 label label-default">Genre</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="genre" class="mt-5 col-sm-1 label label-default fatten-me">Genre</label>
                         <div class="col-sm-10">
                             @foreach ($repository->tags() as $id => $genre)
                                 <span class="badge-user">
@@ -120,8 +118,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="type" class="mt-5 col-sm-1 label label-default">@lang('torrent.discounts')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="type" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.discounts')</label>
                         <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
@@ -141,8 +139,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="type" class="mt-5 col-sm-1 label label-default">@lang('torrent.special')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="type" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.special')</label>
                         <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
@@ -167,8 +165,8 @@
                         </div>
                     </div>
 
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="type" class="mt-5 col-sm-1 label label-default">@lang('torrent.health')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="type" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.health')</label>
                         <div class="col-sm-10">
                 <span class="badge-user">
                     <label class="inline">
@@ -187,8 +185,8 @@
                 </span>
                         </div>
                     </div>
-                    <div class="mx-0 mt-5 form-group">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default">@lang('common.quantity')</label>
+                    <div class="mx-0 mt-5 form-group fatten-me">
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.quantity')</label>
                         <div class="col-sm-2">
                             <select id="qty" name="qty" trigger="change" class="form-control facetedSearch">
                                 <option value="25">25</option>
