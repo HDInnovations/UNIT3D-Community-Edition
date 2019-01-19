@@ -1,3 +1,55 @@
+class historyFilterBuilder {
+    constructor() {
+        this.filter = '';
+    }
+    set(filter) {
+        this.filter = filter;
+    }
+    get() {
+        return this.filter;
+    }
+    handle() {
+        $('.historyFiltered').each(function() {
+            var filter = historyFilter.get();
+            if(filter == 'active' && (!$(this).attr('active') || $(this).attr('active') != 1)) {
+                $(this).hide();
+                return;
+            }
+            if(filter == 'seeding' && (!$(this).attr('seeding') || $(this).attr('seeding') != 1)) {
+                $(this).hide();
+                return;
+            }
+            if(filter == 'prewarned' && (!$(this).attr('prewarned') || $(this).attr('prewarned') != 1)) {
+                $(this).hide();
+                return;
+            }
+            if(filter == 'hr' && (!$(this).attr('hr') || $(this).attr('hr') != 1)) {
+                $(this).hide();
+                return;
+            }
+            if(filter == 'immune' && (!$(this).attr('immune') || $(this).attr('immune') != 1)) {
+                $(this).hide();
+                return;
+            }
+            $(this).show();
+        });
+    }
+    init() {
+        $('.historyFilter').each(function() {
+            $(this).off('click');
+            $(this).on('click', function(e) {
+                var filter = $(this).attr('filter');
+                e.preventDefault();
+                $('.historyList').each(function() {
+                   $(this).removeClass('active');
+                });
+                $('#'+filter).addClass('active');
+                historyFilter.set(filter);
+                historyFilter.handle();
+            });
+        });
+    }
+}
 class facetedSearchBuilder {
     constructor() {
         this.lazyloader = '';
@@ -446,6 +498,9 @@ $(document).ready(function () {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
     }
+    if(document.getElementById('historyFilter')) {
+        historyFilter.init();
+    }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
@@ -468,6 +523,7 @@ $(document).on('click', '.pagination a', function (e) {
 });
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
+const historyFilter = new historyFilterBuilder();
 
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
