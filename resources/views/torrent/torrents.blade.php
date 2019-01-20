@@ -199,22 +199,22 @@
                                 </span>
                                     <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="downloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-downloaded')
-                    </label>
-                                </span>
-                                    <span class="badge-user">
-                    <label class="inline">
-                        <input type="checkbox" id="notdownloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-not-downloaded')
-                    </label>
-                                </span>
-                                    <span class="badge-user">
-                    <label class="inline">
                         <input type="checkbox" id="leeching" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.leeching')
                     </label>
                                 </span>
                                     <span class="badge-user">
                     <label class="inline">
+                        <input type="checkbox" id="downloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-completed')
+                    </label>
+                                </span>
+                                    <span class="badge-user">
+                    <label class="inline">
                         <input type="checkbox" id="idling" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-purple"></span> @lang('torrent.have-not-completed')
+                    </label>
+                                    </span>
+                                    <span class="badge-user">
+                    <label class="inline">
+                        <input type="checkbox" id="notdownloaded" value="1" class="facetedSearch" trigger="click"> <span class="{{ config('other.font-awesome') }} fa-hdd text-red"></span> @lang('torrent.have-not-downloaded')
                     </label>
                                 </span>
 

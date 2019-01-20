@@ -106,24 +106,24 @@
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 1)
-                            <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.currently-leeching')!">
-                                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                            </button>
+                                <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.currently-leeching')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                                </button>
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null)
-                            <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.not-completed')!">
-                                <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
-                            </button>
+                                <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.not-completed')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
+                                </button>
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null)
-                            <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.completed-not-seeding')!">
-                                <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
-                            </button>
+                                <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.completed-not-seeding')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
+                                </button>
                             @endif
                         @endif
 
@@ -131,17 +131,17 @@
                         @if ($torrent->anon == 1)
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i> @lang('common.anonymous')
-                                @if ($user->id == $torrent->uploader->id || $user->group->is_modo)
-                                    <a href="{{ route('profile', ['username' => $torrent->uploader->username, 'id' => $torrent->uploader->id]) }}">
-                                        ({{ $torrent->uploader->username }})
+                                @if ($user->id == $torrent->user->id || $user->group->is_modo)
+                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                        ({{ $torrent->user->username }})
                                     </a>
                                 @endif
                             </span>
                         @else
                             <span class="badge-extra text-bold">
                                 <i class="{{ config('other.font-awesome') }} fa-upload" data-toggle="tooltip" data-original-title="@lang('torrent.uploader')"></i>
-                                    <a href="{{ route('profile', ['username' => $torrent->uploader->username, 'id' => $torrent->uploader->id]) }}">
-                                        {{ $torrent->uploader->username }}
+                                    <a href="{{ route('profile', ['username' => $torrent->user->username, 'id' => $torrent->user->id]) }}">
+                                        {{ $torrent->user->username }}
                                     </a>
                             </span>
                         @endif
@@ -334,6 +334,12 @@
             </tbody>
         </table>
     <div class="text-center">
-        {{ $torrents->links() }}
+        @if($links)
+            {{ $links->links() }}
+        @else
+            @if($torrents->links())
+                {{ $torrents->links() }}
+            @endif
+        @endif
     </div>
 </div>
