@@ -522,12 +522,12 @@ class TorrentController extends Controller
                     }
                     if ($leeching == 1) {
                         $query->orWhere(function ($query) use ($user) {
-                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = 0))', [1]);
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('((historyl.active = ?) AND (historyl.completed_at is null OR historyl.seeder = 0))', [1]);
                         });
                     }
                     if ($idling == 1) {
                         $query->orWhere(function ($query) use ($user) {
-                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('(historyl.active = ? AND (historyl.completed_at is null OR historyl.seeder = ?))', [0, 1]);
+                            $query->where('historyl.user_id', '=', $user->id)->whereRaw('((historyl.active is null OR historyl.active = ?) AND (historyl.completed_at is null OR historyl.seeder = ?))', [0, 1]);
                         });
                     }
                 });
