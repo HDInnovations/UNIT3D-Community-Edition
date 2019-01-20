@@ -544,7 +544,7 @@ class TorrentController extends Controller
                     });
                 }
             });
-            $torrent = $torrent->selectRaw('distinct(torrents.id),torrents.sticky,torrents.created_at,torrents.seeders,torrents.leechers,torrents.name,torrents.size,torrents.times_completed')->leftJoin('torrents', function ($join) use ($user) {
+            $torrent = $torrent->selectRaw('distinct(torrents.id),max(torrents.sticky),max(torrents.created_at),max(torrents.seeders),max(torrents.leechers),max(torrents.name),max(torrents.size),max(torrents.times_completed)')->leftJoin('torrents', function ($join) use ($user) {
                 $join->on('history.info_hash', '=', 'torrents.info_hash');
             })->groupBy('torrents.id');
         } else {
