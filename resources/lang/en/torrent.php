@@ -72,6 +72,7 @@ return [
     'grouping-categories-desc' => 'What category would you like to group?',
     'grouping-results'         => 'Grouping Results',
     'groupings-view'           => 'Groupings View',
+    'have-completed'           => 'Have Completed',
     'have-downloaded'          => 'Downloaded',
     'have-not-completed'       => 'Not Completed',
     'have-not-downloaded'      => 'Not Downloaded',
