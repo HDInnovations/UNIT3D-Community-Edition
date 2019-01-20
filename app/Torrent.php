@@ -63,7 +63,9 @@ class Torrent extends Model
      */
     public function uploader()
     {
-        return $this->belongsTo(User::class, 'creator')->withDefault([
+        // Not needed yet but may use this soon.
+
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
