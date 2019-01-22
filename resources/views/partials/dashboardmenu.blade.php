@@ -154,7 +154,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
             </li>
             <li>
-                <a href="{{ route('getActivity') }}">
+                <a href="{{ route('activity.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.activity-log')
                 </a>
             </li>
