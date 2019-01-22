@@ -169,7 +169,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getInvites') }}">
+                <a href="{{ route('invites.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.invites-log')
                 </a>
             </li>

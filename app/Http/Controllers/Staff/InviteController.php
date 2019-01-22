@@ -19,13 +19,13 @@ use App\Http\Controllers\Controller;
 class InviteController extends Controller
 {
     /**
-     * Invites Log.
+     * Display Invites Log.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getInvites()
+    public function index()
     {
-        $invites = Invite::latest()->paginate(25);
+        $invites = Invite::with(['sender', 'receiver'])->latest()->paginate(25);
         $invitecount = Invite::count();
 
         return view('Staff.invites.index', ['invites' => $invites, 'invitecount' => $invitecount]);
