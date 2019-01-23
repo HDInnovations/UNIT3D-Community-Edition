@@ -41,7 +41,7 @@ class FlushController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteOldPeers()
+    public function destroy()
     {
         $current = new Carbon();
         $peers = Peer::select(['id', 'info_hash', 'user_id', 'updated_at'])->where('updated_at', '<', $current->copy()->subHours(2)->toDateTimeString())->get();

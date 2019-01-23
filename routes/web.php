@@ -419,7 +419,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::delete('/bans/{username}.{id}', 'BanController@destroy')->name('staff.bans.destroy');
 
         // Flush Ghost Peers
-        Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
+        Route::get('/flush', 'FlushController@destroy')->name('staff.flush.destroy');
 
         // User Tools
         Route::get('/user_search', 'UserController@members')->name('user_search');

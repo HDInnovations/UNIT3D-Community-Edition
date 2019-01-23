@@ -111,7 +111,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('flush') }}">
+                <a href="{{ route('staff.flush.destroy') }}">
                     <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
                 </a>
             </li>
