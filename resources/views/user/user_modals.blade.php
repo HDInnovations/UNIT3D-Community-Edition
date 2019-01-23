@@ -4,8 +4,9 @@
         <div class="modal-content">
             <meta charset="utf-8">
             <title>Ban User: {{ $user->username }}</title>
-            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <form role="form" method="POST" action="{{ route('staff.bans.store', ['username' => $user->username, 'id' => $user->id]) }}">
             @csrf
+            @method('DELETE')
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -45,8 +46,9 @@
         <div class="modal-content">
             <meta charset="utf-8">
             <title>Unban User: {{ $user->username }}</title>
-            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <form role="form" method="POST" action="{{ route('staff.bans.destroy', ['username' => $user->username, 'id' => $user->id]) }}">
             @csrf
+            @method('DELETE')
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>

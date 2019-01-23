@@ -414,9 +414,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/check-update', 'VersionController@checkVersion');
 
         // Ban
-        Route::get('/bans', 'BanController@getBans')->name('getBans');
-        Route::post('/ban/{username}.{id}', 'BanController@ban')->name('ban');
-        Route::post('/unban/{username}.{id}', 'BanController@unban')->name('unban');
+        Route::get('/bans', 'BanController@index')->name('staff.bans.index');
+        Route::post('/bans/{username}.{id}', 'BanController@store')->name('staff.bans.store');
+        Route::delete('/bans/{username}.{id}', 'BanController@destroy')->name('staff.bans.destroy');
 
         // Flush Ghost Peers
         Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');

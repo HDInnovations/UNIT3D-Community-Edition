@@ -46,7 +46,7 @@ class BanController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getBans()
+    public function index()
     {
         $bans = Ban::latest()->paginate(25);
 
@@ -62,7 +62,7 @@ class BanController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function ban(Request $request, $username, $id)
+    public function store(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
@@ -117,7 +117,7 @@ class BanController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unban(Request $request, $username, $id)
+    public function destroy(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
