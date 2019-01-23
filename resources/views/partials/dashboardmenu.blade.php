@@ -17,7 +17,7 @@
             </li>
             @if (auth()->user()->group->is_admin)
                 <li>
-                    <a href="{{ route('backupManager') }}">
+                    <a href="{{ route('staff.backups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
                     </a>
                 </li>
@@ -46,29 +46,29 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.general-tools')
             </li>
             <li>
-                <a href="{{ route('staff_article_index') }}">
+                <a href="{{ route('staff.articles.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-newspaper"></i> @lang('staff.articles')
                 </a>
             </li>
             @if (auth()->user()->group->is_admin)
                 <li>
-                    <a href="{{ route('staff_forum_index') }}">
+                    <a href="{{ route('staff.forums.index') }}">
                         <i class="fab fa-wpforms"></i> @lang('staff.forums')
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('staff_groups_index') }}">
+                    <a href="{{ route('staff.groups.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.groups')
                     </a>
                 </li>
             @endif
             <li>
-                <a href="{{ route('staff_page_index') }}">
+                <a href="{{ route('staff.pages.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.pages')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getPolls') }}">
+                <a href="{{ route('staff.polls.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
                 </a>
             </li>
@@ -81,22 +81,22 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.torrent-tools')
             </li>
             <li>
-                <a href="{{ route('staff_torrent_index') }}">
+                <a href="{{ route('staff.torrents.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file-video"></i> @lang('staff.torrents')
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_category_index') }}">
+                <a href="{{ route('staff.categories.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-categories')
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_type_index') }}">
+                <a href="{{ route('staff.types.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-types')
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff_tag_index') }}">
+                <a href="{{ route('staff.tags.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> Torrent Tags (Genres)
                 </a>
             </li>
@@ -116,7 +116,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('moderation') }}">
+                <a href="{{ route('staff.moderation.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-moderation')
                 </a>
             </li>
@@ -125,27 +125,27 @@
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.user-tools')
             </li>
             <li>
-                <a href="{{ route('user_search') }}">
+                <a href="{{ route('staff.users.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-users"></i> @lang('staff.user-search')
                 </a>
             </li>
             <li>
-                <a href="{{ route('systemGift') }}">
+                <a href="{{ route('staff.gifts.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-gift"></i> @lang('staff.user-gifting')
                 </a>
             </li>
             <li>
-                <a href="{{ route('massPM') }}">
+                <a href="{{ route('staff.masspm.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-envelope-square"></i> @lang('staff.mass-pm')
                 </a>
             </li>
             <li>
-                <a href="{{ route('massValidateUsers') }}">
+                <a href="{{ route('staff.massvalidate.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-history"></i> @lang('staff.mass-validate-users')
                 </a>
             </li>
             <li>
-                <a href="{{ route('leechCheaters') }}">
+                <a href="{{ route('staff.leechcheaters.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('staff.possible-leech-cheaters')
                 </a>
             </li>
@@ -154,27 +154,27 @@
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
             </li>
             <li>
-                <a href="{{ route('activity.index') }}">
+                <a href="{{ route('staff.activity.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.activity-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getBans') }}">
+                <a href="{{ route('staff.bans.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.bans-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getFailedAttemps') }}">
+                <a href="{{ route('staff.failedlogins.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.failed-login-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('invites.index') }}">
+                <a href="{{ route('staff.invites.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.invites-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getNotes') }}">
+                <a href="{{ route('staff.notes.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.user-notes')
                 </a>
             </li>
@@ -186,12 +186,12 @@
                 </li>
             @endif
             <li>
-                <a href="{{ route('getReports') }}">
+                <a href="{{ route('staff.reports.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.reports-log')
                 </a>
             </li>
             <li>
-                <a href="{{ route('getWarnings') }}">
+                <a href="{{ route('staff.warnings.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.warnings-log')
                 </a>
             </li>
