@@ -86,8 +86,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
         // Article
-        Route::get('/articles', 'ArticleController@articles')->name('articles');
-        Route::get('/articles/{slug}.{id}', 'ArticleController@post')->name('article');
+        Route::get('/articles', 'ArticleController@index')->name('articles.index');
+        Route::get('/articles/{slug}.{id}', 'ArticleController@show')->name('articles.show');
 
         // Bonus System
         Route::get('/bonus/{username}', 'BonusController@bonus')->name('bonus');
@@ -495,12 +495,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
 
         // Articles
-        Route::get('/articles', 'ArticleController@index')->name('staff_article_index');
-        Route::get('/articles/new', 'ArticleController@addForm')->name('staff_article_add_form');
-        Route::post('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::get('/articles/edit/{slug}.{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
-        Route::post('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::get('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::get('/articles', 'ArticleController@index')->name('staff.articles.index');
+        Route::get('/articles/create', 'ArticleController@create')->name('staff.articles.create');
+        Route::post('/articles', 'ArticleController@store')->name('staff.articles.store');
+        Route::get('/articles/{slug}.{id}/edit', 'ArticleController@edit')->name('staff.articles.edit');
+        Route::post('/articles/{slug}.{id}', 'ArticleController@update')->name('staff.articles.update');
+        Route::get('/articles/{slug}.{id}', 'ArticleController@destroy')->name('staff.articles.destroy');
 
         // Groups
         Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');

@@ -22,11 +22,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function articles()
+    public function index()
     {
         $articles = Article::latest()->paginate(6);
 
-        return view('article.articles', ['articles' => $articles]);
+        return view('article.index', ['articles' => $articles]);
     }
 
     /**
@@ -34,10 +34,10 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function post($slug, $id)
+    public function show($slug, $id)
     {
         $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return view('article.article', ['article' => $article]);
+        return view('article.show', ['article' => $article]);
     }
 }
