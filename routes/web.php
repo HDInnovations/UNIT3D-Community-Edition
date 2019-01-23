@@ -499,8 +499,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/articles/create', 'ArticleController@create')->name('staff.articles.create');
         Route::post('/articles', 'ArticleController@store')->name('staff.articles.store');
         Route::get('/articles/{slug}.{id}/edit', 'ArticleController@edit')->name('staff.articles.edit');
-        Route::post('/articles/{slug}.{id}', 'ArticleController@update')->name('staff.articles.update');
-        Route::get('/articles/{slug}.{id}', 'ArticleController@destroy')->name('staff.articles.destroy');
+        Route::put('/articles/{slug}.{id}', 'ArticleController@update')->name('staff.articles.update');
+        Route::delete('/articles/{slug}.{id}', 'ArticleController@destroy')->name('staff.articles.destroy');
 
         // Groups
         Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');

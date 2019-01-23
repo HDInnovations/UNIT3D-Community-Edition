@@ -29,6 +29,7 @@
         <form role="form" method="POST" enctype="multipart/form-data"
               action="{{ route('staff.articles.store',['slug' => $article->slug, 'id' => $article->id]) }}">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" name="title" value="{{ $article->title }}" required>

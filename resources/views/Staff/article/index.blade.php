@@ -42,10 +42,13 @@
                     </td>
                     <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>
-                        <a href="{{ route('staff.articles.edit', ['slug' => $article->slug, 'id' => $article->id]) }}"
-                           class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff.articles.destroy', ['slug' => $article->slug, 'id' => $article->id]) }}"
-                           class="btn btn-danger">Delete</a>
+                        <form action="{{ route('staff.articles.destroy', ['slug' => $article->slug, 'id' => $article->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <a href="{{ route('staff.articles.edit', ['slug' => $article->slug, 'id' => $article->id]) }}"
+                               class="btn btn-warning">@lang('common.edit')</a>
+                            <button type="submit" class="btn btn-danger">@lang('common.delete')</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
