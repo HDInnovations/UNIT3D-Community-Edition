@@ -14,12 +14,14 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Post;
 use App\Torrent;
 use Carbon\Carbon;
 use App\BonExchange;
 use App\PrivateMessage;
 use App\BonTransactions;
 use App\PersonalFreeleech;
+use App\Notifications\NewPostTip;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -337,6 +339,62 @@ class BonusController extends Controller
         $pm->save();
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Tip Points To A Poster.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $slug
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function tipPoster(Request $request, $slug, $id)
+    {
+        $user = auth()->user();
+
+        if($request->has('post') && $request->input('post') > 0) {
+            $p = (int) $request->input('post');
+            $post = Post::with('topic')->findOrFail($p);
+            $poster = User::where('id', '=', $post->user_id)->firstOrFail();
+        } else {
+            abort(404);
+        }
+
+        $tip_amount = $request->input('tip');
+        if ($tip_amount > $user->seedbonus) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Are To Broke To Tip The Poster!', 'Whoops!', ['options']));
+        }
+        if ($user->id == $poster->id) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+        }
+        if ($tip_amount <= 0) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+        }
+        $poster->seedbonus += $tip_amount;
+        $poster->save();
+
+        $user->seedbonus -= $tip_amount;
+        $user->save();
+
+        $transaction = new BonTransactions();
+        $transaction->itemID = 0;
+        $transaction->name = 'tip';
+        $transaction->cost = $tip_amount;
+        $transaction->sender = $user->id;
+        $transaction->receiver = $poster->id;
+        $transaction->comment = 'tip';
+        $transaction->post_id = $post->id;
+        $transaction->save();
+
+        $poster->notify(new NewPostTip($user->username,$post));
+
+        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 
