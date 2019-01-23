@@ -62,7 +62,7 @@ class NewTopicPost extends Notification implements ShouldQueue
         return [
             'title' => 'Subscribed Topic Has A New Post',
             'body'  => $this->post->user->username.' has left a new post on '.$this->post->topic->name,
-            'url'   => "{$appurl}/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];
     }
 }
