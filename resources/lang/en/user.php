@@ -101,6 +101,7 @@ return [
     'pending-achievements'      => 'Pending achievements',
     'posts'                     => 'Forum Posts Made',
     'private-info'              => 'Private Info',
+    'private-forum-profile'     => 'Attention: This Members Topic & Post History Has Been Set To PRIVATE!',
     'private-profile'           => 'Attention: This Profile Has Been Set To PRIVATE!',
     'profile-desc'              => 'User :user profile registered on :title',
     'public-info'               => 'Public Info',
