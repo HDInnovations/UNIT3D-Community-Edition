@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getFailedAttemps') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.failedlogins.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Failed Login Log</span>
         </a>
     </li>
