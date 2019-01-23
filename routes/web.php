@@ -513,7 +513,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');
 
         // Invites
-        Route::get('/invites', 'InviteController@index')->name('invites.index');
+        Route::get('/invites', 'InviteController@index')->name('staff.invites.index');
 
         // Failed Logins
         Route::get('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
