@@ -55,7 +55,7 @@ class FlushController extends Controller
             $peer->delete();
         }
 
-        return redirect('staff_dashboard')
+        return redirect('staff.dashboard.index')
             ->with($this->toastr->success('Ghost Peers Have Been Flushed', 'Yay!', ['options']));
     }
 }

@@ -230,7 +230,7 @@ class ChatController extends Controller
             ':robot: [b][color=#fb9776]System[/color][/b] : Chatbox Has Been Flushed! :broom:'
         );
 
-        return redirect('staff_dashboard')
+        return redirect('staff.dashboard.index')
             ->with($this->toastr->success('Chatbox Has Been Flushed', 'Yay!', ['options']));
     }
 }

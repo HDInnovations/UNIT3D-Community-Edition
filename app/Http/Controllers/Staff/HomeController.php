@@ -30,7 +30,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function index()
     {
         // User Info
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();

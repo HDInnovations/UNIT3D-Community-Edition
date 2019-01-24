@@ -408,7 +408,7 @@ Route::group(['middleware' => 'language'], function () {
         ]);
 
         // Staff Dashboard
-        Route::get('/', 'HomeController@home')->name('staff_dashboard');
+        Route::get('/', 'HomeController@index')->name('staff.dashboard.index');
 
         // Codebase Version Check
         Route::get('/check-update', 'VersionController@checkVersion');
