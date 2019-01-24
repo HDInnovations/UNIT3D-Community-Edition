@@ -519,10 +519,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/failedlogins', 'FailedLoginController@index')->name('staff.failedlogins.index');
 
         // Polls
-        Route::get('/polls', 'PollController@polls')->name('getPolls');
-        Route::get('/poll/{id}', 'PollController@poll')->name('getPoll');
-        Route::get('/polls/create', 'PollController@create')->name('getCreatePoll');
-        Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
+        Route::get('/polls', 'PollController@index')->name('staff.polls.index');
+        Route::get('/polls/{id}', 'PollController@show')->name('staff.polls.show');
+        Route::get('/polls/create', 'PollController@create')->name('staff.polls.create');
+        Route::post('/polls', 'PollController@store')->name('staff.polls.store');
 
         // Activity Log
         Route::get('/activity', 'ActivityLogController@index')->name('activity.index');

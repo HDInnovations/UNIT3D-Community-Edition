@@ -49,11 +49,11 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function polls()
+    public function index()
     {
         $polls = Poll::latest()->paginate(25);
 
-        return view('Staff.poll.polls', ['polls' => $polls]);
+        return view('Staff.poll.index', ['polls' => $polls]);
     }
 
     /**
@@ -61,11 +61,11 @@ class PollController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function poll($id)
+    public function show($id)
     {
         $poll = Poll::where('id', '=', $id)->firstOrFail();
 
-        return view('Staff.poll.poll', ['poll' => $poll]);
+        return view('Staff.poll.show', ['poll' => $poll]);
     }
 
     /**
