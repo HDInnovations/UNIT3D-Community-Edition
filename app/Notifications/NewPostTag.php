@@ -22,6 +22,7 @@ class NewPostTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $type;
     public $tagger;
     public $post;
 
@@ -32,8 +33,9 @@ class NewPostTag extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $tagger, Post $post)
+    public function __construct(string $type, string $tagger, Post $post)
     {
+        $this->type = $type;
         $this->post = $post;
         $this->tagger = $tagger;
     }
