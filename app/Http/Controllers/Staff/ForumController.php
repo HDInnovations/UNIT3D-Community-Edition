@@ -54,12 +54,12 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
         $categories = Forum::where('parent_id', '=', 0)->get();
         $groups = Group::all();
 
-        return view('Staff.forum.add', ['categories' => $categories, 'groups' => $groups]);
+        return view('Staff.forum.create', ['categories' => $categories, 'groups' => $groups]);
     }
 
     /**
@@ -69,7 +69,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $groups = Group::all();
 
@@ -103,7 +103,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
                 ->with($this->toastr->success('Forum has been created successfully', 'Yay!', ['options']));
     }
 
@@ -115,7 +115,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($slug, $id)
     {
         $forum = Forum::findOrFail($id);
         $categories = Forum::where('parent_id', '=', 0)->get();
@@ -137,7 +137,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $slug, $id)
     {
         $forum = Forum::findOrFail($id);
         $groups = Group::all();
@@ -175,7 +175,7 @@ class ForumController extends Controller
             $perm->save();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
                 ->with($this->toastr->success('Forum has been edited successfully', 'Yay!', ['options']));
     }
 
@@ -187,7 +187,7 @@ class ForumController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function destroy($slug, $id)
     {
         // Forum to delete
         $forum = Forum::findOrFail($id);
@@ -235,7 +235,7 @@ class ForumController extends Controller
             $forum->delete();
         }
 
-        return redirect()->route('staff_forum_index')
+        return redirect()->route('staff.forums.index')
             ->with($this->toastr->success('Forum has been deleted successfully', 'Yay!', ['options']));
     }
 }

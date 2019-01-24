@@ -479,12 +479,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/types/delete/{slug}.{id}', 'TypeController@delete')->name('staff_type_delete');
 
         // Forum
-        Route::get('/forums', 'ForumController@index')->name('staff_forum_index');
-        Route::get('/forums/new', 'ForumController@addForm')->name('staff_forum_add_form');
-        Route::post('/forums/new', 'ForumController@add')->name('staff_forum_add');
-        Route::get('/forums/edit/{slug}.{id}', 'ForumController@editForm')->name('staff_forum_edit_form');
-        Route::post('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
-        Route::get('/forums/delete/{slug}.{id}', 'ForumController@delete')->name('staff_forum_delete');
+        Route::get('/forums', 'ForumController@index')->name('staff.forums.index');
+        Route::get('/forums/create', 'ForumController@create')->name('staff.forums.create');
+        Route::post('/forums', 'ForumController@store')->name('staff.forums.store');
+        Route::get('/forums/{slug}.{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
+        Route::put('/forums/{slug}.{id}', 'ForumController@update')->name('staff.forums.update');
+        Route::delete('/forums/{slug}.{id}', 'ForumController@destroy')->name('staff.forums.destroy');
 
         //Pages
         Route::get('/pages', 'PageController@index')->name('staff_page_index');
