@@ -7,7 +7,7 @@
 return [
     'date'             => 'Data',
     'delete'           => 'Excluir',
-    'delete-all'       => 'Excluir todas notificações',
+    'delete-all'       => 'Excluir todas as notificações',
     'mark-all-read'    => 'Marcar todas como lidas',
     'mark-read'        => 'Marcar como lida',
     'message'          => 'Mensagem',

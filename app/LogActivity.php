@@ -18,20 +18,6 @@ use Illuminate\Database\Eloquent\Model;
 class LogActivity extends Model
 {
     /**
-     * The Attributes That Are Mass Assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'subject',
-        'url',
-        'method',
-        'ip',
-        'agent',
-        'user_id',
-    ];
-
-    /**
      * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

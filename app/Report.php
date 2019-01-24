@@ -27,6 +27,16 @@ class Report extends Model
     ];
 
     /**
+     * Belongs To A Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function request()
+    {
+        return $this->belongsTo(TorrentRequest::class, 'request_id');
+    }
+
+    /**
      * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -63,7 +73,7 @@ class Report extends Model
     }
 
     /**
-     * Belongs To A User.
+     * Belongs To A Staff Member.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

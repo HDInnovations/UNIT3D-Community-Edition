@@ -10,13 +10,6 @@ let mix = require('laravel-mix');
  */
 
 mix.version()
-
-    .webpackConfig({
-        module: {
-            // configuration regarding modules
-            loaders: [{ test: /\.js$/, loader: 'babel', query: { compact: false } }],
-        },
-    })
     /*
      * Sourced asset dependencies via node_modules and JS bootstrapping
      */
@@ -54,7 +47,7 @@ mix.version()
      *
      * Note: The order of this array will matter, no different then linking these assets manually in the html
      */
-    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/blutopia.js'], 'public/js/unit3d.js')
+    .babel(['resources/js/unit3d/hoe.js', 'resources/js/unit3d/blutopia.js', 'resources/js/unit3d/helper.js'], 'public/js/unit3d.js')
 
     /*
      * Copy emojione assets

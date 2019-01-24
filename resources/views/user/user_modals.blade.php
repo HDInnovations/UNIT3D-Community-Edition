@@ -103,10 +103,9 @@
                 <h4 class="modal-title" id="myModalLabel">Report User: {{ $user->username }}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_user', ['username' => $user->username, 'id' => $user->id]) }}">
                     @csrf
                     <div class="form-group">
-                        <input id="type" name="type" type="hidden" value="User">
                         <label for="file_name" class="col-sm-2 control-label">User</label>
                         <div class="col-sm-10">
                             <input id="title" name="title" type="hidden" value="{{ $user->username }}">

@@ -72,7 +72,11 @@
                     <i class="{{ config('other.font-awesome') }} fa-chart-pie"></i> @lang('staff.polls')
                 </a>
             </li>
-
+            <li>
+                <a href="{{ route('Staff.rss.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss')
+                </a>
+            </li>
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.torrent-tools')
             </li>
@@ -89,6 +93,11 @@
             <li>
                 <a href="{{ route('staff_type_index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.torrent-types')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('staff_tag_index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-columns"></i> Torrent Tags (Genres)
                 </a>
             </li>
             <li>
@@ -145,7 +154,7 @@
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
             </li>
             <li>
-                <a href="{{ route('getActivity') }}">
+                <a href="{{ route('activity.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.activity-log')
                 </a>
             </li>

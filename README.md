@@ -7,7 +7,7 @@
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.7.17-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.7.20-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
 <a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
 <a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>	
@@ -22,20 +22,21 @@
 4. [Installation](#installation)
 4.1 [Automated-Installer](#auto-install)
 4.2 [Manual Install](#manual-install)
-5. [Packages](#packages)
-6. [Version Support Information](#versions)
-7. [Security](#security)
-8. [Contributing](#contributing)
-9. [License](#license)
-10. [Homestead (For local developement)](#homestead)
-11. [Demo](#demo)
-12. [Donate](#donate)
-13. [Special Thanks](#thanks)
+5. [Updating](#updating)
+6. [Packages](#packages)
+7. [Version Support Information](#versions)
+8. [Security](#security)
+9. [Contributing](#contributing)
+10. [License](#license)
+11. [Homestead (For local developement)](#homestead)
+12. [Demo](#demo)
+13. [Donate](#donate)
+14. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.7.17, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.7.20, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -54,6 +55,7 @@ UNIT3D currently offers the following features:
   - Multilingual Support
   - TwoStep Auth System
   - DB + Files Backup Manager
+  - RSS System
   - and MUCH MORE!
 
 ## <a name="requirements"></a> :white_check_mark: Requirements
@@ -94,11 +96,20 @@ sudo ./install.sh
 
 Check it out here for more information: https://github.com/poppabear8883/UNIT3D-INSTALLER
 
+Video Tutorial Can Be Seen Here:
+https://www.youtube.com/watch?v=f2tiMWZ3KbA
+
 ### <a name="manual-install"></a> Manual Install
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
 
-## <a name="docs"></a> :book: Documentation
+## <a name="updating"></a> :book: Documentation
 WIP - https://github.com/HDInnovations/UNIT3D-Docs
+
+## <a name="docs"></a> :computer: Updating
+`php artisan git:update`
+
+Video Tutorial Can Be Seen Here:
+https://www.youtube.com/watch?v=tlNUjS1dYMs
  
 ## <a name="packages"></a> 📦 Packages
 Here are some packages that are built for UNIT3D.
@@ -109,6 +120,7 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version   | Status                   | PHP Version
 :----------|:-------------------------|:------------
+ 1.8.9     |  Active support :rocket: | >= 7.1.3
  1.8.8     |  Active support :rocket: | >= 7.1.3
  1.8.7     |  Active support :rocket: | >= 7.1.3
  1.8.6     |  End of life             | >= 7.1.3

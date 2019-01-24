@@ -39,9 +39,9 @@ class ActivityLogController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getActivity()
+    public function index()
     {
-        $activities = \LogActivity::logActivityLists();
+        $activities = LogActivity::with('user')->latest()->paginate(50);
 
         return view('Staff.activity.index', ['activities' => $activities]);
     }
@@ -53,12 +53,15 @@ class ActivityLogController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteActivity($id)
+    public function destroy($id)
     {
+        $user = auth()->user();
         $activity = LogActivity::findOrFail($id);
+
+        abort_unless($user->group->is_modo, 403);
         $activity->delete();
 
-        return redirect()->route('getActivity')
+        return redirect()->route('activity.index')
             ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }

@@ -9,12 +9,12 @@
                 <th></th>
             @endif
             <th>@lang('torrent.category')/@lang('torrent.type')</th>
-            <th>@lang('common.name')</th>
-            <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
-            <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+            <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '', ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "name" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-clock"></i> @sortablelink('created_at', 'S', '', ['id'=>'created_at','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "created_at" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-file"></i> @sortablelink('size', 'S', '', ['id'=>'size','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "size" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-check-square"></i> @sortablelink('times_completed', 'S', '', ['id'=>'times_completed','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "times_completed" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i> @sortablelink('seeders', 'S', '', ['id'=>'seeders','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "seeders" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i> @sortablelink('leechers', 'S', '', ['id'=>'leechers','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "leechers" ? $direction : 0)])</th>
         </tr>
         </thead>
 
@@ -94,7 +94,7 @@
                             </a>
                         @endif
 
-                        {{--<smallbookmark :id="{{ $torrent->id }}" :state="{{ $torrent->bookmarked()  ? 1 : 0}}"></smallbookmark>--}}
+                        <span data-toggle="tooltip" data-original-title="Bookmark" id="torrentBookmark{{ $torrent->id }}" torrent="{{ $torrent->id }}" state="{{ $torrent->bookmarked() ? 1 : 0}}" class="torrentBookmark"></span>
 
                         @php $history = \App\History::where('user_id', '=', $user->id)->where('info_hash', '=', $torrent->info_hash)->first(); @endphp
                         @if ($history)
@@ -106,24 +106,24 @@
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 1)
-                            <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.currently-leeching')!">
-                                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                            </button>
+                                <button class="btn btn-warning btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.currently-leeching')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                                </button>
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at == null)
-                            <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.not-completed')!">
-                                <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
-                            </button>
+                                <button class="btn btn-info btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.not-completed')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-hand-paper"></i>
+                                </button>
                             @endif
 
                             @if ($history->seeder == 0 && $history->active == 0 && $history->completed_at != null)
-                            <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
-                                    data-original-title="@lang('torrent.completed-not-seeding')!">
-                                <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
-                            </button>
+                                <button class="btn btn-danger btn-circle" type="button" data-toggle="tooltip"
+                                        data-original-title="@lang('torrent.completed-not-seeding')!">
+                                    <i class="{{ config('other.font-awesome') }} fa-thumbs-down"></i>
+                                </button>
                             @endif
                         @endif
 
@@ -291,7 +291,7 @@
                             </span>
                         @endif
 
-                        {{--@php $torrent_tags = App\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
+                        @php $torrent_tags = App\TagTorrent::where('torrent_id', '=', $torrent->id)->get(); @endphp
                         @if ($torrent_tags)
                         @foreach($torrent_tags as $torrent_tag)
                             <span class="badge-extra text-bold">
@@ -299,7 +299,7 @@
                                    data-original-title='Genre'></i> {{ $torrent_tag->genre->name }}
                             </span>
                         @endforeach
-                        @endif--}}
+                        @endif
                     </td>
 
                     <td>
@@ -334,26 +334,12 @@
             </tbody>
         </table>
     <div class="text-center">
-        {{ $torrents->links() }}
+        @if($links)
+            {{ $links->links() }}
+        @else
+            @if($torrents->links())
+                {{ $torrents->links() }}
+            @endif
+        @endif
     </div>
 </div>
-
-<script>
-    $('.show-poster').click(function(e) {
-      e.preventDefault();
-
-      var name = $(this).attr('data-name');
-      var image = $(this).attr('data-image');
-
-      swal({
-        showConfirmButton: false,
-        showCloseButton: true,
-        background: '#232323',
-        width: 970,
-        html: image,
-        title: name,
-        text: '',
-      });
-    });
-</script>
-

@@ -34,17 +34,17 @@
                     href="{{ route('profile', ['username' => $topic->first_post_user_username, 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
-            @if (auth()->user()->isSubscribed($topic->id))
-                <a href="{{ route('unsubscribe', ['topic' => $topic->id]) }}" class="label label-sm label-danger">
-                    <i class="{{ config('other.font-awesome') }} fa-envelope"></i> Unsubscribe</a>
+            @if (auth()->user()->isSubscribed('topic', $topic->id))
+                <a href="{{ route('unsubscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-danger">
+                    <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
             @else
-                <a href="{{ route('subscribe', ['topic' => $topic->id]) }}" class="label label-sm label-success">
-                    <i class="{{ config('other.font-awesome') }} fa-envelope"></i> Subscribe</a>
+                <a href="{{ route('subscribe_topic', ['topic' => $topic->id, 'route' => 'topic']) }}" class="label label-sm label-success">
+                    <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
             @endif
             <span style="float: right;"> {{ $posts->links() }}</span>
         </div>
         <br>
-        <div class="topic-posts">
+        <div class="topic-posts" id="forumTip" route="{{ route('tip_poster', ['slug' => $topic->slug, 'id' => $topic->id]) }}" leaveTip="@lang('torrent.leave-tip')" quickTip="@lang('torrent.quick-tip')">
             @foreach ($posts as $k => $p)
                 <div class="post" id="post-{{$p->id}}">
                     <div class="block">
@@ -79,6 +79,7 @@
                     </a>
                 </span>
                 </p>
+
                                 <p><span class="badge-user text-bold"
                                          style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
                                                 class="{{ $p->user->group->icon }}" data-toggle="tooltip"
@@ -87,6 +88,23 @@
                                 <p class="pre">{{ $p->user->title }}</p>
                                 <p>@lang('user.member-since')
                                     : {{ date('M d Y', $p->user->created_at->getTimestamp()) }}</p>
+
+                                    <p>
+                                        @if($p->user->topics && $p->user->topics->count() > 0)
+                                            <span class="badge-user text-bold">
+                   <a href="{{ route('forum_user_topics', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                      class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
+                                            </span>
+                                        @endif
+                                        @if($p->user->posts && $p->user->posts->count() > 0)
+                                            <span class="badge-user text-bold">
+                   <a href="{{ route('forum_user_posts', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                      class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
+                                            </span></div>
+                        @endif
+                                    </p>
+
+
                                 <span class="inline">
             @if ($topic->state == 'open')
                                         <button id="quote"
@@ -103,8 +121,15 @@
 
                             <article class="col-md-10 post-content">
                                 @emojione($p->getContentHtml())
+                                <div class="post-signature col-md-12 some-margin post-tips">
+                                    <div id="forumTip{{ $p->id }}" class="text-center">
+                                        @if($p->tips && $p->tips->sum('cost') > 0)
+                                            <div class="some-padding">This Post Has Been Tipped A Total Of {{ $p->tips->sum('cost') }} BON</div>
+                                        @endif
+                                        <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}" user="{{ $p->user->id }}">Tip This Poster</a></div>
+                                    </div>
+                                </div>
                             </article>
-
                             @php $likes = DB::table('likes')->where('post_id', '=', $p->id)->where('like', '=', 1)->count(); @endphp
                             @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=', 1)->count(); @endphp
                             <div class="likes">
@@ -133,6 +158,8 @@
               @endif
           </span>
                             </div>
+
+
 
                             <div class="post-signature col-md-12">
                                 @if ($p->user->signature != null)
@@ -187,14 +214,14 @@
                         @endif
 
                         <div class="text-center">
-                            @if (auth()->check() && (auth()->user()->group->is_modo || $topic->user_id == auth()->user()->id))
+                            @if (auth()->check() && (auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id))
                                 <h3>@lang('forum.moderation')</h3>
                                 @if ($topic->state == "close")
                                     <a href="{{ route('forum_open', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
                                        class="btn btn-success">@lang('forum.open-topic')</a>
                                 @else
                                     <a href="{{ route('forum_close', ['slug' => $topic->slug, 'id' => $topic->id, ])}}"
-                                       class="btn btn-info">@lang('forum.mark-as-resolved')</a>
+                                       class="btn btn-info">@lang('forum.close-topic')</a>
                                 @endif
                             @endif
                             @if (auth()->check() && auth()->user()->group->is_modo)

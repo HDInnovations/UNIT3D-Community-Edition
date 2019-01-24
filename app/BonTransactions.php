@@ -37,4 +37,20 @@ class BonTransactions extends Model
      * @var string
      */
     protected $dateFormat = 'U';
+
+    /**
+     * Belongs To A Receiver.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+    // Bad name to not conflict with sender (not sender_id)
+
+    public function senderObj()
+    {
+        return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
 }

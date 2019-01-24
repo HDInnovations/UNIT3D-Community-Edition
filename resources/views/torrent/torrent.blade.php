@@ -170,7 +170,7 @@
                         </a>
                     @endif
                     @if ($torrent->imdb != 0)
-                        <a href="{{ route('grouping_results', ['category_id' => $torrent->category_id, 'imdb' => $torrent->imdb]) }}"
+                        <a href="{{ route('torrents.similar', ['imdb' => $torrent->imdb]) }}"
                            role="button"
                            class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> @lang('torrent.similar')</a>

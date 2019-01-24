@@ -67,7 +67,7 @@ class BackupController extends Controller
     public function create()
     {
         try {
-            ini_set('max_execution_time', 300);
+            ini_set('max_execution_time', 900);
             // start the backup process
             Artisan::call('backup:run');
             $output = Artisan::output();
@@ -111,16 +111,21 @@ class BackupController extends Controller
      * Deletes A Backup.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $file_name
      */
-    public function delete(Request $request, $file_name)
+    public function delete(Request $request)
     {
         $disk = Storage::disk($request->input('disk'));
+        $file_name = $request->input('file_name');
+        $adapter = $disk->getDriver()->getAdapter();
 
-        if ($disk->exists($file_name)) {
-            $disk->delete($file_name);
+        if ($adapter instanceof Local) {
+            if ($disk->exists($file_name)) {
+                $disk->delete($file_name);
 
-            return 'success';
+                return 'success';
+            } else {
+                return abort(404, trans('backup.backup_doesnt_exist'));
+            }
         }
 
         return abort(404, trans('backup.backup_doesnt_exist'));

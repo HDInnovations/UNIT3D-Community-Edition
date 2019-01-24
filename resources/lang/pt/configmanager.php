@@ -7,18 +7,18 @@
 return [
     'actions' => [
         'cancel'  => 'Cancelar',
-        'confirm' => 'Salvar nova chave',
+        'confirm' => 'Confirmar nova chave',
         'edit'    => 'Editar',
-        'save'    => 'Salvar!',
+        'save'    => 'Guardar!',
     ],
     'file'   => 'Arquivo',
     'header' => [
-        'actions' => 'Ações',
+        'actions' => 'Acções',
         'key'     => 'Chave',
         'value'   => 'Valor',
     ],
-    'info_choose' => 'Escolha um arquivo para começar a editar',
+    'info_choose' => 'Escolha um ficheiro para começar a editar',
     'path'        => 'Caminho',
-    'title'       => 'Gerenciador de configuração',
-    'sure'        => 'Você tem certeza?',
+    'title'       => 'Gestor de configuração',
+    'sure'        => 'Tem a certeza?',
 ];

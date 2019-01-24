@@ -647,10 +647,6 @@ strong {
     color: var(--text-color);
 }
 
-input[id='name'] {
-    margin-bottom: 1em;
-}
-
 .col-sm-12 {
     background-color: unset;
 }
@@ -709,11 +705,6 @@ div.topic-new-post {
 .modal-content {
     background-color: #353535;
     color: var(--text-color);
-}
-
-input,
-textarea {
-    margin-bottom: 1em;
 }
 
 .mentioned {

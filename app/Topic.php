@@ -28,6 +28,16 @@ class Topic extends Model
     }
 
     /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'first_post_user_id', 'id');
+    }
+
+    /**
      * Has Many Posts.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -44,7 +54,7 @@ class Topic extends Model
      */
     public function subscriptions()
     {
-        return $this->hasMany(TopicSubscription::class);
+        return $this->hasMany(Subscription::class);
     }
 
     /**
@@ -54,7 +64,7 @@ class Topic extends Model
      */
     public function notifySubscribers($post)
     {
-        $this->subscriptions->where('user_id', '!=', $post->user_id)->each->notify($post);
+        $this->subscriptions->where('user_id', '!=', $post->user_id)->each->notifyTopic($post);
     }
 
     /**
@@ -69,6 +79,18 @@ class Topic extends Model
         }
 
         return $this->forum->getPermission()->read_topic;
+    }
+
+    /**
+     * Notify Starter When An Action Is Taken.
+     *
+     * @return bool
+     */
+    public function notifyStarter($type, $payload)
+    {
+        User::find($this->first_post_user_id)->notify(new NewPost('topic', $payload));
+
+        return true;
     }
 
     /**

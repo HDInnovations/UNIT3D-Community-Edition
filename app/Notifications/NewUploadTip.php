@@ -8,7 +8,7 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
@@ -18,21 +18,25 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewFollowerUpload extends Notification implements ShouldQueue
+class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $type;
+    public $tipper;
     public $torrent;
 
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
+     * @param Torrent $torrent
      *
      * @return void
      */
-    public function __construct(Torrent $torrent)
+    public function __construct(string $type, string $tipper, Torrent $torrent)
     {
+        $this->type = $type;
+        $this->tipper = $tipper;
         $this->torrent = $torrent;
     }
 
@@ -60,9 +64,9 @@ class NewFollowerUpload extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'New Follower Upload Notice',
-            'body'  => "{$this->torrent->user->username} , whom you are following has uploaded {$this->torrent->name}",
-            'url'   => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}",
+            'title' => $this->tipper.' Has Tipped One Of Your Torrent Uploads',
+            'body'  => $this->tipper.' has tipped one of your Torrent Uploads: '.$this->torrent->name,
+            'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
     }
 }

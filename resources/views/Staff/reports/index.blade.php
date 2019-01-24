@@ -36,6 +36,7 @@
                             <th>ID</th>
                             <th>Type</th>
                             <th>Title</th>
+                            <th>Reported</th>
                             <th>Reporter</th>
                             <th class="col-md-2">Created</th>
                             <th>Judge</th>
@@ -56,6 +57,12 @@
                                     </td>
                                     <td>
                                         <a href="{{ route('getReport',['report_id'=>$r->id]) }}">{{ $r->title }}</a>
+                                    </td>
+                                    <td class="user-name">
+                                        <a class="name"
+                                           href="{{ route('profile', ['username' => $r->reported->username, 'id' => $r->reported_user ]) }}">
+                                            {{ $r->reported->username }}
+                                        </a>
                                     </td>
                                     <td class="user-name">
                                         <a class="name"

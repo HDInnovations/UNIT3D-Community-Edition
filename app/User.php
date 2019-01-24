@@ -54,8 +54,19 @@ class User extends Authenticatable
     public function group()
     {
         return $this->belongsTo(Group::class)->withDefault([
-            'color' => '#FF9966',
-            'icon'  => 'fal fa-robot',
+            'color'  => config('user.group.defaults.color'),
+            'effect'  => config('user.group.defaults.effect'),
+            'icon'  => config('user.group.defaults.icon'),
+            'name'  => config('user.group.defaults.name'),
+            'slug'  => config('user.group.defaults.slug'),
+            'is_admin'  => config('user.group.defaults.is_admin'),
+            'is_freeleech'  => config('user.group.defaults.is_freeleech'),
+            'is_immune'  => config('user.group.defaults.is_immune'),
+            'is_incognito'  => config('user.group.defaults.is_incognito'),
+            'is_internal'  => config('user.group.defaults.is_internal'),
+            'is_modo'  => config('user.group.defaults.is_modo'),
+            'is_trusted'  => config('user.group.defaults.is_trusted'),
+            'can_upload'  => config('user.group.defaults.can_upload'),
         ]);
     }
 
@@ -102,6 +113,16 @@ class User extends Authenticatable
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Has Many RSS Feeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rss()
+    {
+        return $this->hasMany(Rss::class);
     }
 
     /**
@@ -441,19 +462,24 @@ class User extends Authenticatable
      */
     public function subscriptions()
     {
-        return $this->hasMany(TopicSubscription::class);
+        return $this->hasMany(Subscription::class);
     }
 
     /**
      * Does Subscription Exist.
      *
+     * @param $type
      * @param $topic_id
      *
      * @return string
      */
-    public function isSubscribed($topic_id)
+    public function isSubscribed(string $type, $topic_id)
     {
-        return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
+        if ($type == 'topic') {
+            return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
+        }
+
+        return (bool) $this->subscriptions()->where('forum_id', '=', $topic_id)->first(['id']);
     }
 
     /**
@@ -684,7 +710,7 @@ class User extends Authenticatable
      */
     public function getTotalSeedSize()
     {
-        $peers = Peer::where('user_id', '=', $this->id)->pluck('torrent_id');
+        $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
 
         return Torrent::whereIn('id', $peers)->sum('size');
     }

@@ -79,7 +79,7 @@ $('#submit_verification').click(function(event) {
     let formData = $('#verification_form').serialize();
 
     $.ajax({
-        url: "{{ route('verify') }}",
+        url: 'verify',
         type: 'post',
         dataType: 'json',
         data: formData,

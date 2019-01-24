@@ -45,7 +45,7 @@ class Comment extends Model
      */
     public function request()
     {
-        return $this->belongsTo(TorrentRequest::class);
+        return $this->belongsTo(TorrentRequest::class, 'requests_id', 'id');
     }
 
     /**

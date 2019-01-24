@@ -352,13 +352,15 @@
                 <td>
                     <span class="badge-extra text-red text-bold"><strong>@lang('user.active-warnings')
                             : {{ $warnings->count() }} / {!! config('hitrun.max_warnings') !!}</strong></span>
-                    @if (auth()->check() && auth()->user()->group->is_modo)
-                        <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
-                                    class="badge-extra text-bold"><strong>@lang('user.warning-log')</strong></span></a>
-                    @endif
           <span class="badge-extra"><strong>@lang('user.hit-n-runs-count'):</strong>
             <span class="{{ $user->hitandruns > 0 ? 'text-red' : 'text-green' }} text-bold">{{ $user->hitandruns }}</span>
           </span>
+                    @if (auth()->check() && auth()->user()->group->is_modo)
+                        <a href="{{ route('warninglog', ['username' => $user->username, 'id' => $user->id]) }}"><span
+                                    class="badge-extra text-bold"><strong>@lang('user.warning-log')</strong></span></a>
+                        <a href="{{ route('banlog', ['username' => $user->username, 'id' => $user->id]) }}"><span
+                                    class="badge-extra text-bold"><strong>@lang('user.ban-log')</strong></span></a>
+                    @endif
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
                              style="width:.1%; border-bottom-color: #8c0408">
@@ -517,6 +519,10 @@
                     </a>
                     <a href="{{ route('wishlist', ['uid' => $user->id]) }}">
                         <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-list"></span> @lang('user.my-wishlist')
+                        </button>
+                    </a>
+                    <a href="{{ route('bookmarks') }}">
+                        <button class="btn btn-primary"><span class="{{ config('other.font-awesome') }} fa-bookmark"></span> @lang('user.my-bookmarks')
                         </button>
                     </a>
                 </div>

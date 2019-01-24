@@ -16,6 +16,8 @@ namespace App;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Notifications\NewThank;
+use App\Notifications\NewComment;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +52,21 @@ class Torrent extends Model
      */
     public function user()
     {
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
+
+    /**
+     * Belongs To A Uploader.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function uploader()
+    {
+        // Not needed yet but may use this soon.
+
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
             'id'       => '1',
@@ -232,6 +249,23 @@ class Torrent extends Model
         return Bookmark::where('user_id', '=', auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
             ->first() ? true : false;
+    }
+
+    /**
+     * Notify Uploader When An Action Is Taken.
+     *
+     * @return bool
+     */
+    public function notifyUploader($type, $payload)
+    {
+        if ($type == 'thank') {
+            User::find($this->user_id)->notify(new NewThank('torrent', $payload));
+
+            return true;
+        }
+        User::find($this->user_id)->notify(new NewComment('torrent', $payload));
+
+        return true;
     }
 
     /**

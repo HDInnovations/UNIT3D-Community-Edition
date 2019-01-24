@@ -19,6 +19,7 @@ use App\Follow;
 use App\Torrent;
 use App\PrivateMessage;
 use App\Bots\IRCAnnounceBot;
+use App\Notifications\NewUpload;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;
 use App\Achievements\UserMade50Uploads;
@@ -31,7 +32,6 @@ use App\Achievements\UserMade600Uploads;
 use App\Achievements\UserMade700Uploads;
 use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
-use App\Notifications\NewFollowerUpload;
 
 class TorrentHelper
 {
@@ -64,7 +64,7 @@ class TorrentHelper
             $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
             if ($followers) {
                 foreach ($followers as $follower) {
-                    User::find($follower->user_id)->notify(new NewFollowerUpload($torrent));
+                    User::find($follower->user_id)->notify(new NewUpload('follower', $torrent));
                 }
             }
         }
@@ -74,7 +74,7 @@ class TorrentHelper
         $anon = $torrent->anon;
 
         if ($anon == 0) {
-            // Auto Shout and Achievements
+            // Achievements
             $user->unlock(new UserMadeUpload(), 1);
             $user->addProgress(new UserMade25Uploads(), 1);
             $user->addProgress(new UserMade50Uploads(), 1);

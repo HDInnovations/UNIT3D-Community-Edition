@@ -37,7 +37,7 @@ class TwoStepAuth
         $user = auth()->user();
 
         switch ($uri) {
-            case 'verification/needed':
+            case 'twostep/needed':
             case 'password/reset':
             case 'register':
             case 'logout':

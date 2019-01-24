@@ -10,7 +10,7 @@
         </li>
         <li>
             @if (auth()->user()->torrent_layout == 1)
-                <a href="{{ route('grouping_categories') }}">
+                <a href="{{ route('groupings') }}">
             @elseif (auth()->user()->torrent_layout == 2)
                 <a href="{{ route('cards') }}">
             @else
@@ -46,13 +46,6 @@
             <a href="{{ route('graveyard') }}">
                 <i class="fab fa-snapchat-ghost" style=" font-size: 18px; color: #fff;"></i>
                 <span class="menu-text">@lang('graveyard.graveyard')</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('bookmarks') }}">
-                <i class="{{ config('other.font-awesome') }} fa-bookmark" style=" font-size: 18px; color: #fff;"></i>
-                <span class="menu-text">@lang('torrent.bookmarks')</span>
                 <span class="selected"></span>
             </a>
         </li>
@@ -112,12 +105,13 @@
                 <span class="selected"></span>
             </a>
         </li>
-        {{--<li>
-          <a href="{{ route('rss', ['passkey' => auth()->user()->passkey]) }}">
-            <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #fff;">@lang('torrent.rss')</span>
-            <span class="selected"></span>
-          </a>
-        </li>--}}
+        <li>
+            <a href="{{ route('rss.index') }}">
+                <i class="{{ config('other.font-awesome') }} fa-rss" style=" font-size: 18px; color: #fff;"></i>
+                <span class="menu-text">@lang('rss.rss')</span>
+                <span class="selected"></span>
+            </a>
+        </li>
         @if (auth()->user()->group->is_modo)
             <li>
                 <a href="{{ route('staff_dashboard') }}">

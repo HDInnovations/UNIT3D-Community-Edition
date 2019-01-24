@@ -187,10 +187,10 @@
       function updateTorrentName () {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
-        let fileEndings = ['.mkv.torrent', '.torrent'];
-        let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
-        let separators = ['-', ' ', '.'];
-        if (name !== null && torrent !== null) {
+        if (!name.value) {
+          let fileEndings = ['.mkv.torrent', '.torrent'];
+          let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
+          let separators = ['-', ' ', '.'];
           let value = torrent.value.split('\\').pop().split('/').pop();
           fileEndings.forEach(function (e) {
             if (value.endsWith(e)) {

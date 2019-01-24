@@ -19,10 +19,10 @@ import VTooltip from 'v-tooltip';
 Vue.use(VTooltip);
 
 /* Components */
-Vue.component('version', require('./components/Version'));
-Vue.component('chatbox', require('./components/chat/Chatbox'));
-Vue.component('bookmark', require('./components/BookmarkButton'));
-Vue.component('smallbookmark', require('./components/SmallBookmarkButton'));
+Vue.component('version', require('./components/Version').default);
+Vue.component('chatbox', require('./components/chat/Chatbox').default);
+Vue.component('bookmark', require('./components/BookmarkButton').default);
+Vue.component('smallbookmark', require('./components/SmallBookmarkButton').default);
 
 const app = new Vue({
     el: '#app',

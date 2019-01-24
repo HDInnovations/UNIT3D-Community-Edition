@@ -68,7 +68,7 @@ class AutoBan extends Command
                 $logban->save();
 
                 // Send Email
-                Mail::to($ban->warneduser->email)->send(new BanUser($logban));
+                Mail::to($ban->warneduser->email)->send(new BanUser($ban->warneduser->email, $logban));
             }
         }
     }
