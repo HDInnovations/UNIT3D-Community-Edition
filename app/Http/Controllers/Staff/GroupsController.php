@@ -54,9 +54,9 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.groups.add');
+        return view('Staff.groups.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class GroupsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $group = new Group();
         $group->name = $request->input('name');
@@ -94,7 +94,7 @@ class GroupsController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
@@ -110,7 +110,7 @@ class GroupsController extends Controller
                 $permission->save();
             }
 
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->with($this->toastr->success('Group Was Created Successfully!', 'Yay!', ['options']));
         }
     }
@@ -123,7 +123,7 @@ class GroupsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($group, $id)
+    public function edit($group, $id)
     {
         $group = Group::findOrFail($id);
 
@@ -139,7 +139,7 @@ class GroupsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $group, $id)
+    public function update(Request $request, $group, $id)
     {
         $group = Group::findOrFail($id);
 
@@ -168,12 +168,12 @@ class GroupsController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $group->save();
 
-            return redirect()->route('staff_groups_index')
+            return redirect()->route('staff.groups.index')
                 ->with($this->toastr->success('Group Was Updated Successfully!', 'Yay!', ['options']));
         }
     }

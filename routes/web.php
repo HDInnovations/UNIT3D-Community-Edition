@@ -503,11 +503,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::delete('/articles/{slug}.{id}', 'ArticleController@destroy')->name('staff.articles.destroy');
 
         // Groups
-        Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');
-        Route::get('/groups/add', 'GroupsController@addForm')->name('staff_groups_add_form');
-        Route::post('/groups/add', 'GroupsController@add')->name('staff_groups_add');
-        Route::get('/groups/edit/{group}.{id}', 'GroupsController@editForm')->name('staff_groups_edit_form');
-        Route::post('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
+        Route::get('/groups', 'GroupsController@index')->name('staff.groups.index');
+        Route::get('/groups/create', 'GroupsController@create')->name('staff.groups.create');
+        Route::post('/groups', 'GroupsController@store')->name('staff.groups.store');
+        Route::get('/groups/{group}.{id}/edit', 'GroupsController@edit')->name('staff.groups.edit');
+        Route::put('/groups/{group}.{id}', 'GroupsController@update')->name('staff.groups.update');
 
         // Warnings
         Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');

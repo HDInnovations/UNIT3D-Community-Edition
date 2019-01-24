@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_groups_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_groups_add_form', ['group' => $group->name, 'id' => $group->id]) }}" itemprop="url"
+        <a href="{{ route('staff.groups.edit', ['group' => $group->name, 'id' => $group->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit User Group</span>
         </a>
@@ -23,9 +23,9 @@
     <div class="container box">
         <h2>{{ $group->name }} Permissions</h2>
         <div class="table-responsive">
-            <form role="form" method="POST"
-                  action="{{ route('staff_groups_edit',['group' => $group->name, 'id' => $group->id]) }}">
+            <form role="form" method="POST" action="{{ route('staff.groups.update',['group' => $group->name, 'id' => $group->id]) }}">
                 @csrf
+                @method('PUT')
                 <div class="table-responsive">
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
