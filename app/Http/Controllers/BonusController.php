@@ -22,6 +22,8 @@ use App\PrivateMessage;
 use App\BonTransactions;
 use App\PersonalFreeleech;
 use App\Notifications\NewPostTip;
+use App\Notifications\NewUploadTip;
+use App\Notifications\NewBon;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -262,20 +264,16 @@ class BonusController extends Controller
             $transaction->torrent_id = null;
             $transaction->save();
 
+            if($user->id != $recipient->id) {
+                $recipient->notify(new NewBon('gift', $user->username, $transaction));
+            }
+
             $profile_url = hrefProfile($user);
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
                 ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
-
-            $pm = new PrivateMessage();
-            $pm->sender_id = $user->id;
-            $pm->receiver_id = $recipient->id;
-            $pm->subject = 'You Have Received A BON Gift';
-            $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has gifted you ".$value.' BON.
-                            Gift Note:'.$transaction->comment;
-            $pm->save();
 
             return redirect()->route('bonus', ['username' => $user->username])
                 ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
@@ -329,14 +327,7 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $pm = new PrivateMessage();
-        $pm->sender_id = 1;
-        $pm->receiver_id = $uploader->id;
-        $pm->subject = 'You Have Received A BON Tip';
-        $profile_url = hrefProfile($user);
-        $torrent_url = hrefTorrent($torrent);
-        $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has left a tip of ".$tip_amount." BON on your upload [url={$torrent_url}]{$torrent->name}[/url].";
-        $pm->save();
+        $uploader->notify(new NewUploadTip('torrent',$user->username,$torrent));
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
