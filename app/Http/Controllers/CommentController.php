@@ -19,12 +19,12 @@ use App\Comment;
 use App\Torrent;
 use App\PrivateMessage;
 use App\TorrentRequest;
+use App\Notifications\NewComment;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMade50Comments;
-use App\Notifications\NewTorrentComment;
 use App\Achievements\UserMade100Comments;
 use App\Achievements\UserMade200Comments;
 use App\Achievements\UserMade300Comments;
@@ -114,25 +114,26 @@ class CommentController extends Controller
             );
 
             if ($this->tag->hasTags($request->input('content'))) {
-                $pm = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$article_url}]HERE[/url]";
-
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
                     $article->comments()->get()->each(function ($c, $v) use ($users) {
                         $users->push($c->user);
                     });
-
-                    $this->tag->messageUsers(
+                    $this->tag->messageCommentUsers(
+                        'article',
                         $users,
-                        'You are being notified by staff!',
-                        $pm
+                        'Staff',
+                        $comment
                     );
                 } else {
-                    $this->tag->messageTaggedUsers(
+                    if($comment->anon) { $sender="Anonymous"; }
+                    else { $sender=$user->username; }
+                    $this->tag->messageTaggedCommentUsers(
+                        'article',
                         $request->input('content'),
-                        "You have been tagged by {$user->username}",
-                        $pm
+                        $sender,
+                        $comment
                     );
                 }
             }
@@ -196,7 +197,7 @@ class CommentController extends Controller
 
             //Notification
             if ($user->id != $torrent->user_id) {
-                User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+                $torrent->notifyUploader('comment',$comment);
             }
 
             $torrent_url = hrefTorrent($torrent);
@@ -214,7 +215,6 @@ class CommentController extends Controller
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
-                $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$torrent_url}]HERE[/url]";
 
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
@@ -222,17 +222,20 @@ class CommentController extends Controller
                     $torrent->comments()->get()->each(function ($c, $v) use ($users) {
                         $users->push($c->user);
                     });
-
-                    $this->tag->messageUsers(
+                    $this->tag->messageCommentUsers(
+                        'torrent',
                         $users,
-                        'You are being notified by staff!',
-                        $message
+                        'Staff',
+                        $comment
                     );
                 } else {
-                    $this->tag->messageTaggedUsers(
+                    if($comment->anon) { $sender="Anonymous"; }
+                    else { $sender=$user->username; }
+                    $this->tag->messageTaggedCommentUsers(
+                        'torrent',
                         $request->input('content'),
-                        "You have been tagged by {$user->username}",
-                        $message
+                        $sender,
+                        $comment
                     );
                 }
             }
@@ -294,7 +297,7 @@ class CommentController extends Controller
         } else {
             $comment->save();
 
-            $tr_url = hrefTorrentRequest($tr);
+            $tr_url = hrefRequest($tr);
             $profile_url = hrefProfile($user);
 
             // Auto Shout
@@ -308,6 +311,11 @@ class CommentController extends Controller
                 );
             }
 
+            //Notification
+            if ($user->id != $tr->user_id) {
+                $tr->notifyRequester('comment',$comment);
+            }
+
             if ($this->tag->hasTags($request->input('content'))) {
                 $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$tr_url}] HERE [/url]";
 
@@ -317,21 +325,23 @@ class CommentController extends Controller
                     $tr->comments()->get()->each(function ($c, $v) use ($users) {
                         $users->push($c->user);
                     });
-
-                    $this->tag->messageUsers(
+                    $this->tag->messageCommentUsers(
+                        'req',
                         $users,
-                        'You are being notified by staff!',
-                        $message
+                        'Staff',
+                        $comment
                     );
                 } else {
-                    $this->tag->messageTaggedUsers(
+                    if($comment->anon) { $sender="Anonymous"; }
+                    else { $sender=$user->username; }
+                    $this->tag->messageTaggedCommentUsers(
+                        'req',
                         $request->input('content'),
-                        "You have been tagged by {$user->username}",
-                        $message
+                        $sender,
+                        $comment
                     );
                 }
             }
-
             // Achievements
             $user->unlock(new UserMadeComment(), 1);
             $user->addProgress(new UserMadeTenComments(), 1);
@@ -345,16 +355,6 @@ class CommentController extends Controller
             $user->addProgress(new UserMade700Comments(), 1);
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
-
-            // Auto PM
-            if ($user->id != $tr->user_id) {
-                $pm = new PrivateMessage();
-                $pm->sender_id = 1;
-                $pm->receiver_id = $tr->user_id;
-                $pm->subject = 'Your Request '.$tr->name.' Has A New Comment!';
-                $pm->message = $comment->user->username." Has Left A Comment On [url={$tr_url}]".$tr->name.'[/url]';
-                $pm->save();
-            }
 
             return redirect()->route('request', ['id' => $tr->id])
                 ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
@@ -417,7 +417,7 @@ class CommentController extends Controller
 
             //Notification
             if ($user->id != $torrent->user_id) {
-                User::find($torrent->user_id)->notify(new NewTorrentComment($comment));
+                User::find($torrent->user_id)->notify(new NewComment('torrent',$comment));
             }
 
             // Auto Shout
