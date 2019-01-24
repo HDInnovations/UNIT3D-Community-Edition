@@ -19,9 +19,6 @@ use App\Forum;
 use App\Topic;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
-use App\Notifications\NewTopic;
-use App\Notifications\NewTopicPost;
-use App\BonTransactions;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMade25Posts;
 use App\Achievements\UserMade50Posts;
@@ -594,13 +591,15 @@ class ForumController extends Controller
                         $users->push($p->user);
                     });
 
-                    $this->tag->messageUsers(
+                    $this->tag->messagePostUsers(
+                        'forum',
                         $users,
                         'Staff',
                         $post
                     );
                 } else {
-                    $this->tag->messageTaggedUsers(
+                    $this->tag->messageTaggedPostUsers(
+                        'forum',
                         $request->input('content'),
                         "$user->username",
                         $post
