@@ -533,8 +533,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/systemgift', 'GiftController@store')->name('staff.systemgift.store');
 
         // MassPM
-        Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
-        Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+        Route::get('/masspm', 'MassPMController@index')->name('staff.masspm.index');
+        Route::post('/masspm', 'MassPMController@store')->name('staff.masspm.store');
 
         // Backup Manager
         Route::get('/backups', 'BackupController@index')->name('staff.backups.index');

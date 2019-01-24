@@ -41,7 +41,7 @@ class MassPMController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function massPM()
+    public function index()
     {
         return view('Staff.masspm.index');
     }
@@ -53,7 +53,7 @@ class MassPMController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function sendMassPM(Request $request)
+    public function store(Request $request)
     {
         $staff = auth()->user();
         $users = User::all();
@@ -68,7 +68,7 @@ class MassPMController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('massPM')
+            return redirect()->route('staff.masspm.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             foreach ($users as $user) {
@@ -78,7 +78,7 @@ class MassPMController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
 
-            return redirect()->route('massPM')
+            return redirect()->route('staff.masspm.index')
                 ->with($this->toastr->success('MassPM Sent', 'Yay!', ['options']));
         }
     }
