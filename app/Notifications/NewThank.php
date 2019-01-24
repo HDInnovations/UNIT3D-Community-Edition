@@ -60,8 +60,8 @@ class NewThank extends Notification
 
         return [
             'title' => 'New Torrent Thanks Received',
-            'body' => $this->thank->user->username . ' has left you a thanks on ' . $this->thank->torrent->name,
-            'url' => '/torrents/' . $this->thank->torrent->slug . '.' . $this->thank->torrent->id,
+            'body' => $this->thank->user->username.' has left you a thanks on '.$this->thank->torrent->name,
+            'url' => '/torrents/'.$this->thank->torrent->slug.'.'.$this->thank->torrent->id,
         ];
     }
 }

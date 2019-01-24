@@ -473,11 +473,12 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function isSubscribed(string $type = 'topic', $topic_id)
+    public function isSubscribed(string $type, $topic_id)
     {
-        if($type == 'topic') {
+        if ($type == 'topic') {
             return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
         }
+
         return (bool) $this->subscriptions()->where('forum_id', '=', $topic_id)->first(['id']);
     }
 

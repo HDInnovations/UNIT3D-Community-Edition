@@ -62,10 +62,10 @@ class NewPost extends Notification implements ShouldQueue
     {
         $appurl = config('app.url');
 
-        if($this->type == 'topic') {
+        if ($this->type == 'topic') {
             return [
-                'title' => $this->post->user->username . ' Has Posted In Topic',
-                'body' => $this->post->user->username . ' has left a new post in Topic ' . $this->post->topic->name,
+                'title' => $this->post->user->username.' Has Posted In Topic',
+                'body' => $this->post->user->username.' has left a new post in Topic '.$this->post->topic->name,
                 'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }
