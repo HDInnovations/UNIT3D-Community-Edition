@@ -48,10 +48,9 @@ class BonTransactions extends Model
 
     public function senderObj()
     {
-        return $this->belongsTo(User::class,'sender','id')->withDefault([
+        return $this->belongsTo(User::class, 'sender', 'id')->withDefault([
             'username' => 'System',
             'id'       => '1',
         ]);
-
     }
 }

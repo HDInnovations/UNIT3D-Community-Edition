@@ -63,8 +63,8 @@ class NewTopic extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->topic->first_post_user_username . ' Has Posted In Forum',
-            'body' => $this->topic->first_post_user_username . ' has started a new topic in ' . $this->topic->forum->name,
+            'title' => $this->topic->first_post_user_username.' Has Posted In Forum',
+            'body' => $this->topic->first_post_user_username.' has started a new topic in '.$this->topic->forum->name,
             'url' => "/forums/topic/{$this->topic->slug}.{$this->topic->id}",
         ];
     }

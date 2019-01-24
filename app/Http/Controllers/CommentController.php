@@ -17,11 +17,10 @@ use App\User;
 use App\Article;
 use App\Comment;
 use App\Torrent;
-use App\PrivateMessage;
 use App\TorrentRequest;
-use App\Notifications\NewComment;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Notifications\NewComment;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMade50Comments;
@@ -127,8 +126,11 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if($comment->anon) { $sender="Anonymous"; }
-                    else { $sender=$user->username; }
+                    if ($comment->anon) {
+                        $sender = 'Anonymous';
+                    } else {
+                        $sender = $user->username;
+                    }
                     $this->tag->messageTaggedCommentUsers(
                         'article',
                         $request->input('content'),
@@ -197,7 +199,7 @@ class CommentController extends Controller
 
             //Notification
             if ($user->id != $torrent->user_id) {
-                $torrent->notifyUploader('comment',$comment);
+                $torrent->notifyUploader('comment', $comment);
             }
 
             $torrent_url = hrefTorrent($torrent);
@@ -215,7 +217,6 @@ class CommentController extends Controller
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
-
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
@@ -229,8 +230,11 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if($comment->anon) { $sender="Anonymous"; }
-                    else { $sender=$user->username; }
+                    if ($comment->anon) {
+                        $sender = 'Anonymous';
+                    } else {
+                        $sender = $user->username;
+                    }
                     $this->tag->messageTaggedCommentUsers(
                         'torrent',
                         $request->input('content'),
@@ -313,7 +317,7 @@ class CommentController extends Controller
 
             //Notification
             if ($user->id != $tr->user_id) {
-                $tr->notifyRequester('comment',$comment);
+                $tr->notifyRequester('comment', $comment);
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
@@ -332,8 +336,11 @@ class CommentController extends Controller
                         $comment
                     );
                 } else {
-                    if($comment->anon) { $sender="Anonymous"; }
-                    else { $sender=$user->username; }
+                    if ($comment->anon) {
+                        $sender = 'Anonymous';
+                    } else {
+                        $sender = $user->username;
+                    }
                     $this->tag->messageTaggedCommentUsers(
                         'req',
                         $request->input('content'),
@@ -417,7 +424,7 @@ class CommentController extends Controller
 
             //Notification
             if ($user->id != $torrent->user_id) {
-                User::find($torrent->user_id)->notify(new NewComment('torrent',$comment));
+                User::find($torrent->user_id)->notify(new NewComment('torrent', $comment));
             }
 
             // Auto Shout

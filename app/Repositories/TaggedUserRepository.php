@@ -13,8 +13,8 @@
 
 namespace App\Repositories;
 
-use App\User;
 use App\Post;
+use App\User;
 use App\Comment;
 use App\PrivateMessage;
 use App\Notifications\NewPostTag;
@@ -124,17 +124,19 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $user->notify(new NewCommentTag($type,$sender,$comment));
+                    $user->notify(new NewCommentTag($type, $sender, $comment));
                 }
             }
+
             return true;
         }
 
         // A single User object
 
         if ($this->validate($users)) {
-            $users->notify(new NewCommentTag($type,$sender,$comment));
+            $users->notify(new NewCommentTag($type, $sender, $comment));
         }
+
         return true;
     }
 
@@ -171,17 +173,19 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $user->notify(new NewPostTag($type,$sender,$post));
+                    $user->notify(new NewPostTag($type, $sender, $post));
                 }
             }
+
             return true;
         }
 
         // A single User object
 
         if ($this->validate($users)) {
-            $users->notify(new NewPostTag($type,$sender,$post));
+            $users->notify(new NewPostTag($type, $sender, $post));
         }
+
         return true;
     }
 

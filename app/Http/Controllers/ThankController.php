@@ -60,7 +60,7 @@ class ThankController extends Controller
 
         //Notification
         if ($user->id != $torrent->user_id) {
-            $torrent->notifyUploader('thank',$thank);
+            $torrent->notifyUploader('thank', $thank);
         }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])

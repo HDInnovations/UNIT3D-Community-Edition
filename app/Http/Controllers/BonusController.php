@@ -13,20 +13,20 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Post;
+use App\User;
 use App\Torrent;
 use Carbon\Carbon;
 use App\BonExchange;
 use App\PrivateMessage;
 use App\BonTransactions;
 use App\PersonalFreeleech;
-use App\Notifications\NewPostTip;
-use App\Notifications\NewUploadTip;
-use App\Notifications\NewBon;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Notifications\NewBon;
+use App\Notifications\NewPostTip;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
 
 class BonusController extends Controller
@@ -264,7 +264,7 @@ class BonusController extends Controller
             $transaction->torrent_id = null;
             $transaction->save();
 
-            if($user->id != $recipient->id) {
+            if ($user->id != $recipient->id) {
                 $recipient->notify(new NewBon('gift', $user->username, $transaction));
             }
 
@@ -327,7 +327,7 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $uploader->notify(new NewUploadTip('torrent',$user->username,$torrent));
+        $uploader->notify(new NewUploadTip('torrent', $user->username, $torrent));
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
@@ -346,7 +346,7 @@ class BonusController extends Controller
     {
         $user = auth()->user();
 
-        if($request->has('post') && $request->input('post') > 0) {
+        if ($request->has('post') && $request->input('post') > 0) {
             $p = (int) $request->input('post');
             $post = Post::with('topic')->findOrFail($p);
             $poster = User::where('id', '=', $post->user_id)->firstOrFail();
@@ -383,7 +383,7 @@ class BonusController extends Controller
         $transaction->post_id = $post->id;
         $transaction->save();
 
-        $poster->notify(new NewPostTip($user->username,$post));
+        $poster->notify(new NewPostTip($user->username, $post));
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
