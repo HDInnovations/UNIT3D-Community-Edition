@@ -31,7 +31,7 @@ use App\Achievements\UserMade600Uploads;
 use App\Achievements\UserMade700Uploads;
 use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
-use App\Notifications\NewFollowerUpload;
+use App\Notifications\NewUpload;
 
 class TorrentHelper
 {
@@ -64,7 +64,7 @@ class TorrentHelper
             $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
             if ($followers) {
                 foreach ($followers as $follower) {
-                    User::find($follower->user_id)->notify(new NewFollowerUpload($torrent));
+                    User::find($follower->user_id)->notify(new NewUpload('follower',$torrent));
                 }
             }
         }
