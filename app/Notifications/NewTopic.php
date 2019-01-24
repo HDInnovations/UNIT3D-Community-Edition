@@ -22,17 +22,20 @@ class NewTopic extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $type;
     public $topic;
 
     /**
      * Create a new notification instance.
      *
+     * @param string $type
      * @param Topic $topic
      *
      * @return void
      */
-    public function __construct(Topic $topic)
+    public function __construct(string $type, Topic $topic)
     {
+        $this->type = $type;
         $this->topic = $topic;
     }
 
@@ -60,9 +63,9 @@ class NewTopic extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'Subscribed Forum Has A New Topic',
-            'body'  => $this->topic->first_post_user_username.' has started a new topic in '.$this->topic->forum->name,
-            'url'   => "/forums/topic/{$this->topic->slug}.{$this->topic->id}",
+            'title' => $this->topic->first_post_user_username . ' Has Posted In Forum',
+            'body' => $this->topic->first_post_user_username . ' has started a new topic in ' . $this->topic->forum->name,
+            'url' => "/forums/topic/{$this->topic->slug}.{$this->topic->id}",
         ];
     }
 }
