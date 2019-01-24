@@ -41,7 +41,7 @@ class NoteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getNotes()
+    public function index()
     {
         $notes = Note::latest()->paginate(25);
 
@@ -57,7 +57,7 @@ class NoteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postNote(Request $request, $username, $id)
+    public function store(Request $request, $username, $id)
     {
         $staff = auth()->user();
         $user = User::findOrFail($id);
@@ -94,7 +94,7 @@ class NoteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteNote($id)
+    public function destroy($id)
     {
         $note = Note::findOrFail($id);
         $note->delete();

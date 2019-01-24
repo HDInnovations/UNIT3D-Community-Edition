@@ -159,7 +159,7 @@
             <div role="tabpanel" class="tab-pane" id="notes">
                 <h3>Add Staff Note</h3>
                 <hr>
-                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username, 'id' => $user->id]) }}">
+                <form role="form" method="POST" action="{{ route('staff.notes.store', ['username' => $user->username, 'id' => $user->id]) }}">
                     @csrf
                 <div class="form-group">
                     <label for="message">Note</label>
@@ -200,10 +200,11 @@
                                     {{ $n->created_at->toDayDateTimeString() }} ({{ $n->created_at->diffForHumans() }})
                                 </td>
                                 <td>
-                                    <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
-                                       class="btn btn-xs btn-danger">
-                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                    </a>
+                                    <form action="{{ route('staff.notes.destroy', ['id' => $n->id]) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-xs btn-danger"><i class="{{ config('other.font-awesome') }} fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

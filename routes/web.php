@@ -442,9 +442,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // User Staff Notes
-        Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
-        Route::post('/note/{username}.{id}', 'NoteController@postNote')->name('postNote');
-        Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
+        Route::get('/notes', 'NoteController@index')->name('staff.notes.index');
+        Route::post('/notes/{username}.{id}', 'NoteController@store')->name('staff.notes.store');
+        Route::delete('/notes/{id}', 'NoteController@destroy')->name('staff.notes.destroy');
 
         // Reports
         Route::get('/reports', 'ReportController@getReports')->name('getReports');
