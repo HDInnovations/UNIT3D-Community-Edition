@@ -100,7 +100,7 @@
                                             <span class="badge-user text-bold">
                    <a href="{{ route('forum_user_posts', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
-                                            </span></div>
+                                            </span>
                         @endif
                                     </p>
 
@@ -121,15 +121,18 @@
 
                             <article class="col-md-10 post-content">
                                 @emojione($p->getContentHtml())
-                                <div class="post-signature col-md-12 some-margin post-tips">
-                                    <div id="forumTip{{ $p->id }}" class="text-center">
-                                        @if($p->tips && $p->tips->sum('cost') > 0)
-                                            <div class="some-padding">This Post Has Been Tipped A Total Of {{ $p->tips->sum('cost') }} BON</div>
-                                        @endif
-                                        <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}" user="{{ $p->user->id }}">Tip This Poster</a></div>
-                                    </div>
-                                </div>
+
                             </article>
+
+                            <div class="post-signature col-md-12 some-margin post-tips">
+                                <div id="forumTip{{ $p->id }}" class="text-center">
+                                    @if($p->tips && $p->tips->sum('cost') > 0)
+                                        <div class="some-padding">This Post Has Been Tipped A Total Of {{ $p->tips->sum('cost') }} BON</div>
+                                    @endif
+                                    <div class="some-padding"><a class="forumTip" href="#/" post="{{ $p->id }}" user="{{ $p->user->id }}">Tip This Poster</a></div>
+                                </div>
+                            </div>
+                            
                             @php $likes = DB::table('likes')->where('post_id', '=', $p->id)->where('like', '=', 1)->count(); @endphp
                             @php $dislikes = DB::table('likes')->where('post_id', '=', $p->id)->where('dislike', '=', 1)->count(); @endphp
                             <div class="likes">

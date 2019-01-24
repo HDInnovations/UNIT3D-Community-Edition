@@ -40,7 +40,7 @@
                 <thead class="no-space">
                 <tr>
                     <td colspan="5">
-                        <div style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
+                        <div>
                             <div class="box">
                                 <div class="container well search mt-5 fatten-me table-me" style="width: 90% !important; margin: auto !important;">
                                     <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-horizontal form-condensed form-torrent-search form-bordered table-me">
