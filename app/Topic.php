@@ -82,6 +82,17 @@ class Topic extends Model
     }
 
     /**
+     * Notify Starter When An Action Is Taken.
+     *
+     * @return boolean
+     */
+    public function notifyStarter($type,$payload)
+    {
+        User::find($this->first_post_user_id)->notify(new NewPost('topic',$payload));
+        return true;
+    }
+
+    /**
      * Get Post Number From ID.
      *
      * @param $searchId
