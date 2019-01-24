@@ -22,7 +22,7 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Category</h2>
-        <form role="form" method="POST" action="{{ route('staff.categories.edit', ['slug' => $category->slug, 'id' => $category->id]) }}">
+        <form role="form" method="POST" action="{{ route('staff.categories.update', ['slug' => $category->slug, 'id' => $category->id]) }}">
         @csrf
         @method('PUT')
         <div class="form-group">
