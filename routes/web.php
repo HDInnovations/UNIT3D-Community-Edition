@@ -529,8 +529,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/activity/{id}/delete', 'ActivityLogController@destroy')->name('activity.destroy');
 
         // System Gifting
-        Route::get('/systemgift', 'GiftController@index')->name('systemGift');
-        Route::post('/systemgift/send', 'GiftController@gift')->name('sendSystemGift');
+        Route::get('/systemgift', 'GiftController@index')->name('staff.systemgift.index');
+        Route::post('/systemgift', 'GiftController@store')->name('staff.systemgift.store');
 
         // MassPM
         Route::get('/masspm', 'MassPMController@massPM')->name('massPM');

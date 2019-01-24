@@ -55,7 +55,7 @@ class GiftController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function gift(Request $request)
+    public function store(Request $request)
     {
         $staff = auth()->user();
 
