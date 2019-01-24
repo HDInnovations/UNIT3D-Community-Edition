@@ -22,6 +22,7 @@ class NewPostTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $type;
     public $tipper;
     public $post;
 
@@ -32,8 +33,9 @@ class NewPostTip extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $tipper, Post $post)
+    public function __construct(string $type, string $tipper, Post $post)
     {
+        $this->type = $type;
         $this->post = $post;
         $this->tipper = $tipper;
     }
@@ -62,8 +64,8 @@ class NewPostTip extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->tipper.' Has Tipped One Of Your Posts',
-            'body'  => $this->tipper.' has tipped one of your posts in '.$this->post->topic->name,
+            'title' => $this->tipper.' Has Tipped One Of Your Forum Posts',
+            'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
             'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];
     }
