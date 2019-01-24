@@ -8,7 +8,7 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
@@ -18,10 +18,12 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewTopicPost extends Notification implements ShouldQueue
+class NewPostTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    public $type;
+    public $tagger;
     public $post;
 
     /**
@@ -31,9 +33,11 @@ class NewTopicPost extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Post $post)
+    public function __construct(string $type, string $tagger, Post $post)
     {
+        $this->type = $type;
         $this->post = $post;
+        $this->tagger = $tagger;
     }
 
     /**
@@ -60,9 +64,9 @@ class NewTopicPost extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'Subscribed Topic Has A New Post',
-            'body'  => $this->post->user->username.' has left a new post on '.$this->post->topic->name,
-            'url'   => "{$appurl}/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'title' => $this->tagger.' Has Tagged You In A Post',
+            'body'  => $this->tagger.' has tagged you in a post in '.$this->post->topic->name,
+            'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];
     }
 }

@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Results - @lang('forum.forums') - {{ config('other.title') }}</title>
+    <title>@lang('common.latest-topics') - @lang('forum.forums') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum Search Results">
+    <meta name="description" content="Forum @lang('common.latest-topics')">
 @endsection
 
 @section('breadcrumb')
@@ -15,21 +15,35 @@
         </a>
     </li>
     <li>
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.search-results')</span>
+        <a href="{{ route('forum_latest_topics') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.latest-topics')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="box container">
-        <div class="f-display">
-            <div class="f-display-info col-md-12">
-                <h1 class="f-display-info-title">@lang('common.search-results')</h1>
-                <p class="f-display-info-description">@lang('common.search-results-desc')</p>
-            </div>
-            <div class="f-display-table-wrapper col-md-12">
-                <table class="f-display-topics table col-md-12">
+        @include('forum.buttons')
+        <form role="form" method="GET" action="{{ route('forum_search_form') }}">
+            <input type="hidden" name="sorting" value="created_at">
+            <input type="hidden" name="direction" value="2">
+            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.topic-quick-search')"
+                   class="form-control">
+        </form>
+        <div class="forum-categories">
+            <table class="table table-bordered table-hover">
+                <thead class="no-space">
+                <tr class="no-space">
+                    <td colspan="5" class="no-space">
+                        <div class="header gradient teal some-padding">
+                            <div class="inner_content">
+                                <h1 class="no-space">Latest Topics</h1>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </thead>
+                <thead>
                     <thead>
                     <tr>
                         <th>@lang('forum.forum')</th>
@@ -79,7 +93,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="f-display-pagination col-md-12">
+            <div class="text-center col-md-12">
                 {{ $results->links() }}
             </div>
         </div>

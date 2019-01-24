@@ -17,36 +17,56 @@
     </li>
 @endsection
 
+
 @section('content')
     <div class="box container">
-        <span class="badge-user" style="float: right;"><strong>@lang('forum.forums'):</strong> {{ $num_forums }} | <strong>@lang('forum.topics')
-                :</strong> {{ $num_topics }} | <strong>@lang('forum.posts'):</strong> {{ $num_posts }}</span>
-        <form role="form" method="GET" action="{{ route('forum_search') }}">
-            @csrf
-            <input type="text" name="name" id="name" placeholder="@lang('forum.topic-quick-search')"
+        @include('forum.buttons')
+        <form role="form" method="GET" action="{{ route('forum_search_form') }}">
+            <input type="hidden" name="sorting" value="created_at">
+            <input type="hidden" name="direction" value="2">
+            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.topic-quick-search')"
                    class="form-control">
         </form>
         <div class="forum-categories">
+            <table class="table table-bordered table-hover">
             @foreach ($categories as $category)
                 @if ($category->getPermission() != null && $category->getPermission()->show_forum == true && $category->getForumsInCategory()->count() > 0)
-                    <div class="header gradient teal">
-                        <div class="inner_content">
-                            <h1>{{ $category->name }}</h1>
-                        </div>
-                    </div>
-
-                    <table class="table table-bordered table-hover">
-                        <thead class="head">
+                        <thead class="no-space">
+                        <tr class="no-space">
+                            <td colspan="5" class="no-space">
+                                <div class="header gradient teal some-padding">
+                                    <div class="inner_content">
+                                        <h1 class="no-space">{{ $category->name }}</h1>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <thead>
                         <tr>
-                            <td></td>
-                            <td>{{ strtoupper(trans('forum.name')) }}</td>
-                            <td>{{ strtoupper(trans('forum.posts')) }}</td>
-                            <td>{{ strtoupper(trans('forum.topics')) }}</td>
-                            <td>{{ strtoupper(trans('forum.latest')) }}</td>
+                            <td colspan="5">
+                                <div class="button-holder">
+                                    <div class="button-left"></div>
+                                    <div class="button-right">
+                                        <a href="{{ route('forum_category', ['slug' => $category->slug, 'id' => $category->id]) }}"
+                                           class="btn btn-sm btn-primary">@lang('forum.view-all')</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th class="text-left">{{ strtoupper(trans('forum.name')) }}</th>
+                            <th class="text-left">{{ strtoupper(trans('forum.posts')) }}</th>
+                            <th class="text-left">{{ strtoupper(trans('forum.topics')) }}</th>
+                            <th class="text-left">{{ strtoupper(trans('forum.latest')) }}</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach ($category->getForumsInCategory()->sortBy('position') as $categoryChild)
+                            @if ($categoryChild->getPermission() != null && $categoryChild->getPermission()->show_forum == true)
                             <tr>
                                 <td><img src="{{ url('img/forum.png') }}"></td>
                                 <td>
@@ -67,11 +87,12 @@
                                     <span><i class="{{ config('other.font-awesome') }} fa-clock"></i> {{ $categoryChild->updated_at->diffForHumans() }}</span>
                                 </td>
                             </tr>
+                            @endif
                         @endforeach
                         </tbody>
-                    </table>
                 @endif
             @endforeach
+            </table>
         </div>
     </div>
 @endsection

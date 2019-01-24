@@ -311,7 +311,7 @@ class RequestController extends Controller
             $user->seedbonus -= $request->input('bounty');
             $user->save();
 
-            $tr_url = hrefTorrentRequest($tr);
+            $tr_url = hrefRequest($tr);
             $profile_url = hrefProfile($user);
 
             // Auto Shout

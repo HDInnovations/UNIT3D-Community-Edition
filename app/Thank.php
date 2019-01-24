@@ -8,7 +8,7 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App;
@@ -17,5 +17,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thank extends Model
 {
-    //
+    /**
+     * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function torrent()
+    {
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -482,6 +482,50 @@ class facetedSearchBuilder {
         }
     }
 }
+class forumTipBuilder {
+    constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        this.leaveTip = $('#forumTip').attr('leaveTip');
+        this.quickTip = $('#forumTip').attr('quickTip');
+        this.route = $('#forumTip').attr("route");
+    }
+    handle(user,id) {
+        this.user = user;
+        this.template = '<div class="some-padding">' +
+            '<div class="box">' +
+            '<form role="form" method="POST" action="'+this.route+'">' +
+            '<input type="hidden" name="_token" value="' + this.csrf + '">' +
+            '<input type="hidden" name="recipient" value="'+this.user+'">' +
+            '<input type="hidden" name="post" value="'+id+'">'+
+            '<input type="number" name="tip" value="0" placeholder="0" class="form-control">' +
+            '<button type="submit" class="btn btn-primary">'+this.leaveTip+'</button>' +
+            '<br>' +
+            '<br>' +
+            '<span class="text-green text-bold">'+this.quickTip+'</span>' +
+            '<br>' +
+            '<button type="submit" value="10" name="tip" class="label label-sm label-success space-me">10 BON</button>' +
+            '<button type="submit" value="20" name="tip" class="label label-sm label-danger space-me">20 BON</button>' +
+            '<button type="submit" value="50" name="tip" class="label label-sm label-info space-me">50 BON</button>' +
+            '<button type="submit" value="100" name="tip" class="label label-sm label-warning space-me">100 BON</button>' +
+            '<button type="submit" value="200" name="tip" class="label label-sm label-danger space-me">200 BON</button>' +
+            '<button type="submit" value="500" name="tip" class="label label-sm label-primary space-me">500 BON</button>' +
+            '<button type="submit" value="1000" name="tip" class="label label-sm label-success space-me">1000 BON</button>' +
+            '</form>' +
+            '</div>' +
+            '</div>';
+
+        $('#forumTip'+id).html(this.template);
+        $('#forumTip'+id).show();
+    }
+    init() {
+        $('.forumTip').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                forumTip.handle($(this).attr("user"),$(this).attr("post"));
+            });
+        });
+    }
+}
 class torrentBookmarkBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -599,6 +643,9 @@ $(document).ready(function () {
     if(document.getElementById('userFilter')) {
         userFilter.init();
     }
+    if(document.getElementById('forumTip')) {
+        forumTip.init();
+    }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
@@ -627,7 +674,7 @@ $(document).on('click', '.pagination a', function (e) {
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
-
+const forumTip = new forumTipBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;

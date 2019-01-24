@@ -338,8 +338,18 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
+
         // Search Forums
+        Route::get('/subscriptions', 'ForumController@subscriptions')->name('forum_subscriptions');
+        Route::get('/latest/topics', 'ForumController@latestTopics')->name('forum_latest_topics');
+        Route::get('/latest/posts', 'ForumController@latestPosts')->name('forum_latest_posts');
+
+        Route::get('/user/{slug}.{id}/topics', 'ForumController@userTopics')->name('forum_user_topics');
+        Route::get('/user/{slug}.{id}/posts', 'ForumController@userPosts')->name('forum_user_posts');
+
         Route::get('/search', 'ForumController@search')->name('forum_search');
+        Route::get('/search', 'ForumController@search')->name('forum_search_form');
+
         // Display Forum Categories
         Route::get('/category/{slug}.{id}', 'ForumController@category')->name('forum_category');
         // Display Topics
@@ -353,6 +363,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/topic/{slug}.{id}/close', 'ForumController@closeTopic')->name('forum_close');
         // Open Topic
         Route::get('/topic/{slug}.{id}/open', 'ForumController@openTopic')->name('forum_open');
+        //
+        Route::post('/posts/{slug}.{id}/tip_poster', 'BonusController@tipPoster')->name('tip_poster');
         // Edit Post
         Route::get('/posts/{slug}.{id}/post-{postId}/edit', 'ForumController@postEditForm')->name('forum_post_edit_form');
         Route::post('/posts/{postId}/edit', 'ForumController@postEdit')->name('forum_post_edit');
@@ -370,22 +382,24 @@ Route::group(['middleware' => 'language'], function () {
         // Unpin Topic
         Route::get('/topic/{slug}.{id}/unpin', 'ForumController@unpinTopic')->name('forum_unpin_topic');
 
-        // Topic Label System
-        Route::get('/topic/{slug}.{id}/approved', 'ForumController@approvedTopic')->name('forum_approved');
-        Route::get('/topic/{slug}.{id}/denied', 'ForumController@deniedTopic')->name('forum_denied');
-        Route::get('/topic/{slug}.{id}/solved', 'ForumController@solvedTopic')->name('forum_solved');
-        Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid');
-        Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug');
-        Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion');
-        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented');
-
         // Like - Dislike System
         Route::any('/like/post/{postId}', 'LikeController@store')->name('like');
         Route::any('/dislike/post/{postId}', 'LikeController@destroy')->name('dislike');
 
         // Subscription System
-        Route::get('/subscribe/{topic}', 'SubscriptionController@subscribe')->name('subscribe');
-        Route::get('/unsubscribe/{topic}', 'SubscriptionController@unsubscribe')->name('unsubscribe');
+        Route::get('/subscribe/topic/{route}.{topic}', 'SubscriptionController@subscribeTopic')->name('subscribe_topic');
+        Route::get('/unsubscribe/topic/{route}.{topic}', 'SubscriptionController@unsubscribeTopic')->name('unsubscribe_topic');
+        Route::get('/subscribe/forum/{route}.{forum}', 'SubscriptionController@subscribeForum')->name('subscribe_forum');
+        Route::get('/unsubscribe/forum/{route}.{forum}', 'SubscriptionController@unsubscribeForum')->name('unsubscribe_forum');
+
+        // Topic Label System
+        Route::get('/topic/{slug}.{id}/approved', 'ForumController@approvedTopic')->name('forum_approved')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/denied', 'ForumController@deniedTopic')->name('forum_denied')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/solved', 'ForumController@solvedTopic')->name('forum_solved')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/invalid', 'ForumController@invalidTopic')->name('forum_invalid')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
+        Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
     });
 
     /*
