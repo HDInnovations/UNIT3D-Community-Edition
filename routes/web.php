@@ -400,7 +400,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/topic/{slug}.{id}/bug', 'ForumController@bugTopic')->name('forum_bug')->middleware('modo');
         Route::get('/topic/{slug}.{id}/suggestion', 'ForumController@suggestionTopic')->name('forum_suggestion')->middleware('modo');
         Route::get('/topic/{slug}.{id}/implemented', 'ForumController@implementedTopic')->name('forum_implemented')->middleware('modo');
-
     });
 
     /*

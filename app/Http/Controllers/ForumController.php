@@ -74,103 +74,107 @@ class ForumController extends Controller
      */
     public function search(Request $request)
     {
-
         $categories = Forum::oldest('position')->get();
 
         $user = auth()->user();
 
-        $pests = $user->group->permissions->where('show_forum','=',0)->pluck('forum_id')->toArray();
-        if(!is_array($pests)) { $pests=[]; }
-
-        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
-        if(!is_array($topic_neos)) { $topic_neos=[]; }
-
-        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
-        if(!is_array($forum_neos)) { $forum_neos=[]; }
-
-        if($request->has('body') && $request->input('body') != '') {
-            $logger = "forum.results_posts";
-            $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic','user'])->leftJoin('topics','posts.topic_id','=','topics.id')->whereNotIn('topics.forum_id',$pests);
+        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        if (! is_array($pests)) {
+            $pests = [];
         }
 
-        if(!isset($logger)) {
-            $logger = "forum.results_topics";
+        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
+        if (! is_array($topic_neos)) {
+            $topic_neos = [];
+        }
+
+        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
+        if (! is_array($forum_neos)) {
+            $forum_neos = [];
+        }
+
+        if ($request->has('body') && $request->input('body') != '') {
+            $logger = 'forum.results_posts';
+            $result = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests);
+        }
+
+        if (! isset($logger)) {
+            $logger = 'forum.results_topics';
             $result = Topic::whereNotIn('topics.forum_id', $pests);
         }
 
-        if($request->has('body') && $request->input('body') != '') {
-            $result->where([['posts.content', 'like', '%' . $request->input('body') . '%']]);
+        if ($request->has('body') && $request->input('body') != '') {
+            $result->where([['posts.content', 'like', '%'.$request->input('body').'%']]);
         }
-        if($request->has('name')) {
-            $result->where([['topics.name', 'like', '%' . $request->input('name') . '%']]);
+        if ($request->has('name')) {
+            $result->where([['topics.name', 'like', '%'.$request->input('name').'%']]);
         }
-        if($request->has('subscribed') && $request->input('subscribed') == 1) {
+        if ($request->has('subscribed') && $request->input('subscribed') == 1) {
             $result->where(function ($query) use ($topic_neos,$forum_neos) {
-                $query->whereIn('topics.id',$topic_neos)->orWhereIn('topics.forum_id',$forum_neos);
+                $query->whereIn('topics.id', $topic_neos)->orWhereIn('topics.forum_id', $forum_neos);
             });
-        } else if ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
-            $result->whereNotIn('topics.id',$neos);
+        } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
+            $result->whereNotIn('topics.id', $neos);
         }
 
-        if($request->has('implemented') && $request->input('implemented') == 1) {
-            $result->where('topics.implemented','=',1);
+        if ($request->has('implemented') && $request->input('implemented') == 1) {
+            $result->where('topics.implemented', '=', 1);
         }
-        if($request->has('approved') && $request->input('approved') == 1) {
-            $result->where('topics.approved','=',1);
+        if ($request->has('approved') && $request->input('approved') == 1) {
+            $result->where('topics.approved', '=', 1);
         }
-        if($request->has('denied') && $request->input('denied') == 1) {
-            $result->where('topics.denied','=',1);
+        if ($request->has('denied') && $request->input('denied') == 1) {
+            $result->where('topics.denied', '=', 1);
         }
-        if($request->has('solved') && $request->input('solved') == 1) {
-            $result->where('topics.solved','=',1);
+        if ($request->has('solved') && $request->input('solved') == 1) {
+            $result->where('topics.solved', '=', 1);
         }
-        if($request->has('invalid') && $request->input('invalid') == 1) {
-            $result->where('topics.invalid','=',1);
+        if ($request->has('invalid') && $request->input('invalid') == 1) {
+            $result->where('topics.invalid', '=', 1);
         }
-        if($request->has('bug') && $request->input('bug') == 1) {
-            $result->where('topics.bug','=',1);
+        if ($request->has('bug') && $request->input('bug') == 1) {
+            $result->where('topics.bug', '=', 1);
         }
-        if($request->has('suggestion') && $request->input('suggestion') == 1) {
-            $result->where('topics.suggestion','=',1);
-        }
-
-        if($request->has('closed') && $request->input('closed') == 1) {
-            $result->where('topics.state','=','close');
-        }
-        if($request->has('open') && $request->input('open') == 1) {
-            $result->where('topics.state','=','open');
+        if ($request->has('suggestion') && $request->input('suggestion') == 1) {
+            $result->where('topics.suggestion', '=', 1);
         }
 
-        if($request->has('category')) {
+        if ($request->has('closed') && $request->input('closed') == 1) {
+            $result->where('topics.state', '=', 'close');
+        }
+        if ($request->has('open') && $request->input('open') == 1) {
+            $result->where('topics.state', '=', 'open');
+        }
+
+        if ($request->has('category')) {
             $category = (int) $request->input('category');
-            if($category > 0 && $category < 99999999999) {
-                $children = Forum::where('parent_id','=',$category)->get()->toArray();
-                if(is_array($children)) {
+            if ($category > 0 && $category < 99999999999) {
+                $children = Forum::where('parent_id', '=', $category)->get()->toArray();
+                if (is_array($children)) {
                     $result->where(function ($query) use ($category,$children) {
-                        $query->where('topics.forum_id','=',$category)->orWhereIn('topics.forum_id',$children);
+                        $query->where('topics.forum_id', '=', $category)->orWhereIn('topics.forum_id', $children);
                     });
                 }
             }
         }
         $direction = 2;
-        $order = "desc";
-        if($request->has('direction') && $request->input('direction') == 1) {
+        $order = 'desc';
+        if ($request->has('direction') && $request->input('direction') == 1) {
             $direction = 1;
-            $order = "asc";
+            $order = 'asc';
         }
-        if($request->has('body') && $request->input('body') != '') {
-            $sorting = "posts.created_at";
-            if($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = "posts.updated_at";
+        if ($request->has('body') && $request->input('body') != '') {
+            $sorting = 'posts.created_at';
+            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
+                $sorting = 'posts.updated_at';
             }
-            $results = $result->orderBy($sorting,$direction)->paginate(25);
-        }
-        else {
-            $sorting = "topics.created_at";
-            if($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = "topics.updated_at";
+            $results = $result->orderBy($sorting, $direction)->paginate(25);
+        } else {
+            $sorting = 'topics.created_at';
+            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
+                $sorting = 'topics.updated_at';
             }
-            $results = $result->orderBy($sorting,$order)->paginate(25);
+            $results = $result->orderBy($sorting, $order)->paginate(25);
         }
 
         $results->setPath('?name='.$request->input('name'));
@@ -209,18 +213,24 @@ class ForumController extends Controller
     {
         $user = auth()->user();
 
-        $pests = $user->group->permissions->where('show_forum','=',0)->pluck('forum_id')->toArray();
-        if(!is_array($pests)) { $pests=[]; }
+        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        if (! is_array($pests)) {
+            $pests = [];
+        }
 
         $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
-        if(!is_array($topic_neos)) { $topic_neos=[]; }
+        if (! is_array($topic_neos)) {
+            $topic_neos = [];
+        }
 
         $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
-        if(!is_array($forum_neos)) { $forum_neos=[]; }
+        if (! is_array($forum_neos)) {
+            $forum_neos = [];
+        }
 
-        $logger = "forum.subscriptions";
-        $result = Forum::distinct()->with('subscription_topics')->selectRaw('forums.*,max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics','forums.id','=','topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
-            $query->whereIn('topics.id',$topic_neos)->orWhereIn('forums.id',$forum_neos);
+        $logger = 'forum.subscriptions';
+        $result = Forum::distinct()->with('subscription_topics')->selectRaw('forums.*,max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
+            $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
         })->groupBy('forums.id');
 
         $results = $result->orderBy('topic_created_at', 'desc')->paginate(25);
@@ -261,10 +271,12 @@ class ForumController extends Controller
     {
         $user = auth()->user();
 
-        $pests = $user->group->permissions->where('show_forum','=',0)->pluck('forum_id')->toArray();
-        if(!is_array($pests)) { $pests=[]; }
+        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        if (! is_array($pests)) {
+            $pests = [];
+        }
 
-        $results = Topic::whereNotIn('topics.forum_id',$pests)->latest()->paginate(25);
+        $results = Topic::whereNotIn('topics.forum_id', $pests)->latest()->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
@@ -294,10 +306,12 @@ class ForumController extends Controller
     {
         $user = auth()->user();
 
-        $pests = $user->group->permissions->where('show_forum','=',0)->pluck('forum_id')->toArray();
-        if(!is_array($pests)) { $pests=[]; }
+        $pests = $user->group->permissions->where('show_forum', '=', 0)->pluck('forum_id')->toArray();
+        if (! is_array($pests)) {
+            $pests = [];
+        }
 
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic','user'])->leftJoin('topics','posts.topic_id','=','topics.id')->whereNotIn('topics.forum_id',$pests)->orderBy('posts.created_at','desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->whereNotIn('topics.forum_id', $pests)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
@@ -325,9 +339,9 @@ class ForumController extends Controller
      */
     public function userTopics(Request $request, $slug, int $id)
     {
-        $user = User::where('id','=',$id)->firstOrFail();
+        $user = User::where('id', '=', $id)->firstOrFail();
 
-        $results = Topic::where('topics.first_post_user_id','=',$user->id)->latest()->paginate(25);
+        $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
@@ -355,9 +369,9 @@ class ForumController extends Controller
      */
     public function userPosts(Request $request, $slug, int $id)
     {
-        $user = User::where('id','=',$id)->firstOrFail();
+        $user = User::where('id', '=', $id)->firstOrFail();
 
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic','user'])->leftJoin('topics','posts.topic_id','=','topics.id')->where('posts.user_id','=',$user->id)->orderBy('posts.created_at','desc')->paginate(25);
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
 
         // Total Forums Count
         $num_forums = Forum::count();
@@ -420,7 +434,6 @@ class ForumController extends Controller
         // Total Topics Count
         $num_topics = Topic::count();
 
-
         // Check if this is a category or forum
         if ($forum->parent_id != 0) {
             return redirect()->route('forum_display', ['slug' => $forum->slug, 'id' => $forum->id]);
@@ -465,7 +478,6 @@ class ForumController extends Controller
         $num_posts = Post::count();
         // Total Topics Count
         $num_topics = Topic::count();
-
 
         // Check if this is a category or forum
         if ($forum->parent_id == 0) {
@@ -512,7 +524,7 @@ class ForumController extends Controller
         $category = $forum->getCategory();
 
         // Get all posts
-        $posts = $topic->posts()->with(['user','tips'])->paginate(25);
+        $posts = $topic->posts()->with(['user', 'tips'])->paginate(25);
 
         // First post
         $firstPost = Post::with('tips')->where('topic_id', '=', $topic->id)->first();

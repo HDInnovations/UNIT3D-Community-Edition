@@ -140,11 +140,12 @@ class TorrentRequest extends Model
     /**
      * Notify Requester When A New Action Is Taken.
      *
-     * @return boolean
+     * @return bool
      */
     public function notifyRequester($type, $comment)
     {
-        User::find($this->user_id)->notify(new NewComment('req',$comment));
+        User::find($this->user_id)->notify(new NewComment('req', $comment));
+
         return true;
     }
 }

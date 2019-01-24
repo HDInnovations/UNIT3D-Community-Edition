@@ -15,9 +15,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Follow;
+use Brian2694\Toastr\Toastr;
 use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;
-use Brian2694\Toastr\Toastr;
 
 class FollowController extends Controller
 {
@@ -54,7 +54,7 @@ class FollowController extends Controller
             $follow->target_id = $user->id;
             $follow->save();
 
-            $user->notify(new NewFollow('user', auth()->user()->username,$follow));
+            $user->notify(new NewFollow('user', auth()->user()->username, $follow));
 
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
                 ->with($this->toastr->success('You are now following '.$user->username, 'Yay!', ['options']));

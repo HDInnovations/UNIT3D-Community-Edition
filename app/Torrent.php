@@ -254,15 +254,17 @@ class Torrent extends Model
     /**
      * Notify Uploader When An Action Is Taken.
      *
-     * @return boolean
+     * @return bool
      */
-    public function notifyUploader($type,$payload)
+    public function notifyUploader($type, $payload)
     {
-        if($type == 'thank') {
-            User::find($this->user_id)->notify(new NewThank('torrent',$payload));
+        if ($type == 'thank') {
+            User::find($this->user_id)->notify(new NewThank('torrent', $payload));
+
             return true;
         }
-        User::find($this->user_id)->notify(new NewComment('torrent',$payload));
+        User::find($this->user_id)->notify(new NewComment('torrent', $payload));
+
         return true;
     }
 

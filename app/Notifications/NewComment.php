@@ -61,14 +61,14 @@ class NewComment extends Notification
             if ($this->comment->anon == 0) {
                 return [
                     'title' => 'New Torrent Comment Received',
-                    'body' => $this->comment->user->username . ' has left you a comment on ' . $this->comment->torrent->name,
-                    'url' => '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id,
+                    'body' => $this->comment->user->username.' has left you a comment on '.$this->comment->torrent->name,
+                    'url' => '/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
                 ];
             } else {
                 return [
                     'title' => 'New Torrent Comment Received',
-                    'body' => 'Anonymous has left you a comment on ' . $this->comment->torrent->name,
-                    'url' => '/torrents/' . $this->comment->torrent->slug . '.' . $this->comment->torrent->id,
+                    'body' => 'Anonymous has left you a comment on '.$this->comment->torrent->name,
+                    'url' => '/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
                 ];
             }
         }

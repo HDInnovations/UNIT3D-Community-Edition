@@ -34,7 +34,7 @@ class Topic extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class,'first_post_user_id','id');
+        return $this->belongsTo(User::class, 'first_post_user_id', 'id');
     }
 
     /**
@@ -84,11 +84,12 @@ class Topic extends Model
     /**
      * Notify Starter When An Action Is Taken.
      *
-     * @return boolean
+     * @return bool
      */
-    public function notifyStarter($type,$payload)
+    public function notifyStarter($type, $payload)
     {
-        User::find($this->first_post_user_id)->notify(new NewPost('topic',$payload));
+        User::find($this->first_post_user_id)->notify(new NewPost('topic', $payload));
+
         return true;
     }
 
