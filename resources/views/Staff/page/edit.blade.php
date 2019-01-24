@@ -7,12 +7,12 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_page_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.pages.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Pages</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_page_edit_form', ['slug' => $page->slug, 'id' => $page->id]) }}" itemprop="url"
+        <a href="{{ route('staff.pages.edit', ['slug' => $page->slug, 'id' => $page->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Page</span>
         </a>
@@ -23,8 +23,9 @@
     <div class="container box">
         <h2>Add a new page</h2>
         <form role="form" method="POST"
-              action="{{ route('staff_page_edit',['slug' => $page->slug, 'id' => $page->id]) }}">
+              action="{{ route('staff.pages.update',['slug' => $page->slug, 'id' => $page->id]) }}">
             @csrf
+            @method('PUT')
             <div class="form-group">
                 <label for="name">Page Name</label>
                 <input type="text" name="name" class="form-control" value="{{ $page->name }}">
