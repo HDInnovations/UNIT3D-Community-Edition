@@ -14,7 +14,7 @@
 namespace App;
 
 use App\Notifications\NewTopic;
-use App\Notifications\NewTopicPost;
+use App\Notifications\NewPost;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
@@ -59,7 +59,7 @@ class Subscription extends Model
      */
     public function notifyTopic($post)
     {
-        User::find($this->user_id)->notify(new NewTopicPost($post));
+        User::find($this->user_id)->notify(new NewPost('topic',$post));
     }
 
     /**
@@ -69,6 +69,6 @@ class Subscription extends Model
      */
     public function notifyForum($topic)
     {
-        User::find($this->user_id)->notify(new NewTopic($topic));
+        User::find($this->user_id)->notify(new NewTopic('forum',$topic));
     }
 }
