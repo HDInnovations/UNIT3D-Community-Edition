@@ -86,9 +86,15 @@
                             </td>
                             <td class="f-display-topic-last-post">
                                 <a href="{{ route('profile', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
-                                <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
-                                    {{ date('M d Y', strtotime($r->updated_at)) }}
-                                </time>
+                                @if($r->last_reply_at && $r->last_reply_at != null)
+                                    <time datetime="{{ date('d-m-Y h:m', strtotime($r->last_reply_at)) }}">
+                                        {{ date('M d Y', strtotime($r->last_reply_at)) }}
+                                    </time>
+                                @else
+                                    <time datetime="N/A">
+                                        N/A
+                                    </time>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

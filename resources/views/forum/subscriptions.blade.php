@@ -119,9 +119,15 @@
                         </td>
                         <td class="f-display-topic-last-post">
                             <a href="{{ route('profile', ['username' => $t->last_post_user_username, 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>,
-                            <time datetime="{{ date('d-m-Y h:m', strtotime($t->updated_at)) }}">
-                                {{ date('M d Y', strtotime($t->updated_at)) }}
-                            </time>
+                            @if($t->last_reply_at && $t->last_reply_at != null)
+                                <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
+                                    {{ date('M d Y', strtotime($t->last_reply_at)) }}
+                                </time>
+                            @else
+                                <time datetime="N/A">
+                                    N/A
+                                </time>
+                            @endif
                         </td>
                         <td class="f-display-topic-stats">
                             @if (auth()->user()->isSubscribed('topic',$t->id))
