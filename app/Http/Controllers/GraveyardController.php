@@ -149,7 +149,7 @@ class GraveyardController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function resurrect(Request $request, $id)
+    public function store(Request $request, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
@@ -185,5 +185,24 @@ class GraveyardController extends Controller
             return redirect()->route('graveyard')
                 ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }
+    }
+
+    /**
+     * Cancel A Ressurection
+     *
+     * @param  int  $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $user = auth()->user();
+        $resurrection = Graveyard::findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
+        $resurrection->delete();
+
+        return redirect()->route('graveyard.index')
+            ->with($this->toastr->success('Ressurection Successfully Canceled!', 'Yay!', ['options']));
     }
 }

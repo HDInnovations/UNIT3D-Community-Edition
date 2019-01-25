@@ -295,8 +295,9 @@ Route::group(['middleware' => 'language'], function () {
 
         // Graveyard System
         Route::get('/filterGraveyard', 'GraveyardController@faceted');
-        Route::get('/graveyard', 'GraveyardController@index')->name('graveyard');
-        Route::post('/graveyard/{id}', 'GraveyardController@resurrect')->name('resurrect');
+        Route::get('/graveyard', 'GraveyardController@index')->name('graveyard.index');
+        Route::post('/graveyard/{id}', 'GraveyardController@store')->name('graveyard.store');
+        Route::delete('/graveyard/{id}', 'GraveyardController@destroy')->name('graveyard.destroy');
 
         // Notifications System
         Route::get('/notifications', 'NotificationController@get')->name('get_notifications');
