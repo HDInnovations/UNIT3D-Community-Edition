@@ -43,7 +43,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('graveyard') }}">
+            <a href="{{ route('graveyard.index') }}">
                 <i class="fab fa-snapchat-ghost" style=" font-size: 18px; color: #fff;"></i>
                 <span class="menu-text">@lang('graveyard.graveyard')</span>
                 <span class="selected"></span>
