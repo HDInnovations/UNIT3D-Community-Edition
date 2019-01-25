@@ -248,11 +248,13 @@
                             @if ($r->solved == "1") <span
                                     class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
                             @if ($r->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
                             @if ($r->bug == "1") <span
                                     class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                             @if ($r->suggestion == "1") <span
                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
+                            @if ($r->implemented == "1") <span
+                                    class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
                                     href="{{ route('profile', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>

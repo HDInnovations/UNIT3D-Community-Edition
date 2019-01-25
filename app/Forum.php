@@ -38,7 +38,6 @@ class Forum extends Model
         if (is_array($children)) {
             return $this->hasMany(Topic::class)->orWhereIn('topics.forum_id', $children);
         }
-
         return $this->hasMany(Topic::class);
     }
 
@@ -60,11 +59,12 @@ class Forum extends Model
     public function subscription_topics()
     {
         if (auth()->user()) {
+            $id = $this->id;
             $subscriptions = auth()->user()->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
-
-            return $this->hasMany(Topic::class, 'id', 'topic_id')->whereIn('topics.id', $subscriptions);
+            return $this->hasMany(Topic::class)->where(function ($query) use ($id, $subscriptions) {
+                $query->whereIn('topics.id', [$id])->orWhereIn('topics.id', $subscriptions);
+            });
         }
-
         return $this->hasMany(Topic::class, 'id', 'topic_id');
     }
 
