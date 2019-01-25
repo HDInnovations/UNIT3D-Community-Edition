@@ -36,15 +36,57 @@
             <label for="name">Icon (FontAwesome)</label>
             <input type="text" class="form-control" name="icon" value="{{ $category->icon }}">
         </div>
-        <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
-        <div class="radio-inline">
-            <label><input type="radio" name="meta" @if ($category->meta == 1) checked @endif value="1">Yes</label>
-        </div>
-        <div class="radio-inline">
-            <label><input type="radio" name="meta" @if ($category->meta == 0) checked @endif value="0">No</label>
-        </div>
-        <br>
-        <br>
+
+            <label for="movie_meta" class="control-label">Movie Meta Data?</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="movie_meta" @if ($category->movie_meta) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="movie_meta" @if (!$category->movie_meta) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
+
+            <label for="tv_meta" class="control-label">TV Meta Data?</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="tv_meta" @if ($category->tv_meta) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="tv_meta" @if (!$category->tv_meta) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
+
+            <label for="game_meta" class="control-label">Game Meta Data?</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="game_meta" @if ($category->game_meta) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="game_meta" @if (!$category->game_meta) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
+
+            <label for="music_meta" class="control-label">Music Meta Data?</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="music_meta" @if ($category->music_meta) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="music_meta" @if (!$category->music_meta) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
+
+            <label for="no_meta" class="control-label">No Meta Data?</label>
+            <div class="radio-inline">
+                <label><input type="radio" name="no_meta" @if ($category->no_meta) checked @endif value="1">Yes</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="no_meta" @if (!$category->no_meta) checked @endif value="0">No</label>
+            </div>
+            <br>
+            <br>
+
         <button type="submit" class="btn btn-default">@lang('common.submit')</button>
         </form>
     </div>

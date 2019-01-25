@@ -25,7 +25,11 @@
                 <th>Position</th>
                 <th>Name</th>
                 <th>Icon</th>
-                <th>Meta?</th>
+                <th>Movie Meta</th>
+                <th>TV Meta</th>
+                <th>Game Meta</th>
+                <th>Music Meta</th>
+                <th>No Meta</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -37,7 +41,41 @@
                         <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}">{{ $c->name }}</a>
                     </td>
                     <td><i class="{{ $c->icon }}" aria-hidden="true"></i></td>
-                    <td>@if ($c->meta == 1) YES @else NO @endif</td>
+                    <td>
+                        @if ($c->movie_meta)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($c->tv_meta)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($c->game_meta)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($c->music_meta)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if ($c->no_meta)
+                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                        @else
+                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('staff_category_edit_form', ['slug' => $c->slug, 'id' => $c->id]) }}"
                            class="btn btn-warning">Edit</a>

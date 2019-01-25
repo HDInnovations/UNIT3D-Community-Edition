@@ -71,14 +71,22 @@ class CategoryController extends Controller
         $category->slug = str_slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
-        $category->meta = $request->input('meta');
+        $category->movie_meta = $request->input('movie_meta');
+        $category->tv_meta = $request->input('tv_meta');
+        $category->game_meta = $request->input('game_meta');
+        $category->music_meta = $request->input('music_meta');
+        $category->no_meta = $request->input('no_meta');
 
         $v = validator($category->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-            'icon'     => 'required',
-            'meta'     => 'required',
+            'name'          => 'required',
+            'slug'          => 'required',
+            'position'      => 'required',
+            'icon'          => 'required',
+            'movie_meta'    => 'required',
+            'tv_meta'       => 'required',
+            'game_meta'     => 'required',
+            'music_meta'    => 'required',
+            'no_meta'       => 'required',
         ]);
 
         if ($v->fails()) {
@@ -123,14 +131,22 @@ class CategoryController extends Controller
         $category->slug = str_slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
-        $category->meta = $request->input('meta');
+        $category->movie_meta = $request->input('movie_meta');
+        $category->tv_meta = $request->input('tv_meta');
+        $category->game_meta = $request->input('game_meta');
+        $category->music_meta = $request->input('music_meta');
+        $category->no_meta = $request->input('no_meta');
 
         $v = validator($category->toArray(), [
-            'name'     => 'required',
-            'slug'     => 'required',
-            'position' => 'required',
-            'icon'     => 'required',
-            'meta'     => 'required',
+            'name'          => 'required',
+            'slug'          => 'required',
+            'position'      => 'required',
+            'icon'          => 'required',
+            'movie_meta'    => 'required',
+            'tv_meta'       => 'required',
+            'game_meta'     => 'required',
+            'music_meta'    => 'required',
+            'no_meta'       => 'required',
         ]);
 
         if ($v->fails()) {
