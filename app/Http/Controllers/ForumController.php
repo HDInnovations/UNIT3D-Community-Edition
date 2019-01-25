@@ -83,12 +83,12 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
+        $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
         if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
-        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
+        $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
         if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
@@ -114,7 +114,7 @@ class ForumController extends Controller
                 $query->whereIn('topics.id', $topic_neos)->orWhereIn('topics.forum_id', $forum_neos);
             });
         } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
-            $result->whereNotIn('topics.id', $neos);
+            $result->whereNotIn('topics.id', $topic_neos)->whereNotIn('topics.forum_id', $forum_neos);
         }
 
         if ($request->has('implemented') && $request->input('implemented') == 1) {
@@ -164,15 +164,15 @@ class ForumController extends Controller
             $order = 'asc';
         }
         if ($request->has('body') && $request->input('body') != '') {
-            $sorting = 'posts.created_at';
-            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = 'posts.updated_at';
+            $sorting = 'posts.updated_at';
+            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
+                $sorting = 'posts.created_at';
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
-            $sorting = 'topics.created_at';
-            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = 'topics.updated_at';
+            $sorting = 'topics.updated_at';
+            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
+                $sorting = 'topics.created_at';
             }
             $results = $result->orderBy($sorting, $order)->paginate(25);
         }
@@ -218,18 +218,18 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
+        $topic_neos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
         if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
-        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
+        $forum_neos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
         if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
 
         $logger = 'forum.subscriptions';
-        $result = Forum::distinct()->with('subscription_topics')->selectRaw('forums.*,max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
+        $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
             $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
         })->groupBy('forums.id');
 

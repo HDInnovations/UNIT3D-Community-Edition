@@ -197,8 +197,8 @@
                                             <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                                             <div class="col-sm-2">
                                                 <select id="sorting" name="sorting" class="form-control">
-                                                    <option value="created_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '') }}>Created At</option>
                                                     <option value="updated_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '') }}>Updated At</option>
+                                                    <option value="created_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '') }}>Created At</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -248,11 +248,13 @@
                             @if ($r->solved == "1") <span
                                     class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
                             @if ($r->invalid == "1") <span
-                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                                    class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
                             @if ($r->bug == "1") <span
                                     class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                             @if ($r->suggestion == "1") <span
                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
+                            @if ($r->implemented == "1") <span
+                                    class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
                                     href="{{ route('profile', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
