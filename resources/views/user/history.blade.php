@@ -86,6 +86,7 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Sorting</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
+                                <option value="created_at">Created at</option>
                                 <option value="name">Name</option>
                                 <option value="agent">Agent</option>
                                 <option value="active">Active</option>
@@ -93,7 +94,6 @@
                                 <option value="uploaded">Uploaded</option>
                                 <option value="downloaded">Downloaded</option>
                                 <option value="seedtime">Seedtime</option>
-                                <option value="created_at">Created at</option>
                                 <option value="updated_at">Updated at</option>
                                 <option value="completed_at">Completed at</option>
                                 <option value="prewarn">Prewarned</option>
@@ -106,8 +106,8 @@
                         <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Direction</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
-                                <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
+                                <option value="asc">Ascending</option>
                             </select>
                         </div>
                     </div>
@@ -171,9 +171,9 @@
                                     <span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                                 </td>
                             @endif
-                            <td>{{ $his->created_at->diffForHumans() }}</td>
-                            <td>{{ $his->updated_at->diffForHumans() }}</td>
-                            <td>{{ $his->completed_at ? $his->completed_at->diffForHumans() : "N/A"}}</td>
+                            <td>{{ $his->created_at && $his->created_at != null ? $his->created_at->diffForHumans() : "N/A" }}</td>
+                            <td>{{ $his->updated_at && $his->updated_at != null ? $his->updated_at->diffForHumans() : "N/A" }}</td>
+                            <td>{{ $his->completed_at && $his->completed_at != null ? $his->completed_at->diffForHumans() : "N/A"}}</td>
                             @if ($his->prewarn == 1)
                                 <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
                             @else

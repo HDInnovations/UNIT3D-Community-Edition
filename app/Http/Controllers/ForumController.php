@@ -164,13 +164,13 @@ class ForumController extends Controller
             $order = 'asc';
         }
         if ($request->has('body') && $request->input('body') != '') {
-            $sorting = 'posts.updated_at';
+            $sorting = 'posts.id';
             if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
                 $sorting = 'posts.created_at';
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
-            $sorting = 'topics.updated_at';
+            $sorting = 'topics.last_reply_at';
             if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
                 $sorting = 'topics.created_at';
             }

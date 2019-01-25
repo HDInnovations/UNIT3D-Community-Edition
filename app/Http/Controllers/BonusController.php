@@ -383,7 +383,7 @@ class BonusController extends Controller
         $transaction->post_id = $post->id;
         $transaction->save();
 
-        $poster->notify(new NewPostTip($user->username, $post));
+        $poster->notify(new NewPostTip('forum', $user->username, $post));
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
