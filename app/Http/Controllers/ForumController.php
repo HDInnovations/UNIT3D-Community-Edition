@@ -83,12 +83,12 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->where('topic_id','>',0)->pluck('topic_id')->toArray();
+        $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
         if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
-        $forum_neos = $user->subscriptions->where('forum_id','>',0)->pluck('forum_id')->toArray();
+        $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
         if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
