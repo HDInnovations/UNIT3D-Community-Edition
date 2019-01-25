@@ -68,7 +68,7 @@
                                 @if ($r->topic->solved == "1") <span
                                         class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
                                 @if ($r->topic->invalid == "1") <span
-                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
                                 @if ($r->topic->bug == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                                 @if ($r->topic->suggestion == "1") <span
