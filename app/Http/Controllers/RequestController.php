@@ -464,7 +464,7 @@ class RequestController extends Controller
             $user->seedbonus -= $request->input('bonus_value');
             $user->save();
 
-            $tr_url = hrefTorrentRequest($tr);
+            $tr_url = hrefRequest($tr);
             $profile_url = hrefProfile($user);
 
             // Auto Shout
@@ -598,7 +598,7 @@ class RequestController extends Controller
             $fill_user->addProgress(new UserFilled75Requests(), 1);
             $fill_user->addProgress(new UserFilled100Requests(), 1);
 
-            $tr_url = hrefTorrentRequest($tr);
+            $tr_url = hrefRequest($tr);
             $profile_url = hrefProfile($fill_user);
 
             // Auto Shout
