@@ -391,7 +391,7 @@ class TorrentController extends Controller
         $usernames = explode(' ', $uploader);
         $uploader = null;
         foreach ($usernames as $username) {
-            $uploader .= '%'.$username.'%';
+            $uploader .= $username.'%';
         }
 
         $keywords = explode(' ', $description);
@@ -439,7 +439,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username','ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
@@ -564,7 +564,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username','ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
