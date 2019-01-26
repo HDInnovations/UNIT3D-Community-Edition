@@ -188,7 +188,7 @@ class GraveyardController extends Controller
     }
 
     /**
-     * Cancel A Ressurection
+     * Cancel A Ressurection.
      *
      * @param  int  $id
      *
