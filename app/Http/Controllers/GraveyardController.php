@@ -156,12 +156,12 @@ class GraveyardController extends Controller
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
         }
 
@@ -177,12 +177,12 @@ class GraveyardController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $resurrection->save();
 
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }
     }
