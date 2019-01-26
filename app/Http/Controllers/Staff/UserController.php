@@ -118,8 +118,40 @@ class UserController extends Controller
      */
     public function userEdit(Request $request, $username, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('group')->findOrFail($id);
         $staff = auth()->user();
+
+        $sendto = (int) $request->input('group_id');
+
+        $weights = [
+            'is_modo',
+            'is_admin',
+        ];
+
+        $sender = -1;
+        $target = -1;
+        foreach ($weights as $pos => $weight) {
+            if ($user->group->$weight && $user->group->$weight == 1) {
+                $target = $pos;
+            }
+            if ($staff->group->$weight && $staff->group->$weight == 1) {
+                $sender = $pos;
+            }
+        }
+
+        if ($target == 1 && $user->group->id == 10) {
+            $target = 2;
+        }
+        if ($sender == 1 && $staff->group->id == 10) {
+            $sender = 2;
+        }
+
+        // Hard coded until group change.
+
+        if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                ->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Whoops!', ['options']));
+        }
 
         $user->username = $request->input('username');
         $user->email = $request->input('email');
