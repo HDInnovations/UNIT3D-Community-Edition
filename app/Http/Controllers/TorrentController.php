@@ -439,7 +439,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username','ASC')->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
@@ -564,7 +564,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username','ASC')->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
