@@ -327,7 +327,7 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $uploader->notify(new NewUploadTip('torrent', $user->username, $torrent));
+        $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
@@ -383,7 +383,7 @@ class BonusController extends Controller
         $transaction->post_id = $post->id;
         $transaction->save();
 
-        $poster->notify(new NewPostTip('forum', $user->username, $post));
+        $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
