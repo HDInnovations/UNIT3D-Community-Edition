@@ -364,57 +364,57 @@ class RequestController extends Controller
     {
         $user = auth()->user();
         $torrentRequest = TorrentRequest::findOrFail($id);
-        if ($user->group->is_modo || $user->id == $torrentRequest->user_id) {
-            // Find the right category
-            $name = $request->input('name');
-            $imdb = $request->input('imdb');
-            $tvdb = $request->input('tvdb');
-            $tmdb = $request->input('tmdb');
-            $mal = $request->input('mal');
-            $category = $request->input('category_id');
-            $type = $request->input('type');
-            $description = $request->input('description');
-            $anon = $request->input('anon');
+        abort_unless($user->group->is_modo || $user->id === $torrentRequest->user_id, 403);
 
-            $torrentRequest->name = $name;
-            $torrentRequest->imdb = $imdb;
-            $torrentRequest->tvdb = $tvdb;
-            $torrentRequest->tmdb = $tmdb;
-            $torrentRequest->mal = $mal;
-            $torrentRequest->category_id = $category;
-            $torrentRequest->type = $type;
-            $torrentRequest->description = $description;
-            $torrentRequest->anon = $anon;
+        // Find the right category
+        $name = $request->input('name');
+        $imdb = $request->input('imdb');
+        $tvdb = $request->input('tvdb');
+        $tmdb = $request->input('tmdb');
+        $mal = $request->input('mal');
+        $category = $request->input('category_id');
+        $type = $request->input('type');
+        $description = $request->input('description');
+        $anon = $request->input('anon');
 
-            $v = validator($torrentRequest->toArray(), [
-                'name'        => 'required|max:180',
-                'imdb'        => 'required|numeric',
-                'tvdb'        => 'required|numeric',
-                'tmdb'        => 'required|numeric',
-                'mal'         => 'required|numeric',
-                'category_id' => 'required|exists:categories,id',
-                'type'        => 'required',
-                'description' => 'required|string',
-                'anon'        => 'required',
-            ]);
+        $torrentRequest->name = $name;
+        $torrentRequest->imdb = $imdb;
+        $torrentRequest->tvdb = $tvdb;
+        $torrentRequest->tmdb = $tmdb;
+        $torrentRequest->mal = $mal;
+        $torrentRequest->category_id = $category;
+        $torrentRequest->type = $type;
+        $torrentRequest->description = $description;
+        $torrentRequest->anon = $anon;
 
-            if ($v->fails()) {
-                return redirect()->route('requests')
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+        $v = validator($torrentRequest->toArray(), [
+            'name'        => 'required|max:180',
+            'imdb'        => 'required|numeric',
+            'tvdb'        => 'required|numeric',
+            'tmdb'        => 'required|numeric',
+            'mal'         => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+            'type'        => 'required',
+            'description' => 'required|string',
+            'anon'        => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('requests')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
+            $torrentRequest->save();
+
+            if ($user->group->is_modo) {
+                // Activity Log
+                \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
             } else {
-                $torrentRequest->save();
-
-                if ($user->group->is_modo) {
-                    // Activity Log
-                    \LogActivity::addToLog("Staff Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-                } else {
-                    // Activity Log
-                    \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
-                }
-
-                return redirect()->route('requests', ['id' => $torrentRequest->id])
-                    ->with($this->toastr->success('Request Edited Successfully.', 'Yay!', ['options']));
+                // Activity Log
+                \LogActivity::addToLog("Member {$user->username} has edited torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
             }
+
+            return redirect()->route('requests', ['id' => $torrentRequest->id])
+                ->with($this->toastr->success('Request Edited Successfully.', 'Yay!', ['options']));
         }
     }
 

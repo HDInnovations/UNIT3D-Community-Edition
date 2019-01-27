@@ -928,16 +928,13 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true || $user->id == $topic->first_post_user_id) {
-            $topic->state = 'close';
-            $topic->save();
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->success('This Topic Is Now Closed!', 'Success', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        $topic->state = 'close';
+        $topic->save();
+
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with($this->toastr->success('This Topic Is Now Closed!', 'Success', ['options']));
     }
 
     /**
@@ -952,16 +949,13 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true || $user->id == $topic->first_post_user_id) {
-            $topic->state = 'open';
-            $topic->save();
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->success('This Topic Is Now Open!', 'Success', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        $topic->state = 'open';
+        $topic->save();
+
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with($this->toastr->success('This Topic Is Now Open!', 'Success', ['options']));
     }
 
     /**
@@ -976,17 +970,14 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true) {
-            $posts = $topic->posts();
-            $posts->delete();
-            $topic->delete();
 
-            return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
-                ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo, 403);
+        $posts = $topic->posts();
+        $posts->delete();
+        $topic->delete();
+
+        return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
+            ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
     }
 
     /**

@@ -237,91 +237,89 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $staff = auth()->user();
 
-        if ($user->group->is_modo || auth()->user()->id == $user->id) {
-            return redirect()->route('home')
-                ->with($this->toastr->error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
-        } else {
-            // Removes UserID from Torrents if any and replaces with System UserID (1)
-            foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
-                $tor->user_id = 1;
-                $tor->save();
-            }
-            // Removes UserID from Comments if any and replaces with System UserID (1)
-            foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-                $com->user_id = 1;
-                $com->save();
-            }
-            // Removes UserID from Posts if any and replaces with System UserID (1)
-            foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-                $post->user_id = 1;
-                $post->save();
-            }
-            // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-            foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-                $topic->first_post_user_id = 1;
-                $topic->save();
-            }
-            // Removes UserID from Topic if any and replaces with System UserID (1)
-            foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-                $topic->last_post_user_id = 1;
-                $topic->save();
-            }
-            // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-                $sent->sender_id = 1;
-                $sent->save();
-            }
-            // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
-                $received->receiver_id = 1;
-                $received->save();
-            }
-            // Removes all Posts made by User from the shoutbox
-            foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
-                $shout->delete();
-            }
-            // Removes all notes for user
-            foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-                $note->delete();
-            }
-            // Removes all likes for user
-            foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
-                $like->delete();
-            }
-            // Removes all thanks for user
-            foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
-                $thank->delete();
-            }
-            // Removes all follows for user
-            foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-                $follow->delete();
-            }
-            // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-            foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
-                $sent_invite->user_id = 1;
-                $sent_invite->save();
-            }
-            // Removes UserID from Received Invite if any and replaces with System UserID (1)
-            foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
-                $received_invite->accepted_by = 1;
-                $received_invite->save();
-            }
-            // Removes all Peers for user
-            foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
-                $peer->delete();
-            }
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
+        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
-            if ($user->delete()) {
-                return redirect('staff_dashboard')
-                    ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
-            } else {
-                return redirect('staff_dashboard')
-                    ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
-            }
+        // Removes UserID from Torrents if any and replaces with System UserID (1)
+        foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
+            $tor->user_id = 1;
+            $tor->save();
+        }
+        // Removes UserID from Comments if any and replaces with System UserID (1)
+        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
+            $com->user_id = 1;
+            $com->save();
+        }
+        // Removes UserID from Posts if any and replaces with System UserID (1)
+        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
+            $post->user_id = 1;
+            $post->save();
+        }
+        // Removes UserID from Topic Creators if any and replaces with System UserID (1)
+        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->first_post_user_id = 1;
+            $topic->save();
+        }
+        // Removes UserID from Topic if any and replaces with System UserID (1)
+        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->last_post_user_id = 1;
+            $topic->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (1)
+        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
+            $sent->sender_id = 1;
+            $sent->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (1)
+        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
+            $received->receiver_id = 1;
+            $received->save();
+        }
+        // Removes all Posts made by User from the shoutbox
+        foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
+            $shout->delete();
+        }
+        // Removes all notes for user
+        foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
+            $note->delete();
+        }
+        // Removes all likes for user
+        foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
+            $like->delete();
+        }
+        // Removes all thanks for user
+        foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
+            $thank->delete();
+        }
+        // Removes all follows for user
+        foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
+            $follow->delete();
+        }
+        // Removes UserID from Sent Invites if any and replaces with System UserID (1)
+        foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
+            $sent_invite->user_id = 1;
+            $sent_invite->save();
+        }
+        // Removes UserID from Received Invite if any and replaces with System UserID (1)
+        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
+            $received_invite->accepted_by = 1;
+            $received_invite->save();
+        }
+        // Removes all Peers for user
+        foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
+            $peer->delete();
+        }
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
+
+        if ($user->delete()) {
+            return redirect('staff_dashboard')
+                ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
+        } else {
+            return redirect('staff_dashboard')
+                ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
+
 
     /**
      * Mass Validate Unvalidated Users.
