@@ -216,6 +216,12 @@
                 <td><span class="badge-user group-member">{{ $user->getRatioString() }}</span></td>
             </tr>
             <tr>
+               <td>@lang('common.buffer')</td>
+                <td>
+                    <span class="badge-user group-member">{{ $user->untilRatio(config('other.ratio')) }}</span>
+                </td>
+            </tr>
+            <tr>
                 <td>@lang('user.total-seedtime-all')</td>
                 <td>
                     <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed($history->sum('seedtime')) }}</span>
