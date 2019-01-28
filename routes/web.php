@@ -45,9 +45,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
 
         // Application Routes
-        Route::get('/application', 'Auth\ApplicationController@create')->name('create_application');
-        Route::post('/application', 'Auth\ApplicationController@store')->name('add_application');
-        Route::get('/application/{email}', 'Auth\ApplicationController@show')->name('get_application');
+        Route::get('/application', 'Auth\ApplicationController@create')->name('application.create');
+        Route::post('/application', 'Auth\ApplicationController@store')->name('application.store');
 
         // Activation Routes
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
@@ -586,9 +585,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/tag/edit/{slug}.{id}', 'TagController@edit')->name('staff_tag_edit');
 
         // Applications System
-        Route::get('/applications', 'ApplicationController@index')->name('applications');
-        Route::get('/application/{id}', 'ApplicationController@show')->name('application');
-        Route::get('/application/{id}/approve', 'ApplicationController@approve')->name('application_approve');
-        Route::get('/application/{id}/reject', 'ApplicationController@reject')->name('application_reject');
+        Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
+        Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
+        Route::get('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+        Route::get('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
     });
 });

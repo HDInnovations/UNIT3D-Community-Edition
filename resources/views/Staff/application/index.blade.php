@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('applications') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Applications</span>
         </a>
     </li>
@@ -68,7 +68,7 @@
                                 </td>
                                 <td>{{ $application->moderated->username ?? 'N/A' }}</td>
                                 <td>
-                                    <a href="{{ route('application', ['id' => $application->id]) }}" class="btn btn-xs btn-success">
+                                    <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" class="btn btn-xs btn-success">
                                         <i class="{{ config('other.font-awesome') }} fa-eye"></i> View App
                                     </a>
                                 </td>

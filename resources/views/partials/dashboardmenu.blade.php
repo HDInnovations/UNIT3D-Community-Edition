@@ -51,7 +51,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('applications') }}">
+                <a href="{{ route('staff.applications.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.applications')
                     <span class="badge badge-danger"> {{ $app_count }} </span>
                 </a>

@@ -5,7 +5,21 @@
 @endsection
 
 @section('breadcrumb')
-
+    <li>
+        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('staff.applications.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Applications</span>
+        </a>
+    </li>
+    <li class="active">
+        <a href="{{ route('staff.applications.show', ['id' => $application->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">Application</span>
+        </a>
+    </li>
 @endsection
 
 @section('content')
@@ -78,11 +92,11 @@
                             <strong>Action</strong>
                         </td>
                         <td>
-                            <a href="{{ route('application_approve', ['id' => $application->id]) }}"
+                            <a href="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
                                class="btn btn-xs btn-success">
                                 <i class="{{ config('other.font-awesome') }} fa-check"></i> Approve
                             </a>
-                            <a href="{{ route('application_reject', ['id' => $application->id]) }}"
+                            <a href="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
                                class="btn btn-xs btn-danger">
                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> Reject
                             </a>
