@@ -18,6 +18,7 @@
 
 <body>
 <br>
+@if(config('other.application_signups') == true)
 <div class="container">
     <div class="block">
         <div class="row">
@@ -38,7 +39,7 @@
                         </div>
                         <hr>
 
-                        <form role="form" method="POST" action="{{ route('add_application') }}">
+                        <form role="form" method="POST" action="{{ route('application.store') }}">
                             @csrf
 
                             <label for="type" class="control-label">Are You:</label>
@@ -113,10 +114,6 @@
                                     <button type="submit" class="btn btn-primary">
                                         Submit Application
                                     </button>
-                                    <br>
-                                    <button class="btn btn-info" disabled>
-                                        Already Submitted One?
-                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -164,6 +161,20 @@
 </script>
 
 {!! Toastr::message() !!}
+
+@else
+    <div class="container">
+        <div class="jumbotron shadowed">
+            <div class="container">
+                <h1 class="mt-5 text-center">
+                    <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>Applications Are Closed
+                </h1>
+                <div class="separator"></div>
+                <p class="text-center">Check Back Later!</p>
+            </div>
+        </div>
+    </div>
+@endif
 </body>
 
 </html>
