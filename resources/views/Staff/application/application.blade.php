@@ -58,8 +58,18 @@
                             <strong>Profile Images<br>(Click For Preview)</strong>
                         </td>
                         <td>
-                            @foreach($application->imageProofs as $img_proof)
-                                <li>{{ $img_proof->image }}</li>
+                            @foreach($application->imageProofs as $key => $img_proof)
+                                <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" data-dismiss="modal">
+                                        <div class="modal-content"  >
+                                            <div class="modal-body">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <img src="{{ $img_proof->image }}" class="img-responsive" style="width: 100%;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <li><button id="show-img" type="button" class="btn btn-default" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button></li>
                             @endforeach
                         </td>
                     </tr>
@@ -68,8 +78,8 @@
                             <strong>Profile Links<br>(Click For Popup)</strong>
                         </td>
                         <td>
-                            @foreach($application->urlProofs as $url_proof)
-                                <li>{{ $url_proof->url }}</li>
+                            @foreach($application->urlProofs as $key => $url_proof)
+                                <li><a href="{{ $url_proof->url }}" target="_blank">Profile Link {{ ++$key }}</a></li>
                             @endforeach
                         </td>
                     </tr>
