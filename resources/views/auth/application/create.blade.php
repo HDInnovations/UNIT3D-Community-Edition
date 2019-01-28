@@ -105,8 +105,8 @@
                             <hr>
 
                             <div class="form-group">
-                                <label for="referer">How Did You Hear About {{ config('other.title') }} And Why Do You Want In? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
-                                <textarea name="referer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
+                                <label for="referrer">How Did You Hear About {{ config('other.title') }} And Why Do You Want In? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
+                                <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group">

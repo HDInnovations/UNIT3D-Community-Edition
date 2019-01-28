@@ -57,13 +57,13 @@ class ApplicationController extends Controller
         $application = new Application();
         $application->type = $request->input('type');
         $application->email = $request->input('email');
-        $application->referer = $request->input('referer');
+        $application->referrer = $request->input('referrer');
 
         if (config('email-white-blacklist.enabled') === 'allow') {
             $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
-                'referer' => 'required',
+                'referrer' => 'required',
                 'images.*' => 'filled',
                 'images'   => 'min:2',
                 'links.*' => 'filled',
@@ -73,7 +73,7 @@ class ApplicationController extends Controller
             $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
-                'referer' => 'required',
+                'referrer' => 'required',
                 'images.*' => 'filled',
                 'images'   => 'min:2',
                 'links.*' => 'filled',
@@ -83,7 +83,7 @@ class ApplicationController extends Controller
             $v = validator($request->all(), [
                 'type' => 'required',
                 'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                'referer' => 'required',
+                'referrer' => 'required',
                 'images.*' => 'filled',
                 'images'   => 'min:2',
                 'links.*' => 'filled',
@@ -92,7 +92,7 @@ class ApplicationController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('create_application')
+            return redirect()->route('application.create')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $application->save();

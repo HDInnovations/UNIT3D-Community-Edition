@@ -12,12 +12,12 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Invite;
 use Carbon\Carbon;
 use App\Application;
 use Ramsey\Uuid\Uuid;
 use App\Mail\InviteUser;
 use Brian2694\Toastr\Toastr;
+use App\Mail\DenyApplication;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
@@ -63,16 +63,17 @@ class ApplicationController extends Controller
     {
         $application = Application::withAnyStatus()->with(['user', 'moderated', 'imageProofs', 'urlProofs'])->findOrFail($id);
 
-        return view('Staff.application.application', ['application' => $application]);
+        return view('Staff.application.show', ['application' => $application]);
     }
 
     /**
      * Approve A Application.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      * @return Illuminate\Http\RedirectResponse
      */
-    public function approve($id)
+    public function approve(Request $request, $id)
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
@@ -88,7 +89,7 @@ class ApplicationController extends Controller
             $invite->email = $application->email;
             $invite->code = $code;
             $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
-            $invite->custom = 'Your Application Has Been Approved!';
+            $invite->custom = $request->input('approve_message');
 
             if (config('email-white-blacklist.enabled') === 'allow') {
                 $v = validator($invite->toArray(), [
@@ -108,7 +109,7 @@ class ApplicationController extends Controller
             }
 
             if ($v->fails()) {
-                return redirect()->route('applications')
+                return redirect()->route('staff.applications.index')
                     ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
             } else {
                 Mail::to($application->email)->send(new InviteUser($invite));
@@ -117,7 +118,7 @@ class ApplicationController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
 
-                return redirect()->route('applications')
+                return redirect()->route('staff.applications.index')
                     ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
             }
         } else {
@@ -129,17 +130,21 @@ class ApplicationController extends Controller
     /**
      * Reject A Application.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 2) {
             $application->markRejected();
+            $denied_message = $request->input('denied_message');
 
-            return redirect()->route('applications')
+            Mail::to($application->email)->send(new DenyApplication($denied_message));
+
+            return redirect()->route('staff.applications.index')
                 ->with($this->toastr->info('Application Rejected', 'Info!', ['options']));
         } else {
             return redirect()->back()

@@ -59,6 +59,7 @@
                         </td>
                         <td>
                             @foreach($application->imageProofs as $key => $img_proof)
+                                <li><button id="show-img" type="button" class="btn btn-default" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button></li>
                                 <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" data-dismiss="modal">
                                         <div class="modal-content"  >
@@ -69,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <li><button id="show-img" type="button" class="btn btn-default" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button></li>
                             @endforeach
                         </td>
                     </tr>
@@ -81,6 +81,16 @@
                             @foreach($application->urlProofs as $key => $url_proof)
                                 <li><a href="{{ $url_proof->url }}" target="_blank">Profile Link {{ ++$key }}</a></li>
                             @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Referrer</strong>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <textarea name="referrer" cols="30" rows="10" class="form-control" disabled="">{{ $application->referrer }}</textarea>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -102,14 +112,49 @@
                             <strong>Action</strong>
                         </td>
                         <td>
-                            <a href="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
-                               class="btn btn-xs btn-success">
-                                <i class="{{ config('other.font-awesome') }} fa-check"></i> Approve
-                            </a>
-                            <a href="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
-                               class="btn btn-xs btn-danger">
-                                <i class="{{ config('other.font-awesome') }} fa-times"></i> Reject
-                            </a>
+                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#approve-application">Open Modal</button>
+
+                            <div id="approve-application" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Approve This Application</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea title="Approval Message To Applicant" class="form-control" rows="5" name="message" cols="50" id="approve_message"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
+                                               class="btn btn-success">
+                                                <i class="{{ config('other.font-awesome') }} fa-check"></i> Approve
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#deny-application">Open Modal</button>
+
+                            <div id="deny-application" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Deny This Application</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <textarea title="Denied Message To Applicant" class="form-control" rows="5" name="message" cols="50" id="denied_message"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
+                                               class="btn btn-danger">
+                                                <i class="{{ config('other.font-awesome') }} fa-times"></i> Reject
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
