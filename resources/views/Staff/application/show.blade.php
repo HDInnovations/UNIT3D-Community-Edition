@@ -59,7 +59,7 @@
                         </td>
                         <td>
                             @foreach($application->imageProofs as $key => $img_proof)
-                                <li><button id="show-img" type="button" class="btn btn-default" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button></li>
+                                <button id="show-img" type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#image-{{ $img_proof->id }}">Profile Image {{ ++$key }}</button>
                                 <div id="image-{{ $img_proof->id }}" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
                                     <div class="modal-dialog" data-dismiss="modal">
                                         <div class="modal-content"  >
@@ -107,12 +107,20 @@
                             @endif
                         </td>
                     </tr>
+                    @if($application->status != 0)
+                    <tr>
+                        <td>
+                            <strong>Moderated By</strong>
+                        </td>
+                        <td>{{ $application->moderated->username }}</td>
+                    </tr>
+                    @else
                     <tr>
                         <td>
                             <strong>Action</strong>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#approve-application">Open Modal</button>
+                            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approve-application"><i class="{{ config('other.font-awesome') }} fa-check"></i> Approve</button>
 
                             <div id="approve-application" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -122,7 +130,7 @@
                                             <h4 class="modal-title">Approve This Application</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea title="Approval Message To Applicant" class="form-control" rows="5" name="message" cols="50" id="approve_message"></textarea>
+                                            <textarea title="Approval Message To Applicant" class="form-control" rows="5" cols="50" name="approve_message"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
@@ -134,7 +142,7 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#deny-application">Open Modal</button>
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deny-application"><i class="{{ config('other.font-awesome') }} fa-times"></i> Reject</button>
 
                             <div id="deny-application" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
@@ -144,7 +152,7 @@
                                             <h4 class="modal-title">Deny This Application</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea title="Denied Message To Applicant" class="form-control" rows="5" name="message" cols="50" id="denied_message"></textarea>
+                                            <textarea title="Denied Message To Applicant" class="form-control" rows="5" cols="50" name="denied_message"></textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <a href="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
@@ -157,6 +165,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>

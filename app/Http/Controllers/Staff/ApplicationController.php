@@ -12,10 +12,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Invite;
 use Carbon\Carbon;
 use App\Application;
 use Ramsey\Uuid\Uuid;
 use App\Mail\InviteUser;
+use Illuminate\Http\Request;
 use Brian2694\Toastr\Toastr;
 use App\Mail\DenyApplication;
 use App\Http\Controllers\Controller;
@@ -78,8 +80,6 @@ class ApplicationController extends Controller
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 1) {
-            $application->markApproved();
-
             $current = new Carbon();
             $user = auth()->user();
 
@@ -114,6 +114,7 @@ class ApplicationController extends Controller
             } else {
                 Mail::to($application->email)->send(new InviteUser($invite));
                 $invite->save();
+                $application->markApproved();
 
                 // Activity Log
                 \LogActivity::addToLog("Staff member {$user->username} has approved {$application->email} application.");
