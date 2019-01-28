@@ -320,7 +320,6 @@ class UserController extends Controller
         }
     }
 
-
     /**
      * Mass Validate Unvalidated Users.
      *
