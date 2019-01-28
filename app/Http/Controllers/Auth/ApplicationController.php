@@ -113,16 +113,4 @@ class ApplicationController extends Controller
                 ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
         }
     }
-
-    /**
-     * Get A Application (User Can Check Status).
-     *
-     * @param  $email
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show($email)
-    {
-        // Coming Soon!
-        return view('auth.application.application');
-    }
 }
