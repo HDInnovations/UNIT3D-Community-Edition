@@ -39,6 +39,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Incognito</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
@@ -87,6 +88,10 @@
                         <td>
                             <input type="hidden" name="is_freeleech" value="0">
                             <input type="checkbox" name="is_freeleech" value="1">
+                        </td>
+                        <td>
+                            <input type="hidden" name="is_incognito" value="0">
+                            <input type="checkbox" name="is_incognito" value="1">
                         </td>
                         <td>
                             <input type="hidden" name="can_upload" value="0">

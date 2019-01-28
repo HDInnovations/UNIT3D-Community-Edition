@@ -85,9 +85,13 @@
                             @endif
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-danger" @if ($resurrection->rewarded == 1) disabled @endif>
-                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                            </button>
+                            <form action="{{ route('graveyard.destroy', ['id' => $resurrection->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" @if ($resurrection->rewarded == 1) disabled @endif>
+                                    <i class="{{ config('other.font-awesome') }} fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

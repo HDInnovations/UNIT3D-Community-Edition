@@ -242,7 +242,7 @@
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['os'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-desktop black-icon text-green"></i>
+                                    <i class="fal fa-desktop black-icon text-green"></i>
                                 </div>
                             </div>
 
@@ -252,7 +252,7 @@
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">php{{ $basic['php'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-terminal black-icon text-green"></i>
+                                    <i class="fal fa-terminal black-icon text-green"></i>
                                 </div>
                             </div>
 
@@ -262,7 +262,7 @@
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['database'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-database black-icon text-green"></i>
+                                    <i class="fal fa-database black-icon text-green"></i>
                                 </div>
                             </div>
 
@@ -272,7 +272,7 @@
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">Ver. {{ $basic['laravel'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-code-merge black-icon text-green"></i>
+                                    <i class="fal fa-code-merge black-icon text-green"></i>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +285,7 @@
                                     <br>
                                     <span class="badge-user">Free: {{ $ram['free'] }}</span>
                                     <span class="badge-user">Used: {{ $ram['used'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-memory black-icon text-green"></i>
+                                    <i class="fal fa-memory black-icon text-green"></i>
                                 </div>
                             </div>
 
@@ -296,7 +296,7 @@
                                     <br>
                                     <span class="badge-user">Free: {{ $disk['free'] }}</span>
                                     <span class="badge-user">Used: {{ $disk['used'] }}</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-hdd black-icon text-green"></i>
+                                    <i class="fal fa-hdd black-icon text-green"></i>
                                 </div>
                             </div>
 
@@ -306,7 +306,7 @@
                                     <span class="badge-user">Average: {{ $avg }}</span>
                                     <br>
                                     <span class="badge-user">Estimated</span>
-                                    <i class=" {{ config('other.font-awesome') }} fa-balance-scale-right black-icon text-green"></i>
+                                    <i class="fal fa-balance-scale-right black-icon text-green"></i>
                                 </div>
                             </div>
                         </div>

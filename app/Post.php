@@ -52,6 +52,16 @@ class Post extends Model
     }
 
     /**
+     * A Post Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tips()
+    {
+        return $this->hasMany(BonTransactions::class);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      *
      * @return string Parsed BBCODE To HTML

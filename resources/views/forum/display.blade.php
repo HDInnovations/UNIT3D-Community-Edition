@@ -24,18 +24,52 @@
 
 @section('content')
     <div class="container box">
-        <div class="f-display">
-            <div class="f-display-info col-md-12">
-                <h1 class="f-display-info-title">{{ $forum->name }}</h1>
-                <p class="f-display-info-description">{{ $forum->description }}
-                    @if ($category->getPermission()->start_topic == true)
-                        <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
-                           class="btn btn-primary" style="float:right;">@lang('forum.create-new-topic')</a>
-                    @endif
-                </p>
-            </div>
-            <div class="f-display-table-wrapper col-md-12">
-                <table class="f-display-topics table col-md-12">
+        @include('forum.buttons')
+        <form role="form" method="GET" action="{{ route('forum_search_form') }}">
+            <input type="hidden" name="sorting" value="created_at">
+            <input type="hidden" name="direction" value="2">
+            <input type="hidden" name="category" value="{{ $forum->id }}">
+            <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.category-quick-search')"
+                   class="form-control">
+        </form>
+        <div class="forum-categories">
+            <table class="table table-bordered table-hover">
+                <thead class="no-space">
+                    <tr class="no-space">
+                        <td colspan="5" class="no-space">
+                            <div class="header gradient teal some-padding">
+                                <div class="inner_content">
+                                    <h1 class="no-space">{{ $forum->name }}</h1>
+                                    <div class="text-center some-padding">{{ $forum->description }}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </thead>
+                <thead>
+                <tr>
+                <td colspan="5">
+                <div class="button-holder">
+                    <div class="button-left"></div>
+                    <div class="button-right">
+                            @if ($category->getPermission()->start_topic == true)
+                            <a href="{{ route('forum_new_topic_form', ['slug' => $forum->slug, 'id' => $forum->id]) }}"
+                               class="btn btn-sm btn-primary">@lang('forum.create-new-topic')</a>
+                            @endif
+                            @if ($category->getPermission()->show_forum == true)
+                                    @if (auth()->user()->isSubscribed('forum',$forum->id))
+                                        <a href="{{ route('unsubscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" class="btn btn-sm btn-danger">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell-slash"></i> Unsubscribe</a>
+                                    @else
+                                        <a href="{{ route('subscribe_forum', ['forum' => $forum->id, 'route' => 'forum']) }}" class="btn btn-sm btn-success">
+                                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> Subscribe</a>
+                                    @endif
+                            @endif
+                    </div>
+                </div>
+                </td>
+                </tr>
+                </thead>
                     <thead>
                     <tr>
                         <th></th>
@@ -93,9 +127,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="f-display-pagination col-md-12">
+            <div class="text-center col-md-12">
                 {{ $topics->links() }}
             </div>
         </div>
-    </div>
 @endsection

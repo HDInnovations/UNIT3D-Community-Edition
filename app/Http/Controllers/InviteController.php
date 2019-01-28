@@ -56,6 +56,10 @@ class InviteController extends Controller
             return redirect()->route('home')
             ->with($this->toastr->error('Your Invite Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
+            return redirect()->route('home')
+                ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
+        }
 
         return view('user.invite', ['user' => $user]);
     }
@@ -71,11 +75,9 @@ class InviteController extends Controller
     {
         $current = new Carbon();
         $user = auth()->user();
-        $invites_restricted = config('other.invites_restriced', false);
-        $invite_groups = config('other.invite_groups', []);
 
-        if ($invites_restricted && ! in_array($user->group->name, $invite_groups)) {
-            return redirect()->route('invite')
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
+            return redirect()->route('home')
                 ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }
 

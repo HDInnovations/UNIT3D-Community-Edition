@@ -78,7 +78,8 @@ class GraveyardController extends Controller
         $current = Carbon::now();
         $user = auth()->user();
         $search = $request->input('search');
-        $imdb = $request->input('imdb');
+        $imdb_id = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
         $mal = $request->input('mal');
@@ -148,19 +149,19 @@ class GraveyardController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function resurrect(Request $request, $id)
+    public function store(Request $request, $id)
     {
         $user = auth()->user();
         $torrent = Torrent::findOrFail($id);
         $resurrected = Graveyard::where('torrent_id', '=', $torrent->id)->first();
 
         if ($resurrected) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error('Torrent Resurrection Failed! This torrent is already pending a resurrection.', 'Whoops!', ['options']));
         }
 
         if ($user->id === $torrent->user_id) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error('Torrent Resurrection Failed! You cannot resurrect your own uploads.', 'Whoops!', ['options']));
         }
 
@@ -176,13 +177,32 @@ class GraveyardController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $resurrection->save();
 
-            return redirect()->route('graveyard')
+            return redirect()->route('graveyard.index')
                 ->with($this->toastr->success('Torrent Resurrection Complete! You will be rewarded automatically once seedtime requirements are met.', 'Yay!', ['options']));
         }
+    }
+
+    /**
+     * Cancel A Ressurection.
+     *
+     * @param  int  $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $user = auth()->user();
+        $resurrection = Graveyard::findOrFail($id);
+
+        abort_unless($user->group->is_modo || $user->id === $resurrection->user_id, 403);
+        $resurrection->delete();
+
+        return redirect()->route('graveyard.index')
+            ->with($this->toastr->success('Ressurection Successfully Canceled!', 'Yay!', ['options']));
     }
 }

@@ -14,6 +14,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use App\Ban;
 use App\Peer;
 use App\User;
 use App\Group;
@@ -670,6 +671,91 @@ class UserController extends Controller
     }
 
     /**
+     * Uses Input's To Put Together A Filtered View.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return array
+     */
+    public function myFilter(Request $request, $username, $id)
+    {
+        $user = User::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+
+        if ($request->has('view') && $request->input('view') == 'history') {
+            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+            $history = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents as torrents', 'torrents.info_hash', '=', 'history.info_hash');
+
+            $order = null;
+            $sorting = null;
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($request->has('completed') && $request->input('completed') != null) {
+                $history->where('completed_at', '>', 0);
+            }
+
+            if ($request->has('active') && $request->input('active') != null) {
+                $history->where('active', '=', 1);
+            }
+
+            if ($request->has('seeding') && $request->input('seeding') != null) {
+                $history->where('seeder', '=', 1);
+            }
+
+            if ($request->has('prewarned') && $request->input('prewarned') != null) {
+                $history->where('prewarn', '=', 1);
+            }
+
+            if ($request->has('hr') && $request->input('hr') != null) {
+                $history->where('hitrun', '=', 1);
+            }
+
+            if ($request->has('immune') && $request->input('immune') != null) {
+                $history->where('immune', '=', 1);
+            }
+
+            if ($sorting != 'name') {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('history.'.$sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters', [
+                'user' => $user,
+                'history' => $table,
+                'his_upl' => $his_upl,
+                'his_upl_cre' => $his_upl_cre,
+                'his_downl' => $his_downl,
+                'his_downl_cre' => $his_downl_cre,
+            ])->render();
+        }
+
+        return false;
+    }
+
+    /**
      * Get A Users History Table.
      *
      * @param $username
@@ -824,6 +910,27 @@ class UserController extends Controller
         return view('user.resurrections', [
             'user' => $user,
             'resurrections' => $resurrections,
+        ]);
+    }
+
+    /**
+     * Get A Users Bans.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getBans($username, $id)
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $user = User::findOrFail($id);
+        $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
+
+        return view('user.banlog', [
+            'user'      => $user,
+            'bans'  => $bans,
         ]);
     }
 }

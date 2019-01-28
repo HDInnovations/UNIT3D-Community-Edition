@@ -45,8 +45,8 @@ if (! function_exists('hrefTorrent')) {
     }
 }
 
-if (! function_exists('hrefTorrentRequest')) {
-    function hrefTorrentRequest($torrentRequest)
+if (! function_exists('hrefRequest')) {
+    function hrefRequest($torrentRequest)
     {
         $appurl = appurl();
         $slug = str_slug($torrentRequest->name);

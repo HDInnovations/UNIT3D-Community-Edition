@@ -67,7 +67,7 @@
                         <div class="text-center black-item">
                             <span class="text-bold">{{ $w }}</span>
                             <h4>@lang('page.whitelist-emaildomain')</h4>
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green black-icon"></i>
+                            <i class="fal fa-check text-green black-icon"></i>
                         </div>
                     </div>
                 @endforeach
@@ -81,7 +81,7 @@
                         <div class="text-center black-item">
                             <span class="text-bold">{{ $b }}</span>
                             <h4>@lang('page.blacklist-emaildomain')</h4>
-                            <i class="{{ config('other.font-awesome') }} fa-ban text-red black-icon"></i>
+                            <i class="fal fa-ban text-red black-icon"></i>
                         </div>
                     </div>
                 @endforeach

@@ -68,43 +68,40 @@ class BanController extends Controller
         $staff = auth()->user();
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
 
-        if ($user->group->is_modo || auth()->user()->id == $user->id) {
+        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+
+        $user->group_id = $bannedGroup->id;
+        $user->can_upload = 0;
+        $user->can_download = 0;
+        $user->can_comment = 0;
+        $user->can_invite = 0;
+        $user->can_request = 0;
+        $user->can_chat = 0;
+
+        $ban = new Ban();
+        $ban->owned_by = $user->id;
+        $ban->created_by = $staff->id;
+        $ban->ban_reason = $request->input('ban_reason');
+
+        $v = validator($ban->toArray(), [
+            'ban_reason' => 'required',
+        ]);
+
+        if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You Cannot Ban Yourself Or Other Staff!', 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $user->group_id = $bannedGroup->id;
-            $user->can_upload = 0;
-            $user->can_download = 0;
-            $user->can_comment = 0;
-            $user->can_invite = 0;
-            $user->can_request = 0;
-            $user->can_chat = 0;
+            $user->save();
+            $ban->save();
 
-            $ban = new Ban();
-            $ban->owned_by = $user->id;
-            $ban->created_by = $staff->id;
-            $ban->ban_reason = $request->input('ban_reason');
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
 
-            $v = validator($ban->toArray(), [
-                'ban_reason' => 'required',
-            ]);
+            // Send Email
+            Mail::to($user->email)->send(new BanUser($user->email, $ban));
 
-            if ($v->fails()) {
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-            } else {
-                $user->save();
-                $ban->save();
-
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$staff->username} has banned member {$user->username}.");
-
-                // Send Email
-                Mail::to($user->email)->send(new BanUser($user, $ban));
-
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with($this->toastr->success('User Is Now Banned!', 'Yay!', ['options']));
-            }
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                ->with($this->toastr->success('User Is Now Banned!', 'Yay!', ['options']));
         }
     }
 
@@ -122,45 +119,42 @@ class BanController extends Controller
         $user = User::findOrFail($id);
         $staff = auth()->user();
 
-        if ($user->group->is_modo || auth()->user()->id == $user->id) {
+        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+
+        $user->group_id = $request->input('group_id');
+        $user->can_upload = 1;
+        $user->can_download = 1;
+        $user->can_comment = 1;
+        $user->can_invite = 1;
+        $user->can_request = 1;
+        $user->can_chat = 1;
+
+        $ban = new Ban();
+        $ban->owned_by = $user->id;
+        $ban->created_by = $staff->id;
+        $ban->unban_reason = $request->input('unban_reason');
+        $ban->removed_at = Carbon::now();
+
+        $v = validator($request->all(), [
+            'group_id'     => 'required',
+            'unban_reason' => 'required',
+        ]);
+
+        if ($v->fails()) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                ->with($this->toastr->error('You Cannot Unban Yourself Or Other Staff!', 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            $user->group_id = $request->input('group_id');
-            $user->can_upload = 1;
-            $user->can_download = 1;
-            $user->can_comment = 1;
-            $user->can_invite = 1;
-            $user->can_request = 1;
-            $user->can_chat = 1;
+            $user->save();
+            $ban->save();
 
-            $ban = new Ban();
-            $ban->owned_by = $user->id;
-            $ban->created_by = $staff->id;
-            $ban->unban_reason = $request->input('unban_reason');
-            $ban->removed_at = Carbon::now();
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
 
-            $v = validator($request->all(), [
-                'group_id'     => 'required',
-                'unban_reason' => 'required',
-            ]);
+            // Send Email
+            Mail::to($user->email)->send(new UnbanUser($user->email, $ban));
 
-            if ($v->fails()) {
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-            } else {
-                $user->save();
-                $ban->save();
-
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$staff->username} has unbanned member {$user->username}.");
-
-                // Send Email
-                Mail::to($user->email)->send(new UnbanUser($user, $ban));
-
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
-                    ->with($this->toastr->success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
-            }
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                ->with($this->toastr->success('User Is Now Relieved Of His Ban!', 'Yay!', ['options']));
         }
     }
 }

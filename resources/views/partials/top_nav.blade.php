@@ -102,6 +102,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('bookmarks') }}">
+                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> @lang('auth.logout')

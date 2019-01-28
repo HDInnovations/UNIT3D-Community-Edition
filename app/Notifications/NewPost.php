@@ -8,30 +8,35 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
 
-use App\Comment;
+use App\Post;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewRequestComment extends Notification
+class NewPost extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $comment;
+    public $post;
+    public $type;
 
     /**
      * Create a new notification instance.
      *
+     * @param Post $post
+     * @param string $type
+     *
      * @return void
      */
-    public function __construct(Comment $comment)
+    public function __construct(string $type, Post $post)
     {
-        $this->comment = $comment;
+        $this->post = $post;
+        $this->type = $type;
     }
 
     /**
@@ -56,17 +61,12 @@ class NewRequestComment extends Notification
     public function toArray($notifiable)
     {
         $appurl = config('app.url');
-        if ($this->comment->anon == 0) {
+
+        if ($this->type == 'topic') {
             return [
-                'title' => 'New Request Comment Received',
-                'body'  => $this->comment->user->username.' has left you a comment on '.$this->comment->request->name,
-                'url'   => $appurl.'/request/'.$this->comment->request->id,
-            ];
-        } else {
-            return [
-                'title' => 'New Request Comment Received',
-                'body'  => 'A anonymous member has left you a comment on '.$this->comment->request->name,
-                'url'   => $appurl.'/request/'.$this->comment->request->id,
+                'title' => $this->post->user->username.' Has Posted In Topic',
+                'body' => $this->post->user->username.' has left a new post in Topic '.$this->post->topic->name,
+                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }
     }

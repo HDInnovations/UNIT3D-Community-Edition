@@ -58,6 +58,11 @@ class ThankController extends Controller
         $thank->torrent_id = $torrent->id;
         $thank->save();
 
+        //Notification
+        if ($user->id != $torrent->user_id) {
+            $torrent->notifyUploader('thank', $thank);
+        }
+
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Thank Was Successfully Applied!', 'Yay!', ['options']));
     }

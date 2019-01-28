@@ -4917,6 +4917,9 @@ pre {
     .container {
         width: 1300px;
     }
+    .fatten-me {
+        max-width: 1300px !important;
+    }
 }
 
 .btn-group-xxs > .btn,
@@ -5597,6 +5600,89 @@ a.sort {
 
 .mb-20 {
     margin-bottom: 20px;
+}
+
+.button-holder {
+    line-height: normal !important;
+    display: table;
+    width: 100%;
+    margin: 0px 0px 5px 0px !important;
+    padding: 0px !important;
+}
+.button-center {
+    display: table-cell;
+    width: 100%;
+    text-align: center;
+}
+.button-left {
+    display: table-cell;
+    width: 50%;
+    text-align: left;
+}
+.button-right {
+    display: table-cell;
+    width: 50%;
+    text-align: right;
+}
+.button-padding {
+    padding: 0px 10px !important;
+}
+.no-space {
+    margin: 0px !important;
+    padding: 0px !important;
+    line-height: initial !important;
+}
+.some-padding {
+    margin: 0px !important;
+    padding: 10px 0px !important;
+    line-height: initial !important;
+}
+.some-margin {
+    margin: 10px 0px !important;
+    padding: 0px !important;
+    line-height: initial !important;
+}
+.table-me {
+    margin-left: 0px !important;
+}
+.space-me {
+    margin: 10px !important;
+}
+
+@media screen and (max-width: 1280px) {
+    .fatten-me {
+        margin-left: 20px !important;
+    }
+    .table-me {
+        margin-left: 0px !important;
+    }
+}
+@media screen and (max-width: 768px) {
+    .fatten-me {
+        margin-left: 0px !important;
+        margin-bottom: 5px !important;
+        display: block !important;
+        width: 100%;
+        text-align: center;
+    }
+    .button-holder {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-left {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .button-right {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    .table-me {
+        margin-left: 0px !important;
+    }
 }
 
 .space-top {
@@ -7458,6 +7544,11 @@ body.tvshow .movie-poster {
     max-width: 100%;
 }
 
+.post-tips {
+    padding: 0px !important;
+    border-bottom: none !important;
+}
+
 .topic .topic-new-post {
     background: #e3e3e3;
     padding: 0.75em;
@@ -8848,7 +8939,6 @@ section.tall_categories {
     width: auto;
     display: flex;
     justify-content: space-between;
-    margin: 30px 120px;
 }
 
 section.tall_categories div.category {
@@ -8896,13 +8986,16 @@ section.tall_categories div.category.tv {
     }
 }
 
-section.tall_categories div.category.music {
-    background-image: url('/img/music.png');
+section.tall_categories div.category.trailer {
+    background-image: url('/img/trailer.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: cover;
 }
 
 @media only screen and (min-resolution: 2dppx) {
-    section.tall_categories div.category.music {
-        background-image: url('/img/music.png');
+    section.tall_categories div.category.trailer {
+        background-image: url('/img/trailer.png');
     }
 }
 
@@ -8952,7 +9045,7 @@ section.tall_categories div.category.tv span {
     background-color: #865bfd;
 }
 
-section.tall_categories div.category.music span {
+section.tall_categories div.category.trailer span {
     background-color: #0084ea;
 }
 
@@ -9068,6 +9161,10 @@ section.tall_categories div.category.movie span {
     border-radius: 5px;
 }
 
+.card.is-group {
+    height: auto !important;
+}
+
 @media screen and (min-width: 768px) {
     .card.is-torrent {
         margin-top: 30px;
@@ -9096,6 +9193,10 @@ section.tall_categories div.category.movie span {
 .card.is-torrent .card_body {
     display: flex;
     height: 231px;
+}
+
+.card.is-torrent .card_alt {
+    display: flex;
 }
 
 .card.is-torrent .poster_placeholder {
@@ -9138,6 +9239,14 @@ section.tall_categories div.category.movie span {
 
 .card.is-torrent .body_description:hover {
     overflow-y: auto;
+}
+
+.card.is-torrent .body_grouping {
+    padding: 14px 17px;
+}
+
+.card.is-torrent .body_grouping:hover {
+
 }
 
 .card.is-torrent .footer_network:before {
@@ -9236,6 +9345,8 @@ section.tall_categories div.category.movie span {
     padding: 10px;
     margin: 0 0 15px 15px;
     border-radius: 3px;
+    font-size: 14px !important;
+    font-family: inherit;
 }
 
 .decoda-quote-head {
@@ -9320,4 +9431,21 @@ img.emojione {
         border: 4px solid rgba(129, 149, 174, 0.74);
         margin-left: -3px;
     }
+}
+
+// Google ReCaptcha
+.g-recaptcha {
+    display: inline-block;
+}
+
+
+.form-bordered .form-group {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-left: 150px;
+    margin-top: 0;
+}
+
+.form-control {
+    margin-top: 0;
 }

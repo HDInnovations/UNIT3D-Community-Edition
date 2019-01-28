@@ -8,32 +8,38 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
 
-use App\Post;
+use App\Torrent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewTopicPost extends Notification implements ShouldQueue
+class NewUploadTip extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $post;
+    public $type;
+    public $tipper;
+    public $torrent;
+    public $amount;
 
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
+     * @param Torrent $torrent
      *
      * @return void
      */
-    public function __construct(Post $post)
+    public function __construct(string $type, string $tipper, $amount, Torrent $torrent)
     {
-        $this->post = $post;
+        $this->type = $type;
+        $this->tipper = $tipper;
+        $this->torrent = $torrent;
+        $this->amount = $amount;
     }
 
     /**
@@ -60,9 +66,9 @@ class NewTopicPost extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'Subscribed Topic Has A New Post',
-            'body'  => $this->post->user->username.' has left a new post on '.$this->post->topic->name,
-            'url'   => "{$appurl}/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
+            'body'  => $this->tipper.' has tipped one of your Uploaded torrents: '.$this->torrent->name,
+            'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
     }
 }

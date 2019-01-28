@@ -52,24 +52,37 @@
                         </a>
                     </p>
 
-                    <h3>Title:</h3>
-                    <p class="well well-sm">
-                        <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent_id]) }}">
-                            {{ $report->title }}
-                        </a>
-                    </p>
+                    @if ($report->torrent)
+                        <h3>@lang('torrent.torrent') Title:</h3>
+                        <p class="well well-sm">
+                            <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent->id]) }}">
+                                {{ $report->title }}
+                            </a>
+                        </p>
+                    @endif
+
+                    @if ($report->request)
+                        <h3>@lang('torrent.torrent-request') Title:</h3>
+                        <p class="well well-sm">
+                            <a href="{{ route('request', ['id' => $report->request->id]) }}">
+                                {{ $report->title }}
+                            </a>
+                        </p>
+                    @endif
 
                     <h3>Message:</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
 
-                    <h3>Referenced Links:</h3>
-                    <p class="well">
-                        @foreach ($urls as $url)
-                            <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
-                        @endforeach
-                    </p>
+                    @if (count($urls) > 0)
+                        <h3>Referenced Links:</h3>
+                        <p class="well">
+                            @foreach ($urls as $url)
+                                <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
+                            @endforeach
+                        </p>
+                    @endif
                 </div>
             </div>
 

@@ -8,32 +8,35 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
 
-use App\Torrent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewFollowerUpload extends Notification implements ShouldQueue
+class NewUnfollow extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $torrent;
+    public $type;
+    public $sender_username;
+    public $sender_id;
 
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
+     * @param Follow $follow
      *
      * @return void
      */
-    public function __construct(Torrent $torrent)
+    public function __construct(string $type, string $sender_username, int $sender_id)
     {
-        $this->torrent = $torrent;
+        $this->type = $type;
+        $this->sender_username = $sender_username;
+        $this->sender_id = $sender_id;
     }
 
     /**
@@ -60,9 +63,9 @@ class NewFollowerUpload extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'New Follower Upload Notice',
-            'body'  => "{$this->torrent->user->username} , whom you are following has uploaded {$this->torrent->name}",
-            'url'   => "{$appurl}/torrents/{$this->torrent->slug}.{$this->torrent->id}",
+            'title' => $this->sender_username.' Has Unfollowed You!',
+            'body'  => $this->sender_username.' has stopped following you so they will no longer get notifications about your activities.',
+            'url'   => '/'.$this->sender_username.'.'.$this->sender_id,
         ];
     }
 }

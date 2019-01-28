@@ -2,36 +2,27 @@
     <div class="col-md-10 col-sm-10 col-md-offset-1 chatbox">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat">
-            <div class="panel-heading">
-                <h4>
-                    Chatbox
-                </h4>
-            </div>
+            <div class="panel-heading"><h4>Chatbox</h4></div>
 
             <div class="panel-body">
-
                 <div v-if="showDevMsg">
                     <h2 class="text-center text-red text-bold">Chat Box Is Currently In Beta</h2>
                     <p class="text-center">
-                        Please understand that <strong>Beta</strong> refers to software undergoing testing.
-                        Is released to a certain group of peers for real world testing.
+                        Please understand that <strong>Beta</strong> refers to software undergoing testing. Is released
+                        to a certain group of peers for real world testing.
                     </p>
-                    <p class="text-center">
-                        We are working hard to address all your concerns and issues.
-                    </p>
+                    <p class="text-center">We are working hard to address all your concerns and issues.</p>
                     <p class="text-center">
                         Please be patient and be as detailed as possible when describing an issue you may be having!
                     </p>
-                    <p class="text-center">
-                        <button @click="showDevMsg = false" class="btn btn-danger">Hide</button>
-                    </p>
+                    <p class="text-center"><button @click="showDevMsg = false" class="btn btn-danger">Hide</button></p>
                 </div>
 
                 <div id="frame">
-                    <div class="content">
+                    <div class="content" @mouseover="freezeChat()" @mouseleave="unfreezeChat()">
                         <div class="text-center">
-                            <h4 v-if="state.connecting" class='text-red'>Connecting ...</h4>
-                            <h4 v-else class='text-green'>Connected with {{users.length}} users</h4>
+                            <h4 v-if="state.connecting" class="text-red">Connecting ...</h4>
+                            <h4 v-else class="text-green">Connected with {{ users.length }} users</h4>
                         </div>
 
                         <chat-messages v-if="!state.connecting" :messages="messages"></chat-messages>
@@ -44,10 +35,11 @@
                 </div>
 
                 <chat-form
-                        @changedStatus="changeStatus"
-                        @message-sent="(o) => createMessage(o.message, o.save, o.user_id)"
-                        @typing="isTyping"
-                        :user="auth"></chat-form>
+                    @changedStatus="changeStatus"
+                    @message-sent="o => createMessage(o.message, o.save, o.user_id)"
+                    @typing="isTyping"
+                    :user="auth"
+                ></chat-form>
             </div>
         </div>
     </div>
@@ -128,7 +120,7 @@ export default {
             channel: null,
             config: {},
             activePeer: false,
-
+            frozen: false,
             /* Developer Settings */
             showDevMsg: false,
         };
@@ -172,6 +164,14 @@ export default {
             this.channel.whisper('typing', {
                 username: e.username,
             });
+        },
+
+        freezeChat() {
+            this.frozen = true;
+        },
+
+        unfreezeChat() {
+            this.frozen = false;
         },
 
         fetchRooms() {
@@ -261,6 +261,8 @@ export default {
 
         scrollToBottom(force = false) {
             let container = $('.messages .list-group');
+
+            if (this.frozen) return;
 
             if (this.scroll || force) {
                 container.animate({ scrollTop: container.prop('scrollHeight') }, 0);

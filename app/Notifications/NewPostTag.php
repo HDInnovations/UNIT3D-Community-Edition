@@ -8,29 +8,36 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     HDVinnie, singularity43
  */
 
 namespace App\Notifications;
 
-use App\Comment;
+use App\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewTorrentComment extends Notification
+class NewPostTag extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $comment;
+    public $type;
+    public $tagger;
+    public $post;
 
     /**
      * Create a new notification instance.
      *
+     * @param Post $post
+     *
      * @return void
      */
-    public function __construct(Comment $comment)
+    public function __construct(string $type, string $tagger, Post $post)
     {
-        $this->comment = $comment;
+        $this->type = $type;
+        $this->post = $post;
+        $this->tagger = $tagger;
     }
 
     /**
@@ -55,18 +62,11 @@ class NewTorrentComment extends Notification
     public function toArray($notifiable)
     {
         $appurl = config('app.url');
-        if ($this->comment->anon == 0) {
-            return [
-                'title' => 'New Torrent Comment Received',
-                'body'  => $this->comment->user->username.' has left you a comment on '.$this->comment->torrent->name,
-                'url'   => $appurl.'/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
-            ];
-        } else {
-            return [
-                'title' => 'New Torrent Comment Received',
-                'body'  => 'A anonymous member has left you a comment on '.$this->comment->torrent->name,
-                'url'   => $appurl.'/torrents/'.$this->comment->torrent->slug.'.'.$this->comment->torrent->id,
-            ];
-        }
+
+        return [
+            'title' => $this->tagger.' Has Tagged You In A Post',
+            'body'  => $this->tagger.' has tagged you in a post in '.$this->post->topic->name,
+            'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+        ];
     }
 }

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\User;
 use App\Torrent;
 use Carbon\Carbon;
@@ -22,7 +23,10 @@ use App\BonTransactions;
 use App\PersonalFreeleech;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Notifications\NewBon;
+use App\Notifications\NewPostTip;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\NewUploadTip;
 use App\Repositories\ChatRepository;
 
 class BonusController extends Controller
@@ -260,20 +264,16 @@ class BonusController extends Controller
             $transaction->torrent_id = null;
             $transaction->save();
 
+            if ($user->id != $recipient->id) {
+                $recipient->notify(new NewBon('gift', $user->username, $transaction));
+            }
+
             $profile_url = hrefProfile($user);
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
                 ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
-
-            $pm = new PrivateMessage();
-            $pm->sender_id = $user->id;
-            $pm->receiver_id = $recipient->id;
-            $pm->subject = 'You Have Received A BON Gift';
-            $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has gifted you ".$value.' BON.
-                            Gift Note:'.$transaction->comment;
-            $pm->save();
 
             return redirect()->route('bonus', ['username' => $user->username])
                 ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
@@ -327,16 +327,65 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $pm = new PrivateMessage();
-        $pm->sender_id = 1;
-        $pm->receiver_id = $uploader->id;
-        $pm->subject = 'You Have Received A BON Tip';
-        $profile_url = hrefProfile($user);
-        $torrent_url = hrefTorrent($torrent);
-        $pm->message = "Member [url={$profile_url}]{$user->username}[/url] has left a tip of ".$tip_amount." BON on your upload [url={$torrent_url}]{$torrent->name}[/url].";
-        $pm->save();
+        $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Tip Points To A Poster.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $slug
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function tipPoster(Request $request, $slug, $id)
+    {
+        $user = auth()->user();
+
+        if ($request->has('post') && $request->input('post') > 0) {
+            $p = (int) $request->input('post');
+            $post = Post::with('topic')->findOrFail($p);
+            $poster = User::where('id', '=', $post->user_id)->firstOrFail();
+        } else {
+            abort(404);
+        }
+
+        $tip_amount = $request->input('tip');
+        if ($tip_amount > $user->seedbonus) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Are To Broke To Tip The Poster!', 'Whoops!', ['options']));
+        }
+        if ($user->id == $poster->id) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Cannot Tip Yourself!', 'Whoops!', ['options']));
+        }
+        if ($tip_amount <= 0) {
+            return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
+                ->with($this->toastr->error('You Cannot Tip A Negative Amount!', 'Whoops!', ['options']));
+        }
+        $poster->seedbonus += $tip_amount;
+        $poster->save();
+
+        $user->seedbonus -= $tip_amount;
+        $user->save();
+
+        $transaction = new BonTransactions();
+        $transaction->itemID = 0;
+        $transaction->name = 'tip';
+        $transaction->cost = $tip_amount;
+        $transaction->sender = $user->id;
+        $transaction->receiver = $poster->id;
+        $transaction->comment = 'tip';
+        $transaction->post_id = $post->id;
+        $transaction->save();
+
+        $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
+
+        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
     }
 

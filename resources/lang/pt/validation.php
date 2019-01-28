@@ -13,8 +13,8 @@ return [
      * |
      */
 
-    'accepted'   => 'A :attribute deve ser aceita.',
-    'active_url' => 'O :attribute não é uma URL válida.',
+    'accepted'   => 'A :attribute deve ser aceite.',
+    'active_url' => 'O :attribute não é um URL válida.',
     'after'      => 'O :attribute deve ser uma data depois de :date.',
     'alpha'      => 'O :attribute pode conter apenas letras.',
     'alpha_dash' => 'O :attribute pode conter apenas letras, números e traços.',
@@ -37,11 +37,11 @@ return [
     'dimensions'     => 'O :attribute tem dimensões de imagem inválidas.',
     'distinct'       => 'O campo :attribute tem um valor duplicado.',
     'email'          => 'O :attribute deve ser um endereço de e-mail válido.',
-    'exists'         => 'O :attribute selecionado é inválido.',
+    'exists'         => 'O :attribute seleccionado é inválido.',
     'file'           => 'O :attribute deve ser um arquivo.',
     'filled'         => 'O campo :attribute é obrigatório.',
     'image'          => 'O :attribute deve ser uma imagem.',
-    'in'             => 'O :attribute selecionado é inválido.',
+    'in'             => 'O :attribute seleccionado é inválido.',
     'in_array'       => 'O campo :attribute não existe em :other.',
     'integer'        => 'O :attribute deve ser um número inteiro.',
     'ip'             => 'O :attribute deve ser um endereço IP válido.',

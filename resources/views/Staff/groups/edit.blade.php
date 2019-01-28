@@ -41,6 +41,7 @@
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
+                        <th>Incognito</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
                     </tr>
@@ -109,6 +110,15 @@
                             @else
                                 <input type="hidden" name="is_freeleech" value="0">
                                 <input type="checkbox" name="is_freeleech" value="1">
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->is_incognito == 1)
+                                <input type="hidden" name="is_incognito" value="0">
+                                <input type="checkbox" name="is_incognito" value="1" checked>
+                            @else
+                                <input type="hidden" name="is_incognito" value="0">
+                                <input type="checkbox" name="is_incognito" value="1">
                             @endif
                         </td>
                         <td>

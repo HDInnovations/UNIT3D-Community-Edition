@@ -22,15 +22,17 @@ class UnbanUser extends Mailable
     use Queueable, SerializesModels;
 
     public $email;
+    public $ban;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($email)
+    public function __construct($email, $ban)
     {
         $this->email = $email;
+        $this->ban = $ban;
     }
 
     /**
