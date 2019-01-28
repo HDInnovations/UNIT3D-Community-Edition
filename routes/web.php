@@ -44,6 +44,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/register/{code?}', 'Auth\RegisterController@registrationForm')->name('registrationForm');
         Route::post('/register/{code?}', 'Auth\RegisterController@register')->name('register');
 
+        // Application Routes
+        Route::get('/application', 'Auth\ApplicationController@create')->name('application.create');
+        Route::post('/application', 'Auth\ApplicationController@store')->name('application.store');
+
         // Activation Routes
         Route::get('/activate/{token}', 'Auth\ActivationController@activate')->name('activate');
 
@@ -579,5 +583,11 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/tag/new', 'TagController@add')->name('staff_tag_add');
         Route::get('/tag/edit/{slug}.{id}', 'TagController@editForm')->name('staff_tag_edit_form');
         Route::post('/tag/edit/{slug}.{id}', 'TagController@edit')->name('staff_tag_edit');
+
+        // Applications System
+        Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
+        Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
+        Route::get('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+        Route::get('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
     });
 });

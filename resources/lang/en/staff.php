@@ -7,6 +7,7 @@
 return [
     'activity-log'            => 'Activity Log',
     'articles'                => 'Articles',
+    'applications'            => 'Applications',
     'bans-log'                => 'Bans Log',
     'blocks'                  => 'Blocks',
     'catalog-groups'          => 'Catalog Groups',
