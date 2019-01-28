@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Activity Log - Staff Dashboard - {{ config('other.title') }}</title>
+    <title>Applications - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Activity Log - Staff Dashboard">
+    <meta name="description" content="Applications - Staff Dashboard">
 @endsection
 
 @section('breadcrumb')
