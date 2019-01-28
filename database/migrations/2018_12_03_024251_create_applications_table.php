@@ -17,7 +17,7 @@ class CreateApplicationsTable extends Migration
             $table->increments('id');
             $table->string('type');
             $table->string('email')->unique();
-            $table->longText('referer')->nullable();
+            $table->longText('referrer')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->dateTime('moderated_at')->nullable();
             $table->integer('moderated_by')->nullable()->index();
