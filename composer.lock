@@ -1558,16 +1558,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.7.20",
+            "version": "v5.7.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "10cd20294b5668f90ba91996236834e71f7ff670"
+                "reference": "2ede55db4b8201ed0450fa7e7a4d7220aa29bc34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/10cd20294b5668f90ba91996236834e71f7ff670",
-                "reference": "10cd20294b5668f90ba91996236834e71f7ff670",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2ede55db4b8201ed0450fa7e7a4d7220aa29bc34",
+                "reference": "2ede55db4b8201ed0450fa7e7a4d7220aa29bc34",
                 "shasum": ""
             },
             "require": {
@@ -1700,7 +1700,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-01-08T14:39:11+00:00"
+            "time": "2019-01-29T22:13:46+00:00"
         },
         {
             "name": "laravel/nexmo-notification-channel",
@@ -2098,16 +2098,16 @@
         },
         {
             "name": "mjohnson/decoda",
-            "version": "6.11.0",
+            "version": "6.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/milesj/decoda.git",
-                "reference": "8cd0928b78a4bf5ade48b80c934370fc1f5f84a1"
+                "reference": "9817fd5abbd742384f59831d8a5953b01803b45d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/milesj/decoda/zipball/8cd0928b78a4bf5ade48b80c934370fc1f5f84a1",
-                "reference": "8cd0928b78a4bf5ade48b80c934370fc1f5f84a1",
+                "url": "https://api.github.com/repos/milesj/decoda/zipball/9817fd5abbd742384f59831d8a5953b01803b45d",
+                "reference": "9817fd5abbd742384f59831d8a5953b01803b45d",
                 "shasum": ""
             },
             "require": {
@@ -2115,7 +2115,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "~4.8|^7.5"
             },
             "suggest": {
                 "ext-memcached": "Cache data using Memcache",
@@ -2148,7 +2148,7 @@
                 "markup",
                 "parser"
             ],
-            "time": "2018-07-28T03:49:07+00:00"
+            "time": "2019-01-16T04:52:14+00:00"
         },
         {
             "name": "moinax/tvdb",
@@ -2328,16 +2328,16 @@
         },
         {
             "name": "nexmo/client",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Nexmo/nexmo-php.git",
-                "reference": "01809cc1e17a5af275913c49bb5d444eb6cc06d4"
+                "reference": "3dc03ca1dab726a23b757110897740e54304fc65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Nexmo/nexmo-php/zipball/01809cc1e17a5af275913c49bb5d444eb6cc06d4",
-                "reference": "01809cc1e17a5af275913c49bb5d444eb6cc06d4",
+                "url": "https://api.github.com/repos/Nexmo/nexmo-php/zipball/3dc03ca1dab726a23b757110897740e54304fc65",
+                "reference": "3dc03ca1dab726a23b757110897740e54304fc65",
                 "shasum": ""
             },
             "require": {
@@ -2372,20 +2372,20 @@
                 }
             ],
             "description": "PHP Client for using Nexmo's API.",
-            "time": "2018-12-17T10:47:50+00:00"
+            "time": "2019-01-02T09:06:47+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.1.1",
+            "version": "v4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "8aae5b59b83bb4d0dbf07b0a835f2680a658f610"
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8aae5b59b83bb4d0dbf07b0a835f2680a658f610",
-                "reference": "8aae5b59b83bb4d0dbf07b0a835f2680a658f610",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
+                "reference": "594bcae1fc0bccd3993d2f0d61a018e26ac2865a",
                 "shasum": ""
             },
             "require": {
@@ -2401,7 +2401,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1-dev"
+                    "dev-master": "4.2-dev"
                 }
             },
             "autoload": {
@@ -2423,20 +2423,20 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-12-26T11:32:39+00:00"
+            "time": "2019-01-12T16:31:37+00:00"
         },
         {
             "name": "opis/closure",
-            "version": "3.1.3",
+            "version": "3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opis/closure.git",
-                "reference": "5e9095ce871a425ab87a854b285b7766de38a7d9"
+                "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/5e9095ce871a425ab87a854b285b7766de38a7d9",
-                "reference": "5e9095ce871a425ab87a854b285b7766de38a7d9",
+                "url": "https://api.github.com/repos/opis/closure/zipball/41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
+                "reference": "41f5da65d75cf473e5ee582df8fc7f2c733ce9d6",
                 "shasum": ""
             },
             "require": {
@@ -2484,7 +2484,7 @@
                 "serialization",
                 "serialize"
             ],
-            "time": "2019-01-06T22:07:38+00:00"
+            "time": "2019-01-14T14:45:33+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",
@@ -3301,27 +3301,27 @@
         },
         {
             "name": "spatie/image-optimizer",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image-optimizer.git",
-                "reference": "90d6eebf9a84cc88e4cd2af3928004ba59e693a4"
+                "reference": "11f0b270669a55f90093d63ddb5214e0f7c279da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/90d6eebf9a84cc88e4cd2af3928004ba59e693a4",
-                "reference": "90d6eebf9a84cc88e4cd2af3928004ba59e693a4",
+                "url": "https://api.github.com/repos/spatie/image-optimizer/zipball/11f0b270669a55f90093d63ddb5214e0f7c279da",
+                "reference": "11f0b270669a55f90093d63ddb5214e0f7c279da",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
                 "php": "^7.0",
                 "psr/log": "^1.0",
-                "symfony/process": "^2.8|^3.0|^4.0"
+                "symfony/process": "^4.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.2|^7.0",
-                "symfony/var-dumper": "^3.0|^4.0"
+                "phpunit/phpunit": "^7.5",
+                "symfony/var-dumper": "^4.2"
             },
             "type": "library",
             "autoload": {
@@ -3347,7 +3347,7 @@
                 "image-optimizer",
                 "spatie"
             ],
-            "time": "2018-11-19T22:17:30+00:00"
+            "time": "2019-01-14T09:15:47+00:00"
         },
         {
             "name": "spatie/laravel-backup",
@@ -3424,16 +3424,16 @@
         },
         {
             "name": "spatie/laravel-cookie-consent",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-cookie-consent.git",
-                "reference": "6bb070ad357b613573ec1a1a32834aa4484c3117"
+                "reference": "ad6283a03d1a6d3709eec0e89c85f9e003bd75bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/6bb070ad357b613573ec1a1a32834aa4484c3117",
-                "reference": "6bb070ad357b613573ec1a1a32834aa4484c3117",
+                "url": "https://api.github.com/repos/spatie/laravel-cookie-consent/zipball/ad6283a03d1a6d3709eec0e89c85f9e003bd75bd",
+                "reference": "ad6283a03d1a6d3709eec0e89c85f9e003bd75bd",
                 "shasum": ""
             },
             "require": {
@@ -3488,7 +3488,7 @@
                 "law",
                 "spatie"
             ],
-            "time": "2018-12-29T21:37:48+00:00"
+            "time": "2019-01-14T09:20:17+00:00"
         },
         {
             "name": "spatie/laravel-image-optimizer",
@@ -3696,16 +3696,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.28.0",
+            "version": "v6.29.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "e15127f0f56a0bf2d4ef454df75ea08265e9b2c7"
+                "reference": "fbbcc90cd3da9be5005650d56a1316ee00b79dc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e15127f0f56a0bf2d4ef454df75ea08265e9b2c7",
-                "reference": "e15127f0f56a0bf2d4ef454df75ea08265e9b2c7",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/fbbcc90cd3da9be5005650d56a1316ee00b79dc1",
+                "reference": "fbbcc90cd3da9be5005650d56a1316ee00b79dc1",
                 "shasum": ""
             },
             "require": {
@@ -3717,7 +3717,8 @@
             "require-dev": {
                 "php-coveralls/php-coveralls": "1.*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
+                "squizlabs/php_codesniffer": "~2.0",
+                "symfony/process": "~2.8"
             },
             "type": "library",
             "extra": {
@@ -3747,7 +3748,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-01-03T18:40:20+00:00"
+            "time": "2019-01-25T14:24:25+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4900,20 +4901,21 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v2.5.2",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36"
+                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/cfd5dc225767ca154853752abc93aeec040fcf36",
-                "reference": "cfd5dc225767ca154853752abc93aeec040fcf36",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
+                "reference": "2a7dcf7e3e02dc5e701004e51a6f304b713107d5",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
+                "php": ">=5.3.9",
+                "symfony/polyfill-ctype": "^1.9"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.35 || ^5.0"
@@ -4921,7 +4923,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -4946,7 +4948,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-10-30T17:29:25+00:00"
+            "time": "2019-01-29T11:11:52+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
