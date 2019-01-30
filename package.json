@@ -23,7 +23,7 @@
     "laravel-mix": "^4.0.14",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "resolve-url-loader": "^3.0.0",
+    "resolve-url-loader": "2.3.1",
     "sass": "^1.16.1",
     "sass-loader": "^7.1.0",
     "select2": "^4.0.6-rc.1",
