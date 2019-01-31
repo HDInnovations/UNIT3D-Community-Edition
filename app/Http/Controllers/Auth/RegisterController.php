@@ -14,6 +14,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserPrivacy;
+use App\UserNotification;
 use App\Group;
 use App\Invite;
 use Carbon\Carbon;
@@ -137,6 +139,16 @@ class RegisterController extends Controller
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user->save();
+
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+            $privacy->save();
+
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+            $notification->save();
 
             if ($key) {
                 // Update The Invite Record
