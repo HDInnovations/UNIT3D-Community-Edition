@@ -66,27 +66,20 @@ class NewCommentTag extends Notification implements ShouldQueue
         if ($this->type == 'torrent') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Torrent Comment',
-                'body' => $this->tagger.' has tagged you in a Comment for Torrent: '.$this->comment->torrent->name,
+                'body' => $this->tagger.' has tagged you in a Comment for Torrent '.$this->comment->torrent->name,
                 'url' => "/torrents/{$this->comment->torrent->slug}.{$this->comment->torrent->id}",
             ];
-        } elseif ($this->type == 'req') {
+        } else if ($this->type == 'request') {
             return [
                 'title' => $this->tagger.' Has Tagged You In A Request Comment',
-                'body' => $this->tagger.' has tagged you in a Comment for Request: '.$this->comment->request->name,
+                'body' => $this->tagger.' has tagged you in a Comment for Request '.$this->comment->request->name,
                 'url' => "/request/{$this->comment->request->id}",
             ];
-        } elseif ($this->type == 'article') {
-            return [
-                'title' => $this->tagger.' Has Tagged You In An Article Comment',
-                'body' => $this->tagger.' has tagged you in a Comment for Article: '.$this->comment->article->title,
-                'url' => "/articles/{$this->comment->article->slug}.{$this->comment->article->id}",
-            ];
         }
-
         return [
-            'title' => '',
-            'body' => '',
-            'url' => '',
+            'title' => $this->tagger.' Has Tagged You In An Article Comment',
+            'body' => $this->tagger.' has tagged you in a Comment for Article '.$this->comment->article->title,
+            'url' => "/articles/{$this->comment->article->slug}.{$this->comment->article->id}",
         ];
     }
 }
