@@ -157,6 +157,7 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->uploaded = $request->input('uploaded');
         $user->downloaded = $request->input('downloaded');
+        $user->title = $request->input('title');
         $user->about = $request->input('about');
         $user->group_id = (int) $request->input('group_id');
         $user->save();
@@ -164,7 +165,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
@@ -193,7 +194,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
     }
 
@@ -218,7 +219,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
     }
 
