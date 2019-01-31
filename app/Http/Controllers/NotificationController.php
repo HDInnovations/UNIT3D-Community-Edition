@@ -47,6 +47,20 @@ class NotificationController extends Controller
     }
 
     /**
+     * Show A Notification And Mark As Read.
+     *
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function show($id)
+    {
+        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification->markAsRead();
+        return redirect($notification->data['url'])->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
+    }
+
+    /**
      * Set A Notification To Read.
      *
      * @param $id
