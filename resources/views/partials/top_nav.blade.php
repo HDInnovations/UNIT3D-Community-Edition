@@ -87,22 +87,27 @@
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
-                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('profile', ['username' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_settings', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.account-settings')
+                        <a href="{{ route('user_settings', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.my-settings')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
+                        <a href="{{ route('user_security', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-security')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks') }}">
+                        <a href="{{ route('user_bookmarks',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
