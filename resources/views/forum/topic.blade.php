@@ -31,7 +31,7 @@
 
         <div class="topic-info">
             @lang('forum.author') <a
-                    href="{{ route('profile', ['username' => $topic->first_post_user_username, 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
+                    href="{{ route('profile', ['username' => str_slug($topic->first_post_user_username), 'id' => $topic->first_post_user_id]) }}">{{ $topic->first_post_user_username }}</a>, {{ date('M d Y H:m', strtotime($topic->created_at)) }}
             <span class='label label-primary'>{{ $topic->num_post - 1 }} {{ strtolower(trans('forum.replies')) }}</span>
             <span class='label label-info'>{{ $topic->views - 1 }} {{ strtolower(trans('forum.views')) }}</span>
             @if (auth()->user()->isSubscribed('topic', $topic->id))
@@ -65,7 +65,7 @@
                                 @endif
                 <p>
                 <span class="badge-user text-bold">
-                   <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('profile', ['username' => $p->user->slug, 'id' => $p->user->id]) }}"
                       class="post-info-username" style="color:{{ $p->user->group->color }}; display:inline;">{{ $p->user->username }}</a>
                     @if ($p->user->isOnline())
                         <i class="{{ config('other.font-awesome') }} fa-circle text-green" data-toggle="tooltip"
@@ -92,13 +92,13 @@
                                     <p>
                                         @if($p->user->topics && $p->user->topics->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('forum_user_topics', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_topics', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->topics->count() }} @lang('forum.topics')</a>
                                             </span>
                                         @endif
                                         @if($p->user->posts && $p->user->posts->count() > 0)
                                             <span class="badge-user text-bold">
-                   <a href="{{ route('forum_user_posts', ['username' => $p->user->username, 'id' => $p->user->id]) }}"
+                   <a href="{{ route('user_posts', ['slug' => $p->user->slug, 'id' => $p->user->id]) }}"
                       class="post-info-username">{{ $p->user->posts->count() }} @lang('forum.posts')</a>
                                             </span>
                         @endif
