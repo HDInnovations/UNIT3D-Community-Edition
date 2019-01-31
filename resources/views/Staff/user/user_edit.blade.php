@@ -70,6 +70,11 @@
                            class="form-control">
                 </div>
 
+                    <div class="form-group">
+                        <label for="downloaded">Title</label>
+                        <input name="title" type="text" value="{{ $user->title }}" class="form-control">
+                    </div>
+
                 <div class="form-group">
                     <label for="about">About</label>
                     <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
