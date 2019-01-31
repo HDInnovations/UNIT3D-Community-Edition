@@ -20,7 +20,7 @@ class userFilterBuilder {
         var userId = $('#userFilter').attr('userId');
         var userName = $('#userFilter').attr('userName');
 
-        this.view = $('#userFilter').attr('view');
+        var view = $('#userFilter').attr('view');
 
         var active = (function () {
             if ($("#active").is(":checked")) {
@@ -241,7 +241,7 @@ class userFilterBuilder {
                 teamplayer_seeder: teamplayer_seeder,
                 committed_seeder: committed_seeder,
                 participant_seeder: participant_seeder,
-                view: this.view,
+                view: view,
             },
             type: 'post',
             beforeSend: function () {
