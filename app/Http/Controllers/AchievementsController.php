@@ -27,7 +27,8 @@ class AchievementsController extends Controller
         $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();
 
-        return view('user.achievements', [
+        return view('user.private.achievements', [
+            'route'        => 'achievement',
             'user'         => $user,
             'achievements' => $achievements,
             'locked'       => $locked,
