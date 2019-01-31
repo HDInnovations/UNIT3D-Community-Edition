@@ -595,9 +595,9 @@ class ForumController extends Controller
 
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
-                $topic->notifyStarter($user, $post);
+                $topic->notifyStarter($user, $topic, $post);
             }
-            $topic->notifySubscribers($user, $post);
+            $topic->notifySubscribers($user, $topic, $post);
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
