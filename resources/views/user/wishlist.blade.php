@@ -1,27 +1,34 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('user.my-wishlist') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} @lang('user.wishlist') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.my-wishlist')</span>
+        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('user_wishlist', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.wishlist')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
-
-    <div class="container">
-
+    <div class="container-fluid">
         <div class="block">
+            @include('user.buttons.wishlist')
             <div class="header gradient pink">
                 <div class="inner_content">
-                    <h1>Wishes</h1>
+                    <h1>{{ $user->username }} @lang('user.wishlist')</h1>
                 </div>
             </div>
+            <div class="some-padding">
             <div class="row mb-20">
                 <div class="col-md-12">
                     <form action="{{ route('wish-store', ['uid' => auth()->user()->id]) }}"
@@ -30,7 +37,7 @@
 
                         @csrf
 
-                        <div class="form-group">
+                        <div class="form-group mt-5">
                             <input type="text" class="form-control" name="imdb" id="imdb" placeholder="IMDB ID">
                         </div>
 
@@ -106,6 +113,7 @@
 
                 </div>
             </div>
+        </div>
         </div>
 
     </div>
