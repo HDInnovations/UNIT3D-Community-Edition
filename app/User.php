@@ -17,7 +17,6 @@ use Carbon\Carbon;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
 use Gstt\Achievements\Achiever;
-use function theodorejb\polycast\to_int;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -672,7 +671,7 @@ class User extends Authenticatable
             return '∞';
         }
 
-        $bytes = to_int(round($this->uploaded / $ratio));
+        $bytes = round($this->uploaded / $ratio);
 
         return StringHelper::formatBytes($bytes);
     }

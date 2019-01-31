@@ -211,6 +211,12 @@
             @endif
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_seed'))
             <tr>
+               <td>@lang('common.buffer')</td>
+                <td>
+                    <span class="badge-user group-member">{{ $user->untilRatio(config('other.ratio')) }}</span>
+                </td>
+            </tr>
+            <tr>
                 <td>@lang('user.total-seedtime')</td>
                 <td>
                     <span class="badge-user group-member">{{ App\Helpers\StringHelper::timeElapsed($history->sum('seedtime')) }} ( @lang('user.all-torrents') )</span>

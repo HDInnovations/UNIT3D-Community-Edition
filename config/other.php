@@ -187,4 +187,13 @@ return [
     | fal = Light
     */
     'font-awesome' => 'fal',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Signups
+    |--------------------------------------------------------------------------
+    | True/1 = Enabled
+    | False/0 = Disabled
+    */
+    'application_signups' => false,
 ];

@@ -187,21 +187,17 @@ class ModerationController extends Controller
     public function resetRequest($id)
     {
         $user = auth()->user();
+        abort_unless($user->group->is_modo, 403);
 
-        if ($user->group->is_modo) {
-            $torrentRequest = TorrentRequest::findOrFail($id);
-            $torrentRequest->filled_by = null;
-            $torrentRequest->filled_when = null;
-            $torrentRequest->filled_hash = null;
-            $torrentRequest->approved_by = null;
-            $torrentRequest->approved_when = null;
-            $torrentRequest->save();
+        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest->filled_by = null;
+        $torrentRequest->filled_when = null;
+        $torrentRequest->filled_hash = null;
+        $torrentRequest->approved_by = null;
+        $torrentRequest->approved_when = null;
+        $torrentRequest->save();
 
-            return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error("You don't have access to this operation!", 'Whoops!', ['options']));
-        }
+        return redirect()->route('request', ['id' => $id])
+            ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
     }
 }
