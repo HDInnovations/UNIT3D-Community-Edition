@@ -61,20 +61,21 @@ class Group extends Model
             ->first();
     }
 
-
     /**
      * Get the Group allowed answer as bool.
      *
      * @return int
      */
-    public function isAllowed($object,$group_id)
+    public function isAllowed($object, $group_id)
     {
-        if(is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id,$object['default_groups'])) {
-            if($object['default_groups'][$group_id] == 1) {
+        if (is_array($object) && is_array($object['default_groups']) && array_key_exists($group_id, $object['default_groups'])) {
+            if ($object['default_groups'][$group_id] == 1) {
                 return true;
             }
+
             return false;
         }
+
         return true;
     }
 }

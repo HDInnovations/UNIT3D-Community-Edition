@@ -594,10 +594,10 @@ class ForumController extends Controller
             $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
-            if($topic->first_user_poster_id != $user->id) {
-                $topic->notifyStarter($user,$post);
+            if ($topic->first_user_poster_id != $user->id) {
+                $topic->notifyStarter($user, $post);
             }
-            $topic->notifySubscribers($user,$post);
+            $topic->notifySubscribers($user, $post);
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
@@ -725,7 +725,7 @@ class ForumController extends Controller
                 $forum->last_post_user_username = $user->username;
                 $forum->save();
 
-                $forum->notifySubscribers($user,$topic);
+                $forum->notifySubscribers($user, $topic);
 
                 // Post To ShoutBox
                 $appurl = config('app.url');

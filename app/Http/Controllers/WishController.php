@@ -50,7 +50,6 @@ class WishController extends Controller
      */
     public function index($uid)
     {
-
     }
 
     /**

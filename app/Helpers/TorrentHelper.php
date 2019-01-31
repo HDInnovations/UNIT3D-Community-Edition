@@ -66,7 +66,7 @@ class TorrentHelper
             if ($followers) {
                 foreach ($followers as $follower) {
                     $pushto = User::with('notification')->find($follower->user_id);
-                    if ($pushto->acceptsNotification($uploader,$pushto,'following','show_following_upload')) {
+                    if ($pushto->acceptsNotification($uploader, $pushto, 'following', 'show_following_upload')) {
                         $pushto->notify(new NewUpload('follower', $torrent));
                     }
                 }

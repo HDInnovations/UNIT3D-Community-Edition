@@ -63,7 +63,7 @@ class NewUpload extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->torrent->user->username. ' Has Uploaded A New Torrent',
+            'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
             'body'  => "{$this->torrent->user->username}, whom you are following has uploaded Torrent {$this->torrent->name}",
             'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
