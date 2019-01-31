@@ -202,7 +202,7 @@
                                         <span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
                                     </td>
                                 @endif
-                                <td>{{ $p->hcreated_at && $p->hcreated_at != null ? $p->hcreated_at->diffForHumans() : "N/A"}}</td>
+                                <td>{{ $p->created_at && $p->created_at != null ? $p->created_at->diffForHumans() : "N/A"}}</td>
                             </tr>
                         @endforeach
                         </tbody>
