@@ -331,66 +331,6 @@ class ForumController extends Controller
     }
 
     /**
-     * User Topics.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function userTopics(Request $request, $slug, int $id)
-    {
-        $user = User::where('id', '=', $id)->firstOrFail();
-
-        $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
-
-        // Total Forums Count
-        $num_forums = Forum::count();
-        // Total Posts Count
-        $num_posts = Post::count();
-        // Total Topics Count
-        $num_topics = Topic::count();
-
-        return view('forum.user_topics', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]
-        );
-    }
-
-    /**
-     * User Posts.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function userPosts(Request $request, $slug, int $id)
-    {
-        $user = User::where('id', '=', $id)->firstOrFail();
-
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
-
-        // Total Forums Count
-        $num_forums = Forum::count();
-        // Total Posts Count
-        $num_posts = Post::count();
-        // Total Topics Count
-        $num_topics = Topic::count();
-
-        return view('forum.user_posts', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]
-        );
-    }
-
-    /**
      * Show All Forums.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -592,7 +532,6 @@ class ForumController extends Controller
             $href = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
-            print_r($request->input('content'));
             if ($this->tag->hasTags($request->input('content'))) {
                 //$this->tag->setDebug(true);
 
@@ -606,6 +545,7 @@ class ForumController extends Controller
                     $this->tag->messagePostUsers(
                         'forum',
                         $users,
+                        $user,
                         'Staff',
                         $post
                     );
@@ -613,7 +553,8 @@ class ForumController extends Controller
                     $this->tag->messageTaggedPostUsers(
                         'forum',
                         $request->input('content'),
-                        "$user->username",
+                        $user,
+                        $user->username,
                         $post
                     );
                 }
@@ -653,7 +594,10 @@ class ForumController extends Controller
             $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
-            $topic->notifySubscribers($post);
+            if($topic->first_user_poster_id != $user->id) {
+                $topic->notifyStarter($user,$post);
+            }
+            $topic->notifySubscribers($user,$post);
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
@@ -781,7 +725,7 @@ class ForumController extends Controller
                 $forum->last_post_user_username = $user->username;
                 $forum->save();
 
-                $forum->notifySubscribers($topic);
+                $forum->notifySubscribers($user,$topic);
 
                 // Post To ShoutBox
                 $appurl = config('app.url');
