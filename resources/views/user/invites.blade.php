@@ -1,13 +1,20 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('user.invite-tree') - {{ config('other.title') }}</title>
+    <title>{{ $owner->username }} - @lang('user.invites') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.invite-tree')</span>
+        <a href="{{ route('profile', ['username' => $owner->slug, 'id' => $owner->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $owner->username }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('user_invites', ['slug' => $owner->slug, 'id' => $owner->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $owner->username }} @lang('user.invites')</span>
         </a>
     </li>
 @endsection
@@ -15,16 +22,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <h2>
-                <a href="{{ route('profile', ['username' => $owner->username, 'id' => $owner->id]) }}">
-                    {{ $owner->username }}
-                </a>
-                @lang('user.invite-tree')
-            </h2>
-            <hr>
+            @php $user = $owner; @endphp
+            @include('user.buttons.invite')
+            <div class="header gradient red">
+                <div class="inner_content">
+                    <h1>{{ $owner->username }} @lang('user.invites')</h1>
+                </div>
+            </div>
+            <div class="some-padding">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>@lang('user.invites-send')</h2>
                     <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
@@ -101,6 +108,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 @endsection

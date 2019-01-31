@@ -91,31 +91,17 @@ class TaggedUserRepository
         return collect($this->getTags($haystack))->contains($needle);
     }
 
-    /**
-     * @param string $type
-     * @param string $content
-     * @param string $sender
-     * @param $comment
-     */
-    public function messageTaggedCommentUsers(string $type, string $content, string $sender, Comment $comment)
+    public function messageTaggedCommentUsers(string $type, string $content, User $sender, $alias, Comment $comment)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messageCommentUsers($type, $tagged_user, $sender, $comment);
+            $this->messageCommentUsers($type, $tagged_user, $sender, $alias, $comment);
         }
 
         return true;
     }
 
-    /**
-     * @param string $type
-     * @param $users
-     * @param $sender
-     * @param $comment
-     *
-     * @return bool
-     */
-    public function messageCommentUsers($type, $users, $sender, Comment $comment)
+    public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment)
     {
         // Array of User objects
         if (is_iterable($users)) {
@@ -124,7 +110,9 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $user->notify(new NewCommentTag($type, $sender, $comment));
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
+                        $user->notify(new NewCommentTag($type, $alias, $comment));
+                    }
                 }
             }
 
@@ -134,37 +122,25 @@ class TaggedUserRepository
         // A single User object
 
         if ($this->validate($users)) {
-            $users->notify(new NewCommentTag($type, $sender, $comment));
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
+                $users->notify(new NewCommentTag($type, $alias, $comment));
+            }
         }
 
         return true;
     }
 
-    /**
-     * @param string $type
-     * @param string $content
-     * @param string $sender
-     * @param $post
-     */
-    public function messageTaggedPostUsers(string $type, string $content, string $sender, Post $post)
+    public function messageTaggedPostUsers(string $type, string $content, User $sender, $alias, Post $post)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messagePostUsers($type, $tagged_user, $sender, $post);
+            $this->messagePostUsers($type, $tagged_user, $sender, $alias, $post);
         }
 
         return true;
     }
 
-    /**
-     * @param string $type
-     * @param $users
-     * @param $sender
-     * @param $post
-     *
-     * @return bool
-     */
-    public function messagePostUsers($type, $users, $sender, Post $post)
+    public function messagePostUsers($type, $users, $sender, $alias, Post $post)
     {
         // Array of User objects
         if (is_iterable($users)) {
@@ -173,7 +149,9 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $user->notify(new NewPostTag($type, $sender, $post));
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
+                        $user->notify(new NewPostTag($type, $alias, $post));
+                    }
                 }
             }
 
@@ -181,9 +159,10 @@ class TaggedUserRepository
         }
 
         // A single User object
-
         if ($this->validate($users)) {
-            $users->notify(new NewPostTag($type, $sender, $post));
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
+                $users->notify(new NewPostTag($type, $alias, $post));
+            }
         }
 
         return true;

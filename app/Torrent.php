@@ -137,6 +137,16 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tips()
+    {
+        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+    }
+
+    /**
      * Has Many Thank.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -259,11 +269,19 @@ class Torrent extends Model
     public function notifyUploader($type, $payload)
     {
         if ($type == 'thank') {
-            User::find($this->user_id)->notify(new NewThank('torrent', $payload));
+            $user = User::with('notification')->findOrFail($this->user_id);
+            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
+                $user->notify(new NewThank('torrent', $payload));
+
+                return true;
+            }
+        }
+        $user = User::with('notification')->findOrFail($this->user_id);
+        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
+            $user->notify(new NewComment('torrent', $payload));
 
             return true;
         }
-        User::find($this->user_id)->notify(new NewComment('torrent', $payload));
 
         return true;
     }

@@ -67,7 +67,7 @@ class NewUploadTip extends Notification implements ShouldQueue
 
         return [
             'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For An Uploaded Torrent',
-            'body'  => $this->tipper.' has tipped one of your Uploaded torrents: '.$this->torrent->name,
+            'body'  => $this->tipper.' has tipped one of your Uploaded Torrents '.$this->torrent->name,
             'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
     }

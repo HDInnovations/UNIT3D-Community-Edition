@@ -13,8 +13,6 @@
 
 namespace App;
 
-use App\Notifications\NewPost;
-use App\Notifications\NewTopic;
 use Illuminate\Database\Eloquent\Model;
 
 class Subscription extends Model
@@ -50,25 +48,5 @@ class Subscription extends Model
     public function forum()
     {
         return $this->belongsTo(Forum::class);
-    }
-
-    /**
-     * Notify Subscribers Of A Topic When New Post Is Made.
-     *
-     * @return string
-     */
-    public function notifyTopic($post)
-    {
-        User::find($this->user_id)->notify(new NewPost('topic', $post));
-    }
-
-    /**
-     * Notify Subscribers Of A Forum When New Topic Is Made.
-     *
-     * @return string
-     */
-    public function notifyForum($topic)
-    {
-        User::find($this->user_id)->notify(new NewTopic('forum', $topic));
     }
 }

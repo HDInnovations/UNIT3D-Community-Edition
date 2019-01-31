@@ -1,58 +1,54 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - @lang('common.topics') - @lang('forum.forums') - {{ config('other.title') }}</title>
-@endsection
-
-@section('meta')
-    <meta name="description" content="{{ $user->username }} @lang('common.topics')">
+    <title>{{ $user->username }} @lang('user.topics') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('forum_index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('forum.forums')</span>
+        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('forum_user_topics', [ 'slug' => $user->slug, 'id' => $user->id ]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('common.topics')</span>
+        <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.topics')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
-    @if ( $user->private_profile == 1 && auth()->user()->id != $user->id && !auth()->user()->group->is_modo )
-        <div class="container">
-            <div class="jumbotron shadowed">
-                <div class="container">
-                    <h1 class="mt-5 text-center">
-                        <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-forum-profile')
-                    </h1>
-                    <div class="separator"></div>
-                    <p class="text-center">@lang('user.not-authorized')</p>
+    <div class="container-fluid">
+        @if (!auth()->user()->isAllowed($user,'forum','show_topic'))
+            <div class="container pl-0 text-center">
+                <div class="jumbotron shadowed">
+                    <div class="container">
+                        <h1 class="mt-5 text-center">
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('user.private-profile')
+                        </h1>
+                        <div class="separator"></div>
+                        <p class="text-center">@lang('user.not-authorized')</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    @else
-
-        <div class="box container">
-            @include('forum.buttons')
-
-        <div class="forum-categories">
+        @else
+            <div class="block">
+                @if (auth()->check() && (auth()->user()->id == $user->id || auth()->user()->group->is_modo))
+                    @include('user.buttons.forum')
+                @else
+                    @include('user.buttons.public')
+                @endif
+                <div class="header gradient blue">
+                    <div class="inner_content">
+                        <h1>
+                            {{ $user->username }} @lang('user.topics')
+                        </h1>
+                    </div>
+                </div>
+                <div class="forum-categories">
             <table class="table table-bordered table-hover">
-                <thead class="no-space">
-                <tr class="no-space">
-                    <td colspan="5" class="no-space">
-                        <div class="header gradient teal some-padding">
-                            <div class="inner_content">
-                                <h1 class="no-space">{{ $user->username }} Topics</h1>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-                <thead>
                 <thead>
                 <tr>
                     <th>@lang('forum.forum')</th>
@@ -106,6 +102,6 @@
             {{ $results->links() }}
         </div>
     </div>
-    </div>
     @endif
+    </div>
 @endsection

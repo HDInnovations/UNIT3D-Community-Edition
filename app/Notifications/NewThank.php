@@ -59,8 +59,8 @@ class NewThank extends Notification
         $appurl = config('app.url');
 
         return [
-            'title' => 'New Torrent Thanks Received',
-            'body' => $this->thank->user->username.' has left you a thanks on '.$this->thank->torrent->name,
+            'title' => $this->thank->user->username.' Has Thanked You For An Uploaded Torrent',
+            'body' => $this->thank->user->username.' has left you a thanks on Uploaded Torrent '.$this->thank->torrent->name,
             'url' => '/torrents/'.$this->thank->torrent->slug.'.'.$this->thank->torrent->id,
         ];
     }

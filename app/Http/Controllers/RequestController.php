@@ -26,10 +26,16 @@ use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\TorrentRequestBounty;
 use App\Repositories\ChatRepository;
+use App\Notifications\NewRequestFill;
+use App\Notifications\NewRequestClaim;
+use App\Notifications\NewRequestBounty;
+use App\Notifications\NewRequestUnclaim;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
 use App\Achievements\UserFilled100Requests;
+use App\Notifications\NewRequestFillReject;
+use App\Notifications\NewRequestFillApprove;
 use App\Repositories\RequestFacetedRepository;
 
 class RequestController extends Controller
@@ -430,7 +436,7 @@ class RequestController extends Controller
     {
         $user = auth()->user();
 
-        $tr = TorrentRequest::findOrFail($id);
+        $tr = TorrentRequest::with('user')->findOrFail($id);
         $tr->votes += 1;
         $tr->bounty += $request->input('bonus_value');
         $tr->created_at = Carbon::now();
@@ -478,19 +484,15 @@ class RequestController extends Controller
                 );
             }
 
-            // Send Private Message
-            if ($user->id != $tr->user_id) {
-                $pm = new PrivateMessage();
-                $pm->sender_id = 1;
-                $pm->receiver_id = $tr->user_id;
-                $pm->subject = 'Your Request '.$tr->name.' Has A New Bounty!';
-                $profile_url = hrefProfile($user);
-                if ($requestsBounty->anon == 0) {
-                    $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Added A Bounty To "."[url={$tr_url}]".$tr->name.'[/url]';
-                } else {
-                    $pm->message = 'An Anonymous User Has Added A Bounty To '."[url={$tr_url}]".$tr->name.'[/url]';
-                }
-                $pm->save();
+            if ($request->input('anon') == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
+            }
+
+            $requester = $tr->user;
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_bounty')) {
+                $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
             }
 
             // Activity Log
@@ -533,6 +535,17 @@ class RequestController extends Controller
 
             // Send Private Message
             $appurl = config('app.url');
+
+            if ($request->input('filled_anon') == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
+            }
+
+            $requester = $torrentRequest->user;
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill')) {
+                $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+            }
 
             $pm = new PrivateMessage();
             $pm->sender_id = 1;
@@ -612,14 +625,10 @@ class RequestController extends Controller
                 );
             }
 
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $tr->filled_by;
-            $pm->subject = 'Your Request Fulfill On '.$tr->name.' Has Been Approved!';
-            $profile_url = hrefProfile($user);
-            $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Approved Your Fulfillment On [url={$tr_url}]".$tr->name.'[/url] Enjoy The '.$tr->bounty.' Bonus Points!';
-            $pm->save();
+            $requester = $fill_user;
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill_approve')) {
+                $requester->notify(new NewRequestFillApprove('torrent', $user->username, $tr));
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has approved {$fill_user->username} fill on torrent request, ID: {$tr->id} NAME: {$tr->name} .");
@@ -656,14 +665,10 @@ class RequestController extends Controller
                     ->with($this->toastr->error('Seems this request was already rejected', 'Whoops!', ['options']));
             }
 
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $torrentRequest->filled_by;
-            $pm->subject = 'Your Request Fullfill On '.$torrentRequest->name.' Has Been Declined!';
-            $profile_url = hrefProfile($user);
-            $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Declined Your Fulfillment On [url={$appurl}/request/".$torrentRequest->id.']'.$torrentRequest->name.'[/url] It did not meet the requirements!';
-            $pm->save();
+            $requester = User::findOrFail($torrentRequest->filled_by);
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill_reject')) {
+                $requester->notify(new NewRequestFillReject('torrent', $user->username, $torrentRequest));
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has declined {$torrentRequest->filled_by} fill on torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
@@ -719,7 +724,7 @@ class RequestController extends Controller
     public function claimRequest(Request $request, $id)
     {
         $user = auth()->user();
-        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest = TorrentRequest::with('user')->findOrFail($id);
 
         if ($torrentRequest->claimed == null) {
             $requestClaim = new TorrentRequestClaim();
@@ -730,6 +735,17 @@ class RequestController extends Controller
 
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
+
+            if ($request->input('anon') == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
+            }
+
+            $requester = $torrentRequest->user;
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_claim')) {
+                $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
@@ -759,10 +775,22 @@ class RequestController extends Controller
 
         if ($torrentRequest->claimed == 1) {
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $id)->firstOrFail();
+            $isAnon = $requestClaim->anon;
             $requestClaim->delete();
 
             $torrentRequest->claimed = null;
             $torrentRequest->save();
+
+            if ($isAnon == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
+            }
+
+            $requester = $torrentRequest->user;
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_unclaim')) {
+                $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
+            }
 
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");

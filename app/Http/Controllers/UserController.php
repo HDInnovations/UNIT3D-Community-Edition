@@ -16,8 +16,12 @@ namespace App\Http\Controllers;
 use Image;
 use App\Ban;
 use App\Peer;
+use App\Post;
 use App\User;
+use App\Wish;
+use App\Forum;
 use App\Group;
+use App\Topic;
 use App\Client;
 use App\Follow;
 use App\Invite;
@@ -25,11 +29,15 @@ use ZipArchive;
 use App\History;
 use App\Torrent;
 use App\Warning;
+use App\Bookmark;
 use App\Graveyard;
 use Carbon\Carbon;
+use App\UserPrivacy;
 use App\PrivateMessage;
 use App\BonTransactions;
 use App\Services\Bencode;
+use App\UserNotification;
+use App\PersonalFreeleech;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -83,16 +91,17 @@ class UserController extends Controller
     /**
      * Get A User Profile.
      *
-     * @param $username
+     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function profile($username, $id)
+    public function profile($slug, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with(['privacy', 'history'])->findOrFail($id);
+
         $groups = Group::all();
-        $followers = Follow::where('target_id', '=', $id)->get();
+        $followers = Follow::where('target_id', '=', $id)->latest()->limit(25)->get();
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
         $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
@@ -103,6 +112,7 @@ class UserController extends Controller
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
         return view('user.profile', [
+            'route'        => 'profile',
             'user'         => $user,
             'groups'       => $groups,
             'followers'    => $followers,
@@ -118,6 +128,66 @@ class UserController extends Controller
     }
 
     /**
+     * User Followers.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function followers(Request $request, $slug, int $id)
+    {
+        $user = User::where('id', '=', $id)->firstOrFail();
+        $results = Follow::with('user')->where('target_id', '=', $id)->latest()->paginate(25);
+
+        return view('user.followers', [
+                'route' => 'follower',
+                'results' => $results,
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * User Topics.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function topics(Request $request, $slug, int $id)
+    {
+        $user = User::where('id', '=', $id)->firstOrFail();
+        $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
+
+        return view('user.topics', [
+                'route' => 'forum',
+                'results' => $results,
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
+     * User Posts.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function posts(Request $request, $slug, int $id)
+    {
+        $user = User::where('id', '=', $id)->firstOrFail();
+        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
+
+        return view('user.posts', [
+                'route' => 'forum',
+                'results' => $results,
+                'user' => $user,
+            ]
+        );
+    }
+
+    /**
      * Edit Profile Form.
      *
      * @param $username
@@ -127,9 +197,10 @@ class UserController extends Controller
      */
     public function editProfileForm($username, $id)
     {
+        abort_unless(auth()->user()->id == $id, 403);
         $user = auth()->user();
 
-        return view('user.edit_profile', ['user' => $user]);
+        return view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
     }
 
     /**
@@ -143,6 +214,7 @@ class UserController extends Controller
      */
     public function editProfile(Request $request, $username, $id)
     {
+        abort_unless(auth()->user()->id == $id, 403);
         $user = auth()->user();
         // Avatar
         $max_upload = config('image.max_upload_size');
@@ -182,23 +254,24 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has updated there profile.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('user_edit_profile_form', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
     /**
      * User Account Settings.
      *
-     * @param $username
+     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($username, $id)
+    public function settings($slug, $id)
     {
+        abort_unless(auth()->user()->id == $id, 403);
         $user = auth()->user();
 
-        return view('user.settings', ['user' => $user]);
+        return view('user.settings', ['user' => $user, 'route' => 'settings']);
     }
 
     /**
@@ -212,7 +285,9 @@ class UserController extends Controller
      */
     public function changeSettings(Request $request, $username, $id)
     {
+        abort_unless(auth()->user()->id == $id, 403);
         $user = auth()->user();
+
         // General Settings
         $user->censor = $request->input('censor');
         $user->chat_hidden = $request->input('chat_hidden');
@@ -228,27 +303,33 @@ class UserController extends Controller
         }
         $user->nav = $request->input('sidenav');
 
-        // Privacy Settings
-        $user->hidden = $request->input('onlinehide');
-        $user->private_profile = $request->input('private_profile');
-        $user->peer_hidden = $request->input('peer_hidden');
-
         // Torrent Settings
         $user->torrent_layout = (int) $request->input('torrent_layout');
         $user->show_poster = $request->input('show_poster');
         $user->ratings = $request->input('ratings');
 
-        // Security Settings
-        if (config('auth.TwoStepEnabled') == true) {
-            $user->twostep = $request->input('twostep');
-        }
         $user->save();
 
         // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has changed there account settings.");
+        \LogActivity::addToLog("Member {$user->username} has changed their account settings.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('user_settings', ['slug' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Your Account Was Updated Successfully!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Security Settings.
+     *
+     * @param $slug
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function security($slug, $id)
+    {
+        $user = auth()->user();
+
+        return view('user.security', ['user' => $user]);
     }
 
     /**
@@ -276,11 +357,11 @@ class UserController extends Controller
 
                 return redirect('/')->with($this->toastr->success('Your Password Has Been Reset', 'Yay!', ['options']));
             } else {
-                return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
                     ->with($this->toastr->error('Your Password Was Incorrect!', 'Whoops!', ['options']));
             }
         } else {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
                 ->with($this->toastr->error('Your New Password Is To Weak!', 'Whoops!', ['options']));
         }
     }
@@ -313,7 +394,7 @@ class UserController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $user->email = $request->input('email');
@@ -322,9 +403,123 @@ class UserController extends Controller
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has changed there email address on file.");
 
-            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+            return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#email'])
                 ->with($this->toastr->success('Your Email Was Updated Successfully!', 'Yay!', ['options']));
         }
+    }
+
+    /**
+     * Change User Privacy Level.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function makePrivate(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->private_profile = 1;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Gone Private!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User Privacy Level.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function makePublic(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->private_profile = 0;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Gone Public!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User Notification Setting.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function disableNotifications(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->block_notifications = 1;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Disabled Notifications!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User Notification Setting.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function enableNotifications(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->block_notifications = 0;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Enabled Notifications!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User Hidden Value.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function makeHidden(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->hidden = 1;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Disappeared Like A Ninja!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User Hidden Value.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function makeVisible(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->hidden = 0;
+        $user->save();
+
+        return redirect()->route('user_profile', ['slug' => $user->slug, 'id' => $user->id])
+            ->with($this->toastr->success('You Have Given Up Your Ninja Ways And Become Visible!', 'Yay!', ['options']));
     }
 
     /**
@@ -343,10 +538,530 @@ class UserController extends Controller
         $user->save();
 
         // Activity Log
-        \LogActivity::addToLog("Member {$user->username} has changed there account PID.");
+        \LogActivity::addToLog("Member {$user->username} has changed their account PID.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#pid'])
             ->with($this->toastr->success('Your PID Was Changed Successfully!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Achievement Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeAchievement(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_achievement_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_achievement = ($request->input('show_achievement') && $request->input('show_achievement') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#achievement'])->with($this->toastr->success('Your Achievement Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Forum Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeForum(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_forum_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_topic = ($request->input('show_topic') && $request->input('show_topic') == 1 ? 1 : 0);
+        $privacy->show_post = ($request->input('show_post') && $request->input('show_post') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])->with($this->toastr->success('Your Forum History Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Follower Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeFollower(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_follower_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_follower = ($request->input('show_follower') && $request->input('show_follower') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#follower'])->with($this->toastr->success('Your Follower Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Torrent Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeTorrent(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_torrent_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
+        $privacy->show_download = ($request->input('show_download') && $request->input('show_download') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])->with($this->toastr->success('Your Torrent History Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Account Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeAccountNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_account_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_account_follow = ($request->input('show_account_follow') && $request->input('show_account_follow') == 1 ? 1 : 0);
+        $notification->show_account_unfollow = ($request->input('show_account_unfollow') && $request->input('show_account_unfollow') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#account'])->with($this->toastr->success('Your Account Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Following Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeFollowingNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_following_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_following_upload = ($request->input('show_following_upload') && $request->input('show_following_upload') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#following'])->with($this->toastr->success('Your Followed User Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User BON Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeBonNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_bon_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_bon_gift = ($request->input('show_bon_gift') && $request->input('show_bon_gift') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#bon'])->with($this->toastr->success('Your BON Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Subscription Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeSubscriptionNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_subscription_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_subscription_forum = ($request->input('show_subscription_forum') && $request->input('show_subscription_forum') == 1 ? 1 : 0);
+        $notification->show_subscription_topic = ($request->input('show_subscription_topic') && $request->input('show_subscription_topic') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#subscription'])->with($this->toastr->success('Your Subscription Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Request Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeRequestNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_request_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_request_comment = ($request->input('show_request_comment') && $request->input('show_request_comment') == 1 ? 1 : 0);
+        $notification->show_request_bounty = ($request->input('show_request_bounty') && $request->input('show_request_bounty') == 1 ? 1 : 0);
+        $notification->show_request_fill = ($request->input('show_request_fill') && $request->input('show_request_fill') == 1 ? 1 : 0);
+        $notification->show_request_fill_approve = ($request->input('show_request_fill_approve') && $request->input('show_request_fill_approve') == 1 ? 1 : 0);
+        $notification->show_request_fill_reject = ($request->input('show_request_fill_reject') && $request->input('show_request_fill_reject') == 1 ? 1 : 0);
+        $notification->show_request_claim = ($request->input('show_request_claim') && $request->input('show_request_claim') == 1 ? 1 : 0);
+        $notification->show_request_unclaim = ($request->input('show_request_unclaim') && $request->input('show_request_unclaim') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])->with($this->toastr->success('Your Request Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Torrent Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeTorrentNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_torrent_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_torrent_comment = ($request->input('show_torrent_comment') && $request->input('show_torrent_comment') == 1 ? 1 : 0);
+        $notification->show_torrent_thank = ($request->input('show_torrent_thank') && $request->input('show_torrent_thank') == 1 ? 1 : 0);
+        $notification->show_torrent_tip = ($request->input('show_torrent_tip') && $request->input('show_torrent_tip') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])->with($this->toastr->success('Your Torrent Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Mention Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeMentionNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_mention_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_mention_torrent_comment = ($request->input('show_mention_torrent_comment') && $request->input('show_mention_torrent_comment') == 1 ? 1 : 0);
+        $notification->show_mention_request_comment = ($request->input('show_mention_request_comment') && $request->input('show_mention_request_comment') == 1 ? 1 : 0);
+        $notification->show_mention_article_comment = ($request->input('show_mention_article_comment') && $request->input('show_mention_article_comment') == 1 ? 1 : 0);
+        $notification->show_mention_forum_post = ($request->input('show_mention_forum_post') && $request->input('show_mention_forum_post') == 1 ? 1 : 0);
+
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#mention'])->with($this->toastr->success('Your @Mention Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Forum Notification Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeForumNotification(Request $request)
+    {
+        $user = auth()->user();
+        $notification = $user->notification;
+        if (! $notification) {
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $notification->json_forum_groups = array_merge($notification->expected_groups, ['default_groups' => $tomerge]);
+        $notification->show_forum_topic = ($request->input('show_forum_topic') && $request->input('show_forum_topic') == 1 ? 1 : 0);
+        $notification->save();
+
+        return redirect()->route('user_notification', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#forum'])->with($this->toastr->success('Your Forum Notification Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Profile Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeProfile(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_profile_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_profile_torrent_count = ($request->input('show_profile_torrent_count') && $request->input('show_profile_torrent_count') == 1 ? 1 : 0);
+        $privacy->show_profile_torrent_ratio = ($request->input('show_profile_torrent_ratio') && $request->input('show_profile_torrent_ratio') == 1 ? 1 : 0);
+        $privacy->show_profile_torrent_seed = ($request->input('show_profile_torrent_seed') && $request->input('show_profile_torrent_seed') == 1 ? 1 : 0);
+        $privacy->show_profile_torrent_extra = ($request->input('show_profile_torrent_extra') && $request->input('show_profile_torrent_extra') == 1 ? 1 : 0);
+        $privacy->show_profile_about = ($request->input('show_profile_about') && $request->input('show_profile_about') == 1 ? 1 : 0);
+        $privacy->show_profile_achievement = ($request->input('show_profile_achievement') && $request->input('show_profile_achievement') == 1 ? 1 : 0);
+        $privacy->show_profile_badge = ($request->input('show_profile_badge') && $request->input('show_profile_badge') == 1 ? 1 : 0);
+        $privacy->show_profile_follower = ($request->input('show_profile_follower') && $request->input('show_profile_follower') == 1 ? 1 : 0);
+        $privacy->show_profile_title = ($request->input('show_profile_title') && $request->input('show_profile_title') == 1 ? 1 : 0);
+        $privacy->show_profile_bon_extra = ($request->input('show_profile_bon_extra') && $request->input('show_profile_bon_extra') == 1 ? 1 : 0);
+        $privacy->show_profile_comment_extra = ($request->input('show_profile_comment_extra') && $request->input('show_profile_comment_extra') == 1 ? 1 : 0);
+        $privacy->show_profile_forum_extra = ($request->input('show_profile_forum_extra') && $request->input('show_profile_forum_extra') == 1 ? 1 : 0);
+        $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#profile'])->with($this->toastr->success('Your Profile Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * Change User RID.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $username
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function changeRID(Request $request, $username, $id)
+    {
+        $user = auth()->user();
+        $user->rsskey = md5(uniqid().time().microtime());
+        $user->save();
+
+        // Activity Log
+        \LogActivity::addToLog("Member {$user->username} has changed their account RID.");
+
+        return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#rid'])
+            ->with($this->toastr->success('Your RID Was Changed Successfully!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Privacy Settings.
+     *
+     * @param $slug
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function privacy($slug, $id)
+    {
+        $user = auth()->user();
+        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+
+        return view('user.privacy', ['user' => $user, 'groups'=> $groups]);
+    }
+
+    /**
+     * User Notification Settings.
+     *
+     * @param $slug
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function notification($slug, $id)
+    {
+        $user = auth()->user();
+        $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
+
+        return view('user.notification', ['user' => $user, 'groups'=> $groups]);
     }
 
     /**
@@ -359,10 +1074,13 @@ class UserController extends Controller
      */
     public function clients($username, $id)
     {
-        $user = auth()->user();
+        $user = User::where('id', '=', $id)->firstOrFail();
+
+        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+
         $cli = Client::where('user_id', '=', $user->id)->get();
 
-        return view('user.clients', ['user' => $user, 'clients' => $cli]);
+        return view('user.clients', ['user' => $user, 'clients' => $cli, 'route' => 'client']);
     }
 
     /**
@@ -630,47 +1348,6 @@ class UserController extends Controller
     }
 
     /**
-     * Get A Users Uploads.
-     *
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function myUploads($username, $id)
-    {
-        $user = User::findOrFail($id);
-
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])->where('user_id', '=', $user->id)->paginate(50);
-
-        return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
-    }
-
-    /**
-     * Get A Users Active Table.
-     *
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function myActive($username, $id)
-    {
-        $user = User::findOrFail($id);
-
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $active = Peer::with(['torrent' => function ($query) {
-            $query->withAnyStatus();
-        }])->sortable(['created_at' => 'desc'])
-            ->where('user_id', '=', $user->id)
-            ->distinct('hash')
-            ->paginate(50);
-
-        return view('user.active', ['user' => $user, 'active' => $active]);
-    }
-
-    /**
      * Uses Input's To Put Together A Filtered View.
      *
      * @param \Illuminate\Http\Request $request
@@ -684,17 +1361,197 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
 
-        if ($request->has('view') && $request->input('view') == 'history') {
-            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
-            $history = History::with(['torrent' => function ($query) {
+        if ($request->has('view') && $request->input('view') == 'seeds') {
+            $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->leftJoin('torrents as torrents', 'torrents.info_hash', '=', 'history.info_hash');
+            }])->selectRaw('peers.id,peers.uploaded,peers.downloaded,history.seedtime,torrents.info_hash,history.created_at as hcreated_at,torrents.id as torrent_id')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+                ->where('peers.seeder', '=', 1);
 
             $order = null;
             $sorting = null;
+
+            $history->where(function ($query) use ($request) {
+                if ($request->has('dying') && $request->input('dying') != null) {
+                    $query->orWhereRaw('(torrents.seeders = ? AND torrents.times_completed > ? AND date_sub(peers.created_at,interval 30 minute) < now())', [1, 2]);
+                }
+                if ($request->has('legendary') && $request->input('legendary') != null) {
+                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), interval 12 month) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('old') && $request->input('old') != null) {
+                    $query->orWhereRaw('(torrents.created_at < date_sub(now(), Interval 6 month) and torrents.created_at > date_sub(now(), interval 12 month) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('huge') && $request->input('huge') != null) {
+                    $query->orWhereRaw('(torrents.size > (1073741824 * 100) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('large') && $request->input('large') != null) {
+                    $query->orWhereRaw('(torrents.size > (1073741824 * 25) and torrents.size < (1073741824 * 100) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('regular') && $request->input('regular') != null) {
+                    $query->orWhereRaw('(torrents.size > (1073741824) and torrents.size < (1073741824 * 25) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('participant_seeder') && $request->input('participant_seeder') != null) {
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000) and history.seedtime < (2592000 * 2) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('teamplayer_seeder') && $request->input('teamplayer_seeder') != null) {
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 2) and history.seedtime < (2592000 * 3) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('committed_seeder') && $request->input('committed_seeder') != null) {
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 3) and history.seedtime < (2592000 * 6) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('mvp_seeder') && $request->input('mvp_seeder') != null) {
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 6) and history.seedtime < (2592000 * 12) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+                if ($request->has('legendary_seeder') && $request->input('legendary_seeder') != null) {
+                    $query->orWhereRaw('(history.active = 1 AND history.seedtime > (2592000 * 12) and date_sub(peers.created_at,interval 30 minute) < now())', []);
+                }
+            });
+
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+                if ($sorting == 'seedtime') {
+                    $table = $history->orderBy('history.'.$sorting, $order)->paginate(50);
+                } elseif ($sorting == 'hcreated_at') {
+                    $table = $history->orderBy($sorting, $order)->paginate(50);
+                } else {
+                    $table = $history->orderBy('peers.'.$sorting, $order)->paginate(50);
+                }
+            } else {
+                $table = $history->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters.seeds', [
+                'user' => $user,
+                'seeds' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
+            $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
+
+            $order = null;
+            $sorting = null;
+
+            if ($request->has('rewarded') && $request->input('rewarded') != null) {
+                $history->where('graveyard.rewarded', '=', 1);
+            }
+            if ($request->has('notrewarded') && $request->input('notrewarded') != null) {
+                $history->where('graveyard.rewarded', '=', 0);
+            }
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+                if ($sorting == 'goal') {
+                    $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.seedtime', $order)->paginate(50);
+                } else {
+                    $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('graveyard.'.$sorting, $order)->paginate(50);
+                }
+            } else {
+                $table = $history->where('graveyard.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters.resurrections', [
+                'user' => $user,
+                'resurrections' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'active') {
+            $history = Peer::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id');
+
+            $order = null;
+            $sorting = null;
+
+            if ($request->has('seeding') && $request->input('seeding') != null) {
+                $history->where('peers.seeder', '=', 1);
+            }
+            if ($request->has('leeching') && $request->input('leeching') != null) {
+                $history->where('peers.seeder', '=', 0)->where('peers.left', '>', 0);
+            }
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+                $table = $history->where('peers.user_id', '=', $user->id)->orderBy('peers.'.$sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('peers.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters.active', [
+                'user' => $user,
+                'active' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'downloads') {
+            $history = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))');
+
+            $order = null;
+            $sorting = null;
+
+            $history->where(function ($query) use ($request) {
+                if ($request->has('satisfied') && $request->input('satisfied') != null) {
+                    $query->orWhereRaw('(history.seedtime >= ? or history.immune = 1)', [config('hitrun.seedtime')]);
+                }
+                if ($request->has('notsatisfied') && $request->input('notsatisfied') != null) {
+                    $query->orWhereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')]);
+                }
+            });
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = $request->input('sorting');
             }
@@ -736,23 +1593,276 @@ class UserController extends Controller
                 $history->where('immune', '=', 1);
             }
 
+            if ($sorting != 'name' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('history.'.$sorting, $order)->paginate(50);
+            } else {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters.downloads', [
+                'user' => $user,
+                'downloads' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'uploads') {
+            $history = Torrent::distinct()->selectRaw('torrents.*,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->withAnyStatus()->where('torrents.user_id', '=', $user->id)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id');
+
+            $order = null;
+            $sorting = null;
+
+            if ($request->has('pending') && $request->input('pending') != null) {
+                $history->whereRaw('(torrents.status) = ?', [0]);
+            }
+            if ($request->has('approved') && $request->input('approved') != null) {
+                $history->whereRaw('(torrents.status) = ?', [1]);
+            }
+            if ($request->has('rejected') && $request->input('rejected') != null) {
+                $history->whereRaw('(torrents.status) = ?', [2]);
+            }
+
+            $history->where(function ($query) use ($request) {
+                if ($request->has('dead') && $request->input('dead') != null) {
+                    $query->orWhereRaw('(torrents.seeders+torrents.leechers) = ?', [0]);
+                }
+                if ($request->has('alive') && $request->input('alive') != null) {
+                    $query->orWhereRaw('torrents.seeders >= ?', [1]);
+                }
+                if ($request->has('reseed') && $request->input('reseed') != null) {
+                    $query->orWhereRaw('(torrents.seeders = ?) AND (torrents.leechers >= ?)', [0, 1]);
+                }
+                if ($request->has('error') && $request->input('error') != null) {
+                    $query->orWhereRaw('(torrents.seeders = ?) AND (torrents.leechers = ?)', [0, 0]);
+                }
+            });
+
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($sorting == 'tipped' || $sorting == 'thanked') {
+                $table = $history->orderBy($sorting.'_total', $order)->paginate(50);
+            } else {
+                $table = $history->orderBy('torrents.'.$sorting, $order)->paginate(50);
+            }
+
+            return view('user.filters.uploads', [
+                'user' => $user,
+                'uploads' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'history') {
+            $history = History::with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents as torrents', 'torrents.info_hash', '=', 'history.info_hash');
+
+            $order = null;
+            $sorting = null;
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+
+            if ($request->has('completed') && $request->input('completed') != null) {
+                $history->where('completed_at', '>', 0);
+            }
+
+            if ($request->has('active') && $request->input('active') != null) {
+                $history->where('active', '=', 1);
+            }
+
+            if ($request->has('seeding') && $request->input('seeding') != null) {
+                $history->where('seeder', '=', 1);
+            }
+
+            if ($request->has('prewarned') && $request->input('prewarned') != null) {
+                $history->where('prewarn', '=', 1);
+            }
+
+            if ($request->has('hr') && $request->input('hr') != null) {
+                $history->where('hitrun', '=', 1);
+            }
+
+            if ($request->has('immune') && $request->input('immune') != null) {
+                $history->where('immune', '=', 1);
+            }
+
             if ($sorting != 'name') {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy('history.'.$sorting, $order)->paginate(50);
             } else {
                 $table = $history->where('history.user_id', '=', $user->id)->orderBy('torrents.'.$sorting, $order)->paginate(50);
             }
 
-            return view('user.filters', [
+            return view('user.filters.history', [
                 'user' => $user,
                 'history' => $table,
-                'his_upl' => $his_upl,
-                'his_upl_cre' => $his_upl_cre,
-                'his_downl' => $his_downl,
-                'his_downl_cre' => $his_downl_cre,
             ])->render();
         }
 
         return false;
+    }
+
+    /**
+     * Show User Achievements.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function achievements($username, $id)
+    {
+        $user = User::findOrFail($id);
+        $achievements = $user->unlockedAchievements();
+
+        return view('user.achievements', [
+            'route'        => 'achievement',
+            'user'         => $user,
+            'achievements' => $achievements,
+        ]);
+    }
+
+    /**
+     * Get A Users Wishlist.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function wishes($slug, $id)
+    {
+        $user = User::with('wishes')->where('id', '=', $id)->firstOrFail();
+
+        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+
+        $wishes = $user->wishes()->latest()->paginate(25);
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
+
+        return view('user.wishlist', [
+            'user'               => $user,
+            'personal_freeleech' => $personal_freeleech,
+            'wishes'             => $wishes,
+            'route'              => 'wish',
+        ]);
+    }
+
+    /**
+     * Get A Users Torrent Bookmarks.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function bookmarks($slug, $id)
+    {
+        $user = User::with('bookmarks')->where('id', '=', $id)->firstOrFail();
+
+        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+
+        $bookmarks = $user->bookmarks()->latest()->paginate(25);
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
+
+        return view('user.bookmarks', [
+            'user'               => $user,
+            'personal_freeleech' => $personal_freeleech,
+            'bookmarks'          => $bookmarks,
+            'route'              => 'bookmark',
+        ]);
+    }
+
+    /**
+     * Get A Users Downloads (Fully Downloaded) Table.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function downloads($slug, $id)
+    {
+        $user = User::findOrFail($id);
+        if ((auth()->user()->id == $user->id || auth()->user()->group->is_modo)) {
+            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
+            $logger = 'user.private.downloads';
+
+            if (config('hitrun.enabled') == true) {
+                $downloads = History::distinct()->selectRaw('history.*,torrents.size')->with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                    ->sortable(['created_at' => 'desc'])
+                    ->where('history.user_id', '=', $user->id)
+                    ->paginate(50);
+            } else {
+                $downloads = History::distinct()->selectRaw('history.*,torrents.size')->with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+                    ->sortable(['created_at' => 'desc'])
+                    ->where('history.user_id', '=', $user->id)
+                    ->paginate(50);
+            }
+
+            return view($logger, [
+                'route'        => 'downloads',
+                'user'          => $user,
+                'downloads'     => $downloads,
+                'his_upl'       => $his_upl,
+                'his_upl_cre'   => $his_upl_cre,
+                'his_downl'     => $his_downl,
+                'his_downl_cre' => $his_downl_cre,
+            ]);
+        } else {
+            $logger = 'user.downloads';
+
+            if (config('hitrun.enabled') == true) {
+                $downloads = History::with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->distinct('history.info_hash')->selectRaw('history.*,torrents.size')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                    ->sortable(['created_at' => 'desc'])
+                    ->where('history.user_id', '=', $user->id)
+                    ->paginate(50);
+            } else {
+                $downloads = History::with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->distinct('history.info_hash')->selectRaw('history.*,torrents.size')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+                    ->sortable(['created_at' => 'desc'])
+                    ->where('history.user_id', '=', $user->id)
+                    ->paginate(50);
+            }
+
+            return view($logger, [
+                'route'        => 'downloads',
+                'user'        => $user,
+                'downloads'   => $downloads,
+            ]);
+        }
     }
 
     /**
@@ -763,7 +1873,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myHistory($username, $id)
+    public function torrents($username, $id)
     {
         $user = User::findOrFail($id);
 
@@ -778,7 +1888,8 @@ class UserController extends Controller
             ->where('user_id', '=', $user->id)
             ->paginate(50);
 
-        return view('user.history', [
+        return view('user.private.torrents', [
+            'route'         => 'torrents',
             'user'          => $user,
             'history'       => $history,
             'his_upl'       => $his_upl,
@@ -789,24 +1900,164 @@ class UserController extends Controller
     }
 
     /**
-     * Search A User's Uploads.
+     * Get A Users Graveyard Resurrections.
+     *
+     * @param $slug
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function resurrections($slug, $id)
+    {
+        $user = User::findOrFail($id);
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
+
+        return view('user.private.resurrections', [
+            'route'         => 'resurrections',
+            'user'          => $user,
+            'resurrections' => $resurrections,
+            'his_upl'       => $his_upl,
+            'his_upl_cre'   => $his_upl_cre,
+            'his_downl'     => $his_downl,
+            'his_downl_cre' => $his_downl_cre,
+        ]);
+    }
+
+    /**
+     * Get A User Uploads.
+     *
+     * @param $slug
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function uploads($slug, $id)
+    {
+        $user = User::findOrFail($id);
+        if (auth()->user()->id == $user->id || auth()->user()->group->is_modo) {
+            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
+            $logger = 'user.private.uploads';
+            $uploads = Torrent::distinct()->selectRaw('torrents.*,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->withAnyStatus()->where('torrents.user_id', '=', $user->id)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->paginate(50);
+
+            return view($logger, [
+                'route'         => 'uploads',
+                'user'          => $user,
+                'uploads'       => $uploads,
+                'his_upl'       => $his_upl,
+                'his_upl_cre'   => $his_upl_cre,
+                'his_downl'     => $his_downl,
+                'his_downl_cre' => $his_downl_cre,
+            ]);
+        } else {
+            $logger = 'user.uploads';
+            $uploads = Torrent::distinct()->selectRaw('torrents.*,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->paginate(50);
+
+            return view($logger, [
+                'route'       => 'uploads',
+                'user'        => $user,
+                'uploads'     => $uploads,
+            ]);
+        }
+    }
+
+    /**
+     * Get A Users Active Table.
      *
      * @param $username
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myUploadsSearch(Request $request, $username, $id)
+    public function active($username, $id)
     {
         $user = User::findOrFail($id);
 
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $torrents = Torrent::withAnyStatus()->sortable(['created_at' => 'desc'])
+
+        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
+        $active = Peer::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->sortable(['created_at' => 'desc'])
             ->where('user_id', '=', $user->id)
-            ->where('name', 'like', '%'.$request->input('name').'%')
+            ->distinct('hash')
             ->paginate(50);
 
-        return view('user.uploads', ['user' => $user, 'torrents' => $torrents]);
+        return view('user.private.active', ['user' => $user,
+            'route'         => 'active',
+            'active'        => $active,
+            'his_upl'       => $his_upl,
+            'his_upl_cre'   => $his_upl_cre,
+            'his_downl'     => $his_downl,
+            'his_downl_cre' => $his_downl_cre,
+        ]);
+    }
+
+    /**
+     * Get A Users Seeds Table.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function seeds($username, $id)
+    {
+        $user = User::findOrFail($id);
+
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+
+        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
+        $seeds = Peer::with(['torrent' => function ($query) {
+            $query->withAnyStatus();
+        }])->selectRaw('peers.id,peers.uploaded,peers.downloaded,history.seedtime,torrents.info_hash,history.created_at as hcreated_at,torrents.id as torrent_id')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+            ->where('peers.seeder', '=', 1)
+            ->paginate(50);
+
+        return view('user.private.seeds', ['user' => $user,
+            'route'         => 'seeds',
+            'seeds'         => $seeds,
+            'his_upl'       => $his_upl,
+            'his_upl_cre'   => $his_upl_cre,
+            'his_downl'     => $his_downl,
+            'his_downl_cre' => $his_downl_cre,
+        ]);
+    }
+
+    /**
+     * Get A Users Bans.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getBans($username, $id)
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $user = User::findOrFail($id);
+        $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
+
+        return view('user.banlog', [
+            'user'      => $user,
+            'bans'  => $bans,
+        ]);
     }
 
     /**
@@ -891,46 +2142,5 @@ class UserController extends Controller
         } else {
             return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
-    }
-
-    /**
-     * Get A Users Graveyard Resurrections.
-     *
-     * @param $username
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function myResurrections($username, $id)
-    {
-        $user = User::findOrFail($id);
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-
-        $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(25);
-
-        return view('user.resurrections', [
-            'user' => $user,
-            'resurrections' => $resurrections,
-        ]);
-    }
-
-    /**
-     * Get A Users Bans.
-     *
-     * @param $username
-     * @param $id
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getBans($username, $id)
-    {
-        abort_unless(auth()->user()->group->is_modo, 403);
-
-        $user = User::findOrFail($id);
-        $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
-
-        return view('user.banlog', [
-            'user'      => $user,
-            'bans'  => $bans,
-        ]);
     }
 }

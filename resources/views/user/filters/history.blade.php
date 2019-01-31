@@ -2,7 +2,6 @@
     <!-- History -->
     <div class="table-responsive">
         <table class="table table-condensed table-striped table-bordered">
-            <div class="head"><strong>@lang('user.torrents-history')</strong></div>
             <thead>
             <th>@lang('torrent.name')</th>
             <th>@lang('torrent.agent')</th>
@@ -77,6 +76,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            {{ $history->appends(request()->except('page'))->render() }}
+            {{ $history->links() }}
         </div>
     </div>
+</div>

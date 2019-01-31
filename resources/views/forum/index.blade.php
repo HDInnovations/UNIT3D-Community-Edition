@@ -79,7 +79,7 @@
                                 <td>
                                     <span>@lang('forum.last-message') - {{ strtolower(trans('forum.author')) }} <i
                                                 class="{{ config('other.font-awesome') }} fa-user"></i> <a
-                                                href="{{ route('profile', ['username' => $categoryChild->last_post_user_username, 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
+                                                href="{{ route('profile', ['username' => str_slug($categoryChild->last_post_user_username), 'id' => $categoryChild->last_post_user_id]) }}"> {{ $categoryChild->last_post_user_username }}</a></span>
                                     <br>
                                     <span>@lang('forum.topic') <i class="{{ config('other.font-awesome') }} fa-chevron-right"></i><a
                                                 href="{{ route('forum_topic', ['slug' => $categoryChild->last_topic_slug, 'id' => $categoryChild->last_topic_id]) }}"> {{ $categoryChild->last_topic_name }}</a></span>

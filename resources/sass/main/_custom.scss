@@ -3671,7 +3671,6 @@ button.close {
 
 .modal-header {
     padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 .modal-header .close {
@@ -3683,14 +3682,13 @@ button.close {
 }
 
 .modal-body {
-    position: relative;
-    padding: 20px;
+    position: initital;
+    padding: 10px;
 }
 
 .modal-footer {
-    padding: 20px;
+    padding: 15px;
     text-align: right;
-    border-top: 1px solid #e5e5e5;
 }
 
 .modal-footer .btn + .btn {
@@ -3704,6 +3702,20 @@ button.close {
 
 .modal-footer .btn-block + .btn-block {
     margin-left: 0;
+}
+
+.modal-underline {
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-overline {
+    width: 100%;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
+    margin-top: 10px;
 }
 
 .modal-scrollbar-measure {
@@ -5292,6 +5304,10 @@ a.torrent-filename:visited {
     padding: 20px 0;
 }
 
+.badge-float {
+    border-radius: 5px !important;
+}
+
 .badge-user {
     border: 1px solid #b6daf2;
     box-shadow: 0 5px 5px rgba(93, 93, 93, 0.2);
@@ -5509,6 +5525,12 @@ a.sort {
     padding-right: 20px;
 }
 
+.p-5 {
+    padding: 5px;
+}
+.p-10 {
+    padding: 10px;
+}
 .p-20 {
     padding: 20px;
 }
@@ -5622,6 +5644,26 @@ a.sort {
 .button-right {
     display: table-cell;
     width: 50%;
+    text-align: right;
+}
+.button-left-large {
+    display: table-cell;
+    width: 70%;
+    text-align: left;
+}
+.button-right-large {
+    display: table-cell;
+    width: 70%;
+    text-align: right;
+}
+.button-left-small {
+    display: table-cell;
+    width: 30%;
+    text-align: left;
+}
+.button-right-small {
+    display: table-cell;
+    width: 30%;
     text-align: right;
 }
 .button-padding {

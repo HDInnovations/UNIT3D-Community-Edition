@@ -41,7 +41,8 @@ class TorrentHelper
         $appname = config('app.name');
 
         Torrent::approve($id);
-        $torrent = Torrent::withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+        $torrent = Torrent::with('uploader')->withAnyStatus()->where('id', '=', $id)->where('slug', '=', $slug)->first();
+        $uploader = $torrent->uploader;
 
         $wishes = Wish::where('imdb', '=', 'tt'.$torrent->imdb)->whereNull('source')->get();
         if ($wishes) {
@@ -64,7 +65,10 @@ class TorrentHelper
             $followers = Follow::where('target_id', '=', $torrent->user_id)->get();
             if ($followers) {
                 foreach ($followers as $follower) {
-                    User::find($follower->user_id)->notify(new NewUpload('follower', $torrent));
+                    $pushto = User::with('notification')->find($follower->user_id);
+                    if ($pushto->acceptsNotification($uploader, $pushto, 'following', 'show_following_upload')) {
+                        $pushto->notify(new NewUpload('follower', $torrent));
+                    }
                 }
             }
         }

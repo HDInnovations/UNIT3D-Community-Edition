@@ -45,7 +45,7 @@
                     @forelse($notification as $n)
                         <tr>
                             <td>
-                                <a href="{{ $n->data['url'] }}" class="clearfix">
+                                <a href="{{ route('show_notification', ['id' => $n->id]) }}" class="clearfix">
                                     <span class="notification-title">{{ $n->data['title'] }}</span>
                                 </a>
                             </td>

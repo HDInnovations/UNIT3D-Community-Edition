@@ -111,14 +111,14 @@
                                     class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                         </td>
                         <td class="f-display-topic-started"><a
-                                    href="{{ route('profile', ['username' => $t->first_post_user_username, 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
+                                    href="{{ route('profile', ['username' => str_slug($t->first_post_user_username), 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
                         </td>
                         <td class="f-display-topic-stats">
                             {{ $t->num_post - 1 }} @lang('forum.replies')
                             \ {{ $t->views }} @lang('forum.views')
                         </td>
                         <td class="f-display-topic-last-post">
-                            <a href="{{ route('profile', ['username' => $t->last_post_user_username, 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>,
+                            <a href="{{ route('profile', ['username' => str_slug($t->last_post_user_username), 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>,
                             @if($t->last_reply_at && $t->last_reply_at != null)
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($t->last_reply_at)) }}">
                                     {{ date('M d Y', strtotime($t->last_reply_at)) }}

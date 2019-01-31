@@ -1,9 +1,20 @@
 @extends('layout.default')
 
+@section('title')
+    <title>{{ $user->username }} @lang('user.bookmarks') - {{ config('other.title') }}</title>
+@endsection
+
 @section('breadcrumb')
     <li>
-        <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.bookmarks')</span>
+        <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('user_bookmarks', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.bookmarks')</span>
         </a>
     </li>
 @endsection
@@ -11,11 +22,13 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            <div class="header gradient orange">
+            @include('user.buttons.bookmark')
+            <div class="header gradient red">
                 <div class="inner_content">
-                    <h1>@lang('common.my') {{ strtolower(trans('torrent.bookmarks')) }}</h1>
+                    <h1>{{ $user->username }} @lang('user.bookmarks')</h1>
                 </div>
             </div>
+            <div class="some-padding">
             <div class="table-responsive">
                 <div class="pull-right"></div>
                 <table class="table table-condensed table-striped table-bordered">
@@ -32,13 +45,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if (count($bookmarks) == 0)
-                        <tr>
-                            <td>
-                                <p>@lang('torrent.no-bookmarks')</p>
-                            </td>
-                        </tr>
-                    @else
                     @foreach ($bookmarks as $bookmark)
                         <tr>
                             <td>
@@ -271,12 +277,19 @@
                             </td>
                         </tr>
                     @endforeach
-                    @endif
                     </tbody>
                 </table>
+            </div>
                 <div class="text-center">
                     {{ $bookmarks->links() }}
                 </div>
+                @if (count($bookmarks) <= 0)
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1 class="text-blue"><i class="{{ config('other.font-awesome') }} fa-frown text-blue"></i> No Boomarks</h1>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

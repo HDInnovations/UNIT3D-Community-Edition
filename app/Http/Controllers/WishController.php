@@ -50,9 +50,6 @@ class WishController extends Controller
      */
     public function index($uid)
     {
-        $wishes = $this->wish->getUserWishes($uid);
-
-        return view('user.wishlist', ['wishes' => $wishes]);
     }
 
     /**
@@ -76,7 +73,7 @@ class WishController extends Controller
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
-                ->route('wishlist', ['id' => $uid])
+                ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
         }
 
@@ -91,7 +88,7 @@ class WishController extends Controller
         ]);
 
         return redirect()
-            ->route('wishlist', ['id' => $uid])
+            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Added!', 'Yay!', ['options']));
     }
 
@@ -108,7 +105,7 @@ class WishController extends Controller
         $this->wish->delete($id);
 
         return redirect()
-            ->route('wishlist', ['id' => $uid])
+            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Removed!', 'Yay!', ['options']));
     }
 }

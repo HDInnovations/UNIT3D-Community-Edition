@@ -1,25 +1,36 @@
 @extends('layout.default')
 
 @section('title')
-    <title>@lang('user.my-seedboxes') - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - @lang('user.seedboxes') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('profile', ['username' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('user_clients', ['username' => $user->username, 'id' => $user->id]) }}" itemprop="url"
+        <a href="{{ route('user_clients', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('user.my-seedboxes')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.seedboxes')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
+    <div class="container-fluid">
+        <div class="block">
+            @include('user.buttons.client')
+            <div class="header gradient red">
+                <div class="inner_content">
+                    <h1>{{ $user->username }} @lang('user.seedboxes')</h1>
+                </div>
+            </div>
+            <div class="some-padding">
+
+
     <div class="row">
         <div class="col-sm-2 col-sm-offset-1">
             <div class="well well-sm mt-0">
@@ -58,8 +69,6 @@
 
     <div class="row">
         <div class="container box">
-            <h3 class="text-center">@lang('user.my-seedboxes')</h3>
-            @if (count($clients) > 0)
                 <div class="table-responsive">
                     <table class="table table-condensed table-bordered table-striped table-hover">
                         <tr>
@@ -68,6 +77,7 @@
                             <th>@lang('common.added')</th>
                             <th>@lang('common.remove')</th>
                         </tr>
+                        @if (count($clients) > 0)
                         @foreach ($clients as $client)
                             <tr>
                                 <td>{{ $client->name }}</td>
@@ -83,13 +93,13 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @endif
                     </table>
                 </div>
-            @else
-                <li class="list-group-item">
-                    <h4 class="text-center">@lang('user.no-seedboxes')</h4>
-                </li>
-            @endif
+        </div>
+    </div>
+
+            </div>
         </div>
     </div>
 @endsection

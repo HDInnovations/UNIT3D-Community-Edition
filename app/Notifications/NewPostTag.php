@@ -65,7 +65,7 @@ class NewPostTag extends Notification implements ShouldQueue
 
         return [
             'title' => $this->tagger.' Has Tagged You In A Post',
-            'body'  => $this->tagger.' has tagged you in a post in '.$this->post->topic->name,
+            'body'  => $this->tagger.' has tagged you in a Post in Topic '.$this->post->topic->name,
             'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];
     }
