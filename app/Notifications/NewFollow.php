@@ -14,6 +14,7 @@
 namespace App\Notifications;
 
 use App\Follow;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,6 +26,7 @@ class NewFollow extends Notification implements ShouldQueue
     public $type;
     public $sender;
     public $follow;
+    public $target;
 
     /**
      * Create a new notification instance.
@@ -33,11 +35,12 @@ class NewFollow extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, string $sender, Follow $follow)
+    public function __construct(string $type, User $sender, User $target, Follow $follow)
     {
         $this->type = $type;
         $this->follow = $follow;
         $this->sender = $sender;
+        $this->target = $target;
     }
 
     /**
@@ -64,9 +67,9 @@ class NewFollow extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->sender.' Has Followed You!',
-            'body'  => $this->sender.' has started to follow you so they will get notifications about your activities.',
-            'url'   => "/{$this->follow->user->username}.{$this->follow->user->id}",
+            'title' => $this->sender->username.' Has Followed You!',
+            'body'  => $this->sender->username.' has started to follow you so they will get notifications about your activities.',
+            'url'   => "/{$this->sender->slug}.{$this->sender->id}",
         ];
     }
 }
