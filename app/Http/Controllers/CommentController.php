@@ -122,6 +122,7 @@ class CommentController extends Controller
                     $this->tag->messageCommentUsers(
                         'article',
                         $users,
+                        $user,
                         'Staff',
                         $comment
                     );
@@ -134,6 +135,7 @@ class CommentController extends Controller
                     $this->tag->messageTaggedCommentUsers(
                         'article',
                         $request->input('content'),
+                        $user,
                         $sender,
                         $comment
                     );
@@ -226,6 +228,7 @@ class CommentController extends Controller
                     $this->tag->messageCommentUsers(
                         'torrent',
                         $users,
+                        $user,
                         'Staff',
                         $comment
                     );
@@ -238,6 +241,7 @@ class CommentController extends Controller
                     $this->tag->messageTaggedCommentUsers(
                         'torrent',
                         $request->input('content'),
+                        $user,
                         $sender,
                         $comment
                     );
@@ -321,8 +325,6 @@ class CommentController extends Controller
             }
 
             if ($this->tag->hasTags($request->input('content'))) {
-                $message = "[url={$profile_url}]{$user->username}[/url] has tagged you in a comment. You can view it [url={$tr_url}] HERE [/url]";
-
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
                     $users = collect([]);
 
@@ -330,8 +332,9 @@ class CommentController extends Controller
                         $users->push($c->user);
                     });
                     $this->tag->messageCommentUsers(
-                        'req',
+                        'request',
                         $users,
+                        $user,
                         'Staff',
                         $comment
                     );
@@ -342,8 +345,9 @@ class CommentController extends Controller
                         $sender = $user->username;
                     }
                     $this->tag->messageTaggedCommentUsers(
-                        'req',
+                        'request',
                         $request->input('content'),
+                        $user,
                         $sender,
                         $comment
                     );
