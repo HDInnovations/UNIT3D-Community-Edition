@@ -71,7 +71,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('bonus', ['username' => auth()->user()->username]) }}">
+            <a href="{{ route('bonus_store') }}">
                 <i class="{{ config('other.font-awesome') }} fa-shopping-cart" style=" font-size: 18px; color: #fff;"></i>
                 <span class="menu-text">@lang('bon.bon') @lang('bon.store')</span>
                 <span class="selected"></span>
