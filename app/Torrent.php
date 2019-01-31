@@ -143,7 +143,7 @@ class Torrent extends Model
      */
     public function tips()
     {
-        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name','=','tip');
+        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
     }
 
     /**
@@ -270,16 +270,19 @@ class Torrent extends Model
     {
         if ($type == 'thank') {
             $user = User::with('notification')->findOrFail($this->user_id);
-            if ($user->acceptsNotification(auth()->user(),$user,'torrent','show_torrent_thank')) {
+            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));
+
                 return true;
             }
         }
         $user = User::with('notification')->findOrFail($this->user_id);
-        if ($user->acceptsNotification(auth()->user(),$user,'torrent','show_torrent_comment')) {
+        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
             $user->notify(new NewComment('torrent', $payload));
+
             return true;
         }
+
         return true;
     }
 

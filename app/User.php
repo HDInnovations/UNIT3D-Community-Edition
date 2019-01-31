@@ -501,32 +501,33 @@ class User extends Authenticatable
      *
      * @return int
      */
-    public function acceptsNotification(User $sender, User $target, $group = 'follower', $type = false)
+    public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
-        if($sender->id == $target->id) {
+        if ($sender->id == $target->id) {
             return false;
         }
-        if($sender->group->is_modo || $sender->group->is_admin) {
+        if ($sender->group->is_modo || $sender->group->is_admin) {
             return true;
         }
-        if($target->block_notifications && $target->block_notifications == 1) {
+        if ($target->block_notifications && $target->block_notifications == 1) {
             return false;
         }
-        if($target->notification && $type && (!$target->notification->$type)) {
+        if ($target->notification && $type && (! $target->notification->$type)) {
             return false;
         }
-        if($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
-            if(array_key_exists($sender->group->id,$target->notification->$target_group['default_groups'])) {
-                if($target->notification->$target_group['default_groups'][$sender->group->id] == 1) {
+        if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
+            if (array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
+                if ($target->notification->$target_group['default_groups'][$sender->group->id] == 1) {
                     return true;
                 }
+
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
+
         return true;
     }
 
@@ -535,33 +536,34 @@ class User extends Authenticatable
      *
      * @return int
      */
-    public function isAllowed(User $target, $group = 'profile', $type = false)
+    public function isAllowed(self $target, $group = 'profile', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
         $sender = auth()->user();
-        if($sender->id == $target->id) {
+        if ($sender->id == $target->id) {
             return true;
         }
-        if($sender->group->is_modo || $sender->group->is_admin) {
+        if ($sender->group->is_modo || $sender->group->is_admin) {
             return true;
         }
-        if($target->private_profile && $target->private_profile == 1) {
+        if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
-        if($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
-        if($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
-            if(array_key_exists($sender->group->id,$target->privacy->$target_group['default_groups'])) {
-                if($target->privacy->$target_group['default_groups'][$sender->group->id] == 1) {
+        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
+            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+                if ($target->privacy->$target_group['default_groups'][$sender->group->id] == 1) {
                     return true;
                 }
+
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
         }
+
         return true;
     }
 

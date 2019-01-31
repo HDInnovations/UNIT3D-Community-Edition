@@ -13,8 +13,8 @@
 
 namespace App\Notifications;
 
-use App\Follow;
 use App\User;
+use App\Follow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;

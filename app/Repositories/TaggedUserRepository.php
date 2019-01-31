@@ -110,7 +110,7 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    if($user->acceptsNotification($sender,$user,'mention','show_mention_'.$type.'_comment')) {
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
                         $user->notify(new NewCommentTag($type, $alias, $comment));
                     }
                 }
@@ -122,7 +122,7 @@ class TaggedUserRepository
         // A single User object
 
         if ($this->validate($users)) {
-            if($users->acceptsNotification($sender,$users,'mention','show_mention_'.$type.'_comment')) {
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
                 $users->notify(new NewCommentTag($type, $alias, $comment));
             }
         }
@@ -149,7 +149,7 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    if($user->acceptsNotification($sender,$user,'mention','show_mention_'.$type.'_post')) {
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
                         $user->notify(new NewPostTag($type, $alias, $post));
                     }
                 }
@@ -160,10 +160,11 @@ class TaggedUserRepository
 
         // A single User object
         if ($this->validate($users)) {
-            if($users->acceptsNotification($sender,$users,'mention','show_mention_'.$type.'_post')) {
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
                 $users->notify(new NewPostTag($type, $alias, $post));
             }
         }
+
         return true;
     }
 

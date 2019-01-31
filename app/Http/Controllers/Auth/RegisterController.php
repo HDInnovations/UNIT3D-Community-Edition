@@ -14,14 +14,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\UserPrivacy;
-use App\UserNotification;
 use App\Group;
 use App\Invite;
 use Carbon\Carbon;
+use App\UserPrivacy;
 use App\Rules\Captcha;
 use App\PrivateMessage;
 use App\UserActivation;
+use App\UserNotification;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Jobs\SendActivationMail;

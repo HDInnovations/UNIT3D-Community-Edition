@@ -62,12 +62,12 @@ class BonusController extends Controller
     {
         $user = auth()->user();
         $userbon = $user->getSeedbonus();
-        $gifttransactions = BonTransactions::with(['senderObj','receiverObj'])->where(function ($query) {
+        $gifttransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) {
             $query->where('sender', '=', auth()->user()->id)->orwhere('receiver', '=', auth()->user()->id);
-        })->where('name','=','gift')->orderBy('date_actioned','DESC')->paginate(25);
+        })->where('name', '=', 'gift')->orderBy('date_actioned', 'DESC')->paginate(25);
 
-        $gifts_sent = BonTransactions::where('sender','=',auth()->user()->id)->where('name','=','gift')->sum('cost');
-        $gifts_received = BonTransactions::where('receiver','=',auth()->user()->id)->where('name','=','gift')->sum('cost');
+        $gifts_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
+        $gifts_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
 
         return view('bonus.gifts', [
             'user'              => $user,
@@ -87,12 +87,12 @@ class BonusController extends Controller
     {
         $user = auth()->user();
         $userbon = $user->getSeedbonus();
-        $bontransactions = BonTransactions::with(['senderObj','receiverObj'])->where(function ($query) {
+        $bontransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) {
             $query->where('sender', '=', auth()->user()->id)->orwhere('receiver', '=', auth()->user()->id);
-        })->where('name','=','tip')->orderBy('date_actioned','DESC')->paginate(25);
+        })->where('name', '=', 'tip')->orderBy('date_actioned', 'DESC')->paginate(25);
 
-        $tips_sent = BonTransactions::where('sender','=',auth()->user()->id)->where('name','=','tip')->sum('cost');
-        $tips_received = BonTransactions::where('receiver','=',auth()->user()->id)->where('name','=','tip')->sum('cost');
+        $tips_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
+        $tips_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
 
         return view('bonus.tips', [
             'user'              => $user,
@@ -115,7 +115,7 @@ class BonusController extends Controller
         $userbon = $user->getSeedbonus();
         $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $BonExchange = new BonExchange();
-        $bontransactions = BonTransactions::with('exchange')->where('sender','=',auth()->user()->id)->where('itemID','>',0)->orderBy('date_actioned','DESC')->limit(25)->get();
+        $bontransactions = BonTransactions::with('exchange')->where('sender', '=', auth()->user()->id)->where('itemID', '>', 0)->orderBy('date_actioned', 'DESC')->limit(25)->get();
         $uploadOptions = $BonExchange->getUploadOptions();
         $downloadOptions = $BonExchange->getDownloadOptions();
         $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
@@ -190,12 +190,12 @@ class BonusController extends Controller
             ($dying * 2) + ($legendary * 1.5) + ($old * 1) + ($huge * 0.75) + ($large * 0.50) + ($regular * 0.25)
             + ($participant * 0.25) + ($teamplayer * 0.50) + ($committed * 0.75) + ($mvp * 1) + ($legend * 2);
 
-        $daily = $total*24;
-        $weekly = $total*24*7;
-        $monthly = $total*24*30;
-        $yearly = $total*24*365;
-        $minute = $total/60;
-        $second = $minute/60;
+        $daily = $total * 24;
+        $weekly = $total * 24 * 7;
+        $monthly = $total * 24 * 30;
+        $yearly = $total * 24 * 365;
+        $minute = $total / 60;
+        $second = $minute / 60;
 
         return view('bonus.index', [
             'users'             => $users,
@@ -336,9 +336,9 @@ class BonusController extends Controller
                 'bonus_message' => 'required|string',
             ]);
 
-        $dest = "default";
-        if($request->has('dest') && $request->input('dest') == 'profile') {
-            $dest = "profile";
+        $dest = 'default';
+        if ($request->has('dest') && $request->input('dest') == 'profile') {
+            $dest = 'profile';
         }
 
         if ($v->passes()) {
@@ -367,7 +367,7 @@ class BonusController extends Controller
             $transaction->save();
 
             if ($user->id != $recipient->id) {
-                if ($recipient->acceptsNotification(auth()->user(),$recipient,'bon','show_bon_gift')) {
+                if ($recipient->acceptsNotification(auth()->user(), $recipient, 'bon', 'show_bon_gift')) {
                     $recipient->notify(new NewBon('gift', $user->username, $transaction));
                 }
             }
@@ -379,14 +379,14 @@ class BonusController extends Controller
                 ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
 
-            if($dest == "profile") {
+            if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
                     ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
             }
+
             return redirect()->route('bonus_gift')
                 ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
         } else {
-
             $v = validator($request->all(), [
                 'to_username' => 'required|exists:users,username|max:180',
             ]);
@@ -394,19 +394,21 @@ class BonusController extends Controller
             if ($v->passes()) {
                 $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
-                if (!$recipient || $recipient->id == $user->id) {
+                if (! $recipient || $recipient->id == $user->id) {
                     return redirect('/bonus/gift')
                         ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
                 }
 
-                if($dest == "profile") {
+                if ($dest == 'profile') {
                     return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
                         ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
                 }
+
                 return redirect()->route('bonus_gift')
                     ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
             }
         }
+
         return redirect('/bonus/gift')
             ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
     }
@@ -455,7 +457,7 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        if ($uploader->acceptsNotification(auth()->user(),$uploader,'torrent','show_torrent_tip')) {
+        if ($uploader->acceptsNotification(auth()->user(), $uploader, 'torrent', 'show_torrent_tip')) {
             $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
         }
 

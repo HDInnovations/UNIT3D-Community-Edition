@@ -17,12 +17,6 @@ use App\Type;
 use App\User;
 use App\Torrent;
 use App\Category;
-use App\Notifications\NewRequestBounty;
-use App\Notifications\NewRequestFill;
-use App\Notifications\NewRequestFillApprove;
-use App\Notifications\NewRequestFillReject;
-use App\Notifications\NewRequestClaim;
-use App\Notifications\NewRequestUnclaim;
 use Carbon\Carbon;
 use App\PrivateMessage;
 use App\TorrentRequest;
@@ -32,10 +26,16 @@ use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\TorrentRequestBounty;
 use App\Repositories\ChatRepository;
+use App\Notifications\NewRequestFill;
+use App\Notifications\NewRequestClaim;
+use App\Notifications\NewRequestBounty;
+use App\Notifications\NewRequestUnclaim;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
 use App\Achievements\UserFilled100Requests;
+use App\Notifications\NewRequestFillReject;
+use App\Notifications\NewRequestFillApprove;
 use App\Repositories\RequestFacetedRepository;
 
 class RequestController extends Controller
@@ -484,14 +484,14 @@ class RequestController extends Controller
                 );
             }
 
-            if($request->input('anon') == 1) {
-                $sender="Anonymous";
+            if ($request->input('anon') == 1) {
+                $sender = 'Anonymous';
             } else {
-                $sender=$user->username;
+                $sender = $user->username;
             }
 
             $requester = $tr->user;
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_bounty')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_bounty')) {
                 $requester->notify(new NewRequestBounty('torrent', $sender, $request->input('bonus_value'), $tr));
             }
 
@@ -536,14 +536,14 @@ class RequestController extends Controller
             // Send Private Message
             $appurl = config('app.url');
 
-            if($request->input('filled_anon') == 1) {
-                $sender="Anonymous";
+            if ($request->input('filled_anon') == 1) {
+                $sender = 'Anonymous';
             } else {
-                $sender=$user->username;
+                $sender = $user->username;
             }
 
             $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_fill')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill')) {
                 $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
             }
 
@@ -626,7 +626,7 @@ class RequestController extends Controller
             }
 
             $requester = $fill_user;
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_fill_approve')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill_approve')) {
                 $requester->notify(new NewRequestFillApprove('torrent', $user->username, $tr));
             }
 
@@ -666,7 +666,7 @@ class RequestController extends Controller
             }
 
             $requester = User::findOrFail($torrentRequest->filled_by);
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_fill_reject')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_fill_reject')) {
                 $requester->notify(new NewRequestFillReject('torrent', $user->username, $torrentRequest));
             }
 
@@ -736,15 +736,14 @@ class RequestController extends Controller
             $torrentRequest->claimed = 1;
             $torrentRequest->save();
 
-            if($request->input('anon') == 1) {
-                $sender="Anonymous";
-            }
-            else {
-                $sender=$user->username;
+            if ($request->input('anon') == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
             }
 
             $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_claim')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_claim')) {
                 $requester->notify(new NewRequestClaim('torrent', $sender, $torrentRequest));
             }
 
@@ -782,15 +781,14 @@ class RequestController extends Controller
             $torrentRequest->claimed = null;
             $torrentRequest->save();
 
-            if($isAnon == 1) {
-                $sender="Anonymous";
-            }
-            else {
-                $sender=$user->username;
+            if ($isAnon == 1) {
+                $sender = 'Anonymous';
+            } else {
+                $sender = $user->username;
             }
 
             $requester = $torrentRequest->user;
-            if ($requester->acceptsNotification(auth()->user(),$requester,'request','show_request_unclaim')) {
+            if ($requester->acceptsNotification(auth()->user(), $requester, 'request', 'show_request_unclaim')) {
                 $requester->notify(new NewRequestUnclaim('torrent', $sender, $torrentRequest));
             }
 

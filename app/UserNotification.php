@@ -48,10 +48,10 @@ class UserNotification extends Model
     ];
 
     /**
-    * Belongs To A User.
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
@@ -67,7 +67,8 @@ class UserNotification extends Model
      */
     public function getExpectedGroupsAttribute()
     {
-        $expected_groups = [ 'default_groups' => ['1' => 0] ];
+        $expected_groups = ['default_groups' => ['1' => 0]];
+
         return $expected_groups;
     }
 
@@ -78,7 +79,8 @@ class UserNotification extends Model
      */
     public function getExpectedFieldsAttribute()
     {
-        $expected_fields = [ ];
+        $expected_fields = [];
+
         return $expected_fields;
     }
 
@@ -89,8 +91,8 @@ class UserNotification extends Model
      */
     public function setDefaultValues($type = 'default')
     {
-        foreach($this->casts as $k=>$v) {
-            if($v == 'array') {
+        foreach ($this->casts as $k=>$v) {
+            if ($v == 'array') {
                 $this->$k = $this->expected_groups;
             }
         }

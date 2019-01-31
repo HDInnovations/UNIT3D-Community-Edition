@@ -63,17 +63,17 @@ class Topic extends Model
      *
      * @return string
      */
-    public function notifySubscribers($poster,$post)
+    public function notifySubscribers($poster, $post)
     {
-        $subscribers = User::distinct()->selectRaw('users.*')->with('group')->where('users.id','!=',$poster->id)
-            ->join('subscriptions','subscriptions.user_id','=','users.id')
-            ->leftJoin('user_notifications','user_notifications.user_id','=','users.id')
-            ->where('subscriptions.topic_id','=',$post->topic_id)
-            ->where('user_notifications.show_subscription_topic','=','1')
+        $subscribers = User::distinct()->selectRaw('users.*')->with('group')->where('users.id', '!=', $poster->id)
+            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
+            ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
+            ->where('subscriptions.topic_id', '=', $post->topic_id)
+            ->where('user_notifications.show_subscription_topic', '=', '1')
             ->groupBy('users.id')->get();
 
-        foreach($subscribers as $subscriber) {
-            if($subscriber->acceptsNotification($poster,$subscriber,'subscription','show_subscription_topic')) {
+        foreach ($subscribers as $subscriber) {
+            if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
                 $subscriber->notify(new NewPost('subscription', $poster, $post));
             }
         }
@@ -101,9 +101,10 @@ class Topic extends Model
     public function notifyStarter($poster, $post)
     {
         $user = User::with(['notification'])->find($this->first_post_user_id);
-        if ($user->acceptsNotification(auth()->user(),$user,'forum','show_forum_topic')) {
+        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
             $user->notify(new NewPost('topic', $poster, $post));
         }
+
         return true;
     }
 

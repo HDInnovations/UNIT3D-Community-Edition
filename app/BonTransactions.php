@@ -75,7 +75,6 @@ class BonTransactions extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
     public function exchange()
     {
         return $this->belongsTo(BonExchange::class, 'itemID', 'id')->withDefault([

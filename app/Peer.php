@@ -65,6 +65,6 @@ class Peer extends Model
      */
     public function seed()
     {
-        return $this->belongsTo(Torrent::class,'torrents.id','torrent_id');
+        return $this->belongsTo(Torrent::class, 'torrents.id', 'torrent_id');
     }
 }
