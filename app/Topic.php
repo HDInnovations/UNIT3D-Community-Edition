@@ -71,7 +71,7 @@ class Topic extends Model
             ->where('subscriptions.topic_id', '=', $topic->id)
             ->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')
             ->groupBy('users.id')->get();
-        
+
         foreach ($subscribers as $subscriber) {
             if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
                 $subscriber->notify(new NewPost('subscription', $poster, $post));
