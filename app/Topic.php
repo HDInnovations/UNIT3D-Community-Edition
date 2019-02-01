@@ -65,13 +65,13 @@ class Topic extends Model
      */
     public function notifySubscribers($poster, $topic, $post)
     {
-        $subscribers = User::distinct()->selectRaw('users.*')->with('group')->where('users.id', '!=', $poster->id)
+        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
             ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
             ->where('subscriptions.topic_id', '=', $topic->id)
             ->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')
             ->groupBy('users.id')->get();
-
+        
         foreach ($subscribers as $subscriber) {
             if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
                 $subscriber->notify(new NewPost('subscription', $poster, $post));

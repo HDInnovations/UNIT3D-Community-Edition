@@ -99,7 +99,7 @@ class Forum extends Model
      */
     public function notifySubscribers($poster, $topic)
     {
-        $subscribers = User::distinct()->selectRaw('users.*')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
+        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $topic->first_post_user_id)
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
             ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
             ->where('subscriptions.forum_id', '=', $topic->forum_id)
