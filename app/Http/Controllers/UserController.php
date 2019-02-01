@@ -1384,7 +1384,7 @@ class UserController extends Controller
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+            }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?',[$user->id,1])
                 ->where('peers.seeder', '=', 1)->groupBy('torrents.info_hash');
 
             $order = null;
@@ -2038,7 +2038,7 @@ class UserController extends Controller
 
         $seeds = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
-        }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+        }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?',[$user->id,1])
             ->where('peers.seeder', '=', 1)->orderBy('history_created_at', 'DESC')->groupBy('torrents.info_hash')
             ->paginate(50);
 
