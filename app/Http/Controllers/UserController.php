@@ -1812,14 +1812,14 @@ class UserController extends Controller
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
                     ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
                     ->sortable(['created_at' => 'desc'])
-                    ->where('history.user_id', '=', $user->id)->groupBy('history.id')->orderBy('created_at','desc')
+                    ->where('history.user_id', '=', $user->id)->groupBy('history.id')->orderBy('created_at', 'desc')
                     ->paginate(50);
             } else {
                 $downloads = History::distinct()->selectRaw('history.*,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                     $query->withAnyStatus();
                 }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                     ->sortable(['created_at' => 'desc'])
-                    ->where('history.user_id', '=', $user->id)->groupBy('history.id')->orderBy('created_at','desc')
+                    ->where('history.user_id', '=', $user->id)->groupBy('history.id')->orderBy('created_at', 'desc')
                     ->paginate(50);
             }
 
@@ -1941,7 +1941,7 @@ class UserController extends Controller
 
             $logger = 'user.private.uploads';
             $uploads = Torrent::distinct()->selectRaw('max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')
-                ->withAnyStatus()->where('torrents.user_id', '=', $user->id)->with(['tips', 'thanks', 'category'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at','DESC')->paginate(50);
+                ->withAnyStatus()->where('torrents.user_id', '=', $user->id)->with(['tips', 'thanks', 'category'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
 
             return view($logger, [
                 'route'         => 'uploads',
@@ -1954,7 +1954,7 @@ class UserController extends Controller
             ]);
         } else {
             $logger = 'user.uploads';
-            $uploads = Torrent::distinct()->selectRaw('max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at','DESC')->paginate(50);
+            $uploads = Torrent::distinct()->selectRaw('max(torrents.moderated_at) as moderated_at,max(torrents.slug) as slug,max(torrents.user_id) as user_id,max(torrents.name) as name,max(torrents.category_id) as category_id,max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed,max(torrents.created_at) as created_at,max(torrents.status) as status,count(thanks.id) as thanked_total,sum(bon_transactions.cost) as tipped_total')->where('torrents.user_id', '=', $user->id)->where('torrents.status', '=', 1)->where('torrents.anon', '=', 0)->with(['tips', 'thanks'])->leftJoin('bon_transactions', 'bon_transactions.torrent_id', 'torrents.id')->leftJoin('thanks', 'thanks.torrent_id', 'torrents.id')->groupBy('torrents.id')->orderBy('created_at', 'DESC')->paginate(50);
 
             return view($logger, [
                 'route'       => 'uploads',
@@ -2022,7 +2022,7 @@ class UserController extends Controller
         $seeds = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
         }])->selectRaw('max(peers.id) as id,sum(peers.uploaded) as uploaded,sum(peers.downloaded) as downloaded,sum(history.seedtime) as seedtime,torrents.info_hash,max(history.created_at) as history_created_at,torrents.id as torrent_id')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
-            ->where('peers.seeder', '=', 1)->orderBy('history_created_at','DESC')->groupBy('torrents.id')
+            ->where('peers.seeder', '=', 1)->orderBy('history_created_at', 'DESC')->groupBy('torrents.id')
             ->paginate(50);
 
         return view('user.private.seeds', ['user' => $user,
