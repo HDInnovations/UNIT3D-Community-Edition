@@ -979,7 +979,7 @@ wbbdebug = true;
                 this.$body.on(
                     'keydown',
                     $.proxy(function(e) {
-                        if (e.which == 13 && this.txtArea.getAttribute('view') != 'chat') {
+                        if (e.which == 13 && !this.txtArea.getAttribute('send')) {
                             let isLi = this.isContain(this.getSelectNode(), 'li');
                             if (!isLi) {
                                 if (e.preventDefault) {
