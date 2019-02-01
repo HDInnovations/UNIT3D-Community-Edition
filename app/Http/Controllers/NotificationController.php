@@ -57,7 +57,7 @@ class NotificationController extends Controller
     {
         $notification = auth()->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
-        
+
         return redirect($notification->data['url'])->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
     }
 
