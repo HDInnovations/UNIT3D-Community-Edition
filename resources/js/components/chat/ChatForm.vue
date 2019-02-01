@@ -38,7 +38,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <textarea id="chat-message" name="message" placeholder="Write your message..." cols="30" rows="5">
+                    <textarea id="chat-message" view="chat" name="message" placeholder="Write your message..." cols="30" rows="5">
                     </textarea>
                 </div>
             </div>
@@ -87,7 +87,9 @@ export default {
             this.$emit('typing', this.user);
         },
         keydown(e) {
-            if (e.keyCode === 13 && !e.shiftKey) {
+            if (e.which == 13 && !e.shiftKey) {
+                e.stopImmediatePropagation();
+                e.stopPropagation();
                 e.preventDefault();
                 this.sendMessage();
             }
