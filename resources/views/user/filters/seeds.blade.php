@@ -7,8 +7,6 @@
         <th>@lang('torrent.seeders')</th>
         <th>@lang('torrent.leechers')</th>
         <th>@lang('torrent.completed')</th>
-        <th>@lang('torrent.uploaded')</th>
-        <th>@lang('torrent.downloaded')</th>
         <th>@lang('torrent.torrent') @lang('torrent.seedtime')</th>
         <th>@lang('torrent.created_at')</th>
         </thead>
@@ -32,12 +30,6 @@
                 </td>
                 <td>
                     <span class="badge-extra text-orange text-bold"> {{ $p->torrent->times_completed }} @lang('common.times')</span>
-                </td>
-                <td>
-                    <span class="badge-extra text-green text-bold"> {{ App\Helpers\StringHelper::formatBytes($p->uploaded , 2) }}</span>
-                </td>
-                <td>
-                    <span class="badge-extra text-red text-bold"> {{ App\Helpers\StringHelper::formatBytes($p->downloaded , 2) }}</span>
                 </td>
                 @if ($p->seedtime < config('hitrun.seedtime'))
                     <td>
