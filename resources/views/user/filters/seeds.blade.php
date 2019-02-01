@@ -7,7 +7,7 @@
         <th>@lang('torrent.seeders')</th>
         <th>@lang('torrent.leechers')</th>
         <th>@lang('torrent.completed')</th>
-        <th>@lang('torrent.torrent') @lang('torrent.seedtime')</th>
+        <th>@lang('torrent.seedtime')</th>
         <th>@lang('torrent.created_at')</th>
         </thead>
         <tbody>
@@ -40,7 +40,7 @@
                         <span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
                     </td>
                 @endif
-                <td>{{ $p->hcreated_at && $p->hcreated_at != null ? $p->hcreated_at->diffForHumans() : "N/A"}}</td>
+                <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : "N/A"}}</td>
             </tr>
         @endforeach
         </tbody>
