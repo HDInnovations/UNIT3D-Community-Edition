@@ -851,12 +851,12 @@ class ForumController extends Controller
     public function postDelete($postId)
     {
         $user = auth()->user();
-        $post = Post::findOrFail($postId);
+        $post = Post::with('topic')->findOrFail($postId);
 
         abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('This Post Is Now Deleted!', 'Success', ['options']));
     }
 
