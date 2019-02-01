@@ -183,7 +183,7 @@
                                 <td>
                                     <span class="badge-extra text-red text-bold"> {{ ( $upload->thanked_total ? $upload->thanked_total : 'N/A' ) }}</span>
                                 </td>
-                                <td>{{ ($upload->created_at ? $upload->created_at->diffForHumans() : 'N/A') }}</td>
+                                <td>{{ ($upload->created_at && $upload->created_at != null ? $upload->created_at->diffForHumans() : 'N/A') }}</td>
                                 <td>
                                     @if ($upload->isPending())
                                         <span class='label label-warning' data-toggle="tooltip">PENDING</span>

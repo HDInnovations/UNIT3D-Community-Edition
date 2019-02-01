@@ -103,7 +103,7 @@ class Forum extends Model
             ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
             ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
             ->where('subscriptions.forum_id', '=', $topic->forum_id)
-            ->where('user_notifications.show_subscription_forum', '=', '1')
+            ->whereRaw('(user_notifications.show_subscription_forum = 1 OR user_notifications.show_subscription_forum is null)')
             ->groupBy('users.id')->get();
 
         foreach ($subscribers as $subscriber) {

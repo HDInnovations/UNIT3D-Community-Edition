@@ -305,7 +305,7 @@ return [
     'user'                      => 'User',
     'user-id'                   => 'User ID',
     'username-seedbox'          => 'Username Seedbox',
-    'visible-to-achievement'        => 'Followers Visible To',
+    'visible-to-achievement'        => 'Achievements Visible To',
     'visible-to-achievement-help'           => 'Your achievements will only be visible to staff and the following groups.
     These settings are overridden if you <strong>Go Private</strong>',
     'visible-to-follower'        => 'Followers Visible To',
