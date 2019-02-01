@@ -13,6 +13,7 @@
 
 namespace App;
 
+use App\Notifications\NewPost;
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model
@@ -25,6 +26,16 @@ class Topic extends Model
     public function forum()
     {
         return $this->belongsTo(Forum::class);
+    }
+
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'first_post_user_id', 'id');
     }
 
     /**
@@ -44,7 +55,7 @@ class Topic extends Model
      */
     public function subscriptions()
     {
-        return $this->hasMany(TopicSubscription::class);
+        return $this->hasMany(Subscription::class);
     }
 
     /**
@@ -52,9 +63,20 @@ class Topic extends Model
      *
      * @return string
      */
-    public function notifySubscribers($post)
+    public function notifySubscribers($poster, $topic, $post)
     {
-        $this->subscriptions->where('user_id', '!=', $post->user_id)->each->notify($post);
+        $subscribers = User::selectRaw('distinct(users.id),max(users.username) as username,max(users.group_id) as group_id')->with('group')->where('users.id', '!=', $poster->id)
+            ->join('subscriptions', 'subscriptions.user_id', '=', 'users.id')
+            ->leftJoin('user_notifications', 'user_notifications.user_id', '=', 'users.id')
+            ->where('subscriptions.topic_id', '=', $topic->id)
+            ->whereRaw('(user_notifications.show_subscription_topic = 1 OR user_notifications.show_subscription_topic is null)')
+            ->groupBy('users.id')->get();
+
+        foreach ($subscribers as $subscriber) {
+            if ($subscriber->acceptsNotification($poster, $subscriber, 'subscription', 'show_subscription_topic')) {
+                $subscriber->notify(new NewPost('subscription', $poster, $post));
+            }
+        }
     }
 
     /**
@@ -69,6 +91,21 @@ class Topic extends Model
         }
 
         return $this->forum->getPermission()->read_topic;
+    }
+
+    /**
+     * Notify Starter When An Action Is Taken.
+     *
+     * @return bool
+     */
+    public function notifyStarter($poster, $topic, $post)
+    {
+        $user = User::find($topic->first_post_user_id);
+        if ($user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
+            $user->notify(new NewPost('topic', $poster, $post));
+        }
+
+        return true;
     }
 
     /**

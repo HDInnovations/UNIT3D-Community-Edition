@@ -72,6 +72,7 @@ class GroupsController extends Controller
         $group->name = $request->input('name');
         $group->slug = str_slug($request->input('name'));
         $group->position = $request->input('position');
+        $group->level = $request->input('level');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
@@ -146,6 +147,7 @@ class GroupsController extends Controller
         $group->name = $request->input('name');
         $group->slug = str_slug($request->input('name'));
         $group->position = $request->input('position');
+        $group->level = $request->input('level');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');

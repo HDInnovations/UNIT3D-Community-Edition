@@ -20,6 +20,8 @@ class userFilterBuilder {
         var userId = $('#userFilter').attr('userId');
         var userName = $('#userFilter').attr('userName');
 
+        var view = $('#userFilter').attr('view');
+
         var active = (function () {
             if ($("#active").is(":checked")) {
                 return $("#active").val();
@@ -29,6 +31,12 @@ class userFilterBuilder {
         var seeding = (function () {
             if ($("#seeding").is(":checked")) {
                 return $("#seeding").val();
+            }
+        })();
+
+        var leeching = (function () {
+            if ($("#leeching").is(":checked")) {
+                return $("#leeching").val();
             }
         })();
 
@@ -56,6 +64,140 @@ class userFilterBuilder {
             }
         })();
 
+        var pending = (function () {
+            if ($("#pending").is(":checked")) {
+                return $("#pending").val();
+            }
+        })();
+
+        var approved = (function () {
+            if ($("#approved").is(":checked")) {
+                return $("#approved").val();
+            }
+        })();
+
+        var rejected = (function () {
+            if ($("#rejected").is(":checked")) {
+                return $("#rejected").val();
+            }
+        })();
+
+        var dead = (function () {
+            if ($("#dead").is(":checked")) {
+                return $("#dead").val();
+            }
+        })();
+
+        var alive = (function () {
+            if ($("#alive").is(":checked")) {
+                return $("#alive").val();
+            }
+        })();
+
+        var reseed = (function () {
+            if ($("#reseed").is(":checked")) {
+                return $("#reseed").val();
+            }
+        })();
+
+        var error = (function () {
+            if ($("#error").is(":checked")) {
+                return $("#error").val();
+            }
+        })();
+
+        var satisfied = (function () {
+            if ($("#satisfied").is(":checked")) {
+                return $("#satisfied").val();
+            }
+        })();
+
+        var notsatisfied = (function () {
+            if ($("#notsatisfied").is(":checked")) {
+                return $("#notsatisfied").val();
+            }
+        })();
+
+        var rewarded = (function () {
+            if ($("#rewarded").is(":checked")) {
+                return $("#rewarded").val();
+            }
+        })();
+
+        var notrewarded = (function () {
+            if ($("#notrewarded").is(":checked")) {
+                return $("#notrewarded").val();
+            }
+        })();
+
+        var dying = (function () {
+            if ($("#dying").is(":checked")) {
+                return $("#dying").val();
+            }
+        })();
+
+        var legendary = (function () {
+            if ($("#legendary").is(":checked")) {
+                return $("#legendary").val();
+            }
+        })();
+
+        var large = (function () {
+            if ($("#large").is(":checked")) {
+                return $("#large").val();
+            }
+        })();
+
+        var huge = (function () {
+            if ($("#huge").is(":checked")) {
+                return $("#huge").val();
+            }
+        })();
+
+        var everyday = (function () {
+            if ($("#everyday").is(":checked")) {
+                return $("#everyday").val();
+            }
+        })();
+
+        var legendary_seeder = (function () {
+            if ($("#legendary_seeder").is(":checked")) {
+                return $("#legendary_seeder").val();
+            }
+        })();
+
+        var mvp_seeder = (function () {
+            if ($("#mvp_seeder").is(":checked")) {
+                return $("#mvp_seeder").val();
+            }
+        })();
+
+        var committed_seeder = (function () {
+            if ($("#committed_seeder").is(":checked")) {
+                return $("#committed_seeder").val();
+            }
+        })();
+
+        var teamplayer_seeder = (function () {
+            if ($("#teamplayer_seeder").is(":checked")) {
+                return $("#teamplayer_seeder").val();
+            }
+        })();
+
+        var participant_seeder = (function () {
+            if ($("#participant_seeder").is(":checked")) {
+                return $("#participant_seeder").val();
+            }
+        })();
+
+        var old = (function () {
+            if ($("#old").is(":checked")) {
+                return $("#old").val();
+            }
+        })();
+
+        var search = $("#search").val();
+
         var sorting = $("#sorting").val();
         var direction = $("#direction").val();
 
@@ -74,8 +216,32 @@ class userFilterBuilder {
                 prewarned: prewarned,
                 completed: completed,
                 hr: hr,
+                rewarded: rewarded,
+                notrewarded: notrewarded,
                 immune: immune,
-                view: this.view,
+                name: search,
+                pending: pending,
+                leeching: leeching,
+                approved: approved,
+                rejected: rejected,
+                dead: dead,
+                alive: alive,
+                satisfied: satisfied,
+                notsatisfied: notsatisfied,
+                reseed: reseed,
+                error: error,
+                dying: dying,
+                legendary: legendary,
+                old: old,
+                huge: huge,
+                large: large,
+                everyday: everyday,
+                legendary_seeder: legendary_seeder,
+                mvp_seeder: mvp_seeder,
+                teamplayer_seeder: teamplayer_seeder,
+                committed_seeder: committed_seeder,
+                participant_seeder: participant_seeder,
+                view: view,
             },
             type: 'post',
             beforeSend: function () {
@@ -482,6 +648,50 @@ class facetedSearchBuilder {
         }
     }
 }
+class forumTipBuilder {
+    constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+        this.leaveTip = $('#forumTip').attr('leaveTip');
+        this.quickTip = $('#forumTip').attr('quickTip');
+        this.route = $('#forumTip').attr("route");
+    }
+    handle(user,id) {
+        this.user = user;
+        this.template = '<div class="some-padding">' +
+            '<div class="box">' +
+            '<form role="form" method="POST" action="'+this.route+'">' +
+            '<input type="hidden" name="_token" value="' + this.csrf + '">' +
+            '<input type="hidden" name="recipient" value="'+this.user+'">' +
+            '<input type="hidden" name="post" value="'+id+'">'+
+            '<input type="number" name="tip" value="0" placeholder="0" class="form-control">' +
+            '<button type="submit" class="btn btn-primary">'+this.leaveTip+'</button>' +
+            '<br>' +
+            '<br>' +
+            '<span class="text-green text-bold">'+this.quickTip+'</span>' +
+            '<br>' +
+            '<button type="submit" value="10" name="tip" class="label label-sm label-success space-me">10 BON</button>' +
+            '<button type="submit" value="20" name="tip" class="label label-sm label-danger space-me">20 BON</button>' +
+            '<button type="submit" value="50" name="tip" class="label label-sm label-info space-me">50 BON</button>' +
+            '<button type="submit" value="100" name="tip" class="label label-sm label-warning space-me">100 BON</button>' +
+            '<button type="submit" value="200" name="tip" class="label label-sm label-danger space-me">200 BON</button>' +
+            '<button type="submit" value="500" name="tip" class="label label-sm label-primary space-me">500 BON</button>' +
+            '<button type="submit" value="1000" name="tip" class="label label-sm label-success space-me">1000 BON</button>' +
+            '</form>' +
+            '</div>' +
+            '</div>';
+
+        $('#forumTip'+id).html(this.template);
+        $('#forumTip'+id).show();
+    }
+    init() {
+        $('.forumTip').each(function() {
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                forumTip.handle($(this).attr("user"),$(this).attr("post"));
+            });
+        });
+    }
+}
 class torrentBookmarkBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -599,6 +809,9 @@ $(document).ready(function () {
     if(document.getElementById('userFilter')) {
         userFilter.init();
     }
+    if(document.getElementById('forumTip')) {
+        forumTip.init();
+    }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
@@ -627,7 +840,7 @@ $(document).on('click', '.pagination a', function (e) {
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
-
+const forumTip = new forumTipBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;

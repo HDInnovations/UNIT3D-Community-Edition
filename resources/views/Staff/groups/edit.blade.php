@@ -32,6 +32,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>
                         <th>Effect</th>
@@ -51,6 +52,9 @@
                     <tr>
                         <td><input type="text" name="name" value="{{ $group->name }}" class="form-control"/></td>
                         <td><input type="text" name="position" value="{{ $group->position }}"
+                                   class="form-control"/>
+                        </td>
+                        <td><input type="text" name="level" value="{{ $group->level }}"
                                    class="form-control"/>
                         </td>
                         <td><input type="text" name="color" value="{{ $group->color }}" class="form-control"/>

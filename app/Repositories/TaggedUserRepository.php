@@ -13,8 +13,12 @@
 
 namespace App\Repositories;
 
+use App\Post;
 use App\User;
+use App\Comment;
 use App\PrivateMessage;
+use App\Notifications\NewPostTag;
+use App\Notifications\NewCommentTag;
 
 class TaggedUserRepository
 {
@@ -87,29 +91,17 @@ class TaggedUserRepository
         return collect($this->getTags($haystack))->contains($needle);
     }
 
-    /**
-     * @param string $content
-     * @param string $subject
-     * @param string $message
-     */
-    public function messageTaggedUsers(string $content, string $subject, string $message)
+    public function messageTaggedCommentUsers(string $type, string $content, User $sender, $alias, Comment $comment)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messageUsers($tagged_user, $subject, $message);
+            $this->messageCommentUsers($type, $tagged_user, $sender, $alias, $comment);
         }
 
         return true;
     }
 
-    /**
-     * @param $users
-     * @param $subject
-     * @param $message
-     *
-     * @return bool
-     */
-    public function messageUsers($users, $subject, $message)
+    public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment)
     {
         // Array of User objects
         if (is_iterable($users)) {
@@ -118,12 +110,48 @@ class TaggedUserRepository
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $pm = new PrivateMessage();
-                    $pm->sender_id = 1;
-                    $pm->receiver_id = $user->id;
-                    $pm->subject = $subject;
-                    $pm->message = $message;
-                    $pm->save();
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
+                        $user->notify(new NewCommentTag($type, $alias, $comment));
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        // A single User object
+
+        if ($this->validate($users)) {
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
+                $users->notify(new NewCommentTag($type, $alias, $comment));
+            }
+        }
+
+        return true;
+    }
+
+    public function messageTaggedPostUsers(string $type, string $content, User $sender, $alias, Post $post)
+    {
+        foreach ($this->getTags($content) as $username) {
+            $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
+            $this->messagePostUsers($type, $tagged_user, $sender, $alias, $post);
+        }
+
+        return true;
+    }
+
+    public function messagePostUsers($type, $users, $sender, $alias, Post $post)
+    {
+        // Array of User objects
+        if (is_iterable($users)) {
+            // we only want unique users from the collection
+            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+
+            foreach ($users as $user) {
+                if ($this->validate($user)) {
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
+                        $user->notify(new NewPostTag($type, $alias, $post));
+                    }
                 }
             }
 
@@ -132,12 +160,9 @@ class TaggedUserRepository
 
         // A single User object
         if ($this->validate($users)) {
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $users->id;
-            $pm->subject = $subject;
-            $pm->message = $message;
-            $pm->save();
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
+                $users->notify(new NewPostTag($type, $alias, $post));
+            }
         }
 
         return true;
@@ -162,10 +187,6 @@ class TaggedUserRepository
     protected function validate($user)
     {
         if (is_object($user)) {
-            if (! $this->debug || $user->id === auth()->user()->id) {
-                return false;
-            }
-
             return true;
         }
 

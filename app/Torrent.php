@@ -16,6 +16,8 @@ namespace App;
 use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
+use App\Notifications\NewThank;
+use App\Notifications\NewComment;
 use Hootlex\Moderation\Moderatable;
 use Kyslik\ColumnSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
@@ -135,6 +137,16 @@ class Torrent extends Model
     }
 
     /**
+     * Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tips()
+    {
+        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+    }
+
+    /**
      * Has Many Thank.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -247,6 +259,31 @@ class Torrent extends Model
         return Bookmark::where('user_id', '=', auth()->user()->id)
             ->where('torrent_id', '=', $this->id)
             ->first() ? true : false;
+    }
+
+    /**
+     * Notify Uploader When An Action Is Taken.
+     *
+     * @return bool
+     */
+    public function notifyUploader($type, $payload)
+    {
+        if ($type == 'thank') {
+            $user = User::with('notification')->findOrFail($this->user_id);
+            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
+                $user->notify(new NewThank('torrent', $payload));
+
+                return true;
+            }
+        }
+        $user = User::with('notification')->findOrFail($this->user_id);
+        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
+            $user->notify(new NewComment('torrent', $payload));
+
+            return true;
+        }
+
+        return true;
     }
 
     /**

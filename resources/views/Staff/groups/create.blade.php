@@ -30,6 +30,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>
                         <th>Effect</th>
@@ -52,6 +53,10 @@
                         </td>
                         <td>
                             <input type="number" name="position" value="" placeholder="Position"
+                                   class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" name="level" value="" placeholder="Level"
                                    class="form-control"/>
                         </td>
                         <td>

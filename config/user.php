@@ -38,6 +38,15 @@ return [
             'is_modo'       => false,
             'is_trusted'    => false,
             'can_upload'    => false,
+            'level'         => 0,
+            'position'      => 0,
         ],
+    ],
+
+    'privacy' => [
+      'defaults' => [
+            'is_hidden' => false,
+            'is_private' => false,
+      ],
     ],
 ];

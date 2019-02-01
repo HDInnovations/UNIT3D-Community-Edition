@@ -14,6 +14,7 @@
 namespace App;
 
 use App\Helpers\Bbcode;
+use App\Notifications\NewComment;
 use Illuminate\Database\Eloquent\Model;
 
 class TorrentRequest extends Model
@@ -134,5 +135,22 @@ class TorrentRequest extends Model
     public function getDescriptionHtml()
     {
         return Bbcode::parse($this->description);
+    }
+
+    /**
+     * Notify Requester When A New Action Is Taken.
+     *
+     * @return bool
+     */
+    public function notifyRequester($type, $payload)
+    {
+        $user = User::with('notification')->findOrFail($this->user_id);
+        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
+            $user->notify(new NewComment('request', $payload));
+
+            return true;
+        }
+
+        return true;
     }
 }

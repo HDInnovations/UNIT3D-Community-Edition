@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('graveyard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('graveyard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('graveyard.graveyard')</span>
         </a>
     </li>
