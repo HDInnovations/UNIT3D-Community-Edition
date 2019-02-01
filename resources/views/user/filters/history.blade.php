@@ -53,8 +53,8 @@
                             <span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($his->seedtime) }}</span>
                         </td>
                     @endif
-                    <td>{{ $his->created_at->diffForHumans() }}</td>
-                    <td>{{ $his->updated_at->diffForHumans() }}</td>
+                    <td>{{ $his->created_at ? $his->created_at->diffForHumans() : "N/A"}}</td>
+                    <td>{{ $his->updated_at ? $his->updated_at->diffForHumans() : "N/A"}}</td>
                     <td>{{ $his->completed_at ? $his->completed_at->diffForHumans() : "N/A"}}</td>
                     @if ($his->prewarn == 1)
                         <td><i class="{{ config('other.font-awesome') }} fa-check text-green"></i></td>
