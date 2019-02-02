@@ -1,7 +1,10 @@
 <div class="button-holder">
-    <div class="button-left">
+    <div class="button-left-large">
         <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.profile')
+        </a>
+        <a href="{{ route('user_unsatisfieds', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+            <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
         </a>
         <a href="{{ route('user_torrents', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.torrents')
@@ -31,7 +34,7 @@
         @endif
         @endif
     </div>
-    <div class="button-right">
+    <div class="button-right-small">
             @if(auth()->user()->id == $user->id)
             <a href="{{ route('user_settings', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-danger">
                 @lang('user.settings')

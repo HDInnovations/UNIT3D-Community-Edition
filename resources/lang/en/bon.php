@@ -16,6 +16,7 @@ return [
     'earnings'         => 'Earnings',
     'exchange'         => 'Exchange',
     'exchange-warning' => 'Exchanges are final, Please double check your choices before making an exchange.',
+    'extended-stats'   => 'Extended Stats',
     'gift'             => 'Gift',
     'gift-bonus'       => 'Gift Bonus Points',
     'gift-to'          => 'Gift Bonus Points To',

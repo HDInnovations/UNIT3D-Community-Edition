@@ -1384,7 +1384,7 @@ class UserController extends Controller
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+            }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
                 ->where('peers.seeder', '=', 1)->groupBy('torrents.info_hash');
 
             $order = null;
@@ -1551,6 +1551,70 @@ class UserController extends Controller
             return view('user.filters.active', [
                 'user' => $user,
                 'active' => $table,
+            ])->render();
+        } elseif ($request->has('view') && $request->input('view') == 'unsatisfieds') {
+            if (config('hitrun.enabled') == true) {
+                $history = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
+            } else {
+                $history = History::selectRaw('distinct(history.info_hash), max(torrents.id), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
+                    $query->withAnyStatus();
+                }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                    ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.enabled') == true ? (config('hitrun.buffer') / 100) : 0).'))')->groupBy('history.info_hash');
+            }
+            $order = null;
+            $sorting = null;
+
+            $history->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')]);
+
+            if ($request->has('name') && $request->input('name') != null) {
+                $history->where('torrents.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if ($request->has('error') && $request->input('error') != null) {
+                $history->where('seeder', '=', 0);
+            }
+
+            if ($request->has('seeding') && $request->input('seeding') != null) {
+                $history->where('seeder', '=', 1);
+            }
+
+            if ($sorting != 'name' && $sorting != 'satisfied_at' && $sorting != 'size' && $sorting != 'times_completed' && $sorting != 'seeders' && $sorting != 'leechers') {
+                $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+            } else {
+                if ($sorting == 'satisfied_at') {
+                    if ($order == 'desc') {
+                        $order = 'asc';
+                    } elseif ($order == 'asc') {
+                        $order = 'desc';
+                    }
+                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+                } else {
+                    $table = $history->where('history.user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(50);
+                }
+            }
+
+            return view('user.filters.unsatisfieds', [
+                'user' => $user,
+                'downloads' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'downloads') {
             $history = History::selectRaw('distinct(history.info_hash), max(history.completed_at) as completed_at, max(torrents.name) as name, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
@@ -1879,6 +1943,54 @@ class UserController extends Controller
     }
 
     /**
+     * Get A Users Unsatisfieds Table.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function unsatisfieds($username, $id)
+    {
+        $user = User::findOrFail($id);
+
+        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+        $logger = 'user.private.unsatisfieds';
+
+        if (config('hitrun.enabled') == true) {
+            $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
+                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
+                ->paginate(50);
+        } else {
+            $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
+                $query->withAnyStatus();
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+                ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
+                ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
+                ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
+                ->paginate(50);
+        }
+
+        return view($logger, [
+            'route'        => 'unsatisfieds',
+            'user'          => $user,
+            'downloads'     => $downloads,
+            'his_upl'       => $his_upl,
+            'his_upl_cre'   => $his_upl_cre,
+            'his_downl'     => $his_downl,
+            'his_downl_cre' => $his_downl_cre,
+        ]);
+    }
+
+    /**
      * Get A Users History Table.
      *
      * @param $username
@@ -2038,7 +2150,7 @@ class UserController extends Controller
 
         $seeds = Peer::with(['torrent' => function ($query) {
             $query->withAnyStatus();
-        }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->where('history.seeder', '=', 1)
+        }])->selectRaw('distinct(torrents.info_hash),max(peers.id) as id,max(torrents.name) as name,max(torrents.seeders) as seeders,max(torrents.leechers) as leechers,max(torrents.times_completed) as times_completed,max(torrents.size) as size,max(history.info_hash) as history_info_hash,max(history.created_at) as history_created_at,max(torrents.id) as torrent_id,max(history.seedtime) as seedtime')->leftJoin('torrents', 'torrents.id', '=', 'peers.torrent_id')->leftJoin('history', 'history.info_hash', '=', 'torrents.info_hash')->where('peers.user_id', '=', $user->id)->whereRaw('history.user_id = ? and history.seeder = ?', [$user->id, 1])
             ->where('peers.seeder', '=', 1)->orderBy('history_created_at', 'DESC')->groupBy('torrents.info_hash')
             ->paginate(50);
 

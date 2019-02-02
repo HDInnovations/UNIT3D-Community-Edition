@@ -23,14 +23,14 @@
             @lang('user.downloads')
         </a>
         @endif
-        @if (auth()->user()->isAllowed($user,'forum','show_topic'))
-            <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
-                @lang('user.topics')
-            </a>
-        @endif
         @if (auth()->user()->isAllowed($user,'forum','show_post'))
             <a href="{{ route('user_posts', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
                 @lang('user.posts')
+            </a>
+        @endif
+        @if (auth()->user()->isAllowed($user,'forum','show_topic'))
+            <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+                @lang('user.topics')
             </a>
         @endif
     </div>
