@@ -265,6 +265,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{slug}.{id}/torrents', 'UserController@torrents')->name('user_torrents');
         Route::get('/{slug}.{id}/uploads', 'UserController@uploads')->name('user_uploads');
         Route::get('/{slug}.{id}/downloads', 'UserController@downloads')->name('user_downloads');
+        Route::get('/{slug}.{id}/unsatisfieds', 'UserController@unsatisfieds')->name('user_unsatisfieds');
         Route::get('/{slug}.{id}/topics', 'UserController@topics')->name('user_topics');
         Route::get('/{slug}.{id}/posts', 'UserController@posts')->name('user_posts');
         Route::get('/{slug}.{id}/followers', 'UserController@followers')->name('user_followers');
