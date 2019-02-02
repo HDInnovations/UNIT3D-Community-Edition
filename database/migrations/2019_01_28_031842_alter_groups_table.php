@@ -14,7 +14,7 @@ class AlterGroupsTable extends Migration
     public function up()
     {
         Schema::table('groups', function (Blueprint $table) {
-            $table->integer('level')->after('position');
+            $table->integer('level')->default(0)->after('position');
         });
         DB::table('groups')->whereRaw('id = 10')->update(['level' => 9999]);
         DB::table('groups')->whereRaw(' id=4')->update(['level' => 5000]);
