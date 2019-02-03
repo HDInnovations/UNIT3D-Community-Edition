@@ -183,8 +183,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub>](https://github.com/HDVinnie)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Code") |
-| :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub>](https://github.com/HDVinnie)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Code") | [<img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub>](https://github.com/VerioPL)<br />[🌍](#translation-VerioPL "Translation") |
+| :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## <a name="thanks"></a> :heart: Special Thanks
