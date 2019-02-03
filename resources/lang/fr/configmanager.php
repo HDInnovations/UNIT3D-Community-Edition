@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Gestionnaire de configuration',
+    'title'       => 'Gestionnaire de configuration',
     'info_choose' => 'Choisissez un fichier pour commencer à éditer',
-    'file' => 'Fichier',
-    'path' => 'Chemin',
-    'header' => [
-        'key' => 'Clé',
-        'value' => 'Valeur',
-        'actions' => 'Actes'
+    'file'        => 'Fichier',
+    'path'        => 'Chemin',
+    'header'      => [
+        'key'     => 'Clé',
+        'value'   => 'Valeur',
+        'actions' => 'Actes',
     ],
     'actions' => [
-        'edit' => 'Modifier',
+        'edit'    => 'Modifier',
         'confirm' => 'Enregistrer la nouvelle clé',
-        'save' => 'Sauvegarder!',
-        'cancel' => 'Annuler'
+        'save'    => 'Sauvegarder !',
+        'cancel'  => 'Annuler',
     ],
-    'sure' => 'Êtes-vous sûr?'
+    'sure' => 'Êtes-vous sûr ?',
 ];

@@ -29,10 +29,10 @@
     <div class="container">
         <div class="block">
             <h2>Report Details
-                @if($report->solved == 0)
-                    <span class="text-red"><strong><i class="fa fa-times"></i> UNSOLVED </strong></span>
+                @if ($report->solved == 0)
+                    <span class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-times"></i> UNSOLVED </strong></span>
                 @else
-                    <span class="text-green"><strong><i class="fa fa-check"></i> SOLVED BY <a class="name"
+                    <span class="text-green"><strong><i class="{{ config('other.font-awesome') }} fa-check"></i> SOLVED BY <a class="name"
                                                                                               href="{{ route('profile', ['username' => $report->staff->username, 'id' => $report->staff_id ]) }}">{{ $report->staff->username }}</a></strong></span>
                 @endif
             </h2>
@@ -52,24 +52,37 @@
                         </a>
                     </p>
 
-                    <h3>Title:</h3>
-                    <p class="well well-sm">
-                        <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent_id]) }}">
-                            {{ $report->title }}
-                        </a>
-                    </p>
+                    @if ($report->torrent)
+                        <h3>@lang('torrent.torrent') Title:</h3>
+                        <p class="well well-sm">
+                            <a href="{{ route('torrent', ['slug' => str_slug($report->title), 'id' => $report->torrent->id]) }}">
+                                {{ $report->title }}
+                            </a>
+                        </p>
+                    @endif
+
+                    @if ($report->request)
+                        <h3>@lang('torrent.torrent-request') Title:</h3>
+                        <p class="well well-sm">
+                            <a href="{{ route('request', ['id' => $report->request->id]) }}">
+                                {{ $report->title }}
+                            </a>
+                        </p>
+                    @endif
 
                     <h3>Message:</h3>
                     <p class="well well-lg">
                         {{ $report->message }}
                     </p>
 
-                    <h3>Referenced Links:</h3>
-                    <p class="well">
-                        @foreach($urls as $url)
-                            <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
-                        @endforeach
-                    </p>
+                    @if (count($urls) > 0)
+                        <h3>Referenced Links:</h3>
+                        <p class="well">
+                            @foreach ($urls as $url)
+                                <a href="{{$url}}" target="_blank">{{$url}}</a><br/>
+                            @endforeach
+                        </p>
+                    @endif
                 </div>
             </div>
 
@@ -78,8 +91,8 @@
             <div class="row">
                 <div class="col-sm-12">
                     <form role="form" method="POST" action="{{ route('solveReport',['report_id'=>$report->id]) }}">
-                        {{ csrf_field() }}
-                        @if($report->solved == 0)
+                        @csrf
+                        @if ($report->solved == 0)
                             <div class="form-group">
                                 <label for="message">Verdict</label>
                                 <textarea name="verdict" class="form-control"></textarea>

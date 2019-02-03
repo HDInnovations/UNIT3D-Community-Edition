@@ -3,7 +3,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('get_notifications') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('notification.notifications') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('notification.notifications')</span>
         </a>
     </li>
 @endsection
@@ -13,38 +13,39 @@
         <div class="col-md-12 page">
             <div class="header gradient teal">
                 <div class="inner_content">
-                    <div class="page-title"><h1><i class="fa fa-bell-o"></i>{{ trans('notification.notifications') }}
-                        </h1></div>
+                    <div class="page-title">
+                        <h1>@lang('notification.notifications')</h1>
+                    </div>
                 </div>
             </div>
             <div class="table-responsive">
                 <div class="pull-right">
                     <a href="{{ route('massRead_notifications') }}">
-                        <button type="button" class="btn btn btn-success" data-toggle="tooltip" title=""
-                                data-original-title="{{ trans('notification.mark-all-read') }}"><i
-                                    class="fa fa-eye"></i> {{ trans('notification.mark-all-read') }}</button>
+                        <button type="button" class="btn btn btn-success" data-toggle="tooltip"
+                                data-original-title="@lang('notification.mark-all-read')"><i
+                                    class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')</button>
                     </a>
                     <a href="{{ route('delete_notifications') }}">
-                        <button type="button" class="btn btn btn-danger" data-toggle="tooltip" title=""
-                                data-original-title="{{ trans('notification.delete-all') }}"><i
-                                    class="fa fa-times"></i> {{ trans('notification.delete-all') }}</button>
+                        <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
+                                data-original-title="@lang('notification.delete-all')"><i
+                                    class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')</button>
                     </a>
                 </div>
                 <table class="table table-condensed table-striped table-bordered">
                     <thead>
                     <tr>
-                        <th>{{ trans('notification.title') }}</th>
-                        <th>{{ trans('notification.message') }}</th>
-                        <th>{{ trans('notification.date') }}</th>
-                        <th>{{ trans('notification.read') }}</th>
-                        <th>{{ trans('notification.delete') }}</th>
+                        <th>@lang('notification.title')</th>
+                        <th>@lang('notification.message')</th>
+                        <th>@lang('notification.date')</th>
+                        <th>@lang('notification.read')</th>
+                        <th>@lang('notification.delete')</th>
                     </tr>
                     </thead>
                     <tbody>
                     @forelse($notification as $n)
                         <tr>
                             <td>
-                                <a href="{{ $n->data['url'] }}" class="clearfix">
+                                <a href="{{ route('show_notification', ['id' => $n->id]) }}" class="clearfix">
                                     <span class="notification-title">{{ $n->data['title'] }}</span>
                                 </a>
                             </td>
@@ -55,25 +56,26 @@
                                 <span class="notification-ago">{{ $n->created_at->diffForHumans() }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('read_notification', array('id' => $n->id)) }}">
-                                    <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip" title=""
-                                            data-original-title="{{ trans('notification.mark-read') }}"
-                                            @if($n->read_at != null) disabled @endif><i class="fa fa-eye"></i></button>
+                                <a href="{{ route('read_notification', ['id' => $n->id]) }}">
+                                    <button type="button" class="btn btn-xxs btn-success" data-toggle="tooltip"
+                                            data-original-title="@lang('notification.mark-read')"
+                                            @if ($n->read_at != null) disabled @endif><i class="{{ config('other.font-awesome') }} fa-eye"></i></button>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('delete_notification', array('id' => $n->id)) }}">
-                                    <button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip" title=""
-                                            data-original-title="{{ trans('notification.delete') }}"><i
-                                                class="fa fa-times"></i></button>
+                                <a href="{{ route('delete_notification', ['id' => $n->id]) }}">
+                                    <button type="button" class="btn btn-xxs btn-danger" data-toggle="tooltip"
+                                            data-original-title="@lang('notification.delete')"><i
+                                                class="{{ config('other.font-awesome') }} fa-times"></i></button>
                                 </a>
                             </td>
                         </tr>
                     @empty
-                        {{ trans('notification.no-notifications') }}.
+                        @lang('notification.no-notifications').
                     @endforelse
                     </tbody>
                 </table>
+                <div class="text-center">{{ $notification->links() }}</div>
             </div>
         </div>
     </div>

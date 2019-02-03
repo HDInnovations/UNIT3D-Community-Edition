@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('auth.title') }} - {{ config('other.title') }}</title>
+    <title>@lang('auth.title') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('auth.title') }} - {{ config('other.title') }}">
+    <meta name="description" content="@lang('auth.title') - {{ config('other.title') }}">
 @endsection
 
 @section('stylesheets')
@@ -15,7 +15,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('auth.title') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('auth.title')</span>
         </a>
     </li>
 @endsection
@@ -48,22 +48,22 @@
                 <div class="panel panel verification-form-panel">
                     <div class="panel-heading text-center" id="verification_status_title">
                         <h3>
-                            {{ trans('auth.title') }}
+                            @lang('auth.title')
                         </h3>
                         <p class="text-center">
                             <em>
-                                {{ trans('auth.subtitle') }}
+                                @lang('auth.subtitle')
                             </em>
                         </p>
                     </div>
                     <div class="panel-body">
                         <form id="verification_form" class="form-horizontal" method="POST">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group margin-bottom-1 code-inputs">
                                 <div class="col-xs-3">
                                     <div class="{{ $errors->has('v_input_1') ? ' has-error' : '' }}">
                                         <label for="v_input_1" class="sr-only control-label">
-                                            {{ trans('auth.inputAlt1') }}
+                                            @lang('auth.inputAlt1')
                                         </label>
                                         <input type="text" id="v_input_1" class="form-control text-center required"
                                                required name="v_input_1" value="" autofocus maxlength="1" minlength="1"
@@ -78,7 +78,7 @@
                                 <div class="col-xs-3">
                                     <div class="{{ $errors->has('v_input_2') ? ' has-error' : '' }}">
                                         <label for="v_input_2" class="sr-only control-label">
-                                            {{ trans('auth.inputAlt2') }}
+                                            @lang('auth.inputAlt2')
                                         </label>
                                         <input type="text" id="v_input_2" class="form-control text-center required"
                                                required name="v_input_2" value="" maxlength="1" minlength="1"
@@ -93,7 +93,7 @@
                                 <div class="col-xs-3">
                                     <div class="{{ $errors->has('v_input_3') ? ' has-error' : '' }}">
                                         <label for="v_input_3" class="sr-only control-label">
-                                            {{ trans('auth.inputAlt3') }}
+                                            @lang('auth.inputAlt3')
                                         </label>
                                         <input type="text" id="v_input_3" class="form-control text-center required"
                                                required name="v_input_3" value="" maxlength="1" minlength="1"
@@ -108,7 +108,7 @@
                                 <div class="col-xs-3">
                                     <div class="{{ $errors->has('v_input_4') ? ' has-error' : '' }}">
                                         <label for="v_input_4" class="sr-only control-label">
-                                            {{ trans('auth.inputAlt4') }}
+                                            @lang('auth.inputAlt4')
                                         </label>
                                         <input type="text" id="v_input_4"
                                                class="form-control text-center required last-input " required
@@ -129,7 +129,7 @@
                                                 class="btn btn-lg btn-{{ $remainingAttemptsClass }} btn-block"
                                                 id="submit_verification" tabindex="5">
                                             <i class="glyphicon glyphicon-check" aria-hidden="true"></i>
-                                            {{ trans('auth.verifyButton') }}
+                                            @lang('auth.verifyButton')
                                         </button>
                                     </div>
                                     <div class="col-xs-12 text-center">
@@ -142,7 +142,7 @@
                         </form>
                         <div class="col-xs-12 text-center">
                             <a class="btn btn-link" id="resend_code_trigger" href="#" tabindex="6">
-                                {{ trans('auth.missingCode') }}
+                                @lang('auth.missingCode')
                             </a>
                         </div>
                     </div>

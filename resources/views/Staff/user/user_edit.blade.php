@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="title"><i class="fa fa-gear"></i> Edit User <a
+        <h1 class="title"><i class="{{ config('other.font-awesome') }} fa-gear"></i> Edit User <a
                     href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}">{{ $user->username }}</a>
         </h1>
         <ul class="nav nav-tabs" role="tablist">
@@ -42,7 +42,8 @@
             <div role="tabpanel" class="tab-pane active" id="account">
                 <h3>Account</h3>
                 <hr>
-                {{ Form::open(array('route' => ['user_edit', 'username' => $user->username, 'id' => $user->id])) }}
+                <form role="form" method="POST" action="{{ route('user_edit', ['username' => $user->username, 'id' => $user->id]) }}">
+                @csrf
                 <div class="form-group">
                     <label for="username">Username</label>
                     <input name="username" type="text" value="{{ $user->username }}" class="form-control">
@@ -69,6 +70,11 @@
                            class="form-control">
                 </div>
 
+                    <div class="form-group">
+                        <label for="downloaded">Title</label>
+                        <input name="title" type="text" value="{{ $user->title }}" class="form-control">
+                    </div>
+
                 <div class="form-group">
                     <label for="about">About</label>
                     <textarea name="about" cols="30" rows="10" class="form-control">{{ $user->about }}</textarea>
@@ -77,97 +83,99 @@
                 <div class="form-group">
                     <select name="group_id" class="form-control">
                         <option value="{{ $user->group->id }}">{{ $user->group->name }} (Default)</option>
-                        @foreach($groups as $g)
+                        @foreach ($groups as $g)
                             <option value="{{ $g->id }}">{{ $g->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <button type="submit" class="btn btn-default">Save</button>
-                {{ Form::close() }}
+                </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="permissions">
                 <h3>Permissions</h3>
                 <hr>
-                {{ Form::open(array('route' => ['user_permissions', 'username' => $user->username, 'id' => $user->id])) }}
+                <form role="form" method="POST" action="{{ route('user_permissions', ['username' => $user->username, 'id' => $user->id]) }}">
+                @csrf
                 <label for="hidden" class="control-label">Can Upload?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if($user->can_upload == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_upload" @if($user->can_upload == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_upload" @if ($user->can_upload == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Download?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_download" @if($user->can_download == 1) checked
+                    <label><input type="radio" name="can_download" @if ($user->can_download == 1) checked
                                   @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_download" @if($user->can_download == 0) checked
+                    <label><input type="radio" name="can_download" @if ($user->can_download == 0) checked
                                   @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Comment?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if($user->can_comment == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_comment" @if($user->can_comment == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_comment" @if ($user->can_comment == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Invite?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if($user->can_invite == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_invite" @if($user->can_invite == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_invite" @if ($user->can_invite == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Request?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if($user->can_request == 1) checked @endif value="1">YES</label>
+                    <label><input type="radio" name="can_request" @if ($user->can_request == 1) checked @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_request" @if($user->can_request == 0) checked @endif value="0">NO</label>
+                    <label><input type="radio" name="can_request" @if ($user->can_request == 0) checked @endif value="0">NO</label>
                 </div>
                 <br>
                 <br>
                 <label for="hidden" class="control-label">Can Chat?</label>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_chat" @if($user->can_chat == 1) checked
+                    <label><input type="radio" name="can_chat" @if ($user->can_chat == 1) checked
                                   @endif value="1">YES</label>
                 </div>
                 <div class="radio-inline">
-                    <label><input type="radio" name="can_chat" @if($user->can_chat == 0) checked
+                    <label><input type="radio" name="can_chat" @if ($user->can_chat == 0) checked
                                   @endif value="0">NO</label>
                 </div>
                 <br>
                 <div class="form-group">
                     <div class="text-center"><input class="btn btn-primary" type="submit" value="Save"></div>
                 </div>
-                {{ Form::close() }}
+                </form>
             </div>
 
             <div role="tabpanel" class="tab-pane" id="notes">
                 <h3>Add Staff Note</h3>
                 <hr>
-                {{ Form::open(array('route' => ['postNote', 'username' => $user->username, 'id' => $user->id])) }}
+                <form role="form" method="POST" action="{{ route('postNote', ['username' => $user->username, 'id' => $user->id]) }}">
+                    @csrf
                 <div class="form-group">
                     <label for="message">Note</label>
                     <textarea name="message" class="form-control"></textarea>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Save</button>
-                {{ Form::close() }}
+                </form>
                 <hr>
                 <h2>Notes <span class="text-blue"><strong><i
-                                    class="fa fa-note"></i> {{ $notes->count() }} </strong></span></h2>
+                                    class="{{ config('other.font-awesome') }} fa-note"></i> {{ $notes->count() }} </strong></span></h2>
                 <table class="table table-condensed table-striped table-bordered table-hover">
                     <thead>
                     <tr>
@@ -179,10 +187,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($notes) == 0)
+                    @if (count($notes) == 0)
                         <p>The are no notes in database for this user!</p>
                     @else
-                        @foreach($notes as $n)
+                        @foreach ($notes as $n)
                             <tr>
                                 <td>
                                     {{ $n->noteduser->username }}
@@ -199,7 +207,7 @@
                                 <td>
                                     <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
                                        class="btn btn-xs btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -212,14 +220,15 @@
             <div role="tabpanel" class="tab-pane" id="password">
                 <h3>Force Update Password</h3>
                 <hr>
-                {{ Form::open(array('route' => ['user_password', 'username' => $user->username, 'id' => $user->id])) }}
+                <form role="form" method="POST" action="{{ route('user_password', ['username' => $user->username, 'id' => $user->id]) }}">
+                    @csrf
                 <div class="form-group">
                     <label for="new_password">New Password</label>
                     <input type="password" name="new_password" class="form-control" placeholder="New Password">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">Make The Switch!</button>
-                {{ Form::close() }}
+                </form>
             </div>
         </div>
     </div>

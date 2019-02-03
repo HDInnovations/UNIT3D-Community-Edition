@@ -1,35 +1,36 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
+use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    protected $table = 'messages';
-
-    protected $with = ['user'];
-
     /**
-     * Fields that are mass assignable
+     * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'message',
+        'user_id',
+        'chatroom_id',
+    ];
 
     /**
-     * A message belongs to a user
+     * Belongs To A User.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -49,7 +50,7 @@ class Message extends Model
     }
 
     /**
-     * A message belongs to a chatroom
+     * Belongs To A Chat Room.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -59,8 +60,9 @@ class Message extends Model
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML.
      *
+     * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)
     {

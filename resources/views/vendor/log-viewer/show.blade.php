@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($entries as $key => $entry)
+                            @foreach ($entries as $key => $entry)
                                 <tr>
                                     <td>
                                         <span class="label label-env">{{ $entry->env }}</span>

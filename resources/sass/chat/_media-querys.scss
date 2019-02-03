@@ -1,0 +1,204 @@
+@media screen and (max-width: 360px) {
+    #frame {
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel {
+        width: 58px;
+        min-width: 58px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5px 0 0 0;
+        background: #32465a;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap {
+        height: 55px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap img {
+        width: 50px;
+        margin-left: 4px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap p {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap i.expand-button {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options {
+        width: 58px;
+        margin-top: 57px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options.active {
+        margin-top: 62px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options:before {
+        margin-left: 23px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options ul li {
+        padding: 15px 0 35px 22px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options ul li span.status-circle {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options ul li span.status-circle:before {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #profile .wrap #status-options ul li p {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #search {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #contacts {
+        height: calc(100% - 149px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #contacts ul li.contact {
+        padding: 6px 0 46px 8px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #contacts ul li.contact .wrap {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #contacts ul li.contact .wrap img {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #contacts ul li.contact .wrap .meta {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #bottom-bar button {
+        float: none;
+        width: 100%;
+        padding: 15px 0;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #bottom-bar button:nth-child(1) {
+        border-right: none;
+        border-bottom: 1px solid #2c3e50;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #bottom-bar button i {
+        font-size: 1.3em;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame #sidepanel #bottom-bar button span {
+        display: none;
+    }
+}
+
+//@media screen and (max-width: 2560px) {
+//  #frame .content {
+//    width: calc(100% - 58px);
+//    min-width: 300px !important;
+//  }
+//}
+
+//@media screen and (min-width: 2560px) {
+//  #frame .content {
+//    width: calc(100% - 340px);
+//  }
+//}
+
+@media screen and (max-width: 2560px) {
+    #frame .content .messages {
+        max-height: calc(100% - 105px);
+    }
+}
+
+@media screen and (min-width: 735px) {
+    #frame .content .messages ul li p {
+        max-width: 1500px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame .content .message-input .wrap input {
+        padding: 15px 32px 16px 8px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame .content .message-input .wrap .attachment {
+        margin-top: 17px;
+        right: 65px;
+    }
+}
+
+@media screen and (max-width: 2560px) {
+    #frame .content .message-input .wrap button {
+        padding: 16px 0;
+    }
+}

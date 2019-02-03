@@ -1,30 +1,45 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\User;
-use App\PrivateMessage;
-use \Toastr;
+use App\Jobs\ProcessMassPM;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MassPMController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
 
     /**
-     * Show the application dashboard.
+     * MassPMController Constructor.
      *
-     * @return \Illuminate\Http\Response
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
+    /**
+     * Mass PM Form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function massPM()
     {
@@ -32,37 +47,39 @@ class MassPMController extends Controller
     }
 
     /**
-     * @method gift
+     * Send The Mass PM.
      *
-     * @access public
+     * @param \Illuminate\Http\Request $request
      *
-     * @return void
+     * @return Illuminate\Http\RedirectResponse
      */
     public function sendMassPM(Request $request)
     {
         $staff = auth()->user();
         $users = User::all();
 
-        if ($request->isMethod('POST')) {
-            $v = validator($request->all(), [
-                'title' => "required|min:5",
-                'message' => "required|min:5"
-            ]);
+        $sender_id = 1;
+        $subject = $request->input('subject');
+        $message = $request->input('message');
 
-            if ($v->passes()) {
-                foreach ($users as $user) {
-                    PrivateMessage::create(['sender_id' => "1", 'reciever_id' => $user->id, 'subject' => $request->input('title'), 'message' => $request->input('message')]);
-                }
+        $v = validator($request->all(), [
+            'subject' => 'required|min:5',
+            'message' => 'required|min:5',
+        ]);
 
-                // Activity Log
-                \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
-
-                return redirect('/staff_dashboard/masspm')->with(Toastr::success('MassPM Sent', 'Yay!', ['options']));
-            } else {
-                return redirect('/staff_dashboard/masspm')->with(Toastr::error('MassPM Failed', 'Whoops!', ['options']));
-            }
+        if ($v->fails()) {
+            return redirect()->route('massPM')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
-            return redirect('/staff_dashboard/masspm')->with(Toastr::error('Unknown error occurred', 'Whoops!', ['options']));
+            foreach ($users as $user) {
+                $this->dispatch(new ProcessMassPM($sender_id, $user->id, $subject, $message));
+            }
+
+            // Activity Log
+            \LogActivity::addToLog("Staff Member {$staff->username} has sent a MassPM.");
+
+            return redirect()->route('massPM')
+                ->with($this->toastr->success('MassPM Sent', 'Yay!', ['options']));
         }
     }
 }

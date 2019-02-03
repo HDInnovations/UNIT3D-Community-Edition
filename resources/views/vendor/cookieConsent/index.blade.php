@@ -1,4 +1,4 @@
-@if($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
+@if ($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
     @include('cookieConsent::dialogContents')
 
     <script>

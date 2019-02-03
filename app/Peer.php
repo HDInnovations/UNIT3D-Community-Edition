@@ -1,50 +1,70 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * Peers for customers torrents
- *
- */
 class Peer extends Model
 {
     use Sortable;
 
-    public $sortable = ['id', 'agent', 'uploaded', 'downloaded', 'left', 'seeder', 'created_at'];
+    /**
+     * The Columns That Are Sortable.
+     *
+     * @var array
+     */
+    public $sortable = [
+        'id',
+        'agent',
+        'uploaded',
+        'downloaded',
+        'left',
+        'seeder',
+        'created_at',
+    ];
 
     /**
-     * Belongs to User
+     * Belongs To A User.
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Belongs to torrent
+     * Belongs To A Torrent.
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function torrent()
     {
-        return $this->belongsTo(\App\Torrent::class);
+        return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A Seed.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function seed()
+    {
+        return $this->belongsTo(Torrent::class, 'torrents.id', 'torrent_id');
     }
 }

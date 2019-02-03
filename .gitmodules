@@ -1,0 +1,6 @@
+[submodule "deployment/docker-UNIT3D"]
+	path = deployment/docker
+	url = https://github.com/Toothwitch/docker-UNIT3D
+[submodule "deployment/UNIT3D-INSTALLER"]
+	path = deployment/installer
+	url = https://github.com/poppabear8883/UNIT3D-INSTALLER

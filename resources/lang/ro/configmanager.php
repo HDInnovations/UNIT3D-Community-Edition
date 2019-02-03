@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Config Manager',
+    'title'       => 'Config Manager',
     'info_choose' => 'Choose a file to start editing',
-    'file' => 'File',
-    'path' => 'Path',
-    'header' => [
-        'key' => 'Key',
-        'value' => 'Value',
-        'actions' => 'Actions'
+    'file'        => 'File',
+    'path'        => 'Path',
+    'header'      => [
+        'key'     => 'Key',
+        'value'   => 'Value',
+        'actions' => 'Actions',
     ],
     'actions' => [
-        'edit' => 'Edit',
+        'edit'    => 'Edit',
         'confirm' => 'Save new key',
-        'save' => 'Save!',
-        'cancel' => 'Cancel'
+        'save'    => 'Save!',
+        'cancel'  => 'Cancel',
     ],
-    'sure' => 'Are you sure?'
+    'sure' => 'Are you sure?',
 ];

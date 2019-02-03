@@ -1,72 +1,80 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie
+ */
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\User;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Notifications\UsernameReminder;
-use \Toastr;
 
 class ForgotUsernameController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var Toastr
      */
-    public function __construct()
+    private $toastr;
+
+    /**
+     * ForgotUsernameController Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
     {
-        $this->middleware('guest');
+        $this->toastr = $toastr;
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Forgot Username Form.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
-    {
-        $validator = Validator::make(
-            $data,
-            ['email' => 'required|email'],
-            ['email.required' => 'Email is required', 'email.email' => 'Email is invalid']
-        );
-
-        return $validator;
-    }
-
     public function showForgotUsernameForm()
     {
         return view('auth.username');
     }
 
-    public function sendUserameReminder(Request $request)
+    /**
+     * Send Username Reminder.
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function sendUsernameReminder(Request $request)
     {
-        $validator = $this->validator($request->all());
+        $email = $request->get('email');
 
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request,
-                $validator
-            );
+        $v = validator($request->all(), [
+            'email' => 'required',
+        ]);
+
+        if ($v->fails()) {
+            return redirect()->route('username.request')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+        } else {
+            $user = User::where('email', '=', $email)->first();
+
+            if (empty($user)) {
+                return redirect()->route('username.request')
+                    ->with($this->toastr->error('We could not find this email in our system!', 'Whoops!', ['options']));
+            }
+
+            //send username reminder notification
+            $user->notify(new UsernameReminder());
+
+            return redirect()->route('login')
+                ->with($this->toastr->success('Your username has been sent to your email address!', 'Yay!', ['options']));
         }
-
-        $email  = $request->get('email');
-
-        // get the user associated to this activation key
-        $user = User::where('email', $email)->first();
-
-        if (empty($user)) {
-            return redirect()->route('username.request')->with(Toastr::error('We could not find this email in our system!', 'Whoops!', ['options']));
-        }
-
-        //send username reminder notification
-        $user->notify(new UsernameReminder());
-
-        return redirect()->route('login')->with(Toastr::success('Your username has been sent to your email address!', 'Yay!', ['options']));
     }
 }

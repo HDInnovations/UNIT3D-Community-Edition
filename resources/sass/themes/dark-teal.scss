@@ -1,0 +1,48 @@
+/* 2014 material design colors from https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
+
+/*
+
+Teal
+
+50 #E0F2F1
+100 #B2DFDB
+200 #80CBC4
+300 #4DB6AC
+400 #26A69A
+500 #009688
+600 #00897B
+700 #00796B
+800 #00695C
+900 #004D40
+A100 #A7FFEB
+A200 #64FFDA
+A400 #1DE9B6
+A700 #00BFA5
+
+*/
+
+:root {
+    --color-light-blue: #4db6ac;
+    --color-light-green: #4db6ac;
+    --color-light-magenta: #4db6ac;
+    --color-light-purple: #4db6ac;
+    --color-400: #26a69a;
+    --color-blue: #009688;
+    --color-green: #009688;
+    --color-yellow: #009688;
+    --color-magenta: #00897b;
+    --color-red: #00695c;
+    --color-dark-green: #00695c;
+    --color-A200: #64ffda;
+    --color-A400: #1de9b6;
+    --color-purple: #00bfa5;
+
+    --color-dark-blue: #181818;
+    --color-dark-red: #181818;
+
+    --movie-overlay: radial-gradient(circle at 20% 50%, rgba(0, 0, 0, 1) 5.46%, rgba(0, 105, 92, 0.46));
+    --background-pipe: url('/img/pipes/teal.png');
+    --gradient-background: radial-gradient(at 30% top, #073d3f 0%, #081c24 70%);
+}
+
+@import 'dark-base';

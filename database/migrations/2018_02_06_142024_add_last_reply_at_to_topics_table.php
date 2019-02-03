@@ -14,7 +14,7 @@ class AddLastReplyAtToTopicsTable extends Migration
     public function up()
     {
         Schema::table('topics', function (Blueprint $table) {
-            $table->timestamp('last_reply_at')->nullable()->after("last_post_user_username");
+            $table->timestamp('last_reply_at')->nullable()->after('last_post_user_username');
         });
     }
 

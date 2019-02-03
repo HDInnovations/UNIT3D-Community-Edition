@@ -28,7 +28,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Notes <span class="text-blue"><strong><i class="fa fa-note"></i> {{ $notes->count() }} </strong></span>
+                    <h2>Notes <span class="text-blue"><strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $notes->count() }} </strong></span>
                     </h2>
                     <div class="table-responsive">
                         <table class="table table-condensed table-striped table-bordered table-hover">
@@ -42,10 +42,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(count($notes) == 0)
+                            @if (count($notes) == 0)
                                 <p>The are no notes in database for this user!</p>
                             @else
-                                @foreach($notes as $n)
+                                @foreach ($notes as $n)
                                     <tr>
                                         <td>
                                             <a class="name"
@@ -65,7 +65,7 @@
                                         <td>
                                             <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
                                                class="btn btn-xs btn-danger">
-                                                <i class="fa fa-trash"></i>
+                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -76,7 +76,9 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">{{ $notes->links() }}</div>
+            <div class="text-center">
+                {{ $notes->links() }}
+            </div>
         </div>
     </div>
 @endsection

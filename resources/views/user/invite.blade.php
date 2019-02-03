@@ -1,13 +1,20 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('user.invites') }} - {{ config('other.title') }}</title>
+    <title>{{ $user->username }} - @lang('user.send-invite') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('invite') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('user.invites') }}</span>
+        <a href="{{ route('profile', ['username' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('user_invites', ['slug' => $user->slug, 'id' => $user->id]) }}" itemprop="url"
+           class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ $user->username }} @lang('user.send-invite')</span>
         </a>
     </li>
 @endsection
@@ -19,45 +26,57 @@
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('user.invites-disabled') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('user.invites-disabled')
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">{{ trans('user.invites-disabled-desc') }}</p>
+                        <p class="text-center">@lang('user.invites-disabled-desc')</p>
                     </div>
                 </div>
             </div>
-        @elseif($user->can_invite == 0)
+        @elseif ($user->can_invite == 0)
             <div class="container">
                 <div class="jumbotron shadowed">
                     <div class="container">
                         <h1 class="mt-5 text-center">
-                            <i class="fa fa-times text-danger"></i> {{ trans('user.invites-banned') }}
+                            <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i> @lang('user.invites-banned')
                         </h1>
                         <div class="separator"></div>
-                        <p class="text-center">{{ trans('user.invites-banned-desc') }}</p>
+                        <p class="text-center">@lang('user.invites-banned-desc')</p>
                     </div>
                 </div>
             </div>
         @else
-            <div class="block block-titled">
-                <h2>{{ trans('user.invites-count', ['count' => $user->invites]) }}</h2>
-                <p class="text-danger text-bold">{{ trans('user.important') }}</p>
+        <div class="block">
+            @include('user.buttons.invite')
+            <div class="header gradient red">
+                <div class="inner_content">
+                    <h1>{{ $user->username }} @lang('user.send-invite')</h1>
+                </div>
+            </div>
+            <div class="some-padding">
+                    <div class="container-fluid">
+            <div class="block">
+                <h2>@lang('user.invites-count', ['count' => $user->invites])</h2>
+                <p class="text-danger text-bold">@lang('user.important')</p>
                 <ul>
                     {!! trans('user.invites-rules') !!}
                 </ul>
             </div>
 
-            <h3>{{ trans('user.invite-friend') }}</h3>
-            <div class="block block-form">
+            <h3>@lang('user.invite-friend')</h3>
+            <div class="block">
                 <form action="{{ route('invite') }}" method="post">
-                    {{ csrf_field() }}
-                    <label for="email" class="col-sm-2 control-label">{{ trans('common.email') }}</label>
-                    <input class="form-control" name="email" type="email" id="email" size="10" required>
-                    <label for="message" class="col-sm-2 control-label">{{ trans('common.message') }}</label>
-                    <textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea>
-                    <button type="submit" class="btn btn-primary">{{ trans('common.submit') }}</button>
+                    @csrf
+                    <div class="form-group"><label for="email">@lang('common.email')</label></div>
+                    <div class="form-group"><input class="form-control" name="email" type="email" id="email" size="10" required></div>
+                    <div class="form-group"><label for="message">@lang('common.message')</label></div>
+                    <div class="form-group"><textarea class="form-control" name="message" cols="50" rows="10" id="message"></textarea></div>
+                    <div class="form-group"><button type="submit" class="btn btn-primary">@lang('common.submit')</button></div>
                 </form>
             </div>
+    </div>
+            </div>
+        </div>
     </div>
     @endif
 @endsection

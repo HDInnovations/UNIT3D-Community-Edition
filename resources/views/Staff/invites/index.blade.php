@@ -22,15 +22,16 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="block">
             <h2>Invites Log</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
                     <h2>Invites Sent <span class="text-blue"><strong><i
-                                        class="fa fa-note"></i> {{ $invitecount }} </strong></span></h2>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                                        class="{{ config('other.font-awesome') }} fa-note"></i> {{ $invitecount }} </strong></span></h2>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>Sender</th>
@@ -43,15 +44,17 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($invites) == 0)
+                        @if (count($invites) == 0)
                             <p>The are no invite logs in the database for this user!</p>
                         @else
-                            @foreach($invites as $invite)
+                            @foreach ($invites as $invite)
                                 <tr>
                                     <td>
-                                        <a class="view-user" data-id="{{ $invite->sender->id }}"
-                                           data-slug="{{ $invite->sender->username }}"
-                                           href="{{ route('profile', ['username' =>  $invite->sender->username, 'id' => $invite->sender->id]) }}">{{ $invite->sender->username }}</a>
+                                        <a href="{{ route('profile', ['username' => $invite->sender->username, 'id' => $invite->sender->id]) }}">
+                                            <span class="text-bold" style="color: {{ $invite->sender->group->color }}">
+                                                <i class="{{ $invite->sender->group->icon }}"></i> {{ $invite->sender->username }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $invite->email }}
@@ -66,16 +69,18 @@
                                         {{ $invite->expires_on }}
                                     </td>
                                     <td>
-                                        @if($invite->accepted_by != null)
-                                            <a class="view-user" data-id="{{ $invite->reciever->id }}"
-                                               data-slug="{{ $invite->reciever->username }}"
-                                               href="{{ route('profile', ['username' =>  $invite->reciever->username, 'id' => $invite->reciever->id]) }}">{{ $invite->reciever->username }}</a>
+                                        @if ($invite->accepted_by != null && $invite->accepted_by != 1)
+                                            <a href="{{ route('profile', ['username' => $invite->receiver->username, 'id' => $invite->receiver->id]) }}">
+                                                <span class="text-bold" style="color: {{ $invite->receiver->group->color }}">
+                                                    <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
+                                                </span>
+                                            </a>
                                         @else
                                             N/A
                                         @endif
                                     </td>
                                     <td>
-                                        @if($invite->accepted_at != null)
+                                        @if ($invite->accepted_at != null)
                                             {{ $invite->accepted_at }}
                                         @else
                                             N/A
@@ -88,7 +93,10 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center">{{ $invites->links() }}</div>
+            </div>
+            <div class="text-center">
+                {{ $invites->links() }}
+            </div>
         </div>
     </div>
 @endsection

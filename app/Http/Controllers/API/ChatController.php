@@ -1,25 +1,42 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     Poppabear
+ */
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\ChatMessageResource;
-use App\Http\Resources\ChatRoomResource;
-use App\Repositories\ChatRepository;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Auth\AuthManager;
 use App\Http\Controllers\Controller;
+use App\Repositories\ChatRepository;
+use App\Http\Resources\ChatRoomResource;
+use App\Http\Resources\ChatMessageResource;
 
 class ChatController extends Controller
 {
-
     /**
      * @var ChatRepository
      */
     private $chat;
 
-    public function __construct(ChatRepository $chat)
+    /**
+     * @var AuthManager
+     */
+    private $auth;
+
+    public function __construct(ChatRepository $chat, AuthManager $auth)
     {
         $this->chat = $chat;
+        $this->auth = $auth;
     }
 
     /* STATUSES */
@@ -54,9 +71,22 @@ class ChatController extends Controller
         $message = $request->get('message');
         $save = $request->get('save');
 
-        $message = $this->chat->message($user_id, $room_id, $message, $receiver_id);
+        if ($this->auth->user()->id !== $user_id) {
+            return response('error', 401);
+        }
 
-        if (!$save) {
+        if ($this->auth->user()->can_chat === 0) {
+            return response('error', 401);
+        }
+
+        // Temp Fix For HTMLPurifier
+        if ($message === '<') {
+            return response('error', 401);
+        }
+
+       $message = $this->chat->message($user_id, $room_id, $message, $receiver_id);
+
+        if (! $save) {
             $message->delete();
         }
 
@@ -66,6 +96,7 @@ class ChatController extends Controller
     public function deleteMessage($id)
     {
         $this->chat->deleteMessage($id);
+
         return response('success', 200);
     }
 
@@ -95,5 +126,4 @@ class ChatController extends Controller
 
         return response($user, 200);
     }
-
 }

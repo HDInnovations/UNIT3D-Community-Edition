@@ -4,7 +4,7 @@
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4>{{ trans('blocks.featured-torrents') }}</h4>
+                <h4>@lang('blocks.featured-torrents')</h4>
             </div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -18,15 +18,15 @@
                                     <div class="movie-content">
                                         <div class="movie-header">
                                             <h1 class="movie-title">{{ config('other.title') }}
-                                                - {{ trans('blocks.featured-torrents') }}</h1>
+                                                - @lang('blocks.featured-torrents')</h1>
                                             <h4 class="movie-info">
-                                                {{ trans('blocks.featured-torrents-intro') }}
+                                                @lang('blocks.featured-torrents-intro')
                                                 <br>
                                                 <br>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('torrent.freeleech') }}</span>
+                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.freeleech')</span>
                                                 <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('torrent.double-upload') }}</span>
+                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('torrent.double-upload')</span>
                                             </h4>
                                         </div>
                                         <span class="movie-desc">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    @foreach($featured as $key => $feature)
+                    @foreach ($featured as $key => $feature)
                         @if ($feature->torrent->category_id == 2)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
                                 @php $movie = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
@@ -63,8 +63,8 @@
                                                 <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
-                                                    @if($movie->genres)
-                                                        @foreach($movie->genres as $genre)
+                                                    @if ($movie->genres)
+                                                        @foreach ($movie->genres as $genre)
                                                             | {{ $genre }} |
                                                         @endforeach
                                                     @endif
@@ -75,23 +75,23 @@
                   <br>
                   <br>
                 <ul class="list-inline">
-                <span class="badge-extra text-blue"><i class="fa fa-database"></i> <strong>{{ trans('torrent.size') }}
+                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')
                         : </strong> {{ $feature->torrent->getSize() }}</span>
-                <span class="badge-extra text-blue"><i class="fa fa-fw fa-calendar"></i> <strong>{{ trans('torrent.released') }}
+                <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-fw fa-calendar"></i> <strong>@lang('torrent.released')
                         : </strong> {{ $feature->torrent->created_at->diffForHumans() }}</span>
-                <span class="badge-extra text-green"><li><i class="fa fa-arrow-up"></i> <strong>{{ trans('torrent.seeders') }}
+                <span class="badge-extra text-green"><li><i class="{{ config('other.font-awesome') }} fa-arrow-up"></i> <strong>@lang('torrent.seeders')
                             : </strong> {{ $feature->torrent->seeders }}</li></span>
-                <span class="badge-extra text-red"><li><i class="fa fa-arrow-down"></i> <strong>{{ trans('torrent.leechers') }}
+                <span class="badge-extra text-red"><li><i class="{{ config('other.font-awesome') }} fa-arrow-down"></i> <strong>@lang('torrent.leechers')
                             : </strong> {{ $feature->torrent->leechers }}</li></span>
-                <span class="badge-extra text-orange"><li><i class="fa fa-check-square-o"></i> <strong>{{ trans('torrent.completed') }}
+                <span class="badge-extra text-orange"><li><i class="{{ config('other.font-awesome') }} fa-check-square"></i> <strong>@lang('torrent.completed')
                             : </strong> {{ $feature->torrent->times_completed }}</li></span>
                 <br>
                 <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-until') }}
+                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-until')
                     : {{ $feature->created_at->addDay(7)->toFormattedDateString() }}
                     ({{ $feature->created_at->addDay(7)->diffForHumans() }}!)</span>
                 <span class="badge-user text-bold text-pink"
-                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ trans('blocks.featured-by') }}
+                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">@lang('blocks.featured-by')
                     : {{ $feature->user->username }}!</span>
                 </ul>
                 </span>
@@ -106,11 +106,11 @@
                 <!-- Left and right controls -->
                 <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">{{ trans('common.previous') }}</span>
+                    <span class="sr-only">@lang('common.previous')</span>
                 </a>
                 <a class="right carousel-control" href="#myCarousel" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">{{ trans('common.next') }}</span>
+                    <span class="sr-only">@lang('common.next')</span>
                 </a>
             </div>
         </div>

@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,43 +18,28 @@ use Illuminate\Database\Eloquent\Model;
 class Invite extends Model
 {
     /**
-     * The database table used by the model.
+     * Belongs To A User.
      *
-     * @var string
-     */
-    protected $table = "invites";
-
-    /**
-     * Mass assignment fields
-     *
-     */
-    protected $fillable = [
-        'user_id', 'email', 'code', 'expires_on', 'accepted_by', 'accepted_at', 'custom'
-    ];
-
-    /**
-     * Belongs to User
-     *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sender()
     {
-        return $this->belongsTo(\App\User::class, 'user_id')->withDefault([
+        return $this->belongsTo(User::class, 'user_id')->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Belongs to User
+     * Belongs To A User.
      *
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function reciever()
+    public function receiver()
     {
-        return $this->belongsTo(\App\User::class, 'accepted_by')->withDefault([
+        return $this->belongsTo(User::class, 'accepted_by')->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 }

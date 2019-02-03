@@ -1,4 +1,4 @@
-@if($poll && $poll->voters->where('user_id', auth()->user()->id)->isEmpty())
+@if ($poll && $poll->voters->where('user_id', '=', auth()->user()->id)->isEmpty())
     <div class="col-md-10 col-sm-10 col-md-offset-1">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
@@ -11,7 +11,7 @@
                         <div class="forum-category-title col-md-12">
                             <div class="forum-category-childs">
                                 <form class="form-horizontal" method="POST" action="/poll/vote">
-
+                                @csrf
                                     @if (count($errors) > 0)
                                         <div class="alert alert-danger">
                                             <ul>
@@ -24,7 +24,7 @@
 
                                     {!! csrf_field() !!}
 
-                                    @if($poll->multiple_choice)
+                                    @if ($poll->multiple_choice)
                                         @foreach ($poll->options as $option)
                                             <a class="forum-category-childs-forum col-md-4">
                                                 <div class="checkbox">
@@ -53,12 +53,12 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                             <button type="submit"
-                                                    class="btn btn-primary">{{ trans('poll.vote') }}</button>
+                                                    class="btn btn-primary">@lang('poll.vote')</button>
                                         </div>
                                     </div>
                                 </form>
-                                @if($poll->multiple_choice)
-                                    <span class="badge-user text-bold text-red">{{ trans('poll.multiple-choice') }}</span>
+                                @if ($poll->multiple_choice)
+                                    <span class="badge-user text-bold text-red">@lang('poll.multiple-choice')</span>
                                 @endif
                             </div>
                         </div>

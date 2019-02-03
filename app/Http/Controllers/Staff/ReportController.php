@@ -1,27 +1,43 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\PrivateMessage;
 use App\Report;
-use \Toastr;
+use App\PrivateMessage;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ReportController extends Controller
 {
     /**
-     * Reports System
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * ReportController Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
+    /**
+     * Get All Reports.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -33,7 +49,10 @@ class ReportController extends Controller
     }
 
     /**
+     * Get A Report.
+     *
      * @param $report_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getReport($report_id)
@@ -46,7 +65,10 @@ class ReportController extends Controller
     }
 
     /**
+     * Solve A Report.
+     *
      * @param $report_id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function solveReport(Request $request, $report_id)
@@ -54,14 +76,15 @@ class ReportController extends Controller
         $user = auth()->user();
 
         $v = validator($request->all(), [
-            'verdict' => 'required|min:3',
-            'staff_id' => 'required'
+            'verdict'  => 'required|min:3',
+            'staff_id' => 'required',
         ]);
 
         $report = Report::findOrFail($report_id);
 
         if ($report->solved == 1) {
-            return redirect()->route('getReports')->with(Toastr::error('This Report Has Already Been Solved', 'Whoops!', ['options']));
+            return redirect()->route('getReports')
+                ->with($this->toastr->error('This Report Has Already Been Solved', 'Whoops!', ['options']));
         }
 
         $report->verdict = $request->input('verdict');
@@ -70,8 +93,18 @@ class ReportController extends Controller
         $report->save();
 
         // Send Private Message
-        PrivateMessage::create(['sender_id' => $user->id, 'reciever_id' => $report->reporter_id, 'subject' => "Your Report Has A New Verdict", 'message' => $report->verdict]);
+        $pm = new PrivateMessage();
+        $pm->sender_id = $user->id;
+        $pm->receiver_id = $report->reporter_id;
+        $pm->subject = 'Your Report Has A New Verdict';
+        $pm->message = "[b]REPORT TITLE:[/b] {$report->title}
+        
+                        [b]ORIGINAL MESSAGE:[/b] {$report->message}
+                        
+                        [b]VERDICT:[/b] {$report->verdict}";
+        $pm->save();
 
-        return redirect()->route('getReports')->with(Toastr::success('Report has been successfully resolved', 'Yay!', ['options']));
+        return redirect()->route('getReports')
+            ->with($this->toastr->success('Report has been successfully resolved', 'Yay!', ['options']));
     }
 }

@@ -1,27 +1,30 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use App\Page;
+use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
-
     /**
-     * Displays the requested page
+     * Show A Page.
      *
+     * @param $slug
+     * @param $id
      *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function page($slug, $id)
     {
@@ -31,9 +34,9 @@ class PageController extends Controller
     }
 
     /**
-     * Staff Page
+     * Show Staff Page.
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function staff()
     {
@@ -43,9 +46,9 @@ class PageController extends Controller
     }
 
     /**
-     * Internal Page
+     * Show Internals Page.
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function internal()
     {
@@ -55,9 +58,9 @@ class PageController extends Controller
     }
 
     /**
-     * Blacklist Page
+     * Show Blacklist Page.
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function blacklist()
     {
@@ -68,12 +71,25 @@ class PageController extends Controller
     }
 
     /**
-     * About Us Page
+     * Show About Us Page.
      *
-     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function about()
     {
         return view('page.aboutus');
+    }
+
+    /**
+     * Show Email Whitelist / Blacklist Page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function emailList()
+    {
+        $whitelist = config('email-white-blacklist.allow', []);
+        $blacklist = config('email-white-blacklist.block', []);
+
+        return view('page.emaillist', ['whitelist' => $whitelist, 'blacklist' => $blacklist]);
     }
 }

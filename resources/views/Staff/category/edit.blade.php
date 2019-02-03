@@ -12,7 +12,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_category_edit_form', array('slug' => $category->slug, 'id' => $category->id)) }}"
+        <a href="{{ route('staff_category_edit_form', ['slug' => $category->slug, 'id' => $category->id]) }}"
            itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Edit Torrent Category</span>
         </a>
@@ -22,7 +22,8 @@
 @section('content')
     <div class="container box">
         <h2>Edit A Category</h2>
-        {{ Form::open(array('route' => array('staff_category_edit', 'slug' => $category->slug, 'id' => $category->id))) }}
+        <form role="form" method="POST" action="{{ route('staff_category_edit', ['slug' => $category->slug, 'id' => $category->id]) }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{ $category->name }}">
@@ -37,14 +38,14 @@
         </div>
         <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
         <div class="radio-inline">
-            <label><input type="radio" name="meta" @if($category->meta == 1) checked @endif value="1">Yes</label>
+            <label><input type="radio" name="meta" @if ($category->meta == 1) checked @endif value="1">Yes</label>
         </div>
         <div class="radio-inline">
-            <label><input type="radio" name="meta" @if($category->meta == 0) checked @endif value="0">No</label>
+            <label><input type="radio" name="meta" @if ($category->meta == 0) checked @endif value="0">No</label>
         </div>
         <br>
         <br>
-        <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
-        {{ Form::close() }}
+        <button type="submit" class="btn btn-default">@lang('common.submit')</button>
+        </form>
     </div>
 @endsection

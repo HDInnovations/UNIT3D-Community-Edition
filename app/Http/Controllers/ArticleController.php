@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -16,34 +17,27 @@ use App\Article;
 
 class ArticleController extends Controller
 {
-
     /**
-     * Show Articles
+     * Show All Articles.
      *
-     * @access public
-     * @return post.articles
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function articles()
     {
-        // Fetch posts by created_at DESC order
         $articles = Article::latest()->paginate(6);
 
         return view('article.articles', ['articles' => $articles]);
     }
 
     /**
-     * Show Article
+     * Show A Article.
      *
-     * @access public
-     * @return post.post
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function post($slug, $id)
     {
-        // Find de right post
-        $article = Article::findOrFail($id);
-        // Get comments on this post
-        $comments = $article->comments()->latest()->get();
+        $article = Article::with(['user', 'comments'])->findOrFail($id);
 
-        return view('article.article', ['article' => $article, 'comments' => $comments]);
+        return view('article.article', ['article' => $article]);
     }
 }

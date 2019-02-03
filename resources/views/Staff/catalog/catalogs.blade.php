@@ -29,7 +29,7 @@
                     <div class="panel-heading">Add Catalog</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('postCatalog') }}">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group{{ $errors->has('catalog') ? ' has-error' : '' }}">
                                 <label for="catalog" class="col-md-4 control-label">Catalog Name:</label>
                                 <div class="col-md-6">
@@ -57,7 +57,7 @@
     <div class="container">
         <div class="block">
             <div class="row">
-                <h2>Number of Catalogs: @if(count($catalogs) == 0) The are no catalogs in database @else
+                <h2>Number of Catalogs: @if (count($catalogs) == 0) The are no catalogs in database @else
                         <strong>{{count($catalogs)}}</strong> @endif
                 </h2>
                 <hr>
@@ -71,7 +71,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($catalogs as $catalog)
+                        @foreach ($catalogs as $catalog)
                             <tr>
                                 <td>
                                     {{$catalog->name}}
@@ -89,7 +89,7 @@
                                 <td>
                                     <a class="pull-right" href="{{route('deleteCatalog',['catalog_id'=>$catalog->id])}}"
                                        title="Delete catalog">
-                                        <i class="fa fa-lg fa-trash list-icons" aria-hidden="true"></i>
+                                        <i class="{{ config('other.font-awesome') }} fa-lg fa-trash list-icons" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>

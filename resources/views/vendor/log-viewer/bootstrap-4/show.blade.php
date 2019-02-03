@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <div class="card-header"><i class="fa fa-fw fa-flag"></i> Levels</div>
                 <div class="list-group list-group-flush log-menu">
-                    @foreach($log->menu() as $levelKey => $item)
+                    @foreach ($log->menu() as $levelKey => $item)
                         @if ($item['count'] === 0)
                             <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center disabled">
                                 <span class="level-name">{!! $item['icon'] !!} {{ $item['name'] }}</span>
@@ -151,7 +151,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center">
-                                        <span class="badge badge-secondary">{{ trans('log-viewer::general.empty-logs') }}</span>
+                                        <span class="badge badge-secondary">@lang('log-viewer::general.empty-logs')</span>
                                     </td>
                                 </tr>
                             @endforelse

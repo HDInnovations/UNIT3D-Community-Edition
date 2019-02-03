@@ -1,7 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $catalog->name }} - {{ trans('torrent.torrents') }} - {{ config('other.title') }}</title>
+    <title>{{ $catalog->name }} - @lang('torrent.torrents') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -11,12 +11,12 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('categories') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalogs') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.catalogs')</span>
         </a>
     </li>
     <li class="active">
         <a href="#" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.catalog') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.catalog')</span>
         </a>
     </li>
 @endsection
@@ -25,11 +25,11 @@
     <div class="container box">
         <div class="header gradient pink">
             <div class="inner_content">
-                <h1>{{ trans('torrent.torrents') }}
+                <h1>@lang('torrent.torrents')
                     : {{ $catalog->name }} {{ strtolower(trans('torrent.catalog')) }}</h1>
             </div>
         </div>
-        @foreach($records as $r)
+        @foreach ($records as $r)
             <div class="row">
                 @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
                 @if ($r->category_id == 2)
@@ -47,7 +47,7 @@
                 @endif
                 <div class="col-md-12">
                     <div class="well">
-                        <h2><a href="{{ route('catalog_torrents', array('imdb' => $r->imdb)) }}">{{ $movie->title }}
+                        <h2><a href="{{ route('catalog_torrents', ['imdb' => $r->imdb]) }}">{{ $movie->title }}
                                 ({{ $movie->releaseYear }})</a></h2>
                         <div class="movie-details">
                             <p class="movie-plot">{{ $movie->plot }}</p>

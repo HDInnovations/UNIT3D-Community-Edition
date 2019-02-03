@@ -21,7 +21,8 @@
 @section('content')
     <div class="container box">
         <h2>Add A Category</h2>
-        {{ Form::open(array('route' => 'staff_category_add')) }}
+        <form role="form" method="POST" action="{{ route('staff_category_add') }}">
+        @csrf
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name">
@@ -32,7 +33,7 @@
         </div>
         <div class="form-group">
             <label for="name">Icon (FontAwesome)</label>
-            <input type="text" class="form-control" name="icon" placeholder="Example: fa fa-rocket">
+            <input type="text" class="form-control" name="icon" placeholder="Example: {{ config('other.font-awesome') }} fa-rocket">
         </div>
         <label for="sidenav" class="control-label">Has Meta Data? (Movie/TV)</label>
         <div class="radio-inline">
@@ -43,7 +44,7 @@
         </div>
         <br>
         <br>
-        <button type="submit" class="btn btn-default">{{ trans('common.add') }}</button>
-        {{ Form::close() }}
+        <button type="submit" class="btn btn-default">@lang('common.add')</button>
+        </form>
     </div>
 @endsection

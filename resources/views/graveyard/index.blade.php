@@ -1,148 +1,225 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('graveyard.graveyard') }} - {{ config('other.title') }}</title>
+    <title>@lang('graveyard.graveyard') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('graveyard') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('graveyard.graveyard') }}</span>
+        <a href="{{ route('graveyard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('graveyard.graveyard')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="well">
-            <p class="text-red text-bold">{{ trans('graveyard.guidelines') }}</p>
-            <p>
-                {!! trans('graveyard.guidelines-content') !!}
-            </p>
+    <!-- Search -->
+    <div class="container box">
+        <div class="text-center">
+            <h3 class="filter-title">Search Filters</h3>
+        </div>
+        <form role="form" method="GET" action="GraveyardController@index" class="form-horizontal form-condensed form-torrent-search form-bordered">
+        @csrf
+        <div class="form-group">
+            <label for="name" class="col-sm-1 label label-default">Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="search" placeholder="Name / Title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="imdb" class="col-sm-1 label label-default">Number</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="imdb" placeholder="IMDB #">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="tvdb" placeholder="TVDB #">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="mal" placeholder="MAL #">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="category" class="col-sm-1 label label-default">Category</label>
+            <div class="col-sm-10">
+                @foreach ($repository->categories() as $id => $category)
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $category }}" value="{{ $id }}" class="category"> {{ $category }}
+                        </label>
+                    </span>
+                @endforeach
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="type" class="col-sm-1 label label-default">Type</label>
+            <div class="col-sm-10">
+                @foreach ($repository->types() as $id => $type)
+                    <span class="badge-user">
+                        <label class="inline">
+                            <input type="checkbox" id="{{ $type }}" value="{{ $type }}" class="type"> {{ $type }}
+                        </label>
+                    </span>
+                @endforeach
+            </div>
+        </div>
+        </form>
+
+        <hr>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
+                <div class="col-sm-2">
+                    <select id="sorting" name="sorting" class="form-control">
+                        @foreach ($repository->sorting() as $value => $sort)
+                            <option value="{{ $value }}">{{ $sort }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select id="direction" name="direction" class="form-control">
+                        @foreach ($repository->direction() as $value => $dir)
+                            <option value="{{ $value }}">{{ $dir }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <label class="control-label col-sm-2" for="qty">Quanity:</label>
+                <div class="col-sm-2">
+                    <select id="qty" name="qty" class="form-control">
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- /Search -->
 
+    <!-- Results -->
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient silver">
                 <div class="inner_content">
-                    <h1>{{ trans('graveyard.graveyard') }} <span
-                                class="text-red">({{ $deadcount }} {{ trans('graveyard.dead') }}!)</span></h1>
+                    <h1>@lang('graveyard.graveyard')
+                        <span class="text-red">({{ $deadcount }} @lang('graveyard.dead')!)</span>
+                    </h1>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-condensed table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th class="torrents-icon"></th>
-                        <th class="torrents-filename">{{ trans('torrent.name') }}</th>
-                        <th>{{ trans('torrent.age') }}</th>
-                        <th>{{ trans('torrent.size') }}</th>
-                        <th>{{ trans('torrent.short-seeds') }}</th>
-                        <th>{{ trans('torrent.short-leechs') }}</th>
-                        <th>{{ trans('torrent.short-completed') }}</th>
-                        <th>{{ trans('graveyard.ressurect') }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($dead as $d)
-                        @php $history = DB::table('history')->where('info_hash', '=', $d->info_hash)->where('user_id', '=', $user->id)->first(); @endphp
-                        <tr class="">
-                            <td>
-                                <div class="text-center">
-                                    <i class="{{ $d->category->icon }} torrent-icon" data-toggle="tooltip" title=""
-                                       data-original-title="{{ $d->category->name }} {{ trans('torrent.torrent') }}"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="torrent-file">
-                                    <div>
-                                        <a class="view-torrent" data-id="{{ $d->id }}" data-slug="{{ $d->slug }}"
-                                           href="{{ route('torrent', array('slug' => $d->slug, 'id' => $d->id)) }}"
-                                           data-toggle="tooltip" title=""
-                                           data-original-title="{{ $d->name }}">{{ $d->name }} </a><span
-                                                class="label label-success">{{ $d->type }}</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <span data-toggle="tooltip" title=""
-                                      data-original-title="">{{ $d->created_at->diffForHumans() }}</span>
-                            </td>
-                            <td>
-                                <span class="">{{ $d->getSize() }}</span>
-                            </td>
-                            <td>{{ $d->seeders }}</td>
-                            <td>{{ $d->leechers }}</td>
-                            <td>{{ $d->times_completed }}</td>
-                            <td>
-                                @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $d->id)->first(); @endphp
-                                @if(!$resurrected)
-                                    <button data-toggle="modal" data-target="#resurrect-{{ $d->id }}"
-                                            class="btn btn-sm btn-default">
-                                        <span class="icon">@emojione(':zombie:') {{ trans('graveyard.ressurect') }}</span>
-                                    </button>
-                                @else
-                                    <button class="btn btn-sm btn-info" disabled>
-                                        <span class="icon">@emojione(':angel_tone2:') {{ strtolower(trans('graveyard.pending')) }}</span>
-                                    </button>
-                                @endif
-                            </td>
-                        </tr>
-                        {{-- Resurrect Modal --}}
-                        <div class="modal fade" id="resurrect-{{ $d->id }}" tabindex="-1" role="dialog"
-                             aria-labelledby="resurrect">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <h2>
-                                            <i class="fa fa-thumbs-up"></i>{{ trans('graveyard.ressurect') }} {{ strtolower(trans('torrent.torrent')) }}
-                                            ?</h2>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        <p class="text-center text-bold"><span
-                                                    class="text-green"><em>{{ $d->name }} </em></span></p>
-                                        <p class="text-center text-bold">{{ trans('graveyard.howto') }}</p>
-                                        <br>
-                                        <div class="text-center">
-                                            <p>{!! trans('graveyard.howto-desc1', ['name' => $d->name]) !!}
-                                                <span class="text-red text-bold">@if(!$history)
-                                                        0 @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime) }} @endif</span> {{ strtolower(trans('graveyard.howto-hits')) }}
-                                                <span class="text-red text-bold">@if(!$history) {{ App\Helpers\StringHelper::timeElapsed($time) }} @else {{ App\Helpers\StringHelper::timeElapsed($history->seedtime + $time) }} @endif</span> {{ strtolower(trans('graveyard.howto-desc2')) }}
-                                                <span class="badge-user text-bold text-pink"
-                                                      style="background-image:url(https://i.imgur.com/F0UCb7A.gif);">{{ $tokens }} {{ trans('torrent.freeleech') }}
-                                                    Token(s)!</span></p>
-                                            <div class="btns">
-                                                <form role="form" method="POST"
-                                                      action="{{ route('resurrect',['id' => $d->id]) }}">
-                                                    {{ csrf_field() }}
-                                                    @if(!$history)
-                                                        <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                               value="{{ $time }}">
-                                                    @else
-                                                        <input hidden="seedtime" name="seedtime" id="seedtime"
-                                                               value="{{ $history->seedtime + $time }}">
-                                                    @endif
-                                                    <button type="submit"
-                                                            class="btn btn-success">{{ trans('graveyard.ressurect') }}!
-                                                    </button>
-                                                    <button type="button" class="btn btn-warning"
-                                                            data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    </tbody>
-                </table>
+            <div id="result">
+            @include('graveyard.results')
             </div>
-            {{ $dead->links() }}
         </div>
     </div>
+@endsection
+
+@section('javascripts')
+    <script>
+        var xhr = new XMLHttpRequest();
+
+        function faceted(page) {
+          var csrf = "{{ csrf_token() }}";
+          var search = $("#search").val();
+          var imdb = $("#imdb").val();
+          var tvdb = $("#tvdb").val();
+          var tmdb = $("#tmdb").val();
+          var mal = $("#mal").val();
+          var categories = [];
+          var types = [];
+          var sorting = $("#sorting").val();
+          var direction = $("#direction").val();
+          var qty = $("#qty").val();
+          $(".category:checked").each(function () {
+            categories.push($(this).val());
+          });
+          $(".type:checked").each(function () {
+            types.push($(this).val());
+          });
+
+          if (xhr !== 'undefined') {
+            xhr.abort();
+          }
+          xhr = $.ajax({
+            url: 'filterGraveyard',
+            data: {
+              _token: csrf,
+              search: search,
+              imdb: imdb,
+              tvdb: tvdb,
+              tmdb: tmdb,
+              mal: mal,
+              categories: categories,
+              types: types,
+              sorting: sorting,
+              direction: direction,
+              page: page,
+              qty: qty
+            },
+            type: 'get',
+            beforeSend: function () {
+              $("#result").html('<i class="{{ config('other.font-awesome') }} fa-spinner fa-spin fa-3x fa-fw"></i>')
+            }
+          }).done(function (e) {
+            $data = $(e);
+            $("#result").html($data);
+          });
+        }
+    </script>
+    <script>
+      $(window).on("load", faceted())
+    </script>
+    <script>
+      $("#search").keyup(function () {
+        faceted();
+      })
+    </script>
+    <script>
+      $("#imdb").keyup(function () {
+        faceted();
+      })
+    </script>
+    <script>
+      $("#tvdb").keyup(function () {
+        faceted();
+      })
+    </script>
+    <script>
+      $("#tmdb").keyup(function () {
+        faceted();
+      })
+    </script>
+    <script>
+      $("#mal").keyup(function () {
+        faceted();
+      })
+    </script>
+    <script>
+      $(".category,.type").on("click", function () {
+        faceted();
+      });
+    </script>
+    <script>
+      $("#sorting,#direction,#qty").on('change', function () {
+        faceted();
+      });
+    </script>
+    <script>
+      $(document).on('click', '.pagination a', function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var page = url.split('page=')[1];
+        window.history.pushState("", "", url);
+        faceted(page);
+      })
+    </script>
+    <script>
+      $(document).ajaxComplete(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
 @endsection

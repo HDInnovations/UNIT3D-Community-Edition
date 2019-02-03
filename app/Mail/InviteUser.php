@@ -1,22 +1,22 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Mail;
 
+use App\Invite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Invite;
 
 class InviteUser extends Mailable
 {
@@ -42,6 +42,6 @@ class InviteUser extends Mailable
     public function build()
     {
         return $this->markdown('emails.invite')
-            ->subject('Invite Recieved ' . config('other.title'));
+            ->subject('Invite Received '.config('other.title'));
     }
 }

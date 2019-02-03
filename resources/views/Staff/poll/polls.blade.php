@@ -16,7 +16,8 @@
     <div class="container box">
         <h2>Manage Polls</h2>
         <a href="{{ route('getCreatePoll') }}" class="btn btn-primary">Add New Poll</a>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -25,7 +26,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($polls as $poll)
+            @foreach ($polls as $poll)
                 <tr>
                     <td><a href="{{ url('/staff_dashboard/poll/' . $poll->id) }}">{{ $poll->title }}</a></td>
                     <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
@@ -37,5 +38,6 @@
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

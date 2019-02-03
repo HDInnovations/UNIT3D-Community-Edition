@@ -9,11 +9,13 @@
     "type": "project",
     "require": {
         "php": ">=7.2",
+        "appstract/laravel-opcache": "^2.0",
         "arcanedev/log-viewer": "^4.3",
-        "bepsvpt/secure-headers": "^3.0",
+        "bepsvpt/secure-headers": "^5.3",
         "brian2694/laravel-toastr": "^1.0",
-        "christofferok/laravel-emojione": "^2.1",
-        "emojione/emojione": "3.1.2",
+        "christofferok/laravel-emojione": "4.0",
+        "coderello/laravel-proximage": "^0.5.0",
+        "emojione/emojione": "^4.0.0",
         "fideloper/proxy": "~4.0",
         "google/recaptcha": "~1.1",
         "gstt/laravel-achievements": "^1.0",
@@ -22,17 +24,18 @@
         "infinety-es/config-manager": "^1.1",
         "intervention/image": "^2.4",
         "kyslik/column-sortable": "5.5.*",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "5.7.*",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.6.*",
+        "mews/purifier": "^2.1",
         "mjohnson/decoda": "6.*",
         "moinax/tvdb": "1.*",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
         "rachidlaasri/laravel-installer": "^3.2",
         "spatie/laravel-backup": "^5.0",
-        "spatie/laravel-cookie-consent": "^2.1.0",
+        "spatie/laravel-cookie-consent": "^2.4.1",
         "spatie/laravel-image-optimizer": "^1.1",
+        "spatie/ssl-certificate": "^1.12",
         "stripe/stripe-php": "^6.1",
         "symfony/dom-crawler": "^2.7|^3.0",
         "theodorejb/polycast": "^1.0"
@@ -43,17 +46,19 @@
         "phpunit/phpunit": "~6.0",
         "xethron/migrations-generator": "^2.0",
         "filp/whoops": "~2.0",
-        "nunomaduro/collision": "~1.1"
+        "nunomaduro/collision": "~1.1",
+        "beyondcode/laravel-dump-server": "~1.0"
     },
     "autoload": {
         "classmap": [
-            "database"
+            "database/seeds",
+            "database/factories"
         ],
         "psr-4": {
             "App\\": "app/"
         },
         "files": [
-          "app/Helpers/Helpers.php"
+            "app/Helpers/Helpers.php"
         ]
     },
     "autoload-dev": {
@@ -61,25 +66,28 @@
             "Tests\\": "tests/"
         }
     },
-    "scripts": {
-        "post-root-package-install": [
-            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "php artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
     "extra": {
         "laravel": {
             "dont-discover": []
         }
-    }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

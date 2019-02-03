@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
     <li>
         <a href="{{ route('home') }}">
-            <i class="livicon" data-name="home" data-size="16" data-color="#000"></i> {{ trans('common.home') }}
+            <i class="{{ config('other.font-awesome') }} fa-home"></i> @lang('common.home')
         </a>
     </li>
     @yield('breadcrumb')

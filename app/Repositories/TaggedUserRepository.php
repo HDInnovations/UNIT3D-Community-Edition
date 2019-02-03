@@ -1,14 +1,29 @@
 <?php
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     Poppabear
+ */
 
 namespace App\Repositories;
 
-use App\PrivateMessage;
+use App\Post;
 use App\User;
+use App\Comment;
+use App\PrivateMessage;
+use App\Notifications\NewPostTag;
+use App\Notifications\NewCommentTag;
 
 class TaggedUserRepository
 {
     /**
-     * Enables various debugging options:
+     * Enables various debugging options:.
      *
      * 1. Allows you to tag yourself while testing and debugging
      *
@@ -33,7 +48,8 @@ class TaggedUserRepository
 
     /**
      * TaggedUserRepository constructor.
-     * @param User $user
+     *
+     * @param User           $user
      * @param PrivateMessage $message
      */
     public function __construct(User $user, PrivateMessage $message)
@@ -44,16 +60,19 @@ class TaggedUserRepository
 
     /**
      * @param $content
+     *
      * @return mixed
      */
     public function getTags($content)
     {
         preg_match_all($this->regex, $content, $tagged);
+
         return $tagged[0];
     }
 
     /**
      * @param $content
+     *
      * @return bool
      */
     public function hasTags($content)
@@ -64,6 +83,7 @@ class TaggedUserRepository
     /**
      * @param $haystack
      * @param $needle
+     *
      * @return bool
      */
     public function contains($haystack, $needle)
@@ -71,44 +91,67 @@ class TaggedUserRepository
         return collect($this->getTags($haystack))->contains($needle);
     }
 
-    /**
-     * @param string $content
-     * @param string $subject
-     * @param string $message
-     */
-    public function messageTaggedUsers(string $content, string $subject, string $message)
+    public function messageTaggedCommentUsers(string $type, string $content, User $sender, $alias, Comment $comment)
     {
         foreach ($this->getTags($content) as $username) {
             $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
-            $this->messageUsers($tagged_user, $subject, $message);
-
+            $this->messageCommentUsers($type, $tagged_user, $sender, $alias, $comment);
         }
 
         return true;
     }
 
-    /**
-     * @param $users
-     * @param $subject
-     * @param $message
-     * @return bool
-     */
-    public function messageUsers($users, $subject, $message)
+    public function messageCommentUsers($type, $users, $sender, $alias, Comment $comment)
     {
         // Array of User objects
         if (is_iterable($users)) {
-
             // we only want unique users from the collection
             $users = is_array($users) ? collect($users)->unique() : $users->unique();
 
             foreach ($users as $user) {
                 if ($this->validate($user)) {
-                    $this->message->create([
-                        'sender_id' => 1,
-                        'reciever_id' => $user->id,
-                        'subject' => $subject,
-                        'message' => $message
-                    ]);
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_comment')) {
+                        $user->notify(new NewCommentTag($type, $alias, $comment));
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        // A single User object
+
+        if ($this->validate($users)) {
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_comment')) {
+                $users->notify(new NewCommentTag($type, $alias, $comment));
+            }
+        }
+
+        return true;
+    }
+
+    public function messageTaggedPostUsers(string $type, string $content, User $sender, $alias, Post $post)
+    {
+        foreach ($this->getTags($content) as $username) {
+            $tagged_user = $this->user->where('username', str_replace('@', '', $username))->first();
+            $this->messagePostUsers($type, $tagged_user, $sender, $alias, $post);
+        }
+
+        return true;
+    }
+
+    public function messagePostUsers($type, $users, $sender, $alias, Post $post)
+    {
+        // Array of User objects
+        if (is_iterable($users)) {
+            // we only want unique users from the collection
+            $users = is_array($users) ? collect($users)->unique() : $users->unique();
+
+            foreach ($users as $user) {
+                if ($this->validate($user)) {
+                    if ($user->acceptsNotification($sender, $user, 'mention', 'show_mention_'.$type.'_post')) {
+                        $user->notify(new NewPostTag($type, $alias, $post));
+                    }
                 }
             }
 
@@ -117,13 +160,11 @@ class TaggedUserRepository
 
         // A single User object
         if ($this->validate($users)) {
-            $this->message->create([
-                'sender_id' => 1,
-                'reciever_id' => $users->id,
-                'subject' => $subject,
-                'message' => $message
-            ]);
+            if ($users->acceptsNotification($sender, $users, 'mention', 'show_mention_'.$type.'_post')) {
+                $users->notify(new NewPostTag($type, $alias, $post));
+            }
         }
+
         return true;
     }
 
@@ -145,7 +186,7 @@ class TaggedUserRepository
 
     protected function validate($user)
     {
-        if ($this->debug || $user->id !== auth()->user()->id) {
+        if (is_object($user)) {
             return true;
         }
 

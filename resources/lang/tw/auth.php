@@ -1,26 +1,27 @@
 <?php
+
 return [
     /*
     |--------------------------------------------------------------------------
     | Default Authentication Language Lines
     |--------------------------------------------------------------------------
     */
-    'failed' => '身份憑證與站點記錄不符合。',
-    'throttle' => '嘗試次數過多，請在 秒後重試',
-    'login' => '登陸',
-    'signup' => '注冊',
-    'logout' => '退出',
-    'email' => '郵箱',
-    'username' => '用戶名',
-    'password' => '密碼',
-    'lost-password' => '忘記密碼?',
+    'failed'              => '身份憑證與站點記錄不符合。',
+    'throttle'            => '嘗試次數過多，請在 秒後重試',
+    'login'               => '登陸',
+    'signup'              => '注冊',
+    'logout'              => '退出',
+    'email'               => '郵箱',
+    'username'            => '用戶名',
+    'password'            => '密碼',
+    'lost-password'       => '忘記密碼?',
     'recover-my-password' => '重設密碼',
-    'remember-me' => '記住我',
-    'lost-username' => '忘記用戶名',
-    'login-now-on' => '立即登入',
-    'no-a-member' => '不是成員 ? 30秒内注冊',
-    'user-icon' => '用戶圖標',
-    'need-invite' => '開放注冊通道已關閉，請從已注冊用戶処獲得邀請!',
+    'remember-me'         => '記住我',
+    'lost-username'       => '忘記用戶名',
+    'login-now-on'        => '立即登入',
+    'no-a-member'         => '不是成員 ? 30秒内注冊',
+    'user-icon'           => '用戶圖標',
+    'need-invite'         => '開放注冊通道已關閉，請從已注冊用戶処獲得邀請!',
 
     /*
     |--------------------------------------------------------------------------
@@ -60,6 +61,6 @@ return [
     'verificationLockedTitle'       => 'Doh!',
     'verificationLockedMessage'     => '賬戶被鎖定!',
 
-    'verificationModalConfBtn'      => '完成'
+    'verificationModalConfBtn'      => '完成',
 
 ];

@@ -1,19 +1,20 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Services\Clients;
 
-use GuzzleHttp\Client as GuzzleClient;
 use Predis\Client as RedisClient;
+use GuzzleHttp\Client as GuzzleClient;
 
 abstract class Client
 {
@@ -30,14 +31,14 @@ abstract class Client
     public function __construct($apiUrl, $apiKey = null)
     {
         $this->redis = new RedisClient();
-        $this->apiUrl = ($this->apiSecure ? 'https://' : 'http://') . $apiUrl;
+        $this->apiUrl = ($this->apiSecure ? 'https://' : 'http://').$apiUrl;
         $this->apiKey = $apiKey;
         $this->guzzle = new GuzzleClient();
     }
 
     public function request($url, array $options = [])
     {
-        $key = md5($url . serialize($options));
+        $key = md5($url.serialize($options));
         if ($cache = $this->cache($key)) {
             return $cache;
         }
@@ -47,14 +48,12 @@ abstract class Client
         } catch (\Exception $e) {
         }
 
-        if (!empty($response)) {
+        if (! empty($response)) {
             $this->validateStatus($response->getStatusCode());
             $content = $response->getBody()->getContents();
 
             return $this->cache($key, $content);
         }
-
-        return null;
     }
 
     public function toArray($string)
@@ -69,10 +68,10 @@ abstract class Client
 
     public function cache($key, $data = null)
     {
-        $key = 'movietvdb:' . $key;
+        $key = 'movietvdb:'.$key;
 
         if ($data) {
-            $this->redis->setex($key, 86400, serialize($data));
+            $this->redis->setex($key, 604800, serialize($data));
 
             return $data;
         }

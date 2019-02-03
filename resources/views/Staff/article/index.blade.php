@@ -21,7 +21,8 @@
     <div class="container box">
         <h2>Articles</h2>
         <a href="{{ route('staff_article_add_form') }}" class="btn btn-primary">Add A Article</a>
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -31,7 +32,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($articles as $article)
+            @foreach ($articles as $article)
                 <tr>
                     <td>
                         <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}">{{ $article->title }}</a>
@@ -39,7 +40,7 @@
                     <td>
                         <a href="{{ route('profile', ['username' => $article->user->username, 'id' => $article->user->id]) }}">{{ $article->user->username }}</a>
                     </td>
-                    <th>{{ date('d/m/Y', strtotime($article->created_at)) }}</th>
+                    <td>{{ $article->created_at->toDayDateTimeString() }}</td>
                     <td>
                         <a href="{{ route('staff_article_edit_form', ['slug' => $article->slug, 'id' => $article->id]) }}"
                            class="btn btn-warning">Edit</a>
@@ -50,6 +51,9 @@
             @endforeach
             </tbody>
         </table>
-        {{ $articles->links() }}
+        </div>
+        <div class="text-center">
+            {{ $articles->links() }}
+        </div>
     </div>
 @endsection

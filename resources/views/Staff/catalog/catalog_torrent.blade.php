@@ -30,7 +30,7 @@
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST"
                               action="{{ route('postCatalogTorrent') }}">
-                            {{ csrf_field() }}
+                            @csrf
                             <div class="form-group{{ $errors->has('imdb') ? ' has-error' : '' }}">
                                 <label for="imdb" class="col-md-4 control-label">Torrent IMDB:</label>
                                 <div class="col-md-6">
@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="category_id">Catalog</label>
                                 <select name="catalog_id" class="form-control">
-                                    @foreach($catalogs as $catalog)
+                                    @foreach ($catalogs as $catalog)
                                         <option value="{{ $catalog->id }}">{{ $catalog->name }}</option>
                                     @endforeach
                                 </select>
@@ -82,10 +82,10 @@
                 <h2>List of Catalogs:</h2>
                 <hr>
                 <ul class="list-group col-md-8 col-md-offset-2 well">
-                    @if(count($catalogs) == 0)
+                    @if (count($catalogs) == 0)
                         <p>The are no catalogs in database</p>
                     @else
-                        @foreach($catalogs as $catalog)
+                        @foreach ($catalogs as $catalog)
                             <li class="catalog-list list-group-item"><a
                                         href="{{route('getCatalogRecords',['catalog_id'=>$catalog->id])}}"
                                         title="Catalog Records">{{$catalog->name}}</a>

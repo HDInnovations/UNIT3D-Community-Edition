@@ -1,13 +1,11 @@
 @extends('layout.default')
 
-@section('stylesheets')
-
-@endsection
-
 @section('breadcrumb')
     <li class="active">
-        <a href="{{ route('message', array('username' => auth()->user()->username, 'id' => auth()->user()->id, 'pmid' => $pm->id)) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('pm.message') }}</span>
+        <a href="{{ route('message', ['id' => $pm->id]) }}">
+            <span itemprop="title" class="l-breadcrumb-item-link-title">
+                @lang('pm.message')
+            </span>
         </a>
     </li>
 @endsection
@@ -16,24 +14,11 @@
     <div class="container">
         <div class="header gradient silver">
             <div class="inner_content">
-                <h1>{{ trans('pm.private') }} {{ trans('pm.messages') }} - {{ trans('pm.message') }}</h1>
+                <h1>@lang('pm.private') @lang('pm.messages') - @lang('pm.message')</h1>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <div class="block">
-                    <a href="{{ route('create', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                       class="btn btn-primary btn-block">{{ trans('pm.new') }}</a>
-                    <div class="separator"></div>
-                    <div class="list-group">
-                        <a href="{{ route('inbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                           class="btn btn-primary btn-block">{{ trans('pm.inbox') }}</a>
-                        <a href="{{ route('outbox', array('username' => auth()->user()->username, 'id' => auth()->user()->id)) }}"
-                           class="btn btn-primary btn-block">{{ trans('pm.outbox') }}</a>
-                    </div>
-                </div>
-            </div>
-
+            @include('partials.pmmenu')
             <div class="col-md-10">
                 <div class="block">
                     <h3>Re: {{ $pm->subject }}</h3>
@@ -44,28 +29,28 @@
                                     @endif
                                     <div class="row message-headers">
                                         <div class="col-sm-4">
-                                            <div><strong>{{ trans('pm.from') }}:</strong> <a
+                                            <div><strong>@lang('pm.from'):</strong> <a
                                                         href="{{ route('profile', ['username' => $pm->sender->username, 'id' => $pm->sender->id]) }}"
-                                                        title="">{{ $pm->sender->username }}</a>
+                                                       >{{ $pm->sender->username }}</a>
                                             </div>
-                                            <div><strong>{{ trans('pm.to') }}:</strong> <a
+                                            <div><strong>@lang('pm.to'):</strong> <a
                                                         href="{{ route('profile', ['username' => $pm->receiver->username, 'id' => $pm->receiver->id]) }}"
-                                                        title="">{{ $pm->receiver->username }}</a>
+                                                       >{{ $pm->receiver->username }}</a>
                                             </div>
                                         </div>
                                         <div class="col-sm-7">
-                                            <div><strong>{{ trans('pm.subject') }}:</strong> Re: {{ $pm->subject }}
+                                            <div><strong>@lang('pm.subject'):</strong> Re: {{ $pm->subject }}
                                             </div>
                                             <div>
-                                                <strong>{{ trans('pm.sent') }}:</strong> {{ $pm->created_at }}
+                                                <strong>@lang('pm.sent'):</strong> {{ $pm->created_at }}
                                             </div>
                                         </div>
                                         <form role="form" method="POST"
-                                              action="{{ route('delete-pm',['pmid' => $pm->id]) }}">
-                                            {{ csrf_field() }}
+                                              action="{{ route('delete-pm',['id' => $pm->id]) }}">
+                                            @csrf
                                             <div class="col-sm-1">
                                                 <button type="submit" class="btn btn-sm btn-danger pull-right"
-                                                        title="{{ trans('pm.delete') }}"><i class="fa fa-trash"></i>
+                                                        title="@lang('pm.delete')"><i class="{{ config('other.font-awesome') }} fa-trash"></i>
                                                 </button>
                                             </div>
                                         </form>
@@ -76,13 +61,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form role="form" method="POST" action="{{ route('reply-pm',['pmid' => $pm->id]) }}">
-                                    {{ csrf_field() }}
+                                <form role="form" method="POST" action="{{ route('reply-pm',['id' => $pm->id]) }}">
+                                    @csrf
                                     <div class="form-group">
                                 <textarea id="message" name="message" cols="30" rows="10"
                                           class="form-control"></textarea>
                                         <button type="submit" class="btn btn-primary"
-                                                style="float:right;">{{ trans('pm.reply') }}</button>
+                                                style="float:right;">@lang('pm.reply')</button>
                                     </div>
                                 </form>
                         </div>
@@ -95,7 +80,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#message').wysibb({})
+        $('#message').wysibb({});
         emoji.textcomplete()
       })
     </script>

@@ -29,7 +29,8 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h2>Failed Logins</h2>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -40,21 +41,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($attempts) == 0)
+                        @if (count($attempts) == 0)
                             <p>The are no failed login entries in the database!</p>
                         @else
-                            @foreach($attempts as $attempt)
+                            @foreach ($attempts as $attempt)
                                 <tr>
                                     <td>
                                         {{ $attempt->id }}
                                     </td>
                                     <td>
-                                        {{ $attempt->user_id }}
+                                        {{ $attempt->user_id ?? 'Not Found'}}
                                     </td>
                                     <td>
-                                        <a class="view-user" data-id="{{ $attempt->user_id }}"
-                                           data-slug="{{ $attempt->username }}"
-                                           href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">{{ $attempt->username }}</a>
+                                        @if ($attempt->user_id == null)
+                                            {{ $attempt->username }}
+                                        @else
+                                            <a class="text-bold" href="{{ route('profile', ['username' =>  $attempt->username, 'id' => $attempt->user_id]) }}">
+                                                {{ $attempt->username }}
+                                            </a>
+                                        @endif
                                     </td>
                                     <td>
                                         {{ $attempt->ip_address }}
@@ -69,7 +74,10 @@
                     </table>
                 </div>
             </div>
-            {{ $attempts->links() }}
+            </div>
+            <div class="text-center">
+                {{ $attempts->links() }}
+            </div>
         </div>
     </div>
 @endsection

@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('auth.exceededTitle') }} - {{ config('other.title') }}</title>
+    <title>@lang('auth.exceededTitle') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('auth.exceededTitle') }} - {{ config('other.title') }}">
+    <meta name="description" content="@lang('auth.exceededTitle') - {{ config('other.title') }}">
 @endsection
 
 @section('stylesheets')
@@ -15,7 +15,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('verificationNeeded') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('auth.exceededTitle') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('auth.exceededTitle')</span>
         </a>
     </li>
 @endsection
@@ -28,13 +28,13 @@
                     <div class="panel-heading text-center">
                         <i class="glyphicon glyphicon-lock locked-icon text-danger" aria-hidden="true"></i>
                         <h3>
-                            {{ trans('auth.exceededTitle') }}
+                            @lang('auth.exceededTitle')
                         </h3>
                     </div>
                     <div class="panel-body">
                         <h4 class="text-center text-danger">
                             <em>
-                                {{ trans('auth.lockedUntil') }}
+                                @lang('auth.lockedUntil')
                             </em>
                             <br/>
                             <strong>
@@ -42,7 +42,7 @@
                             </strong>
                             <br/>
                             <small>
-                                {{ trans('auth.tryAgainIn') }} {{ $timeCountdownUnlock }} &hellip;
+                                @lang('auth.tryAgainIn') {{ $timeCountdownUnlock }} &hellip;
                             </small>
                         </h4>
                         <p class="text-center">
@@ -50,10 +50,10 @@
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                tabindex="6">
                                 <i class="glyphicon glyphicon-home"
-                                   aria-hidden="true"></i> {{ trans('auth.returnButton') }}
+                                   aria-hidden="true"></i> @lang('auth.returnButton')
                             </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            {{ csrf_field() }}
+                            @csrf
                         </form>
                         </p>
                     </div>

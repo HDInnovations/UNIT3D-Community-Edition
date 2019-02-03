@@ -9,7 +9,7 @@
         </div>
     @endif
 
-    {{ csrf_field() }}
+    @csrf
 
     <div class="form-group">
         <label for="stitle">Title:</label>

@@ -1,15 +1,16 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -29,18 +30,19 @@ class HtmlEncrypt
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         /**
-         * @var $response Response
+         * @var Response
          */
         $response = $next($request);
 
-        if ($request->isMethod('get') && !$request->ajax()) {
+        if ($request->isMethod('get') && ! $request->ajax()) {
             $contentType = $response->headers->get('Content-Type');
 
             if (strpos($contentType, 'text/html') !== false) {
@@ -56,10 +58,10 @@ class HtmlEncrypt
         $text = str_split(bin2hex($content), 2);
 
         array_walk($text, function (&$a) {
-            $this->addHexValue('%' . $a);
+            $this->addHexValue('%'.$a);
         });
 
-        $script = '<script type="text/javascript">document.writeln(unescape("' . $this->hex . '"));</script>';
+        $script = '<script type="text/javascript">document.writeln(unescape("'.$this->hex.'"));</script>';
 
         if (config('html-encrypt.disable_right_click')) {
             $script .= '<script>var body = document.getElementsByTagName("body")[0];var att = document.createAttribute("oncontextmenu");att.value = "return false";body.setAttributeNode(att);</script>';

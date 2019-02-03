@@ -24,7 +24,7 @@
         <h2>Add a new page</h2>
         <form role="form" method="POST"
               action="{{ route('staff_page_edit',['slug' => $page->slug, 'id' => $page->id]) }}">
-            {{ csrf_field() }}
+            @csrf
             <div class="form-group">
                 <label for="name">Page Name</label>
                 <input type="text" name="name" class="form-control" value="{{ $page->name }}">
@@ -44,7 +44,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#content').wysibb({})
+        $('#content').wysibb({});
         emoji.textcomplete()
       })
     </script>

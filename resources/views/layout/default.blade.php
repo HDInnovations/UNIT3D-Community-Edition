@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#">
+<html lang="{{ auth()->user()->locale }}">
 
 <head>
     @include('partials.head')
 </head>
 
-@if(auth()->user()->nav == 0)
+@if (auth()->user()->nav == 0)
     <body hoe-navigation-type="vertical-compact" hoe-nav-placement="left" theme-layout="wide-layout">
     @else
         <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
@@ -44,7 +44,7 @@
                     var timer;
 
                     function formatUnit(text, v) {
-                        let suffix = "{{ trans('common.plural-suffix') }}";
+                        let suffix = "@lang('common.plural-suffix')";
                         if (v === 1) {
                             suffix = "";
                         }
@@ -77,11 +77,11 @@
             </script>
         @endif
 
-        @if(Session::has('achievement'))
+        @if (Session::has('achievement'))
             <script type="text/javascript">
                 swal({
-                    title: '{{ trans('common.achievement-title') }}!',
-                    text: 'You Unlocked "{{Session::get('achievement')}}" Achievment',
+                    title: '@lang('common.achievement-title')!',
+                    text: '@lang('common.unlocked-achievement', ['achievement' => Session::get('achievement')])',
                     type: 'success'
                 });
             </script>
@@ -91,7 +91,7 @@
         @yield('javascripts')
         @yield('scripts')
 
-        @if(config('app.debug') == false)
+        @if (config('app.debug') == false)
             <!-- INSERT YOUR ANALYTICS CODE HERE -->
         @else
             <!-- INSERT DEBUG CODE HERE -->

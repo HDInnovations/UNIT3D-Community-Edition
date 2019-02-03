@@ -9,7 +9,7 @@
         <table class="table table-sm table-hover">
             <thead>
                 <tr>
-                    @foreach($headers as $key => $header)
+                    @foreach ($headers as $key => $header)
                     <th scope="col" class="{{ $key == 'date' ? 'text-left' : 'text-center' }}">
                         @if ($key == 'date')
                             <span class="badge badge-info">{{ $header }}</span>
@@ -25,9 +25,9 @@
             </thead>
             <tbody>
                 @if ($rows->count() > 0)
-                    @foreach($rows as $date => $row)
+                    @foreach ($rows as $date => $row)
                     <tr>
-                        @foreach($row as $key => $value)
+                        @foreach ($row as $key => $value)
                             <td class="{{ $key == 'date' ? 'text-left' : 'text-center' }}">
                                 @if ($key == 'date')
                                     <span class="badge badge-primary">{{ $value }}</span>
@@ -56,7 +56,7 @@
                 @else
                     <tr>
                         <td colspan="11" class="text-center">
-                            <span class="badge badge-secondary">{{ trans('log-viewer::general.empty-logs') }}</span>
+                            <span class="badge badge-secondary">@lang('log-viewer::general.empty-logs')</span>
                         </td>
                     </tr>
                 @endif

@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,6 +14,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Group;
 use Carbon\Carbon;
 
 class CheckIfOnline
@@ -20,16 +22,21 @@ class CheckIfOnline
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->check()) {
+        $user = auth()->user();
+        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+
+        if (auth()->check() && $user->group_id != $bannedGroup->id) {
             $expiresAt = Carbon::now()->addMinutes(60);
-            cache()->put('user-is-online-' . auth()->user()->id, true, $expiresAt);
+            cache()->put('user-is-online-'.$user->id, true, $expiresAt);
         }
+
         return $next($request);
     }
 }

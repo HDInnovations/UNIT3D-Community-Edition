@@ -1,60 +1,54 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Helpers\Bbcode;
+use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-
-    public $rules = [
-        'title' => 'required',
-        'slug' => 'required',
-        'content' => 'required|min:100',
-        'user_id' => 'required'
-    ];
-
     /**
-     * Belongs to User
+     * Belongs To A User.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Has many Comment
+     * Has Many Comments.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**
-     * Article Brief
+     * Article Trimming.
      *
-     * @access public
      * @param $length
-     * @param ellipses
-     * @param strip_html Remove HTML tags from string
-     * @return string Formatted and cutted content
+     * @param $ellipses
+     * @param $strip_html
      *
+     * @return string Formatted And Trimmed Content
      */
     public function getBrief($length = 100, $ellipses = true, $strip_html = false)
     {
@@ -82,8 +76,9 @@ class Article extends Model
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse Content And Return Valid HTML.
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getContentHtml()
     {

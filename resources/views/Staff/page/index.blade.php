@@ -18,7 +18,8 @@
         <h2>Pages</h2>
         <a href="{{ route('staff_page_add') }}" class="btn btn-primary">Add a new page</a>
 
-        <table class="table table-bordered table-hover">
+        <div class="table-responsive">
+            <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
             <tr>
                 <th>Title</th>
@@ -27,21 +28,22 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($pages as $page)
+            @foreach ($page as $p)
                 <tr>
                     <td>
-                        <a href="{{ route('staff_page_edit_form', ['slug' => $page->slug, 'id' => $page->id]) }}">{{ $page->name }}</a>
+                        <a href="{{ route('staff_page_edit_form', ['slug' => $p->slug, 'id' => $p->id]) }}">{{ $p->name }}</a>
                     </td>
-                    <td>{{ date('d M Y', $page->created_at->getTimestamp()) }}</td>
+                    <td>{{ date('d M Y', $p->created_at->getTimestamp()) }}</td>
                     <td>
-                        <a href="{{ route('staff_page_edit_form', ['slug' => $page->slug, 'id' => $page->id]) }}"
+                        <a href="{{ route('staff_page_edit_form', ['slug' => $p->slug, 'id' => $p->id]) }}"
                            class="btn btn-warning">Edit</a>
-                        <a href="{{ route('staff_page_delete', ['slug' => $page->slug, 'id' => $page->id]) }}"
+                        <a href="{{ route('staff_page_delete', ['slug' => $p->slug, 'id' => $p->id]) }}"
                            class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+    </div>
     </div>
 @endsection

@@ -28,8 +28,9 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="fa fa-ban"></i> Bans</strong></p>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-ban"></i> Bans</strong></p>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>ID</th>
@@ -42,10 +43,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($bans) == 0)
+                        @if (count($bans) == 0)
                             <p>The are no bans in database</p>
                         @else
-                            @foreach($bans as $b)
+                            @foreach ($bans as $b)
                                 <tr>
                                     <td>
                                         {{ $b->id }}
@@ -77,7 +78,10 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center">{{ $bans->links() }}</div>
+            </div>
+            <div class="text-center">
+                {{ $bans->links() }}
+            </div>
         </div>
     </div>
 @endsection

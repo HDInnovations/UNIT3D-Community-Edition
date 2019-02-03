@@ -6,19 +6,19 @@
  */
 return [
     'actions' => [
-        'cancel' => 'Anuluj',
+        'cancel'  => 'Anuluj',
         'confirm' => 'Zapisz nowy klucz',
-        'edit' => 'Edycja',
-        'save' => 'Zapisz!',
+        'edit'    => 'Edycja',
+        'save'    => 'Zapisz!',
     ],
-    'file' => 'Plik',
+    'file'   => 'Plik',
     'header' => [
         'actions' => 'Akcja',
-        'key' => 'Klucz',
-        'value' => 'Wartość',
+        'key'     => 'Klucz',
+        'value'   => 'Wartość',
     ],
     'info_choose' => 'Wybierz plik do edycji',
-    'path' => 'Ścieżka',
-    'sure' => 'Na pewno?',
-    'title' => 'Menadżer konfiguracji'
+    'path'        => 'Ścieżka',
+    'sure'        => 'Na pewno?',
+    'title'       => 'Menadżer konfiguracji',
 ];

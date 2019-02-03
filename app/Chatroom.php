@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -19,29 +20,27 @@ class Chatroom extends Model
 {
     use Notifiable;
 
-    protected $table = 'chatrooms';
-
     /**
-     * The attributes that are mass assignable.
+     * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     /**
-     * A user can have many messages
+     * A User Has Many Messages.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function messages()
     {
-        return $this->hasMany(\App\Message::class);
+        return $this->hasMany(Message::class);
     }
 
     /**
-     * A chatroom can have many users.
+     * A Chat Room Has Many Users.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

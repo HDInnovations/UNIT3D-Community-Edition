@@ -1,21 +1,20 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
-
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateBonTransactionsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -35,7 +34,6 @@ class CreateBonTransactionsTable extends Migration
             $table->timestamp('date_actioned')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
-
 
     /**
      * Reverse the migrations.

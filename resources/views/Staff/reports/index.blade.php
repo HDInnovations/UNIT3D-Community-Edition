@@ -24,27 +24,30 @@
 @section('content')
     <div class="container">
         <div class="block">
-            <h2>User/Torrent Reports</h2>
+            <h2>Reports</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="text-red"><strong><i class="fa fa-list"></i> Reports</strong></p>
+                    <p class="text-red"><strong><i class="{{ config('other.font-awesome') }} fa-list"></i> Reports</strong></p>
+                    <div class="table-responsive">
                     <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Type</th>
                             <th>Title</th>
+                            <th>Reported</th>
                             <th>Reporter</th>
+                            <th class="col-md-2">Created</th>
                             <th>Judge</th>
                             <th>Solved</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($reports) == 0)
+                        @if (count($reports) == 0)
                             <p>The are no reports in database</p>
                         @else
-                            @foreach($reports as $r)
+                            @foreach ($reports as $r)
                                 <tr>
                                     <td>
                                         {{ $r->id }}
@@ -57,9 +60,18 @@
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
+                                           href="{{ route('profile', ['username' => $r->reported->username, 'id' => $r->reported_user ]) }}">
+                                            {{ $r->reported->username }}
+                                        </a>
+                                    </td>
+                                    <td class="user-name">
+                                        <a class="name"
                                            href="{{ route('profile', ['username' => $r->reporter->username, 'id' => $r->reporter_id ]) }}">
                                             {{ $r->reporter->username }}
                                         </a>
+                                    </td>
+                                    <td>
+                                        {{ $r->created_at->toDayDateTimeString() }}
                                     </td>
                                     <td class="user-name">
                                         <a class="name"
@@ -68,12 +80,14 @@
                                         </a>
                                     </td>
                                     <td>
-                                        @if($r->solved == 0)
-                                            <span class="text-red"><strong><i
-                                                            class="fa fa-times"></i> NO</strong></span>
+                                        @if ($r->solved == 0)
+                                            <span class="text-red">
+                                                <strong><i class="{{ config('other.font-awesome') }} fa-times"></i> NO</strong>
+                                            </span>
                                         @else
-                                            <span class="text-green"><strong><i
-                                                            class="fa fa-check"></i> YES</strong></span>
+                                            <span class="text-green">
+                                                <strong><i class="{{ config('other.font-awesome') }} fa-check"></i> YES</strong>
+                                            </span>
                                         @endif
                                     </td>
                                 </tr>
@@ -81,9 +95,12 @@
                         @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
-            <div class="text-center">{{ $reports->links() }}</div>
+            <div class="text-center">
+                {{ $reports->links() }}
+            </div>
         </div>
     </div>
 @endsection

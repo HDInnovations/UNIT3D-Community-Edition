@@ -14,16 +14,11 @@
 
 @section('content')
     <div class="contrainer">
-
-
-        @foreach($labourTypes as $id => $name)
+        @foreach ($labourTypes as $id => $name)
             <div class="checkbox">
                 <label>
-                    {!! Form::checkbox("labour_types[]", $id) !!} {{$name}}
+                    <input type="checkbox" name="labour_types[]" value="{{ $id }}"> {{ $name }}
                 </label>
-                <div>
-                    @endforeach
-
-
-                </div>
+            <div>
+         @endforeach
 @endsection

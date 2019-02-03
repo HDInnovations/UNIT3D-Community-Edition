@@ -1,10 +1,10 @@
 @component('mail::message')
-    # {{ trans('email.report-header') }} {{ config('other.title') }} !
-    **{{ trans('email.report-email') }}:** {{ $report->email }}
+    # @lang('email.report-header') {{ config('other.title') }} !
+    **@lang('email.report-email'):** {{ $report->email }}
 
-    **{{ trans('email.report-link') }}:** {{ $report->url }}
+    **@lang('email.report-link'):** {{ $report->url }}
 
-    **{{ trans('email.report-link-hash') }}:** {{ $report->link->hash }}
+    **@lang('email.report-link-hash'):** {{ $report->link->hash }}
 
-    **{{ trans('email.report-comment') }}:** {{ $report->comment }}
+    **@lang('email.report-comment'):** {{ $report->comment }}
 @endcomponent

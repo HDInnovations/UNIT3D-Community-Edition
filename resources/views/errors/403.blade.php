@@ -6,7 +6,7 @@
 
 @section('container')
     <h1 class="mt-5 text-center">
-        <i class="fa fa-exclamation-circle text-danger"></i> Permission Denied!
+        <i class="{{ config('other.font-awesome') }} fa-exclamation-circle text-danger"></i> Permission Denied!
     </h1>
 
     <div class="separator"></div>

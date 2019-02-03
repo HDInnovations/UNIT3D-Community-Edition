@@ -1,12 +1,35 @@
-- UNIT3D Version: #.#.#
-- Laravel Version: #.#.#
-- PHP Version:
-- Database Driver & Version:
+### Issue Type
+- [ ] Bug Report
+- [ ] Feature Idea
+- [ ] Enhancement
+- [ ] Technical Discussion
+- [ ] Question
 
-### Description:
+
+### End User Info
+-- UNIT3D Version: #.#.#
+
+-- Laravel Version: #.#.#
+
+-- PHP Version:
+
+-- Database Driver & Version:
+
+-- Web Server Driver & Version:
+
+-- OS Driver and Version:
 
 
-### Steps To Reproduce:
+### Expected Behavior:
+
+
+### Actual Behavior:
+
+
+### Steps To Reproduce The Problem:
+1.
+2.
+3.
 
 
 ### Possible Fix:

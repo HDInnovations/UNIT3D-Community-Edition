@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Mr.G
  */
@@ -16,41 +17,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class BonExchange extends Model
 {
-
     /**
-     * The database table used by the model.
+     * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'bon_exchange';
 
     /**
-     * Tells Laravel to not maintain the timestamp columns
+     * Indicates If The Model Should Be Timestamped.
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = false;
 
     /**
-     * The attributes that should be casted to native types.
+     * The Attributes That Should Be Casted To Native Types.
      *
      * @var array
      */
     protected $casts = [
-        'upload' => 'boolean',
-        'download' => 'boolean',
+        'upload'             => 'boolean',
+        'download'           => 'boolean',
         'personal_freeleech' => 'boolean',
-        'invite' => 'boolean',
+        'invite'             => 'boolean',
     ];
 
     /**
      * @method getDownloadOptions
      *
-     * @return array[][]
+     * @return array
      */
     public function getDownloadOptions()
     {
-        return BonExchange::where('download', true)
+        return self::where('download', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -59,11 +59,11 @@ class BonExchange extends Model
     /**
      * @method getUploadOptions
      *
-     * @return array[][]
+     * @return array
      */
     public function getUploadOptions()
     {
-        return BonExchange::where('upload', true)
+        return self::where('upload', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -72,11 +72,11 @@ class BonExchange extends Model
     /**
      * @method getPersonalFreeleechOption
      *
-     * @return array[][]
+     * @return array
      */
     public function getPersonalFreeleechOption()
     {
-        return BonExchange::where('personal_freeleech', true)
+        return self::where('personal_freeleech', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -85,11 +85,11 @@ class BonExchange extends Model
     /**
      * @method getInviteOption
      *
-     * @return array[][]
+     * @return array
      */
     public function getInviteOption()
     {
-        return BonExchange::where('invite', true)
+        return self::where('invite', '=', true)
             ->orderBy('value', 'asc')
             ->get()
             ->toArray();
@@ -98,11 +98,11 @@ class BonExchange extends Model
     /**
      * @method getItemCost
      *
-     * @return integer
+     * @return int
      */
     public function getItemCost($id)
     {
-        return BonExchange::where('id', '=', $id)
+        return self::where('id', '=', $id)
             ->get()
             ->toArray()[0]['cost'];
     }

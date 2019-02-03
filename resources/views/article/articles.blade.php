@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('articles.articles') }} - {{ config('other.title') }}</title>
+    <title>@lang('articles.articles') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('articles.meta-articles') }}">
+    <meta name="description" content="@lang('articles.meta-articles')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('articles.articles') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
         </a>
     </li>
 @endsection
@@ -20,53 +20,39 @@
     <div class="container box">
         <div class="header gradient light_blue">
             <div class="inner_content">
-                <h1>{{ trans('articles.articles') }}</h1>
+                <h1>@lang('articles.articles')</h1>
             </div>
         </div>
-        <section class="articles">
-            @foreach($articles as $a)
-                <article class="article col-md-12">
-                    <div class="row">
-                        <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}"
-                           class="article-thumb col-md-2">
-                            @if( ! is_null($a->image))
-                                <img src="{{ url('files/img/' . $a->image) }}" class="article-thumb-img"
-                                     alt="{{ $a->title }}">
-                            @else
-                                <img src="{{ url('img/missing-image.jpg') }}" class="article-thumb-img"
-                                     alt="{{ $a->title }}">
-                            @endif
-                        </a>
+        @foreach ($articles as $article)
+            <div class="well">
+                <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"
+                   style=" float: right; margin-right: 10px;">
+                    @if ( ! is_null($article->image))
+                        <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
+                    @else
+                        <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+                    @endif
+                </a>
 
-                        <div class="col-md-8 article-title">
-                            <h2>
-                                <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}">{{ $a->title }}</a>
-                            </h2>
-                        </div>
+                <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
-                        <div class="col-md-8 article-info">
-                            <span>{{ trans('articles.published-at') }}</span>
-                            <time datetime="{{ date(DATE_W3C, $a->created_at->getTimestamp()) }}">{{ date('d M Y', $a->created_at->getTimestamp()) }}</time>
-                        </div>
+                <p class="text-muted">
+                    <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
+                </p>
 
-                        <div class="col-md-8 article-content">
-                            @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($a->content), 150))...
-                        </div>
+                <p style="margin-top: 20px;">
+                    @emojione(preg_replace('#\[[^\]]+\]#', '', str_limit($article->content), 150))...
+                </p>
 
-                        <div class="col-md-12 article-readmore">
-                            <div class="text-center">
-                                <a href="{{ route('article', ['slug' => $a->slug, 'id' => $a->id]) }}"
-                                   class="btn btn-success">{{ trans('articles.read-more') }}</a>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            @endforeach
-        </section>
-
-        <div class="col-md-12 home-pagination">
+                <div class="text-center">
+                    <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}" class="btn btn-success">
+                        @lang('articles.read-more')
+                    </a>
+                </div>
+            </div>
+        @endforeach
+        <div class="text-center">
             {{ $articles->links() }}
         </div>
-    </div>
     </div>
 @endsection

@@ -25,8 +25,8 @@
 @section('content')
     <div class="container box">
         <h2>Add A Article</h2>
-        <form role="form" method="POST" action="{{ route('staff_article_add') }}">
-            {{ csrf_field() }}
+        <form role="form" method="POST" action="{{ route('staff_article_add') }}" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" name="title" required>
@@ -50,7 +50,7 @@
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#content').wysibb({})
+        $('#content').wysibb({});
         emoji.textcomplete()
       })
     </script>

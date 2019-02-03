@@ -1,28 +1,29 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Hootlex\Moderation\Moderatable;
-use Kyslik\ColumnSortable\Sortable;
-
+use App\Helpers\Bbcode;
 use App\Helpers\MediaInfo;
 use App\Helpers\StringHelper;
-use App\Helpers\Bbcode;
+use App\Notifications\NewThank;
+use App\Notifications\NewComment;
+use Hootlex\Moderation\Moderatable;
+use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Torrent model
- *
+ * Torrent model.
  */
 class Torrent extends Model
 {
@@ -30,130 +31,195 @@ class Torrent extends Model
     use Sortable;
 
     /**
-     * Mass assignment fields
+     * The Columns That Are Sortable.
      *
+     * @var array
      */
-    protected $fillable = ['name', 'slug', 'description', 'mediainfo', 'info_hash', 'file_name', 'num_file', 'announce', 'size', 'nfo', 'category_id', 'user_id',
-        'imdb', 'tvdb', 'tmdb', 'mal', 'type', 'anon', 'stream', 'sd'];
-
-    /**
-     * Rules
-     *
-     */
-    public $rules = [
-        'name' => 'required',
-        'slug' => 'required',
-        'description' => 'required',
-        'info_hash' => 'required|unique:torrents',
-        'file_name' => 'required',
-        'num_file' => 'required|numeric',
-        'announce' => 'required',
-        'size' => 'required',
-        'category_id' => 'required',
-        'user_id' => 'required',
-        'imdb' => 'required|numeric',
-        'tvdb' => 'required|numeric',
-        'tmdb' => 'required|numeric',
-        'type' => 'required',
-        'anon' => 'required',
-        'stream' => 'required',
-        'sd' => 'required'
+    public $sortable = [
+        'id',
+        'name',
+        'size',
+        'seeders',
+        'leechers',
+        'times_completed',
+        'created_at',
     ];
 
-    public $sortable = ['id', 'name', 'size', 'seeders', 'leechers', 'times_completed', 'created_at'];
-
     /**
-     * Belongs to User
+     * Belongs To A User.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->belongsTo(\App\User::class)->withDefault([
+        return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Belongs to  Category
+     * Belongs To A Uploader.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function uploader()
+    {
+        // Not needed yet but may use this soon.
+
+        return $this->belongsTo(User::class)->withDefault([
+            'username' => 'System',
+            'id'       => '1',
+        ]);
+    }
+
+    /**
+     * Belongs To A Category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
-        return $this->belongsTo(\App\Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     /**
-     * Belongs to  Type
+     * Belongs To A Type.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {
-        return $this->belongsTo(\App\Type::class);
+        return $this->belongsTo(Type::class);
     }
 
     /**
-     * Has many files
+     * Torrent Has Been Moderated By.
      *
-     */
-    public function files()
-    {
-        return $this->hasMany(\App\TorrentFile::class);
-    }
-
-    /**
-     * Has many Comment
-     *
-     */
-    public function comments()
-    {
-        return $this->hasMany(\App\Comment::class);
-    }
-
-    /**
-     * Has many peers
-     *
-     *
-     */
-    public function peers()
-    {
-        return $this->hasMany(\App\Peer::class);
-    }
-
-    /**
-     * HABTM Tag
-     *
-     *
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(\App\Tag::class);
-    }
-
-    /**
-     * Relationship to a single request
-     *
-     */
-    public function request()
-    {
-        return $this->hasOne(\App\TorrentRequest::class, 'filled_hash', 'info_hash');
-    }
-
-    /**
-     * Torrent has been moderated by
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moderated()
     {
-        return $this->belongsTo(\App\User::class, 'moderated_by')->withDefault([
+        return $this->belongsTo(User::class, 'moderated_by')->withDefault([
             'username' => 'System',
-            'id' => '1'
+            'id'       => '1',
         ]);
     }
 
     /**
-     * Formats the output of the description
+     * One Title Belongs To Many Catalogs.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function catalogs()
+    {
+        return $this->belongsToMany(Catalog::class)->withTimestamps();
+    }
+
+    /**
+     * Has Many Tags.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Has Many History.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function history()
+    {
+        return $this->hasMany(History::class, 'info_hash', 'info_hash');
+    }
+
+    /**
+     * Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tips()
+    {
+        return $this->hasMany(BonTransactions::class, 'torrent_id', 'id')->where('name', '=', 'tip');
+    }
+
+    /**
+     * Has Many Thank.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function thanks()
+    {
+        return $this->hasMany(Thank::class);
+    }
+
+    /**
+     * Has Many HitRuns.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function hitrun()
+    {
+        return $this->hasMany(Warning::class, 'torrent');
+    }
+
+    /**
+     * Has Many Featured.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function featured()
+    {
+        return $this->hasMany(FeaturedTorrent::class);
+    }
+
+    /**
+     * Has Many Files.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files()
+    {
+        return $this->hasMany(TorrentFile::class);
+    }
+
+    /**
+     * Has Many Comments.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Has Many Peers.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function peers()
+    {
+        return $this->hasMany(Peer::class);
+    }
+
+    /**
+     * Relationship To A Single Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function request()
+    {
+        return $this->hasOne(TorrentRequest::class, 'filled_hash', 'info_hash');
+    }
+
+    /**
+     * Parse Description And Return Valid HTML.
+     *
+     * @return string Parsed BBCODE To HTML
      */
     public function getDescriptionHtml()
     {
@@ -161,81 +227,72 @@ class Torrent extends Model
     }
 
     /**
-     * Formats the output of the mediainfo dump
+     * Formats The Output Of The Media Info Dump.
      *
+     * @return array
      */
     public function getMediaInfo()
     {
-        $parser = new MediaInfo;
+        $parser = new MediaInfo();
         $parsed = $parser->parse($this->mediaInfo);
+
         return $parsed;
     }
 
     /**
-     * Returns the size in human format
+     * Returns The Size In Human Format.
      *
+     * @return string
      */
     public function getSize($bytes = null, $precision = 2)
     {
         $bytes = $this->size;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Bookmarks
-     *
+     * Bookmarks.
      */
     public function bookmarked()
     {
-        return Bookmark::where('user_id', auth()->user()->id)
-            ->where('torrent_id', $this->id)
+        return Bookmark::where('user_id', '=', auth()->user()->id)
+            ->where('torrent_id', '=', $this->id)
             ->first() ? true : false;
     }
 
     /**
-     * One movie belongs to many catalogs
+     * Notify Uploader When An Action Is Taken.
      *
+     * @return bool
      */
-    public function catalogs()
+    public function notifyUploader($type, $payload)
     {
-        return $this->belongsToMany(Catalog::class)->withTimestamps();
-    }
+        if ($type == 'thank') {
+            $user = User::with('notification')->findOrFail($this->user_id);
+            if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
+                $user->notify(new NewThank('torrent', $payload));
 
-    public function history()
-    {
-        return $this->hasMany(\App\History::class, "info_hash", "info_hash");
+                return true;
+            }
+        }
+        $user = User::with('notification')->findOrFail($this->user_id);
+        if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
+            $user->notify(new NewComment('torrent', $payload));
+
+            return true;
+        }
+
+        return true;
     }
 
     /**
-     * Has many Thank
-     *
+     * Torrent Is Freeleech.
      */
-    public function thanks()
-    {
-        return $this->hasMany(\App\Thank::class);
-    }
-
-    /**
-     * Has many HitRuns
-     *
-     */
-    public function hitrun()
-    {
-        return $this->hasMany(\App\Warning::class, 'torrent');
-    }
-
-    /**
-     * Has many Featured
-     *
-     */
-    public function featured()
-    {
-        return $this->hasMany(\App\FeaturedTorrent::class);
-    }
-
     public function isFreeleech($user = null)
     {
         $pfree = $user ? $user->group->is_freeleech || PersonalFreeleech::where('user_id', '=', $user->id)->first() : false;
+
         return $this->free || config('other.freeleech') || $pfree;
     }
 }

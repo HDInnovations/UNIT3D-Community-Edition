@@ -1,18 +1,18 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('poll.poll') }} - {{ config('other.title') }}</title>
+    <title>@lang('poll.poll') - {{ config('other.title') }}</title>
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('polls') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('poll.polls') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.polls')</span>
         </a>
     </li>
     <li>
         <a href="{{ route('poll', ['slug' => $poll->slug]) }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('poll.poll') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('poll.poll')</span>
         </a>
     </li>
 @endsection
@@ -27,11 +27,11 @@
                 <div class="forum-category-title col-md-12">
                     <div class="forum-category-childs">
                         @include('poll.forms.vote')
-                        @if($poll->multiple_choice)
-                            <span class="badge-user text-bold text-red">{{ trans('poll.multiple-choice') }}</span>
+                        @if ($poll->multiple_choice)
+                            <span class="badge-user text-bold text-red">@lang('poll.multiple-choice')</span>
                         @endif
-                        @if($poll->ip_checking)
-                            <span class="badge-user text-bold text-red">{{ trans('poll.ip-checking') }}</span>
+                        @if ($poll->ip_checking)
+                            <span class="badge-user text-bold text-red">@lang('poll.ip-checking')</span>
                         @endif
                     </div>
                 </div>

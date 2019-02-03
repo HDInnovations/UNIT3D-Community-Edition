@@ -1,11 +1,7 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $article->title }} - {{ trans('articles.articles') }} - {{ config('other.title') }}</title>
-@endsection
-
-@section('stylesheets')
-
+    <title>{{ $article->title }} - @lang('articles.articles') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
@@ -15,7 +11,7 @@
 @section('breadcrumb')
     <li>
         <a href="{{ route('articles') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('articles.articles') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('articles.articles')</span>
         </a>
     </li>
     <li>
@@ -28,78 +24,103 @@
 
 @section('content')
     <div class="box container">
-        <article class="article col-md-12">
+        <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"
+           style=" float: right; margin-right: 10px;">
+            @if ( ! is_null($article->image))
+                <img src="{{ url('files/img/' . $article->image) }}" alt="{{ $article->title }}">
+            @else
+                <img src="{{ url('img/missing-image.jpg') }}" alt="{{ $article->title }}">
+            @endif
+        </a>
 
-            <h1 class="article-title">{{ $article->title }}</h1>
+        <h1 class="text-bold" style="display: inline ;">{{ $article->title }}</h1>
 
-            <div class="article-info">
-                <span>{{ trans('articles.published-at') }}</span>
-                <time datetime="{{ date(DATE_W3C, $article->created_at->getTimestamp()) }}">{{ date('d M Y', $article->created_at->getTimestamp()) }}</time>
-            </div>
+        <p class="text-muted">
+            <em>@lang('articles.published-at') {{ $article->created_at->toDayDateTimeString() }}</em>
+        </p>
 
-            <div class="article-content">
-                @emojione($article->getContentHtml())
-            </div>
-            <hr>
-        </article>
+        <p style="margin-top: 20px;">@emojione($article->getContentHtml())</p>
+    </div>
 
-        <div class="col-md-12">
-            <form role="form" method="POST"
-                  action="{{ route('comment_article',['slug' => $article->slug, 'id' => $article->id]) }}">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="content">{{ trans('common.your') }} {{ strtolower(trans('common.comment')) }}
-                        :</label><span class="badge-extra">{{ trans('common.type') }}
-                        <strong>:</strong> {{ trans('common.for') }} emoji</span> <span
-                            class="badge-extra">BBCode {{ trans('common.is-allowed') }}</span>
-                    <textarea name="content" id="content" cols="30" rows="5" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn btn-default">{{ trans('common.submit') }}</button>
-            </form>
-            <hr>
-        </div>
-
-        <div class="comments col-md-12">
-            <ul class="media-list comments-list">
-                @foreach($comments as $comment)
-                    <li class="media" style="border-left: 5px solid #01BC8C">
-                        <div class="media-body">
-                            @if($comment->anon == 1)
-                                <a href="#" class="pull-left">
-                                    <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}"
-                                         class="img-avatar-48"></a>
-                                <strong>{{ str_upper(trans('common.anonymous')) }} @if(auth()->user()->group->is_modo)<a
-                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">({{ $comment->user->username }}
-                                        )</a>@endif</strong>
+    <div class="box container">
+        <div class="clearfix"></div>
+        <div class="row ">
+            <div class="col-md-12">
+                <div class="panel panel-danger">
+                    <div class="panel-heading border-light">
+                        <h4 class="panel-title">
+                            <i class="{{ config('other.font-awesome') }} fa-comment"></i> @lang('common.comments')
+                        </h4>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <ul class="media-list comments-list">
+                            @if (count($article->comments) == 0)
+                                <div class="text-center"><h4 class="text-bold text-danger"><i
+                                                class="{{ config('other.font-awesome') }} fa-frown"></i> @lang('common.no-comments')!</h4>
+                                </div>
                             @else
-                                <a href="{{ route('profile', array('username' => $comment->user->username, 'id' => $comment->user->id)) }}"
-                                   class="pull-left">
-                                    @if($comment->user->image != null)
-                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
-                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
-                                @else
-                                    <img src="{{ url('img/profile.png') }}" alt="{{ $comment->user->username }}"
-                                         class="img-avatar-48"></a>
-                                @endif
-                                <strong>By <a
-                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}">{{ $comment->user->username }}</a></strong> @endif
-                            <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
-                            @if($comment->user_id == auth()->user()->id || auth()->user()->group->is_modo)
-                                <a title="{{ trans('common.delete') }}"
-                                   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
-                                            class="pull-right fa fa-lg fa-times" aria-hidden="true"></i></a>
-                                <a title="{{ trans('common.edit') }}" data-toggle="modal"
-                                   data-target="#modal-comment-edit-{{ $comment->id }}"><i
-                                            class="pull-right fa fa-lg fa-pencil" aria-hidden="true"></i></a>
+                                @foreach ($article->comments as $comment)
+                                    <li class="media" style="border-left: 5px solid #01BC8C">
+                                        <div class="media-body">
+                                            @if ($comment->anon == 1)
+                                                <a href="#" class="pull-left" style="padding-right: 10px">
+                                                    <img src="{{ url('img/profile.png') }}"
+                                                         alt="{{ $comment->user->username }}" class="img-avatar-48">
+                                                    <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
+                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                            @else
+                                                <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
+                                                   class="pull-left" style="padding-right: 10px">
+                                                    @if ($comment->user->image != null)
+                                                        <img src="{{ url('files/img/' . $comment->user->image) }}"
+                                                             alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+                                                @else
+                                                    <img src="{{ url('img/profile.png') }}"
+                                                         alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
+                                                @endif
+                                                <strong><a
+                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                            <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
+                                            @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                                <a title="@lang('common.delete-comment')"
+                                                   href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
+                                                            class="pull-right {{ config('other.font-awesome') }} fa fa-times" aria-hidden="true"></i></a>
+                                                <a title="@lang('common.edit-comment')" data-toggle="modal"
+                                                   data-target="#modal-comment-edit-{{ $comment->id }}"><i
+                                                            class="pull-right {{ config('other.font-awesome') }} fa-pencil"
+                                                            aria-hidden="true"></i></a>
+                                            @endif
+                                            <div class="pt-5">
+                                                @emojione($comment->getContentHtml())
+                                            </div>
+                                        </div>
+                                    </li>
+                                    @include('partials.modals', ['comment' => $comment])
+                                @endforeach
                             @endif
-                            <div class="pt-5">
-                                @emojione($comment->getContentHtml())
-                            </div>
-                        </div>
-                    </li>
-                    @include('partials.modals', ['comment' => $comment])
-                @endforeach
-            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="col-md-12">
+                <form role="form" method="POST" action="{{ route('comment_article', ['slug' => $article->slug, 'id' => $article->id]) }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="content">@lang('common.your-comment'):</label><span class="badge-extra">@lang('common.type')
+                            <strong>:</strong> @lang('common.for') emoji</span> <span
+                                class="badge-extra">BBCode @lang('common.is-allowed')</span>
+                        <textarea id="content" name="content" cols="30" rows="5" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-danger">@lang('common.submit')</button>
+                    <label class="radio-inline"><strong>@lang('common.anonymous') @lang('common.comment')
+                            :</strong></label>
+                    <input type="radio" value="1" name="anonymous"> @lang('common.yes')
+                    <input type="radio" value="0" checked="checked" name="anonymous"> @lang('common.no')
+                </form>
+            </div>
         </div>
     </div>
 @endsection
@@ -108,7 +129,7 @@
     <script>
       $(document).ready(function () {
 
-        $('#content').wysibb({})
+        $('#content').wysibb({});
 
         emoji.textcomplete()
       })

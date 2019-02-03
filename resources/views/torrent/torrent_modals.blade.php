@@ -3,34 +3,33 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
+            <title>@lang('common.report') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">×</span></button>
                 <h4 class="modal-title"
-                    id="myModalLabel">{{ trans('common.report') }} {{ strtolower(trans('torrent.torrent')) }}
+                    id="myModalLabel">@lang('common.report') {{ strtolower(trans('torrent.torrent')) }}
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                     <div class="form-group">
-                        {{ csrf_field() }}
-                        <input id="type" name="type" type="hidden" value="Torrent">
-                        <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
+                        @csrf
+                        <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                         <div class="col-sm-10">
                             <input type="hidden" name="torrent_id" value="{{ $torrent->id }}">
                             <p class="form-control-static">{{ $torrent->name }}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
+                        <label for="report_reason" class="col-sm-2 control-label">@lang('common.reason')</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <input class="btn btn-danger" type="submit" value="{{ trans('common.report') }}">
+                            <input class="btn btn-danger" type="submit" value="@lang('common.report')">
                         </div>
                     </div>
                 </form>
@@ -38,7 +37,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-sm btn-default" type="button"
-                    data-dismiss="modal">{{ trans('common.close') }}</button>
+                    data-dismiss="modal">@lang('common.close')</button>
         </div>
     </div>
 </div>
@@ -49,43 +48,44 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>{{ trans('common.delete') }} {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
+            <title>@lang('common.delete') {{ strtolower(trans('torrent.torrent')) }}: {{ $torrent->name }}</title>
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">×</span></button>
                 <h4 class="modal-title"
-                    id="myModalLabel">{{ trans('common.delete') }} {{ strtolower(trans('torrent.torrent')) }}
+                    id="myModalLabel">@lang('common.delete') {{ strtolower(trans('torrent.torrent')) }}
                     : {{ $torrent->name }}</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+                    <form method="POST" action="{{ route('delete') }}">
+                    @csrf
                     <input id="type" name="type" type="hidden" value="Torrent">
                     <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
                     <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
-                    <label for="file_name" class="col-sm-2 control-label">{{ trans('torrent.torrent') }}</label>
+                    <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
                     <div class="col-sm-10">
                         <input id="title" name="title" type="hidden" value="{{ $torrent->name }}">
                         <p class="form-control-static">{{ $torrent->name }}</p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="report_reason" class="col-sm-2 control-label">{{ trans('common.reason') }}</label>
+                    <label for="report_reason" class="col-sm-2 control-label">@lang('common.reason')</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-10 col-sm-offset-2">
-                        <input class="btn btn-danger" type="submit" value="{{ trans('common.delete') }}">
+                        <input class="btn btn-danger" type="submit" value="@lang('common.delete')">
                     </div>
-                    {{ Form::close() }}
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button"
-                        data-dismiss="modal">{{ trans('common.close') }}</button>
+                        data-dismiss="modal">@lang('common.close')</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -96,7 +96,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">{{ trans('common.files') }}</h4>
+                <h4 class="modal-title" id="myModalLabel">@lang('common.files')</h4>
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
@@ -104,12 +104,12 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{ trans('common.name') }}</th>
-                            <th>{{ trans('torrent.size') }}</th>
+                            <th>@lang('common.name')</th>
+                            <th>@lang('torrent.size')</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($torrent->files as $k => $f)
+                        @foreach ($torrent->files as $k => $f)
                             <tr>
                                 <td>{{ $k + 1 }}</td>
                                 <td>{{ $f->name }}</td>
@@ -121,14 +121,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('common.close') }}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.close')</button>
             </div>
         </div>
     </div>
 </div>
 
 {{-- NFO Modal --}}
-@if($torrent->nfo != null)
+@if ($torrent->nfo != null)
     <div class="modal fade slideExpandUp" id="modal-10" role="dialog" aria-labelledby="Modallabel3dsign">
         <div class="modal-dialog" role="document">
             <div class="modal-content ">
@@ -141,9 +141,94 @@
         </pre>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-info" data-dismiss="modal">{{ trans('common.close') }}</button>
+                    <button class="btn btn-info" data-dismiss="modal">@lang('common.close')</button>
                 </div>
             </div>
         </div>
     </div>
 @endif
+
+{{-- Torrent Postpone Modal --}}
+<div class="modal fade" id="postpone-{{ $torrent->id }}" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <form method="POST" action="{{ route('moderation_postpone') }}">
+        @csrf
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">@lang('common.moderation-postpone'): {{ $torrent->name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input id="type" name="type" type="hidden"
+                               value="@lang('torrent.torrent')">
+                        <input id="id" name="id" type="hidden" value="{{ $torrent->id }}">
+                        <input id="slug" name="slug" type="hidden" value="{{ $torrent->slug }}">
+                        <label for="postpone_reason"
+                               class="col-sm-2 control-label">@lang('common.reason')</label>
+                        <div class="col-sm-10">
+                            <textarea title="@lang('common.reason')" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button class="btn btn-danger" type="submit">@lang('common.moderation-postpone')</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default"
+                            data-dismiss="modal">@lang('common.close')</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{{-- Torrent Reject Modal --}}
+<div class="modal fade" id="reject-{{ $torrent->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+    <form method="POST" action="{{ route("moderation_reject") }}">
+        @csrf
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="@lang('common.close')"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">@lang('common.moderation-reject'): {{ $torrent->name }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input id="type" type="hidden" name="type"
+                               value="@lang('torrent.torrent')">
+                        <input id="id" type="hidden" name="id" value="{{ $torrent->id }}">
+                        <input id="slug" type="hidden" name="slug" value="{{ $torrent->slug }}">
+                        <label for="file_name" class="col-sm-2 control-label">@lang('torrent.torrent')</label>
+                        <div class="col-sm-10">
+                            <label id="title" name="title" type="hidden">{{ $torrent->name }}</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="report_reason"
+                               class="col-sm-2 control-label">@lang('common.reason')</label>
+                        <div class="col-sm-10">
+                            <textarea title="@lang('common.reason')" class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button class="btn btn-danger" type="submit">@lang('common.moderation-reject')</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default"
+                            data-dismiss="modal">@lang('common.close')</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

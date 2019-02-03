@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_forum_add') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff_forum_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add Forums</span>
         </a>
     </li>
@@ -25,7 +25,8 @@
     <div class="container box">
         <h2>Add a new Forum</h2>
 
-        {{ Form::open(array('route' => 'staff_forum_add')) }}
+        <form role="form" method="POST" action="{{ route('staff_forum_add') }}">
+            @csrf
         <div class="form-group">
             <label for="forum_type">Forum Type</label>
             <select name="forum_type" class="form-control">
@@ -47,11 +48,9 @@
         <div class="form-group">
             <label for="parent_id">Parent forum</label>
             <select name="parent_id" class="form-control">
-                @foreach($categories as $c)
-                    <option value="{{ $c->id }}">{{ $c->name }}</option>
-                    {{-- @foreach($c->getForumsInCategory() as $f)
-                        <option value="{{ $f->id }}">---- {{ $f->name }}</option>
-                    @endforeach --}}
+                <option value="0">New Category</option>
+                @foreach ($categories as $c)
+                    <option value="{{ $c->id }}">New Forum In {{ $c->name }} Category</option>
                 @endforeach
             </select>
         </div>
@@ -73,19 +72,19 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($groups as $g)
+            @foreach ($groups as $g)
                 <tr>
                     <td>{{ $g->name }}</td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1"></td>
-                    <td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1"></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][show_forum]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][read_topic]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][start_topic]" value="1" checked></td>
+                    <td><input type="checkbox" name="permissions[{{ $g->id }}][reply_topic]" value="1" checked></td>
                 </tr>
             @endforeach
             </tbody>
         </table>
 
         <button type="submit" class="btn btn-default">Save Forum</button>
-        {{ Form::close() }}
+        </form>
     </div>
 @endsection

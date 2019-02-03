@@ -1,47 +1,67 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
 use App\LogActivity;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
+use App\Http\Controllers\Controller;
 
 class ActivityLogController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
 
     /**
-     * Display All Activities
+     * ActivityLogController Constructor.
      *
-     * @return \Illuminate\Http\Response
+     * @param Toastr $toastr
      */
-    public function getActivity()
+    public function __construct(Toastr $toastr)
     {
-        $activities = \LogActivity::logActivityLists();
+        $this->toastr = $toastr;
+    }
+
+    /**
+     * Display All Activities.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        $activities = LogActivity::with('user')->latest()->paginate(50);
+
         return view('Staff.activity.index', ['activities' => $activities]);
     }
 
     /**
-     * Delete Record From Activity Log
+     * Delete Record From Activity Log.
+     *
      * @param $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteActivity($id)
+    public function destroy($id)
     {
+        $user = auth()->user();
         $activity = LogActivity::findOrFail($id);
+
+        abort_unless($user->group->is_modo, 403);
         $activity->delete();
 
-        return redirect()
-            ->back()
-            ->with(Toastr::success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
+        return redirect()->route('activity.index')
+            ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }

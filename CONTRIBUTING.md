@@ -5,7 +5,20 @@ Contributions are **welcome**.
 We accept contributions via Pull Requests on [Github](https://github.com/UNIT3D/UNIT3D).
 
 
-## Pull Requests
+## Pull Requests / Commits
+
+**Commit Title Standard**
+
+Please use the following title schema. 
+- (PREFIX) Title
+
+Examples:
+- (Update) French Translations
+- (Fix) French Translations
+- (Security Fix) French Translations
+- (Remove) French Translations
+- (Add) French Translations
+- (Optimize) French Translations
 
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.
@@ -45,6 +58,8 @@ Trait | adjective | Notifiable | ~~NotificationTrait~~
 - **One pull request per feature** - If you want to do more than one thing, send multiple pull requests.
 
 - **Use Laravel helpers when possible and not facades** - auth(), info(), cache(), response(), ext. [Laravel Helpers](https://laravel.com/docs/5.6/helpers)
+
+- **Use shortened syntax when possible** - Example: `[]` and not `array()`.
 
 
 

@@ -1,12 +1,12 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('backup.backup') }} {{ trans('backup.manager') }} - Staff Dashboard
+    <title>@lang('backup.backup') @lang('backup.manager') - Staff Dashboard
         - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('backup.backup') }} {{ trans('backup.manager') }} - Staff Dashboard">
+    <meta name="description" content="@lang('backup.backup') @lang('backup.manager') - Staff Dashboard">
 @endsection
 
 @section('breadcrumb')
@@ -18,7 +18,7 @@
     <li class="active">
         <a href="{{ route('backupManager') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title"
-                  class="l-breadcrumb-item-link-title">{{ trans('backup.backup') }} {{ trans('backup.manager') }}</span>
+                  class="l-breadcrumb-item-link-title">@lang('backup.backup') @lang('backup.manager')</span>
         </a>
     </li>
 @endsection
@@ -28,17 +28,17 @@
         <div class="box-body">
             <button id="create-new-backup-button" href="{{ url('staff_dashboard/backup/create') }}"
                     class="btn btn-primary ladda-button" data-style="zoom-in"><span class="ladda-label"><i
-                            class="fa fa-plus"></i> {{ trans('backup.create_a_new_backup') }}</span></button>
+                            class="{{ config('other.font-awesome') }} fa-plus"></i> @lang('backup.create_a_new_backup')</span></button>
             <br>
-            <h3>{{ trans('backup.existing_backups') }}:</h3>
+            <h3>@lang('backup.existing_backups'):</h3>
             <table class="table table-hover table-condensed">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{ trans('backup.location') }}</th>
-                    <th>{{ trans('backup.date') }}</th>
-                    <th class="text-right">{{ trans('backup.file_size') }}</th>
-                    <th class="text-right">{{ trans('backup.actions') }}</th>
+                    <th>@lang('backup.location')</th>
+                    <th>@lang('backup.date')</th>
+                    <th class="text-right">@lang('backup.file_size')</th>
+                    <th class="text-right">@lang('backup.actions')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,11 +52,11 @@
                             @if ($b['download'])
                                 <a class="btn btn-xs btn-default"
                                    href="{{ url('staff_dashboard/backup/download/') }}?disk={{ $b['disk'] }}&path={{ urlencode($b['file_path']) }}&file_name={{ urlencode($b['file_name']) }}"><i
-                                            class="fa fa-cloud-download"></i> {{ trans('backup.download') }}</a>
+                                            class="{{ config('other.font-awesome') }} fa-cloud-download"></i> @lang('backup.download')</a>
                             @endif
-                            <a class="btn btn-xs btn-danger" data-button-type="delete"
-                               href="{{ url('staff_dashboard/backup/delete/'.$b['file_name']) }}?disk={{ $b['disk'] }}"><i
-                                        class="fa fa-trash-o"></i> {{ trans('backup.delete') }}</a>
+                            <a class="btn btn-xs btn-danger" data-disk="{{ $b['disk'] }}" data-file="{{ $b['file_name'] }}" data-button-type="delete"
+                               href="{{ url('staff_dashboard/backup/delete') }}"><i
+                                        class="{{ config('other.font-awesome') }} fa-trash"></i> @lang('backup.delete')</a>
                         </td>
                     </tr>
                 @endforeach
@@ -96,10 +96,10 @@
                         l.setProgress(0.9);
                         // Show an alert with the result
                         if (result.indexOf('failed') >= 0) {
-                            toastr.warning("{{ trans('backup.create_warning_title') }}", "{{ trans('backup.create_warning_message') }}");
+                            toastr.warning("@lang('backup.create_warning_title')", "@lang('backup.create_warning_message')");
                         }
                         else {
-                            toastr.success("{{ trans('backup.create_confirmation_title') }}", "{{ trans('backup.create_confirmation_message') }}");
+                            toastr.success("@lang('backup.create_confirmation_title')", "@lang('backup.create_confirmation_message')");
                         }
 
                         // Stop loading
@@ -114,7 +114,7 @@
                     error: function (result) {
                         l.setProgress(0.9);
                         // Show an alert with the result
-                        toastr.warning("{{ trans('backup.create_error_title') }}", "{{ trans('backup.create_error_message') }}");
+                        toastr.warning("@lang('backup.create_error_title')", "@lang('backup.create_error_message')");
                         // Stop loading
                         l.stop();
                     }
@@ -126,25 +126,27 @@
                 e.preventDefault();
                 var delete_button = $(this);
                 var delete_url = $(this).attr('href');
+                var disk = $(this).attr('data-disk');
+                var file = $(this).attr('data-file');
 
-                if (confirm("{{ trans('backup.delete_confirm') }}") == true) {
+                if (confirm("@lang('backup.delete_confirm')") == true) {
                     $.ajax({
                         url: delete_url,
-                        data: {_token: '{{csrf_token()}}'},
+                        data: {_token: '{{csrf_token()}}', disk: disk, file_name: file },
                         type: 'POST',
                         success: function (result) {
                             // Show an alert with the result
-                            toastr.success("{{ trans('backup.delete_confirmation_title') }}", "{{ trans('backup.delete_confirmation_message') }}");
+                            toastr.success("@lang('backup.delete_confirmation_title')", "@lang('backup.delete_confirmation_message')");
                             // delete the row from the table
                             delete_button.parentsUntil('tr').parent().remove();
                         },
                         error: function (result) {
                             // Show an alert with the result
-                            toastr.warning("{{ trans('backup.delete_error_message') }}", "{{ trans('backup.delete_error_title') }}");
+                            toastr.warning("@lang('backup.delete_error_message')", "@lang('backup.delete_error_title')");
                         }
                     });
                 } else {
-                    toastr.info("{{ trans('backup.delete_cancel_title') }}", "{{ trans('backup.delete_cancel_message') }}");
+                    toastr.info("@lang('backup.delete_cancel_title')", "@lang('backup.delete_cancel_message')");
                 }
             });
 

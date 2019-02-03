@@ -1,35 +1,52 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
- 
+
 namespace App\Http\Middleware;
 
 use Closure;
 use App\Voter;
 use App\Option;
-use \Toastr;
+use Brian2694\Toastr\Toastr;
 
 class CheckIfAlreadyVoted
 {
     /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * CheckIfAlreadyVoted Middleware Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
+    /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         //If user hasn't selected any options, carry on to form validation / rejection
-        if (!$request->input('option.0')) {
+        if (! $request->input('option.0')) {
             return $next($request);
         }
 
@@ -39,9 +56,9 @@ class CheckIfAlreadyVoted
         //flash a Toastr and redirect to results.
         if ($poll->ip_checking == 1) {
             if (Voter::where('ip_address', '=', $request->ip())->where('poll_id', '=', $poll->id)->exists()) {
-                Toastr::error('There is already a vote on this poll from your IP. Your vote has not been counted.', 'Whoops!', ['options']);
+                $this->toastr->error('There is already a vote on this poll from your IP. Your vote has not been counted.', 'Whoops!', ['options']);
 
-                return redirect('poll/' . $poll->slug . '/result');
+                return redirect('poll/'.$poll->slug.'/result');
             }
         }
 

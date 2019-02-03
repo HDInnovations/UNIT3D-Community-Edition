@@ -50,10 +50,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($users as $user)
+                                @foreach ($users as $user)
                                     <tr>
                                         <td class="user-image hidden-xs hidden-sm">
-                                            @if($user->image != null)
+                                            @if ($user->image != null)
                                                 <img src="{{ url('files/img/' . $user->image) }}"
                                                      alt="{{ $user->username }}" class="img-circle"> @else
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $user->username }}"
@@ -63,7 +63,7 @@
                                                     href="{{ route('profile', ['username' => $user->username, 'id' => $user->id]) }}"
                                                     class="name">{{ $user->username }}</a>
                                             <span>{{ $user->group->name }}</span></td>
-                                        @if(auth()->user()->group->is_modo)
+                                        @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
                                                         class="email">{{ $user->email }}</span></td>
                                             <td class="user-id">
@@ -71,7 +71,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $user->username, 'id' => $user->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -98,10 +98,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($uploaders as $uploader)
+                                @foreach ($uploaders as $uploader)
                                     <tr>
                                         <td class="user-image hidden-xs hidden-sm">
-                                            @if($uploader->image != null)
+                                            @if ($uploader->image != null)
                                                 <img src="{{ url('files/img/' . $uploader->image) }}"
                                                      alt="{{ $uploader->username }}" class="img-circle"> @else
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $uploader->username }}"
@@ -111,7 +111,7 @@
                                                     href="{{ route('profile', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
                                                     class="name">{{ $uploader->username }}</a>
                                             <span>{{ $uploader->group->name }}</span></td>
-                                        @if(auth()->user()->group->is_modo)
+                                        @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
                                                         class="email">{{ $uploader->email }}</span></td>
                                             <td class="user-id">
@@ -119,7 +119,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $uploader->username, 'id' => $uploader->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -141,10 +141,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($mods as $mod)
+                                @foreach ($mods as $mod)
                                     <tr>
                                         <td class="user-image hidden-xs hidden-sm">
-                                            @if($mod->image != null)
+                                            @if ($mod->image != null)
                                                 <img src="{{ url('files/img/' . $mod->image) }}"
                                                      alt="{{ $mod->username }}" class="img-circle"> @else
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $mod->username }}"
@@ -154,7 +154,7 @@
                                                     href="{{ route('profile', ['username' => $mod->username, 'id' => $mod->id]) }}"
                                                     class="name">{{ $mod->username }}</a>
                                             <span>{{ $mod->group->name }}</span></td>
-                                        @if(auth()->user()->group->is_modo)
+                                        @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span class="email">{{ $mod->email }}</span>
                                             </td>
                                             <td class="user-id">
@@ -162,7 +162,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $mod->username, 'id' => $mod->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -184,10 +184,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($admins as $admin)
+                                @foreach ($admins as $admin)
                                     <tr>
                                         <td class="user-image hidden-xs hidden-sm">
-                                            @if($admin->image != null)
+                                            @if ($admin->image != null)
                                                 <img src="{{ url('files/img/' . $admin->image) }}"
                                                      alt="{{ $admin->username }}" class="img-circle"> @else
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $admin->username }}"
@@ -197,7 +197,7 @@
                                                     href="{{ route('profile', ['username' => $admin->username, 'id' => $admin->id]) }}"
                                                     class="name">{{ $admin->username }}</a>
                                             <span>{{ $admin->group->name }}</span></td>
-                                        @if(auth()->user()->group->is_modo)
+                                        @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
                                                         class="email">{{ $admin->email }}</span></td>
                                             <td class="user-id">
@@ -205,7 +205,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $admin->username, 'id' => $admin->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif
@@ -227,10 +227,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($coders as $coder)
+                                @foreach ($coders as $coder)
                                     <tr>
                                         <td class="user-image hidden-xs hidden-sm">
-                                            @if($coder->image != null)
+                                            @if ($coder->image != null)
                                                 <img src="{{ url('files/img/' . $coder->image) }}"
                                                      alt="{{ $coder->username }}" class="img-circle"> @else
                                                 <img src="{{ url('img/profile.png') }}" alt="{{ $coder->username }}"
@@ -240,7 +240,7 @@
                                                     href="{{ route('profile', ['username' => $coder->username, 'id' => $coder->id]) }}"
                                                     class="name">{{ $coder->username }}</a>
                                             <span>{{ $coder->group->name }}</span></td>
-                                        @if(auth()->user()->group->is_modo)
+                                        @if (auth()->user()->group->is_modo)
                                             <td class="hidden-xs hidden-sm"><span
                                                         class="email">{{ $coder->email }}</span></td>
                                             <td class="user-id">
@@ -248,7 +248,7 @@
                                             </td>
                                             <td class="action-links">
                                                 <a href="{{ route('user_setting', ['username' => $coder->username, 'id' => $coder->id]) }}"
-                                                   class="edit"> <i class="fa fa-pencil"></i> Edit Profile
+                                                   class="edit"> <i class="{{ config('other.font-awesome') }} fa-pencil"></i> Edit Profile
                                                 </a>
                                             </td>
                                         @endif

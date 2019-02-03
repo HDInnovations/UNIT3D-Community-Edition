@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-fw fa-flag"></i> Levels</div>
                 <ul class="list-group">
-                    @foreach($log->menu() as $levelKey => $item)
+                    @foreach ($log->menu() as $levelKey => $item)
                         @if ($item['count'] === 0)
                             <a href="#" class="list-group-item disabled">
                                 <span class="badge">
@@ -155,7 +155,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5" class="text-center">
-                                        <span class="label label-default">{{ trans('log-viewer::general.empty-logs') }}</span>
+                                        <span class="label label-default">@lang('log-viewer::general.empty-logs')</span>
                                     </td>
                                 </tr>
                             @endforelse

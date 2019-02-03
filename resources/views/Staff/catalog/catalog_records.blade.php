@@ -38,22 +38,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($records) == 0)
+                    @if (count($records) == 0)
                         <p>The are no records in database for the catalog</p>
                     @else
-                        @foreach($records as $record)
+                        @foreach ($records as $record)
                             <?php $client = new \App\Services\MovieScrapper('aa8b43b8cbce9d1689bef3d0c3087e4d', '3DF2684FC0240D28', 'b8272f7d'); ?>
                             <?php $movie = $client->scrape('movie', 'tt' . $record->imdb); ?>
                             <tr>
                                 <td>{{ $movie->releaseYear }}</td>
                                 <td>{{ $movie->title }}</td>
-                                <td><span class="text-green" style="float:right;"><i class="fa fa-lg fa-film list-icons"
+                                <td><span class="text-green" style="float:right;"><i class="{{ config('other.font-awesome') }} fa-lg fa-film list-icons"
                                                                                      aria-hidden="true"></i>  #{{$record->imdb}}</span>
                                 </td>
                                 <td><span class="text-red" style="float:right;"><i
-                                                class="fa fa-lg fa-television list-icons"
+                                                class="{{ config('other.font-awesome') }} fa-lg fa-television list-icons"
                                                 aria-hidden="true"></i>  #{{$record->tvdb}}</span></td>
-                                <td><i class="fa fa-lg fa-trash list-icons" aria-hidden="true"></i></td>
+                                <td><i class="{{ config('other.font-awesome') }} fa-lg fa-trash list-icons" aria-hidden="true"></i></td>
                             </tr>
                         @endforeach
                     @endif

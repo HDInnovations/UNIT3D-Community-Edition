@@ -21,29 +21,29 @@
     <div class="container box">
         <h2>Torrents</h2>
         <form action="{{route('torrent-search')}}" method="any">
-            <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control"
-                   style="float:right;">
+            <input type="text" name="name" id="name" size="25" placeholder="Quick Search by Title" class="form-control" style="float:right;">
         </form>
-        <table class="table table-bordered table-hover">
+
+        <table class="table table-condensed table-striped table-bordered table-hover">
+            <div class="table-responsive">
             <thead>
-            <tr>
-                <th>#</th>
-                <th>Title</th>
-                <th>Action</th>
-            </tr>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Action</th>
+                </tr>
             </thead>
             <tbody>
-            @foreach($torrents as $t)
+            @foreach ($torrents as $t)
                 <tr>
-                    <td>{{ $t->id }}</a>
+                    <td>{{ $t->id }}
                     </td>
-                    <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}">{{ $t->name }}</a></td>
-                    <td><a href="{{ route('edit', array('slug' => $t->slug, 'id' => $t->id)) }}"
+                    <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a></td>
+                    <td><a href="{{ route('edit', ['slug' => $t->slug, 'id' => $t->id]) }}"
                            class="btn btn-warning">Edit</a>
                         <button data-target="#staffdelete-{{ $t->id }}" data-toggle="modal" class="btn btn-danger">
                             Delete
                         </button>
-                        <!-- Torrent Delete Modal -->
                         {{-- Torrent Delete Modal --}}
                         <div class="modal fade" id="staffdelete-{{ $t->id }}" tabindex="-1" role="dialog"
                              aria-hidden="true">
@@ -58,7 +58,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            {{ Form::open(['route' => ['delete'] , 'method' => 'post']) }}
+                                            <form method="POST" action="{{ route('delete') }}">
+                                            @csrf
                                             <input id="type" type="hidden" name="type" value="Torrent">
                                             <input id="id" type="hidden" name="id" value="{{ $t->id }}">
                                             <input id="slug" type="hidden" name="slug" value="{{ $t->slug }}">
@@ -80,7 +81,6 @@
                                             <div class="col-sm-10 col-sm-offset-2">
                                                 <input class="btn btn-danger" type="submit" value="Delete">
                                             </div>
-                                            {{ Form::close() }}
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -88,16 +88,20 @@
                                             Close
                                         </button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <!-- Torrent Delete Modal -->
+                        {{-- Torrent Delete Modal --}}
                     </td>
                 </tr>
             @endforeach
             </tbody>
+            </div>
         </table>
 
-        {{ $torrents->links() }}
+        <div class="text-center">
+            {{ $torrents->links() }}
+        </div>
     </div>
 @endsection

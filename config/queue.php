@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -23,7 +24,7 @@
      | Supported: "sync", "database", "beanstalkd", "sqs", "redis", "null"
      |
      */
-     'default' => env('QUEUE_DRIVER', 'sync'),
+     'default' => env('QUEUE_CONNECTION', 'sync'),
      /*
      |--------------------------------------------------------------------------
      | Queue Connections
@@ -39,29 +40,29 @@
              'driver' => 'sync',
          ],
          'database' => [
-             'driver' => 'database',
-             'table' => 'jobs',
-             'queue' => 'default',
+             'driver'      => 'database',
+             'table'       => 'jobs',
+             'queue'       => 'default',
              'retry_after' => 90,
          ],
          'beanstalkd' => [
-             'driver' => 'beanstalkd',
-             'host' => 'localhost',
-             'queue' => 'default',
+             'driver'      => 'beanstalkd',
+             'host'        => 'localhost',
+             'queue'       => 'default',
              'retry_after' => 90,
          ],
          'sqs' => [
              'driver' => 'sqs',
-             'key' => 'your-public-key',
+             'key'    => 'your-public-key',
              'secret' => 'your-secret-key',
              'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
-             'queue' => 'your-queue-name',
+             'queue'  => 'your-queue-name',
              'region' => 'us-east-1',
          ],
          'redis' => [
-             'driver' => 'redis',
-             'connection' => 'default',
-             'queue' => 'default',
+             'driver'      => 'redis',
+             'connection'  => 'job',
+             'queue'       => 'default',
              'retry_after' => 90,
          ],
      ],
@@ -77,6 +78,6 @@
      */
      'failed' => [
          'database' => env('DB_CONNECTION', 'mysql'),
-         'table' => 'failed_jobs',
+         'table'    => 'failed_jobs',
      ],
  ];

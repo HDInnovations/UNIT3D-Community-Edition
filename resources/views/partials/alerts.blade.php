@@ -2,9 +2,9 @@
     <div class="alert alert-info" id="alert1">
         <div class="text-center">
     <span>
-      @if(config('other.freeleech') == true) {{ trans('common.freeleech_activated') }}! @endif
-        @if(config('other.invite-only') == false) {{ trans('common.openreg_activated') }}! @endif
-        @if(config('other.doubleup') == true) {{ trans('common.doubleup_activated') }}! @endif
+      @if (config('other.freeleech') == true) @lang('common.freeleech_activated')! @endif
+        @if (config('other.invite-only') == false) @lang('common.openreg_activated')! @endif
+        @if (config('other.doubleup') == true) @lang('common.doubleup_activated')! @endif
     </span>
             <strong>
                 <div id="promotions"></div>

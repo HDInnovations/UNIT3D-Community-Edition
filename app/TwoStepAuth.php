@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,21 +18,21 @@ use Illuminate\Database\Eloquent\Model;
 class TwoStepAuth extends Model
 {
     /**
-     * The table associated with the model.
+     * The Database Table Used By The Model.
      *
      * @var string
      */
     protected $table = 'twostep_auth';
 
     /**
-     * Indicates if the model should be timestamped.
+     * Indicates If The Model Should Be Timestamped.
      *
      * @var bool
      */
     public $timestamps = true;
 
     /**
-     * The attributes that are not mass assignable.
+     * The Attributes That Are Not Mass Assignable.
      *
      * @var array
      */
@@ -40,7 +41,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * The attributes that should be mutated to dates.
+     * The Attributes That Should Be Mutated To Dates.
      *
      * @var array
      */
@@ -52,7 +53,7 @@ class TwoStepAuth extends Model
     ];
 
     /**
-     * Fillable fields for a Profile.
+     * The Attributes That Are Mass Assignable.
      *
      * @var array
      */
@@ -65,6 +66,11 @@ class TwoStepAuth extends Model
         'authDate',
     ];
 
+    /**
+     * The Attributes That Should Be Casted To Native Types.
+     *
+     * @var array
+     */
     protected $casts = [
         'userId'     => 'integer',
         'authCode'   => 'string',
@@ -75,7 +81,7 @@ class TwoStepAuth extends Model
     /**
      * Get a validator for an incoming Request.
      *
-     * @param  array $merge (rules to optionally merge)
+     * @param array $merge (rules to optionally merge)
      *
      * @return array
      */
@@ -86,7 +92,7 @@ class TwoStepAuth extends Model
             'userId'     => 'required|integer',
             'authCode'   => 'required|string|max:4|min:4',
             'authCount'  => 'required|integer',
-            'authStatus' => 'required|boolean'
+            'authStatus' => 'required|boolean',
             ],
             $merge
         );

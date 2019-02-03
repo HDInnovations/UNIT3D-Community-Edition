@@ -1,20 +1,21 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     Poppabear
  */
 
 namespace App\Http\Controllers;
 
-use App\Repositories\WishInterface;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Interfaces\WishInterface;
 
 class WishController extends Controller
 {
@@ -24,17 +25,15 @@ class WishController extends Controller
     private $wish;
 
     /**
-     * todo: create interface for this class and register it to the service container.
-     * Then we can inject the interface.
-     *
      * @var Toastr
      */
     private $toastr;
 
     /**
-     * WishController constructor.
+     * WishController Constructor.
+     *
      * @param WishInterface $wish
-     * @param Toastr $toastr
+     * @param Toastr        $toastr
      */
     public function __construct(WishInterface $wish, Toastr $toastr)
     {
@@ -43,19 +42,22 @@ class WishController extends Controller
     }
 
     /**
+     * Get Wish List.
+     *
      * @param $uid
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index($uid)
     {
-        $wishes = $this->wish->getUserWishes($uid);
-
-        return view('user.wishlist', ['wishes' => $wishes]);
     }
 
     /**
-     * @param Request $request
+     * Add New Wish.
+     *
+     * @param \Illuminate\Http\Request $request
      * @param $uid
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, $uid)
@@ -69,30 +71,33 @@ class WishController extends Controller
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
-        if($omdb === null || $omdb === false) {
+        if ($omdb === null || $omdb === false) {
             return redirect()
-                ->route('wishlist', ['id' => $uid])
+                ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
-        };
+        }
 
         $source = $this->wish->getSource($imdb);
 
         $this->wish->create([
-            'title' => $omdb['Title'] . ' (' . $omdb['Year'] . ')',
-            'type' => $omdb['Type'],
-            'imdb' => $imdb,
-            'source' => $source,
-            'user_id' => $uid
+            'title'   => $omdb['Title'].' ('.$omdb['Year'].')',
+            'type'    => $omdb['Type'],
+            'imdb'    => $imdb,
+            'source'  => $source,
+            'user_id' => $uid,
         ]);
 
         return redirect()
-            ->route('wishlist', ['id' => $uid])
+            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Added!', 'Yay!', ['options']));
     }
 
     /**
+     * Delete A Wish.
+     *
      * @param $uid
      * @param $id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($uid, $id)
@@ -100,7 +105,7 @@ class WishController extends Controller
         $this->wish->delete($id);
 
         return redirect()
-            ->route('wishlist', ['id' => $uid])
+            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Removed!', 'Yay!', ['options']));
     }
 }

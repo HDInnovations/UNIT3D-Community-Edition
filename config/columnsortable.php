@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -17,29 +18,29 @@ return [
     */
     'columns' => [
         'alpha' => [
-            'rows' => ['description', 'name', 'slug', 'agent'],
-            'class' => 'fa fa-sort-alpha',
+            'rows'  => ['description', 'name', 'slug', 'agent'],
+            'class' => 'fal fa-sort-alpha',
         ],
         'amount' => [
-            'rows' => ['amount', 'price'],
-            'class' => 'fa fa-sort-amount',
+            'rows'  => ['amount', 'price'],
+            'class' => 'fal fa-sort-amount',
         ],
         'numeric' => [
             'rows' => ['created_at', 'updated_at', 'id', 'seeders', 'leechers', 'times_completed', 'size', 'uploaded', 'downloaded', 'left', 'seeder',
-                'active', 'seedtime', 'updated_at', 'completed_at'],
-            'class' => 'fa fa-sort-numeric',
+                'active', 'seedtime', 'updated_at', 'completed_at', 'hitrun', 'prewarn', ],
+            'class' => 'fal fa-sort-numeric',
         ],
     ],
 
     /*
     defines icon set to use when sorted data is none above (alpha nor amount nor numeric)
      */
-    'default_icon_set' => 'fa fa-sort',
+    'default_icon_set' => 'fal fa-sort',
 
     /*
     icon that shows when generating sortable link while column is not sorted
      */
-    'sortable_icon' => 'fa fa-sort',
+    'sortable_icon' => 'fal fa-sort',
 
     /*
     generated icon is clickable non-clickable (default)
@@ -55,12 +56,12 @@ return [
     /*
     suffix class that is appended when ascending order is applied
      */
-    'asc_suffix' => '-asc',
+    'asc_suffix' => '-up',
 
     /*
     suffix class that is appended when descending order is applied
      */
-    'desc_suffix' => '-desc',
+    'desc_suffix' => '-down',
 
     /*
     default anchor class, if value is null none is added

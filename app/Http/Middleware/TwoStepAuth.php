@@ -1,11 +1,12 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -13,9 +14,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\Request;
 use App\Traits\TwoStep;
+use Illuminate\Http\Request;
 
 class TwoStepAuth
 {
@@ -24,20 +24,20 @@ class TwoStepAuth
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param \Closure $response
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $response
      *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        $response   = $next($request);
-        $uri        = $request->path();
-        $nextUri    = config('app.url') . '/' .  $uri;
+        $response = $next($request);
+        $uri = $request->path();
+        $nextUri = config('app.url').'/'.$uri;
         $user = auth()->user();
 
         switch ($uri) {
-            case 'verification/needed':
+            case 'twostep/needed':
             case 'password/reset':
             case 'register':
             case 'logout':

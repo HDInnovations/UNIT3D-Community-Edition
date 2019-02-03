@@ -1,25 +1,27 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App\Providers;
 
-use App\Repositories\WishInterface;
+use App\Page;
+use Illuminate\View\View;
+use App\Interfaces\WishInterface;
 use App\Repositories\WishRepository;
 use App\Services\Clients\OmdbClient;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -27,7 +29,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Custom validation for the email whitelist/blacklist
+        validator()->extend('email_list', 'App\Validators\EmailValidator@validateEmailList');
+
+        // Share $pages across all views
+        view()->composer('*', function (View $view) {
+            $pages = cache()->remember('cached-pages', 60, function () {
+                return Page::select('id', 'name', 'slug')->take(5)->get();
+            });
+
+            $view->with(compact('pages'));
+        });
     }
 
     /**
@@ -43,7 +55,8 @@ class AppServiceProvider extends ServiceProvider
     {
         // we can now inject this class and it will auto resolve for us
         $this->app->bind(OmdbClient::class, function ($app) {
-            $key = env('OMDB_API_KEY', config('api-keys.omdb'));
+            $key = config('api-keys.omdb');
+
             return new OmdbClient($key);
         });
 

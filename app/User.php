@@ -1,54 +1,113 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
 
 namespace App;
 
-use Gstt\Achievements\Achiever;
-use Illuminate\Contracts\Auth\CanResetPassword;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use function theodorejb\polycast\to_int;
-use App\Helpers\StringHelper;
+use Carbon\Carbon;
 use App\Helpers\Bbcode;
+use App\Helpers\StringHelper;
+use Gstt\Achievements\Achiever;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-/**
- * User-Related Template
- *
- */
 class User extends Authenticatable
 {
     use Notifiable;
     use Achiever;
+    use SoftDeletes;
 
     /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
-
-    /**
-     * The attributes excluded from the model's JSON form.
+     * The Attributes Excluded From The Model's JSON Form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
-
-    protected $fillable = ['name', 'email', 'password'];
-
-    protected $dates = ['last_login'];
+    protected $hidden = [
+        'password',
+        'passkey',
+        'remember_token',
+    ];
 
     /**
-     * A user can have many messages
+     * The Attributes That Should Be Mutated To Dates.
+     *
+     * @var array
+     */
+    protected $dates = ['last_login', 'deleted_at'];
+
+    /**
+     * Belongs To A Group.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo(Group::class)->withDefault([
+            'color'  => config('user.group.defaults.color'),
+            'effect'  => config('user.group.defaults.effect'),
+            'icon'  => config('user.group.defaults.icon'),
+            'name'  => config('user.group.defaults.name'),
+            'slug'  => config('user.group.defaults.slug'),
+            'position' => config('user.group.defaults.position'),
+            'is_admin'  => config('user.group.defaults.is_admin'),
+            'is_freeleech'  => config('user.group.defaults.is_freeleech'),
+            'is_immune'  => config('user.group.defaults.is_immune'),
+            'is_incognito'  => config('user.group.defaults.is_incognito'),
+            'is_internal'  => config('user.group.defaults.is_internal'),
+            'is_modo'  => config('user.group.defaults.is_modo'),
+            'is_trusted'  => config('user.group.defaults.is_trusted'),
+            'can_upload'  => config('user.group.defaults.can_upload'),
+            'level' => config('user.group.defaults.level'),
+        ]);
+    }
+
+    /**
+     * Belongs To A Chatroom.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chatroom()
+    {
+        return $this->belongsTo(Chatroom::class);
+    }
+
+    /**
+     * Belongs To A Chat Status.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function chatStatus()
+    {
+        return $this->belongsTo(ChatStatus::class);
+    }
+
+    /**
+     * Belongs To Many Bookmarks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
+    }
+
+    public function isBookmarked($torrent_id)
+    {
+        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
+    }
+
+    /**
+     * Has Many Messages.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -58,123 +117,139 @@ class User extends Authenticatable
     }
 
     /**
-     * A user can have one chatroom at a time
-     */
-    public function chatroom()
-    {
-        return $this->belongsTo(Chatroom::class);
-    }
-
-    /**
-     * A user has one chat status
-     */
-    public function chatStatus()
-    {
-        return $this->belongsTo(ChatStatus::class);
-    }
-
-    /**
-     * Thanks Given
+     * Has One Privacy Object.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function privacy()
+    {
+        return $this->hasOne(UserPrivacy::class);
+    }
+
+    /**
+     * Has One Notifications Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function notification()
+    {
+        return $this->hasOne(UserNotification::class);
+    }
+
+    /**
+     * Has Many RSS Feeds.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rss()
+    {
+        return $this->hasMany(Rss::class);
+    }
+
+    /**
+     * Has Many Thanks Given.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function thanksGiven()
     {
-        return $this->hasMany(\App\Thank::class, 'user_id', 'id');
+        return $this->hasMany(Thank::class, 'user_id', 'id');
     }
 
     /**
-     * Thanks Received
+     * Has Many Wish's.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function wishes()
+    {
+        return $this->hasMany(Wish::class);
+    }
+
+    /**
+     * Has Many Thanks Received.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function thanksReceived()
     {
-        return $this->hasManyThrough(\App\Thank::class, Torrent::class);
+        return $this->hasManyThrough(Thank::class, Torrent::class);
     }
 
     /**
-     * Is Online?
+     * Has Many Polls.
      *
-     */
-    public function isOnline()
-    {
-        return cache()->has('user-is-online-' . $this->id);
-    }
-
-    /**
-     * Polls
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function polls()
     {
-        return $this->hasMany(\App\Poll::class);
+        return $this->hasMany(Poll::class);
     }
 
     /**
-     * Belongs to group
+     * Has Many Torrents.
      *
-     */
-    public function group()
-    {
-        return $this->belongsTo(\App\Group::class);
-    }
-
-    /**
-     * Has many torrents
-     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function torrents()
     {
-        return $this->hasMany(\App\Torrent::class);
+        return $this->hasMany(Torrent::class);
     }
 
     /**
-     * Has send many pms
+     * Has Many Sent PM's.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_sender()
     {
-        return $this->hasMany(\App\PrivateMessage::class, "sender_id");
+        return $this->hasMany(PrivateMessage::class, 'sender_id');
     }
 
     /**
-     * Has received many pms
+     * Has Many Received PM's.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pm_receiver()
     {
-        return $this->hasMany(\App\PrivateMessage::class, "reciever_id");
+        return $this->hasMany(PrivateMessage::class, 'receiver_id');
     }
 
     /**
-     * Has many peers
+     * Has Many Peers.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function peers()
     {
-        return $this->hasMany(\App\Peer::class);
+        return $this->hasMany(Peer::class);
     }
 
     /**
-     * Has many follow
+     * Has Many Followers.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function follows()
     {
-        return $this->hasMany(\App\Follow::class);
+        return $this->hasMany(Follow::class);
     }
 
     /**
-     * Has many articles
+     * Has Many Articles.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articles()
     {
-        return $this->hasMany(\App\Article::class);
+        return $this->hasMany(Article::class);
     }
 
     /**
-     * Has Many Topics
+     * Has Many Topics.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function topics()
     {
@@ -182,215 +257,375 @@ class User extends Authenticatable
     }
 
     /**
-     * Has many posts
+     * Has Many Posts.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function posts()
     {
-        return $this->hasMany(\App\Post::class);
+        return $this->hasMany(Post::class);
     }
 
     /**
-     * Has many Comment
+     * Has Many Comments.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
-        return $this->hasMany(\App\Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**
-     * Has many created requests
+     * Has Many Torrent Requests.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requests()
     {
-        return $this->hasMany(\App\TorrentRequest::class);
+        return $this->hasMany(TorrentRequest::class);
     }
 
     /**
-     * Has approved many requests
+     * Has Approved Many Torrent Requests.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function ApprovedRequests()
     {
-        return $this->hasMany(\App\TorrentRequest::class, 'approved_by');
+        return $this->hasMany(TorrentRequest::class, 'approved_by');
     }
 
     /**
-     * Has filled many requests
+     * Has Filled Many Torrent Requests.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function FilledRequests()
     {
-        return $this->hasMany(\App\TorrentRequest::class, 'filled_by');
+        return $this->hasMany(TorrentRequest::class, 'filled_by');
     }
 
     /**
-     * Has many request Bounties
+     * Has Many Torrent Request BON Bounties.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function requestBounty()
     {
-        return $this->hasMany(\App\TorrentRequestBounty::class);
+        return $this->hasMany(TorrentRequestBounty::class);
     }
 
     /**
-     * Has moderated many torrents
+     * Has Moderated Many Torrents.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moderated()
     {
-        return $this->hasMany(\App\Torrent::class, 'moderated_by');
+        return $this->hasMany(Torrent::class, 'moderated_by');
     }
 
     /**
-     * Has many Notes
+     * Has Many Notes.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function notes()
     {
-        return $this->hasMany(\App\Note::class, 'user_id');
+        return $this->hasMany(Note::class, 'user_id');
     }
 
     /**
-     * Has many Reports
+     * Has Many Reports.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reports()
     {
-        return $this->hasMany(\App\Report::class, 'reporter_id');
+        return $this->hasMany(Report::class, 'reporter_id');
     }
 
     /**
-     * Has many solvedReports
+     * Has Solved Many Reports.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function solvedReports()
     {
-        return $this->hasMany(\App\Report::class, 'staff_id');
+        return $this->hasMany(Report::class, 'staff_id');
     }
 
     /**
-     * Get all of bookmarks for the user.
+     * Has Many Torrent History.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function bookmarks()
-    {
-        return $this->belongsToMany(\App\Torrent::class, 'bookmarks', 'user_id', 'torrent_id')->withTimeStamps();
-    }
-
-    public function isBookmarked($torrent_id)
-    {
-        return $this->bookmarks()->where('torrent_id', '=', $torrent_id)->first() !== null;
-    }
-
-    /**
-     * Get all of follows for the user.
-     */
-    public function isFollowing($target_id)
-    {
-        return (bool)$this->follows()->where('target_id', $target_id)->first(['id']);
-    }
-
-    /*
-    * Get all history records for the user.
-    */
     public function history()
     {
-        return $this->hasMany(\App\History::class, "user_id");
-    }
-
-    /*
-    * Get all records of user bans.
-    */
-    public function userban()
-    {
-        return $this->hasMany(\App\Ban::class, "owned_by");
-    }
-
-    /*
-    * Get all the bans a staff member has actioned.
-    */
-    public function staffban()
-    {
-        return $this->hasMany(\App\Ban::class, "created_by");
-    }
-
-    public function staffwarning()
-    {
-        return $this->hasMany(\App\Warning::class, 'warned_by');
-    }
-
-    public function userwarning()
-    {
-        return $this->hasMany(\App\Warning::class, 'user_id');
+        return $this->hasMany(History::class, 'user_id');
     }
 
     /**
-     * Has many invites
+     * Has Many Bans.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userban()
+    {
+        return $this->hasMany(Ban::class, 'owned_by');
+    }
+
+    /**
+     * Has Given Many Bans.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffban()
+    {
+        return $this->hasMany(Ban::class, 'created_by');
+    }
+
+    /**
+     * Has Given Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffwarning()
+    {
+        return $this->hasMany(Warning::class, 'warned_by');
+    }
+
+    /**
+     * Has Deleted Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function staffdeletedwarning()
+    {
+        return $this->hasMany(Warning::class, 'deleted_by');
+    }
+
+    /**
+     * Has Many Warnings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userwarning()
+    {
+        return $this->hasMany(Warning::class, 'user_id');
+    }
+
+    /**
+     * Has Given Many Invites.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function sentInvite()
     {
-        return $this->hasMany(\App\Invite::class, 'user_id');
+        return $this->hasMany(Invite::class, 'user_id');
     }
 
     /**
-     * Has many invites
+     * Has Received Many Invites.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function recievedInvite()
+    public function receivedInvite()
     {
-        return $this->hasMany(\App\Invite::class, 'accepted_by');
+        return $this->hasMany(Invite::class, 'accepted_by');
     }
 
     /**
-     * Has many featured
+     * Has Many Featured Torrents.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function featuredTorrent()
     {
-        return $this->hasMany(\App\FeaturedTorrent::class);
+        return $this->hasMany(FeaturedTorrent::class);
     }
 
     /**
-     * Has many likes
+     * Has Many Post Likes.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function likes()
     {
-        return $this->hasMany(\App\Like::class);
+        return $this->hasMany(Like::class);
     }
 
     /**
-     * Return Upload In Human Format
+     * Has Given Many BON Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bonGiven()
+    {
+        return $this->hasMany(BonTransactions::class, 'sender');
+    }
+
+    /**
+     * Has Received Many BON Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function bonReceived()
+    {
+        return $this->hasMany(BonTransactions::class, 'receiver');
+    }
+
+    /**
+     * Has Many Subscriptions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Get the Users username as slug.
+     *
+     * @return string
+     */
+    public function getSlugAttribute()
+    {
+        return str_slug($this->username);
+    }
+
+    /**
+     * Get the Users accepts notification as bool.
+     *
+     * @return int
+     */
+    public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
+    {
+        $target_group = 'json_'.$group.'_groups';
+        if ($sender->id == $target->id) {
+            return false;
+        }
+        if ($sender->group->is_modo || $sender->group->is_admin) {
+            return true;
+        }
+        if ($target->block_notifications && $target->block_notifications == 1) {
+            return false;
+        }
+        if ($target->notification && $type && (! $target->notification->$type)) {
+            return false;
+        }
+        if ($target->notification && $target->notification->$target_group && is_array($target->notification->$target_group['default_groups'])) {
+            if (array_key_exists($sender->group->id, $target->notification->$target_group['default_groups'])) {
+                if ($target->notification->$target_group['default_groups'][$sender->group->id] == 1) {
+                    return true;
+                }
+
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the Users allowed answer as bool.
+     *
+     * @return int
+     */
+    public function isAllowed(self $target, $group = 'profile', $type = false)
+    {
+        $target_group = 'json_'.$group.'_groups';
+        $sender = auth()->user();
+        if ($sender->id == $target->id) {
+            return true;
+        }
+        if ($sender->group->is_modo || $sender->group->is_admin) {
+            return true;
+        }
+        if ($target->private_profile && $target->private_profile == 1) {
+            return false;
+        }
+        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+            return false;
+        }
+        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
+            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+                if ($target->privacy->$target_group['default_groups'][$sender->group->id] == 1) {
+                    return true;
+                }
+
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Does Subscription Exist.
+     *
+     * @param $type
+     * @param $topic_id
+     *
+     * @return string
+     */
+    public function isSubscribed(string $type, $topic_id)
+    {
+        if ($type == 'topic') {
+            return (bool) $this->subscriptions()->where('topic_id', '=', $topic_id)->first(['id']);
+        }
+
+        return (bool) $this->subscriptions()->where('forum_id', '=', $topic_id)->first(['id']);
+    }
+
+    /**
+     * Get All Followers Of A User.
+     *
+     * @param $target_id
+     *
+     * @return string
+     */
+    public function isFollowing($target_id)
+    {
+        return (bool) $this->follows()->where('target_id', '=', $target_id)->first(['id']);
+    }
+
+    /**
+     * Return Upload In Human Format.
      */
     public function getUploaded($bytes = null, $precision = 2)
     {
         $bytes = $this->uploaded;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Return Download In Human Format
-     *
+     * Return Download In Human Format.
      */
     public function getDownloaded($bytes = null, $precision = 2)
     {
         $bytes = $this->downloaded;
+
         return StringHelper::formatBytes($bytes, 2);
     }
 
     /**
-     * Return The Ratio
-     *
+     * Return The Ratio.
      */
     public function getRatio()
     {
         if ($this->downloaded == 0) {
             return INF;
         }
-        return (float)round($this->uploaded / $this->downloaded, 2);
+
+        return (float) round($this->uploaded / $this->downloaded, 2);
     }
 
     // Return the ratio pretty formated as a string.
@@ -398,9 +633,9 @@ class User extends Authenticatable
     {
         $ratio = $this->getRatio();
         if (is_infinite($ratio)) {
-            return "∞";
+            return '∞';
         } else {
-            return (string)$ratio;
+            return (string) $ratio;
         }
     }
 
@@ -410,7 +645,8 @@ class User extends Authenticatable
         if ($this->downloaded + $size == 0) {
             return INF;
         }
-        return (float)round($this->uploaded / ($this->downloaded + $size), 2);
+
+        return (float) round($this->uploaded / ($this->downloaded + $size), 2);
     }
 
     // Return the ratio after $size bytes would be downloaded, pretty formatted
@@ -418,14 +654,14 @@ class User extends Authenticatable
     public function ratioAfterSizeString($size, $freeleech = false)
     {
         if ($freeleech) {
-            return $this->getRatioString() . " (Freeleech)";
+            return $this->getRatioString().' (Freeleech)';
         }
 
         $ratio = $this->ratioAfterSize($size);
         if (is_infinite($ratio)) {
-            return "∞";
+            return '∞';
         } else {
-            return (string)$ratio;
+            return (string) $ratio;
         }
     }
 
@@ -434,17 +670,17 @@ class User extends Authenticatable
     public function untilRatio($ratio)
     {
         if ($ratio == 0.0) {
-            return "∞";
+            return '∞';
         }
 
-        $bytes = to_int(round($this->uploaded / $ratio));
+        $bytes = round($this->uploaded / $ratio);
+
         return StringHelper::formatBytes($bytes);
     }
 
     /**
-     * Returns the HTML of the user's signature
+     * Returns the HTML of the user's signature.
      *
-     * @access public
      * @return string html
      */
     public function getSignature()
@@ -453,12 +689,17 @@ class User extends Authenticatable
     }
 
     /**
-     * Parse content and return valid HTML
+     * Parse About Me And Return Valid HTML.
      *
+     * @return string Parsed BBCODE To HTML
      */
     public function getAboutHtml()
     {
-        return Bbcode::parse($this->about);
+        if (empty($this->about)) {
+            return 'N/A';
+        } else {
+            return Bbcode::parse($this->about);
+        }
     }
 
     /**
@@ -466,7 +707,6 @@ class User extends Authenticatable
      *
      * Formats the seebonus of the User
      *
-     * @access public
      * @return decimal
      */
     public function getSeedbonus()
@@ -479,8 +719,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getSeeding()
     {
@@ -491,12 +730,28 @@ class User extends Authenticatable
     }
 
     /**
-     * @method getSeeding
+     * @method getLast30Uploads
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
+     */
+    public function getLast30Uploads()
+    {
+        $current = Carbon::now();
+
+        return Torrent::withAnyStatus()
+            ->where('user_id', '=', $this->id)
+            ->where('created_at', '>', $current->copy()->subDays(30)->toDateTimeString())
+            ->count();
+    }
+
+    /**
+     * @method getUploads
+     *
+     * Gets the amount of torrents a user seeds
+     *
+     * @return int
      */
     public function getUploads()
     {
@@ -510,8 +765,7 @@ class User extends Authenticatable
      *
      * Gets the amount of torrents a user seeds
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getLeeching()
     {
@@ -526,8 +780,7 @@ class User extends Authenticatable
      *
      * Gets count on users active warnings
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getWarning()
     {
@@ -542,8 +795,7 @@ class User extends Authenticatable
      *
      * Gets the users total seedtime
      *
-     * @access public
-     * @return integer
+     * @return int
      */
     public function getTotalSeedTime()
     {
@@ -552,12 +804,26 @@ class User extends Authenticatable
     }
 
     /**
-     * Gets the users wishes
+     * @method getTotalSeedSize
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Gets the users total seedsoze
+     *
+     * @return int
      */
-    public function wishes()
+    public function getTotalSeedSize()
     {
-        return $this->hasMany(Wish::class);
+        $peers = Peer::where('user_id', '=', $this->id)->where('seeder', '=', 1)->pluck('torrent_id');
+
+        return Torrent::whereIn('id', $peers)->sum('size');
+    }
+
+    /**
+     * Is A User Online?
+     *
+     * @return string
+     */
+    public function isOnline()
+    {
+        return cache()->has('user-is-online-'.$this->id);
     }
 }

@@ -5,20 +5,20 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'title' => 'Configuratie Manager',
+    'title'       => 'Configuratie Manager',
     'info_choose' => 'Kies een bestand om te beginnen met bewerken',
-    'file' => 'Bestand',
-    'path' => 'Pad',
-    'header' => [
-        'key' => 'Sleutel',
-        'value' => 'Waarde',
-        'actions' => 'Acties'
+    'file'        => 'Bestand',
+    'path'        => 'Pad',
+    'header'      => [
+        'key'     => 'Sleutel',
+        'value'   => 'Waarde',
+        'actions' => 'Acties',
     ],
     'actions' => [
-        'edit' => 'Bewerken',
+        'edit'    => 'Bewerken',
         'confirm' => 'Nieuwe sleutel opslaan',
-        'save' => 'Opslaan!',
-        'cancel' => 'Annuleren'
+        'save'    => 'Opslaan!',
+        'cancel'  => 'Annuleren',
     ],
-    'sure' => 'Weet je het zeker?'
+    'sure' => 'Weet je het zeker?',
 ];

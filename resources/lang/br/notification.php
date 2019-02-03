@@ -5,14 +5,14 @@
  * |--------------------------------------------------------------------------
  */
 return [
-    'notifications' => 'Notifications',
-    'mark-all-read' => 'Mark all as read',
-    'mark-read' => 'Mark as read',
-    'delete-all' => 'Delete all notifications',
-    'title' => 'Title',
-    'message' => 'Message',
-    'date' => 'Date',
-    'read' => 'Read',
-    'delete' => 'Delete',
-    'no-notifications' => 'There are no notifications found'
+    'date'             => 'Data',
+    'delete'           => 'Excluir',
+    'delete-all'       => 'Excluir todas notificações',
+    'mark-all-read'    => 'Marcar todas como lidas',
+    'mark-read'        => 'Marcar como lida',
+    'message'          => 'Mensagem',
+    'no-notifications' => 'Não há notificações',
+    'notifications'    => 'Notificações',
+    'read'             => 'Ler',
+    'title'            => 'Título',
 ];

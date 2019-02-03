@@ -1,9 +1,5 @@
 @extends('layout.default')
 
-@section('stylesheets')
-
-@endsection
-
 @section('title')
     <title>MassPM - Staff Dashboard - {{ config('other.title') }}</title>
 @endsection
@@ -28,26 +24,27 @@
 @section('content')
     <div class="container box">
         <h2>Mass PM</h2>
-        {{ Form::open(['route' => 'sendMassPM' , 'method' => 'post' , 'role' => 'form' , 'class' => 'form-horizontal']) }}
-        <div class="form-group">
-            <label for="name">Title</label>
-            <input type="text" class="form-control" name="title">
-        </div>
+        <form action="{{ route('sendMassPM') }}" method="post">
+            @csrf
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" name="subject">
+            </div>
 
-        <div class="form-group">
-            <label for="message" ody>Message</label>
-            <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
-        </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" cols="30" rows="10" class="form-control"></textarea>
+            </div>
 
-        <button type="submit" class="btn btn-default">Send</button>
-        {{ Form::close() }}
+            <button type="submit" class="btn btn-default">Send</button>
+        </form>
     </div>
 @endsection
 
 @section('javascripts')
     <script>
       $(document).ready(function () {
-        $('#message').wysibb({})
+        $('#message').wysibb({});
         emoji.textcomplete()
       })
     </script>

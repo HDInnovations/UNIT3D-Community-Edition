@@ -1,15 +1,15 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-
 use Arcanedev\LogViewer\Contracts\Utilities\Filesystem;
 
 return [
@@ -61,8 +61,8 @@ return [
          'enabled' => true,
 
          'attributes' => [
-             'prefix' => 'staff/log-viewer',
-             'namespace' => ['Staff'],
+             'prefix'     => 'staff/log-viewer',
+             'namespace'  => ['Staff'],
              'middleware' => ['web', 'auth', 'admin'],
          ],
      ],
@@ -109,8 +109,8 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'icons' =>  [
-        /**
+    'icons' => [
+        /*
          * Font awesome >= 4.3
          * http://fontawesome.io/icons/
          */
@@ -130,7 +130,7 @@ return [
      | -----------------------------------------------------------------
      */
 
-    'colors' =>  [
+    'colors' => [
         'levels'    => [
             'empty'     => '#D1D1D1',
             'all'       => '#8A8A8A',

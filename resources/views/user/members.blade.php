@@ -1,17 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('common.members') }} - {{ config('other.title') }}</title>
+    <title>@lang('common.members') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('user.members-desc', ['title' => config('other.title')]) }}">
+    <meta name="description" content="@lang('user.members-desc', ['title' => config('other.title')])">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('members') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('common.members') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('common.members')</span>
         </a>
     </li>
 @endsection
@@ -22,27 +22,27 @@
         <div class="profil">
             <div class="header gradient silver">
                 <div class="inner_content">
-                    <div class="page-title"><h1>{{ trans('common.members') }}</h1></div>
+                    <div class="page-title"><h1>@lang('common.members')</h1></div>
                 </div>
             </div>
             <form action="{{route('userSearch')}}" method="GET">
-                <input type="text" name="username" id="username" size="25" placeholder="{{ trans('user.search') }}"
+                <input type="text" name="username" id="username" size="25" placeholder="@lang('user.search')"
                        class="form-control" style="float:right;">
             </form>
-            <table class="table table-bordered table-hover">
+            <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>{{ trans('user.image') }}</th>
-                    <th>{{ trans('common.username') }}</th>
-                    <th>{{ trans('common.group') }}</th>
-                    <th>{{ trans('user.registration-date') }}</th>
+                    <th>@lang('user.image')</th>
+                    <th>@lang('common.username')</th>
+                    <th>@lang('common.group')</th>
+                    <th>@lang('user.registration-date')</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach ($users as $user)
                     <tr>
                         <td>
-                            @if($user->image != null)
+                            @if ($user->image != null)
                                 <img src="{{ url('files/img/' . $user->image) }}" alt="{{ $user->username }}"
                                      class="members-table-img img-thumbnail">
                             @else
@@ -60,8 +60,7 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="col-md-12">
+        <div class="text-center">
             {{ $users->links() }}
         </div>
     </div>

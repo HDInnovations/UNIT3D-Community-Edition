@@ -1,58 +1,59 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ trans('torrent.peers') }} - {{ config('other.title') }}</title>
+    <title>@lang('torrent.peers') - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ trans('torrent.peers') }}">
+    <meta name="description" content="@lang('torrent.peers')">
 @endsection
 
 @section('breadcrumb')
     <li>
         <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" itemprop="url"
            class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.torrent') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.torrent')</span>
         </a>
     </li>
     <li class="active">
         <a href="{{ route('peers', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">{{ trans('torrent.peers') }}</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.peers')</span>
         </a>
     </li>
 @endsection
 
 @section('content')
     <div class="container">
-        <h1 class="title">{{ trans('torrent.torrent') }} {{ trans('torrent.peers') }}</h1>
+        <h1 class="title">@lang('torrent.torrent') @lang('torrent.peers')</h1>
         <div class="block">
             <div class="">
-                <p class="lead">{{ trans('torrent.peers') }} {{ strtolower(trans('common.for')) }}
+                <p class="lead">@lang('torrent.peers') {{ strtolower(trans('common.for')) }}
                     <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">{{ $torrent->name }}</a>
                 </p>
             </div>
-            <table class="table table-striped table-bordered table-condensed table-hover">
+            <div class="table-responsive">
+                <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>{{ trans('common.user') }}</th>
-                    <th>{{ trans('torrent.progress') }}</th>
-                    <th>{{ trans('torrent.uploaded') }}</th>
-                    <th>{{ trans('torrent.downloaded') }}</th>
-                    <th>{{ trans('torrent.left') }}</th>
-                    <th>{{ trans('torrent.client') }}</th>
-                    <th>{{ trans('common.ip') }}</th>
-                    <th>{{ trans('common.port') }}</th>
-                    <th>{{ trans('torrent.started') }}</th>
-                    <th>{{ trans('torrent.last-update') }}</th>
-                    <th>{{ trans('common.status') }}</th>
+                    <th>@lang('common.user')</th>
+                    <th>@lang('torrent.progress')</th>
+                    <th>@lang('torrent.uploaded')</th>
+                    <th>@lang('torrent.downloaded')</th>
+                    <th>@lang('torrent.left')</th>
+                    <th>@lang('torrent.client')</th>
+                    <th>@lang('common.ip')</th>
+                    <th>@lang('common.port')</th>
+                    <th>@lang('torrent.started')</th>
+                    <th>@lang('torrent.last-update')</th>
+                    <th>@lang('common.status')</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($peers as $p)
                     <tr>
-                        @if($p->user->peer_hidden == 1)
-                            <td><span class="badge-user text-orange text-bold"><i class="fa fa-eye-slash"
-                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if(auth()->user()->id == $p->id || auth()->user()->group->is_modo)
+                        @if ($p->user->peer_hidden == 1)
+                            <td><span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
+                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }}
                                             )</span></a>@endif</td>
@@ -61,7 +62,7 @@
                                 <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                             class="badge-user text-bold"
                                             style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
-                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip" title=""
+                                                class="{{ $p->user->group->icon }}" data-toggle="tooltip"
                                                 data-original-title="{{ $p->user->group->name }}"></i> {{ $p->user->username }}</span></a>
                             </td>
                         @endif
@@ -96,7 +97,7 @@
                             <span class="badge-extra text-orange text-bold">{{ \App\Helpers\StringHelper::formatBytes($p->left, 2) }}</span>
                         </td>
                         <td><span class="badge-extra text-purple text-bold">{{ $p->agent }}</span></td>
-                        @if(auth()->user()->group->is_modo)
+                        @if (auth()->user()->group->is_modo)
                             <td><span class="badge-extra text-bold">{{ $p->ip }}</span></td>
                             <td><span class="badge-extra text-bold">{{ $p->port }}</span></td>
                         @else
@@ -117,7 +118,10 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
+            <div class="text-center">
             {{ $peers->links() }}
+            </div>
         </div>
     </div>
 @endsection

@@ -28,9 +28,13 @@
             <hr>
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Warnings <span class="text-blue"><strong><i
-                                        class="fa fa-note"></i> {{ $warningcount }} </strong></span></h2>
-                    <table class="table table-condensed table-striped table-bordered table-hover">
+                    <h2>
+                        <span class="text-blue"> Warnings
+                            <strong><i class="{{ config('other.font-awesome') }} fa-note"></i> {{ $warningcount }} </strong>
+                        </span>
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-striped table-bordered table-hover">
                         <thead>
                         <tr>
                             <th>User</th>
@@ -43,25 +47,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @if(count($warnings) == 0)
+                        @if (count($warnings) == 0)
                             <p>The are no warnings in the database!</p>
                         @else
-                            @foreach($warnings as $warning)
+                            @foreach ($warnings as $warning)
                                 <tr>
                                     <td>
-                                        <a class="view-user" data-id="{{ $warning->warneduser->id }}"
-                                           data-slug="{{ $warning->warneduser->username }}"
-                                           href="{{ route('profile', ['username' =>  $warning->warneduser->username, 'id' => $warning->warneduser->id]) }}">{{ $warning->warneduser->username }}</a>
+                                        <a class="text-bold" href="{{ route('profile', ['username' =>  $warning->warneduser->username, 'id' => $warning->warneduser->id]) }}">
+                                            {{ $warning->warneduser->username }}
+                                        </a>
                                     </td>
                                     <td>
-                                        <a class="view-torrent" data-id="{{ $warning->staffuser->id }}"
-                                           data-slug="{{ $warning->staffuser->username }}"
-                                           href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">{{ $warning->staffuser->username }}</a>
+                                        <a class="text-bold" href="{{ route('profile', ['username' => $warning->staffuser->username, 'id' => $warning->staffuser->id]) }}">
+                                            {{ $warning->staffuser->username }}
+                                        </a>
                                     </td>
                                     <td>
-                                        <a class="view-torrent" data-id="{{ $warning->torrenttitle->id }}"
-                                           data-slug="{{ $warning->torrenttitle->name }}"
-                                           href="{{ route('torrent', array('slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id)) }}">{{ $warning->torrenttitle->name }}</a>
+                                        <a class="text-bold" href="{{ route('torrent', ['slug' =>$warning->torrenttitle->slug, 'id' => $warning->torrenttitle->id]) }}">
+                                            {{ $warning->torrenttitle->name }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $warning->reason }}
@@ -73,7 +77,7 @@
                                         {{ $warning->expires_on }}
                                     </td>
                                     <td>
-                                        @if($warning->active == 1)
+                                        @if ($warning->active == 1)
                                             <span class='label label-success'>Yes</span>
                                         @else
                                             <span class='label label-danger'>Expired</span>
@@ -86,7 +90,10 @@
                     </table>
                 </div>
             </div>
-            <div class="text-center">{{ $warnings->links() }}</div>
+            </div>
+            <div class="text-center">
+                {{ $warnings->links() }}
+            </div>
         </div>
     </div>
 @endsection

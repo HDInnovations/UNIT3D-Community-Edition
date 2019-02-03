@@ -1,9 +1,23 @@
+# NodeJS
+/node_modules
+
 # Laravel
 
-/node_modules
+# Ignore everything in the public/files directory EXCEPT the .gitkeep
+/public/files
+!.gitkeep
+
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/tmp
+/public/fonts/fa-*
+/public/img/emojione
+/public/images
 /storage/backups
+/storage/gitupdate
 /storage/*.key
 /vendor
 /.vagrant
@@ -13,12 +27,13 @@ npm-debug.log
 .env
 laravel-echo-server.json
 
-# IntelliJ
+# OS X
+.DS_store
 
+# IDEs
 /.idea
+/.vscode
+/nbproject
 
 # Vim
 .*.swp
-/public/tmp/
-
-*.DS_Store

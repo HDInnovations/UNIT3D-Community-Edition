@@ -3,25 +3,29 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.vote-that') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('request.vote-that')!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('add_votes',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.enter-bp') }}.</p>
+                @csrf
+                <div class="modal-body text-center">
+                    <p>@lang('request.enter-bp')</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
                         <input type="number" tabindex="3" name='bonus_value' min='100' value="100">
+                        <p>Anonymous Bounty?</p>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="anon" value="0" checked>@lang('common.no')</label>
+                        </div>
                     </fieldset>
                     <br>
                     <div class="btns">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" @if($user->seedbonus < 100) disabled
-                                title='{{ trans('request.dont-have-bps') }}'
-                                @endif class="btn btn-success">{{ trans('request.vote') }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.cancel')</button>
+                        <button type="submit" @if ($user->seedbonus < 100) disabled title='@lang('request.dont-have-bps')' @endif class="btn btn-success">@lang('request.vote')</button>
                     </div>
                 </div>
             </form>
@@ -34,24 +38,29 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i> {{ trans('request.fill-request') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i> @lang('request.fill-request')!</h2>
             </div>
             <form role="form" method="POST" action="{{ route('fill_request',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.enter-hash') }}.</p>
+                @csrf
+                <div class="modal-body text-center">
+                    <p>@lang('request.enter-hash').</p>
                     <fieldset>
                         <input type='hidden' tabindex='3' name='request_id' value='{{ $torrentRequest->id }}'>
-                        <input type="text" tabindex="3" name='info_hash'
-                               placeholder="{{ trans('request.torrent-hash') }}">
+                        <input type="text" tabindex="3" name='info_hash' placeholder="@lang('request.torrent-hash')">
+                        <p>Anonymous Fill?</p>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="filled_anon" value="1">@lang('common.yes')</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="filled_anon" value="0" checked>@lang('common.no')</label>
+                        </div>
                     </fieldset>
                     <br>
                     <div class="btns">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" class="btn btn-success">{{ trans('request.fill') }}</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">@lang('common.cancel')</button>
+                        <button type="submit" class="btn btn-success">@lang('request.fill')</button>
                     </div>
                 </div>
             </form>
@@ -64,20 +73,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.reset-request') }}!</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('request.reset-request')!</h2>
             </div>
-            <form role="form" method="POST" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+            <form role="form" method="GET" action="{{ route('resetRequest',['id' => $torrentRequest->id]) }}">
+                @csrf
                 <div class="modal-body">
-                    <p class="text-center">{{ trans('request.reset-confirmation') }}?</p>
+                    <p class="text-center">@lang('request.reset-confirmation')?</p>
                     <div class="btns">
                         <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                                data-dismiss="modal">@lang('common.cancel')</button>
                         <button type="submit"
-                                @if(!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
-                                @endif class="btn btn-warning">{{ trans('request.reset') }}</button>
+                                @if (!$user->group->is_modo || $torrentRequest->filled_hash == null) disabled
+                                @endif class="btn btn-warning">@lang('request.reset')</button>
                     </div>
                 </div>
             </form>
@@ -90,22 +99,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.delete') }}</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('request.delete')</h2>
             </div>
             <form role="form" method="POST" action="{{ route('deleteRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
+                @csrf
                 <div class="modal-body">
-                    <p class="text-center">{{ trans('request.delete-confirmation') }}?</p>
+                    <p class="text-center">@lang('request.delete-confirmation')?</p>
                     <fieldset>
-                        <p>{{ trans('request.delete-filled') }}.</p>
+                        <p>@lang('request.delete-filled').</p>
                     </fieldset>
                     <div class="btns">
                         <button type="button" class="btn btn-default"
-                                data-dismiss="modal">{{ trans('common.cancel') }}</button>
-                        <button type="submit" @if($torrentRequest->filled_hash != null) disabled
-                                @endif class="btn btn-warning">{{ trans('common.delete') }}</button>
+                                data-dismiss="modal">@lang('common.cancel')</button>
+                        <button type="submit" @if ($torrentRequest->filled_hash != null) disabled
+                                @endif class="btn btn-warning">@lang('common.delete')</button>
                     </div>
                 </div>
             </form>
@@ -118,30 +127,30 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">&times;</span></button>
-                <h2><i class="fa fa-thumbs-up"></i>{{ trans('request.claim') }}</h2>
+                <h2><i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>@lang('request.claim')</h2>
             </div>
             <form role="form" method="POST" action="{{ route('claimRequest',['id' => $torrentRequest->id]) }}">
-                {{ csrf_field() }}
-                <div class="modal-body">
-                    <p class="text-center">{{ trans('request.claim-as-anon') }}?</p>
+                @csrf
+                <div class="modal-body text-center">
+                    <p>@lang('request.claim-as-anon')?</p>
                     <br>
                     <fieldset>
-                        <p>{{ trans('request.claim-anon-choose') }}</p>
+                        <p>@lang('request.claim-anon-choose')</p>
                         <div class="radio-inline">
-                            <label><input type="radio" name="anon" value="1">{{ trans('request.yes') }}</label>
+                            <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
                         </div>
                         <div class="radio-inline">
-                            <label><input type="radio" name="anon" value="0" checked>{{ trans('request.no') }}</label>
+                            <label><input type="radio" name="anon" value="0" checked>@lang('common.no')</label>
                         </div>
                     </fieldset>
                     <br>
                     <div class="text-center">
                         <div class="btns">
-                            <button type="submit" class="btn btn-success">{{ trans('request.claim-now') }}!</button>
+                            <button type="submit" class="btn btn-success">@lang('request.claim-now')!</button>
                             <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">{{ trans('common.cancel') }}</button>
+                                    data-dismiss="modal">@lang('common.cancel')</button>
                         </div>
                     </div>
                 </div>
@@ -155,40 +164,39 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <meta charset="utf-8">
-            <title>{{ trans('request.report') }}: {{ $torrentRequest->name }}</title>
+            <title>@lang('request.report'): {{ $torrentRequest->name }}</title>
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('common.close') }}"><span
+                <button type="button" class="close" data-dismiss="modal" aria-label="@lang('common.close')"><span
                             aria-hidden="true">×</span></button>
-                <h4 class="modal-title" id="myModalLabel">{{ trans('request.report') }}
+                <h4 class="modal-title" id="myModalLabel">@lang('request.report')
                     : {{ $torrentRequest->name }}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" role="form" method="POST" action="{{ route('postReport') }}">
-                    {{ csrf_field() }}
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('report_request', ['id' => $torrentRequest->id]) }}">
+                    @csrf
                     <div class="form-group">
-                        <input id="type" name="type" type="hidden" value="Request">
-                        <label for="file_name" class="col-sm-2 control-label">{{ trans('request.request') }}</label>
+                        <label for="file_name" class="col-sm-2 control-label">@lang('request.request')</label>
                         <div class="col-sm-10">
                             <input id="title" name="title" type="hidden" value="{{ $torrentRequest->name }}">
                             <p class="form-control-static">{{ $torrentRequest->name }}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="report_reason" class="col-sm-2 control-label">{{ trans('request.reason') }}</label>
+                        <label for="report_reason" class="col-sm-2 control-label">@lang('request.reason')</label>
                         <div class="col-sm-10">
                             <textarea class="form-control" rows="5" name="message" cols="50" id="message"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10 col-sm-offset-2">
-                            <input class="btn btn-danger" type="submit" value="{{ trans('request.report') }}">
+                            <input class="btn btn-danger" type="submit" value="@lang('request.report')">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button"
-                        data-dismiss="modal">{{ trans('common.close') }}</button>
+                        data-dismiss="modal">@lang('common.close')</button>
             </div>
         </div>
     </div>
