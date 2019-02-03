@@ -1,17 +1,18 @@
 <p align="center">
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
     <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
 <p align="center">
-    💛<b>A Big Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a> and Patrons</b>💛
+    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and Patrons</b>💛
 </p>
 <hr>
 
 <p align="center">
 <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.7.24-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
-<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>	
+<a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
+<a href="#contributors"><img src="https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square"></a>
+<a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
+<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
 </p>
 
 
@@ -32,7 +33,8 @@
 11. [Homestead (For local developement)](#homestead)
 12. [Demo](#demo)
 13. [Donate](#donate)
-14. [Special Thanks](#thanks)
+14. [Contributors](#contributors)
+15. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
@@ -175,10 +177,7 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
-## <a name="thanks"></a> :blue_heart: Special Thanks
-
-<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
-## Contributors
+## <a name="contributors"></a> :blue_heart: Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
 
@@ -188,4 +187,6 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## <a name="thanks"></a> :heart: Special Thanks
+
+<a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
