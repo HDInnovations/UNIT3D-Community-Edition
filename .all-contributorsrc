@@ -35,6 +35,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "VerioPL",
+      "name": "VerioPL",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/24521644?v=4",
+      "profile": "https://github.com/VerioPL",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7
