@@ -1,0 +1,23 @@
+{
+  "projectName": "UNIT3D",
+  "projectOwner": "HDInnovations",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "HDVinnie",
+      "name": "HDVinnie",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12850699?v=4",
+      "profile": "https://github.com/HDVinnie",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
