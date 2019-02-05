@@ -1,7 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>Application - {{ config('other.title') }}</title>
+    <title>Application - Staff Dashboard - {{ config('other.title') }}</title>
+@endsection
+
+@section('meta')
+    <meta name="description" content="Application - Staff Dashboard">
 @endsection
 
 @section('breadcrumb')
@@ -123,6 +127,8 @@
                             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#approve-application"><i class="{{ config('other.font-awesome') }} fa-check"></i> Approve</button>
 
                             <div id="approve-application" class="modal fade" role="dialog">
+                                <form method="post" action="{{ route('staff.applications.approve', ['id' => $application->id]) }}">
+                                @csrf
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -130,21 +136,29 @@
                                             <h4 class="modal-title">Approve This Application</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea title="Approval Message To Applicant" class="form-control" rows="5" cols="50" name="approve_message"></textarea>
+                                            <input id="email" name="email" type="hidden" value="{{ $application->email }}">
+                                            <div class="form-group">
+                                                <label for="message">@lang('common.message')</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="5" cols="50" name="approve" id="approve"></textarea>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="{{ route('staff.applications.approve', ['id' => $application->id]) }}"
-                                               class="btn btn-success">
+                                            <button class="btn btn-success" type="submit">
                                                 <i class="{{ config('other.font-awesome') }} fa-check"></i> Approve
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
 
                             <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deny-application"><i class="{{ config('other.font-awesome') }} fa-times"></i> Reject</button>
 
                             <div id="deny-application" class="modal fade" role="dialog">
+                                <form method="post" action="{{ route('staff.applications.reject', ['id' => $application->id]) }}">
+                                @csrf
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -152,17 +166,24 @@
                                             <h4 class="modal-title">Deny This Application</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <textarea title="Denied Message To Applicant" class="form-control" rows="5" cols="50" name="denied_message"></textarea>
+                                            <input id="email" name="email" type="hidden" value="{{ $application->email }}">
+                                            <div class="form-group">
+                                                <label for="message">@lang('common.message')</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="5" cols="50" name="deny" id="deny"></textarea>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <a href="{{ route('staff.applications.reject', ['id' => $application->id]) }}"
-                                               class="btn btn-danger">
+                                            <button class="btn btn-danger" type="submit">
                                                 <i class="{{ config('other.font-awesome') }} fa-times"></i> Reject
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
+
                         </td>
                     </tr>
                     @endif

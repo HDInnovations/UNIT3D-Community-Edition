@@ -623,7 +623,7 @@ Route::group(['middleware' => 'language'], function () {
         // Applications System
         Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
         Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
-        Route::get('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
-        Route::get('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
+        Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+        Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
     });
 });
