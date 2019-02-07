@@ -110,7 +110,7 @@ class ForumController extends Controller
             $result->where([['topics.name', 'like', '%'.$request->input('name').'%']]);
         }
         if ($request->has('subscribed') && $request->input('subscribed') == 1) {
-            $result->where(function ($query) use ($topic_neos,$forum_neos) {
+            $result->where(function ($query) use ($topic_neos, $forum_neos) {
                 $query->whereIn('topics.id', $topic_neos)->orWhereIn('topics.forum_id', $forum_neos);
             });
         } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
@@ -151,7 +151,7 @@ class ForumController extends Controller
             if ($category > 0 && $category < 99999999999) {
                 $children = Forum::where('parent_id', '=', $category)->get()->toArray();
                 if (is_array($children)) {
-                    $result->where(function ($query) use ($category,$children) {
+                    $result->where(function ($query) use ($category, $children) {
                         $query->where('topics.forum_id', '=', $category)->orWhereIn('topics.forum_id', $children);
                     });
                 }
@@ -198,8 +198,7 @@ class ForumController extends Controller
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
                 'params'     => $params,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -229,7 +228,7 @@ class ForumController extends Controller
         }
 
         $logger = 'forum.subscriptions';
-        $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
+        $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos, $forum_neos) {
             $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
         })->groupBy('forums.id');
 
@@ -256,8 +255,7 @@ class ForumController extends Controller
                 'params'     => $params,
                 'forum_neos' => $forum_neos,
                 'topic_neos' => $topic_neos,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -291,8 +289,7 @@ class ForumController extends Controller
                 'num_posts'  => $num_posts,
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -326,8 +323,7 @@ class ForumController extends Controller
                 'num_posts'  => $num_posts,
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
-            ]
-        );
+            ]);
     }
 
     /**

@@ -91,7 +91,7 @@ class UserNotification extends Model
      */
     public function setDefaultValues($type = 'default')
     {
-        foreach ($this->casts as $k=>$v) {
+        foreach ($this->casts as $k => $v) {
             if ($v == 'array') {
                 $this->$k = $this->expected_groups;
             }
