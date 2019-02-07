@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Image;
 use App\Ban;
 use App\Peer;

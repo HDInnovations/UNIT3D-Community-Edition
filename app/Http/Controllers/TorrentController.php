@@ -1076,7 +1076,7 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
-            \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
+            Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
             return redirect()->back()
                 ->with($this->toastr->error('Unable to delete Torrent', 'Error', ['options']));
