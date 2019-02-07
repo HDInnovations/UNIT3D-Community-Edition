@@ -55,7 +55,7 @@ class MassPMController extends Controller
      */
     public function sendMassPM(Request $request)
     {
-        $staff = auth()->user();
+        $staff = $request->user();
         $users = User::all();
 
         $sender_id = 1;

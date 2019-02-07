@@ -42,7 +42,7 @@ class SubscriptionController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function subscribeTopic(string $route, Topic $topic)
+    public function subscribeTopic(\Illuminate\Http\Request $request, string $route, Topic $topic)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -53,9 +53,9 @@ class SubscriptionController extends Controller
             $params = ['slug' => $topic->slug, 'id' => $topic->id];
         }
 
-        if (! auth()->user()->isSubscribed('topic', $topic->id)) {
+        if (! $request->user()->isSubscribed('topic', $topic->id)) {
             $subscription = new Subscription();
-            $subscription->user_id = auth()->user()->id;
+            $subscription->user_id = $request->user()->id;
             $subscription->topic_id = $topic->id;
             $subscription->save();
 
@@ -74,7 +74,7 @@ class SubscriptionController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unsubscribeTopic(string $route, Topic $topic)
+    public function unsubscribeTopic(\Illuminate\Http\Request $request, string $route, Topic $topic)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -85,8 +85,8 @@ class SubscriptionController extends Controller
             $params = ['slug' => $topic->slug, 'id' => $topic->id];
         }
 
-        if (auth()->user()->isSubscribed('topic', $topic->id)) {
-            $subscription = auth()->user()->subscriptions()->where('topic_id', '=', $topic->id)->first();
+        if ($request->user()->isSubscribed('topic', $topic->id)) {
+            $subscription = $request->user()->subscriptions()->where('topic_id', '=', $topic->id)->first();
             $subscription->delete();
 
             return redirect()->route($logger, $params)
@@ -104,7 +104,7 @@ class SubscriptionController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function subscribeForum(string $route, Forum $forum)
+    public function subscribeForum(\Illuminate\Http\Request $request, string $route, Forum $forum)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -115,9 +115,9 @@ class SubscriptionController extends Controller
             $params = ['slug' => $forum->slug, 'id' => $forum->id];
         }
 
-        if (! auth()->user()->isSubscribed('forum', $forum->id)) {
+        if (! $request->user()->isSubscribed('forum', $forum->id)) {
             $subscription = new Subscription();
-            $subscription->user_id = auth()->user()->id;
+            $subscription->user_id = $request->user()->id;
             $subscription->forum_id = $forum->id;
             $subscription->save();
 
@@ -136,7 +136,7 @@ class SubscriptionController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unsubscribeForum(string $route, Forum $forum)
+    public function unsubscribeForum(\Illuminate\Http\Request $request, string $route, Forum $forum)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -147,8 +147,8 @@ class SubscriptionController extends Controller
             $params = ['slug' => $forum->slug, 'id' => $forum->id];
         }
 
-        if (auth()->user()->isSubscribed('forum', $forum->id)) {
-            $subscription = auth()->user()->subscriptions()->where('forum_id', '=', $forum->id)->first();
+        if ($request->user()->isSubscribed('forum', $forum->id)) {
+            $subscription = $request->user()->subscriptions()->where('forum_id', '=', $forum->id)->first();
             $subscription->delete();
 
             return redirect()->route($logger, $params)

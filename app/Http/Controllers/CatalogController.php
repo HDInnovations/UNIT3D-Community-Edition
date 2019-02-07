@@ -39,9 +39,9 @@ class CatalogController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function catalog($slug, $id)
+    public function catalog(\Illuminate\Http\Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $catalog = Catalog::findOrFail($id);
         $records = CatalogTorrent::where('catalog_id', '=', $id)->latest('imdb')->get();
 
@@ -59,9 +59,9 @@ class CatalogController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents($imdb)
+    public function torrents(\Illuminate\Http\Request $request, $imdb)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $torrents = Torrent::where('imdb', '=', $imdb)->latest('size')->get();
 
         return view('catalogs.torrents', ['torrents' => $torrents, 'user' => $user]);

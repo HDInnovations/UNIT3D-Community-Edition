@@ -29,7 +29,7 @@ class CheckForModo
      */
     public function handle($request, Closure $next)
     {
-        if (! auth()->check() || ! auth()->user()->group->is_modo) {
+        if (! auth()->check() || ! $request->user()->group->is_modo) {
             throw new NotFoundHttpException();
         }
 

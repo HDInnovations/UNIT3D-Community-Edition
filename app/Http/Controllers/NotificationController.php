@@ -39,9 +39,9 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function get()
+    public function get(\Illuminate\Http\Request $request)
     {
-        $notification = auth()->user()->notifications()->paginate(25);
+        $notification = $request->user()->notifications()->paginate(25);
 
         return view('notification.notifications', ['notification' => $notification]);
     }
@@ -53,9 +53,9 @@ class NotificationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function show($id)
+    public function show(\Illuminate\Http\Request $request, $id)
     {
-        $notification = auth()->user()->notifications()->findOrFail($id);
+        $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
         return redirect($notification->data['url'])->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
@@ -68,9 +68,9 @@ class NotificationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function read($id)
+    public function read(\Illuminate\Http\Request $request, $id)
     {
-        auth()->user()->unreadNotifications()->findOrFail($id)->markAsRead();
+        $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
 
         return redirect()->route('get_notifications')
             ->with($this->toastr->success('Notification Marked As Read!', 'Yay!', ['options']));
@@ -81,10 +81,10 @@ class NotificationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function massRead()
+    public function massRead(\Illuminate\Http\Request $request)
     {
         $current = new Carbon();
-        auth()->user()->unreadNotifications()->update(['read_at' => $current]);
+        $request->user()->unreadNotifications()->update(['read_at' => $current]);
 
         return redirect()->route('get_notifications')
             ->with($this->toastr->success('All Notifications Marked As Read!', 'Yay!', ['options']));
@@ -97,9 +97,9 @@ class NotificationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($id)
+    public function delete(\Illuminate\Http\Request $request, $id)
     {
-        auth()->user()->notifications()->findOrFail($id)->delete();
+        $request->user()->notifications()->findOrFail($id)->delete();
 
         return redirect()->route('get_notifications')
             ->with($this->toastr->success('Notification Deleted!', 'Yay!', ['options']));
@@ -110,9 +110,9 @@ class NotificationController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteAll()
+    public function deleteAll(\Illuminate\Http\Request $request)
     {
-        auth()->user()->notifications()->delete();
+        $request->user()->notifications()->delete();
 
         return redirect()->route('get_notifications')
             ->with($this->toastr->success('All Notifications Deleted!', 'Yay!', ['options']));

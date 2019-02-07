@@ -44,9 +44,9 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invite()
+    public function invite(\Illuminate\Http\Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         if (config('other.invite-only') == false) {
             return redirect()->route('home')
@@ -74,7 +74,7 @@ class InviteController extends Controller
     public function process(Request $request)
     {
         $current = new Carbon();
-        $user = auth()->user();
+        $user = $request->user();
 
         if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home')
@@ -143,9 +143,9 @@ class InviteController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reProcess($id)
+    public function reProcess(\Illuminate\Http\Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $invite = Invite::findOrFail($id);
 
         abort_unless($invite->user_id === $user->id, 403);
@@ -172,9 +172,9 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invites($username, $id)
+    public function invites(\Illuminate\Http\Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $owner = User::findOrFail($id);
         abort_unless($user->group->is_modo || $user->id === $owner->id, 403);
 

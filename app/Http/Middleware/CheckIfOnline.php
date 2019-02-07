@@ -29,7 +29,7 @@ class CheckIfOnline
      */
     public function handle($request, Closure $next)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
 
         if (auth()->check() && $user->group_id != $bannedGroup->id) {

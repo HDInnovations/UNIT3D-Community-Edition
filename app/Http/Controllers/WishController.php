@@ -73,7 +73,7 @@ class WishController extends Controller
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
-                ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
+                ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
                 ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
         }
 
@@ -88,7 +88,7 @@ class WishController extends Controller
         ]);
 
         return redirect()
-            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
+            ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Added!', 'Yay!', ['options']));
     }
 
@@ -100,12 +100,12 @@ class WishController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($uid, $id)
+    public function destroy(\Illuminate\Http\Request $request, $uid, $id)
     {
         $this->wish->delete($id);
 
         return redirect()
-            ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
+            ->route('user_wishlist', ['slug' => $request->user()->slug, 'id' => $uid])
             ->with($this->toastr->success('Wish Successfully Removed!', 'Yay!', ['options']));
     }
 }

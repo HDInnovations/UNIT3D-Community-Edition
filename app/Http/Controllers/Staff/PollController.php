@@ -87,7 +87,7 @@ class PollController extends Controller
      */
     public function store(StorePoll $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         if (auth()->check()) {
             $poll = $user->polls()->create($request->all());

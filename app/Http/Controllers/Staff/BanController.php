@@ -65,10 +65,10 @@ class BanController extends Controller
     public function ban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $bannedGroup->id;
         $user->can_upload = 0;
@@ -117,9 +117,9 @@ class BanController extends Controller
     public function unban(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
-        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_if($user->group->is_modo || $request->user()->id == $user->id, 403);
 
         $user->group_id = $request->input('group_id');
         $user->can_upload = 1;

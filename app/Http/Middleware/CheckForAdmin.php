@@ -28,7 +28,7 @@ class CheckForAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (! auth()->check() || ! auth()->user()->group->is_admin) {
+        if (! auth()->check() || ! $request->user()->group->is_admin) {
             throw new NotFoundHttpException();
         }
 

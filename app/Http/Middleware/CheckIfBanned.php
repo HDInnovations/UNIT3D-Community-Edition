@@ -45,7 +45,7 @@ class CheckIfBanned
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
 
         if ($user && $user->group_id == $bannedGroup->id) {

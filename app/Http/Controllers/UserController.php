@@ -193,10 +193,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editProfileForm($username, $id)
+    public function editProfileForm(\Illuminate\Http\Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->id == $id, 403);
-        $user = auth()->user();
+        abort_unless($request->user()->id == $id, 403);
+        $user = $request->user();
 
         return view('user.edit_profile', ['user' => $user, 'route' => 'edit']);
     }
@@ -212,8 +212,8 @@ class UserController extends Controller
      */
     public function editProfile(Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->id == $id, 403);
-        $user = auth()->user();
+        abort_unless($request->user()->id == $id, 403);
+        $user = $request->user();
         // Avatar
         $max_upload = config('image.max_upload_size');
         if ($request->hasFile('image') && $request->file('image')->getError() == 0) {
@@ -264,10 +264,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function settings($slug, $id)
+    public function settings(\Illuminate\Http\Request $request, $slug, $id)
     {
-        abort_unless(auth()->user()->id == $id, 403);
-        $user = auth()->user();
+        abort_unless($request->user()->id == $id, 403);
+        $user = $request->user();
 
         return view('user.settings', ['user' => $user, 'route' => 'settings']);
     }
@@ -283,8 +283,8 @@ class UserController extends Controller
      */
     public function changeSettings(Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->id == $id, 403);
-        $user = auth()->user();
+        abort_unless($request->user()->id == $id, 403);
+        $user = $request->user();
 
         // General Settings
         $user->censor = $request->input('censor');
@@ -323,9 +323,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function security($slug, $id)
+    public function security(\Illuminate\Http\Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         return view('user.security', ['user' => $user]);
     }
@@ -436,7 +436,7 @@ class UserController extends Controller
      */
     public function makePrivate(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->private_profile = 1;
         $user->save();
 
@@ -455,7 +455,7 @@ class UserController extends Controller
      */
     public function makePublic(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->private_profile = 0;
         $user->save();
 
@@ -474,7 +474,7 @@ class UserController extends Controller
      */
     public function disableNotifications(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->block_notifications = 1;
         $user->save();
 
@@ -493,7 +493,7 @@ class UserController extends Controller
      */
     public function enableNotifications(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->block_notifications = 0;
         $user->save();
 
@@ -512,7 +512,7 @@ class UserController extends Controller
      */
     public function makeHidden(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->hidden = 1;
         $user->save();
 
@@ -531,7 +531,7 @@ class UserController extends Controller
      */
     public function makeVisible(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->hidden = 0;
         $user->save();
 
@@ -550,7 +550,7 @@ class UserController extends Controller
      */
     public function changePID(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->passkey = md5(uniqid().time().microtime());
         $user->save();
 
@@ -1038,7 +1038,7 @@ class UserController extends Controller
      */
     public function changeRID(Request $request, $username, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $user->rsskey = md5(uniqid().time().microtime());
         $user->save();
 
@@ -1057,9 +1057,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function privacy($slug, $id)
+    public function privacy(\Illuminate\Http\Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return view('user.privacy', ['user' => $user, 'groups'=> $groups]);
@@ -1073,9 +1073,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function notification($slug, $id)
+    public function notification(\Illuminate\Http\Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $groups = Group::where('level', '>', 0)->orderBy('level', 'desc')->get();
 
         return view('user.notification', ['user' => $user, 'groups'=> $groups]);
@@ -1089,11 +1089,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clients($username, $id)
+    public function clients(\Illuminate\Http\Request $request, $username, $id)
     {
         $user = User::where('id', '=', $id)->firstOrFail();
 
-        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $cli = Client::where('user_id', '=', $user->id)->get();
 
@@ -1185,9 +1185,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getWarnings($username, $id)
+    public function getWarnings(\Illuminate\Http\Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
         $user = User::findOrFail($id);
         $warnings = Warning::where('user_id', '=', $user->id)->with(['torrenttitle', 'warneduser'])->latest('active')->paginate(25);
@@ -1212,10 +1212,10 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deactivateWarning($id)
+    public function deactivateWarning(\Illuminate\Http\Request $request, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
-        $staff = auth()->user();
+        abort_unless($request->user()->group->is_modo, 403);
+        $staff = $request->user();
         $warning = Warning::findOrFail($id);
         $warning->expires_on = Carbon::now();
         $warning->active = 0;
@@ -1243,10 +1243,10 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deactivateAllWarnings($username, $id)
+    public function deactivateAllWarnings(\Illuminate\Http\Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
-        $staff = auth()->user();
+        abort_unless($request->user()->group->is_modo, 403);
+        $staff = $request->user();
         $user = User::findOrFail($id);
 
         $warnings = Warning::where('user_id', '=', $user->id)->get();
@@ -1279,11 +1279,11 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteWarning($id)
+    public function deleteWarning(\Illuminate\Http\Request $request, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
-        $staff = auth()->user();
+        $staff = $request->user();
         $warning = Warning::findOrFail($id);
 
         // Send Private Message
@@ -1312,11 +1312,11 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteAllWarnings($username, $id)
+    public function deleteAllWarnings(\Illuminate\Http\Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
-        $staff = auth()->user();
+        $staff = $request->user();
         $user = User::findOrFail($id);
 
         $warnings = Warning::where('user_id', '=', $user->id)->get();
@@ -1349,11 +1349,11 @@ class UserController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function restoreWarning($id)
+    public function restoreWarning(\Illuminate\Http\Request $request, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
-        $staff = auth()->user();
+        $staff = $request->user();
         $warning = Warning::findOrFail($id);
         $warning->restore();
 
@@ -1376,7 +1376,7 @@ class UserController extends Controller
     public function myFilter(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         if ($request->has('view') && $request->input('view') == 'seeds') {
             $history = Peer::with(['torrent' => function ($query) {
@@ -1829,11 +1829,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function wishes($slug, $id)
+    public function wishes(\Illuminate\Http\Request $request, $slug, $id)
     {
         $user = User::with('wishes')->where('id', '=', $id)->firstOrFail();
 
-        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $wishes = $user->wishes()->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
@@ -1851,11 +1851,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bookmarks($slug, $id)
+    public function bookmarks(\Illuminate\Http\Request $request, $slug, $id)
     {
         $user = User::with('bookmarks')->where('id', '=', $id)->firstOrFail();
 
-        abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
+        abort_unless(($request->user()->group->is_modo || $request->user()->id == $user->id), 403);
 
         $bookmarks = $user->bookmarks()->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
@@ -1876,10 +1876,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function downloads($slug, $id)
+    public function downloads(\Illuminate\Http\Request $request, $slug, $id)
     {
         $user = User::findOrFail($id);
-        if ((auth()->user()->id == $user->id || auth()->user()->group->is_modo)) {
+        if (($request->user()->id == $user->id || $request->user()->group->is_modo)) {
             $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
             $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
             $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
@@ -1947,11 +1947,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function unsatisfieds($username, $id)
+    public function unsatisfieds(\Illuminate\Http\Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
 
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
@@ -1995,11 +1995,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents($username, $id)
+    public function torrents(\Illuminate\Http\Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
 
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
@@ -2027,10 +2027,10 @@ class UserController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function resurrections($slug, $id)
+    public function resurrections(\Illuminate\Http\Request $request, $slug, $id)
     {
         $user = User::findOrFail($id);
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
         $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
         $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
@@ -2056,10 +2056,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function uploads($slug, $id)
+    public function uploads(\Illuminate\Http\Request $request, $slug, $id)
     {
         $user = User::findOrFail($id);
-        if (auth()->user()->id == $user->id || auth()->user()->group->is_modo) {
+        if ($request->user()->id == $user->id || $request->user()->group->is_modo) {
             $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
             $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
             $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
@@ -2098,11 +2098,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function active($username, $id)
+    public function active(\Illuminate\Http\Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
 
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
@@ -2134,11 +2134,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function seeds($username, $id)
+    public function seeds(\Illuminate\Http\Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
 
-        abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->group->is_modo || $request->user()->id == $user->id, 403);
 
         $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
         $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
@@ -2169,9 +2169,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getBans($username, $id)
+    public function getBans(\Illuminate\Http\Request $request, $username, $id)
     {
-        abort_unless(auth()->user()->group->is_modo, 403);
+        abort_unless($request->user()->group->is_modo, 403);
 
         $user = User::findOrFail($id);
         $bans = Ban::where('owned_by', '=', $user->id)->latest()->get();
@@ -2190,7 +2190,7 @@ class UserController extends Controller
      *
      * @return \ZipArchive
      */
-    public function downloadHistoryTorrents($username, $id)
+    public function downloadHistoryTorrents(\Illuminate\Http\Request $request, $username, $id)
     {
         //  Extend The Maximum Execution Time
         set_time_limit(300);
@@ -2208,7 +2208,7 @@ class UserController extends Controller
             return back()->with($this->toastr->error('Your Download Rights Have Been Revoked!!!', 'Whoops!', ['options']));
         }
 
-        abort_unless(auth()->user()->id == $user->id, 403);
+        abort_unless($request->user()->id == $user->id, 403);
         // Define Dir Folder
         $path = getcwd().'/files/tmp_zip/';
 
