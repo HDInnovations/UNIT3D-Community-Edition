@@ -22,7 +22,6 @@ class BonTransactions extends Model
      *
      * @var string
      */
-    protected $table = 'bon_transactions';
 
     /**
      * Indicates If The Model Should Be Timestamped.

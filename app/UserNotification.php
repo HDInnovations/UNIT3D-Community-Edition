@@ -29,7 +29,6 @@ class UserNotification extends Model
      *
      * @var string
      */
-    protected $table = 'user_notifications';
 
     /**
      * The Attributes That Should Be Cast To Native Values.
