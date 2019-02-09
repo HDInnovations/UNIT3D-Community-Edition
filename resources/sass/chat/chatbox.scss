@@ -2,7 +2,7 @@
     height: 92vh;
     min-height: 300px;
     max-height: 590px;
-    background: #e6eaea;
+    background: #E6EAEA;
     #sidepanel {
         float: left;
         min-width: 280px;
@@ -27,8 +27,8 @@
                     -o-transform: scaleY(-1);
                     -webkit-transform: scaleY(-1);
                     transform: scaleY(-1);
-                    filter: 'FlipH';
-                    -ms-filter: 'FlipH';
+                    filter: "FlipH";
+                    -ms-filter: "FlipH";
                 }
             }
             .wrap {
@@ -209,7 +209,7 @@
                 margin: 10px 0 0 20px;
             }
             input {
-                font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+                font-family: "proxima-nova", "Source Sans Pro", sans-serif;
                 padding: 10px 0 10px 46px;
                 width: calc(100% - 25px);
                 border: none;
@@ -219,10 +219,7 @@
                     outline: none;
                     background: #435f7a;
                 }
-                &::-webkit-input-placeholder,
-                &::-moz-placeholder,
-                &:-ms-input-placeholder,
-                &:-moz-placeholder {
+                &::-webkit-input-placeholder, &::-moz-placeholder, &:-ms-input-placeholder, &:-moz-placeholder {
                     color: #f5f5f5;
                 }
             }
@@ -308,7 +305,7 @@
                                 border: none;
                                 padding: 0 2px 0 0;
                                 margin: 0 0 0 1px;
-                                opacity: 0.5;
+                                opacity: .5;
                             }
                         }
                     }
@@ -328,7 +325,7 @@
                 color: #f5f5f5;
                 cursor: pointer;
                 font-size: 0.85em;
-                font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+                font-family: "proxima-nova", "Source Sans Pro", sans-serif;
                 &:focus {
                     outline: none;
                 }
@@ -401,13 +398,40 @@
                     display: block;
                     border-bottom: 1px dashed #dddddd;
 
+                    h4 {
+                        i {
+                            &.fa {
+                                &:first-child {
+                                    margin: 0;
+                                }
+
+                                margin-left: 5px;
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+
                     &:nth-last-child(1) {
                         margin-bottom: 20px;
                     }
 
                     &.sent {
+
+                        &.pm {
+                            border-top: 1px #383e42 dashed !important;
+                            border-bottom: 1px #383e42 dashed !important;
+                            background-color: #ffffff !important;
+
+                            .pm-container {
+                                margin-left: 20px;
+                            }
+                        }
+
                         h4 {
-                            margin: 0.25em;
+                            margin: .25em;
 
                             .text-muted {
                                 color: #262929;
@@ -418,6 +442,11 @@
                         img {
                             padding: 10px;
 
+                            &.emojione {
+                                padding: 0;
+                                margin: 0 5px 2px;
+                            }
+
                             &.chat-user-image {
                                 border: 3px solid #7289da;
                                 margin-right: 10px;
@@ -426,32 +455,26 @@
                                 border-radius: 50%;
                                 float: left;
                             }
+
                         }
 
-                        .messages-container {
-                            color: #2c4151;
-                            width: 100%;
-                            max-width: 100%;
-                            line-height: 130%;
-                            font-size: 14pt;
+                        color: #2C4151;
+                        width: 100%;
+                        max-width: 100%;
+                        line-height: 130%;
+                        font-size: 14pt;
 
-                            &.system {
-                                font-size: 12pt;
-                                color: #939393;
-                                padding: 0;
-                                margin: 0;
-                            }
-
-                            img {
-                                &.emojione {
-                                    padding: 0;
-                                    margin: 0 5px 2px;
-                                }
-                            }
+                        .system {
+                            font-size: 12pt;
+                            color: #939393;
+                            padding: 0;
+                            margin: 0;
                         }
+
                     }
                 }
             }
+
         }
         .message-input {
             position: absolute;
@@ -468,7 +491,7 @@
                 }
 
                 input {
-                    font-family: 'proxima-nova', 'Source Sans Pro', sans-serif;
+                    font-family: "proxima-nova", "Source Sans Pro", sans-serif;
                     float: left;
                     border: none;
                     width: calc(100% - 90px);
@@ -486,7 +509,7 @@
                     margin-top: 10px;
                     font-size: 1.1em;
                     color: #435f7a;
-                    opacity: 0.5;
+                    opacity: .5;
                     cursor: pointer;
                     &:hover {
                         opacity: 1;
@@ -512,4 +535,4 @@
     }
 }
 
-@import './_media-querys';
+@import "./_media-querys";

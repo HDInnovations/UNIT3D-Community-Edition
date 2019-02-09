@@ -8,7 +8,7 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     HDVinnie
+ * @author     singularity43
  */
 
 namespace App\Events;
@@ -16,13 +16,12 @@ namespace App\Events;
 use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use App\Http\Resources\ChatMessageResource;
-use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class MessageEdited implements ShouldBroadcastNow
+class Chatter implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,17 +30,33 @@ class MessageEdited implements ShouldBroadcastNow
      *
      * @var Message
      */
+    public $echoes;
+    public $target;
+    public $type;
     public $message;
+    public $ping;
+    public $audibles;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Message $message)
+    public function __construct($type, $target, $payload)
     {
-        $message = Message::with(['bot', 'user.group', 'user.chatStatus'])->find($message->id);
-        $this->message = new ChatMessageResource($message);
+        $this->type = $type;
+        if ($type == 'echo') {
+            $this->echoes = $payload;
+        } elseif ($type == 'audible') {
+            $this->audibles = $payload;
+        } elseif ($type == 'new.message') {
+            $this->message = $payload;
+        } elseif ($type == 'new.bot') {
+            $this->message = $payload;
+        } elseif ($type == 'new.ping') {
+            $this->ping = $payload;
+        }
+        $this->target = $target;
     }
 
     /**
@@ -53,11 +68,6 @@ class MessageEdited implements ShouldBroadcastNow
     {
         // $this->dontBroadcastToCurrentUser();
 
-        return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
-    }
-
-    public function broadcastAs()
-    {
-        return 'edit.message';
+        return new PrivateChannel('chatter.'.$this->target);
     }
 }

@@ -13,35 +13,29 @@
 
 namespace App\Events;
 
-use App\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
-use App\Http\Resources\ChatMessageResource;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class MessageEdited implements ShouldBroadcastNow
+class Ping implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Message details.
-     *
-     * @var Message
-     */
-    public $message;
+    public $room;
+    public $ping;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Message $message)
+    public function __construct($room, $id)
     {
-        $message = Message::with(['bot', 'user.group', 'user.chatStatus'])->find($message->id);
-        $this->message = new ChatMessageResource($message);
+        $this->room = $room;
+        $this->ping = ['type' => 'room', 'id' => $id];
     }
 
     /**
@@ -53,11 +47,11 @@ class MessageEdited implements ShouldBroadcastNow
     {
         // $this->dontBroadcastToCurrentUser();
 
-        return new PresenceChannel('chatroom.'.$this->message->chatroom_id);
+        return new PresenceChannel('chatroom.'.$this->room);
     }
 
     public function broadcastAs()
     {
-        return 'edit.message';
+        return 'new.ping';
     }
 }

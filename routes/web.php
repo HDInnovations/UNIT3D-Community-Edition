@@ -450,6 +450,11 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
+        // BOT Hooks
+
+        Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
+        Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
+
         // RSS CRUD
         Route::resource('rss', 'RssController')->except([
             'show',
@@ -460,6 +465,18 @@ Route::group(['middleware' => 'language'], function () {
             'update' => 'Staff.rss.update',
             'store' => 'Staff.rss.store',
             'destroy' => 'Staff.rss.destroy',
+        ]);
+
+        // Bots CRUD
+        Route::resource('bots', 'BotsController')->except([
+            'show',
+            'create',
+            'store',
+        ])->names([
+            'index' => 'Staff.bots.index',
+            'edit' => 'Staff.bots.edit',
+            'update' => 'Staff.bots.update',
+            'destroy' => 'Staff.bots.destroy',
         ]);
 
         // Staff Dashboard

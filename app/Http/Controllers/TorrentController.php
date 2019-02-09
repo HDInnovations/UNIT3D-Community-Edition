@@ -1285,11 +1285,11 @@ class TorrentController extends Controller
                 // Announce To Shoutbox
                 if ($anon == 0) {
                     $this->chat->systemMessage(
-                        ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chat->systemMessage(
-                        ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 }
 
@@ -1412,7 +1412,7 @@ class TorrentController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
         );
 
         // Announce To IRC
@@ -1514,13 +1514,13 @@ class TorrentController extends Controller
             $torrent->free = '1';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
             );
         } else {
             $torrent->free = '0';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
             );
         }
 
@@ -1562,7 +1562,7 @@ class TorrentController extends Controller
             $torrent_url = hrefTorrent($torrent);
             $profile_url = hrefProfile($user);
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
             );
 
             // Activity Log
@@ -1596,12 +1596,12 @@ class TorrentController extends Controller
             $torrent->doubleup = '1';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
             );
         } else {
             $torrent->doubleup = '0';
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
             );
         }
         $torrent->save();
@@ -1638,7 +1638,7 @@ class TorrentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
+                "Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
             );
 
             // Activity Log

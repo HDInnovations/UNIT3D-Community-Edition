@@ -1,6 +1,7 @@
 <template>
     <div class="input-group chat-dropdown">
         <select id="currentChatroom" v-model="selected" class="form-control" @change="changedRoom">
+            <option value="0" selected disabled>Join a room...</option>
             <option v-for="chatroom in chatrooms" :value="chatroom.id">{{ chatroom.name }}</option>
         </select>
     </div>
@@ -23,7 +24,7 @@
 export default {
     props: {
         current: { type: Number, default: 1 },
-        chatrooms: { required: true },
+        chatrooms: { required: true }
     },
     data() {
         return {
@@ -33,10 +34,11 @@ export default {
     methods: {
         changedRoom(event) {
             this.$emit('changedRoom', this.selected);
+            this.selected = 0;
         },
     },
     created() {
-        this.selected = this.current;
+        this.selected = 0;
     },
 };
 </script>

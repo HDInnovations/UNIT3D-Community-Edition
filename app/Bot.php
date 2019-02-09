@@ -8,29 +8,42 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
+ * @author     singularity43
  */
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChatStatus extends Model
+class Bot extends Model
 {
     /**
      * The Database Table Used By The Model.
      *
      * @var string
      */
-    protected $table = 'chat_statuses';
+    protected $table = 'bots';
 
     /**
-     * A Status Has Many Users.
+     * Indicates If The Model Should Be Timestamped.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var bool
      */
-    public function users()
-    {
-        return $this->hasMany(User::class, 'chat_status_id', 'id');
-    }
+    public $timestamps = true;
+
+    /**
+     * The Attributes That Should Be Cast To Native Types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'name' => 'string',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 }

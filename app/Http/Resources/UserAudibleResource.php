@@ -8,14 +8,14 @@
  * @project    UNIT3D
  *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
- * @author     Poppabear
+ * @author     singularity43
  */
 
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChatUserResource extends JsonResource
+class UserAudibleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -27,16 +27,13 @@ class ChatUserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'             => $this->id,
-            'username'       => $this->username,
-            'chat_status'    => $this->whenLoaded('chatStatus'),
-            'chat_status_id' => $this->chat_status_id,
-            'chatroom_id'    => $this->chatroom_id,
-            'group'          => $this->whenLoaded('group'),
-            'echoes'         => $this->whenLoaded('echoes'),
-            'group_id'       => $this->group_id,
-            'title'          => $this->title,
-            'image'          => $this->image,
+            'id'         => $this->id,
+            'user_id'    => $this->user_id,
+            'user'       => $this->user,
+            'target'     => $this->target,
+            'room'       => $this->room,
+            'bot'        => $this->bot,
+            'status'     => $this->status,
         ];
     }
 }

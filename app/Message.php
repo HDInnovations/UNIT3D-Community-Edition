@@ -27,7 +27,19 @@ class Message extends Model
         'message',
         'user_id',
         'chatroom_id',
+        'receiver_id',
+        'bot_id',
     ];
+
+    /**
+     * Belongs To A Bot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function bot()
+    {
+        return $this->belongsTo(Bot::class);
+    }
 
     /**
      * Belongs To A User.
@@ -37,6 +49,16 @@ class Message extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * A message belongs to a receiver.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 
     /**
