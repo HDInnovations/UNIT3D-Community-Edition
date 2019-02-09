@@ -10,7 +10,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-use App\Chatroom;
+use App\UserEcho;
 use Illuminate\Support\Facades\Broadcast;
 use App\User;
 /*
@@ -25,7 +25,16 @@ use App\User;
  */
 
 Broadcast::channel('chatroom.{id}', function ($user, $id) {
-    return [
-        'username' => $user->username,
-    ];
+    return User::with([
+        'chatStatus',
+        'chatroom',
+        'echoes',
+        'torrents',
+        'echoes.target',
+        'echoes.room',
+        'group'
+    ])->find($user->id);
+});
+Broadcast::channel('chatter.{id}', function ($user, $id) {
+    return $user->id == $id;
 });
