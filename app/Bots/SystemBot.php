@@ -1,6 +1,6 @@
 <?php
 /**
- * NOTICE OF LICENSE
+ * NOTICE OF LICENSE.
  *
  * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
  * The details is bundled with this project in the file LICENSE.txt.
@@ -9,23 +9,23 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     singularity43
  */
+
 namespace App\Bots;
 
-use App\User;
 use App\Bot;
+use App\User;
 use App\UserEcho;
+use Carbon\Carbon;
 use App\UserAudible;
 use App\Events\Chatter;
-use Carbon\Carbon;
-use App\Notifications\NewBon;
 use App\BonTransactions;
-use App\Http\Resources\UserAudibleResource;
-use App\Http\Resources\UserEchoResource;
+use App\Notifications\NewBon;
 use App\Repositories\ChatRepository;
+use App\Http\Resources\UserEchoResource;
+use App\Http\Resources\UserAudibleResource;
 
 class SystemBot
 {
-
     private $bot;
     private $chat;
     private $target;
@@ -41,34 +41,32 @@ class SystemBot
      */
     public function __construct(ChatRepository $chat)
     {
-        $bot = Bot::where('id','=','1')->firstOrFail();
+        $bot = Bot::where('id', '=', '1')->firstOrFail();
         $this->chat = $chat;
         $this->bot = $bot;
     }
 
     /**
-     * Replace Vars
-     *
+     * Replace Vars.
      */
     public function replaceVars($output)
     {
-        $output=str_replace("{me}",$this->bot->name,$output);
-        $output=str_replace("{command}",$this->bot->command,$output);
-        if(strstr($output,"{bots}")) {
-            $bot_help = "";
-            $bots = Bot::where('active','=',1)->where('id','!=',$this->bot->id)->orderBy('position','asc')->get();
-            foreach($bots as $bot) {
-                $bot_help.="( ! | / | @)".$bot->command." help triggers help file for ".$bot->name."\n";
+        $output = str_replace('{me}', $this->bot->name, $output);
+        $output = str_replace('{command}', $this->bot->command, $output);
+        if (strstr($output, '{bots}')) {
+            $bot_help = '';
+            $bots = Bot::where('active', '=', 1)->where('id', '!=', $this->bot->id)->orderBy('position', 'asc')->get();
+            foreach ($bots as $bot) {
+                $bot_help .= '( ! | / | @)'.$bot->command.' help triggers help file for '.$bot->name."\n";
             }
-            $output=str_replace("{bots}",$bot_help,$output);
+            $output = str_replace('{bots}', $bot_help, $output);
         }
 
         return $output;
     }
 
     /**
-     * Get Help
-     *
+     * Get Help.
      */
     public function getHelp()
     {
@@ -76,23 +74,21 @@ class SystemBot
     }
 
     /**
-     * Send Gift
-     *
+     * Send Gift.
      */
-    public function putGift($receiver = "",$amount = 0,$note = '')
+    public function putGift($receiver = '', $amount = 0, $note = '')
     {
-        $output = implode(" ",$note);
+        $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount'=> $amount, 'note'=> $output], [
             'receiver'   => 'required|string|exists:users,username',
             'amount'  => "required|numeric|min:1|max:{$this->target->seedbonus}",
             'note' => 'required|string',
         ]);
         if ($v->passes()) {
-
-            $recipient = User::where('username', 'LIKE',$receiver)->first();
+            $recipient = User::where('username', 'LIKE', $receiver)->first();
 
             if (! $recipient || $recipient->id == $this->target->id) {
-                return "Your BON gift could not be sent.";
+                return 'Your BON gift could not be sent.';
             }
 
             $value = $amount;
@@ -124,43 +120,44 @@ class SystemBot
             $this->chat->systemMessage(
                 "[url={$profile_url}]{$this->target->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
-            return "Your gift to ".$recipient->username." for ".$amount." BON has been sent!";
+
+            return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';
         }
-        return "Your BON gift could not be sent.";
+
+        return 'Your BON gift could not be sent.';
     }
 
     /**
-     * Process Message
-     *
+     * Process Message.
      */
-    public function process($type, User $target, $message = "", $targeted = 0)
+    public function process($type, User $target, $message = '', $targeted = 0)
     {
         $this->target = $target;
-        if($type == 'message') {
+        if ($type == 'message') {
             $x = 0;
         } else {
             $x = 1;
         }
 
-        $y = $x+1;
-        $z = $y+1;
+        $y = $x + 1;
+        $z = $y + 1;
 
-        if($message == "") {
-            $log = "";
+        if ($message == '') {
+            $log = '';
         } else {
-            $log = "All ".$this->bot->name." commands must be a private message or begin with /".$this->bot->command." or !".$this->bot->command.". Need help? Type /".$this->bot->command." help and you shall be helped.";
+            $log = 'All '.$this->bot->name.' commands must be a private message or begin with /'.$this->bot->command.' or !'.$this->bot->command.'. Need help? Type /'.$this->bot->command.' help and you shall be helped.';
         }
-        $command = @explode(" ",$message);
-        if(array_key_exists($x,$command)) {
-            if($command[$x] == "gift" && array_key_exists($y,$command) && array_key_exists($z,$command) && array_key_exists($z+1,$command)) {
+        $command = @explode(' ', $message);
+        if (array_key_exists($x, $command)) {
+            if ($command[$x] == 'gift' && array_key_exists($y, $command) && array_key_exists($z, $command) && array_key_exists($z + 1, $command)) {
                 $clone = $command;
                 array_shift($clone);
                 array_shift($clone);
                 array_shift($clone);
                 array_shift($clone);
-                $log = $this->putGift($command[$y],$command[$z],$clone);
+                $log = $this->putGift($command[$y], $command[$z], $clone);
             }
-            if($command[$x] == "help") {
+            if ($command[$x] == 'help') {
                 $log = $this->getHelp();
             }
         }
@@ -168,12 +165,12 @@ class SystemBot
         $this->type = $type;
         $this->message = $message;
         $this->log = $log;
+
         return $this->pm();
     }
 
     /**
-     * Output Message
-     *
+     * Output Message.
      */
     public function pm()
     {
@@ -183,15 +180,14 @@ class SystemBot
         $message = $this->message;
         $targeted = $this->targeted;
 
-        if($targeted) {
+        if ($targeted) {
             // future holder
         }
 
-        if($type == 'message' || $type == 'private') {
-
+        if ($type == 'message' || $type == 'private') {
             $receiver_dirty = 0;
-            $receiver_echoes = cache()->get('user-echoes' . $target->id);
-            if (!$receiver_echoes || !is_array($receiver_echoes) || count($receiver_echoes) < 1) {
+            $receiver_echoes = cache()->get('user-echoes'.$target->id);
+            if (! $receiver_echoes || ! is_array($receiver_echoes) || count($receiver_echoes) < 1) {
                 $receiver_echoes = UserEcho::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -200,7 +196,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserEcho();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -210,12 +206,12 @@ class SystemBot
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
-                cache()->put('user-echoes' . $target->id, $receiver_echoes, $expiresAt);
-                event(New Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
+                cache()->put('user-echoes'.$target->id, $receiver_echoes, $expiresAt);
+                event(new Chatter('echo', $target->id, UserEchoResource::collection($receiver_echoes)));
             }
             $receiver_dirty = 0;
-            $receiver_audibles = cache()->get('user-audibles' . $target->id);
-            if (!$receiver_audibles || !is_array($receiver_audibles) || count($receiver_audibles) < 1) {
+            $receiver_audibles = cache()->get('user-audibles'.$target->id);
+            if (! $receiver_audibles || ! is_array($receiver_audibles) || count($receiver_audibles) < 1) {
                 $receiver_audibles = UserAudible::with(['room', 'target', 'bot'])->whereRaw('user_id = ?', [$target->id])->get();
             }
             $receiver_listening = false;
@@ -224,7 +220,7 @@ class SystemBot
                     $receiver_listening = true;
                 }
             }
-            if (!$receiver_listening) {
+            if (! $receiver_listening) {
                 $receiver_port = new UserAudible();
                 $receiver_port->user_id = $target->id;
                 $receiver_port->bot_id = $this->bot->id;
@@ -234,8 +230,8 @@ class SystemBot
             }
             if ($receiver_dirty == 1) {
                 $expiresAt = Carbon::now()->addMinutes(60);
-                cache()->put('user-audibles' . $target->id, $receiver_audibles, $expiresAt);
-                event(New Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
+                cache()->put('user-audibles'.$target->id, $receiver_audibles, $expiresAt);
+                event(new Chatter('audible', $target->id, UserAudibleResource::collection($receiver_audibles)));
             }
 
             if ($txt != '') {
@@ -243,21 +239,24 @@ class SystemBot
                 $message = $this->chat->privateMessage($target->id, $room_id, $message, 1, $this->bot->id);
                 $message = $this->chat->privateMessage(1, $room_id, $txt, $target->id, $this->bot->id);
             }
-            return response('success', 200);
 
-        } else if($type == 'echo') {
+            return response('success', 200);
+        } elseif ($type == 'echo') {
             if ($txt != '') {
                 $room_id = 0;
                 $message = $this->chat->botMessage($this->bot->id, $room_id, $txt, $target->id);
             }
+
             return response('success', 200);
-        } else if($type == 'public') {
+        } elseif ($type == 'public') {
             if ($txt != '') {
                 $dumproom = $this->chat->message($target->id, $target->chatroom->id, $message, null, null);
                 $dumproom = $this->chat->message(1, $target->chatroom->id, $txt, null, $this->bot->id);
             }
+
             return response('success', 200);
         }
+
         return true;
     }
 }

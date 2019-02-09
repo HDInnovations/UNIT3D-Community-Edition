@@ -88,7 +88,7 @@ class User extends Authenticatable
      */
     public function chatStatus()
     {
-        return $this->belongsTo(ChatStatus::class,'chat_status_id','id');
+        return $this->belongsTo(ChatStatus::class, 'chat_status_id', 'id');
     }
 
     /**

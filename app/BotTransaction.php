@@ -31,7 +31,6 @@ class BotTransaction extends Model
      */
     public $timestamps = true;
 
-
     /**
      * Belongs To A User.
      *
@@ -71,9 +70,10 @@ class BotTransaction extends Model
      */
     public function forHumans()
     {
-        if($this->type == 'bon') {
+        if ($this->type == 'bon') {
             return 'BON';
         }
+
         return 'Unknown';
     }
 }

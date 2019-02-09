@@ -45,7 +45,7 @@ class MessageSent implements ShouldBroadcastNow
             'user.group',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->find($message->id);
 
         $this->message = new ChatMessageResource($message);

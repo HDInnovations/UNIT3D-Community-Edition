@@ -10,9 +10,9 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-use App\UserEcho;
-use Illuminate\Support\Facades\Broadcast;
 use App\User;
+use Illuminate\Support\Facades\Broadcast;
+
 /*
  * |--------------------------------------------------------------------------
  * | Broadcast Channels
@@ -32,7 +32,7 @@ Broadcast::channel('chatroom.{id}', function ($user, $id) {
         'torrents',
         'echoes.target',
         'echoes.room',
-        'group'
+        'group',
     ])->find($user->id);
 });
 Broadcast::channel('chatter.{id}', function ($user, $id) {
