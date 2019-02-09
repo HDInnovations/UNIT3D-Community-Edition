@@ -871,7 +871,6 @@ $(document).mousedown(function(){
         var sound = new Audio('/sounds/alert.mp3');
         sound.load();
         window.sounds['alert.mp3'] = sound;
-        console.log(window.sounds);
     }
     audioLoaded = 1;
 });
