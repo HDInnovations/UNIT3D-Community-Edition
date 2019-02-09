@@ -51,6 +51,15 @@
     background-color: var(--color-dark-magenta);
 }
 
+.text-bright {
+    color: #fefefe;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #fcfcfc;
+}
+
 .container-fluid > .list-inline,
 .text-blue {
     color: var(--text-color);
@@ -365,7 +374,9 @@ a:hover {
 .text-green {
     color: var(--color-light-green);
 }
-
+.text-muted {
+    color: #999;
+}
 .text-red {
     color: var(--color-light-red);
 }
