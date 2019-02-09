@@ -13,18 +13,18 @@
 
 namespace App\Repositories;
 
-use App\User;
-use App\UserEcho;
-use App\UserAudible;
 use App\Bot;
+use App\User;
 use App\Message;
 use App\Chatroom;
+use App\UserEcho;
 use App\ChatStatus;
-use App\Http\Resources\ChatMessageResource;
-use App\Events\Chatter;
 use App\Events\Ping;
+use App\UserAudible;
+use App\Events\Chatter;
 use App\Events\MessageSent;
 use App\Events\MessageDeleted;
+use App\Http\Resources\ChatMessageResource;
 
 class ChatRepository
 {
@@ -124,12 +124,13 @@ class ChatRepository
 
     public function ping($type, $id)
     {
-        if($type == 'room') {
-            $rooms = Chatroom::where('id','>',0)->get();
-            foreach($rooms as $room) {
+        if ($type == 'room') {
+            $rooms = Chatroom::where('id', '>', 0)->get();
+            foreach ($rooms as $room) {
                 broadcast(new Ping($room->id, $id));
             }
         }
+
         return true;
     }
 
@@ -158,7 +159,6 @@ class ChatRepository
 
     public function botMessage($bot_id, $room_id, $message, $receiver = null)
     {
-
         $user = $this->user->find($receiver);
         if ($user->censor) {
             $message = $this->censorMessage($message);
@@ -177,11 +177,11 @@ class ChatRepository
             'user.group',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->find($save->id);
 
-        event(New Chatter('new.bot',$receiver,new ChatMessageResource($message)));
-        event(New Chatter('new.ping',$receiver,['type' => 'bot', 'id' => $bot_id]));
+        event(new Chatter('new.bot', $receiver, new ChatMessageResource($message)));
+        event(new Chatter('new.ping', $receiver, ['type' => 'bot', 'id' => $bot_id]));
         $message->delete();
     }
 
@@ -204,14 +204,15 @@ class ChatRepository
             'user.group',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->find($save->id);
 
-        if($ignore != true) {
-            event(New Chatter('new.message', $user_id, new ChatMessageResource($message)));
+        if ($ignore != true) {
+            event(new Chatter('new.message', $user_id, new ChatMessageResource($message)));
         }
-        event(New Chatter('new.message',$receiver,new ChatMessageResource($message)));
-        event(New Chatter('new.ping',$receiver,['type' => 'target', 'id' => $user_id]));
+        event(new Chatter('new.message', $receiver, new ChatMessageResource($message)));
+        event(new Chatter('new.ping', $receiver, ['type' => 'target', 'id' => $user_id]));
+
         return $message;
     }
 
@@ -232,11 +233,11 @@ class ChatRepository
             'chatroom',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->where(function ($query) use ($room_id) {
             $query->where('chatroom_id', '=', $room_id);
         })
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->limit(config('chat.message_limit'))
             ->get();
     }
@@ -249,11 +250,11 @@ class ChatRepository
             'chatroom',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->where(function ($query) use ($sender_id,$bot_id) {
-            $query->whereRaw('(user_id = ? and bot_id = ?)',[$sender_id,$bot_id])->orWhereRaw('(receiver_id = ? and bot_id = ?)',[$sender_id,$bot_id]);
+            $query->whereRaw('(user_id = ? and bot_id = ?)', [$sender_id, $bot_id])->orWhereRaw('(receiver_id = ? and bot_id = ?)', [$sender_id, $bot_id]);
         })
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->limit(config('chat.message_limit'))
             ->get();
     }
@@ -266,11 +267,11 @@ class ChatRepository
             'chatroom',
             'user.chatStatus',
             'receiver.group',
-            'receiver.chatStatus'
+            'receiver.chatStatus',
         ])->where(function ($query) use ($sender_id,$target_id) {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)',[$sender_id,$target_id])->orWhereRaw('(user_id = ? and receiver_id = ?)',[$target_id,$sender_id]);
+            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, $target_id])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$target_id, $sender_id]);
         })
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->limit(config('chat.message_limit'))
             ->get();
     }
@@ -298,11 +299,12 @@ class ChatRepository
 
     public function systemMessage($message, $bot = null)
     {
-        if($bot) {
+        if ($bot) {
             $this->message(1, $this->systemChatroom(), $message, null, $bot);
         } else {
             $this->message(1, $this->systemChatroom(), $message, null, 1);
         }
+
         return $this;
     }
 
@@ -374,7 +376,8 @@ class ChatRepository
         return $message;
     }
 
-    protected function htmlifyMessage($message) {
+    protected function htmlifyMessage($message)
+    {
         // Soon
 
         return $message;

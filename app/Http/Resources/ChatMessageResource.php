@@ -31,10 +31,10 @@ class ChatMessageResource extends JsonResource
         $emojiOne = app()->make(LaravelEmojiOne::class);
 
         $logger = null;
-        if($this->user_id && $this->user_id == 1) {
+        if ($this->user_id && $this->user_id == 1) {
             $logger = Bbcode::parse('[div class="align-left"][div class="chatTriggers"]'.clean($this->message).'[/div][/div]');
             $logger = $emojiOne->toImage($logger);
-            $logger = str_replace("a href=\"/#","a trigger=\"bot\" class=\"chatTrigger\" href=\"/#",$logger);
+            $logger = str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
         } else {
             $logger = Bbcode::parse('[div class="align-left"]'.clean($this->message).'[/div]');
             $logger = $emojiOne->toImage($logger);

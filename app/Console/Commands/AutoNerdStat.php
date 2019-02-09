@@ -16,9 +16,9 @@ namespace App\Console\Commands;
 use App\Ban;
 use App\Peer;
 use App\User;
-use Carbon\Carbon;
 use App\Torrent;
 use App\Warning;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
 
@@ -58,7 +58,6 @@ class AutoNerdStat extends Command
     public function handle()
     {
         if (config('chat.nerd_bot') == true) {
-
             $expiresAt = Carbon::now()->addMinutes(60);
 
             // Current Timestamp
@@ -135,7 +134,7 @@ class AutoNerdStat extends Command
             $selected = mt_rand(0, count($statArray) - 1);
 
             // Auto Shout Nerd Stat
-            $this->chat->systemMessage("{$statArray[$selected]}",2);
+            $this->chat->systemMessage("{$statArray[$selected]}", 2);
         }
     }
 }

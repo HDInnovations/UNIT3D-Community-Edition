@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatStatus extends Model
 {
-
     /**
      * The Database Table Used By The Model.
      *

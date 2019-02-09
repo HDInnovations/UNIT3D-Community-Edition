@@ -52,7 +52,7 @@ class Message extends Model
     }
 
     /**
-     * A message belongs to a receiver
+     * A message belongs to a receiver.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

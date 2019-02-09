@@ -45,15 +45,15 @@ class Chatter implements ShouldBroadcastNow
     public function __construct($type, $target, $payload)
     {
         $this->type = $type;
-        if($type == 'echo') {
+        if ($type == 'echo') {
             $this->echoes = $payload;
-        } else if($type == 'audible') {
+        } elseif ($type == 'audible') {
             $this->audibles = $payload;
-        } else if($type == 'new.message') {
+        } elseif ($type == 'new.message') {
             $this->message = $payload;
-        } else if($type == 'new.bot') {
+        } elseif ($type == 'new.bot') {
             $this->message = $payload;
-        } else if($type == 'new.ping') {
+        } elseif ($type == 'new.ping') {
             $this->ping = $payload;
         }
         $this->target = $target;
@@ -70,5 +70,4 @@ class Chatter implements ShouldBroadcastNow
 
         return new PrivateChannel('chatter.'.$this->target);
     }
-
 }
