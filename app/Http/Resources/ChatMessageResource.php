@@ -13,7 +13,6 @@
 
 namespace App\Http\Resources;
 
-use App\User;
 use App\Helpers\Bbcode;
 use Illuminate\Http\Resources\Json\JsonResource;
 use ChristofferOK\LaravelEmojiOne\LaravelEmojiOne;
@@ -31,12 +30,23 @@ class ChatMessageResource extends JsonResource
     {
         $emojiOne = app()->make(LaravelEmojiOne::class);
 
+        $logger = null;
+        if($this->user_id && $this->user_id == 1) {
+            $logger = Bbcode::parse('[div class="align-left"][div class="chatTriggers"]'.clean($this->message).'[/div][/div]');
+            $logger = $emojiOne->toImage($logger);
+            $logger = str_replace("a href=\"/#","a trigger=\"bot\" class=\"chatTrigger\" href=\"/#",$logger);
+        } else {
+            $logger = Bbcode::parse('[div class="align-left"]'.clean($this->message).'[/div]');
+            $logger = $emojiOne->toImage($logger);
+        }
+
         return [
             'id' => $this->id,
+            'bot' => new BotResource($this->whenLoaded('bot')),
             'user' => new UserResource($this->whenLoaded('user')),
             'receiver' => new UserResource($this->whenLoaded('receiver')),
             'chatroom' => new ChatRoomResource($this->whenLoaded('chatroom')),
-            'message'    => htmlspecialchars_decode($emojiOne->toImage(Bbcode::parse('[left]'.clean($this->message).'[/left]'))),
+            'message'    => htmlspecialchars_decode($logger),
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];
