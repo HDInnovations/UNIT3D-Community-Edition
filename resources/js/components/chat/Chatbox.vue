@@ -1,65 +1,88 @@
 <template>
-    <div class="col-md-10 col-sm-10 col-md-offset-1 chatbox">
+    <div class="col-md-10 col-sm-10 col-md-offset-1 chatbox" id="chatbody" audio="false">
         <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat">
             <div class="panel-heading">
-                <h4>
-                    Chatbox 2.5 Beta
-                    ( <a target="_blank"
-                         href="https://trello.com/c/tzHOvz5h/16-chat-20-shoutbox-replacement">Roadmap</a> )
-                </h4>
-            </div>
-
-            <div class="panel-body">
-                <div id="frame">
-                    <div class="content">
-                        <ul role="tablist" class="nav nav-tabs mb-5">
-                            <li :class="tab === 'chatbox' ? 'active' : null">
-                                <a href="" role="tab" @click.prevent="tab = 'chatbox'">
-                                    <i class="fa fa-comments text-blue"></i> Chatbox
-                                </a>
-                            </li>
-                            <li :class="tab === 'userlist' ? 'active' : null">
-                                <a href="" role="tab" @click.prevent="tab = 'userlist'">
-                                    <i class="fa fa-users text-success"></i> Active Users ({{users.length}})
-                                </a>
-                            </li>
-                            <li v-for="(value, username) in pms" v-if="value.length > 0"
-                                :class="tab === username ? 'active' : null">
-
-                                <a href="" role="tab" @click.prevent="tab = username">
-                                    <i class="fa fa-comment fa-beat text-danger"></i> {{ username }}
-                                    <i class="fa fa-times text-red"></i>
-                                </a>
-
-                            </li>
-                        </ul>
-
-                        <chat-messages v-if="!state.connecting && tab === 'chatbox'"
-                                       @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
-                                       :messages="msgs">
-
-                        </chat-messages>
-
-                        <chat-user-list v-else-if="!state.connecting && tab === 'userlist'"
-                                        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
-                                        :users="users">
-
-                        </chat-user-list>
-
-                        <chat-pms v-else-if="!state.connecting" :pms="pms[tab]"></chat-pms>
-
+                <div class="button-holder no-space">
+                    <div class="button-left">
+                        <h4>
+                        Chatbox v3.0 Beta
+                        </h4>
+                    </div>
+                    <div class="button-right">
+                        <a href="" view="bot" @click.prevent="startBot()" class="btn btn-xs btn-warning">
+                            <i class="fa fa-robot"></i> {{ helpName }}
+                        </a>
+                        <a href="" view="list" v-if="target < 1 && bot < 1 && tab != 'userlist'" @click.prevent="changeTab('list','userlist')" class="btn btn-xs btn-primary">
+                            <i class="fa fa-users"></i> Users In {{tab}}: {{users.length}}
+                        </a>
                     </div>
                 </div>
             </div>
-            <div class="panel-footer">
-                <div class="typing">
-                    <span class="badge-extra" v-if="activePeer">{{ activePeer.username }} is typing ...</span>
-                </div>
+            <div class="panel-body">
+                <div id="frame" @mouseover="freezeChat()" @mouseleave="unfreezeChat()">
+                    <div class="content no-space">
+                        <div class="button-holder nav nav-tabs mb-5">
+                            <div class="button-left-large">
+                        <ul role="tablist" class="nav nav-tabs no-border mb-0">
+                            <li v-for="echo in echoes" v-if="echo.room && echo.room.name.length > 0"
+                                :class="tab != '' && tab === echo.room.name ? 'active' : null">
+                                <a href="" role="tab" view="room" @click.prevent="changeTab('room',echo.room.id)">
+                                    <i :class="checkPings('room',echo.room.id) ? 'fa fa-comment fa-beat text-success' : 'fa fa-comment text-danger'"></i> {{ echo.room.name }}
+                                </a>
+                            </li>
+                            <li v-for="echo in echoes" v-if="echo.target && echo.target.id >= 3 && echo.target.username.length > 0"
+                                :class="target >= 3 && target === echo.target.id ? 'active' : null">
+                                <a href="" role="tab" view="target" @click.prevent="changeTab('target',echo.target.id)">
+                                    <i :class="checkPings('target',echo.target.id) ? 'fa fa-comment fa-beat text-success' : 'fa fa-comment text-danger'"></i> @{{ echo.target.username }}
+                                </a>
+                            </li>
+                            <li v-for="echo in echoes" v-if="echo.bot && echo.bot.id >= 1 && echo.bot.name.length > 0"
+                                :class="bot > 0 && bot === echo.bot.id ? 'active' : null">
+                                <a href="" role="tab" view="bot" @click.prevent="changeTab('bot',echo.bot.id)">
+                                    <i :class="checkPings('bot',echo.bot.id) ? 'fa fa-comment fa-beat text-success' : 'fa fa-comment text-danger'"></i> @{{ echo.bot.name }}
+                                </a>
+                            </li>
+                        </ul>
+                            </div>
+                            <div class="button-right-small">
+                                <div class="nav nav-tabs no-border mb-0 mt-5">
+                                    <div class="mr-10">
 
-                <chat-form v-if="tab !== 'userlist'"
+                                        <a href="" v-if="bot > 0" view="exit" @click.prevent="leaveBot(bot)" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+
+                                        <a href="" v-if="bot < 1 && target > 0" view="exit" @click.prevent="leaveTarget(target)" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+
+                                        <a href="" v-if="bot < 1 && target < 1 && tab != '' && tab != 'userlist' && room != 1" view="exit" @click.prevent="leaveRoom(room)" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <chat-messages v-if="!state.connecting && tab != '' && tab != 'userlist'"
+                                       @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
+                                       :messages="msgs">
+
+                        </chat-messages>
+                        <chat-user-list v-if="!state.connecting && tab === 'userlist'"
+                                        @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
+                                        :users="users">
+
+                        </chat-user-list>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer" v-if="tab !== 'userlist'">
+                <chat-form
                            @changedStatus="changeStatus"
-                           @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id)"
+                           @message-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
                            @typing="isTyping">
 
                 </chat-form>
@@ -68,6 +91,13 @@
     </div>
 </template>
 <style lang="scss">
+    .mr-10 {
+        margin-right: 10px;
+    }
+    .no-border {
+        border-bottom: none;
+        border-top: none;
+    }
     .chatbox {
         .nav-tabs {
             overflow-y: hidden;
@@ -112,7 +142,7 @@
       user: {
         type: Object,
         required: true,
-      }
+      },
     },
     components: {
       ChatroomsDropdown,
@@ -121,249 +151,792 @@
       ChatUserList,
       ChatPms
     },
-    data () {
-      return {
-        tab: 'chatbox',
-        state: {
-          connecting: true
-        },
-        auth: {},
-        statuses: [],
-        status: 0,
-        chatrooms: [],
-        messages: [],
-        users: [],
-        room: 0,
-        scroll: true,
-        channel: null,
-        config: {},
-        activePeer: false,
-        receiver_id: null
-      }
-    },
+      data () {
+          return {
+              tab: '',
+              state: {
+                  connecting: true
+              },
+              auth: {},
+              statuses: [],
+              status: 0,
+              echoes: [],
+              bots: [],
+              chatrooms: [],
+              messages: [],
+              users: [],
+              pings: [],
+              audibles: [],
+              audioLoaded: 0,
+              room: 0,
+              startup: 0,
+              check: 0,
+              target: 0,
+              bot: 0,
+              activeTab: '',
+              activeBot: '',
+              activeRoom: '',
+              activeTarget: '',
+              activePeer: false,
+              botName: '',
+              botId: 0,
+              listening: 1,
+              botCommand: '',
+              helpName: '',
+              helpCommand: '',
+              frozen: false,
+              helpId: 0,
+              scroll: true,
+              channel: null,
+              chatter: null,
+              config: {},
+              receiver_id: null,
+              bot_id: null,
+          }
+      },
     watch: {
-      tab (newVal, oldVal) {
-        this.scrollToBottom(true)
-
-        if (newVal !== 'chatbox' && newVal !== 'userlist') {
-          let i = _.findIndex(this.pms[newVal], (o) => {
-            return o.user.username === newVal
-          })
-
-          this.receiver_id = this.pms[newVal][i].user.id
-        }
-      },
-      chatrooms () {
-        this.changeRoom(this.auth.chatroom.id)
-      },
-      statuses () {
-        this.changeStatus(this.auth.chat_status.id)
-      },
-      room (newVal, oldVal) {
-        window.Echo.leave(`chatroom.${oldVal}`)
-
-        this.channel = window.Echo.join(`chatroom.${newVal}`)
-        this.listenForEvents()
-      },
+        chatrooms () {
+            this.changeRoom(this.auth.chatroom.id)
+        },
+        statuses () {
+            this.changeStatus(this.auth.chat_status.id)
+        },
+        room (newVal, oldVal) {
+            window.Echo.leave(`chatroom.${oldVal}`)
+            this.channel = window.Echo.join(`chatroom.${newVal}`)
+            this.listenForEvents()
+        },
     },
     computed: {
-      msgs () {
-        return _.filter(this.messages, (o) => {
-          return !o.receiver
-        })
-      },
-      pms () {
-        let m = _.filter(this.messages, (o) => {
-          return o.receiver ? (o.receiver.id === this.auth.id || o.user.id === this.auth.id) : null
-        })
-
-        return _.groupBy(m, (o) => {
-          return o.user.username === this.auth.username ? o.receiver.username : o.user.username
-        })
-      },
-      last_id () {
-        if (this.messages > 0) {
-          return this.messages[m.length - 1].id
-        }
-
-        return 0
-      },
-      statusColor () {
-        if (this.statuses.length > 0) {
-          let i = _.findIndex(this.statuses, (o) => {
-            return o.id === this.status
-          })
-
-          return this.statuses[i].color
-        }
-
-        return ''
-      }
-    },
-    methods: {
-      isTyping (e) {
-        if (this.tab === 'chatbox') {
-          this.channel.whisper('typing', {
-            username: e.username
-          })
-        }
-      },
-
-      fetchRooms () {
-        axios.get('/api/chat/rooms').then(response => {
-          this.chatrooms = response.data.data
-
-          this.fetchConfiguration()
-        })
-      },
-
-      fetchConfiguration () {
-        axios.get(`/api/chat/config`).then(response => {
-          this.config = response.data
-        })
-      },
-
-      changeRoom (id) {
-        this.room = id
-
-        if (this.auth.chatroom.id !== id) {
-          /* Update the users chatroom in the database */
-          axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
-            'room_id': id
-          }).then(response => {
-            // reassign the auth variable to the response data
-            this.auth = response.data
-
-            this.fetchMessages()
-          })
-        } else {
-          this.fetchMessages()
-        }
-      },
-
-      fetchMessages () {
-        axios.get(`/api/chat/messages/${this.room}`).then(response => {
-
-          this.messages = _.reverse(response.data.data)
-
-          this.scrollToBottom(true)
-
-          this.state.connecting = false
-        })
-      },
-
-      fetchStatuses () {
-        axios.get('/api/chat/statuses').then(response => {
-          this.statuses = response.data
-        })
-      },
-
-      changeStatus (status_id) {
-        this.status = status_id
-        this.showStatuses = false
-
-        if (this.auth.chat_status.id !== status_id) {
-
-          /* Update the users chat status in the database */
-          axios.post(`/api/chat/user/${this.auth.id}/status`, {
-            'status_id': status_id
-          }).then(response => {
-            // reassign the auth variable to the response data
-            this.auth = response.data
-
-            /* Add system message */
-            this.createMessage(
-              `[url=/${this.auth.username}.${this.auth.id}]${this.auth.username}[/url] has updated their status to [b]${this.auth.chat_status.name}[/b]`
-            )
-
-          })
-        }
-      },
-
-      /* User defaults to System user */
-      createMessage (message, save = true, user_id = 1, receiver_id = null) {
-        console.log(message, user_id, receiver_id)
-
-        axios.post('/api/chat/messages', {
-          'user_id': user_id,
-          'receiver_id': receiver_id,
-          'chatroom_id': this.room,
-          'message': message,
-          'save': save,
-        }).then(response => {
-          this.scrollToBottom(true)
-
-          if (this.messages.length > this.config.message_limit) {
-            _.each(this.messages, (m, i) => {
-              if (!m.receiver) {
-                this.messages.splice(i, 1)
-                return false
-              }
+        msgs () {
+            return _.filter(this.messages, (o) => {
+                return o;
             })
-          }
-        })
-      },
-
-      scrollToBottom (force = false) {
-        let container = $('.messages .list-group')
-
-        if (this.scroll || force) {
-          container.animate({scrollTop: container.prop('scrollHeight')}, 0)
-        }
-
-        container.scroll(() => {
-          this.scroll = false
-
-          let scrollTop = container.scrollTop() + container.prop('clientHeight')
-          let scrollHeight = container.prop('scrollHeight')
-
-          this.scroll = scrollTop >= scrollHeight - 50
-        })
-      },
-
-      listenForEvents () {
-        this.channel
-          .here(users => {
-            this.state.connecting = false
-            this.users = users
-
-            setInterval(() => {
-              this.scrollToBottom()
-            }, 100)
-          })
-          .joining(user => {
-            // this.createMessage(`${user.username} has JOINED the chat ...`)
-          })
-          .leaving(user => {
-            // this.createMessage(`${user.username} has LEFT the chat ...`)
-          })
-          .listen('.new.message', e => {
-            this.messages.push(e.message)
-          })
-          .listen('.edit.message', e => {
-
-          })
-          .listen('.delete.message', e => {
-            let msgs = this.messages
-            let index = msgs.findIndex(msg => msg.id === e.message.id)
-
-            this.messages.splice(index, 1)
-          })
-          .listenForWhisper('typing', e => {
-            if (this.activePeer === false) {
-              this.activePeer = e
+        },
+        last_id () {
+            if (this.messages > 0) {
+                return this.messages[m.length - 1].id
             }
 
-            setTimeout(() => {
-              this.activePeer = false
-            }, 15000)
-          })
-      }
+            return 0
+        },
+        statusColor () {
+            if (this.statuses.length > 0) {
+                let i = _.findIndex(this.statuses, (o) => {
+                    return o.id === this.status
+                })
+
+                return this.statuses[i].color
+            }
+
+            return ''
+        }
     },
-    created () {
-      this.auth = this.user
-      this.fetchRooms()
-      this.fetchStatuses()
+    methods: {
+        isTyping(e) {
+            if (this.tab != 'userlist') {
+                if (this.target < 1 && this.channel && this.tab != '') {
+                    this.channel.whisper('typing', {
+                        username: e.username
+                    })
+                }
+            }
+        },
+        changeAudible(typeVal, targetVal, newVal) {
+            if (typeVal == 'room') {
+                let currentRoom = _.find(this.audibles, (o) => {
+                    if (o.room && o.room.id && o.room.id == targetVal) {
+                        return o.room.id;
+                    }
+                });
+                if (currentRoom) {
+                    let i = currentRoom.room.id;
+                    this.toggleAudible('room', i, newVal);
+                }
+            } else if (typeVal == 'target') {
+                let currentTarget = _.find(this.audibles, (o) => {
+                    if (o.target && o.target.id && o.target.id == targetVal) {
+                        return o.target.id;
+                    }
+                });
+                if (currentTarget) {
+                    let i = currentTarget.target.id;
+                    this.toggleAudible('target', i, newVal);
+                }
+            } else if (typeVal == 'bot') {
+                let currentBot = _.find(this.audibles, (o) => {
+                    if (o.bot && o.bot.id && o.bot.id == targetVal) {
+                        return o.bot.id;
+                    }
+                });
+                if (currentBot) {
+                    let i = currentBot.bot.id;
+                    this.toggleAudible('bot', i, newVal);
+                }
+            }
+        },
+        changeTab(typeVal, newVal) {
+            if (typeVal == 'room') {
+                this.bot = 0;
+                this.target = 0;
+                this.bot_id = 0;
+                this.receiver_id = 0;
+                this.tab = newVal;
+                this.activeTab = 'room'+newVal;
+                this.activeRoom = newVal;
+                this.deletePing('room',newVal);
+                let currentRoom = _.find(this.echoes, (o) => {
+                    if (o.room && o.room.id && o.room.id == newVal) {
+                        return o.room.id;
+                    }
+                });
+                if (currentRoom) {
+                    let i = currentRoom.room.id;
+                    this.changeRoom(i);
+                    this.receiver_id = null;
+                    this.bot_id = null;
+                }
+
+                let currentAudio = _.find(this.audibles, (o) => {
+                    if (o.room && o.room.id && o.room.id == newVal) {
+                        return o.id;
+                    }
+                });
+                if (!currentAudio) {
+                } else {
+                    if (currentAudio.status == 1) {
+                        this.listening = 1;
+                    } else {
+                        this.listening = 0;
+                    }
+                }
+            } else if (typeVal == 'target') {
+                this.bot = 0;
+                this.tab = newVal;
+                this.activeTab = 'target'+newVal;
+                this.activeTarget = newVal;
+                this.deletePing('target',newVal);
+                let currentTarget = _.find(this.echoes, (o) => {
+                    if (o.target && o.target.username && o.target.id == newVal) {
+                        return o.target.id;
+                    }
+                });
+                if (currentTarget) {
+                    let i = currentTarget.target.id;
+                    this.changeTarget(i);
+                    this.receiver_id = i;
+                    this.bot_id = null;
+                }
+
+                let currentAudio = _.find(this.audibles, (o) => {
+                    if (o.target && o.target.username && o.target.id == newVal) {
+                        return o.id;
+                    }
+                });
+                if (!currentAudio) {
+                } else {
+                    if (currentAudio.status == 1) {
+                        this.listening = 1;
+                    } else {
+                        this.listening = 0;
+                    }
+                }
+            } else if (typeVal == 'bot') {
+                this.target = 0;
+                this.tab = newVal;
+                this.activeTab = 'bot'+newVal;
+                this.activeBot = newVal;
+                this.deletePing('bot',newVal);
+                let currentBot = _.find(this.echoes, (o) => {
+                    if (o.bot && o.bot.name && o.bot.id == newVal) {
+                        return o.bot.id;
+                    }
+                });
+                if (currentBot) {
+                    let i = currentBot.bot.id;
+                    this.botName = currentBot.bot.name;
+                    this.botCommand = currentBot.bot.command;
+                    this.botId = currentBot.bot.id;
+                    this.changeBot(i);
+                    this.receiver_id = 1;
+                    this.bot_id = i;
+                }
+
+                let currentAudio = _.find(this.audibles, (o) => {
+                    if (o.bot && o.bot.name && o.bot.id == newVal) {
+                        return o.id;
+                    }
+                });
+                if (!currentAudio) {
+                } else {
+                    if (currentAudio.status == 1) {
+                        this.listening = 1;
+                    } else {
+                        this.listening = 0;
+                    }
+                }
+            } else if (typeVal == 'list') {
+                this.tab = newVal;
+                this.scrollToBottom();
+            }
+        },
+        fetchAudibles() {
+            axios.get('/api/chat/audibles').then(response => {
+                this.audibles = response.data.data
+                let currentAudio = _.find(this.audibles, (o) => {
+                    if (o.room && o.room.id && o.room.id == 1) {
+                        return o.id;
+                    }
+                });
+                if (!currentAudio) {
+                } else {
+                    if (currentAudio.status == 1) {
+                        this.listening = 1;
+                    } else {
+                        this.listening = 0;
+                    }
+                }
+                this.fetchConfiguration();
+            })
+        },
+        fetchEchoes() {
+            axios.get('/api/chat/echoes').then(response => {
+                this.echoes = response.data.data
+            })
+        },
+        fetchBots() {
+            axios.get('/api/chat/bots').then(response => {
+                this.bots = response.data.data;
+                this.helpId = this.bots[0].id;
+                this.helpName = this.bots[0].name;
+                this.helpCommand = this.bots[0].command;
+            })
+        },
+        fetchRooms() {
+            axios.get('/api/chat/rooms').then(response => {
+                this.chatrooms = response.data.data;
+                this.room = this.chatrooms[0].id;
+                this.tab = this.chatrooms[0].name;
+                this.activeTab = 'room'+this.room;
+                this.fetchConfiguration();
+            })
+        },
+        fetchConfiguration() {
+            axios.get(`/api/chat/config`).then(response => {
+                this.config = response.data
+            })
+        },
+        fetchBotMessages(id) {
+            axios.get(`/api/chat/bot/${id}`).then(response => {
+                this.messages = _.reverse(response.data.data);
+                this.scrollToBottom(true)
+                this.state.connecting = false
+            })
+        },
+        fetchPrivateMessages() {
+            axios.get(`/api/chat/private/messages/${this.target}`).then(response => {
+                this.messages = _.reverse(response.data.data)
+                this.scrollToBottom(true)
+                this.state.connecting = false
+            })
+        },
+        fetchMessages() {
+            axios.get(`/api/chat/messages/${this.room}`).then(response => {
+                this.messages = _.reverse(response.data.data);
+                this.scrollToBottom(true)
+                this.state.connecting = false
+            })
+        },
+        fetchStatuses() {
+            axios.get('/api/chat/statuses').then(response => {
+                this.statuses = response.data
+            })
+        },
+        forceMessage(name) {
+            $('#chat-message').bbcode('/msg ' + name + ' ');
+            $('#chat-message').htmlcode('/msg ' + name + ' ');
+        },
+        forceGift(name) {
+            $('#chat-message').bbcode('/gift ' + name + ' ');
+            $('#chat-message').htmlcode('/gift ' + name + ' ');
+        },
+        freezeChat() {
+            this.frozen = true;
+        },
+        unfreezeChat() {
+            this.frozen = false;
+        },
+        leaveBot(id) {
+            if (id > 0) {
+                this.bot = 0;
+                this.botName = '';
+                this.botId = '';
+                /* Update the users bot in the database */
+                axios.post(`/api/chat/echoes/${this.auth.id}/delete/bot`, {
+                    'bot_id': id
+                }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
+                    $('#currentChatroom').val('1');
+                    this.fetchRooms();
+                })
+            }
+        },
+        toggleAudible(type, id, nv) {
+            if (id != 0) {
+                if (type == 'room') {
+                    axios.post(`/api/chat/audibles/${this.auth.id}/toggle/chatroom`, {
+                        'room_id': id,
+                        'nv': nv,
+                    }).then(response => {
+                        // reassign the auth variable to the response data
+                        this.auth = response.data;
+                        this.listening = nv;
+                    })
+                } else if (type == 'target') {
+                    axios.post(`/api/chat/audibles/${this.auth.id}/toggle/target`, {
+                        'target_id': id,
+                        'nv': nv,
+                    }).then(response => {
+                        // reassign the auth variable to the response data
+                        this.auth = response.data;
+                        this.listening = nv;
+                    })
+                } else if (type == 'bot') {
+                    axios.post(`/api/chat/audibles/${this.auth.id}/toggle/bot`, {
+                        'bot_id': id,
+                        'nv': nv,
+                    }).then(response => {
+                        // reassign the auth variable to the response data
+                        this.auth = response.data;
+                        this.listening = nv;
+                    })
+                }
+            }
+        },
+        leaveRoom(id) {
+            if (id != 1) {
+                /* Update the users chatroom in the database */
+                axios.post(`/api/chat/echoes/${this.auth.id}/delete/chatroom`, {
+                    'room_id': id
+                }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
+                    $('#currentChatroom').val('1');
+                    this.fetchRooms();
+                })
+            }
+        },
+        leaveTarget(id) {
+            if (id != 1) {
+                this.target = 0;
+                /* Update the users chatroom in the database */
+                axios.post(`/api/chat/echoes/${this.auth.id}/delete/target`, {
+                    'target_id': id
+                }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data;
+                    $('#currentChatroom').val('1');
+                    this.fetchRooms();
+                })
+            }
+        },
+        changeRoom(id) {
+            this.bot = 0;
+            this.target = 0;
+            this.room = id;
+            this.bot_id = null;
+            this.receiver_id = null;
+            if (this.auth.chatroom.id !== id) {
+                this.room = id;
+                /* Update the users chatroom in the database */
+                axios.post(`/api/chat/user/${this.auth.id}/chatroom`, {
+                    'room_id': id
+                }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
+                    this.tab = this.auth.chatroom.name;
+                    this.activeRoom = this.auth.chatroom.name;
+                    this.fetchMessages()
+                })
+            } else {
+                this.tab = this.auth.chatroom.name;
+                this.activeRoom = this.auth.chatroom.name;
+                this.fetchMessages()
+            }
+        },
+        changeStatus(status_id) {
+            this.status = status_id
+            this.showStatuses = false
+            if (this.auth.chat_status.id !== status_id) {
+                /* Update the users chat status in the database */
+                axios.post(`/api/chat/user/${this.auth.id}/status`, {
+                    'status_id': status_id
+                }).then(response => {
+                    // reassign the auth variable to the response data
+                    this.auth = response.data
+                })
+            }
+        },
+        changeTarget(id) {
+            if (this.target !== id && id != 0) {
+                this.target = id;
+                this.fetchPrivateMessages()
+            } else {
+                this.scrollToBottom(true)
+            }
+        },
+        changeBot(id) {
+            if (this.bot !== id && id != 0) {
+                this.bot = id;
+                this.bot_id = id;
+                this.receiver_id = 1;
+                this.fetchBotMessages(this.bot)
+            } else {
+                this.scrollToBottom(true)
+            }
+        },
+        startBot() {
+            if (this.bot != 9999) {
+                this.tab = '@' + this.helpName;
+                this.bot = this.helpId;
+                this.bot_id = this.helpId;
+                this.receiver_id = 1;
+
+                this.botId = this.helpId;
+                this.botName = this.helpName;
+                this.botCommand = this.helpCommand;
+
+                this.fetchBotMessages(this.bot);
+            } else {
+                this.scrollToBottom(true)
+            }
+        },
+        playSound() {
+            if(window.sounds && window.sounds.hasOwnProperty('alert.mp3')) {
+                window.sounds['alert.mp3'].pause;
+                window.sounds['alert.mp3'].position = 0;
+                window.sounds['alert.mp3'].play();
+            }
+        },
+        handleSound(type,id) {
+            let audioState = $('#chatbody').attr('audio');
+            if (type == 'room') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].room != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].room.id) == parseInt(id)) {
+                        if(this.activeTab == 'room'+id && audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'room'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+            if (type == 'target') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].target != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].target.id) == parseInt(id)) {
+                        if(this.activeTab == 'target'+id && audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'target'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+            if (type == 'bot') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].bot != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].bot.id) == parseInt(id)) {
+                        if(this.activeTab == 'bot'+id && audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'bot'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+        },
+        handleMessage(type, id, message) {
+            let audioState = $('#chatbody').attr('audio');
+            if (type == 'room') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].room != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].room.id) == parseInt(id)) {
+                        if(audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'room'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+            if (type == 'target') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].target != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].target.id) == parseInt(id)) {
+                        if(audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'target'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+            if (type == 'bot') {
+                for(var i = 0; i<this.audibles.length; i++) {
+                    if (this.audibles[i].bot != null && parseInt(this.audibles[i].status) == 1 && parseInt(this.audibles[i].bot.id) == parseInt(id)) {
+                        if(audioState == 'true') {
+                            this.playSound();
+                        } else if(this.activeTab != 'bot'+id) {
+                            this.playSound();
+                        }
+                    }
+                }
+            }
+        },
+        handlePing(type, id) {
+            if (type == 'room') {
+                let currentRoom = _.find(this.pings, (o) => {
+                    if (o.type == 'room' && o.id == this.check) {
+                        return o.id;
+                    }
+                });
+                if (!currentRoom) {
+                    if(this.bot > 0 || this.target > 0 || this.auth.chatroom.id != id) {
+                        let addon = [];
+                        addon['type'] = 'room';
+                        addon['id'] = id;
+                        addon['count'] = 0;
+                        this.pings.push(addon);
+                    }
+                }
+                this.handleSound('room',id);
+            }
+            else if (type == 'target') {
+                let currentTarget = _.find(this.pings, (o) => {
+                    if (o.type == 'target' && o.id == id) {
+                        return o.id;
+                    }
+                });
+                if (!currentTarget) {
+                    if(this.target < 0 || this.target != id) {
+                        let addon = [];
+                        addon['type'] = 'target';
+                        addon['id'] = id;
+                        addon['count'] = 0;
+                        this.pings.push(addon);
+                    }
+                }
+                this.handleSound('target',id);
+            }
+            else if (type == 'bot') {
+                let currentBot= _.find(this.pings, (o) => {
+                    if (o.type == 'bot' && o.id == id) {
+                        return o.id;
+                    }
+                });
+                if (!currentBot) {
+                    if(this.bot < 0 || this.bot != id) {
+                        let addon = [];
+                        addon['type'] = 'target';
+                        addon['id'] = id;
+                        addon['count'] = 0;
+                        this.pings.push(addon);
+                    }
+                }
+                this.handleSound('bot',id);
+            }
+        },
+        deletePing(type, id) {
+            for(var i = 0; i<this.pings.length; i++) {
+                if(this.pings[i].type == type && this.pings[i].id == id) {
+                    this.pings.splice(i,1);
+                }
+            }
+            return false;
+        },
+        checkPings(type, id) {
+            if(type =='room') {
+                let currentRoom = _.find(this.pings, (o) => {
+                    if (o.type == 'room' && o.id == id) {
+                        return o.id;
+                    }
+                });
+                if (currentRoom) {
+                    return true;
+                }
+            }
+            else if(type =='target') {
+                let currentTarget = _.find(this.pings, (o) => {
+                    if (o.type == 'target' && o.id == id) {
+                        return o.id;
+                    }
+                });
+                if (currentTarget) {
+                    return true;
+                }
+            }
+            else if(type =='bot') {
+                let currentBot = _.find(this.pings, (o) => {
+                    if (o.type == 'bot' && o.id == id) {
+                        return o.id;
+                    }
+                });
+                if (currentBot) {
+                    return true;
+                }
+            }
+            return false;
+        },
+        /* User defaults to System user */
+        createMessage (message, save = true, user_id = 1, receiver_id = null, bot_id = null) {
+            axios.post('/api/chat/messages', {
+                'user_id': user_id,
+                'receiver_id': receiver_id,
+                'bot_id': bot_id,
+                'chatroom_id': this.room,
+                'message': message,
+                'save': save,
+                'targeted': this.target,
+            }).then(response => {
+                this.scrollToBottom(true)
+                if (this.messages.length > this.config.message_limit) {
+                    _.each(this.messages, (m, i) => {
+                        if (this.target > 0) {
+                            if (m.receiver && m.receiver > 0) {
+                                this.messages.splice(i, 1)
+                                return false
+                            }
+                        }
+                        else {
+                            if (!m.receiver || m.receiver == 0) {
+                                this.messages.splice(i, 1)
+                                return false
+                            }
+                        }
+                    })
+                }
+            })
+        },
+        scrollToBottom (force = false) {
+
+            if (this.frozen) return;
+
+            let container = $('.messages .list-group')
+            if (this.scroll || force) {
+                container.animate({scrollTop: container.prop('scrollHeight')}, 0)
+            }
+            container.scroll(() => {
+                this.scroll = false;
+                let scrollTop = container.scrollTop() + container.prop('clientHeight')
+                let scrollHeight = container.prop('scrollHeight')
+                this.scroll = scrollTop >= scrollHeight - 50
+            })
+        },
+        listenForChatter() {
+            this.chatter = window.Echo.private(`chatter.${this.auth.id}`);
+            this.chatter.listen('Chatter', (e) => {
+                    if(e.type == 'echo') {
+                        this.echoes = e.echoes;
+                    } else if(e.type == 'audible') {
+                        this.audibles = e.audibles;
+                    } else if(e.type == 'new.message') {
+                        if(this.target < 1 && this.bot < 1) return false;
+                        this.messages.push(e.message);
+                        if(this.bot && this.bot > 0) {
+                            this.handleMessage('bot', this.bot, e.message);
+                        }
+                        else {
+                            this.handleMessage('target', this.target, e.message);
+                        }
+                    } else if(e.type == 'new.bot') {
+                        this.messages.push(e.message);
+                        this.handleMessage('bot',this.bot);
+                    } else if(e.type == 'new.ping') {
+                        if(e.ping.type == 'bot') {
+                            this.handlePing('bot', e.ping.id);
+                        } else {
+                            this.handlePing('target', e.ping.id);
+                        }
+                    } else if(e.type == 'delete.message') {
+                        if(this.target < 1 && this.bot < 1) return false;
+                        let msgs = this.messages
+                        let index = msgs.findIndex(msg => msg.id === e.message.id)
+                        this.messages.splice(index, 1)
+                    } else if(e.type == 'typing') {
+                        if(this.target < 1) return false;
+                        if (this.activePeer === false) {
+                            this.activePeer = e.username;
+                        }
+                        setTimeout(() => {
+                            this.activePeer = false
+                        }, 15000)
+                    }
+                })
+        },
+        listenForEvents () {
+            this.channel
+                .here(users => {
+                    this.state.connecting = false
+                    this.users = users
+                    setInterval(() => {
+                        this.scrollToBottom()
+                    }, 100)
+                })
+                .joining(user => {
+                    // this.createMessage(`${user.username} has JOINED the chat ...`)
+                })
+                .leaving(user => {
+                    // this.createMessage(`${user.username} has LEFT the chat ...`)
+                })
+                .listen('.new.message', e => {
+                    if(this.target > 0 || this.bot > 0) return false;
+                    this.messages.push(e.message)
+                    this.handleMessage('room',this.room, e.message);
+                })
+                .listen('.new.ping', e => {
+                    this.handlePing('room',e.ping.id);
+                })
+                .listen('.edit.message', e => {
+
+                })
+                .listen('.delete.message', e => {
+                    if(this.target > 0 || this.bot > 0) return false;
+                    let msgs = this.messages
+                    let index = msgs.findIndex(msg => msg.id === e.message.id)
+                    this.messages.splice(index, 1)
+                })
+                .listenForWhisper('typing', e => {
+                    if (this.target > 0 || this.bot > 0) return false;
+                    if (this.activePeer === false) {
+                        this.activePeer = e
+                    }
+                    setTimeout(() => {
+                        this.activePeer = false
+                    }, 15000)
+                })
+        },
+        attachAudible () {
+            $(window).off('blur');
+            $(window).on('blur',function() {
+                $('#chatbody').attr('audio', true);
+            });
+            $(window).off('focus');
+            $(window).on('focus',function() {
+                $('#chatbody').attr('audio', false);
+            });
+        }
     },
+      created () {
+          this.startup = Date.now();
+          this.auth = this.user;
+          this.activeRoom = this.auth.chatroom.name;
+          this.activeTarget = '';
+          this.activeBot = '';
+          this.fetchAudibles();
+          this.fetchEchoes();
+          this.fetchRooms();
+          this.fetchBots();
+          this.fetchStatuses();
+          this.listenForChatter();
+          this.attachAudible();
+      },
   }
 </script>
