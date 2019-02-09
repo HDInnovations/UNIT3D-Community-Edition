@@ -561,7 +561,7 @@ mark {
 }
 
 .text-muted {
-    color: #999;
+    color: #333;
 }
 
 .text-primary {
@@ -580,6 +580,15 @@ a.text-primary:hover {
 a.text-success:focus,
 a.text-success:hover {
     color: #008948;
+}
+
+.text-bright {
+    color: #222222;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #333333;
 }
 
 .text-info {
