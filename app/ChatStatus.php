@@ -17,6 +17,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatStatus extends Model
 {
+
+    /**
+     * The Database Table Used By The Model.
+     *
+     * @var string
+     */
+    protected $table = 'chat_statuses';
+
     /**
      * A Status Has Many Users.
      *
@@ -24,6 +32,6 @@ class ChatStatus extends Model
      */
     public function users()
     {
-        return $this->hasMany(User::class, 'chat_status_id');
+        return $this->hasMany(User::class, 'chat_status_id', 'id');
     }
 }
