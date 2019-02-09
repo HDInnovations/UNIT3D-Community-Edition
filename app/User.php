@@ -88,7 +88,7 @@ class User extends Authenticatable
      */
     public function chatStatus()
     {
-        return $this->belongsTo(ChatStatus::class);
+        return $this->belongsTo(ChatStatus::class,'chat_status_id','id');
     }
 
     /**
@@ -127,6 +127,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Has One Chat Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function chat()
+    {
+        return $this->hasOne(UserChat::class);
+    }
+
+    /**
      * Has One Notifications Object.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -144,6 +154,26 @@ class User extends Authenticatable
     public function rss()
     {
         return $this->hasMany(Rss::class);
+    }
+
+    /**
+     * Has Many Echo Settings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function echoes()
+    {
+        return $this->hasMany(UserEcho::class);
+    }
+
+    /**
+     * Has Many Audible Settings.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function audibles()
+    {
+        return $this->hasMany(UserAudible::class);
     }
 
     /**
