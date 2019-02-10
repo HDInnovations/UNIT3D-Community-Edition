@@ -69,7 +69,7 @@ class AutoRemoveFeaturedTorrent extends Command
             $appurl = config('app.url');
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] is no longer featured. :poop:"
+                "Ladies and Gents, [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url] is no longer featured. :poop:"
             );
 
             // Delete The Record From DB
