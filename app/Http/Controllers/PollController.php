@@ -110,7 +110,7 @@ class PollController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
         );
 
         return redirect('poll/'.$poll->slug.'/result')

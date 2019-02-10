@@ -227,7 +227,7 @@ class ChatController extends Controller
         }
 
         $this->chat->systemMessage(
-            ':robot: [b][color=#fb9776]System[/color][/b] : Chatbox Has Been Flushed! :broom:'
+            'Chatbox Has Been Flushed! :broom:'
         );
 
         return redirect('staff_dashboard')
