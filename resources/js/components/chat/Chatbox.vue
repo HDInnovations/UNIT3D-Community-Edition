@@ -422,7 +422,6 @@
                 axios.get('/api/chat/echoes').then(response => {
                     this.echoes = response.data.data;
                     this.echoes = this.sortEchoes(this.echoes);
-                    console.log(this.echoes);
                     this.boot = 1;
                 })
             },
@@ -889,7 +888,6 @@
                         if(e.message.bot && e.message.bot != null && e.message.bot.id != this.bot) return false;
                         if(e.message.target && e.message.target != null && e.message.target.id != this.target) return false;
                         this.messages.push(e.message);
-                        console.log(e);
                         if(this.bot && this.bot > 0) {
                             this.handleMessage('bot', this.bot, e.message);
                         }
