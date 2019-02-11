@@ -9,7 +9,6 @@ $('img.img-tor-poster, i.img-tor-poster').popover({
         return '<img src="' + c + '" class="img-thumbnail torrent-poster-popup">';
     },
 });
-
 $(document).ready(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 50) {
@@ -18,7 +17,6 @@ $(document).ready(function() {
             $('#back-to-top').fadeOut();
         }
     });
-
     $('#back-to-top').click(function() {
         $('#back-to-top').tooltip('hide');
         $('body,html').animate({ scrollTop: 0 }, 800);
@@ -33,7 +31,6 @@ $(document).ready(function() {
         pause: 'hover',
     });
 });
-
 $(document).ready(function() {
     $('[data-toggle="tooltip"]').tooltip();
 });

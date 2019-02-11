@@ -153,7 +153,18 @@ class ChatController extends Controller
             return response('error', 401);
         }
 
-        $bots = Bot::where('active', '=', 1)->orderBy('position', 'asc')->get();
+        $bot_dirty = 0;
+        $bots = cache()->get('bots');
+        if (! $bots || ! is_array($bots) || count($bots) < 1) {
+            $bots = Bot::where('active', '=', 1)->orderBy('position', 'asc')->get();
+            $bot_dirty = 1;
+        }
+
+        if ($bot_dirty == 1) {
+            $expiresAt = Carbon::now()->addMinutes(60);
+            cache()->put('bots', $bots, $expiresAt);
+        }
+
         $which = null;
         $target = null;
         $runbot = null;
@@ -185,15 +196,12 @@ class ChatController extends Controller
             foreach ($bots as $bot) {
                 if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
                     $which = 'echo';
-                }
-                if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
                     $which = 'public';
-                }
-                if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
                     $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     $which = 'private';
-                }
-                if ($message && $receiver_id == 1 && $bot->id == $bot_id) {
+                } elseif ($message && $receiver_id == 1 && $bot->id == $bot_id) {
                     if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
                         $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     }
@@ -326,17 +334,19 @@ class ChatController extends Controller
                 event(new Chatter('audible', $receiver_id, UserAudibleResource::collection($receiver_audibles)));
             }
 
-            $ignore = false;
             $room_id = 0;
-            if ($bot_id > 0) {
+            if ($bot_id > 0 && receiver_id == 1) {
                 $ignore = true;
+            } else {
+                $ignore = null;
             }
+            $save = true;
+            $echo = true;
             $message = $this->chat->privateMessage($user_id, $room_id, $message, $receiver_id, null, $ignore);
         } else {
             $receiver_id = null;
             $bot_id = null;
             $message = $this->chat->message($user_id, $room_id, $message, $receiver_id, $bot_id);
-            $this->chat->ping('room', $room_id);
         }
 
         if (! $save) {

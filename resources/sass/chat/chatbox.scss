@@ -1,7 +1,10 @@
-#frame {
+#frameBody {
     height: 92vh;
     min-height: 300px;
     max-height: 590px;
+}
+#frame {
+    height: 100%;
     background: #E6EAEA;
     #sidepanel {
         float: left;
@@ -392,7 +395,6 @@
                 margin-left: 10px;
                 max-height: 535px;
                 overflow-y: auto;
-
                 li {
                     position: relative;
                     display: block;
@@ -456,6 +458,14 @@
                                 float: left;
                             }
 
+                            &.chat-bot-image {
+                                border: 3px solid #7289da;
+                                margin-right: 5px;
+                                padding: 0;
+                                width: 22px;
+                                border-radius: 50%;
+                                float: left;
+                            }
                         }
 
                         color: #2C4151;

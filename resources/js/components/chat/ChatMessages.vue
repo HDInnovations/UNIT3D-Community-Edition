@@ -3,25 +3,25 @@
         <ul class="list-group">
             <li class="sent" v-for="message in messages">
 
-                <a v-if="message.user.id !== 1" target="_blank"
-                   v-tooltip="`${message.user.username}'s profile`"
-                   :href="`/${message.user.username}.${message.user.id}`">
-                    <img class="chat-user-image"
-                         :style="`border: 3px solid ${message.user.chat_status.color};`"
-                         :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
-                         alt=""/>
+                <a
+                    target="_blank"
+                    v-tooltip="
+                        `${message.user.username}${
+                            message.user.title ? ' (' + message.user.title + ')' : '\'s Profile'
+                        }`
+                    "
+                    :href="`/${message.user.username}.${message.user.id}`"
+                >
+                    <img
+                        v-if="message.user.id !== 1"
+                        class="chat-user-image"
+                        :style="`border: 3px solid ${message.user.chat_status.color};`"
+                        :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
+                        alt=""
+                    />
                 </a>
 
-                <a v-if="message.bot && message.bot.id > 0 && (!message.user || message.user.id < 2)" target="_blank"
-                   v-tooltip="`${message.bot.name}'s profile`"
-                   :href="`/bot.2`">
-                    <img class="chat-user-image"
-                         :style="`border: 3px solid ${message.bot.color};`"
-                         :src="`/img/emojione/${message.bot.emoji}.png`"
-                         alt=""/>
-                </a>
-
-                <h4 v-if="message.user.id !== 0" class="list-group-item-heading">
+                <h4 class="list-group-item-heading">
 
                     <span class="badge-user text-bold">
 
@@ -66,12 +66,12 @@
                        @click.prevent="$parent.forceGift(message.user.username)">
                         <i class="fas fa-gift pointee"></i>
                     </a>
-                    <span class="text-muted">
+                    <span v-if="message.user.id !== 1" class="text-muted">
                         {{ message.created_at | fromNow }}
                     </span>
 
                 </h4>
-                <div @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')"
+                <div @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')" :style="display: inline-block; margin-top: 5px;"
                      v-html="message.message">
                 </div>
             </li>
