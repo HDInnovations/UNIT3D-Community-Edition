@@ -1,9 +1,8 @@
 <template>
     <div class="messages">
-        <ul class="list-group">
+        <ul class="list-group" id="frameList">
             <li class="sent" v-for="message in messages">
-
-                <a v-if="message.user.id !== 1" target="_blank"
+                <a v-if="message.user && message.user != null && message.user.id > 1" target="_blank"
                    v-tooltip="`${message.user.username}'s profile`"
                    :href="`/${message.user.username}.${message.user.id}`">
                     <img class="chat-user-image"
@@ -11,52 +10,38 @@
                          :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
                          alt=""/>
                 </a>
-
                 <a v-if="message.bot && message.bot.id > 0 && (!message.user || message.user.id < 2)" target="_blank"
                    v-tooltip="`${message.bot.name}'s profile`"
                    :href="`/bot.2`">
-                    <img class="chat-user-image"
+                    <img class="chat-bot-image"
                          :style="`border: 3px solid ${message.bot.color};`"
                          :src="`/img/emojione/${message.bot.emoji}.png`"
                          alt=""/>
                 </a>
-
-                <h4 v-if="message.user.id !== 0" class="list-group-item-heading">
-
+                <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
                     <span class="badge-user text-bold">
-
                         <i v-if="(message.user && message.user.id > 1) || (message.bot && message.bot.id >= 1)" v-tooltip="message.user.group.name"
                            :class="message.user.group.icon">
                         </i>
                         <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" v-tooltip=""
                            class="fas fa-bell">
                         </i>
-
                         <a v-if="message.user && message.user.id > 1" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
                            @click="pmUser(message.user)"
                            :style="userStyles(message.user)">
 					        {{message.user.username}}
                         </a>
-
-                        <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot && message.bot.id > 0 ? message.bot.name : message.bot.name"
-                           :style="userStyles(message.user)">
-					        {{message.bot.name}}
-                        </a>
-
                         <!--<i v-if="canMod(message)"-->
                         <!--v-tooltip="`Edit Message`"-->
                         <!--@click="editMessage(message)"-->
                         <!--class="fa fa-edit text-blue">-->
 
                         <!--</i>-->
-
                         <i v-if="message.user.id != 1 && canMod(message)"
                            v-tooltip="`Delete Message`"
                            @click="deleteMessage(message.id)"
                            class="fa fa-times text-red">
-
                         </i>
-
 					</span>
                     <a v-if="message.user && message.user.id > 1 && message.user.id != $parent.auth.id" v-tooltip="message.user && message.user.id > 1 && message.user.id !== $parent.auth.id ? `Private Message` : message.user.username"
                        @click.prevent="$parent.forceMessage(message.user.username)">
@@ -69,9 +54,23 @@
                     <span class="text-muted">
                         {{ message.created_at | fromNow }}
                     </span>
-
                 </h4>
-                <div @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')"
+                <h4 v-if="message.user.id == 1" class="list-group-item-heading">
+                    <i v-if="message.user && message.user.id <= 1 && (!message.bot || message.bot.id < 1)" v-tooltip=""
+                       class="fas fa-bell">
+                    </i>
+                    <a v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" v-tooltip="message.bot && message.bot.id > 0 ? message.bot.name : message.bot.name"
+                       :style="userStyles(message.user)" class="text-small">
+                        {{message.bot.name}}
+                    </a>
+                    <span class="text-muted">
+                        {{ message.created_at | fromNow }}
+                    </span>
+                </h4>
+                <div v-if="message.user.id > 1" @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')"
+                     v-html="message.message">
+                </div>
+                <div v-if="message.user.id == 1" @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright text-small' : 'text-bright text-small')"
                      v-html="message.message">
                 </div>
             </li>
@@ -81,6 +80,12 @@
 <style lang="scss" scoped>
     .pointee {
         cursor: pointer;
+    }
+    .sent {
+        margin: 2px 0 2px 0;
+    }
+    .text-small {
+        font-size: 14px !important;
     }
 </style>
 <script>
