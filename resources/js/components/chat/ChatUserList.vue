@@ -9,7 +9,7 @@
                    v-tooltip="`${user.username}'s profile`"
                    :href="`/${user.username}.${user.id}`">
                     <img class="chat-user-image"
-                         :style="`border: 3px solid ${user.chat_status.color};`"
+                         :style="user && user.hasOwnProperty('chat_status') && user.chat_status.hasOwnProperty('color') ? `border: 3px solid ${user.chat_status.color};` : ``"
                          :src="user.image ? `/files/img/${user.image}` : '/img/profile.png'"
                          alt=""/>
                 </a>
@@ -51,7 +51,7 @@
     ],
     methods: {
       userStyles (user) {
-        return `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
+        return user && user.group && user.group.hasOwnProperty('color') ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};` : `cursor: pointer;`
       }
     }
   }
