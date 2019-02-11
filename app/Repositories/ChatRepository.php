@@ -94,7 +94,7 @@ class ChatRepository
         ])->where(function ($query) use ($user_id) {
             $query->where('user_id', '=', $user_id);
         })
-            ->orderBy('id','asc')
+            ->orderBy('id', 'asc')
             ->get();
     }
 
@@ -192,7 +192,7 @@ class ChatRepository
         }
         $message = $this->htmlifyMessage($message);
 
-        if($bot != null) {
+        if ($bot != null) {
             $save = $this->message->create([
                 'user_id' => $user_id,
                 'chatroom_id' => 0,
@@ -200,8 +200,7 @@ class ChatRepository
                 'receiver_id' => $receiver,
                 'bot_id' => $bot,
             ]);
-        }
-        else {
+        } else {
             $save = $this->message->create([
                 'user_id' => $user_id,
                 'chatroom_id' => 0,
@@ -224,9 +223,10 @@ class ChatRepository
         }
         event(new Chatter('new.message', $receiver, new ChatMessageResource($message)));
 
-        if($receiver != 1) {
+        if ($receiver != 1) {
             event(new Chatter('new.ping', $receiver, ['type' => 'target', 'id' => $user_id]));
         }
+
         return $message;
     }
 
@@ -267,7 +267,7 @@ class ChatRepository
             'receiver.chatStatus',
         ])->where(function ($query) use ($sender_id,$bot_id) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, 1])->orWhereRaw('(user_id = ? and receiver_id = ?)', [1, $sender_id]);
-        })->where('bot_id','=',$bot_id)
+        })->where('bot_id', '=', $bot_id)
             ->orderBy('id', 'desc')
             ->limit(config('chat.message_limit'))
             ->get();
