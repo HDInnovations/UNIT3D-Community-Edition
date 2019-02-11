@@ -2,21 +2,19 @@
     <div class="messages">
         <ul class="list-group" id="frameList">
             <li class="sent" v-for="message in messages">
-                <a v-if="message.user && message.user != null && message.user.id > 1" target="_blank"
-                   v-tooltip="`${message.user.username}'s profile`"
-                   :href="`/${message.user.username}.${message.user.id}`">
-                    <img class="chat-user-image"
-                         :style="`border: 3px solid ${message.user.chat_status.color};`"
-                         :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
-                         alt=""/>
-                </a>
-                <a v-if="message.bot && message.bot.id > 0 && (!message.user || message.user.id < 2)" target="_blank"
-                   v-tooltip="`${message.bot.name}'s profile`"
-                   :href="`/bot.2`">
-                    <img class="chat-bot-image"
-                         :style="`border: 3px solid ${message.bot.color};`"
-                         :src="`/img/emojione/${message.bot.emoji}.png`"
-                         alt=""/>
+	    
+                <a target="_blank" v-tooltip="
+                        `${message.user.username}${
+                            message.user.title ? ' (' + message.user.title + ')' : '\'s Profile'
+                        }`"
+                    :href="`/${message.user.username}.${message.user.id}`">
+                    <img
+                        v-if="message.user.id !== 1"
+                        class="chat-user-image"
+                        :style="`border: 3px solid ${message.user.chat_status.color};`"
+                        :src="message.user.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
+                        alt=""
+                    />
                 </a>
                 <h4 v-if="message.user.id !== 1" class="list-group-item-heading">
                     <span class="badge-user text-bold">
@@ -31,12 +29,13 @@
                            :style="userStyles(message.user)">
 					        {{message.user.username}}
                         </a>
+			
                         <!--<i v-if="canMod(message)"-->
                         <!--v-tooltip="`Edit Message`"-->
                         <!--@click="editMessage(message)"-->
                         <!--class="fa fa-edit text-blue">-->
-
                         <!--</i>-->
+			
                         <i v-if="message.user.id != 1 && canMod(message)"
                            v-tooltip="`Delete Message`"
                            @click="deleteMessage(message.id)"
@@ -70,7 +69,7 @@
                 <div v-if="message.user.id > 1" @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')"
                      v-html="message.message">
                 </div>
-                <div v-if="message.user.id == 1" @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright text-small' : 'text-bright text-small')"
+                <div v-if="message.user.id == 1" @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright text-small' : 'text-bright text-small')" :style="display: inline-block; margin-top: 5px;"
                      v-html="message.message">
                 </div>
             </li>
