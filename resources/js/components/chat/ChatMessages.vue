@@ -84,7 +84,6 @@
     }
     .bot {
         display: inline-block;
-        margin-top: 5px;
     }
 </style>
 <script>
