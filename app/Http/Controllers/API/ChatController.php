@@ -160,7 +160,7 @@ class ChatController extends Controller
             $bot_dirty = 1;
         }
 
-        if($bot_dirty == 1) {
+        if ($bot_dirty == 1) {
             $expiresAt = Carbon::now()->addMinutes(60);
             cache()->put('bots', $bots, $expiresAt);
         }
@@ -196,15 +196,12 @@ class ChatController extends Controller
             foreach ($bots as $bot) {
                 if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
                     $which = 'echo';
-                }
-                else if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '!'.$bot->command) {
                     $which = 'public';
-                }
-                else if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
+                } elseif ($message && substr($message, 0, 1 + (strlen($bot->command))) == '@'.$bot->command) {
                     $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     $which = 'private';
-                }
-                else if ($message && $receiver_id == 1 && $bot->id == $bot_id) {
+                } elseif ($message && $receiver_id == 1 && $bot->id == $bot_id) {
                     if ($message && substr($message, 0, 1 + (strlen($bot->command))) == '/'.$bot->command) {
                         $message = substr($message, 1 + strlen($bot->command), strlen($message));
                     }
