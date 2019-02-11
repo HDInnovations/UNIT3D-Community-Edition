@@ -21,7 +21,7 @@
                     />
                 </a>
 
-                <h4 class="list-group-item-heading">
+                <h4 class="list-group-item-heading bot">
 
                     <span class="badge-user text-bold">
 
@@ -71,7 +71,7 @@
                     </span>
 
                 </h4>
-                <div @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright' : 'text-bright')" :style="display: inline-block; margin-top: 5px;"
+                <div @click="checkBot($event,message)" :class="(message.user.id === 1 ? 'system text-bright bot' : 'text-bright')"
                      v-html="message.message">
                 </div>
             </li>
@@ -81,6 +81,10 @@
 <style lang="scss" scoped>
     .pointee {
         cursor: pointer;
+    }
+    .bot {
+        display: inline-block;
+        margin-top: 5px;
     }
 </style>
 <script>
