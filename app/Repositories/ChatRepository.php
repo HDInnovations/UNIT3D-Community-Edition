@@ -192,23 +192,13 @@ class ChatRepository
         }
         $message = $this->htmlifyMessage($message);
 
-        if ($bot != null) {
-            $save = $this->message->create([
-                'user_id' => $user_id,
-                'chatroom_id' => 0,
-                'message' => $message,
-                'receiver_id' => $receiver,
-                'bot_id' => $bot,
-            ]);
-        } else {
-            $save = $this->message->create([
-                'user_id' => $user_id,
-                'chatroom_id' => 0,
-                'message' => $message,
-                'receiver_id' => $receiver,
-                'bot_id' => $bot,
-            ]);
-        }
+        $save = $this->message->create([
+            'user_id' => $user_id,
+            'chatroom_id' => 0,
+            'message' => $message,
+            'receiver_id' => $receiver,
+            'bot_id' => $bot,
+        ]);
 
         $message = Message::with([
             'bot',
