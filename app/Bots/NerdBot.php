@@ -354,9 +354,6 @@ class NerdBot
             if ($command[$x] == 'banker') {
                 $log = $this->getBanker($params);
             }
-            if ($command[$x] == 'bankers') {
-                $log = $this->getBankers($params);
-            }
             if ($command[$x] == 'bans') {
                 $log = $this->getBans($params);
             }

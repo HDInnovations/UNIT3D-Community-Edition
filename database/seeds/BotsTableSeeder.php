@@ -57,7 +57,6 @@ Public, Echo & Private commands:
 (! | / | @)nerdbot help - Displays this help file.
 
 (! | / | @)nerdbot banker - Displays who is currently top BON holder.
-(! | / | @)nerdbot bankers - Displays who are currently top 10 BON holders.
 (! | / | @)nerdbot bans - Displays # of bans from site in past 24 hours.
 (! | / | @)nerdbot donations - Displays the 10 most recent donations to all bots.
 (! | / | @)nerdbot doubleupload - Displays # of double upload torrents available on the site.
