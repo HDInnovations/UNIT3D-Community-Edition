@@ -47,6 +47,7 @@ return [
                 'exclude' => [
                     base_path('vendor'),
                     storage_path(),
+                    base_path('node_modules'),
                 ],
 
                 /*
@@ -67,7 +68,7 @@ return [
         /*
          * The database dump can be gzipped to decrease diskspace usage.
          */
-        'gzip_database_dump' => false,
+        'gzip_database_dump' => true,
 
         'destination' => [
 
