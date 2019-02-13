@@ -13,10 +13,22 @@
 
 namespace App;
 
+use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 class LogActivity extends Model
 {
+    use Encryptable;
+
+    /**
+     * The Attributes That Are Encrypted.
+     *
+     * @var array
+     */
+    protected $encryptable = [
+        'ip',
+    ];
+
     /**
      * Belongs To A User.
      *
