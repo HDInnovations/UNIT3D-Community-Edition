@@ -29,8 +29,6 @@ class BackupPassword
      */
     public function __construct(string $path)
     {
-        ini_set('memory_limit', '1024M');
-
         consoleOutput()->info('Applying password and encryption to zip...');
 
         // Create a new zip, add the zip from spatie/backup, encrypt and resave/overwrite
