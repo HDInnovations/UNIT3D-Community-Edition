@@ -122,6 +122,7 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version   | Status                   | PHP Version
 :----------|:-------------------------|:------------
+ 1.9       |  Active support :rocket: | >= 7.1.3
  1.8.9     |  Active support :rocket: | >= 7.1.3
  1.8.8     |  Active support :rocket: | >= 7.1.3
  1.8.7     |  Active support :rocket: | >= 7.1.3
