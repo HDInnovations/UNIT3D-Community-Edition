@@ -14,8 +14,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Contracts\Encryption\EncryptException;
 
 trait Encryptable
 {
@@ -25,8 +23,10 @@ trait Encryptable
 
         if (in_array($key, $this->encryptable)) {
             $value = Crypt::decrypt($value);
+
             return $value;
         }
+
         return $value;
     }
 
