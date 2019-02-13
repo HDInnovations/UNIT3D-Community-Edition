@@ -29,6 +29,7 @@
         "mews/purifier": "^2.1",
         "mjohnson/decoda": "6.*",
         "moinax/tvdb": "1.*",
+        "nelexa/zip": "^3.1",
         "paragonie/constant_time_encoding": "^2.0",
         "predis/predis": "^1.1",
         "rachidlaasri/laravel-installer": "^3.2",
