@@ -18,18 +18,18 @@ use PhpZip\ZipFile;
 class BackupPassword
 {
     /**
-     * Path to .zip-fil
+     * Path to .zip-fil.
      * @var string
      */
     public $path;
 
     /**
-     * Read the .zip, apply password and encryption, then rewrite the file
+     * Read the .zip, apply password and encryption, then rewrite the file.
      * @param string $path the path to the .zip-file
      */
-    function __construct(string $path)
+    public function __construct(string $path)
     {
-        ini_set('memory_limit','1024M');
+        ini_set('memory_limit', '1024M');
 
         consoleOutput()->info('Applying password and encryption to zip...');
 

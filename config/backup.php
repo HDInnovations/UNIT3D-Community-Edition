@@ -201,7 +201,7 @@ return [
 
     'security' => [
         'password' => env('APP_KEY'),
-        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_256
+        'encryption' => \App\Helpers\BackupEncryption::ENCRYPTION_WINZIP_AES_256,
 
         // Available encryption methods:
         // \App\Helpers\BackupEncryption::ENCRYPTION_DEFAULT (PKWARE/ZipCrypto)
