@@ -29,6 +29,7 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $passkey
      *
      * @return Bencode response for the torrent client
@@ -428,6 +429,13 @@ class AnnounceController extends Controller
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
     }
 
+    /**
+     * Check Client Agaist Blacklist.
+     *
+     * @param $client
+     *
+     * @return mixed
+     */
     private function checkBlacklist($client)
     {
         // Check If Browser Is Blacklisted
@@ -450,6 +458,11 @@ class AnnounceController extends Controller
         }
     }
 
+    /**
+     * Check Incoming Request Type.
+     *
+     * @return mixed
+     */
     private function checkRequestType()
     {
         // Check Announce Request Method
@@ -460,6 +473,15 @@ class AnnounceController extends Controller
         }
     }
 
+    /**
+     * Give Client Peers.
+     *
+     * @param $peers
+     * @param $compact
+     * @param $no_peer_id
+     *
+     * @return string
+     */
     private function givePeers($peers, $compact, $no_peer_id)
     {
         if ($compact) {

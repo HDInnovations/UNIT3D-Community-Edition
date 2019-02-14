@@ -64,9 +64,11 @@ class RssController extends Controller
     /**
      * Show the form for creating a new RSS resource.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function create(\Illuminate\Http\Request $request)
+    public function create(Request $request)
     {
         $user = $request->user();
         $torrent_repository = $this->torrent_faceted;
@@ -135,10 +137,12 @@ class RssController extends Controller
     /**
      * Show the form for editing the specified RSS resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
-    public function edit(\Illuminate\Http\Request $request, $id)
+    public function edit(Request $request, $id)
     {
         $user = $request->user();
         $rss = Rss::where('is_private', '=', 0)->findOrFail($id);

@@ -59,6 +59,8 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
+     * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function poll($id)

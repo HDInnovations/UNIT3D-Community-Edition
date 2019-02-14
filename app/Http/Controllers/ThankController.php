@@ -37,12 +37,13 @@ class ThankController extends Controller
     /**
      * Thank A Torrent Uploader.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function torrentThank(\Illuminate\Http\Request $request, $slug, $id)
+    public function torrentThank(Request $request, $slug, $id)
     {
         $user = $request->user();
         $torrent = Torrent::findOrFail($id);

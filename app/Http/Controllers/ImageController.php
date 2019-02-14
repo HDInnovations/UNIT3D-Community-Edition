@@ -147,11 +147,12 @@ class ImageController extends Controller
     /**
      * Delete A Image.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(\Illuminate\Http\Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         $user = $request->user();
         $image = Image::findOrFail($id);

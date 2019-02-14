@@ -34,12 +34,13 @@ class CatalogController extends Controller
     /**
      * Show All Titles In A Catalog.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function catalog(\Illuminate\Http\Request $request, $slug, $id)
+    public function catalog(Request $request, $slug, $id)
     {
         $user = $request->user();
         $catalog = Catalog::findOrFail($id);
@@ -55,11 +56,12 @@ class CatalogController extends Controller
     /**
      * Show All Torrents That Match Catalog Titles.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $imdb
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function torrents(\Illuminate\Http\Request $request, $imdb)
+    public function torrents(Request $request, $imdb)
     {
         $user = $request->user();
         $torrents = Torrent::where('imdb', '=', $imdb)->latest('size')->get();

@@ -30,9 +30,11 @@ class HomeController extends Controller
     /**
      * Home Page.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home(\Illuminate\Http\Request $request)
+    public function home(Request $request)
     {
         // Authorized User
         $user = $request->user();

@@ -35,6 +35,13 @@ class ActivationController extends Controller
         $this->toastr = $toastr;
     }
 
+    /**
+     * Activate A Users Account.
+     *
+     * @param $token
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function activate($token)
     {
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();

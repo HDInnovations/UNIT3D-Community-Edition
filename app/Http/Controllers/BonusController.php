@@ -56,9 +56,11 @@ class BonusController extends Controller
     /**
      * Show Bonus Gifts System.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gifts(\Illuminate\Http\Request $request)
+    public function gifts(Request $request)
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -81,9 +83,11 @@ class BonusController extends Controller
     /**
      * Show Bonus Tips System.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function tips(\Illuminate\Http\Request $request)
+    public function tips(Request $request)
     {
         $user = $request->user();
         $userbon = $user->getSeedbonus();
@@ -106,9 +110,11 @@ class BonusController extends Controller
     /**
      * Show Bonus Store System.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(\Illuminate\Http\Request $request)
+    public function store(Request $request)
     {
         $user = $request->user();
         $users = User::oldest('username')->get();
@@ -136,9 +142,11 @@ class BonusController extends Controller
     /**
      * Show Bonus Gift System.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function gift(\Illuminate\Http\Request $request)
+    public function gift(Request $request)
     {
         $user = $request->user();
         $users = User::oldest('username')->get();
@@ -153,9 +161,12 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
+     * @param \Illuminate\Http\Request $request
+     * @param string $username
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bonus(\Illuminate\Http\Request $request, $username = '')
+    public function bonus(Request $request, $username = '')
     {
         $user = $request->user();
         $users = User::oldest('username')->get();
@@ -225,11 +236,12 @@ class BonusController extends Controller
     /**
      * Exchange Points For A Item.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function exchange(\Illuminate\Http\Request $request, $id)
+    public function exchange(Request $request, $id)
     {
         $user = $request->user();
         $userbon = $user->seedbonus;
@@ -522,11 +534,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getDyingCount
+     * Get User Dying Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getDyingCount(\Illuminate\Http\Request $request)
+    public function getDyingCount(Request $request)
     {
         $user = $request->user();
 
@@ -541,11 +555,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getLegendaryCount
+     * Get User Legendary Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getLegendaryCount(\Illuminate\Http\Request $request)
+    public function getLegendaryCount(Request $request)
     {
         $user = $request->user();
 
@@ -560,11 +576,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getOldCount
+     * Get User Old Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getOldCount(\Illuminate\Http\Request $request)
+    public function getOldCount(Request $request)
     {
         $user = $request->user();
 
@@ -580,11 +598,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getHugeCount
+     * Get User Huge Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getHugeCount(\Illuminate\Http\Request $request)
+    public function getHugeCount(Request $request)
     {
         $user = $request->user();
 
@@ -598,11 +618,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getLargeCount
+     * Get User Large Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getLargeCount(\Illuminate\Http\Request $request)
+    public function getLargeCount(Request $request)
     {
         $user = $request->user();
 
@@ -617,11 +639,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getRegularCount
+     * Get User Regular Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getRegularCount(\Illuminate\Http\Request $request)
+    public function getRegularCount(Request $request)
     {
         $user = $request->user();
 
@@ -636,11 +660,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getParticipaintSeedCount
+     * Get User Participant Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getParticipaintSeedCount(\Illuminate\Http\Request $request)
+    public function getParticipaintSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -655,11 +681,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getParticipaintSeedCount
+     * Get User Team Player Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getTeamPlayerSeedCount(\Illuminate\Http\Request $request)
+    public function getTeamPlayerSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -674,11 +702,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getParticipaintSeedCount
+     * Get User Commited Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getCommitedSeedCount(\Illuminate\Http\Request $request)
+    public function getCommitedSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -693,11 +723,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getParticipaintSeedCount
+     * Get User MVP Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getMVPSeedCount(\Illuminate\Http\Request $request)
+    public function getMVPSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -712,11 +744,13 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getParticipaintSeedCount
+     * Get User Legendary Count.
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return int
      */
-    public function getLegendarySeedCount(\Illuminate\Http\Request $request)
+    public function getLegendarySeedCount(Request $request)
     {
         $user = $request->user();
 

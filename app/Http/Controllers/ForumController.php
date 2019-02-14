@@ -840,11 +840,12 @@ class ForumController extends Controller
     /**
      * Delete A Post.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function postDelete(\Illuminate\Http\Request $request, $postId)
+    public function postDelete(Request $request, $postId)
     {
         $user = $request->user();
         $post = Post::with('topic')->findOrFail($postId);
@@ -859,12 +860,13 @@ class ForumController extends Controller
     /**
      * Close The Topic.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function closeTopic(\Illuminate\Http\Request $request, $slug, $id)
+    public function closeTopic(Request $request, $slug, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -880,12 +882,13 @@ class ForumController extends Controller
     /**
      * Open The Topic.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function openTopic(\Illuminate\Http\Request $request, $slug, $id)
+    public function openTopic(Request $request, $slug, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -901,12 +904,13 @@ class ForumController extends Controller
     /**
      * Delete The Topic and The Posts.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteTopic(\Illuminate\Http\Request $request, $slug, $id)
+    public function deleteTopic(Request $request, $slug, $id)
     {
         $user = $request->user();
         $topic = Topic::findOrFail($id);
@@ -978,6 +982,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function deniedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -992,6 +1001,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function solvedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -1006,6 +1020,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function invalidTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -1020,6 +1039,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function bugTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -1034,6 +1058,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function suggestionTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);
@@ -1048,6 +1077,11 @@ class ForumController extends Controller
             ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
     }
 
+    /**
+     * @param $slug
+     * @param $id
+     * @return mixed
+     */
     public function implementedTopic($slug, $id)
     {
         $topic = Topic::findOrFail($id);

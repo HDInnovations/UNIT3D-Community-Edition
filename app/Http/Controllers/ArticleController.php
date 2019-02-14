@@ -32,6 +32,9 @@ class ArticleController extends Controller
     /**
      * Show A Article.
      *
+     * @param $slug
+     * @param $id
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function post($slug, $id)

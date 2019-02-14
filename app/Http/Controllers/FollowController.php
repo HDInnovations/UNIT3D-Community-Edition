@@ -39,11 +39,12 @@ class FollowController extends Controller
     /**
      * Follow A User.
      *
+     * @param \Illuminate\Http\Request $request
      * @param User $user
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function follow(\Illuminate\Http\Request $request, User $user)
+    public function follow(Request $request, User $user)
     {
         if ($request->user()->id == $user->id) {
             return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
@@ -68,11 +69,12 @@ class FollowController extends Controller
     /**
      * Un Follow A User.
      *
+     * @param \Illuminate\Http\Request $request
      * @param User $user
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unfollow(\Illuminate\Http\Request $request, User $user)
+    public function unfollow(Request $request, User $user)
     {
         if ($request->user()->isFollowing($user->id)) {
             $follow = $request->user()->follows()->where('target_id', '=', $user->id)->first();

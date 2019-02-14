@@ -21,9 +21,11 @@ class BookmarkController extends Controller
     /**
      * Get Torrent Bookmarks.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function bookmarks(\Illuminate\Http\Request $request)
+    public function bookmarks(Request $request)
     {
         $user = $request->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();

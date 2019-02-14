@@ -37,11 +37,12 @@ class LikeController extends Controller
     /**
      * Like A Post.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store(\Illuminate\Http\Request $request, $postId)
+    public function store(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
@@ -71,11 +72,12 @@ class LikeController extends Controller
     /**
      * Dislike A Post.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $postId
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(\Illuminate\Http\Request $request, $postId)
+    public function destroy(Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";

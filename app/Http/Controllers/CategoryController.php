@@ -34,12 +34,13 @@ class CategoryController extends Controller
     /**
      * Show All Torrents Within A Category.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category(\Illuminate\Http\Request $request, $slug, $id)
+    public function category(Request $request, $slug, $id)
     {
         $user = $request->user();
         $category = Category::select(['id', 'name', 'slug'])->findOrFail($id);

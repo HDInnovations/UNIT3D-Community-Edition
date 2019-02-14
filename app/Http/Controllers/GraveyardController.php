@@ -47,9 +47,11 @@ class GraveyardController extends Controller
     /**
      * Show The Graveyard.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $current = Carbon::now();
         $user = $request->user();
@@ -190,11 +192,12 @@ class GraveyardController extends Controller
     /**
      * Cancel A Ressurection.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  int  $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(\Illuminate\Http\Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         $user = $request->user();
         $resurrection = Graveyard::findOrFail($id);

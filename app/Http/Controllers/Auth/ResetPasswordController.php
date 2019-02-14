@@ -26,11 +26,20 @@ class ResetPasswordController extends Controller
 
     protected $redirectTo = '/';
 
+    /**
+     * ResetPasswordController Constructor.
+     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
+    /**
+     * Reset A Users Password.
+     *
+     * @param $user
+     * @param $password
+     */
     protected function resetPassword($user, $password)
     {
         $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();

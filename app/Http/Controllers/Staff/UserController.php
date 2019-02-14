@@ -74,6 +74,8 @@ class UserController extends Controller
     /**
      * Search For A User.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function userSearch(Request $request)

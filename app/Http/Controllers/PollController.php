@@ -59,11 +59,12 @@ class PollController extends Controller
     /**
      * Show A Poll.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $slug
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(\Illuminate\Http\Request $request, $slug)
+    public function show(Request $request, $slug)
     {
         $poll = Poll::whereSlug($slug)->firstOrFail();
         $user = $request->user();

@@ -49,11 +49,12 @@ class ActivityLogController extends Controller
     /**
      * Delete Record From Activity Log.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy(\Illuminate\Http\Request $request, $id)
+    public function destroy(Request $request, $id)
     {
         $user = $request->user();
         $activity = LogActivity::findOrFail($id);

@@ -49,6 +49,9 @@ class LoginController extends Controller
         $this->toastr = $toastr;
     }
 
+    /**
+     * @return string
+     */
     public function username()
     {
         return 'username';
@@ -75,6 +78,13 @@ class LoginController extends Controller
         ]);
     }
 
+    /**
+     * Authenticate A User.
+     *
+     * @param $user
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     protected function authenticated(Request $request, $user)
     {
         $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();

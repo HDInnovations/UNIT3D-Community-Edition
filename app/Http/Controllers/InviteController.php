@@ -42,9 +42,11 @@ class InviteController extends Controller
     /**
      * Invite Form.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invite(\Illuminate\Http\Request $request)
+    public function invite(Request $request)
     {
         $user = $request->user();
 
@@ -139,11 +141,12 @@ class InviteController extends Controller
     /**
      * Resend Invite.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function reProcess(\Illuminate\Http\Request $request, $id)
+    public function reProcess(Request $request, $id)
     {
         $user = $request->user();
         $invite = Invite::findOrFail($id);
@@ -167,12 +170,13 @@ class InviteController extends Controller
     /**
      * Invite Tree.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $username
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function invites(\Illuminate\Http\Request $request, $username, $id)
+    public function invites(Request $request, $username, $id)
     {
         $user = $request->user();
         $owner = User::findOrFail($id);

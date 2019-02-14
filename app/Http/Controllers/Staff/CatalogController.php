@@ -120,7 +120,9 @@ class CatalogController extends Controller
     }
 
     /**
-     * Catalog Torrent System.
+     * Get Catalog Torrents.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getCatalogTorrent()
     {
@@ -129,7 +131,13 @@ class CatalogController extends Controller
         return view('Staff.catalog.catalog_torrent')->with('catalogs', $catalogs);
     }
 
-    //Add New Catalog Torrent
+    /**
+     * Store A Catalog Torrent.
+     *
+     * @param Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function postCatalogTorrent(Request $request)
     {
         // Find the right catalog
@@ -154,7 +162,13 @@ class CatalogController extends Controller
         return redirect()->route('getCatalogTorrent')->with($this->toastr->success('IMDB# '.$request->input('imdb').' has been successfully added', 'Yay!', ['options']));
     }
 
-    // Get Catalogs Records
+    /**
+     * Get Catalog Records.
+     *
+     * @param $catalog_id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getCatalogRecords($catalog_id)
     {
         $catalogs = Catalog::findOrFail($catalog_id);

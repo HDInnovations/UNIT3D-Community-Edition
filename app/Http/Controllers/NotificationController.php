@@ -37,9 +37,11 @@ class NotificationController extends Controller
     /**
      * Show All Notifications.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function get(\Illuminate\Http\Request $request)
+    public function get(Request $request)
     {
         $notification = $request->user()->notifications()->paginate(25);
 
@@ -49,11 +51,12 @@ class NotificationController extends Controller
     /**
      * Show A Notification And Mark As Read.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function show(\Illuminate\Http\Request $request, $id)
+    public function show(Request $request, $id)
     {
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
@@ -64,11 +67,12 @@ class NotificationController extends Controller
     /**
      * Set A Notification To Read.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function read(\Illuminate\Http\Request $request, $id)
+    public function read(Request $request, $id)
     {
         $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
 
@@ -79,9 +83,11 @@ class NotificationController extends Controller
     /**
      * Mass Update All Notification's To Read.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function massRead(\Illuminate\Http\Request $request)
+    public function massRead(Request $request)
     {
         $current = new Carbon();
         $request->user()->unreadNotifications()->update(['read_at' => $current]);
@@ -93,11 +99,12 @@ class NotificationController extends Controller
     /**
      * Delete A Notification.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete(\Illuminate\Http\Request $request, $id)
+    public function delete(Request $request, $id)
     {
         $request->user()->notifications()->findOrFail($id)->delete();
 
@@ -108,9 +115,11 @@ class NotificationController extends Controller
     /**
      * Mass Delete All Notification's.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteAll(\Illuminate\Http\Request $request)
+    public function deleteAll(Request $request)
     {
         $request->user()->notifications()->delete();
 

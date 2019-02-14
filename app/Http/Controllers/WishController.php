@@ -95,12 +95,13 @@ class WishController extends Controller
     /**
      * Delete A Wish.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $uid
      * @param $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(\Illuminate\Http\Request $request, $uid, $id)
+    public function destroy(Request $request, $uid, $id)
     {
         $this->wish->delete($id);
 

@@ -271,7 +271,6 @@ class CommentController extends Controller
      * Add A Comment To A Request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $slug
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -375,11 +374,12 @@ class CommentController extends Controller
     /**
      * Add A Comment To A Torrent Via Quick Thanks.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function quickthanks(\Illuminate\Http\Request $request, $id)
+    public function quickthanks(Request $request, $id)
     {
         $torrent = Torrent::findOrFail($id);
         $user = $request->user();
@@ -468,11 +468,12 @@ class CommentController extends Controller
     /**
      * Delete A Comment.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $comment_id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteComment(\Illuminate\Http\Request $request, $comment_id)
+    public function deleteComment(Request $request, $comment_id)
     {
         $user = $request->user();
         $comment = Comment::findOrFail($comment_id);

@@ -71,6 +71,14 @@ class RegisterController extends Controller
         return view('auth.register', ['code' => $code]);
     }
 
+    /**
+     * Register A User.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param null $code
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request, $code = null)
     {
         // Make sure open reg is off and invite code exist and has not been used already

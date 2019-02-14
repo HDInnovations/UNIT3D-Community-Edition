@@ -33,35 +33,67 @@ class ChatController extends Controller
      */
     private $auth;
 
+    /**
+     * ChatController constructor.
+     *
+     * @param ChatRepository $chat
+     * @param AuthManager $auth
+     */
     public function __construct(ChatRepository $chat, AuthManager $auth)
     {
         $this->chat = $chat;
         $this->auth = $auth;
     }
 
-    /* STATUSES */
+    /**
+     * Return Chat Statuses.
+     *
+     * @return mixed
+     */
     public function statuses()
     {
         return response($this->chat->statuses(), 200);
     }
 
-    /* ROOMS */
+    /**
+     * Return Chatrooms.
+     *
+     * @return mixed
+     */
     public function rooms()
     {
         return ChatRoomResource::collection($this->chat->rooms());
     }
 
+    /**
+     * Return Chat Config.
+     *
+     * @return mixed
+     */
     public function config()
     {
         return response($this->chat->config(), 200);
     }
 
-    /* MESSAGES */
+    /**
+     * Return Chatroom Messages.
+     *
+     * @param $room_id
+     *
+     * @return mixed
+     */
     public function messages($room_id)
     {
         return ChatMessageResource::collection($this->chat->messages($room_id));
     }
 
+    /**
+     * Create A New Message.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return ChatMessageResource
+     */
     public function createMessage(Request $request)
     {
         $user_id = $request->get('user_id');
@@ -91,6 +123,13 @@ class ChatController extends Controller
         return $save ? new ChatMessageResource($message) : response('success', 200);
     }
 
+    /**
+     * Delete A Message.
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
     public function deleteMessage($id)
     {
         $this->chat->deleteMessage($id);
@@ -98,7 +137,14 @@ class ChatController extends Controller
         return response('success', 200);
     }
 
-    /* USERS */
+    /**
+     * Update A Users Chat Status.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     *
+     * @return mixed
+     */
     public function updateUserChatStatus(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group'])->findOrFail($id);
@@ -112,6 +158,14 @@ class ChatController extends Controller
         return response($user, 200);
     }
 
+    /**
+     * Update A Users Chatroom.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     *
+     * @return mixed
+     */
     public function updateUserRoom(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group'])->findOrFail($id);

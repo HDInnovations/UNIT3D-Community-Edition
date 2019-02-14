@@ -72,9 +72,11 @@ class PrivateMessageController extends Controller
     /**
      * View Inbox.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessages(\Illuminate\Http\Request $request)
+    public function getPrivateMessages(Request $request)
     {
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->latest()->paginate(25);
@@ -85,9 +87,11 @@ class PrivateMessageController extends Controller
     /**
      * View Outbox.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessagesSent(\Illuminate\Http\Request $request)
+    public function getPrivateMessagesSent(Request $request)
     {
         $user = $request->user();
         $pms = PrivateMessage::where('sender_id', '=', $user->id)->latest()->paginate(20);
@@ -98,11 +102,12 @@ class PrivateMessageController extends Controller
     /**
      * View A Message.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getPrivateMessageById(\Illuminate\Http\Request $request, $id)
+    public function getPrivateMessageById(Request $request, $id)
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -123,11 +128,13 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param $receiver_id
+     * @param \Illuminate\Http\Request $request
+     * @param string $receiver_id
+     * @param string $username
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function makePrivateMessage(\Illuminate\Http\Request $request, $receiver_id = '', $username = '')
+    public function makePrivateMessage(Request $request, $receiver_id = '', $username = '')
     {
         $user = $request->user();
         $usernames = User::oldest('username')->get();
@@ -239,11 +246,12 @@ class PrivateMessageController extends Controller
     /**
      * Delete A Message.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deletePrivateMessage(\Illuminate\Http\Request $request, $id)
+    public function deletePrivateMessage(Request $request, $id)
     {
         $user = $request->user();
         $pm = PrivateMessage::where('id', '=', $id)->firstOrFail();
@@ -262,9 +270,11 @@ class PrivateMessageController extends Controller
     /**
      * Mark All Messages As Read.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function markAllAsRead(\Illuminate\Http\Request $request)
+    public function markAllAsRead(Request $request)
     {
         $user = $request->user();
         $pms = PrivateMessage::where('receiver_id', '=', $user->id)->get();

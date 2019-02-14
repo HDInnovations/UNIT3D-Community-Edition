@@ -180,11 +180,12 @@ class ModerationController extends Controller
     /**
      * Resets the filled and approved attributes on a given request.
      *
+     * @param \Illuminate\Http\Request $request
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function resetRequest(\Illuminate\Http\Request $request, $id)
+    public function resetRequest(Request $request, $id)
     {
         $user = $request->user();
         abort_unless($user->group->is_modo, 403);

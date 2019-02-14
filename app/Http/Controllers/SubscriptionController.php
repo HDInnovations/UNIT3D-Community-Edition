@@ -38,11 +38,12 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Topic.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Topic $topic
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function subscribeTopic(\Illuminate\Http\Request $request, string $route, Topic $topic)
+    public function subscribeTopic(Request $request, string $route, Topic $topic)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -70,11 +71,12 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Topic.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Topic $topic
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unsubscribeTopic(\Illuminate\Http\Request $request, string $route, Topic $topic)
+    public function unsubscribeTopic(Request $request, string $route, Topic $topic)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -100,11 +102,12 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Forum.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Forum $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function subscribeForum(\Illuminate\Http\Request $request, string $route, Forum $forum)
+    public function subscribeForum(Request $request, string $route, Forum $forum)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';
@@ -132,11 +135,12 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Forum.
      *
+     * @param \Illuminate\Http\Request $request
      * @param Forum $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function unsubscribeForum(\Illuminate\Http\Request $request, string $route, Forum $forum)
+    public function unsubscribeForum(Request $request, string $route, Forum $forum)
     {
         if ($route == 'subscriptions') {
             $logger = 'forum_subscriptions';

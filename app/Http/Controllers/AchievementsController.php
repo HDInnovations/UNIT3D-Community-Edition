@@ -18,9 +18,11 @@ class AchievementsController extends Controller
     /**
      * Show User Achievements.
      *
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $user = $request->user();
         $achievements = $user->unlockedAchievements();
