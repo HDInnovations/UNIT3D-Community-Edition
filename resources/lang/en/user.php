@@ -297,6 +297,7 @@ return [
     'unfollow'                  => 'Unfollow',
     'unlocked'                  => 'Unlocked',
     'unlocked-achievements'     => 'Unlocked Achievements',
+    'unsatisfieds'              => 'Unsastisfieds',
     'upload-bon'                => 'Upload Added From BON Store',
     'upload-recorded'           => 'Recorded Upload',
     'upload-true'               => 'True Upload',

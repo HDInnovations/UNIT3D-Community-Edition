@@ -208,14 +208,14 @@
                 <td>@lang('common.ratio')</td>
                 <td><span class="badge-user group-member">{{ $user->getRatioString() }}</span></td>
             </tr>
-            @endif
-                        @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_seed'))
             <tr>
-               <td>@lang('common.buffer')</td>
+                <td>@lang('common.buffer')</td>
                 <td>
                     <span class="badge-user group-member">{{ $user->untilRatio(config('other.ratio')) }}</span>
                 </td>
             </tr>
+            @endif
+                        @if (auth()->user()->isAllowed($user,'profile','show_profile_torrent_seed'))
             <tr>
                 <td>@lang('user.total-seedtime')</td>
                 <td>

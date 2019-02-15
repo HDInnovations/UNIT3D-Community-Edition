@@ -64,10 +64,10 @@
                             @foreach ($torrent_repository->categories() as $id => $category)
                                 <span class="badge-user">
                                     <label class="inline">
-                                        @if(is_array($rss->object_torrent->categories) && in_array($category,$rss->object_torrent->categories))
-                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $category }}" class="category" CHECKED> {{ $category }}
+                                        @if(is_array($rss->object_torrent->categories) && in_array($id,$rss->object_torrent->categories))
+                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}" class="category" CHECKED> {{ $category }}
                                         @else
-                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $category }}" class="category"> {{ $category }}
+                                            <input type="checkbox" id="{{ $category }}" name="categories[]" value="{{ $id }}" class="category"> {{ $category }}
                                         @endif
                                     </label>
                                 </span>

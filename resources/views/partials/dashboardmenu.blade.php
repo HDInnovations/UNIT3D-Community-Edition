@@ -80,7 +80,12 @@
             </li>
             <li>
                 <a href="{{ route('Staff.rss.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss')
+                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Staff.bots.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
             <li class="nav-header head">

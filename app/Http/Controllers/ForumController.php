@@ -591,7 +591,7 @@ class ForumController extends Controller
             $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $realUrl = "/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
-            $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
+            $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
             if ($topic->first_user_poster_id != $user->id) {
@@ -732,7 +732,7 @@ class ForumController extends Controller
                 $topicUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}";
                 $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
-                $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+                $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
                 //Achievements
                 $user->unlock(new UserMadeFirstPost(), 1);
@@ -851,12 +851,12 @@ class ForumController extends Controller
     public function postDelete($postId)
     {
         $user = auth()->user();
-        $post = Post::findOrFail($postId);
+        $post = Post::with('topic')->findOrFail($postId);
 
         abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('This Post Is Now Deleted!', 'Success', ['options']));
     }
 

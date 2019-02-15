@@ -126,6 +126,9 @@ body {
 .text-green {
     color: #3fb618;
 }
+.text-muted {
+    color: #999;
+}
 
 i.torrent-icon,
 .carousel-control > .glyphicon {
@@ -226,6 +229,15 @@ select option {
 .badge-extra {
     border: 1px solid rgba(66, 70, 92, 0.61);
     border-radius: 0px;
+}
+
+.text-bright {
+    color: #fefefe;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #fcfcfc;
 }
 
 .text-purple,

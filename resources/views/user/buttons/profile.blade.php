@@ -63,14 +63,17 @@
         <a href="{{ route('user_downloads', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.downloads')
         </a>
-        <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
-            @lang('user.topics')
-        </a>
         <a href="{{ route('user_posts', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.posts')
         </a>
+        <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+            @lang('user.topics')
+        </a>
     </div>
     <div class="button-right">
+            <a href="{{ route('user_unsatisfieds', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+                <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
+            </a>
             <a href="{{ route('user_torrents', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
                 @lang('user.torrents')
             </a>

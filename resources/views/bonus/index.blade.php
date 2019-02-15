@@ -22,7 +22,15 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="well">
-                    <h3>@lang('bon.earnings')</h3>
+                        <div class="button-holder" id="userExtension" extension="bonExtension">
+                            <div class="button-left">
+                                <h3>@lang('bon.earnings')</h3>
+                            </div>
+                            <div class="button-right">
+                                <span class="small">@lang('bon.extended-stats') :</span>
+                                <input type="checkbox" value="1" name="extended" id="extended">
+                            </div>
+                        </div>
                     <table class="table table-condensed table-striped">
                         <tbody>
                         <tr>
@@ -35,9 +43,11 @@
                             <td><strong>{{ $dying }} x 2</strong></td>
                             <td>
                             {{ $dying * 2 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                             {{ ($dying * 2)*24 }} @lang('bon.per-day')<br />
                             {{ ($dying * 2)*24*7 }} @lang('bon.per-week')<br />
                             {{ ($dying * 2)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -48,9 +58,11 @@
                             <td><strong>{{ $legendary }} x 1.5</strong></td>
                             <td>
                                 {{ $legendary * 1.5 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($legendary * 1.5)*24 }} @lang('bon.per-day')<br />
                                 {{ ($legendary * 1.5)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($legendary * 1.5)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -61,9 +73,11 @@
                             <td><strong>{{ $old }} x 1</strong></td>
                             <td>
                                 {{ $old * 1 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($old * 1)*24 }} @lang('bon.per-day')<br />
                                 {{ ($old * 1)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($old * 1)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -76,9 +90,11 @@
                             <td><strong>{{ $huge }} x 0.75</strong></td>
                             <td>
                                 {{ $huge * 0.75 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($huge * 0.75)*24 }} @lang('bon.per-day')<br />
                                 {{ ($huge * 0.75)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($huge * 0.75)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -91,9 +107,11 @@
                             <td><strong>{{ $large }} x 0.50</strong></td>
                             <td>
                                 {{ $large * 0.5 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($large * 0.5)*24 }} @lang('bon.per-day')<br />
                                 {{ ($large * 0.5)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($large * 0.5)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -106,9 +124,11 @@
                             <td><strong>{{ $regular }} x 0.25</strong></td>
                             <td>
                                 {{ $regular * 0.25 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($regular * 0.25)*24 }} @lang('bon.per-day')<br />
                                 {{ ($regular * 0.25)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($regular * 0.25)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
 
@@ -121,9 +141,11 @@
                             <td><strong>{{ $legend }} x 2</strong></td>
                             <td>
                                 {{ $legend * 2 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($legend * 2)*24 }} @lang('bon.per-day')<br />
                                 {{ ($legend * 2)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($legend * 2)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -136,9 +158,11 @@
                             <td><strong>{{ $mvp }} x 1</strong></td>
                             <td>
                                 {{ $mvp * 1 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($mvp * 1)*24 }} @lang('bon.per-day')<br />
                                 {{ ($mvp * 1)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($mvp * 1)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -151,9 +175,11 @@
                             <td><strong>{{ $committed }} x 0.75</strong></td>
                             <td>
                                 {{ $committed * 0.75 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($committed * 0.75)*24 }} @lang('bon.per-day')<br />
                                 {{ ($committed * 0.75)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($committed * 0.75)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -166,9 +192,11 @@
                             <td><strong>{{ $teamplayer }} x 0.50</strong></td>
                             <td>
                                 {{ $teamplayer * 0.5 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($teamplayer * 0.5)*24 }} @lang('bon.per-day')<br />
                                 {{ ($teamplayer * 0.5)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($teamplayer * 0.5)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -181,9 +209,11 @@
                             <td><strong>{{ $participant }} x 0.25</strong></td>
                             <td>
                                 {{ $participant * 0.25 }} @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                                 {{ ($participant * 0.25)*24 }} @lang('bon.per-day')<br />
                                 {{ ($participant * 0.25)*24*7 }} @lang('bon.per-week')<br />
                                 {{ ($participant * 0.25)*24*30 }} @lang('bon.per-month')<br />
+                                </span>
                             </td>
                         </tr>
                         </tbody>
@@ -196,9 +226,12 @@
                             <td>-</td>
                             <td>
                                 <strong>{{ $total }}</strong> @lang('bon.per-hour')<br />
+                                <span class="bonExtension" style="display: none;">
                             <strong>{{ $total*24 }}</strong> @lang('bon.per-day')<br />
                             <strong>{{ $total*24*7 }}</strong> @lang('bon.per-week')<br />
                             <strong>{{ $total*24*30 }}</strong> @lang('bon.per-month')</td>
+                            </span>
+                        </td>
                         </tr>
                         </tfoot>
                     </table>

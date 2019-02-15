@@ -648,6 +648,31 @@ class facetedSearchBuilder {
         }
     }
 }
+class userExtensionBuilder {
+    constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    }
+    handle(flag) {
+        if(flag) {
+            $('.'+this.extension).each(function() {
+                $(this).show();
+            });
+        }
+        else {
+            $('.'+this.extension).each(function() {
+                $(this).hide();
+            });
+        }
+    }
+    init() {
+        this.extension = $('#userExtension').attr('extension');
+        $('#extended').off('change');
+        $('#extended').on('change', function() {
+            userExtension.handle(($(this).is(':checked')));
+        });
+        this.handle();
+    }
+}
 class forumTipBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -812,6 +837,9 @@ $(document).ready(function () {
     if(document.getElementById('forumTip')) {
         forumTip.init();
     }
+    if(document.getElementById('userExtension')) {
+        userExtension.init();
+    }
     torrentBookmark.update();
 });
 $(document).on('click', '.pagination a', function (e) {
@@ -837,25 +865,35 @@ $(document).on('click', '.pagination a', function (e) {
         userFilter.handle(page, true);
     }
 });
+$(document).mousedown(function(){
+    if(audioLoaded == 0) {
+        window.sounds = new Object();
+        var sound = new Audio('/sounds/alert.mp3');
+        sound.load();
+        window.sounds['alert.mp3'] = sound;
+    }
+    audioLoaded = 1;
+});
+$('.show-poster').click(function (e) {
+    e.preventDefault();
+    var name = $(this).attr('data-name');
+    var image = $(this).attr('data-image');
+    swal({
+        showConfirmButton: false,
+        showCloseButton: true,
+        background: '#232323',
+        width: 970,
+        html: image,
+        title: name,
+        text: '',
+    });
+});
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
+const userExtension = new userExtensionBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
-
-$('.show-poster').click(function (e) {
-  e.preventDefault();
-  var name = $(this).attr('data-name');
-  var image = $(this).attr('data-image');
-  swal({
-    showConfirmButton: false,
-    showCloseButton: true,
-    background: '#232323',
-    width: 970,
-    html: image,
-    title: name,
-    text: '',
-  });
-});
+var audioLoaded = 0;

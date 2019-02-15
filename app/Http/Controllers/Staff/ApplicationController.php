@@ -89,22 +89,22 @@ class ApplicationController extends Controller
             $invite->email = $application->email;
             $invite->code = $code;
             $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
-            $invite->custom = $request->input('approve_message');
+            $invite->custom = $request->input('approve');
 
             if (config('email-white-blacklist.enabled') === 'allow') {
-                $v = validator($invite->toArray(), [
+                $v = validator($request->all(), [
                     'email' => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
-                    'custom' => 'required',
+                    'approve' => 'required',
                 ]);
             } elseif (config('email-white-blacklist.enabled') === 'block') {
-                $v = validator($invite->toArray(), [
+                $v = validator($request->all(), [
                     'email' => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
-                    'custom' => 'required',
+                    'approve' => 'required',
                 ]);
             } else {
-                $v = validator($invite->toArray(), [
+                $v = validator($request->all(), [
                     'email' => 'required|email|unique:invites|unique:users', // Default
-                    'custom' => 'required',
+                    'approve' => 'required',
                 ]);
             }
 
@@ -140,9 +140,12 @@ class ApplicationController extends Controller
         $application = Application::withAnyStatus()->findOrFail($id);
 
         if ($application->status !== 2) {
-            $application->markRejected();
-            $denied_message = $request->input('denied_message');
+            $denied_message = $request->input('deny');
+            $v = validator($request->all(), [
+                'deny' => 'required',
+            ]);
 
+            $application->markRejected();
             Mail::to($application->email)->send(new DenyApplication($denied_message));
 
             return redirect()->route('staff.applications.index')

@@ -265,6 +265,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{slug}.{id}/torrents', 'UserController@torrents')->name('user_torrents');
         Route::get('/{slug}.{id}/uploads', 'UserController@uploads')->name('user_uploads');
         Route::get('/{slug}.{id}/downloads', 'UserController@downloads')->name('user_downloads');
+        Route::get('/{slug}.{id}/unsatisfieds', 'UserController@unsatisfieds')->name('user_unsatisfieds');
         Route::get('/{slug}.{id}/topics', 'UserController@topics')->name('user_topics');
         Route::get('/{slug}.{id}/posts', 'UserController@posts')->name('user_posts');
         Route::get('/{slug}.{id}/followers', 'UserController@followers')->name('user_followers');
@@ -449,6 +450,11 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
+        // BOT Hooks
+
+        Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
+        Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
+
         // RSS CRUD
         Route::resource('rss', 'RssController')->except([
             'show',
@@ -459,6 +465,18 @@ Route::group(['middleware' => 'language'], function () {
             'update' => 'Staff.rss.update',
             'store' => 'Staff.rss.store',
             'destroy' => 'Staff.rss.destroy',
+        ]);
+
+        // Bots CRUD
+        Route::resource('bots', 'BotsController')->except([
+            'show',
+            'create',
+            'store',
+        ])->names([
+            'index' => 'Staff.bots.index',
+            'edit' => 'Staff.bots.edit',
+            'update' => 'Staff.bots.update',
+            'destroy' => 'Staff.bots.destroy',
         ]);
 
         // Staff Dashboard
@@ -622,7 +640,7 @@ Route::group(['middleware' => 'language'], function () {
         // Applications System
         Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
         Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
-        Route::get('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
-        Route::get('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
+        Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+        Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
     });
 });

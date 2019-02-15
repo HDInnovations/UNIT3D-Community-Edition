@@ -133,8 +133,6 @@
                                 <option value="seeders">Seeders</option>
                                 <option value="leechers">Leechers</option>
                                 <option value="times_completed">Times Completed</option>
-                                <option value="uploaded">Uploaded</option>
-                                <option value="downloaded">Downloaded</option>
                                 <option value="seedtime">Seedtime</option>
                             </select>
                         </div>
@@ -161,9 +159,7 @@
                         <th>@lang('torrent.seeders')</th>
                         <th>@lang('torrent.leechers')</th>
                         <th>@lang('torrent.completed')</th>
-                        <th>@lang('torrent.uploaded')</th>
-                        <th>@lang('torrent.downloaded')</th>
-                        <th>@lang('torrent.torrent') @lang('torrent.seedtime')</th>
+                        <th>@lang('torrent.seedtime')</th>
                         <th>@lang('torrent.created_at')</th>
                         </thead>
                         <tbody>
@@ -187,12 +183,6 @@
                                 <td>
                                     <span class="badge-extra text-orange text-bold"> {{ $p->torrent->times_completed }} @lang('common.times')</span>
                                 </td>
-                                <td>
-                                    <span class="badge-extra text-green text-bold"> {{ App\Helpers\StringHelper::formatBytes($p->uploaded , 2) }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge-extra text-red text-bold"> {{ App\Helpers\StringHelper::formatBytes($p->downloaded , 2) }}</span>
-                                </td>
                                 @if ($p->seedtime < config('hitrun.seedtime'))
                                     <td>
                                         <span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
@@ -202,7 +192,7 @@
                                         <span class="badge-extra text-green">{{ App\Helpers\StringHelper::timeElapsed($p->seedtime) }}</span>
                                     </td>
                                 @endif
-                                <td>{{ $p->created_at && $p->created_at != null ? $p->created_at->diffForHumans() : "N/A"}}</td>
+                                <td>{{ $p->history_created_at && $p->history_created_at != null ? $p->history_created_at : "N/A"}}</td>
                             </tr>
                         @endforeach
                         </tbody>

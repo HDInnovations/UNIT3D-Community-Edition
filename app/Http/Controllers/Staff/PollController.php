@@ -106,7 +106,7 @@ class PollController extends Controller
         $poll_url = hrefPoll($poll);
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
+            "A new poll has been created [url={$poll_url}]{$poll->title}[/url] vote on it now! :slight_smile:"
         );
 
         return redirect('poll/'.$poll->slug)

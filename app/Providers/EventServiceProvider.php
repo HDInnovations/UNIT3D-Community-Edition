@@ -33,6 +33,9 @@ class EventServiceProvider extends ServiceProvider
         'Illuminate\Auth\Events\Login' => [
             \App\Listeners\UpdateLastLogin::class,
         ],
+        'Spatie\Backup\Events\BackupZipWasCreated' => [
+            \App\Listeners\PasswordProtectBackup::class,
+        ],
     ];
 
     /**

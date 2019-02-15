@@ -8,7 +8,7 @@
     </li>
     <li>
         <a href="{{ route('Staff.rss.index') }}" itemprop="url" class="l-breadcrumb-item-link">
-            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('rss.rss')</span>
+            <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('staff.rss')</span>
         </a>
     </li>
 @endsection
