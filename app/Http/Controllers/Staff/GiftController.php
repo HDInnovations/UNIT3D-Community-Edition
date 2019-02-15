@@ -55,7 +55,7 @@ class GiftController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function gift(Request $request)
+    public function store(Request $request)
     {
         $staff = $request->user();
 
@@ -72,13 +72,13 @@ class GiftController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.systemgift.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $recipient = User::where('username', 'LIKE', $username)->first();
 
             if (! $recipient) {
-                return redirect()->route('systemGift')
+                return redirect()->route('staff.systemgift.index')
                     ->with($this->toastr->error('Unable To Find Specified User', 'Whoops!', ['options']));
             }
 
@@ -99,7 +99,7 @@ class GiftController extends Controller
             // Activity Log
             \LogActivity::addToLog("Staff Member {$staff->username} has sent a system gift to {$recipient->username} account.");
 
-            return redirect()->route('systemGift')
+            return redirect()->route('staff.systemgift.index')
                 ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
         }
     }

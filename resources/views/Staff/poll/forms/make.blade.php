@@ -1,4 +1,6 @@
-<form method="POST" action="{{ route('postCreatePoll') }}">
+<form method="POST" action="{{ route('staff.polls.store') }}">
+    @csrf
+    
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <ul>
@@ -8,8 +10,6 @@
             </ul>
         </div>
     @endif
-
-    @csrf
 
     <div class="form-group">
         <label for="stitle">Title:</label>

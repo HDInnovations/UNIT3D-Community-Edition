@@ -23,7 +23,7 @@ class FailedLoginController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getFailedAttemps()
+    public function index()
     {
         $attempts = FailedLoginAttempt::latest()->paginate(25);
 

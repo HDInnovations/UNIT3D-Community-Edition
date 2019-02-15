@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('systemGift') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.systemgift.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Gifting</span>
         </a>
     </li>
@@ -24,7 +24,7 @@
 @section('content')
     <div class="container box">
         <h2>Gifts</h2>
-        <form action="{{ route('sendSystemGift') }}" method="post">
+        <form action="{{ route('staff.systemgift.store') }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="users">Select a User</label>

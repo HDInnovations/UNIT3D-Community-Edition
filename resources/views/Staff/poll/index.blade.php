@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('getPolls') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.polls.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Polls</span>
         </a>
     </li>
@@ -15,7 +15,7 @@
 @section('content')
     <div class="container box">
         <h2>Manage Polls</h2>
-        <a href="{{ route('getCreatePoll') }}" class="btn btn-primary">Add New Poll</a>
+        <a href="{{ route('staff.polls.create') }}" class="btn btn-primary">Add New Poll</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
             <thead>
@@ -28,11 +28,11 @@
             <tbody>
             @foreach ($polls as $poll)
                 <tr>
-                    <td><a href="{{ url('/staff_dashboard/poll/' . $poll->id) }}">{{ $poll->title }}</a></td>
+                    <td><a href="{{ route('staff.polls.show', ['id' => $poll->id]) }}">{{ $poll->title }}</a></td>
                     <td>{{ date('d M Y', $poll->created_at->getTimestamp()) }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning">Edit</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="#" class="btn btn-warning" disabled="">Edit</a>
+                        <a href="#" class="btn btn-danger" disabled="">Delete</a>
                     </td>
                 </tr>
             @endforeach

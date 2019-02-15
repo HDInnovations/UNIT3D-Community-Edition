@@ -10,12 +10,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('getNotes') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.notes.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Notes</span>
         </a>
     </li>
@@ -63,10 +63,11 @@
                                             ({{ $n->created_at->diffForHumans() }})
                                         </td>
                                         <td>
-                                            <a href="{{ route('deleteNote', ['id' => $n->id]) }}"
-                                               class="btn btn-xs btn-danger">
-                                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
-                                            </a>
+                                            <form action="{{ route('staff.notes.destroy', ['id' => $n->id]) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-xs btn-danger"><i class="{{ config('other.font-awesome') }} fa-trash"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

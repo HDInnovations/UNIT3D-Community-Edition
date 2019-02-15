@@ -52,9 +52,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.category.add');
+        return view('Staff.category.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $category = new Category();
         $category->name = $request->input('name');
@@ -82,12 +82,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
 
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->with($this->toastr->success('Category Successfully Added', 'Yay!', ['options']));
         }
     }
@@ -100,7 +100,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($slug, $id)
     {
         $category = Category::findOrFail($id);
 
@@ -116,7 +116,7 @@ class CategoryController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
@@ -134,12 +134,12 @@ class CategoryController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $category->save();
 
-            return redirect()->route('staff_category_index')
+            return redirect()->route('staff.categories.index')
                 ->with($this->toastr->success('Category Successfully Modified', 'Yay!', ['options']));
         }
     }
@@ -152,12 +152,12 @@ class CategoryController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function destroy($slug, $id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('staff_category_index')
+        return redirect()->route('staff.categories.index')
             ->with($this->toastr->success('Category Successfully Deleted', 'Yay!', ['options']));
     }
 }

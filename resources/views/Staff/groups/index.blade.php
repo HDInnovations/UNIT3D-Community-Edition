@@ -2,12 +2,12 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_groups_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
         </a>
     </li>
@@ -16,7 +16,7 @@
 @section('content')
     <div class="container box">
         <h2>Groups</h2>
-        <a href="{{ route('staff_groups_add_form') }}" class="btn btn-primary">Add New Group</a>
+        <a href="{{ route('staff.groups.create') }}" class="btn btn-primary">Add New Group</a>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-bordered table-hover">
                 <thead>
@@ -44,7 +44,7 @@
                     <tr>
                         <td>{{ $group->id }}</td>
                         <td>
-                            <a href="{{ route('staff_groups_edit_form', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
+                            <a href="{{ route('staff.groups.edit', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
                         </td>
                         <td>{{ $group->position }}</td>
                         <td>{{ $group->level }}</td>

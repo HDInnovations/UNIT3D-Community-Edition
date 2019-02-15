@@ -58,13 +58,13 @@ class BackupController extends Controller
         $data['backups'] = array_reverse($data['backups']);
         $data['title'] = 'Backups';
 
-        return view('Staff.backup.backup', $data);
+        return view('Staff.backup.index', $data);
     }
 
     /**
-     * Create A Backup.
+     * Store A Backup.
      */
-    public function create()
+    public function store()
     {
         try {
             ini_set('max_execution_time', 900);
@@ -112,7 +112,7 @@ class BackupController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      */
-    public function delete(Request $request)
+    public function destroy(Request $request)
     {
         $disk = Storage::disk($request->input('disk'));
         $file_name = $request->input('file_name');

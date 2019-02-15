@@ -90,8 +90,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
         // Article
-        Route::get('/articles', 'ArticleController@articles')->name('articles');
-        Route::get('/articles/{slug}.{id}', 'ArticleController@post')->name('article');
+        Route::get('/articles', 'ArticleController@index')->name('articles.index');
+        Route::get('/articles/{slug}.{id}', 'ArticleController@show')->name('articles.show');
 
         // Bonus System
         Route::get('/bonus', 'BonusController@bonus')->name('bonus');
@@ -450,6 +450,10 @@ Route::group(['middleware' => 'language'], function () {
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
+        // BOT Hooks
+        Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
+        Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
+
         // RSS CRUD
         Route::resource('rss', 'RssController')->except([
             'show',
@@ -466,19 +470,34 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/activity', 'ActivityLogController@index')->name('staff.activity.index');
         Route::delete('/activity/{id}', 'ActivityLogController@destroy')->name('staff.activity.destroy');
 
+        // Bots CRUD
+        Route::resource('bots', 'BotsController')->except([
+            'show',
+            'create',
+            'store',
+        ])->names([
+            'index' => 'Staff.bots.index',
+            'edit' => 'Staff.bots.edit',
+            'update' => 'Staff.bots.update',
+            'destroy' => 'Staff.bots.destroy',
+        ]);
+
+        // Staff Dashboard
+        Route::get('/', 'HomeController@index')->name('staff.dashboard.index');
+
         // Applications System
         Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
         Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
         Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
         Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
 
-        // Ban System
-        Route::get('/bans', 'BanController@getBans')->name('getBans');
-        Route::post('/ban/{username}.{id}', 'BanController@ban')->name('ban');
-        Route::post('/unban/{username}.{id}', 'BanController@unban')->name('unban');
+        // Ban
+        Route::get('/bans', 'BanController@index')->name('staff.bans.index');
+        Route::post('/bans/{username}.{id}', 'BanController@store')->name('staff.bans.store');
+        Route::delete('/bans/{username}.{id}', 'BanController@destroy')->name('staff.bans.destroy');
 
         // Flush Ghost Peers
-        Route::get('/flush', 'FlushController@deleteOldPeers')->name('flush');
+        Route::get('/flush', 'FlushController@destroy')->name('staff.flush.destroy');
 
         // User Tools
         Route::get('/user_search', 'UserController@members')->name('user_search');
@@ -501,9 +520,9 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/request/{id}/reset', 'ModerationController@resetRequest')->name('resetRequest');
 
         // User Staff Notes
-        Route::get('/notes', 'NoteController@getNotes')->name('getNotes');
-        Route::post('/note/{username}.{id}', 'NoteController@postNote')->name('postNote');
-        Route::get('/note/{id}', 'NoteController@deleteNote')->name('deleteNote');
+        Route::get('/notes', 'NoteController@index')->name('staff.notes.index');
+        Route::post('/notes/{username}.{id}', 'NoteController@store')->name('staff.notes.store');
+        Route::delete('/notes/{id}', 'NoteController@destroy')->name('staff.notes.destroy');
 
         // Reports
         Route::get('/reports', 'ReportController@getReports')->name('getReports');
@@ -522,12 +541,12 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/catalog/{catalog_id}/records', 'CatalogController@getCatalogRecords')->name('getCatalogRecords');
 
         // Categories
-        Route::get('/categories', 'CategoryController@index')->name('staff_category_index');
-        Route::get('/categories/new', 'CategoryController@addForm')->name('staff_category_add_form');
-        Route::post('/categories/new', 'CategoryController@add')->name('staff_category_add');
-        Route::get('/categories/edit/{slug}.{id}', 'CategoryController@editForm')->name('staff_category_edit_form');
-        Route::post('/categories/edit/{slug}.{id}', 'CategoryController@edit')->name('staff_category_edit');
-        Route::get('/categories/delete/{slug}.{id}', 'CategoryController@delete')->name('staff_category_delete');
+        Route::get('/categories', 'CategoryController@index')->name('staff.categories.index');
+        Route::get('/categories/create', 'CategoryController@addForm')->name('staff.categories.create');
+        Route::post('/categories', 'CategoryController@add')->name('staff.categories.store');
+        Route::get('/categories/{slug}.{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
+        Route::put('/categories/{slug}.{id}', 'CategoryController@update')->name('staff.categories.update');
+        Route::delete('/categories/{slug}.{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
 
         // Types
         Route::get('/types', 'TypeController@index')->name('staff_type_index');
@@ -538,64 +557,64 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/types/delete/{slug}.{id}', 'TypeController@delete')->name('staff_type_delete');
 
         // Forum
-        Route::get('/forums', 'ForumController@index')->name('staff_forum_index');
-        Route::get('/forums/new', 'ForumController@addForm')->name('staff_forum_add_form');
-        Route::post('/forums/new', 'ForumController@add')->name('staff_forum_add');
-        Route::get('/forums/edit/{slug}.{id}', 'ForumController@editForm')->name('staff_forum_edit_form');
-        Route::post('/forums/edit/{slug}.{id}', 'ForumController@edit')->name('staff_forum_edit');
-        Route::get('/forums/delete/{slug}.{id}', 'ForumController@delete')->name('staff_forum_delete');
+        Route::get('/forums', 'ForumController@index')->name('staff.forums.index');
+        Route::get('/forums/create', 'ForumController@create')->name('staff.forums.create');
+        Route::post('/forums', 'ForumController@store')->name('staff.forums.store');
+        Route::get('/forums/{slug}.{id}/edit', 'ForumController@edit')->name('staff.forums.edit');
+        Route::put('/forums/{slug}.{id}', 'ForumController@update')->name('staff.forums.update');
+        Route::delete('/forums/{slug}.{id}', 'ForumController@destroy')->name('staff.forums.destroy');
 
         //Pages
-        Route::get('/pages', 'PageController@index')->name('staff_page_index');
-        Route::get('/pages/new', 'PageController@addForm')->name('staff_page_add_form');
-        Route::post('/pages/new', 'PageController@add')->name('staff_page_add');
-        Route::get('/pages/edit/{slug}.{id}', 'PageController@editForm')->name('staff_page_edit_form');
-        Route::post('/pages/edit/{slug}.{id}', 'PageController@edit')->name('staff_page_edit');
-        Route::get('/pages/delete/{slug}.{id}', 'PageController@delete')->name('staff_page_delete');
+        Route::get('/pages', 'PageController@index')->name('staff.pages.index');
+        Route::get('/pages/create', 'PageController@create')->name('staff.pages.create');
+        Route::post('/pages', 'PageController@store')->name('staff.pages.store');
+        Route::get('/pages/{slug}.{id}/edit', 'PageController@edit')->name('staff.pages.edit');
+        Route::put('/pages/edit/{slug}.{id}', 'PageController@update')->name('staff.pages.update');
+        Route::delete('/pages/{slug}.{id}', 'PageController@destroy')->name('staff.pages.destroy');
 
         // Articles
-        Route::get('/articles', 'ArticleController@index')->name('staff_article_index');
-        Route::get('/articles/new', 'ArticleController@addForm')->name('staff_article_add_form');
-        Route::post('/articles/new', 'ArticleController@add')->name('staff_article_add');
-        Route::get('/articles/edit/{slug}.{id}', 'ArticleController@editForm')->name('staff_article_edit_form');
-        Route::post('/articles/edit/{slug}.{id}', 'ArticleController@edit')->name('staff_article_edit');
-        Route::get('/articles/delete/{slug}.{id}', 'ArticleController@delete')->name('staff_article_delete');
+        Route::get('/articles', 'ArticleController@index')->name('staff.articles.index');
+        Route::get('/articles/create', 'ArticleController@create')->name('staff.articles.create');
+        Route::post('/articles', 'ArticleController@store')->name('staff.articles.store');
+        Route::get('/articles/{slug}.{id}/edit', 'ArticleController@edit')->name('staff.articles.edit');
+        Route::put('/articles/{slug}.{id}', 'ArticleController@update')->name('staff.articles.update');
+        Route::delete('/articles/{slug}.{id}', 'ArticleController@destroy')->name('staff.articles.destroy');
 
         // Groups
-        Route::get('/groups', 'GroupsController@index')->name('staff_groups_index');
-        Route::get('/groups/add', 'GroupsController@addForm')->name('staff_groups_add_form');
-        Route::post('/groups/add', 'GroupsController@add')->name('staff_groups_add');
-        Route::get('/groups/edit/{group}.{id}', 'GroupsController@editForm')->name('staff_groups_edit_form');
-        Route::post('/groups/edit/{group}.{id}', 'GroupsController@edit')->name('staff_groups_edit');
+        Route::get('/groups', 'GroupsController@index')->name('staff.groups.index');
+        Route::get('/groups/create', 'GroupsController@create')->name('staff.groups.create');
+        Route::post('/groups', 'GroupsController@store')->name('staff.groups.store');
+        Route::get('/groups/{group}.{id}/edit', 'GroupsController@edit')->name('staff.groups.edit');
+        Route::put('/groups/{group}.{id}', 'GroupsController@update')->name('staff.groups.update');
 
         // Warnings
         Route::get('/warnings', 'WarningController@getWarnings')->name('getWarnings');
 
         // Invites
-        Route::get('/invites', 'InviteController@getInvites')->name('getInvites');
+        Route::get('/invites', 'InviteController@index')->name('staff.invites.index');
 
         // Failed Logins
-        Route::get('/failedlogin', 'FailedLoginController@getFailedAttemps')->name('getFailedAttemps');
+        Route::get('/failedlogins', 'FailedLoginController@index')->name('staff.failedlogins.index');
 
         // Polls
-        Route::get('/polls', 'PollController@polls')->name('getPolls');
-        Route::get('/poll/{id}', 'PollController@poll')->name('getPoll');
-        Route::get('/polls/create', 'PollController@create')->name('getCreatePoll');
-        Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
+        Route::get('/polls', 'PollController@index')->name('staff.polls.index');
+        Route::get('/polls/{id}', 'PollController@show')->name('staff.polls.show');
+        Route::get('/polls/create', 'PollController@create')->name('staff.polls.create');
+        Route::post('/polls', 'PollController@store')->name('staff.polls.store');
 
         // System Gifting
-        Route::get('/systemgift', 'GiftController@index')->name('systemGift');
-        Route::post('/systemgift/send', 'GiftController@gift')->name('sendSystemGift');
+        Route::get('/systemgift', 'GiftController@index')->name('staff.systemgift.index');
+        Route::post('/systemgift', 'GiftController@store')->name('staff.systemgift.store');
 
         // MassPM
-        Route::get('/masspm', 'MassPMController@massPM')->name('massPM');
-        Route::post('/masspm/send', 'MassPMController@sendMassPM')->name('sendMassPM');
+        Route::get('/masspm', 'MassPMController@index')->name('staff.masspm.index');
+        Route::post('/masspm', 'MassPMController@store')->name('staff.masspm.store');
 
         // Backup Manager
-        Route::get('/backup', 'BackupController@index')->name('backupManager');
-        Route::post('/backup/create', 'BackupController@create');
-        Route::get('/backup/download/{file_name?}', 'BackupController@download');
-        Route::post('/backup/delete', 'BackupController@delete');
+        Route::get('/backups', 'BackupController@index')->name('staff.backups.index');
+        Route::post('/backups', 'BackupController@store')->name('staff.backups.store');
+        Route::get('/backups/{file_name?}/download', 'BackupController@download')->name('staff.backups.download');
+        Route::post('/backups/delete', 'BackupController@destroy')->name('staff.backups.destroy');
 
         // Mass Validate Users
         Route::get('/massValidateUsers', 'UserController@massValidateUsers')->name('massValidateUsers');

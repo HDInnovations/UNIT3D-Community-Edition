@@ -118,9 +118,11 @@
 <div class="modal fade" id="modal_user_ban" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('ban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <meta charset="utf-8">
+            <title>Ban User: {{ $user->username }}</title>
+            <form role="form" method="POST" action="{{ route('staff.bans.store', ['username' => $user->username, 'id' => $user->id]) }}">
             @csrf
+            @method('DELETE')
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -151,9 +153,11 @@
 <div class="modal fade" id="modal_user_unban" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="container-fluid">
-            <form role="form" method="POST" action="{{ route('unban', ['username' => $user->username, 'id' => $user->id]) }}">
+            <meta charset="utf-8">
+            <title>Unban User: {{ $user->username }}</title>
+            <form role="form" method="POST" action="{{ route('staff.bans.destroy', ['username' => $user->username, 'id' => $user->id]) }}">
             @csrf
+            @method('DELETE')
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>

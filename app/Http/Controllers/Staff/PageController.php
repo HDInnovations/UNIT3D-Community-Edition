@@ -52,9 +52,9 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addForm()
+    public function create()
     {
-        return view('Staff.page.add');
+        return view('Staff.page.create');
     }
 
     /**
@@ -64,7 +64,7 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function add(Request $request)
+    public function store(Request $request)
     {
         $page = new Page();
         $page->name = $request->input('name');
@@ -78,12 +78,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
 
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->with($this->toastr->success('Page has been created successfully', 'Yay!', ['options']));
         }
     }
@@ -96,7 +96,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editForm($slug, $id)
+    public function edit($slug, $id)
     {
         $page = Page::findOrFail($id);
 
@@ -112,7 +112,7 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $slug, $id)
+    public function update(Request $request, $slug, $id)
     {
         $page = Page::findOrFail($id);
         $page->name = $request->input('name');
@@ -126,12 +126,12 @@ class PageController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $page->save();
 
-            return redirect()->route('staff_page_index')
+            return redirect()->route('staff.pages.index')
                 ->with($this->toastr->success('Page has been edited successfully', 'Yay!', ['options']));
         }
     }
@@ -144,11 +144,11 @@ class PageController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function delete($slug, $id)
+    public function destroy($slug, $id)
     {
         Page::findOrFail($id)->delete();
 
-        return redirect()->route('staff_page_index')
+        return redirect()->route('staff.pages.index')
             ->with($this->toastr->success('Page has been deleted successfully', 'Yay!', ['options']));
     }
 }

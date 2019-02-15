@@ -2,17 +2,17 @@
 
 @section('breadcrumb')
     <li>
-        <a href="{{ route('staff_dashboard') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.dashboard.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Staff Dashboard</span>
         </a>
     </li>
     <li>
-        <a href="{{ route('staff_groups_index') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.index') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">User Groups</span>
         </a>
     </li>
     <li class="active">
-        <a href="{{ route('staff_groups_add_form') }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('staff.groups.create') }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">Add User Group</span>
         </a>
     </li>

@@ -561,7 +561,7 @@ mark {
 }
 
 .text-muted {
-    color: #999;
+    color: #333;
 }
 
 .text-primary {
@@ -580,6 +580,15 @@ a.text-primary:hover {
 a.text-success:focus,
 a.text-success:hover {
     color: #008948;
+}
+
+.text-bright {
+    color: #222222;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #333333;
 }
 
 .text-info {
@@ -7657,6 +7666,15 @@ select.icon-right i {
     font-size: 24px;
     width: 20px;
     line-height: 36px;
+}
+
+.width-table { width: 100%; display: table; }
+.width-25 { width: 25%; display: table-cell; text-align: left; }
+.width-75 { width: 75%; display: table-cell; text-align: right; }
+
+@media screen and (max-width: 1440px) {
+    .width-25 { width: 100%; display: block; }
+    .width-75 { width: 100%; display: block; }
 }
 
 .promotional {

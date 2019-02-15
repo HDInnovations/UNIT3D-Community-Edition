@@ -48,15 +48,7 @@
                                 <button class="btn btn-xs btn-success btn-vote-request" data-toggle="modal"
                                         data-target="#vote"><i class="{{ config('other.font-awesome') }} fa-thumbs-up">
                                     </i> @lang('request.vote')</button>
-                                @if ($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
-                                    <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                            data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
-                                        </i> @lang('request.fulfill')</button>
-                                @elseif ($torrentRequest->claimed == 0)
-                                    <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
-                                            data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
-                                        </i> @lang('request.fulfill')</button>
-                                @endif @endif @if ($user->group->is_modo && $torrentRequest->filled_hash != null)
+                            @endif @if ($user->group->is_modo && $torrentRequest->filled_hash != null)
                                 <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#reset"><i
                                             class="{{ config('other.font-awesome') }} fa-undo">
                                     </i> @lang('request.reset-request')</button>
@@ -323,6 +315,17 @@
                                         </a>
                                     @endif
                                 @endif
+                                @if($torrentRequest->filled_hash == null)
+                                    @if ($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
+                                        <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
+                                                data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
+                                            </i> @lang('request.fulfill')</button>
+                                    @elseif ($torrentRequest->claimed == 0)
+                                        <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
+                                                data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
+                                            </i> @lang('request.fulfill')</button>
+                                    @endif
+                                    @endif
                             </td>
                         </tr>
                         @if ($torrentRequest->filled_hash != null && $torrentRequest->approved_by != null)
