@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <button @click="checkUpdate()" class="btn btn-primary btn-md">
-            <i v-if="loading" class="fa fa-circle-notch fa-spin"></i> {{ loading ? 'Loading...' : 'Check For Update' }}
+            <i v-if="loading" class="fas fa-circle-notch fa-spin"></i> {{ loading ? 'Loading...' : 'Check For Update' }}
         </button>
     </div>
 </template>
@@ -20,7 +20,7 @@ export default {
         checkUpdate() {
             this.loading = true;
             axios
-                .get('/staff_dashboard/check-update')
+                .get('/staff_dashboard/version')
                 .then(response => {
                     if (response.data.updated === false) {
                         this.loading = false;
@@ -30,7 +30,7 @@ export default {
                             title: 'There Is A Update Available!',
                             showCancelButton: true,
                             showConfirmButton: true,
-                            confirmButtonText: '<i class="fa fa-github"></i> Download from Github',
+                            confirmButtonText: '<i class="fab fa-github"></i> Download from Github',
                             html: `New version <a href="//github.com/HDInnovations/UNIT3D/releases">${
                                 response.data.latestversion
                             } </a> is available`,

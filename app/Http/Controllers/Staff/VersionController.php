@@ -33,7 +33,7 @@ class VersionController extends Controller
      *
      * @return string
      */
-    public function checkVersion()
+    public function index()
     {
         $client = new Client();
         $response = json_decode($client->get('//api.github.com/repos/HDInnovations/UNIT3D/releases')->getBody());

@@ -462,13 +462,17 @@ Route::group(['middleware' => 'language'], function () {
             'destroy' => 'Staff.rss.destroy',
         ]);
 
-        // Staff Dashboard
-        Route::get('/', 'HomeController@home')->name('staff_dashboard');
+        // Activity Log
+        Route::get('/activity', 'ActivityLogController@index')->name('staff.activity.index');
+        Route::delete('/activity/{id}', 'ActivityLogController@destroy')->name('staff.activity.destroy');
 
-        // Codebase Version Check
-        Route::get('/check-update', 'VersionController@checkVersion');
+        // Applications System
+        Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
+        Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
+        Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
+        Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
 
-        // Ban
+        // Ban System
         Route::get('/bans', 'BanController@getBans')->name('getBans');
         Route::post('/ban/{username}.{id}', 'BanController@ban')->name('ban');
         Route::post('/unban/{username}.{id}', 'BanController@unban')->name('unban');
@@ -579,10 +583,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/polls/create', 'PollController@create')->name('getCreatePoll');
         Route::post('/polls/create', 'PollController@store')->name('postCreatePoll');
 
-        // Activity Log
-        Route::get('/activity', 'ActivityLogController@index')->name('activity.index');
-        Route::get('/activity/{id}/delete', 'ActivityLogController@destroy')->name('activity.destroy');
-
         // System Gifting
         Route::get('/systemgift', 'GiftController@index')->name('systemGift');
         Route::post('/systemgift/send', 'GiftController@gift')->name('sendSystemGift');
@@ -620,10 +620,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/tag/edit/{slug}.{id}', 'TagController@editForm')->name('staff_tag_edit_form');
         Route::post('/tag/edit/{slug}.{id}', 'TagController@edit')->name('staff_tag_edit');
 
-        // Applications System
-        Route::get('/applications', 'ApplicationController@index')->name('staff.applications.index');
-        Route::get('/applications/{id}', 'ApplicationController@show')->name('staff.applications.show');
-        Route::post('/applications/{id}/approve', 'ApplicationController@approve')->name('staff.applications.approve');
-        Route::post('/applications/{id}/reject', 'ApplicationController@reject')->name('staff.applications.reject');
+        // UNIT3D Version Check
+        Route::get('/version', 'VersionController@index')->name('staff.version.index');
     });
 });

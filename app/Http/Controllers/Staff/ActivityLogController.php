@@ -62,7 +62,7 @@ class ActivityLogController extends Controller
         abort_unless($user->group->is_modo, 403);
         $activity->delete();
 
-        return redirect()->route('activity.index')
+        return redirect()->route('staff.activity.index')
             ->with($this->toastr->success('Activity Record Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }
