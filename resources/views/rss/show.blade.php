@@ -1,28 +1,26 @@
-<?php
-echo '<?xml version="1.0" encoding="utf-8"?>';
-?>
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+@php
+echo '<?xml version="1.0" encoding="UTF-8" ?>'
+@endphp
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <xhtml:meta xmlns:xhtml="http://www.w3.org/1999/xhtml" name="robots" content="noindex" />
-        <meta xmlns="http://pipes.yahoo.com" name="pipes" content="noprocess" />
+        <atom:link href="!#" rel="self" type="application/rss+xml" />
+        <title>{{ config('other.title') }} RSS Feed</title>
+        <link>{{ config('app.url') }}</link>
+        <description>Powered By {{ config('other.codebase') }}</description>
         @if($torrents)
             @foreach($torrents as $data)
                 <item>
-                    @if($data->isFreeleech())
-                        <title><![CDATA[{{ $data->name }} / {{ $data->getSize() }} / Free]]></title>
-                    @else
-                        <title><![CDATA[{{ $data->name }} / {{ $data->getSize() }}]]></title>
-                    @endif
-                    <description><![CDATA[]]></description>
-                    <pubDate>{{ $data->created_at }}</pubDate>
+                    <title>{{ $data->name }}</title>
                     <link>{{ route('torrent.download.rsskey', ['slug' => $data->slug, 'id' => $data->id, 'rsskey' => $rsskey ]) }}</link>
+                    <description>{{ $data->category->name }} / {{ $data->type }} / {{ $data->getSize() }} @if($data->freeleech === 1) / Double Upload! @endif / @if($data->doubleup === 1) / Freeleech! @endif</description>
+                    @if(!$data->anon && $data->user)
+                        <author>Uploaded By {{ $data->user->username }}</author>
+                    @else
+                        <author>Anonymous Uploader</author>
+                    @endif
+                    <pubDate>{{ $data->created_at->toDayDateTimeString() }}</pubDate>
                     <comments>{{ route('torrent', ['slug' => $data->slug, 'id' => $data->id ]) }}</comments>
-                    <category><![CDATA[]]></category>
-                        @if(!$data->anon && $data->user)
-                            <dc:creator>{{ $data->user->username }}</dc:creator>
-                        @else
-                            <dc:creator>Anonymous</dc:creator>
-                        @endif
                 </item>
             @endforeach
         @endif
