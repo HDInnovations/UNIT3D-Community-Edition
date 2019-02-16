@@ -27,7 +27,7 @@
                         <h3>Add Chat Status</h3>
                     </div>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('addChatStatus') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.chatstatus.store') }}">
                         @csrf
                         <div class="modal-body"  style="text-align: center;">
                             <h4>Please fill in all fields for the chat status you would like to create.</h4>
@@ -103,7 +103,7 @@
                         <h3>Add Chatroom</h3>
                     </div>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('addChatroom') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('staff.chatroom.store') }}">
                     @csrf
                     <div class="modal-body"  style="text-align: center;">
                         <h4>Please enter the name of the chatroom you would like to create.</h4>

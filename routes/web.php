@@ -494,32 +494,37 @@ Route::group(['middleware' => 'language'], function () {
         ]);
 
         // BOT Hooks
-        Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
-        Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
+        Route::get('/bots/{id}/disable', 'BotsController@disable')->name('staff.bots.disable');
+        Route::get('/bots/{id}/enable', 'BotsController@enable')->name('staff.bots.enable');
 
         // Categories System
         Route::get('/categories', 'CategoryController@index')->name('staff.categories.index');
-        Route::get('/categories/create', 'CategoryController@addForm')->name('staff.categories.create');
-        Route::post('/categories', 'CategoryController@add')->name('staff.categories.store');
+        Route::get('/categories/create', 'CategoryController@create')->name('staff.categories.create');
+        Route::post('/categories', 'CategoryController@store')->name('staff.categories.store');
         Route::get('/categories/{slug}.{id}/edit', 'CategoryController@edit')->name('staff.categories.edit');
         Route::put('/categories/{slug}.{id}', 'CategoryController@update')->name('staff.categories.update');
         Route::delete('/categories/{slug}.{id}', 'CategoryController@destroy')->name('staff.categories.destroy');
 
-        // Chat Management
-        Route::get('/chatManager', 'ChatController@index')->name('chatManager');
-        Route::post('/chatroom/add', 'ChatController@addChatroom')->name('addChatroom');
-        Route::post('/chatroom/edit/{id}', 'ChatController@editChatroom')->name('editChatroom');
-        Route::post('/chatroom/delete/{id}', 'ChatController@deleteChatroom')->name('deleteChatroom');
-        Route::post('/chatstatus/add', 'ChatController@addChatStatus')->name('addChatStatus');
-        Route::post('/chatstatus/edit/{id}', 'ChatController@editChatStatus')->name('editChatStatus');
-        Route::post('/chatstatus/delete/{id}', 'ChatController@deleteChatStatus')->name('deleteChatStatus');
-        Route::get('/flushchat', 'ChatController@flushChat')->name('flush_chat');
+        // Chatrooms System
+        Route::get('/chatroom', 'ChatroomController@index')->name('staff.chatroom.index');
+        Route::post('/chatroom', 'ChatroomController@store')->name('staff.chatroom.store');
+        Route::post('/chatroom/{id}', 'ChatroomController@update')->name('staff.chatroom.update');
+        Route::delete('/chatroom/{id}', 'ChatroomController@destroy')->name('staff.chatroom.destroy');
+
+        // Chat Statues System
+        Route::get('/chatstatus', 'ChatStatusController@index')->name('staff.chatstatus.index');
+        Route::post('/chatstatus', 'ChatStatusController@store')->name('staff.chatstatus.store');
+        Route::post('/chatstatus/{id}', 'ChatStatusController@update')->name('staff.chatstatus.update');
+        Route::delete('/chatstatus/{id}', 'ChatStatusController@destroy')->name('staff.chatstatus.destroy');
+
+        // Flush Chat
+        Route::get('/flushchat', 'ChatFlushController@destroy')->name('staff.flushchat.destroy');
 
         // Failed Logins Log
         Route::get('/failedlogins', 'FailedLoginController@index')->name('staff.failedlogins.index');
 
         // Flush Ghost Peers
-        Route::get('/flush', 'FlushController@destroy')->name('staff.flush.destroy');
+        Route::get('/flushpeers', 'FlushController@destroy')->name('staff.flushpeers.destroy');
 
         // Forum System
         Route::get('/forums', 'ForumController@index')->name('staff.forums.index');

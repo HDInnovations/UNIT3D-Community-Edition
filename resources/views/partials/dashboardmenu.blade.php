@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('flush_chat') }}">
+                <a href="{{ route('staff.flushchat.destroy') }}">
                     <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
                 </a>
             </li>
@@ -112,7 +112,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('staff.flush.destroy') }}">
+                <a href="{{ route('staff.flushpeers.destroy') }}">
                     <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
                 </a>
             </li>

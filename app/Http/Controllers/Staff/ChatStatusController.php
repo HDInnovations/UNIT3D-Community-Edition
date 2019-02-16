@@ -14,7 +14,6 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Message;
-use App\Chatroom;
 use App\ChatStatus;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
-class ChatController extends Controller
+class ChatStatusController extends Controller
 {
     /**
      * @var ChatRepository
@@ -63,84 +62,13 @@ class ChatController extends Controller
     }
 
     /**
-     * Add A Chatroom.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function addChatroom(Request $request)
-    {
-        $chatroom = new Chatroom();
-        $chatroom->name = $request->input('name');
-
-        $v = validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Added', 'Yay!', ['options']));
-        }
-    }
-
-    /**
-     * Edit A Chatroom.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function editChatroom(Request $request, $id)
-    {
-        $chatroom = Chatroom::findOrFail($id);
-        $chatroom->name = $request->input('name');
-
-        $v = validator($chatroom->toArray(), [
-            'name' => 'required',
-        ]);
-
-        if ($v->fails()) {
-            return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
-        } else {
-            $chatroom->save();
-
-            return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Modified', 'Yay!', ['options']));
-        }
-    }
-
-    /**
-     * Delete A Chatroom.
-     *
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function deleteChatroom($id)
-    {
-        $chatroom = Chatroom::findOrFail($id);
-        $chatroom->delete();
-
-        return redirect()->route('chatManager')
-            ->with($this->toastr->success('Chatroom Successfully Deleted', 'Yay!', ['options']));
-    }
-
-    /**
      * Add A Chat Status.
      *
      * @param \Illuminate\Http\Request $request
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function addChatStatus(Request $request)
+    public function store(Request $request)
     {
         $chatstatus = new ChatStatus();
         $chatstatus->name = $request->input('name');
@@ -172,7 +100,7 @@ class ChatController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function editChatStatus(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->name = $request->input('name');
@@ -203,32 +131,12 @@ class ChatController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function deleteChatStatus($id)
+    public function destroy($id)
     {
         $chatstatus = ChatStatus::findOrFail($id);
         $chatstatus->delete();
 
         return redirect()->route('chatManager')
             ->with($this->toastr->success('Chat Status Successfully Deleted', 'Yay!', ['options']));
-    }
-
-    /**
-     * Flush Chat Messages.
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function flushChat()
-    {
-        foreach (Message::all() as $message) {
-            broadcast(new MessageDeleted($message));
-            $message->delete();
-        }
-
-        $this->chat->systemMessage(
-            'Chatbox Has Been Flushed! :broom:'
-        );
-
-        return redirect('staff.dashboard.index')
-            ->with($this->toastr->success('Chatbox Has Been Flushed', 'Yay!', ['options']));
     }
 }

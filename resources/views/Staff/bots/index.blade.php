@@ -52,9 +52,9 @@
 
                                     @else
                                         @if($bot->active)
-                                            <a href="{{ route('Staff.bots.disable', ['id' => $bot->id]) }}" class="btn btn-danger">@lang('common.disable')</a>
+                                            <a href="{{ route('staff.bots.disable', ['id' => $bot->id]) }}" class="btn btn-danger">@lang('common.disable')</a>
                                         @else
-                                            <a href="{{ route('Staff.bots.enable', ['id' => $bot->id]) }}" class="btn btn-success">@lang('common.enable')</a>
+                                            <a href="{{ route('staff.bots.enable', ['id' => $bot->id]) }}" class="btn btn-success">@lang('common.enable')</a>
                                         @endif
                                     @endif
                                 </form>
