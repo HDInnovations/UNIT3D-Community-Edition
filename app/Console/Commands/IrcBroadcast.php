@@ -75,8 +75,8 @@ class IrcBroadcast extends Command
      */
     // protected function getOptions()
     // {
-    // 	return array(
-    // 		array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-    // 	);
+    // 	return [
+    // 		['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
+    // 	];
     // }
 }
