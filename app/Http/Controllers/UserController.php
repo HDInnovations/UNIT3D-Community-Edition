@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use Image;
 use App\Ban;
 use App\Peer;
@@ -41,6 +40,7 @@ use App\UserNotification;
 use App\PersonalFreeleech;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
