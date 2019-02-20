@@ -1,10 +1,12 @@
+import Swal from 'sweetalert2';
+
 export default {
   methods: {
     pmUser (user) {
       if (user.id === this.$parent.auth.id) {
         return false
       }
-      swal({
+      Swal({
         title: `Send Private Message to ${user.username}`,
         width: '800px',
         height: '600px',
@@ -49,14 +51,14 @@ export default {
         allowOutsideClick: false
       }).then(result => {
         if (result.value) {
-          swal({
+          Swal({
             title: `Sent Private Message to ${result.value.username}`,
             timer: 1500,
             onOpen: () => {
-              swal.showLoading();
+              Swal.showLoading();
             }
           }).then((result) => {
-            if (result.dismiss === swal.DismissReason.timer) {
+            if (result.dismiss === Swal.DismissReason.timer) {
 
             }
           })

@@ -30,7 +30,7 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "spin.js": "^4.0.0",
-    "sweetalert2": "^8.0.3",
+    "sweetalert2": "^7.29.0",
     "toastr": "^2.1.4",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.22",
