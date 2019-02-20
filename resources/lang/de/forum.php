@@ -1,8 +1,5 @@
 <?php
 
-
-padding: 0px 5px; background-color: transparent;
-
 return [
     'approved'           => 'Genehmigt',
     'author'             => 'Autor',
