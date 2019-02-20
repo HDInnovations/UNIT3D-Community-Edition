@@ -13,7 +13,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>'
                 <item>
                     <title>{{ $data->name }}</title>
                     <link>{{ route('torrent.download.rsskey', ['slug' => $data->slug, 'id' => $data->id, 'rsskey' => $rsskey ]) }}</link>
-                    <description>{{ $data->category->name }} / {{ $data->type }} / {{ $data->getSize() }} @if($data->freeleech === 1) / Double Upload! @endif / @if($data->doubleup === 1) / Freeleech! @endif</description>
+                    <description>{{ $data->category->name }} / {{ $data->type }} / {{ $data->getSize() }} @if($data->freeleech === 1) / Double Upload! @endif @if($data->doubleup === 1) / Freeleech! @endif</description>
                     @if(!$data->anon && $data->user)
                         <author>Uploaded By {{ $data->user->username }}</author>
                     @else
