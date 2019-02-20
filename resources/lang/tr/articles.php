@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Articles Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'meta-articles' => 'Trackerda ve toplulukta bulunan makalaleler ve haberler',
     'read-more'     => 'Devamını Oku',

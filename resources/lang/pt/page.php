@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Page Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'aboutus-advantage'    => 'Vantagens',
     'aboutus-advantage1'   => 'Temos membros experientes e uma staff comprometida em trazer-lhe o melhor no mundo do áudio / vídeo em HD e um excelente suporte técnico.',
@@ -17,7 +13,7 @@ return [
     'aboutus-rules2'       => 'Ler as regras na íntegra e respeitá-las!',
     'aboutus-rules3'       => 'Faça sugestões! Estamo-nos a esforçar para fazer o :title melhor a cada dia. Não estamos a dizer que todas as sugestões serão usadas, mas nunca é demais receber novas ideias.',
     'aboutus-welcome'      => 'Vamos falar sobre',
-    'aboutus-welcome-desc' => ':title é uma <em>comunidade</em> focada em Filmes/TV/FANRES. Cada pedaço dos dados foi adicionado pela nossa incrível comunidade desde 2017. :title\'s é fortemente <em>focada</em>&nbsp;em conteúdo HD, uma base de utilizadores pró-activa, um codebase incrível/seguro e uma sfaff eficiente e amigável.',
+    'aboutus-welcome-desc' => ':title é uma <em>comunidade</em> focada em Filmes/TV/FANRES. Cada pedaço dos dados foi adicionado pela nossa incrível comunidade desde 2017. :titles é fortemente <em>focada</em>&nbsp;em conteúdo HD, uma base de utilizadores pró-activa, um codebase incrível/seguro e uma sfaff eficiente e amigável.',
     'blacklist-browsers'   => 'Navegadores',
     'blacklist-btclient'   => 'BitTorrent Client',
     'blacklist-clients'    => 'Clientes',

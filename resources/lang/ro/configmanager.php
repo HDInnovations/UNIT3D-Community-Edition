@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Cofig Manager Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'title'       => 'Config Manager',
     'info_choose' => 'Choose a file to start editing',

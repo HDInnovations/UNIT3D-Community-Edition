@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Page Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'aboutus-advantage'    => 'Założenia',
     'aboutus-advantage1'   => 'Mamy świetny zespół użytkowników i załogę, którzy doskonale odnajdują się w świecie filmów HD i wsparciu technicznym.',

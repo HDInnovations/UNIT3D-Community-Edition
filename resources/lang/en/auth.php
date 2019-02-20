@@ -40,7 +40,7 @@ return [
     'inputAlt4'                     => 'Code Input 4',
 
     'attemptsRemaining'             => 'Attempt Remaining|Attempts Remaining',
-    'missingCode'                   => 'Didn\'t receive verification code?',
+    'missingCode'                   => 'Didnt receive verification code?',
     'verifyButton'                  => 'Verify',
 
     'exceededTitle'                 => 'Verification Attempts Exceeded',

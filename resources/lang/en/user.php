@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | User Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'about'                     => 'About',
     'about-me'                  => 'About Me (500 Characters Max!)',
@@ -71,8 +67,8 @@ return [
     'delete'                    => 'Delete User',
     'disable-notifications'     => 'Disable Notifications',
     'disclaimer'                => 'Disclaimer',
-    'disclaimer-info'           => 'We by default do not log users IP addresses like most trackers. By adding your seedbox IP below it is expected that you know your IP\'s listed below are now stored in our database unless you delete the records.',
-    'disclaimer-info-bordered'  => 'Seedbox IP\'s added will then trigger high speed torrent tag on torrents seeded from IP\'s listed below',
+    'disclaimer-info'           => 'We by default do not log users IP addresses like most trackers. By adding your seedbox IP below it is expected that you know your IPs listed below are now stored in our database unless you delete the records.',
+    'disclaimer-info-bordered'  => 'Seedbox IPs added will then trigger high speed torrent tag on torrents seeded from IPs listed below',
     'download-bon'              => 'Download Removed From BON Store',
     'download-recorded'         => 'Recorded Download',
     'download-true'             => 'True Download',
@@ -129,7 +125,7 @@ return [
     'invites-count'             => 'You Have :count Invite Tokens',
     'invites-disabled'          => 'Attention: Invites Are Disabled Due To Open Registration!',
     'invites-disabled-desc'     => 'Please Check Back Soon!',
-    'invites-rules'             => '<li class="text-success">Only invite people you know and trust.</li><li class="text-danger">You will be held personally responsible for those you invite.</li><li class="text-danger">Don\'t invite yourself, we check every invited user.</li><li class="text-danger">Don\'t trade or sell Invites.</li><li class="text-danger">If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.</li>',
+    'invites-rules'             => '<li class="text-success">Only invite people you know and trust.</li><li class="text-danger">You will be held personally responsible for those you invite.</li><li class="text-danger">Dont invite yourself, we check every invited user.</li><li class="text-danger">Dont trade or sell Invites.</li><li class="text-danger">If a person you invited is caught cheating, trading account or selling/trading invites, you will be warned.</li>',
     'invites-send'              => 'Invites Send',
     'last-login'                => 'Last Login',
     'locked'                    => 'Locked',

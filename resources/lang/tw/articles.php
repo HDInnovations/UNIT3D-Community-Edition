@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Articles Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'meta-articles' => 'Articles and news on the tracker and the community',
     'read-more'     => 'Read More',

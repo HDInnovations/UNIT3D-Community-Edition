@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Email Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'activate-account' => 'Activate account',
     'ban-reason'       => 'Reason',
@@ -26,7 +22,7 @@ return [
     'newreply-replied' => 'Has replied to your topic',
     'newreply-view'    => 'View It Now',
     'register-code'    => 'To complete your account activation click the button below',
-    'register-footer'  => 'If the button above does not work, copy and paste the URL into your browser\'s address bar',
+    'register-footer'  => 'If the button above does not work, copy and paste the URL into your browsers address bar',
     'register-header'  => 'Hi! Thank you for signing up on',
     'report-comment'   => 'Comment',
     'report-email'     => 'E-mail',
