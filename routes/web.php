@@ -451,7 +451,6 @@ Route::group(['middleware' => 'language'], function () {
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
 
         // BOT Hooks
-
         Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
         Route::get('/bots/{id}/enable', 'BotsController@enable')->name('Staff.bots.enable');
 

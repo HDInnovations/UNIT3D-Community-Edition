@@ -139,6 +139,7 @@ class GroupsTableSeeder extends Seeder
             'position'   => 19,
             'color'      => '#00abff',
             'icon'       => config('other.font-awesome').' fa-user-secret',
+            'is_owner'   => 1,
             'is_admin'   => 1,
             'is_modo'    => 1,
             'is_trusted' => 1,

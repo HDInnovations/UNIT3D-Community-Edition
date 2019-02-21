@@ -15,7 +15,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="{{ route('backupManager') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
@@ -189,7 +189,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.user-notes')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="/staff/log-viewer">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.laravel-log')

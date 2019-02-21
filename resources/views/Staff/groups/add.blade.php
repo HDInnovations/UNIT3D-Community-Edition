@@ -37,6 +37,7 @@
                         <th>Internal</th>
                         <th>Modo</th>
                         <th>Admin</th>
+                        <th>Owner</th>
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
@@ -81,6 +82,10 @@
                         <td>
                             <input type="hidden" name="is_admin" value="0">
                             <input type="checkbox" name="is_admin" value="1">
+                        </td>
+                        <td>
+                            <input type="hidden" name="is_owner" value="0">
+                            <input type="checkbox" name="is_owner" value="1">
                         </td>
                         <td>
                             <input type="hidden" name="is_trusted" value="0">

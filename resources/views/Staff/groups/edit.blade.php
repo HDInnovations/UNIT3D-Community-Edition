@@ -39,6 +39,7 @@
                         <th>Internal</th>
                         <th>Modo</th>
                         <th>Admin</th>
+                        <th>Owner</th>
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
@@ -87,6 +88,15 @@
                             @else
                                 <input type="hidden" name="is_admin" value="0">
                                 <input type="checkbox" name="is_admin" value="1">
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->is_owner == 1)
+                                <input type="hidden" name="is_owner" value="0">
+                                <input type="checkbox" name="is_owner" value="1" checked>
+                            @else
+                                <input type="hidden" name="is_owner" value="0">
+                                <input type="checkbox" name="is_owner" value="1">
                             @endif
                         </td>
                         <td>

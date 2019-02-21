@@ -27,6 +27,9 @@ class BackupController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        abort_unless($user->group->is_owner, 403);
+
         if (! count(config('backup.backup.destination.disks'))) {
             dd(trans('backup.no_disks_configured'));
         }
@@ -66,6 +69,9 @@ class BackupController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+        abort_unless($user->group->is_owner, 403);
+
         try {
             ini_set('max_execution_time', 900);
             // start the backup process
@@ -90,6 +96,9 @@ class BackupController extends Controller
      */
     public function download(Request $request)
     {
+        $user = auth()->user();
+        abort_unless($user->group->is_owner, 403);
+
         $disk = Storage::disk($request->input('disk'));
         $file_name = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
@@ -114,6 +123,9 @@ class BackupController extends Controller
      */
     public function delete(Request $request)
     {
+        $user = auth()->user();
+        abort_unless($user->group->is_owner, 403);
+
         $disk = Storage::disk($request->input('disk'));
         $file_name = $request->input('file_name');
         $adapter = $disk->getDriver()->getAdapter();
