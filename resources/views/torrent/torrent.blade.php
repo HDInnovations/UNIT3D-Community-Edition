@@ -638,7 +638,7 @@
     </div>
     <!-- /Info-->
 
-    <div class="torrent box container">
+    <div class="torrent box container" id="comments">
         <!-- Comments -->
         <div class="clearfix"></div>
         <div class="row ">
@@ -701,6 +701,7 @@
             </div>
             <!-- /Comments -->
 
+            <div class="clearfix"></div>
             <div class="col-md-12 home-pagination">
                 <div class="text-center">{{ $comments->links() }}</div>
             </div>
