@@ -677,7 +677,8 @@
                                                 @endif
                                                 <strong><a
                                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                            <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
+                                            <span class="text-muted" data-toggle='tooltip' title=''
+                                                  data-original-title='{{ $comment->created_at }}'><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
