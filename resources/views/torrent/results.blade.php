@@ -180,8 +180,8 @@
                         </span>
 
                         <span class="badge-extra text-bold text-green">
-                            <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
-                            {{ $torrent->comments_count }}
+                            <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}"><i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
+                                {{ $torrent->comments_count }}</a>
                         </span>
 
                         @if ($torrent->internal == 1)
