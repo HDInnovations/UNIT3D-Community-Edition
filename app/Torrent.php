@@ -272,17 +272,15 @@ class Torrent extends Model
             $user = User::with('notification')->findOrFail($this->user_id);
             if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_thank')) {
                 $user->notify(new NewThank('torrent', $payload));
-
                 return true;
             }
+            return true;
         }
         $user = User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
             $user->notify(new NewComment('torrent', $payload));
-
             return true;
         }
-
         return true;
     }
 
