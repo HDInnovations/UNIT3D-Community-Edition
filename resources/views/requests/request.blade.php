@@ -316,12 +316,12 @@
                                     @endif
                                 @endif
                                 @if($torrentRequest->filled_hash == null)
-                                    @if ($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
+                                    @if($torrentRequest->claimed == 1 && ($torrentRequestClaim->username == $user->username || $user->group->is_modo))
                                         <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @elseif ($torrentRequest->claimed == 0)
-                                        <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
+                                        <button id="btn_fulfil_request" class="btn btn-md btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @endif
