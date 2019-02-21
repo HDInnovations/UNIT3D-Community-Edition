@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="panel-body" id="frameBody">
-                <div id="frame" @mouseover="freezeChat()" @mouseleave="unfreezeChat()">
+                <div id="frame" @mouseover="freezeChat()" @mouseout="unfreezeChat()">
                     <div class="content no-space">
                         <div class="button-holder nav nav-tabs mb-5" id="frameTabs">
                             <div class="button-left-large">
@@ -167,6 +167,9 @@
             ChatUserList,
             ChatPms
         },
+        updated() {
+            this.scrollToBottom(true);
+        },
         data () {
             return {
                 tab: '',
@@ -204,6 +207,7 @@
                 helpName: '',
                 helpCommand: '',
                 frozen: false,
+                push: false,
                 helpId: 0,
                 scroll: true,
                 channel: null,
@@ -396,7 +400,7 @@
                     }
                 } else if (typeVal == 'list') {
                     this.tab = newVal;
-                    this.scrollToBottom();
+                    this.scrollToBottom(true);
                 }
             },
             fetchAudibles() {
@@ -485,8 +489,13 @@
                 this.frozen = true;
             },
             unfreezeChat() {
-                this.frozen = false;
-                this.scrollToBottom(true);
+                let container = $('.messages .list-group')
+                let xy = parseInt(container.prop('offsetHeight')+container.scrollTop());
+                if(xy != undefined && this.frozen == true) {
+                    if(Math.ceil(container.prop('scrollHeight') - container.scrollTop()) === container.prop('clientHeight')) {
+                        this.frozen = false;
+                    }
+                }
             },
             leaveBot(id) {
                 if (id > 0) {
@@ -858,22 +867,21 @@
                             }
                         })
                     }
-                    this.scrollToBottom(true);
                 })
             },
-            scrollToBottom (force = false) {
-
-                if (!force && this.frozen) return;
+            scrollToBottom (force = true) {
 
                 let container = $('.messages .list-group')
+
+                if (this.frozen) return;
+
                 if (this.scroll || force) {
                     container.animate({scrollTop: container.prop('scrollHeight')}, 0)
                 }
+
                 container.scroll(() => {
-                    this.scroll = false;
-                    let scrollTop = container.scrollTop() + container.prop('clientHeight')
                     let scrollHeight = container.prop('scrollHeight')
-                    this.scroll = scrollTop >= scrollHeight - 50
+                    this.scroll = scrollHeight+9999;
                 })
             },
             listenForChatter() {
@@ -924,9 +932,6 @@
                     .here(users => {
                         this.state.connecting = false
                         this.users = users
-                        setInterval(() => {
-                            this.scrollToBottom()
-                        }, 100)
                     })
                     .joining(user => {
                         // this.createMessage(`${user.username} has JOINED the chat ...`)

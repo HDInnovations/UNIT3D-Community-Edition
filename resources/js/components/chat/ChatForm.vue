@@ -6,8 +6,8 @@
                     <div style="padding-left: 0px; margin-left: 0px; padding-bottom: 0px; margin-bottom: 0px;" v-if="$parent.bot > 0 && $parent.activeTab.substr(0,3) == 'bot'">
                         <span class="badge-extra" style="margin-left: 0px; padding-left: 0px; margin-bottom: 0px;">{{ $parent.botName }} can accept messages from any tab if you type: <strong>/{{ $parent.botCommand }} help</strong></span>
                     </div>
-                    <div class="typing" v-if="$parent.target < 1 && $parent.activePeer != ''" style="margin-left: 0px !important; padding-left: 0px !important; padding-bottom: 0px; margin-bottom: 0px;">
-                        <span class="badge-extra" v-if="$parent.activePeer" style="margin-left: 0px !important; padding-left: 0px !important; margin-bottom: 0px;">{{ $parent.activePeer.username }} is typing ...</span>
+                    <div class="typing" v-if="$parent.target < 1 && $parent.bot < 1" style="margin-left: 0px !important; padding-left: 0px !important; padding-bottom: 0px; margin-bottom: 0px;">
+                        <span class="badge-extra" style="height: 22px; margin-left: 0px !important; padding-left: 5px !important; margin-bottom: 0px;">{{ ($parent.activePeer ? $parent.activePeer.username + ' is typing ...' : '*') }}</span>
                     </div>
                 </div>
                 <div class="width-75" style="padding: 0px;">
@@ -64,7 +64,6 @@
                                     </textarea>
             </div>
         </div>
-    </div>
     </div>
 </template>
 <style lang="scss" scoped>
