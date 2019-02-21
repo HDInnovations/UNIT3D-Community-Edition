@@ -9509,3 +9509,36 @@ img.emojione {
 .form-control {
     margin-top: 0;
 }
+
+
+
+//Mobile by Peter
+@media only screen and (max-width: 613px) {
+  .form-torrent-search .form-group {
+      margin-left: 0;
+      width: 100%;
+      margin-bottom: 20px;
+  }
+  .form-torrent-search .form-group .label-default {
+    margin-left: 16px;
+    bottom: 5px;
+  }
+  .nav-tabs > li {
+    margin-bottom: 4px;
+    margin-right: 4px;
+  }
+  .stats .content .inner_content {
+    max-width: 100%;
+  }
+  .stats .content .inner_content .inner_stats {
+    max-width: 100%;
+    padding-right: 0;
+    width: 100%;
+  }
+  div.blocks a {
+    max-width: 100%;
+    width: 100%;
+  }
+  .profile-footer {
+    padding-bottom: 10px;
+  }

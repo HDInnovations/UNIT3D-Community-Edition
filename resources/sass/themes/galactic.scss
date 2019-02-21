@@ -915,3 +915,20 @@ div.topic-new-post {
 .card.is-torrent .card_footer {
     background-color: #171717;
 }
+
+
+
+
+//Mobile by Peter
+@media only screen and (max-width: 613px) {
+  ul.nav.nav-tabs.mb-5 {
+    float: left;
+    display: inline-block;
+  }
+  .col-md-10:first-child {
+    padding-bottom: 4px;
+  }
+  .panel .nav-tabs {
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
