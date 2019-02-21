@@ -412,7 +412,7 @@
                     <div class="panel panel-default panel-collapse">
                         <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapseVoters"
                              aria-expanded="false">
-                            <strong><a href="#">@lang('request.voters')</a></strong>
+                            <strong><a href="#/">@lang('request.voters')</a></strong>
                         </div>
                         <div id="collapseVoters" class="panel-body collapse" aria-expanded="false">
                             <div class="pull-right">
@@ -532,7 +532,7 @@
                         </div>
                     </div>
                     <!-- /Comments -->
-
+                    <div class="clearfix"></div>
                     <div class="col-md-12 home-pagination">
                         <div class="text-center">{{ $comments->links() }}</div>
                     </div>
@@ -571,7 +571,7 @@
             e.preventDefault();
             var url = $(this).attr('href');
             window.location.href = url+'#comments';
-        })
+        });
         $(document).ready(function () {
             if (window.location.hash && window.location.hash.substring) {
                 let sub = window.location.hash.substring(1).split('/')[0];
