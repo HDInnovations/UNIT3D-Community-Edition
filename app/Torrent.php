@@ -275,6 +275,8 @@ class Torrent extends Model
 
                 return true;
             }
+
+            return true;
         }
         $user = User::with('notification')->findOrFail($this->user_id);
         if ($user->acceptsNotification(auth()->user(), $user, 'torrent', 'show_torrent_comment')) {
