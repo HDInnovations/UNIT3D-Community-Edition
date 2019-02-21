@@ -197,7 +197,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::post('/request/add', 'RequestController@addRequest')->name('add_request');
         Route::get('/request/{id}/edit', 'RequestController@editRequestForm')->name('edit_request_form');
         Route::post('/request/{id}/edit', 'RequestController@editRequest')->name('edit_request');
-        Route::get('/request/{id}', 'RequestController@request')->name('request');
+        Route::get('/request/{id}{hash?}', 'RequestController@request')->name('request');
         Route::get('/request/{id}/accept', 'RequestController@approveRequest')->name('approveRequest');
         Route::post('/request/{id}/delete', 'RequestController@deleteRequest')->name('deleteRequest');
         Route::post('/request/{id}/fill', 'RequestController@fillRequest')->name('fill_request');
@@ -211,7 +211,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/filterTorrents', 'TorrentController@faceted');
         Route::get('/filterSettings', 'TorrentController@filtered');
         Route::get('/torrents', 'TorrentController@torrents')->name('torrents');
-        Route::get('/torrents/{slug}.{id}', 'TorrentController@torrent')->name('torrent');
+        Route::get('/torrents/{slug}.{id}{hash?}', 'TorrentController@torrent')->name('torrent');
         Route::get('/torrents/{slug}.{id}/peers', 'TorrentController@peers')->name('peers');
         Route::get('/torrents/{slug}.{id}/history', 'TorrentController@history')->name('history');
         Route::get('/upload/{title?}/{imdb?}/{tmdb?}', 'TorrentController@uploadForm')->name('upload_form');
