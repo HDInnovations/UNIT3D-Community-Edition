@@ -465,7 +465,7 @@
                     </div>
                 </div>
             </div>
-            <div class="block">
+            <div class="block" id="comments">
                 <!-- Comments -->
                 <div class="clearfix"></div>
                 <div class="row ">
@@ -565,3 +565,23 @@
     @include('requests.request_modals')
     @endif
 @endsection
+@section('javascripts')
+    <script>
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            window.location.href = url+'#comments';
+        })
+        $(document).ready(function () {
+            if (window.location.hash && window.location.hash.substring) {
+                let sub = window.location.hash.substring(1).split('/')[0];
+                if(sub == 'comments') {
+                    $("#comments")[0].scrollIntoView();
+                }
+            }
+        });
+    </script>
+@endsection
+
+
+
