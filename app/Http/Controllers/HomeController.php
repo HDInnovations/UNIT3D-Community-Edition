@@ -83,7 +83,7 @@ class HomeController extends Controller
         $posts = Post::latest()->take(5)->get();
 
         // Online Block
-        $users = User::with(['group' => function ($query) {
+        $users = User::with(['privacy','group' => function ($query) {
             $query->select(['id', 'name', 'color', 'effect', 'icon', 'position']);
         }])->select(['id', 'username', 'hidden', 'group_id'])->oldest('username')->get();
         $groups = Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();
