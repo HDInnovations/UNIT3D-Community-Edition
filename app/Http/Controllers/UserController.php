@@ -30,6 +30,7 @@ use App\History;
 use App\Torrent;
 use App\Warning;
 use App\Bookmark;
+use App\TorrentRequest;
 use App\Graveyard;
 use Carbon\Carbon;
 use App\UserPrivacy;
@@ -112,6 +113,9 @@ class UserController extends Controller
         $realdownload = $user->downloaded + $bondownload;
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
+        $requested = TorrentRequest::where('user_id','=',$user->id)->count();
+        $filled = TorrentRequest::where('filled_by','=',$user->id)->where('approved_by','is not','null')->count();
+
         return view('user.profile', [
             'route'        => 'profile',
             'user'         => $user,
@@ -124,6 +128,8 @@ class UserController extends Controller
             'realupload'   => $realupload,
             'bondownload'  => $bondownload,
             'realdownload' => $realdownload,
+            'requested'    => $requested,
+            'filled'       => $filled,
             'invitedBy'    => $invitedBy,
         ]);
     }
@@ -565,6 +571,72 @@ class UserController extends Controller
     }
 
     /**
+     * User Other Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeOther(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_other_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_online = ($request->input('show_online') && $request->input('show_online') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#other'])->with($this->toastr->success('Your Other Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
+     * User Request Privacy Change.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    protected function changeRequest(Request $request)
+    {
+        $user = auth()->user();
+        $privacy = $user->privacy;
+        if (! $privacy) {
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+        }
+        $approved = $request->input('approved');
+        $groups = Group::all();
+        $tomerge = [];
+        foreach ($groups as $group) {
+            if (is_array($approved) && in_array($group->id, $approved)) {
+                $tomerge[$group->id] = 1;
+            } else {
+                $tomerge[$group->id] = 0;
+            }
+        }
+        $privacy->json_request_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
+        $privacy->show_requested = ($request->input('show_requested') && $request->input('show_requested') == 1 ? 1 : 0);
+        $privacy->save();
+
+        return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#request'])->with($this->toastr->success('Your Request Privacy Settings Have Been Saved!', 'Yay!', ['options']));
+    }
+
+    /**
      * User Achievement Privacy Change.
      *
      * @param \Illuminate\Http\Request $request
@@ -693,7 +765,11 @@ class UserController extends Controller
         $privacy->json_torrent_groups = array_merge($privacy->expected_groups, ['default_groups' => $tomerge]);
         $privacy->show_upload = ($request->input('show_upload') && $request->input('show_upload') == 1 ? 1 : 0);
         $privacy->show_download = ($request->input('show_download') && $request->input('show_download') == 1 ? 1 : 0);
+        $privacy->show_peer = ($request->input('show_peer') && $request->input('show_peer') == 1 ? 1 : 0);
         $privacy->save();
+
+        $user->peer_hidden = 0;
+        $user->save();
 
         return redirect()->route('user_privacy', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#torrent'])->with($this->toastr->success('Your Torrent History Privacy Settings Have Been Saved!', 'Yay!', ['options']));
     }
@@ -1024,6 +1100,7 @@ class UserController extends Controller
         $privacy->show_profile_bon_extra = ($request->input('show_profile_bon_extra') && $request->input('show_profile_bon_extra') == 1 ? 1 : 0);
         $privacy->show_profile_comment_extra = ($request->input('show_profile_comment_extra') && $request->input('show_profile_comment_extra') == 1 ? 1 : 0);
         $privacy->show_profile_forum_extra = ($request->input('show_profile_forum_extra') && $request->input('show_profile_forum_extra') == 1 ? 1 : 0);
+        $privacy->show_profile_request_extra = ($request->input('show_profile_request_extra') && $request->input('show_profile_request_extra') == 1 ? 1 : 0);
         $privacy->show_profile_warning = ($request->input('show_profile_warning') && $request->input('show_profile_warning') == 1 ? 1 : 0);
         $privacy->save();
 
@@ -1462,7 +1539,58 @@ class UserController extends Controller
                 'user' => $user,
                 'seeds' => $table,
             ])->render();
-        } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
+        } elseif ($request->has('view') && $request->input('view') == 'requests') {
+
+            $torrentRequests = TorrentRequest::with(['user', 'category']);
+
+            $order = null;
+            $sorting = null;
+
+            if ($request->has('name') && $request->input('name') != null) {
+                $torrentRequests->where('requests.name', 'like', '%'.$request->input('name').'%');
+            }
+            if ($request->has('filled') && $request->input('filled') != null) {
+                $torrentRequests->whereRaw('requests.filled_by is not NULL AND requests.filled_hash is not NULL AND requests.filled_when is not NULL AND requests.approved_by is not NULL AND requests.approved_when is not NULL');
+            }
+            if ($request->has('pending') && $request->input('pending') != null) {
+                $torrentRequests->whereRaw('requests.filled_by is not NULL AND requests.filled_hash is not NULL AND requests.filled_when is not NULL AND (requests.approved_by is NULL OR requests.approved_when is NULL)');
+            }
+            if ($request->has('claimed') && $request->input('claimed') != null) {
+                $torrentRequests->whereRaw('requests.claimed = 1');
+            }
+            if ($request->has('unfilled') && $request->input('unfilled') != null) {
+                $torrentRequests->whereRaw('requests.filled_by is NULL OR requests.filled_hash is NULL or requests.approved_by is NULL');
+            }
+
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = $request->input('sorting');
+            }
+            if ($request->has('direction') && $request->input('direction') != null) {
+                $order = $request->input('direction');
+            }
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
+                $sorting = 'created_at';
+                $order = 'desc';
+                // $order = 'asc';
+            }
+            if ($order == 'asc') {
+                $direction = 1;
+            } else {
+                $direction = 2;
+            }
+
+            if($sorting == 'date') {
+                $table = $torrentRequests->where('requests.user_id', '=', $user->id)->orderBy('requests.created_at', $order)->paginate(25);
+            }
+            else {
+                $table = $torrentRequests->where('requests.user_id', '=', $user->id)->orderBy('requests.' . $sorting, $order)->paginate(25);
+            }
+
+            return view('user.filters.requests', [
+                'user' => $user,
+                'torrentRequests' => $table,
+            ])->render();
+    } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
             $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
 
             $order = null;
@@ -1943,6 +2071,49 @@ class UserController extends Controller
     }
 
     /**
+     * Get A Users Requested Table.
+     *
+     * @param $username
+     * @param $id
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function requested($slug, $id)
+    {
+        $user = User::findOrFail($id);
+        if ((auth()->user()->id == $user->id || auth()->user()->group->is_modo)) {
+            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
+            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
+            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
+            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
+            $logger = 'user.private.requests';
+
+            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id','=',$user->id)->latest()->paginate(25);
+
+            return view($logger, [
+                'route'         => 'requests',
+                'user'          => $user,
+                'torrentRequests' => $torrentRequests,
+                'his_upl'       => $his_upl,
+                'his_upl_cre'   => $his_upl_cre,
+                'his_downl'     => $his_downl,
+                'his_downl_cre' => $his_downl_cre,
+            ]);
+        } else {
+            $logger = 'user.requests';
+
+            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id','=',$user->id)->where('anon','!=',1)->latest()->paginate(25);
+
+            return view($logger, [
+                'route'         => 'requests',
+                'user'          => $user,
+                'torrentRequests' => $torrentRequests,
+            ]);
+        }
+    }
+
+    /**
      * Get A Users Unsatisfieds Table.
      *
      * @param $username
@@ -1964,7 +2135,7 @@ class UserController extends Controller
         if (config('hitrun.enabled') == true) {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('downloaded', '>', 0)
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
@@ -1972,7 +2143,7 @@ class UserController extends Controller
         } else {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('actual_downloaded', '>', 0)
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('downloaded', '>', 0)
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
