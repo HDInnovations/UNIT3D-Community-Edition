@@ -196,6 +196,24 @@ class userFilterBuilder {
             }
         })();
 
+        var unfilled = (function () {
+            if ($("#unfilled").is(":checked")) {
+                return $("#unfilled").val();
+            }
+        })();
+
+        var filled = (function () {
+            if ($("#filled").is(":checked")) {
+                return $("#filled").val();
+            }
+        })();
+
+        var claimed = (function () {
+            if ($("#claimed").is(":checked")) {
+                return $("#claimed").val();
+            }
+        })();
+
         var search = $("#search").val();
 
         var sorting = $("#sorting").val();
@@ -219,6 +237,9 @@ class userFilterBuilder {
                 rewarded: rewarded,
                 notrewarded: notrewarded,
                 immune: immune,
+                claimed: claimed,
+                filled: filled,
+                unfilled: unfilled,
                 name: search,
                 pending: pending,
                 leeching: leeching,
