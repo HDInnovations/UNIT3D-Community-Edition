@@ -5655,6 +5655,11 @@ a.sort {
     width: 50%;
     text-align: right;
 }
+.button-left-increased {
+    display: table-cell;
+    width: 60%;
+    text-align: left;
+}
 .button-left-large {
     display: table-cell;
     width: 70%;
@@ -5673,6 +5678,11 @@ a.sort {
 .button-right-small {
     display: table-cell;
     width: 30%;
+    text-align: right;
+}
+.button-right-decreased {
+    display: table-cell;
+    width: 40%;
     text-align: right;
 }
 .button-padding {
