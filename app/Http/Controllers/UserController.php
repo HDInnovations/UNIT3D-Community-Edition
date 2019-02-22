@@ -30,11 +30,11 @@ use App\History;
 use App\Torrent;
 use App\Warning;
 use App\Bookmark;
-use App\TorrentRequest;
 use App\Graveyard;
 use Carbon\Carbon;
 use App\UserPrivacy;
 use App\PrivateMessage;
+use App\TorrentRequest;
 use App\BonTransactions;
 use App\Services\Bencode;
 use App\UserNotification;
@@ -113,8 +113,8 @@ class UserController extends Controller
         $realdownload = $user->downloaded + $bondownload;
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
-        $requested = TorrentRequest::where('user_id','=',$user->id)->count();
-        $filled = TorrentRequest::where('filled_by','=',$user->id)->whereNotNull('approved_by')->count();
+        $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
+        $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
         return view('user.profile', [
             'route'        => 'profile',
@@ -1540,7 +1540,6 @@ class UserController extends Controller
                 'seeds' => $table,
             ])->render();
         } elseif ($request->has('view') && $request->input('view') == 'requests') {
-
             $torrentRequests = TorrentRequest::with(['user', 'category']);
 
             $order = null;
@@ -1564,7 +1563,7 @@ class UserController extends Controller
                     ->whereNull('approved_when');
             }
             if ($request->has('claimed') && $request->input('claimed') != null) {
-                $torrentRequests->where('claimed','=',1);
+                $torrentRequests->where('claimed', '=', 1);
             }
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
                 $torrentRequests->where(function ($query) {
@@ -1589,10 +1588,9 @@ class UserController extends Controller
                 $direction = 2;
             }
 
-            if($sorting == 'date') {
+            if ($sorting == 'date') {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
-            }
-            else {
+            } else {
                 $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(25);
             }
 
@@ -1600,7 +1598,7 @@ class UserController extends Controller
                 'user' => $user,
                 'torrentRequests' => $table,
             ])->render();
-    } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
+        } elseif ($request->has('view') && $request->input('view') == 'resurrections') {
             $history = Graveyard::with(['torrent', 'user'])->leftJoin('torrents', 'torrents.id', '=', 'graveyard.torrent_id');
 
             $order = null;
@@ -2099,7 +2097,7 @@ class UserController extends Controller
 
             $logger = 'user.private.requests';
 
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id','=',$user->id)->latest()->paginate(25);
+            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->latest()->paginate(25);
 
             return view($logger, [
                 'route'         => 'requests',
@@ -2113,7 +2111,7 @@ class UserController extends Controller
         } else {
             $logger = 'user.requests';
 
-            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id','=',$user->id)->where('anon','!=',1)->latest()->paginate(25);
+            $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->where('anon', '!=', 1)->latest()->paginate(25);
 
             return view($logger, [
                 'route'         => 'requests',
