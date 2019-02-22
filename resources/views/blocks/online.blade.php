@@ -9,7 +9,7 @@
         <div class="panel-body">
             @foreach ($users as $user)
                 @if ($user->isOnline())
-                    @if ($user->hidden == 1)
+                    @if($user->hidden == 1 || !$user->isVisible($user,'other','show_online'))
                         <span class="badge-user text-orange text-bold" style="margin-bottom: 10px;">
                             <i class="{{ config('other.font-awesome') }} fa-user-ninja"></i> {{ strtoupper(trans('common.hidden')) }}
                             @if (auth()->user()->group->is_modo)
