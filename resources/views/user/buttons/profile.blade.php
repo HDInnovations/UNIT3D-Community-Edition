@@ -41,7 +41,7 @@
     </div>
 </div>
 <div class="button-holder">
-    <div class="button-left">
+    <div class="button-left-increased">
         <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.profile')
         </a>
@@ -58,7 +58,7 @@
             @lang('user.followers')
         </a>
         <a href="{{ route('user_uploads', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
-            @lang('user.uploads')
+           @lang('user.uploads')
         </a>
         <a href="{{ route('user_downloads', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.downloads')
@@ -69,8 +69,11 @@
         <a href="{{ route('user_topics', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.topics')
         </a>
+        <a href="{{ route('user_requested', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+            @lang('user.requested')
+        </a>
     </div>
-    <div class="button-right">
+    <div class="button-right-decreased">
             <a href="{{ route('user_unsatisfieds', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
             </a>

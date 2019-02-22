@@ -48,7 +48,7 @@
                     <tbody>
                     @foreach ($history as $hpeers)
                         <tr>
-                            @if ($hpeers->user->peer_hidden == 1)
+                            @if ($hpeers->user->hidden == 1 || $hpeers->user->peer_hidden == 1 || !auth()->user()->isAllowed($hpeers->user,'torrent','show_peer'))
                                 <td>
                                     <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
                                                                                       aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
@@ -60,6 +60,11 @@
                                 </td>
                             @else
                                 <td>
+
+                                    @if($hpeers->user->privacy && $hpeers->user->privacy->show_peer != 1)
+                                        <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
+                                                                                          aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                    @endif
                                     <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span
                                                 class="badge-user text-bold"
                                                 style="color:{{ $hpeers->user->group->color }}; background-image:{{ $hpeers->user->group->effect }};"><i
@@ -84,8 +89,8 @@
                                 <span class="badge-extra text-orange" data-toggle="tooltip"
                                       data-original-title="@lang('torrent.credited') {{ strtolower(trans('common.download')) }}">{{ App\Helpers\StringHelper::formatBytes($hpeers->downloaded,2) }}</span>
                             </td>
-                            <td>{{ $hpeers->created_at->diffForHumans() }}</td>
-                            <td>{{ $hpeers->updated_at->diffForHumans() }}</td>
+                                <td>{{ $hpeers->created_at ? $hpeers->created_at->diffForHumans() : 'N/A' }}</td>
+                                <td>{{ $hpeers->updated_at ? $hpeers->updated_at->diffForHumans() : 'N/A' }}</td>
                             @if ($hpeers->seedtime < config('hitrun.seedtime'))
                                 <td>
                                     <span class="badge-extra text-red">{{ App\Helpers\StringHelper::timeElapsed($hpeers->seedtime) }}</span>

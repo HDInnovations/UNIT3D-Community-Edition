@@ -51,14 +51,20 @@
                 <tbody>
                 @foreach ($peers as $p)
                     <tr>
-                        @if ($p->user->peer_hidden == 1)
-                            <td><span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
-                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span> @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
+                        @if ($p->user->hidden == 1 || $p->user->peer_hidden == 1 || !auth()->user()->isAllowed($p->user,'torrent','show_peer'))
+                            <td>
+                                <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
+                                                                                  aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                @if (auth()->user()->id == $p->id || auth()->user()->group->is_modo)
                                     <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                                 class="badge-user text-bold" style="color:{{ $p->user->group->color }}">({{ $p->user->username }}
                                             )</span></a>@endif</td>
                         @else
                             <td>
+                                @if($p->user->privacy && $p->user->privacy->show_peer != 1)
+                                    <span class="badge-user text-orange text-bold"><i class="{{ config('other.font-awesome') }} fa-eye-slash"
+                                                                                      aria-hidden="true"></i>{{ strtoupper(trans('common.anonymous')) }}</span>
+                                @endif
                                 <a href="{{ route('profile', ['username' => $p->user->username, 'id' => $p->user->id]) }}"><span
                                             class="badge-user text-bold"
                                             style="color:{{ $p->user->group->color }}; background-image:{{ $p->user->group->effect }};"><i
@@ -104,8 +110,8 @@
                             <td> ---</td>
                             <td> ---</td>
                         @endif
-                        <td>{{ $p->created_at->diffForHumans() }}</td>
-                        <td>{{ $p->updated_at->diffForHumans() }}</td>
+                        <td>{{ $p->created_at ? $p->created_at->diffForHumans() : 'N/A' }}</td>
+                        <td>{{ $p->updated_at ? $p->updated_at->diffForHumans() : 'N/A' }}</td>
                         <td> @if ($p->seeder == 0)
                                 <span class='label label-danger'>{{ strtoupper(trans('torrent.leecher')) }}</span>
                             @elseif ($p->seeder == 1)

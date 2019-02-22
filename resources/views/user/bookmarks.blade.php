@@ -22,7 +22,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
-            @include('user.buttons.bookmark')
+            @include('user.buttons.other')
             <div class="header gradient red">
                 <div class="inner_content">
                     <h1>{{ $user->username }} @lang('user.bookmarks')</h1>

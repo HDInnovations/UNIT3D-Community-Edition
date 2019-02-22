@@ -46,6 +46,8 @@ class UserPrivacy extends Model
         'json_follower_groups' => 'array',
         'json_achievement_groups' => 'array',
         'json_rank_groups' => 'array',
+        'json_request_groups' => 'array',
+        'json_other_groups' => 'array',
     ];
 
     /**
