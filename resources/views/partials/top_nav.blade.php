@@ -97,18 +97,28 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('user_privacy', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.my-privacy')
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('user_security', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-security')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
+                        <a href="{{ route('user_bookmarks',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_bookmarks',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
+                        <a href="{{ route('user_requested',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
                         </a>
                     </li>
                     <li>
