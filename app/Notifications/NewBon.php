@@ -13,8 +13,8 @@
 
 namespace App\Notifications;
 
-use App\Models\BonTransactions;
 use Illuminate\Bus\Queueable;
+use App\Models\BonTransactions;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

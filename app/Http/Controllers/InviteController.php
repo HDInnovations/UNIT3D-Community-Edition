@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Invite;
 use Carbon\Carbon;
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
+use App\Models\Invite;
 use App\Mail\InviteUser;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;

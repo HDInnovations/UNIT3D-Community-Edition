@@ -12,11 +12,11 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Models\Invite;
 use Carbon\Carbon;
-use App\Models\Application;
 use Ramsey\Uuid\Uuid;
+use App\Models\Invite;
 use App\Mail\InviteUser;
+use App\Models\Application;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Mail\DenyApplication;

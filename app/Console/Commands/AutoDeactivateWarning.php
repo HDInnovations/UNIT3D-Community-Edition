@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Warning;
 use Carbon\Carbon;
+use App\Models\Warning;
 use App\Models\PrivateMessage;
 use Illuminate\Console\Command;
 

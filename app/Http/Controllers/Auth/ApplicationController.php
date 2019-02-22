@@ -13,11 +13,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Application;
-use App\Models\ApplicationUrlProof;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
-use App\Models\ApplicationImageProof;
+use App\Models\ApplicationUrlProof;
 use App\Http\Controllers\Controller;
+use App\Models\ApplicationImageProof;
 
 class ApplicationController extends Controller
 {

@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Carbon\Carbon;
 use App\Models\Ban;
 use App\Models\User;
-use App\Models\Group;
-use Carbon\Carbon;
 use App\Mail\BanUser;
+use App\Models\Group;
 use App\Mail\UnbanUser;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;

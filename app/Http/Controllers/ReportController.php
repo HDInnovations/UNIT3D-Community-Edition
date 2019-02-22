@@ -16,9 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Report;
 use App\Models\Torrent;
-use App\Models\TorrentRequest;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\TorrentRequest;
 
 class ReportController extends Controller
 {

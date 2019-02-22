@@ -14,6 +14,8 @@
 namespace App\Http\Controllers;
 
 use Image;
+use ZipArchive;
+use Carbon\Carbon;
 use App\Models\Ban;
 use App\Models\Peer;
 use App\Models\Post;
@@ -25,22 +27,20 @@ use App\Models\Topic;
 use App\Models\Client;
 use App\Models\Follow;
 use App\Models\Invite;
-use ZipArchive;
 use App\Models\History;
 use App\Models\Torrent;
 use App\Models\Warning;
 use App\Models\Bookmark;
 use App\Models\Graveyard;
-use Carbon\Carbon;
+use App\Services\Bencode;
+use App\UserNotification;
 use App\Models\UserPrivacy;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
-use App\Services\Bencode;
-use App\UserNotification;
 use App\Models\PersonalFreeleech;
-use Brian2694\Toastr\Toastr;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 

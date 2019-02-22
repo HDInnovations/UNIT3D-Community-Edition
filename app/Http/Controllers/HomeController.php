@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Poll;
 use App\Models\Post;
 use App\Models\User;
@@ -20,7 +21,6 @@ use App\Models\Group;
 use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Torrent;
-use Carbon\Carbon;
 use App\Models\FeaturedTorrent;
 use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
