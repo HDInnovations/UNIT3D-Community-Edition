@@ -2090,7 +2090,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if ((auth()->user()->id == $user->id || auth()->user()->group->is_modo)) {
-
             $logger = 'user.private.requests';
 
             $torrentRequests = TorrentRequest::with(['user', 'category'])->where('user_id', '=', $user->id)->latest()->paginate(25);
