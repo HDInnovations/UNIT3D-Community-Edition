@@ -150,8 +150,7 @@ class UserController extends Controller
                 'route' => 'follower',
                 'results' => $results,
                 'user' => $user,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -170,8 +169,7 @@ class UserController extends Controller
                 'route' => 'forum',
                 'results' => $results,
                 'user' => $user,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -190,8 +188,7 @@ class UserController extends Controller
                 'route' => 'forum',
                 'results' => $results,
                 'user' => $user,
-            ]
-        );
+            ]);
     }
 
     /**
