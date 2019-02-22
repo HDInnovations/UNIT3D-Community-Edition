@@ -449,7 +449,6 @@ Route::group(['middleware' => 'language'], function () {
     |-----------------------------------------------------------------
     */
     Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
-
         Route::get('/', 'HomeController@index')->name('staff.dashboard.index');
 
         // Activity Log
