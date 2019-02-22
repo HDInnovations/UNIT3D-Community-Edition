@@ -14,7 +14,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
-use App\UserActivation;
+use App\Models\UserActivation;
 use Brian2694\Toastr\Toastr;
 use App\Http\Controllers\Controller;
 
