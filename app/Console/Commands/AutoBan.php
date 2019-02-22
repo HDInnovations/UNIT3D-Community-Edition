@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Ban;
-use App\Group;
-use App\Warning;
+use App\Models\Ban;
+use App\Models\Group;
+use App\Models\Warning;
 use App\Mail\BanUser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

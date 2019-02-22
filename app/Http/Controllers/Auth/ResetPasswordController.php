@@ -14,8 +14,8 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Group;
-use App\UserActivation;
+use App\Models\Group;
+use App\Models\UserActivation;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;

@@ -14,7 +14,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Group;
+use App\Models\Group;
 use Carbon\Carbon;
 
 class CheckIfOnline

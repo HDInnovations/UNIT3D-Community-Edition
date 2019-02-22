@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Torrent;
+use App\Models\Torrent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

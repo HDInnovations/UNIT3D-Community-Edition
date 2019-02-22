@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Forum;
-use App\Group;
-use App\Permission;
+use App\Models\Forum;
+use App\Models\Group;
+use App\Models\Permission;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

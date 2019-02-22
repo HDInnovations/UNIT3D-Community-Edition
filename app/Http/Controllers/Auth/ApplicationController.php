@@ -12,11 +12,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Application;
-use App\ApplicationUrlProof;
+use App\Models\Application;
+use App\Models\ApplicationUrlProof;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
-use App\ApplicationImageProof;
+use App\Models\ApplicationImageProof;
 use App\Http\Controllers\Controller;
 
 class ApplicationController extends Controller

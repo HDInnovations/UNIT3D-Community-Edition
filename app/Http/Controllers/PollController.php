@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Poll;
-use App\Voter;
-use App\Option;
+use App\Models\Poll;
+use App\Models\Voter;
+use App\Models\Option;
 use Brian2694\Toastr\Toastr;
 use App\Http\Requests\VoteOnPoll;
 use App\Repositories\ChatRepository;

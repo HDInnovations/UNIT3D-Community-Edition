@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Group;
-use App\Invite;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Invite;
 use Carbon\Carbon;
-use App\UserPrivacy;
+use App\Models\UserPrivacy;
 use App\Rules\Captcha;
-use App\PrivateMessage;
-use App\UserActivation;
-use App\UserNotification;
+use App\Models\PrivateMessage;
+use App\Models\UserActivation;
+use App\Models\UserNotification;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Jobs\SendActivationMail;

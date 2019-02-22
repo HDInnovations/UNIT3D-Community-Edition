@@ -13,7 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\Invite;
+use App\Models\Invite;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 

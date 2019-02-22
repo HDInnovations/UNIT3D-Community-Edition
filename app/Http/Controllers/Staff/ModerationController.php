@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Torrent;
+use App\Models\Torrent;
 use Carbon\Carbon;
-use App\PrivateMessage;
-use App\TorrentRequest;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;

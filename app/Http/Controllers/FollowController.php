@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Follow;
+use App\Models\User;
+use App\Models\Follow;
 use Brian2694\Toastr\Toastr;
 use App\Notifications\NewFollow;
 use App\Notifications\NewUnfollow;

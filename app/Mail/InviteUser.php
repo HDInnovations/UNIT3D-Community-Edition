@@ -13,7 +13,7 @@
 
 namespace App\Mail;
 
-use App\Invite;
+use App\Models\Invite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

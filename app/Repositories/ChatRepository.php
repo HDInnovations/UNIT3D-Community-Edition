@@ -13,14 +13,14 @@
 
 namespace App\Repositories;
 
-use App\Bot;
-use App\User;
-use App\Message;
-use App\Chatroom;
-use App\UserEcho;
-use App\ChatStatus;
+use App\Models\Bot;
+use App\Models\User;
+use App\Models\Message;
+use App\Models\Chatroom;
+use App\Models\UserEcho;
+use App\Models\ChatStatus;
 use App\Events\Ping;
-use App\UserAudible;
+use App\Models\UserAudible;
 use App\Events\Chatter;
 use App\Events\MessageSent;
 use App\Events\MessageDeleted;

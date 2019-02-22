@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Catalog;
-use App\CatalogTorrent;
+use App\Models\Catalog;
+use App\Models\CatalogTorrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

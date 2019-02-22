@@ -14,7 +14,7 @@
 namespace App\Http\Controllers;
 
 use Image;
-use App\Album;
+use App\Models\Album;
 use Carbon\Carbon;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;

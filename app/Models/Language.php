@@ -11,7 +11,7 @@
  * @author     HDVinnie
  */
 
-namespace App;
+namespace App\Models;
 
 class Language
 {

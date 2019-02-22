@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Catalog;
-use App\Torrent;
-use App\CatalogTorrent;
+use App\Models\Catalog;
+use App\Models\Torrent;
+use App\Models\CatalogTorrent;
 
 class CatalogController extends Controller
 {

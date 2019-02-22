@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Message;
-use App\Chatroom;
-use App\ChatStatus;
+use App\Models\Message;
+use App\Models\Chatroom;
+use App\Models\ChatStatus;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Events\MessageDeleted;

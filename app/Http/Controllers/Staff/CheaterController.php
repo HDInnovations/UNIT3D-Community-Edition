@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\History;
+use App\Models\History;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 

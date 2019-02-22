@@ -58,7 +58,7 @@
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
-                    @foreach (App\Language::allowed() as $code => $name)
+                    @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', ['local' => $code]) }}">
                                 <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}"

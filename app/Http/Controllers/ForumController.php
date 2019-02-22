@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\User;
-use App\Forum;
-use App\Topic;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Forum;
+use App\Models\Topic;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;

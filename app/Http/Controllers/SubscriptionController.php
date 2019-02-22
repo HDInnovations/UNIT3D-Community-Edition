@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Forum;
-use App\Topic;
-use App\Subscription;
+use App\Models\Forum;
+use App\Models\Topic;
+use App\Models\Subscription;
 use Brian2694\Toastr\Toastr;
 
 class SubscriptionController extends Controller

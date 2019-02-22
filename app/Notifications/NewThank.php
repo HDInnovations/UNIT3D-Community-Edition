@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Thank;
+use App\Models\Thank;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 

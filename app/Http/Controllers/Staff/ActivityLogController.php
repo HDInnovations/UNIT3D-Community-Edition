@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\LogActivity;
+use App\Models\LogActivity;
 use Brian2694\Toastr\Toastr;
 use App\Http\Controllers\Controller;
 

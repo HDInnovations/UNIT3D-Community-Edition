@@ -14,7 +14,7 @@ if (! function_exists('language')) {
     /**
      * Get the language instance.
      *
-     * @return App\Language
+     * @return App\Models\Language
      */
     function language()
     {

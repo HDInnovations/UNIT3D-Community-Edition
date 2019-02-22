@@ -13,8 +13,8 @@
 
 namespace App\Notifications;
 
-use App\User;
-use App\Topic;
+use App\Models\User;
+use App\Models\Topic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;

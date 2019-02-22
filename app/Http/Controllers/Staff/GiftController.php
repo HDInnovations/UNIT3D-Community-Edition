@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\User;
-use App\PrivateMessage;
+use App\Models\User;
+use App\Models\PrivateMessage;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

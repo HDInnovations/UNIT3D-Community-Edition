@@ -13,15 +13,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Peer;
-use App\User;
-use App\Group;
-use App\History;
-use App\Torrent;
+use App\Models\Peer;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\History;
+use App\Models\Torrent;
 use Carbon\Carbon;
-use App\FreeleechToken;
+use App\Models\FreeleechToken;
 use App\Services\Bencode;
-use App\PersonalFreeleech;
+use App\Models\PersonalFreeleech;
 use Illuminate\Http\Request;
 
 class AnnounceController extends Controller

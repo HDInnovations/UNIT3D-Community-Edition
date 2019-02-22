@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Poll;
-use App\Option;
+use App\Models\Poll;
+use App\Models\Option;
 use Brian2694\Toastr\Toastr;
 use App\Http\Requests\StorePoll;
 use App\Http\Controllers\Controller;

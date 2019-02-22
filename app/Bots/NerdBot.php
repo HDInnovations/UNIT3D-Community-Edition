@@ -12,16 +12,16 @@
 
 namespace App\Bots;
 
-use App\Ban;
-use App\Bot;
-use App\Peer;
-use App\User;
-use App\Torrent;
-use App\Warning;
-use App\UserEcho;
+use App\Models\Ban;
+use App\Models\Bot;
+use App\Models\Peer;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\Warning;
+use App\Models\UserEcho;
 use Carbon\Carbon;
-use App\UserAudible;
-use App\BotTransaction;
+use App\Models\UserAudible;
+use App\Models\BotTransaction;
 use App\Events\Chatter;
 use App\Repositories\ChatRepository;
 use App\Http\Resources\UserEchoResource;

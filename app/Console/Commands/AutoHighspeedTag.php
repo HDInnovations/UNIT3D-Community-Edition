@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Peer;
-use App\Client;
-use App\Torrent;
+use App\Models\Peer;
+use App\Models\Client;
+use App\Models\Torrent;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

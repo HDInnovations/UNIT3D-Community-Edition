@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Ban;
-use App\User;
-use App\Group;
+use App\Models\Ban;
+use App\Models\User;
+use App\Models\Group;
 use Carbon\Carbon;
 use App\Mail\BanUser;
 use App\Mail\UnbanUser;

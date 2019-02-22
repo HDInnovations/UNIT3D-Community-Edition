@@ -14,7 +14,7 @@
 
 namespace App\Jobs;
 
-use App\PrivateMessage;
+use App\Models\PrivateMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

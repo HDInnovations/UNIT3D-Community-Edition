@@ -13,14 +13,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\User;
-use App\Torrent;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Torrent;
 use Carbon\Carbon;
-use App\BonExchange;
-use App\PrivateMessage;
-use App\BonTransactions;
-use App\PersonalFreeleech;
+use App\Models\BonExchange;
+use App\Models\PrivateMessage;
+use App\Models\BonTransactions;
+use App\Models\PersonalFreeleech;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Notifications\NewBon;

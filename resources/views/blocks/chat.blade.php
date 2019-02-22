@@ -1,1 +1,1 @@
-<chatbox :user="{{ App\User::with(['chatStatus', 'chatroom', 'group'])->find(auth()->id()) }}"></chatbox>
+<chatbox :user="{{ App\Models\User::with(['chatStatus', 'chatroom', 'group'])->find(auth()->id()) }}"></chatbox>

@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Warning;
+use App\Models\Warning;
 use App\Http\Controllers\Controller;
 
 class WarningController extends Controller

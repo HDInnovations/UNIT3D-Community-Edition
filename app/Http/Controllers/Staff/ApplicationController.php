@@ -12,9 +12,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Invite;
+use App\Models\Invite;
 use Carbon\Carbon;
-use App\Application;
+use App\Models\Application;
 use Ramsey\Uuid\Uuid;
 use App\Mail\InviteUser;
 use Brian2694\Toastr\Toastr;

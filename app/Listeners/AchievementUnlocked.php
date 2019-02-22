@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\User;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
 

@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Rss;
-use App\Type;
-use App\User;
-use App\Group;
-use App\Torrent;
-use App\Category;
-use App\TagTorrent;
+use App\Models\Rss;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Torrent;
+use App\Models\Category;
+use App\Models\TagTorrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;

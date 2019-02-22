@@ -13,9 +13,9 @@
 
 namespace App\Repositories;
 
-use App\User;
-use App\Wish;
-use App\Torrent;
+use App\Models\User;
+use App\Models\Wish;
+use App\Models\Torrent;
 use App\Interfaces\WishInterface;
 use App\Services\Clients\OmdbClient;
 

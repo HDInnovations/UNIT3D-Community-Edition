@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Invite;
+use App\Models\User;
+use App\Models\Invite;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
 use App\Mail\InviteUser;

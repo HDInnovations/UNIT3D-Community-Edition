@@ -13,11 +13,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Bot;
-use App\User;
-use App\UserEcho;
+use App\Models\Bot;
+use App\Models\User;
+use App\Models\UserEcho;
 use Carbon\Carbon;
-use App\UserAudible;
+use App\Models\UserAudible;
 use App\Bots\NerdBot;
 use App\Bots\CasinoBot;
 use App\Bots\SystemBot;

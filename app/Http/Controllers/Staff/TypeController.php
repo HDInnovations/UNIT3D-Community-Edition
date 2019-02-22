@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Type;
+use App\Models\Type;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
