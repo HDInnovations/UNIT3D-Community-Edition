@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\History;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class AutoGroup extends Command

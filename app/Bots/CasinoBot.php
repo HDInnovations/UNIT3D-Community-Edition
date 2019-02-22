@@ -12,13 +12,13 @@
 
 namespace App\Bots;
 
+use Carbon\Carbon;
 use App\Models\Bot;
 use App\Models\User;
+use App\Events\Chatter;
 use App\Models\UserEcho;
-use Carbon\Carbon;
 use App\Models\UserAudible;
 use App\Models\BotTransaction;
-use App\Events\Chatter;
 use App\Repositories\ChatRepository;
 use App\Http\Resources\UserEchoResource;
 use App\Http\Resources\UserAudibleResource;

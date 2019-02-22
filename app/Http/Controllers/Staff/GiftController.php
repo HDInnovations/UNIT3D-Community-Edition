@@ -14,9 +14,9 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\User;
-use App\Models\PrivateMessage;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
 
 class GiftController extends Controller

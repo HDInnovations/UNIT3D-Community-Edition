@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Torrent;
 use Carbon\Carbon;
+use App\Models\Torrent;
 use App\Models\FeaturedTorrent;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;

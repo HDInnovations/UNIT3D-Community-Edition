@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
 use App\Models\User;
@@ -20,22 +21,21 @@ use App\Models\History;
 use App\Models\Torrent;
 use App\Models\Warning;
 use App\Models\Category;
-use Carbon\Carbon;
-use App\Models\TagTorrent;
-use App\Models\TorrentFile;
-use App\Models\FreeleechToken;
-use App\Models\PrivateMessage;
-use App\Models\TorrentRequest;
-use App\Models\BonTransactions;
-use App\Models\FeaturedTorrent;
 use App\Services\Bencode;
 use App\Helpers\MediaInfo;
-use App\Models\PersonalFreeleech;
+use App\Models\TagTorrent;
+use App\Models\TorrentFile;
 use App\Bots\IRCAnnounceBot;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\FreeleechToken;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Services\TorrentTools;
+use App\Models\BonTransactions;
+use App\Models\FeaturedTorrent;
+use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;

@@ -13,18 +13,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Invite;
-use Carbon\Carbon;
-use App\Models\UserPrivacy;
 use App\Rules\Captcha;
-use App\Models\PrivateMessage;
-use App\Models\UserActivation;
-use App\Models\UserNotification;
+use App\Models\UserPrivacy;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
+use App\Models\UserActivation;
 use App\Jobs\SendActivationMail;
+use App\Models\UserNotification;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Hash;

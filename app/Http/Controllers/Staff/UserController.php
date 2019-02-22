@@ -26,9 +26,9 @@ use App\Models\Invite;
 use App\Models\Comment;
 use App\Models\Message;
 use App\Models\Torrent;
-use App\Models\PrivateMessage;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 

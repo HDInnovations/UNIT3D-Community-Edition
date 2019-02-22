@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Torrent;
 use App\Models\Category;
-use Carbon\Carbon;
+use Brian2694\Toastr\Toastr;
+use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
 use App\Models\TorrentRequestClaim;
-use Brian2694\Toastr\Toastr;
-use Illuminate\Http\Request;
 use App\Models\TorrentRequestBounty;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewRequestFill;
