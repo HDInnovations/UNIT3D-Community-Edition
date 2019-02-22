@@ -1547,28 +1547,28 @@ class UserController extends Controller
             $sorting = null;
 
             if ($request->has('name') && $request->input('name') != null) {
-                $torrentRequests->where('requests.name', 'like', '%'.$request->input('name').'%');
+                $torrentRequests->where('name', 'like', '%'.$request->input('name').'%');
             }
             if ($request->has('filled') && $request->input('filled') != null) {
-                $torrentRequests->whereNotNull('requests.filled_by')
-                    ->whereNotNull('requests.filled_hash')
-                    ->whereNotNull('requests.filled_when')
-                    ->whereNotNull('requests.approved_by')
-                    ->whereNotNull('requests.approved_when');
+                $torrentRequests->whereNotNull('filled_by')
+                    ->whereNotNull('filled_hash')
+                    ->whereNotNull('filled_when')
+                    ->whereNotNull('approved_by')
+                    ->whereNotNull('approved_when');
             }
             if ($request->has('pending') && $request->input('pending') != null) {
-                $torrentRequests->whereNotNull('requests.filled_by')
-                    ->whereNotNull('requests.filled_hash')
-                    ->whereNotNull('requests.filled_when')
-                    ->whereNull('requests.approved_by')
-                    ->whereNull('requests.approved_when');
+                $torrentRequests->whereNotNull('filled_by')
+                    ->whereNotNull('filled_hash')
+                    ->whereNotNull('filled_when')
+                    ->whereNull('approved_by')
+                    ->whereNull('approved_when');
             }
             if ($request->has('claimed') && $request->input('claimed') != null) {
-                $torrentRequests->where('requests.claimed','=',1);
+                $torrentRequests->where('claimed','=',1);
             }
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
                 $torrentRequests->where(function ($query) {
-                    $query->whereNull('requests.filled_by')->orWhereNull('requests.filled_hash')->orWhereNull('requests.approved_by');
+                    $query->whereNull('filled_by')->orWhereNull('filled_hash')->orWhereNull('approved_by');
                 });
             }
 
@@ -1590,10 +1590,10 @@ class UserController extends Controller
             }
 
             if($sorting == 'date') {
-                $table = $torrentRequests->where('requests.user_id', '=', $user->id)->orderBy('requests.created_at', $order)->paginate(25);
+                $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy('created_at', $order)->paginate(25);
             }
             else {
-                $table = $torrentRequests->where('requests.user_id', '=', $user->id)->orderBy('requests.' . $sorting, $order)->paginate(25);
+                $table = $torrentRequests->where('user_id', '=', $user->id)->orderBy($sorting, $order)->paginate(25);
             }
 
             return view('user.filters.requests', [
