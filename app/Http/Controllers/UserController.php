@@ -2092,10 +2092,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if ((auth()->user()->id == $user->id || auth()->user()->group->is_modo)) {
-            $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-            $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-            $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-            $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
 
             $logger = 'user.private.requests';
 
@@ -2105,10 +2101,6 @@ class UserController extends Controller
                 'route'         => 'requests',
                 'user'          => $user,
                 'torrentRequests' => $torrentRequests,
-                'his_upl'       => $his_upl,
-                'his_upl_cre'   => $his_upl_cre,
-                'his_downl'     => $his_downl,
-                'his_downl_cre' => $his_downl_cre,
             ]);
         } else {
             $logger = 'user.requests';
@@ -2215,20 +2207,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         abort_unless(auth()->user()->group->is_modo || auth()->user()->id == $user->id, 403);
-        $his_upl = History::where('user_id', '=', $id)->sum('actual_uploaded');
-        $his_upl_cre = History::where('user_id', '=', $id)->sum('uploaded');
-        $his_downl = History::where('user_id', '=', $id)->sum('actual_downloaded');
-        $his_downl_cre = History::where('user_id', '=', $id)->sum('downloaded');
+
         $resurrections = Graveyard::with(['torrent', 'user'])->where('user_id', '=', $user->id)->paginate(50);
 
         return view('user.private.resurrections', [
             'route'         => 'resurrections',
             'user'          => $user,
             'resurrections' => $resurrections,
-            'his_upl'       => $his_upl,
-            'his_upl_cre'   => $his_upl_cre,
-            'his_downl'     => $his_downl,
-            'his_downl_cre' => $his_downl_cre,
         ]);
     }
 
