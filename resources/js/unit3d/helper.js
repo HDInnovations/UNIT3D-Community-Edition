@@ -873,34 +873,38 @@ $(document).ready(function () {
 });
 $(document).on('click', '.pagination a', function (e) {
 
-    e.preventDefault();
-
     var url = $(this).attr('href');
     if($('#comments').length > 0) {
+        e.preventDefault();
         window.location.href = url + '#comments';
         return;
     }
 
-    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) return;
+    if(!document.getElementById('facetedSearch') && !document.getElementById('userFilter')) { }
+    else {
 
-    var sub = null;
-    if (window.location.hash && window.location.hash.substring) {
-        sub = window.location.hash.substring(1).split('/')[0];
-    }
-    if (!sub) {
-        sub = 'page';
-    }
-    var link_url = $(this).attr('href');
-    var page = parseInt(link_url.split('page=')[1]);
-    var url = (window.location.href.split("#")[0]) + '#'+sub+'/' + page;
-    if (window.history && window.history.pushState) {
-        window.history.pushState("", "", url);
-    }
-    if(document.getElementById('facetedSearch')) {
-        facetedSearch.show(page, true);
-    }
-    if(document.getElementById('userFilter')) {
-        userFilter.handle(page, true);
+        e.preventDefault();
+
+        var sub = null;
+        if (window.location.hash && window.location.hash.substring) {
+            sub = window.location.hash.substring(1).split('/')[0];
+        }
+        if (!sub) {
+            sub = 'page';
+        }
+        var link_url = $(this).attr('href');
+        var page = parseInt(link_url.split('page=')[1]);
+        var url = (window.location.href.split("#")[0]) + '#' + sub + '/' + page;
+        if (window.history && window.history.pushState) {
+            window.history.pushState("", "", url);
+        }
+        if (document.getElementById('facetedSearch')) {
+            facetedSearch.show(page, true);
+        }
+        if (document.getElementById('userFilter')) {
+            userFilter.handle(page, true);
+        }
+
     }
 });
 $(document).mousedown(function(){
