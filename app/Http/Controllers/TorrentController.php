@@ -208,7 +208,7 @@ class TorrentController extends Controller
 
         $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname')->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')->groupBy('torrents.imdb')->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
 
-        $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('imdb')->toArray();
+        $prelauncher = $torrent->orderBy($sorting, $order)->pluck('imdb')->toArray();
 
         if (! is_array($prelauncher)) {
             $prelauncher = [];
@@ -650,7 +650,7 @@ class TorrentController extends Controller
                 $logger = 'torrent.results_groupings';
             }
 
-            $prelauncher = $torrent->orderBy('s'.$sorting, $order)->pluck('imdb')->toArray();
+            $prelauncher = $torrent->orderBy($sorting, $order)->pluck('imdb')->toArray();
 
             if (! is_array($prelauncher)) {
                 $prelauncher = [];
