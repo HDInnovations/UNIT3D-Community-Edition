@@ -114,7 +114,7 @@ class UserController extends Controller
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
         $requested = TorrentRequest::where('user_id','=',$user->id)->count();
-        $filled = TorrentRequest::where('filled_by','=',$user->id)->where('approved_by','is not','null')->count();
+        $filled = TorrentRequest::where('filled_by','=',$user->id)->whereNotNull('approved_by')->count();
 
         return view('user.profile', [
             'route'        => 'profile',
@@ -1550,13 +1550,21 @@ class UserController extends Controller
                 $torrentRequests->where('requests.name', 'like', '%'.$request->input('name').'%');
             }
             if ($request->has('filled') && $request->input('filled') != null) {
-                $torrentRequests->whereRaw('requests.filled_by is not NULL AND requests.filled_hash is not NULL AND requests.filled_when is not NULL AND requests.approved_by is not NULL AND requests.approved_when is not NULL');
+                $torrentRequests->whereNotNull('requests.filled_by')
+                    ->whereNotNull('requests.filled_hash')
+                    ->whereNotNull('requests.filled_when')
+                    ->whereNotNull('requests.approved_by')
+                    ->whereNotNull('requests.approved_when');
             }
             if ($request->has('pending') && $request->input('pending') != null) {
-                $torrentRequests->whereRaw('requests.filled_by is not NULL AND requests.filled_hash is not NULL AND requests.filled_when is not NULL AND (requests.approved_by is NULL OR requests.approved_when is NULL)');
+                $torrentRequests->whereNotNull('requests.filled_by')
+                    ->whereNotNull('requests.filled_hash')
+                    ->whereNotNull('requests.filled_when')
+                    ->whereNull('requests.approved_by')
+                    ->whereNull('requests.approved_when');
             }
             if ($request->has('claimed') && $request->input('claimed') != null) {
-                $torrentRequests->whereRaw('requests.claimed = 1');
+                $torrentRequests->where('requests.claimed','=',1);
             }
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
                 $torrentRequests->whereRaw('requests.filled_by is NULL OR requests.filled_hash is NULL or requests.approved_by is NULL');
