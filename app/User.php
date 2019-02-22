@@ -566,6 +566,40 @@ class User extends Authenticatable
      *
      * @return int
      */
+    public function isVisible(self $target, $group = 'profile', $type = false)
+    {
+        $target_group = 'json_'.$group.'_groups';
+        $sender = auth()->user();
+        if ($sender->id == $target->id) {
+            return true;
+        }
+        if ($sender->group->is_modo || $sender->group->is_admin) {
+            return true;
+        }
+        if ($target->hidden && $target->hidden == 1) {
+            return false;
+        }
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
+            return false;
+        }
+        if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
+            if (array_key_exists($sender->group->id, $target->privacy->$target_group['default_groups'])) {
+                if ($target->privacy->$target_group['default_groups'][$sender->group->id] == 1) {
+                    return true;
+                }
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Get the Users allowed answer as bool.
+     *
+     * @return int
+     */
     public function isAllowed(self $target, $group = 'profile', $type = false)
     {
         $target_group = 'json_'.$group.'_groups';
@@ -579,7 +613,7 @@ class User extends Authenticatable
         if ($target->private_profile && $target->private_profile == 1) {
             return false;
         }
-        if ($target->privacy && $type && (! $target->privacy->$type || $target->privacy->$type == 0)) {
+        if ($target->privacy && $type && (!$target->privacy->$type || $target->privacy->$type == 0)) {
             return false;
         }
         if ($target->privacy && $target->privacy->$target_group && is_array($target->privacy->$target_group['default_groups'])) {
