@@ -1567,7 +1567,9 @@ class UserController extends Controller
                 $torrentRequests->where('requests.claimed','=',1);
             }
             if ($request->has('unfilled') && $request->input('unfilled') != null) {
-                $torrentRequests->whereRaw('requests.filled_by is NULL OR requests.filled_hash is NULL or requests.approved_by is NULL');
+                $torrentRequests->where(function ($query) {
+                    $query->whereNull('requests.filled_by')->orWhereNull('requests.filled_hash')->orWhereNull('requests.approved_by');
+                });
             }
 
             if ($request->has('sorting') && $request->input('sorting') != null) {
