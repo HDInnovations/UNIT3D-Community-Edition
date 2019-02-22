@@ -1,16 +1,16 @@
 <template>
     <div class="message-input">
         <div class="wrap" id="frameWrap">
-            <div class="width-table" style="margin: auto; padding-bottom: 5px;">
+            <div class="width-table" style="margin: auto; padding-bottom: 5px; height: 22px;">
                 <div class="width-25" style="padding-left: 0px; margin-left: 0px;">
                     <div style="padding-left: 0px; margin-left: 0px; padding-bottom: 0px; margin-bottom: 0px;" v-if="$parent.bot > 0 && $parent.activeTab.substr(0,3) == 'bot'">
-                        <span class="badge-extra" style="margin-left: 0px; padding-left: 0px; margin-bottom: 0px;">{{ $parent.botName }} can accept messages from any tab if you type: <strong>/{{ $parent.botCommand }} help</strong></span>
+                        <span class="badge-extra" style="margin-left: 0px; padding-left: 5px; margin-bottom: 0px;">{{ $parent.botName }} can accept messages from any tab if you type: <strong>/{{ $parent.botCommand }} help</strong></span>
                     </div>
-                    <div class="typing" v-if="$parent.target < 1 && $parent.bot < 1" style="margin-left: 0px !important; padding-left: 0px !important; padding-bottom: 0px; margin-bottom: 0px;">
-                        <span class="badge-extra" style="height: 22px; margin-left: 0px !important; padding-left: 5px !important; margin-bottom: 0px;">{{ ($parent.activePeer ? $parent.activePeer.username + ' is typing ...' : '*') }}</span>
+                    <div class="typing" v-if="$parent.target < 1 && $parent.bot < 1 && $parent.activePeer && $parent.activePeer.username != ''" style="padding-left: 0px; margin-left: 0px; padding-bottom: 0px; margin-bottom: 0px;">
+                        <span class="badge-extra" style="margin-left: 0px; padding-left: 5px; margin-bottom: 0px;">{{ ($parent.activePeer ? $parent.activePeer.username + ' is typing ...' : '*') }}</span>
                     </div>
                 </div>
-                <div class="width-75" style="padding: 0px;">
+                <div class="width-75" style="padding: 0px; height: 22px;">
                         <div v-if="$parent.tab != 'userlist'" style="margin-right: 5px; display: inline-block;">
                             <span>Audio: </span>
                             <i v-if="$parent.room && $parent.room > 0 && $parent.bot < 1 && $parent.target < 1 && $parent.tab !='userlist'" v-tooltip="`Audibles`"
