@@ -54,37 +54,34 @@
                         <tbody id="result">
                         @foreach ($torrents as $k => $t)
                             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                            @if ($t->category_id == 2)
+                            @if ($t->category->tv_meta)
                                 @if ($t->tmdb || $t->tmdb != 0)
-                                    @php $movie = $client->scrape('tv', null, $t->tmdb); @endphp
+                                    @php $meta = $client->scrape('tv', null, $t->tmdb); @endphp
                                 @else
-                                    @php $movie = $client->scrape('tv', 'tt'. $t->imdb); @endphp
+                                    @php $meta = $client->scrape('tv', 'tt'. $t->imdb); @endphp
                                 @endif
-                            @else
+                            @elseif ($t->category->movie_meta)
                                 @if ($t->tmdb || $t->tmdb != 0)
-                                    @php $movie = $client->scrape('movie', null, $t->tmdb); @endphp
+                                    @php $meta = $client->scrape('movie', null, $t->tmdb); @endphp
                                 @else
-                                    @php $movie = $client->scrape('movie', 'tt'. $t->imdb); @endphp
+                                    @php $meta = $client->scrape('movie', 'tt'. $t->imdb); @endphp
                                 @endif
                             @endif
                             <tr>
                                 <td>
-                                    <div class="torrent-poster pull-left"><img src="{{ $movie->poster }}"
-                                                                               data-poster-mid="{{ $movie->poster }}"
+                                    <div class="torrent-poster pull-left"><img src="{{ $meta->poster }}"
+                                                                               data-poster-mid="{{ $meta->poster }}"
                                                                                class="img-tor-poster torrent-poster-img-small"
                                                                                alt="Poster"></div>
                                 </td>
                                 <td>
                                     <div class="text-center">
-                                        @if ($t->category_id == "1")
+                                        @if ($t->category->movie_meta)
                                             <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip"
                                                data-original-title="Movie Torrent"></i>
-                                        @elseif ($t->category_id == "2")
+                                        @elseif ($t->category->tv_meta)
                                             <i class="{{ config('other.font-awesome') }} fa-tv torrent-icon" data-toggle="tooltip"
                                                data-original-title="TV-Show Torrent"></i>
-                                        @else
-                                            <i class="{{ config('other.font-awesome') }} fa-film torrent-icon" data-toggle="tooltip"
-                                               data-original-title="Movie Torrent"></i>
                                         @endif
                                         <br>
                                         <br>
@@ -124,7 +121,7 @@
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
-                  {{ $movie->imdbRating }}/10 ({{ $movie->imdbVotes }} votes)
+                  {{ $meta->imdbRating }}/10 ({{ $meta->imdbVotes }} votes)
               </span>
                                             </a>
                                         @else
@@ -134,7 +131,7 @@
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
-                  {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
+                  {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} votes)
               </span>
                                                 </a>
                                             @else
@@ -143,7 +140,7 @@
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
                 </span>
-                  {{ $movie->tmdbRating }}/10 ({{ $movie->tmdbVotes }} votes)
+                  {{ $meta->tmdbRating }}/10 ({{ $meta->tmdbVotes }} votes)
               </span>
                                                 </a>
                                             @endif

@@ -38,17 +38,17 @@
                         </div>
                     </div>
                     @foreach ($featured as $key => $feature)
-                        @if ($feature->torrent->category_id == 2)
+                        @if ($feature->torrent->category->tv_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $movie = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('tv', null, $feature->torrent->tmdb); @endphp
                             @else
-                                @php $movie = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('tv', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
-                        @else
+                        @elseif ($feature->torrent->category->movie_meta)
                             @if ($feature->torrent->tmdb || $feature->torrent->tmdb != 0)
-                                @php $movie = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
+                                @php $meta = $client->scrape('movie', null, $feature->torrent->tmdb); @endphp
                             @else
-                                @php $movie = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
+                                @php $meta = $client->scrape('movie', 'tt'. $feature->torrent->imdb); @endphp
                             @endif
                         @endif
                         <div class="item">
@@ -56,22 +56,22 @@
                                 <div class="tags">
                                     {{ ++$key }}
                                 </div>
-                                <div class="movie-card" style="background-image: url({{ $movie->backdrop }});">
+                                <div class="movie-card" style="background-image: url({{ $meta->backdrop }});">
                                     <div class="color-overlay">
                                         <div class="movie-content">
                                             <div class="movie-header">
                                                 <a href="{{ route('torrent', ['slug' => $feature->torrent->slug, 'id' => $feature->torrent->id]) }}">
                                                     <h1 class="movie-title">{{ $feature->torrent->name }}</h1></a>
                                                 <h4 class="movie-info">
-                                                    @if ($movie->genres)
-                                                        @foreach ($movie->genres as $genre)
+                                                    @if ($meta->genres)
+                                                        @foreach ($meta->genres as $genre)
                                                             | {{ $genre }} |
                                                         @endforeach
                                                     @endif
                                                 </h4>
                                             </div>
                                             <span class="movie-desc">
-                  {{ str_limit(strip_tags($movie->plot), 200) }}...
+                  {{ str_limit(strip_tags($meta->plot), 200) }}...
                   <br>
                   <br>
                 <ul class="list-inline">

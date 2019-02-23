@@ -46,22 +46,22 @@ class FetchGenres extends Command
             ->get();
 
         foreach ($torrents as $torrent) {
-            if ($torrent->category_id == 2) {
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } else {
+            } elseif ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
+            if ($meta->genres) {
+                foreach ($meta->genres as $genre) {
                     $tag = new TagTorrent();
                     $tag->torrent_id = $torrent->id;
                     $tag->tag_name = $genre;

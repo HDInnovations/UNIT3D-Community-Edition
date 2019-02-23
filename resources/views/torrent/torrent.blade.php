@@ -29,7 +29,7 @@
         </div>
         @if ($torrent->category->meta == 1)
             <div class="movie-wrapper">
-                <div class="movie-backdrop" style="background-image: url({{ $movie->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
+                <div class="movie-backdrop" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                     <div class="tags">
                         {{ $torrent->category->name }}
                     </div>
@@ -39,22 +39,22 @@
                     <div class="row movie-row ">
                         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-push-4 col-md-push-3 movie-heading-box">
                             <h1 class="movie-heading">
-                                @if ($movie->title)
-                                <span class="text-bold">{{ $movie->title }}</span><span
-                                        class="text-bold"><em> {{ $movie->releaseYear }}</em></span>
+                                @if ($meta->title)
+                                <span class="text-bold">{{ $meta->title }}</span><span
+                                        class="text-bold"><em> {{ $meta->releaseYear }}</em></span>
                                 @else
                                     <span class="text-bold">@lang('torrent.no-meta')</span>
                                 @endif
-                                @if ($movie->imdbRating || $movie->tmdbRating)
+                                @if ($meta->imdbRating || $meta->tmdbRating)
                                 <span class="badge-user text-bold text-gold">@lang('torrent.rating'):
                     <span class="movie-rating-stars">
                       <i class="{{ config('other.font-awesome') }} fa-star"></i>
                     </span>
                                     @if ($user->ratings == 1)
-                                        {{ $movie->imdbRating }}/10({{ $movie->imdbVotes }} @lang('torrent.votes')
+                                        {{ $meta->imdbRating }}/10({{ $meta->imdbVotes }} @lang('torrent.votes')
                                         )
                                     @else
-                                        {{ $movie->tmdbRating }}/10({{ $movie->tmdbVotes }} @lang('torrent.votes')
+                                        {{ $meta->tmdbRating }}/10({{ $meta->tmdbVotes }} @lang('torrent.votes')
                                         )
                                     @endif
                  </span>
@@ -62,22 +62,22 @@
                             </h1>
                             <br>
                             <span class="movie-overview">
-                            {{ $movie->plot }}
+                            {{ $meta->plot }}
                         </span>
                             <ul class="movie-details">
                                 <li>
-                                    @if ($movie->genres)
-                                        @foreach ($movie->genres as $genre)
+                                    @if ($meta->genres)
+                                        @foreach ($meta->genres as $genre)
                                             <span class="badge-user text-bold text-green">{{ $genre }}</span>
                                         @endforeach
                                     @endif
-                                    @if ($movie->rated )
+                                    @if ($meta->rated )
                                     <span class="badge-user text-bold text-orange">@lang('torrent.rated')
-                                        : {{ $movie->rated }} </span>
+                                        : {{ $meta->rated }} </span>
                                         @endif
-                                        @if ($movie->runtime )
+                                        @if ($meta->runtime )
                                         <span class="badge-user text-bold text-orange">@lang('torrent.runtime')
-                                        : {{ $movie->runtime }} @lang('common.minute')@lang('common.plural-suffix')</span>
+                                        : {{ $meta->runtime }} @lang('common.minute')@lang('common.plural-suffix')</span>
                                             @endif
                                 </li>
                                 <li>
@@ -89,13 +89,13 @@
                                     @endif
                                     @if ($torrent->category_id == "2" && $torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                      <a href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}"
+                         title="TheMovieDatabase" target="_blank">TMDB: {{ $meta->tmdb }}</a>
                     </span>
                                     @elseif ($torrent->tmdb != 0 && $torrent->tmdb != null)
                                         <span class="badge-user text-bold text-orange">
-                      <a href="https://www.themoviedb.org/movie/{{ $movie->tmdb }}"
-                         title="TheMovieDatabase" target="_blank">TMDB: {{ $movie->tmdb }}</a>
+                      <a href="https://www.themoviedb.org/movie/{{ $meta->tmdb }}"
+                         title="TheMovieDatabase" target="_blank">TMDB: {{ $meta->tmdb }}</a>
                     </span>
                                     @endif
                                     @if ($torrent->mal != 0 && $torrent->mal != null)
@@ -111,7 +111,7 @@
                          target="_blank">TVDB: {{ $torrent->tvdb }}</a>
                     </span>
                                     @endif
-                                    @if ($movie->videoTrailer != '')
+                                    @if ($meta->videoTrailer != '')
                                         <span onclick="showTrailer()" style="cursor: pointer;"
                                               class="badge-user text-bold">
                             <a class="text-pink" title="@lang('torrent.trailer')">@lang('torrent.trailer') <i
@@ -121,9 +121,9 @@
                                 </li>
                                 <li>
                                     <div class="row cast-list">
-                                        @if ($movie->actors)
+                                        @if ($meta->actors)
                                             @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                                            @foreach (array_slice($movie->actors, 0,6) as $actor)
+                                            @foreach (array_slice($meta->actors, 0,6) as $actor)
                                                 @php $person = $client->person($actor->tmdb); @endphp
                                                 <div class="col-xs-4 col-md-2 text-center">
                                                     <img class="img-people" src="{{ $person->photo }}">
@@ -142,7 +142,7 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-4 col-md-3 col-sm-pull-8 col-md-pull-8">
-                            <img src="{{ $movie->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
+                            <img src="{{ $meta->poster ?? 'https://via.placeholder.com/600x900' }}" class="movie-poster img-responsive hidden-xs">
                         </div>
                     </div>
                 </div>
@@ -592,8 +592,8 @@
                 <tr>
                     <td>
                         <div class="panel-body">
-                            @if ($movie->recommendations)
-                                {{ dd($movie->recommendations) }}
+                            @if ($meta->recommendations)
+                                {{ dd($meta->recommendations) }}
                             @endif
                         </div>
                     </td>
@@ -758,8 +758,8 @@
           showCloseButton: true,
           background: '#232323',
           width: 970,
-          html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-          title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
+          html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$meta->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+          title: '<i style="color: #a5a5a5;">{{ $meta->title }}</i>',
           text: ''
         })
       }

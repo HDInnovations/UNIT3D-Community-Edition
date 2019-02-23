@@ -43,10 +43,10 @@
                     @else
                         @foreach ($records as $record)
                             <?php $client = new \App\Services\MovieScrapper('aa8b43b8cbce9d1689bef3d0c3087e4d', '3DF2684FC0240D28', 'b8272f7d'); ?>
-                            <?php $movie = $client->scrape('movie', 'tt' . $record->imdb); ?>
+                            <?php $meta = $client->scrape('movie', 'tt' . $record->imdb); ?>
                             <tr>
-                                <td>{{ $movie->releaseYear }}</td>
-                                <td>{{ $movie->title }}</td>
+                                <td>{{ $meta->releaseYear }}</td>
+                                <td>{{ $meta->title }}</td>
                                 <td><span class="text-green" style="float:right;"><i class="{{ config('other.font-awesome') }} fa-lg fa-film list-icons"
                                                                                      aria-hidden="true"></i>  #{{$record->imdb}}</span>
                                 </td>

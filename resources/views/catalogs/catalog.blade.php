@@ -32,25 +32,25 @@
         @foreach ($records as $r)
             <div class="row">
                 @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb')); @endphp
-                @if ($r->category_id == 2)
+                @if ($r->category->tv_meta)
                     @if ($r->tmdb || $r->tmdb != 0)
-                        @php $movie = $client->scrape('tv', null, $r->tmdb); @endphp
+                        @php $meta = $client->scrape('tv', null, $r->tmdb); @endphp
                     @else
-                        @php $movie = $client->scrape('tv', 'tt'. $r->imdb); @endphp
+                        @php $meta = $client->scrape('tv', 'tt'. $r->imdb); @endphp
                     @endif
-                @else
+                @elseif ($r->category->movie_meta)
                     @if ($r->tmdb || $r->tmdb != 0)
-                        @php $movie = $client->scrape('movie', null, $r->tmdb); @endphp
+                        @php $meta = $client->scrape('movie', null, $r->tmdb); @endphp
                     @else
-                        @php $movie = $client->scrape('movie', 'tt'. $r->imdb); @endphp
+                        @php $meta = $client->scrape('movie', 'tt'. $r->imdb); @endphp
                     @endif
                 @endif
                 <div class="col-md-12">
                     <div class="well">
-                        <h2><a href="{{ route('catalog_torrents', ['imdb' => $r->imdb]) }}">{{ $movie->title }}
-                                ({{ $movie->releaseYear }})</a></h2>
+                        <h2><a href="{{ route('catalog_torrents', ['imdb' => $r->imdb]) }}">{{ $meta->title }}
+                                ({{ $meta->releaseYear }})</a></h2>
                         <div class="movie-details">
-                            <p class="movie-plot">{{ $movie->plot }}</p>
+                            <p class="movie-plot">{{ $meta->plot }}</p>
                         </div>
                     </div>
                 </div>

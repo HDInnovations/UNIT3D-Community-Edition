@@ -138,22 +138,22 @@ class TorrentController extends Controller
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
         foreach ($torrents as $torrent) {
-            $movie = null;
-            if ($torrent->category_id == 2) {
+            $meta = null;
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } else {
+            } elseif ($torrent->category->movie_meta) {
                 if ($torrent->tmdb || $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
-            if ($movie) {
-                $torrent->movie = $movie;
+            if ($meta) {
+                $torrent->meta = $meta;
             }
         }
 
@@ -275,22 +275,22 @@ class TorrentController extends Controller
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
-                    $movie = null;
-                    if ($d['chunk']->category_id == 2) {
+                    $meta = null;
+                    if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('tv', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
-                    } else {
+                    } elseif ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
                         }
                     }
-                    if ($movie) {
-                        $d['chunk']->movie = $movie;
+                    if ($meta) {
+                        $d['chunk']->meta = $meta;
                     }
                 }
             }
@@ -737,22 +737,22 @@ class TorrentController extends Controller
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $k1 => $c) {
                 foreach ($c as $k2 => $d) {
-                    $movie = null;
-                    if ($d['chunk']->category_id == 2) {
+                    $meta = null;
+                    if ($d['chunk']->category->tv_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('tv', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('tv', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('tv', 'tt'.$d['chunk']->imdb);
                         }
-                    } else {
+                    } elseif ($d['chunk']->category->movie_meta) {
                         if ($d['chunk']->tmdb || $d['chunk']->tmdb != 0) {
-                            $movie = $client->scrape('movie', null, $d['chunk']->tmdb);
+                            $meta = $client->scrape('movie', null, $d['chunk']->tmdb);
                         } elseif ($d['chunk']->imdb && $d['chunk']->imdb != 0) {
-                            $movie = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
+                            $meta = $client->scrape('movie', 'tt'.$d['chunk']->imdb);
                         }
                     }
-                    if ($movie) {
-                        $d['chunk']->movie = $movie;
+                    if ($meta) {
+                        $d['chunk']->meta = $meta;
                     }
                 }
             }
@@ -763,22 +763,22 @@ class TorrentController extends Controller
             }
             $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
             foreach ($torrents as $torrent) {
-                $movie = null;
-                if ($torrent->category_id == 2) {
+                $meta = null;
+                if ($torrent->category->tv_meta) {
                     if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $movie = $client->scrape('tv', null, $torrent->tmdb);
+                        $meta = $client->scrape('tv', null, $torrent->tmdb);
                     } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                        $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                        $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                     }
-                } else {
+                } elseif ($torrent->category->movie_meta) {
                     if ($torrent->tmdb || $torrent->tmdb != 0) {
-                        $movie = $client->scrape('movie', null, $torrent->tmdb);
+                        $meta = $client->scrape('movie', null, $torrent->tmdb);
                     } elseif ($torrent->imdb && $torrent->imdb != 0) {
-                        $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                        $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                     }
                 }
-                if ($movie) {
-                    $torrent->movie = $movie;
+                if ($meta) {
+                    $torrent->meta = $meta;
                 }
             }
         }
@@ -848,17 +848,17 @@ class TorrentController extends Controller
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
 
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
-        if ($torrent->category_id == 2) {
+        if ($torrent->category->tv_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $movie = $client->scrape('tv', null, $torrent->tmdb);
+                $meta = $client->scrape('tv', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
             }
-        } else {
+        } elseif ($torrent->category->movie_meta) {
             if ($torrent->tmdb && $torrent->tmdb != 0) {
-                $movie = $client->scrape('movie', null, $torrent->tmdb);
+                $meta = $client->scrape('movie', null, $torrent->tmdb);
             } else {
-                $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
 
@@ -902,7 +902,7 @@ class TorrentController extends Controller
             'user'               => $user,
             'personal_freeleech' => $personal_freeleech,
             'freeleech_token'    => $freeleech_token,
-            'movie'              => $movie,
+            'meta'               => $meta,
             'total_tips'         => $total_tips,
             'user_tips'          => $user_tips,
             'client'             => $client,
@@ -1254,22 +1254,22 @@ class TorrentController extends Controller
             }
 
             // Torrent Tags System
-            if ($torrent->category_id == 2) {
+            if ($torrent->category->tv_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                    $meta = $client->scrape('tv', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('tv', 'tt'.$torrent->imdb);
                 }
-            } else {
+            } elseif ($torrent->category->movie_meta) {
                 if ($torrent->tmdb && $torrent->tmdb != 0) {
-                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                    $meta = $client->scrape('movie', null, $torrent->tmdb);
                 } else {
-                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                    $meta = $client->scrape('movie', 'tt'.$torrent->imdb);
                 }
             }
 
-            if ($movie->genres) {
-                foreach ($movie->genres as $genre) {
+            if ($meta->genres) {
+                foreach ($meta->genres as $genre) {
                     $tag = new TagTorrent();
                     $tag->torrent_id = $torrent->id;
                     $tag->tag_name = $genre;
