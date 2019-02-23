@@ -12,7 +12,7 @@
   "devDependencies": {
     "ajv": "^6.7.0",
     "axios": "^0.18",
-    "bootstrap-sass": "^3.4.0",
+    "bootstrap-sass": "^3.4.1",
     "countup.js": "^1.9.3",
     "cross-env": "^5.2",
     "emojione-assets": "^4.5.0",
