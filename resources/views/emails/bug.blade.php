@@ -1,5 +1,7 @@
 @component('mail::message')
-# @lang('email.bug-header') {{ $input['username'] }}
+# @lang('email.bug-header') {{ $input['email'] }}
+
+**@lang('email.contact-name'):** {{ $input['username'] }}
 
 **@lang('email.bug-title'):** {{ $input['title'] }}
 
