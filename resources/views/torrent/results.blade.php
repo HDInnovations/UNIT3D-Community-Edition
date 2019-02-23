@@ -179,10 +179,12 @@
                             {{ $torrent->thanks_count }}
                         </span>
 
-                        <span class="badge-extra text-bold text-green">
-                            <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}"><i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
-                                {{ $torrent->comments_count }}</a>
-                        </span>
+                        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments']) }}">
+                            <span class="badge-extra text-bold text-green">
+                                <i class="{{ config('other.font-awesome') }} fa-comment" data-toggle="tooltip" data-original-title="@lang('common.comments')"></i>
+                                {{ $torrent->comments_count }}
+                            </span>
+                        </a>
 
                         @if ($torrent->internal == 1)
                             <span class='badge-extra text-bold'>
