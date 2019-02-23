@@ -76,21 +76,22 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'active'        => \App\Http\Middleware\CheckIfActive::class,
+        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
         'auth'          => \App\Http\Middleware\Authenticate::class,
+        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
         'bindings'      => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can'           => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
-        'admin'         => \App\Http\Middleware\CheckForAdmin::class,
-        'private'       => \App\Http\Middleware\CheckForPrivate::class,
-        'modo'          => \App\Http\Middleware\CheckForModo::class,
         'check_ip'      => \App\Http\Middleware\CheckIfAlreadyVoted::class,
+        'csrf'          => \App\Http\Middleware\VerifyCsrfToken::class,
+        'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'language'      => \App\Http\Middleware\SetLanguage::class,
-        'banned'        => \App\Http\Middleware\CheckIfBanned::class,
-        'active'        => \App\Http\Middleware\CheckIfActive::class,
+        'modo'          => \App\Http\Middleware\CheckForModo::class,
         'online'        => \App\Http\Middleware\CheckIfOnline::class,
+        'owner'         => \App\Http\Middleware\CheckForOwner::class,
+        'private'       => \App\Http\Middleware\CheckForPrivate::class,
+        'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'twostep'       => \App\Http\Middleware\TwoStepAuth::class,
     ];
 }

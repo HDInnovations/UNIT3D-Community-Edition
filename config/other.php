@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.8.9',
+    'codebase' => '"UNIT3D" Nex-Gen Torrent Tracker v1.9',
 
     /*
     |--------------------------------------------------------------------------
@@ -187,4 +187,13 @@ return [
     | fal = Light
     */
     'font-awesome' => 'fal',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Signups
+    |--------------------------------------------------------------------------
+    | True/1 = Enabled
+    | False/0 = Disabled
+    */
+    'application_signups' => false,
 ];

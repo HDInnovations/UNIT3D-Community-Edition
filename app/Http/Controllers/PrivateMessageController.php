@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\PrivateMessage;
+use App\Models\User;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 
 class PrivateMessageController extends Controller
 {
@@ -147,6 +147,11 @@ class PrivateMessageController extends Controller
     {
         $user = auth()->user();
 
+        $dest = 'default';
+        if ($request->has('dest') && $request->input('dest') == 'profile') {
+            $dest = 'profile';
+        }
+
         $pm = new PrivateMessage();
         $pm->sender_id = $user->id;
         $pm->receiver_id = $request->input('receiver_id');
@@ -162,11 +167,27 @@ class PrivateMessageController extends Controller
             'read'        => 'required',
         ]);
 
+        if ($request->has('receiver_id')) {
+            $recipient = User::where('id', '=', (int) $request->input('receiver_id'))->firstOrFail();
+        } else {
+            return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+        }
+
         if ($v->fails()) {
+            if ($dest == 'profile') {
+                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            }
+
             return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $pm->save();
+            if ($dest == 'profile') {
+                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                    ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+            }
 
             return redirect()->route('inbox')
                 ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));

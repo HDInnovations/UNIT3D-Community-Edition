@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller

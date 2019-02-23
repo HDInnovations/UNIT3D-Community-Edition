@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Group;
+use App\Models\Group;
 use App\Rules\Captcha;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;

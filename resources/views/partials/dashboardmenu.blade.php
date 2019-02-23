@@ -15,7 +15,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="{{ route('backupManager') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
@@ -50,6 +50,12 @@
                     <i class="{{ config('other.font-awesome') }} fa-newspaper"></i> @lang('staff.articles')
                 </a>
             </li>
+            <li>
+                <a href="{{ route('staff.applications.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('staff.applications')
+                    <span class="badge badge-danger"> {{ $app_count }} </span>
+                </a>
+            </li>
             @if (auth()->user()->group->is_admin)
                 <li>
                     <a href="{{ route('staff_forum_index') }}">
@@ -74,7 +80,12 @@
             </li>
             <li>
                 <a href="{{ route('Staff.rss.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('rss.rss')
+                    <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Staff.bots.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
             <li class="nav-header head">
@@ -178,7 +189,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.user-notes')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="/staff/log-viewer">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.laravel-log')

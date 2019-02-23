@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Notification Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'notifications'    => 'Notifications',
     'mark-all-read'    => 'Tout marquer comme étant lu',

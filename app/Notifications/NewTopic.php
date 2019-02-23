@@ -13,7 +13,8 @@
 
 namespace App\Notifications;
 
-use App\Topic;
+use App\Models\User;
+use App\Models\Topic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -23,6 +24,7 @@ class NewTopic extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+    public $poster;
     public $topic;
 
     /**
@@ -33,10 +35,11 @@ class NewTopic extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, Topic $topic)
+    public function __construct(string $type, User $poster, Topic $topic)
     {
         $this->type = $type;
         $this->topic = $topic;
+        $this->poster = $poster;
     }
 
     /**
@@ -63,8 +66,8 @@ class NewTopic extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->topic->first_post_user_username.' Has Posted In Forum',
-            'body' => $this->topic->first_post_user_username.' has started a new topic in '.$this->topic->forum->name,
+            'title' => $this->poster->username.' Has Posted In A Subscribed Forum',
+            'body' => $this->poster->username.' has started a new topic in '.$this->topic->forum->name,
             'url' => "/forums/topic/{$this->topic->slug}.{$this->topic->id}",
         ];
     }

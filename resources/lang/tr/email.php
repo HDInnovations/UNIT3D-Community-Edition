@@ -1,13 +1,9 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Email Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'register-header'  => 'Hi! Thank you for signing up on',
     'register-code'    => 'To complete your account activation click the link below',
-    'register-footer'  => 'If the link above does not work, copy and paste it into your browser\'s address bar',
+    'register-footer'  => 'If the link above does not work, copy and paste it into your browsers address bar',
     'activate-account' => 'Activate account',
     'banned-header'    => 'You Have Been Banned',
     'ban-reason'       => 'Reason',

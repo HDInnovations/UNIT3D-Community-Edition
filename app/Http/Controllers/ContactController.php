@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use App\Mail\Contact;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;

@@ -1,13 +1,9 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Common Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'home'             => 'Accueil',
     'account'          => 'Compte',
-    'username'         => 'Nom d\'utilisateur',
+    'username'         => 'Nom dutilisateur',
     'password'         => 'Mot de passe',
     'download'         => 'Téléchargé',
     'upload'           => 'Upload',
@@ -25,7 +21,7 @@ return [
     'preview'          => 'Aperçu',
     'edit'             => 'Éditer',
     'delete'           => 'Supprimer',
-    'pending-torrents' => 'Torrents en attente d\'approbation',
+    'pending-torrents' => 'Torrents en attente dapprobation',
     'stats'            => 'Statistiques',
     'extra-stats'      => 'Statistiques supplémentaires',
     'rules'            => 'Règles',

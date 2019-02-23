@@ -13,7 +13,7 @@
 
 namespace App\Console\Commands;
 
-use App\User;
+use App\Models\User;
 use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;

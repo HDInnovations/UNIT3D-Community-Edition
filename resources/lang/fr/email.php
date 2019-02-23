@@ -1,17 +1,13 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Email Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'register-header'  => 'Bonjour! Merci de vous êtes inscrit',
-    'register-code'    => 'Afin de compléter l\'activation de votre compte, cliquez sur le lien ci-dessous',
-    'register-footer'  => 'Si le lien ci-dessus ne fonctionne pas, copiez/collez ce-dernier dans la barre d\'adresse de votre navigateur',
+    'register-code'    => 'Afin de compléter lactivation de votre compte, cliquez sur le lien ci-dessous',
+    'register-footer'  => 'Si le lien ci-dessus ne fonctionne pas, copiez/collez ce-dernier dans la barre dadresse de votre navigateur',
     'activate-account' => 'Activer le compte',
     'banned-header'    => 'Vous avez été banni',
     'ban-reason'       => 'Raison',
-    'banned-footer'    => 'C\'est ce que vous obtenez pour ne pas avoir respecté pas les règles',
+    'banned-footer'    => 'Cest ce que vous obtenez pour ne pas avoir respecté pas les règles',
     'bug-header'       => 'Nouveau rapport de bug de',
     'bug-title'        => 'Titre du bug',
     'bug-description'  => 'Problème rencontré',
@@ -35,5 +31,5 @@ return [
     'report-comment'   => 'Commentaire',
     'unban-header'     => 'Vous avez été ré-intégré',
     'unban-reason'     => 'Raison',
-    'unban-footer'     => 'C\'est ce que vous obtenez pour ne pas avoir respecté les règles',
+    'unban-footer'     => 'Cest ce que vous obtenez pour ne pas avoir respecté les règles',
 ];

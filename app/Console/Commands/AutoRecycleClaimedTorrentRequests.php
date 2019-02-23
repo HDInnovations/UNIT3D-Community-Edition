@@ -14,9 +14,9 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use App\TorrentRequest;
-use App\TorrentRequestClaim;
+use App\Models\TorrentRequest;
 use Illuminate\Console\Command;
+use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
 
 class AutoRecycleClaimedTorrentRequests extends Command
@@ -68,7 +68,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             if ($requestClaim) {
                 $tr_url = hrefRequest($torrentRequest);
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : [url={$tr_url}]{$torrentRequest->name}[/url] claim has been reset due to not being filled within 7 days."
+                    "[url={$tr_url}]{$torrentRequest->name}[/url] claim has been reset due to not being filled within 7 days."
                 );
 
                 $requestClaim->delete();

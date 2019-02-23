@@ -1,14 +1,10 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Private Message Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'unread'      => 'Non lu',
     'read'        => 'Lu',
     'inbox'       => 'Boîte de réception',
-    'outbox'      => 'Boîte d\'envoi',
+    'outbox'      => 'Boîte denvoi',
     'message'     => 'Message',
     'messages'    => 'Messages',
     'private'     => 'Privé',

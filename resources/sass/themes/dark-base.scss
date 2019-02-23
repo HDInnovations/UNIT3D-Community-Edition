@@ -126,6 +126,9 @@ body {
 .text-green {
     color: #3fb618;
 }
+.text-muted {
+    color: #999;
+}
 
 i.torrent-icon,
 .carousel-control > .glyphicon {
@@ -228,6 +231,15 @@ select option {
     border-radius: 0px;
 }
 
+.text-bright {
+    color: #fefefe;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #fcfcfc;
+}
+
 .text-purple,
 .text-orange,
 .text-danger,
@@ -327,4 +339,16 @@ div.header.red div.inner_content,
 }
 .table > tbody > tr > td.text-red {
     color: var(--color-light-red) !important;
+}
+
+.modal-underline {
+    border-bottom: 1px solid #333333;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-overline {
+    border-top: 1px solid #333333;
+    padding-top: 10px;
+    margin-top: 10px;
 }

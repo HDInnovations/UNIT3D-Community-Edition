@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Torrent;
 use Carbon\Carbon;
-use App\PrivateMessage;
-use App\TorrentRequest;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
@@ -89,11 +89,11 @@ class ModerationController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    "User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             } else {
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                    "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                 );
             }
 
@@ -187,21 +187,17 @@ class ModerationController extends Controller
     public function resetRequest($id)
     {
         $user = auth()->user();
+        abort_unless($user->group->is_modo, 403);
 
-        if ($user->group->is_modo) {
-            $torrentRequest = TorrentRequest::findOrFail($id);
-            $torrentRequest->filled_by = null;
-            $torrentRequest->filled_when = null;
-            $torrentRequest->filled_hash = null;
-            $torrentRequest->approved_by = null;
-            $torrentRequest->approved_when = null;
-            $torrentRequest->save();
+        $torrentRequest = TorrentRequest::findOrFail($id);
+        $torrentRequest->filled_by = null;
+        $torrentRequest->filled_when = null;
+        $torrentRequest->filled_hash = null;
+        $torrentRequest->approved_by = null;
+        $torrentRequest->approved_when = null;
+        $torrentRequest->save();
 
-            return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
-        } else {
-            return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error("You don't have access to this operation!", 'Whoops!', ['options']));
-        }
+        return redirect()->route('request', ['id' => $id])
+            ->with($this->toastr->success('The request has been reset!', 'Yay!', ['options']));
     }
 }

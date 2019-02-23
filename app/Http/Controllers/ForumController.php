@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\User;
-use App\Forum;
-use App\Topic;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Forum;
+use App\Models\Topic;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
@@ -83,12 +83,12 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
+        $topic_neos = $user->subscriptions->where('topic_id', '>', 0)->pluck('topic_id')->toArray();
         if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
-        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
+        $forum_neos = $user->subscriptions->where('forum_id', '>', 0)->pluck('forum_id')->toArray();
         if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
@@ -110,11 +110,11 @@ class ForumController extends Controller
             $result->where([['topics.name', 'like', '%'.$request->input('name').'%']]);
         }
         if ($request->has('subscribed') && $request->input('subscribed') == 1) {
-            $result->where(function ($query) use ($topic_neos,$forum_neos) {
+            $result->where(function ($query) use ($topic_neos, $forum_neos) {
                 $query->whereIn('topics.id', $topic_neos)->orWhereIn('topics.forum_id', $forum_neos);
             });
         } elseif ($request->has('notsubscribed') && $request->input('notsubscribed') == 1) {
-            $result->whereNotIn('topics.id', $neos);
+            $result->whereNotIn('topics.id', $topic_neos)->whereNotIn('topics.forum_id', $forum_neos);
         }
 
         if ($request->has('implemented') && $request->input('implemented') == 1) {
@@ -151,7 +151,7 @@ class ForumController extends Controller
             if ($category > 0 && $category < 99999999999) {
                 $children = Forum::where('parent_id', '=', $category)->get()->toArray();
                 if (is_array($children)) {
-                    $result->where(function ($query) use ($category,$children) {
+                    $result->where(function ($query) use ($category, $children) {
                         $query->where('topics.forum_id', '=', $category)->orWhereIn('topics.forum_id', $children);
                     });
                 }
@@ -164,15 +164,15 @@ class ForumController extends Controller
             $order = 'asc';
         }
         if ($request->has('body') && $request->input('body') != '') {
-            $sorting = 'posts.created_at';
-            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = 'posts.updated_at';
+            $sorting = 'posts.id';
+            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
+                $sorting = 'posts.created_at';
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         } else {
-            $sorting = 'topics.created_at';
-            if ($request->has('sorting') && $request->input('sorting') == 'updated_at') {
-                $sorting = 'topics.updated_at';
+            $sorting = 'topics.last_reply_at';
+            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
+                $sorting = 'topics.created_at';
             }
             $results = $result->orderBy($sorting, $order)->paginate(25);
         }
@@ -198,8 +198,7 @@ class ForumController extends Controller
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
                 'params'     => $params,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -218,18 +217,18 @@ class ForumController extends Controller
             $pests = [];
         }
 
-        $topic_neos = $user->subscriptions->pluck('topic_id')->toArray();
+        $topic_neos = $user->subscriptions->where('topic_id', '>', '0')->pluck('topic_id')->toArray();
         if (! is_array($topic_neos)) {
             $topic_neos = [];
         }
 
-        $forum_neos = $user->subscriptions->pluck('forum_id')->toArray();
+        $forum_neos = $user->subscriptions->where('forum_id', '>', '0')->pluck('forum_id')->toArray();
         if (! is_array($forum_neos)) {
             $forum_neos = [];
         }
 
         $logger = 'forum.subscriptions';
-        $result = Forum::distinct()->with('subscription_topics')->selectRaw('forums.*,max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos,$forum_neos) {
+        $result = Forum::with('subscription_topics')->selectRaw('forums.id,max(forums.position) as position,max(forums.num_topic) as num_topic,max(forums.num_post) as num_post,max(forums.last_topic_id) as last_topic_id,max(forums.last_topic_name) as last_topic_name,max(forums.last_topic_slug) as last_topic_slug,max(forums.last_post_user_id) as last_post_user_id,max(forums.last_post_user_username) as last_post_user_username,max(forums.name) as name,max(forums.slug) as slug,max(forums.description) as description,max(forums.parent_id) as parent_id,max(forums.created_at),max(forums.updated_at),max(topics.id) as topic_id,max(topics.created_at) as topic_created_at')->leftJoin('topics', 'forums.id', '=', 'topics.forum_id')->whereNotIn('topics.forum_id', $pests)->where(function ($query) use ($topic_neos, $forum_neos) {
             $query->whereIn('topics.id', $topic_neos)->orWhereIn('forums.id', $forum_neos);
         })->groupBy('forums.id');
 
@@ -256,8 +255,7 @@ class ForumController extends Controller
                 'params'     => $params,
                 'forum_neos' => $forum_neos,
                 'topic_neos' => $topic_neos,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -291,8 +289,7 @@ class ForumController extends Controller
                 'num_posts'  => $num_posts,
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -326,68 +323,7 @@ class ForumController extends Controller
                 'num_posts'  => $num_posts,
                 'num_forums' => $num_forums,
                 'num_topics' => $num_topics,
-            ]
-        );
-    }
-
-    /**
-     * User Topics.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function userTopics(Request $request, $slug, int $id)
-    {
-        $user = User::where('id', '=', $id)->firstOrFail();
-
-        $results = Topic::where('topics.first_post_user_id', '=', $user->id)->latest()->paginate(25);
-
-        // Total Forums Count
-        $num_forums = Forum::count();
-        // Total Posts Count
-        $num_posts = Post::count();
-        // Total Topics Count
-        $num_topics = Topic::count();
-
-        return view('forum.user_topics', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]
-        );
-    }
-
-    /**
-     * User Posts.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function userPosts(Request $request, $slug, int $id)
-    {
-        $user = User::where('id', '=', $id)->firstOrFail();
-
-        $results = Post::selectRaw('posts.id as id,posts.*')->with(['topic', 'user'])->leftJoin('topics', 'posts.topic_id', '=', 'topics.id')->where('posts.user_id', '=', $user->id)->orderBy('posts.created_at', 'desc')->paginate(25);
-
-        // Total Forums Count
-        $num_forums = Forum::count();
-        // Total Posts Count
-        $num_posts = Post::count();
-        // Total Topics Count
-        $num_topics = Topic::count();
-
-        return view('forum.user_posts', [
-                'results' => $results,
-                'user' => $user,
-                'num_posts'  => $num_posts,
-                'num_forums' => $num_forums,
-                'num_topics' => $num_topics,
-            ]
-        );
+            ]);
     }
 
     /**
@@ -592,7 +528,6 @@ class ForumController extends Controller
             $href = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $message = "{$user->username} has tagged you in a forum post. You can view it [url=$href] HERE [/url]";
 
-            print_r($request->input('content'));
             if ($this->tag->hasTags($request->input('content'))) {
                 //$this->tag->setDebug(true);
 
@@ -606,6 +541,7 @@ class ForumController extends Controller
                     $this->tag->messagePostUsers(
                         'forum',
                         $users,
+                        $user,
                         'Staff',
                         $post
                     );
@@ -613,7 +549,8 @@ class ForumController extends Controller
                     $this->tag->messageTaggedPostUsers(
                         'forum',
                         $request->input('content'),
-                        "$user->username",
+                        $user,
+                        $user->username,
                         $post
                     );
                 }
@@ -650,10 +587,13 @@ class ForumController extends Controller
             $postUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $realUrl = "/forums/topic/{$topic->slug}.{$topic->id}?page={$post->getPageNumber()}#post-{$post->id}";
             $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
-            $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
+            $this->chat->systemMessage("[url=$profileUrl]{$user->username}[/url] has left a reply on topic [url={$postUrl}]{$topic->name}[/url]");
 
             // Notify All Subscribers Of New Reply
-            $topic->notifySubscribers($post);
+            if ($topic->first_user_poster_id != $user->id) {
+                $topic->notifyStarter($user, $topic, $post);
+            }
+            $topic->notifySubscribers($user, $topic, $post);
 
             //Achievements
             $user->unlock(new UserMadeFirstPost(), 1);
@@ -781,14 +721,14 @@ class ForumController extends Controller
                 $forum->last_post_user_username = $user->username;
                 $forum->save();
 
-                $forum->notifySubscribers($topic);
+                $forum->notifySubscribers($user, $topic);
 
                 // Post To ShoutBox
                 $appurl = config('app.url');
                 $topicUrl = "{$appurl}/forums/topic/{$topic->slug}.{$topic->id}";
                 $profileUrl = "{$appurl}/{$user->username}.{$user->id}";
 
-                $this->chat->systemMessage(":robot: [b][color=#fb9776]System[/color][/b] : [url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
+                $this->chat->systemMessage("[url={$profileUrl}]{$user->username}[/url] has created a new topic [url={$topicUrl}]{$topic->name}[/url]");
 
                 //Achievements
                 $user->unlock(new UserMadeFirstPost(), 1);
@@ -907,12 +847,12 @@ class ForumController extends Controller
     public function postDelete($postId)
     {
         $user = auth()->user();
-        $post = Post::findOrFail($postId);
+        $post = Post::with('topic')->findOrFail($postId);
 
         abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
         $post->delete();
 
-        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+        return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('This Post Is Now Deleted!', 'Success', ['options']));
     }
 
@@ -928,16 +868,13 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true || $user->id == $topic->first_post_user_id) {
-            $topic->state = 'close';
-            $topic->save();
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->success('This Topic Is Now Closed!', 'Success', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        $topic->state = 'close';
+        $topic->save();
+
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with($this->toastr->success('This Topic Is Now Closed!', 'Success', ['options']));
     }
 
     /**
@@ -952,16 +889,13 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true || $user->id == $topic->first_post_user_id) {
-            $topic->state = 'open';
-            $topic->save();
 
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->success('This Topic Is Now Open!', 'Success', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
+        $topic->state = 'open';
+        $topic->save();
+
+        return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
+            ->with($this->toastr->success('This Topic Is Now Open!', 'Success', ['options']));
     }
 
     /**
@@ -976,17 +910,14 @@ class ForumController extends Controller
     {
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
-        if ($user->group->is_modo == true) {
-            $posts = $topic->posts();
-            $posts->delete();
-            $topic->delete();
 
-            return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
-                ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
-        } else {
-            return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error('You Do Not Have Access To Perform This Function!', 'Warning', ['options']));
-        }
+        abort_unless($user->group->is_modo, 403);
+        $posts = $topic->posts();
+        $posts->delete();
+        $topic->delete();
+
+        return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
+            ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
     }
 
     /**

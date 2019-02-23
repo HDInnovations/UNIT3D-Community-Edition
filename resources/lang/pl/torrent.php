@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Torrent Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'age'                      => 'Wiek',
     'agent'                    => 'Klient',
@@ -73,7 +69,7 @@ return [
     'info'                     => 'Info',
     'internal'                 => 'Wewnętrzne',
     'internal-release'         => 'Wewnętrzna publikacja',
-    'last-seed-activity'       => 'Aktywność ostatniego seed\'a',
+    'last-seed-activity'       => 'Aktywność ostatniego seeda',
     'last-seeder'              => 'Jesteś ostatnim seedującym! (a torrent został pobrany przynajmniej 3 razy)',
     'last-update'              => 'Ostatnia aktualizacja',
     'leave-tip'                => 'Daj napiwek',

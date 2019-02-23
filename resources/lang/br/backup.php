@@ -1,11 +1,6 @@
 <?php
 
 return [
-    /*
-     * |--------------------------------------------------------------------------
-     * | Backup Manager Language Lines
-     * |--------------------------------------------------------------------------
-     */
     'actions'                        => 'Ações',
     'backup'                         => 'Backup',
     'backup_doesnt_exist'            => 'O arquivo de backup não existe.',

@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Staff Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'moderation'      => 'Moderazione',
     'please-moderate' => 'Per favora controlla questo torrent!',

@@ -2,15 +2,16 @@
     <img src="https://i.imgur.com/q4awiMm.png" alt="UNIT3D Logo">
 </p>
 <p align="center">
-    💛<b>A Big Thanks To All Our <a href="https://github.com/UNIT3D/UNIT3D/graphs/contributors">Contributors</a> and Patrons</b>💛
+    💛<b>A Big Thanks To All Our <a href="#contributors">Contributors</a> and Patrons</b>💛
 </p>
 <hr>
 
 <p align="center">
-<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.7.20-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
+<a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-5.7.25-f4645f.svg" /></a> <a href="https://github.com/UNIT3D/UNIT3D/blob/master/LICENSE"><img src="https://img.shields.io/aur/license/yaourt.svg" /></a>
 <a href="https://github.styleci.io/repos/113471037"><img src="https://github.styleci.io/repos/113471037/shield?branch=master" alt="StyleCI"></a>
-<a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a> <a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
-<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>	
+<a class="badge-align" href="https://www.codacy.com/app/HDVinnie/UNIT3D?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=UNIT3D/UNIT3D&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/6c6c6c940aec420e987ea82adea272ee"/></a>
+<a href="https://discord.gg/Yk4NBUU"><img alt="Discord chat" src="https://img.shields.io/badge/discord-Chat%20Now-a29bfe.svg" /></a>
+<a href="https://www.patreon.com/UNIT3D"><img src="https://img.shields.io/badge/patreon-Support%20UNIT3D-orange.svg"></a>
 </p>
 
 
@@ -31,12 +32,13 @@
 11. [Homestead (For local developement)](#homestead)
 12. [Demo](#demo)
 13. [Donate](#donate)
-14. [Special Thanks](#thanks)
+14. [Contributors](#contributors)
+15. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> :page_facing_up: Introduction
 
-I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.7.20, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+I have been developing a Nex-Gen Torrent Tracker Software called "UNIT3D." This is a PHP software based off the lovely Laravel Framework -- currently Laravel Framework 5.7.25, MySQL Strict Mode Compliant and PHP 7.1 Ready. The code is well-designed and follows the PSR-2 coding style. It uses a MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
 
 ## <a name="features"></a> 💎 Some Features
 
@@ -120,6 +122,7 @@ Here are some packages that are built for UNIT3D.
 ## <a name="versions"></a> 🚨 Version Support Information
  Version   | Status                   | PHP Version
 :----------|:-------------------------|:------------
+ 1.9       |  Active support :rocket: | >= 7.1.3
  1.8.9     |  Active support :rocket: | >= 7.1.3
  1.8.8     |  Active support :rocket: | >= 7.1.3
  1.8.7     |  Active support :rocket: | >= 7.1.3
@@ -174,6 +177,16 @@ Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
 
 Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
 
-## <a name="thanks"></a> :blue_heart: Special Thanks
+## <a name="contributors"></a> :blue_heart: Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/all-contributors/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/12850699?v=4" width="100px;" alt="HDVinnie"/><br /><sub><b>HDVinnie</b></sub>](https://github.com/HDVinnie)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Code") [🎨](#design-HDVinnie "Design") [📖](https://github.com/HDInnovations/UNIT3D/commits?author=HDVinnie "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/7263458?v=4" width="100px;" alt="Everett (Mike) Wiley"/><br /><sub><b>Everett (Mike) Wiley</b></sub>](https://github.com/poppabear8883)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=poppabear8883 "Code") | [<img src="https://avatars1.githubusercontent.com/u/46550600?v=4" width="100px;" alt="singularity43"/><br /><sub><b>singularity43</b></sub>](https://github.com/singularity43)<br />[💻](https://github.com/HDInnovations/UNIT3D/commits?author=singularity43 "Code") | [<img src="https://avatars1.githubusercontent.com/u/24521644?v=4" width="100px;" alt="VerioPL"/><br /><sub><b>VerioPL</b></sub>](https://github.com/VerioPL)<br />[🌍](https://github.com/HDInnovations/UNIT3D/commits?author=VerioPL "Translation") | [<img src="https://avatars0.githubusercontent.com/u/17199757?v=4" width="100px;" alt="artyuum"/><br /><sub><b>Artyuum</b></sub>](https://github.com/artyuum)<br />[🎨](https://github.com/HDInnovations/UNIT3D/commits?author=artyuum "Design") |
+| :---: | :---: | :---: | :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## <a name="thanks"></a> :heart: Special Thanks
 
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>

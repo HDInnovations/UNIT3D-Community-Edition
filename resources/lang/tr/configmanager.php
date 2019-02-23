@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Cofig Manager Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'title'       => 'Yapılandırma Yöneticisi',
     'info_choose' => 'Düzenlemeye başlamak için bir dosya seç',

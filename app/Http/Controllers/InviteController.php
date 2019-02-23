@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Invite;
 use Carbon\Carbon;
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
+use App\Models\Invite;
 use App\Mail\InviteUser;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -61,7 +61,7 @@ class InviteController extends Controller
                 ->with($this->toastr->error('Invites are currently disabled for your group.', 'Whoops!', ['options']));
         }
 
-        return view('user.invite', ['user' => $user]);
+        return view('user.invite', ['user' => $user, 'route' => 'invite']);
     }
 
     /**
@@ -172,7 +172,7 @@ class InviteController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function inviteTree($username, $id)
+    public function invites($username, $id)
     {
         $user = auth()->user();
         $owner = User::findOrFail($id);
@@ -180,6 +180,6 @@ class InviteController extends Controller
 
         $invites = Invite::with(['sender', 'receiver'])->where('user_id', '=', $id)->latest()->paginate(25);
 
-        return view('user.invitetree', ['owner' => $owner, 'invites' => $invites]);
+        return view('user.invites', ['owner' => $owner, 'invites' => $invites, 'route' => 'invite']);
     }
 }

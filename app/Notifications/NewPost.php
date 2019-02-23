@@ -13,7 +13,8 @@
 
 namespace App\Notifications;
 
-use App\Post;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,6 +25,7 @@ class NewPost extends Notification implements ShouldQueue
 
     public $post;
     public $type;
+    public $poster;
 
     /**
      * Create a new notification instance.
@@ -33,8 +35,9 @@ class NewPost extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, Post $post)
+    public function __construct(string $type, User $poster, Post $post)
     {
+        $this->poster = $poster;
         $this->post = $post;
         $this->type = $type;
     }
@@ -62,10 +65,16 @@ class NewPost extends Notification implements ShouldQueue
     {
         $appurl = config('app.url');
 
-        if ($this->type == 'topic') {
+        if ($this->type == 'subscription') {
             return [
-                'title' => $this->post->user->username.' Has Posted In Topic',
-                'body' => $this->post->user->username.' has left a new post in Topic '.$this->post->topic->name,
+                'title' => $this->poster->username.' Has Posted In A Subscribed Topic',
+                'body' => $this->poster->username.' has left a new post in Subscribed Topic '.$this->post->topic->name,
+                'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
+            ];
+        } else {
+            return [
+                'title' => $this->poster->username.' Has Posted In A Topic You Started',
+                'body' => $this->poster->username.' has left a new post in Your Topic '.$this->post->topic->name,
                 'url' => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
             ];
         }

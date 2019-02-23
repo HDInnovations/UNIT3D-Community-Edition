@@ -14,7 +14,7 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use App\LogActivity;
+use App\Models\LogActivity;
 use Illuminate\Console\Command;
 
 class AutoRecycleActivityLog extends Command

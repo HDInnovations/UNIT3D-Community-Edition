@@ -13,6 +13,8 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,8 +24,8 @@ class NewUnfollow extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
-    public $sender_username;
-    public $sender_id;
+    public $sender;
+    public $target;
 
     /**
      * Create a new notification instance.
@@ -32,11 +34,11 @@ class NewUnfollow extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, string $sender_username, int $sender_id)
+    public function __construct(string $type, User $sender, User $target)
     {
         $this->type = $type;
-        $this->sender_username = $sender_username;
-        $this->sender_id = $sender_id;
+        $this->sender = $sender;
+        $this->target = $target;
     }
 
     /**
@@ -63,9 +65,9 @@ class NewUnfollow extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->sender_username.' Has Unfollowed You!',
-            'body'  => $this->sender_username.' has stopped following you so they will no longer get notifications about your activities.',
-            'url'   => '/'.$this->sender_username.'.'.$this->sender_id,
+            'title' => $this->sender->username.' Has Unfollowed You!',
+            'body'  => $this->sender->username.' has stopped following you so they will no longer get notifications about your activities.',
+            'url'   => '/'.$this->sender->slug.'.'.$this->sender->id,
         ];
     }
 }

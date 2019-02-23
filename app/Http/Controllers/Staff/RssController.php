@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Rss;
-use App\Type;
-use App\Category;
+use App\Models\Rss;
+use App\Models\Type;
+use App\Models\Category;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

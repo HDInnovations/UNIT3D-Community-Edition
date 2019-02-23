@@ -24,12 +24,14 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Position</th>
+                    <th>Level</th>
                     <th>Color</th>
                     <th>Icon</th>
                     <th>Effect</th>
                     <th>Internal</th>
                     <th>Modo</th>
                     <th>Admin</th>
+                    <th>Owner</th>
                     <th>Trusted</th>
                     <th>Immune</th>
                     <th>Freeleech</th>
@@ -46,14 +48,18 @@
                             <a href="{{ route('staff_groups_edit_form', ['group' => $group->name, 'id' => $group->id]) }}">{{ $group->name }}</a>
                         </td>
                         <td>{{ $group->position }}</td>
+                        <td>{{ $group->level }}</td>
                         <td><i class="{{ config('other.font-awesome') }} fa-circle" style="color: {{ $group->color }};"></i> {{ $group->color }}</td>
                         <td><i class="{{ $group->icon }}"></i> [{{ $group->icon }}]</td>
-                        <td>{{ $group->effect }}</td>
+                        <td>@if ($group->effect == '' || $group->effect == 'none')<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_internal == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_modo == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_admin == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
+                        <td>@if ($group->is_owner == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_trusted == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>

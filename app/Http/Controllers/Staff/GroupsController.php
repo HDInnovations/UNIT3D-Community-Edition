@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Forum;
-use App\Group;
-use App\Permission;
+use App\Models\Forum;
+use App\Models\Group;
+use App\Models\Permission;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -72,12 +72,14 @@ class GroupsController extends Controller
         $group->name = $request->input('name');
         $group->slug = str_slug($request->input('name'));
         $group->position = $request->input('position');
+        $group->level = $request->input('level');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
         $group->is_internal = $request->input('is_internal');
         $group->is_modo = $request->input('is_modo');
         $group->is_admin = $request->input('is_admin');
+        $group->is_owner = $request->input('is_owner');
         $group->is_trusted = $request->input('is_trusted');
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');
@@ -146,12 +148,14 @@ class GroupsController extends Controller
         $group->name = $request->input('name');
         $group->slug = str_slug($request->input('name'));
         $group->position = $request->input('position');
+        $group->level = $request->input('level');
         $group->color = $request->input('color');
         $group->icon = $request->input('icon');
         $group->effect = $request->input('effect');
         $group->is_internal = $request->input('is_internal');
         $group->is_modo = $request->input('is_modo');
         $group->is_admin = $request->input('is_admin');
+        $group->is_owner = $request->input('is_owner');
         $group->is_trusted = $request->input('is_trusted');
         $group->is_immune = $request->input('is_immune');
         $group->is_freeleech = $request->input('is_freeleech');

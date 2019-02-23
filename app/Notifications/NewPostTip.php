@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Post;
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,6 +25,7 @@ class NewPostTip extends Notification implements ShouldQueue
     public $type;
     public $tipper;
     public $post;
+    public $amount;
 
     /**
      * Create a new notification instance.
@@ -33,11 +34,12 @@ class NewPostTip extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(string $type, string $tipper, Post $post)
+    public function __construct(string $type, string $tipper, $amount, Post $post)
     {
         $this->type = $type;
         $this->post = $post;
         $this->tipper = $tipper;
+        $this->amount = $amount;
     }
 
     /**
@@ -64,7 +66,7 @@ class NewPostTip extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => $this->tipper.' Has Tipped One Of Your Forum Posts',
+            'title' => $this->tipper.' Has Tipped You '.$this->amount.' BON For A Forum Post',
             'body'  => $this->tipper.' has tipped one of your Forum posts in '.$this->post->topic->name,
             'url'   => "/forums/topic/{$this->post->topic->slug}.{$this->post->topic->id}?page={$this->post->getPageNumber()}#post-{$this->post->id}",
         ];

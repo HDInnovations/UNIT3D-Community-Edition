@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\FailedLoginAttempt;
+use App\Models\FailedLoginAttempt;
 use App\Http\Controllers\Controller;
 
 class FailedLoginController extends Controller

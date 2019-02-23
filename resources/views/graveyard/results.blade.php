@@ -25,7 +25,7 @@
                     <td>
                         <div class="torrent-file">
                             <div>
-                                <a class="view-torrent" href="{{ route('torrent', array('slug' => $torrent->slug, 'id' => $torrent->id)) }}">
+                                <a class="view-torrent" href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}">
                                     {{ $torrent->name }}
                                 </a>
                                 <span class="label label-success">{{ $torrent->type }}</span>
@@ -107,7 +107,7 @@
                                                 </p>
                                                 <div class="btns">
                                                     <form id="resurrect-torrent" role="form" method="POST"
-                                                          action="{{ route('resurrect', ['torrent_id' => $torrent->id]) }}">
+                                                          action="{{ route('graveyard.store', ['torrent_id' => $torrent->id]) }}">
                                                         @csrf
                                                         @if (!$history)
                                                             <input hidden="seedtime" name="seedtime" id="seedtime"

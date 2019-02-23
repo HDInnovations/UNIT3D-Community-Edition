@@ -13,7 +13,7 @@
 
 namespace App\Jobs;
 
-use App\User;
+use App\Models\User;
 use App\Mail\DeleteUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;

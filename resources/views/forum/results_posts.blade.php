@@ -40,7 +40,7 @@
                 <thead class="no-space">
                 <tr>
                 <td colspan="5">
-                <div style="{{ ($user->torrent_filters ? '' : 'display: none;') }}">
+                <div>
                     <div class="box">
                         <div class="container well search mt-5 fatten-me table-me" style="width: 90% !important; margin: auto !important;">
                             <form role="form" method="GET" action="{{ route('forum_search_form') }}" class="form-horizontal form-condensed form-torrent-search form-bordered table-me">
@@ -197,8 +197,8 @@
                                     <label for="sort" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                                     <div class="col-sm-2">
                                         <select id="sorting" name="sorting" class="form-control">
-                                            <option value="created_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '') }}>Created At</option>
                                             <option value="updated_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'updated_at' ? 'SELECTED' : '') }}>Updated At</option>
+                                            <option value="created_at" {{ (isset($params) && is_array($params) && array_key_exists('sorting',$params) && $params['sorting'] == 'created_at' ? 'SELECTED' : '') }}>Created At</option>
                                         </select>
                                     </div>
                                 </div>
@@ -251,21 +251,21 @@
                                 @if ($r->topic->solved == "1") <span
                                         class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
                                 @if ($r->topic->invalid == "1") <span
-                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
                                 @if ($r->topic->bug == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                                 @if ($r->topic->suggestion == "1") <span
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => $r->topic->first_post_user_username, 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
+                                        href="{{ route('profile', ['username' => str_slug($r->topic->first_post_user_username), 'id' => $r->topic->first_post_user_id]) }}">{{ $r->topic->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $r->topic->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $r->topic->views }} @lang('forum.views')
                             </td>
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => $r->topic->last_post_user_username, 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
+                                <a href="{{ route('profile', ['username' => str_slug($r->topic->last_post_user_username), 'id' => $r->topic->last_post_user_id]) }}">{{ $r->topic->last_post_user_username }}</a>,
                                 <time datetime="{{ date('d-m-Y h:m', strtotime($r->topic->updated_at)) }}">
                                     {{ date('M d Y', strtotime($r->topic->updated_at)) }}
                                 </time>

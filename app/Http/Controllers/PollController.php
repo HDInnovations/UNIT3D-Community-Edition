@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Poll;
-use App\Voter;
-use App\Option;
+use App\Models\Poll;
+use App\Models\Voter;
+use App\Models\Option;
 use Brian2694\Toastr\Toastr;
 use App\Http\Requests\VoteOnPoll;
 use App\Repositories\ChatRepository;
@@ -110,7 +110,7 @@ class PollController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
+            "[url={$profile_url}]{$user->username}[/url] has voted on poll [url={$poll_url}]{$poll->title}[/url]"
         );
 
         return redirect('poll/'.$poll->slug.'/result')

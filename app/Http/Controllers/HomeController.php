@@ -13,16 +13,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Poll;
-use App\Post;
-use App\User;
-use App\Group;
-use App\Topic;
-use App\Article;
-use App\Torrent;
 use Carbon\Carbon;
-use App\FeaturedTorrent;
-use App\PersonalFreeleech;
+use App\Models\Poll;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Topic;
+use App\Models\Article;
+use App\Models\Torrent;
+use App\Models\FeaturedTorrent;
+use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -83,7 +83,7 @@ class HomeController extends Controller
         $posts = Post::latest()->take(5)->get();
 
         // Online Block
-        $users = User::with(['group' => function ($query) {
+        $users = User::with(['privacy', 'group' => function ($query) {
             $query->select(['id', 'name', 'color', 'effect', 'icon', 'position']);
         }])->select(['id', 'username', 'hidden', 'group_id'])->oldest('username')->get();
         $groups = Group::select(['name', 'color', 'effect', 'icon'])->oldest('position')->get();

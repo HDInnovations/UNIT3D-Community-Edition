@@ -561,7 +561,7 @@ mark {
 }
 
 .text-muted {
-    color: #999;
+    color: #333;
 }
 
 .text-primary {
@@ -580,6 +580,15 @@ a.text-primary:hover {
 a.text-success:focus,
 a.text-success:hover {
     color: #008948;
+}
+
+.text-bright {
+    color: #222222;
+}
+
+a.text-bright:focus,
+a.text-bright:hover {
+    color: #333333;
 }
 
 .text-info {
@@ -3671,7 +3680,6 @@ button.close {
 
 .modal-header {
     padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 .modal-header .close {
@@ -3683,14 +3691,13 @@ button.close {
 }
 
 .modal-body {
-    position: relative;
-    padding: 20px;
+    position: initital;
+    padding: 10px;
 }
 
 .modal-footer {
-    padding: 20px;
+    padding: 15px;
     text-align: right;
-    border-top: 1px solid #e5e5e5;
 }
 
 .modal-footer .btn + .btn {
@@ -3704,6 +3711,20 @@ button.close {
 
 .modal-footer .btn-block + .btn-block {
     margin-left: 0;
+}
+
+.modal-underline {
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-overline {
+    width: 100%;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
+    margin-top: 10px;
 }
 
 .modal-scrollbar-measure {
@@ -5292,6 +5313,10 @@ a.torrent-filename:visited {
     padding: 20px 0;
 }
 
+.badge-float {
+    border-radius: 5px !important;
+}
+
 .badge-user {
     border: 1px solid #b6daf2;
     box-shadow: 0 5px 5px rgba(93, 93, 93, 0.2);
@@ -5509,6 +5534,12 @@ a.sort {
     padding-right: 20px;
 }
 
+.p-5 {
+    padding: 5px;
+}
+.p-10 {
+    padding: 10px;
+}
 .p-20 {
     padding: 20px;
 }
@@ -5622,6 +5653,36 @@ a.sort {
 .button-right {
     display: table-cell;
     width: 50%;
+    text-align: right;
+}
+.button-left-increased {
+    display: table-cell;
+    width: 60%;
+    text-align: left;
+}
+.button-left-large {
+    display: table-cell;
+    width: 70%;
+    text-align: left;
+}
+.button-right-large {
+    display: table-cell;
+    width: 70%;
+    text-align: right;
+}
+.button-left-small {
+    display: table-cell;
+    width: 30%;
+    text-align: left;
+}
+.button-right-small {
+    display: table-cell;
+    width: 30%;
+    text-align: right;
+}
+.button-right-decreased {
+    display: table-cell;
+    width: 40%;
     text-align: right;
 }
 .button-padding {
@@ -7617,6 +7678,15 @@ select.icon-right i {
     line-height: 36px;
 }
 
+.width-table { width: 100%; display: table; }
+.width-25 { width: 25%; display: table-cell; text-align: left; }
+.width-75 { width: 75%; display: table-cell; text-align: right; }
+
+@media screen and (max-width: 1440px) {
+    .width-25 { width: 100%; display: block; }
+    .width-75 { width: 100%; display: block; }
+}
+
 .promotional {
     padding: 35px 0 65px;
     text-align: center;
@@ -9345,6 +9415,8 @@ section.tall_categories div.category.movie span {
     padding: 10px;
     margin: 0 0 15px 15px;
     border-radius: 3px;
+    font-size: 14px !important;
+    font-family: inherit;
 }
 
 .decoda-quote-head {

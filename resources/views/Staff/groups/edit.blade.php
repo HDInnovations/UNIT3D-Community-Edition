@@ -32,12 +32,14 @@
                     <tr>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>
                         <th>Effect</th>
                         <th>Internal</th>
                         <th>Modo</th>
                         <th>Admin</th>
+                        <th>Owner</th>
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
@@ -51,6 +53,9 @@
                     <tr>
                         <td><input type="text" name="name" value="{{ $group->name }}" class="form-control"/></td>
                         <td><input type="text" name="position" value="{{ $group->position }}"
+                                   class="form-control"/>
+                        </td>
+                        <td><input type="text" name="level" value="{{ $group->level }}"
                                    class="form-control"/>
                         </td>
                         <td><input type="text" name="color" value="{{ $group->color }}" class="form-control"/>
@@ -83,6 +88,15 @@
                             @else
                                 <input type="hidden" name="is_admin" value="0">
                                 <input type="checkbox" name="is_admin" value="1">
+                            @endif
+                        </td>
+                        <td>
+                            @if ($group->is_owner == 1)
+                                <input type="hidden" name="is_owner" value="0">
+                                <input type="checkbox" name="is_owner" value="1" checked>
+                            @else
+                                <input type="hidden" name="is_owner" value="0">
+                                <input type="checkbox" name="is_owner" value="1">
                             @endif
                         </td>
                         <td>

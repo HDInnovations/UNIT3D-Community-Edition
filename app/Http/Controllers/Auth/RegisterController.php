@@ -13,16 +13,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use App\Group;
-use App\Invite;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Invite;
 use App\Rules\Captcha;
-use App\PrivateMessage;
-use App\UserActivation;
+use App\Models\UserPrivacy;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
+use App\Models\UserActivation;
 use App\Jobs\SendActivationMail;
+use App\Models\UserNotification;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Facades\Hash;
@@ -138,6 +140,16 @@ class RegisterController extends Controller
         } else {
             $user->save();
 
+            $privacy = new UserPrivacy();
+            $privacy->setDefaultValues();
+            $privacy->user_id = $user->id;
+            $privacy->save();
+
+            $notification = new UserNotification();
+            $notification->setDefaultValues();
+            $notification->user_id = $user->id;
+            $notification->save();
+
             if ($key) {
                 // Update The Invite Record
                 $key->accepted_by = $user->id;
@@ -168,7 +180,7 @@ class RegisterController extends Controller
             $selected = mt_rand(0, count($welcomeArray) - 1);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : {$welcomeArray[$selected]}"
+                "{$welcomeArray[$selected]}"
             );
 
             // Send Welcome PM

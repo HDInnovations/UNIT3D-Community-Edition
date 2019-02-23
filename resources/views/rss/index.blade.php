@@ -11,19 +11,20 @@
 @section('content')
     <div class="container-fluid">
         <div class="block">
+            <div class="button-holder">
+                <div class="button-left">
+                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">Create RSS Feed</a>
+                </div>
+                <div class="button-right">
+
+                </div>
+            </div>
             <div class="header gradient orange">
                 <div class="inner_content">
                     <h1>{{ trans('rss.rss') }} {{ trans('rss.feeds') }}</h1>
                 </div>
             </div>
-        </div>
-        <div class="block">
-            <div class="container-fluid">
-                <a href="{{ route('rss.create') }}" class="btn btn-primary">Create RSS Feed</a>
-            </div>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 col-lg-12">
+            <div class="container-fluid p-0 some-padding">
                         <div class="block">
                             <ul class="nav nav-tabs" id="basetabs" role="tablist">
                                 <li id="public-tab" class="active"><a href="#public" data-toggle="tab">Public</a></li>
@@ -129,8 +130,6 @@
                                     <hr>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

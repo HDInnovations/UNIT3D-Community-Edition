@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Group;
-use App\UserActivation;
+use App\Models\Group;
 use Brian2694\Toastr\Toastr;
+use App\Models\UserActivation;
 use App\Http\Controllers\Controller;
 
 class ActivationController extends Controller

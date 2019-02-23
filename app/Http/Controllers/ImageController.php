@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Album;
-use App\Image;
+use App\Models\Album;
+use App\Models\Image;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 

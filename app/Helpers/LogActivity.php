@@ -13,7 +13,7 @@
 
 namespace App\Helpers;
 
-use App\LogActivity as LogActivityModel;
+use App\Models\LogActivity as LogActivityModel;
 
 class LogActivity
 {

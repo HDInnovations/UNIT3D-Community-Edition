@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\FailedLoginAttempt;
+use App\Models\FailedLoginAttempt;
 use App\Notifications\FailedLogin;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\Request;

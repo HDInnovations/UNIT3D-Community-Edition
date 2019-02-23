@@ -13,22 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Like;
-use App\Note;
-use App\Peer;
-use App\Post;
-use App\User;
-use App\Group;
-use App\Thank;
-use App\Topic;
-use App\Follow;
-use App\Invite;
-use App\Comment;
-use App\Message;
-use App\Torrent;
-use App\PrivateMessage;
+use App\Models\Like;
+use App\Models\Note;
+use App\Models\Peer;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Thank;
+use App\Models\Topic;
+use App\Models\Follow;
+use App\Models\Invite;
+use App\Models\Comment;
+use App\Models\Message;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
@@ -118,13 +118,46 @@ class UserController extends Controller
      */
     public function userEdit(Request $request, $username, $id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('group')->findOrFail($id);
         $staff = auth()->user();
+
+        $sendto = (int) $request->input('group_id');
+
+        $weights = [
+            'is_modo',
+            'is_admin',
+        ];
+
+        $sender = -1;
+        $target = -1;
+        foreach ($weights as $pos => $weight) {
+            if ($user->group->$weight && $user->group->$weight == 1) {
+                $target = $pos;
+            }
+            if ($staff->group->$weight && $staff->group->$weight == 1) {
+                $sender = $pos;
+            }
+        }
+
+        if ($target == 1 && $user->group->id == 10) {
+            $target = 2;
+        }
+        if ($sender == 1 && $staff->group->id == 10) {
+            $sender = 2;
+        }
+
+        // Hard coded until group change.
+
+        if ($target >= $sender || ($sender == 0 && ($sendto == 6 || $sendto == 4 || $sendto == 10)) || ($sender == 1 && ($sendto == 4 || $sendto == 10))) {
+            return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+                ->with($this->toastr->error('You Are Not Authorized To Perform This Action!', 'Whoops!', ['options']));
+        }
 
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $user->uploaded = $request->input('uploaded');
         $user->downloaded = $request->input('downloaded');
+        $user->title = $request->input('title');
         $user->about = $request->input('about');
         $user->group_id = (int) $request->input('group_id');
         $user->save();
@@ -132,7 +165,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Was Updated Successfully!', 'Yay!', ['options']));
     }
 
@@ -161,7 +194,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has edited {$user->username} account permissions.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Permissions Succesfully Edited', 'Yay!', ['options']));
     }
 
@@ -186,7 +219,7 @@ class UserController extends Controller
         // Activity Log
         \LogActivity::addToLog("Staff Member {$staff->username} has changed {$user->username} password.");
 
-        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
+        return redirect()->route('profile', ['username' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Account Password Was Updated Successfully!', 'Yay!', ['options']));
     }
 
@@ -205,89 +238,86 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $staff = auth()->user();
 
-        if ($user->group->is_modo || auth()->user()->id == $user->id) {
-            return redirect()->route('home')
-                ->with($this->toastr->error('You Cannot Delete Yourself Or Other Staff', 'Whoops!', ['options']));
-        } else {
-            // Removes UserID from Torrents if any and replaces with System UserID (1)
-            foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
-                $tor->user_id = 1;
-                $tor->save();
-            }
-            // Removes UserID from Comments if any and replaces with System UserID (1)
-            foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
-                $com->user_id = 1;
-                $com->save();
-            }
-            // Removes UserID from Posts if any and replaces with System UserID (1)
-            foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
-                $post->user_id = 1;
-                $post->save();
-            }
-            // Removes UserID from Topic Creators if any and replaces with System UserID (1)
-            foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
-                $topic->first_post_user_id = 1;
-                $topic->save();
-            }
-            // Removes UserID from Topic if any and replaces with System UserID (1)
-            foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
-                $topic->last_post_user_id = 1;
-                $topic->save();
-            }
-            // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
-                $sent->sender_id = 1;
-                $sent->save();
-            }
-            // Removes UserID from PM if any and replaces with System UserID (1)
-            foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
-                $received->receiver_id = 1;
-                $received->save();
-            }
-            // Removes all Posts made by User from the shoutbox
-            foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
-                $shout->delete();
-            }
-            // Removes all notes for user
-            foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
-                $note->delete();
-            }
-            // Removes all likes for user
-            foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
-                $like->delete();
-            }
-            // Removes all thanks for user
-            foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
-                $thank->delete();
-            }
-            // Removes all follows for user
-            foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
-                $follow->delete();
-            }
-            // Removes UserID from Sent Invites if any and replaces with System UserID (1)
-            foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
-                $sent_invite->user_id = 1;
-                $sent_invite->save();
-            }
-            // Removes UserID from Received Invite if any and replaces with System UserID (1)
-            foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
-                $received_invite->accepted_by = 1;
-                $received_invite->save();
-            }
-            // Removes all Peers for user
-            foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
-                $peer->delete();
-            }
-            // Activity Log
-            \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
+        abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 
-            if ($user->delete()) {
-                return redirect('staff_dashboard')
-                    ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
-            } else {
-                return redirect('staff_dashboard')
-                    ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
-            }
+        // Removes UserID from Torrents if any and replaces with System UserID (1)
+        foreach (Torrent::withAnyStatus()->where('user_id', '=', $user->id)->get() as $tor) {
+            $tor->user_id = 1;
+            $tor->save();
+        }
+        // Removes UserID from Comments if any and replaces with System UserID (1)
+        foreach (Comment::where('user_id', '=', $user->id)->get() as $com) {
+            $com->user_id = 1;
+            $com->save();
+        }
+        // Removes UserID from Posts if any and replaces with System UserID (1)
+        foreach (Post::where('user_id', '=', $user->id)->get() as $post) {
+            $post->user_id = 1;
+            $post->save();
+        }
+        // Removes UserID from Topic Creators if any and replaces with System UserID (1)
+        foreach (Topic::where('first_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->first_post_user_id = 1;
+            $topic->save();
+        }
+        // Removes UserID from Topic if any and replaces with System UserID (1)
+        foreach (Topic::where('last_post_user_id', '=', $user->id)->get() as $topic) {
+            $topic->last_post_user_id = 1;
+            $topic->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (1)
+        foreach (PrivateMessage::where('sender_id', '=', $user->id)->get() as $sent) {
+            $sent->sender_id = 1;
+            $sent->save();
+        }
+        // Removes UserID from PM if any and replaces with System UserID (1)
+        foreach (PrivateMessage::where('receiver_id', '=', $user->id)->get() as $received) {
+            $received->receiver_id = 1;
+            $received->save();
+        }
+        // Removes all Posts made by User from the shoutbox
+        foreach (Message::where('user_id', '=', $user->id)->get() as $shout) {
+            $shout->delete();
+        }
+        // Removes all notes for user
+        foreach (Note::where('user_id', '=', $user->id)->get() as $note) {
+            $note->delete();
+        }
+        // Removes all likes for user
+        foreach (Like::where('user_id', '=', $user->id)->get() as $like) {
+            $like->delete();
+        }
+        // Removes all thanks for user
+        foreach (Thank::where('user_id', '=', $user->id)->get() as $thank) {
+            $thank->delete();
+        }
+        // Removes all follows for user
+        foreach (Follow::where('user_id', '=', $user->id)->get() as $follow) {
+            $follow->delete();
+        }
+        // Removes UserID from Sent Invites if any and replaces with System UserID (1)
+        foreach (Invite::where('user_id', '=', $user->id)->get() as $sent_invite) {
+            $sent_invite->user_id = 1;
+            $sent_invite->save();
+        }
+        // Removes UserID from Received Invite if any and replaces with System UserID (1)
+        foreach (Invite::where('accepted_by', '=', $user->id)->get() as $received_invite) {
+            $received_invite->accepted_by = 1;
+            $received_invite->save();
+        }
+        // Removes all Peers for user
+        foreach (Peer::where('user_id', '=', $user->id)->get() as $peer) {
+            $peer->delete();
+        }
+        // Activity Log
+        \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
+
+        if ($user->delete()) {
+            return redirect('staff_dashboard')
+                ->with($this->toastr->success('Account Has Been Removed', 'Yay!', ['options']));
+        } else {
+            return redirect('staff_dashboard')
+                ->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
 

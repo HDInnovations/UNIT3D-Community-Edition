@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Torrent Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'activity'                 => 'Activity',
     'age'                      => 'Age',
@@ -15,6 +11,7 @@ return [
     'announce-url-desc2'       => 'TMDB and IMDB is required for all uploads! It is used to grab Posters/Backdrops and ExtraInfo',
     'approved'                 => 'Approved',
     'audio'                    => 'Audio',
+    'bon-tipped'               => 'BON Tipped',
     'bookmark'                 => 'Bookmark',
     'bookmark'                 => 'Bookmark',
     'bookmarks'                => 'Bookmarks',
@@ -100,6 +97,8 @@ return [
     'media-info-parser'        => 'MediaInfo Parser',
     'media-info-paste'         => 'Paste MediaInfo dump here',
     'meta-desc'                => 'Download :name at maximum speed',
+    'moderation'               => 'Moderation',
+    'movies'                   => 'Movies',
     'mvp'                      => 'MVP',
     'my-active-torrents'       => 'My active torrents',
     'name'                     => 'Name',
@@ -130,11 +129,14 @@ return [
     'ready'                    => 'This file is ready for download',
     'rejected'                 => 'Rejected',
     'released'                 => 'Released',
+    'remaining'                => 'Remaining',
     'request-reseed'           => 'Request Reseed',
     'requires-reseed'          => 'Requires Reseed',
+    'resurrections'            => 'Resurrections',
     'revoke'                   => 'Revoke',
     'rss'                      => 'RSS',
     'runtime'                  => 'Runtime',
+    'satisfied_in'             => 'Satisfied in',
     'say-thanks'               => 'Please remember to say <b>thanks</b> and <b>seed</b> for as long as you can',
     'sd-content'               => 'SD content',
     'search'                   => 'Search',
@@ -153,11 +155,15 @@ return [
     'special'                  => 'Special',
     'special-freeleech'        => 'Special freelech',
     'started'                  => 'Started',
+    'status'                   => 'Status',
+    'statistics'               => 'Statistics',
+    'stats'                    => 'Stats',
     'sticky'                   => 'Sticky',
     'stream-optimized'         => 'Stream optimized',
     'subtitle'                 => 'Subtitle',
     'team-player'              => 'Team player',
     'thank'                    => 'Thank',
+    'thanked'                  => 'Thanked',
     'thanks'                   => 'Thanks',
     'thanks-given'             => 'Thanks given',
     'times'                    => 'Times',
@@ -178,6 +184,7 @@ return [
     'type'                     => 'Type',
     'types'                    => 'Types',
     'unbookmark'               => 'Unbookmark',
+    'unsatisfieds'             => 'Unsatisfieds',
     'unsticky'                 => 'Unsticky',
     'updated'                  => 'Updated',
     'updated_at'               => 'Updated at',

@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Common Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'about'                => 'About Us',
     'account'              => 'Account',
@@ -32,11 +28,13 @@ return [
     'contact-desc'         => 'This contact request will be sent to the owner and will get back to you as soon as possible',
     'contact-header'       => 'Hello',
     'create'               => 'Create',
+    'created_at'           => 'Created At',
     'day'                  => 'Day',
     'delete'               => 'Delete',
     'delete-your-comment'  => 'Delete your comment',
     'description'          => 'Description',
     'direction'            => 'Direction',
+    'disable'              => 'Disable',
     'doubleup_activated'   => 'Global Double upload mode activated',
     'download'             => 'Download',
     'edit'                 => 'Edit',
@@ -45,6 +43,7 @@ return [
     'email-blacklist'      => 'Email Blacklist',
     'email-whitelist'      => 'Email Whitelist',
     'email-list-notactive' => 'Email Whitelist / Blacklist System Is Not Activated',
+    'enable'               => 'Enable',
     'enter'                => 'Enter',
     'error'                => 'Error',
     'everyday'             => 'Everyday',
@@ -131,6 +130,7 @@ return [
     'results'              => 'Results',
     'rss-system'           => 'RSS System',
     'rules'                => 'Rules',
+    'save'                 => 'Save',
     'search'               => 'Search',
     'search-results'       => 'Search results',
     'search-results-desc'  => 'Please see your results below',

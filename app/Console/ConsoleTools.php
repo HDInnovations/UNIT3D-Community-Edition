@@ -133,7 +133,7 @@ trait ConsoleTools
 
         if (! $process->isSuccessful()) {
             $this->red($process->getErrorOutput());
-            die();
+            //die();
         }
 
         return $process;

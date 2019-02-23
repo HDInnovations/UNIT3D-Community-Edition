@@ -10,21 +10,21 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "ajv": "^6.5.5",
+    "ajv": "^6.7.0",
     "axios": "^0.18",
-    "bootstrap-sass": "^3.4.0",
+    "bootstrap-sass": "^3.4.1",
     "countup.js": "^1.9.3",
     "cross-env": "^5.2",
-    "emojione-assets": "^4.0.0",
+    "emojione-assets": "^4.5.0",
     "jquery": "^3.3",
     "jquery-textcomplete": "^1.8.4",
     "ladda": "^2.0.1",
-    "laravel-echo": "^1.4.1",
-    "laravel-mix": "^4.0.13",
+    "laravel-echo": "^1.5.2",
+    "laravel-mix": "^4.0.14",
     "lodash": "^4.17.11",
-    "moment": "^2.23.0",
-    "resolve-url-loader": "^2.3.1",
-    "sass": "^1.16.0",
+    "moment": "^2.24.0",
+    "resolve-url-loader": "2.3.1",
+    "sass": "^1.16.1",
     "sass-loader": "^7.1.0",
     "select2": "^4.0.6-rc.1",
     "socket.io": "^2.2.0",
@@ -34,7 +34,7 @@
     "toastr": "^2.1.4",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.5.22",
-    "vue-countup-v2": "^1.0.3",
+    "vue-countup-v2": "^2.0.0",
     "vue-template-compiler": "^2.5.22"
   }
 }

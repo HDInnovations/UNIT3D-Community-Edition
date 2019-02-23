@@ -30,6 +30,7 @@ class GroupsTableSeeder extends Seeder
             'color'      => '#95A5A6',
             'icon'       => config('other.font-awesome').' fa-question-circle',
             'can_upload' => 0,
+            'level'      => 0,
         ]);
 
         //2
@@ -40,6 +41,7 @@ class GroupsTableSeeder extends Seeder
             'color'      => '#575757',
             'icon'       => config('other.font-awesome').' fa-question-circle',
             'can_upload' => 0,
+            'level'      => 10,
         ]);
 
         //3
@@ -50,6 +52,7 @@ class GroupsTableSeeder extends Seeder
             'color'     => '#7289DA',
             'icon'      => config('other.font-awesome').' fa-user',
             'autogroup' => 1,
+            'level'     => 30,
         ]);
 
         //4
@@ -63,6 +66,7 @@ class GroupsTableSeeder extends Seeder
             'is_modo'    => 1,
             'is_trusted' => 1,
             'is_immune'  => 1,
+            'level'      => 5000,
         ]);
 
         //5
@@ -73,6 +77,7 @@ class GroupsTableSeeder extends Seeder
             'color'      => 'red',
             'icon'       => config('other.font-awesome').' fa-ban',
             'can_upload' => 0,
+            'level'      => 0,
         ]);
 
         //6
@@ -85,6 +90,7 @@ class GroupsTableSeeder extends Seeder
             'is_modo'    => 1,
             'is_trusted' => 1,
             'is_immune'  => 1,
+            'level'      => 2500,
         ]);
 
         //7
@@ -97,6 +103,7 @@ class GroupsTableSeeder extends Seeder
             'is_trusted'   => 1,
             'is_immune'    => 1,
             'is_freeleech' => 1,
+            'level'        => 250,
         ]);
 
         //8
@@ -109,6 +116,7 @@ class GroupsTableSeeder extends Seeder
             'is_trusted'   => 1,
             'is_immune'    => 1,
             'is_freeleech' => 1,
+            'level'        => 1000,
         ]);
 
         //9
@@ -121,6 +129,7 @@ class GroupsTableSeeder extends Seeder
             'is_modo'    => 1,
             'is_trusted' => 1,
             'is_immune'  => 1,
+            'level'      => 0,
         ]);
 
         //10
@@ -130,10 +139,12 @@ class GroupsTableSeeder extends Seeder
             'position'   => 19,
             'color'      => '#00abff',
             'icon'       => config('other.font-awesome').' fa-user-secret',
+            'is_owner'   => 1,
             'is_admin'   => 1,
             'is_modo'    => 1,
             'is_trusted' => 1,
             'is_immune'  => 1,
+            'level'      => 9999,
         ]);
 
         //11
@@ -144,6 +155,7 @@ class GroupsTableSeeder extends Seeder
             'color'     => '#3c78d8',
             'icon'      => config('other.font-awesome').' fa-user-circle',
             'autogroup' => 1,
+            'level'     => 40,
         ]);
 
         //12
@@ -154,6 +166,7 @@ class GroupsTableSeeder extends Seeder
             'color'     => '#1155cc',
             'icon'      => config('other.font-awesome').' fa-power-off',
             'autogroup' => 1,
+            'level'     => 50,
         ]);
 
         //13
@@ -165,6 +178,7 @@ class GroupsTableSeeder extends Seeder
             'icon'       => config('other.font-awesome').' fa-bolt',
             'is_trusted' => 1,
             'autogroup'  => 1,
+            'level'      => 60,
         ]);
 
         //14
@@ -176,6 +190,7 @@ class GroupsTableSeeder extends Seeder
             'icon'       => config('other.font-awesome').' fa-rocket',
             'is_trusted' => 1,
             'autogroup'  => 1,
+            'level'      => 70,
         ]);
 
         //15
@@ -186,6 +201,7 @@ class GroupsTableSeeder extends Seeder
             'color'     => '#96281B',
             'icon'      => config('other.font-awesome').' fa-times',
             'autogroup' => 1,
+            'level'     => 20,
         ]);
 
         //16
@@ -200,6 +216,7 @@ class GroupsTableSeeder extends Seeder
             'is_immune'    => 1,
             'is_freeleech' => 1,
             'autogroup'    => 1,
+            'level'        => 100,
         ]);
 
         //17
@@ -212,6 +229,7 @@ class GroupsTableSeeder extends Seeder
             'is_trusted' => 1,
             'is_immune'  => 1,
             'autogroup'  => 1,
+            'level'      => 80,
         ]);
 
         //18
@@ -226,6 +244,7 @@ class GroupsTableSeeder extends Seeder
             'is_immune'    => 1,
             'is_freeleech' => 1,
             'autogroup'    => 1,
+            'level'        => 90,
         ]);
 
         //19
@@ -239,6 +258,7 @@ class GroupsTableSeeder extends Seeder
             'is_immune'    => 1,
             'is_freeleech' => 1,
             'is_internal'  => 1,
+            'level'        => 500,
         ]);
 
         //20
@@ -249,6 +269,7 @@ class GroupsTableSeeder extends Seeder
             'color'      => '#8D6262',
             'icon'       => config('other.font-awesome').' fa-pause-circle',
             'can_upload' => 0,
+            'level'      => 0,
         ]);
 
         //21
@@ -259,6 +280,7 @@ class GroupsTableSeeder extends Seeder
             'color'      => '#8D6262',
             'icon'       => config('other.font-awesome').' fa-times-circle',
             'can_upload' => 0,
+            'level'      => 0,
         ]);
     }
 }

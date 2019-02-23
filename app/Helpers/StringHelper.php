@@ -58,6 +58,62 @@ class StringHelper
     }
 
     /**
+     * @method timeRemaining
+     *
+     * @param $seconds time in bigInt
+     *
+     * @return string
+     */
+    public static function timeRemaining($seconds)
+    {
+        $minutes = 0;
+        $hours = 0;
+        $days = 0;
+        $weeks = 0;
+        $months = 0;
+        $years = 0;
+
+        $seconds = config('hitrun.seedtime') - $seconds;
+
+        if ($seconds == 0) {
+            return 'N/A';
+        }
+        while ($seconds >= 31536000) {
+            $years++;
+            $seconds -= 31536000;
+        }
+        while ($seconds >= 2592000) {
+            $months++;
+            $seconds -= 2592000;
+        }
+        while ($seconds >= 604800) {
+            $weeks++;
+            $seconds -= 604800;
+        }
+        while ($seconds >= 86400) {
+            $days++;
+            $seconds -= 86400;
+        }
+        while ($seconds >= 3600) {
+            $hours++;
+            $seconds -= 3600;
+        }
+        while ($seconds >= 60) {
+            $minutes++;
+            $seconds -= 60;
+        }
+        $years = ($years == 0) ? '' : $years.'Y ';
+        $months = ($months == 0) ? '' : $months.'M ';
+        $weeks = ($weeks == 0) ? '' : $weeks.'W ';
+        $days = ($days == 0) ? '' : $days.'D ';
+        $hours = ($hours == 0) ? '' : $hours.'h ';
+        $minutes = ($minutes == 0) ? '' : $minutes.'m ';
+        $seconds = ($seconds == 0) ? '' : $seconds.'s';
+
+        return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
+    }
+
+    /**
      * @method timeElapsed
      *
      * @param $seconds time in bigInt

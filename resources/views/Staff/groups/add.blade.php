@@ -30,12 +30,14 @@
                     <tr>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Level</th>
                         <th>Color</th>
                         <th>Icon</th>
                         <th>Effect</th>
                         <th>Internal</th>
                         <th>Modo</th>
                         <th>Admin</th>
+                        <th>Owner</th>
                         <th>Trusted</th>
                         <th>Immune</th>
                         <th>Freeleech</th>
@@ -52,6 +54,10 @@
                         </td>
                         <td>
                             <input type="number" name="position" value="" placeholder="Position"
+                                   class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" name="level" value="" placeholder="Level"
                                    class="form-control"/>
                         </td>
                         <td>
@@ -76,6 +82,10 @@
                         <td>
                             <input type="hidden" name="is_admin" value="0">
                             <input type="checkbox" name="is_admin" value="1">
+                        </td>
+                        <td>
+                            <input type="hidden" name="is_owner" value="0">
+                            <input type="checkbox" name="is_owner" value="1">
                         </td>
                         <td>
                             <input type="hidden" name="is_trusted" value="0">

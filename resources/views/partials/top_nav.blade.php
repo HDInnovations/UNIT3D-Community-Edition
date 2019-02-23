@@ -58,7 +58,7 @@
                     <span><i class=" {{ config('other.font-awesome') }} fa-angle-down"></i></span>
                 </a>
                 <ul class="dropdown-menu ">
-                    @foreach (App\Language::allowed() as $code => $name)
+                    @foreach (App\Models\Language::allowed() as $code => $name)
                         <li class="{{ config('language.flags.li_class') }}">
                             <a href="{{ route('back', ['local' => $code]) }}">
                                 <img src="{{ url('img/flags/'.strtolower($code).'.png') }}" alt="{{ $name }}"
@@ -87,23 +87,38 @@
                 </a>
                 <ul class="dropdown-menu ">
                     <li>
-                        <a href="{{ route('profile', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
+                        <a href="{{ route('profile', ['username' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-user"></i> @lang('user.my-profile')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('user_settings', ['username' => auth()->user()->username, 'id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.account-settings')
+                        <a href="{{ route('user_settings', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-cogs"></i> @lang('user.my-settings')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('wishlist', ['id' => auth()->user()->id]) }}">
-                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
+                        <a href="{{ route('user_privacy', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('user.my-privacy')
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('bookmarks') }}">
+                        <a href="{{ route('user_security', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-shield-alt"></i> @lang('user.my-security')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_bookmarks',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i> @lang('user.my-bookmarks')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_requested',['slug'=>auth()->user()->slug,'id'=>auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('user.my-requested')
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => auth()->user()->id]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i> @lang('user.my-wishlist')
                         </a>
                     </li>
                     <li>

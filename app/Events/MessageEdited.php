@@ -13,7 +13,7 @@
 
 namespace App\Events;
 
-use App\Message;
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use App\Http\Resources\ChatMessageResource;
@@ -40,7 +40,7 @@ class MessageEdited implements ShouldBroadcastNow
      */
     public function __construct(Message $message)
     {
-        $message = Message::with(['user.group', 'user.chatStatus'])->find($message->id);
+        $message = Message::with(['bot', 'user.group', 'user.chatStatus'])->find($message->id);
         $this->message = new ChatMessageResource($message);
     }
 

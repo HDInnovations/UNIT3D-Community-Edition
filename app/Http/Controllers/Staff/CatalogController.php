@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Catalog;
-use App\CatalogTorrent;
+use App\Models\Catalog;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\CatalogTorrent;
 use App\Http\Controllers\Controller;
 
 class CatalogController extends Controller

@@ -69,24 +69,32 @@
                                 @if ($r->solved == "1") <span
                                         class='label label-sm label-info'>{{ strtoupper(trans('forum.solved')) }}</span> @endif
                                 @if ($r->invalid == "1") <span
-                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invaild')) }}</span> @endif
+                                        class='label label-sm label-warning'>{{ strtoupper(trans('forum.invalid')) }}</span> @endif
                                 @if ($r->bug == "1") <span
                                         class='label label-sm label-danger'>{{ strtoupper(trans('forum.bug')) }}</span> @endif
                                 @if ($r->suggestion == "1") <span
                                         class='label label-sm label-primary'>{{ strtoupper(trans('forum.suggestion')) }}</span> @endif
+                                @if ($r->implemented == "1") <span
+                                        class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => $r->first_post_user_username, 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
+                                        href="{{ route('profile', ['username' => str_slug($r->first_post_user_username), 'id' => $r->first_post_user_id]) }}">{{ $r->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $r->num_post - 1 }} @lang('forum.replies')
                                 \ {{ $r->views }} @lang('forum.views')
                             </td>
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => $r->last_post_user_username, 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
-                                <time datetime="{{ date('d-m-Y h:m', strtotime($r->updated_at)) }}">
-                                    {{ date('M d Y', strtotime($r->updated_at)) }}
-                                </time>
+                                <a href="{{ route('profile', ['username' => str_slug($r->last_post_user_username), 'id' => $r->last_post_user_id]) }}">{{ $r->last_post_user_username }}</a>,
+                                @if($r->last_reply_at && $r->last_reply_at != null)
+                                    <time datetime="{{ date('d-m-Y h:m', strtotime($r->last_reply_at)) }}">
+                                        {{ date('M d Y', strtotime($r->last_reply_at)) }}
+                                    </time>
+                                @else
+                                    <time datetime="N/A">
+                                        N/A
+                                    </time>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use App\User;
-use App\History;
-use App\Message;
-use App\Torrent;
-use App\Graveyard;
-use App\PrivateMessage;
+use App\Models\User;
+use App\Models\History;
+use App\Models\Message;
+use App\Models\Torrent;
+use App\Models\Graveyard;
+use App\Models\PrivateMessage;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
 
@@ -82,7 +82,7 @@ class AutoGraveyard extends Command
                 $appurl = config('app.url');
 
                 $this->chat->systemMessage(
-                    ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
+                    "Ladies and Gents, [url={$appurl}/{$user->username}.{$user->id}]{$user->username}[/url] has successfully resurrected [url={$appurl}/torrents/{$torrent->slug}.{$torrent->id}]{$torrent->name}[/url]. :zombie:"
                 );
 
                 // Send Private Message

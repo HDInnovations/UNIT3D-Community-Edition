@@ -1,14 +1,13 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Staff Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'activity-log'            => 'Activity Log',
     'articles'                => 'Articles',
+    'applications'            => 'Applications',
     'bans-log'                => 'Bans Log',
     'blocks'                  => 'Blocks',
+    'bot'                     => 'Bot',
+    'bots'                    => 'Bots',
     'catalog-groups'          => 'Catalog Groups',
     'catalog-torrents'        => 'Catalog Torrents',
     'chat'                    => 'Chat',
@@ -31,6 +30,7 @@ return [
     'please-moderate'         => 'Please Moderate This Torrent!',
     'polls'                   => 'Polls',
     'reports-log'             => 'Reports Log',
+    'rss'                     => 'RSS',
     'staff-dashboard'         => 'Staff Dashboard',
     'torrent-categories'      => 'Torrent Categories',
     'torrent-moderation'      => 'Torrent Moderation',

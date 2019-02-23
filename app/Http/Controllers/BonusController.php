@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\User;
-use App\Torrent;
 use Carbon\Carbon;
-use App\BonExchange;
-use App\PrivateMessage;
-use App\BonTransactions;
-use App\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\BonExchange;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Notifications\NewBon;
+use App\Models\PrivateMessage;
+use App\Models\BonTransactions;
+use App\Models\PersonalFreeleech;
 use App\Notifications\NewPostTip;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NewUploadTip;
@@ -54,7 +54,104 @@ class BonusController extends Controller
     }
 
     /**
-     * Show Bonus System.
+     * Show Bonus Gifts System.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function gifts()
+    {
+        $user = auth()->user();
+        $userbon = $user->getSeedbonus();
+        $gifttransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) {
+            $query->where('sender', '=', auth()->user()->id)->orwhere('receiver', '=', auth()->user()->id);
+        })->where('name', '=', 'gift')->orderBy('date_actioned', 'DESC')->paginate(25);
+
+        $gifts_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
+        $gifts_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
+
+        return view('bonus.gifts', [
+            'user'              => $user,
+            'gifttransactions'  => $gifttransactions,
+            'userbon'           => $userbon,
+            'gifts_sent'        => $gifts_sent,
+            'gifts_received'    => $gifts_received,
+        ]);
+    }
+
+    /**
+     * Show Bonus Tips System.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function tips()
+    {
+        $user = auth()->user();
+        $userbon = $user->getSeedbonus();
+        $bontransactions = BonTransactions::with(['senderObj', 'receiverObj'])->where(function ($query) {
+            $query->where('sender', '=', auth()->user()->id)->orwhere('receiver', '=', auth()->user()->id);
+        })->where('name', '=', 'tip')->orderBy('date_actioned', 'DESC')->paginate(25);
+
+        $tips_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
+        $tips_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
+
+        return view('bonus.tips', [
+            'user'              => $user,
+            'bontransactions'   => $bontransactions,
+            'userbon'           => $userbon,
+            'tips_sent'         => $tips_sent,
+            'tips_received'     => $tips_received,
+        ]);
+    }
+
+    /**
+     * Show Bonus Store System.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function store()
+    {
+        $user = auth()->user();
+        $users = User::oldest('username')->get();
+        $userbon = $user->getSeedbonus();
+        $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
+        $BonExchange = new BonExchange();
+        $bontransactions = BonTransactions::with('exchange')->where('sender', '=', auth()->user()->id)->where('itemID', '>', 0)->orderBy('date_actioned', 'DESC')->limit(25)->get();
+        $uploadOptions = $BonExchange->getUploadOptions();
+        $downloadOptions = $BonExchange->getDownloadOptions();
+        $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
+        $invite = $BonExchange->getInviteOption();
+
+        return view('bonus.store', [
+            'users'             => $users,
+            'userbon'           => $userbon,
+            'activefl'          => $activefl,
+            'bontransactions'   => $bontransactions,
+            'uploadOptions'     => $uploadOptions,
+            'downloadOptions'   => $downloadOptions,
+            'personalFreeleech' => $personalFreeleech,
+            'invite'            => $invite,
+        ]);
+    }
+
+    /**
+     * Show Bonus Gift System.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function gift()
+    {
+        $user = auth()->user();
+        $users = User::oldest('username')->get();
+        $userbon = $user->getSeedbonus();
+
+        return view('bonus.gift', [
+            'users'             => $users,
+            'userbon'           => $userbon,
+        ]);
+    }
+
+    /**
+     * Show Bonus Earnings System.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -63,14 +160,6 @@ class BonusController extends Controller
         $user = auth()->user();
         $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
-        $activefl = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-
-        $BonExchange = new BonExchange();
-
-        $uploadOptions = $BonExchange->getUploadOptions();
-        $downloadOptions = $BonExchange->getDownloadOptions();
-        $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
-        $invite = $BonExchange->getInviteOption();
 
         //Dying Torrent
         $dying = $this->getDyingCount();
@@ -101,14 +190,16 @@ class BonusController extends Controller
             ($dying * 2) + ($legendary * 1.5) + ($old * 1) + ($huge * 0.75) + ($large * 0.50) + ($regular * 0.25)
             + ($participant * 0.25) + ($teamplayer * 0.50) + ($committed * 0.75) + ($mvp * 1) + ($legend * 2);
 
-        return view('bonus.bonus', [
+        $daily = $total * 24;
+        $weekly = $total * 24 * 7;
+        $monthly = $total * 24 * 30;
+        $yearly = $total * 24 * 365;
+        $minute = $total / 60;
+        $second = $minute / 60;
+
+        return view('bonus.index', [
             'users'             => $users,
             'userbon'           => $userbon,
-            'activefl'          => $activefl,
-            'uploadOptions'     => $uploadOptions,
-            'downloadOptions'   => $downloadOptions,
-            'personalFreeleech' => $personalFreeleech,
-            'invite'            => $invite,
             'dying'             => $dying,
             'legendary'         => $legendary,
             'old'               => $old,
@@ -121,7 +212,13 @@ class BonusController extends Controller
             'mvp'               => $mvp,
             'legend'            => $legend,
             'total'             => $total,
+            'daily'             => $daily,
+            'weekly'            => $weekly,
+            'monthly'           => $monthly,
+            'yearly'            => $yearly,
             'username'          => $username,
+            'minute'            => $minute,
+            'second'            => $second,
         ]);
     }
 
@@ -144,18 +241,18 @@ class BonusController extends Controller
             $flag = $this->doItemExchange($user->id, $id);
 
             if (! $flag) {
-                return redirect()->route('bonus', ['username' => $user->username])
+                return redirect()->route('bonus_store')
                     ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
             }
 
             $user->seedbonus -= $itemCost;
             $user->save();
         } else {
-            return redirect()->route('bonus', ['username' => $user->username])
+            return redirect()->route('bonus_store')
                 ->with($this->toastr->error('Bonus Exchange Failed!', 'Whoops!', ['options']));
         }
 
-        return redirect()->route('bonus', ['username' => $user->username])
+        return redirect()->route('bonus_store')
             ->with($this->toastr->success('Bonus Exchange Successful', 'Yay!', ['options']));
     }
 
@@ -229,7 +326,7 @@ class BonusController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function gift(Request $request)
+    public function sendGift(Request $request)
     {
         $user = auth()->user();
 
@@ -239,11 +336,16 @@ class BonusController extends Controller
                 'bonus_message' => 'required|string',
             ]);
 
+        $dest = 'default';
+        if ($request->has('dest') && $request->input('dest') == 'profile') {
+            $dest = 'profile';
+        }
+
         if ($v->passes()) {
             $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
 
             if (! $recipient || $recipient->id == $user->id) {
-                return redirect('/bonus')
+                return redirect('/bonus/store')
                     ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
             }
 
@@ -265,22 +367,50 @@ class BonusController extends Controller
             $transaction->save();
 
             if ($user->id != $recipient->id) {
-                $recipient->notify(new NewBon('gift', $user->username, $transaction));
+                if ($recipient->acceptsNotification(auth()->user(), $recipient, 'bon', 'show_bon_gift')) {
+                    $recipient->notify(new NewBon('gift', $user->username, $transaction));
+                }
             }
 
             $profile_url = hrefProfile($user);
             $recipient_url = hrefProfile($recipient);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : [url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
+                "[url={$profile_url}]{$user->username}[/url] has gifted {$value} BON to [url={$recipient_url}]{$recipient->username}[/url]"
             );
 
-            return redirect()->route('bonus', ['username' => $user->username])
+            if ($dest == 'profile') {
+                return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                    ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
+            }
+
+            return redirect()->route('bonus_gift')
                 ->with($this->toastr->success('Gift Sent', 'Yay!', ['options']));
         } else {
-            return redirect()->route('bonus', ['username' => $user->username])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+            $v = validator($request->all(), [
+                'to_username' => 'required|exists:users,username|max:180',
+            ]);
+
+            if ($v->passes()) {
+                $recipient = User::where('username', 'LIKE', $request->input('to_username'))->first();
+
+                if (! $recipient || $recipient->id == $user->id) {
+                    return redirect('/bonus/gift')
+                        ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
+                }
+
+                if ($dest == 'profile') {
+                    return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
+                        ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
+                }
+
+                return redirect()->route('bonus_gift')
+                    ->with($this->toastr->error('You Must Enter An Amount And Message!', 'Whoops!', ['options']));
+            }
         }
+
+        return redirect('/bonus/gift')
+            ->with($this->toastr->error('Unable to find specified user', 'Whoops!', ['options']));
     }
 
     /**
@@ -327,7 +457,9 @@ class BonusController extends Controller
         $transaction->torrent_id = $torrent->id;
         $transaction->save();
 
-        $uploader->notify(new NewUploadTip('torrent', $user->username, $torrent));
+        if ($uploader->acceptsNotification(auth()->user(), $uploader, 'torrent', 'show_torrent_tip')) {
+            $uploader->notify(new NewUploadTip('torrent', $user->username, $tip_amount, $torrent));
+        }
 
         return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));
@@ -383,7 +515,7 @@ class BonusController extends Controller
         $transaction->post_id = $post->id;
         $transaction->save();
 
-        $poster->notify(new NewPostTip($user->username, $post));
+        $poster->notify(new NewPostTip('forum', $user->username, $tip_amount, $post));
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
             ->with($this->toastr->success('Your Tip Was Successfully Applied!', 'Yay!', ['options']));

@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Bug Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'bug-report'             => 'Reportar problema',
     'bug-report-description' => 'Reportar problema no site',

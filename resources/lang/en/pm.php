@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Private Message Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'create'        => 'Create',
     'delete'        => 'Delete',
@@ -22,7 +18,8 @@ return [
     'reply'         => 'Reply',
     'search'        => 'Search By Subject',
     'select'        => 'Select A User',
-    'send'          => 'Send',
+    'send'          => 'Send PM',
+    'send-to'       => 'Send PM To',
     'sent'          => 'Sent',
     'sent-at'       => 'Sent At',
     'subject'       => 'Subject',

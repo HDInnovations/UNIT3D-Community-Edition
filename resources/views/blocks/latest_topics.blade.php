@@ -8,24 +8,24 @@
             <table class="table table-condensed table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th width="25%" class="torrents-filename">@lang('forum.forum')</th>
-                    <th width="25%" class="torrents-filename">@lang('forum.topic')</th>
-                    <th width="25%">@lang('forum.author')</th>
-                    <th width="25%">@lang('forum.created')</th>
+                    <th width="40%" class="torrents-filename">@lang('forum.forum')</th>
+                    <th width="20%" class="torrents-filename">@lang('forum.topic')</th>
+                    <th width="20%">@lang('forum.author')</th>
+                    <th width="20%">@lang('forum.created')</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($topics as $t)
                     @if ($t->viewable())
                         <tr class="">
-                            <td width="25%">
+                            <td width="40%">
                                 <a href="{{ route('forum_display', ['slug' => $t->forum->slug, 'id' => $t->forum->id]) }}">{{ $t->forum->name }}</a>
                             </td>
-                            <td width="25%">
+                            <td width="20%">
                                 <a href="{{ route('forum_topic', ['slug' => $t->slug, 'id' => $t->id]) }}">{{ $t->name }}</a>
                             </td>
-                            <td width="25%">{{ $t->first_post_user_username }}</td>
-                            <td width="25%">{{ $t->created_at->diffForHumans() }}</td>
+                            <td width="20%">{{ $t->first_post_user_username }}</td>
+                            <td width="20%">{{ $t->created_at->diffForHumans() }}</td>
                         </tr>
                     @endif
                 @endforeach

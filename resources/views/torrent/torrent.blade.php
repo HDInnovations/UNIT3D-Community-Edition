@@ -638,7 +638,7 @@
     </div>
     <!-- /Info-->
 
-    <div class="torrent box container">
+    <div class="torrent box container" id="comments">
         <!-- Comments -->
         <div class="clearfix"></div>
         <div class="row ">
@@ -677,7 +677,7 @@
                                                 @endif
                                                 <strong><a
                                                             href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                            <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
+                                            <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
@@ -701,6 +701,7 @@
             </div>
             <!-- /Comments -->
 
+            <div class="clearfix"></div>
             <div class="col-md-12 home-pagination">
                 <div class="text-center">{{ $comments->links() }}</div>
             </div>

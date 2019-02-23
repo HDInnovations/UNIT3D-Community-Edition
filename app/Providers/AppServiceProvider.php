@@ -13,7 +13,7 @@
 
 namespace App\Providers;
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\View\View;
 use App\Interfaces\WishInterface;
 use App\Repositories\WishRepository;

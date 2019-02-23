@@ -13,7 +13,7 @@
 
 namespace App\Listeners;
 
-use App\User;
+use App\Models\User;
 use App\Repositories\ChatRepository;
 use Gstt\Achievements\Event\Unlocked;
 
@@ -43,7 +43,7 @@ class AchievementUnlocked
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
+                "User [url={$profile_url}]{$user->username}[/url] has unlocked the {$event->progress->details->name} achievement :medal:"
             );
         }
     }

@@ -13,29 +13,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Peer;
-use App\Type;
-use App\User;
-use App\History;
-use App\Torrent;
-use App\Warning;
-use App\Category;
 use Carbon\Carbon;
-use App\TagTorrent;
-use App\TorrentFile;
-use App\FreeleechToken;
-use App\PrivateMessage;
-use App\TorrentRequest;
-use App\BonTransactions;
-use App\FeaturedTorrent;
+use App\Models\Peer;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\History;
+use App\Models\Torrent;
+use App\Models\Warning;
+use App\Models\Category;
 use App\Services\Bencode;
 use App\Helpers\MediaInfo;
-use App\PersonalFreeleech;
+use App\Models\TagTorrent;
+use App\Models\TorrentFile;
 use App\Bots\IRCAnnounceBot;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\FreeleechToken;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Services\TorrentTools;
+use App\Models\BonTransactions;
+use App\Models\FeaturedTorrent;
+use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
@@ -391,7 +391,7 @@ class TorrentController extends Controller
         $usernames = explode(' ', $uploader);
         $uploader = null;
         foreach ($usernames as $username) {
-            $uploader .= '%'.$username.'%';
+            $uploader .= $username.'%';
         }
 
         $keywords = explode(' ', $description);
@@ -425,7 +425,10 @@ class TorrentController extends Controller
         }
 
         if ($collection == 1) {
-            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname')->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')->groupBy('torrents.imdb')->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
+            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname')
+                ->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')
+                ->groupBy('torrents.imdb')
+                ->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
 
             if ($request->has('search') && $request->input('search') != null) {
                 $torrent->where(function ($query) use ($search) {
@@ -439,7 +442,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
@@ -564,7 +567,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('uploader') && $request->input('uploader') != null) {
-                $match = User::whereRaw('(username like ?)', [$uploader])->first();
+                $match = User::whereRaw('(username like ?)', [$uploader])->orderBy('username', 'ASC')->first();
                 if (null === $match) {
                     return ['result' => [], 'count' => 0];
                 }
@@ -839,7 +842,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(5);
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -1094,7 +1097,7 @@ class TorrentController extends Controller
     public function peers($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $peers = Peer::where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
+        $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
 
         return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
@@ -1110,7 +1113,7 @@ class TorrentController extends Controller
     public function history($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
+        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
 
         return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -1285,11 +1288,11 @@ class TorrentController extends Controller
                 // Announce To Shoutbox
                 if ($anon == 0) {
                     $this->chat->systemMessage(
-                        ":robot: [b][color=#fb9776]System[/color][/b] : User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "User [url={$appurl}/".$username.'.'.$user_id.']'.$username."[/url] has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 } else {
                     $this->chat->systemMessage(
-                        ":robot: [b][color=#fb9776]System[/color][/b] : An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
+                        "An anonymous user has uploaded [url={$appurl}/torrents/".$torrent->slug.'.'.$torrent->id.']'.$torrent->name.'[/url] grab it now! :slight_smile:'
                     );
                 }
 
@@ -1412,7 +1415,7 @@ class TorrentController extends Controller
         $profile_url = hrefProfile($user);
 
         $this->chat->systemMessage(
-            ":robot: [b][color=#fb9776]System[/color][/b] : Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
+            "Attention, [url={$torrent_url}]{$torrent->name}[/url] has been bumped to top by [url={$profile_url}]{$user->username}[/url]! It could use more seeds!"
         );
 
         // Announce To IRC
@@ -1514,13 +1517,13 @@ class TorrentController extends Controller
             $torrent->free = '1';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted 100% FreeLeech! Grab It While You Can! :fire:"
             );
         } else {
             $torrent->free = '0';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its 100% FreeLeech! :poop:"
             );
         }
 
@@ -1562,7 +1565,7 @@ class TorrentController extends Controller
             $torrent_url = hrefTorrent($torrent);
             $profile_url = hrefProfile($user);
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been added to the Featured Torrents Slider by [url={$profile_url}]{$user->username}[/url]! Grab It While You Can! :fire:"
             );
 
             // Activity Log
@@ -1596,12 +1599,12 @@ class TorrentController extends Controller
             $torrent->doubleup = '1';
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been granted Double Upload! Grab It While You Can! :fire:"
             );
         } else {
             $torrent->doubleup = '0';
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
+                "Ladies and Gents, [url={$torrent_url}]{$torrent->name}[/url] has been revoked of its Double Upload! :poop:"
             );
         }
         $torrent->save();
@@ -1638,7 +1641,7 @@ class TorrentController extends Controller
             $profile_url = hrefProfile($user);
 
             $this->chat->systemMessage(
-                ":robot: [b][color=#fb9776]System[/color][/b] : Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
+                "Ladies and Gents, a reseed request was just placed on [url={$torrent_url}]{$torrent->name}[/url] can you help out :question:"
             );
 
             // Activity Log

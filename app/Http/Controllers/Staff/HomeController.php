@@ -13,12 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Peer;
-use App\User;
-use App\Group;
-use App\Client;
-use App\Report;
-use App\Torrent;
+use App\Models\Peer;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Client;
+use App\Models\Report;
+use App\Models\Torrent;
+use App\Models\Application;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use Spatie\SslCertificate\SslCertificate;
@@ -75,6 +76,9 @@ class HomeController extends Controller
         $avg = $sys->avg();
         $basic = $sys->basic();
 
+        // Pending Applications Count
+        $app_count = Application::pending()->count();
+
         return view('Staff.home.index', [
             'num_user'           => $num_user,
             'banned'             => $banned,
@@ -97,6 +101,7 @@ class HomeController extends Controller
             'disk'               => $disk,
             'avg'                => $avg,
             'basic'              => $basic,
+            'app_count'          => $app_count,
         ]);
     }
 }

@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Torrent;
+use App\Models\Torrent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -63,8 +63,8 @@ class NewUpload extends Notification implements ShouldQueue
         $appurl = config('app.url');
 
         return [
-            'title' => 'A Member That You Follow Has A New Upload',
-            'body'  => "{$this->torrent->user->username}, whom you are following has uploaded {$this->torrent->name}",
+            'title' => $this->torrent->user->username.' Has Uploaded A New Torrent',
+            'body'  => "{$this->torrent->user->username}, whom you are following has uploaded Torrent {$this->torrent->name}",
             'url'   => "/torrents/{$this->torrent->slug}.{$this->torrent->id}",
         ];
     }
