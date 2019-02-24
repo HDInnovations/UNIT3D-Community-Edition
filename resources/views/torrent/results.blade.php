@@ -146,7 +146,7 @@
                             </span>
                         @endif
 
-                        @if ($torrent->category->meta == 1)
+                        @if (! $torrent->category->no_meta)
                             @if ($user->ratings == 1)
                             <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">

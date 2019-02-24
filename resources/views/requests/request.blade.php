@@ -64,7 +64,7 @@
                         </div>
                     </div>
                 </div>
-                @if ($torrentRequest->category->meta == 1)
+                @if (! $torrentRequest->category->no_meta)
                     <div class="movie-wrapper">
                         <div class="movie-backdrop" style="background-image: url({{ $meta->backdrop ?? 'https://via.placeholder.com/1400x800' }});">
                             <div class="tags">
