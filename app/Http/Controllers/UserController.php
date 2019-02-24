@@ -33,7 +33,7 @@ use App\Models\Warning;
 use App\Models\Bookmark;
 use App\Models\Graveyard;
 use App\Services\Bencode;
-use App\UserNotification;
+use App\Models\UserNotification;
 use App\Models\UserPrivacy;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
