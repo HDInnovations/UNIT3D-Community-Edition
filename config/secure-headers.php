@@ -447,7 +447,7 @@ return [
 
         'style-src' => [
             'allow' => [
-                'https://fonts.googleapis.com/'
+                'https://fonts.googleapis.com/',
             ],
 
             'hashes' => [
