@@ -1,6 +1,6 @@
 <?php
 
-use App\ChatStatus;
+use App\Models\ChatStatus;
 use Illuminate\Database\Seeder;
 
 class ChatStatusSeeder extends Seeder
