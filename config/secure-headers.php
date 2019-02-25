@@ -21,7 +21,7 @@ return [
      * Note: when server is empty string, it will not add to response header
      */
 
-    'server' => '',
+    'server' => 'Unknown',
 
     /*
      * X-Content-Type-Options
@@ -113,7 +113,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => false,
+        'enable' => true,
 
         'max-age' => 15552000,
 
@@ -176,7 +176,31 @@ return [
          * the priority is 'none' > '*' > 'self allow'.
          */
 
+        'autoplay' => [
+            'none' => false,
+
+            '*' => false,
+
+            'self' => true,
+
+            'allow' => [
+                // 'url',
+            ],
+        ],
+
         'camera' => [
+            'none' => false,
+
+            '*' => false,
+
+            'self' => true,
+
+            'allow' => [
+                // 'url',
+            ],
+        ],
+
+        'encrypted-media' => [
             'none' => false,
 
             '*' => false,
@@ -320,6 +344,18 @@ return [
             ],
         ],
 
+        'sync-xhr' => [
+            'none' => false,
+
+            '*' => true,
+
+            'self' => false,
+
+            'allow' => [
+                // 'url',
+            ],
+        ],
+
         'usb' => [
             'none' => false,
 
@@ -364,7 +400,7 @@ return [
 
         'block-all-mixed-content' => false,
 
-        'upgrade-insecure-requests' => false,
+        'upgrade-insecure-requests' => true,
 
         /*
          * Please references script-src directive for available values, only `script-src` and `style-src`
@@ -375,7 +411,8 @@ return [
 
         'script-src' => [
             'allow' => [
-                // 'url',
+                'https://www.google.com/recaptcha/api.js',
+                'https://www.gstatic.com/recaptcha/api2/v1550471573786/recaptcha__en.js',
             ],
 
             'hashes' => [
@@ -392,22 +429,25 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
-            'unsafe-inline' => false,
+            'unsafe-inline' => true,
 
-            'unsafe-eval' => false,
+            'unsafe-eval' => true,
 
             'strict-dynamic' => false,
 
             'unsafe-hashed-attributes' => false,
+
+            // https://www.chromestatus.com/feature/5792234276388864
+            'report-sample' => true,
 
             'add-generated-nonce' => false,
         ],
 
         'style-src' => [
             'allow' => [
-                //
+                'https://fonts.googleapis.com/'
             ],
 
             'hashes' => [
@@ -424,15 +464,19 @@ return [
                 // 'https:',
             ],
 
-            'self' => false,
+            'self' => true,
 
-            'unsafe-inline' => false,
+            'unsafe-inline' => true,
+
+            'report-sample' => true,
 
             'add-generated-nonce' => false,
         ],
 
         'img-src' => [
-            //
+            'https://i.imgur.com',
+            'https://image.tmdb.org',
+            'https://via.placeholder.com',
         ],
 
         'default-src' => [
@@ -444,11 +488,12 @@ return [
         ],
 
         'connect-src' => [
-            //
+            'https://unit3d.org:8443/socket.io/',
+            'wss://unit3d.org:8443/socket.io/',
         ],
 
         'font-src' => [
-            //
+            'https://fonts.gstatic.com',
         ],
 
         'form-action' => [
@@ -460,7 +505,7 @@ return [
         ],
 
         'frame-src' => [
-            //
+            'https://www.youtube.com',
         ],
 
         'manifest-src' => [
