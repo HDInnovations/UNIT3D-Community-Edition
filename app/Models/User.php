@@ -43,7 +43,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $dates = ['last_login', 'deleted_at'];
+    protected $dates = [
+        'last_login'
+    ];
 
     /**
      * Belongs To A Group.

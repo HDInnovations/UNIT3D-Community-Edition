@@ -25,7 +25,7 @@ class Warning extends Model
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    
 
     /**
      * Belongs To A Torrent.
