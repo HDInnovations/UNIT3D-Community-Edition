@@ -50,7 +50,6 @@ class Rss extends Model
      *
      * @var array
      */
-    
 
     /**
      * Belongs To A User.
