@@ -31,7 +31,7 @@ class StatsController extends Controller
     {
         $this->expiresAt = Carbon::now()->addMinutes(60);
     }
-    
+
     /**
      * Show Extra-Stats Index.
      *
