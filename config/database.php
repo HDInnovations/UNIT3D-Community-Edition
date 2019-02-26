@@ -125,40 +125,36 @@ return [
 
         'client' => env('REDIS_CLIENT', 'predis'),
 
-        'options' => [
-            'cluster' => env('REDIS_CLUSTER', 'predis'),
+        'cache' => [
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 0,
+            'read_write_timeout' => -1,
         ],
 
-        'clusters' => [
-            'cache' => [
-                [
-                    'host'               => env('REDIS_HOST', '127.0.0.1'),
-                    'password'           => env('REDIS_PASSWORD', null),
-                    'port'               => env('REDIS_PORT', 6379),
-                    'database'           => 0,
-                    'read_write_timeout' => -1,
-                ],
+        'session' => [
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 1,
+            'read_write_timeout' => -1,
         ],
 
-            'session' => [
-                [
-                    'host'               => env('REDIS_HOST', '127.0.0.1'),
-                    'password'           => env('REDIS_PASSWORD', null),
-                    'port'               => env('REDIS_PORT', 6379),
-                    'database'           => 1,
-                    'read_write_timeout' => -1,
-                ],
+        'job' => [
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 2,
+            'read_write_timeout' => -1,
         ],
 
-            'job' => [
-                [
-                    'host'               => env('REDIS_HOST', '127.0.0.1'),
-                    'password'           => env('REDIS_PASSWORD', null),
-                    'port'               => env('REDIS_PORT', 6379),
-                    'database'           => 2,
-                    'read_write_timeout' => -1,
-                ],
-            ],
+        'broadcast' => [
+            'host'               => env('REDIS_HOST', '127.0.0.1'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 3,
+            'read_write_timeout' => -1,
         ],
 
     ],
