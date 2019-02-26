@@ -61,7 +61,7 @@ class AutoNerdStat extends Command
             $expiresAt = Carbon::now()->addMinutes(60);
 
             // Current Timestamp
-            $current = today();
+            $current = Carbon::now();
 
             // Site Birthday
             $bday = config('other.birthdate');

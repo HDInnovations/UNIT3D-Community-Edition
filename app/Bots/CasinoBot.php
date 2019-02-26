@@ -46,7 +46,7 @@ class CasinoBot
         $this->chat = $chat;
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
-        $this->current = today();
+        $this->current = Carbon::now();
     }
 
     /**
