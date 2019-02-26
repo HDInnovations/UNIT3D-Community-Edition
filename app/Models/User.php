@@ -44,7 +44,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = [
-        'last_login'
+        'last_login',
     ];
 
     /**

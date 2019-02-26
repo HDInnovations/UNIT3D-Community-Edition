@@ -25,7 +25,6 @@ class Warning extends Model
      *
      * @var array
      */
-    
 
     /**
      * Belongs To A Torrent.
