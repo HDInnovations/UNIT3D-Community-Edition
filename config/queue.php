@@ -12,6 +12,7 @@
  */
 
  return [
+
      /*
      |--------------------------------------------------------------------------
      | Default Queue Driver
@@ -24,7 +25,9 @@
      | Supported: "sync", "database", "beanstalkd", "sqs", "redis", "null"
      |
      */
+
      'default' => env('QUEUE_CONNECTION', 'sync'),
+
      /*
      |--------------------------------------------------------------------------
      | Queue Connections
@@ -35,37 +38,47 @@
      | for each back-end shipped with Laravel. You are free to add more.
      |
      */
+
      'connections' => [
+
          'sync' => [
              'driver' => 'sync',
          ],
+
          'database' => [
              'driver'      => 'database',
              'table'       => 'jobs',
              'queue'       => 'default',
              'retry_after' => 90,
          ],
+
          'beanstalkd' => [
              'driver'      => 'beanstalkd',
              'host'        => 'localhost',
              'queue'       => 'default',
              'retry_after' => 90,
+             'block_for' => 0,
          ],
+
          'sqs' => [
              'driver' => 'sqs',
-             'key'    => 'your-public-key',
-             'secret' => 'your-secret-key',
-             'prefix' => 'https://sqs.us-east-1.amazonaws.com/your-account-id',
-             'queue'  => 'your-queue-name',
-             'region' => 'us-east-1',
+             'key' => env('AWS_ACCESS_KEY_ID'),
+             'secret' => env('AWS_SECRET_ACCESS_KEY'),
+             'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
+             'queue' => env('SQS_QUEUE', 'your-queue-name'),
+             'region' => env('AWS_REGION', 'us-east-1'),
          ],
+
          'redis' => [
              'driver'      => 'redis',
              'connection'  => 'job',
              'queue'       => 'default',
              'retry_after' => 90,
+             'block_for' => null,
          ],
+
      ],
+
      /*
      |--------------------------------------------------------------------------
      | Failed Queue Jobs
@@ -76,8 +89,10 @@
      | have failed. You may change them to any database / table you wish.
      |
      */
+
      'failed' => [
          'database' => env('DB_CONNECTION', 'mysql'),
          'table'    => 'failed_jobs',
      ],
+
  ];
