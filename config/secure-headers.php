@@ -398,7 +398,7 @@ return [
 
         'report-uri' => null,
 
-        'block-all-mixed-content' => false,
+        'block-all-mixed-content' => true,
 
         'upgrade-insecure-requests' => true,
 
@@ -431,9 +431,9 @@ return [
 
             'self' => true,
 
-            'unsafe-inline' => true,
+            'unsafe-inline' => false,
 
-            'unsafe-eval' => true,
+            'unsafe-eval' => false,
 
             'strict-dynamic' => false,
 
@@ -474,13 +474,15 @@ return [
         ],
 
         'img-src' => [
-            'https://i.imgur.com',
-            'https://image.tmdb.org',
-            'https://via.placeholder.com',
+            'schemes' => [
+                'https:',
+            ],
+            'self' => true,
+            'data' => true,
         ],
 
         'default-src' => [
-            //
+            'none'
         ],
 
         'base-uri' => [
@@ -488,16 +490,24 @@ return [
         ],
 
         'connect-src' => [
-            'https://unit3d.org:8443/socket.io/',
-            'wss://unit3d.org:8443/socket.io/',
+            'allow' => [
+                'https://unit3d.org:8443/socket.io/',
+                'wss://unit3d.org:8443/socket.io/',
+            ],
+            'self' => true,
         ],
 
         'font-src' => [
-            'https://fonts.gstatic.com',
+            'schemes' => [
+                'https:',
+                'data:',
+            ],
+            'self' => true,
+            'data' => true,
         ],
 
         'form-action' => [
-            //
+            'self' => true,
         ],
 
         'frame-ancestors' => [
@@ -505,7 +515,10 @@ return [
         ],
 
         'frame-src' => [
-            'https://www.youtube.com',
+            'schemes' => [
+                'https:',
+            ],
+            'self' => true,
         ],
 
         'manifest-src' => [
@@ -513,7 +526,7 @@ return [
         ],
 
         'media-src' => [
-            //
+            'self' => true,
         ],
 
         'object-src' => [
