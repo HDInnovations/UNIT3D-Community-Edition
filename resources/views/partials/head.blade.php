@@ -14,34 +14,34 @@
 <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-<link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}" integrity="{{ Sri::hash('css/app.css') }}" crossorigin="anonymous">
 
 @if (auth()->user()->style == 1)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 2)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-blue.css') }}" integrity="{{ Sri::hash('css/themes/dark-blue.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 3)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-green.css') }}" integrity="{{ Sri::hash('css/themes/dark-green.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 4)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-pink.css') }}" integrity="{{ Sri::hash('css/themes/dark-pink.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 5)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-purple.css') }}" integrity="{{ Sri::hash('css/themes/dark-purple.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 6)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-red.css') }}" integrity="{{ Sri::hash('css/themes/dark-red.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 7)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-teal.css') }}" integrity="{{ Sri::hash('css/themes/dark-teal.css') }}" crossorigin="anonymous">
 @elseif (auth()->user()->style == 8)
-    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/themes/galactic.css') }}" integrity="{{ Sri::hash('css/themes/galactic.css') }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ mix('css/themes/dark-yellow.css') }}" integrity="{{ Sri::hash('css/themes/dark-yellow.css') }}" crossorigin="anonymous">
 @endif
 
 @if (isset(auth()->user()->custom_css))
-    <link rel="stylesheet" href="{{auth()->user()->custom_css}}"/>
+    <link rel="stylesheet" href="{{ auth()->user()->custom_css }}" integrity="{{ Sri::hash(auth()->user()->custom_css) }}" crossorigin="anonymous">
 @endif
 @yield('stylesheets')
