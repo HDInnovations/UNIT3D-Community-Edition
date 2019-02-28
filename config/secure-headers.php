@@ -482,7 +482,7 @@ return [
         ],
 
         'default-src' => [
-            'none'
+            'none',
         ],
 
         'base-uri' => [
