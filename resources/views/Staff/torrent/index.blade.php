@@ -57,8 +57,8 @@
                                         <h4 class="modal-title" id="myModalLabel">Delete Torrent: {{ $t->name }}</h4>
                                     </div>
                                     <div class="modal-body">
+                                        <form method="POST" action="{{ route('delete') }}">
                                         <div class="form-group">
-                                            <form method="POST" action="{{ route('delete') }}">
                                             @csrf
                                             <input id="type" type="hidden" name="type" value="Torrent">
                                             <input id="id" type="hidden" name="id" value="{{ $t->id }}">
@@ -67,6 +67,7 @@
                                             <div class="col-sm-10">
                                                 <label id="title" name="title" type="hidden" value="{{ $t->name }}">
                                                     <p class="form-control-static">{{ $t->name }}</p>
+                                                </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -82,13 +83,13 @@
                                                 <input class="btn btn-danger" type="submit" value="Delete">
                                             </div>
                                         </div>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">
                                             Close
                                         </button>
                                     </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
