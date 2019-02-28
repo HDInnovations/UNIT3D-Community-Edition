@@ -42,6 +42,7 @@
 @endif
 
 @if (isset(auth()->user()->custom_css))
-    <link rel="stylesheet" href="{{ auth()->user()->custom_css }}" integrity="{{ Sri::hash(auth()->user()->custom_css) }}" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ auth()->user()->custom_css }}">
 @endif
+
 @yield('stylesheets')
