@@ -15,6 +15,7 @@
         "brian2694/laravel-toastr": "^1.0",
         "christofferok/laravel-emojione": "4.0",
         "coderello/laravel-proximage": "^0.5.0",
+        "elhebert/laravel-sri": "^1.5",
         "emojione/emojione": "^4.0.0",
         "fideloper/proxy": "^4.0",
         "google/recaptcha": "~1.1",
