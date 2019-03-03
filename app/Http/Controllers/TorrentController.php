@@ -1207,7 +1207,7 @@ class TorrentController extends Controller
 
         // Validation
         $v = validator($torrent->toArray(), [
-            'name'        => 'required',
+            'name'        => 'required|unique:torrents',
             'slug'        => 'required',
             'description' => 'required',
             'info_hash'   => 'required|unique:torrents',
