@@ -189,6 +189,7 @@ class TmdbClient extends Client implements MovieTvInterface
             ) : 'https://via.placeholder.com/1400x800',
             'tmdbRating' => $movie['vote_average'],
             'tmdbVotes'  => $movie['vote_count'],
+            'recommendations' => $movie['recommendations'],
         ]);
     }
 
