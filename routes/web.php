@@ -234,7 +234,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // Doesn't follow naming convention but prepping for switch to object.dot
 
-        Route::get('/torrents/similar/{imdb}', 'TorrentController@similar')->name('torrents.similar');
+        Route::get('/torrents/similar/{tmdb}', 'TorrentController@similar')->name('torrents.similar');
 
         // Achievements
         Route::get('/achievements', 'AchievementsController@index')->name('achievements');

@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('torrents.similar', ['imdb' => $torrents->first()->imdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('torrents.similar', ['tmdb' => $torrents->first()->tmdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.similar')</span>
         </a>
     </li>
@@ -24,9 +24,9 @@
 @section('content')
     @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
     @if ($torrents->first()->category_id == 2)
-        @php $movie = $client->scrape('tv', 'tt'.$imdb); @endphp
+        @php $movie = $client->scrape('tv', null, $tmdb); @endphp
     @else
-        @php $movie = $client->scrape('movie', 'tt'.$imdb); @endphp
+        @php $movie = $client->scrape('movie', null, $tmdb); @endphp
     @endif
     <div class="container-fluid">
         <div class="block">
@@ -60,7 +60,7 @@
                         <p class="movie-plot">{{ $movie->plot }}</p>
                         <strong>ID:</strong>
                         <span class="badge-user"><a
-                                    href="http://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
+                                    href="https://www.imdb.com/title/{{ $movie->imdb }}">{{ $movie->imdb }}</a></span>
                         @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
                             <span class="badge-user"><a
                                         href="https://www.themoviedb.org/tv/{{ $movie->tmdb }}">{{ $movie->tmdb }}</a></span>
@@ -196,7 +196,7 @@
 
                                     @if ($torrent->category->meta == 1)
                                         @if ($user->ratings == 1)
-                                            <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
