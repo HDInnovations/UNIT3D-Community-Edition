@@ -12,7 +12,7 @@
     <div class="separator"></div>
 
     <p class="text-center">
-        The server, while acting as a gateway or proxy, received an invalid response from the
-        upstream server it accessed in attempting to fulfill the request.
-    </p>
+    {{ $exception->getMessage() ?: 'The server, while acting as a gateway or proxy, received an invalid response from the
+    upstream server it accessed in attempting to fulfill the request.' }}
+</p>
 @stop

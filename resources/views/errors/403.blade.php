@@ -11,5 +11,5 @@
 
     <div class="separator"></div>
 
-    <p class="text-center">You do not have permission to perform this action!</p>
+    <p class="text-center"> {{ $exception->getMessage() ?: 'You do not have permission to perform this action!' }}</p>
 @stop

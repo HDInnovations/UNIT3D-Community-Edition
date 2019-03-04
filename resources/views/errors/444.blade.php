@@ -11,5 +11,5 @@
 
     <div class="separator"></div>
 
-    <p class="text-center">CONNECTION CLOSED WITHOUT RESPONSE.</p>
+    <p class="text-center">{{ $exception->getMessage() ?: 'CONNECTION CLOSED WITHOUT RESPONSE.' }}</p>
 @stop
