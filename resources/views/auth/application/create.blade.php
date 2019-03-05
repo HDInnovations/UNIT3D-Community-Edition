@@ -126,7 +126,7 @@
 <br>
 
 <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
-<script type="text/javascript">
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   var images = 2;
 
   $('#addImg').on('click', function (e) {
@@ -143,7 +143,7 @@
   });
 </script>
 
-<script type="text/javascript">
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   var links = 2;
 
   $('#addLink').on('click', function (e) {

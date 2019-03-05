@@ -265,7 +265,7 @@
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).ready(function () {
             $('.user-select-placeholder-single').select2()
         })

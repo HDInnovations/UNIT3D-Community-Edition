@@ -55,7 +55,7 @@
 
 
 @section('javascripts')
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var options = 2;
 
         $('#add').on('click', function (e) {

@@ -153,7 +153,7 @@
     </div>
 @endsection
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(window).on("load", function() { loadTab(); });
         function loadTab() {
             if(window.location.hash && window.location.hash == "#password") {

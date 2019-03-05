@@ -33,7 +33,7 @@
                 crossorigin="anonymous"></script>
 
         @if (config('other.freeleech') == true || config('other.invite-only') == false || config('other.doubleup') == true)
-            <script type="text/javascript">
+            <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
                 CountDownTimer('{{config('other.freeleech_until')}}', 'promotions');
 
                 function CountDownTimer(dt, id) {
@@ -80,7 +80,7 @@
         @endif
 
         @if (Session::has('achievement'))
-            <script type="text/javascript">
+            <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
                 swal({
                     title: '@lang('common.achievement-title')!',
                     text: '@lang('common.unlocked-achievement', ['achievement' => Session::get('achievement')])',

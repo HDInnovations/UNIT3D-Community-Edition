@@ -115,7 +115,9 @@
 </div>
 
 <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
+@if (config('captcha.enabled') == true)
 <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
+@endif
 {!! Toastr::message() !!}
 
 </body>

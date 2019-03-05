@@ -55,13 +55,13 @@
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('.js-example-basic-single').select2()
       })
     </script>
 
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#message').wysibb({});
         emoji.textcomplete()
