@@ -91,7 +91,7 @@
         </div>
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
     .panel-fullscreen {
         z-index: 9999;
         position: fixed;
