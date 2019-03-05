@@ -391,7 +391,7 @@ return [
      * Note: custom-csp does not support report-only.
      */
 
-    'custom-csp' => '',
+    'custom-csp' => null,
 
     'csp' => [
         'report-only' => false,
@@ -413,6 +413,9 @@ return [
             'allow' => [
                 'https://www.google.com/recaptcha/api.js',
                 'https://www.gstatic.com/recaptcha/api2/v1550471573786/recaptcha__en.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.15.35/js/bootstrap-datetimepicker.min.js',
             ],
 
             'hashes' => [
@@ -433,21 +436,22 @@ return [
 
             'unsafe-inline' => false,
 
-            'unsafe-eval' => false,
+            'unsafe-eval' => true,
 
             'strict-dynamic' => false,
 
             'unsafe-hashed-attributes' => false,
 
             // https://www.chromestatus.com/feature/5792234276388864
-            'report-sample' => true,
+            // 'report-sample' => true,
 
-            'add-generated-nonce' => false,
+            'add-generated-nonce' => true,
         ],
 
         'style-src' => [
             'allow' => [
                 'https://fonts.googleapis.com/',
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.15.35/css/bootstrap-datetimepicker.min.css',
             ],
 
             'hashes' => [
@@ -468,7 +472,8 @@ return [
 
             'unsafe-inline' => true,
 
-            'report-sample' => true,
+            // https://www.chromestatus.com/feature/5792234276388864
+            // 'report-sample' => true,
 
             'add-generated-nonce' => false,
         ],
@@ -521,9 +526,9 @@ return [
             'self' => true,
         ],
 
-        'manifest-src' => [
+        /*'manifest-src' => [
             //
-        ],
+        ],*/
 
         'media-src' => [
             'self' => true,
@@ -533,9 +538,9 @@ return [
             //
         ],
 
-        'worker-src' => [
+        /*'worker-src' => [
             //
-        ],
+        ],*/
 
         'plugin-types' => [
             // 'application/x-shockwave-flash',
