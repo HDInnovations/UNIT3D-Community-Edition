@@ -1,12 +1,14 @@
 @extends('log-viewer::bootstrap-3._master')
 
 @section('content')
+    <div class="container-fluid">
+        <div class="block">
     <h1 class="page-header">Log [{{ $log->date }}]</h1>
 
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
-                <div class="panel-heading"><i class="fa fa-fw fa-flag"></i> Levels</div>
+                <div class="panel-heading"><i class="{{ config('other.font-awesome') }} fa-fw fa-flag"></i> Levels</div>
                 <ul class="list-group">
                     @foreach ($log->menu() as $levelKey => $item)
                         @if ($item['count'] === 0)
@@ -38,10 +40,10 @@
 
                     <div class="group-btns pull-right">
                         <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
-                            <i class="fa fa-download"></i> DOWNLOAD
+                            <i class="{{ config('other.font-awesome') }} fa-download"></i> DOWNLOAD
                         </a>
                         <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
-                            <i class="fa fa-trash-o"></i> DELETE
+                            <i class="{{ config('other.font-awesome') }} fa-trash"></i> DELETE
                         </a>
                     </div>
                 </div>
@@ -138,7 +140,7 @@
                                     <td class="text-right">
                                         @if ($entry->hasStack())
                                             <a class="btn btn-xs btn-default" role="button" data-toggle="collapse" href="#log-stack-{{ $key }}" aria-expanded="false" aria-controls="log-stack-{{ $key }}">
-                                                <i class="fa fa-toggle-on"></i> Stack
+                                                <i class="{{ config('other.font-awesome') }} fa-toggle-on"></i> Stack
                                             </a>
                                         @endif
                                     </td>
@@ -175,6 +177,8 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
 @endsection
 
 @section('modals')
@@ -206,7 +210,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
                 deleteLogForm  = $('form#delete-log-form'),
