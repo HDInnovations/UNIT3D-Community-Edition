@@ -122,17 +122,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <a href="{{ route('logout') }}">
                             <i class="{{ config('other.font-awesome') }} fa-sign-out"></i> @lang('auth.logout')
                         </a>
-
-                        <form id="logout-form"
-                              action="{{ route('logout') }}"
-                              method="POST"
-                              style="display: none;">
-                            @csrf
-                        </form>
                     </li>
                 </ul>
             </li>

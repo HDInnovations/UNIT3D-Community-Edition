@@ -87,7 +87,7 @@ Route::group(['middleware' => 'language'], function () {
 
         // General
         Route::get('/', 'HomeController@home')->name('home');
-        Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+        Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
         // Article
         Route::get('/articles', 'ArticleController@articles')->name('articles');
