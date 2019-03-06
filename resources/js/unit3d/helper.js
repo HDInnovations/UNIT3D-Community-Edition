@@ -1098,10 +1098,12 @@ $(document).mousedown(function(){
     }
     audioLoaded = 1;
 });
-document.querySelector("#add").addEventListener("click", () => {
-    var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo"></textarea></div>';
-    document.querySelector(".parser").innerHTML = optionHTML;
-});
+if(document.getElementById('add')) {
+    document.querySelector("#add").addEventListener("click", () => {
+        var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo"></textarea></div>';
+        document.querySelector(".parser").innerHTML = optionHTML;
+    });
+}
 if(document.getElementById('torrent')) {
     document.querySelector("#torrent").addEventListener("change", () => {
         uploadExtension.hook();
