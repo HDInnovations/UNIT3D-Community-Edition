@@ -30,44 +30,41 @@ class uploadExtensionBuilder {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');
         if (!name.value) {
-            let fileEndings = ['.mkv.torrent', '.torrent'];
-            let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
-            let separators = ['-', ' ', '.'];
-            let value = torrent.value.split('\\').pop().split('/').pop();
+            let fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
+            let allowed = ['1.0', '2.0', '5.1', '6.1', '7.1', 'H.264'];
+            var newValue = '';
+            var preValue = torrent.value;
             fileEndings.forEach(function (e) {
-                if (value.endsWith(e)) {
-                    value = value.substr(0, value.length - e.length)
-                }
+                preValue = preValue.replace(e, '');
             });
-            value = value.replace(/\./g, ' ');
-            allowed.forEach(function (a) {
-                var search = a.replace(/\./g, ' ');
-                let replaceIndexes = [];
-                let pos = value.indexOf(search);
-                while (pos !== -1) {
-                    let start = pos > 0 ? value[pos - 1] : ' ';
-                    let end = pos + search.length < value.length ? value[pos + search.length] : ' ';
-                    if (separators.includes(start) && separators.includes(end)) {
-                        replaceIndexes.push(pos)
+            var recursion = preValue.split('\\').pop().split('/').pop();
+            for(var i=0; i<recursion.length; i++) {
+                var prev = false;
+                var next = false;
+                if(recursion[i] == '.') {
+                    var joined = false;
+                    for(var j=0; j<allowed.length; j++) {
+                        var tmp = allowed[j].split('.');
+                        if(tmp[0] == 'H') {
+                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == '2' && recursion[i + 2] != undefined && recursion[i + 2] == '6' && recursion[i + 3] != undefined && recursion[i + 3] =='4') {
+                                joined = true;
+                            }
+                        } else {
+                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == tmp[1]) {
+                                joined = true;
+                            }
+                        }
                     }
-                    pos = value.indexOf(search, pos + search.length)
-                }
-                var newValue = '';
-                var ignore = 0;
-                for (let i = 0; i < value.length; ++i) {
-                    if (ignore > 0) {
-                        --ignore
-                    } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
-                        replaceIndexes.shift();
-                        newValue += a;
-                        ignore = a.length - 1
-                    } else {
-                        newValue += value[i]
+                    if(joined == false) { newValue=newValue+' '; }
+                    else {
+                        newValue = newValue+'.';
                     }
                 }
-                value = newValue
-            });
-            name.value = value
+                else {
+                    newValue = newValue + recursion[i];
+                }
+            }
+            name.value = newValue;
         }
     }
 }
