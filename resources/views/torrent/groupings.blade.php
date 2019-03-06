@@ -251,7 +251,7 @@
                                         <div class="card_alt">
                                             <div class="body_poster">
                                                 @if($t->movie && $t->movie->poster)
-                                                    <img src="{{ $t->movie->poster }}">
+                                                    <img src="{{ $t->movie->poster }}" class="show-poster" data-image='<img src="{{ $t->movie->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
                                                 @else
                                                     <img src="https://via.placeholder.com/600x900" />
                                                 @endif
