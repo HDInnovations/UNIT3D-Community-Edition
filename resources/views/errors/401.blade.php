@@ -11,5 +11,5 @@
 
     <div class="separator"></div>
 
-    <p class="text-center">Error code response for missing or invalid authentication token.</p>
+    <p class="text-center">{{ $exception->getMessage() ?: 'Error code response for missing or invalid authentication token.' }}</p>
 @stop

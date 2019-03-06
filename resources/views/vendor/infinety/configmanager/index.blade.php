@@ -114,7 +114,7 @@
 @endsection
 
 @section('scripts')
-	<script type="text/javascript">
+	<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
 		jQuery(document).ready(function(){
 
 			$('.file-select').on('change', function(){

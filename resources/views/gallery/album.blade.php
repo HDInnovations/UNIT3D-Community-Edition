@@ -82,7 +82,7 @@
 @endsection
 
 @section('javascripts')
-<script>
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   $('.show-image').click(function(e) {
     e.preventDefault();
 

@@ -168,21 +168,21 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#upload-form-description').wysibb({});
         emoji.textcomplete()
       })
     </script>
 
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       document.querySelector("#add").addEventListener("click", () => {
         var optionHTML = '<div class="form-group"><label for="mediainfo">@lang('torrent.media-info-parser')</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="@lang('torrent.media-info-paste')"></textarea></div>';
         document.querySelector(".parser").innerHTML = optionHTML;
       });
     </script>
 
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       function updateTorrentName () {
         let name = document.querySelector('#title');
         let torrent = document.querySelector('#torrent');

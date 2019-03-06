@@ -36,7 +36,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(function() {
             new Chart($('canvas#stats-doughnut-chart'), {
                 type: 'doughnut',

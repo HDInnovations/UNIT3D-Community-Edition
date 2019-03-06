@@ -42,13 +42,13 @@
                         @endforeach
                         <td class="text-right">
                             <a href="{{ route('log-viewer::logs.show', [$date]) }}" class="btn btn-xs btn-info">
-                                <i class="fa fa-search"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-search"></i>
                             </a>
                             <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-xs btn-success">
-                                <i class="fa fa-download"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-download"></i>
                             </a>
                             <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-log-date="{{ $date }}">
-                                <i class="fa fa-trash-o"></i>
+                                <i class="{{ config('other.font-awesome') }} fa-trash"></i>
                             </a>
                         </td>
                     </tr>
@@ -96,7 +96,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
                 deleteLogForm  = $('form#delete-log-form'),

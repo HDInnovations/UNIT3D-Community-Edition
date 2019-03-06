@@ -86,6 +86,13 @@ Traffic: Unlimited
 </pre>
 
 ## <a name="installation"></a> :computer: Installation
+```
+NOTE: If you are running UNIT3D on a non HTTPS instance you MUST change the following configs.
+
+config/session.php  <-- HTTPS Only Cookies must be set to false
+config/secure-headers.php   <-- HTTP Strict Transport Security must be set to false
+config/secure-headers.php   <-- Content Security Policy must be disabled
+```
 
 ### <a name="auto-install"></a> Automated Installer
 **A UNIT3D Installer has been released by Poppabear.**

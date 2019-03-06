@@ -67,7 +67,7 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         jQuery(document).ready(function ($) {
 
             // capture the Create new backup button

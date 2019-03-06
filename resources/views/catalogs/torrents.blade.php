@@ -119,7 +119,7 @@
                                         @endif
 
                                         @if ($user->ratings == 1)
-                                            <a href="http://www.imdb.com/title/tt{{ $t->imdb }}">
+                                            <a href="https://www.imdb.com/title/tt{{ $t->imdb }}">
               <span class="badge-extra text-bold">
                 <span class="text-gold movie-rating-stars">
                   <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip" data-original-title="View More"></i>
