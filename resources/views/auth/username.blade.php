@@ -13,13 +13,11 @@
         <meta property="og:image" content="{{ url('/img/rlm.png') }}">
         <meta property="og:url" content="{{ url('/') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-@show
-<!-- /Meta -->
-
+    @show
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" integrity="{{ Sri::hash('css/main/login.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
@@ -84,7 +82,7 @@
 
     </div>
 </div>
-<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
 {!! Toastr::message() !!}
 </body>
 </html>

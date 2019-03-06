@@ -36,5 +36,8 @@
     "vue": "^2.5.22",
     "vue-countup-v2": "^2.0.0",
     "vue-template-compiler": "^2.5.22"
+  },
+  "dependencies": {
+    "laravel-mix-sri": "0.0.4"
   }
 }

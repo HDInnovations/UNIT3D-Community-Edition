@@ -46,7 +46,7 @@ return [
      |  Theme
      | -----------------------------------------------------------------
      |  Supported themes :
-     |    'bootstrap-3', 'bootstrap-4'
+     |    'bootstrap-3'
      |  Make your own theme by adding a folder to the views directory and specifying it here.
      */
 

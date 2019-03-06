@@ -42,7 +42,7 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#message').wysibb({});
         emoji.textcomplete()

@@ -15,7 +15,7 @@
     @show
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ url('css/main/login.css?v=02') }}">
+    <link rel="stylesheet" href="{{ mix('css/main/login.css') }}" integrity="{{ Sri::hash('css/main/login.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ url('js/vendor/app.js?v=04') }}"></script>
+<script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
 {!! Toastr::message() !!}
 
 </body>

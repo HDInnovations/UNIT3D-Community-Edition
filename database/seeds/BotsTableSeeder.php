@@ -1,6 +1,6 @@
 <?php
 
-use App\Bot;
+use App\Models\Bot;
 use Illuminate\Database\Seeder;
 
 class BotsTableSeeder extends Seeder

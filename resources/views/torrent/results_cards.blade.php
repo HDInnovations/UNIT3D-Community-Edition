@@ -16,7 +16,7 @@
                     <div class="card_body">
                         <div class="body_poster">
                             @if($t->movie && $t->movie->poster)
-                                <img src="{{ $t->movie->poster }}">
+                                <img src="{{ $t->movie->poster }}" class="show-poster" data-image='<img src="{{ $t->movie->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
                             @endif
                         </div>
                         <div class="body_description">

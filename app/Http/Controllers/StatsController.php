@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\User;
 use App\Models\Group;
@@ -25,6 +26,14 @@ use Illuminate\Support\Facades\DB;
 class StatsController extends Controller
 {
     /**
+     * StatsController Constructor.
+     */
+    public function __construct()
+    {
+        $this->expiresAt = Carbon::now()->addMinutes(60);
+    }
+
+    /**
      * Show Extra-Stats Index.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -35,12 +44,12 @@ class StatsController extends Controller
         set_time_limit(300);
 
         // Total Members Count (All Groups)
-        $all_user = cache()->remember('all_user', 60, function () {
+        $all_user = cache()->remember('all_user', $this->expiresAt, function () {
             return User::withTrashed()->count();
         });
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
-        $active_user = cache()->remember('active_user', 60, function () {
+        $active_user = cache()->remember('active_user', $this->expiresAt, function () {
             $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
@@ -50,28 +59,28 @@ class StatsController extends Controller
         });
 
         // Total Disabled Members Count
-        $disabled_user = cache()->remember('disabled_user', 60, function () {
+        $disabled_user = cache()->remember('disabled_user', $this->expiresAt, function () {
             $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
 
             return User::where('group_id', '=', $disabledGroup->id)->count();
         });
 
         // Total Pruned Members Count
-        $pruned_user = cache()->remember('pruned_user', 60, function () {
+        $pruned_user = cache()->remember('pruned_user', $this->expiresAt, function () {
             $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
 
             return User::onlyTrashed()->where('group_id', '=', $prunedGroup->id)->count();
         });
 
         // Total Banned Members Count
-        $banned_user = cache()->remember('banned_user', 60, function () {
+        $banned_user = cache()->remember('banned_user', $this->expiresAt, function () {
             $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
 
             return User::where('group_id', '=', $bannedGroup->id)->count();
         });
 
         // Total Torrents Count
-        $num_torrent = cache()->remember('num_torrent', 60, function () {
+        $num_torrent = cache()->remember('num_torrent', $this->expiresAt, function () {
             return Torrent::count();
         });
 
@@ -79,52 +88,52 @@ class StatsController extends Controller
         $categories = Category::withCount('torrents')->get()->sortBy('position');
 
         // Total HD Count
-        $num_hd = cache()->remember('num_hd', 60, function () {
+        $num_hd = cache()->remember('num_hd', $this->expiresAt, function () {
             return Torrent::where('sd', '=', 0)->count();
         });
 
         // Total SD Count
-        $num_sd = cache()->remember('num_sd', 60, function () {
+        $num_sd = cache()->remember('num_sd', $this->expiresAt, function () {
             return Torrent::where('sd', '=', 1)->count();
         });
 
         // Total Torrent Size
-        $torrent_size = cache()->remember('torrent_size', 60, function () {
+        $torrent_size = cache()->remember('torrent_size', $this->expiresAt, function () {
             return Torrent::select(['size'])->sum('size');
         });
 
         // Total Seeders
-        $num_seeders = cache()->remember('num_seeders', 60, function () {
+        $num_seeders = cache()->remember('num_seeders', $this->expiresAt, function () {
             return Peer::where('seeder', '=', 1)->count();
         });
 
         // Total Leechers
-        $num_leechers = cache()->remember('num_leechers', 60, function () {
+        $num_leechers = cache()->remember('num_leechers', $this->expiresAt, function () {
             return Peer::where('seeder', '=', 0)->count();
         });
 
         // Total Peers
-        $num_peers = cache()->remember('num_peers', 60, function () {
+        $num_peers = cache()->remember('num_peers', $this->expiresAt, function () {
             return Peer::count();
         });
 
         //Total Upload Traffic Without Double Upload
-        $actual_upload = cache()->remember('actual_upload', 60, function () {
+        $actual_upload = cache()->remember('actual_upload', $this->expiresAt, function () {
             return History::all()->sum('actual_uploaded');
         });
 
         //Total Upload Traffic With Double Upload
-        $credited_upload = cache()->remember('credited_upload', 60, function () {
+        $credited_upload = cache()->remember('credited_upload', $this->expiresAt, function () {
             return History::all()->sum('uploaded');
         });
 
         //Total Download Traffic Without Freeleech
-        $actual_download = cache()->remember('actual_download', 60, function () {
+        $actual_download = cache()->remember('actual_download', $this->expiresAt, function () {
             return History::all()->sum('actual_downloaded');
         });
 
         //Total Download Traffic With Freeleech
-        $credited_download = cache()->remember('credited_download', 60, function () {
+        $credited_download = cache()->remember('credited_download', $this->expiresAt, function () {
             return History::all()->sum('downloaded');
         });
 

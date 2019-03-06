@@ -52,7 +52,7 @@
 @endsection
 
 @section('javascripts')
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         var title = '{{ $title }}';
         if (title.length != 0) {

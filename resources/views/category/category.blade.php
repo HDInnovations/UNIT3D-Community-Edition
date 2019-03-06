@@ -172,7 +172,7 @@
 
                                 @if (! $torrent->category->no_meta)
                                     @if ($user->ratings == 1)
-                                        <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                                        <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"

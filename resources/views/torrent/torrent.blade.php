@@ -83,7 +83,7 @@
                                 <li>
                                     @if ($torrent->imdb != 0 && $torrent->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
+                    <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrent->imdb }}</a>
                   </span>
                                     @endif
@@ -169,8 +169,8 @@
                             </span>
                         </a>
                     @endif
-                    @if ($torrent->imdb != 0)
-                        <a href="{{ route('torrents.similar', ['imdb' => $torrent->imdb]) }}"
+                    @if ($torrent->tmdb != 0)
+                        <a href="{{ route('torrents.similar', ['tmdb' => $torrent->tmdb]) }}"
                            role="button"
                            class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> @lang('torrent.similar')</a>
@@ -586,22 +586,6 @@
             </table>
         </div>
 
-        {{--<div class="table-responsive">
-            <table class="table table-condensed table-bordered table-striped">
-                <tbody>
-                <tr>
-                    <td>
-                        <div class="panel-body">
-                            @if ($meta->recommendations)
-                                {{ dd($meta->recommendations) }}
-                            @endif
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>--}}
-
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <tbody>
@@ -637,6 +621,36 @@
         </div>
     </div>
     <!-- /Info-->
+
+    @if ($movie->recommendations)
+        <div class="torrent box container">
+            <section class="recommendations">
+                <div class="text-center">
+                    <h2><u>Recommendations</u></h2>
+                </div>
+                <div class="scroller">
+                    @foreach($movie->recommendations['results'] as $recommendation)
+                        <div class="item mini backdrop mini_card">
+                            <p class="tv flex">
+                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                    <span class="text-bold">{{  isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'] }}</span>
+                                </a>
+                            </p>
+                            <div class="image_content">
+                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                    <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
+                                    <div class="meta">
+                                        <span class="release_date"><i class="fas fa-calendar"></i> Year: {{ isset($recommendation['release_date']) ? substr($recommendation['release_date'], 0, 4) : substr($recommendation['first_air_date'], 0, 4) }}</span>
+                                        <span class="vote_average"><i class="fas fa-star"></i> Rating: {{ $recommendation['vote_average'] }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </section>
+        </div>
+    @endif
 
     <div class="torrent box container" id="comments">
         <!-- Comments -->
@@ -731,14 +745,14 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
         $('#content').wysibb({});
         emoji.textcomplete()
       })
     </script>
 
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ready(function () {
 
         $('.slidingDiv').hide();
@@ -751,7 +765,7 @@
       })
     </script>
 
-    <script type="text/javascript">
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       function showTrailer () {
         swal({
           showConfirmButton: false,

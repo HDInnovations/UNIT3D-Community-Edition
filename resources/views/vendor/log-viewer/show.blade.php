@@ -14,10 +14,10 @@
 
                     <div class="group-btns pull-right">
                         <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
-                            <i class="fa fa-download"></i> DOWNLOAD
+                            <i class="{{ config('other.font-awesome') }} fa-download"></i> DOWNLOAD
                         </a>
                         <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
-                            <i class="fa fa-trash-o"></i> DELETE
+                            <i class="{{ config('other.font-awesome') }} fa-trash"></i> DELETE
                         </a>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                                     <td class="text-right">
                                         @if ($entry->hasStack())
                                             <a class="btn btn-xs btn-default" role="button" data-toggle="collapse" href="#log-stack-{{ $key }}" aria-expanded="false" aria-controls="log-stack-{{ $key }}">
-                                                <i class="fa fa-toggle-on"></i> Stack
+                                                <i class="{{ config('other.font-awesome') }} fa-toggle-on"></i> Stack
                                             </a>
                                         @endif
                                     </td>
@@ -159,7 +159,7 @@
 @endsection
 
 @section('scripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(function () {
             var deleteLogModal = $('div#delete-log-modal'),
                 deleteLogForm  = $('form#delete-log-form'),

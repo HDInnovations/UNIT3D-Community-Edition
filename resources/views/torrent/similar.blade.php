@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('torrents.similar', ['imdb' => $torrents->first()->imdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('torrents.similar', ['tmdb' => $torrents->first()->tmdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.similar')</span>
         </a>
     </li>
@@ -59,8 +59,9 @@
                     <div class="movie-details">
                         <p class="movie-plot">{{ $meta->plot }}</p>
                         <strong>ID:</strong>
-                        <span class="badge-user"><a
-                                    href="http://www.imdb.com/title/{{ $meta->imdb }}">{{ $meta->imdb }}</a></span>
+                        <span class="badge-user">
+                            <a href="https://www.imdb.com/title/{{ $meta->imdb }}">{{ $meta->imdb }}</a>
+                        </span>
                         @if ($torrents->first()->category_id == "2" && $torrents->first()->tmdb != 0 && $torrents->first()->tmdb != null)
                             <span class="badge-user"><a
                                         href="https://www.themoviedb.org/tv/{{ $meta->tmdb }}">{{ $meta->tmdb }}</a></span>
@@ -196,7 +197,7 @@
 
                                     @if (! $torrent->category->no_meta)
                                         @if ($user->ratings == 1)
-                                            <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"

@@ -10,11 +10,11 @@
             @endif
             <th>@lang('torrent.category')/@lang('torrent.type')</th>
             <th style="white-space: nowrap !important;">@sortablelink('name', trans('common.name'), '', ['id'=>'name','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "name" ? $direction : 0)])</th>
-            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-clock"></i> @sortablelink('created_at', 'S', '', ['id'=>'created_at','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "created_at" ? $direction : 0)])</th>
-            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-file"></i> @sortablelink('size', 'S', '', ['id'=>'size','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "size" ? $direction : 0)])</th>
-            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-check-square"></i> @sortablelink('times_completed', 'S', '', ['id'=>'times_completed','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "times_completed" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-clock"></i> @sortablelink('created_at', 'Created', '', ['id'=>'created_at','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "created_at" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-file"></i> @sortablelink('size', 'Size', '', ['id'=>'size','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "size" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-check-square"></i> @sortablelink('times_completed', 'C', '', ['id'=>'times_completed','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "times_completed" ? $direction : 0)])</th>
             <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i> @sortablelink('seeders', 'S', '', ['id'=>'seeders','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "seeders" ? $direction : 0)])</th>
-            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i> @sortablelink('leechers', 'S', '', ['id'=>'leechers','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "leechers" ? $direction : 0)])</th>
+            <th style="white-space: nowrap !important;"><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i> @sortablelink('leechers', 'L', '', ['id'=>'leechers','class'=>'facetedSearch facetedSort','trigger'=>'sort','state'=> ($sorting && $sorting == "leechers" ? $direction : 0)])</th>
         </tr>
         </thead>
 
@@ -148,7 +148,7 @@
 
                         @if (! $torrent->category->no_meta)
                             @if ($user->ratings == 1)
-                            <a href="http://www.imdb.com/title/tt{{ $torrent->imdb }}">
+                            <a href="https://www.imdb.com/title/tt{{ $torrent->imdb }}">
                                 <span class="badge-extra text-bold">
                                     <span class="text-gold movie-rating-stars">
                                         <i class="{{ config('other.font-awesome') }} fa-star" data-toggle="tooltip"
