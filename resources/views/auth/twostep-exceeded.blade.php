@@ -9,7 +9,7 @@
 @endsection
 
 @section('stylesheets')
-    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/main/twostep.css') }}" integrity="{{ Sri::hash('css/main/twostep.css') }}" crossorigin="anonymous">
 @endsection
 
 @section('breadcrumb')

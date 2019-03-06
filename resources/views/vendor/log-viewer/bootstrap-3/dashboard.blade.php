@@ -3,6 +3,8 @@
 @section('content')
     <h1 class="page-header">Dashboard</h1>
 
+    <div class="container-fluid">
+        <div class="block">
     <div class="row">
         <div class="col-md-3">
             <canvas id="stats-doughnut-chart" height="300"></canvas>
@@ -33,10 +35,12 @@
             </section>
         </div>
     </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(function() {
             new Chart($('canvas#stats-doughnut-chart'), {
                 type: 'doughnut',

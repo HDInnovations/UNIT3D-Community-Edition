@@ -120,7 +120,7 @@
                                         <li>
                                             @if ($torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a href="http://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
+                    <a href="https://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrentRequest->imdb }}</a>
                   </span>
                                             @endif

@@ -391,14 +391,14 @@ return [
      * Note: custom-csp does not support report-only.
      */
 
-    'custom-csp' => '',
+    'custom-csp' => null,
 
     'csp' => [
         'report-only' => false,
 
         'report-uri' => null,
 
-        'block-all-mixed-content' => false,
+        'block-all-mixed-content' => true,
 
         'upgrade-insecure-requests' => true,
 
@@ -413,6 +413,9 @@ return [
             'allow' => [
                 'https://www.google.com/recaptcha/api.js',
                 'https://www.gstatic.com/recaptcha/api2/v1550471573786/recaptcha__en.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.15.35/js/bootstrap-datetimepicker.min.js',
             ],
 
             'hashes' => [
@@ -431,7 +434,7 @@ return [
 
             'self' => true,
 
-            'unsafe-inline' => true,
+            'unsafe-inline' => false,
 
             'unsafe-eval' => true,
 
@@ -440,14 +443,15 @@ return [
             'unsafe-hashed-attributes' => false,
 
             // https://www.chromestatus.com/feature/5792234276388864
-            'report-sample' => true,
+            // 'report-sample' => true,
 
-            'add-generated-nonce' => false,
+            'add-generated-nonce' => true,
         ],
 
         'style-src' => [
             'allow' => [
                 'https://fonts.googleapis.com/',
+                'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.15.35/css/bootstrap-datetimepicker.min.css',
             ],
 
             'hashes' => [
@@ -468,19 +472,22 @@ return [
 
             'unsafe-inline' => true,
 
-            'report-sample' => true,
+            // https://www.chromestatus.com/feature/5792234276388864
+            // 'report-sample' => true,
 
             'add-generated-nonce' => false,
         ],
 
         'img-src' => [
-            'https://i.imgur.com',
-            'https://image.tmdb.org',
-            'https://via.placeholder.com',
+            'schemes' => [
+                'https:',
+            ],
+            'self' => true,
+            'data' => true,
         ],
 
         'default-src' => [
-            //
+            'none',
         ],
 
         'base-uri' => [
@@ -488,16 +495,24 @@ return [
         ],
 
         'connect-src' => [
-            'https://unit3d.org:8443/socket.io/',
-            'wss://unit3d.org:8443/socket.io/',
+            'allow' => [
+                'https://unit3d.org:8443/socket.io/',
+                'wss://unit3d.org:8443/socket.io/',
+            ],
+            'self' => true,
         ],
 
         'font-src' => [
-            'https://fonts.gstatic.com',
+            'schemes' => [
+                'https:',
+                'data:',
+            ],
+            'self' => true,
+            'data' => true,
         ],
 
         'form-action' => [
-            //
+            'self' => true,
         ],
 
         'frame-ancestors' => [
@@ -505,24 +520,27 @@ return [
         ],
 
         'frame-src' => [
-            'https://www.youtube.com',
+            'schemes' => [
+                'https:',
+            ],
+            'self' => true,
         ],
 
-        'manifest-src' => [
+        /*'manifest-src' => [
             //
-        ],
+        ],*/
 
         'media-src' => [
-            //
+            'self' => true,
         ],
 
         'object-src' => [
             //
         ],
 
-        'worker-src' => [
+        /*'worker-src' => [
             //
-        ],
+        ],*/
 
         'plugin-types' => [
             // 'application/x-shockwave-flash',

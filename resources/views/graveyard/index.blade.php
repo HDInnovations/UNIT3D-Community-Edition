@@ -119,7 +119,7 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var xhr = new XMLHttpRequest();
 
         function faceted(page) {
@@ -170,45 +170,45 @@
           });
         }
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(window).on("load", faceted())
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#search").keyup(function () {
         faceted();
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#imdb").keyup(function () {
         faceted();
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#tvdb").keyup(function () {
         faceted();
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#tmdb").keyup(function () {
         faceted();
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#mal").keyup(function () {
         faceted();
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(".category,.type").on("click", function () {
         faceted();
       });
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $("#sorting,#direction,#qty").on('change', function () {
         faceted();
       });
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).on('click', '.pagination a', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
@@ -217,7 +217,7 @@
         faceted(page);
       })
     </script>
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       $(document).ajaxComplete(function () {
         $('[data-toggle="tooltip"]').tooltip();
       });

@@ -11,5 +11,5 @@
 
     <div class="separator"></div>
 
-    <p class="text-center">The method you are trying is use, is not allowed by this server.</p>
+    <p class="text-center">{{ $exception->getMessage() ?: 'The method you are trying is use, is not allowed by this server.' }}</p>
 @stop

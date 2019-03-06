@@ -41,6 +41,11 @@
                     <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
                 </a>
             </li>
+            <li>
+                <a href="{{ route('Staff.bots.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
+                </a>
+            </li>
 
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-wrench"></i> @lang('staff.general-tools')
@@ -81,11 +86,6 @@
             <li>
                 <a href="{{ route('Staff.rss.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('Staff.bots.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
             <li class="nav-header head">
@@ -158,6 +158,11 @@
             <li>
                 <a href="{{ route('leechCheaters') }}">
                     <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('staff.possible-leech-cheaters')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('staff.seedbox.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-server"></i> @lang('staff.seedboxes')
                 </a>
             </li>
 
