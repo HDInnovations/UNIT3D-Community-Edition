@@ -580,6 +580,26 @@ class facetedSearchBuilder {
             torrentBookmark.update();
             facetedSearch.refresh();
             facetedSearchXHR = null;
+            facetedSearch.posters();
+        });
+    }
+    posters() {
+        $('.show-poster').each(function() {
+            $(this).off('click');
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                var name = $(this).attr('data-name');
+                var image = $(this).attr('data-image');
+                swal({
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: '#232323',
+                    width: 970,
+                    html: image,
+                    title: name,
+                    text: '',
+                });
+            });
         });
     }
     inform() {
@@ -690,6 +710,7 @@ class facetedSearchBuilder {
         else {
             this.refresh(function() { });
         }
+        this.posters();
     }
 }
 class userExtensionBuilder {
@@ -1026,20 +1047,7 @@ $(document).mousedown(function(){
     }
     audioLoaded = 1;
 });
-$('.show-poster').click(function (e) {
-    e.preventDefault();
-    var name = $(this).attr('data-name');
-    var image = $(this).attr('data-image');
-    swal({
-        showConfirmButton: false,
-        showCloseButton: true,
-        background: '#232323',
-        width: 970,
-        html: image,
-        title: name,
-        text: '',
-    });
-});
+
 
 // Globals
 
