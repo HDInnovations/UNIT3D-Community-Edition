@@ -11,6 +11,7 @@
  *
  * File Contents:
  *
+ * uploadExtensionBuilder - To parse torrent files titles / Used: Upload
  * userFilterBuilder - To add filters for user search / Used: All User Histories
  * torrentBookmarkBuilder - To show bookmark buttons for users / Used: Home, Torrents
  * facetedSearchBuilder - To add filters for search / Used: Torrents
@@ -21,6 +22,55 @@
  * After classes, event attachments then globals.
 */
 
+class uploadExtensionBuilder {
+    constructor() {
+        // Empty for now
+    }
+    hook() {
+        let name = document.querySelector('#title');
+        let torrent = document.querySelector('#torrent');
+        if (!name.value) {
+            let fileEndings = ['.mkv.torrent', '.torrent'];
+            let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
+            let separators = ['-', ' ', '.'];
+            let value = torrent.value.split('\\').pop().split('/').pop();
+            fileEndings.forEach(function (e) {
+                if (value.endsWith(e)) {
+                    value = value.substr(0, value.length - e.length)
+                }
+            });
+            value = value.replace(/\./g, ' ');
+            allowed.forEach(function (a) {
+                var search = a.replace(/\./g, ' ');
+                let replaceIndexes = [];
+                let pos = value.indexOf(search);
+                while (pos !== -1) {
+                    let start = pos > 0 ? value[pos - 1] : ' ';
+                    let end = pos + search.length < value.length ? value[pos + search.length] : ' ';
+                    if (separators.includes(start) && separators.includes(end)) {
+                        replaceIndexes.push(pos)
+                    }
+                    pos = value.indexOf(search, pos + search.length)
+                }
+                var newValue = '';
+                var ignore = 0;
+                for (let i = 0; i < value.length; ++i) {
+                    if (ignore > 0) {
+                        --ignore
+                    } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
+                        replaceIndexes.shift();
+                        newValue += a;
+                        ignore = a.length - 1
+                    } else {
+                        newValue += value[i]
+                    }
+                }
+                value = newValue
+            });
+            name.value = value
+        }
+    }
+}
 class userFilterBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -984,6 +1034,10 @@ $(document).ready(function () {
             }
         }
     }
+    if($('#upload-form-description').length > 0) {
+        $('#upload-form-description').wysibb({});
+        emoji.textcomplete()
+    }
     if(document.getElementById('facetedSearch')) {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
@@ -1047,8 +1101,15 @@ $(document).mousedown(function(){
     }
     audioLoaded = 1;
 });
-
-
+document.querySelector("#add").addEventListener("click", () => {
+    var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo"></textarea></div>';
+    document.querySelector(".parser").innerHTML = optionHTML;
+});
+if(document.getElementById('torrent')) {
+    document.querySelector("#torrent").addEventListener("change", () => {
+        uploadExtension.hook();
+    });
+}
 // Globals
 
 const facetedSearch = new facetedSearchBuilder();
@@ -1057,6 +1118,7 @@ const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
 const userExtension = new userExtensionBuilder();
 const configExtension = new configExtensionBuilder();
+const uploadExtension = new uploadExtensionBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
