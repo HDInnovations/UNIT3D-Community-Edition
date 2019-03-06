@@ -1,3 +1,26 @@
+/*
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D is open-sourced software licensed under the GNU General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D
+ *
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ * @author     HDVinnie, singularity43
+ *
+ * File Contents:
+ *
+ * userFilterBuilder - To add filters for user search / Used: All User Histories
+ * torrentBookmarkBuilder - To show bookmark buttons for users / Used: Home, Torrents
+ * facetedSearchBuilder - To add filters for search / Used: Torrents
+ * forumTipBuilder - To add tip buttons for forum / Used: Topics
+ * userExtensionBuilder - To add toggle capabilities to BON / Used: BON
+ * configExtensionBuilder - To add Swal to config manager / Used: Admin Config Manager
+ *
+ * After classes, event attachments then globals.
+*/
+
 class userFilterBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -738,6 +761,86 @@ class forumTipBuilder {
         });
     }
 }
+class configExtensionBuilder {
+    constructor() {
+        this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    }
+    handle(keyv,val) {
+        this.keyv = keyv;
+        this.val = val;
+        this.input = val.replace(/['"]/g,'');
+        swal({
+            title: 'Change Value',
+            width: '800px',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            html:
+                '<div class="text-left">'+
+                '<input type="text" size="30" id="val_'+configExtension.keyv+'" class="form-control" name="val" value="'+this.input+'" />' +
+                '</div>',
+            showCancelButton: true,
+            confirmButtonText: 'Save',
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                this.val = $('#val_'+configExtension.keyv).val();
+                $.ajax({
+                    url: this.update,
+                    data: {
+                        'filePath' : configExtension.path,
+                        'key' : configExtension.keyv,
+                        'value' : ''+String(configExtension.val)+'',
+                    },
+                    beforeSend: function (request){
+                        request.setRequestHeader("X-CSRF-TOKEN", configExtension.csrf);
+                    },
+                    type: 'PUT',
+                    success: function(result) {
+                        $('#key_val_'+configExtension.keyv).html(configExtension.val);
+                        $('#button_'+configExtension.keyv).attr('val',configExtension.val);
+                    }
+                });
+            },
+            allowOutsideClick: false
+        }).then(result => {
+            if (result.value) {
+                swal({
+                    title: 'Value Has Been Changed',
+                    timer: 1500,
+                    onOpen: () => {
+                        swal.showLoading();
+                    }
+                })
+            }
+        });
+    }
+    init() {
+        $('#configBox').hide();
+        this.view = $('#configExtension').attr('view');
+        this.index = $('#configExtension').attr('index');
+        this.update = $('#configExtension').attr('update');
+        this.file = $('#configExtension').attr('file');
+        this.path = $('#configExtension').attr('path');
+        $('.file-select').off('change');
+        $('.file-select').on('change', function(){
+            var file = $(this).val();
+            if (file) {
+                window.location.href = configExtension.view+"/"+$(this).val();
+            } else {
+                window.location.href = configExtension.index;
+            }
+        });
+        if(this.file == 'yes') {
+            $('.edit').each(function () {
+                $(this).off('click');
+                $(this).on('click', function (e) {
+                    e.preventDefault();
+                    configExtension.handle($(this).attr('keyv'),$(this).attr('val'));
+                });
+            });
+        }
+    }
+}
 class torrentBookmarkBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -840,6 +943,10 @@ class torrentBookmarkBuilder {
         });
     }
 }
+
+// Global attachments.
+// Attach to events using jQuery.
+
 $(document).ajaxComplete(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -868,6 +975,9 @@ $(document).ready(function () {
     }
     if(document.getElementById('userExtension')) {
         userExtension.init();
+    }
+    if(document.getElementById('configExtension')) {
+        configExtension.init();
     }
     torrentBookmark.update();
 });
@@ -930,11 +1040,15 @@ $('.show-poster').click(function (e) {
         text: '',
     });
 });
+
+// Globals
+
 const facetedSearch = new facetedSearchBuilder();
 const torrentBookmark = new torrentBookmarkBuilder();
 const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
 const userExtension = new userExtensionBuilder();
+const configExtension = new configExtensionBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;

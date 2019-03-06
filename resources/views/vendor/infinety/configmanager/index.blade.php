@@ -17,8 +17,8 @@
 
 @section('content')
 
-<div class="container">
-
+<div class="container" id="configExtension" file="{{ (isset($fileData) ? 'yes' : 'no') }}" path="{{ (isset($fileData) ? $fileData->path : '') }}"  view="{{ route('configmanager.view') }}" index="{{ route('configmanager.index') }}" update="{{ route('configmanager.update') }}">
+	<div id="configBox"></div>
 	<div class="panel panel-primary">
 	    <div class="panel-heading">
 	        <span class="panel-title">@lang('configmanager.title')</span>
@@ -77,9 +77,9 @@
 				@foreach ($fileParsed as $values)
 					<tr id="key_{{ $values["key"] }}">
 						<td class="key">{{ $values["key"] }}</td>
-						<td class="value">{{ (!$values["value"]) ? 'null' : $values["value"] }}</td>
+						<td class="value" id="key_val_{{ $values["key"] }}">{{ (!$values["value"]) ? 'null' : $values["value"] }}</td>
 						<td>
-							<button class="btn btn-sm btn-info edit" data-placement="top" data-key="{{ $values["key"] }}" data-loading-text="Saving new key..."><i class="{{ config('other.font-awesome') }} fa-pencil-square" aria-hidden="true"></i> Edit</button>
+							<button id="button_{{ $values["key"] }}" class="btn btn-sm btn-info edit" keyv="{{ $values["key"] }}" val="{{ (!$values["value"]) ? 'null' : $values["value"] }}"><i class="{{ config('other.font-awesome') }} fa-pencil-square"></i>Edit</button>
 						</td>
 					</tr>
 				@endforeach
@@ -111,113 +111,4 @@
 	@endif
 
 </div>
-@endsection
-
-@section('scripts')
-	<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-		jQuery(document).ready(function(){
-
-			$('.file-select').on('change', function(){
-	            var file = $(this).val();
-	            if (file) {
-	                window.location.href = "{{ route('configmanager.view') }}/"+$(this).val();
-	            } else {
-	                window.location.href = "{{ route('configmanager.index') }}";
-	            }
-	        });
-
-			@if (isset($fileData))
-
-	        $('.edit').popover({
-			    html: true,
-			    title: function () {
-			        return "@lang('configmanager.actions.edit'): " + $(this).parent().parent().find('.key').html();
-			    },
-			    content: function () {
-			        return $('#content-edit').html();
-			    }
-			});
-
-			$('.edit').on('hidden.bs.popover', function () {
-		  		$(".first-step").show();
-				$(".second-step").hide();
-			});
-
-			$(document).on('click', '#confirm-new-key', function(){
-				$popover = $('.popover.in');
-				$input = $popover.find('input');
-				var newValue = $input.val();
-				if (!newValue.trim()) {
-					$input.val('');
-					$input.focus();
-					return false;
-				}
-
-
-				$input.attr('disabled', true);
-				$(".first-step").hide();
-				$(".second-step").show();
-			});
-
-			$(document).on('click', '#cancel-new-key', function(){
-				$popover = $('.popover.in');
-				$popover.find('input').attr('disabled', false);
-				$(".first-step").show();
-				$(".second-step").hide();
-			});
-
-			$(document).on('click', '#save-new-key', function(){
-				$popover = $('.popover.in');
-				$input = $popover.find('input');
-				$input.attr('disabled', false);
-				var newValue = $input.val();
-				var key = $popover.parent().find('button').data('key');
-				$row = $("#key_"+key);
-
-
-				// CLose popover
-				(($popover.popover('hide').data('bs.popover')||{}).inState||{}).click = false;
-
-
-
-				$.ajax({
-                        url: "{{ route('configmanager.update') }}",
-                        data: {
-                        	'filePath' : "{{ $fileData->path }}",
-                        	'key' : key,
-                        	'value' : newValue
-                        },
-                        beforeSend: function (request){
-                            request.setRequestHeader("X-CSRF-TOKEN", "{{ csrf_token() }}");
-                        },
-                        type: 'PUT',
-                        success: function(result) {
-                        	$row.find('td.value').html(newValue);
-                            $popover.parent().find('button').button('reset');
-                        },
-                        error: function(result) {
-                        	console.log('Error');
-                           	$popover.parent().find('button').button('reset');
-                        }
-                    });
-
-			});
-			@endif
-
-		});
-		@if (isset($fileData))
-		$(document).on('click', function (e) {
-		    $('[data-toggle="popover"],[data-original-title]').each(function(){
-		        //the 'is' for buttons that trigger popups
-		        //the 'has' for icons within a button that triggers a popup
-		        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-		            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
-		        }
-
-		    });
-		});
-		@endif
-
-
-	</script>
 @endsection
