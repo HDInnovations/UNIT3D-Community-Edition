@@ -51,8 +51,7 @@
                     @csrf
                 <div class="form-group">
                     <label for="torrent">@lang('torrent.file')</label>
-                    <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent"
-                           onchange="updateTorrentName()" required>
+                    <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" required>
                 </div>
 
                 {{--<div class="form-group">
@@ -165,67 +164,4 @@
             </div>
         </div>
     @endif
-@endsection
-
-@section('javascripts')
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      $(document).ready(function () {
-        $('#upload-form-description').wysibb({});
-        emoji.textcomplete()
-      })
-    </script>
-
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      document.querySelector("#add").addEventListener("click", () => {
-        var optionHTML = '<div class="form-group"><label for="mediainfo">@lang('torrent.media-info-parser')</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="@lang('torrent.media-info-paste')"></textarea></div>';
-        document.querySelector(".parser").innerHTML = optionHTML;
-      });
-    </script>
-
-    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      function updateTorrentName () {
-        let name = document.querySelector('#title');
-        let torrent = document.querySelector('#torrent');
-        if (!name.value) {
-          let fileEndings = ['.mkv.torrent', '.torrent'];
-          let allowed = ['1.0', '2.0', '5.1', '7.1', 'H.264'];
-          let separators = ['-', ' ', '.'];
-          let value = torrent.value.split('\\').pop().split('/').pop();
-          fileEndings.forEach(function (e) {
-            if (value.endsWith(e)) {
-              value = value.substr(0, value.length - e.length)
-            }
-          });
-          value = value.replace(/\./g, ' ');
-          allowed.forEach(function (a) {
-            search = a.replace(/\./g, ' ');
-            let replaceIndexes = [];
-            let pos = value.indexOf(search);
-            while (pos !== -1) {
-              let start = pos > 0 ? value[pos - 1] : ' ';
-              let end = pos + search.length < value.length ? value[pos + search.length] : ' ';
-              if (separators.includes(start) && separators.includes(end)) {
-                replaceIndexes.push(pos)
-              }
-              pos = value.indexOf(search, pos + search.length)
-            }
-            newValue = '';
-            ignore = 0;
-            for (let i = 0; i < value.length; ++i) {
-              if (ignore > 0) {
-                --ignore
-              } else if (replaceIndexes.length > 0 && replaceIndexes[0] == i) {
-                replaceIndexes.shift();
-                newValue += a;
-                ignore = a.length - 1
-              } else {
-                newValue += value[i]
-              }
-            }
-            value = newValue
-          });
-          name.value = value
-        }
-      }
-    </script>
 @endsection
