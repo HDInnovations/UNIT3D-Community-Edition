@@ -11,6 +11,7 @@
  *
  * File Contents:
  *
+ * uploadExtensionBuilder - To parse torrent files titles / Used: Upload
  * userFilterBuilder - To add filters for user search / Used: All User Histories
  * torrentBookmarkBuilder - To show bookmark buttons for users / Used: Home, Torrents
  * facetedSearchBuilder - To add filters for search / Used: Torrents
@@ -21,6 +22,52 @@
  * After classes, event attachments then globals.
 */
 
+class uploadExtensionBuilder {
+    constructor() {
+        // Empty for now
+    }
+    hook() {
+        let name = document.querySelector('#title');
+        let torrent = document.querySelector('#torrent');
+        if (!name.value) {
+            let fileEndings = ['.mkv.torrent', '.mp4.torrent', '.torrent'];
+            let allowed = ['1.0', '2.0', '5.1', '6.1', '7.1', 'H.264'];
+            var newValue = '';
+            var preValue = torrent.value;
+            fileEndings.forEach(function (e) {
+                preValue = preValue.replace(e, '');
+            });
+            var recursion = preValue.split('\\').pop().split('/').pop();
+            for(var i=0; i<recursion.length; i++) {
+                var prev = false;
+                var next = false;
+                if(recursion[i] == '.') {
+                    var joined = false;
+                    for(var j=0; j<allowed.length; j++) {
+                        var tmp = allowed[j].split('.');
+                        if(tmp[0] == 'H') {
+                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == '2' && recursion[i + 2] != undefined && recursion[i + 2] == '6' && recursion[i + 3] != undefined && recursion[i + 3] =='4') {
+                                joined = true;
+                            }
+                        } else {
+                            if (recursion[i - 1] != undefined && recursion[i - 1] == tmp[0] && recursion[i + 1] != undefined && recursion[i + 1] == tmp[1]) {
+                                joined = true;
+                            }
+                        }
+                    }
+                    if(joined == false) { newValue=newValue+' '; }
+                    else {
+                        newValue = newValue+'.';
+                    }
+                }
+                else {
+                    newValue = newValue + recursion[i];
+                }
+            }
+            name.value = newValue;
+        }
+    }
+}
 class userFilterBuilder {
     constructor() {
         this.csrf = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -580,6 +627,26 @@ class facetedSearchBuilder {
             torrentBookmark.update();
             facetedSearch.refresh();
             facetedSearchXHR = null;
+            facetedSearch.posters();
+        });
+    }
+    posters() {
+        $('.show-poster').each(function() {
+            $(this).off('click');
+            $(this).on('click', function(e) {
+                e.preventDefault();
+                var name = $(this).attr('data-name');
+                var image = $(this).attr('data-image');
+                swal({
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: '#232323',
+                    width: 970,
+                    html: image,
+                    title: name,
+                    text: '',
+                });
+            });
         });
     }
     inform() {
@@ -690,6 +757,7 @@ class facetedSearchBuilder {
         else {
             this.refresh(function() { });
         }
+        this.posters();
     }
 }
 class userExtensionBuilder {
@@ -963,6 +1031,10 @@ $(document).ready(function () {
             }
         }
     }
+    if($('#upload-form-description').length > 0) {
+        $('#upload-form-description').wysibb({});
+        emoji.textcomplete()
+    }
     if(document.getElementById('facetedSearch')) {
         var facetedType = document.getElementById('facetedSearch').getAttribute('type');
         facetedSearch.init(facetedType);
@@ -1026,21 +1098,17 @@ $(document).mousedown(function(){
     }
     audioLoaded = 1;
 });
-$('.show-poster').click(function (e) {
-    e.preventDefault();
-    var name = $(this).attr('data-name');
-    var image = $(this).attr('data-image');
-    swal({
-        showConfirmButton: false,
-        showCloseButton: true,
-        background: '#232323',
-        width: 970,
-        html: image,
-        title: name,
-        text: '',
+if(document.getElementById('add')) {
+    document.querySelector("#add").addEventListener("click", () => {
+        var optionHTML = '<div class="form-group"><label for="mediainfo">MediaInfo</label><textarea rows="2" class="form-control" name="mediainfo" cols="50" id="mediainfo" placeholder="Paste MediaInfo"></textarea></div>';
+        document.querySelector(".parser").innerHTML = optionHTML;
     });
-});
-
+}
+if(document.getElementById('torrent')) {
+    document.querySelector("#torrent").addEventListener("change", () => {
+        uploadExtension.hook();
+    });
+}
 // Globals
 
 const facetedSearch = new facetedSearchBuilder();
@@ -1049,6 +1117,7 @@ const userFilter = new userFilterBuilder();
 const forumTip = new forumTipBuilder();
 const userExtension = new userExtensionBuilder();
 const configExtension = new configExtensionBuilder();
+const uploadExtension = new uploadExtensionBuilder();
 var userFilterXHR = null;
 var facetedSearchXHR = null;
 var torrentBookmarkXHR = null;
