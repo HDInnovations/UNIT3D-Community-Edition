@@ -6,7 +6,7 @@
  * The details is bundled with this project in the file LICENSE.txt.
  *
  * @project    UNIT3D
- * 
+ *
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
@@ -15,23 +15,18 @@ namespace App\Services;
 
 class TorrentTools
 {
-
     /**
-     * Name of the file to be saved
-     *
+     * Name of the file to be saved.
      */
     public static $fileName = '';
 
     /**
-     * Representative table of the decoded torrent
-     *
+     * Representative table of the decoded torrent.
      */
     public static $decodedTorrent = [];
 
     /**
-     * Moves and decodes the torrent
-     *
-     * @access private
+     * Moves and decodes the torrent.
      */
     public static function normalizeTorrent($torrentFile)
     {
@@ -40,17 +35,17 @@ class TorrentTools
         // security purposes it's better to overwrite the user-provided
         // announce URL.
         $announce = config('app.url');
-        $announce .= "/announce/PID";
+        $announce .= '/announce/PID';
         $result['announce'] = $announce;
         $result['info']['source'] = config('torrent.source');
         $result['info']['private'] = 1;
         $created_by = config('torrent.created_by', null);
         $created_by_append = config('torrent.created_by_append', false);
         if ($created_by !== null) {
-            if ($created_by_append && array_key_exists("created by", $result)) {
+            if ($created_by_append && array_key_exists('created by', $result)) {
                 $c = $result['created by'];
-                $c = trim($c, ". ");
-                $c .= ". " . $created_by;
+                $c = trim($c, '. ');
+                $c .= '. '.$created_by;
                 $created_by = $c;
             }
             $result['created by'] = $created_by;
@@ -59,59 +54,58 @@ class TorrentTools
         if ($comment !== null) {
             $result['comment'] = $comment;
         }
+
         return $result;
     }
 
     /**
-     * Calculate the number of files in the torrent
-     *
+     * Calculate the number of files in the torrent.
      */
     public static function getFileCount($decodedTorrent)
     {
         // Multiple file torrent ?
-        if (array_key_exists("files", $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
             return count($decodedTorrent['info']['files']);
         }
+
         return 1;
     }
 
     /**
-     * Returns the size of the torrent files
-     *
+     * Returns the size of the torrent files.
      */
     public static function getTorrentSize($decodedTorrent)
     {
         $size = 0;
-        if (array_key_exists("files", $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
                 $size += $file['length'];
-                $count = count($file["path"]);
+                $count = count($file['path']);
             }
         } else {
             $size = $decodedTorrent['info']['length'];
             //$files[0] = $decodedTorrent['info']['name.utf-8'];
         }
+
         return $size;
     }
 
     /**
-     * Returns the torrent file list
-     *
-     *
+     * Returns the torrent file list.
      */
     public static function getTorrentFiles($decodedTorrent)
     {
-        if (array_key_exists("files", $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
+        if (array_key_exists('files', $decodedTorrent['info']) && count($decodedTorrent['info']['files'])) {
             foreach ($decodedTorrent['info']['files'] as $k => $file) {
                 $dir = '';
-                $count = count($file["path"]);
+                $count = count($file['path']);
                 for ($i = 0; $i < $count; $i++) {
                     if (($i + 1) == $count) {
-                        $fname = $dir . $file["path"][$i];
+                        $fname = $dir.$file['path'][$i];
                         $files[$k]['name'] = $fname;
                     } else {
-                        $dir .= $file["path"][$i] . "/";
+                        $dir .= $file['path'][$i].'/';
                         $files[$k]['name'] = $dir;
                     }
                     $files[$k]['size'] = $file['length'];
@@ -121,12 +115,12 @@ class TorrentTools
             $files[0]['name'] = $decodedTorrent['info']['name'];
             $files[0]['size'] = $decodedTorrent['info']['length'];
         }
+
         return $files;
     }
 
     /**
-     * Returns the sha1 (hash) of the torrent
-     *
+     * Returns the sha1 (hash) of the torrent.
      */
     public static function getTorrentHash($decodedTorrent)
     {
@@ -134,31 +128,31 @@ class TorrentTools
     }
 
     /**
-     * Returns the number of the torrent file
-     *
+     * Returns the number of the torrent file.
      */
     public static function getTorrentFileCount($decodedTorrent)
     {
-        if (array_key_exists("files", $decodedTorrent['info'])) {
+        if (array_key_exists('files', $decodedTorrent['info'])) {
             return count($decodedTorrent['info']['files']);
         }
+
         return 1;
     }
 
     /**
-     * Returns the NFO
-     *
+     * Returns the NFO.
      */
     public static function getNfo($inputFile)
     {
-        $fileName = uniqid() . '.nfo';
-        $inputFile->move(getcwd() . '/files/tmp/', $fileName);
-        if (file_exists(getcwd() . '/files/tmp/' . $fileName)) {
-            $fileContent = file_get_contents(getcwd() . '/files/tmp/' . $fileName);
-            unlink(getcwd() . '/files/tmp/' . $fileName);
+        $fileName = uniqid().'.nfo';
+        $inputFile->move(getcwd().'/files/tmp/', $fileName);
+        if (file_exists(getcwd().'/files/tmp/'.$fileName)) {
+            $fileContent = file_get_contents(getcwd().'/files/tmp/'.$fileName);
+            unlink(getcwd().'/files/tmp/'.$fileName);
         } else {
             $fileContent = null;
         }
+
         return $fileContent;
     }
 }
