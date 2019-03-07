@@ -14,81 +14,79 @@
 namespace App\Services;
 
 use function theodorejb\polycast\safe_int;
+use function theodorejb\polycast\safe_float;
 
-/**
- * Bencode library for torrents.
- */
 class Bencode
 {
     public static function parse_integer($s, &$pos)
     {
         $len = strlen($s);
         if ($len == 0 || $s[$pos] != 'i') {
-            return;
+            return null;
         }
-        $pos++;
+        ++$pos;
 
-        $result = '';
+        $result = "";
         while ($pos < $len && $s[$pos] != 'e') {
             if (is_numeric($s[$pos])) {
                 $result .= $s[$pos];
             } else {
                 // We have an invalid character in the string.
-                return;
+                return null;
             }
-            $pos++;
+            ++$pos;
         }
 
         if ($pos >= $len) {
             // No end marker, hence we return null.
-            return;
+            return null;
         }
 
-        $pos++;
+        ++$pos;
 
         if (safe_int($result)) {
-            return (int) $result;
+            return (int)$result;
         } else {
-            return;
+            return null;
         }
     }
 
     public static function parse_string($s, &$pos)
     {
         $len = strlen($s);
-        $length_str = '';
+        $length_str = "";
 
         while ($pos < $len && $s[$pos] != ':') {
             if (is_numeric($s[$pos])) {
                 $length_str .= $s[$pos];
             } else {
                 // Non-numeric character, we return null in this case.
-                return;
+                return null;
             }
-            $pos++;
+            ++$pos;
         }
 
         if ($pos >= $len) {
             // We need a colon here, but there's none.
-            return;
+            return null;
         }
 
-        $pos++;
-        if (! safe_int($length_str)) {
-            return;
+        ++$pos;
+        if (!safe_int($length_str)) {
+            return null;
         }
 
-        $length = (int) $length_str;
-        $result = '';
+        $length = (int)$length_str;
+        $result = "";
         while ($pos < $len && $length > 0) {
             $result .= $s[$pos];
-            $length--;
-            $pos++;
+            --$length;
+            ++$pos;
         }
 
         if ($length > 0) {
             // Input ended, but the string is longer than that.
-            return;
+            return null;
         }
 
         return $result;
@@ -98,7 +96,7 @@ class Bencode
     {
         $len = strlen($s);
         if ($pos >= $len) {
-            return;
+            return null;
         }
 
         $c = $s[$pos];
@@ -108,44 +106,43 @@ class Bencode
             return self::parse_string($s, $pos);
         } elseif ($c == 'd') {
             $dict = [];
-            $pos++;
+            ++$pos;
             while ($pos < $len && $s[$pos] != 'e') {
                 $key = self::bdecode($s, $pos);
                 $value = self::bdecode($s, $pos);
                 if (is_null($key) || is_null($value)) {
-                    return;
+                    return null;
                 }
                 $dict[$key] = $value;
             }
 
             if ($pos >= $len) {
                 // We need a end marker here
-                return;
+                return null;
             }
-            $pos++;
+            ++$pos;
 
             return $dict;
         } elseif ($c == 'l') {
             $list = [];
-            $pos++;
+            ++$pos;
             while ($pos < $len && $s[$pos] != 'e') {
                 $next = self::bdecode($s, $pos);
-                if (! is_null($next)) {
+                if (!is_null($next)) {
                     array_push($list, $next);
                 } else {
-                    return;
+                    return null;
                 }
             }
 
             if ($pos >= $len) {
                 // We need a end marker here
-                return;
+                return null;
             }
-            $pos++;
-
+            ++$pos;
             return $list;
         } else {
-            return;
+            return null;
         }
     }
 
@@ -154,15 +151,15 @@ class Bencode
         if (is_array($d)) {
             $ret = 'l';
             $is_dict = false;
-            if (! isset($d['isDct'])) {
+            if (!isset($d['isDct'])) {
                 foreach (array_keys($d) as $key) {
-                    if (! is_int($key)) {
+                    if (!is_int($key)) {
                         $is_dict = true;
                         break;
                     }
                 }
             } else {
-                $is_dict = (bool) $d['isDct'];
+                $is_dict = (bool)$d['isDct'];
                 unset($d['isDct']);
             }
 
@@ -174,55 +171,57 @@ class Bencode
 
             foreach ($d as $key => $value) {
                 if ($is_dict) {
-                    $ret .= strlen($key).':'.$key;
+                    $ret .= strlen($key) . ':' . $key;
                 }
 
                 if (is_int($value) || is_float($value)) {
                     $ret .= sprintf('i%de', $value);
                 } elseif (is_string($value)) {
-                    $ret .= strlen($value).':'.$value;
+                    $ret .= strlen($value) . ':' . $value;
                 } else {
                     $ret .= self::bencode($value);
                 }
             }
-
-            return $ret.'e';
+            return $ret . 'e';
         } elseif (is_string($d)) {
-            return strlen($d).':'.$d;
+            return strlen($d) . ':' . $d;
         } elseif (is_int($d) || is_float($d)) {
             return sprintf('i%de', $d);
         } else {
-            return;
+            return null;
         }
     }
 
     public static function bdecode_file($filename)
     {
         $f = file_get_contents($filename, FILE_BINARY);
-
         return self::bdecode($f);
     }
 
-    public static function bdecode_getinfo($filename, $need_info_hash = false)
-    {
-        $t = self::bdecode_file($filename);
-        $t['info_hash'] = $need_info_hash ? sha1(self::bencode($t['info'])) : null;
+    public static function get_infohash($t) {
+        return sha1(self::bencode($t['info']));
+    }
 
-        if (isset($t['info']['files']) && is_array($t['info']['files'])) { //multifile
-            $t['info']['size'] = 0;
-            $t['info']['filecount'] = 0;
+    public static function get_meta($t) {
+        $result = [];
+        $size = 0;
+        $count = 0;
 
+        // Multifile
+        if (isset($t['info']['files']) && is_array($t['info']['files'])) {
             foreach ($t['info']['files'] as $file) {
-                $t['info']['filecount']++;
-                $t['info']['size'] += $file['length'];
+                $count++;
+                $size += $file['length'];
             }
         } else {
-            $t['info']['size'] = $t['info']['length'];
-            $t['info']['filecount'] = 1;
+            $size= $t['info']['length'];
+            $count = 1;
             $t['info']['files'][0]['path'] = $t['info']['name'];
             $t['info']['files'][0]['length'] = $t['info']['length'];
         }
 
-        return $t;
+        $result['count'] = $count;
+        $result['size'] = $size;
+        return $result;
     }
 }

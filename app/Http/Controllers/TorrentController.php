@@ -1169,13 +1169,12 @@ class TorrentController extends Controller
         }
 
         // Deplace and decode the torrent temporarily
-        TorrentTools::moveAndDecode($requestFile);
-        // Array decoded from torrent
-        $decodedTorrent = TorrentTools::$decodedTorrent;
-        // Tmp filename
-        $fileName = TorrentTools::$fileName;
-        // Torrent Info
-        $info = Bencode::bdecode_getinfo(getcwd().'/files/torrents/'.$fileName, true);
+        $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
+        $infohash = Bencode::get_infohash($decodedTorrent);
+        $meta = Bencode::get_meta($decodedTorrent);
+        $fileName = $infohash . '.torrent';
+        file_put_contents(getcwd() . '/files/torrents/' . $fileName, Bencode::bencode($decodedTorrent));
+
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
 
@@ -1185,11 +1184,11 @@ class TorrentController extends Controller
         $torrent->slug = str_slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
-        $torrent->info_hash = $info['info_hash'];
+        $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
-        $torrent->num_file = $info['info']['filecount'];
+        $torrent->num_file = $meta['count'];
         $torrent->announce = $decodedTorrent['announce'];
-        $torrent->size = $info['info']['size'];
+        $torrent->size = $meta['size'];
         $torrent->nfo = ($request->hasFile('nfo')) ? TorrentTools::getNfo($request->file('nfo')) : '';
         $torrent->category_id = $category->id;
         $torrent->user_id = $user->id;
