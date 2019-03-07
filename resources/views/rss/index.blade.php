@@ -32,6 +32,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="public">
+                                  <div class="table-responsive">
                                     <table class="table table-hover rss-table middle-align">
                                         <thead>
                                         <tr>
@@ -73,8 +74,10 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                  </div>
                                 </div>
                                 <div class="tab-pane" id="private">
+                                  <div class="table-responsive">
                                     <table class="table table-hover rss-table middle-align">
                                         <thead>
                                         <tr>
@@ -128,6 +131,7 @@
                                         </tbody>
                                     </table>
                                     <hr>
+                                  </div>
                                 </div>
                             </div>
                 </div>

@@ -20,6 +20,7 @@
             </div>
         </div>
         <div class="stats">
+          <div class="table-responsive">
             <div class="content">
                 <div class="inner_content">
                     <h1>@lang('stat.nerd-stats')</h1>
@@ -132,6 +133,7 @@
                 </div>
                 <img src="{{ url('img/sheldon.png') }}" width="321" height="379">
             </div>
+          </div>
         </div>
         <br>
         <h3 class="text-center">@lang('stat.select-category')</h3>
