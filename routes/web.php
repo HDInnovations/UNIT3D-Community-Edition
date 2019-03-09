@@ -320,7 +320,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}/thank', 'ThankController@torrentThank')->name('torrentThank');
 
         // User Language
-        Route::get('/{locale}/back', 'LanguageController@back')->name('back');
+        Route::get('/{locale}/back', 'LanguageController@home')->name('back');
 
         // User Clients
         Route::get('/{username}.{id}/clients', 'UserController@clients')->name('user_clients');
