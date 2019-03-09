@@ -107,14 +107,16 @@ class UserController extends Controller
         $history = $user->history;
         $warnings = Warning::where('user_id', '=', $id)->whereNotNull('torrent')->where('active', '=', 1)->take(3)->get();
         $hitrun = Warning::where('user_id', '=', $id)->latest()->paginate(10);
-        $bonupload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
 
-        $hackupload = $user->history->sum('uploaded');
-        $hackdownload = $user->history->sum('downloaded');
+        $bonupload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        $bondownload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Download%']])->sum('cost');
+
+        $hackupload = $user->history->sum('uploaded') + $bonupload;
+        $hackdownload = $user->history->sum('downloaded') + $bondownload;
 
         $realupload = $hackupload - $bonupload;
-        $bondownload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Download%']])->sum('cost');
         $realdownload = $hackdownload - $bondownload;
+
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
