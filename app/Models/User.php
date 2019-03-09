@@ -670,9 +670,10 @@ class User extends Authenticatable
     public function getUploaded($bytes = null, $precision = 2)
     {
         $bytes = History::where('user_id', '=', $this->id)->sum('uploaded');
-        if($bytes > 0) {
+        if ($bytes > 0) {
             return StringHelper::formatBytes((float) $bytes, 2);
         }
+
         return StringHelper::formatBytes(0, 2);
     }
 
@@ -682,9 +683,10 @@ class User extends Authenticatable
     public function getDownloaded($bytes = null, $precision = 2)
     {
         $bytes = History::where('user_id', '=', $this->id)->sum('downloaded');
-        if($bytes > 0) {
+        if ($bytes > 0) {
             return StringHelper::formatBytes((float) $bytes, 2);
         }
+
         return StringHelper::formatBytes(0, 2);
     }
 
