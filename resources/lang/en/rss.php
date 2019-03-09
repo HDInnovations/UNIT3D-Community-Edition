@@ -14,5 +14,6 @@ return [
     'public'        => 'Public',
     'private'       => 'Private',
     'rss'           => 'RSS',
+    'rss-feed'      => 'RSS Feed',
     'type'          => 'Type',
 ];
