@@ -102,7 +102,7 @@ class ModerationController extends Controller
             return redirect()->route('moderation')
                 ->with($this->toastr->success('Torrent Approved', 'Yay!', ['options']));
         } else {
-            return redirect()->back()
+            return redirect()->route('moderation')
                 ->with($this->toastr->error('Torrent Already Approved', 'Whoops!', ['options']));
         }
     }

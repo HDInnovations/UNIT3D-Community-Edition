@@ -74,7 +74,7 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
+            return redirect()->route('staff_tag_index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();
@@ -118,7 +118,7 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
+            return redirect()->route('staff_tag_index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();

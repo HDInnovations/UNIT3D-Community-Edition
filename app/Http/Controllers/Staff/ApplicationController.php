@@ -123,7 +123,7 @@ class ApplicationController extends Controller
                     ->with($this->toastr->success('Application Approved', 'Yay!', ['options']));
             }
         } else {
-            return redirect()->back()
+            return redirect()->route('staff.applications.index')
                 ->with($this->toastr->error('Application Already Approved', 'Whoops!', ['options']));
         }
     }
@@ -151,7 +151,7 @@ class ApplicationController extends Controller
             return redirect()->route('staff.applications.index')
                 ->with($this->toastr->info('Application Rejected', 'Info!', ['options']));
         } else {
-            return redirect()->back()
+            return redirect()->route('staff.applications.index')
                 ->with($this->toastr->error('Application Already Rejected', 'Whoops!', ['options']));
         }
     }

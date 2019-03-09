@@ -97,9 +97,10 @@ class NoteController extends Controller
     public function deleteNote($id)
     {
         $note = Note::findOrFail($id);
+        $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->back()
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
             ->with($this->toastr->success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }
