@@ -117,7 +117,7 @@ class UserController extends Controller
         $realdownload = $hackdownload - $bondownload;
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
-        if($user->uploadeded != $hackupload || $user->downloaded != $hackdownload) {
+        if($user->uploaded != $hackupload || $user->downloaded != $hackdownload) {
             $user->uploaded = $hackupload;
             $user->downloaded = $hackdownload;
             $user->save();
