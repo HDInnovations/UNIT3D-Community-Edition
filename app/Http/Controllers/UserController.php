@@ -117,12 +117,6 @@ class UserController extends Controller
         $realdownload = $hackdownload - $bondownload;
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
-        if ($user->uploaded != $hackupload || $user->downloaded != $hackdownload) {
-            $user->uploaded = $hackupload;
-            $user->downloaded = $hackdownload;
-            $user->save();
-        }
-
         $requested = TorrentRequest::where('user_id', '=', $user->id)->count();
         $filled = TorrentRequest::where('filled_by', '=', $user->id)->whereNotNull('approved_by')->count();
 
