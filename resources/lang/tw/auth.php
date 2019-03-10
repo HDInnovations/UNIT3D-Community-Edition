@@ -19,7 +19,7 @@ return [
     'remember-me'         => '記住我',
     'lost-username'       => '忘記用戶名',
     'login-now-on'        => '立即登入',
-    'no-a-member'         => '不是成員 ? 30秒内注冊',
+    'not-a-member'         => '不是成員 ? 30秒内注冊',
     'user-icon'           => '用戶圖標',
     'need-invite'         => '開放注冊通道已關閉，請從已注冊用戶処獲得邀請!',
 

@@ -17,7 +17,7 @@ return [
     'lost-username'              => 'Nutzername vergessen?',
     'missingCode'                => 'Haben Sie keinen Bestätigungscode erhalten?',
     'need-invite'                => 'Open Registrierung ist deaktiviert und Sie brauchen eine Einladung, um Zugang zu erhalten!',
-    'no-a-member'                => 'Noch nicht Mitglied? Anmeldung in weniger als 30 Sekunden.',
+    'not-a-member'                => 'Noch nicht Mitglied? Anmeldung in weniger als 30 Sekunden.',
     'password'                   => 'Passwort',
     'recover-my-password'        => 'Erhalte mein Passwort',
     'remember-me'                => 'Erinnere dich an mich',

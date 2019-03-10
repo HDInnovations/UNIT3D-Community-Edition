@@ -14,7 +14,7 @@ return [
     'lost-password'       => 'Esqueceu sua senha?',
     'lost-username'       => 'Esqueceu seu usuário?',
     'need-invite'         => 'O site não está aberto para registros, portanto você irá precisar de um convite para obter acesso!',
-    'no-a-member'         => 'Ainda não é membro? Registre-se em menos de 30 segundos.',
+    'not-a-member'         => 'Ainda não é membro? Registre-se em menos de 30 segundos.',
     'password'            => 'Senha',
     'recover-my-password' => 'Recuperar minha senha',
     'remember-me'         => 'Manter conectado',
