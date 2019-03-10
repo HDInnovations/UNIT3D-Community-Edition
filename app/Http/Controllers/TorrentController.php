@@ -103,12 +103,13 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar($tmdb)
+    public function similar($category_id, $tmdb)
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $torrents = Torrent::with(['user', 'category'])
             ->withCount(['thanks', 'comments'])
+            ->where('category_id', '=', $category_id)
             ->where('tmdb', '=', $tmdb)
             ->latest()
             ->get();

@@ -170,7 +170,7 @@
                         </a>
                     @endif
                     @if ($torrent->tmdb != 0)
-                        <a href="{{ route('torrents.similar', ['tmdb' => $torrent->tmdb]) }}"
+                        <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}"
                            role="button"
                            class="btn btn-labeled btn-primary">
           <span class='btn-label'><i class='{{ config("other.font-awesome") }} fa-file'></i></span> @lang('torrent.similar')</a>
@@ -632,12 +632,12 @@
                     @foreach($movie->recommendations['results'] as $recommendation)
                         <div class="item mini backdrop mini_card">
                             <p class="tv flex">
-                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                     <span class="text-bold">{{  isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'] }}</span>
                                 </a>
                             </p>
                             <div class="image_content">
-                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                     <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
                                     <div class="meta">
                                         <span class="release_date"><i class="fas fa-calendar"></i> Year: {{ isset($recommendation['release_date']) ? substr($recommendation['release_date'], 0, 4) : substr($recommendation['first_air_date'], 0, 4) }}</span>

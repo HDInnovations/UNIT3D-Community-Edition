@@ -231,10 +231,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/torrents/{slug}.{id}/reseed', 'TorrentController@reseedTorrent')->name('reseed');
         Route::post('/torrents/{slug}.{id}/tip_uploader', 'BonusController@tipUploader')->name('tip_uploader');
         Route::get('/torrents/{slug}.{id}/freeleech_token', 'TorrentController@freeleechToken')->name('freeleech_token');
-
-        // Doesn't follow naming convention but prepping for switch to object.dot
-
-        Route::get('/torrents/similar/{tmdb}', 'TorrentController@similar')->name('torrents.similar');
+        Route::get('/torrents/similar/{category_id}.{tmdb}', 'TorrentController@similar')->name('torrents.similar');
 
         // Achievements
         Route::get('/achievements', 'AchievementsController@index')->name('achievements');

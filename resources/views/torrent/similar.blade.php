@@ -15,7 +15,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('torrents.similar', ['tmdb' => $torrents->first()->tmdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
+        <a href="{{ route('torrents.similar', ['category_id' => $torrents->first()->category_id, 'tmdb' => $torrents->first()->tmdb]) }}" itemprop="url" class="l-breadcrumb-item-link">
             <span itemprop="title" class="l-breadcrumb-item-link-title">@lang('torrent.similar')</span>
         </a>
     </li>
