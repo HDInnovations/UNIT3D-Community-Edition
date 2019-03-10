@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Invite;
 use Carbon\Carbon;
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
+use App\Models\Invite;
 use App\Mail\InviteUser;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
@@ -151,7 +151,7 @@ class InviteController extends Controller
         abort_unless($invite->user_id === $user->id, 403);
 
         if ($invite->accepted_by !== null) {
-            return redirect()->back()
+            return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
                 ->with($this->toastr->error('The invite you are trying to resend has already been used.', 'Whoops!', ['options']));
         }
 
@@ -160,7 +160,7 @@ class InviteController extends Controller
         // Activity Log
         \LogActivity::addToLog("Member {$user->username} has resent invite to {$invite->email} .");
 
-        return redirect()->back()
+        return redirect()->route('user_invites', ['slug' => $user->slug, 'id' => $user->id])
             ->with($this->toastr->success('Invite was resent successfully!', 'Yay!', ['options']));
     }
 

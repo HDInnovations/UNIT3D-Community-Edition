@@ -13,29 +13,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Peer;
-use App\Type;
-use App\User;
-use App\History;
-use App\Torrent;
-use App\Warning;
-use App\Category;
 use Carbon\Carbon;
-use App\TagTorrent;
-use App\TorrentFile;
-use App\FreeleechToken;
-use App\PrivateMessage;
-use App\TorrentRequest;
-use App\BonTransactions;
-use App\FeaturedTorrent;
+use App\Models\Peer;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\History;
+use App\Models\Torrent;
+use App\Models\Warning;
+use App\Models\Category;
 use App\Services\Bencode;
 use App\Helpers\MediaInfo;
-use App\PersonalFreeleech;
+use App\Models\TagTorrent;
+use App\Models\TorrentFile;
 use App\Bots\IRCAnnounceBot;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\FreeleechToken;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Services\TorrentTools;
+use App\Models\BonTransactions;
+use App\Models\FeaturedTorrent;
+use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewReseedRequest;
@@ -103,25 +103,25 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar($imdb)
+    public function similar($tmdb)
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $torrents = Torrent::with(['user', 'category'])
             ->withCount(['thanks', 'comments'])
-            ->where('imdb', '=', $imdb)
+            ->where('tmdb', '=', $tmdb)
             ->latest()
             ->get();
 
         if (! $torrents || $torrents->count() < 1) {
-            abort(404);
+            abort(404, 'No Similar Torrents Found');
         }
 
         return view('torrent.similar', [
             'user' => $user,
             'personal_freeleech' => $personal_freeleech,
             'torrents' => $torrents,
-            'imdb' => $imdb,
+            'tmdb' => $tmdb,
         ]);
     }
 
@@ -425,7 +425,10 @@ class TorrentController extends Controller
         }
 
         if ($collection == 1) {
-            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname')->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')->groupBy('torrents.imdb')->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
+            $torrent = DB::table('torrents')->selectRaw('distinct(torrents.imdb),max(torrents.created_at) as screated_at,max(torrents.seeders) as sseeders,max(torrents.leechers) as sleechers,max(torrents.times_completed) as stimes_completed,max(torrents.name) as sname')
+                ->leftJoin('torrents as torrentsl', 'torrents.id', '=', 'torrentsl.id')
+                ->groupBy('torrents.imdb')
+                ->whereRaw('torrents.status = ? AND torrents.imdb != ?', [1, 0]);
 
             if ($request->has('search') && $request->input('search') != null) {
                 $torrent->where(function ($query) use ($search) {
@@ -839,7 +842,7 @@ class TorrentController extends Controller
         $user = auth()->user();
         $freeleech_token = FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $torrent->id)->first();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
-        $comments = $torrent->comments()->latest()->paginate(6);
+        $comments = $torrent->comments()->latest()->paginate(5);
         $total_tips = BonTransactions::where('torrent_id', '=', $id)->sum('cost');
         $user_tips = BonTransactions::where('torrent_id', '=', $id)->where('sender', '=', auth()->user()->id)->sum('cost');
         $last_seed_activity = History::where('info_hash', '=', $torrent->info_hash)->where('seeder', '=', 1)->latest('updated_at')->first();
@@ -1078,7 +1081,7 @@ class TorrentController extends Controller
             }
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
-            return redirect()->back()
+            return redirect()->route('home')
                 ->with($this->toastr->error('Unable to delete Torrent', 'Error', ['options']));
         }
     }
@@ -1094,7 +1097,7 @@ class TorrentController extends Controller
     public function peers($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $peers = Peer::where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
+        $peers = Peer::with(['user'])->where('torrent_id', '=', $id)->latest('seeder')->paginate(25);
 
         return view('torrent.peers', ['torrent' => $torrent, 'peers' => $peers]);
     }
@@ -1110,7 +1113,7 @@ class TorrentController extends Controller
     public function history($slug, $id)
     {
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
-        $history = History::where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
+        $history = History::with(['user'])->where('info_hash', '=', $torrent->info_hash)->latest()->paginate(25);
 
         return view('torrent.history', ['torrent' => $torrent, 'history' => $history]);
     }
@@ -1204,7 +1207,7 @@ class TorrentController extends Controller
 
         // Validation
         $v = validator($torrent->toArray(), [
-            'name'        => 'required',
+            'name'        => 'required|unique:torrents',
             'slug'        => 'required',
             'description' => 'required',
             'info_hash'   => 'required|unique:torrents',
@@ -1440,12 +1443,12 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if (auth()->user()->isBookmarked($torrent->id)) {
-            return redirect()->back()
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->error('Torrent has already been bookmarked.', 'Whoops!', ['options']));
         } else {
             auth()->user()->bookmarks()->attach($torrent->id);
 
-            return redirect()->back()
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->success('Torrent Has Been Bookmarked Successfully!', 'Yay!', ['options']));
         }
     }
@@ -1462,7 +1465,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         auth()->user()->bookmarks()->detach($torrent->id);
 
-        return redirect()->back()
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
     }
 

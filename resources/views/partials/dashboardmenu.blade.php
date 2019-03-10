@@ -15,7 +15,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-columns"></i> @lang('staff.staff-dashboard')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="{{ route('backupManager') }}">
                         <i class="{{ config('other.font-awesome') }} fa-hdd"></i> @lang('backup.backup') @lang('backup.manager')
@@ -39,6 +39,11 @@
             <li>
                 <a href="{{ route('flush_chat') }}">
                     <i class="{{ config('other.font-awesome') }} fa-broom"></i> @lang('staff.flush-chat')
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Staff.bots.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
 
@@ -81,11 +86,6 @@
             <li>
                 <a href="{{ route('Staff.rss.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-rss"></i> @lang('staff.rss')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('Staff.bots.index') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-robot"></i> @lang('staff.bots')
                 </a>
             </li>
             <li class="nav-header head">
@@ -160,6 +160,11 @@
                     <i class="{{ config('other.font-awesome') }} fa-question"></i> @lang('staff.possible-leech-cheaters')
                 </a>
             </li>
+            <li>
+                <a href="{{ route('staff.seedbox.index') }}">
+                    <i class="{{ config('other.font-awesome') }} fa-server"></i> @lang('staff.seedboxes')
+                </a>
+            </li>
 
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
@@ -189,7 +194,7 @@
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.user-notes')
                 </a>
             </li>
-            @if (auth()->user()->group->is_admin)
+            @if (auth()->user()->group->is_owner)
                 <li>
                     <a href="/staff/log-viewer">
                         <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.laravel-log')

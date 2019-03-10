@@ -13,12 +13,12 @@
 
 namespace App\Helpers;
 
-use App\User;
-use App\Wish;
-use App\Follow;
-use App\Torrent;
-use App\PrivateMessage;
+use App\Models\User;
+use App\Models\Wish;
+use App\Models\Follow;
+use App\Models\Torrent;
 use App\Bots\IRCAnnounceBot;
+use App\Models\PrivateMessage;
 use App\Notifications\NewUpload;
 use App\Achievements\UserMadeUpload;
 use App\Achievements\UserMade25Uploads;

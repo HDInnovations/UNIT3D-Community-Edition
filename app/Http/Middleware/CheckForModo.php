@@ -15,7 +15,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CheckForModo
 {
@@ -30,7 +29,7 @@ class CheckForModo
     public function handle($request, Closure $next)
     {
         if (! auth()->check() || ! auth()->user()->group->is_modo) {
-            throw new NotFoundHttpException();
+            return abort(403);
         }
 
         return $next($request);

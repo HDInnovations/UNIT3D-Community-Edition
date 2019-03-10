@@ -7,9 +7,8 @@
     <title>LogViewer - Created by ARCANEDEV</title>
     <meta name="description" content="LogViewer">
     <meta name="author" content="ARCANEDEV">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700|Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" integrity="{{ Sri::hash('css/app.css') }}" crossorigin="anonymous">
     <style>
         html {
             position: relative;
@@ -273,10 +272,6 @@
             background-color: #6A1B9A;
         }
     </style>
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
     {{-- Navbar --}}
@@ -290,19 +285,19 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="{{ route('log-viewer::dashboard') }}" class="navbar-brand">
-                    <i class="fa fa-fw fa-book"></i> LogViewer
+                    <i class="{{ config('other.font-awesome') }} fa-fw fa-book"></i> LogViewer
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li class="{{ Route::is('log-viewer::dashboard') ? 'active' : '' }}">
                         <a href="{{ route('log-viewer::dashboard') }}">
-                            <i class="fa fa-dashboard"></i> Dashboard
+                            <i class="{{ config('other.font-awesome') }} fa-dashboard"></i> Dashboard
                         </a>
                     </li>
                     <li class="{{ Route::is('log-viewer::logs.list') ? 'active' : '' }}">
                         <a href="{{ route('log-viewer::logs.list') }}">
-                            <i class="fa fa-archive"></i> Logs
+                            <i class="{{ config('other.font-awesome') }} fa-archive"></i> Logs
                         </a>
                     </li>
                     <li><a href="{{ route('staff_dashboard') }}">Return To Staff Panel</a></li>
@@ -316,23 +311,12 @@
         @yield('content')
     </main>
 
-    {{-- Footer --}}
-    <footer class="main-footer">
-        <div class="container">
-            <p class="text-muted pull-left">
-                LogViewer - <span class="label label-info">version {{ log_viewer()->version() }}</span>
-            </p>
-            <p class="text-muted pull-right">
-                Created with <i class="fa fa-heart"></i> by ARCANEDEV <sup>&copy;</sup>
-            </p>
-        </div>
-    </footer>
-
     {{-- Scripts --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.15.35/js/bootstrap-datetimepicker.min.js"></script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         Chart.defaults.global.responsive      = true;
         Chart.defaults.global.scaleFontFamily = "'Source Sans Pro'";
         Chart.defaults.global.animationEasing = "easeOutQuart";

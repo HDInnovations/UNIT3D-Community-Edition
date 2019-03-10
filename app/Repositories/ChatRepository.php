@@ -13,16 +13,16 @@
 
 namespace App\Repositories;
 
-use App\Bot;
-use App\User;
-use App\Message;
-use App\Chatroom;
-use App\UserEcho;
-use App\ChatStatus;
+use App\Models\Bot;
 use App\Events\Ping;
-use App\UserAudible;
+use App\Models\User;
 use App\Events\Chatter;
+use App\Models\Message;
+use App\Models\Chatroom;
+use App\Models\UserEcho;
+use App\Models\ChatStatus;
 use App\Events\MessageSent;
+use App\Models\UserAudible;
 use App\Events\MessageDeleted;
 use App\Http\Resources\ChatMessageResource;
 
@@ -255,7 +255,7 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($sender_id,$bot_id) {
+        ])->where(function ($query) use ($sender_id, $bot_id) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, 1])->orWhereRaw('(user_id = ? and receiver_id = ?)', [1, $sender_id]);
         })->where('bot_id', '=', $bot_id)
             ->orderBy('id', 'desc')
@@ -272,7 +272,7 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($sender_id,$target_id) {
+        ])->where(function ($query) use ($sender_id, $target_id) {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$sender_id, $target_id])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$target_id, $sender_id]);
         })
             ->orderBy('id', 'desc')

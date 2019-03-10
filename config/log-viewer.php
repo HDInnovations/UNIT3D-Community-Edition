@@ -46,7 +46,7 @@ return [
      |  Theme
      | -----------------------------------------------------------------
      |  Supported themes :
-     |    'bootstrap-3', 'bootstrap-4'
+     |    'bootstrap-3'
      |  Make your own theme by adding a folder to the views directory and specifying it here.
      */
 
@@ -63,7 +63,7 @@ return [
          'attributes' => [
              'prefix'     => 'staff/log-viewer',
              'namespace'  => ['Staff'],
-             'middleware' => ['web', 'auth', 'admin'],
+             'middleware' => ['web', 'auth', 'owner'],
          ],
      ],
 

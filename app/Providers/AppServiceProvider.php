@@ -13,7 +13,7 @@
 
 namespace App\Providers;
 
-use App\Page;
+use App\Models\Page;
 use Illuminate\View\View;
 use App\Interfaces\WishInterface;
 use App\Repositories\WishRepository;
@@ -34,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Share $pages across all views
         view()->composer('*', function (View $view) {
-            $pages = cache()->remember('cached-pages', 60, function () {
-                return Page::select('id', 'name', 'slug')->take(5)->get();
+            $pages = cache()->remember('cached-pages', 3600, function () {
+                return Page::select('id', 'name', 'slug')->take(6)->get();
             });
 
             $view->with(compact('pages'));

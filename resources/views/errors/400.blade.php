@@ -12,8 +12,7 @@
     <div class="separator"></div>
 
     <p class="text-center">
-        The request could not be understood by the server due to malformed syntax.
-        <br>
-        The client SHOULD NOT repeat the request without modifications.
-    </p>
+        {{ $exception->getMessage() ?: 'The request could not be understood by the server due to malformed syntax.
+        <br> The client SHOULD NOT repeat the request without modifications.
+    </p>' }}
 @stop

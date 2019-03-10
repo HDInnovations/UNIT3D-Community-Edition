@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Torrent;
-use App\Graveyard;
 use Carbon\Carbon;
+use App\Models\Torrent;
+use App\Models\Graveyard;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\TorrentFacetedRepository;

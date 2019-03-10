@@ -13,10 +13,10 @@
 
 namespace App\Repositories;
 
-use App\Post;
-use App\User;
-use App\Comment;
-use App\PrivateMessage;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\PrivateMessage;
 use App\Notifications\NewPostTag;
 use App\Notifications\NewCommentTag;
 

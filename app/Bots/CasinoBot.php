@@ -12,13 +12,13 @@
 
 namespace App\Bots;
 
-use App\Bot;
-use App\User;
-use App\UserEcho;
 use Carbon\Carbon;
-use App\UserAudible;
-use App\BotTransaction;
+use App\Models\Bot;
+use App\Models\User;
 use App\Events\Chatter;
+use App\Models\UserEcho;
+use App\Models\UserAudible;
+use App\Models\BotTransaction;
 use App\Repositories\ChatRepository;
 use App\Http\Resources\UserEchoResource;
 use App\Http\Resources\UserAudibleResource;
@@ -46,7 +46,7 @@ class CasinoBot
         $this->chat = $chat;
         $this->bot = $bot;
         $this->expiresAt = Carbon::now()->addMinutes(60);
-        $this->current = today();
+        $this->current = Carbon::now();
     }
 
     /**

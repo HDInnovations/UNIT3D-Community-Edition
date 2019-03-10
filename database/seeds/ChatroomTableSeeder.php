@@ -10,7 +10,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-use App\Chatroom;
+use App\Models\Chatroom;
 use Illuminate\Database\Seeder;
 
 class ChatroomTableSeeder extends Seeder

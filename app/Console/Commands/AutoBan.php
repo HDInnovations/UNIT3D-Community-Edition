@@ -13,10 +13,10 @@
 
 namespace App\Console\Commands;
 
-use App\Ban;
-use App\Group;
-use App\Warning;
+use App\Models\Ban;
 use App\Mail\BanUser;
+use App\Models\Group;
+use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;

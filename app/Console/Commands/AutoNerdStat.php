@@ -13,12 +13,12 @@
 
 namespace App\Console\Commands;
 
-use App\Ban;
-use App\Peer;
-use App\User;
-use App\Torrent;
-use App\Warning;
 use Carbon\Carbon;
+use App\Models\Ban;
+use App\Models\Peer;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\Warning;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
 
@@ -61,7 +61,7 @@ class AutoNerdStat extends Command
             $expiresAt = Carbon::now()->addMinutes(60);
 
             // Current Timestamp
-            $current = today();
+            $current = Carbon::now();
 
             // Site Birthday
             $bday = config('other.birthdate');

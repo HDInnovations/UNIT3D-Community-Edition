@@ -14,8 +14,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Voter;
-use App\Option;
+use App\Models\Voter;
+use App\Models\Option;
 use Brian2694\Toastr\Toastr;
 
 class CheckIfAlreadyVoted

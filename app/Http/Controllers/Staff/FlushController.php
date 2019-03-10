@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Peer;
-use App\History;
 use Carbon\Carbon;
+use App\Models\Peer;
+use App\Models\History;
 use Brian2694\Toastr\Toastr;
 use App\Http\Controllers\Controller;
 

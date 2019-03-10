@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Thank;
-use App\Torrent;
+use App\Models\Thank;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 
 class ThankController extends Controller

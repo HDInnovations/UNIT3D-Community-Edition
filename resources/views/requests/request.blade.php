@@ -120,7 +120,7 @@
                                         <li>
                                             @if ($torrentRequest->imdb != 0 && $torrentRequest->imdb != null)
                   <span class="badge-user text-bold text-orange">
-                    <a href="http://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
+                    <a href="https://www.imdb.com/title/tt{{ $torrentRequest->imdb }}" title="IMDB"
                        target="_blank">IMDB: {{ $torrentRequest->imdb }}</a>
                   </span>
                                             @endif
@@ -316,12 +316,12 @@
                                     @endif
                                 @endif
                                 @if($torrentRequest->filled_hash == null)
-                                    @if ($torrentRequest->claimed == 1 && $torrentRequestClaim->username == $user->username || $user->group->is_modo)
+                                    @if($torrentRequest->claimed == 1 && ($torrentRequestClaim->username == $user->username || $user->group->is_modo))
                                         <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @elseif ($torrentRequest->claimed == 0)
-                                        <button id="btn_fulfil_request" class="btn btn-xs btn-info" data-toggle="modal"
+                                        <button id="btn_fulfil_request" class="btn btn-md btn-info" data-toggle="modal"
                                                 data-target="#fill"><i class="{{ config('other.font-awesome') }} fa-link">
                                             </i> @lang('request.fulfill')</button>
                                     @endif
@@ -412,7 +412,7 @@
                     <div class="panel panel-default panel-collapse">
                         <div class="panel-heading collapsed" data-toggle="collapse" data-target="#collapseVoters"
                              aria-expanded="false">
-                            <strong><a href="#">@lang('request.voters')</a></strong>
+                            <strong><a href="#/">@lang('request.voters')</a></strong>
                         </div>
                         <div id="collapseVoters" class="panel-body collapse" aria-expanded="false">
                             <div class="pull-right">
@@ -465,7 +465,7 @@
                     </div>
                 </div>
             </div>
-            <div class="block">
+            <div class="block" id="comments">
                 <!-- Comments -->
                 <div class="clearfix"></div>
                 <div class="row ">
@@ -507,7 +507,7 @@
                                                     @endif
                                                     <strong><a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
-                                                <span class="text-muted"><small><em>{{$comment->created_at->diffForHumans() }}</em></small></span>
+                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                 @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                     <a title="@lang('common.delete-your-comment')"
                                                        href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i
@@ -532,7 +532,7 @@
                         </div>
                     </div>
                     <!-- /Comments -->
-
+                    <div class="clearfix"></div>
                     <div class="col-md-12 home-pagination">
                         <div class="text-center">{{ $comments->links() }}</div>
                     </div>
@@ -565,3 +565,4 @@
     @include('requests.request_modals')
     @endif
 @endsection
+

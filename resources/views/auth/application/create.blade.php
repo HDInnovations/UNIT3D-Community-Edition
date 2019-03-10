@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}"/>
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}" integrity="{{ Sri::hash('css/app.css') }}" crossorigin="anonymous">
 </head>
 
 <body>
@@ -125,8 +125,8 @@
 </div>
 <br>
 
-<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   var images = 2;
 
   $('#addImg').on('click', function (e) {
@@ -143,7 +143,7 @@
   });
 </script>
 
-<script type="text/javascript">
+<script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   var links = 2;
 
   $('#addLink').on('click', function (e) {

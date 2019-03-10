@@ -13,17 +13,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
-use App\User;
-use App\Torrent;
 use Carbon\Carbon;
-use App\BonExchange;
-use App\PrivateMessage;
-use App\BonTransactions;
-use App\PersonalFreeleech;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\BonExchange;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Notifications\NewBon;
+use App\Models\PrivateMessage;
+use App\Models\BonTransactions;
+use App\Models\PersonalFreeleech;
 use App\Notifications\NewPostTip;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\NewUploadTip;

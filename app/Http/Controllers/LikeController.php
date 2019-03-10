@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Like;
-use App\Post;
+use App\Models\Like;
+use App\Models\Post;
 use Brian2694\Toastr\Toastr;
 
 class LikeController extends Controller

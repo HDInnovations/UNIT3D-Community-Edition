@@ -10,7 +10,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @author     HDVinnie
  */
-use App\Group;
+use App\Models\Group;
 use Illuminate\Database\Seeder;
 
 class GroupsTableSeeder extends Seeder
@@ -139,6 +139,7 @@ class GroupsTableSeeder extends Seeder
             'position'   => 19,
             'color'      => '#00abff',
             'icon'       => config('other.font-awesome').' fa-user-secret',
+            'is_owner'   => 1,
             'is_admin'   => 1,
             'is_modo'    => 1,
             'is_trusted' => 1,

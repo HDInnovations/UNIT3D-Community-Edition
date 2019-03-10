@@ -5655,6 +5655,11 @@ a.sort {
     width: 50%;
     text-align: right;
 }
+.button-left-increased {
+    display: table-cell;
+    width: 60%;
+    text-align: left;
+}
 .button-left-large {
     display: table-cell;
     width: 70%;
@@ -5673,6 +5678,11 @@ a.sort {
 .button-right-small {
     display: table-cell;
     width: 30%;
+    text-align: right;
+}
+.button-right-decreased {
+    display: table-cell;
+    width: 40%;
     text-align: right;
 }
 .button-padding {
@@ -9512,9 +9522,6 @@ img.emojione {
     margin-top: 0;
 }
 
-
-
-//Mobile by Peter
 @media only screen and (max-width: 613px) {
   .form-torrent-search .form-group {
       margin-left: 0;
@@ -9642,7 +9649,157 @@ img.emojione {
   #facetedSearch table thead tr th {
     float: left;
   }
+}
 
+div.item.mini.backdrop div.image_content img {
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 141px;
+    border-radius: 4px
+}
 
+div.item.poster.card div.image_content {
+    width: 185px
+}
 
+div.item.poster div.image_content img {
+    width: 185px;
+    height: 278px
+}
+
+div.item.backdrop div.image_content img {
+    position: relative;
+    top: 0;
+    left: -25px;
+    width: 500px;
+    height: 278px
+}
+
+div.item.mini.backdrop div.image_content img {
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 141px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .42), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2)!important;
+}
+
+div.item.backdrop.card.backdrop div.image_content img {
+    left: -10px
+}
+
+div.image_content a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 0
+}
+
+div.image_content a:hover div.meta {
+    visibility: visible
+}
+
+div.image_content a div.meta {
+    visibility: hidden;
+    background-color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    top: -40px;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    z-index: 1;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+}
+
+div.item.backdrop.card span.release_date span.glyphicons {
+    top: 0;
+    padding-right: 0;
+    padding-left: 4px
+}
+
+div.item.card span.release_date, div.item.card span.release_date span.glyphicons,
+div.card span.genres, div.item.mini span.genres {
+    color: #666
+}
+
+div.item.card span.genres {
+    padding-left: 1px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-style: italic
+}
+
+div.item.mini span.genres {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+div.item.card div.image_content a div span.glyphicons {
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 1.1em;
+    height: 90%
+}
+
+div.item span.glyphicons {
+    display: inline-flex;
+    align-items: center
+}
+
+div.item span.vote_average {
+    padding-top: 0;
+    margin-right: 0;
+    display: inline-flex;
+    align-items: center
+}
+section.recommendations div.scroller {
+    -webkit-overflow-scrolling: touch;
+    width: auto;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding-bottom: 16px;
+    padding-right: 40px
+}
+
+section.recommendations div.scroller div.item {
+    display: inline-block;
+    float: none
+}
+
+section.recommendations div.scroller div.item a {
+    font-weight: 400;
+    font-size: 1em;
+    padding-right: 10px
+}
+
+section.recommendations div.scroller div.item div.image_content a:hover {
+    color: #000
+}
+
+section.recommendations div.scroller div.item p {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px
+}
+
+section.recommendations div.scroller div.item span.release_date {
+    line-height: 1em;
+    font-size: 1em;
+    display: inline-flex;
+    align-items: center
+}
+
+section.recommendations div.scroller div.item span.glyphicons {
+    padding-right: 4px
 }

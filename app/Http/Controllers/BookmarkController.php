@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Bookmark;
-use App\PersonalFreeleech;
+use App\Models\Bookmark;
+use App\Models\PersonalFreeleech;
 
 class BookmarkController extends Controller
 {

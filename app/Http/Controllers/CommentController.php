@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Article;
-use App\Comment;
-use App\Torrent;
-use App\TorrentRequest;
+use App\Models\User;
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\TorrentRequest;
 use App\Notifications\NewComment;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMadeComment;
@@ -262,7 +262,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id, 'hash' => '#comments'])
                 ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }
@@ -367,7 +367,7 @@ class CommentController extends Controller
             $user->addProgress(new UserMade800Comments(), 1);
             $user->addProgress(new UserMade900Comments(), 1);
 
-            return redirect()->route('request', ['id' => $tr->id])
+            return redirect()->route('request', ['id' => $tr->id, 'hash' => '#comments'])
                 ->with($this->toastr->success('Your Comment Has Been Added!', 'Yay!', ['options']));
         }
     }

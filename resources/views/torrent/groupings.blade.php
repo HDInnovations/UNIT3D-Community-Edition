@@ -251,7 +251,7 @@
                                         <div class="card_alt">
                                             <div class="body_poster">
                                                 @if($t->movie && $t->movie->poster)
-                                                    <img src="{{ $t->movie->poster }}">
+                                                    <img src="{{ $t->movie->poster }}" class="show-poster" data-image='<img src="{{ $t->movie->poster }}" alt="@lang('torrent.poster')" style="height: 1000px;">'>
                                                 @else
                                                     <img src="https://via.placeholder.com/600x900" />
                                                 @endif
@@ -412,7 +412,7 @@
                             </span>
                                                                                 @endif
 
-                                                                                @php $freeleech_token = \App\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $current->id)->first(); @endphp
+                                                                                @php $freeleech_token = \App\Models\FreeleechToken::where('user_id', '=', $user->id)->where('torrent_id', '=', $current->id)->first(); @endphp
                                                                                 @if ($freeleech_token)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-coins text-bold' data-toggle='tooltip' title=''

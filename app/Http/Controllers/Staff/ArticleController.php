@@ -14,7 +14,7 @@
 namespace App\Http\Controllers\Staff;
 
 use Image;
-use App\Article;
+use App\Models\Article;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

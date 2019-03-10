@@ -46,4 +46,5 @@ return [
     'possible-leech-cheaters' => 'Possible Cheaters',
     'chat-tools'              => 'Chat Tools',
     'flush-chat'              => 'Flush Chatbox',
+    'seedboxes'               => 'Registered Seedboxes',
 ];

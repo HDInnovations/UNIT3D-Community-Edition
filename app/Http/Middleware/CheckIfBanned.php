@@ -14,7 +14,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Group;
+use App\Models\Group;
 use Brian2694\Toastr\Toastr;
 
 class CheckIfBanned

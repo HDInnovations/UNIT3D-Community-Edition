@@ -27,7 +27,7 @@ return [
         'middleware' => [
             'web',
             'auth',
-            'admin',
+            'owner',
         ],
     ],
 ];

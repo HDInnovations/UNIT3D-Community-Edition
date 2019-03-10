@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Type;
+use App\Models\Type;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -78,7 +78,7 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
+            return redirect()->route('staff_type_index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();
@@ -126,7 +126,7 @@ class TypeController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
+            return redirect()->route('staff_type_index')
                 ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $type->save();

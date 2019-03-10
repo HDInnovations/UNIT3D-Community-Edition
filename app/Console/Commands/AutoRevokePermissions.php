@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\User;
-use App\Group;
-use App\Warning;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Warning;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

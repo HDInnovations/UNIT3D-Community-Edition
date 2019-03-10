@@ -13,8 +13,8 @@
 
 namespace App\Console\Commands;
 
-use App\History;
 use Carbon\Carbon;
+use App\Models\History;
 use Illuminate\Console\Command;
 
 class AutoCorrectHistory extends Command

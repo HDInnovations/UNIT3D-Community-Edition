@@ -321,7 +321,7 @@
 @endsection
 
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       var useOnComplete = false,
         useEasing = false,
         useGrouping = false,

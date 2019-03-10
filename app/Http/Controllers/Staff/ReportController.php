@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Report;
-use App\PrivateMessage;
+use App\Models\Report;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
 
 class ReportController extends Controller

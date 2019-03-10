@@ -13,18 +13,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Type;
-use App\User;
-use App\Torrent;
-use App\Category;
 use Carbon\Carbon;
-use App\PrivateMessage;
-use App\TorrentRequest;
-use App\BonTransactions;
-use App\TorrentRequestClaim;
+use App\Models\Type;
+use App\Models\User;
+use App\Models\Torrent;
+use App\Models\Category;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
-use App\TorrentRequestBounty;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
+use App\Models\BonTransactions;
+use App\Models\TorrentRequestClaim;
+use App\Models\TorrentRequestBounty;
 use App\Repositories\ChatRepository;
 use App\Notifications\NewRequestFill;
 use App\Notifications\NewRequestClaim;

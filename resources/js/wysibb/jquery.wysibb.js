@@ -384,7 +384,7 @@ wbbdebug = true;
                         },
                     },
                     transform: {
-                        '<iframe src="http://www.youtube.com/embed/{SRC}?rel=0" width="640" height="480" frameborder="0"></iframe>':
+                        '<iframe src="https://www.youtube-nocookie.com/embed/{SRC}?rel=0" width="640" height="480" frameborder="0"></iframe>':
                             '[video="youtube"]{SRC}[/video]',
                     },
                 },

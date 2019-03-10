@@ -13,7 +13,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Article;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {

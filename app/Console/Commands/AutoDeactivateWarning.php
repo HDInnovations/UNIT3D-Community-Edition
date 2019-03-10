@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Warning;
 use Carbon\Carbon;
-use App\PrivateMessage;
+use App\Models\Warning;
+use App\Models\PrivateMessage;
 use Illuminate\Console\Command;
 
 class AutoDeactivateWarning extends Command

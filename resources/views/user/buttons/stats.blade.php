@@ -21,9 +21,6 @@
         <a href="{{ route('user_seeds', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.seeds')
         </a>
-        <a href="{{ route('user_resurrections', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
-            @lang('user.resurrections')
-        </a>
         @if(auth()->user()->id == $user->id)
         @if(!$route || $route != 'profile')
             <a href="{{ route('download_history_torrents', ['username' => $user->username, 'id' => $user->id]) }}" role="button" class="btn btn-sm btn-labeled btn-success">

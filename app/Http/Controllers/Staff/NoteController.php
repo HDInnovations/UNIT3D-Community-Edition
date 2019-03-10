@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Note;
-use App\User;
+use App\Models\Note;
+use App\Models\User;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -97,9 +97,10 @@ class NoteController extends Controller
     public function deleteNote($id)
     {
         $note = Note::findOrFail($id);
+        $user = User::findOrFail($note->user_id);
         $note->delete();
 
-        return redirect()->back()
+        return redirect()->route('profile', ['username' => $user->username, 'id' => $user->id])
             ->with($this->toastr->success('Note Has Successfully Been Deleted', 'Yay!', ['options']));
     }
 }

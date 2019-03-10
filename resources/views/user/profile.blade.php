@@ -356,6 +356,25 @@
                         </td>
                     </tr>
                         @endif
+                        @if (auth()->user()->isAllowed($user,'profile','show_profile_request_extra'))
+                            <tr>
+                                <td>@lang('user.requests')</td>
+                                <td>
+                                    <ul class="list-inline mb-0">
+                                        <li>
+          <span class="badge-extra"><strong>@lang('user.requested'):</strong>
+            <span class="text-pink text-bold">{{ $requested }}</span>
+          </span>
+                                        </li>
+                                        <li>
+          <span class="badge-extra"><strong>@lang('user.filled-request'):</strong>
+            <span class="text-green text-bold">{{ $filled }}</span>
+          </span>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endif
             <tr>
                 <td colspan="2" class="text-bold">Warnings:</td>
             </tr>

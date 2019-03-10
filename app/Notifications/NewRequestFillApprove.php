@@ -13,8 +13,8 @@
 
 namespace App\Notifications;
 
-use App\TorrentRequest;
 use Illuminate\Bus\Queueable;
+use App\Models\TorrentRequest;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

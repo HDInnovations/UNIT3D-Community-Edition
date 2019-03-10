@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="panel-body" id="frameBody">
-                <div id="frame" @mouseover="freezeChat()" @mouseleave="unfreezeChat()">
+                <div id="frame" @mouseover="freezeChat()" @mouseout="unfreezeChat()">
                     <div class="content no-space">
                         <div class="button-holder nav nav-tabs mb-5" id="frameTabs">
                             <div class="button-left-large">
@@ -91,7 +91,7 @@
         </div>
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
     .panel-fullscreen {
         z-index: 9999;
         position: fixed;
@@ -190,6 +190,7 @@
                 startup: 0,
                 check: 0,
                 target: 0,
+                forced: false,
                 bot: 0,
                 activeTab: '',
                 activeBot: '',
@@ -204,6 +205,7 @@
                 helpName: '',
                 helpCommand: '',
                 frozen: false,
+                push: false,
                 helpId: 0,
                 scroll: true,
                 channel: null,
@@ -224,6 +226,11 @@
                 window.Echo.leave(`chatroom.${oldVal}`)
                 this.channel = window.Echo.join(`chatroom.${newVal}`)
                 this.listenForEvents()
+            },
+            messages () {
+                this.$nextTick(function() {
+                    this.scrollToBottom();
+                });
             },
         },
         computed: {
@@ -329,6 +336,7 @@
                             this.listening = 0;
                         }
                     }
+                    this.scrollToBottom(true);
                 } else if (typeVal == 'target') {
                     this.bot = 0;
                     this.tab = newVal;
@@ -360,6 +368,7 @@
                             this.listening = 0;
                         }
                     }
+                    this.scrollToBottom(true);
                 } else if (typeVal == 'bot') {
                     this.target = 0;
                     this.tab = newVal;
@@ -394,9 +403,10 @@
                             this.listening = 0;
                         }
                     }
+                    this.scrollToBottom(true);
                 } else if (typeVal == 'list') {
                     this.tab = newVal;
-                    this.scrollToBottom();
+                    this.scrollToBottom(true);
                 }
             },
             fetchAudibles() {
@@ -450,22 +460,22 @@
             fetchBotMessages(id) {
                 axios.get(`/api/chat/bot/${id}`).then(response => {
                     this.messages = _.reverse(response.data.data);
-                    this.scrollToBottom(true)
+                    this.scrollToBottom()
                     this.state.connecting = false
                 })
             },
             fetchPrivateMessages() {
                 axios.get(`/api/chat/private/messages/${this.target}`).then(response => {
                     this.messages = _.reverse(response.data.data)
-                    this.scrollToBottom(true)
                     this.state.connecting = false
+                    this.scrollToBottom(true);
                 })
             },
             fetchMessages() {
                 axios.get(`/api/chat/messages/${this.room}`).then(response => {
                     this.messages = _.reverse(response.data.data);
-                    this.scrollToBottom(true)
                     this.state.connecting = false
+                    this.scrollToBottom(true);
                 })
             },
             fetchStatuses() {
@@ -485,8 +495,13 @@
                 this.frozen = true;
             },
             unfreezeChat() {
-                this.frozen = false;
-                this.scrollToBottom(true);
+                let container = $('.messages .list-group')
+                let xy = parseInt(container.prop('offsetHeight')+container.scrollTop());
+                if(xy != undefined && this.frozen == true) {
+                    if(Math.ceil(container.prop('scrollHeight') - container.scrollTop()) === container.prop('clientHeight')) {
+                        this.frozen = false;
+                    }
+                }
             },
             leaveBot(id) {
                 if (id > 0) {
@@ -580,7 +595,22 @@
                   $('#frameWrap').css({ 'width': '100%', 'padding-top': '5px' });
               }
             },
+            changeStatus(status_id) {
+                this.status = status_id
+                this.showStatuses = false
+                if (this.auth.chat_status.id !== status_id) {
+                    /* Update the users chat status in the database */
+                    axios.post(`/api/chat/user/${this.auth.id}/status`, {
+                        'status_id': status_id
+                    }).then(response => {
+                        // reassign the auth variable to the response data
+                        this.auth = response.data
+                    })
+                }
+            },
             changeRoom(id) {
+                this.forced = false;
+                this.frozen = false;
                 this.bot = 0;
                 this.target = 0;
                 this.room = id;
@@ -604,35 +634,26 @@
                     this.fetchMessages()
                 }
             },
-            changeStatus(status_id) {
-                this.status = status_id
-                this.showStatuses = false
-                if (this.auth.chat_status.id !== status_id) {
-                    /* Update the users chat status in the database */
-                    axios.post(`/api/chat/user/${this.auth.id}/status`, {
-                        'status_id': status_id
-                    }).then(response => {
-                        // reassign the auth variable to the response data
-                        this.auth = response.data
-                    })
-                }
-            },
             changeTarget(id) {
+                this.forced = false;
+                this.frozen = false;
                 if (this.target !== id && id != 0) {
                     this.target = id;
                     this.fetchPrivateMessages()
                 } else {
-                    this.scrollToBottom(true)
+                    this.scrollToBottom(true);
                 }
             },
             changeBot(id) {
+                this.forced = false;
+                this.frozen = false;
                 if (this.bot !== id && id != 0) {
                     this.bot = id;
                     this.bot_id = id;
                     this.receiver_id = 1;
                     this.fetchBotMessages(this.bot)
                 } else {
-                    this.scrollToBottom(true)
+                    this.scrollToBottom(true);
                 }
             },
             sortEchoes(obj) {
@@ -650,6 +671,7 @@
                 return output;
             },
             startBot() {
+                this.forced = false;
                 if (this.bot != 9999) {
                     this.tab = '@' + this.helpName;
                     this.bot = this.helpId;
@@ -662,7 +684,7 @@
 
                     this.fetchBotMessages(this.bot);
                 } else {
-                    this.scrollToBottom(true)
+                    this.scrollToBottom(true);
                 }
             },
             playSound() {
@@ -858,22 +880,22 @@
                             }
                         })
                     }
-                    this.scrollToBottom(true);
                 })
             },
             scrollToBottom (force = false) {
 
-                if (!force && this.frozen) return;
-
                 let container = $('.messages .list-group')
+
+                if (this.forced != false && force != true && this.frozen) return;
+
                 if (this.scroll || force) {
                     container.animate({scrollTop: container.prop('scrollHeight')}, 0)
                 }
+
                 container.scroll(() => {
-                    this.scroll = false;
-                    let scrollTop = container.scrollTop() + container.prop('clientHeight')
                     let scrollHeight = container.prop('scrollHeight')
-                    this.scroll = scrollTop >= scrollHeight - 50
+                    this.scroll = scrollHeight+9999;
+                    this.forced = true;
                 })
             },
             listenForChatter() {
@@ -924,9 +946,6 @@
                     .here(users => {
                         this.state.connecting = false
                         this.users = users
-                        setInterval(() => {
-                            this.scrollToBottom()
-                        }, 100)
                     })
                     .joining(user => {
                         // this.createMessage(`${user.username} has JOINED the chat ...`)

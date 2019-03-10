@@ -22,7 +22,7 @@
 |
 */
 
-$factory->define(App\Torrent::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Torrent::class, function (Faker\Generator $faker) {
     return [
         'name'         => $faker->company,
         'slug'         => $faker->slug,
@@ -43,7 +43,7 @@ $factory->define(App\Torrent::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'username'       => $faker->firstName,
         'email'          => $faker->safeEmail,

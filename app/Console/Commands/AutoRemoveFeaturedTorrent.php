@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use App\Torrent;
 use Carbon\Carbon;
-use App\FeaturedTorrent;
+use App\Models\Torrent;
+use App\Models\FeaturedTorrent;
 use Illuminate\Console\Command;
 use App\Repositories\ChatRepository;
 

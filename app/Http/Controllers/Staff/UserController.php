@@ -13,22 +13,22 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Like;
-use App\Note;
-use App\Peer;
-use App\Post;
-use App\User;
-use App\Group;
-use App\Thank;
-use App\Topic;
-use App\Follow;
-use App\Invite;
-use App\Comment;
-use App\Message;
-use App\Torrent;
-use App\PrivateMessage;
+use App\Models\Like;
+use App\Models\Note;
+use App\Models\Peer;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Thank;
+use App\Models\Topic;
+use App\Models\Follow;
+use App\Models\Invite;
+use App\Models\Comment;
+use App\Models\Message;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\PrivateMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 

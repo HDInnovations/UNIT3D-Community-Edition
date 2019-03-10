@@ -13,7 +13,7 @@
 
 namespace App\Notifications;
 
-use App\Comment;
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 

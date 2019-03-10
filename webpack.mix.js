@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+require('laravel-mix-sri');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ mix.version()
      */
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
+    .generateIntegrityHash()
 
     /*
      * Themes
@@ -30,6 +32,7 @@ mix.version()
     .sass('resources/sass/themes/dark-red.scss', 'public/css/themes/dark-red.css')
     .sass('resources/sass/themes/dark-teal.scss', 'public/css/themes/dark-teal.css')
     .sass('resources/sass/themes/dark-yellow.scss', 'public/css/themes/dark-yellow.css')
+    .generateIntegrityHash()
 
     /*
      * Login and TwoStep Auth styles
@@ -41,6 +44,7 @@ mix.version()
     .sass('resources/sass/main/login.scss', 'public/css/main/login.css')
     .sass('resources/sass/main/twostep.scss', 'public/css/main/twostep.css')
     .babel('resources/js/unit3d/twostep.js', 'public/js/twostep.js')
+    .generateIntegrityHash()
 
     /*
      * Here we take all these scripts and compile them into a single 'unit3d.js' file that will be loaded after 'app.js'

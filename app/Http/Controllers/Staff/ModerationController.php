@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Torrent;
 use Carbon\Carbon;
-use App\PrivateMessage;
-use App\TorrentRequest;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentHelper;
+use App\Models\PrivateMessage;
+use App\Models\TorrentRequest;
 use App\Http\Controllers\Controller;
 use App\Repositories\ChatRepository;
 
@@ -102,7 +102,7 @@ class ModerationController extends Controller
             return redirect()->route('moderation')
                 ->with($this->toastr->success('Torrent Approved', 'Yay!', ['options']));
         } else {
-            return redirect()->back()
+            return redirect()->route('moderation')
                 ->with($this->toastr->error('Torrent Already Approved', 'Whoops!', ['options']));
         }
     }

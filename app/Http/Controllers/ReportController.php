@@ -13,12 +13,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Report;
-use App\Torrent;
-use App\TorrentRequest;
+use App\Models\User;
+use App\Models\Report;
+use App\Models\Torrent;
 use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
+use App\Models\TorrentRequest;
 
 class ReportController extends Controller
 {

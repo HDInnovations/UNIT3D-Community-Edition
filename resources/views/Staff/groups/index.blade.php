@@ -31,6 +31,7 @@
                     <th>Internal</th>
                     <th>Modo</th>
                     <th>Admin</th>
+                    <th>Owner</th>
                     <th>Trusted</th>
                     <th>Immune</th>
                     <th>Freeleech</th>
@@ -57,6 +58,8 @@
                         <td>@if ($group->is_modo == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_admin == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
+                        <td>@if ($group->is_owner == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>
                         <td>@if ($group->is_trusted == 0)<i class="{{ config('other.font-awesome') }} fa-times text-red"></i>@else<i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"></i>@endif</td>

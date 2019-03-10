@@ -1,5 +1,5 @@
 <div class="button-holder">
-    <div class="button-left">
+    <div class="button-left-increased">
         <a href="{{ route('profile', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
             @lang('user.profile')
         </a>
@@ -33,8 +33,13 @@
                 @lang('user.topics')
             </a>
         @endif
+        @if (auth()->user()->isAllowed($user,'forum','show_requested'))
+            <a href="{{ route('user_requested', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
+                @lang('user.requested')
+            </a>
+        @endif
     </div>
-    <div class="button-right">
+    <div class="button-right-decreased">
         @if (auth()->user()->id != $user->id)
             @if (auth()->user()->isFollowing($user->id))
                 <a href="{{ route('unfollow', ['user' => $user->id]) }}"

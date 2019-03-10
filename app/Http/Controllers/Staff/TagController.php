@@ -12,13 +12,28 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Toastr;
-use App\Tag;
+use App\Models\Tag;
+use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class TagController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * RssController Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Get All Tags.
      *
@@ -59,13 +74,13 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+            return redirect()->route('staff_tag_index')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();
 
             return redirect()->route('staff_tag_index')
-                ->with(Toastr::success('Tag Successfully Added', 'Yay!', ['options']));
+                ->with($this->toastr->success('Tag Successfully Added', 'Yay!', ['options']));
         }
     }
 
@@ -103,13 +118,13 @@ class TagController extends Controller
         ]);
 
         if ($v->fails()) {
-            return redirect()->back()
-                ->with(Toastr::error($v->errors()->toJson(), 'Whoops!', ['options']));
+            return redirect()->route('staff_tag_index')
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
         } else {
             $tag->save();
 
             return redirect()->route('staff_tag_index')
-                ->with(Toastr::success('Tag Successfully Modified', 'Yay!', ['options']));
+                ->with($this->toastr->success('Tag Successfully Modified', 'Yay!', ['options']));
         }
     }
 }

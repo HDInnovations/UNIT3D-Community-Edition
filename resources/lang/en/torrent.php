@@ -189,6 +189,7 @@ return [
     'updated'                  => 'Updated',
     'updated_at'               => 'Updated at',
     'uploaded'                 => 'Uploaded',
+    'uploaded-by'              => 'Uploaded By',
     'uploader'                 => 'Uploader',
     'use-fl-token'             => 'Use A Freeleech Token',
     'video'                    => 'Video',

@@ -33,11 +33,119 @@
                     <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
                     <li><a href="#achievement" data-toggle="tab">Achievements</a></li>
                     <li><a href="#follower" data-toggle="tab">Followers</a></li>
-                    <li><a href="#forum" data-toggle="tab">Forum History</a></li>
-                    <li><a href="#torrent" data-toggle="tab">Torrent History</a></li>
+                    <li><a href="#forum" data-toggle="tab">Forums</a></li>
+                    <li><a href="#request" data-toggle="tab">Requests</a></li>
+                    <li><a href="#torrent" data-toggle="tab">Torrents</a></li>
+                    <li><a href="#other" data-toggle="tab">Other</a></li>
                 </ul>
                 <br>
                 <div class="tab-content">
+
+
+                    <div role="tabpanel" class="tab-pane" id="other">
+                        <form role="form" method="POST" action="{{ route('privacy_other', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="well">
+                                <h3>@lang('user.other-privacy'):</h3>
+                                <div class="help-block">@lang('user.other-help').</div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="button-holder">
+                                        <div class="button-left">
+                                            @lang('user.other-privacy-online').
+                                        </div>
+                                        <div class="button-right">
+                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_online == 1))
+                                                <input type="checkbox" name="show_online" value="1" CHECKED />
+                                            @else
+                                                <input type="checkbox" name="show_online" value="1" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <hr class="some-padding">
+                                    <h3>@lang('user.visible-to-other'):</h3>
+                                    <div class="help-block">@lang('user.visible-to-other-help').</div>
+                                    <hr>
+                                    <div class="form-group">
+                                        @foreach($groups as $group)
+                                            @if($group->is_modo || $group->is_admin)
+                                            @else
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        @if(!$user->privacy || !$user->privacy->json_other_groups || $group->isAllowed($user->privacy->json_other_groups,$group->id))
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                        @else
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <hr class="some-padding">
+                                </div>
+                            </div>
+                            <div class="well text-center">
+                                <button type="submit" class="btn btn-primary">@lang('common.save') @lang('user.other-privacy')</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="request">
+                        <form role="form" method="POST" action="{{ route('privacy_request', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="well">
+                                <h3>@lang('user.request-privacy'):</h3>
+                                <div class="help-block">@lang('user.request-help').</div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="button-holder">
+                                        <div class="button-left">
+                                            @lang('user.request-privacy-requested').
+                                        </div>
+                                        <div class="button-right">
+                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_requested == 1))
+                                                <input type="checkbox" name="show_requested" value="1" CHECKED />
+                                            @else
+                                                <input type="checkbox" name="show_requested" value="1" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <hr class="some-padding">
+                                    <h3>@lang('user.visible-to-request'):</h3>
+                                    <div class="help-block">@lang('user.visible-to-request-help').</div>
+                                    <hr>
+                                    <div class="form-group">
+                                        @foreach($groups as $group)
+                                            @if($group->is_modo || $group->is_admin)
+                                            @else
+                                                <div class="button-holder">
+                                                    <div class="button-left">
+                                                        {{ $group->name }}
+                                                    </div>
+                                                    <div class="button-right">
+                                                        @if(!$user->privacy || !$user->privacy->json_request_groups || $group->isAllowed($user->privacy->json_request_groups,$group->id))
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" CHECKED />
+                                                        @else
+                                                            <input type="checkbox" name="approved[]" value="{{ $group->id }}" />
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <hr class="some-padding">
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <hr class="some-padding">
+                                </div>
+                            </div>
+                            <div class="well text-center">
+                                <button type="submit" class="btn btn-primary">@lang('common.save') @lang('user.request-privacy')</button>
+                            </div>
+                        </form>
+                    </div>
                 <div role="tabpanel" class="tab-pane" id="torrent">
                     <form role="form" method="POST" action="{{ route('privacy_torrent', ['username' => $user->slug, 'id' => $user->id]) }}" enctype="multipart/form-data">
                         @csrf
@@ -68,6 +176,19 @@
                                             <input type="checkbox" name="show_download" value="1" CHECKED />
                                         @else
                                             <input type="checkbox" name="show_download" value="1" />
+                                        @endif
+                                    </div>
+                                </div>
+                                <hr class="some-padding">
+                                <div class="button-holder">
+                                    <div class="button-left">
+                                        @lang('user.torrent-privacy-peer').
+                                    </div>
+                                    <div class="button-right">
+                                        @if(!$user->privacy || ($user->privacy && $user->privacy->show_peer == 1))
+                                            <input type="checkbox" name="show_peer" value="1" CHECKED />
+                                        @else
+                                            <input type="checkbox" name="show_peer" value="1" />
                                         @endif
                                     </div>
                                 </div>
@@ -211,6 +332,19 @@
                                                 <input type="checkbox" name="show_profile_comment_extra" value="1" CHECKED />
                                             @else
                                                 <input type="checkbox" name="show_profile_comment_extra" value="1" />
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <hr class="some-padding">
+                                    <div class="button-holder">
+                                        <div class="button-left">
+                                            @lang('user.profile-privacy-request-extra').
+                                        </div>
+                                        <div class="button-right">
+                                            @if(!$user->privacy || ($user->privacy && $user->privacy->show_profile_request_extra == 1))
+                                                <input type="checkbox" name="show_profile_request_extra" value="1" CHECKED />
+                                            @else
+                                                <input type="checkbox" name="show_profile_request_extra" value="1" />
                                             @endif
                                         </div>
                                     </div>
@@ -483,7 +617,7 @@
     </div>
 @endsection
 @section('javascripts')
-    <script>
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(window).on("load", function() { loadTab(); });
         function loadTab() {
             if(window.location.hash && window.location.hash == "#visible") {
@@ -503,6 +637,12 @@
             }
             if(window.location.hash && window.location.hash == "#achievement") {
                 $('#basetabs a[href="#achievement"]').tab('show');
+            }
+            if(window.location.hash && window.location.hash == "#request") {
+                $('#basetabs a[href="#request"]').tab('show');
+            }
+            if(window.location.hash && window.location.hash == "#other") {
+                $('#basetabs a[href="#other"]').tab('show');
             }
         }
     </script>
