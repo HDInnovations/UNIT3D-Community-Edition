@@ -916,19 +916,63 @@ div.topic-new-post {
     background-color: #171717;
 }
 
-
-
-
 //Mobile by Peter
 @media only screen and (max-width: 613px) {
   ul.nav.nav-tabs.mb-5 {
-    float: left;
-    display: inline-block;
-  }
-  .col-md-10:first-child {
-    padding-bottom: 4px;
-  }
-  .panel .nav-tabs {
-    padding-bottom: 6px;
-    padding-top: 6px;
-  }
+        float: left;
+        display: inline-block;
+    }
+    .col-md-10:first-child {
+        padding-bottom: 4px;
+    }
+    .panel .nav-tabs {
+        padding-bottom: 6px;
+        padding-top: 6px;
+    } 
+}
+
+// Pages
+.page-content {
+    line-height: 1.5em;
+}
+
+.page-content h1 {
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    font-size: 1.75em;
+}
+
+.page-content h2 {
+    font-size: 1.5em;
+}
+
+.page-content h3 {
+    font-size: 1.2em;
+}
+
+a>strong {
+    color: var(--color-blue);
+}
+
+a>strong:hover {
+    color: var(--color-light-blue);
+}
+
+.page-content>blockquote {
+    color: var(--text-color);
+    border-color: var(--color-light-purple);
+    border-left-width: 3px;
+    border-radius: 2px;
+}
+
+.page-content code,
+pre {
+    color: var(--text-color);
+    background-color: #232323;
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 3px;
+}
+
+.page-content>pre>code {
+    border: none;
+}
