@@ -163,8 +163,6 @@ class RssController extends Controller
             abort(404);
         }
 
-        $torrent = Torrent::with(['user', 'category']);
-
         $search = $rss->object_torrent->search;
         $description = $rss->object_torrent->description;
         $uploader = $rss->object_torrent->uploader;
@@ -204,7 +202,7 @@ class RssController extends Controller
             $description .= '%'.$keyword.'%';
         }
 
-        $torrent = $torrent->with(['user', 'category'])->withCount(['thanks', 'comments']);
+        $torrent = Torrent::with(['user', 'category']);
 
         if ($rss->object_torrent->search) {
             $torrent->where(function ($query) use ($search) {
@@ -295,7 +293,7 @@ class RssController extends Controller
             $torrent->where('seeders', '=', $dead);
         }
 
-        $torrents = $torrent->latest()->paginate(50);
+        $torrents = $torrent->latest()->take(50)->get();
 
         return view('rss.show', [
             'torrents'        => $torrents,
