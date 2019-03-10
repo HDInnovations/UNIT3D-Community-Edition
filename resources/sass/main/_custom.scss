@@ -9674,3 +9674,42 @@ section.recommendations div.scroller div.item span.release_date {
 section.recommendations div.scroller div.item span.glyphicons {
     padding-right: 4px
 }
+
+// Pages
+
+.page-content {
+    line-height: 1.5em;
+}
+
+.page-content h1 {
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    font-size: 1.75em;
+}
+
+.page-content h2 {
+    font-size: 1.5em;
+}
+
+.page-content h3 {
+    font-size: 1.2em;
+}
+
+.page-content>blockquote {
+    color: #555;
+    border-color: #555;
+    border-left-width: 3px;
+    border-radius: 2px;
+}
+
+.page-content code,
+pre {
+    color: #555;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.page-content>pre>code {
+    border: none;
+}
