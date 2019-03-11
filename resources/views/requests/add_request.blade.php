@@ -54,7 +54,7 @@
 
                         <div class="form-group">
                             <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
-                            <input type="number" name="tmdb" value="{{ Request::query('tmdb', 0) }}" class="form-control" required>
+                            <input type="number" name="tmdb" value="{{ request()->query('tmdb', 0) }}" class="form-control" required>
                         </div>
 
                         <div class="form-group">
