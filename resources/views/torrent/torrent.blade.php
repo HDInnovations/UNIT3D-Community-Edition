@@ -632,12 +632,20 @@
                     @foreach($movie->recommendations['results'] as $recommendation)
                         <div class="item mini backdrop mini_card">
                             <p class="tv flex">
-                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
+                                @if $recommendation['exists']:
+                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                @else
+                                <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
+                                @endif
                                     <span class="text-bold">{{  isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'] }}</span>
                                 </a>
                             </p>
                             <div class="image_content">
-                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
+                                @if $recommendation['exists']:
+                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                @else
+                                <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
+                                @endif
                                     <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
                                     <div class="meta">
                                         <span class="release_date"><i class="fas fa-calendar"></i> Year: {{ isset($recommendation['release_date']) ? substr($recommendation['release_date'], 0, 4) : substr($recommendation['first_air_date'], 0, 4) }}</span>
