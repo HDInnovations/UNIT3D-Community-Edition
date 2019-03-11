@@ -498,8 +498,8 @@ return [
 
         'connect-src' => [
             'allow' => [
-                'https://'.substr(env('APP_URL'), 7).':8443/socket.io/',
-                'wss://'.substr(env('APP_URL'), 7).':8443/socket.io/',
+                'https://'.parse_url(env('APP_URL'), PHP_URL_HOST)).':8443/socket.io/',
+                'wss://'.parse_url(env('APP_URL'), PHP_URL_HOST)).':8443/socket.io/',
             ],
             'self' => true,
         ],
