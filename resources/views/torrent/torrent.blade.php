@@ -632,7 +632,7 @@
                     @foreach($movie->recommendations['results'] as $recommendation)
                         <div class="item mini backdrop mini_card">
                             <p class="tv flex">
-                                @if $recommendation['exists']:
+                                @if ($recommendation['exists'])
                                 <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
                                 @else
                                 <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
@@ -641,7 +641,7 @@
                                 </a>
                             </p>
                             <div class="image_content">
-                                @if $recommendation['exists']:
+                                @if ($recommendation['exists'])
                                 <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
                                 @else
                                 <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
