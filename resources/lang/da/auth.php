@@ -17,7 +17,7 @@ return [
     'lost-username'              => 'Glemt dit brugernavn?',
     'missingCode'                => 'Fik ikke bekræftelseskode?',
     'need-invite'                => 'Åben registrering er deaktiveret, og du skal bruge en invitation til at få adgang!',
-    'no-a-member'                => 'Ikke medlem endnu? Tilmelding på mindre end 30s.',
+    'not-a-member'                => 'Ikke medlem endnu? Tilmelding på mindre end 30s.',
     'password'                   => 'Adgangskode',
     'recover-my-password'        => 'Gendan min adgangskode',
     'remember-me'                => 'Husk mig',

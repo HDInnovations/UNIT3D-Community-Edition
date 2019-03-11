@@ -13,12 +13,11 @@ Please use the following title schema.
 - (PREFIX) Title
 
 Examples:
-- (Update) French Translations
-- (Fix) French Translations
-- (Security Fix) French Translations
-- (Remove) French Translations
-- (Add) French Translations
-- (Optimize) French Translations
+- (Update) French Translations :rocket:
+- (Fix) French Translations :bug:
+- (Security Fix) French Translations :closed_lock_with_key:
+- (Remove) French Translations :recycle:
+- (Add) French Translations :new:
 
 **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** 
 - Check the code style with ``$ composer check-style`` and fix it with ``$ composer fix-style``.

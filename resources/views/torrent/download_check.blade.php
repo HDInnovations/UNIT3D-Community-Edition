@@ -45,7 +45,7 @@
                     <h4 class="text-center">@lang('torrent.info')</h4></div>
                 <div class="text-center">
                     <h3 class="movie-title">
-                        <a href="#" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
+                        <a href="{{ route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" title="{{ $torrent->name }}">{{ $torrent->name }}</a>
                     </h3>
                     <ul class="list-inline">
                         <span class="badge-extra text-blue"><i class="{{ config('other.font-awesome') }} fa-database"></i> <strong>@lang('torrent.size')

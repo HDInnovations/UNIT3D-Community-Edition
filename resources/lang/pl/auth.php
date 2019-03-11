@@ -13,7 +13,7 @@ return [
     'lost-password'       => 'Zapomniałeś hasła?',
     'lost-username'       => 'Zapomniałeś nazwy użytkownika?',
     'need-invite'         => 'Rejestracja zamknięta. Musisz posiadać zaproszenie!',
-    'no-a-member'         => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
+    'not-a-member'         => 'Nie posiadasz konta? Rejestracja trwa mniej niż 30s.',
     'password'            => 'Hasło',
     'recover-my-password' => 'Przypomnij mi hasło',
     'remember-me'         => 'Zapamiętaj mnie',

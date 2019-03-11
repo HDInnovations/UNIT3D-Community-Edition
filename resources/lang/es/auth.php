@@ -17,7 +17,7 @@ return [
     'lost-username'              => '¿Olvidó su nombre de usuario?',
     'missingCode'                => '¿No recibió el código de verificación?',
     'need-invite'                => 'El registro abierto está desactivado y necesitará una invitación para obtener acceso.',
-    'no-a-member'                => '¿Aún no eres miembro? Regístrese en menos de 30 s.',
+    'not-a-member'                => '¿Aún no eres miembro? Regístrese en menos de 30 s.',
     'password'                   => 'Contraseña',
     'recover-my-password'        => 'Recuperar mi contraseña',
     'remember-me'                => 'Recuérdame',

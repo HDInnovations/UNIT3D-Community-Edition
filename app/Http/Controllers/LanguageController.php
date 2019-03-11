@@ -15,9 +15,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Toastr;
 
 class LanguageController extends Controller
 {
+    /**
+     * @var Toastr
+     */
+    private $toastr;
+
+    /**
+     * UserController Constructor.
+     *
+     * @param Toastr $toastr
+     */
+    public function __construct(Toastr $toastr)
+    {
+        $this->toastr = $toastr;
+    }
+
     /**
      * Set locale if it's allowed.
      *
@@ -50,7 +66,8 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        return redirect(url('/'));
+        return redirect()->route('home')
+            ->with($this->toastr->success('Language Changed!!', 'Yay!', ['options']));
     }
 
     /**
@@ -65,6 +82,7 @@ class LanguageController extends Controller
     {
         $this->setLocale($locale, $request);
 
-        return redirect()->back();
+        return redirect()->back()
+            ->with($this->toastr->success('Language Changed!!', 'Yay!', ['options']));
     }
 }

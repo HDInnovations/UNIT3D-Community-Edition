@@ -21,12 +21,6 @@ class Warning extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-
-    /**
      * Belongs To A Torrent.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

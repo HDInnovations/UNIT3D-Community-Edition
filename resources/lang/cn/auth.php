@@ -17,7 +17,7 @@ return [
     'lost-username'              => '忘记了你的用户名？',
     'missingCode'                => '没有收到验证码？',
     'need-invite'                => '开放注册已禁用，您需要邀请才能访问！',
-    'no-a-member'                => '尚未成员？小于30秒注册。',
+    'not-a-member'                => '尚未成员？小于30秒注册。',
     'password'                   => '密码',
     'recover-my-password'        => '恢复我的密码',
     'remember-me'                => '记住我',

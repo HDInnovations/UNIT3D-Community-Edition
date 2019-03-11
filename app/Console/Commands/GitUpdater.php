@@ -158,6 +158,9 @@ class GitUpdater extends Command
 
                 $this->setCache();
 
+                $this->permissions();
+
+                $this->header('Bringing Site Live');
                 $this->call('up');
             } else {
                 $this->alertDanger('Aborted Update');
@@ -294,12 +297,19 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    private function permissions()
+    {
+        $this->header('Refreshing Permissions');
+        $this->process('chown -R www-data: storage bootstrap public config');
+        $this->done();
+    }
+
     private function validatePath($path)
     {
         if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
             $this->red("The path '$path' is invalid");
-            $this->call('up');
-            die();
+            //$this->call('up');
+            //die();
         }
     }
 

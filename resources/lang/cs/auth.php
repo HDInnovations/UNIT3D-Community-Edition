@@ -17,7 +17,7 @@ return [
     'lost-username'              => 'Zapomněl jste své uživatelské jméno?',
     'missingCode'                => 'Nezískal jste ověřovací kód?',
     'need-invite'                => 'Otevřená registrace je deaktivována a budete potřebovat pozvání k získání přístupu!',
-    'no-a-member'                => 'Nejste členem? Přihlaste se za méně než 30 let.',
+    'not-a-member'                => 'Nejste členem? Přihlaste se za méně než 30 let.',
     'password'                   => 'Heslo',
     'recover-my-password'        => 'Obnovit mé heslo',
     'remember-me'                => 'Zapamatuj si mě',

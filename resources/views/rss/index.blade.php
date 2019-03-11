@@ -13,7 +13,7 @@
         <div class="block">
             <div class="button-holder">
                 <div class="button-left">
-                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">Create RSS Feed</a>
+                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">@lang('rss.create-rss-feed')</a>
                 </div>
                 <div class="button-right">
 
@@ -27,21 +27,22 @@
             <div class="container-fluid p-0 some-padding">
                         <div class="block">
                             <ul class="nav nav-tabs" id="basetabs" role="tablist">
-                                <li id="public-tab" class="active"><a href="#public" data-toggle="tab">Public</a></li>
-                                <li id="private-tab"><a href="#private" data-toggle="tab">Private</a></li>
+                                <li id="public-tab" class="active"><a href="#public" data-toggle="tab">@lang('rss.public')</a></li>
+                                <li id="private-tab"><a href="#private" data-toggle="tab">@lang('rss.private')</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="public">
+                                  <div class="table-responsive">
                                     <table class="table table-hover rss-table middle-align">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Categories</th>
-                                            <th>Types</th>
-                                            <th>Genres</th>
-                                            <th>Discounts</th>
-                                            <th>Special</th>
-                                            <th>Health</th>
+                                            <th>@lang('common.name')</th>
+                                            <th>@lang('common.categories')</th>
+                                            <th>@lang('common.types')</th>
+                                            <th>@lang('common.genres')</th>
+                                            <th>@lang('torrent.discounts')</th>
+                                            <th>@lang('common.special')</th>
+                                            <th>@lang('torrent.health')</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -73,19 +74,21 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                  </div>
                                 </div>
                                 <div class="tab-pane" id="private">
+                                  <div class="table-responsive">
                                     <table class="table table-hover rss-table middle-align">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Categories</th>
-                                            <th>Types</th>
-                                            <th>Genres</th>
-                                            <th>Discounts</th>
-                                            <th>Special</th>
-                                            <th>Health</th>
-                                            <th>Action</th>
+                                            <th>@lang('common.name')</th>
+                                            <th>@lang('common.categories')</th>
+                                            <th>@lang('common.types')</th>
+                                            <th>@lang('common.genres')</th>
+                                            <th>@lang('torrent.discounts')</th>
+                                            <th>@lang('common.special')</th>
+                                            <th>@lang('torrent.health')</th>
+                                            <th>@lang('common.action')</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -128,6 +131,7 @@
                                         </tbody>
                                     </table>
                                     <hr>
+                                  </div>
                                 </div>
                             </div>
                 </div>

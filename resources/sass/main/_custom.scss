@@ -6461,7 +6461,9 @@ a.view-torrent:hover {
 
 @media only screen and (max-width: 767px) {
     .movie-heading-box {
-        padding-top: 200px;
+        padding-top: 0px;
+        padding-left: 15px;
+        padding-bottom: 15px;
     }
 }
 
@@ -6566,7 +6568,9 @@ body.tvshow .movie-poster {
     margin: 15px 0 0;
     padding: 0;
     line-height: 1.7;
-    color: #809397;
+    color: #fff;
+    text-shadow: 1.3px 1.5px rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .movie-overview .translate-trigger {
@@ -9520,7 +9524,135 @@ img.emojione {
     margin-top: 0;
 }
 
-// Recommended
+@media only screen and (max-width: 613px) {
+  .form-torrent-search .form-group {
+      margin-left: 0;
+      width: 100%;
+      margin-bottom: 20px;
+  }
+  .form-torrent-search .form-group .label-default {
+    margin-left: 16px;
+    bottom: 5px;
+  }
+  .nav-tabs > li {
+    margin-bottom: 4px;
+    margin-right: 4px;
+  }
+  .stats .content .inner_content {
+    max-width: 100%;
+  }
+  .stats .content .inner_content .inner_stats {
+    max-width: 100%;
+    padding-right: 0;
+    width: 100%;
+  }
+  div.blocks a {
+    max-width: 100%;
+    width: 100%;
+  }
+  .profile-footer {
+    padding-bottom: 10px;
+  }
+  .table-responsive .btn {
+    display: inline-block;
+    float: left;
+    margin: 4px;
+    width: 47%;
+  }
+  .torrent .table-responsive table {
+    max-width: 100%!important;
+    display: block;
+    width: 100%!important;
+    table-layout: fixed;
+  }
+  .torrent .table-responsive table tbody {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+  }
+  .torrent .table-responsive table tbody tr {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    width: 100%;
+    display: block !important;
+  }
+  .torrent .table-responsive table tbody tr td {
+    display: block !important;
+    max-width: 100%;
+    width: 100%;
+    word-break: break-all;
+    word-wrap: break-word !important;
+  }
+  #facetedSearch table {
+    max-width: 100% !important;
+    display: block;
+    width: 100% !important;
+    table-layout: fixed;
+  }
+  #facetedSearch table tbody {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+  }
+  #facetedSearch table tbody tr {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    width: 100%;
+    display: block !important;
+    min-height: 100px;
+    overflow: hidden;
+  }
+  #facetedSearch table tbody tr td {
+    display: block !important;
+    max-width: 100%;
+    width: 100%;
+    word-break: break-all;
+    word-wrap: break-word !important;
+  }
+  #facetedSearch table tbody tr td .torrent-poster {
+    margin-top: 4px;
+  }
+  #facetedSearch table tbody tr td:nth-child(2) {
+    float: left;
+  }
+  #facetedSearch table tbody tr td a {
+    word-wrap: break-word !important;
+    white-space: initial;
+    word-break: initial;
+  }
+  #facetedSearch table tbody tr td .view-torrent {
+    display: block !important;
+    max-width: 100%;
+    width: 100%;
+    word-wrap: break-word !important;
+    white-space: initial;
+    word-break: initial;
+    margin-left: 0px !important;
+  }
+  #facetedSearch table tbody tr td .badge-extra {
+    float: left;
+  }
+  #facetedSearch table tbody tr td time {
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 13px;
+  }
+  #facetedSearch table thead {
+    max-width: 100% !important;
+    display: block;
+    width: 100% !important;
+  }
+  #facetedSearch table thead tr {
+    max-width: 100% !important;
+    display: block;
+    width: 100% !important;
+  }
+  #facetedSearch table thead tr th {
+    float: left;
+  }
+}
+
 div.item.mini.backdrop div.image_content img {
     top: 0;
     left: 0;
@@ -9528,6 +9660,7 @@ div.item.mini.backdrop div.image_content img {
     height: 141px;
     border-radius: 4px
 }
+
 div.item.poster.card div.image_content {
     width: 185px
 }
@@ -9671,4 +9804,43 @@ section.recommendations div.scroller div.item span.release_date {
 
 section.recommendations div.scroller div.item span.glyphicons {
     padding-right: 4px
+}
+
+// Pages
+
+.page-content {
+    line-height: 1.5em;
+}
+
+.page-content h1 {
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    font-size: 1.75em;
+}
+
+.page-content h2 {
+    font-size: 1.5em;
+}
+
+.page-content h3 {
+    font-size: 1.2em;
+}
+
+.page-content>blockquote {
+    color: #555;
+    border-color: #555;
+    border-left-width: 3px;
+    border-radius: 2px;
+}
+
+.page-content code,
+pre {
+    color: #555;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.page-content>pre>code {
+    border: none;
 }

@@ -669,9 +669,15 @@ class User extends Authenticatable
      */
     public function getUploaded($bytes = null, $precision = 2)
     {
-        $bytes = $this->uploaded;
+        $bytes = History::where('user_id', '=', $this->id)->sum('uploaded');
+        $bonupload = BonTransactions::where('sender', '=', $this->id)->where([['name', 'like', '%Upload%']])->sum('cost');
+        $bytes = $bytes + $bonupload;
 
-        return StringHelper::formatBytes($bytes, 2);
+        if ($bytes > 0) {
+            return StringHelper::formatBytes((float) $bytes, 2);
+        }
+
+        return StringHelper::formatBytes(0, 2);
     }
 
     /**
@@ -679,9 +685,15 @@ class User extends Authenticatable
      */
     public function getDownloaded($bytes = null, $precision = 2)
     {
-        $bytes = $this->downloaded;
+        $bytes = History::where('user_id', '=', $this->id)->sum('downloaded');
+        $bondownload = BonTransactions::where('sender', '=', $this->id)->where([['name', 'like', '%Download%']])->sum('cost');
+        $bytes = $bytes - $bondownload;
 
-        return StringHelper::formatBytes($bytes, 2);
+        if ($bytes > 0) {
+            return StringHelper::formatBytes((float) $bytes, 2);
+        }
+
+        return StringHelper::formatBytes(0, 2);
     }
 
     /**

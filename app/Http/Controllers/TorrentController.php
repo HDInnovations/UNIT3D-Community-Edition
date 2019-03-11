@@ -103,12 +103,13 @@ class TorrentController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function similar($tmdb)
+    public function similar($category_id, $tmdb)
     {
         $user = auth()->user();
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();
         $torrents = Torrent::with(['user', 'category'])
             ->withCount(['thanks', 'comments'])
+            ->where('category_id', '=', $category_id)
             ->where('tmdb', '=', $tmdb)
             ->latest()
             ->get();
@@ -1088,7 +1089,7 @@ class TorrentController extends Controller
             }
             \Log::notice("Deletion of torrent failed due to: \n\n{$errors}");
 
-            return redirect()->back()
+            return redirect()->route('home')
                 ->with($this->toastr->error('Unable to delete Torrent', 'Error', ['options']));
         }
     }
@@ -1450,12 +1451,12 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
 
         if (auth()->user()->isBookmarked($torrent->id)) {
-            return redirect()->back()
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->error('Torrent has already been bookmarked.', 'Whoops!', ['options']));
         } else {
             auth()->user()->bookmarks()->attach($torrent->id);
 
-            return redirect()->back()
+            return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
                 ->with($this->toastr->success('Torrent Has Been Bookmarked Successfully!', 'Yay!', ['options']));
         }
     }
@@ -1472,7 +1473,7 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         auth()->user()->bookmarks()->detach($torrent->id);
 
-        return redirect()->back()
+        return redirect()->route('torrent', ['slug' => $torrent->slug, 'id' => $torrent->id])
             ->with($this->toastr->success('Torrent Has Been Unbookmarked Successfully!', 'Yay!', ['options']));
     }
 
