@@ -862,10 +862,11 @@ class TorrentController extends Controller
                 $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
             }
         }
-        
+
         if ($movie->recommendations) {
-            $movie->recommendations['results'] = array_map(function($recomentaion) {
-                $recomentaion['exists'] = Torrent::where("tmdb", $recomentaion['id'])->get()->isNotEmpty();
+            $movie->recommendations['results'] = array_map(function ($recomentaion) {
+                $recomentaion['exists'] = Torrent::where('tmdb', $recomentaion['id'])->get()->isNotEmpty();
+
                 return $recomentaion;
             }, $movie->recommendations['results']);
         }
