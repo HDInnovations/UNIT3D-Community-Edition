@@ -98,7 +98,7 @@ return [
     |
     */
 
-    'allowed'       => ['ar', 'bg', 'bn', 'cn', 'cs', 'da', 'de', 'en', 'es', 'et', 'ir', 'fr', 'gr', 'it', 'nl', 'pl', 'pt', 'pt_br', 'ro', 'ru', 'tr', 'tw'],
+    'allowed'       => ['ar', 'bg', 'bn', 'cn', 'cs', 'da', 'de', 'en', 'es', 'et', 'ir', 'fr', 'gr', 'it', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'tr', 'tw'],
 
     /*
     |--------------------------------------------------------------------------
