@@ -2137,7 +2137,7 @@ class UserController extends Controller
         if (config('hitrun.enabled') == true) {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('downloaded', '>', 0)
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
@@ -2145,7 +2145,7 @@ class UserController extends Controller
         } else {
             $downloads = History::selectRaw('distinct(history.info_hash), max(torrents.name) as name, max(torrents.id), max(history.completed_at) as completed_at, max(history.created_at) as created_at, max(history.id) as id, max(history.user_id) as user_id, max(history.seedtime) as seedtime, max(history.seedtime) as satisfied_at, max(history.seeder) as seeder, max(torrents.size) as size,max(torrents.leechers) as leechers,max(torrents.seeders) as seeders,max(torrents.times_completed) as times_completed')->with(['torrent' => function ($query) {
                 $query->withAnyStatus();
-            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('downloaded', '>', 0)
+            }])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')
                 ->whereRaw('history.actual_downloaded > (torrents.size * ('.(config('hitrun.buffer') / 100).'))')
                 ->where('history.user_id', '=', $user->id)->groupBy('history.info_hash')->orderBy('satisfied_at', 'desc')
                 ->whereRaw('(history.seedtime < ? and history.immune != 1)', [config('hitrun.seedtime')])
