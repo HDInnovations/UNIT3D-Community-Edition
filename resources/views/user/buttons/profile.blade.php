@@ -74,9 +74,11 @@
         </a>
     </div>
     <div class="button-right-decreased">
+            @if(!$user->group || !$user->group->is_immune)
             <a href="{{ route('user_unsatisfieds', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
                 <i class="{{ config('other.font-awesome') }} fa-exclamation"></i> @lang('user.unsatisfieds')
             </a>
+            @endif
             <a href="{{ route('user_torrents', ['slug' => $user->slug, 'id' => $user->id]) }}" class="btn btn-sm btn-primary">
                 @lang('user.torrents')
             </a>
