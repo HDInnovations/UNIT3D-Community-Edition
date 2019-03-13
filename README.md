@@ -127,20 +127,11 @@ Here are some packages that are built for UNIT3D.
 - [An artisan package to import a U-232 database into UNIT3D](https://github.com/HDInnovations/u232-to-unit3d).
 
 ## <a name="versions"></a> 🚨 Version Support Information
- Version   | Status                   | PHP Version
-:----------|:-------------------------|:------------
- 1.9.1     |  Active support :rocket: | >= 7.1.3
- 1.9       |  Active support :rocket: | >= 7.1.3
- 1.8.9     |  End of life             | >= 7.1.3
- 1.8.8     |  End of life             | >= 7.1.3
- 1.8.7     |  End of life             | >= 7.1.3
- 1.8.6     |  End of life             | >= 7.1.3
- 1.8.5     |  End of life             | >= 7.1.3
- 1.8       |  End of life             | >= 7.1.3
- 1.7       |  End of life             | >= 7.1.3
- 1.6.x     |  End of life             | >= 7.0.13
- 1.5.x     |  End of life             | >= 7.0.13
- 1.0       |  End of life             | >= 7.0.13
+ Version     | Status                   | PHP Version
+:------------|:-------------------------|:------------
+ 1.9.1       |  Active Support :rocket: | >= 7.1.3
+ 1.9         |  Active Support :rocket: | >= 7.1.3
+ 1.0 to 1.8.9|  End Of Life :skull:     | >= 7.1.3
 
 ## <a name="security"></a> :lock: Security
 
