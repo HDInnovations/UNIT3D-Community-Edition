@@ -242,7 +242,7 @@ class RequestController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function addRequestForm()
+    public function addRequestForm($title = '', $imdb = 0, $tmdb = 0)
     {
         $user = auth()->user();
 
@@ -250,6 +250,9 @@ class RequestController extends Controller
             'categories' => Category::all()->sortBy('position'),
             'types'      => Type::all()->sortBy('position'),
             'user'       => $user,
+            'title'      => $title,
+            'imdb'       => str_replace('tt', '', $imdb),
+            'tmdb'       => $tmdb,
         ]);
     }
 
@@ -294,7 +297,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('requests')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']))->withInput();
         } else {
             $tr->save();
 

@@ -633,18 +633,18 @@
                         <div class="item mini backdrop mini_card">
                             <p class="tv flex">
                                 @if ($recommendation['exists'])
-                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
-                                <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('add_request_form', ['title' => $recommendation['title'] ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                 @endif
                                     <span class="text-bold">{{  isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'] }}</span>
                                 </a>
                             </p>
                             <div class="image_content">
                                 @if ($recommendation['exists'])
-                                <a href="{{ route('torrents.similar', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $recommendation['id']]) }}">
                                 @else
-                                <a href="{{ route('add_request_form', ['tmdb' => $recommendation['id']]) }}">
+                                <a href="{{ route('add_request_form', ['title' => $recommendation['title'] ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                 @endif
                                     <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
                                     <div class="meta">
