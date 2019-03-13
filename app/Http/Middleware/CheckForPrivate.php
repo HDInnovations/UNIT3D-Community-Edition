@@ -27,9 +27,7 @@ class CheckForPrivate
      */
     public function handle($request, Closure $next)
     {
-        if (config('other.private') && ! auth()->check()) {
-            return redirect('/login');
-        }
+        abort_unless(auth()->check() && config('other.private') == true, 403);
 
         return $next($request);
     }
