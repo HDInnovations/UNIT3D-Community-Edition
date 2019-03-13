@@ -34,8 +34,8 @@ class HomeController extends Controller
     public function home()
     {
         // User Info
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
 
         $num_user = User::count();
         $banned = User::where('group_id', '=', $bannedGroup->id)->count();

@@ -150,8 +150,8 @@ class RssController extends Controller
         $user = User::where('rsskey', '=', (string) $rsskey)->firstOrFail();
         $rss = Rss::where('id', '=', (int) $id)->whereRaw('(user_id = ? OR is_private != ?)', [$user->id, 1])->firstOrFail();
 
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
 
         if ($user->group->id == $bannedGroup->id) {
             abort(404);
@@ -249,7 +249,7 @@ class RssController extends Controller
         }
 
         if ($rss->object_torrent->genres && is_array($rss->object_torrent->genres)) {
-            $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
+            $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
             $torrent->whereIn('id', $genreID)->cursor();
         }
 

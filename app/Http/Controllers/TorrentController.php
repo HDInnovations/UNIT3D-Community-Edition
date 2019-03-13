@@ -475,7 +475,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('genres') && $request->input('genres') != null) {
-                $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
+                $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
                 $torrent->whereIn('torrentsl.id', $genreID);
             }
 
@@ -519,7 +519,7 @@ class TorrentController extends Controller
                 $torrent->where('torrentsl.seeders', '=', $dead);
             }
         } elseif ($nohistory == 1) {
-            $history = History::select('torrents.id')->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->get()->toArray();
+            $history = History::select(['torrents.id'])->leftJoin('torrents', 'torrents.info_hash', '=', 'history.info_hash')->where('history.user_id', '=', $user->id)->get()->toArray();
             if (! $history || ! is_array($history)) {
                 $history = [];
             }
@@ -600,7 +600,7 @@ class TorrentController extends Controller
             }
 
             if ($request->has('genres') && $request->input('genres') != null) {
-                $genreID = TagTorrent::distinct()->select('torrent_id')->whereIn('tag_name', $genres)->get();
+                $genreID = TagTorrent::select(['torrent_id'])->distinct()->whereIn('tag_name', $genres)->get();
                 $torrent->whereIn('torrents.id', $genreID);
             }
 

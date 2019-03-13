@@ -43,8 +43,8 @@ class AutoSoftDeleteDisabledUsers extends Command
     public function handle()
     {
         if (config('pruning.user_pruning') == true) {
-            $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
-            $prunedGroup = Group::where('slug', '=', 'pruned')->select('id')->first();
+            $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
+            $prunedGroup = Group::select(['id'])->where('slug', '=', 'pruned')->first();
 
             $current = Carbon::now();
             $users = User::where('group_id', '=', $disabledGroup->id)

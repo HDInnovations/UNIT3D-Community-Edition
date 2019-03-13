@@ -66,7 +66,7 @@ class BanController extends Controller
     {
         $user = User::findOrFail($id);
         $staff = auth()->user();
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
 
         abort_if($user->group->is_modo || auth()->user()->id == $user->id, 403);
 

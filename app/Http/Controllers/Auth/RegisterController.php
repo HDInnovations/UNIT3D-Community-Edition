@@ -80,7 +80,7 @@ class RegisterController extends Controller
                 ->with($this->toastr->error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
         }
 
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
         $user = new User();
         $user->username = $request->input('username');
         $user->email = $request->input('email');

@@ -46,7 +46,7 @@ class CheckIfActive
     public function handle($request, Closure $next, $guard = null)
     {
         $user = auth()->user();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
 
         if ($user && $user->group_id == $validatingGroup->id || $user->active == 0) {
             auth()->logout();
