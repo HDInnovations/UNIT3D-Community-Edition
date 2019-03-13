@@ -13,9 +13,6 @@
 
 namespace App\Services;
 
-/**
- * Various tools for torrents.
- */
 class TorrentTools
 {
     /**
@@ -31,35 +28,34 @@ class TorrentTools
     /**
      * Moves and decodes the torrent.
      */
-    public static function moveAndDecode($torrentFile)
+    public static function normalizeTorrent($torrentFile)
     {
-        self::$decodedTorrent = Bencode::bdecode_file($torrentFile);
+        $result = Bencode::bdecode_file($torrentFile);
         // The PID will be set if an user downloads the torrent, but for
         // security purposes it's better to overwrite the user-provided
         // announce URL.
         $announce = config('app.url');
         $announce .= '/announce/PID';
-        self::$decodedTorrent['announce'] = $announce;
-        self::$decodedTorrent['info']['source'] = config('torrent.source');
-        self::$decodedTorrent['info']['private'] = 1;
+        $result['announce'] = $announce;
+        $result['info']['source'] = config('torrent.source');
+        $result['info']['private'] = 1;
         $created_by = config('torrent.created_by', null);
         $created_by_append = config('torrent.created_by_append', false);
         if ($created_by !== null) {
-            if ($created_by_append && array_key_exists('created by', self::$decodedTorrent)) {
-                $c = self::$decodedTorrent['created by'];
+            if ($created_by_append && array_key_exists('created by', $result)) {
+                $c = $result['created by'];
                 $c = trim($c, '. ');
                 $c .= '. '.$created_by;
                 $created_by = $c;
             }
-            self::$decodedTorrent['created by'] = $created_by;
+            $result['created by'] = $created_by;
         }
         $comment = config('torrent.comment', null);
         if ($comment !== null) {
-            self::$decodedTorrent['comment'] = $comment;
+            $result['comment'] = $comment;
         }
-        $encoded = Bencode::bencode(self::$decodedTorrent);
-        self::$fileName = uniqid().'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.self::$fileName, $encoded); // Create torrent
+
+        return $result;
     }
 
     /**
