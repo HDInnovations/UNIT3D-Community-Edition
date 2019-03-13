@@ -671,7 +671,8 @@ class User extends Authenticatable
     {
         $bytes = History::where('user_id', '=', $this->id)->sum('uploaded');
         $bonupload = BonTransactions::where('sender', '=', $this->id)->where([['name', 'like', '%Upload%']])->sum('cost');
-        $bytes = $bytes + $bonupload;
+        $starter_upload = config('other.default_upload');
+        $bytes = $bytes + $bonupload + $starter_upload;
 
         if ($bytes > 0) {
             return StringHelper::formatBytes((float) $bytes, 2);
@@ -687,7 +688,8 @@ class User extends Authenticatable
     {
         $bytes = History::where('user_id', '=', $this->id)->sum('downloaded');
         $bondownload = BonTransactions::where('sender', '=', $this->id)->where([['name', 'like', '%Download%']])->sum('cost');
-        $bytes = $bytes - $bondownload;
+        $starter_download = config('other.default_download');
+        $bytes = $bytes + $starter_download - $bondownload;
 
         if ($bytes > 0) {
             return StringHelper::formatBytes((float) $bytes, 2);
