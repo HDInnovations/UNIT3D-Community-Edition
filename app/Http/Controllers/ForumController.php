@@ -157,24 +157,26 @@ class ForumController extends Controller
                 }
             }
         }
-        $direction = 2;
-        $order = 'desc';
-        if ($request->has('direction') && $request->input('direction') == 1) {
-            $direction = 1;
-            $order = 'asc';
-        }
+
         if ($request->has('body') && $request->input('body') != '') {
-            $sorting = 'posts.id';
-            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
-                $sorting = 'posts.created_at';
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = "posts.{$request->input('sorting')}";
+                $direction = $request->input('direction');
+            } else {
+                $sorting = "posts.id";
+                $direction = "desc";
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
+
         } else {
-            $sorting = 'topics.last_reply_at';
-            if ($request->has('sorting') && $request->input('sorting') == 'created_at') {
-                $sorting = 'topics.created_at';
+            if ($request->has('sorting') && $request->input('sorting') != null) {
+                $sorting = "topics.{$request->input('sorting')}";
+                $direction = $request->input('direction');
+            } else {
+                $sorting = "topics.last_reply_at";
+                $direction = "desc";
             }
-            $results = $result->orderBy($sorting, $order)->paginate(25);
+            $results = $result->orderBy($sorting, $direction)->paginate(25);
         }
 
         $results->setPath('?name='.$request->input('name'));
