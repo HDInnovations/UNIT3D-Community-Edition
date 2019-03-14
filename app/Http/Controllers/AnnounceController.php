@@ -418,8 +418,10 @@ class AnnounceController extends Controller
         $torrent->save();
 
         $res = [];
-        $res['interval'] = (60 * 45);
-        $res['min interval'] = (60 * 30);
+        $min = 2400; // 40 Minutes
+        $max = 3600; // 60 Minutes
+        $res['interval'] = rand($min, $max);
+        $res['min interval'] = 1800; // 30 Minutes
         $res['tracker_id'] = $md5_peer_id; // A string that the client should send back on its next announcements.
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;
