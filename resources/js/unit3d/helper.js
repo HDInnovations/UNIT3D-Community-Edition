@@ -336,7 +336,7 @@ class userFilterBuilder {
             },
             type: 'post',
             beforeSend: function () {
-                $("#userFilter").html('<i class="'+this.font+' fa-spinner fa-spin fa-3x fa-fw"></i>')
+                $("#userFilter").html('<i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
         }).done(function (e) {
             $data = $(e);
@@ -611,7 +611,7 @@ class facetedSearchBuilder {
             },
             type: 'get',
             beforeSend: function () {
-                $("#facetedSearch").html('<i class="'+this.font+' fa-spinner fa-spin fa-3x fa-fw"></i>')
+                $("#facetedSearch").html('<i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
         }).done(function (e) {
             $data = $(e);
