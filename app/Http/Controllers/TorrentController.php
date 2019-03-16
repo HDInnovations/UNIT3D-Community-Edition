@@ -1181,7 +1181,7 @@ class TorrentController extends Controller
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
         $meta = Bencode::get_meta($decodedTorrent);
-        $fileName = $infohash.'.torrent';
+        $fileName = uniqid().'.torrent'; // Generate a unique name
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
