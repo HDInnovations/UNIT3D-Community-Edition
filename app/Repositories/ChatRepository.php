@@ -224,9 +224,10 @@ class ChatRepository
     {
         $message = $this->message->find($id);
 
-        broadcast(new MessageDeleted($message));
-
-        return $message->delete();
+        if ($message) {
+            broadcast(new MessageDeleted($message));
+            return $message->delete();
+        }
     }
 
     public function messages($room_id)
