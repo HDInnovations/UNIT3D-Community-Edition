@@ -38,9 +38,9 @@
                         <th>@lang('common.name')</th>
                         <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-                        <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+                        <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                         <th><i class="{{ config('other.font-awesome') }} fa-cogs"></i></th>
                     </tr>
                     </thead>
@@ -246,13 +246,6 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
-                                    <span class='badge-extra text-orange text-bold'>
-                                        {{ $bookmark->times_completed }} @lang('common.times')
-                                    </span>
-                                </a>
-                            </td>
-                            <td>
                                 <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-green text-bold'>
                                         {{ $bookmark->seeders }}
@@ -263,6 +256,13 @@
                                 <a href="{{ route('peers', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
                                     <span class='badge-extra text-red text-bold'>
                                         {{ $bookmark->leechers }}
+                                    </span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{ route('history', ['slug' => $bookmark->slug, 'id' => $bookmark->id]) }}">
+                                    <span class='badge-extra text-orange text-bold'>
+                                        {{ $bookmark->times_completed }} @lang('common.times')
                                     </span>
                                 </a>
                             </td>

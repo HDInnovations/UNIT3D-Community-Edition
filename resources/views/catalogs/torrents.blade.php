@@ -46,9 +46,9 @@
                             <th>Name</th>
                             <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                             <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-                            <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                             <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
                             <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+                            <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                         </tr>
                         </thead>
                         <tbody id="result">
@@ -186,11 +186,11 @@
                                     <time datetime="{{ date('Y-m-d H:m:s', strtotime($t->created_at)) }}">{{$t->created_at->diffForHumans()}}</time>
                                 </td>
                                 <td><span class="badge-extra text-blue text-bold">{{ $t->getSize() }}</span></td>
+                                <td><span class="badge-extra text-green text-bold">{{ $t->seeders }}</span></td>
+                                <td><span class="badge-extra text-red text-bold">{{ $t->leechers }}</span></td>
                                 <td>
                                     <span class="badge-extra text-orange text-bold">{{ $t->times_completed }} @lang('common.times')</span>
                                 </td>
-                                <td><span class="badge-extra text-green text-bold">{{ $t->seeders }}</span></td>
-                                <td><span class="badge-extra text-red text-bold">{{ $t->leechers }}</span></td>
                             </tr>
                         @endforeach
                         </tbody>

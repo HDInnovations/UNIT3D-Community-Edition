@@ -284,9 +284,9 @@
                                                                     <th>@lang('torrent.name')</th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-clock"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-file"></i></th>
-                                                                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-up"></i></th>
                                                                     <th><i class="{{ config('other.font-awesome') }} fa-arrow-circle-down"></i></th>
+                                                                    <th><i class="{{ config('other.font-awesome') }} fa-check-square"></i></th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -490,13 +490,6 @@
                                                                                 <span class='badge-extra text-blue text-bold'>{{ $current->getSize() }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <a href="{{ route('history', ['slug' => $current->slug, 'id' => $current->id]) }}">
-                            <span class='badge-extra text-orange text-bold'>
-                                {{ $current->times_completed }} @lang('common.times')
-                            </span>
-                                                                                </a>
-                                                                            </td>
-                                                                            <td>
                                                                                 <a href="{{ route('peers', ['slug' => $current->slug, 'id' => $current->id]) }}">
                             <span class='badge-extra text-green text-bold'>
                                 {{ $current->seeders }}
@@ -507,6 +500,13 @@
                                                                                 <a href="{{ route('peers', ['slug' => $current->slug, 'id' => $current->id]) }}">
                             <span class='badge-extra text-red text-bold'>
                                 {{ $current->leechers }}
+                            </span>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a href="{{ route('history', ['slug' => $current->slug, 'id' => $current->id]) }}">
+                            <span class='badge-extra text-orange text-bold'>
+                                {{ $current->times_completed }} @lang('common.times')
                             </span>
                                                                                 </a>
                                                                             </td>
