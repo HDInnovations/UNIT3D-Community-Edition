@@ -112,8 +112,7 @@
                     </span>
                                     @endif
                                     @if ($movie->videoTrailer != '')
-                                        <span onclick="showTrailer()" style="cursor: pointer;"
-                                              class="badge-user text-bold">
+                                        <span style="cursor: pointer;" class="badge-user text-bold show-trailer">
                             <a class="text-pink" title="@lang('torrent.trailer')">@lang('torrent.trailer') <i
                                         class="{{ config('other.font-awesome') }} fa-external-link"></i></a>
                         </span>
@@ -774,17 +773,21 @@
     </script>
 
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
-      function showTrailer () {
-        swal({
-          showConfirmButton: false,
-          showCloseButton: true,
-          background: '#232323',
-          width: 970,
-          html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-          title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
-          text: ''
-        })
-      }
+        $('.show-trailer').each(function() {
+          $(this).off('click');
+          $(this).on('click', function(e) {
+            e.preventDefault();
+            swal({
+              showConfirmButton: false,
+              showCloseButton: true,
+              background: '#232323',
+              width: 970,
+              html: '<iframe width="930" height="523" src="{{ str_replace("watch?v=","embed/",$movie->videoTrailer) }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+              title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
+              text: ''
+            });
+          });
+        });
     </script>
 
 @endsection
