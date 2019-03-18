@@ -216,7 +216,7 @@
                                                                         @if (config('other.freeleech') == 1)
                                                                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-globe text-blue' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.global-freelech')'></i> @lang('torrent.global-freelech')
+                                   data-original-title='@lang('torrent.global-freeleech')'></i> @lang('torrent.global-freeleech')
                             </span>
                                                                         @endif
 
