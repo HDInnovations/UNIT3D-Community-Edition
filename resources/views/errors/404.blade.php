@@ -12,7 +12,7 @@
     <div class="separator"></div>
 
     <p class="text-center">
-        {{ $exception->getMessage() ?: 'The Requested Page Cannot Be Found! <br>Not Sure What Your Looking For But Check The
+        {{ $exception->getMessage() ?: 'The Requested Page Cannot Be Found! Not Sure What Your Looking For But Check The
         Address And Try Again!' }}
     </p>
 @stop
