@@ -254,7 +254,7 @@
                         @if (config('other.doubleup') == 1)
                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-globe text-green' data-toggle='tooltip' title=''
-                                    data-original-title='@lang('torrent.double-upload')'></i> @lang('torrent.double-upload')
+                                    data-original-title='@lang('torrent.global-double-upload')'></i> @lang('torrent.global-double-upload')
                             </span>
                         @endif
 
