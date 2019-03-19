@@ -163,18 +163,17 @@ class ForumController extends Controller
                 $sorting = "posts.{$request->input('sorting')}";
                 $direction = $request->input('direction');
             } else {
-                $sorting = "posts.id";
-                $direction = "desc";
+                $sorting = 'posts.id';
+                $direction = 'desc';
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
-
         } else {
             if ($request->has('sorting') && $request->input('sorting') != null) {
                 $sorting = "topics.{$request->input('sorting')}";
                 $direction = $request->input('direction');
             } else {
-                $sorting = "topics.last_reply_at";
-                $direction = "desc";
+                $sorting = 'topics.last_reply_at';
+                $direction = 'desc';
             }
             $results = $result->orderBy($sorting, $direction)->paginate(25);
         }
