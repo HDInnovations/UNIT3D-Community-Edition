@@ -19,7 +19,7 @@ use App\Models\User;
 use App\Models\Group;
 use App\Models\History;
 use App\Models\Torrent;
-use App\Services\Bencode;
+use App\Helpers\Bencode;
 use Illuminate\Http\Request;
 use App\Models\FreeleechToken;
 use App\Models\PersonalFreeleech;
