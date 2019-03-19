@@ -74,8 +74,8 @@ class AutoGroup extends Command
                 $user->group_id = 11;
                 $user->save();
             }
-            // SuperUser >= 5TB and account 1 month old
-            if ($user->uploaded >= 1073741824000 * 5 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 12) {
+            // SuperUser >= 5TB and account 2 month old
+            if ($user->uploaded >= 1073741824000 * 5 && $user->created_at < $current->copy()->subDays(60)->toDateTimeString() && $user->group_id != 12) {
                 $user->group_id = 12;
                 $user->save();
             }
