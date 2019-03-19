@@ -13,8 +13,6 @@
 
 namespace App\Helpers;
 
-use App\Helpers\Bencode;
-
 class TorrentTools
 {
     /**

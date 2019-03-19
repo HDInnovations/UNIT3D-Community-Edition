@@ -226,6 +226,7 @@ class ChatRepository
 
         if ($message) {
             broadcast(new MessageDeleted($message));
+
             return $message->delete();
         }
     }
