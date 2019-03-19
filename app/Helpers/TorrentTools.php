@@ -11,7 +11,7 @@
  * @author     HDVinnie
  */
 
-namespace App\Services;
+namespace App\Helpers;
 
 use App\Helpers\Bencode;
 
