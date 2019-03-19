@@ -13,7 +13,7 @@
         <div class="block">
             <div class="button-holder">
                 <div class="button-left">
-                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">@lang('rss.create-rss-feed')</a>
+                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">@lang('rss.create-private-feed')</a>
                 </div>
                 <div class="button-right">
 
