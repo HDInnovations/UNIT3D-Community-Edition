@@ -8,8 +8,6 @@ return [
     'bookmark'           => 'Bookmark',
     'bookmarks'          => 'Bookmarks',
     'bump'               => 'подутина',
-    'catalog'            => 'каталог',
-    'catalogs'           => 'Каталози',
     'categories'         => 'Категории',
     'category'           => 'категория',
     'client'             => 'клиент',

@@ -5,8 +5,6 @@ return [
     'articles'           => 'Artikler',
     'bans-log'           => 'Forbud Log',
     'blocks'             => 'blokke',
-    'catalog-groups'     => 'Kataloggrupper',
-    'catalog-torrents'   => 'Katalog Torrenter',
     'config-manager'     => 'Config Manager',
     'dashboard'          => 'instrumentbræt',
     'failed-login-log'   => 'Mislykket login log',

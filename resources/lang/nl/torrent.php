@@ -7,8 +7,6 @@ return [
     'torrents'   => 'Torrents',
     'category'   => 'Categorie',
     'categories' => 'Categorieën',
-    'catalog'    => 'Catalogus',
-    'catalogs'   => 'Catalogi',
     'type'       => 'Type',
     'types'      => 'Types',
     'history'    => 'Geschiedenis',

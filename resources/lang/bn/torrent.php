@@ -8,8 +8,6 @@ return [
     'bookmark'           => 'বুকমার্ক করুন',
     'bookmarks'          => 'বুকমার্ক',
     'bump'               => 'আচমকা',
-    'catalog'            => 'তালিকা',
-    'catalogs'           => 'ক্যাটালগগুলির',
     'categories'         => 'ধরন',
     'category'           => 'বিভাগ',
     'client'             => 'মক্কেল',

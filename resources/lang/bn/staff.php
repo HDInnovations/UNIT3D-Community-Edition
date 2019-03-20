@@ -5,8 +5,6 @@ return [
     'articles'           => 'প্রবন্ধ',
     'bans-log'           => 'নিষিদ্ধ লগ',
     'blocks'             => 'ব্লক',
-    'catalog-groups'     => 'ক্যাটালগ গ্রুপগুলি',
-    'catalog-torrents'   => 'ক্যাটালগ টরেন্টস',
     'config-manager'     => 'কনফিগারেশন ম্যানেজার',
     'dashboard'          => 'ড্যাশবোর্ড',
     'failed-login-log'   => 'লগইন লগ ব্যর্থ হয়েছে',

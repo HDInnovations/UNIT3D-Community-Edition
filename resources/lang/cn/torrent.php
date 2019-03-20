@@ -8,8 +8,6 @@ return [
     'bookmark'           => '书签',
     'bookmarks'          => '书签',
     'bump'               => '磕碰',
-    'catalog'            => '目录',
-    'catalogs'           => '产品目录',
     'categories'         => '分类',
     'category'           => '类别',
     'client'             => '客户',

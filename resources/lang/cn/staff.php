@@ -5,8 +5,6 @@ return [
     'articles'           => '用品',
     'bans-log'           => '禁止日志',
     'blocks'             => '块',
-    'catalog-groups'     => '目录组',
-    'catalog-torrents'   => '目录种子',
     'config-manager'     => '配置管理器',
     'dashboard'          => '仪表板',
     'failed-login-log'   => '失败的登录日志',

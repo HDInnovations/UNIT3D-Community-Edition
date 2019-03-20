@@ -20,8 +20,6 @@ return [
     'torrents'           => '種子',
     'torrent-categories' => '種子類目',
     'torrent-types'      => '種子類型',
-    'catalog-groups'     => '登記群組',
-    'catalog-torrents'   => '登記種子',
     'flush-ghost-peers'  => '清理無效連接',
     'torrent-moderation' => '調整種子',
     'user-tools'         => '用戶工具',

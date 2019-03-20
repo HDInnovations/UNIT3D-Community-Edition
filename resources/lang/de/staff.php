@@ -5,8 +5,6 @@ return [
     'articles'           => 'Artikel',
     'bans-log'           => 'Verbotsprotokoll',
     'blocks'             => 'Blöcke',
-    'catalog-groups'     => 'Kataloggruppen',
-    'catalog-torrents'   => 'Katalog Torrents',
     'config-manager'     => 'Konfigurationsmanager',
     'dashboard'          => 'Instrumententafel',
     'failed-login-log'   => 'Fehler beim Anmeldeprotokoll',

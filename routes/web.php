@@ -120,11 +120,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/categories', 'CategoryController@categories')->name('categories');
         Route::get('/categories/{slug}.{id}', 'CategoryController@category')->name('category');
 
-        // Catalogs
-        Route::get('/catalogs', 'CatalogController@catalogs')->name('catalogs');
-        Route::get('/catalog/{slug}.{id}', 'CatalogController@catalog')->name('catalog');
-        Route::get('/catalog/torrents/{imdb}', 'CatalogController@torrents')->name('catalog_torrents');
-
         // Contact Us
         Route::get('/contact', 'ContactController@index')->name('contact');
         Route::post('/contact', 'ContactController@contact')->name('sendContact');
@@ -521,17 +516,6 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/reports', 'ReportController@getReports')->name('getReports');
         Route::get('/reports/{report_id}', 'ReportController@getReport')->name('getReport');
         Route::post('/reports/{report_id}/solve', 'ReportController@solveReport')->name('solveReport');
-
-        // Catalog Groups
-        Route::get('/catalogs', 'CatalogController@getCatalogs')->name('getCatalog');
-        Route::post('/catalogs', 'CatalogController@postCatalog')->name('postCatalog');
-        Route::get('/catalogs/{genre_id}/delete', 'CatalogController@deleteCatalog')->name('deleteCatalog');
-        Route::post('/catalogs/{catalog_id}/edit', 'CatalogController@editCatalog')->name('editCatalog');
-
-        // Catalog Torrents
-        Route::get('/catalog_torrent', 'CatalogController@getCatalogTorrent')->name('getCatalogTorrent');
-        Route::post('/catalog_torrent', 'CatalogController@postCatalogTorrent')->name('postCatalogTorrent');
-        Route::get('/catalog/{catalog_id}/records', 'CatalogController@getCatalogRecords')->name('getCatalogRecords');
 
         // Categories
         Route::get('/categories', 'CategoryController@index')->name('staff_category_index');

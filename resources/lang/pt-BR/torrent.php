@@ -9,8 +9,6 @@ return [
     'bookmark'           => 'Favorito',
     'bookmarks'          => 'Favoritos',
     'bump'               => 'Colisão',
-    'catalog'            => 'Catálogo',
-    'catalogs'           => 'Catálogos',
     'categories'         => 'Categorias',
     'category'           => 'Categoria',
     'client'             => 'Cliente',

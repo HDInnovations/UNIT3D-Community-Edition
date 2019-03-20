@@ -7,8 +7,6 @@ return [
     'torrents'   => 'Torrentler',
     'category'   => 'Kategori',
     'categories' => 'Kategoriler',
-    'catalog'    => 'Katalog',
-    'catalogs'   => 'Kataloglar',
     'type'       => 'Tür',
     'types'      => 'Türler',
     'history'    => 'Geçmiş',

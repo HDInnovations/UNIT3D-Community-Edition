@@ -8,8 +8,6 @@ return [
     'bookmark'           => 'bogmærke',
     'bookmarks'          => 'bogmærker',
     'bump'               => 'Bump',
-    'catalog'            => 'Katalog',
-    'catalogs'           => 'Kataloger',
     'categories'         => 'Kategorier',
     'category'           => 'Kategori',
     'client'             => 'Klient',

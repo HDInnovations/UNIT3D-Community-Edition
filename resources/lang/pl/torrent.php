@@ -18,8 +18,6 @@ return [
     'cant-upload-desc'         => 'Skontaktuj się z Zespołem',
     'cards'                    => 'Karty',
     'cards-view'               => 'Torrenty: widok kart',
-    'catalog'                  => 'Katalog',
-    'catalogs'                 => 'Katalogi',
     'categories'               => 'Kategorie',
     'category'                 => 'Kategoria',
     'client'                   => 'Klient',

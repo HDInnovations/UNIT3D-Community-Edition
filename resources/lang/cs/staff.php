@@ -5,8 +5,6 @@ return [
     'articles'           => 'Články',
     'bans-log'           => 'Zakázat protokol',
     'blocks'             => 'Bloky',
-    'catalog-groups'     => 'Katalogové skupiny',
-    'catalog-torrents'   => 'Katalog torrentů',
     'config-manager'     => 'Správce konfigurace',
     'dashboard'          => 'Přístrojová deska',
     'failed-login-log'   => 'Záznam přihlášení se nezdařil',

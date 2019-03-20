@@ -107,16 +107,6 @@ class Torrent extends Model
     }
 
     /**
-     * One Title Belongs To Many Catalogs.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function catalogs()
-    {
-        return $this->belongsToMany(Catalog::class)->withTimestamps();
-    }
-
-    /**
      * Has Many Tags.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

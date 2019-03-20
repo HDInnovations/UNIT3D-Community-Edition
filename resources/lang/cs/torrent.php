@@ -8,8 +8,6 @@ return [
     'bookmark'           => 'Záložka do knihy',
     'bookmarks'          => 'Záložky',
     'bump'               => 'Narazit',
-    'catalog'            => 'Katalog',
-    'catalogs'           => 'Katalogy',
     'categories'         => 'Kategorie',
     'category'           => 'Kategorie',
     'client'             => 'Klient',

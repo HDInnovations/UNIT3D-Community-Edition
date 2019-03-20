@@ -112,16 +112,6 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('getCatalog') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('staff.catalog-groups')
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('getCatalogTorrent') }}">
-                    <i class="{{ config('other.font-awesome') }} fa-book"></i> @lang('staff.catalog-torrents')
-                </a>
-            </li>
-            <li>
                 <a href="{{ route('flush') }}">
                     <i class="fab fa-snapchat-ghost"></i> @lang('staff.flush-ghost-peers')
                 </a>

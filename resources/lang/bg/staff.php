@@ -5,8 +5,6 @@ return [
     'articles'           => 'статии',
     'bans-log'           => 'Забрана за регистрация',
     'blocks'             => 'блокове',
-    'catalog-groups'     => 'Каталог Групи',
-    'catalog-torrents'   => 'Каталог Торенти',
     'config-manager'     => 'Конфигурационен мениджър',
     'dashboard'          => 'Табло',
     'failed-login-log'   => 'Неуспешен регистрационен файл за вход',

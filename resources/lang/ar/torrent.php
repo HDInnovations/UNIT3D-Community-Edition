@@ -7,8 +7,6 @@ return [
     'torrents'   => 'التورينتات',
     'category'   => 'القسم',
     'categories' => 'الأقسام',
-    'catalog'    => 'التصنيف',
-    'catalogs'   => 'التصنيفات',
     'type'       => 'النوع',
     'types'      => 'الأنواع',
     'history'    => 'التاريخ',

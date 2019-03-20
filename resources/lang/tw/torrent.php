@@ -7,8 +7,6 @@ return [
     'torrents'           => '種子',
     'category'           => '類目',
     'categories'         => '類目',
-    'catalog'            => '目錄',
-    'catalogs'           => '目錄',
     'type'               => '類型',
     'types'              => '類型',
     'history'            => '歷史',

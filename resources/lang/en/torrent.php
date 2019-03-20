@@ -20,8 +20,6 @@ return [
     'cant-upload-desc'         => 'If You Feel This Is In Error, Please Contact Staff',
     'cards'                    => 'Cards',
     'cards-view'               => 'Torrent Cards View',
-    'catalog'                  => 'Catalog',
-    'catalogs'                 => 'Catalogs',
     'categories'               => 'Categories',
     'category'                 => 'Category',
     'client'                   => 'Client',
