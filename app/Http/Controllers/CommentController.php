@@ -390,11 +390,25 @@ class CommentController extends Controller
         }
 
         $comment = new Comment();
-        $thankArray = [
-            'Thanks for the upload! :thumbsup_tone2:',
-            'Time and effort is much appreciated :thumbsup_tone2:',
-            'Great upload! :fire:', 'Thankyou :smiley:',
-        ];
+
+        if ($torrent->anon === 1) {
+            $thankArray = [
+                'Thanks for the upload! :thumbsup_tone2:',
+                'Time and effort is much appreciated :thumbsup_tone2:',
+                'Great upload! :fire:', 'Thankyou :smiley:',
+            ];
+        } else {
+            $uploader = User::where('id', '=', $torrent->user_id)->first();
+            $uploader_url = hrefProfile($uploader);
+
+            $thankArray = [
+                "Thanks for the upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :vulcan_tone2:",
+                "Beatiful upload [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] :fire:",
+                "Cheers [url={$uploader_url}][color={$uploader->group->color}][b]{$uploader->username}[/b][/color][/url] for the upload :beers:",
+            ];
+        }
+
+
         $selected = mt_rand(0, count($thankArray) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
