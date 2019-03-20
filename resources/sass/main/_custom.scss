@@ -6396,14 +6396,30 @@ a.view-torrent:hover {
 }
 
 // Torrent Meta Style
+.imdb-icon {
+    background: url('/img/imdb-icon.png') no-repeat;
+    background-size: 24px 24px;
+    display: inline-block;
+}
+
+.tmdb-icon {
+    background: url('/img/tmdb-icon.png') no-repeat;
+    background-size: 24px 24px;
+    display: inline-block;
+}
+
 .movie-wrapper {
-    min-height: 500px;
+    min-height: 400px;
     position: relative;
     overflow: hidden;
 }
 
 .movie-row {
-    padding-top: 20px;
+    padding-top: 0px;
+}
+
+.col-xs-12.col-sm-4.col-md-3.col-sm-pull-8.col-md-pull-8 {
+    padding: 0;
 }
 
 .movie-backdrop {
@@ -6470,16 +6486,21 @@ a.view-torrent:hover {
 .movie-poster {
     display: block;
     margin-top: 0;
-    width: 300px;
+    width: 350px;
     border: 5px solid #292e35;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
+.row.cast-list {
+    margin-top: 3%;
+}
+
 .movie-heading {
     color: #fff;
     padding: 0;
-    margin: 20px 0 0;
+    margin-bottom: 10px;
+    margin-top: 12px;
     line-height: 1.2;
     font-family: $default-font-family;
 }
@@ -6565,8 +6586,7 @@ body.tvshow .movie-poster {
 }
 
 .movie-overview {
-    margin: 15px 0 0;
-    padding: 0;
+    margin-bottom: 0;
     line-height: 1.7;
     color: #fff;
     text-shadow: 1.3px 1.5px rgba(0, 0, 0, 0.8);
@@ -6674,9 +6694,11 @@ body.tvshow .movie-poster {
 .movie-details,
 .season-details {
     list-style: none;
-    margin: 10px 0 0;
-    padding: 0;
+    margin: 0;
     line-height: 1;
+    display: block;
+    padding-bottom: 5px;
+    padding-top: 7px
 }
 
 .movie-details li,
@@ -8148,8 +8170,7 @@ select.icon-right i {
 }
 
 .tags {
-    color: #fff;
-    opacity: 0.5;
+    color: rgba(0, 0, 0, 0.62);
     position: absolute;
     right: 20px;
     top: 30px;
@@ -9354,7 +9375,7 @@ section.tall_categories div.category.movie span {
 
 .img-people {
     border-radius: 5px;
-    margin-top: 15px;
+    margin-top: 0px;
     width: 75px;
     height: 112.5px;
 }

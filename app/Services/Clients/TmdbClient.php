@@ -335,7 +335,7 @@ class TmdbClient extends Client implements MovieTvInterface
         if (! empty($trailers = $movie['videos']['results'])) {
             foreach ($trailers as $trailer) {
                 if ($trailer['type'] == 'Trailer' && $trailer['site'] == 'YouTube') {
-                    return 'https://www.youtube.com/watch?v='.$trailer['key'];
+                    return 'https://www.youtube-nocookie.com/embed/'.$trailer['key'];
                 }
             }
         }
