@@ -358,10 +358,10 @@ Route::group(['middleware' => 'language'], function () {
 
     /*
     |------------------------------------------
-    | ShoutBox Routes Group (when authorized)
+    | ChatBox Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private'], 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('chatrooms', 'ChatController@fetchChatrooms');
         Route::post('change-chatroom', 'ChatController@changeChatroom');
