@@ -408,7 +408,6 @@ class CommentController extends Controller
             ];
         }
 
-
         $selected = mt_rand(0, count($thankArray) - 1);
         $comment->content = $thankArray[$selected];
         $comment->user_id = $user->id;
