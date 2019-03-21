@@ -182,8 +182,6 @@ return [
         Gstt\Achievements\AchievementsServiceProvider::class,
         Infinety\ConfigManager\ConfigManagerServiceProvider::class,
         ChristofferOK\LaravelEmojiOne\LaravelEmojiOneServiceProvider::class,
-        Way\Generators\GeneratorsServiceProvider::class,
-        Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
