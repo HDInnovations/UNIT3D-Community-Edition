@@ -17,7 +17,6 @@
         "elhebert/laravel-sri": "^1.5",
         "emojione/emojione": "^4.0.0",
         "fideloper/proxy": "^4.0",
-        "google/recaptcha": "~1.1",
         "gstt/laravel-achievements": "^1.0",
         "guzzlehttp/guzzle": "6.*",
         "hootlex/laravel-moderation": "^1.0",

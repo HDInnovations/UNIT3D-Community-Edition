@@ -65,14 +65,14 @@ class LoginController extends Controller
             $this->validate($request, [
                 $this->username()      => 'required|string',
                 'password'             => 'required|string',
-                'g-recaptcha-response' => new Captcha(),
+                'g-recaptcha-response' => 'required|recaptcha',
+            ]);
+        } else {
+            $this->validate($request, [
+                $this->username() => 'required|string',
+                'password' => 'required|string',
             ]);
         }
-
-        $this->validate($request, [
-            $this->username() => 'required|string',
-            'password'        => 'required|string',
-        ]);
     }
 
     protected function authenticated(Request $request, $user)
@@ -113,7 +113,7 @@ class LoginController extends Controller
                 ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
-        if (auth()->viaRemember() && auth()->user()->group_id == $disabledGroup->id) {
+        if (auth()->viaRemember() && $user->group_id == $disabledGroup->id) {
             $user->group_id = $memberGroup->id;
             $user->can_upload = 1;
             $user->can_download = 1;
