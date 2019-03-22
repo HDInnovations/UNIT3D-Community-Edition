@@ -594,7 +594,9 @@ Route::group(['middleware' => 'language'], function () {
 
         // Backup Manager
         Route::get('/backup', 'BackupController@index')->name('backupManager');
-        Route::post('/backup/create', 'BackupController@create');
+        Route::post('/backup/create-full', 'BackupController@create');
+        Route::post('/backup/create-files', 'BackupController@createFilesOnly');
+        Route::post('/backup/create-db', 'BackupController@createDatabaseOnly');
         Route::get('/backup/download/{file_name?}', 'BackupController@download');
         Route::post('/backup/delete', 'BackupController@delete');
 
