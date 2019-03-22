@@ -298,6 +298,7 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/{slug}.{id}/settings/private', 'UserController@makePrivate')->name('user_private');
         Route::get('/{slug}.{id}/settings/public', 'UserController@makePublic')->name('user_public');
         Route::get('/{slug}.{id}/invites', 'InviteController@invites')->name('user_invites');
+        Route::post('/accept-rules', 'UserController@acceptRules')->name('accept.rules');
 
         // User Wishlist
         Route::get('/{slug}.{id}/wishlist', 'UserController@wishes')->name('user_wishlist');

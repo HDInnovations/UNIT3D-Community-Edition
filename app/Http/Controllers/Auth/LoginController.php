@@ -128,6 +128,11 @@ class LoginController extends Controller
                 ->with($this->toastr->info('Welcome Back! Your Account Is No Longer Disabled!', $user->username, ['options']));
         }
 
+        if ($user->read_rules == 0) {
+            return redirect(config('other.rules_url'))
+                ->with($this->toastr->warning('Please Read And Accept Our Rules By Scrolling To Bottom Of Page.', 'Attention!', ['options']));
+        }
+
         return redirect('/')
             ->with($this->toastr->info('Welcome Back!', $user->username, ['options']));
     }

@@ -2434,4 +2434,18 @@ class UserController extends Controller
             return back()->with($this->toastr->error('Something Went Wrong!', 'Whoops!', ['options']));
         }
     }
+
+    /**
+     * Accept Site Rules
+     *
+     * @param $username
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function acceptRules()
+    {
+        $user = auth()->user();
+        $user->read_rules = 1;
+        $user->save();
+    }
 }
