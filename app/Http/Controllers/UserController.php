@@ -1978,7 +1978,7 @@ class UserController extends Controller
         abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
 
         $wishes = $user->wishes()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id)->first();
 
         return view('user.wishlist', [
             'user'               => $user,
@@ -2000,7 +2000,7 @@ class UserController extends Controller
         abort_unless((auth()->user()->group->is_modo || auth()->user()->id == $user->id), 403);
 
         $bookmarks = $user->bookmarks()->latest()->paginate(25);
-        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id);
+        $personal_freeleech = PersonalFreeleech::where('user_id', '=', $id)->first();
 
         return view('user.bookmarks', [
             'user'               => $user,
