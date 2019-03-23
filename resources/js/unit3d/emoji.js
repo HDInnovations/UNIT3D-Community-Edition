@@ -61,7 +61,7 @@ export function textcomplete(selector = null) {
             },
         ],
         {
-            footer: '<a href="http://www.emoji.codes" target="_blank">Browse All<span class="arrow">»</span></a>',
+            footer: '<a href="https://www.emojicopy.com" target="_blank">Browse All<span class="arrow">»</span></a>',
         }
     );
 }
