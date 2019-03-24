@@ -61,6 +61,7 @@
                 </thead>
                 <tbody>
                 @foreach ($results as $r)
+                    @if ($r->topic->viewable())
                     <tr>
                         <td class="f-display-topic-icon"><span
                                     class="badge-extra text-bold">{{ $r->topic->forum->name }}</span></td>
@@ -115,6 +116,7 @@
                             </div>
                         </td>
                     </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
