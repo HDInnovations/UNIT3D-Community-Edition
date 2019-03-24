@@ -109,7 +109,12 @@
                     </textarea>
                 </div>
 
-                <div class="parser"></div>
+                <div class="form-group">
+                    <label for="mediainfo">@lang('torrent.media-info')</label>
+                    <textarea id="upload-form-description" name="mediainfo" cols="30" rows="10" class="form-control" placeholder="Paste Single MediaInfo Dump">
+                        {{ old('mediainfo') }}
+                    </textarea>
+                </div>
 
                 <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                 <div class="radio-inline">
@@ -156,7 +161,6 @@
                 @endif
 
                 <div class="text-center">
-                    <button id="add" type="button" class="btn btn-primary">@lang('common.add') @lang('torrent.media-info-parser')</button>
                     <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.upload')</button>
                 </div>
                 <br>
