@@ -92,11 +92,8 @@ class UserController extends Controller
         $bonupload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Upload%']])->sum('cost');
         $bondownload = BonTransactions::where('sender', '=', $id)->where([['name', 'like', '%Download%']])->sum('cost');
 
-        $hackupload = $user->history->sum('uploaded') + $bonupload;
-        $hackdownload = $user->history->sum('downloaded') + $bondownload;
-
-        $realupload = $hackupload - $bonupload;
-        $realdownload = $hackdownload - $bondownload;
+        $realupload = $user->uploaded - $bonupload;
+        $realdownload = $user->downloaded + $bondownload;
 
         $invitedBy = Invite::where('accepted_by', '=', $user->id)->first();
 
