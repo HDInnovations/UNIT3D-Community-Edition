@@ -14,7 +14,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Models\Pool;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Torrent;
@@ -62,15 +61,12 @@ class BonusController extends Controller
         $gifts_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
         $gifts_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'gift')->sum('cost');
 
-        $pool = Pool::where('complete', '=', 0)->first();
-
         return view('bonus.gifts', [
             'user'              => $user,
             'gifttransactions'  => $gifttransactions,
             'userbon'           => $userbon,
             'gifts_sent'        => $gifts_sent,
             'gifts_received'    => $gifts_received,
-            'pool'              => $pool,
         ]);
     }
 
@@ -90,15 +86,12 @@ class BonusController extends Controller
         $tips_sent = BonTransactions::where('sender', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
         $tips_received = BonTransactions::where('receiver', '=', auth()->user()->id)->where('name', '=', 'tip')->sum('cost');
 
-        $pool = Pool::where('complete', '=', 0)->first();
-
         return view('bonus.tips', [
             'user'              => $user,
             'bontransactions'   => $bontransactions,
             'userbon'           => $userbon,
             'tips_sent'         => $tips_sent,
             'tips_received'     => $tips_received,
-            'pool'              => $pool,
         ]);
     }
 
@@ -120,8 +113,6 @@ class BonusController extends Controller
         $personalFreeleech = $BonExchange->getPersonalFreeleechOption();
         $invite = $BonExchange->getInviteOption();
 
-        $pool = Pool::where('complete', '=', 0)->first();
-
         return view('bonus.store', [
             'users'             => $users,
             'userbon'           => $userbon,
@@ -131,7 +122,6 @@ class BonusController extends Controller
             'downloadOptions'   => $downloadOptions,
             'personalFreeleech' => $personalFreeleech,
             'invite'            => $invite,
-            'pool'              => $pool,
         ]);
     }
 
@@ -146,12 +136,9 @@ class BonusController extends Controller
         $users = User::oldest('username')->get();
         $userbon = $user->getSeedbonus();
 
-        $pool = Pool::where('complete', '=', 0)->first();
-
         return view('bonus.gift', [
             'users'             => $users,
             'userbon'           => $userbon,
-            'pool'              => $pool,
         ]);
     }
 
@@ -202,8 +189,6 @@ class BonusController extends Controller
         $minute = $total / 60;
         $second = $minute / 60;
 
-        $pool = Pool::where('complete', '=', 0)->first();
-
         return view('bonus.index', [
             'users'             => $users,
             'userbon'           => $userbon,
@@ -226,7 +211,6 @@ class BonusController extends Controller
             'username'          => $username,
             'minute'            => $minute,
             'second'            => $second,
-            'pool'              => $pool,
         ]);
     }
 
