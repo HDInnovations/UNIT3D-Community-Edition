@@ -19,7 +19,6 @@ use App\Models\Group;
 use App\Models\Invite;
 use App\Rules\Captcha;
 use App\Models\UserPrivacy;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\UserActivation;
@@ -37,20 +36,13 @@ class RegisterController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * RegisterController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr         $toastr
      */
-    public function __construct(ChatRepository $chat, Toastr $toastr)
+    public function __construct(ChatRepository $chat)
     {
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -65,7 +57,7 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code is present
         if ($code === 'null' && config('other.invite-only') == 1) {
             return view('auth.login')
-                ->with($this->toastr->error('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!', 'Whoops!', ['options']));
+                ->withErrors('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!');
         }
 
         return view('auth.register', ['code' => $code]);
@@ -77,7 +69,7 @@ class RegisterController extends Controller
         $key = Invite::where('code', '=', $code)->first();
         if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return view('auth.register', ['code' => $code])
-                ->with($this->toastr->error('Invalid or Expired Invite Key!', 'Whoops!', ['options']));
+                ->withErrors('Invalid or Expired Invite Key!');
         }
 
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
@@ -136,7 +128,7 @@ class RegisterController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('register', ['code' => $code])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $user->save();
 
@@ -195,7 +187,7 @@ class RegisterController extends Controller
             \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Thanks for signing up! Please check your email to Validate your account', 'Yay!', ['options']));
+                ->withSuccess('Thanks for signing up! Please check your email to Validate your account');
         }
     }
 }

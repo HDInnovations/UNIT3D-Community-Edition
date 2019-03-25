@@ -15,25 +15,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\Group;
-use Brian2694\Toastr\Toastr;
 
 class CheckIfBanned
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * CheckIfBanned Middleware Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -53,7 +37,7 @@ class CheckIfBanned
             $request->session()->flush();
 
             return redirect('login')
-                ->with($this->toastr->error('This account is Banned!', 'Whoops!', ['options']));
+                ->withErrors('This account is Banned!');
         }
 
         return $next($request);

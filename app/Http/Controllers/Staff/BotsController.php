@@ -14,27 +14,11 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Bot;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class BotsController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * BotsController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Display a listing of the Bots resource.
      *
@@ -130,11 +114,11 @@ class BotsController extends Controller
             }
 
             return redirect()->route('Staff.bots.edit', ['id' => $id])
-                ->with($this->toastr->error($error, 'Whoops!', ['options']));
+                ->withErrors($error);
         }
 
         return redirect()->route('Staff.bots.edit', ['id' => $id])
-            ->with($this->toastr->success($success, 'Yay!', ['options']));
+            ->withSuccess($success);
     }
 
     /**
@@ -149,7 +133,7 @@ class BotsController extends Controller
         $bot->delete();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0', 'Yay!', ['options']));
+            ->withSuccess('The Humans Vs Machines War Has Begun! Humans: 1 and Bots: 0');
     }
 
     /**
@@ -165,7 +149,7 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Disabled', 'Yay!', ['options']));
+            ->withSuccess('The Bot Has Been Disabled');
     }
 
     /**
@@ -181,6 +165,6 @@ class BotsController extends Controller
         $bot->save();
 
         return redirect()->route('Staff.bots.index')
-            ->with($this->toastr->success('The Bot Has Been Enabled', 'Yay!', ['options']));
+            ->withSuccess('The Bot Has Been Enabled');
     }
 }

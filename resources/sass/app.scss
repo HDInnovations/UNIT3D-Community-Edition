@@ -2,18 +2,17 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,700|Ubuntu');
 
 // Vendor components
-@import '~bootstrap-sass/assets/stylesheets/bootstrap';
-@import 'vendor/font-awesome';
-@import '~toastr/toastr';
-@import '~sweetalert2/src/sweetalert2';
-@import 'vendor/emojione-dropdown';
-@import '~select2/src/scss/core';
-@import '../js/wysibb/theme/default/wbbtheme.css';
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "vendor/font-awesome";
+@import "~sweetalert2/src/sweetalert2";
+@import "vendor/emojione-dropdown";
+@import "~select2/src/scss/core";
+@import "../js/wysibb/theme/default/wbbtheme.css";
 
 // UNIT3D components
-@import 'variables';
-@import 'nav/nav';
-@import 'main/main';
-@import 'main/aboutus';
-@import 'chat/chatbox';
-@import 'main/tooltips';
+@import "variables";
+@import "nav/nav";
+@import "main/main";
+@import "main/aboutus";
+@import "chat/chatbox";
+@import "main/tooltips";

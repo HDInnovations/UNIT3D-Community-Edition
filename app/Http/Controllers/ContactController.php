@@ -15,27 +15,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\Contact;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ContactController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Contact Form.
      *
@@ -60,6 +44,6 @@ class ContactController extends Controller
         Mail::to($user->email, $user->username)->send(new Contact($input));
 
         return redirect()->route('home')
-            ->with($this->toastr->success('Your Message Was Successfully Sent', 'Yay!', ['options']));
+            ->withSuccess('Your Message Was Successfully Sent');
     }
 }

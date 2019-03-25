@@ -14,27 +14,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Group;
-use Brian2694\Toastr\Toastr;
 use App\Models\UserActivation;
 use App\Http\Controllers\Controller;
 
 class ActivationController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ActivationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     public function activate($token)
     {
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
@@ -56,9 +40,11 @@ class ActivationController extends Controller
 
             $activation->delete();
 
-            return redirect()->route('login')->with($this->toastr->success('Account Confirmed! You May Now Login!', 'Yay!', ['options']));
+            return redirect()->route('login')
+                ->withSuccess('Account Confirmed! You May Now Login!');
         } else {
-            return redirect()->route('login')->with($this->toastr->error('Banned or Invalid Token Or Account Already Confirmed!', 'Whoops!', ['options']));
+            return redirect()->route('login')
+                ->withErrors('Banned or Invalid Token Or Account Already Confirmed!');
         }
     }
 }

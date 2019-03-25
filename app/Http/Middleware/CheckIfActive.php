@@ -15,25 +15,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\Group;
-use Brian2694\Toastr\Toastr;
 
 class CheckIfActive
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * CheckIfActive Middleware Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -53,7 +37,7 @@ class CheckIfActive
             $request->session()->flush();
 
             return redirect('login')
-                ->with($this->toastr->warning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.', 'Whoops!', ['options']));
+                ->withWarning('This account has not been activated and is still in validating group, Please check your email for activation link. If you did not receive the activation code, please click "forgot password" and complete the steps.');
         }
 
         return $next($request);

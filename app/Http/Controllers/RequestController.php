@@ -16,9 +16,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Type;
 use App\Models\User;
-use App\Models\Torrent;
 use App\Models\Category;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
@@ -51,22 +49,15 @@ class RequestController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * RequestController Constructor.
      *
      * @param RequestFacetedRepository $faceted
      * @param ChatRepository           $chat
-     * @param Toastr                   $toastr
      */
-    public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat, Toastr $toastr)
+    public function __construct(RequestFacetedRepository $faceted, ChatRepository $chat)
     {
         $this->faceted = $faceted;
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -297,7 +288,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('requests')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']))->withInput();
+                ->withErrors($v->errors())->withInput();
         } else {
             $tr->save();
 
@@ -338,7 +329,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has made a new torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
             return redirect('/requests')
-                ->with($this->toastr->success('Request Added.', 'Yay!', ['options']));
+                ->withSuccess('Request Added.');
         }
     }
 
@@ -410,7 +401,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('requests')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $torrentRequest->save();
 
@@ -423,7 +414,7 @@ class RequestController extends Controller
             }
 
             return redirect()->route('requests', ['id' => $torrentRequest->id])
-                ->with($this->toastr->success('Request Edited Successfully.', 'Yay!', ['options']));
+                ->withSuccess('Request Edited Successfully.');
         }
     }
 
@@ -450,7 +441,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $tr->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $tr->save();
 
@@ -502,7 +493,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has added a BON bounty to torrent request, ID: {$tr->id} NAME: {$tr->name} .");
 
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with($this->toastr->success('Your bonus has been successfully added.', 'Yay!', ['options']));
+                ->withSuccess('Your bonus has been successfully added.');
         }
     }
 
@@ -532,7 +523,7 @@ class RequestController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $torrentRequest->save();
 
@@ -566,7 +557,7 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
 
             return redirect()->route('request', ['id' => $request->input('request_id')])
-                ->with($this->toastr->success('Your request fill is pending approval by the Requester.', 'Yay!', ['options']));
+                ->withSuccess('Your request fill is pending approval by the Requester.');
         }
     }
 
@@ -586,7 +577,7 @@ class RequestController extends Controller
         if ($user->id == $tr->user_id || auth()->user()->group->is_modo) {
             if ($tr->approved_by != null) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->error('Seems this request was already approved', 'Whoops!', ['options']));
+                    ->withErrors('Seems this request was already approved');
             }
             $tr->approved_by = $user->id;
             $tr->approved_when = Carbon::now();
@@ -638,14 +629,14 @@ class RequestController extends Controller
 
             if ($tr->filled_anon == 0) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->success("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}", 'Yay!', ['options']));
+                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to {$fill_user->username}");
             } else {
                 return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->success("You have approved {$tr->name} and the bounty has been awarded to a anonymous user", 'Yay!', ['options']));
+                    ->withSuccess("You have approved {$tr->name} and the bounty has been awarded to a anonymous user");
             }
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error("You don't have access to approve this request", 'Whoops!', ['options']));
+                ->withErrors("You don't have access to approve this request");
         }
     }
 
@@ -665,7 +656,7 @@ class RequestController extends Controller
         if ($user->id == $torrentRequest->user_id) {
             if ($torrentRequest->approved_by != null) {
                 return redirect()->route('request', ['id' => $id])
-                    ->with($this->toastr->error('Seems this request was already rejected', 'Whoops!', ['options']));
+                    ->withErrors('Seems this request was already rejected');
             }
 
             $requester = User::findOrFail($torrentRequest->filled_by);
@@ -682,10 +673,10 @@ class RequestController extends Controller
             $torrentRequest->save();
 
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('This request has been reset.', 'Yay!', ['options']));
+                ->withSuccess('This request has been reset.');
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success("You don't have access to approve this request", 'Yay!', ['options']));
+                ->withSuccess("You don't have access to approve this request");
         }
     }
 
@@ -709,10 +700,10 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has deleted torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('requests')
-                ->with($this->toastr->success("You have deleted {$name}", 'Yay!', ['options']));
+                ->withSuccess("You have deleted {$name}");
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error("You don't have access to delete this request.", 'Whoops!', ['options']));
+                ->withErrors("You don't have access to delete this request.");
         }
     }
 
@@ -754,10 +745,10 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('Request Successfully Claimed', 'Yay!', ['options']));
+                ->withSuccess('Request Successfully Claimed');
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error('Someone else has already claimed this request buddy.', 'Whoops!', ['options']));
+                ->withErrors('Someone else has already claimed this request buddy.');
         }
     }
 
@@ -799,10 +790,10 @@ class RequestController extends Controller
             \LogActivity::addToLog("Member {$user->username} has un-claimed torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} .");
 
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->success('Request Successfully Un-Claimed', 'Yay!', ['options']));
+                ->withSuccess('Request Successfully Un-Claimed');
         } else {
             return redirect()->route('request', ['id' => $id])
-                ->with($this->toastr->error('Nothing To Unclaim.', 'Whoops!', ['options']));
+                ->withErrors('Nothing To Unclaim.');
         }
     }
 }

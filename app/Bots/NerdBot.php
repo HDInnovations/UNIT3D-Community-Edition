@@ -41,8 +41,6 @@ class NerdBot
 
     /**
      * NerdBot Constructor.
-     *
-     * @param Toastr $toastr
      */
     public function __construct(ChatRepository $chat)
     {

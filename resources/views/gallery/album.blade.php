@@ -89,7 +89,7 @@
     var name = $(this).attr('data-name');
     var image = $(this).attr('data-image');
 
-    swal({
+    Swal.fire({
       showConfirmButton: false,
       showCloseButton: true,
       background: '#232323',

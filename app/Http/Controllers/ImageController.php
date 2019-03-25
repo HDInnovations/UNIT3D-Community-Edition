@@ -15,26 +15,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Album;
 use App\Models\Image;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ImageController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Image Add Form.
      *
@@ -82,12 +66,12 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('add_image', ['id' => $request->input('album_id')])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $image->save();
 
             return redirect()->route('show_album', ['id' => $request->input('album_id')])
-                ->with($this->toastr->success('Your image has successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your image has successfully published!');
         }
     }
 
@@ -113,7 +97,7 @@ class ImageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('gallery')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $image->save();
 
@@ -135,7 +119,7 @@ class ImageController extends Controller
 
         if (! file_exists(getcwd().'/files/img/'.$filename)) {
             return redirect()->route('show_album', ['id' => $image->album_id])
-                ->with($this->toastr->error('Image File Not Found! Please Report This To Staff!', 'Error!', ['options']));
+                ->withErrors('Image File Not Found! Please Report This To Staff!');
         }
 
         $image->downloads++;
@@ -160,6 +144,6 @@ class ImageController extends Controller
         $image->delete();
 
         return redirect()->route('show_album', ['id' => $image->album_id])
-            ->with($this->toastr->success('Image has successfully been deleted', 'Yay!', ['options']));
+            ->withSuccess('Image has successfully been deleted');
     }
 }

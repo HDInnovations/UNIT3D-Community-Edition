@@ -14,27 +14,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 
 class PrivateMessageController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * PrivateMessageController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Search PM Inbox.
      *
@@ -116,7 +100,7 @@ class PrivateMessageController extends Controller
             return view('pm.message', ['pm' => $pm, 'user' => $user]);
         } else {
             return redirect()->route('inbox')
-                ->with($this->toastr->error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+                ->withErrors('What Are You Trying To Do Here!');
         }
     }
 
@@ -171,26 +155,26 @@ class PrivateMessageController extends Controller
             $recipient = User::where('id', '=', (int) $request->input('receiver_id'))->firstOrFail();
         } else {
             return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         }
 
         if ($v->fails()) {
             if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->withErrors($v->errors());
             }
 
             return redirect()->route('create', ['username' => auth()->user()->username, 'id' => auth()->user()->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $pm->save();
             if ($dest == 'profile') {
                 return redirect()->route('profile', ['username' => $recipient->slug, 'id'=> $recipient->id])
-                    ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                    ->withSuccess('Your PM Was Sent Successfully!');
             }
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                ->withSuccess('Your PM Was Sent Successfully!');
         }
     }
 
@@ -227,12 +211,12 @@ class PrivateMessageController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('inbox')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $pm->save();
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('Your PM Was Sent Successfully!', 'Yay!', ['options']));
+                ->withSuccess('Your PM Was Sent Successfully!');
         }
     }
 
@@ -252,10 +236,10 @@ class PrivateMessageController extends Controller
             $pm->delete();
 
             return redirect()->route('inbox')
-                ->with($this->toastr->success('PM Was Deleted Successfully!', 'Yay!', ['options']));
+                ->withSuccess('PM Was Deleted Successfully!');
         } else {
             return redirect()->route('inbox')
-                ->with($this->toastr->error('What Are You Trying To Do Here!', 'Whoops!', ['options']));
+                ->withErrors('What Are You Trying To Do Here!');
         }
     }
 
@@ -274,6 +258,6 @@ class PrivateMessageController extends Controller
         }
 
         return redirect()->route('inbox')
-            ->with($this->toastr->success('Your Messages Have All Been Marked As Read!', 'Yay!', ['options']));
+            ->withSuccess('Your Messages Have All Been Marked As Read!');
     }
 }

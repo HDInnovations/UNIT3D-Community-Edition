@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Interfaces\WishInterface;
 
@@ -25,20 +24,13 @@ class WishController extends Controller
     private $wish;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * WishController Constructor.
      *
      * @param WishInterface $wish
-     * @param Toastr        $toastr
      */
-    public function __construct(WishInterface $wish, Toastr $toastr)
+    public function __construct(WishInterface $wish)
     {
         $this->wish = $wish;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -67,14 +59,14 @@ class WishController extends Controller
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
                 ->route('wishlist', ['id' => $uid])
-                ->with($this->toastr->error('Wish already exists!', 'Whoops!', ['options']));
+                ->withErrors('Wish already exists!');
         }
 
         $omdb = $this->wish->omdbRequest($imdb);
         if ($omdb === null || $omdb === false) {
             return redirect()
                 ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-                ->with($this->toastr->error('IMDB Bad Request!', 'Whoops!', ['options']));
+                ->withErrors('IMDB Bad Request!');
         }
 
         $source = $this->wish->getSource($imdb);
@@ -89,7 +81,7 @@ class WishController extends Controller
 
         return redirect()
             ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-            ->with($this->toastr->success('Wish Successfully Added!', 'Yay!', ['options']));
+            ->withSuccess('Wish Successfully Added!');
     }
 
     /**
@@ -106,6 +98,6 @@ class WishController extends Controller
 
         return redirect()
             ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
-            ->with($this->toastr->success('Wish Successfully Removed!', 'Yay!', ['options']));
+            ->withSuccess('Wish Successfully Removed!');
     }
 }

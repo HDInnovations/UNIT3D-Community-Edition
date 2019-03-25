@@ -118,7 +118,34 @@
 @if (config('captcha.enabled') == true)
 <script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
 @endif
-{!! Toastr::message() !!}
+@foreach (['warning', 'success', 'info'] as $key)
+    @if (Session::has($key))
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: '{{ $key }}',
+            title: '{{ Session::get($key) }}'
+          })
+        </script>
+    @endif
+@endforeach
+
+@if (Session::has('errors'))
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      Swal.fire({
+        title: '<strong>Validation Error</strong>',
+        type: 'error',
+        html: '{{ Session::get('errors') }}',
+        showCloseButton: true,
+      })
+    </script>
+@endif
 
 </body>
 </html>

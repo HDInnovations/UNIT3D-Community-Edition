@@ -16,7 +16,6 @@ namespace App\Http\Controllers\Staff;
 use App\Models\Message;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Events\MessageDeleted;
 use App\Http\Controllers\Controller;
@@ -30,20 +29,13 @@ class ChatController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * ChatController Constructor.
      *
      * @param ChatRepository $chat
-     * @param Toastr         $toastr
      */
-    public function __construct(ChatRepository $chat, Toastr $toastr)
+    public function __construct(ChatRepository $chat)
     {
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -80,12 +72,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Added', 'Yay!', ['options']));
+                ->withSuccess('Chatroom Successfully Added');
         }
     }
 
@@ -108,12 +100,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $chatroom->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chatroom Successfully Modified', 'Yay!', ['options']));
+                ->withSuccess('Chatroom Successfully Modified');
         }
     }
 
@@ -130,7 +122,7 @@ class ChatController extends Controller
         $chatroom->delete();
 
         return redirect()->route('chatManager')
-            ->with($this->toastr->success('Chatroom Successfully Deleted', 'Yay!', ['options']));
+            ->withSuccess('Chatroom Successfully Deleted');
     }
 
     /**
@@ -155,12 +147,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chat Status Successfully Added', 'Yay!', ['options']));
+                ->withSuccess('Chat Status Successfully Added');
         }
     }
 
@@ -187,12 +179,12 @@ class ChatController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('chatManager')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $chatstatus->save();
 
             return redirect()->route('chatManager')
-                ->with($this->toastr->success('Chat Status Successfully Modified', 'Yay!', ['options']));
+                ->withSuccess('Chat Status Successfully Modified');
         }
     }
 
@@ -209,7 +201,7 @@ class ChatController extends Controller
         $chatstatus->delete();
 
         return redirect()->route('chatManager')
-            ->with($this->toastr->success('Chat Status Successfully Deleted', 'Yay!', ['options']));
+            ->withSuccess('Chat Status Successfully Deleted');
     }
 
     /**
@@ -231,6 +223,6 @@ class ChatController extends Controller
         );
 
         return redirect('staff_dashboard')
-            ->with($this->toastr->success('Chatbox Has Been Flushed', 'Yay!', ['options']));
+            ->withSuccess('Chatbox Has Been Flushed');
     }
 }

@@ -32,7 +32,7 @@ export default {
                 .then(response => {
                     this.bookmarked = true;
 
-                    Swal({
+                    Swal.fire({
                         position: 'center',
                         type: 'success',
                         title: 'Torrent Has Been Bookmarked Successfully!',
@@ -51,7 +51,7 @@ export default {
                 .then(response => {
                     this.bookmarked = false;
 
-                    Swal({
+                    Swal.fire({
                         position: 'center',
                         type: 'success',
                         title: 'Torrent Has Been Unbookmarked Successfully!',

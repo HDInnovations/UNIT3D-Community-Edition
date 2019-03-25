@@ -176,7 +176,6 @@ return [
          * Package Service Providers...
          */
         Spatie\CookieConsent\CookieConsentServiceProvider::class,
-        Brian2694\Toastr\ToastrServiceProvider::class,
         Hootlex\Moderation\ModerationServiceProvider::class,
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Gstt\Achievements\AchievementsServiceProvider::class,
@@ -244,7 +243,6 @@ return [
         'View'         => Illuminate\Support\Facades\View::class,
 
         'CookieConsent'   => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'Toastr'          => Brian2694\Toastr\Facades\Toastr::class,
         'LaravelEmojiOne' => ChristofferOK\LaravelEmojiOne\LaravelEmojiOneFacade::class,
         'Image'           => Intervention\Image\Facades\Image::class,
 

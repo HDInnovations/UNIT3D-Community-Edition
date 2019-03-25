@@ -13,7 +13,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Application;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Models\ApplicationUrlProof;
 use App\Http\Controllers\Controller;
@@ -21,21 +20,6 @@ use App\Models\ApplicationImageProof;
 
 class ApplicationController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ApplicationController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Application Add Form.
      *
@@ -93,7 +77,7 @@ class ApplicationController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('application.create')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $application->save();
 
@@ -110,7 +94,7 @@ class ApplicationController extends Controller
             $application->urlProofs()->saveMany($urls);
 
             return redirect()->route('login')
-                ->with($this->toastr->success('Your Application Has Been Submitted. You will receive a email soon!', 'Yay!', ['options']));
+                ->withSuccess('Your Application Has Been Submitted. You will receive a email soon!');
         }
     }
 }

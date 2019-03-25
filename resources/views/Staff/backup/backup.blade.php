@@ -102,10 +102,30 @@
                         l.setProgress(0.9);
                         // Show an alert with the result
                         if (result.indexOf('failed') >= 0) {
-                            toastr.warning("@lang('backup.create_warning_title')", "@lang('backup.create_warning_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'warning',
+                            title:'@lang('backup.create_warning_message')'
+                          })
                         }
                         else {
-                            toastr.success("@lang('backup.create_confirmation_title')", "@lang('backup.create_confirmation_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'success',
+                            title:'@lang('backup.create_confirmation_message')'
+                          })
                         }
 
                         // Stop loading
@@ -120,7 +140,17 @@
                     error: function (result) {
                         l.setProgress(0.9);
                         // Show an alert with the result
-                        toastr.warning("@lang('backup.create_error_title')", "@lang('backup.create_error_message')");
+                      const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                      });
+
+                      Toast.fire({
+                        type: 'warning',
+                        title:'@lang('backup.create_error_message')'
+                      })
                         // Stop loading
                         l.stop();
                     }
@@ -153,10 +183,30 @@
                 l.setProgress(0.9);
                 // Show an alert with the result
                 if (result.indexOf('failed') >= 0) {
-                  toastr.warning("@lang('backup.create_warning_title')", "@lang('backup.create_warning_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'warning',
+                    title:'@lang('backup.create_warning_message')'
+                  })
                 }
                 else {
-                  toastr.success("@lang('backup.create_confirmation_title')", "@lang('backup.create_confirmation_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'success',
+                    title:'@lang('backup.create_confirmation_message')'
+                  })
                 }
 
                 // Stop loading
@@ -171,7 +221,17 @@
               error: function (result) {
                 l.setProgress(0.9);
                 // Show an alert with the result
-                toastr.warning("@lang('backup.create_error_title')", "@lang('backup.create_error_message')");
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'warning',
+                  title:'@lang('backup.create_error_message')'
+                })
                 // Stop loading
                 l.stop();
               }
@@ -204,10 +264,30 @@
                 l.setProgress(0.9);
                 // Show an alert with the result
                 if (result.indexOf('failed') >= 0) {
-                  toastr.warning("@lang('backup.create_warning_title')", "@lang('backup.create_warning_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'warning',
+                    title:'@lang('backup.create_warning_message')'
+                  })
                 }
                 else {
-                  toastr.success("@lang('backup.create_confirmation_title')", "@lang('backup.create_confirmation_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'success',
+                    title:'@lang('backup.create_confirmation_message')'
+                  })
                 }
 
                 // Stop loading
@@ -222,7 +302,17 @@
               error: function (result) {
                 l.setProgress(0.9);
                 // Show an alert with the result
-                toastr.warning("@lang('backup.create_error_title')", "@lang('backup.create_error_message')");
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
+
+                Toast.fire({
+                  type: 'warning',
+                  title:'@lang('backup.create_error_message')'
+                })
                 // Stop loading
                 l.stop();
               }
@@ -244,17 +334,47 @@
                         type: 'POST',
                         success: function (result) {
                             // Show an alert with the result
-                            toastr.success("@lang('backup.delete_confirmation_title')", "@lang('backup.delete_confirmation_message')");
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'success',
+                            title:'@lang('backup.delete_confirmation_message')'
+                          })
                             // delete the row from the table
                             delete_button.parentsUntil('tr').parent().remove();
                         },
                         error: function (result) {
-                            // Show an alert with the result
-                            toastr.warning("@lang('backup.delete_error_message')", "@lang('backup.delete_error_title')");
+                          // Show an alert with the result
+                          const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                          });
+
+                          Toast.fire({
+                            type: 'warning',
+                            title:'@lang('backup.delete_error_title')'
+                          })
                         }
                     });
                 } else {
-                    toastr.info("@lang('backup.delete_cancel_title')", "@lang('backup.delete_cancel_message')");
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                  });
+
+                  Toast.fire({
+                    type: 'info',
+                    title:'@lang('backup.delete_cancel_message')'
+                  })
                 }
             });
 

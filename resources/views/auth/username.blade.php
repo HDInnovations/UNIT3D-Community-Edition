@@ -22,11 +22,6 @@
 
 <body>
 <div class="wrapper fadeInDown">
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
     <svg viewBox="0 0 1320 100">
 
         <!-- Symbol -->
@@ -83,6 +78,33 @@
     </div>
 </div>
 <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
-{!! Toastr::message() !!}
+@foreach (['warning', 'success', 'info'] as $key)
+    @if (Session::has($key))
+        <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+
+          Toast.fire({
+            type: '{{ $key }}',
+            title: '{{ Session::get($key) }}'
+          })
+        </script>
+    @endif
+@endforeach
+
+@if (Session::has('errors'))
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      Swal.fire({
+        title: '<strong>Validation Error</strong>',
+        type: 'error',
+        html: '{{ Session::get('errors') }}',
+        showCloseButton: true,
+      })
+    </script>
+@endif
 </body>
 </html>

@@ -14,26 +14,10 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Models\Client;
-use Brian2694\Toastr\Toastr;
 use App\Http\Controllers\Controller;
 
 class SeedboxController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * SeedboxController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Display All Registered Seedboxes.
      *
@@ -62,6 +46,6 @@ class SeedboxController extends Controller
         $seedbox->delete();
 
         return redirect()->route('staff.seedbox.index')
-            ->with($this->toastr->success('Seedbox Record Has Successfully Been Deleted', 'Yay!', ['options']));
+            ->withSuccess('Seedbox Record Has Successfully Been Deleted');
     }
 }

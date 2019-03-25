@@ -33,7 +33,7 @@
             totalHeight = window.scrollY + window.innerHeight;
 
             if (totalHeight >= scrollHeight) {
-              swal({
+              Swal.fire({
                 title: '<strong>Read The <u>Rules?</u></strong>',
                 text: "Do You Fully Understand Our Rules?",
                 type: "question",
@@ -46,10 +46,30 @@
                     _token: '{{csrf_token()}}'
                   },
                   success: function(response) {
-                    toastr.success('Thanks For Agreeing.', 'Yay!');
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+
+                    Toast.fire({
+                      type: 'success',
+                      title: 'Thanks For Accepting Our Rules!'
+                    })
                   },
                   failure: function(response) {
-                    toastr.error('Something Went Wrong.', 'Whoops!');
+                    const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+
+                    Toast.fire({
+                      type: 'error',
+                      title: 'Something Went Wrong!'
+                    })
                   }
                 });
               })

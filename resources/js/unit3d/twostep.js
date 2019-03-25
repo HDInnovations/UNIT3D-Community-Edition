@@ -99,7 +99,7 @@ $('#submit_verification').click(function(event) {
                 switch (remainingAttempts) {
                     case 0:
                         submitTrigger.addClass('btn-danger');
-                        swal(
+                        Swal.fire(
                             "{{ trans('auth.verificationLockedTitle') }}",
                             "{{ trans('auth.verificationLockedMessage') }}",
                             'error'
@@ -108,7 +108,7 @@ $('#submit_verification').click(function(event) {
 
                     case 1:
                         submitTrigger.addClass('btn-danger');
-                        swal(
+                        Swal.fire(
                             "{{ trans('auth.verificationWarningTitle') }}",
                             "{{ trans('auth.verificationWarningMessage', ['hours' => $hoursToExpire, 'minutes' => $minutesToExpire,]) }}",
                             'error'
@@ -163,7 +163,7 @@ $('#resend_code_trigger').click(function(event) {
 
     self.addClass('disabled').attr('disabled', true);
 
-    swal({
+    Swal.fire({
         text: 'Sending verification code ...',
         allowOutsideClick: false,
         grow: false,
@@ -184,7 +184,7 @@ $('#resend_code_trigger').click(function(event) {
     });
 
     function swalCallback(title, message, status) {
-        swal({
+        Swal.fire({
             text: title,
             text: message,
             type: status,

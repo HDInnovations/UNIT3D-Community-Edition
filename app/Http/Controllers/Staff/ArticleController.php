@@ -15,27 +15,11 @@ namespace App\Http\Controllers\Staff;
 
 use Image;
 use App\Models\Article;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * ArticleController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Get All Articles.
      *
@@ -93,12 +77,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article has successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your article has successfully published!');
         }
     }
 
@@ -152,12 +136,12 @@ class ArticleController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $article->save();
 
             return redirect()->route('staff_article_index')
-                ->with($this->toastr->success('Your article changes have successfully published!', 'Yay!', ['options']));
+                ->withSuccess('Your article changes have successfully published!');
         }
     }
 
@@ -175,6 +159,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('staff_article_index')
-            ->with($this->toastr->success('Article has successfully been deleted', 'Yay!', ['options']));
+            ->withSuccess('Article has successfully been deleted');
     }
 }

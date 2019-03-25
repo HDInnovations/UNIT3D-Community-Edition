@@ -16,25 +16,9 @@ namespace App\Http\Controllers;
 use App\Models\Forum;
 use App\Models\Topic;
 use App\Models\Subscription;
-use Brian2694\Toastr\Toastr;
 
 class SubscriptionController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * SubscriptionController Constructor.
-     *
-     * @param Toastr $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Subscribe To A Topic.
      *
@@ -60,10 +44,10 @@ class SubscriptionController extends Controller
             $subscription->save();
 
             return redirect()->route($logger, $params)
-                ->with($this->toastr->success('You are now subscribed to topic, '.$topic->name.'. You will now receive site notifications when a reply is left.', 'Yay!', ['options']));
+                ->withSuccess('You are now subscribed to topic, '.$topic->name.'. You will now receive site notifications when a reply is left.');
         } else {
             return redirect()->route($logger, $params)
-                ->with($this->toastr->error('You are already subscribed to this topic', 'Whoops!', ['options']));
+                ->withErrors('You are already subscribed to this topic');
         }
     }
 
@@ -90,10 +74,10 @@ class SubscriptionController extends Controller
             $subscription->delete();
 
             return redirect()->route($logger, $params)
-                ->with($this->toastr->info('You are no longer subscribed to topic, '.$topic->name.'. You will no longer receive site notifications when a reply is left.', 'Yay!', ['options']));
+                ->withSuccess('You are no longer subscribed to topic, '.$topic->name.'. You will no longer receive site notifications when a reply is left.');
         } else {
             return redirect()->route($logger, $params)
-                ->with($this->toastr->error('You are not subscribed this topic to begin with...', 'Whoops!', ['options']));
+                ->withErrors('You are not subscribed this topic to begin with...');
         }
     }
 
@@ -122,10 +106,10 @@ class SubscriptionController extends Controller
             $subscription->save();
 
             return redirect()->route($logger, $params)
-                ->with($this->toastr->success('You are now subscribed to forum, '.$forum->name.'. You will now receive site notifications when a topic is started.', 'Yay!', ['options']));
+                ->withSuccess('You are now subscribed to forum, '.$forum->name.'. You will now receive site notifications when a topic is started.');
         } else {
             return redirect()->route($logger, $params)
-                ->with($this->toastr->error('You are already subscribed to this forum', 'Whoops!', ['options']));
+                ->withErrors('You are already subscribed to this forum');
         }
     }
 
@@ -152,10 +136,10 @@ class SubscriptionController extends Controller
             $subscription->delete();
 
             return redirect()->route($logger, $params)
-                ->with($this->toastr->info('You are no longer subscribed to forum, '.$forum->name.'. You will no longer receive site notifications when a topic is started.', 'Yay!', ['options']));
+                ->withSuccess('You are no longer subscribed to forum, '.$forum->name.'. You will no longer receive site notifications when a topic is started.');
         } else {
             return redirect()->route($logger, $params)
-                ->with($this->toastr->error('You are not subscribed this forum to begin with...', 'Whoops!', ['options']));
+                ->withErrors('You are not subscribed this forum to begin with...');
         }
     }
 }

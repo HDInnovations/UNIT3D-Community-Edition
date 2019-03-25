@@ -780,7 +780,7 @@
           $(this).off('click');
           $(this).on('click', function(e) {
             e.preventDefault();
-            swal({
+            Swal.fire({
               showConfirmButton: false,
               showCloseButton: true,
               background: '#232323',

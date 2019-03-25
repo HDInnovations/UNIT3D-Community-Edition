@@ -14,10 +14,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use App\Models\Forum;
 use App\Models\Topic;
-use Brian2694\Toastr\Toastr;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMade25Posts;
@@ -47,22 +45,15 @@ class ForumController extends Controller
     private $chat;
 
     /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
      * ForumController Constructor.
      *
      * @param TaggedUserRepository $tag
      * @param ChatRepository       $chat
-     * @param Toastr               $toastr
      */
-    public function __construct(TaggedUserRepository $tag, ChatRepository $chat, Toastr $toastr)
+    public function __construct(TaggedUserRepository $tag, ChatRepository $chat)
     {
         $this->tag = $tag;
         $this->chat = $chat;
-        $this->toastr = $toastr;
     }
 
     /**
@@ -380,7 +371,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->id);
         if ($category->getPermission()->show_forum != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To This Category!', 'Whoops!', ['options']));
+                ->withErrors('You Do Not Have Access To This Category!');
         }
 
         // Fetch topics->posts in descending order
@@ -425,7 +416,7 @@ class ForumController extends Controller
         $category = Forum::findOrFail($forum->parent_id);
         if ($category->getPermission()->show_forum != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To This Forum!', 'Whoops!', ['options']));
+                ->withErrors('You Do Not Have Access To This Forum!');
         }
 
         // Fetch topics->posts in descending order
@@ -470,7 +461,7 @@ class ForumController extends Controller
         if ($category->getPermission()->read_topic != true) {
             // Redirect him to the forum index
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Do Not Have Access To Read This Topic!', 'Whoops!', ['options']));
+                ->withErrors('You Do Not Have Access To Read This Topic!');
         }
 
         // Increment view
@@ -505,7 +496,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if (! $category->getPermission()->reply_topic || ($topic->state == 'close' && ! auth()->user()->group->is_modo)) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Reply To This Topic!', 'Whoops!', ['options']));
+                ->withErrors('You Cannot Reply To This Topic!');
         }
 
         $post = new Post();
@@ -521,7 +512,7 @@ class ForumController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $post->save();
 
@@ -611,7 +602,7 @@ class ForumController extends Controller
             $user->addProgress(new UserMade900Posts(), 1);
 
             return redirect($realUrl)
-                ->with($this->toastr->success('Post Successfully Posted', 'Yay!', ['options']));
+                ->withSuccess('Post Successfully Posted');
         }
     }
 
@@ -632,7 +623,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
+                ->withErrors('You Cannot Start A New Topic Here!');
         }
 
         return view('forum.new_topic', [
@@ -660,7 +651,7 @@ class ForumController extends Controller
         // The user has the right to create a topic here?
         if ($category->getPermission()->start_topic != true) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error('You Cannot Start A New Topic Here!', 'Whoops!', ['options']));
+                ->withErrors('You Cannot Start A New Topic Here!');
         }
 
         // Create The Topic
@@ -690,7 +681,7 @@ class ForumController extends Controller
 
         if ($v->fails()) {
             return redirect()->route('forum_index')
-                ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                ->withErrors($v->errors());
         } else {
             $topic->save();
 
@@ -707,7 +698,7 @@ class ForumController extends Controller
 
             if ($v->fails()) {
                 return redirect()->route('forum_index')
-                    ->with($this->toastr->error($v->errors()->toJson(), 'Whoops!', ['options']));
+                    ->withErrors($v->errors());
             } else {
                 $post->save();
                 $topic->num_post = 1;
@@ -746,7 +737,7 @@ class ForumController extends Controller
                 $user->addProgress(new UserMade900Posts(), 1);
 
                 return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-                    ->with($this->toastr->success('Topic Created Successfully!', 'Yay!', ['options']));
+                    ->withSuccess('Topic Created Successfully!');
             }
         }
     }
@@ -789,7 +780,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('Topic Successfully Edited', 'Yay!', ['options']));
+            ->withSuccess('Topic Successfully Edited');
     }
 
     /**
@@ -835,7 +826,7 @@ class ForumController extends Controller
         $post->save();
 
         return redirect($postUrl)
-            ->with($this->toastr->success('Post Successfully Edited!', 'Yay!', ['options']));
+            ->withSuccess('Post Successfully Edited!');
     }
 
     /**
@@ -854,7 +845,7 @@ class ForumController extends Controller
         $post->delete();
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
-            ->with($this->toastr->success('This Post Is Now Deleted!', 'Success', ['options']));
+            ->withSuccess('This Post Is Now Deleted!');
     }
 
     /**
@@ -875,7 +866,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('This Topic Is Now Closed!', 'Success', ['options']));
+            ->withSuccess('This Topic Is Now Closed!');
     }
 
     /**
@@ -896,7 +887,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('This Topic Is Now Open!', 'Success', ['options']));
+            ->withSuccess('This Topic Is Now Open!');
     }
 
     /**
@@ -918,7 +909,7 @@ class ForumController extends Controller
         $topic->delete();
 
         return redirect()->route('forum_display', ['slug' => $topic->forum->slug, 'id' => $topic->forum->id])
-            ->with($this->toastr->error('This Topic Is Now Deleted!', 'Warning', ['options']));
+            ->withErrors('This Topic Is Now Deleted!');
     }
 
     /**
@@ -936,7 +927,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('This Topic Is Now Pinned!', 'Success', ['options']));
+            ->withSuccess('This Topic Is Now Pinned!');
     }
 
     /**
@@ -954,7 +945,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->success('This Topic Is Now Unpinned!', 'Success', ['options']));
+            ->withSuccess('This Topic Is Now Unpinned!');
     }
 
     /**
@@ -976,7 +967,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function deniedTopic($slug, $id)
@@ -990,7 +981,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function solvedTopic($slug, $id)
@@ -1004,7 +995,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function invalidTopic($slug, $id)
@@ -1018,7 +1009,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function bugTopic($slug, $id)
@@ -1032,7 +1023,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function suggestionTopic($slug, $id)
@@ -1046,7 +1037,7 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 
     public function implementedTopic($slug, $id)
@@ -1060,6 +1051,6 @@ class ForumController extends Controller
         $topic->save();
 
         return redirect()->route('forum_topic', ['slug' => $topic->slug, 'id' => $topic->id])
-            ->with($this->toastr->info('Label Change Has Been Applied', 'Info', ['options']));
+            ->withInfo('Label Change Has Been Applied');
     }
 }

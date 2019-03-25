@@ -336,7 +336,7 @@ class userFilterBuilder {
             },
             type: 'post',
             beforeSend: function () {
-                $("#userFilter").html('<i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>')
+                $("#userFilter").html('<i class="fal fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
         }).done(function (e) {
             $data = $(e);
@@ -611,7 +611,7 @@ class facetedSearchBuilder {
             },
             type: 'get',
             beforeSend: function () {
-                $("#facetedSearch").html('<i class="fas fa-spinner fa-spin fa-3x fa-fw"></i>')
+                $("#facetedSearch").html('<i class="fal fa-spinner fa-spin fa-3x fa-fw"></i>')
             }
         }).done(function (e) {
             $data = $(e);
@@ -637,7 +637,7 @@ class facetedSearchBuilder {
                 e.preventDefault();
                 var name = $(this).attr('data-name');
                 var image = $(this).attr('data-image');
-                swal({
+                Swal.fire({
                     showConfirmButton: false,
                     showCloseButton: true,
                     background: '#232323',
@@ -837,7 +837,7 @@ class configExtensionBuilder {
         this.keyv = keyv;
         this.val = val;
         this.input = val.replace(/['"]/g,'');
-        swal({
+        Swal.fire({
             title: 'Change Value',
             width: '800px',
             inputAttributes: {
@@ -872,7 +872,7 @@ class configExtensionBuilder {
             allowOutsideClick: false
         }).then(result => {
             if (result.value) {
-                swal({
+                Swal.fire({
                     title: 'Value Has Been Changed',
                     timer: 1500,
                     onOpen: () => {
@@ -957,7 +957,7 @@ class torrentBookmarkBuilder {
             },
             type: 'get'
         }).done(function (e) {
-            swal({
+            Swal.fire({
                 position: 'center',
                 type: 'success',
                 title: 'Torrent Has Been Bookmarked Successfully!',
@@ -991,7 +991,7 @@ class torrentBookmarkBuilder {
             },
             type: 'get'
         }).done(function (e) {
-            swal({
+            Swal.fire({
                 position: 'center',
                 type: 'success',
                 title: 'Torrent Has Been Unbookmarked Successfully!',

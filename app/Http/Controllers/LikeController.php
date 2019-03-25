@@ -15,25 +15,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
-use Brian2694\Toastr\Toastr;
 
 class LikeController extends Controller
 {
-    /**
-     * @var Toastr
-     */
-    private $toastr;
-
-    /**
-     * LikeController Constructor.
-     *
-     * @param Toastr               $toastr
-     */
-    public function __construct(Toastr $toastr)
-    {
-        $this->toastr = $toastr;
-    }
-
     /**
      * Like A Post.
      *
@@ -52,10 +36,10 @@ class LikeController extends Controller
 
         if ($like || $dislike) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+                ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You cannot like your own post!', 'Umm', ['options']));
+                ->withErrors('You cannot like your own post!');
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -64,7 +48,7 @@ class LikeController extends Controller
             $new->save();
 
             return redirect($postUrl)
-                ->with($this->toastr->success('Like Successfully Applied!', 'Yay', ['options']));
+                ->withSuccess('Like Successfully Applied!');
         }
     }
 
@@ -86,10 +70,10 @@ class LikeController extends Controller
 
         if ($like || $dislike) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You have already liked/disliked this post!', 'Bro', ['options']));
+                ->withErrors('You have already liked/disliked this post!');
         } elseif ($user->id == $post->user_id) {
             return redirect($postUrl)
-                ->with($this->toastr->error('You cannot dislike your own post!', 'Umm', ['options']));
+                ->withErrors('You cannot dislike your own post!');
         } else {
             $new = new Like();
             $new->user_id = $user->id;
@@ -98,7 +82,7 @@ class LikeController extends Controller
             $new->save();
 
             return redirect($postUrl)
-                ->with($this->toastr->success('Dislike Successfully Applied!', 'Yay', ['options']));
+                ->withSuccess('Dislike Successfully Applied!');
         }
     }
 }
