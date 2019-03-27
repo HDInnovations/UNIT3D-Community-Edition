@@ -52,7 +52,7 @@
                         {{ $torrent->times_completed }}
                     </td>
                     <td>
-                        @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->first(); @endphp
+                        @php $resurrected = DB::table('graveyard')->where('torrent_id', '=', $torrent->id)->where('rewarded', '=', 0)->first(); @endphp
                         @if (!$resurrected)
                             <button data-toggle="modal" data-target="#resurrect-{{ $torrent->id }}" class="btn btn-sm btn-default">
                                 <span class="icon">
