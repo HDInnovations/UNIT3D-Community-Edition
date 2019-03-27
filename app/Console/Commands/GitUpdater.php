@@ -148,13 +148,13 @@ class GitUpdater extends Command
                     $this->compile();
                 }
 
+                $this->clearCache();
+
                 if ($this->io->confirm('Install new packages (composer install)', true)) {
                     $this->composer();
                 }
 
                 $this->updateUNIT3DConfig();
-
-                $this->clearCache();
 
                 $this->setCache();
 
