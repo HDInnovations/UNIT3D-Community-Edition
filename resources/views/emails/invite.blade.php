@@ -4,4 +4,6 @@
 @component('mail::button', ['url' => route('register', $invite->code), 'color' => 'blue'])
 @lang('email.invite-signup')
 @endcomponent
+<p>If the button above does not work, copy and paste the link below into your browser's address bar.</p>
+<p style="word-wrap: break-word; overflow-wrap: break-word; word-break: break-word;">{{ route('register', $invite->code) }}</p>
 @endcomponent
