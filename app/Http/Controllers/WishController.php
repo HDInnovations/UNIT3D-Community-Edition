@@ -58,7 +58,7 @@ class WishController extends Controller
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()
-                ->route('wishlist', ['id' => $uid])
+                ->route('user_wishlist', ['slug' => auth()->user()->slug, 'id' => $uid])
                 ->withErrors('Wish already exists!');
         }
 
