@@ -3690,7 +3690,7 @@ button.close {
 }
 
 .modal-body {
-    position: initital;
+    position: initial;
     padding: 10px;
 }
 
@@ -7532,13 +7532,13 @@ body.tvshow .movie-poster {
     list-style: none;
 }
 
-.f-display
-    .f-display-table-wrapper
-    .f-display-topics
-    .f-display-topic-last-post
-    ul
-    li.f-display-topic-last-post-item
-    time {
+.f-display,
+.f-display-table-wrapper,
+.f-display-topics,
+.f-display-topic-last-post,
+ul,
+li.f-display-topic-last-post-item,
+time {
     color: #777;
 }
 
