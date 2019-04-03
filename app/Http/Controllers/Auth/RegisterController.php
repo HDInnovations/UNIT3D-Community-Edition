@@ -54,10 +54,16 @@ class RegisterController extends Controller
      */
     public function registrationForm($code = null)
     {
-        // Make sure open reg is off and invite code is present
+        // Make sure open reg is off, invite code is not present and application signups enabled
+        if ($code === 'null' && config('other.invite-only') == 1 && config('other.application_signups') == true) {
+            return redirect()->route('application.create')
+                ->withInfo('Open Reg Closed! You Must Be Invited To Register! However application signups are open. You Have Been Redirected To The Application Page!');
+        }
+
+        // Make sure open reg is off and invite code is not present
         if ($code === 'null' && config('other.invite-only') == 1) {
-            return view('auth.login')
-                ->withErrors('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!');
+            return redirect()->route('login')
+                ->withWarning('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!');
         }
 
         return view('auth.register', ['code' => $code]);
@@ -68,7 +74,7 @@ class RegisterController extends Controller
         // Make sure open reg is off and invite code exist and has not been used already
         $key = Invite::where('code', '=', $code)->first();
         if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
-            return view('auth.register', ['code' => $code])
+            return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors('Invalid or Expired Invite Key!');
         }
 
@@ -127,7 +133,7 @@ class RegisterController extends Controller
         }
 
         if ($v->fails()) {
-            return redirect()->route('register', ['code' => $code])
+            return redirect()->route('registrationForm', ['code' => $code])
                 ->withErrors($v->errors());
         } else {
             $user->save();
