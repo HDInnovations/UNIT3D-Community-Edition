@@ -106,7 +106,7 @@ img {
     font-size: 19px;
     font-weight: bold;
     text-decoration: none;
-    text-shadow: 0 1px 0 rgb(255, 255, 255);
+    text-shadow: 0 1px 0 #ffffff;
 }
 
 /* Body */

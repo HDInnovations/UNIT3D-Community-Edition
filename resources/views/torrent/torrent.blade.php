@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0 0 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0;font-family:Verdana;font-size:large;text-align:center;color:rgb(255,255,255);">
+        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0 0 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0;font-family:Verdana;font-size:large;text-align:center;color:#ffffff;">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
         @if ($torrent->category->meta == 1)

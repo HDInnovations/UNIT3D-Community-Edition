@@ -434,17 +434,17 @@
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
                             @if ($user->getSeeding() >= 150)
-                                <span class="badge-user" style="background-color:rgb(63,182,24); color:rgb(255,255,255);" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(63,182,24); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-seeder-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.certified-seeder')!</span>
                             @endif
                             @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
-                                <span class="badge-user" style="background-color:rgb(255,0,57); color:rgb(255,255,255);" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(255,0,57); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-downloader-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.certified-downloader')!</span>
                             @endif
                             @if ($user->getSeedbonus() >= 50000)
-                                <span class="badge-user" style="background-color:rgb(148,0,211); color:rgb(255,255,255);" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(148,0,211); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-star"></i> @lang('user.certified-banker')!</span>
                             @endif
