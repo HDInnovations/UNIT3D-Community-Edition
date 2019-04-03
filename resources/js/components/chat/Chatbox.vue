@@ -105,7 +105,7 @@
     }
     .panel-footer {
         padding: 5px;
-        margin: 0px;
+        margin: 0;
     }
     .mr-10 {
         margin-right: 10px;

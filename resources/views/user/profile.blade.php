@@ -527,7 +527,7 @@
                                     aria-expanded="false">@lang('user.show-passkey')</button>
                         </div>
                         <div class="col-md-8">
-                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0;">
                                 <span class="text-monospace">{{ $user->passkey }}</span>
                                 <br>
                             </div>

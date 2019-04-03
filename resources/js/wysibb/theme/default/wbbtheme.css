@@ -91,7 +91,7 @@ html {
     display: inline-block;
     height: 32px;
     vertical-align: middle;
-    padding: 0px 1px;
+    padding: 0 1px;
     cursor: pointer;
     margin: 0 0 0 1px;
     font-size: 12px;
@@ -114,10 +114,10 @@ html {
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on:hover,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn:active {
     background: #ccc;
-    padding: 0px 1px;
-    box-shadow: inset 0px 0px 3px #aaa;
+    padding: 0 1px;
+    box-shadow: inset 0 0 3px #aaa;
     border: 1px solid #aaa;
-    border-radius: 0px;
+    border-radius: 0;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn span.btn-inner {
     display: block;
@@ -136,7 +136,7 @@ html {
     bottom: 35px;
     left: 0;
     color: #fff;
-    border-radius: 0px;
+    border-radius: 0;
     white-space: nowrap;
     z-index: 10000;
 }
@@ -158,9 +158,9 @@ html {
     text-align: center;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn:hover {
-    padding: 0px 1px;
+    padding: 0 1px;
     border: 1px solid transparent;
-    border-radius: 0px;
+    border-radius: 0;
     background: #eee;
 }
 
@@ -169,7 +169,7 @@ html {
     font-family: 'WysiBBiconFont';
     font-size: 18px;
     line-height: 28px;
-    text-shadow: 0px 1px 0px #fff;
+    text-shadow: 0 1px 0 #fff;
     text-align: center;
     speak: none;
 }
@@ -343,13 +343,13 @@ html {
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown.on:active {
     border: 1px solid #aaa;
     background: #ccc;
-    box-shadow: inset 0px 0px 3px #aaa;
+    box-shadow: inset 0 0 3px #aaa;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown ins.ar {
     display: block;
     position: absolute;
     right: 10%;
-    top: 0px;
+    top: 0;
     width: 9px;
     height: 24px;
     /*  background: url(/img/icons.png) -8px -400px; */
@@ -375,7 +375,7 @@ html {
     top: 10px;
     left: 3%;
     border: 1px solid #bbb;
-    box-shadow: 0px 0px 3px #aaa;
+    box-shadow: 0 0 3px #aaa;
     width: 90%;
     padding: 5px;
     background: #fff;
@@ -462,7 +462,7 @@ html {
     padding: 1px 1px 1px 5px;
     border: 1px solid #aaa;
     background: #ccc;
-    box-shadow: inset 0px 0px 3px #aaa;
+    box-shadow: inset 0 0 3px #aaa;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-select .wbb-list {
     width: 280px;
@@ -517,7 +517,7 @@ html {
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox.on:active {
     border: 1px solid #aaa;
     background: #ccc;
-    box-shadow: inset 0px 0px 3px #aaa;
+    box-shadow: inset 0 0 3px #aaa;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox .wbb-list {
     width: 156px;
@@ -565,7 +565,7 @@ html {
     max-height: 90%;
     margin: 30px auto;
     border: 1px solid #bbb;
-    box-shadow: 0px 0px 5px #333;
+    box-shadow: 0 0 5px #333;
     overflow: auto;
 }
 #wbbmodal .wbbm-title {
@@ -607,7 +607,7 @@ html {
     cursor: pointer;
     margin: 5px 0;
     position: relative;
-    border-radius: 0px;
+    border-radius: 0;
     display: inline-block;
     margin: 0 10px 5px 0;
 }
@@ -655,7 +655,7 @@ html {
     color: #fff;
     line-height: 26px;
     border: 1px solid #357ebd;
-    border-radius: 0px;
+    border-radius: 0;
 
     cursor: pointer;
 }
@@ -668,7 +668,7 @@ html {
     color: #333;
     line-height: 26px;
     border: 1px solid #ddd;
-    border-radius: 0px;
+    border-radius: 0;
     cursor: pointer;
     margin-left: 15px;
 }
@@ -681,7 +681,7 @@ html {
     color: #fff;
     line-height: 26px;
     border: 1px solid #d43f3a;
-    border-radius: 0px;
+    border-radius: 0;
     cursor: pointer;
     float: right;
 }
@@ -836,7 +836,7 @@ html {
         min-width: 28px;
         position: relative;
         vertical-align: middle;
-        padding: 0px 1px;
+        padding: 0 1px;
         cursor: pointer;
         margin: 0 0 0 1px;
         font-size: 12px;
@@ -849,8 +849,8 @@ html {
     .wysibb .wysibb-toolbar .modeSwitch {
         text-align: center;
         position: absolute;
-        right: 0px;
-        top: 0px;
+        right: 0;
+        top: 0;
         border: 0;
     }
     .wysibb .wysibb-toolbar .wysibb-toolbar-container select.wbb-selectbox {
@@ -870,7 +870,7 @@ html {
         top: 32px;
         left: -1px;
         border: 1px solid #bbb;
-        box-shadow: 0px 0px 3px #aaa;
+        box-shadow: 0 0 3px #aaa;
         width: 190px;
         background: #fff;
         max-height: 220px;

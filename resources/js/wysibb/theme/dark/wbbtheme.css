@@ -21,16 +21,16 @@
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn .fonticon {
     color: #d5d5d5;
-    text-shadow: 0px 1px 0px #000;
+    text-shadow: 0 1px 0 #000;
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on:hover,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn:active {
     background: transparent;
-    padding: 0px 1px;
+    padding: 0 1px;
     border: 1px solid #2f2f2f;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 #wbbmodal .wbbm {
@@ -40,7 +40,7 @@
     max-height: 90%;
     margin: 30px auto;
     border: 1px solid #bbb;
-    box-shadow: 0px 0px 5px #333;
+    box-shadow: 0 0 5px #333;
     overflow: auto;
     color: #111;
 }

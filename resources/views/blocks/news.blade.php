@@ -21,7 +21,7 @@
                 </h4>
             </div>
         @endif
-        <div id="collapse4" class="panel-collapse collapse" style="height: 0px;">
+        <div id="collapse4" class="panel-collapse collapse" style="height: 0;">
             <div class="panel-body no-padding">
                 <div class="news-blocks">
                     <a href="{{ route('article', ['slug' => $article->slug, 'id' => $article->id]) }}"

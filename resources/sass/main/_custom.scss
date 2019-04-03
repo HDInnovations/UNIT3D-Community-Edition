@@ -5636,8 +5636,8 @@ a.sort {
     line-height: normal !important;
     display: table;
     width: 100%;
-    margin: 0px 0px 5px 0px !important;
-    padding: 0px !important;
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
 }
 .button-center {
     display: table-cell;
@@ -5685,25 +5685,25 @@ a.sort {
     text-align: right;
 }
 .button-padding {
-    padding: 0px 10px !important;
+    padding: 0 10px !important;
 }
 .no-space {
-    margin: 0px !important;
-    padding: 0px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     line-height: initial !important;
 }
 .some-padding {
-    margin: 0px !important;
-    padding: 10px 0px !important;
+    margin: 0 !important;
+    padding: 10px 0 !important;
     line-height: initial !important;
 }
 .some-margin {
-    margin: 10px 0px !important;
-    padding: 0px !important;
+    margin: 10px 0 !important;
+    padding: 0 !important;
     line-height: initial !important;
 }
 .table-me {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
 }
 .space-me {
     margin: 10px !important;
@@ -5714,12 +5714,12 @@ a.sort {
         margin-left: 20px !important;
     }
     .table-me {
-        margin-left: 0px !important;
+        margin-left: 0 !important;
     }
 }
 @media screen and (max-width: 768px) {
     .fatten-me {
-        margin-left: 0px !important;
+        margin-left: 0 !important;
         margin-bottom: 5px !important;
         display: block !important;
         width: 100%;
@@ -5741,7 +5741,7 @@ a.sort {
         text-align: center;
     }
     .table-me {
-        margin-left: 0px !important;
+        margin-left: 0 !important;
     }
 }
 
@@ -6414,7 +6414,7 @@ a.view-torrent:hover {
 }
 
 .movie-row {
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .col-xs-12.col-sm-4.col-md-3.col-sm-pull-8.col-md-pull-8 {
@@ -6476,7 +6476,7 @@ a.view-torrent:hover {
 
 @media only screen and (max-width: 767px) {
     .movie-heading-box {
-        padding-top: 0px;
+        padding-top: 0;
         padding-left: 15px;
         padding-bottom: 15px;
     }
@@ -7631,7 +7631,7 @@ body.tvshow .movie-poster {
 }
 
 .post-tips {
-    padding: 0px !important;
+    padding: 0 !important;
     border-bottom: none !important;
 }
 
@@ -9374,7 +9374,7 @@ section.tall_categories div.category.movie span {
 
 .img-people {
     border-radius: 5px;
-    margin-top: 0px;
+    margin-top: 0;
     width: 75px;
     height: 112.5px;
 }
@@ -9647,7 +9647,7 @@ img.emojione {
     word-wrap: break-word !important;
     white-space: initial;
     word-break: initial;
-    margin-left: 0px !important;
+    margin-left: 0 !important;
   }
   #facetedSearch table tbody tr td .badge-extra {
     float: left;
