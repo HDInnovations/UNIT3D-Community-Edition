@@ -287,10 +287,7 @@ class RssController extends Controller
 
         $torrents = $torrent->latest()->take(50)->get();
 
-        return view('rss.show', [
-            'torrents'        => $torrents,
-            'rsskey'          => $user->rsskey,
-        ])->render();
+        return response()->view('rss.show', ['torrents' => $torrents, 'rsskey' => $user->rsskey])->header('Content-Type', 'text/xml');
     }
 
     /**
