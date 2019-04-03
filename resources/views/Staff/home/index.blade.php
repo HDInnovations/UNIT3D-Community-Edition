@@ -53,9 +53,9 @@
                         <h3 class="text-bold text-center">
                             {{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span>
                         </h3>
-                        <div style="padding-top: 15px">
+                        <div style="padding-top: 15px;">
                             <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
-                            <span class="text-red" style="float: right">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                            <span class="text-red" style="float: right;">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
                         </div>
                     @else
                         <h2 class="text-bold text-center text-red">
@@ -64,9 +64,9 @@
                         <h3 class="text-bold text-center">
                             {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
                         </h3>
-                        <div style="padding-top: 15px">
+                        <div style="padding-top: 15px;">
                             <span class="text-red text-left">Issued By: N/A}</span>
-                            <span class="text-red" style="float: right">Expires: N/A</span>
+                            <span class="text-red" style="float: right;">Expires: N/A</span>
                         </div>
                     @endif
                     </div>
@@ -92,7 +92,7 @@
                                                     <div class="number" id="myTargetElement1"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-magnet pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -120,7 +120,7 @@
                                                 <div class="number" id="myTargetElement2"></div>
                                             </div>
                                             <i class="{{ config('other.font-awesome') }} fa-wifi pull-right"
-                                               style=" font-size: 57px; margin-bottom: 15px"></i>
+                                               style=" font-size: 57px; margin-bottom: 15px;"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -147,7 +147,7 @@
                                                 <div class="number" id="myTargetElement3"></div>
                                             </div>
                                             <i class="{{ config('other.font-awesome') }} fa-server pull-right"
-                                               style=" font-size: 57px; margin-bottom: 15px"></i>
+                                               style=" font-size: 57px; margin-bottom: 15px;"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -175,7 +175,7 @@
                                                     <div class="number" id="myTargetElement4"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-users pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -204,7 +204,7 @@
                                                     <div class="number" id="myTargetElement5"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-clipboard-list pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">

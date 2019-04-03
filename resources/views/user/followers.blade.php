@@ -73,7 +73,7 @@
                             </a></td>
                     @endif
                         <td width="70%"><a href="{{ route('profile', ['username' => $f->user->slug, 'id' => $f->user_id]) }}">
-                                <span class="badge-user text-bold" style="color:{{ $f->user->group->color }}">{{ $f->user->username }}</span>
+                                <span class="badge-user text-bold" style="color:{{ $f->user->group->color }};">{{ $f->user->username }}</span>
                             </a></td>
                         <td width="20%">{{ $f->created_at }}</td>
                     </tr>

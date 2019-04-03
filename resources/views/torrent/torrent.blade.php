@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
+        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white;">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
         @if ($torrent->category->meta == 1)
@@ -681,17 +681,17 @@
                                 </div>
                             @else
                                 @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C">
+                                    <li class="media" style="border-left: 5px solid #01BC8C;">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px">
+                                                <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
-                                                   class="pull-left" style="padding-right: 10px">
+                                                   class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
@@ -700,7 +700,7 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-comment')"

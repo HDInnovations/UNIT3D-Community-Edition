@@ -384,12 +384,12 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:.1%; border-bottom-color: #8c0408">
+                             style="width:.1%; border-bottom-color: #8c0408;">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)
                             <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                                 style="width: {{ $percent }}%; border-bottom-color: #8c0408">
+                                 style="width: {{ $percent }}%; border-bottom-color: #8c0408;">
                                 {{ strtoupper(trans('user.warning')) }}
                             </div>
                         @endforeach
@@ -621,7 +621,7 @@
                     <td>
                     @if ($invitedBy)
                         <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
-                            <span class="text-bold" style="color: {{ $invitedBy->sender->group->color }}">
+                            <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
                                 <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
                             </span>
                         </a>

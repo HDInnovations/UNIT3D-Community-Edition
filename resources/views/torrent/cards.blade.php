@@ -158,7 +158,7 @@
                         </span>
                             <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92;"></span> @lang('torrent.internal')
                             </label>
                         </span>
                         </div>

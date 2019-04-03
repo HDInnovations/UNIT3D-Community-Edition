@@ -55,7 +55,7 @@
                                     @if (auth()->user()->id == $hpeers->user->id || auth()->user()->group->is_modo)
                                         <a href="{{ route('profile', ['username' => $hpeers->user->username, 'id' => $hpeers->user->id]) }}"><span
                                                     class="badge-user text-bold"
-                                                    style="color:{{ $hpeers->user->group->color }}">{{ $hpeers->user->username }}</span></a>
+                                                    style="color:{{ $hpeers->user->group->color }};">{{ $hpeers->user->username }}</span></a>
                                     @endif
                                 </td>
                             @else
