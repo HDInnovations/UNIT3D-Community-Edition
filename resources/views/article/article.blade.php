@@ -60,7 +60,7 @@
                                 </div>
                             @else
                                 @foreach ($article->comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C;">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">

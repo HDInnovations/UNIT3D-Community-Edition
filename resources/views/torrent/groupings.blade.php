@@ -166,7 +166,7 @@
                         </span>
                             <span class="badge-user">
                             <label class="inline">
-                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92;"></span> @lang('torrent.internal')
+                                <input type="checkbox" id="internal" trigger="click" value="1" class="facetedSearch"> <span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                             </label>
                         </span>
                         </div>
@@ -380,7 +380,7 @@
                                                                                 @if ($current->internal == 1)
                                                                                     <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: #BAAF92;"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
                             </span>
                                                                                 @endif
                                                                                 @if ($current->stream == 1)

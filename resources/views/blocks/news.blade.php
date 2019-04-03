@@ -5,7 +5,7 @@
             <div class="panel-heading">
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                       href="#collapse4" style="color:#fff;">
+                       href="#collapse4" style="color:rgb(255,255,255);">
                         @emojione(':rotating_light:') @lang('blocks.new-news') @emojione(':rotating_light:')
                     </a>
                 </h4>
@@ -15,7 +15,7 @@
             <div class="panel-heading">
                 <h4 class="text-center">
                     <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
-                       href="#collapse4" style="color:#fff;">
+                       href="#collapse4" style="color:rgb(255,255,255);">
                         @lang('blocks.check-news')
                     </a>
                 </h4>

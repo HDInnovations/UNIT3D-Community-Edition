@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0 0 6px #B22929;margin-bottom:-0px;margin-top:0;font-family:Verdana;font-size:large;text-align:center;color:white;">
+        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0 0 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0;font-family:Verdana;font-size:large;text-align:center;color:rgb(255,255,255);">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
         @if ($torrent->category->meta == 1)
@@ -681,7 +681,7 @@
                                 </div>
                             @else
                                 @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C;">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
                                                 <a href="#" class="pull-left" style="padding-right: 10px;">
@@ -783,7 +783,7 @@
             Swal.fire({
               showConfirmButton: false,
               showCloseButton: true,
-              background: '#232323',
+              background: 'rgb(35,35,35)',
               width: 970,
               html: '<iframe width="930" height="523" src="{{ $movie->videoTrailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
               title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',

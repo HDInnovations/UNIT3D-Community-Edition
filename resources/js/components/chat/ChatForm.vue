@@ -16,17 +16,17 @@
                             <i v-if="$parent.room && $parent.room > 0 && $parent.bot < 1 && $parent.target < 1 && $parent.tab !='userlist'" v-tooltip="`Audibles`"
                                @click.prevent="$parent.changeAudible('room',$parent.room,($parent.listening ? 0 : 1))"
                                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
-                               :style="`color: ${$parent.listening ? '#006600' : '#CC0000'}`"></i>
+                               :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"></i>
 
                             <i v-if="$parent.bot && $parent.bot >= 1 && $parent.target < 1 && $parent.tab !='userlist'" v-tooltip="`Audibles`"
                                @click.prevent="$parent.changeAudible('bot',$parent.bot,($parent.listening ? 0 : 1))"
                                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
-                               :style="`color: ${$parent.listening ? '#006600' : '#CC0000'}`"></i>
+                               :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"></i>
 
                             <i v-if="$parent.target && $parent.target >= 1 && $parent.bot < 1 && $parent.tab !='userlist'" v-tooltip="`Audibles`"
                                @click.prevent="$parent.changeAudible('target',$parent.target,($parent.listening ? 0 : 1))"
                                :class="$parent.listening ? 'fa fa-bell pointee' : 'fa fa-bell-slash pointee'"
-                               :style="`color: ${$parent.listening ? '#006600' : '#CC0000'}`"></i>
+                               :style="`color: ${$parent.listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"></i>
                         </div>
                         <div style="margin-right: 5px; display: inline-block;">
                         <span style="margin-right: 5px;">Status: </span>

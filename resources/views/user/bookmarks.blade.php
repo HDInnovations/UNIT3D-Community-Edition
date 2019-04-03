@@ -144,7 +144,7 @@
 
                                 @if ($bookmark->internal == 1)
                                     <span class='badge-extra text-bold'>
-                                        <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' data-original-title='Internal Release' style="color: #BAAF92;"></i> Internal
+                                        <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' data-original-title='Internal Release' style="color: rgb(186,175,146);"></i> Internal
                                     </span>
                                 @endif
 

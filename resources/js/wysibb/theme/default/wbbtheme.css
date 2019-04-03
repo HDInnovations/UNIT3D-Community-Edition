@@ -19,9 +19,9 @@ html {
 
 /* RESPONSIBLE */
 .wysibb {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(221, 221, 221);
     position: relative;
-    background: #fff;
+    background: rgb(255, 255, 255);
     font-size: 18px;
 }
 
@@ -56,7 +56,7 @@ html {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0;
-    border-right: 1px solid #ccc;
+    border-right: 1px solid rgb(204, 204, 204);
 }
 .wysibb .wysibb-text {
     margin: 0 0 0 70px;
@@ -113,10 +113,10 @@ html {
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on:hover,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn:active {
-    background: #ccc;
+    background: rgb(204, 204, 204);
     padding: 0 1px;
-    box-shadow: inset 0 0 3px #aaa;
-    border: 1px solid #aaa;
+    box-shadow: inset 0 0 3px rgb(170, 170, 170);
+    border: 1px solid rgb(170, 170, 170);
     border-radius: 0;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn span.btn-inner {
@@ -127,15 +127,15 @@ html {
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn span.btn-tooltip {
     display: none;
-    background: #333;
-    border: 1px solid #fff;
+    background: rgb(51, 51, 51);
+    border: 1px solid rgb(255, 255, 255);
     position: absolute;
     line-height: 20px;
     font-size: 11px;
     padding: 3px 10px;
     bottom: 35px;
     left: 0;
-    color: #fff;
+    color: rgb(255, 255, 255);
     border-radius: 0;
     white-space: nowrap;
     z-index: 10000;
@@ -145,7 +145,7 @@ html {
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 10px solid #333;
+    border-top: 10px solid rgb(51, 51, 51);
     position: absolute;
     bottom: -5px;
     left: 3px;
@@ -161,24 +161,24 @@ html {
     padding: 0 1px;
     border: 1px solid transparent;
     border-radius: 0;
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn .fonticon {
-    color: #333;
+    color: rgb(51, 51, 51);
     font-family: 'WysiBBiconFont';
     font-size: 18px;
     line-height: 28px;
-    text-shadow: 0 1px 0 #fff;
+    text-shadow: 0 1px 0 rgb(255, 255, 255);
     text-align: center;
     speak: none;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn:hover .fonticon {
-    color: #000;
+    color: rgb(0, 0, 0);
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.on .fonticon {
     text-shadow: none;
-    color: #000;
+    color: rgb(0, 0, 0);
 }
 .wysibb .wysibb-toolbar .modeSwitch .wysibb-toolbar-btn {
     /* width:46px; */
@@ -298,7 +298,7 @@ html {
 }
 
 .tthotkey {
-    color: #ddd;
+    color: rgb(221, 221, 221);
     font-size: 9px;
 }
 
@@ -316,7 +316,7 @@ html {
 }
 .bottom-resize-line:hover,
 .bottom-resize-line.drag {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 /* END CONTENT */
 
@@ -336,14 +336,14 @@ html {
     position: relative;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
     border: 1px solid transparent;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown.on:active {
-    border: 1px solid #aaa;
-    background: #ccc;
-    box-shadow: inset 0 0 3px #aaa;
+    border: 1px solid rgb(170, 170, 170);
+    background: rgb(204, 204, 204);
+    box-shadow: inset 0 0 3px rgb(170, 170, 170);
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-dropdown ins.ar {
     display: block;
@@ -374,11 +374,11 @@ html {
     position: fixed;
     top: 10px;
     left: 3%;
-    border: 1px solid #bbb;
-    box-shadow: 0 0 3px #aaa;
+    border: 1px solid rgb(187, 187, 187);
+    box-shadow: 0 0 3px rgb(170, 170, 170);
     width: 90%;
     padding: 5px;
-    background: #fff;
+    background: rgb(255, 255, 255);
     max-height: 90%;
     overflow: auto;
     z-index: 1000;
@@ -391,7 +391,7 @@ html {
     position: absolute;
     width: 60%;
     height: 3px;
-    background: black;
+    background: rgb(0, 0, 0);
     bottom: 3px;
     left: 20%;
 }
@@ -404,20 +404,20 @@ html {
     *display: inline;
     zoom: 1;
     cursor: pointer;
-    border: 1px solid #fff;
+    border: 1px solid rgb(255, 255, 255);
 }
 .wbb-list .sc:hover {
-    border: 1px solid #333;
+    border: 1px solid rgb(51, 51, 51);
 }
 .wbb-list .nc {
     height: 24px;
     line-height: 24px;
     text-align: center;
-    color: #666;
+    color: rgb(102, 102, 102);
     margin: 0 1px 5px 1px;
 }
 .wbb-list .nc:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 .wbb-list .pl {
     display: block;
@@ -427,16 +427,16 @@ html {
 
 /* TABLE PICKER */
 .tbl-sel {
-    border: 1px solid #ddd;
+    border: 1px solid rgb(221, 221, 221);
     position: absolute;
     cursor: pointer;
     box-sizing: border-box;
 }
 .tbl-sel:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 .wbb-table td {
-    border: 1px dashed #ddd;
+    border: 1px dashed rgb(221, 221, 221);
     padding: 3px;
     margin: 5px;
     min-width: 5px;
@@ -455,14 +455,14 @@ html {
     box-shadow: none;
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-select:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-select.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-select.on:active {
     padding: 1px 1px 1px 5px;
-    border: 1px solid #aaa;
-    background: #ccc;
-    box-shadow: inset 0 0 3px #aaa;
+    border: 1px solid rgb(170, 170, 170);
+    background: rgb(204, 204, 204);
+    box-shadow: inset 0 0 3px rgb(170, 170, 170);
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-select .wbb-list {
     width: 280px;
@@ -498,11 +498,11 @@ html {
     cursor: pointer;
 }
 .wbb-select .option:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 .wbb-select .option.selected {
-    background: #428bca;
-    color: #fff;
+    background: rgb(66, 139, 202);
+    color: rgb(255, 255, 255);
 }
 
 /* END SELECT */
@@ -515,9 +515,9 @@ html {
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox.on:active {
-    border: 1px solid #aaa;
-    background: #ccc;
-    box-shadow: inset 0 0 3px #aaa;
+    border: 1px solid rgb(170, 170, 170);
+    background: rgb(204, 204, 204);
+    box-shadow: inset 0 0 3px rgb(170, 170, 170);
 }
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .wysibb-toolbar-btn.wbb-smilebox .wbb-list {
     width: 156px;
@@ -553,26 +553,26 @@ html {
     -webkit-overflow-scrolling: touch;
 
     background: rgba(0, 0, 0, 0.5);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7Fffffff,endColorstr=#7Fffffff);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=rgba(255, 255, 255, 0.5),endColorstr=rgba(255, 255, 255, 0.5));
     zoom: 1;
     z-index: 1100;
 }
 
 #wbbmodal .wbbm {
-    background: #fff;
+    background: rgb(255, 255, 255);
     text-align: left;
     max-width: 90%;
     max-height: 90%;
     margin: 30px auto;
-    border: 1px solid #bbb;
-    box-shadow: 0 0 5px #333;
+    border: 1px solid rgb(187, 187, 187);
+    box-shadow: 0 0 5px rgb(51, 51, 51);
     overflow: auto;
 }
 #wbbmodal .wbbm-title {
-    color: #333;
+    color: rgb(51, 51, 51);
     position: relative;
     padding: 5px 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgb(204, 204, 204);
 }
 #wbbmodal .wbbm-title .wbbm-title-text {
     font-size: 1.6em;
@@ -589,10 +589,10 @@ html {
     font-size: 21px;
     font-weight: bold;
     cursor: pointer;
-    color: #888;
+    color: rgb(136, 136, 136);
 }
 #wbbmodal .wbbm-title .wbbclose:hover {
-    color: red;
+    color: rgb(255, 0, 0);
 }
 #wbbmodal .wbbm .wbbm-tablist {
     padding: 10px 20px;
@@ -613,12 +613,12 @@ html {
 }
 #wbbmodal .wbbm .wbbm-tablist ul li.on,
 #wbbmodal .wbbm .wbbm-tablist ul li.on:hover {
-    background: #428bca;
-    color: #fff;
+    background: rgb(66, 139, 202);
+    color: rgb(255, 255, 255);
     cursor: default;
 }
 #wbbmodal .wbbm .wbbm-tablist ul li:hover {
-    background: #eee;
+    background: rgb(238, 238, 238);
 }
 
 #wbbmodal .wbbm-cont {
@@ -630,7 +630,7 @@ html {
 }
 
 #wbbmodal .div-modal-text {
-    border: 1px solid #aaa;
+    border: 1px solid rgb(170, 170, 170);
     padding: 2px 5px;
     line-height: 28px;
     max-height: 100px;
@@ -638,10 +638,10 @@ html {
     font-size: 14px;
 }
 #wbbmodal .wbbm-bottom {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid rgb(204, 204, 204);
 
     padding: 10px;
-    background: #f1f1f1;
+    background: rgb(241, 241, 241);
 }
 #wbbmodal button {
     display: inline-block;
@@ -651,43 +651,43 @@ html {
     padding: 3px 15px;
 }
 #wbbmodal .wbb-button {
-    background: #428bca;
-    color: #fff;
+    background: rgb(66, 139, 202);
+    color: rgb(255, 255, 255);
     line-height: 26px;
-    border: 1px solid #357ebd;
+    border: 1px solid rgb(53, 126, 189);
     border-radius: 0;
 
     cursor: pointer;
 }
 #wbbmodal .wbb-button:hover {
-    background: #3276b1;
-    border: 1px solid #285e8e;
+    background: rgb(50, 118, 177);
+    border: 1px solid rgb(40, 94, 142);
 }
 #wbbmodal .wbb-cancel-button {
-    background: #f5f5f5;
-    color: #333;
+    background: rgb(245, 245, 245);
+    color: rgb(51, 51, 51);
     line-height: 26px;
-    border: 1px solid #ddd;
+    border: 1px solid rgb(221, 221, 221);
     border-radius: 0;
     cursor: pointer;
     margin-left: 15px;
 }
 #wbbmodal .wbb-cancel-button:hover {
-    background: #fff;
-    border: 1px solid #ccc;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
 }
 #wbbmodal .wbb-remove-button {
-    background: #d9534f;
-    color: #fff;
+    background: rgb(217, 83, 79);
+    color: rgb(255, 255, 255);
     line-height: 26px;
-    border: 1px solid #d43f3a;
+    border: 1px solid rgb(212, 63, 58);
     border-radius: 0;
     cursor: pointer;
     float: right;
 }
 #wbbmodal .wbb-remove-button:hover {
-    background: #d2322d;
-    border: 1px solid #ac2925;
+    background: rgb(210, 50, 45);
+    border: 1px solid rgb(172, 41, 37);
 }
 
 #wbbmodal .wbbm-inp-row {
@@ -705,19 +705,19 @@ html {
     line-height: 1.42857143;
     font-size: 14px;
     width: 100%;
-    border: 1px solid #aaa;
+    border: 1px solid rgb(170, 170, 170);
     outline: none;
     box-sizing: border-box;
     border-radius: 0;
 }
 
 #wbbmodal .wbbm-inperr {
-    color: red;
+    color: rgb(255, 0, 0);
     font-size: 10px;
     display: block;
 }
 #wbbmodal .wbbm-brdred {
-    border-color: red !important;
+    border-color: rgb(255, 0, 0) !important;
 }
 
 /* IMAGE UPLOAD */
@@ -725,21 +725,21 @@ html {
     text-align: center;
 }
 #wbbmodal #imguploader.drag {
-    border: 3px dashed #ccc;
+    border: 3px dashed rgb(204, 204, 204);
 }
 #wbbmodal #imguploader.drag.dragover {
-    background: #feffe4;
+    background: rgb(254, 255, 228);
 }
 #wbbmodal #imguploader.drag.wbb-loading {
     padding: 40px 0;
 }
 #wbbmodal #imguploader.drag .p {
     font-size: 2em;
-    color: #aaa;
+    color: rgb(170, 170, 170);
     margin-top: 15px;
 }
 #wbbmodal #imguploader.drag .p2 {
-    color: #aaa;
+    color: rgb(170, 170, 170);
 }
 #wbbmodal #imguploader.drag .fileupload {
     margin: 15px 0;
@@ -768,7 +768,7 @@ html {
     margin: 30px 0;
 }
 .upl-error {
-    color: red;
+    color: rgb(255, 0, 0);
     display: block;
 }
 
@@ -818,14 +818,14 @@ html {
         border-right: 0;
     }
     .wysibb .wysibb-toolbar {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgb(221, 221, 221);
         position: relative;
         padding: 0 60px 0 0;
         height: auto;
     }
     .wysibb .wysibb-toolbar .wysibb-toolbar-container {
         margin: 0;
-        border-right: 1px solid #ddd;
+        border-right: 1px solid rgb(221, 221, 221);
         padding: 0;
         display: inline-block;
     }
@@ -869,10 +869,10 @@ html {
         position: absolute;
         top: 32px;
         left: -1px;
-        border: 1px solid #bbb;
-        box-shadow: 0 0 3px #aaa;
+        border: 1px solid rgb(187, 187, 187);
+        box-shadow: 0 0 3px rgb(170, 170, 170);
         width: 190px;
-        background: #fff;
+        background: rgb(255, 255, 255);
         max-height: 220px;
         overflow: auto;
         z-index: 1000;
@@ -886,7 +886,7 @@ html {
         *display: inline;
         zoom: 1;
         cursor: pointer;
-        border: 1px solid #fff;
+        border: 1px solid rgb(255, 255, 255);
     }
 
     .ve-tlb-colorpick {

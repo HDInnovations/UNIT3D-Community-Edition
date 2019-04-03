@@ -56,7 +56,7 @@
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var options = 2;
 
-        $('#add').on('click', function (e) {
+        $('rgb(170,221,221)').on('click', function (e) {
             e.preventDefault();
             options = options + 1;
             var optionHTML = '<div class="form-group extra-option"><label for="option' + options + '">Option ' + options + ':</label><input type="text" name="options[]" class="form-control" value="" required></div>';

@@ -238,7 +238,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">OS</h1>
+                                    <h1 style=" color: rgb(255,255,255);">OS</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['os'] }}</span>
@@ -248,7 +248,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">PHP</h1>
+                                    <h1 style=" color: rgb(255,255,255);">PHP</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">php{{ $basic['php'] }}</span>
@@ -258,7 +258,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">DATABASE</h1>
+                                    <h1 style=" color: rgb(255,255,255);">DATABASE</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['database'] }}</span>
@@ -268,7 +268,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">LARAVEL</h1>
+                                    <h1 style=" color: rgb(255,255,255);">LARAVEL</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">Ver. {{ $basic['laravel'] }}</span>
@@ -280,7 +280,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">RAM</h1>
+                                    <h1 style=" color: rgb(255,255,255);">RAM</h1>
                                     <span class="badge-user">Total: {{ $ram['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $ram['free'] }}</span>
@@ -291,7 +291,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">DISK</h1>
+                                    <h1 style=" color: rgb(255,255,255);">DISK</h1>
                                     <span class="badge-user">Total: {{ $disk['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $disk['free'] }}</span>
@@ -302,7 +302,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">LOAD</h1>
+                                    <h1 style=" color: rgb(255,255,255);">LOAD</h1>
                                     <span class="badge-user">Average: {{ $avg }}</span>
                                     <br>
                                     <span class="badge-user">Estimated</span>

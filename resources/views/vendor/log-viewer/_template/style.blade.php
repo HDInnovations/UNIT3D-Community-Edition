@@ -18,26 +18,26 @@
 
     .sub-header {
         padding-bottom: 10px;
-        border-bottom: 1px solid #EEE;
+        border-bottom: 1px solid rgb(238, 238, 238);
     }
 
     .navbar-inverse {
-        background-color: #1a237e;
-        border-color: #1a237e;
+        background-color: rgb(26, 35, 126);
+        border-color: rgb(26, 35, 126);
     }
 
     .navbar-inverse .navbar-nav>.active>a,
     .navbar-inverse .navbar-nav>.active>a:focus,
     .navbar-inverse .navbar-nav>.active>a:hover {
-        background-color: #3949ab;
+        background-color: rgb(57, 73, 171);
     }
 
     .navbar-inverse .navbar-brand {
-        color: #c5cae9;
+        color: rgb(197, 202, 233);
     }
 
     .navbar-inverse .navbar-nav>li>a {
-        color: #c5cae9;
+        color: rgb(197, 202, 233);
     }
 
     .navbar-fixed-top {
@@ -57,7 +57,7 @@
         padding: 10px 0;
         bottom: 0;
         width: 100%;
-        background-color: #e8eaf6;
+        background-color: rgb(232, 234, 246);
         font-weight: 600;
     }
 
@@ -66,7 +66,7 @@
     }
 
     footer.main-footer i.fa.fa-heart {
-        color: #C62828;
+        color: rgb(198, 40, 40);
     }
 
     .pagination {
@@ -87,9 +87,9 @@
 
     .stack-content {
         padding: 8px;
-        background-color: #F6F6F6;
-        border-top: 1px solid #D1D1D1;
-        color: #AE0E0E;
+        background-color: rgb(246, 246, 246);
+        border-top: 1px solid rgb(209, 209, 209);
+        color: rgb(174, 14, 14);
         font-family: consolas,sans-serif;
         font-size: 12px;
     }
@@ -99,7 +99,7 @@
         padding: 0;
         margin-bottom: 15px;
         min-height: 70px;
-        background: #fff;
+        background: rgb(255, 255, 255);
         width: 100%;
         box-shadow: 0 1px 1px rgba(0,0,0,0.1);
         border-radius: 2px;
@@ -148,7 +148,7 @@
     }
 
     .info-box.level .progress .progress-bar {
-        background: #fff;
+        background: rgb(255, 255, 255);
     }
 
     .info-box.level-empty {
@@ -202,7 +202,7 @@
     .info-box.level-notice,
     .info-box.level-info,
     .info-box.level-debug {
-        color: #FFF;
+        color: rgb(255, 255, 255);
     }
 
     .label-env {
@@ -250,6 +250,6 @@
     }
 
     .badge.label-env, .label.label-env {
-        background-color: #6A1B9A;
+        background-color: rgb(106, 27, 154);
     }
 </style>
