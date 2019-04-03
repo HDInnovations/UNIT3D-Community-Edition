@@ -266,9 +266,7 @@ img {
 .promotion {
     background-color: rgb(255, 255, 255);
     border: 2px dashed rgb(155, 162, 171);
-    margin: 0;
-    margin-bottom: 25px;
-    margin-top: 25px;
+    margin: 25px 0;
     padding: 24px;
     width: 100%;
     -premailer-cellpadding: 0;

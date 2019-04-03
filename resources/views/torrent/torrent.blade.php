@@ -155,7 +155,7 @@
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
-                <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px; background-color: rgba(0, 0, 0, 0.19);">
+                <span class="badge-user" style=" width: 100%; margin: 0 0 25px;background-color: rgba(0, 0, 0, 0.19);">
                     @if (config('torrent.download_check_page') == 1)
                         <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            role="button" class="btn btn-labeled btn-success">
