@@ -110,9 +110,11 @@
                                         <button id="quote"
                                                 class="btn btn-xs btn-xxs btn-info">@lang('forum.quote')</button>
                                     @endif
-                                    @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
+                                    @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id))
                                         <a href="{{ route('forum_post_edit_form', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-warning">@lang('common.edit')</button></a>
+                                    @endif
+                                    @if (auth()->check() && (auth()->user()->group->is_modo || $p->user_id == auth()->user()->id) && $topic->state == 'open')
                                         <a href="{{ route('forum_post_delete', ['slug' => $topic->slug, 'id' => $topic->id, 'postId' => $p->id]) }}"><button
                                                     class="btn btn-xs btn-xxs btn-danger">@lang('common.delete')</button></a>
                                     @endif
@@ -227,7 +229,7 @@
                                        class="btn btn-info">@lang('forum.close-topic')</a>
                                 @endif
                             @endif
-                            @if (auth()->check() && auth()->user()->group->is_modo)
+                            @if (auth()->check() && auth()->user()->group->is_modo || $topic->first_post_user_id == auth()->user()->id)
                                 <a href="{{ route('forum_edit_topic_form', ['slug' => $topic->slug, 'id' => $topic->id]) }}"
                                    class="btn btn-warning">@lang('forum.edit-topic')</a>
                                 <a href="{{ route('forum_delete_topic', ['slug' => $topic->slug, 'id' => $topic->id]) }}"

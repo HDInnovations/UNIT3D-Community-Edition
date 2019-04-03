@@ -772,7 +772,7 @@ class ForumController extends Controller
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
 
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $name = $request->input('name');
         $forum_id = $request->input('forum_id');
         $topic->name = $name;
@@ -821,7 +821,7 @@ class ForumController extends Controller
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
+        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->content = $request->input('content');
         $post->save();
 
@@ -841,7 +841,7 @@ class ForumController extends Controller
         $user = auth()->user();
         $post = Post::with('topic')->findOrFail($postId);
 
-        abort_unless($user->group->is_modo || $post->user_id == $user->id, 403);
+        abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
         $post->delete();
 
         return redirect()->route('forum_topic', ['slug' => $post->topic->slug, 'id' => $post->topic->id])
@@ -903,7 +903,7 @@ class ForumController extends Controller
         $user = auth()->user();
         $topic = Topic::findOrFail($id);
 
-        abort_unless($user->group->is_modo, 403);
+        abort_unless($user->group->is_modo || $user->id === $topic->first_post_user_id, 403);
         $posts = $topic->posts();
         $posts->delete();
         $topic->delete();
