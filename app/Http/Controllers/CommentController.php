@@ -100,9 +100,16 @@ class CommentController extends Controller
             $article_url = hrefArticle($article);
             $profile_url = hrefProfile($user);
 
-            $this->chat->systemMessage(
-                "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
-            );
+            // Auto Shout
+            if ($comment->anon == 0) {
+                $this->chat->systemMessage(
+                    "[url={$profile_url}]{$user->username}[/url] has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                );
+            } else {
+                $this->chat->systemMessage(
+                    "An anonymous user has left a comment on article [url={$article_url}]{$article->title}[/url]"
+                );
+            }
 
             if ($this->tag->hasTags($request->input('content'))) {
                 if ($this->tag->contains($request->input('content'), '@here') && $user->group->is_modo) {
