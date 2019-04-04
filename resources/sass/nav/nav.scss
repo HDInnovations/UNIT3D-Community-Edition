@@ -400,15 +400,15 @@ body {
     left: 4px;
 }
 
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li,
-> a,
-span.menu-text:before {
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
     font-family: 'Font Awesome\ 5 Pro', sans-serif;
     content: '\f0da';
     font-size: 12px;
@@ -417,15 +417,15 @@ span.menu-text:before {
     left: 15px;
 }
 
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li,
-> a,
-span.menu-text:before {
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
     font-family: 'Font Awesome\ 5 Pro', sans-serif;
     content: '\f0da';
     font-size: 14px;
@@ -434,17 +434,17 @@ span.menu-text:before {
     left: 18px;
 }
 
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li,
-> a,
-span.menu-text:before {
+#hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
     font-family: 'Font Awesome\ 5 Pro', sans-serif;
     content: '\f0da';
     font-size: 12px;
@@ -619,43 +619,43 @@ span.menu-text:before {
     left: 0;
 }
 
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu:hover,
-> ul.hoe-sub-menu,
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu:focus,
-> ul.hoe-sub-menu {
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
     display: block !important;
     position: relative;
     left: 0;
 }
 
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu:hover,
-> ul.hoe-sub-menu,
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu:focus,
-> ul.hoe-sub-menu {
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:hover
+    > ul.hoe-sub-menu,
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu:focus
+    > ul.hoe-sub-menu {
     display: block !important;
     position: relative;
     left: 0;
@@ -693,45 +693,45 @@ span.menu-text:before {
     display: none;
 }
 
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-li,
-> a,
-span.menu-text {
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    li
+    > a
+    span.menu-text {
     padding-left: 15px;
     position: relative;
 }
 
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li,
-> a,
-span.menu-text:before {
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
     left: 4px;
 }
 
-.hoe-minimized-lpanel,
-#hoe-left-panel,
-.panel-list,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li.hoe-has-menu,
-> ul.hoe-sub-menu,
-> li,
-> a,
-span.menu-text:before {
+.hoe-minimized-lpanel
+    #hoe-left-panel
+    .panel-list
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li.hoe-has-menu
+    > ul.hoe-sub-menu
+    > li
+    > a
+    span.menu-text:before {
     left: 4px;
 }
 
@@ -860,85 +860,85 @@ span.menu-text:before {
     margin-right: -230px;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='shrink'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='shrink'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'],
-#hoe-header[hoe-lpanel-effect='shrink'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'],
-#hoe-header[hoe-lpanel-effect='shrink'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='shrink']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='overlay'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='overlay'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone']#hoe-header[hoe-lpanel-effect='overlay'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone']#hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'],
-#hoe-header[hoe-lpanel-effect='overlay'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='overlay']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='push'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel,
-#hoe-header[hoe-lpanel-effect='push'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone'].hoe-hide-lpanel
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'],
-#hoe-header[hoe-lpanel-effect='push'],
-.hoe-right-header[hoe-position-type='relative'] {
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='relative'] {
     margin-left: 0;
     padding-right: 0;
 }
 
-#hoeapp-wrapper[hoe-device-type='phone'],
-#hoe-header[hoe-lpanel-effect='push'],
-.hoe-right-header[hoe-position-type='fixed'] {
+#hoeapp-wrapper[hoe-device-type='phone']
+    #hoe-header[hoe-lpanel-effect='push']
+    .hoe-right-header[hoe-position-type='fixed'] {
     margin-left: 0;
     padding-right: 0;
 }
