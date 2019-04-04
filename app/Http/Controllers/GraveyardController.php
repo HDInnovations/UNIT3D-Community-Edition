@@ -61,7 +61,7 @@ class GraveyardController extends Controller
      * Uses Input's To Put Together A Search.
      *
      * @param \Illuminate\Http\Request $request
-     * @param $torrent Torrent
+     * @param  Torrent  $torrent
      *
      * @return array
      */

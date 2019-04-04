@@ -33,6 +33,7 @@ class ContactController extends Controller
     /**
      * Send A Contact Email To Owner/First User.
      *
+     * @param  Request  $request
      * @return Illuminate\Http\RedirectResponse
      */
     public function contact(Request $request)

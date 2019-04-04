@@ -60,7 +60,7 @@ class StringHelper
     /**
      * @method timeRemaining
      *
-     * @param $seconds time in bigInt
+     * @param  time  $seconds  in bigInt
      *
      * @return string
      */
@@ -116,7 +116,7 @@ class StringHelper
     /**
      * @method timeElapsed
      *
-     * @param $seconds time in bigInt
+     * @param  time  $seconds  in bigInt
      *
      * @return string
      */

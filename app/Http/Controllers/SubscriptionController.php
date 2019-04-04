@@ -22,7 +22,8 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Topic.
      *
-     * @param Topic $topic
+     * @param  string  $route
+     * @param  Topic  $topic
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -54,7 +55,8 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Topic.
      *
-     * @param Topic $topic
+     * @param  string  $route
+     * @param  Topic  $topic
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -84,7 +86,8 @@ class SubscriptionController extends Controller
     /**
      * Subscribe To A Forum.
      *
-     * @param Forum $forum
+     * @param  string  $route
+     * @param  Forum  $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */
@@ -116,7 +119,8 @@ class SubscriptionController extends Controller
     /**
      * Unsubscribe To A Forum.
      *
-     * @param Forum $forum
+     * @param  string  $route
+     * @param  Forum  $forum
      *
      * @return Illuminate\Http\RedirectResponse
      */

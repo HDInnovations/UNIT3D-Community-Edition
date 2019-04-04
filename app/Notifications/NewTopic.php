@@ -30,10 +30,10 @@ class NewTopic extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param string $type
-     * @param Topic $topic
+     * @param  string  $type
+     * @param  User  $poster
+     * @param  Topic  $topic
      *
-     * @return void
      */
     public function __construct(string $type, User $poster, Topic $topic)
     {

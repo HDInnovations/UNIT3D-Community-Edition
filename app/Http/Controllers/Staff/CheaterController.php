@@ -49,7 +49,7 @@ class CheaterController extends Controller
     /**
      * Possible Ratio Cheaters.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return void
      */
     public function ratioCheaters()
     {

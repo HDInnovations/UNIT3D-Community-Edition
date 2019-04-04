@@ -61,6 +61,9 @@ class Topic extends Model
     /**
      * Notify Subscribers Of A Topic When New Post Is Made.
      *
+     * @param $poster
+     * @param $topic
+     * @param $post
      * @return string
      */
     public function notifySubscribers($poster, $topic, $post)
@@ -96,6 +99,9 @@ class Topic extends Model
     /**
      * Notify Starter When An Action Is Taken.
      *
+     * @param $poster
+     * @param $topic
+     * @param $post
      * @return bool
      */
     public function notifyStarter($poster, $topic, $post)

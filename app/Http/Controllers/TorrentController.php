@@ -91,8 +91,8 @@ class TorrentController extends Controller
     /**
      * Torrent Similar Results.
      *
-     * @param $imdb
-     *
+     * @param $category_id
+     * @param $tmdb
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function similar($category_id, $tmdb)
@@ -122,6 +122,8 @@ class TorrentController extends Controller
      * Displays Torrent Cards View.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function cardLayout()
     {
@@ -160,8 +162,8 @@ class TorrentController extends Controller
     /**
      * Torrent Filter Remember Setting.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
      */
     public function filtered(Request $request)
     {
@@ -183,6 +185,8 @@ class TorrentController extends Controller
      * Torrent Grouping.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function groupingLayout()
     {
@@ -305,10 +309,12 @@ class TorrentController extends Controller
     /**
      * Uses Input's To Put Together A Search.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @param $torrent Torrent
      *
      * @return array
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function faceted(Request $request, Torrent $torrent)
     {
@@ -827,6 +833,8 @@ class TorrentController extends Controller
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function torrent($slug, $id)
     {
@@ -1145,9 +1153,11 @@ class TorrentController extends Controller
     /**
      * Upload A Torrent.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return Illuminate\Http\RedirectResponse
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function upload(Request $request)
     {

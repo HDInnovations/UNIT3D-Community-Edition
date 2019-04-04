@@ -30,7 +30,8 @@ class Ping implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $room
+     * @param $id
      */
     public function __construct($room, $id)
     {
@@ -41,7 +42,7 @@ class Ping implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return PresenceChannel
      */
     public function broadcastOn()
     {

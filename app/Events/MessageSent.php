@@ -36,7 +36,7 @@ class MessageSent implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param  Message  $message
      */
     public function __construct(Message $message)
     {
@@ -54,7 +54,7 @@ class MessageSent implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return PresenceChannel
      */
     public function broadcastOn()
     {

@@ -133,8 +133,7 @@ class ClickableHook extends AbstractHook
     /**
      * Callback for URL processing.
      *
-     * @param array $matches
-     *
+     * @param $match
      * @return string
      */
     protected function _urlCallback($match)

@@ -30,9 +30,10 @@ class Http2ServerPush
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      *
+     * @param  null  $limit
      * @return mixed
      */
     public function handle(Request $request, Closure $next, $limit = null)
@@ -49,8 +50,9 @@ class Http2ServerPush
     }
 
     /**
-     * @param \Illuminate\Http\Response $response
+     * @param  \Illuminate\Http\Response  $response
      *
+     * @param  null  $limit
      * @return $this
      */
     protected function generateAndAttachLinkHeaders(Response $response, $limit = null)

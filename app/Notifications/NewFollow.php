@@ -31,9 +31,11 @@ class NewFollow extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Follow $follow
+     * @param  string  $type
+     * @param  User  $sender
+     * @param  User  $target
+     * @param  Follow  $follow
      *
-     * @return void
      */
     public function __construct(string $type, User $sender, User $target, Follow $follow)
     {

@@ -121,8 +121,10 @@ class UserController extends Controller
     /**
      * User Followers.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $slug
+     * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function followers(Request $request, $slug, int $id)
@@ -140,8 +142,10 @@ class UserController extends Controller
     /**
      * User Topics.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $slug
+     * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function topics(Request $request, $slug, int $id)
@@ -159,8 +163,10 @@ class UserController extends Controller
     /**
      * User Posts.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
+     * @param $slug
+     * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function posts(Request $request, $slug, int $id)
@@ -1315,6 +1321,7 @@ class UserController extends Controller
     /**
      * Deactivate All Warnings.
      *
+     * @param $username
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1384,6 +1391,7 @@ class UserController extends Controller
     /**
      * Delete All Warnings.
      *
+     * @param $username
      * @param $id
      *
      * @return Illuminate\Http\RedirectResponse
@@ -1945,6 +1953,8 @@ class UserController extends Controller
     /**
      * Show User Achievements.
      *
+     * @param $username
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function achievements($username, $id)
@@ -1962,6 +1972,8 @@ class UserController extends Controller
     /**
      * Get A Users Wishlist.
      *
+     * @param $slug
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function wishes($slug, $id)
@@ -1984,6 +1996,8 @@ class UserController extends Controller
     /**
      * Get A Users Torrent Bookmarks.
      *
+     * @param $slug
+     * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bookmarks($slug, $id)
@@ -2006,7 +2020,7 @@ class UserController extends Controller
     /**
      * Get A Users Downloads (Fully Downloaded) Table.
      *
-     * @param $username
+     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -2077,7 +2091,7 @@ class UserController extends Controller
     /**
      * Get A Users Requested Table.
      *
-     * @param $username
+     * @param $slug
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -2431,9 +2445,7 @@ class UserController extends Controller
     /**
      * Accept Site Rules.
      *
-     * @param $username
-     *
-     * @return Illuminate\Http\RedirectResponse
+     * @return void
      */
     public function acceptRules()
     {

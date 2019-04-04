@@ -107,8 +107,9 @@ class PrivateMessageController extends Controller
     /**
      * Create Message Form.
      *
-     * @param $receiver_id
+     * @param  string  $receiver_id
      *
+     * @param  string  $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function makePrivateMessage($receiver_id = '', $username = '')

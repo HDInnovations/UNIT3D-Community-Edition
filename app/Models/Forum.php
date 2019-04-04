@@ -95,6 +95,8 @@ class Forum extends Model
     /**
      * Notify Subscribers Of A Forum When New Topic Is Made.
      *
+     * @param $poster
+     * @param $topic
      * @return string
      */
     public function notifySubscribers($poster, $topic)
@@ -126,6 +128,7 @@ class Forum extends Model
     /**
      * Returns A Table With The Forums In The Category.
      *
+     * @param $forumId
      * @return string
      */
     public function getForumsInCategoryById($forumId)
@@ -146,6 +149,7 @@ class Forum extends Model
     /**
      * Count The Number Of Posts In The Forum.
      *
+     * @param $forumId
      * @return string
      */
     public function getPostCount($forumId)
@@ -163,6 +167,7 @@ class Forum extends Model
     /**
      * Count The Number Of Topics In The Forum.
      *
+     * @param $forumId
      * @return string
      */
     public function getTopicCount($forumId)

@@ -27,7 +27,8 @@ class NewThank extends Notification
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param  string  $type
+     * @param  Thank  $thank
      */
     public function __construct(string $type, Thank $thank)
     {
