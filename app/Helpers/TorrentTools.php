@@ -27,6 +27,8 @@ class TorrentTools
 
     /**
      * Moves and decodes the torrent.
+     * @param $torrentFile
+     * @return array|int|string|void
      */
     public static function normalizeTorrent($torrentFile)
     {
@@ -60,6 +62,8 @@ class TorrentTools
 
     /**
      * Calculate the number of files in the torrent.
+     * @param $decodedTorrent
+     * @return int
      */
     public static function getFileCount($decodedTorrent)
     {
@@ -73,6 +77,8 @@ class TorrentTools
 
     /**
      * Returns the size of the torrent files.
+     * @param $decodedTorrent
+     * @return int|mixed
      */
     public static function getTorrentSize($decodedTorrent)
     {
@@ -93,6 +99,8 @@ class TorrentTools
 
     /**
      * Returns the torrent file list.
+     * @param $decodedTorrent
+     * @return mixed
      */
     public static function getTorrentFiles($decodedTorrent)
     {
@@ -121,6 +129,8 @@ class TorrentTools
 
     /**
      * Returns the sha1 (hash) of the torrent.
+     * @param $decodedTorrent
+     * @return string
      */
     public static function getTorrentHash($decodedTorrent)
     {
@@ -129,6 +139,8 @@ class TorrentTools
 
     /**
      * Returns the number of the torrent file.
+     * @param $decodedTorrent
+     * @return int
      */
     public static function getTorrentFileCount($decodedTorrent)
     {
@@ -141,6 +153,8 @@ class TorrentTools
 
     /**
      * Returns the NFO.
+     * @param $inputFile
+     * @return false|string|null
      */
     public static function getNfo($inputFile)
     {

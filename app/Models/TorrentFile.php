@@ -45,6 +45,8 @@ class TorrentFile extends Model
     /**
      * Return Size In Human Format.
      *
+     * @param  null  $bytes
+     * @param  int  $precision
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)

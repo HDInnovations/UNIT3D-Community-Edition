@@ -34,13 +34,13 @@ class MovieScrapper
 
     /**
      * @param $type
-     * @param null $imdb
-     * @param null $tmdb
-     * @param null $tvdb
-     *
-     * @throws \ErrorException
+     * @param  null  $imdb
+     * @param  null  $tmdb
+     * @param  null  $tvdb
      *
      * @return Movie|Tv
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function scrape($type, $imdb = null, $tmdb = null, $tvdb = null)
     {

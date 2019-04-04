@@ -98,6 +98,7 @@ class BonExchange extends Model
     /**
      * @method getItemCost
      *
+     * @param $id
      * @return int
      */
     public function getItemCost($id)

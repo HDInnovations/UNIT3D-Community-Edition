@@ -193,6 +193,8 @@ class RequestController extends Controller
      * @param $id
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ErrorException
+     * @throws \HttpInvalidParamException
      */
     public function request($id)
     {
@@ -231,6 +233,9 @@ class RequestController extends Controller
     /**
      * Torrent Request Add Form.
      *
+     * @param  string  $title
+     * @param  int  $imdb
+     * @param  int  $tmdb
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function addRequestForm($title = '', $imdb = 0, $tmdb = 0)

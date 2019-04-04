@@ -232,6 +232,8 @@ class Torrent extends Model
     /**
      * Returns The Size In Human Format.
      *
+     * @param  null  $bytes
+     * @param  int  $precision
      * @return string
      */
     public function getSize($bytes = null, $precision = 2)
@@ -254,6 +256,8 @@ class Torrent extends Model
     /**
      * Notify Uploader When An Action Is Taken.
      *
+     * @param $type
+     * @param $payload
      * @return bool
      */
     public function notifyUploader($type, $payload)
@@ -280,6 +284,8 @@ class Torrent extends Model
 
     /**
      * Torrent Is Freeleech.
+     * @param  null  $user
+     * @return bool
      */
     public function isFreeleech($user = null)
     {

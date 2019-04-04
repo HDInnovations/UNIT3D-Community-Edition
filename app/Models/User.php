@@ -531,6 +531,10 @@ class User extends Authenticatable
     /**
      * Get the Users accepts notification as bool.
      *
+     * @param  self  $sender
+     * @param  self  $target
+     * @param  string  $group
+     * @param  bool  $type
      * @return int
      */
     public function acceptsNotification(self $sender, self $target, $group = 'follower', $type = false)
@@ -566,6 +570,9 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
+     * @param  self  $target
+     * @param  string  $group
+     * @param  bool  $type
      * @return int
      */
     public function isVisible(self $target, $group = 'profile', $type = false)
@@ -602,6 +609,9 @@ class User extends Authenticatable
     /**
      * Get the Users allowed answer as bool.
      *
+     * @param  self  $target
+     * @param  string  $group
+     * @param  bool  $type
      * @return int
      */
     public function isAllowed(self $target, $group = 'profile', $type = false)
@@ -666,6 +676,9 @@ class User extends Authenticatable
 
     /**
      * Return Upload In Human Format.
+     * @param  null  $bytes
+     * @param  int  $precision
+     * @return string
      */
     public function getUploaded($bytes = null, $precision = 2)
     {
@@ -680,6 +693,9 @@ class User extends Authenticatable
 
     /**
      * Return Download In Human Format.
+     * @param  null  $bytes
+     * @param  int  $precision
+     * @return string
      */
     public function getDownloaded($bytes = null, $precision = 2)
     {

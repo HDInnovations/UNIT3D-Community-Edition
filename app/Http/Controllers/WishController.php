@@ -38,7 +38,7 @@ class WishController extends Controller
      *
      * @param $uid
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return void
      */
     public function index($uid)
     {

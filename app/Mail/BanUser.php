@@ -27,7 +27,8 @@ class BanUser extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $email
+     * @param $ban
      */
     public function __construct($email, $ban)
     {

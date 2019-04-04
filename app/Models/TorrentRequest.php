@@ -140,6 +140,8 @@ class TorrentRequest extends Model
     /**
      * Notify Requester When A New Action Is Taken.
      *
+     * @param $type
+     * @param $payload
      * @return bool
      */
     public function notifyRequester($type, $payload)

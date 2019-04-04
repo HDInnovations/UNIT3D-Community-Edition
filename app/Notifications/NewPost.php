@@ -30,10 +30,10 @@ class NewPost extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Post $post
-     * @param string $type
+     * @param  string  $type
      *
-     * @return void
+     * @param  User  $poster
+     * @param  Post  $post
      */
     public function __construct(string $type, User $poster, Post $post)
     {

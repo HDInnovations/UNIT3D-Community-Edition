@@ -74,6 +74,7 @@ class Message extends Model
     /**
      * Parse Content And Return Valid HTML.
      *
+     * @param $message
      * @return string Parsed BBCODE To HTML
      */
     public static function getMessageHtml($message)

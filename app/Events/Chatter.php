@@ -14,7 +14,6 @@
 namespace App\Events;
 
 use App\Models\Message;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -40,7 +39,9 @@ class Chatter implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $type
+     * @param $target
+     * @param $payload
      */
     public function __construct($type, $target, $payload)
     {
@@ -62,7 +63,7 @@ class Chatter implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return PrivateChannel
      */
     public function broadcastOn()
     {

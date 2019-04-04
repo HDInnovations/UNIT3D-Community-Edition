@@ -36,6 +36,7 @@ class SystemBot
 
     /**
      * SystemBot Constructor.
+     * @param  ChatRepository  $chat
      */
     public function __construct(ChatRepository $chat)
     {
@@ -46,6 +47,8 @@ class SystemBot
 
     /**
      * Replace Vars.
+     * @param $output
+     * @return mixed
      */
     public function replaceVars($output)
     {
@@ -73,6 +76,10 @@ class SystemBot
 
     /**
      * Send Gift.
+     * @param  string  $receiver
+     * @param  int  $amount
+     * @param  string  $note
+     * @return string
      */
     public function putGift($receiver = '', $amount = 0, $note = '')
     {
@@ -127,6 +134,11 @@ class SystemBot
 
     /**
      * Process Message.
+     * @param $type
+     * @param  User  $target
+     * @param  string  $message
+     * @param  int  $targeted
+     * @return bool
      */
     public function process($type, User $target, $message = '', $targeted = 0)
     {

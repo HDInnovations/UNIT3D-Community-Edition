@@ -29,6 +29,7 @@ class AnnounceController extends Controller
     /**
      * Announce Code.
      *
+     * @param  Request  $request
      * @param $passkey
      *
      * @return Bencode response for the torrent client

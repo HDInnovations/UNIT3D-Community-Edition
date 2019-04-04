@@ -207,8 +207,6 @@ class ChatController extends Controller
     /**
      * Flush Chat Messages.
      *
-     * @param $id
-     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function flushChat()

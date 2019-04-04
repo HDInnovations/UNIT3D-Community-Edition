@@ -53,6 +53,8 @@ class Group extends Model
 
     /**
      * Returns The Requested Row From The Permissions Table.
+     * @param $forum
+     * @return
      */
     public function getPermissionsByForum($forum)
     {
@@ -64,6 +66,8 @@ class Group extends Model
     /**
      * Get the Group allowed answer as bool.
      *
+     * @param $object
+     * @param $group_id
      * @return int
      */
     public function isAllowed($object, $group_id)

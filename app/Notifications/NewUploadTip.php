@@ -30,9 +30,10 @@ class NewUploadTip extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Torrent $torrent
-     *
-     * @return void
+     * @param  string  $type
+     * @param  string  $tipper
+     * @param $amount
+     * @param  Torrent  $torrent
      */
     public function __construct(string $type, string $tipper, $amount, Torrent $torrent)
     {

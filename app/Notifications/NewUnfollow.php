@@ -14,7 +14,6 @@
 namespace App\Notifications;
 
 use App\Models\User;
-use App\Models\Follow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -30,9 +29,9 @@ class NewUnfollow extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param Follow $follow
-     *
-     * @return void
+     * @param  string  $type
+     * @param  User  $sender
+     * @param  User  $target
      */
     public function __construct(string $type, User $sender, User $target)
     {

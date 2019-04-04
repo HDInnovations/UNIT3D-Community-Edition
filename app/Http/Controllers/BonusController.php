@@ -145,6 +145,7 @@ class BonusController extends Controller
     /**
      * Show Bonus Earnings System.
      *
+     * @param  string  $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function bonus($username = '')

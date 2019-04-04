@@ -26,8 +26,6 @@ class UsernameReminder extends Notification implements ShouldQueue
      * Create a new notification instance.
      *
      * UsernameReminderEmail constructor.
-     *
-     * @param $token
      */
     public function __construct()
     {

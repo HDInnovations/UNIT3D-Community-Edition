@@ -14,7 +14,6 @@
 namespace App\Events;
 
 use App\Models\Message;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -35,7 +34,7 @@ class MessageDeleted implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param  Message  $message
      */
     public function __construct(Message $message)
     {
@@ -45,7 +44,7 @@ class MessageDeleted implements ShouldBroadcastNow
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return PresenceChannel
      */
     public function broadcastOn()
     {
