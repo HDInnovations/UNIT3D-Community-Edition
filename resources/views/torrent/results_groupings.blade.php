@@ -52,7 +52,7 @@
                                         {{ $t->movie->plot }}
                                     @endif
                                 </p>
-                                <div class="card_holder" style="width: 100%";>
+                                <div class="card_holder" style="width: 100%;" ;>
                                     <hr style="padding: 0 !important; margin: 5px 0 !important; width: 100%;">
                                     <div style="padding: 10px 0; margin: auto;">
                                         <div class="table-responsive">
@@ -159,7 +159,7 @@
                                                                         @if ($current->internal == 1)
                                                                             <span class='badge-extra text-bold'>
                                 <i class='{{ config("other.font-awesome") }} fa-magic' data-toggle='tooltip' title=''
-                                   data-original-title='@lang('torrent.internal-release')' style="color: #BAAF92"></i> @lang('torrent.internal')
+                                   data-original-title='@lang('torrent.internal-release')' style="color: rgb(186,175,146);"></i> @lang('torrent.internal')
                             </span>
                                                                         @endif
                                                                         @if ($current->stream == 1)

@@ -384,12 +384,12 @@
 
                     <div class="progress">
                         <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                             style="width:.1%; border-bottom-color: #8c0408">
+                             style="width:.1%; border-bottom-color: rgb(140,4,8);">
                         </div>
                         @php $percent = 100 / config('hitrun.max_warnings'); @endphp
                         @foreach ($warnings as $warning)
                             <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
-                                 style="width: {{ $percent }}%; border-bottom-color: #8c0408">
+                                 style="width: {{ $percent }}%; border-bottom-color: rgb(140,4,8);">
                                 {{ strtoupper(trans('user.warning')) }}
                             </div>
                         @endforeach
@@ -434,17 +434,17 @@
                         <span>:</span>
                         @if (auth()->user()->isAllowed($user,'profile','show_profile_badge'))
                             @if ($user->getSeeding() >= 150)
-                                <span class="badge-user" style="background-color:#3fb618; color:white;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(63,182,24); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-seeder-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-upload"></i> @lang('user.certified-seeder')!</span>
                             @endif
                             @if ($history->where('actual_downloaded', '>', 0)->count() >= 100)
-                                <span class="badge-user" style="background-color:#ff0039; color:white;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(255,0,57); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-downloader-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-download"></i> @lang('user.certified-downloader')!</span>
                             @endif
                             @if ($user->getSeedbonus() >= 50000)
-                                <span class="badge-user" style="background-color:#9400d3; color:white;" data-toggle="tooltip"
+                                <span class="badge-user" style="background-color:rgb(148,0,211); color:#ffffff;" data-toggle="tooltip"
                                       title="" data-original-title="@lang('user.certified-banker-desc')"><i
                                             class="{{ config('other.font-awesome') }} fa-star"></i> @lang('user.certified-banker')!</span>
                             @endif
@@ -527,7 +527,7 @@
                                     aria-expanded="false">@lang('user.show-passkey')</button>
                         </div>
                         <div class="col-md-8">
-                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div id="pid_block" class="collapse" aria-expanded="false" style="height: 0;">
                                 <span class="text-monospace">{{ $user->passkey }}</span>
                                 <br>
                             </div>
@@ -621,7 +621,7 @@
                     <td>
                     @if ($invitedBy)
                         <a href="{{ route('profile', ['username' => $invitedBy->sender->username, 'id' => $invitedBy->sender->id]) }}">
-                            <span class="text-bold" style="color: {{ $invitedBy->sender->group->color }}">
+                            <span class="text-bold" style="color:{{ $invitedBy->sender->group->color }}; ">
                                 <i class="{{ $invitedBy->sender->group->icon }}"></i> {{ $invitedBy->sender->username }}
                             </span>
                         </a>

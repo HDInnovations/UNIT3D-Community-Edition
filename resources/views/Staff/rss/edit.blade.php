@@ -169,9 +169,9 @@
                             <span class="badge-user">
                                 <label class="inline">
                                     @if($rss->object_torrent->internal)
-                                        <input type="checkbox" id="internal" name="internal" value="1" CHECKED><span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                        <input type="checkbox" id="internal" name="internal" value="1" CHECKED><span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                                     @else
-                                        <input type="checkbox" id="internal" name="internal" value="1"><span class="{{ config('other.font-awesome') }} fa-magic" style="color: #BAAF92"></span> @lang('torrent.internal')
+                                        <input type="checkbox" id="internal" name="internal" value="1"><span class="{{ config('other.font-awesome') }} fa-magic" style="color: rgb(186,175,146);"></span> @lang('torrent.internal')
                                     @endif
                                 </label>
                             </span>

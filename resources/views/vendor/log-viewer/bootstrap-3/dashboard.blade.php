@@ -25,7 +25,7 @@
                                         {{ $item['count'] }} entries - {!! $item['percent'] !!} %
                                     </span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: {{ $item['percent'] }}%"></div>
+                                        <div class="progress-bar" style="width: {{ $item['percent'] }}%;"></div>
                                     </div>
                                 </div>
                             </div>

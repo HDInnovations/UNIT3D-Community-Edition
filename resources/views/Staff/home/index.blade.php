@@ -53,9 +53,9 @@
                         <h3 class="text-bold text-center">
                             {{ config('app.url') }} -- <span class="text-muted">@if ($certificate->isValid() == true) VALID @else INVALID @endif</span>
                         </h3>
-                        <div style="padding-top: 15px">
+                        <div style="padding-top: 15px;">
                             <span class="text-red text-left">Issued By: {{ $certificate->getIssuer() }}</span>
-                            <span class="text-red" style="float: right">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
+                            <span class="text-red" style="float: right;">Expires: {{ $certificate->expirationDate()->diffForHumans() }}</span>
                         </div>
                     @else
                         <h2 class="text-bold text-center text-red">
@@ -64,9 +64,9 @@
                         <h3 class="text-bold text-center">
                             {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
                         </h3>
-                        <div style="padding-top: 15px">
+                        <div style="padding-top: 15px;">
                             <span class="text-red text-left">Issued By: N/A}</span>
-                            <span class="text-red" style="float: right">Expires: N/A</span>
+                            <span class="text-red" style="float: right;">Expires: N/A</span>
                         </div>
                     @endif
                     </div>
@@ -92,7 +92,7 @@
                                                     <div class="number" id="myTargetElement1"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-magnet pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -120,7 +120,7 @@
                                                 <div class="number" id="myTargetElement2"></div>
                                             </div>
                                             <i class="{{ config('other.font-awesome') }} fa-wifi pull-right"
-                                               style=" font-size: 57px; margin-bottom: 15px"></i>
+                                               style=" font-size: 57px; margin-bottom: 15px;"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -147,7 +147,7 @@
                                                 <div class="number" id="myTargetElement3"></div>
                                             </div>
                                             <i class="{{ config('other.font-awesome') }} fa-server pull-right"
-                                               style=" font-size: 57px; margin-bottom: 15px"></i>
+                                               style=" font-size: 57px; margin-bottom: 15px;"></i>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -175,7 +175,7 @@
                                                     <div class="number" id="myTargetElement4"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-users pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -204,7 +204,7 @@
                                                     <div class="number" id="myTargetElement5"></div>
                                                 </div>
                                                 <i class="{{ config('other.font-awesome') }} fa-clipboard-list pull-right"
-                                                   style=" font-size: 57px; margin-bottom: 15px"></i>
+                                                   style=" font-size: 57px; margin-bottom: 15px;"></i>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -238,7 +238,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">OS</h1>
+                                    <h1 style=" color: rgb(255,255,255);">OS</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['os'] }}</span>
@@ -248,7 +248,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">PHP</h1>
+                                    <h1 style=" color: rgb(255,255,255);">PHP</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">php{{ $basic['php'] }}</span>
@@ -258,7 +258,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">DATABASE</h1>
+                                    <h1 style=" color: rgb(255,255,255);">DATABASE</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">{{ $basic['database'] }}</span>
@@ -268,7 +268,7 @@
 
                             <div class="col-xs-6 col-sm-3 col-md-3">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">LARAVEL</h1>
+                                    <h1 style=" color: rgb(255,255,255);">LARAVEL</h1>
                                     <span class="badge-user">Currently Running</span>
                                     <br>
                                     <span class="badge-user">Ver. {{ $basic['laravel'] }}</span>
@@ -280,7 +280,7 @@
                         <div class="row black-list">
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">RAM</h1>
+                                    <h1 style=" color: rgb(255,255,255);">RAM</h1>
                                     <span class="badge-user">Total: {{ $ram['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $ram['free'] }}</span>
@@ -291,7 +291,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">DISK</h1>
+                                    <h1 style=" color: rgb(255,255,255);">DISK</h1>
                                     <span class="badge-user">Total: {{ $disk['total'] }}</span>
                                     <br>
                                     <span class="badge-user">Free: {{ $disk['free'] }}</span>
@@ -302,7 +302,7 @@
 
                             <div class="col-xs-6 col-sm-4 col-md-4">
                                 <div class="text-center black-item">
-                                    <h1 style=" color: #fff;">LOAD</h1>
+                                    <h1 style=" color: rgb(255,255,255);">LOAD</h1>
                                     <span class="badge-user">Average: {{ $avg }}</span>
                                     <br>
                                     <span class="badge-user">Estimated</span>

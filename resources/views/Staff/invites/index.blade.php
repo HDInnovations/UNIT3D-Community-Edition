@@ -51,7 +51,7 @@
                                 <tr>
                                     <td>
                                         <a href="{{ route('profile', ['username' => $invite->sender->username, 'id' => $invite->sender->id]) }}">
-                                            <span class="text-bold" style="color: {{ $invite->sender->group->color }}">
+                                            <span class="text-bold" style="color:{{ $invite->sender->group->color }}; ">
                                                 <i class="{{ $invite->sender->group->icon }}"></i> {{ $invite->sender->username }}
                                             </span>
                                         </a>
@@ -71,7 +71,7 @@
                                     <td>
                                         @if ($invite->accepted_by != null && $invite->accepted_by != 1)
                                             <a href="{{ route('profile', ['username' => $invite->receiver->username, 'id' => $invite->receiver->id]) }}">
-                                                <span class="text-bold" style="color: {{ $invite->receiver->group->color }}">
+                                                <span class="text-bold" style="color:{{ $invite->receiver->group->color }}; ">
                                                     <i class="{{ $invite->receiver->group->icon }}"></i> {{ $invite->receiver->username }}
                                                 </span>
                                             </a>

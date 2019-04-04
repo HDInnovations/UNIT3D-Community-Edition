@@ -640,7 +640,7 @@ class facetedSearchBuilder {
                 Swal.fire({
                     showConfirmButton: false,
                     showCloseButton: true,
-                    background: '#232323',
+                    background: 'rgb(35,35,35)',
                     width: 970,
                     html: image,
                     title: name,

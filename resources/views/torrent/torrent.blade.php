@@ -24,7 +24,7 @@
 
 @section('content')
     <div class="torrent box container">
-        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,#D13A3A,#D13A3A 10px,#DF4B4B 10px,#DF4B4B 20px);border:solid 1px #B22929;-webkit-box-shadow: 0px 0px 6px #B22929;margin-bottom:-0px;margin-top:0px;font-family:Verdana;font-size:large;text-align:center;color:white">
+        <div style="line-height: 15px;height:45px;width:100%;background: repeating-linear-gradient( 45deg,rgb(209,58,58),rgb(209,58,58) 10px,rgb(223,75,75) 10px,rgb(223,75,75) 20px);border:solid 1px rgb(178,41,41);-webkit-box-shadow: 0 0 6px rgb(178,41,41);margin-bottom:-0px;margin-top:0;font-family:Verdana;font-size:large;text-align:center;color:#ffffff;">
             <br>{!! trans('torrent.say-thanks') !!}!
         </div>
         @if ($torrent->category->meta == 1)
@@ -155,7 +155,7 @@
         <div class="table-responsive">
             <table class="table table-condensed table-bordered table-striped">
                 <div class="text-center">
-                <span class="badge-user" style=" margin: 0; width: 100%; margin-bottom: 25px; background-color: rgba(0, 0, 0, 0.19);">
+                <span class="badge-user" style=" width: 100%; margin: 0 0 25px;background-color: rgba(0, 0, 0, 0.19);">
                     @if (config('torrent.download_check_page') == 1)
                         <a href="{{ route('download_check', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}"
                            role="button" class="btn btn-labeled btn-success">
@@ -681,17 +681,17 @@
                                 </div>
                             @else
                                 @foreach ($comments as $comment)
-                                    <li class="media" style="border-left: 5px solid #01BC8C">
+                                    <li class="media" style="border-left: 5px solid rgb(1,188,140);">
                                         <div class="media-body">
                                             @if ($comment->anon == 1)
-                                                <a href="#" class="pull-left" style="padding-right: 10px">
+                                                <a href="#" class="pull-left" style="padding-right: 10px;">
                                                     <img src="{{ url('img/profile.png') }}"
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48">
                                                     <strong>{{ strtoupper(trans('common.anonymous')) }}</strong></a> @if (auth()->user()->id == $comment->user->id || auth()->user()->group->is_modo)
-                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
+                                                    <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};">(<span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span>)</a> @endif
                                             @else
                                                 <a href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}"
-                                                   class="pull-left" style="padding-right: 10px">
+                                                   class="pull-left" style="padding-right: 10px;">
                                                     @if ($comment->user->image != null)
                                                         <img src="{{ url('files/img/' . $comment->user->image) }}"
                                                              alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
@@ -700,7 +700,7 @@
                                                          alt="{{ $comment->user->username }}" class="img-avatar-48"></a>
                                                 @endif
                                                 <strong><a
-                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }}"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
+                                                            href="{{ route('profile', ['username' => $comment->user->username, 'id' => $comment->user->id]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
                                             <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-comment')"
@@ -783,7 +783,7 @@
             Swal.fire({
               showConfirmButton: false,
               showCloseButton: true,
-              background: '#232323',
+              background: 'rgb(35,35,35)',
               width: 970,
               html: '<iframe width="930" height="523" src="{{ $movie->videoTrailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
               title: '<i style="color: #a5a5a5;">{{ $movie->title }}</i>',
