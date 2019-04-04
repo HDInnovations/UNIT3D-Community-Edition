@@ -14,7 +14,6 @@
 namespace App\Notifications;
 
 use App\Models\User;
-use App\Models\Follow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;

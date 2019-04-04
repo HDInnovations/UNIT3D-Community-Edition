@@ -14,7 +14,6 @@
 namespace App\Events;
 
 use App\Models\Message;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use App\Http\Resources\ChatMessageResource;
 use Illuminate\Broadcasting\PresenceChannel;

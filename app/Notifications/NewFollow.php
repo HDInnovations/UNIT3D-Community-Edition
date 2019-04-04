@@ -35,7 +35,6 @@ class NewFollow extends Notification implements ShouldQueue
      * @param  User  $sender
      * @param  User  $target
      * @param  Follow  $follow
-     *
      */
     public function __construct(string $type, User $sender, User $target, Follow $follow)
     {

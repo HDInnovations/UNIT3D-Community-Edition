@@ -32,7 +32,6 @@ class NewCommentTag extends Notification implements ShouldQueue
      * @param  string  $type
      * @param  string  $tagger
      * @param  Comment  $comment
-     *
      */
     public function __construct(string $type, string $tagger, Comment $comment)
     {
