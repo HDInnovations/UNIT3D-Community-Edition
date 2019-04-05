@@ -22,7 +22,6 @@ class Bot extends Model
      *
      * @var string
      */
-    protected $table = 'bots';
 
     /**
      * Indicates If The Model Should Be Timestamped.
