@@ -25,8 +25,7 @@ class ReCaptcha
                         'secret' => config('captcha.secretkey'),
                         'response' => $value,
                     ],
-            ]
-        );
+            ]);
         $body = json_decode((string) $response->getBody());
 
         return $body->success;

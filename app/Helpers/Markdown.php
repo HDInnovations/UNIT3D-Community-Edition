@@ -1416,8 +1416,7 @@ class Markdown
                 // filter out badly parsed attribute
                 if (! preg_match($goodAttribute, $att)) {
                     unset($Element['attributes'][$att]);
-                }
-                // dump onevent attribute
+                } // dump onevent attribute
                 elseif (self::striAtStart($att, 'on')) {
                     unset($Element['attributes'][$att]);
                 }
