@@ -8,6 +8,13 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Application">
+    <meta property="og:title" content="@lang('auth.login')">
+    <meta property="og:site_name" content="{{ config('other.title') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ url('/img/og.png') }}">
+    <meta property="og:description" content="{{ config('unit3d.powered-by') }}">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:locale" content="{{ config('app.locale') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{ url('/favicon.ico') }}" type="image/x-icon">
