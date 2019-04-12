@@ -14,7 +14,7 @@
         "bepsvpt/secure-headers": "^5.3",
         "christofferok/laravel-emojione": "4.0",
         "elhebert/laravel-sri": "^1.5",
-        "emojione/emojione": "^4.0.0",
+        "emojione/assets": "^4.5",
         "fideloper/proxy": "^4.0",
         "gstt/laravel-achievements": "^1.0",
         "guzzlehttp/guzzle": "6.*",
@@ -36,7 +36,8 @@
         "spatie/ssl-certificate": "^1.12",
         "stripe/stripe-php": "^6.1",
         "symfony/dom-crawler": "^2.7|^3.0",
-        "theodorejb/polycast": "^1.0"
+        "theodorejb/polycast": "^1.0",
+        "bandwidth-throttle/token-bucket": "^2.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

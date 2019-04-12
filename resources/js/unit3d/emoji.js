@@ -44,7 +44,7 @@ export function textcomplete(selector = null) {
 
                 template: function(basename) {
                     return (
-                        '<img class="emojione" src="https://cdn.jsdelivr.net/emojione/assets/4.0/png/32/' +
+                        '<img class="emojione" src="/img/joypixels/' +
                         basename +
                         '.png"> ' +
                         emojiStrategy[basename].shortname +
