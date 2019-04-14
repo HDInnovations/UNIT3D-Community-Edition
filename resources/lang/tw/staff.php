@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Staff Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'activity-log'            => '活動日誌',
     'articles'                => '公告',
@@ -12,8 +8,6 @@ return [
     'blocks'                  => '區塊',
     'bot'                     => '機器人',
     'bots'                    => '機器人',
-    'catalog-groups'          => '目錄組',
-    'catalog-torrents'        => '目錄資源',
     'chat'                    => '聊天',
     'config-manager'          => '系統設定',
     'dashboard'               => '儀表板',
@@ -50,4 +44,5 @@ return [
     'possible-leech-cheaters' => '嫌疑作弊者',
     'chat-tools'              => '聊天工具',
     'flush-chat'              => '清空聊天室',
+	'seedboxes'               => '登记盒子',	
 ];

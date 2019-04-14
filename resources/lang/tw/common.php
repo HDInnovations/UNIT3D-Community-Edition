@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Common Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'about'                => '關於我們',
     'account'              => '帳戶',
@@ -158,6 +154,11 @@ return [
     'topics'               => '名稱',
     'tracker-codes'        => '伺服器回報碼',
     'type'                 => '鍵入',
+    'types'                => 'Types',
+    'genre'                => '風格',
+    'genres'               => '風格',
+    'action'               => '動作',
+    'actions'              => '動作',
     'unknown'              => '不知明',
     'unlocked-achievement' => '你已解鎖 :achievement 成就',
     'upload'               => '上傳',

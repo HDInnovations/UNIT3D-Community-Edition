@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | User Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'about'                     => '關於',
     'about-me'                  => '自我簡介 (上限500字元!)',
@@ -82,8 +78,8 @@ return [
     'enable-notifications'      => '啟用通知',
     'expired'                   => '過期',
     'expires-on'                => '過期在',
-    'expires-on'                => '過期在',
     'extra'                     => 'Extra',
+    'filled-request'            => 'Filled Members Requests',		
     'follow'                    => '跟蹤',
     'follower-privacy'             => '跟蹤者設定',
     'follower-privacy-list'        => '容許其他用戶覽閱誰人跟蹤你',
@@ -153,6 +149,7 @@ return [
     'my-privacy'                => '我的私隱',
     'my-privacy-settings'       => '我的私隱設定',
     'my-profile'                => '我的個人資料',
+    'my-requested'              => '我的請求',
     'my-security'               => '我的保安',
     'my-security-settings'      => '我的保安設定',
     'my-seedboxes'              => '我的Seedboxes',
@@ -192,6 +189,10 @@ return [
     'offline'                   => '用戶下線了!',
     'online'                    => '用戶上線了!',
     'options'                   => '選項',
+    'other-help'                => 'Control the sharing of other statistics and information with groups that are allowed to access to your profile.
+    These settings are overridden if you do not allow any groups to access your other statistics and information or if you <strong>Go Private</strong>',
+    'other-privacy'             => '其他設定',
+    'other-privacy-online'      => 'Allow users to see you in the online users block',
     'passkey'                   => 'PID',
     'passkey-warning'           => 'PID就像你的個人密碼一樣, 你必須好好保管,不能別人知道!',
     'pending-achievements'      => '等待中的成就',
@@ -214,6 +215,7 @@ return [
     'profile-privacy-bon-extra'       => '分享你的魔力數據',
     'profile-privacy-comment-extra'       => '分享你的評論數據',
     'profile-privacy-forum-extra'       => '分享你的論壇數據',
+    'profile-privacy-request-extra'       => '分享你的請求數據',
     'profile-privacy-torrent-extra'       => '分享你的資源數據',
     'profile-privacy-badge'       => '分享你獲取的徽章',
     'profile-privacy-achievement' => '分享你近期的成就',
@@ -226,6 +228,11 @@ return [
     'recent-followers'          => '近期你追蹤人',
     'registration-date'         => '註冊日期',
     'report'                    => '舉報用戶',
+    'request-help'              => 'Control the sharing of specific request related statistics and information with groups that are allowed to access to your profile.
+    These settings are overridden if you do not allow any groups to access your requested related statistics and information or if you <strong>Go Private</strong>',
+    'request'                   => '請求',
+    'requested'                 => 'Requested',
+    'requests'                  => '請求',
     'request-comments'          => '對請求作出的評論',
     'request-notification'      => '請求的通知設定',
     'request-notification-bounty' => '收取來自資源打獎的通知',
@@ -237,6 +244,8 @@ return [
     'request-notification-unclaim' => '當索取請求的獎勵被取消時,發出一個通知',
     'request-notification-help'      => '調整有關請求的通知設定.
     若不勾選任何觸發群組,或你已<strong>取消全局性</strong>通知,以下設定將會無效.',
+    'request-privacy'           => '請求設定',
+    'request-privacy-requested' => '容許其他用戶查看你的請求清單',
     'reset-passkey'             => '重設PID',
     'reset-passkey-help'        => '重設PID後,你必須重新下載資源檔,以使新的PID,才能繼續上傳或下載',
     'reset-rss'                 => '重設RID (RSS Key)',
@@ -266,7 +275,10 @@ return [
     'top-bankers'               => '頂級壕',
     'top-downloaders-data'      => '頂級下載者(流量)',
     'top-leechers'              => '頂級吸血鬼',
+    'top-leechers-count'        => 'Top Leechers (Count)',
     'top-seeders'               => '頂級保種者',
+    'top-seeders-count'         => 'Top Seeders (Count)',
+    'top-seeding-size'          => 'Top Seeding (Size)',
     'top-seedtime'              => '頂級做種時間',
     'top-uploaders-data'        => '頂級上傳者(流量)',
     'top-uploaders-torrents'    => '頂級上傳者(資源數)',
@@ -282,8 +294,9 @@ return [
     'torrent-notification-help'      => '調整資源有關的通知設定.
     若不勾選任何觸發群組,或你已<strong>取消全局性</strong>通知,以下設定將會無效.',
     'torrent-privacy'           => '資源紀錄設定',
-    'torrent-privacy-download'  => '容許用戶閱覽你的下載清單',
-    'torrent-privacy-upload'    => '容許用戶閱覽你的上傳清單',
+    'torrent-privacy-download'  => '容許其他用戶查看你的下載清單',
+    'torrent-privacy-upload'    => '容許其他用戶查看你的上傳清單',
+    'torrent-privacy-peer'      => '容許其他用戶在資源歷使看到你',
     'torrents'                  => '資源',
     'torrents-history'          => '資源歷使',
     'total-download'            => '總下載',
@@ -315,9 +328,15 @@ return [
     'visible-to-forum'        => '論壇紀錄能讓以下用戶群檢閱',
     'visible-to-forum-help'           => '只有工作人員或以下所勾選的組別才能檢閱你的論壇紀錄.
     然而,若你啟動了<strong>私密模式</strong>,以下設定將會無效.',
+    'visible-to-other'        => 'Other Visible To',
+    'visible-to-other-help'           => 'Other information concerning your account will only be visible to staff and the following groups.
+    These settings are overridden if you <strong>Go Private</strong> or if you <strong>Go Hidden</strong>',
     'visible-to-profile'        => '個人資料能讓以下用戶群檢閱',
     'visible-to-profile-help'           => '只有工作人員或以下所勾選的組別才能檢閱你的個人資料.
     然而,若你啟動了<strong>私密模式</strong>,以下設定將會無效.',
+    'visible-to-request'        => 'Request Information Visible To',
+    'visible-to-request-help'           => 'Your request information will only be visible to staff and the following groups.
+    These settings are overridden if you <strong>Go Private</strong>',
     'visible-to-torrent'        => '資源紀錄能讓以下用戶群檢閱',
     'visible-to-torrent-help'           => '只有工作人員或以下所勾選的組別才能檢閱你的資源紀錄.
     然而,若你啟動了<strong>私密模式</strong>,以下設定將會無效.',
