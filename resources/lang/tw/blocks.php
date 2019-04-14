@@ -7,28 +7,28 @@ return [
     'to-enable-editor' => '啓用編輯器',
 
     // Featured Torrents
-    'featured-torrents'       => '特色種子',
-    'featured-torrents-intro' => '有能力就擁有它!',
-    'featured-until'          => '這是特色種子直到',
-    'featured-by'             => '特點為',
+    'featured-by'             => '精選',
+    'featured-torrents'       => '精選資源',
+    'featured-torrents-intro' => '有本領就來取吧!',
+    'featured-until'          => '精選資源有效至',
 
     // Latest Torrents
-    'latest-torrents' => '最近的種子',
+    'top-torrents' => '資源排名',
 
     // Latest Posts
     'latest-posts' => '最近的帖子',
 
     // Latest Topics
-    'latest-topics' => '最近的主題',
+    'latest-topics' => '最近的標題',
 
     // Users Online
-    'users-online'   => '在綫用戶',
     'active-in-last' => '最近活躍',
+    'users-online'   => '在線用戶',
 
     // News/Articles
+    'check-news' => '公告（每日必看）',
     'new-news'   => '新新聞',
-    'check-news' => '新聞（每日必看）',
 
     // Top torrents
-    'new-torrents' => '最新種子',
+    'new-torrents' => '最新資源',
 ];

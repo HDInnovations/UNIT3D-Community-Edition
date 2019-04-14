@@ -7,14 +7,14 @@ return [
         'edit'    => '编辑',
         'save'    => '保存！',
     ],
-    'file'   => '文件',
+    'file'   => 'File',
     'header' => [
         'actions' => '操作',
-        'key'     => '键',
+        'key'     => 'Key',
         'value'   => '值',
     ],
     'info_choose' => '选择一个文件开始编辑',
     'path'        => '路径',
+    'title'       => '系统设定',
     'sure'        => '你确定？',
-    'title'       => '配置管理器',
 ];

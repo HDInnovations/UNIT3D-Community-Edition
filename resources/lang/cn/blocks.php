@@ -1,19 +1,34 @@
 <?php
 
 return [
-    'active-in-last'          => '活跃在最后',
-    'chatbox'                 => '聊天框',
-    'check-news'              => '新闻（每日检查）',
-    'click'                   => '点击',
+    // Chat
+    'chatbox'          => '聊天室',
+    'click'            => '点击',
+    'to-enable-editor' => '啓用编辑器',
+
+    // Featured Torrents
     'featured-by'             => '精选',
-    'featured-torrents'       => '精选种子',
-    'featured-torrents-intro' => '尽你所能地获得它们！',
-    'featured-until'          => '这是特色洪流直到',
-    'latest-posts'            => '最新帖子',
-    'latest-topics'           => '最新主题',
-    'latest-torrents'         => '最新的种子',
-    'new-news'                => '新消息',
-    'new-torrents'            => '新的种子',
-    'to-enable-editor'        => '启用编辑器',
-    'users-online'            => '用户在线',
+    'featured-torrents'       => '精选资源',
+    'featured-torrents-intro' => '有本领就来取吧!',
+    'featured-until'          => '精选资源有效至',
+
+    // Latest Torrents
+    'top-torrents' => '资源排名',
+
+    // Latest Posts
+    'latest-posts' => '最近的帖子',
+
+    // Latest Topics
+    'latest-topics' => '最近的标题',
+
+    // Users Online
+    'active-in-last' => '最近活跃',
+    'users-online'   => '在綫用户',
+
+    // News/Articles
+    'check-news' => '公告（每日必看）',
+    'new-news'   => '新新闻',
+
+    // Top torrents
+    'new-torrents' => '最新资源',
 ];

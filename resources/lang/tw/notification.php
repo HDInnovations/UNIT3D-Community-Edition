@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'notifications'    => '通知',
-    'mark-all-read'    => '全部標為已讀',
-    'mark-read'        => '標為已讀',
-    'delete-all'       => '刪除所有通知',
-    'title'            => '標題',
-    'message'          => '消息',
     'date'             => '日期',
-    'read'             => '已讀',
     'delete'           => '刪除',
-    'no-notifications' => '暫無通知',
+    'delete-all'       => '刪除所有通知',
+    'mark-all-read'    => '標記所有為已讀',
+    'mark-read'        => '標記為已讀',
+    'message'          => '訊息',
+    'no-notifications' => '沒有找到通知',
+    'notifications'    => '通知',
+    'read'             => '讀取',
+    'title'            => '標題',
 ];

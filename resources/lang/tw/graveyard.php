@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'graveyard'          => '墓地',
-    'guidelines'         => '指南',
-    'guidelines-content' => '1) 你無法復活自己上傳的種子。<br>2) 如果無法長期對選擇的種子做種，請不要復活該種子。',
-    'dead'               => '死種',
-    'resurrect'          => '復活',
-    'pending'            => '挂起',
-    'howto'              => '規則如下',
-    'howto-desc1'        => '你必須做種<span class="text-green"><em>:name</em></span>達到<span class="text-red text-bold">30天</span>來使死種復活。 In which case when your current seedtime of',
-    'howto-hits'         => 'Hits',
-    'howto-desc2'        => '你將會被獎勵',
-    'reward'             => '免費令牌',
+    'dead'               => '已死亡',
+    'graveyard'          => '墳場',
+    'guidelines'         => '指引',
+    'guidelines-content' => '1) 你不可以救活自己的上傳.<br>2) 不要救活自己不能承諾的.',
+    'howto'              => '規則在此',
+    'howto-desc1'        => '你必須保種 <span class="text-green"><em>:name</em></span> 至 <span class="text-red text-bold">30 天</span> 才能成功救活. 由當下這刻開始倒數.',
+    'howto-desc2'        => '你會被獎勵',
+    'howto-hits'         => '點擊',
+    'pending'            => '等待中',
+    'resurrect'          => '救活',
+    'reward'             => '免費令',
 ];

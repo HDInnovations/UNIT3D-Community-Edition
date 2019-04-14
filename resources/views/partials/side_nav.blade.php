@@ -31,7 +31,7 @@
         <li>
             <a href="{{ route('upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-upload" style=" font-size: 18px; color: rgb(255,255,255);"></i>
-                <span class="menu-text">@lang('common.upload')</span>
+                <span class="menu-text">@lang('common.publish')</span>
                 <span class="selected"></span>
             </a>
         </li>

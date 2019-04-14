@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more'     => 'Read More',
-    'published-at'  => 'Published At ',
-    'articles'      => 'Articles',
+    'articles'      => '公告',
+    'meta-articles' => '伺服器及用戶群相關的公告',
+    'published-at'  => '刊登於',
+    'read-more'     => '更多',
 ];

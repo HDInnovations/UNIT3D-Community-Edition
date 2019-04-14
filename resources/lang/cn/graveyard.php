@@ -1,15 +1,15 @@
 <?php
 
 return [
-    'dead'               => '死',
-    'graveyard'          => '墓地',
-    'guidelines'         => '方针',
-    'guidelines-content' => '1）你不能复活你自己的上传。<br> 2）不要复活你不能提交的东西。',
-    'howto'              => '继承人的规则',
-    'howto-desc1'        => '您必须播种<span class="text-green"> <em>:name<span class="text-red text-bold"> 30天</span>成功复活。</em> </span>在这种情况下，当你的当前种子时间',
-    'howto-desc2'        => '你将获得奖励',
+    'dead'               => '已死亡',
+    'graveyard'          => '坟场',
+    'guidelines'         => '指引',
+    'guidelines-content' => '1) 你不可以救活自己的上传.<br>2) 不要救活自己不能承诺的.',
+    'howto'              => '规则在此',
+    'howto-desc1'        => '你必须保种 <span class="text-green"><em>:name</em></span> 至 <span class="text-red text-bold">30 天</span> 才能成功救活. 由当下这刻开始倒数.',
+    'howto-desc2'        => '你会被奖励',
     'howto-hits'         => '点击',
-    'pending'            => '有待',
-    'resurrect'          => '复活',
-    'reward'             => 'Freeleech代币',
+    'pending'            => '等待中',
+    'resurrect'          => '救活',
+    'reward'             => '免费令',
 ];
