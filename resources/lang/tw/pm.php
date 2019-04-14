@@ -1,23 +1,32 @@
 <?php
-
+/*
+ * |--------------------------------------------------------------------------
+ * | Private Message Language Lines
+ * |--------------------------------------------------------------------------
+ */
 return [
-    'unread'      => '未讀',
-    'read'        => '已讀',
-    'inbox'       => '收件箱',
-    'outbox'      => '發件箱',
-    'message'     => '訊息',
-    'messages'    => '訊息',
-    'private'     => '私人',
-    'new'         => '新消息',
-    'from'        => '發訊人',
-    'to'          => '收訊人',
-    'sent'        => '發送',
-    'sent-at'     => '發送時間',
-    'subject'     => '主題',
-    'received-at' => '收訊時間',
-    'search'      => '按主題搜索',
-    'reply'       => '回復',
-    'send'        => '發送',
-    'create'      => '創建',
-    'select'      => '選擇用戶',
+    'create'        => '建立',
+    'delete'        => '刪除',
+    'enter-subject' => '輸入標題',
+    'from'          => '寄件者',
+    'inbox'         => '收件箱',
+    'mark-all-read' => '全部標為已讀',
+    'message'       => '訊息',
+    'messages'      => '訊息',
+    'new'           => '新訊息',
+    'outbox'        => '寄件箱',
+    'private'       => '私人',
+    'read'          => '閱讀',
+    'received-at'   => '接收於',
+    'refresh'       => '刷新',
+    'reply'         => '回覆',
+    'search'        => '搜尋標題',
+    'select'        => '選取用戶',
+    'send'          => '寄出',
+    'send-to'       => '寄出私訊給',
+    'sent'          => '已寄出',
+    'sent-at'       => '寄出於',
+    'subject'       => '標題',
+    'to'            => '收件者',
+    'unread'        => '未讀',
 ];
