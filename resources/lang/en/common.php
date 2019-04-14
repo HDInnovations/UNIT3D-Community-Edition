@@ -118,6 +118,7 @@ return [
     'preview'              => 'Preview',
     'previous'             => 'Previous',
     'progress'             => 'Progress',
+    'publish'             => 'Publish',
     'quantity'             => 'Quantity',
     'quick-search'         => 'Quick Search',
     'ratio'                => 'Ratio',
