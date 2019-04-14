@@ -58,10 +58,11 @@ class AutoNerdStat extends Command
     public function handle()
     {
         if (config('chat.nerd_bot') == true) {
-            $expiresAt = Carbon::now()->addMinutes(60);
-
             // Current Timestamp
             $current = Carbon::now();
+
+            // Cache Expires Timestamp
+            $expiresAt = $current->addMinutes(60);
 
             // Site Birthday
             $bday = config('other.birthdate');
