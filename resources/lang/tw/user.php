@@ -79,7 +79,7 @@ return [
     'expired'                   => '過期',
     'expires-on'                => '過期在',
     'extra'                     => 'Extra',
-    'filled-request'            => 'Filled Members Requests',		
+    'filled-request'            => 'Filled Members Requests',
     'follow'                    => '跟蹤',
     'follower-privacy'             => '跟蹤者設定',
     'follower-privacy-list'        => '容許其他用戶覽閱誰人跟蹤你',

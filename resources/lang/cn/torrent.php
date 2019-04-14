@@ -58,7 +58,7 @@ return [
     'freeleech-token'          => '免费令',
     'general'                  => 'General',
     'genre'                    => '体裁',
-    'global-double-upload'     => '全站两倍上传收益',		
+    'global-double-upload'     => '全站两倍上传收益',
     'global-freelech'          => '全站免费',
     'grant'                    => '授予',
     'greater-than'             => '大於',

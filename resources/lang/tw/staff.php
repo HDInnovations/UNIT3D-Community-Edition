@@ -44,5 +44,5 @@ return [
     'possible-leech-cheaters' => '嫌疑作弊者',
     'chat-tools'              => '聊天工具',
     'flush-chat'              => '清空聊天室',
-	'seedboxes'               => '登记盒子',	
+    'seedboxes'               => '登记盒子',
 ];

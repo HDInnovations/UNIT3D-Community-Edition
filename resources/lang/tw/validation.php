@@ -95,7 +95,7 @@ return [
     |
     */
     'email_list' => '抱歉，這電郵域名不接納在本站使用，請詳閱本站的電郵域名白名單。',
-	'recaptcha' => '請填上驗證碼。',
+    'recaptcha' => '請填上驗證碼。',
 
     'custom' => [
         'attribute-name' => [
