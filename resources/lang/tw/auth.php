@@ -23,7 +23,7 @@ return [
     'unlock'              => '解鎖',
     'user-icon'           => '用戶頭像',
     'username'            => '用戶名',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines
@@ -33,35 +33,35 @@ return [
     'title'                         => '兩步驗證(電郵形式)',
     'titleFailed'                   => '驗證失敗',
     'titlePassed'                   => '各位，有好消息!',
-    
+
     'inputAlt1'                     => 'Code Input 1',
     'inputAlt2'                     => 'Code Input 2',
     'inputAlt3'                     => 'Code Input 3',
     'inputAlt4'                     => 'Code Input 4',
-    
+
     'attemptsRemaining'             => '嘗試次數剩餘|嘗試次數剩餘',
     'missingCode'                   => '沒有收到驗證碼?',
     'verifyButton'                  => '驗證',
-    
+
     'exceededTitle'                 => '驗證嘗試次數已達上限',
     'lockedUntil'                   => '賬戶被鎖定，直到:',
     'returnButton'                  => '返回主頁',
     'tryAgainIn'                    => '稍後再嘗試',
-    
+
     'verificationEmailButton'       => '立即驗證',
     'verificationEmailGreeting'     => 'Hello :username',
     'verificationEmailMessage'      => '賬戶的兩步驗證碼為:',
     'verificationEmailSubject'      => '要求驗證',
-    
+
     'verificationEmailSentMsg'      => '驗證郵件已發送!',
     'verificationEmailSuccess'      => '成功!',
-    
+
     'verificationWarningMessage'    => '你的賬戶將被鎖定 :hours 小時，這是你最後的一次嘗試機會',
     'verificationWarningTitle'      => '警告!',
-    
+
     'verificationLockedMessage'     => '賬戶被鎖定!',
     'verificationLockedTitle'       => 'Doh!',
-    
+
     'verificationModalConfBtn'      => 'Ok',
-    
+
 ];

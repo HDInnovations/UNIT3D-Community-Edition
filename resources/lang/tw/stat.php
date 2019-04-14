@@ -26,7 +26,7 @@ return [
     'top-leeched'             => '頂級被咬',
     'top-leechers'            => '頂級吸血鬼',
     'top-seeded'              => '頂級健康',
-    'top-seeding'             => 'Top Seeding',	
+    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => '頂級保種者',
     'top-seedsize'            => '頂級資源體積',
     'top-seedtime'            => '頂級做種時間',

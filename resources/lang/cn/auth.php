@@ -23,7 +23,7 @@ return [
     'unlock'              => '解锁',
     'user-icon'           => '用户头像',
     'username'            => '用户名',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Two Step Authentication Language Lines
@@ -33,35 +33,35 @@ return [
     'title'                         => '两步验证(电邮形式)',
     'titleFailed'                   => '验证失败',
     'titlePassed'                   => '各位，有好消息!',
-    
+
     'inputAlt1'                     => 'Code Input 1',
     'inputAlt2'                     => 'Code Input 2',
     'inputAlt3'                     => 'Code Input 3',
     'inputAlt4'                     => 'Code Input 4',
-    
+
     'attemptsRemaining'             => '尝试次数剩馀|尝试次数剩馀',
     'missingCode'                   => '没有收到验证码?',
     'verifyButton'                  => '验证',
-    
+
     'exceededTitle'                 => '验证尝试次数已达上限',
     'lockedUntil'                   => '账户被锁定，直到:',
     'returnButton'                  => '返回主页',
     'tryAgainIn'                    => '稍後再尝试',
-    
+
     'verificationEmailButton'       => '立即验证',
     'verificationEmailGreeting'     => 'Hello :username',
     'verificationEmailMessage'      => '账户的两步验证码为:',
     'verificationEmailSubject'      => '要求验证',
-    
+
     'verificationEmailSentMsg'      => '验证邮件已发送!',
     'verificationEmailSuccess'      => '成功!',
-    
+
     'verificationWarningMessage'    => '你的账户将被锁定 :hours 小时，这是你最後的一次尝试机会',
     'verificationWarningTitle'      => '警告!',
-    
+
     'verificationLockedMessage'     => '账户被锁定!',
     'verificationLockedTitle'       => 'Doh!',
-    
+
     'verificationModalConfBtn'      => 'Ok',
-    
+
 ];

@@ -118,7 +118,7 @@ return [
     'preview'              => '預覽',
     'previous'             => '前一個',
     'progress'             => '進度',
-	'publish'             => '發佈',
+    'publish'             => '發佈',
     'quantity'             => '每頁顯示',
     'quick-search'         => '快速搜尋',
     'ratio'                => '比率',

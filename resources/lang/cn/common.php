@@ -118,7 +118,7 @@ return [
     'preview'              => '预览',
     'previous'             => '前一个',
     'progress'             => '进度',
-	'publish'				=> '发布',
+    'publish'				=> '发布',
     'quantity'             => '每页显示',
     'quick-search'         => '快速搜寻',
     'ratio'                => '比率',
