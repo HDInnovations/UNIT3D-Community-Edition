@@ -1,11 +1,8 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Stat Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'by-count'                => '个数',
+    'by-data'                 => 'By Data',
     'by-volume'               => '流量',
     'group'                   => '组别',
     'groups'                  => '组别',
@@ -29,6 +26,7 @@ return [
     'top-leeched'             => '顶级被咬',
     'top-leechers'            => '顶级吸血鬼',
     'top-seeded'              => '顶级健康',
+    'top-seeding'             => 'Top Seeding',
     'top-seeders'             => '顶级保种者',
     'top-seedsize'            => '顶级资源体积',
     'top-seedtime'            => '顶级做种时间',

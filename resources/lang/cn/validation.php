@@ -95,7 +95,8 @@ return [
     |
     */
     'email_list' => '抱歉，这电邮域名不接纳在本站使用，请详阅本站的电邮域名白名单。',
-
+	'recaptcha' => '请填上验证码。',
+	
     'custom' => [
         'attribute-name' => [
             'rule-name' => '自定义讯息',

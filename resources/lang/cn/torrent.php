@@ -1,9 +1,5 @@
 <?php
-/*
- * |--------------------------------------------------------------------------
- * | Torrent Language Lines
- * |--------------------------------------------------------------------------
- */
+
 return [
     'activity'                 => '个人现况',
     'age'                      => '时间',
@@ -24,8 +20,6 @@ return [
     'cant-upload-desc'         => '如果您认为这是错误的，请联系工作人员',
     'cards'                    => '卡片形式',
     'cards-view'               => '以卡片形式展示',
-    'catalog'                  => '目录',
-    'catalogs'                 => '目录',
     'categories'               => '类别',
     'category'                 => '类别',
     'client'                   => '客户',
@@ -64,6 +58,7 @@ return [
     'freeleech-token'          => '免费令',
     'general'                  => 'General',
     'genre'                    => '体裁',
+    'global-double-upload'     => '全站两倍上传收益',		
     'global-freelech'          => '全站免费',
     'grant'                    => '授予',
     'greater-than'             => '大於',
@@ -193,6 +188,7 @@ return [
     'updated'                  => '已更新',
     'updated_at'               => '更新於',
     'uploaded'                 => '已发种',
+    'uploaded-by'              => '发布者',
     'uploader'                 => '发种人',
     'use-fl-token'             => '使用一颗免费令',
     'video'                    => '影片',

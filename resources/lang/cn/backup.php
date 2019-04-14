@@ -1,15 +1,12 @@
 <?php
 
 return [
-    /*
-     * |--------------------------------------------------------------------------
-     * | Backup Manager Language Lines
-     * |--------------------------------------------------------------------------
-     */
     'actions'                        => '操作',
     'backup'                         => '备份',
     'backup_doesnt_exist'            => '备份文件不存在。',
     'create_a_new_backup'            => '建立一个新的备份',
+    'create_a_new_files_backup'      => '建立档案备份',
+    'create_a_new_db_backup'         => '建立资料库备份',	
     'create_confirmation_message'    => '在3秒内重新加载页面。',
     'create_confirmation_title'      => '备份完成',
     'create_error_message'           => '备份文件不能建立。',
