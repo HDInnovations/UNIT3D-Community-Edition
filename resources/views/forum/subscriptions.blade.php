@@ -26,7 +26,7 @@
         @include('forum.buttons')
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="created_at">
-            <input type="hidden" name="direction" value="2">
+            <input type="hidden" name="direction" value="desc">
             <input type="hidden" name="subscribed" value="1">
             <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.subscription-quick-search')"
                    class="form-control">

@@ -27,7 +27,7 @@
         @include('forum.buttons')
         <form role="form" method="GET" action="{{ route('forum_search_form') }}">
             <input type="hidden" name="sorting" value="updated_at">
-            <input type="hidden" name="direction" value="2">
+            <input type="hidden" name="direction" value="desc">
             <input type="hidden" name="category" value="{{ $forum->id }}">
             <input type="text" name="name" id="name" value="{{ (isset($params) && is_array($params) && array_key_exists('name',$params) ? $params['name'] : '') }}" placeholder="@lang('forum.category-quick-search')"
                    class="form-control">
