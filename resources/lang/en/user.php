@@ -78,7 +78,6 @@ return [
     'enable-notifications'      => 'Enable Notifications',
     'expired'                   => 'Expired',
     'expires-on'                => 'Expires On',
-    'expires-on'                => 'Expires on',
     'extra'                     => 'Extra',
     'filled-request'            => 'Filled Members Requests',
     'follow'                    => 'Follow',
