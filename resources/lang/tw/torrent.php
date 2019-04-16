@@ -123,7 +123,7 @@ return [
     'progress'                 => '進度',
     'quick-comment'            => '快速評論',
     'quick-tip'                => '隨手',
-    'rated'                    => '已評分',
+    'rated'                    => '級別',
     'rating'                   => '評分',
     'ready'                    => '這文件可以下載',
     'rejected'                 => '拒絕',
