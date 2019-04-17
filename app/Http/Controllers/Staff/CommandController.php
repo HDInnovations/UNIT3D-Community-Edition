@@ -70,7 +70,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearCache() {
+    public function clearCache()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -85,7 +86,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearView() {
+    public function clearView()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -100,7 +102,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearRoute() {
+    public function clearRoute()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -115,7 +118,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearConfig() {
+    public function clearConfig()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -130,7 +134,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clearAllCache() {
+    public function clearAllCache()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -145,7 +150,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function setAllCache() {
+    public function setAllCache()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
@@ -160,7 +166,8 @@ class CommandController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function testEmail() {
+    public function testEmail()
+    {
         $user = auth()->user();
         abort_unless($user->group->is_owner, 403);
 
