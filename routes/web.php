@@ -632,5 +632,18 @@ Route::group(['middleware' => 'language'], function () {
         // Registered Seedboxes
         Route::get('/seedboxes', 'SeedboxController@index')->name('staff.seedbox.index');
         Route::delete('/seedboxes/{id}', 'SeedboxController@destroy')->name('staff.seedbox.destroy');
+
+        // Commands
+        Route::get('/commands', 'CommandController@index')->name('staff.commands.index');
+        Route::get('/command/maintance-enable', 'CommandController@maintanceEnable');
+        Route::get('/command/maintance-disable', 'CommandController@maintanceDisable');
+        Route::get('/command/clear-cache', 'CommandController@clearCache');
+        Route::get('/command/clear-view-cache', 'CommandController@clearView');
+        Route::get('/command/clear-route-cache', 'CommandController@clearRoute');
+        Route::get('/command/clear-config-cache', 'CommandController@clearConfig');
+        Route::get('/command/clear-all-cache', 'CommandController@clearAllCache');
+        Route::get('/command/set-all-cache', 'CommandController@setAllCache');
+        Route::get('/command/clear-compiled', 'CommandController@clearCompiled');
+        Route::get('/command/test-email', 'CommandController@testEmail');
     });
 });
