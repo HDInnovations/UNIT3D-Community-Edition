@@ -648,10 +648,25 @@
                                 @else
                                 <a href="{{ route('add_request_form', ['title' => isset($recommendation['title']) ? $recommendation['title'] : $recommendation['name'], 'imdb' => 0, 'tmdb' => $recommendation['id']]) }}">
                                 @endif
-                                    <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
+                                    @if(isset($recommendation['backdrop_path']))
+                                        <img class="backdrop" src="https://image.tmdb.org/t/p/w1280{{ $recommendation['backdrop_path'] }}">
+                                    @else
+                                        <div class="no_image_holder w250_and_h141 backdrop"></div>
+                                    @endif
                                     <div class="meta">
-                                        <span class="release_date"><i class="fas fa-calendar"></i> Year: {{ isset($recommendation['release_date']) ? substr($recommendation['release_date'], 0, 4) : substr($recommendation['first_air_date'], 0, 4) }}</span>
-                                        <span class="vote_average"><i class="fas fa-star"></i> Rating: {{ $recommendation['vote_average'] }}</span>
+                                        <span class="release_date">
+                                            <i class="fas fa-calendar"></i> Year:
+                                            @if(isset($recommendation['release_date']))
+                                                {{ substr($recommendation['release_date'], 0, 4) }}
+                                            @elseif(isset($recommendation['first_air_date']))
+                                                {{ substr($recommendation['first_air_date'], 0, 4) }}
+                                            @else
+                                                @lang('common.unknown')
+                                            @endif
+                                        </span>
+                                        <span class="vote_average">
+                                            <i class="fas fa-star"></i> Rating: {{ $recommendation['vote_average'] }}
+                                        </span>
                                     </div>
                                 </a>
                             </div>
