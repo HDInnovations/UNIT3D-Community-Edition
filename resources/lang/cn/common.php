@@ -14,7 +14,7 @@ return [
     'author'               => '作者',
     'balance'              => '馀额',
     'blacklist'            => '软件黑名单',
-    'buffer'               => 'HR额度',
+    'buffer'               => '额度',
     'bug'                  => '举报臭虫',
     'but'                  => '但',
     'cancel'               => '取消',

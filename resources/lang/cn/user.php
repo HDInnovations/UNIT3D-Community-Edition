@@ -305,7 +305,7 @@ return [
     'total-seeding'             => '总做种数量',
     'total-seedtime'            => '总做种时间',
     'total-upload'              => '总上传',
-    'total-uploads'             => '总上传',
+    'total-uploads'             => '总发布',
     'unban'                     => '解封用户',
     'unfollow'                  => '取消追随',
     'unlocked'                  => '解锁',

@@ -305,7 +305,7 @@ return [
     'total-seeding'             => '總做種數量',
     'total-seedtime'            => '總做種時間',
     'total-upload'              => '總上傳',
-    'total-uploads'             => '總上傳',
+    'total-uploads'             => '總發佈',
     'unban'                     => '解封用戶',
     'unfollow'                  => '取消追隨',
     'unlocked'                  => '解鎖',
