@@ -65,7 +65,7 @@ class AutoGroup extends Command
                 $user->group_id = 3;
                 $user->can_request = 1;
                 $user->can_invite = 1;
-                $user->can_download = 1;				
+                $user->can_download = 1;
                 $user->save();
             }
 
@@ -93,7 +93,7 @@ class AutoGroup extends Command
             if ($user->getTotalSeedSize() >= 1073741824000 * 5 && $user->getRatio() >= config('other.ratio') && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
                 $user->group_id = 17;
                 $user->save();
-            }			
+            }
             // Veteran >= 100TB and account 1 year old
             if ($user->uploaded >= 1073741824000 * 100 && $user->getRatio() >= config('other.ratio') && $user->created_at < $current->copy()->subDays(365)->toDateTimeString() && $user->group_id != 16) {
                 $user->group_id = 16;
