@@ -36,11 +36,32 @@ class AnnounceController extends Controller
      */
     public function announce(Request $request, $passkey)
     {
-        $this->checkRequestType();
+        // Check Announce Request Method
+        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+            info('Announce Request Method Was Not GET');
 
-        $agent = $request->server('HTTP_USER_AGENT') ?: 'Unknown';
+            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
+        }
 
-        $this->checkBlacklist($agent);
+        // Request Agent Information
+        $agent = $request->server('HTTP_USER_AGENT');
+
+        // Blacklist
+        if (config('client-blacklist.enabled') == true) {
+            // Check If Browser Is Blacklisted
+            $blockedBrowsers = config('client-blacklist.browsers');
+            if(in_array($agent, $blockedBrowsers)) {
+                abort(405, 'What Are You Trying To Do?');
+                die();
+            }
+
+            // Check If Client Is Blacklisted
+            $blockedClients = config('client-blacklist.clients');
+            if(in_array($agent, $blockedClients)) {
+                //info('Blacklist Client Attempted To Connect To Announce');
+                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
+            }
+        }
 
         // If Passkey Is Not Provided Return Error to Client
         if ($passkey == null) {
@@ -93,9 +114,9 @@ class AnnounceController extends Controller
             return response(Bencode::bencode(['failure reason' => 'Passkey is invalid']), 200, ['Content-Type' => 'text/plain']);
         }
 
-        $bannedGroup = Group::where('slug', '=', 'banned')->select('id')->first();
-        $validatingGroup = Group::where('slug', '=', 'validating')->select('id')->first();
-        $disabledGroup = Group::where('slug', '=', 'disabled')->select('id')->first();
+        $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
+        $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
+        $disabledGroup = Group::select(['id'])->where('slug', '=', 'disabled')->first();
 
         // If User Is Banned Return Error to Client
         if ($user->group->id == $bannedGroup->id) {
@@ -429,38 +450,6 @@ class AnnounceController extends Controller
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
 
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
-    }
-
-    private function checkBlacklist($client)
-    {
-        // Check If Browser Is Blacklisted
-        $blockedBrowsers = config('client-blacklist.browsers', []);
-        foreach ($blockedBrowsers as $b) {
-            if ($b == $client) {
-                //info('Blacklist Browser Attempted To Connect To Announce');
-                abort(405, 'You Cannot Access This Through A Browser Bro!');
-                die();
-            }
-        }
-
-        // Check If Client Is Blacklisted
-        $blockedClients = config('client-blacklist.clients', []);
-        foreach ($blockedClients as $blocked) {
-            if ($blocked == $client) {
-                //info('Blacklist Client Attempted To Connect To Announce');
-                return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
-            }
-        }
-    }
-
-    private function checkRequestType()
-    {
-        // Check Announce Request Method
-        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-            info('Announce Request Method Was Not GET');
-
-            return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
-        }
     }
 
     private function givePeers($peers, $compact, $no_peer_id)
