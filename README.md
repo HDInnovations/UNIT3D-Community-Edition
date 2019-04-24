@@ -191,3 +191,4 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/all-contri
 ## <a name="thanks"></a> :heart: Special Thanks
 
 <a href="https://www.jetbrains.com/store/?fromMenu#edition=personal"><img src="https://i.imgur.com/KgDXZV8.png"></a>
+<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/208x226-stacked-green-9484383bd9853615c113f020def5cbe27f6d08a84ff834f41371f223ebad4a3c.png"></a>
