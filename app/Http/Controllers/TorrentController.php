@@ -210,7 +210,7 @@ class TorrentController extends Controller
         if (! is_array($prelauncher)) {
             $prelauncher = [];
         }
-        $links = new Paginator($prelauncher, floor(count($prelauncher) / $qty) * $qty, $qty);
+        $links = new Paginator($prelauncher, count($prelauncher), $qty);
 
         $hungry = array_chunk($prelauncher, $qty);
         $fed = [];
@@ -657,7 +657,7 @@ class TorrentController extends Controller
             if (! is_array($prelauncher)) {
                 $prelauncher = [];
             }
-            $links = new Paginator($prelauncher, floor(count($prelauncher) / $qty) * $qty, $qty);
+            $links = new Paginator($prelauncher, count($prelauncher), $qty);
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
@@ -721,7 +721,7 @@ class TorrentController extends Controller
                 $prelauncher = [];
             }
 
-            $links = new Paginator($prelauncher, floor(count($prelauncher) / $qty) * $qty, $qty);
+            $links = new Paginator($prelauncher, count($prelauncher), $qty);
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
