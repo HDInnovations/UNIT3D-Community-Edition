@@ -50,14 +50,14 @@ class AnnounceController extends Controller
         if (config('client-blacklist.enabled') == true) {
             // Check If Browser Is Blacklisted
             $blockedBrowsers = config('client-blacklist.browsers');
-            if(in_array($agent, $blockedBrowsers)) {
+            if (in_array($agent, $blockedBrowsers)) {
                 abort(405, 'What Are You Trying To Do?');
                 die();
             }
 
             // Check If Client Is Blacklisted
             $blockedClients = config('client-blacklist.clients');
-            if(in_array($agent, $blockedClients)) {
+            if (in_array($agent, $blockedClients)) {
                 //info('Blacklist Client Attempted To Connect To Announce');
                 return response(Bencode::bencode(['failure reason' => 'The Client You Are Trying To Use Has Been Blacklisted']), 200, ['Content-Type' => 'text/plain']);
             }
