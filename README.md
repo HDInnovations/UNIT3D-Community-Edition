@@ -115,7 +115,8 @@ https://www.youtube.com/watch?v=f2tiMWZ3KbA
 If you rather setup UNIT3D manually you can follow the instructions here: https://github.com/HDInnovations/UNIT3D/wiki/Manual-Install
 
 ## <a name="updating"></a> :book: Documentation
-WIP - https://github.com/HDInnovations/UNIT3D-Docs
+Repo - https://github.com/HDInnovations/UNIT3D-Docs
+Site - http://docs.unit3d.org
 
 ## <a name="docs"></a> :computer: Updating
 `php artisan git:update`
