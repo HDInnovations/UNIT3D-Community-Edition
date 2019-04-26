@@ -661,8 +661,11 @@ class TorrentController extends Controller
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
-            if (is_array($hungry) && array_key_exists($page-1, $hungry)) {
-                $fed = $hungry[$page-1];
+			if ($page == 0){
+				$page = 1;
+			}            
+            if (is_array($hungry) && array_key_exists($page - 1, $hungry)) {
+                $fed = $hungry[$page - 1];
             }
             $totals = [];
             $counts = [];
@@ -725,8 +728,11 @@ class TorrentController extends Controller
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
-            if (is_array($hungry) && array_key_exists($page-1, $hungry)) {
-                $fed = $hungry[$page-1];
+			if ($page == 0){
+				$page = 1;
+			}              
+            if (is_array($hungry) && array_key_exists($page - 1, $hungry)) {
+                $fed = $hungry[$page - 1];
             }
             $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->whereIn('id', $fed)->orderBy($sorting, $order)->get();
         } else {
