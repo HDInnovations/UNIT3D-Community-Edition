@@ -85,7 +85,7 @@ class LoginController extends Controller
             $request->session()->invalidate();
 
             return redirect()->route('login')
-                ->withErros('This account is Banned!');
+                ->withErrors('This account is Banned!');
         }
 
         if ($user->group_id == $disabledGroup->id) {
