@@ -971,6 +971,7 @@ class TorrentController extends Controller
     {
         $user = auth()->user();
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
+        $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
         abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
         $torrent->name = $request->input('name');
@@ -1008,6 +1009,33 @@ class TorrentController extends Controller
                 ->withErrors($v->errors());
         } else {
             $torrent->save();
+
+            // Torrent Tags System
+            if ($torrent->category_id == 2) {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('tv', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('tv', 'tt'.$torrent->imdb);
+                }
+            } else {
+                if ($torrent->tmdb && $torrent->tmdb != 0) {
+                    $movie = $client->scrape('movie', null, $torrent->tmdb);
+                } else {
+                    $movie = $client->scrape('movie', 'tt'.$torrent->imdb);
+                }
+            }
+
+            if ($movie->genres) {
+                foreach ($movie->genres as $genre) {
+                    $exist = TagTorrent::where('torrent_id', '=', $torrent->id)->where('tag_name', '=', $genre)->first();
+                    if (! $exist) {
+                        $tag = new TagTorrent();
+                        $tag->torrent_id = $torrent->id;
+                        $tag->tag_name = $genre;
+                        $tag->save();
+                    }
+                }
+            }
 
             if ($user->group->is_modo) {
                 // Activity Log
