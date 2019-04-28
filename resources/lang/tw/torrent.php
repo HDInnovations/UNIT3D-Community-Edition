@@ -128,7 +128,7 @@ return [
     'ready'                    => '這文件可以下載',
     'rejected'                 => '拒絕',
     'released'                 => '發佈',
-    'remaining'                => 'Remaining',
+    'remaining'                => '剩餘',
     'request-reseed'           => '要求續種',
     'requires-reseed'          => '需要續種',
     'resurrections'            => '救活',
