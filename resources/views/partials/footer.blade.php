@@ -64,10 +64,12 @@
 
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
-            <a href="https://www.patreon.com/UNIT3D"
-               class="btn btn-xs btn-primary">@lang('common.patron')</a>
-            <a href="https://github.com/UNIT3D/UNIT3D"
-               class="btn btn-xs btn-primary">@lang('common.powered-by')</a>
+            <ul>
+            <li><a href="https://www.patreon.com/UNIT3D" target="_blank" 
+               class="btn btn-xs btn-primary">@lang('common.patron')</a></li>
+            <li><a href="https://github.com/UNIT3D/UNIT3D" target="_blank" 
+               class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
+            </ul
         </div>
     </div>
 </div>
