@@ -96,7 +96,7 @@
                             <input class="form-control" name="bounty" type="number" min='100' value="100" required>
                         </div>
 
-                        <label for="anon" class="control-label">Anonymous Torrent Request?</label>
+                        <label for="anon" class="control-label">@lang('common.anonymous')?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
                         </div>
