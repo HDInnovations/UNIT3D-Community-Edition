@@ -77,8 +77,7 @@
                 </div>
 
                 <label for="hidden"
-                       class="control-label">@lang('common.anonymous') {{ strtolower(trans('common.upload')) }}
-                    ?</label>
+                       class="control-label">@lang('common.anonymous')?</label>
                 <div class="radio-inline">
                     <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked
                                   @endif value="1">@lang('common.yes')</label>

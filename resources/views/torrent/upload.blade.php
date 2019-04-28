@@ -161,7 +161,7 @@
                 @endif
 
                 <div class="text-center">
-                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.upload')</button>
+                    <button type="submit" name="post" value="true" id="post" class="btn btn-success">@lang('common.submit')</button>
                 </div>
                 <br>
                 </form>

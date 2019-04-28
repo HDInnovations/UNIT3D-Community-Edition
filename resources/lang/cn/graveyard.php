@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'dead'               => '已死亡',
+    'dead'               => '死种',
     'graveyard'          => '坟场',
     'guidelines'         => '指引',
     'guidelines-content' => '1) 你不可以救活自己的上传.<br>2) 不要救活自己不能承诺的.',
