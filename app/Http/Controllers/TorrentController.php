@@ -661,6 +661,9 @@ class TorrentController extends Controller
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
+            if ($page < 1) {
+                $page = 1;
+            }
             if (is_array($hungry) && array_key_exists($page - 1, $hungry)) {
                 $fed = $hungry[$page - 1];
             }
@@ -725,6 +728,9 @@ class TorrentController extends Controller
 
             $hungry = array_chunk($prelauncher, $qty);
             $fed = [];
+            if ($page < 1) {
+                $page = 1;
+            }
             if (is_array($hungry) && array_key_exists($page - 1, $hungry)) {
                 $fed = $hungry[$page - 1];
             }
