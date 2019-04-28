@@ -314,7 +314,7 @@ return [
     'upload-bon'                => 'Upload Added From BON Store',
     'upload-recorded'           => 'Recorded Upload',
     'upload-true'               => 'True Upload',
-    'uploads'                   => '上传',
+    'uploads'                   => '发布',
     'uploads-table'             => '上传列表',
     'user'                      => '用户',
     'user-id'                   => '用户名',
