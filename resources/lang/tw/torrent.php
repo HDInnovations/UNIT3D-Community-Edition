@@ -52,7 +52,7 @@ return [
     'featured-desc'            => '精選資源是 <i class="fal fa-star text-gold"></i><strong> 100% 免費下載</strong> 及 <i class="fal fa-gem text-green"></i><strong> 雙倍上傳量收益!</strong>',
     'featured-until'           => '精選資源有效至',
     'file'                     => '文件',
-    'filters'                  => '過濾搜尋',
+    'filters'                  => '過濾',
     'fl-tokens-left'           => '你擁有 <strong><i class="fal fa-coins"></i>:tokens</strong> 免費令',
     'freeleech'                => '免費',
     'freeleech-token'          => '免費令',
