@@ -52,7 +52,7 @@ return [
     'featured-desc'            => 'Featured torrents are <i class="fal fa-star text-gold"></i><strong> 100% Free</strong> and <i class="fal fa-gem text-green"></i><strong> Double Upload!</strong>',
     'featured-until'           => 'This Is A Featured Torrent Until',
     'file'                     => 'File',
-    'filters'                  => 'Search Filters',
+    'filters'                  => 'Filters',
     'fl-tokens-left'           => 'You have <strong><i class="fal fa-coins"></i>:tokens</strong> left',
     'freeleech'                => 'Freeleech',
     'freeleech-token'          => 'Freeleech Token',
