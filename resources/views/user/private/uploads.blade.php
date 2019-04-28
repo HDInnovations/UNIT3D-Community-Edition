@@ -59,37 +59,37 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">Moderation</label>
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.moderation')</label>
                         <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="pending" value="1" class="userFilter" trigger="click"> Pending
+                        <input type="checkbox" id="pending" value="1" class="userFilter" trigger="click"> @lang('torrent.pending')
                     </label>
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="approved" value="1" class="userFilter" trigger="click"> Approved
+                        <input type="checkbox" id="approved" value="1" class="userFilter" trigger="click"> @lang('torrent.approved')
                     </label>
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="rejected" value="1" class="userFilter" trigger="click"> Rejected
+                        <input type="checkbox" id="rejected" value="1" class="userFilter" trigger="click"> @lang('torrent.rejected')
                     </label>
                 </span>
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">Filters</label>
+                        <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('torrent.filters')</label>
 
                         <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="dead" value="1" class="userFilter" trigger="click"> Dead
+                        <input type="checkbox" id="dead" value="1" class="userFilter" trigger="click"> @lang('graveyard.dead')
                     </label>
                 </span>
                         <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="alive" value="1" class="userFilter" trigger="click"> Alive
+                        <input type="checkbox" id="alive" value="1" class="userFilter" trigger="click"> @lang('torrent.alive')
                     </label>
                 </span>
                         <span class="badge-user">
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Sorting</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
                                 <option value="created_at">Created at</option>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Direction</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
                                 <option value="desc">Descending</option>
@@ -186,20 +186,20 @@
                                 <td>{{ ($upload->created_at && $upload->created_at != null ? $upload->created_at->diffForHumans() : 'N/A') }}</td>
                                 <td>
                                     @if ($upload->isPending())
-                                        <span class='label label-warning' data-toggle="tooltip">PENDING</span>
+                                        <span class='label label-warning' data-toggle="tooltip">@lang('torrent.pending')</span>
                                     @elseif ($upload->isApproved())
                                         <span class='label label-success' data-toggle="tooltip"
-                                              data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">APPROVED</span>
+                                              data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">@lang('torrent.approved')</span>
                                     @elseif ($upload->isRejected())
                                         <span class='label label-danger' data-toggle="tooltip"
-                                              data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">REJECTED</span>
+                                              data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">@lang('torrent.rejected')</span>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($upload->seeders + $upload->leechers == 0)
-                                        <span class='label label-danger'>DEAD</span>
+                                        <span class='label label-danger'>@lang('graveyard.dead')</span>
                                     @elseif ($upload->seeders >= 1)
-                                        <span class='label label-success'>ALIVE</span>
+                                        <span class='label label-success'>@lang('torrent.alive')</span>
                                     @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
                                         <span class='label label-info'>RESEED</span>
                                     @else

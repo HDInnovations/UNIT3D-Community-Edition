@@ -1,10 +1,10 @@
 <div class="button-holder">
     <div class="button-left">
-        <a href="{{ route('cards') }}" class="btn btn-sm btn-primary">
-            <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
-        </a>
         <a href="{{ route('categories') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
+        </a>
+        <a href="{{ route('cards') }}" class="btn btn-sm btn-primary">
+            <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
         </a>
         <a href="{{ route('groupings') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')

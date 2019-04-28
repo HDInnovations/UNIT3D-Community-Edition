@@ -53,20 +53,20 @@
                     <td>{{ ($upload->created_at ? $upload->created_at->diffForHumans() : 'N/A') }}</td>
                     <td>
                         @if ($upload->isPending())
-                            <span class='label label-warning' data-toggle="tooltip">PENDING</span>
+                            <span class='label label-warning' data-toggle="tooltip">@lang('torrent.pending')</span>
                         @elseif ($upload->isApproved())
                             <span class='label label-success' data-toggle="tooltip"
-                                  data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">APPROVED</span>
+                                  data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">@lang('torrent.approved')</span>
                         @elseif ($upload->isRejected())
                             <span class='label label-danger' data-toggle="tooltip"
-                                  data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">REJECTED</span>
+                                  data-original-title="Moderated By {{ $upload->moderated->username }} {{ $upload->moderated_at->diffForHumans() }}">@lang('torrent.rejected')</span>
                         @endif
                     </td>
                     <td>
                         @if ($upload->seeders + $upload->leechers == 0)
-                            <span class='label label-danger'>DEAD</span>
+                            <span class='label label-danger'>@lang('graveyard.dead')</span>
                         @elseif ($upload->seeders >= 1)
-                            <span class='label label-success'>ALIVE</span>
+                            <span class='label label-success'>@lang('torrent.alive')</span>
                         @elseif ($upload->leechers >= 1 + $upload->seeders = 0)
                             <span class='label label-info'>RESEED</span>
                         @else
