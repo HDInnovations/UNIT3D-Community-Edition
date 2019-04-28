@@ -59,7 +59,7 @@
                         </div>
                     </div>
                         <div class="mx-0 mt-5 form-group fatten-me">
-                            <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">Status</label>
+                            <label for="name" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.status')</label>
                             <div class="col-sm-10">
                         <span class="badge-user">
                     <label class="inline">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Sorting</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.sort')</label>
                         <div class="col-sm-2">
                             <select id="sorting" name="sorting" trigger="change" class="form-control userFilter">
                                 <option value="created_at">Created at</option>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="mx-0 mt-5 form-group fatten-me">
-                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">Direction</label>
+                        <label for="qty" class="mt-5 col-sm-1 label label-default fatten-me">@lang('common.direction')</label>
                         <div class="col-sm-2">
                             <select id="direction" name="direction" trigger="change" class="form-control userFilter">
                                 <option value="desc">Descending</option>
