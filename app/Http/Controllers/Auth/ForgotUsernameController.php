@@ -52,14 +52,14 @@ class ForgotUsernameController extends Controller
 
             if (empty($user)) {
                 return redirect()->route('username.request')
-                    ->withErrors('We could not find this email in our system!');
+                    ->withErrors('trans('email.no-email-found')');
             }
 
             //send username reminder notification
             $user->notify(new UsernameReminder());
 
             return redirect()->route('login')
-                ->withSuccess('Your username has been sent to your email address!');
+                ->withSuccess('trans('email.username-sent')');
         }
     }
 }
