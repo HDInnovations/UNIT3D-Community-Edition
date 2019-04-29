@@ -18,7 +18,6 @@ use App\Models\Type;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\PrivateMessage;
 use App\Models\TorrentRequest;
 use App\Models\BonTransactions;
 use App\Models\TorrentRequestClaim;
