@@ -21,7 +21,7 @@ return [
     'newreply-message' => '讯息',
     'newreply-replied' => '已回复您的话题',
     'newreply-view'    => '立即查看',
-    'register-code'    => '请点击下面的按钮以激活您的帐户',
+    'register-code'    => '请点击下面的按钮以激活您的帐户。激活後，也许要在Chrome安装GooReplacer插件才能看到验证码。',
     'register-footer'  => '如果上面的按钮不起作用，请将该URL复制并粘贴到浏览器的地址栏中',
     'register-header'  => 'Hi！感谢您注册',
     'report-comment'   => '评论',
