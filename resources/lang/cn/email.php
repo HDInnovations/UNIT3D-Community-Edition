@@ -36,7 +36,7 @@ return [
     'unban-header'     => '你的帐户已解封',
     'unban-reason'     => '原因',
     'username-reminder' => '你忘了用户名。你的用户名是',
-	'username-sent'    => '你的用户名已寄至你的电邮',
+    'username-sent'    => '你的用户名已寄至你的电邮',
     'disabled-header'  => '你的帐户已被停用',
     'pruned-header'    => '你的帐户已被移除',
 ];
