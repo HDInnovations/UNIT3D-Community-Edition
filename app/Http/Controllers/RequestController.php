@@ -546,18 +546,6 @@ class RequestController extends Controller
                 $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
             }
 
-            $pm = new PrivateMessage();
-            $pm->sender_id = 1;
-            $pm->receiver_id = $torrentRequest->user_id;
-            $pm->subject = 'Your Request '.$torrentRequest->name.' Has Been Filled!';
-            $profile_url = hrefProfile($user);
-            if ($torrentRequest->filled_anon == 0) {
-                $pm->message = "[url={$profile_url}]{$user->username}[/url] Has Filled Your Request [url={$appurl}/request/".$torrentRequest->id.']'.$torrentRequest->name.'[/url]'.' Please Approve or Decline The FullFill! ';
-            } else {
-                $pm->message = "An Anonymous User Filled Your Request [url={$appurl}/request/".$torrentRequest->id.']'.$torrentRequest->name.'[/url]'.' Please Approve or Decline The FullFill! ';
-            }
-            $pm->save();
-
             // Activity Log
             \LogActivity::addToLog("Member {$user->username} has filled torrent request, ID: {$torrentRequest->id} NAME: {$torrentRequest->name} . It is now pending approval.");
 
