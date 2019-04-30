@@ -37,7 +37,9 @@ class AnnounceController extends Controller
     public function announce(Request $request, $passkey)
     {
         // Check Announce Request Method
-        if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+        $method = $request->method();
+
+        if ($method != 'get') {
             info('Announce Request Method Was Not GET');
 
             return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
