@@ -46,6 +46,7 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.5",
+        "wnx/laravel-stats": "^1.9",
         "xethron/migrations-generator": "^2.0"
     },
     "autoload": {
