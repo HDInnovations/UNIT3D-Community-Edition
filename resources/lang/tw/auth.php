@@ -6,8 +6,15 @@ return [
     | Default Authentication Language Lines
     |--------------------------------------------------------------------------
     */
+	'activation-error'    => '帳戶已封 或 確認碼無效 或 已經確認',
+    'activation-success'  => '確認成功，現在可登入!',
+    'allow-invite-appl'   => '自由註冊已關閉!你只能透過朋友邀請碼或提交申請表格才能註冊!',
+    'allow-invite'        => '自由註冊已關閉!你只能透過朋友邀請碼才能註冊!',
+    'application-submitted'  => '申請已提交。若審批通過，你會收到電郵通知。',
+    'banned' 			  => '此帳戶已封!',
     'email'               => '郵箱',
     'failed'              => '身份憑證與站點記錄不符合。',
+    'invalid-key'         => '無效邀請碼!',
     'login'               => '登陸',
     'login-now-on'        => '立即登入',
     'logout'              => '登出',
@@ -15,14 +22,19 @@ return [
     'lost-username'       => '忘了用戶名？',
     'need-invite'         => '開放註冊已關閉，請從已註冊用戶處獲得邀請!',
     'not-a-member'        => '尚未成員？30秒內便能完成註冊。',
+	'not-activated'       => '此帳戶仍未激活，請檢查郵箱，若遺失郵件，請點擊忘記密碼重新獲取。',
     'password'            => '密碼',
     'recover-my-password' => '重設密碼',
+    'register-thanks'     => '感謝註冊，請檢查郵箱。',
     'remember-me'         => '記住我的登錄',
+	'require-rules'    	  => '請閱讀頁底的條款並接納。',
     'signup'              => '註冊',
     'throttle'            => '登錄次數過多。請 :seconds 秒後再試。',
     'unlock'              => '解鎖',
     'user-icon'           => '用戶頭像',
     'username'            => '用戶名',
+    'welcome'             => '歡迎回來!',
+	'welcome-restore'     => '歡迎回來!你的帳戶已解封!',
 
     /*
     |--------------------------------------------------------------------------
