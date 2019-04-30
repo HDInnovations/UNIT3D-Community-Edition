@@ -41,10 +41,10 @@ class ActivationController extends Controller
             $activation->delete();
 
             return redirect()->route('login')
-                ->withSuccess('Account Confirmed! You May Now Login!');
+                ->withSuccess(trans('auth.activation-success'));
         } else {
             return redirect()->route('login')
-                ->withErrors('Banned or Invalid Token Or Account Already Confirmed!');
+                ->withErrors(trans('auth.activation-error'));
         }
     }
 }
