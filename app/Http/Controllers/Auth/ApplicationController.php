@@ -94,7 +94,7 @@ class ApplicationController extends Controller
             $application->urlProofs()->saveMany($urls);
 
             return redirect()->route('login')
-                ->withSuccess('Your Application Has Been Submitted. You will receive a email soon!');
+                ->withSuccess(trans('application-submitted'));
         }
     }
 }

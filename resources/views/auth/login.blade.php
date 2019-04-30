@@ -52,30 +52,18 @@
 
         <form role="form" method="POST" action="{{ route('login') }}">
             @csrf
-            <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+            <div>
                 <label for="username" class="col-md-4 control-label">@lang('auth.username')</label>
                 <div class="col-md-6">
                     <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}"
                            required autofocus>
-                    @if ($errors->has('username'))
-                        <br>
-                        <span class="help-block text-red">
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
 
-            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            <div>
                 <label for="password" class="col-md-4 control-label">@lang('auth.password')</label>
                 <div class="col-md-6">
                     <input id="password" type="password" class="form-control" name="password" required>
-                    @if ($errors->has('password'))
-                        <br>
-                        <span class="help-block text-red">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
                 </div>
             </div>
 

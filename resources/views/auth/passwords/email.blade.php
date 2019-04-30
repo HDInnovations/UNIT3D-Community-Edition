@@ -52,12 +52,7 @@
 
         <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
             @csrf
-            <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required autofocus>
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
+            <input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')" required autofocus>
             <button type="submit" class="fadeIn fourth">@lang('common.submit')</button>
         </form>
 
