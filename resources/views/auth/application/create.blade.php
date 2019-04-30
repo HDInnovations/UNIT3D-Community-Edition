@@ -40,86 +40,84 @@
                     </div>
                     <div class="panel-body">
                         <div class="alert alert-info text-center">
-                            {{ config('other.title') }} is a closed community. You must have an invitation
-                            link to register. If you cannot get a invitation you may fill out the following
-                            application for membership.
+                            {{ config('other.title') }} @lang('auth.appl-intro')
                         </div>
                         <hr>
 
                         <form role="form" method="POST" action="{{ route('application.store') }}">
                             @csrf
 
-                            <label for="type" class="control-label">Are You:</label>
+                            <label for="type" class="control-label">@lang('auth.are-you')</label>
                             <br>
                             <div class="radio-inline">
                                 <label>
                                     <input type="radio" name="type" value="New To The Game" checked>
-                                    New To The Game
+                                    @lang('auth.newbie')
                                 </label>
                             </div>
                             <div class="radio-inline">
                                 <label>
                                     <input type="radio" name="type" value="Experianced With Private Trackers">
-                                    Experianced With Private Trackers
+                                    @lang('auth.veteran')
                                 </label>
                             </div>
 
                             <hr>
 
                             <div class="form-group">
-                                <label for="email" class="control-label">E-Mail Address:</label>
+                                <label for="email" class="control-label">@lang('auth.email')</label>
                                 <input id="email" type="email" class="form-control" name="email" required>
                             </div>
 
                             <hr>
 
                             <div class="form-group">
-                                <label for="image1">Proof Image URL 1: (Minimum 2, Recommended 3)</label>
+                                <label for="image1">@lang('auth.proof-image') 1: @lang('auth.proof-min')</label>
                                 <input type="text" name="images[]" class="form-control" value="">
                             </div>
 
                             <div class="form-group">
-                                <label for="image2">Proof Image URL 2:</label>
+                                <label for="image2">@lang('auth.proof-image') 2:</label>
                                 <input type="text" name="images[]" class="form-control" value="">
                             </div>
 
                             <div class="more-images"></div>
 
                             <div class="form-group">
-                                <button id="addImg" class="btn btn-primary">Add Another Profile Image</button>
-                                <button id="delImg" class="btn btn-primary">Delete Last Profile Image</button>
+                                <button id="addImg" class="btn btn-primary">@lang('auth.add-image')</button>
+                                <button id="delImg" class="btn btn-primary">@lang('auth.delete-image')</button>
                             </div>
 
                             <hr>
 
                             <div class="form-group">
-                                <label for="link1">Profile Link URL 1: (Minimum 2, Recommended 3)</label>
+                                <label for="link1">@lang('auth.proof-profile') 1: @lang('auth.proof-min')</label>
                                 <input type="text" name="links[]" class="form-control" value="">
                             </div>
 
                             <div class="form-group">
-                                <label for="link2">Profile Link URL 2:</label>
+                                <label for="link2">@lang('auth.proof-profile') 2:</label>
                                 <input type="text" name="links[]" class="form-control" value="">
                             </div>
 
                             <div class="more-links"></div>
 
                             <div class="form-group">
-                                <button id="addLink" class="btn btn-primary">Add Another Profile Link</button>
-                                <button id="delLink" class="btn btn-primary">Delete Last Profile Link</button>
+                                <button id="addLink" class="btn btn-primary">@lang('auth.add-profile')</button>
+                                <button id="delLink" class="btn btn-primary">@lang('auth.delete-profile')</button>
                             </div>
 
                             <hr>
 
                             <div class="form-group">
-                                <label for="referrer">How Did You Hear About {{ config('other.title') }} And Why Do You Want In? <span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
+                                <label for="referrer">@lang('auth.appl-reason',['sitename' => config('other.title')])<span class="badge-extra">BBCode @lang('common.is-allowed')</span></label>
                                 <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">
-                                        Submit Application
+                                        @lang('common.submit')
                                     </button>
                                 </div>
                             </div>
@@ -201,10 +199,10 @@
         <div class="jumbotron shadowed">
             <div class="container">
                 <h1 class="mt-5 text-center">
-                    <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>Applications Are Closed
+                    <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>@lang('auth.appl-closed')
                 </h1>
                 <div class="separator"></div>
-                <p class="text-center">Check Back Later!</p>
+                <p class="text-center">@lang('auth.check-later')</p>
             </div>
         </div>
     </div>
