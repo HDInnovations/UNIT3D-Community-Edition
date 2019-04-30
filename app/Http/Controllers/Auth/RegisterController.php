@@ -57,13 +57,13 @@ class RegisterController extends Controller
         // Make sure open reg is off, invite code is not present and application signups enabled
         if ($code === 'null' && config('other.invite-only') == 1 && config('other.application_signups') == true) {
             return redirect()->route('application.create')
-                ->withInfo('Open Reg Closed! You Must Be Invited To Register! However application signups are open. You Have Been Redirected To The Application Page!');
+                ->withInfo(trans('auth.allow-invite-appl'));
         }
 
         // Make sure open reg is off and invite code is not present
         if ($code === 'null' && config('other.invite-only') == 1) {
             return redirect()->route('login')
-                ->withWarning('Open Reg Closed! You Must Be Invited To Register! You Have Been Redirected To Login Page!');
+                ->withWarning(trans('auth.allow-invite'));
         }
 
         return view('auth.register', ['code' => $code]);
@@ -75,7 +75,7 @@ class RegisterController extends Controller
         $key = Invite::where('code', '=', $code)->first();
         if (config('other.invite-only') == 1 && (! $key || $key->accepted_by !== null)) {
             return redirect()->route('registrationForm', ['code' => $code])
-                ->withErrors('Invalid or Expired Invite Key!');
+                ->withErrors(trans('auth.invalid-key'));
         }
 
         $validatingGroup = Group::select(['id'])->where('slug', '=', 'validating')->first();
@@ -193,7 +193,7 @@ class RegisterController extends Controller
             \LogActivity::addToLog('Member '.$user->username.' has successfully registered to site.');
 
             return redirect()->route('login')
-                ->withSuccess('Thanks for signing up! Please check your email to Validate your account');
+                ->withSuccess(trans('auth.register-thanks'));
         }
     }
 }
