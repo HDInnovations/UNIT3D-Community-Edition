@@ -63,11 +63,6 @@
             @csrf
             <input type="email" id="email" class="fadeIn third" name="email" placeholder="@lang('auth.email')"
                    required autofocus>
-            @if ($errors->has('email'))
-                <span class="help-block">
-            <strong>{{ $errors->first('email') }}</strong>
-        </span>
-            @endif
             <button type="submit" class="fadeIn fourth">@lang('common.submit')</button>
         </form>
 
