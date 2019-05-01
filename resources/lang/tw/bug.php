@@ -5,7 +5,7 @@ return [
     'bug-report-description' => '舉報臭蟲',
     'enter-description'      => '詳細描述問題',
     'enter-email'            => '請輸入個人郵箱',
-    'enter-title'            => '請選擇合適的標題',
+    'enter-title'            => '請填寫合適的標題',
     'enter-username'         => '請輸入個人用戶名',
     'high'                   => '高',
     'low'                    => '低',
