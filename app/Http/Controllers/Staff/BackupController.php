@@ -83,7 +83,7 @@ class BackupController extends Controller
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $e) {
-            response($e->getMessage(), 500);
+            response()->content($e->getMessage())->status(500);
         }
 
         return 'success';
@@ -108,7 +108,7 @@ class BackupController extends Controller
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $e) {
-            response($e->getMessage(), 500);
+            response()->content($e->getMessage())->status(500);
         }
 
         return 'success';
@@ -133,7 +133,7 @@ class BackupController extends Controller
             // return the results as a response to the ajax call
             echo $output;
         } catch (Exception $e) {
-            response($e->getMessage(), 500);
+            response()->content($e->getMessage())->status(500);
         }
 
         return 'success';

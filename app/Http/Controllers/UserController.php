@@ -368,7 +368,7 @@ class UserController extends Controller
                 // Activity Log
                 \LogActivity::addToLog("Member {$user->username} has changed there account password.");
 
-                return redirect('/')->withSuccess('Your Password Has Been Reset');
+                return redirect()->to('/')->withSuccess('Your Password Has Been Reset');
             } else {
                 return redirect()->route('user_security', ['slug' => $user->slug, 'id' => $user->id, 'hash' => '#password'])
                     ->withErrors('Your Password Was Incorrect!');
@@ -2376,12 +2376,12 @@ class UserController extends Controller
 
         // User's ratio is too low
         if ($user->getRatio() < config('other.ratio')) {
-            return back()->withErrors('Your Ratio Is To Low To Download!');
+            return redirect()->back()->withErrors('Your Ratio Is To Low To Download!');
         }
 
         // User's download rights are revoked
         if ($user->can_download == 0) {
-            return back()->withErrors('Your Download Rights Have Been Revoked!');
+            return redirect()->back()->withErrors('Your Download Rights Have Been Revoked!');
         }
 
         abort_unless($request->user()->id == $user->id, 403);
@@ -2408,7 +2408,7 @@ class UserController extends Controller
 
                 // The Torrent File Exist?
                 if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    return back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
+                    return redirect()->back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
                 } else {
                     // Delete The Last Torrent Tmp File If Exist
                     if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
@@ -2438,7 +2438,7 @@ class UserController extends Controller
         if (file_exists($zip_file)) {
             return response()->download($zip_file)->deleteFileAfterSend(true);
         } else {
-            return back()->withErrors('Something Went Wrong!');
+            return redirect()->back()->withErrors('Something Went Wrong!');
         }
     }
 

@@ -601,7 +601,7 @@ class ForumController extends Controller
             $user->addProgress(new UserMade800Posts(), 1);
             $user->addProgress(new UserMade900Posts(), 1);
 
-            return redirect($realUrl)
+            return redirect()->to($realUrl)
                 ->withSuccess('Post Successfully Posted');
         }
     }
@@ -825,7 +825,7 @@ class ForumController extends Controller
         $post->content = $request->input('content');
         $post->save();
 
-        return redirect($postUrl)
+        return redirect()->to($postUrl)
             ->withSuccess('Post Successfully Edited!');
     }
 

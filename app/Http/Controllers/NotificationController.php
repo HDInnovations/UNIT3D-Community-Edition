@@ -42,7 +42,7 @@ class NotificationController extends Controller
         $notification = $request->user()->notifications()->findOrFail($id);
         $notification->markAsRead();
 
-        return redirect($notification->data['url'])
+        return redirect()->to($notification->data['url'])
             ->withSuccess('Notification Marked As Read!');
     }
 

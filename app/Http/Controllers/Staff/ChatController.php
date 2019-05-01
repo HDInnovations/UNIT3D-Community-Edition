@@ -220,7 +220,7 @@ class ChatController extends Controller
             'Chatbox Has Been Flushed! :broom:'
         );
 
-        return redirect('staff_dashboard')
+        return redirect()->to('staff_dashboard')
             ->withSuccess('Chatbox Has Been Flushed');
     }
 }

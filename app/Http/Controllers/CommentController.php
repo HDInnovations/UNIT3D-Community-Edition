@@ -473,7 +473,7 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->save();
 
-        return back()->withSuccess('Comment Has Been Edited.');
+        return redirect()->back()->withSuccess('Comment Has Been Edited.');
     }
 
     /**
@@ -491,6 +491,6 @@ class CommentController extends Controller
         abort_unless($user->group->is_modo || $user->id == $comment->user_id, 403);
         $comment->delete();
 
-        return back()->withSuccess('Comment Has Been Deleted.');
+        return redirect()->back()->withSuccess('Comment Has Been Deleted.');
     }
 }
