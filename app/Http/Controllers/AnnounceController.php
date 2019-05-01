@@ -38,8 +38,7 @@ class AnnounceController extends Controller
     {
         // Check Announce Request Method
         $method = $request->method();
-
-        if ($method != 'get') {
+        if (! $request->isMethod('get')) {
             info('Announce Request Method Was Not GET');
 
             return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']), 200, ['Content-Type' => 'text/plain']);
