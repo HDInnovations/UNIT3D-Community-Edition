@@ -5,7 +5,7 @@ return [
     'bug-report-description' => '举报臭虫',
     'enter-description'      => '详细描述问题',
     'enter-email'            => '请输入个人邮箱',
-    'enter-title'            => '请选择合适的标题',
+    'enter-title'            => '请填写合适的标题',
     'enter-username'         => '请输入个人用户名',
     'high'                   => '高',
     'low'                    => '低',
