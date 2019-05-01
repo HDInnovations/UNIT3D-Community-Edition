@@ -91,6 +91,6 @@ class FailedLogin extends Notification implements ShouldQueue
                 ->subject(trans('email.fail-login-subject'))
                 ->greeting(trans('email.fail-login-greeting'))
                 ->line(trans('email.fail-login-line1'))
-                ->line(trans('email.fail-login-line2',['ip' => $this->ip , 'host' => gethostbyaddr($this->ip) , 'time' => $this->time]));
+                ->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => $this->time]));
     }
 }
