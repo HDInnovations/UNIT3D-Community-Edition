@@ -22,14 +22,14 @@
 |
 */
 
-Route::group(['middleware' => 'language'], function () {
+Route::middleware('language')->group(function () {
 
     /*
     |------------------------------------------
     | Website (Not Authorized)
     |------------------------------------------
     */
-    Route::group(['before' => 'auth', 'middleware' => 'guest'], function () {
+    Route::middleware('guest')->group(['before' => 'auth',], function () {
         // Authentication Routes
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
         Route::post('login', 'Auth\LoginController@login')->name('');
@@ -70,7 +70,7 @@ Route::group(['middleware' => 'language'], function () {
     | Website (When Authorized)
     |------------------------------------------
     */
-    Route::group(['middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+    Route::middleware('auth', 'twostep', 'online', 'banned', 'active', 'private')->group(function () {
 
         // RSS Custom Routes
         Route::get('/rss#{hash?}', 'RssController@index')->name('rss.index.hash');
@@ -362,7 +362,7 @@ Route::group(['middleware' => 'language'], function () {
     | ChatBox Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'chatbox', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private'], 'namespace' => 'API'], function () {
+    Route::prefix('chatbox')->middleware('auth', 'twostep', 'online', 'banned', 'active', 'private')->group([ 'namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('chatrooms', 'ChatController@fetchChatrooms');
         Route::post('change-chatroom', 'ChatController@changeChatroom');
@@ -375,7 +375,7 @@ Route::group(['middleware' => 'language'], function () {
     | Community Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::group(['prefix' => 'forums', 'middleware' => ['auth', 'twostep', 'online', 'banned', 'active', 'private']], function () {
+    Route::prefix('forums')->middleware('auth', 'twostep', 'online', 'banned', 'active', 'private')->group(function () {
         // Display Forum Index
         Route::get('/', 'ForumController@index')->name('forum_index');
 
@@ -444,7 +444,7 @@ Route::group(['middleware' => 'language'], function () {
     | Staff Dashboard Routes Group (when authorized and a staff group)
     |-----------------------------------------------------------------
     */
-    Route::group(['prefix' => 'staff_dashboard', 'middleware' => ['auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private'], 'namespace' => 'Staff'], function () {
+    Route::prefix('staff_dashboard')->middleware('auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private')->group([ 'namespace' => 'Staff'], function () {
 
         // BOT Hooks
         Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');
