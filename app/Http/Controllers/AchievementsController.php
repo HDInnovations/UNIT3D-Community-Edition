@@ -20,9 +20,9 @@ class AchievementsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(\Illuminate\Http\Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $achievements = $user->unlockedAchievements();
         $locked = $user->lockedAchievements();
         $pending = $user->inProgressAchievements();

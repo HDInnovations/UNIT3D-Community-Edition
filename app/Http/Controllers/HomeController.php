@@ -32,10 +32,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(\Illuminate\Http\Request $request)
     {
         // Authorized User
-        $user = auth()->user();
+        $user = $request->user();
 
         // Latest Articles/News Block
         $articles = Article::latest()->take(1)->get();

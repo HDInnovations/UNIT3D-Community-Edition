@@ -37,9 +37,9 @@ class ActivityLogController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(\Illuminate\Http\Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $activity = LogActivity::findOrFail($id);
 
         abort_unless($user->group->is_modo, 403);

@@ -104,7 +104,7 @@ class UserController extends Controller
     public function userEdit(Request $request, $username, $id)
     {
         $user = User::with('group')->findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $sendto = (int) $request->input('group_id');
 
@@ -166,7 +166,7 @@ class UserController extends Controller
     public function userPermissions(Request $request, $username, $id)
     {
         $user = User::findOrFail($id);
-        $staff = auth()->user();
+        $staff = $request->user();
 
         $user->can_upload = $request->input('can_upload');
         $user->can_download = $request->input('can_download');

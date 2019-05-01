@@ -31,7 +31,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function home()
+    public function home(\Illuminate\Http\Request $request)
     {
         // User Info
         $bannedGroup = Group::select(['id'])->where('slug', '=', 'banned')->first();
@@ -63,7 +63,7 @@ class HomeController extends Controller
 
         // SSL Info
         try {
-            $certificate = request()->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
+            $certificate = $request->secure() ? SslCertificate::createForHostName(config('app.url')) : '';
         } catch (\Exception $e) {
             $certificate = '';
         }

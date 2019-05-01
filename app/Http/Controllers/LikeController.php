@@ -25,12 +25,12 @@ class LikeController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function store($postId)
+    public function store(\Illuminate\Http\Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        $user = auth()->user();
+        $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 
@@ -59,12 +59,12 @@ class LikeController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse
      */
-    public function destroy($postId)
+    public function destroy(\Illuminate\Http\Request $request, $postId)
     {
         $post = Post::findOrFail($postId);
         $postUrl = "forums/topic/{$post->topic->slug}.{$post->topic->id}?page={$post->getPageNumber()}#post-{$postId}";
 
-        $user = auth()->user();
+        $user = $request->user();
         $like = $user->likes()->where('post_id', '=', $post->id)->where('like', '=', 1)->first();
         $dislike = $user->likes()->where('post_id', '=', $post->id)->where('dislike', '=', 1)->first();
 

@@ -39,9 +39,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($slug, $id)
+    public function category(\Illuminate\Http\Request $request, $slug, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $category = Category::select(['id', 'name', 'slug'])->findOrFail($id);
         $torrents = Torrent::with(['user', 'category'])->withCount(['thanks', 'comments'])->where('category_id', '=', $id)->orderBy('sticky', 'desc')->latest()->paginate(25);
         $personal_freeleech = PersonalFreeleech::where('user_id', '=', $user->id)->first();

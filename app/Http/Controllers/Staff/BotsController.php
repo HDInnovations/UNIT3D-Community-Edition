@@ -40,9 +40,9 @@ class BotsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(\Illuminate\Http\Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         return view('Staff.bots.edit', [
@@ -60,7 +60,7 @@ class BotsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = auth()->user();
+        $user = $request->user();
         $bot = Bot::findOrFail($id);
 
         if ($request->has('command') && $request->input('command') == $bot->command) {
