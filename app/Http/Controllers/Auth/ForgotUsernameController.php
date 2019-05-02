@@ -40,9 +40,17 @@ class ForgotUsernameController extends Controller
     {
         $email = $request->get('email');
 
-        $v = validator($request->all(), [
-            'email' => 'required',
-        ]);
+        if (config('captcha.enabled') == false) {
+            $v = validator($request->all(), [
+                'email' => 'required',
+            ]);
+        }
+        else {
+            $v = validator($request->all(), [
+                'email' => 'required',
+                'g-recaptcha-response' => 'required|recaptcha',
+            ]);
+        }
 
         if ($v->fails()) {
             return redirect()->route('username.request')
