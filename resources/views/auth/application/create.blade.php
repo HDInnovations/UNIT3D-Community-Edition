@@ -114,6 +114,19 @@
                                 <textarea name="referrer" cols="30" rows="10" maxlength="500" class="form-control"></textarea>
                             </div>
 
+                            @if (config('captcha.enabled') == true)
+                                <div class="form-group row">
+                                    <div class="text-center">
+                                        <div class="g-recaptcha" data-sitekey="{{ config('captcha.sitekey') }}"></div>
+                                        @if ($errors->has('g-recaptcha-response'))
+                                            <span class="invalid-feedback" style="display: block;">
+                                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endif
+                            
                             <div class="form-group">
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">
@@ -131,6 +144,11 @@
 <br>
 
 <script type="text/javascript" src="{{ mix('js/app.js') }}" integrity="{{ Sri::hash('js/app.js') }}" crossorigin="anonymous"></script>
+
+@if (config('captcha.enabled') == true)
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js"></script>
+@endif
+
 <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
   var images = 2;
 
