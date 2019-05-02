@@ -44,35 +44,77 @@ class ApplicationController extends Controller
         $application->referrer = $request->input('referrer');
 
         if (config('email-white-blacklist.enabled') === 'allow') {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            }
+            else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);                
+            }
         } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            }
+            else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);
+            }
         } else {
-            $v = validator($request->all(), [
-                'type' => 'required',
-                'email' => 'required|email|unique:invites|unique:users|unique:applications',
-                'referrer' => 'required',
-                'images.*' => 'filled',
-                'images'   => 'min:2',
-                'links.*' => 'filled',
-                'links'   => 'min:2',
-            ]);
+            if (config('captcha.enabled') == false) {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                ]);
+            }
+            else {
+                $v = validator($request->all(), [
+                    'type' => 'required',
+                    'email' => 'required|email|unique:invites|unique:users|unique:applications',
+                    'referrer' => 'required',
+                    'images.*' => 'filled',
+                    'images'   => 'min:2',
+                    'links.*' => 'filled',
+                    'links'   => 'min:2',
+                    'g-recaptcha-response' => 'required|recaptcha',
+                ]);
+            }
         }
 
         if ($v->fails()) {
