@@ -338,12 +338,13 @@ Route::group(['middleware' => 'language'], function () {
         Route::delete('/graveyard/{id}', 'GraveyardController@destroy')->name('graveyard.destroy');
 
         // Notifications System
-        Route::get('/notifications', 'NotificationController@get')->name('get_notifications');
-        Route::get('/notification/show/{id}', 'NotificationController@show')->name('show_notification');
-        Route::get('/notification/read/{id}', 'NotificationController@read')->name('read_notification');
-        Route::get('/notification/massread', 'NotificationController@massRead')->name('massRead_notifications');
-        Route::get('/notification/delete/{id}', 'NotificationController@delete')->name('delete_notification');
-        Route::get('/notification/delete', 'NotificationController@deleteAll')->name('delete_notifications');
+        Route::get('/filterNotifications', 'NotificationController@faceted');
+        Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
+        Route::get('/notifications/{id}', 'NotificationController@show')->name('notifications.show');
+        Route::get('/notifications/read/{id}', 'NotificationController@update')->name('notifications.update');
+        Route::get('/notifications/read-all', 'NotificationController@updateAll')->name('notifications.updateall');
+        Route::get('/notifications/destroy/{id}', 'NotificationController@destroy')->name('notifications.destroy');
+        Route::get('/notifications/destroy-all', 'NotificationController@destroyAll')->name('notifications.destroyall');
 
         // Gallery System
         Route::get('/gallery', 'AlbumController@index')->name('gallery');
