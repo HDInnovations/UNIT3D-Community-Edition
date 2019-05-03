@@ -480,7 +480,7 @@ class AnnounceController extends Controller
 
         return $peers;
     }
-    
+
     private function givePeers6($peers, $compact, $no_peer_id)
     {
         if ($compact) {
