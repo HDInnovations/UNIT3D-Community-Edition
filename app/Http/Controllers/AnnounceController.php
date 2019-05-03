@@ -460,9 +460,9 @@ class AnnounceController extends Controller
             $pcomp = '';
             foreach ($peers as &$p) {
                 if (isset($p['ip']) && isset($p['port'])) {
-                    if(filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
                         $pcomp .= inet_pton($p['ip']);
-                        $pcomp .= pack('n' , (int) $p['port']);
+                        $pcomp .= pack('n', (int) $p['port']);
                     }
                 }
             }
@@ -486,9 +486,9 @@ class AnnounceController extends Controller
             $pcomp = '';
             foreach ($peers as &$p) {
                 if (isset($p['ip']) && isset($p['port'])) {
-                    if(filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
                         $pcomp .= inet_pton($p['ip']);
-                        $pcomp .= pack('n' , (int) $p['port']);
+                        $pcomp .= pack('n', (int) $p['port']);
                     }
                 }
             }
