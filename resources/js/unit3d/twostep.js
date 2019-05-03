@@ -169,7 +169,7 @@ $('#resend_code_trigger').click(function(event) {
         grow: false,
         animation: false,
         onOpen: () => {
-            swal.showLoading();
+            Swal.showLoading();
             $.ajax({
                 type: 'POST',
                 url: endpoint,
