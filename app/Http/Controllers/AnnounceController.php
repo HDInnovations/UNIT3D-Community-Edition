@@ -449,6 +449,7 @@ class AnnounceController extends Controller
         $res['complete'] = $torrent->seeders;
         $res['incomplete'] = $torrent->leechers;
         $res['peers'] = $this->givePeers($peers, $compact, $no_peer_id);
+        $res['peers6'] = $this->givePeers6($peers, $compact, $no_peer_id);
 
         return response(Bencode::bencode($res), 200, ['Content-Type' => 'text/plain']);
     }
@@ -459,7 +460,37 @@ class AnnounceController extends Controller
             $pcomp = '';
             foreach ($peers as &$p) {
                 if (isset($p['ip']) && isset($p['port'])) {
-                    $pcomp .= pack('Nn', ip2long($p['ip']), (int) $p['port']);
+                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                        $pcomp .= inet_pton($p['ip']);
+                        $pcomp .= pack('n', (int) $p['port']);
+                    }
+                }
+            }
+
+            return $pcomp;
+        } elseif ($no_peer_id) {
+            foreach ($peers as &$p) {
+                unset($p['peer_id']);
+            }
+
+            return $peers;
+        } else {
+            return $peers;
+        }
+
+        return $peers;
+    }
+
+    private function givePeers6($peers, $compact, $no_peer_id)
+    {
+        if ($compact) {
+            $pcomp = '';
+            foreach ($peers as &$p) {
+                if (isset($p['ip']) && isset($p['port'])) {
+                    if (filter_var($p['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                        $pcomp .= inet_pton($p['ip']);
+                        $pcomp .= pack('n', (int) $p['port']);
+                    }
                 }
             }
 
