@@ -24,115 +24,115 @@
                 <div class="col-md-12">
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="bon_gifts" value="1" class="bon_gifts">
+                            <input type="checkbox" id="bon_gifts" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Bon Gifts
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="comments" value="1" class="comments">
+                            <input type="checkbox" id="comments" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-comments text-success"></i> Comments
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="comment_tags" value="1" class="comment_tags">
+                            <input type="checkbox" id="comment_tags" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> Comment Tags
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="followers" value="1" class="followers">
+                            <input type="checkbox" id="followers" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-smile-plus text-success"></i> Followers
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="posts" value="1" class="posts">
+                            <input type="checkbox" id="posts" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-comment-dots text-success"></i> Posts
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="post_tags" value="1" class="post_tags">
+                            <input type="checkbox" id="post_tags" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-tag text-success"></i> Post Tags
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="post_tips" value="1" class="post_tips">
+                            <input type="checkbox" id="post_tips" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Post Tips
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_bounties" value="1" class="request_bounties">
+                            <input type="checkbox" id="request_bounties" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-crosshairs text-success"></i> Request Bounties
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_claims" value="1" class="request_claims">
+                            <input type="checkbox" id="request_claims" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-check-circle text-success"></i> Request Claims
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_fills" value="1" class="request_fills">
+                            <input type="checkbox" id="request_fills" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-check-square text-success"></i>Request Fills
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_approvals" value="1" class="request_approvals">
+                            <input type="checkbox" id="request_approvals" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-check text-success"></i> Request Approvals
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_rejections" value="1" class="request_rejections">
+                            <input type="checkbox" id="request_rejections" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-times text-success"></i> Request Rejections
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="request_unclaims" value="1" class="request_unclaims">
+                            <input type="checkbox" id="request_unclaims" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-times-square text-success"></i> Request Unclaims
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="reseed_requests" value="1" class="reseed_requests">
+                            <input type="checkbox" id="reseed_requests" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-question text-success"></i> Reseed Requests
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="thanks" value="1" class="thanks">
+                            <input type="checkbox" id="thanks" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-heart text-success"></i> Thanks
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="upload_tips" value="1" class="upload_tips">
+                            <input type="checkbox" id="upload_tips" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-coins text-success"></i> Tips
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="topics" value="1" class="topics">
+                            <input type="checkbox" id="topics" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-comment-alt-check text-success"></i> Topics
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="unfollows" value="1" class="unfollows">
+                            <input type="checkbox" id="unfollows" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-frown text-success"></i> Unfollows
                         </label>
                     </span>
                     <span class="badge-user">
                         <label class="inline">
-                            <input type="checkbox" id="uploads" value="1" class="uploads">
+                            <input type="checkbox" id="uploads" value="1" class="filter-checkbox">
                             <i class="{{ config('other.font-awesome') }} fa-upload text-success"></i> Uploads
                         </label>
                     </span>
@@ -173,6 +173,12 @@
 @endsection
 
 @section('javascripts')
+    <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
+      $('.filter-checkbox').on('change', function() {
+        $('.filter-checkbox').not(this).prop('checked', false);
+      });
+    </script>
+    
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
       var xhr = new XMLHttpRequest();
 
