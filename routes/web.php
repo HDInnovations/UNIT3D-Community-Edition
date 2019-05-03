@@ -341,10 +341,10 @@ Route::group(['middleware' => 'language'], function () {
         Route::get('/filterNotifications', 'NotificationController@faceted');
         Route::get('/notifications', 'NotificationController@index')->name('notifications.index');
         Route::get('/notifications/{id}', 'NotificationController@show')->name('notifications.show');
-        Route::get('/notifications/read/{id}', 'NotificationController@update')->name('notifications.update');
-        Route::get('/notifications/read-all', 'NotificationController@updateAll')->name('notifications.updateall');
-        Route::get('/notifications/destroy/{id}', 'NotificationController@destroy')->name('notifications.destroy');
-        Route::get('/notifications/destroy-all', 'NotificationController@destroyAll')->name('notifications.destroyall');
+        Route::get('/notification/update/{id}', 'NotificationController@update')->name('notifications.update');
+        Route::get('/notification/updateall', 'NotificationController@updateAll')->name('notifications.updateall');
+        Route::get('/notification/destroy/{id}', 'NotificationController@destroy')->name('notifications.destroy');
+        Route::get('/notification/destroyall', 'NotificationController@destroyAll')->name('notifications.destroyall');
 
         // Gallery System
         Route::get('/gallery', 'AlbumController@index')->name('gallery');

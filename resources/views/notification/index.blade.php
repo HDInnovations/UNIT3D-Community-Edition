@@ -139,23 +139,25 @@
                 </div>
             </div>
         </form>
+
+        <!-- Mass Options -->
+        <br>
+        <div class="text-center" style=" margin-top: 100px;">
+            <a href="{{ route('notifications.updateall') }}">
+                <button type="button" class="btn btn btn-success" data-toggle="tooltip"
+                        data-original-title="@lang('notification.mark-all-read')"><i
+                            class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')</button>
+            </a>
+            <a href="{{ route('notifications.destroyall') }}">
+                <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
+                        data-original-title="@lang('notification.delete-all')"><i
+                            class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')</button>
+            </a>
+        </div>
+        <!-- /Mass Options -->
+
     </div>
     <!-- /Search -->
-
-    <!-- Mass Options -->
-    <div class="text-center">
-        <a href="{{ route('notifications.updateall') }}">
-            <button type="button" class="btn btn btn-success" data-toggle="tooltip"
-                    data-original-title="@lang('notification.mark-all-read')"><i
-                        class="{{ config('other.font-awesome') }} fa-eye"></i> @lang('notification.mark-all-read')</button>
-        </a>
-        <a href="{{ route('notifications.destroyall') }}">
-            <button type="button" class="btn btn btn-danger" data-toggle="tooltip"
-                    data-original-title="@lang('notification.delete-all')"><i
-                        class="{{ config('other.font-awesome') }} fa-times"></i> @lang('notification.delete-all')</button>
-        </a>
-    </div>
-    <!-- /Mass Options -->
 
     <!-- Results -->
     <div class="container-fluid">

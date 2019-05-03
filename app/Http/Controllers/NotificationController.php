@@ -150,6 +150,38 @@ class NotificationController extends Controller
     }
 
     /**
+     * Set A Notification To Read.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param $id
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
+
+        return redirect()->route('notifications.index')
+            ->withSuccess('Notification Marked As Read!');
+    }
+
+    /**
+     * Mass Update All Notification's To Read.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function updateAll(Request $request)
+    {
+        $current = new Carbon();
+        $request->user()->unreadNotifications()->update(['read_at' => $current]);
+
+        return redirect()->route('notifications.index')
+            ->withSuccess('All Notifications Marked As Read!');
+    }
+
+    /**
      * Delete A Notification.
      *
      * @param \Illuminate\Http\Request $request
@@ -178,37 +210,5 @@ class NotificationController extends Controller
 
         return redirect()->route('notifications.index')
             ->withSuccess('All Notifications Deleted!');
-    }
-
-    /**
-     * Set A Notification To Read.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param $id
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function read(Request $request, $id)
-    {
-        $request->user()->unreadNotifications()->findOrFail($id)->markAsRead();
-
-        return redirect()->route('notifications.index')
-            ->withSuccess('Notification Marked As Read!');
-    }
-
-    /**
-     * Mass Update All Notification's To Read.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return Illuminate\Http\RedirectResponse
-     */
-    public function readAll(Request $request)
-    {
-        $current = new Carbon();
-        $request->user()->unreadNotifications()->update(['read_at' => $current]);
-
-        return redirect()->route('notifications.index')
-            ->withSuccess('All Notifications Marked As Read!');
     }
 }
