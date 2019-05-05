@@ -15,8 +15,8 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Models\Notification;
+use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {

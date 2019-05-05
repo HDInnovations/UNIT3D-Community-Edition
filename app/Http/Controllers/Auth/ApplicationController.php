@@ -54,8 +54,7 @@ class ApplicationController extends Controller
                     'links.*' => 'filled',
                     'links'   => 'min:2',
                 ]);
-            }
-            else {
+            } else {
                 $v = validator($request->all(), [
                     'type' => 'required',
                     'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:allow',
@@ -65,7 +64,7 @@ class ApplicationController extends Controller
                     'links.*' => 'filled',
                     'links'   => 'min:2',
                     'g-recaptcha-response' => 'required|recaptcha',
-                ]);                
+                ]);
             }
         } elseif (config('email-white-blacklist.enabled') === 'block') {
             if (config('captcha.enabled') == false) {
@@ -78,8 +77,7 @@ class ApplicationController extends Controller
                     'links.*' => 'filled',
                     'links'   => 'min:2',
                 ]);
-            }
-            else {
+            } else {
                 $v = validator($request->all(), [
                     'type' => 'required',
                     'email' => 'required|email|unique:invites|unique:users|unique:applications|email_list:block',
@@ -102,8 +100,7 @@ class ApplicationController extends Controller
                     'links.*' => 'filled',
                     'links'   => 'min:2',
                 ]);
-            }
-            else {
+            } else {
                 $v = validator($request->all(), [
                     'type' => 'required',
                     'email' => 'required|email|unique:invites|unique:users|unique:applications',

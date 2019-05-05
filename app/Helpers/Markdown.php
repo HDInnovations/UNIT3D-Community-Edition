@@ -479,7 +479,7 @@ class Markdown
 
     protected function blockList($Line)
     {
-        list($name, $pattern) = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]+[.]'];
+        [$name, $pattern] = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]+[.]'];
 
         if (preg_match('/^('.$pattern.'[ ]+)(.*)/', $Line['text'], $matches)) {
             $Block = [
