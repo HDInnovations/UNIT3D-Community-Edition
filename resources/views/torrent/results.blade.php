@@ -1,5 +1,14 @@
 @php $client = new \App\Services\MovieScrapper(config('api-keys.tmdb') , config('api-keys.tvdb') , config('api-keys.omdb')) @endphp
 <div class="table-responsive">
+    <div class="text-center">
+        @if($links)
+            {{ $links->links() }}
+        @else
+            @if($torrents->links())
+                {{ $torrents->links() }}
+            @endif
+        @endif
+    </div>
     <table class="table table-condensed table-bordered table-striped table-hover">
         <thead>
         <tr>
