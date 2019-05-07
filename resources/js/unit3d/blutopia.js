@@ -33,7 +33,7 @@ $(document).ready(function() {
         return false;
     });
     $('#back-to-top').tooltip('show');
-	$('#back-to-down').tooltip('show');
+    $('#back-to-down').tooltip('show');
 });
 $(document).ready(function() {
     $('#myCarousel').carousel({
