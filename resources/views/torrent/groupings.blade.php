@@ -220,6 +220,13 @@
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="group" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
+                    <div class="align-center" style="width: 100% !important; display: table-cell !important;">
+                        @if($links)
+                            {{ $links->links() }}
+                        @endif
+                    </div>
+                </div>
+                <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @if($torrents && is_array($torrents))
                             @foreach ($torrents as $k => $c)

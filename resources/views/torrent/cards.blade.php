@@ -212,6 +212,9 @@
             <span id="facetedHeader"></span>
             <div id="facetedSearch" type="card" font-awesome="{{ config('other.font-awesome') }}">
                 <div style="width: 100% !important; display: table !important;">
+                    <div class="align-center" style="width: 100% !important; display: table-cell !important;">{{ $torrents->links() }}</div>
+                </div>
+                <div style="width: 100% !important; display: table !important;">
                     <div class="mb-5" style="width: 100% !important; display: table-cell !important;">
                         @foreach ($torrents as $k => $t)
                             <div class="col-md-4">
