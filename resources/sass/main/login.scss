@@ -513,9 +513,6 @@ input[type='email']::placeholder {
 .text-center {
     text-align: center;
 }
-.g-recaptcha {
-    display: inline-block;
-}
 @media (max-width: 240px) {
     #rc-imageselect,
     .g-recaptcha {
@@ -538,4 +535,10 @@ input[type='email']::placeholder {
 // Google ReCaptcha
 .g-recaptcha {
     display: inline-block;
+}
+
+.sitebanner {
+    width:90%;
+    height:100px;
+    max-width:450px;
 }
