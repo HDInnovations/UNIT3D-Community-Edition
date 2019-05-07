@@ -77,3 +77,6 @@
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button">
     <i class="{{ config('other.font-awesome') }} fa-arrow-square-up"></i>
 </a>
+<a id="back-to-down" href="#" class="btn btn-primary btn-lg back-to-down" role="button">
+    <i class="{{ config('other.font-awesome') }} fa-arrow-square-down"></i>
+</a>

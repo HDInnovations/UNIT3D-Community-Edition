@@ -28,7 +28,7 @@
             @lang('auth.need-invite')
         </div>
     @endif
-    <svg viewBox="0 0 1320 100">
+    <svg viewBox="0 0 450 100" class="sitebanner">
         <symbol id="s-text">
             <text text-anchor="middle"
                   x="50%" y="50%" dy=".35em">

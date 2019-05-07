@@ -8292,6 +8292,20 @@ h3 {
 .back-to-top {
     cursor: pointer;
     position: fixed;
+    bottom: 90px;
+    right: 30px;
+    display: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 10px;
+    opacity: 0.7;
+    z-index: 9999;
+}
+
+// Back To Down Button
+.back-to-down {
+    cursor: pointer;
+    position: fixed;
     bottom: 30px;
     right: 30px;
     display: none;

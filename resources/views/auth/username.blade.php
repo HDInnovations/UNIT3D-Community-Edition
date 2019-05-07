@@ -25,7 +25,7 @@
 
 <body>
 <div class="wrapper fadeInDown">
-    <svg viewBox="0 0 1320 100">
+    <svg viewBox="0 0 450 100" class="sitebanner">
 
         <!-- Symbol -->
         <symbol id="s-text">
