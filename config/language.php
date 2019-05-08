@@ -124,6 +124,7 @@ return [
         ['short' => 'el',       'long' => 'el-EL',      'english' => 'Greek',               'native' => 'Ελληνικά'],
         ['short' => 'es',       'long' => 'es-ES',      'english' => 'Spanish',             'native' => 'Español'],
         ['short' => 'et',       'long' => 'et-EE',      'english' => 'Estonian',            'native' => 'Eesti'],
+        ['short' => 'eu',       'long' => 'eu-EU',      'english' => 'Basque',              'native' => 'Euskal'],
         ['short' => 'fi',       'long' => 'fi-FI',      'english' => 'Finnish',             'native' => 'Suomi'],
         ['short' => 'fr',       'long' => 'fr-FR',      'english' => 'French',              'native' => 'Français'],
         ['short' => 'en',       'long' => 'en-AU',      'english' => 'English (AU)',        'native' => 'English (AU)'],
