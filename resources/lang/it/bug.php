@@ -1,15 +1,14 @@
-<?php
-
-return [
-    'bug-report'             => 'Bug report',
-    'bug-report-description' => 'Report a site bug',
-    'enter-username'         => 'Please enter your username',
-    'enter-email'            => 'Please enter your e-mail',
-    'enter-title'            => 'Please choose a proper title',
-    'enter-description'      => 'Describe the problem as best as possible',
-    'priority'               => 'Priority',
-    'priority-description'   => 'Choose only very high if the bug really is a problem for using the site.',
-    'low'                    => 'Low',
-    'high'                   => 'High',
-    'very-high'              => 'Very high',
-];
+<?php 
+return array (
+  'bug-report' => 'Riportare un errore',
+  'bug-report-description' => 'Segnala un bug del sito',
+  'enter-description' => 'Descrivi il problema nel miglior modo possibile',
+  'enter-email' => 'Per favore inserisci la tua e-mail',
+  'enter-title' => 'Si prega di scegliere un titolo appropriato',
+  'enter-username' => 'Per favore inserisci il tuo cognome',
+  'high' => 'alto',
+  'low' => 'Basso',
+  'priority' => 'Priorità',
+  'priority-description' => 'Scegli solo molto alto se il bug è davvero un problema per l&#39;utilizzo del sito.',
+  'very-high' => 'Molto alto',
+);
