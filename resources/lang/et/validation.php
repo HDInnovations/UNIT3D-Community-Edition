@@ -1,88 +1,119 @@
 <?php
 
 return [
-
     /*
-     * |--------------------------------------------------------------------------
-     * | Validation Language Lines
-     * |--------------------------------------------------------------------------
-     * |
-     * | The following language lines contain the default error messages used by
-     * | the validator class. Some of these rules have multiple versions such
-     * | as the size rules. Feel free to tweak each of these messages here.
-     * |
-     */
+    |--------------------------------------------------------------------------
+    | Validation Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines contain the default error messages used by
+    | the validator class. Some of these rules have multiple versions such
+    | as the size rules. Feel free to tweak each of these messages here.
+    |
+    */
 
-    'accepted'   => 'The :attribute must be accepted.',
-    'active_url' => 'The :attribute is not a valid URL.',
-    'after'      => 'The :attribute must be a date after :date.',
-    'alpha'      => 'The :attribute may only contain letters.',
-    'alpha_dash' => 'The :attribute may only contain letters, numbers, and dashes.',
-    'alpha_num'  => 'The :attribute may only contain letters and numbers.',
-    'array'      => 'The :attribute must be an array.',
-    'before'     => 'The :attribute must be a date before :date.',
-    'between'    => [
-        'numeric' => 'The :attribute must be between :min and :max.',
-        'file'    => 'The :attribute must be between :min and :max kilobytes.',
-        'string'  => 'The :attribute must be between :min and :max characters.',
-        'array'   => 'The :attribute must have between :min and :max items.',
+    'accepted'             => ':attribute tuleb aktsepteerida.',
+    'active_url'           => ':attribute ei ole kehtiv URL.',
+    'after'                => ':attribute peab olema kuupäev pärast :date.',
+    'after_or_equal'       => ':attribute peab olema kuupäev pärast või samastuma :date.',
+    'alpha'                => ':attribute võib sisaldada vaid tähemärke.',
+    'alpha_dash'           => ':attribute võib sisaldada vaid tähti, numbreid ja kriipse.',
+    'alpha_num'            => ':attribute võib sisaldada vaid tähti ja numbreid.',
+    'array'                => ':attribute peab olema massiiv.',
+    'before'               => ':attribute peab olema kuupäev enne :date.',
+    'before_or_equal'      => ':attribute peab olema kuupäev enne või samastuma :date.',
+    'between'              => [
+        'numeric' => ':attribute peab olema :min ja :max vahel.',
+        'file'    => ':attribute peab olema :min ja :max kilobaidi vahel.',
+        'string'  => ':attribute peab olema :min ja :max tähemärgi vahel.',
+        'array'   => ':attribute peab olema :min ja :max kirje vahel.',
     ],
-    'boolean'        => 'The :attribute field must be true or false.',
-    'confirmed'      => 'The :attribute confirmation does not match.',
-    'date'           => 'The :attribute is not a valid date.',
-    'date_format'    => 'The :attribute does not match the format :format.',
-    'different'      => 'The :attribute and :other must be different.',
-    'digits'         => 'The :attribute must be :digits digits.',
-    'digits_between' => 'The :attribute must be between :min and :max digits.',
-    'dimensions'     => 'The :attribute has invalid image dimensions.',
-    'distinct'       => 'The :attribute field has a duplicate value.',
-    'email'          => 'The :attribute must be a valid email address.',
-    'exists'         => 'The selected :attribute is invalid.',
-    'file'           => 'The :attribute must be a file.',
-    'filled'         => 'The :attribute field is required.',
-    'image'          => 'The :attribute must be an image.',
-    'in'             => 'The selected :attribute is invalid.',
-    'in_array'       => 'The :attribute field does not exist in :other.',
-    'integer'        => 'The :attribute must be an integer.',
-    'ip'             => 'The :attribute must be a valid IP address.',
-    'json'           => 'The :attribute must be a valid JSON string.',
-    'max'            => [
-        'numeric' => 'The :attribute may not be greater than :max.',
-        'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => 'The :attribute may not be greater than :max characters.',
-        'array'   => 'The :attribute may not have more than :max items.',
+    'boolean'              => ':attribute väli peab olema tõene või väär.',
+    'confirmed'            => ':attribute kinnitus ei vasta.',
+    'date'                 => ':attribute pole kehtiv kuupäev.',
+    'date_equals'          => 'The :attribute must be a date equal to :date.',
+    'date_format'          => ':attribute ei vasta formaadile :format.',
+    'different'            => ':attribute ja :other peavad olema erinevad.',
+    'digits'               => ':attribute peab olema :digits numbrit.',
+    'digits_between'       => ':attribute peab olema :min ja :max numbri vahel.',
+    'dimensions'           => ':attribute on valed pildi suurused.',
+    'distinct'             => ':attribute väljal on topeltväärtus.',
+    'email'                => ':attribute peab olema kehtiv e-posti aadress.',
+    'exists'               => 'Valitud :attribute on vigane.',
+    'file'                 => ':attribute peab olema fail.',
+    'filled'               => ':attribute väli on nõutav.',
+    'gt'                   => [
+        'numeric' => 'The :attribute must be greater than :value.',
+        'file'    => 'The :attribute must be greater than :value kilobytes.',
+        'string'  => 'The :attribute must be greater than :value characters.',
+        'array'   => 'The :attribute must have more than :value items.',
     ],
-    'mimes'     => 'The :attribute must be a file of type: :values.',
-    'mimetypes' => 'The :attribute must be a file of type: :values.',
-    'min'       => [
-        'numeric' => 'The :attribute must be at least :min.',
-        'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
-        'array'   => 'The :attribute must have at least :min items.',
+    'gte'                  => [
+        'numeric' => 'The :attribute must be greater than or equal :value.',
+        'file'    => 'The :attribute must be greater than or equal :value kilobytes.',
+        'string'  => 'The :attribute must be greater than or equal :value characters.',
+        'array'   => 'The :attribute must have :value items or more.',
     ],
-    'not_in'               => 'The selected :attribute is invalid.',
-    'numeric'              => 'The :attribute must be a number.',
-    'present'              => 'The :attribute field must be present.',
-    'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
-    'required_if'          => 'The :attribute field is required when :other is :value.',
-    'required_unless'      => 'The :attribute field is required unless :other is in :values.',
-    'required_with'        => 'The :attribute field is required when :values is present.',
-    'required_with_all'    => 'The :attribute field is required when :values is present.',
-    'required_without'     => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
+    'image'                => ':attribute peab olema pilt.',
+    'in'                   => 'Valitud :attribute on vigane.',
+    'in_array'             => ':attribute väli ei eksisteeri :other sees.',
+    'integer'              => ':attribute peab olema täisarv.',
+    'ip'                   => ':attribute peab olema kehtiv IP aadress.',
+    'ipv4'                 => ':attribute peab olema kehtiv IPv4 aadress.',
+    'ipv6'                 => ':attribute peab olema kehtiv IPv6 aadress.',
+    'json'                 => ':attribute peab olema kehtiv JSON string.',
+    'lt'                   => [
+        'numeric' => 'The :attribute must be less than :value.',
+        'file'    => 'The :attribute must be less than :value kilobytes.',
+        'string'  => 'The :attribute must be less than :value characters.',
+        'array'   => 'The :attribute must have less than :value items.',
+    ],
+    'lte'                  => [
+        'numeric' => 'The :attribute must be less than or equal :value.',
+        'file'    => 'The :attribute must be less than or equal :value kilobytes.',
+        'string'  => 'The :attribute must be less than or equal :value characters.',
+        'array'   => 'The :attribute must not have more than :value items.',
+    ],
+    'max'                  => [
+        'numeric' => ':attribute ei tohi olla suurem kui :max.',
+        'file'    => ':attribute ei tohi olla suurem kui :max kilobaiti.',
+        'string'  => ':attribute ei tohi olla suurem kui :max tähemärki.',
+        'array'   => ':attribute ei tohi sisaldada rohkem kui :max kirjet.',
+    ],
+    'mimes'                => ':attribute peab olema :values tüüpi.',
+    'mimetypes'            => ':attribute peab olema :values tüüpi.',
+    'min'                  => [
+        'numeric' => ':attribute peab olema vähemalt :min.',
+        'file'    => ':attribute peab olema vähemalt :min kilobaiti.',
+        'string'  => ':attribute peab olema vähemalt :min tähemärki.',
+        'array'   => ':attribute peab olema vähemalt :min kirjet.',
+    ],
+    'not_in'               => 'Valitud :attribute on vigane.',
+    'not_regex'            => 'The :attribute format is invalid.',
+    'numeric'              => ':attribute peab olema number.',
+    'present'              => ':attribute väli peab olema esindatud.',
+    'regex'                => ':attribute vorming on vigane.',
+    'required'             => ':attribute väli on nõutud.',
+    'required_if'          => ':attribute väli on nõutud, kui :other on :value.',
+    'required_unless'      => ':attribute väli on nõutud, välja arvatud, kui :other on :values.',
+    'required_with'        => ':attribute väli on nõutud, kui :values on esindatud.',
+    'required_with_all'    => ':attribute väli on nõutud, kui :values on esindatud.',
+    'required_without'     => ':attribute väli on nõutud, kui :values ei ole esindatud.',
+    'required_without_all' => ':attribute väli on nõutud, kui ükski :values pole esindatud.',
+    'same'                 => ':attribute ja :other peavad sobima.',
     'size'                 => [
-        'numeric' => 'The :attribute must be :size.',
-        'file'    => 'The :attribute must be :size kilobytes.',
-        'string'  => 'The :attribute must be :size characters.',
-        'array'   => 'The :attribute must contain :size items.',
+        'numeric' => ':attribute peab olema :size.',
+        'file'    => ':attribute peab olema :size kilobaiti.',
+        'string'  => ':attribute peab olema :size tähemärki.',
+        'array'   => ':attribute peab sisaldama :size kirjet.',
     ],
-    'string'   => 'The :attribute must be a string.',
-    'timezone' => 'The :attribute must be a valid zone.',
-    'unique'   => 'The :attribute has already been taken.',
-    'uploaded' => 'The :attribute failed to upload.',
-    'url'      => 'The :attribute format is invalid.',
+    'starts_with'          => 'The :attribute must start with one of the following: :values',
+    'string'               => ':attribute peab olema string.',
+    'timezone'             => ':attribute peab olema kehtiv tsoon.',
+    'unique'               => ':attribute on juba hõivatud.',
+    'uploaded'             => ':attribute ei õnnestunud laadida.',
+    'url'                  => ':attribute vorming on vigane.',
+    'uuid'                 => 'The :attribute must be a valid UUID.',
 
     /*
     |--------------------------------------------------------------------------
@@ -97,7 +128,7 @@ return [
 
     'custom' => [
         'attribute-name' => [
-            'rule-name' => 'custom-message',
+            'rule-name' => 'kohandatud-teade',
         ],
     ],
 
@@ -112,6 +143,12 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'test_name'               => 'Testi nimi',
+        'test_description'        => 'Testi kirjeldus',
+        'test_locale'             => 'Keel',
+        'image'                   => 'Pilt',
+        'result_text_under_image' => 'Tulemuse tekst pildi all',
+        'short_text'              => 'Lühitekst',
+    ],
 ];

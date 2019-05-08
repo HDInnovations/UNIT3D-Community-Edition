@@ -1,14 +1,13 @@
-<?php
-
-return [
-    'notifications'    => 'Notifications',
-    'mark-all-read'    => 'Mark all as read',
-    'mark-read'        => 'Mark as read',
-    'delete-all'       => 'Delete all notifications',
-    'title'            => 'Title',
-    'message'          => 'Message',
-    'date'             => 'Date',
-    'read'             => 'Read',
-    'delete'           => 'Delete',
-    'no-notifications' => 'There are no notifications found',
-];
+<?php 
+return array (
+  'date' => 'Kuupäev',
+  'delete' => 'Kustuta',
+  'delete-all' => 'Kustuta kõik teated',
+  'mark-all-read' => 'Märgi kõik loetuks',
+  'mark-read' => 'Märgi loetuks',
+  'message' => 'Sõnum',
+  'no-notifications' => 'Ei leitud ühtegi teadet',
+  'notifications' => 'Teated',
+  'read' => 'Loe',
+  'title' => 'Pealkiri',
+);

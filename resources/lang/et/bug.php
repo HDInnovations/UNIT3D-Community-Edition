@@ -1,15 +1,14 @@
-<?php
-
-return [
-    'bug-report'             => 'Bug report',
-    'bug-report-description' => 'Report a site bug',
-    'enter-username'         => 'Please enter your username',
-    'enter-email'            => 'Please enter your e-mail',
-    'enter-title'            => 'Please choose a proper title',
-    'enter-description'      => 'Describe the problem as best as possible',
-    'priority'               => 'Priority',
-    'priority-description'   => 'Choose only very high if the bug really is a problem for using the site.',
-    'low'                    => 'Low',
-    'high'                   => 'High',
-    'very-high'              => 'Very high',
-];
+<?php 
+return array (
+  'bug-report' => 'Veateade',
+  'bug-report-description' => 'Teata saidi veast',
+  'enter-description' => 'Kirjeldage probleemi võimalikult hästi',
+  'enter-email' => 'Palun sisesta oma e-kiri',
+  'enter-title' => 'Palun vali õige pealkiri',
+  'enter-username' => 'Sisestage oma kasutajanimi',
+  'high' => 'Kõrge',
+  'low' => 'Madal',
+  'priority' => 'Prioriteet',
+  'priority-description' => 'Valige ainult väga kõrge, kui viga tõesti on saidi kasutamise probleem.',
+  'very-high' => 'Väga kõrge',
+);

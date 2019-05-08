@@ -1,8 +1,7 @@
-<?php
-
-return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more'     => 'Read More',
-    'published-at'  => 'Published At ',
-    'articles'      => 'Articles',
-];
+<?php 
+return array (
+  'articles' => 'Artiklid',
+  'meta-articles' => 'Artiklid ja uudised jälgija ja kogukonna kohta',
+  'published-at' => 'Avaldatud',
+  'read-more' => 'Loe rohkem',
+);
