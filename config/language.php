@@ -168,9 +168,9 @@ return [
         ['short' => 'th',       'long' => 'th-TH',      'english' => 'Thai',                'native' => 'ไทย'],
         ['short' => 'tl',       'long' => 'tl-TL',      'english' => 'Filipino',            'native' => 'Filipino'],
         ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe'],
-        ['short' => 'tw',       'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
         ['short' => 'uk',       'long' => 'uk-UA',      'english' => 'Ukrainian',           'native' => 'Українська'],
         ['short' => 'vi',       'long' => 'vi-VN',      'english' => 'Vietnamese',          'native' => 'Tiếng Việt'],
-        ['short' => 'zh-CN',       'long' => 'zh-CN',      'english' => 'Chinese (S)',      'native' => '简体中文'],
+        ['short' => 'zh-CN',    'long' => 'zh-CN',      'english' => 'Chinese (S)',         'native' => '简体中文'],
+        ['short' => 'zh-TW',    'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
     ],
 ];
