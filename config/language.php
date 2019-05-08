@@ -150,7 +150,7 @@ return [
         ['short' => 'mk',       'long' => 'mk-MK',      'english' => 'Macedonian',          'native' => 'Македонски'],
         ['short' => 'mn',       'long' => 'mn-MN',      'english' => 'Mongolian',           'native' => 'Монгол хэл дээр'],
         ['short' => 'ms',       'long' => 'ms-MY',      'english' => 'Malay',               'native' => 'Bahasa Melayu'],
-        ['short' => 'mx',       'long' => 'es-MX',      'english' => 'Mexico',              'native' => 'Español de México'],
+        ['short' => 'ne',       'long' => 'ne-NE',      'english' => 'Nepali',              'native' => 'नेपाली'],
         ['short' => 'nb',       'long' => 'nb-NO',      'english' => 'Norwegian',           'native' => 'Norsk Bokmål'],
         ['short' => 'nl',       'long' => 'nl-NL',      'english' => 'Dutch',               'native' => 'Nederlands'],
         ['short' => 'pl',       'long' => 'pl-PL',      'english' => 'Polish',              'native' => 'Polski'],
