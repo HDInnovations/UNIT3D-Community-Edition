@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Üstünlük',
   'aboutus-advantage1' => 'HD video / audio və texniki dəstək dünyasında yaxşı bilikli olan üzvləri və heyəti var.',
   'aboutus-advantage2' => 'Kino və televiziya şousu üçün geniş ehtiraslarımızla yanaşı, biz də ən yaxşı şeylərin ən yaxşı seçimlərini təqdim edirik - FANRES! Məzmunu gətirənlərə <em>böyük bir təşəkkür</em> edirəm.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Qrup',
   'staff-title' => 'Başlıq',
   'whitelist-emaildomain' => 'Etibarlı Alan',
-);
+];

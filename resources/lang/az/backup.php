@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Tədbirlər',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Yedek fayl yoxdur.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Menecer',
   'no_disks_configured' => 'Config / backup.php ünvanında yapılandırılmış yedekleme diskləri yoxdur',
   'only_local_downloads_supported' => 'Yerli fayl sistemindən yalnız downloads dəstəklənir.',
-);
+];

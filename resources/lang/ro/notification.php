@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Data',
   'delete' => 'Șterge',
   'delete-all' => 'Ștergeți toate notificările',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'notificări',
   'read' => 'Citit',
   'title' => 'Titlu',
-);
+];

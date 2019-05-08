@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Hesabınızı aktivləşdirin',
   'ban-reason' => 'Səbəb',
   'banned-footer' => 'Qaydalara əməl etmədiyiniz üçün aldığınız şey',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'İstifadəçi adınız e-poçt ünvanınıza göndərilib!',
   'disabled-header' => 'Hesabınız Əlil edildi',
   'pruned-header' => 'Hesabınız boğulub',
-);
+];

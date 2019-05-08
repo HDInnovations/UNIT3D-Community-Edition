@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Hoạt động',
   'age' => 'Tuổi tác',
   'agent' => 'Đặc vụ',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Xem thêm',
   'view-trailer' => 'Xem trailer',
   'votes' => 'Phiếu bầu',
-);
+];

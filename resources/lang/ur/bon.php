@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'چالو',
   'active' => 'چالو!',
   'amount' => 'رقم',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'آپ وصول کر چکے ہیں',
   'you-have-sent-tips' => 'تم نے بھیج دیا',
   'your-points' => 'آپ کے پوائنٹس',
-);
+];

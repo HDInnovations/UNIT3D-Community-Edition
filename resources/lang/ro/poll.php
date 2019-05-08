@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Adăugați opțiunea',
   'create-poll' => 'Creaza un sondaj',
   'current' => 'Sondaj curent',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Vot',
   'vote-now' => 'Votați-vă acum!',
   'votes' => 'voturi',
-);
+];

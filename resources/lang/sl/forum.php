@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Ukrep',
   'activity' => 'Dejavnost',
   'approved' => 'Odobreno',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Odpni',
   'view-all' => 'Prikaži vse teme',
   'views' => 'Pogledi',
-);
+];

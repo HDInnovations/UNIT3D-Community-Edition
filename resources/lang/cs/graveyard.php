@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Mrtvý',
   'graveyard' => 'Hřbitov',
   'guidelines' => 'Pokyny',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'čekající',
   'resurrect' => 'Vzkřísit',
   'reward' => 'Freeleech žetony',
-);
+];

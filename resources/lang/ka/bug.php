@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Bug ანგარიში',
   'bug-report-description' => 'საიტის შეცდომის შესახებ ანგარიში',
   'enter-description' => 'აღწერეთ პრობლემა მაქსიმალურად მაქსიმალურად',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'პრიორიტეტი',
   'priority-description' => 'არჩევა მხოლოდ ძალიან მაღალია, თუ bug მართლაც პრობლემაა საიტის გამოყენებისათვის.',
   'very-high' => 'Ძალიან მაღალი',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'ಕೌಂಟ್ ಮೂಲಕ',
   'by-data' => 'ಡೇಟಾದಿಂದ',
   'by-volume' => 'ಸಂಪುಟದಿಂದ',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'ಒಟ್ಟು ಅಪ್ಲೋಡ್',
   'users-in-group' => 'ಗುಂಪುಗಳಲ್ಲಿ ಬಳಕೆದಾರರು',
   'users-per-group' => 'ಬಳಕೆದಾರರ ಗುಂಪು',
-);
+];

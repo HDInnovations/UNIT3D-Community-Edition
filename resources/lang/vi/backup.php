@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Hành động',
   'backup' => 'Sao lưu',
   'backup_doesnt_exist' => 'Các tập tin sao lưu không tồn tại.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Giám đốc',
   'no_disks_configured' => 'Không có đĩa sao lưu được cấu hình trong config / backup.php',
   'only_local_downloads_supported' => 'Chỉ tải xuống từ hệ thống tập tin cục bộ được hỗ trợ.',
-);
+];

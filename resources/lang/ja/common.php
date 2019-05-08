@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => '私たちに関しては',
   'account' => 'アカウント',
   'achievement-title' => '驚くばかり',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'はい',
   'your' => 'きみの',
   'your-comment' => 'あなたのコメント',
-);
+];

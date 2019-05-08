@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Meetmed',
   'backup' => 'Varundamine',
   'backup_doesnt_exist' => 'Varukoopiafaili ei ole.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Manager',
   'no_disks_configured' => 'Konfiguratsioonis config / backup.php pole konfigureeritud varukoopiaid',
   'only_local_downloads_supported' => 'Toetatakse ainult kohaliku failisüsteemi allalaadimisi.',
-);
+];

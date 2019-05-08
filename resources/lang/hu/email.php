@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktiválja a fiókot',
   'ban-reason' => 'Ok',
   'banned-footer' => 'Amit kapsz azért, mert nem követed a szabályokat',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'A felhasználónevét elküldtük az e-mail címére!',
   'disabled-header' => 'Fiókja le van tiltva',
   'pruned-header' => 'Az Ön fiókja megtörtént',
-);
+];

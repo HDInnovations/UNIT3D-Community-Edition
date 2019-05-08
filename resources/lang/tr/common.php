@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Hakkımızda',
   'account' => 'hesap',
   'achievement-title' => 'müthiş',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Evet',
   'your' => 'Sizin',
   'your-comment' => 'Senin yorumun',
-);
+];

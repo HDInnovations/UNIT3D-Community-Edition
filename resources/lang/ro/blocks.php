@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Casetă de chat',
   'click' => 'Clic',
   'to-enable-editor' => 'pentru a activa editorul',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Știri (verificați zilnic)',
   'new-news' => 'Stiri noi',
   'new-torrents' => 'Noi torente',
-);
+];

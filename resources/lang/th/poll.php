@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'เพิ่มตัวเลือก',
   'create-poll' => 'สร้างแบบสำรวจ',
   'current' => 'โพลปัจจุบัน',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'โหวต',
   'vote-now' => 'รับคะแนนของคุณในตอนนี้!',
   'votes' => 'โหวต',
-);
+];

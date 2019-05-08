@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Luoda',
   'delete' => 'Poistaa',
   'enter-subject' => 'Anna aihe',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'aihe',
   'to' => 'jotta',
   'unread' => 'Lukemattomat',
-);
+];

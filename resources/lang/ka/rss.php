@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Შექმნა',
   'create-private-feed' => 'შექმნა პირადი RSS Feed',
   'create-public-feed' => 'შექმენით RSS RSS Feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS არხი',
   'type' => 'ტიპი',
-);
+];

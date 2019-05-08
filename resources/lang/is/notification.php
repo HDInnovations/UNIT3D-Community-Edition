@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Dagsetning',
   'delete' => 'Eyða',
   'delete-all' => 'Eyða öllum tilkynningum',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Tilkynningar',
   'read' => 'Lesa',
   'title' => 'Titill',
-);
+];

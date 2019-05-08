@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Νεκρός',
   'graveyard' => 'Νεκροταφείο',
   'guidelines' => 'Κατευθυντήριες γραμμές',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'εκκρεμής',
   'resurrect' => 'Ανασταίνω',
   'reward' => 'Ετικέτες Freeleech',
-);
+];

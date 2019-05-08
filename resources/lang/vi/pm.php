@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Tạo nên',
   'delete' => 'Xóa bỏ',
   'enter-subject' => 'Nhập chủ đề',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Môn học',
   'to' => 'Đến',
   'unread' => 'Chưa đọc',
-);
+];

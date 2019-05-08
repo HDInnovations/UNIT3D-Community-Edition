@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Сандар бойынша',
   'by-data' => 'Деректер бойынша',
   'by-volume' => 'Көлемі бойынша',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Жалпы жүктеу',
   'users-in-group' => 'Топтағы пайдаланушылар',
   'users-per-group' => 'Топтар бойынша пайдаланушылар',
-);
+];

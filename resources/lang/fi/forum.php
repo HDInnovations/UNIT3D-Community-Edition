@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Toiminta',
   'activity' => 'aktiviteetti',
   'approved' => 'hyväksytty',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Irrota',
   'view-all' => 'Näytä kaikki aiheet',
   'views' => 'Luettu',
-);
+];

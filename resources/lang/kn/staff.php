@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'ಚಟುವಟಿಕೆ ದಾಖಲೆ',
   'articles' => 'ಲೇಖನಗಳು',
   'applications' => 'ಅರ್ಜಿಗಳನ್ನು',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'ಚಾಟ್ ಪರಿಕರಗಳು',
   'flush-chat' => 'ಫ್ಲಶ್ ಚಾಟ್ಬಾಕ್ಸ್',
   'seedboxes' => 'ನೋಂದಾಯಿತ ಸೀಡ್ಬಾಕ್ಸ್ಗಳು',
-);
+];

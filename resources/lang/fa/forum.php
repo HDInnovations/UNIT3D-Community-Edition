@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'عمل',
   'activity' => 'فعالیت',
   'approved' => 'تایید شده',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'باز کردن',
   'view-all' => 'مشاهده تمام موضوعات',
   'views' => 'نمایش ها',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => '作成する',
   'create-private-feed' => 'プライベートRSSフィードを作成する',
   'create-public-feed' => '公開RSSフィードを作成する',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSSフィード',
   'type' => 'タイプ',
-);
+];

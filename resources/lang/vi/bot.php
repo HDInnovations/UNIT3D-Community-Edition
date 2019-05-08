@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Trong khoảng',
   'bot' => 'Bot',
   'bots' => 'Bots',
@@ -11,4 +12,4 @@ return array (
   'icon' => 'Biểu tượng',
   'info' => 'Thông tin',
   'name' => 'Tên',
-);
+];

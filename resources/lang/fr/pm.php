@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Créer',
   'delete' => 'Effacer',
   'enter-subject' => 'Entrez le sujet',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Assujettir',
   'to' => 'À',
   'unread' => 'Non lu',
-);
+];

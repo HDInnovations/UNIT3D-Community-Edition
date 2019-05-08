@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Według hrabiego',
   'by-data' => 'Według danych',
   'by-volume' => 'Objętość',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Łączne przesyłanie',
   'users-in-group' => 'Użytkownicy w grupie',
   'users-per-group' => 'Użytkownicy na grupę',
-);
+];

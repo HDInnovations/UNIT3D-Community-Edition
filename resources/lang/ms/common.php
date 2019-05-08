@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Tentang kita',
   'account' => 'Akaun',
   'achievement-title' => 'Awesome',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ya',
   'your' => 'Anda',
   'your-comment' => 'Komen anda',
-);
+];

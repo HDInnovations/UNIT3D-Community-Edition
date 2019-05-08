@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Åtgärder',
   'backup' => 'Säkerhetskopiering',
   'backup_doesnt_exist' => 'Säkerhetsfilen existerar inte.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Chef',
   'no_disks_configured' => 'Inga säkerhetskopior har konfigurerats i config / backup.php',
   'only_local_downloads_supported' => 'Endast nedladdningar från det lokala filsystemet stöds.',
-);
+];

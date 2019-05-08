@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Eylemler',
   'backup' => 'yedek',
   'backup_doesnt_exist' => 'Yedekleme dosyası mevcut değil.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'yönetici',
   'no_disks_configured' => 'Config / backup.php dosyasında yapılandırılmış yedekleme diski yok',
   'only_local_downloads_supported' => 'Yalnızca Yerel dosya sisteminden indirmeler desteklenir.',
-);
+];

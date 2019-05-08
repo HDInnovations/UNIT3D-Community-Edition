@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Σχετικά με',
   'bot' => 'Bot',
   'bots' => 'Μποτς',
@@ -11,4 +12,4 @@ return array (
   'icon' => 'Εικόνισμα',
   'info' => 'Πληροφορίες',
   'name' => 'Ονομα',
-);
+];

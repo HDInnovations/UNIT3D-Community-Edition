@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Kích hoạt tài khoản',
   'ban-reason' => 'Lý do',
   'banned-footer' => 'Đó là những gì bạn nhận được vì không tuân theo các quy tắc',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Tên người dùng của bạn đã được gửi đến địa chỉ email của bạn!',
   'disabled-header' => 'Tài khoản của bạn đã bị vô hiệu hóa',
   'pruned-header' => 'Tài khoản của bạn đã được cắt tỉa',
-);
+];

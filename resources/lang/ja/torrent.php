@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'アクティビティ',
   'age' => '年齢',
   'agent' => 'エージェント',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'もっと見る',
   'view-trailer' => '予告編を見る',
   'votes' => '投票',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'ದಿನಾಂಕ',
   'delete' => 'ಅಳಿಸಿ',
   'delete-all' => 'ಎಲ್ಲಾ ಅಧಿಸೂಚನೆಗಳನ್ನು ಅಳಿಸಿ',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'ಅಧಿಸೂಚನೆಗಳು',
   'read' => 'ಓದಿ',
   'title' => 'ಶೀರ್ಷಿಕೆ',
-);
+];

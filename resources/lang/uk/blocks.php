@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Вікно чату',
   'click' => 'Натисніть',
   'to-enable-editor' => ', щоб увімкнути редактор',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Новини (щоденна перевірка)',
   'new-news' => 'Нові новини',
   'new-torrents' => 'Нові потоки',
-);
+];

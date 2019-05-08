@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Kérelem hozzáadása',
   'age' => 'Kor',
   'all-requests' => 'Minden kérés',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Választók',
   'votes' => 'szavazatok',
   'yes' => 'Igen',
-);
+];

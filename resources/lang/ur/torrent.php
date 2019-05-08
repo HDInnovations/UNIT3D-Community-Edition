@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'سرگرمی',
   'age' => 'عمر',
   'agent' => 'ایجنٹ',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'مزید دیکھیں',
   'view-trailer' => 'ٹریلر دیکھیں',
   'votes' => 'ووٹ',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'actes',
   'backup' => 'Sauvegarde',
   'backup_doesnt_exist' => 'Le fichier de sauvegarde n&#39;existe pas.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Directeur',
   'no_disks_configured' => 'Aucun disque de sauvegarde configuré dans config / backup.php',
   'only_local_downloads_supported' => 'Seuls les téléchargements du système de fichiers local sont pris en charge.',
-);
+];

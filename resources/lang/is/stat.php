@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Með því að telja',
   'by-data' => 'Eftir gögnum',
   'by-volume' => 'Eftir bindi',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Samtals upphleðsla',
   'users-in-group' => 'Notendur í hópi',
   'users-per-group' => 'Notendur á hvern hóp',
-);
+];

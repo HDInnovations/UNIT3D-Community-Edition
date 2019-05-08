@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Акције',
   'backup' => 'Бацкуп',
   'backup_doesnt_exist' => 'Резервна датотека не постоји.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Манагер',
   'no_disks_configured' => 'У цонфиг / бацкуп.пхп нису конфигурисани резервни дискови',
   'only_local_downloads_supported' => 'Подржане су само преузимања са локалног система датотека.',
-);
+];

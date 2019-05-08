@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'การปฏิบัติ',
   'backup' => 'การสำรองข้อมูล',
   'backup_doesnt_exist' => 'ไม่มีไฟล์สำรอง',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'ผู้จัดการ',
   'no_disks_configured' => 'ไม่มีดิสก์สำรองที่กำหนดค่าไว้ใน config / backup.php',
   'only_local_downloads_supported' => 'รองรับเฉพาะการดาวน์โหลดจากระบบไฟล์โลคอลเท่านั้น',
-);
+];

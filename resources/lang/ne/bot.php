@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'बारेमा',
   'bot' => 'Bot',
   'bots' => 'बोट्स',
@@ -11,4 +12,4 @@ return array (
   'icon' => 'प्रतिमा',
   'info' => 'जानकारी',
   'name' => 'नाम',
-);
+];

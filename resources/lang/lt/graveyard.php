@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Mirę',
   'graveyard' => 'Kapinės',
   'guidelines' => 'Gairės',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Kol',
   'resurrect' => 'Prisikėlimas',
   'reward' => '„Freeleech“ žetonai',
-);
+];

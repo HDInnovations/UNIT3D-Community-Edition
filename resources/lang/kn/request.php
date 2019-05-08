@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'ವಿನಂತಿಯನ್ನು ಸೇರಿಸಿ',
   'age' => 'ವಯಸ್ಸು',
   'all-requests' => 'ಎಲ್ಲಾ ವಿನಂತಿಗಳು',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'ಮತದಾರರು',
   'votes' => 'ಮತಗಳು',
   'yes' => 'ಹೌದು',
-);
+];

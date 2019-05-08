@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Af grev',
   'by-data' => 'Af data',
   'by-volume' => 'Efter volumen',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Samlet upload',
   'users-in-group' => 'Brugere i gruppe',
   'users-per-group' => 'Brugere pr. Gruppe',
-);
+];

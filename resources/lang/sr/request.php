@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Додај захтев',
   'age' => 'Аге',
   'all-requests' => 'Сви захтеви',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Гласачи',
   'votes' => 'Гласова',
   'yes' => 'да',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'O nama',
   'about-me' => 'O meni',
   'accepted-at' => 'Prihvaćeno u',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Upozorenje',
   'warning-log' => 'Dnevnik upozorenja',
   'wishlist' => 'Wishlist',
-);
+];

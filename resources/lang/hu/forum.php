@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Akció',
   'activity' => 'Tevékenység',
   'approved' => 'Jóváhagyott',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Kibont',
   'view-all' => 'Az összes téma megtekintése',
   'views' => 'Nézetek',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Давуу тал',
   'aboutus-advantage1' => 'HD видео / аудио болон техникийн дэмжлэгтэйгээр дэлхий даяар сайн мэддэг гишүүд, ажилтнуудтай танилцсан.',
   'aboutus-advantage2' => 'Кино, телевизийн шоуны талаар бидний хүсэл эрмэлзлээс гадна хамгийн их сонголттой FANRES! <em>Том</em> Манай агуулгын bringers <em>баярлалаа.</em>',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Групп',
   'staff-title' => 'Гарчиг',
   'whitelist-emaildomain' => 'Итгэмжлэгдсэн домэйн',
-);
+];

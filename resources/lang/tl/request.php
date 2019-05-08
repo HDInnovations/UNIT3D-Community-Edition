@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Magdagdag ng kahilingan',
   'age' => 'Edad',
   'all-requests' => 'Lahat ng mga kahilingan',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Mga Botante',
   'votes' => 'Boto',
   'yes' => 'Oo',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Amdanom ni',
   'account' => 'Cyfrif',
   'achievement-title' => 'Yn anhygoel',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ydw',
   'your' => 'Eich',
   'your-comment' => 'Eich sylw',
-);
+];

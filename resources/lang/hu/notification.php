@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Dátum',
   'delete' => 'Töröl',
   'delete-all' => 'Az összes értesítés törlése',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'értesítések',
   'read' => 'Olvas',
   'title' => 'Cím',
-);
+];

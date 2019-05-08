@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Kwa Hesabu',
   'by-data' => 'Kwa Data',
   'by-volume' => 'Kwa Volume',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Upakiaji wa Jumla',
   'users-in-group' => 'Watumiaji Katika Kikundi',
   'users-per-group' => 'Watumiaji Kwa Kikundi',
-);
+];

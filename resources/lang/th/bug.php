@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'รายงานข้อผิดพลาด',
   'bug-report-description' => 'รายงานข้อบกพร่องของไซต์',
   'enter-description' => 'อธิบายปัญหาให้ดีที่สุด',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'ลำดับความสำคัญ',
   'priority-description' => 'เลือกสูงมากเท่านั้นหากข้อผิดพลาดเป็นปัญหาสำหรับการใช้เว็บไซต์',
   'very-high' => 'สูงมาก',
-);
+];

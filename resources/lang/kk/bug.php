@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Қате туралы есеп',
   'bug-report-description' => 'Қате туралы хабарлау сайт',
   'enter-description' => 'Мәселе мүмкіндігінше жақсы сипаттаңыз',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Басымдық',
   'priority-description' => 'Егер қате шынымен сайтты пайдалануда қиындық болса, өте жоғары мәнді таңдаңыз.',
   'very-high' => 'Өте биік',
-);
+];

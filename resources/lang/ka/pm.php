@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Შექმნა',
   'delete' => 'წაშლა',
   'enter-subject' => 'შეიტანეთ სათაური',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'თემატიკა',
   'to' => 'დან',
   'unread' => 'წაუკითხავი',
-);
+];

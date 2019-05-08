@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Hatua',
   'activity' => 'Shughuli',
   'approved' => 'Imekubaliwa',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Ondoa',
   'view-all' => 'Tazama Mada Yote',
   'views' => 'Maoni',
-);
+];

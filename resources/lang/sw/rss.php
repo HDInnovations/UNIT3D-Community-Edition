@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Unda',
   'create-private-feed' => 'Unda Chakula cha RSS cha Kibinafsi',
   'create-public-feed' => 'Unda Feed RSS ya Umma',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Weka',
-);
+];

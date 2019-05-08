@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'بواسطة العد',
   'by-data' => 'حسب البيانات',
   'by-volume' => 'بالصوت',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'مجموع التحميل',
   'users-in-group' => 'المستخدمين في المجموعة',
   'users-per-group' => 'المستخدمين لكل مجموعة',
-);
+];

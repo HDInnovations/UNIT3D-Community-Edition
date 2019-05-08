@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => '約',
   'about-me' => '私について',
   'accepted-at' => 'で受け入れられた',
@@ -312,4 +313,4 @@ return array (
   'warning' => '警告',
   'warning-log' => '警告ログ',
   'wishlist' => 'ほしい物リスト',
-);
+];

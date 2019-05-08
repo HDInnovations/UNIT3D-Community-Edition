@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Sohbet kutusu',
   'click' => 'Click',
   'to-enable-editor' => 'editörü etkinleştirmek için',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Haberler (günlük kontrol)',
   'new-news' => 'Yeni haberler',
   'new-torrents' => 'Yeni seller',
-);
+];

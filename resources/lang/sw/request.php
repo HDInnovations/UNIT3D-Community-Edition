@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Ongeza ombi',
   'age' => 'Umri',
   'all-requests' => 'Maombi yote',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Wapiga kura',
   'votes' => 'Votes',
   'yes' => 'Ndiyo',
-);
+];

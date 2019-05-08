@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Бидний тухай',
   'account' => 'Данс',
   'achievement-title' => 'Гайхалтай',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Тиймээ',
   'your' => 'Таны',
   'your-comment' => 'Таны сэтгэгдэл',
-);
+];

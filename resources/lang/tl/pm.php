@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Lumikha',
   'delete' => 'Tanggalin',
   'enter-subject' => 'Ipasok ang paksa',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Paksa',
   'to' => 'Upang',
   'unread' => 'Hindi pa nababasa',
-);
+];

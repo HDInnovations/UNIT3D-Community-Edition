@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Gehitu aukera',
   'create-poll' => 'Sortu inkesta',
   'current' => 'Oraingo inkesta (k)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Bozkatu',
   'vote-now' => 'Lortu botoa orain!',
   'votes' => 'Botoak',
-);
+];

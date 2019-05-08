@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktivirajte nalog',
   'ban-reason' => 'Razlog',
   'banned-footer' => 'To je ono što dobijate ne poštujući pravila',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Vaše korisničko ime je poslano na vašu adresu e-pošte!',
   'disabled-header' => 'Vaš račun je onemogućen',
   'pruned-header' => 'Vaš račun je obrezan',
-);
+];

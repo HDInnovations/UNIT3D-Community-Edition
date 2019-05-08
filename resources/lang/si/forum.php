@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'කටයුතු',
   'activity' => 'ක්රියාකාරිත්වය',
   'approved' => 'අනුමත',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'නොකියයි',
   'view-all' => 'සියලු මාතෘකා බලන්න',
   'views' => 'දැක්ම',
-);
+];

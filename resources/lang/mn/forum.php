@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Үйлдэл',
   'activity' => 'Үйл ажиллагаа',
   'approved' => 'Батлагдсан',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'Бүх сэдвийг харах',
   'views' => 'Харах',
-);
+];

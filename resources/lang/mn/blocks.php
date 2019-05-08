@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Чатын хайрцаг',
   'click' => 'Дарна уу',
   'to-enable-editor' => 'засварлагчийг идэвхжүүлэх',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Мэдээ мэдээлэл (өдөр бүр шалгах)',
   'new-news' => 'Шинэ мэдээ',
   'new-torrents' => 'Шинэ урсгал',
-);
+];

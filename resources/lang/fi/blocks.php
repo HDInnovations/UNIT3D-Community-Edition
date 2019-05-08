@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat-ruutu',
   'click' => 'Klikkaus',
   'to-enable-editor' => 'sallia editori',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Uutiset (tarkista päivittäin)',
   'new-news' => 'Uusia uutisia',
   'new-torrents' => 'Uudet torrentit',
-);
+];

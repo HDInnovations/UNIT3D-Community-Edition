@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'جعبه گفتگو',
   'click' => 'کلیک',
   'to-enable-editor' => 'برای فعال کردن ویرایشگر',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'اخبار (بررسی روزانه)',
   'new-news' => 'اخبار جدید',
   'new-torrents' => 'تورنتهای جدید',
-);
+];

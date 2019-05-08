@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'ಬಗ್ ವರದಿ',
   'bug-report-description' => 'ಸೈಟ್ ದೋಷವನ್ನು ವರದಿ ಮಾಡಿ',
   'enter-description' => 'ಸಾಧ್ಯವಾದಷ್ಟು ಉತ್ತಮವಾದ ಸಮಸ್ಯೆಯನ್ನು ವಿವರಿಸಿ',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'ಆದ್ಯತೆ',
   'priority-description' => 'ಸೈಟ್ ಅನ್ನು ಬಳಸುವುದಕ್ಕಾಗಿ ದೋಷ ನಿಜವಾಗಿಯೂ ಸಮಸ್ಯೆಯಾಗಿದ್ದರೆ ಮಾತ್ರ ಅತಿ ಹೆಚ್ಚಿನದನ್ನು ಆರಿಸಿ.',
   'very-high' => 'ಬಹಳ ಎತ್ತರ',
-);
+];

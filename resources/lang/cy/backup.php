@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Camau gweithredu',
   'backup' => 'Wrth gefn',
   'backup_doesnt_exist' => 'Nid yw&#39;r ffeil wrth gefn yn bodoli.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Rheolwr',
   'no_disks_configured' => 'Dim disgiau wrth gefn wedi&#39;u ffurfweddu yn config / backup.php',
   'only_local_downloads_supported' => 'Dim ond lawrlwythiadau o&#39;r system ffeiliau leol sy&#39;n cael eu cefnogi.',
-);
+];

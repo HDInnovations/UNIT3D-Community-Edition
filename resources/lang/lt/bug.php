@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Pranešimas apie klaidą',
   'bug-report-description' => 'Pranešti apie svetainės klaidą',
   'enter-description' => 'Apibūdinkite problemą kuo geriau',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prioritetas',
   'priority-description' => 'Pasirinkite tik labai aukštą, jei klaida iš tikrųjų yra problema naudojant svetainę.',
   'very-high' => 'Labai aukštai',
-);
+];

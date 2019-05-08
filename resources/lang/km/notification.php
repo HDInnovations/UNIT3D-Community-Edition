@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'កាលបរិច្ឆេទ',
   'delete' => 'លុប',
   'delete-all' => 'លុបការជូនដំណឹងទាំងអស់',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'ការជូនដំណឹង',
   'read' => 'អាន',
   'title' => 'ចំណងជើង',
-);
+];

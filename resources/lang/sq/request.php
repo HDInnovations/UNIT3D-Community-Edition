@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Shto kërkesë',
   'age' => 'moshë',
   'all-requests' => 'Të gjitha kërkesat',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'votuesit',
   'votes' => 'vota',
   'yes' => 'po',
-);
+];

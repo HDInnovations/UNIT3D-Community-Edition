@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Apie mus',
   'account' => 'Paskyra',
   'achievement-title' => 'Nuostabu',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Taip',
   'your' => 'Tavo',
   'your-comment' => 'Tavo komentaras',
-);
+];

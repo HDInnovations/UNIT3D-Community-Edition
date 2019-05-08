@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Ról ről',
   'about-me' => 'Rólam',
   'accepted-at' => 'Elfogadva:',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Figyelem',
   'warning-log' => 'Figyelmeztető napló',
   'wishlist' => 'Kívánság lista',
-);
+];

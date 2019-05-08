@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat box',
   'click' => 'Mag-click',
   'to-enable-editor' => 'upang paganahin ang editor',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Balita (suriin araw-araw)',
   'new-news' => 'Bagong balita',
   'new-torrents' => 'Bagong torrents',
-);
+];

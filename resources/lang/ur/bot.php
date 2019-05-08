@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'کے بارے میں',
   'bot' => 'بوٹ',
   'bots' => 'بٹس',
@@ -11,4 +12,4 @@ return array (
   'icon' => 'آئکن',
   'info' => 'معلومات',
   'name' => 'نام',
-);
+];

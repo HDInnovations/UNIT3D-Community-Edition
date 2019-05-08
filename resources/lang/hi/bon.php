@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'सक्रिय',
   'active' => 'सक्रिय की गई!',
   'amount' => 'रकम',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'आपको प्राप्त हुआ है',
   'you-have-sent-tips' => 'तुमने भेज दिया',
   'your-points' => 'आपके अंक',
-);
+];

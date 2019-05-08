@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Lisa valik',
   'create-poll' => 'Loo küsitlus',
   'current' => 'Praegune küsitlus',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Hääleta',
   'vote-now' => 'Hangi oma hääl nüüd!',
   'votes' => 'Hääled',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'বিকল্প যোগ করুন',
   'create-poll' => 'পোল তৈরি করুন',
   'current' => 'বর্তমান পোল (গুলি)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'ভোট',
   'vote-now' => 'এখন আপনার ভোট পান!',
   'votes' => 'ভোট',
-);
+];

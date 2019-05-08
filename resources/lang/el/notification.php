@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Ημερομηνία',
   'delete' => 'Διαγράφω',
   'delete-all' => 'Διαγράψτε όλες τις ειδοποιήσεις',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Ειδοποιήσεις',
   'read' => 'Ανάγνωση',
   'title' => 'Τίτλος',
-);
+];

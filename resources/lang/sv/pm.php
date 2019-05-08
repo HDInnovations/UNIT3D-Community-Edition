@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Skapa',
   'delete' => 'Radera',
   'enter-subject' => 'Ange ämne',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Ämne',
   'to' => 'Till',
   'unread' => 'Oläst',
-);
+];

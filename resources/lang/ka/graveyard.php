@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'მკვდარი',
   'graveyard' => 'სასაფლაო',
   'guidelines' => 'სახელმძღვანელოები',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'მიმდინარეობს',
   'resurrect' => 'Აღადგენს',
   'reward' => 'Freeleech სიმბოლოებს',
-);
+];

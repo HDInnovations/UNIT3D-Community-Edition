@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Grafika bo&#39;yicha',
   'by-data' => 'Ma&#39;lumotlar bo&#39;yicha',
   'by-volume' => 'Hajmi bo&#39;yicha',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Jami yuklash',
   'users-in-group' => 'Guruhdagi foydalanuvchilar',
   'users-per-group' => 'Guruh bo&#39;yicha foydalanuvchilar',
-);
+];

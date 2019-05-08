@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => '活動記録',
   'articles' => '記事',
   'applications' => 'アプリケーション',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'チャットツール',
   'flush-chat' => 'チャットボックスをフラッシュ',
   'seedboxes' => '登録済みシードボックス',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Handle om',
   'about-me' => 'Om meg',
   'accepted-at' => 'Godta på',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Advarsel',
   'warning-log' => 'Advarsellogg',
   'wishlist' => 'ønskeliste',
-);
+];

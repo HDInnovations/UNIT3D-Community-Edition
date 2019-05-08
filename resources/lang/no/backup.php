@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'handlinger',
   'backup' => 'backup',
   'backup_doesnt_exist' => 'Sikkerhetsfilen finnes ikke.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'sjef',
   'no_disks_configured' => 'Ingen backup disker konfigurert i config / backup.php',
   'only_local_downloads_supported' => 'Bare nedlastinger fra det lokale filsystemet støttes.',
-);
+];

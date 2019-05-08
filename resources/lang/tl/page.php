@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Ang kalamangan',
   'aboutus-advantage1' => 'Nakaranas kami ng mga miyembro at kawani na mahusay na dalubhasa sa mundo ng HD video / audio at teknikal na suporta.',
   'aboutus-advantage2' => 'Kasama ang aming malawak na simbuyo ng damdamin para sa mga pelikula at palabas sa TV, nag-aalok din kami ng isa sa mga pinakamahusay na pagpipilian ng isang bagay na pinaka-hindi - FANRES! <em>Isang MALAKING SALAMAT</em> sa aming mga nagdadala ng nilalaman.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Grupo',
   'staff-title' => 'Pamagat',
   'whitelist-emaildomain' => 'Pinagkakatiwalaang Domain',
-);
+];

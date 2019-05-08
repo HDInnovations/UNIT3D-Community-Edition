@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Aktive',
   'active' => 'Aktive!',
   'amount' => 'Miktar',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Almış olduğunuz',
   'you-have-sent-tips' => 'Gönderdin',
   'your-points' => 'Puanlarınız',
-);
+];

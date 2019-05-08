@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => '대화 상자',
   'click' => '딸깍 하는 소리',
   'to-enable-editor' => '편집기를 사용하려면',
@@ -15,4 +16,4 @@ return array (
   'check-news' => '뉴스 (매일 확인)',
   'new-news' => '새로운 뉴스',
   'new-torrents' => '새로운 급류',
-);
+];

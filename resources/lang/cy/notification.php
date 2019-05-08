@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Dyddiad',
   'delete' => 'Dileu',
   'delete-all' => 'Dileu pob hysbysiad',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Hysbysiadau',
   'read' => 'Darllenwch',
   'title' => 'Teitl',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'ನಮ್ಮ ಬಗ್ಗೆ',
   'account' => 'ಖಾತೆ',
   'achievement-title' => 'ನಾಡಿದು',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'ಹೌದು',
   'your' => 'ನಿಮ್ಮ',
   'your-comment' => 'ನಿಮ್ಮ ಅಭಿಪ್ರಾಯ',
-);
+];

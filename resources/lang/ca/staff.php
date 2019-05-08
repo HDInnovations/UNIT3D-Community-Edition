@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Registre d&#39;activitats',
   'articles' => 'Articles',
   'applications' => 'Aplicacions',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Eines de xat',
   'flush-chat' => 'Flush Chatbox',
   'seedboxes' => 'Seedboxes registrades',
-);
+];

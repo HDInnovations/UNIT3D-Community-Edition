@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Tentang',
   'about-me' => 'Tentang saya',
   'accepted-at' => 'Diterima di',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Peringatan',
   'warning-log' => 'Log Peringatan',
   'wishlist' => 'Wishlist',
-);
+];

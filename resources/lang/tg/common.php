@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Дар бораи мо',
   'account' => 'Ҳисоб',
   'achievement-title' => 'Хушбахтона',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Бале',
   'your' => 'Шумо',
   'your-comment' => 'Шарҳи шумо',
-);
+];

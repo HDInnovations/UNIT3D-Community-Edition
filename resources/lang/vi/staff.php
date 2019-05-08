@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Hoạt động đăng nhập',
   'articles' => 'Bài viết',
   'applications' => 'Các ứng dụng',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Công cụ trò chuyện',
   'flush-chat' => 'Chatbox tuôn ra',
   'seedboxes' => 'Seedboxes đã đăng ký',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'اختیار شامل کریں',
   'create-poll' => 'سروے بنائیں',
   'current' => 'موجودہ پولز',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'ووٹ',
   'vote-now' => 'اب آپ اپنا ووٹ حاصل کریں!',
   'votes' => 'ووٹ',
-);
+];

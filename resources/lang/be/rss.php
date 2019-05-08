@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'стварыць',
   'create-private-feed' => 'Стварэнне прыватнага RSS паток',
   'create-public-feed' => 'Стварыць Грамадскі RSS паток',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Падача',
   'type' => 'тып',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'По граф',
   'by-data' => 'По данни',
   'by-volume' => 'По обем',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Общо качване',
   'users-in-group' => 'Потребители в група',
   'users-per-group' => 'Потребители на група',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'درخواست را اضافه کنید',
   'age' => 'سن',
   'all-requests' => 'تمام درخواستها',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'رأی دهندگان',
   'votes' => 'رای',
   'yes' => 'بله',
-);
+];

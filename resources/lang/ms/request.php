@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Tambah permintaan',
   'age' => 'Umur',
   'all-requests' => 'Semua permintaan',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Pengundi',
   'votes' => 'Undian',
   'yes' => 'Ya',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Veiksmas',
   'activity' => 'Veikla',
   'approved' => 'Patvirtinta',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Atjunkite',
   'view-all' => 'Peržiūrėti visas temas',
   'views' => 'Peržiūrėjo',
-);
+];

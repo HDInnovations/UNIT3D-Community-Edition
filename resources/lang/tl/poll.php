@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Magdagdag ng opsyon',
   'create-poll' => 'Lumikha ng poll',
   'current' => 'Kasalukuyang (mga) Poll',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Bumoto',
   'vote-now' => 'Kunin ang Iyong Pagboto Sa Ngayon!',
   'votes' => 'Boto',
-);
+];

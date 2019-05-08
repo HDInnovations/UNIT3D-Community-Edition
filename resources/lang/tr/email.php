@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktif hesap',
   'ban-reason' => 'neden',
   'banned-footer' => 'Kurallara uymadığın için aldığın şey bu.',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Kullanıcı adınız e-posta adresinize gönderildi!',
   'disabled-header' => 'Hesabınız engellendi',
   'pruned-header' => 'Hesabınıza Budama Yapıldı',
-);
+];

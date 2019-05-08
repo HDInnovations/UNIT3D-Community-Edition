@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'デッド',
   'graveyard' => '墓地',
   'guidelines' => 'ガイドライン',
@@ -11,4 +12,4 @@ return array (
   'pending' => '保留中',
   'resurrect' => '復活',
   'reward' => 'フリーリーチトークン',
-);
+];

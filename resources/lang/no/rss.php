@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Skape',
   'create-private-feed' => 'Lag privat RSS-feed',
   'create-public-feed' => 'Lag offentlig RSS-feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS-feed',
   'type' => 'Type',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'krijoj',
   'create-private-feed' => 'Krijo RSS Feed Privat',
   'create-public-feed' => 'Krijo public RSS Feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'lloj',
-);
+];

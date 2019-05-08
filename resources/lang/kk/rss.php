@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Жасаңыз',
   'create-private-feed' => 'Жеке RSS арнасын жасау',
   'create-public-feed' => 'Жалпыға қолжетімді RSS арнасын жасау',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS арнасы',
   'type' => 'Түрі',
-);
+];

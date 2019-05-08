@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'ගිණුම සක්රිය කරන්න',
   'ban-reason' => 'හේතුව',
   'banned-footer' => 'ඔබ නීති රීති අනුගමනය නොකරන දේ',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'ඔබගේ පරිශීලක නාමය ඔබේ විද්යුත් තැපැල් ලිපිනය වෙත යවා ඇත!',
   'disabled-header' => 'ඔබගේ ගිණුම අක්රිය කර ඇත',
   'pruned-header' => 'ඔබේ ගිණුම කප්පාදු කර ඇත',
-);
+];

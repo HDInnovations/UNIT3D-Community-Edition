@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'अनुरोध थप्नुहोस्',
   'age' => 'उमेर',
   'all-requests' => 'सबै अनुरोधहरू',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'मतदाताहरू',
   'votes' => 'मतहरू',
   'yes' => 'हो',
-);
+];

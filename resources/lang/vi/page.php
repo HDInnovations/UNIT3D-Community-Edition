@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Lợi thế',
   'aboutus-advantage1' => 'Chúng tôi có các thành viên và nhân viên giàu kinh nghiệm, rất thành thạo trong thế giới hỗ trợ kỹ thuật / video và âm thanh HD.',
   'aboutus-advantage2' => 'Cùng với niềm đam mê mãnh liệt với phim ảnh và chương trình truyền hình, chúng tôi cũng cung cấp một trong những lựa chọn tốt nhất về thứ mà hầu hết không - FANRES! <em>MỘT CÁM ƠN LỚN</em> cho những người mang nội dung của chúng tôi.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Nhóm',
   'staff-title' => 'Chức vụ',
   'whitelist-emaildomain' => 'Miền đáng tin cậy',
-);
+];

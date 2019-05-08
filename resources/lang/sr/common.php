@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'О нама',
   'account' => 'Рачун',
   'achievement-title' => 'Авесоме',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'да',
   'your' => 'Ваш',
   'your-comment' => 'Ваш коментар',
-);
+];

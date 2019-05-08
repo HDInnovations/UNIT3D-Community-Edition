@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'ක්රියාකාරකම් ලොග්',
   'articles' => 'ලිපි',
   'applications' => 'අයදුම්පත්',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'චැට් මෙවලම්',
   'flush-chat' => 'ෆ්ලෂ් චැට්බොක්ස්',
   'seedboxes' => 'ලියාපදිංචි බීජ',
-);
+];

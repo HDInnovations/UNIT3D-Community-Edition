@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'گزارش اشکال',
   'bug-report-description' => 'گزارش یک اشکال سایت',
   'enter-description' => 'مشکل را به بهترین نحو توصیف کنید',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'اولویت',
   'priority-description' => 'فقط انتخاب بسیار بالا اگر اشکال واقعا یک مشکل برای استفاده از سایت است.',
   'very-high' => 'خیلی زیاد',
-);
+];

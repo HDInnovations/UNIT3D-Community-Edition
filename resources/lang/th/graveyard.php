@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'ตาย',
   'graveyard' => 'สุสาน',
   'guidelines' => 'แนวทาง',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'รอดำเนินการ',
   'resurrect' => 'ชุบชีวิต',
   'reward' => 'โทเค็นฟรี',
-);
+];

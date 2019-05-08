@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Датум',
   'delete' => 'Избриши',
   'delete-all' => 'Избришете ги сите известувања',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Известувања',
   'read' => 'Прочитајте',
   'title' => 'Наслов',
-);
+];

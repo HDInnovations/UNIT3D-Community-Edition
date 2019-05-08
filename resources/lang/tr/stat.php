@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Sayımla',
   'by-data' => 'Verilere Göre',
   'by-volume' => 'Hacime Göre',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Toplam yükleme',
   'users-in-group' => 'Gruptaki Kullanıcılar',
   'users-per-group' => 'Grup Başına Kullanıcı',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Pridėti parinktį',
   'create-poll' => 'Sukurti apklausą',
   'current' => 'Dabartinis apklausa',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Balsas',
   'vote-now' => 'Gaukite savo balsą dabar!',
   'votes' => 'Balsavimas',
-);
+];

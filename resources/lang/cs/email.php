@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktivovat účet',
   'ban-reason' => 'Důvod',
   'banned-footer' => 'To je to, co dostanete za nedodržování pravidel',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Vaše uživatelské jméno bylo odesláno na vaši e-mailovou adresu!',
   'disabled-header' => 'Váš účet byl zablokován',
   'pruned-header' => 'Váš účet byl zkrácen',
-);
+];

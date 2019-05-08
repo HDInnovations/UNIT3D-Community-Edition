@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Sobre nosaltres',
   'account' => 'Compte',
   'achievement-title' => 'Impressionant',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Sí',
   'your' => 'El teu',
   'your-comment' => 'El vostre comentari',
-);
+];

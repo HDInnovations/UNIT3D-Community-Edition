@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Stvoriti',
   'delete' => 'Izbrisati',
   'enter-subject' => 'Unesite predmet',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'predmet',
   'to' => 'Do',
   'unread' => 'nepročitan',
-);
+];

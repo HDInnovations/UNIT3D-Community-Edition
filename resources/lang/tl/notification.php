@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Petsa',
   'delete' => 'Tanggalin',
   'delete-all' => 'Tanggalin ang lahat ng mga notification',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Mga Abiso',
   'read' => 'Basahin',
   'title' => 'Pamagat',
-);
+];

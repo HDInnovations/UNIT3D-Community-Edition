@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Đã kích hoạt',
   'active' => 'Đã kích hoạt!',
   'amount' => 'Số tiền',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Bạn đã nhận được',
   'you-have-sent-tips' => 'Bạn đã gửi',
   'your-points' => 'Điểm của bạn',
-);
+];

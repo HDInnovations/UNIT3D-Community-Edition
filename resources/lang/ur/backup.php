@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'ایکشنز',
   'backup' => 'بیک اپ',
   'backup_doesnt_exist' => 'بیک اپ فائل موجود نہیں ہے.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'مینیجر',
   'no_disks_configured' => 'config / backup.php میں ترتیب نہیں ہے بیک اپ ڈسک',
   'only_local_downloads_supported' => 'مقامی فائل سسٹم سے صرف ڈاؤن لوڈز کی حمایت کی جاتی ہے.',
-);
+];

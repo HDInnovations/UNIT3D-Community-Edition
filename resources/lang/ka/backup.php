@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'მოქმედებები',
   'backup' => 'სარეზერვო',
   'backup_doesnt_exist' => 'სარეზერვო ფაილი არ არსებობს.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'მენეჯერი',
   'no_disks_configured' => 'არ არის სარეზერვო დისკის კონფიგურაცია config / backup.php',
   'only_local_downloads_supported' => 'მხარდაჭერილია ლოკალური ფაილური სისტემისგან მხოლოდ ჩამოტვირთვები.',
-);
+];

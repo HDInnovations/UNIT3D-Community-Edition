@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Добавить опцию',
   'create-poll' => 'Создать опрос',
   'current' => 'Текущий опрос (ы)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Голос',
   'vote-now' => 'Получи свой голос сейчас!',
   'votes' => 'Голосов',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'مردار',
   'graveyard' => 'قبرستان',
   'guidelines' => 'ہدایات',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'منتقلی',
   'resurrect' => 'دوبارہ شروع',
   'reward' => 'فریلیچ ٹوکن',
-);
+];

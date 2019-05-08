@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Stvoriti',
   'create-private-feed' => 'Stvorite privatni RSS feed',
   'create-public-feed' => 'Stvorite javni RSS feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS feed',
   'type' => 'Tip',
-);
+];

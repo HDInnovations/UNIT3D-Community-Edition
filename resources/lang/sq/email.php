@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktivizo llogarinë',
   'ban-reason' => 'arsye',
   'banned-footer' => 'Thats ajo që ju merrni për të mos ndjekur rregullat',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Emri i përdoruesit është dërguar në adresën tuaj të postës elektronike!',
   'disabled-header' => 'Llogaria jote është e paaftë',
   'pruned-header' => 'Llogaria juaj është e shkurtuar',
-);
+];

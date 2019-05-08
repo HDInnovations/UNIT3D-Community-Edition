@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'мъртъв',
   'graveyard' => 'гробище',
   'guidelines' => 'Насоки',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'в очакване на',
   'resurrect' => 'възкресявам',
   'reward' => 'Токени на свободна употреба',
-);
+];

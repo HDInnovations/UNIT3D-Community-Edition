@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Tumia akaunti',
   'ban-reason' => 'Sababu',
   'banned-footer' => 'Hiyo unayopata kwa kukosa kufuata sheria',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Jina lako la mtumiaji limetumwa kwenye anwani yako ya barua pepe!',
   'disabled-header' => 'Akaunti yako Imekuwa Imelemavu',
   'pruned-header' => 'Akaunti yako Imepikwa',
-);
+];

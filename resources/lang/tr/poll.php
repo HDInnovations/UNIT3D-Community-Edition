@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Seçenek ekle',
   'create-poll' => 'Anket yarat',
   'current' => 'Güncel Anket (ler)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Oy',
   'vote-now' => 'Oyunuzu Şimdi Alın!',
   'votes' => 'oy',
-);
+];

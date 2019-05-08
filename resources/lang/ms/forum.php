@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Tindakan',
   'activity' => 'Aktiviti',
   'approved' => 'Diluluskan',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Nyahpasang',
   'view-all' => 'Lihat Semua Topik',
   'views' => 'Pandangan',
-);
+];

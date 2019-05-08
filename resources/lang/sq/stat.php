@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Nga Pika',
   'by-data' => 'Nga të dhënat',
   'by-volume' => 'Nga Vëllimi',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Ngarko gjithsej',
   'users-in-group' => 'Përdoruesit në grup',
   'users-per-group' => 'Përdoruesit sipas grupit',
-);
+];

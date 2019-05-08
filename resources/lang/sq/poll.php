@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Shtoni opsionin',
   'create-poll' => 'Krijo sondazhin',
   'current' => 'Sondazhi aktual',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'votim',
   'vote-now' => 'Merrni votën tuaj tani!',
   'votes' => 'vota',
-);
+];

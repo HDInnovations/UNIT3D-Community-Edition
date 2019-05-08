@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Akcia',
   'backup' => 'zálohovanie',
   'backup_doesnt_exist' => 'Záložný súbor neexistuje.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'manažér',
   'no_disks_configured' => 'V konfigurácii config / backup.php nie sú nakonfigurované žiadne záložné disky',
   'only_local_downloads_supported' => 'Podporované sú iba prevzaté súbory z lokálneho súborového systému.',
-);
+];

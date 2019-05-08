@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Aktion',
   'activity' => 'Aktivität',
   'approved' => 'Genehmigt',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'Alle Themen anzeigen',
   'views' => 'Ansichten',
-);
+];

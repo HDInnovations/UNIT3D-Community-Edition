@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'akčné',
   'activity' => 'aktivita',
   'approved' => 'schválený',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'uvoľniť',
   'view-all' => 'Zobraziť všetky témy',
   'views' => 'Názory',
-);
+];

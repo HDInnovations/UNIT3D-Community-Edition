@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Activa el compte',
   'ban-reason' => 'Raó',
   'banned-footer' => 'Això és el que obtens per no seguir les regles',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'El vostre nom d’usuari s’ha enviat a la vostra adreça de correu electrònic.',
   'disabled-header' => 'El vostre compte ha estat deshabilitat',
   'pruned-header' => 'S&#39;ha eliminat el vostre compte',
-);
+];

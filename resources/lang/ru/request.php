@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Добавить запрос',
   'age' => 'Возраст',
   'all-requests' => 'Все запросы',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Голосовавшие',
   'votes' => 'Голосов',
   'yes' => 'да',
-);
+];

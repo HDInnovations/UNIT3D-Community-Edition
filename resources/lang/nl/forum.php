@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Actie',
   'activity' => 'Activiteit',
   'approved' => 'aangenomen',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'losmaken',
   'view-all' => 'Bekijk alle onderwerpen',
   'views' => 'Keer bekeken',
-);
+];

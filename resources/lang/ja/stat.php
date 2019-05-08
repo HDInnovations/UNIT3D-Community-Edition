@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'カウントで',
   'by-data' => 'データ別',
   'by-volume' => 'ボリューム別',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => '合計アップロード',
   'users-in-group' => 'グループ内のユーザー',
   'users-per-group' => 'グループごとのユーザー',
-);
+];

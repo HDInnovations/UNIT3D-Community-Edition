@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'បង្កើត',
   'create-private-feed' => 'បង្កើតមតិព័ត៌មាន RSS ឯកជន',
   'create-public-feed' => 'បង្កើតមតិព័ត៌មាន RSS សាធារណៈ',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'មតិព័ត៌មាន RSS',
   'type' => 'វាយ',
-);
+];

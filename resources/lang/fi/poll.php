@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Lisää vaihtoehto',
   'create-poll' => 'Luo kysely',
   'current' => 'Nykyinen kysely (t)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Äänestys',
   'vote-now' => 'Hanki äänesi nyt!',
   'votes' => 'ääntä',
-);
+];

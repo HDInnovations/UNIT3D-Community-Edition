@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'გააქტიურებულია',
   'active' => 'ჩართულია!',
   'amount' => 'თანხა',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Თქვენ მიიღეთ',
   'you-have-sent-tips' => 'თქვენ გაიგზავნა',
   'your-points' => 'შენი ქულები',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Død',
   'graveyard' => 'Kirkegård',
   'guidelines' => 'Retningslinier',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Verserende',
   'resurrect' => 'genoplive',
   'reward' => 'Freeleech-tokens',
-);
+];

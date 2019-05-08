@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'सिर्जना गर्नुहोस्',
   'create-private-feed' => 'निजी RSS फिड सिर्जना गर्नुहोस्',
   'create-public-feed' => 'सार्वजनिक आरएसएस फिड सिर्जना गर्नुहोस्',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'आरएसएस',
   'rss-feed' => 'RSS Feed',
   'type' => 'टाइप गर्नुहोस्',
-);
+];

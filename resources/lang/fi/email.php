@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktivoi tili',
   'ban-reason' => 'Syy',
   'banned-footer' => 'Sitä mitä saat siitä, ettet noudata sääntöjä',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Käyttäjätunnuksesi on lähetetty sähköpostiosoitteeseesi!',
   'disabled-header' => 'Tilisi on poistettu käytöstä',
   'pruned-header' => 'Tilisi on karsittu',
-);
+];

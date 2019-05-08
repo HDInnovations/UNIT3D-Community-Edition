@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Veikla',
   'age' => 'Amžius',
   'agent' => 'Agentas',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Peržiūrėti daugiau',
   'view-trailer' => 'Peržiūrėti priekabą',
   'votes' => 'Balsavimas',
-);
+];

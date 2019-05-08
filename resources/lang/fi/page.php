@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Hyöty',
   'aboutus-advantage1' => 'Meillä on kokeneita jäseniä ja henkilöstöä, jotka ovat hyvin perehtyneet HD-videon / äänen ja teknisen tuen maailmaan.',
   'aboutus-advantage2' => 'Laajan intohimomme elokuvia ja tv-ohjelmia kohtaan tarjoamme myös yhden parhaista valinnoista, joita useimmat dont - FANRES! <em>SUURI KIITOS</em> sisällöntuottajille.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Ryhmä',
   'staff-title' => 'otsikko',
   'whitelist-emaildomain' => 'Luotettu verkkotunnus',
-);
+];

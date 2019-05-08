@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'เปิดใช้งาน',
   'active' => 'เปิดใช้งาน!',
   'amount' => 'จำนวน',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'คุณได้รับ',
   'you-have-sent-tips' => 'คุณได้ส่ง',
   'your-points' => 'คะแนนของคุณ',
-);
+];

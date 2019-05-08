@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'ಕ್ರಿಯೆಗಳು',
   'backup' => 'ಬ್ಯಾಕಪ್',
   'backup_doesnt_exist' => 'ಬ್ಯಾಕ್ಅಪ್ ಫೈಲ್ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'ವ್ಯವಸ್ಥಾಪಕ',
   'no_disks_configured' => 'ಬ್ಯಾಕ್ಅಪ್ ಡಿಸ್ಕ್ಗಳು ಸಂರಚನಾ / ಬ್ಯಾಕ್ಅಪ್ನಲ್ಲಿ ಕಾನ್ಫಿಗರ್ ಮಾಡಲಾಗಿಲ್ಲ',
   'only_local_downloads_supported' => 'ಸ್ಥಳೀಯ ಫೈಲ್ಸಿಸ್ಟಮ್ನಿಂದ ಮಾತ್ರ ಡೌನ್ಲೋಡ್ಗಳನ್ನು ಬೆಂಬಲಿಸಲಾಗುತ್ತದೆ.',
-);
+];

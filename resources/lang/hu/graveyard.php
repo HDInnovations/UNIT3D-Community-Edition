@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Halott',
   'graveyard' => 'Temető',
   'guidelines' => 'Irányelvek',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Függőben levő',
   'resurrect' => 'Feltámad',
   'reward' => 'Freeleech tokenek',
-);
+];

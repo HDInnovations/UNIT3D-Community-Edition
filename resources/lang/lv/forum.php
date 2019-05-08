@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Rīcība',
   'activity' => 'Aktivitāte',
   'approved' => 'Apstiprināts',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Atvienojiet',
   'view-all' => 'Skatīt visas tēmas',
   'views' => 'Skatījumi',
-);
+];

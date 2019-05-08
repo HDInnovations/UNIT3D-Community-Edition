@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Meede',
   'activity' => 'Tegevus',
   'approved' => 'Kinnitatud',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Katkesta',
   'view-all' => 'Vaata kõiki teemasid',
   'views' => 'Vaated',
-);
+];

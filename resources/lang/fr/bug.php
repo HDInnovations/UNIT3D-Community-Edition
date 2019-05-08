@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Rapport d&#39;erreur',
   'bug-report-description' => 'Signaler un bug du site',
   'enter-description' => 'Décrivez le problème le mieux possible',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Priorité',
   'priority-description' => 'Choisissez seulement très élevé si le bogue est vraiment un problème pour utiliser le site.',
   'very-high' => 'Très haut',
-);
+];

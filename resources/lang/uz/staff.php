@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Faoliyat jurnali',
   'articles' => 'Maqolalar',
   'applications' => 'Ilovalar',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Chat vositalari',
   'flush-chat' => 'Tezkor xabarlarni o&#39;chirish',
   'seedboxes' => 'Ro&#39;yxatdan o&#39;tgan urug&#39;lar',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'შესახებ',
   'about-me' => 'Ჩემს შესახებ',
   'accepted-at' => 'მიღებულია',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'გაფრთხილება',
   'warning-log' => 'გაფრთხილების შესვლა',
   'wishlist' => 'სასურველია',
-);
+];

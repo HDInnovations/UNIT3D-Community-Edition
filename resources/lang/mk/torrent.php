@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Активност',
   'age' => 'Возраст',
   'agent' => 'Агент',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Гледај Повеќе',
   'view-trailer' => 'Прегледај ја приколката',
   'votes' => 'Гласови',
-);
+];

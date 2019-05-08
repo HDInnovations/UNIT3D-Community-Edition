@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Pēc skaita',
   'by-data' => 'Pēc datiem',
   'by-volume' => 'Pēc apjoma',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Kopējais augšupielāde',
   'users-in-group' => 'Lietotāji grupā',
   'users-per-group' => 'Lietotāji grupā',
-);
+];

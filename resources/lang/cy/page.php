@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Y fantais',
   'aboutus-advantage1' => 'Mae gennym aelodau profiadol a staff sy&#39;n hyddysg ym myd cymorth fideo / sain a thechnegol HD.',
   'aboutus-advantage2' => 'Ynghyd â&#39;n brwdfrydedd helaeth am ffilmiau a sioeau teledu, rydym hefyd yn cynnig un o&#39;r dewisiadau gorau o rywbeth sydd ddim fwyaf - FANRES! <em>DIOLCH YN FAWR</em> i&#39;n cynnwyswyr.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Grŵp',
   'staff-title' => 'Teitl',
   'whitelist-emaildomain' => 'Parth dibynadwy',
-);
+];

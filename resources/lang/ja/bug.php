@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'バグレポート',
   'bug-report-description' => 'サイトのバグを報告する',
   'enter-description' => 'できるだけ問題を説明してください',
@@ -11,4 +12,4 @@ return array (
   'priority' => '優先度',
   'priority-description' => 'このバグが本当にこのサイトを使用する上で問題となる場合のみ、非常に高い値を選択してください。',
   'very-high' => 'すごく高い',
-);
+];

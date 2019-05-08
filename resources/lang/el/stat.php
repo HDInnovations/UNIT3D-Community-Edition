@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Με την καταμέτρηση',
   'by-data' => 'Με Δεδομένα',
   'by-volume' => 'Με τόνο',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Συνολική μεταφόρτωση',
   'users-in-group' => 'Χρήστες στην ομάδα',
   'users-per-group' => 'Χρήστες ανά ομάδα',
-);
+];

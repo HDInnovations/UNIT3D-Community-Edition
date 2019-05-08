@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Sortu',
   'create-private-feed' => 'Sortu RSS iturri pribatua',
   'create-public-feed' => 'Sortu RSS iturri publikoa',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS jarioa',
   'type' => 'Mota',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Veiksmai',
   'backup' => 'Atsarginė kopija',
   'backup_doesnt_exist' => 'Nėra atsarginio failo.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Vadybininkas',
   'no_disks_configured' => '„Config / backup.php“ nėra sukonfigūruoti atsarginių diskų',
   'only_local_downloads_supported' => 'Palaikomos tik vietinio failų sistemos atsisiuntimai.',
-);
+];

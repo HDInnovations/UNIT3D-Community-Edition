@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'veiklos žurnalas',
   'articles' => 'Straipsniai',
   'applications' => 'Programos',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Pokalbių įrankiai',
   'flush-chat' => '„Flush Chatbox“',
   'seedboxes' => 'Registruotos sėklos dėžutės',
-);
+];

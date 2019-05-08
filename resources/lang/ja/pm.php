@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => '作成する',
   'delete' => '削除する',
   'enter-subject' => '件名を入力',
@@ -24,4 +25,4 @@ return array (
   'subject' => '件名',
   'to' => 'に',
   'unread' => '未読',
-);
+];

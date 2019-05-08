@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Umbes',
   'about-me' => 'Minust',
   'accepted-at' => 'Vastu võetud',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Hoiatus',
   'warning-log' => 'Hoiatuslogi',
   'wishlist' => 'Soovinimekiri',
-);
+];

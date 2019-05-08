@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'A vantagem',
   'aboutus-advantage1' => 'Temos membros experientes e funcionários bem versados no mundo do vídeo / áudio em HD e suporte técnico.',
   'aboutus-advantage2' => 'Juntamente com a nossa extensa paixão por filmes e programas de TV, também oferecemos uma das melhores seleções de algo que a maioria não faz - FANRES! <em>UM GRANDE OBRIGADO</em> aos nossos apresentadores de conteúdo.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Grupo',
   'staff-title' => 'Título',
   'whitelist-emaildomain' => 'Domínio Confiável',
-);
+];

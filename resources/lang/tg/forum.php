@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Амалиёт',
   'activity' => 'Фаъолият',
   'approved' => 'Тасдиқ шудааст',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Бештар',
   'view-all' => 'Дидани ҳамаи мавзӯъҳо',
   'views' => 'Дида шуд',
-);
+];

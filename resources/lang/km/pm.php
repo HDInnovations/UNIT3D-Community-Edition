@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'បង្កើត',
   'delete' => 'លុប',
   'enter-subject' => 'បញ្ចូលប្រធានបទ',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'ប្រធានបទ',
   'to' => 'ទៅ',
   'unread' => 'មិនទាន់អាន',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'របាយការណ៍​សកម្មភាព',
   'articles' => 'អត្ថបទ',
   'applications' => 'កម្មវិធី',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'ឧបករណ៍ជជែកកំសាន្ត',
   'flush-chat' => 'Flush Chatbox',
   'seedboxes' => 'ប្រអប់ដែលបានចុះឈ្មោះ',
-);
+];

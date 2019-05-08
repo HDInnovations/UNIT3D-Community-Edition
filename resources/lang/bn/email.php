@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'অ্যাকাউন্ট সক্রিয়',
   'ban-reason' => 'কারণ',
   'banned-footer' => 'আপনি নিয়ম অনুসরণ না পেতে কি Thats',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'আপনার ব্যবহারকারী নাম আপনার ইমেইল ঠিকানা পাঠানো হয়েছে!',
   'disabled-header' => 'আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে',
   'pruned-header' => 'আপনার অ্যাকাউন্ট প্রজনন করা হয়েছে',
-);
+];

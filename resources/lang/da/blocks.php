@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat Box',
   'click' => 'Klik',
   'to-enable-editor' => 'for at aktivere editoren',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Nyheder (tjek dagligt)',
   'new-news' => 'Nye Nyheder',
   'new-torrents' => 'Nye torrenter',
-);
+];

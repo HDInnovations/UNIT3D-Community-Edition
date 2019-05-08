@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktibatu kontua',
   'ban-reason' => 'Arrazoia',
   'banned-footer' => 'Hori lortzen duzu arauak ez jarraitzeagatik',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Zure erabiltzaile-izena zure helbide elektronikora bidali da!',
   'disabled-header' => 'Zure kontua desgaituta egon da',
   'pruned-header' => 'Zure kontua inaustuta dago',
-);
+];

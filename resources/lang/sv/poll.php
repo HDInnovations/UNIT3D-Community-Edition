@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Lägg till alternativ',
   'create-poll' => 'Skapa undersökning',
   'current' => 'Nuvarande omröstning (er)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Rösta',
   'vote-now' => 'Få din röst i nu!',
   'votes' => 'röster',
-);
+];

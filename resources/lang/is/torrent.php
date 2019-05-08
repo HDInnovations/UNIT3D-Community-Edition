@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Virkni',
   'age' => 'Aldur',
   'agent' => 'Umboðsmaður',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Sjá meira',
   'view-trailer' => 'Skoða eftirvagn',
   'votes' => 'Atkvæði',
-);
+];

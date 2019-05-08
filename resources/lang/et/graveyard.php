@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Surnud',
   'graveyard' => 'Graveyard',
   'guidelines' => 'Suunised',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Ootel',
   'resurrect' => 'Taastage',
   'reward' => 'Freeleechi märgid',
-);
+];

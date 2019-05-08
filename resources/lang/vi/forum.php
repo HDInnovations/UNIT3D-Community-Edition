@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Hoạt động',
   'activity' => 'Hoạt động',
   'approved' => 'Tán thành',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Bỏ ghim',
   'view-all' => 'Xem tất cả các chủ đề',
   'views' => 'Lượt xem',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Kuhusu',
   'about-me' => 'Kuhusu mimi',
   'accepted-at' => 'Imekubaliwa',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Onyo',
   'warning-log' => 'Ingia ya Onyo',
   'wishlist' => 'Wishlist',
-);
+];

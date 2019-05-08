@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Creu',
   'create-private-feed' => 'Creu Preifat RSS Feed',
   'create-public-feed' => 'Creu Porth RSS RSS',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'Porthiant RSS',
   'type' => 'Math',
-);
+];

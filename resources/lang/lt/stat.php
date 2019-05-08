@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Pagal skaičių',
   'by-data' => 'Pagal duomenis',
   'by-volume' => 'Pagal tūrį',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Bendras įkėlimas',
   'users-in-group' => 'Vartotojai grupėje',
   'users-per-group' => 'Vartotojai per grupę',
-);
+];

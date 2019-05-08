@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Về chúng tôi',
   'account' => 'Tài khoản',
   'achievement-title' => 'Tuyệt vời',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Vâng',
   'your' => 'Của bạn',
   'your-comment' => 'Bình luận của bạn',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Hozzászólások',
   'backup' => 'biztonsági mentés',
   'backup_doesnt_exist' => 'A mentési fájl nem létezik.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Menedzser',
   'no_disks_configured' => 'A config / backup.php fájlban nincsenek biztonsági másolatok',
   'only_local_downloads_supported' => 'Csak a helyi fájlrendszerről érkező letöltések támogatottak.',
-);
+];

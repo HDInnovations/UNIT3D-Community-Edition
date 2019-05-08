@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'غلطیوں کی تفصیل',
   'bug-report-description' => 'سائٹ بگ کی اطلاع دیں',
   'enter-description' => 'جتنی جلدی ممکن ہو وہ مسئلہ بیان کریں',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'ترجیح',
   'priority-description' => 'اگر یہ ایرر برقرار رہے تو ہمارے ہیلپ ڈیسک سے رابطہ کریں. اس ویڈیو پر غلط استعمال کی اطلاع دیتے ہوئے ایرر آ گیا ہے.',
   'very-high' => 'بہت اونچا',
-);
+];

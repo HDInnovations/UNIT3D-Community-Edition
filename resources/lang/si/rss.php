@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'නිර්මාණය කරන්න',
   'create-private-feed' => 'පුද්ගලික RSS සංග්රහයක් සාදන්න',
   'create-public-feed' => 'පොදු RSS සංග්රහයක් සාදන්න',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS සංග්රහය',
   'type' => 'වර්ගය',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'мерки',
   'backup' => 'резервно копие',
   'backup_doesnt_exist' => 'Резервният файл не съществува.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'мениджър',
   'no_disks_configured' => 'Няма конфигурирани резервни дискове в config / backup.php',
   'only_local_downloads_supported' => 'Поддържат се само изтегляния от локалната файлова система.',
-);
+];

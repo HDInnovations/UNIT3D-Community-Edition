@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Tevékenység',
   'age' => 'Kor',
   'agent' => 'Ügynök',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Mutass többet',
   'view-trailer' => 'Pótkocsi megtekintése',
   'votes' => 'szavazatok',
-);
+];

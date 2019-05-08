@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Өлі',
   'graveyard' => 'Могилев',
   'guidelines' => 'Нұсқаулық',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Күтілуде',
   'resurrect' => 'Қайта түзету',
   'reward' => 'Фрейлеэк таңбалары',
-);
+];

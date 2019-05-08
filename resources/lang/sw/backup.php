@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Vitendo',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Faili ya salama haipo.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Meneja',
   'no_disks_configured' => 'Hakuna diski za salama zilizosanidiwa katika config / backup.php',
   'only_local_downloads_supported' => 'Upakuaji tu kutoka kwa mfumo wa faili wa Mitaa unasaidiwa.',
-);
+];

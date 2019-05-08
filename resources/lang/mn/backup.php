@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Үйл ажиллагаа',
   'backup' => 'Нөөцлөх',
   'backup_doesnt_exist' => 'Нөөц файл байхгүй байна.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Менежер',
   'no_disks_configured' => 'Config / backup.php-д нөөцлөлтийн дискнүүд байхгүй байна',
   'only_local_downloads_supported' => 'Зөвхөн Локал файлын системээс татаж авдаг.',
-);
+];

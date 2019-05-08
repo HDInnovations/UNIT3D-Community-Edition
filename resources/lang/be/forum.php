@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'дзеянне',
   'activity' => 'дзейнасць',
   'approved' => 'зацверджаны',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'распушчае мацаваньне',
   'view-all' => 'Прагледзець усе тэмы',
   'views' => 'думкі',
-);
+];

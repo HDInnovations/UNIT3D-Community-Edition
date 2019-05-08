@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Tanlov qo&#39;shish',
   'create-poll' => 'So&#39;rov yaratish',
   'current' => 'Joriy so&#39;rov (lar)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Ovoz berish',
   'vote-now' => 'Sizning ovozingizni hozir oling!',
   'votes' => 'Ovozlar',
-);
+];

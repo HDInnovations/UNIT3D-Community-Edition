@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Azione',
   'activity' => 'Attività',
   'approved' => 'Approvato',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Sblocca',
   'view-all' => 'Visualizza tutti gli argomenti',
   'views' => 'Visualizzazioni',
-);
+];

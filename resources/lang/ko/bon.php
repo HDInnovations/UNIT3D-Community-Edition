@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => '활성화 됨',
   'active' => '활성화되었습니다!',
   'amount' => '양',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => '당신은 받았습니다',
   'you-have-sent-tips' => '너는 보냈다',
   'your-points' => '귀하의 포인트',
-);
+];

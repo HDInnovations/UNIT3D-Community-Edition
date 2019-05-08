@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Ngày',
   'delete' => 'Xóa bỏ',
   'delete-all' => 'Xóa tất cả các thông báo',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Thông báo',
   'read' => 'Đọc',
   'title' => 'Chức vụ',
-);
+];

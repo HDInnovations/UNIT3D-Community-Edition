@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'ಆಯ್ಕೆಯನ್ನು ಸೇರಿಸಿ',
   'create-poll' => 'ಪೋಲ್ ರಚಿಸಿ',
   'current' => 'ಪ್ರಸ್ತುತ ಪೋಲ್ (ಗಳು)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'ಮತ',
   'vote-now' => 'ಈಗ ನಿಮ್ಮ ಮತವನ್ನು ಪಡೆಯಿರಿ!',
   'votes' => 'ಮತಗಳು',
-);
+];

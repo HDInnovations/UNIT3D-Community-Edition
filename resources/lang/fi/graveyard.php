@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Kuollut',
   'graveyard' => 'Hautausmaa',
   'guidelines' => 'suuntaviivat',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'odotettaessa',
   'resurrect' => 'elvyttää',
   'reward' => 'Freeleech-merkit',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Дар бораи',
   'about-me' => 'Дар бораи ман',
   'accepted-at' => 'Даромад',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Огоҳӣ',
   'warning-log' => 'Додаҳои огоҳкунанда',
   'wishlist' => 'Хоҳиш',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Počet',
   'by-data' => 'Podle údajů',
   'by-volume' => 'Podle objemu',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Celkový počet nahrávek',
   'users-in-group' => 'Uživatelé ve skupině',
   'users-per-group' => 'Uživatelé na skupinu',
-);
+];

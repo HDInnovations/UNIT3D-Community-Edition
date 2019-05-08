@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat Box',
   'click' => 'Кликни',
   'to-enable-editor' => 'за да овозможите уредник',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Вести (проверете дневно)',
   'new-news' => 'Нови вести',
   'new-torrents' => 'Нови торенти',
-);
+];

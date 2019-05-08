@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Marw',
   'graveyard' => 'Mynwent',
   'guidelines' => 'Canllawiau',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Yn aros',
   'resurrect' => 'Ailgodi',
   'reward' => 'Tocynnau lleferydd rhydd',
-);
+];

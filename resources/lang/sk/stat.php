@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Počet',
   'by-data' => 'Podľa údajov',
   'by-volume' => 'Podľa objemu',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Celkový počet odovzdaní',
   'users-in-group' => 'Používatelia v skupine',
   'users-per-group' => 'Používatelia na skupinu',
-);
+];

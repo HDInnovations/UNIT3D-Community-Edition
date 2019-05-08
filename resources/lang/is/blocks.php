@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Spjallsvæði',
   'click' => 'Smellur',
   'to-enable-editor' => 'til að virkja ritstjóra',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Fréttir (athuga daglega)',
   'new-news' => 'Nýtt fréttir',
   'new-torrents' => 'Nýjar straumar',
-);
+];

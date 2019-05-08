@@ -1,7 +1,8 @@
-<?php 
-return array (
+<?php
+
+return [
   'articles' => 'Artiklid',
   'meta-articles' => 'Artiklid ja uudised jälgija ja kogukonna kohta',
   'published-at' => 'Avaldatud',
   'read-more' => 'Loe rohkem',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Δημιουργώ',
   'create-private-feed' => 'Δημιουργία ιδιωτικής ροής RSS',
   'create-public-feed' => 'Δημιουργία κοινής ροής RSS',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Τύπος',
-);
+];

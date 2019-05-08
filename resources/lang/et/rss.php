@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Loo',
   'create-private-feed' => 'Loo privaatne RSS-voog',
   'create-public-feed' => 'Loo avalik RSS-kanal',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS-voog',
   'type' => 'Tüüp',
-);
+];

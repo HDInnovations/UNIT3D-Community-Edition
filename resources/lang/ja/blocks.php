@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'チャットボックス',
   'click' => 'クリック',
   'to-enable-editor' => 'エディタを有効にする',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'お知らせ（毎日チェック）',
   'new-news' => '新しいニュース',
   'new-torrents' => '新しい急流',
-);
+];

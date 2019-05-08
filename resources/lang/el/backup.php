@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Ενέργειες',
   'backup' => 'Αντιγράφων ασφαλείας',
   'backup_doesnt_exist' => 'Το αρχείο αντιγράφου ασφαλείας δεν υπάρχει.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Διευθυντής',
   'no_disks_configured' => 'Δεν υπάρχουν διαμορφωμένοι δίσκοι δημιουργίας αντιγράφων στο config / backup.php',
   'only_local_downloads_supported' => 'Λαμβάνονται μόνο λήψεις από το Τοπικό σύστημα αρχείων.',
-);
+];

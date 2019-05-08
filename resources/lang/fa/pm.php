@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'ايجاد كردن',
   'delete' => 'حذف',
   'enter-subject' => 'موضوع را وارد کنید',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'موضوع',
   'to' => 'به',
   'unread' => 'خوانده نشده',
-);
+];

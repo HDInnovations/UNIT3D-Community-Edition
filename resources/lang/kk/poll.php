@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Параметрді қосу',
   'create-poll' => 'Сауалнама жасау',
   'current' => 'Ағымдағы сұраулар (лар)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Дауыс',
   'vote-now' => 'Дауыстарды қазір алыңыз!',
   'votes' => 'Дауыстар',
-);
+];

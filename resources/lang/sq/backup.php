@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'veprimet',
   'backup' => 'rezervë',
   'backup_doesnt_exist' => 'Dosja e kopjimit nuk ekziston.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'menaxher',
   'no_disks_configured' => 'Asnjë disk rezervë nuk është konfiguruar në config / backup.php',
   'only_local_downloads_supported' => 'Mbështeten vetëm shkarkimet nga skedari i sistemit Lokal.',
-);
+];

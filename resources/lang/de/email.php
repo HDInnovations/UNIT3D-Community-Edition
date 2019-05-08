@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Konto aktivieren',
   'ban-reason' => 'Grund',
   'banned-footer' => 'Das ist es, was Sie bekommen, wenn Sie sich nicht an die Regeln halten',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Ihr Benutzername wurde an Ihre E-Mail-Adresse gesendet!',
   'disabled-header' => 'Ihr Account wurde deaktiviert',
   'pruned-header' => 'Ihr Konto wurde beschnitten',
-);
+];

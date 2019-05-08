@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'acties',
   'backup' => 'backup',
   'backup_doesnt_exist' => 'Het back-upbestand bestaat niet.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Manager',
   'no_disks_configured' => 'Geen back-upschijven geconfigureerd in config / backup.php',
   'only_local_downloads_supported' => 'Alleen downloads van het lokale bestandssysteem worden ondersteund.',
-);
+];

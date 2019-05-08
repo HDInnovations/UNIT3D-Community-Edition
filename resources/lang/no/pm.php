@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Skape',
   'delete' => 'Slett',
   'enter-subject' => 'Skriv inn emne',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Emne',
   'to' => 'Til',
   'unread' => 'ulest',
-);
+];

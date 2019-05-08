@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'خلق',
   'delete' => 'حذف',
   'enter-subject' => 'أدخل الموضوع',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'موضوع',
   'to' => 'إلى',
   'unread' => 'غير مقروء',
-);
+];

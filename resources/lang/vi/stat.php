@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Theo số lượng',
   'by-data' => 'Theo dữ liệu',
   'by-volume' => 'Bởi âm lượng',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Tổng số tải lên',
   'users-in-group' => 'Người dùng trong nhóm',
   'users-per-group' => 'Người dùng mỗi nhóm',
-);
+];

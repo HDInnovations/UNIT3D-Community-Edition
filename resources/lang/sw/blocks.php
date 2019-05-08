@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Sanduku la Ongea',
   'click' => 'Bofya',
   'to-enable-editor' => 'ili kuwezesha mhariri',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Habari (angalia kila siku)',
   'new-news' => 'Habari mpya',
   'new-torrents' => 'Mito mpya',
-);
+];

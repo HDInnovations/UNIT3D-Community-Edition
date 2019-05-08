@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Acțiune',
   'activity' => 'Activitate',
   'approved' => 'Aprobat',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Anulați fixarea',
   'view-all' => 'Vezi toate subiectele',
   'views' => 'Vizualizări',
-);
+];

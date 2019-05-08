@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'ჩატი ყუთი',
   'click' => 'დაწკაპეთ',
   'to-enable-editor' => 'რედაქტორის ჩართვა',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'სიახლეები (ყოველდღიურად შემოწმება)',
   'new-news' => 'Ახალი ამბები',
   'new-torrents' => 'ახალი ტორენტები',
-);
+];

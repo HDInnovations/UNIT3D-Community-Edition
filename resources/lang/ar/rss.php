@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'خلق',
   'create-private-feed' => 'إنشاء تغذية RSS خاصة',
   'create-public-feed' => 'إنشاء تغذية RSS العامة',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'تغذية ار اس اس',
   'type' => 'نوع',
-);
+];

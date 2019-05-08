@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Thêm yêu cầu',
   'age' => 'Tuổi tác',
   'all-requests' => 'Tất cả các yêu cầu',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Cử tri',
   'votes' => 'Phiếu bầu',
   'yes' => 'Vâng',
-);
+];

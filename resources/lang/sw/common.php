@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Kuhusu sisi',
   'account' => 'Akaunti',
   'achievement-title' => 'Awesome',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ndiyo',
   'your' => 'Yako',
   'your-comment' => 'Maoni yako',
-);
+];

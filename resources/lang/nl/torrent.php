@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Activiteit',
   'age' => 'Leeftijd',
   'agent' => 'Middel',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Bekijk meer',
   'view-trailer' => 'Bekijk trailer',
   'votes' => 'stemmen',
-);
+];

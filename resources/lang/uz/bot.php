@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Haqida',
   'bot' => 'Bot',
   'bots' => 'Botlar',
@@ -11,4 +12,4 @@ return array (
   'icon' => 'Belgini',
   'info' => 'Ma&#39;lumot',
   'name' => 'Ism',
-);
+];

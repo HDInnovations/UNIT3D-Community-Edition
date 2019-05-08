@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'អំពី​ពួក​យើង',
   'account' => 'គណនី',
   'achievement-title' => 'ល្អមែនទែន',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'បាទ',
   'your' => 'របស់អ្នក',
   'your-comment' => 'មតិយោបល់របស់អ្នក',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Handling',
   'activity' => 'Aktivitet',
   'approved' => 'godkendt',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Frigør',
   'view-all' => 'Se alle emner',
   'views' => 'visninger',
-);
+];

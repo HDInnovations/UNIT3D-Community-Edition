@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Um okkur',
   'account' => 'Reikningur',
   'achievement-title' => 'Æðislegur',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Já',
   'your' => 'Þinn',
   'your-comment' => 'Athugasemd þín',
-);
+];

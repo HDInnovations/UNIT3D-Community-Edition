@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'teremt',
   'delete' => 'Töröl',
   'enter-subject' => 'Adja meg a témát',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Tantárgy',
   'to' => 'Nak nek',
   'unread' => 'Nem olvasott',
-);
+];

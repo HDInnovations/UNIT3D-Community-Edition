@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Harakat',
   'activity' => 'Faoliyat',
   'approved' => 'Tasdiqlangan',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Yoqing',
   'view-all' => 'Barcha mavzularni ko&#39;rish',
   'views' => 'Ko&#39;rishlar',
-);
+];

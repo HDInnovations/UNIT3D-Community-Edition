@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Mrtav',
   'graveyard' => 'Groblje',
   'guidelines' => 'Smjernice',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'U tijeku',
   'resurrect' => 'Uskrsnuti',
   'reward' => 'Slobodni tokeni',
-);
+];

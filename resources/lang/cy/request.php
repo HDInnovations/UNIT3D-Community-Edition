@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Ychwanegu cais',
   'age' => 'Oedran',
   'all-requests' => 'Pob cais',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Pleidleiswyr',
   'votes' => 'Pleidleisiau',
   'yes' => 'Ydw',
-);
+];

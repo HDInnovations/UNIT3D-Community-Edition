@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Lukumäärä',
   'by-data' => 'Tiedot',
   'by-volume' => 'Äänenvoimakkuuden mukaan',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Lataus yhteensä',
   'users-in-group' => 'Käyttäjät ryhmässä',
   'users-per-group' => 'Käyttäjät per ryhmä',
-);
+];

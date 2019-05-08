@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Ჩვენს შესახებ',
   'account' => 'ანგარიში',
   'achievement-title' => 'გასაოცარია',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'დიახ',
   'your' => 'შენი',
   'your-comment' => 'Შენი კომენტარი',
-);
+];

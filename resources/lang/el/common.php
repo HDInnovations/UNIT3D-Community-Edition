@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Σχετικά με εμάς',
   'account' => 'λογαριασμός',
   'achievement-title' => 'Φοβερός',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ναί',
   'your' => 'Τα δικα σου',
   'your-comment' => 'Το σχόλιό σου',
-);
+];

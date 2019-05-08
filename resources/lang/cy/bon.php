@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Wedi&#39;i actifadu',
   'active' => 'Wedi&#39;i actio!',
   'amount' => 'Swm',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Rydych chi wedi derbyn',
   'you-have-sent-tips' => 'Rydych wedi Anfon',
   'your-points' => 'Eich Pwyntiau',
-);
+];

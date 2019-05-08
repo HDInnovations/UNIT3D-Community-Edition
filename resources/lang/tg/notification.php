@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Сана',
   'delete' => 'Тоза кардан',
   'delete-all' => 'Ҳамаи огоҳиҳо нест карда мешаванд',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Огоҳиҳо',
   'read' => 'Хонед',
   'title' => 'Title',
-);
+];

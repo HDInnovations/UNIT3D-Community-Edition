@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Na-activate',
   'active' => 'Na-activate!',
   'amount' => 'Halaga',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Natanggap Mo',
   'you-have-sent-tips' => 'Ipinadala Mo',
   'your-points' => 'Ang iyong Mga Punto',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Laporan bug',
   'bug-report-description' => 'Laporkan bug situs',
   'enter-description' => 'Jelaskan masalah sebaik mungkin',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prioritas',
   'priority-description' => 'Pilih hanya sangat tinggi jika bug benar-benar masalah untuk menggunakan situs ini.',
   'very-high' => 'Sangat tinggi',
-);
+];

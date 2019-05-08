@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'បន្ថែមសំណើ',
   'age' => 'អាយុ',
   'all-requests' => 'សំណើទាំងអស់',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'អ្នកបោះឆ្នោត',
   'votes' => 'ការបោះឆ្នោត',
   'yes' => 'បាទ',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Чоп кунед',
   'click' => 'Клик кунед',
   'to-enable-editor' => 'барои эҷоди муҳаррир',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Хабарҳо',
   'new-news' => 'Хабарҳо',
   'new-torrents' => 'Ҷаҳишаҳои нав',
-);
+];

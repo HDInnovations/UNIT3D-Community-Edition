@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Noin',
   'about-me' => 'Minusta',
   'accepted-at' => 'Hyväksytty osoitteessa',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Varoitus',
   'warning-log' => 'Varoitusloki',
   'wishlist' => 'toivelista',
-);
+];

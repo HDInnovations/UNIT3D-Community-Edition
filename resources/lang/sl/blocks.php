@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Okno za klepet',
   'click' => 'Kliknite',
   'to-enable-editor' => ', da omogočite urejevalnik',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Novice (preverite dnevno)',
   'new-news' => 'Nove novice',
   'new-torrents' => 'Novi torrenti',
-);
+];

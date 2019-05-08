@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'ಡೆಡ್',
   'graveyard' => 'ಗ್ರೇವ್ಯಾರ್ಡ್',
   'guidelines' => 'ಮಾರ್ಗಸೂಚಿಗಳು',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'ಬಾಕಿ ಉಳಿದಿದೆ',
   'resurrect' => 'ಪುನರುತ್ಥಾನ',
   'reward' => 'ಫ್ರೀಲೀಕ್ ಟೋಕನ್ಗಳು',
-);
+];

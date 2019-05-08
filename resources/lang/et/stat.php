@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Krahvide järgi',
   'by-data' => 'Andmete järgi',
   'by-volume' => 'Mahtude järgi',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Üleslaadimine kokku',
   'users-in-group' => 'Kasutajad grupis',
   'users-per-group' => 'Kasutajad grupi kohta',
-);
+];

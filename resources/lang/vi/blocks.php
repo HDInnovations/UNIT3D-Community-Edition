@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Hộp trò chuyện',
   'click' => 'Nhấp chuột',
   'to-enable-editor' => 'để kích hoạt trình chỉnh sửa',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Tin tức (kiểm tra hàng ngày)',
   'new-news' => 'Tin tức mới',
   'new-torrents' => 'Dòng chảy mới',
-);
+];

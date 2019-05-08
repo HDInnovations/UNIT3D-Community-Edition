@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Konden arabera',
   'by-data' => 'Datuen arabera',
   'by-volume' => 'Bolumenaren arabera',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Guztira kargatzea',
   'users-in-group' => 'Taldeko erabiltzaileak',
   'users-per-group' => 'Talde bakoitzeko erabiltzaileak',
-);
+];

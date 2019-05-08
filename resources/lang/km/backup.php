@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'សកម្មភាព',
   'backup' => 'បម្រុងទុក',
   'backup_doesnt_exist' => 'ឯកសារបម្រុងទុកមិនមានទេ។',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'អ្នកគ្រប់គ្រង',
   'no_disks_configured' => 'គ្មានថាសបម្រុងទុកដែលបានកំណត់រចនាសម្ព័ន្ធក្នុង config / backup.php ទេ',
   'only_local_downloads_supported' => 'មានតែការទាញយកពីប្រព័ន្ធឯកសារមូលដ្ឋានតែប៉ុណ្ណោះ។',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Optie toevoegen',
   'create-poll' => 'Maak enquête',
   'current' => 'Huidige peiling (en)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Stemmen',
   'vote-now' => 'Laat je stem nu horen!',
   'votes' => 'stemmen',
-);
+];

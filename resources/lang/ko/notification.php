@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => '날짜',
   'delete' => '지우다',
   'delete-all' => '모든 알림 삭제',
@@ -10,4 +11,4 @@ return array (
   'notifications' => '알림',
   'read' => '독서',
   'title' => '표제',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Sur',
   'about-me' => 'À propos de moi',
   'accepted-at' => 'Accepté à',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Attention',
   'warning-log' => 'Journal d&#39;avertissement',
   'wishlist' => 'Liste de souhaits',
-);
+];

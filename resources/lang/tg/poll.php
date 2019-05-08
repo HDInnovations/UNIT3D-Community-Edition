@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Иловаи вариант',
   'create-poll' => 'Эҷоди пурсиш',
   'current' => 'Равзанаи ҷорӣ',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Садо Ояндасоз',
   'vote-now' => 'Ҳоло дар овоздиҳӣ иштирок кунед!',
   'votes' => 'Votes',
-);
+];
