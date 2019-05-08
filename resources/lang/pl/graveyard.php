@@ -1,15 +1,14 @@
-<?php
-
-return [
-    'dead'               => 'Trupów',
-    'graveyard'          => 'Cmentarzysko',
-    'guidelines'         => 'Wytyczne',
-    'guidelines-content' => '1) Nie możesz wskrzeszać własnych wstawek.<br>2) Nie wskrzeszaj czegoś, czego nie możesz wrzucić.',
-    'howto'              => 'Jak skutecznie wskrzesić',
-    'howto-desc1'        => 'Musisz seedować <span class="text-green"><em>:name</em></span> przez <span class="text-red text-bold">30 dni</span>, by wskrzesić torrent. Kiedy bieżący czas seedowania',
-    'howto-desc2'        => 'W nagrodę otrzymasz',
-    'howto-hits'         => 'Osiągnie',
-    'pending'            => 'W trakcie',
-    'resurrect'          => 'Wskrzeszenie',
-    'reward'             => 'Freeleech tokenów',
-];
+<?php 
+return array (
+  'dead' => 'Nie żyje',
+  'graveyard' => 'Cmentarz',
+  'guidelines' => 'Wytyczne',
+  'guidelines-content' => '1) Nie możesz wskrzesić własnych plików. <br> 2) Nie wskrzeszaj czegoś, czego nie możesz też popełnić.',
+  'howto' => 'Herezje Reguła',
+  'howto-desc1' => 'Musisz posiać <span class=\\"text-green\\"><em>: imię</em></span> na <span class=\\"text-red text-bold\\">30 dni,</span> aby pomyślnie ukończyć ressurection. W takim przypadku, gdy aktualna godzina początkowa',
+  'howto-desc2' => 'Zostaniesz nagrodzony',
+  'howto-hits' => 'Trafienia',
+  'pending' => 'W oczekiwaniu',
+  'resurrect' => 'Wskrzesić',
+  'reward' => 'Tokeny Freeleech',
+);

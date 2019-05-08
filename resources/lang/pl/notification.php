@@ -1,14 +1,13 @@
-<?php
-
-return [
-    'date'             => 'Data',
-    'delete'           => 'Skasuj',
-    'delete-all'       => 'Skasuj wszystkie powiadomienia',
-    'mark-all-read'    => 'Oznacz wszystkie wszystkie jako przeczytane',
-    'mark-read'        => 'Oznacz jako przeczytane',
-    'message'          => 'Treść',
-    'no-notifications' => 'Nie znaleziono żadnych powiadomień',
-    'notifications'    => 'Powiadomienia',
-    'read'             => 'Przeczytane',
-    'title'            => 'Tytuł',
-];
+<?php 
+return array (
+  'date' => 'Data',
+  'delete' => 'Kasować',
+  'delete-all' => 'Usuń wszystkie powiadomienia',
+  'mark-all-read' => 'Oznacz wszystkie jako przeczytane',
+  'mark-read' => 'Oznacz jako przeczytane',
+  'message' => 'Wiadomość',
+  'no-notifications' => 'Nie znaleziono żadnych powiadomień',
+  'notifications' => 'Powiadomienia',
+  'read' => 'Czytać',
+  'title' => 'Tytuł',
+);
