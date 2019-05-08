@@ -170,6 +170,7 @@ return [
         ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe'],
         ['short' => 'uk',       'long' => 'uk-UA',      'english' => 'Ukrainian',           'native' => 'Українська'],
         ['short' => 'ur',       'long' => 'ur-UR',      'english' => 'Urdu',                'native' => 'اردو'],
+        ['short' => 'uz',       'long' => 'uz-UZ',      'english' => 'Uzbek',               'native' => 'Ozbek'],
         ['short' => 'vi',       'long' => 'vi-VN',      'english' => 'Vietnamese',          'native' => 'Tiếng Việt'],
         ['short' => 'zh-CN',    'long' => 'zh-CN',      'english' => 'Chinese (S)',         'native' => '简体中文'],
         ['short' => 'zh-TW',    'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
