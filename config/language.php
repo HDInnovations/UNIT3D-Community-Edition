@@ -116,6 +116,7 @@ return [
         ['short' => 'bg',       'long' => 'bg-BG',      'english' => 'Bulgarian',           'native' => 'български'],
         ['short' => 'bn',       'long' => 'bn-BD',      'english' => 'Bengali',             'native' => 'বাংলা'],
         ['short' => 'bs',       'long' => 'sr-BA',      'english' => 'Bosnian',             'native' => 'Bosanski'],
+        ['short' => 'ca',       'long' => 'ca-CA',      'english' => 'Catalan',             'native' => 'Català'],
         ['short' => 'cn',       'long' => 'zh-CN',      'english' => 'Chinese (S)',         'native' => '简体中文'],
         ['short' => 'cs',       'long' => 'cs-CZ',      'english' => 'Czech',               'native' => 'Čeština'],
         ['short' => 'da',       'long' => 'da-DK',      'english' => 'Danish',              'native' => 'Dansk'],
