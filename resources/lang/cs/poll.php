@@ -1,20 +1,19 @@
-<?php
-
-return [
-    'add-option'           => 'Přidat možnost',
-    'create-poll'          => 'Vytvořte hlasování',
-    'current'              => 'Aktuální anketa',
-    'delete-option'        => 'Možnost Smazat',
-    'ip-checking'          => 'Toto hlasování má duplicitní kontrolu hlasování. Můžete hlasovat pouze jednou.',
-    'ip-checking-warrning' => 'Potřebné pouze v případě, že je ve veřejném režimu',
-    'multiple-choice'      => 'Jedná se o hlasování s více volbami. Vyberte si tolik odpovědí, kolik chcete.',
-    'option'               => 'Volba',
-    'poll'                 => 'Hlasování',
-    'polls'                => 'Ankety',
-    'results'              => 'Výsledky průzkumu',
-    'title'                => 'Titul',
-    'total'                => 'Celkový počet hlasů někdy',
-    'vote'                 => 'Hlasování',
-    'vote-now'             => 'Zaregistrujte se!',
-    'votes'                => 'Hlasy',
-];
+<?php 
+return array (
+  'add-option' => 'Přidat možnost',
+  'create-poll' => 'Vytvořit anketu',
+  'current' => 'Aktuální ankety',
+  'delete-option' => 'Možnost Odstranit',
+  'ip-checking' => 'Tato anketa má duplicitní kontrolu hlasování. Hlasovat můžete pouze jednou.',
+  'ip-checking-warrning' => 'Je potřeba pouze pokud je web ve veřejném režimu',
+  'multiple-choice' => 'Toto je anketa s více volbami. Vyberte tolik odpovědí, kolik chcete.',
+  'option' => 'Volba',
+  'poll' => 'Hlasování',
+  'polls' => 'Ankety',
+  'results' => 'Výsledky ankety',
+  'title' => 'Titul',
+  'total' => 'Celkem hlasů',
+  'vote' => 'Hlasování',
+  'vote-now' => 'Získejte svůj hlas nyní!',
+  'votes' => 'Hlasy',
+);
