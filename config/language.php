@@ -129,6 +129,7 @@ return [
         ['short' => 'fa',       'long' => 'fa-FA',      'english' => 'Persian',             'native' => 'فارسی'],
         ['short' => 'fi',       'long' => 'fi-FI',      'english' => 'Finnish',             'native' => 'Suomi'],
         ['short' => 'fr',       'long' => 'fr-FR',      'english' => 'French',              'native' => 'Français'],
+        ['short' => 'gl',       'long' => 'gl-GL',      'english' => 'Galician',            'native' => 'Galego'],
         ['short' => 'he',       'long' => 'he-IL',      'english' => 'Hebrew',              'native' => 'עִבְרִית'],
         ['short' => 'hi',       'long' => 'hi-IN',      'english' => 'Hindi',               'native' => 'हिन्दी'],
         ['short' => 'hr',       'long' => 'hr-HR',      'english' => 'Croatian',            'native' => 'Hrvatski'],
