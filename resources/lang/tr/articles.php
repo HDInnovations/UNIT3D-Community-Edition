@@ -1,8 +1,7 @@
-<?php
-
-return [
-    'meta-articles' => 'Trackerda ve toplulukta bulunan makalaleler ve haberler',
-    'read-more'     => 'Devamını Oku',
-    'published-at'  => 'Tarihinde Yayınlandı ',
-    'articles'      => 'Makaleler',
-];
+<?php 
+return array (
+  'articles' => 'Makaleler',
+  'meta-articles' => 'Takipçi ve topluluk hakkında makaleler ve haberler',
+  'published-at' => 'Yayınlandı',
+  'read-more' => 'Daha fazla oku',
+);

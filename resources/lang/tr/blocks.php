@@ -1,25 +1,18 @@
-<?php
-
-return [
-    // Chat
-    'chatbox' => 'Sohbet Kutusu',
-
-    // Featured Torrents
-    'featured-torrents' => 'Öne Çıkan Torrentler',
-
-    // Latest Torrents
-    'latest-torrents' => 'En Son Eklenen Torrentler',
-
-    // Latest Posts
-    'latest-posts' => 'En Son Yapılan Yorumlar',
-
-    // Latest Topics
-    'latest-topics' => 'En Son Açılan Konular',
-
-    // Users Online
-    'users-online' => '(10) Kullanıcı Çevrimiçi',
-
-    // News/Articles
-    'new-news'   => 'Yeni Haberler',
-    'check-news' => 'Haberler (Günlük olarak kontrol edin.)',
-];
+<?php 
+return array (
+  'chatbox' => 'Sohbet kutusu',
+  'click' => 'Click',
+  'to-enable-editor' => 'editörü etkinleştirmek için',
+  'featured-by' => 'Tarafından sunulan',
+  'featured-torrents' => 'Öne Çıkan Torrentler',
+  'featured-torrents-intro' => 'Onları Yapabiliyorken Alın!',
+  'featured-until' => 'Bu kadar sel torrent özellikli',
+  'top-torrents' => 'En İyi Torrents',
+  'latest-posts' => 'Son Gönderiler',
+  'latest-topics' => 'Son Konular',
+  'active-in-last' => 'Sonunda aktif',
+  'users-online' => 'Kullanıcılar çevrimiçi',
+  'check-news' => 'Haberler (günlük kontrol)',
+  'new-news' => 'Yeni haberler',
+  'new-torrents' => 'Yeni seller',
+);
