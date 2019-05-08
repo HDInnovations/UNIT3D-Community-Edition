@@ -1,14 +1,19 @@
-<?php
-
-return [
-    'poll'            => 'Poll',
-    'polls'           => 'Polls',
-    'current'         => 'Current Poll(s)',
-    'total'           => 'Total Votes Ever',
-    'vote-now'        => 'Get Your Vote In Now!',
-    'results'         => 'Poll Results',
-    'multiple-choice' => 'This is a multiple choice poll. Select as many answers as you like.',
-    'ip-checking'     => 'This poll has duplicate vote checking. You can only vote once.',
-    'vote'            => 'Vote',
-    'votes'           => 'Votes',
-];
+<?php 
+return array (
+  'add-option' => 'Добавить опцию',
+  'create-poll' => 'Создать опрос',
+  'current' => 'Текущий опрос (ы)',
+  'delete-option' => 'Удалить опцию',
+  'ip-checking' => 'Этот опрос имеет дублирование проверки голоса. Вы можете проголосовать только один раз.',
+  'ip-checking-warrning' => 'Нужно только если сайт в публичном режиме',
+  'multiple-choice' => 'Это опрос с множественным выбором. Выберите столько ответов, сколько хотите.',
+  'option' => 'вариант',
+  'poll' => 'Опрос',
+  'polls' => 'Опросы',
+  'results' => 'Результаты опроса',
+  'title' => 'заглавие',
+  'total' => 'Всего голосов',
+  'vote' => 'Голос',
+  'vote-now' => 'Получи свой голос сейчас!',
+  'votes' => 'Голосов',
+);

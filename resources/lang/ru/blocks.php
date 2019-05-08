@@ -1,25 +1,18 @@
-<?php
-
-return [
-    // Chat
-    'chatbox' => 'Chat Box',
-
-    // Featured Torrents
-    'featured-torrents' => 'Featured Torrents',
-
-    // Latest Torrents
-    'latest-torrents' => 'Latest Torrents',
-
-    // Latest Posts
-    'latest-posts' => 'Latest Posts',
-
-    // Latest Topics
-    'latest-topics' => 'Latest Topics',
-
-    // Users Online
-    'users-online' => 'Users Online',
-
-    // News/Articles
-    'new-news'   => 'New News',
-    'check-news' => 'News (Check Daily)',
-];
+<?php 
+return array (
+  'chatbox' => 'Окно чата',
+  'click' => 'Нажмите',
+  'to-enable-editor' => 'включить редактор',
+  'featured-by' => 'Показанный',
+  'featured-torrents' => 'Популярные торренты',
+  'featured-torrents-intro' => 'Получите их, пока можете!',
+  'featured-until' => 'Это показанный торрент до',
+  'top-torrents' => 'Лучшие торренты',
+  'latest-posts' => 'последние сообщения',
+  'latest-topics' => 'Последние темы',
+  'active-in-last' => 'Активный в прошлом',
+  'users-online' => 'Пользователи онлайн',
+  'check-news' => 'Новости (проверяйте ежедневно)',
+  'new-news' => 'Новые новости',
+  'new-torrents' => 'Новые торренты',
+);
