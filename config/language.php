@@ -166,6 +166,7 @@ return [
         ['short' => 'sw',       'long' => 'sw-SW',      'english' => 'Swahili',             'native' => 'Kiswahili'],
         ['short' => 'tg',       'long' => 'tg-TG',      'english' => 'Tajik',               'native' => 'Тоҷикӣ'],
         ['short' => 'th',       'long' => 'th-TH',      'english' => 'Thai',                'native' => 'ไทย'],
+        ['short' => 'tl',       'long' => 'tl-TL',      'english' => 'Filipino',            'native' => 'Filipino'],
         ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe'],
         ['short' => 'tw',       'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
         ['short' => 'uk',       'long' => 'uk-UA',      'english' => 'Ukrainian',           'native' => 'Українська'],
