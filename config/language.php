@@ -163,6 +163,7 @@ return [
         ['short' => 'sq',       'long' => 'sq-AL',      'english' => 'Albanian',            'native' => 'Shqip'],
         ['short' => 'sr',       'long' => 'sr-SR',      'english' => 'Serbian',             'native' => 'Српски'],
         ['short' => 'sv',       'long' => 'sv-SE',      'english' => 'Swedish',             'native' => 'Svenska'],
+        ['short' => 'sw',       'long' => 'sw-SW',      'english' => 'Swahili',             'native' => 'Kiswahili'],
         ['short' => 'th',       'long' => 'th-TH',      'english' => 'Thai',                'native' => 'ไทย'],
         ['short' => 'tr',       'long' => 'tr-TR',      'english' => 'Turkish',             'native' => 'Türkçe'],
         ['short' => 'tw',       'long' => 'zh-TW',      'english' => 'Chinese (T)',         'native' => '繁體中文'],
