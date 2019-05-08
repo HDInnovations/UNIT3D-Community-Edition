@@ -1,26 +1,27 @@
-<?php
-
-return [
-    'aboutus-header'       => 'Bonjour',
-    'aboutus-welcome'      => 'Lets talk about',
-    'aboutus-welcome-desc' => ':title is a <em>community-built</em> Movie/TV/FANRES database. Every piece of data has been added by our amazing community since 2017. :titles strong <em>focus</em>&nbsp;is on HD content, a proactive userbase, an awesome/secure codebase and a helpful and friendly Staff team.',
-    'aboutus-advantage'    => 'The advantage',
-    'aboutus-advantage1'   => 'We have experienced members and staff that are well versed in the world of HD video / audio and technical support.',
-    'aboutus-advantage2'   => 'Along with our extensive passion for movies and TV shows, we also offer one of the best selections of something that most dont - FANRES! <em>A BIG THANK YOU</em> to our content bringers.',
-    'aboutus-advantage3'   => 'We dont accept donations to keep the site up and running. We feel that is our responsibility. That means no pestering PMs or banners on site. No begging from us.',
-    'aboutus-advantage4'   => 'Our community is second to none for its early age. Between our staff and userbase, were always here to help. Were passionate about making sure your experience on :title is nothing short of amazing.',
-    'aboutus-advantage5'   => 'Our service is used daily by many people across the globe. Weve proven that we care about the functionality and security of our codebase and it can be trusted and relied on. Our developers work daily to provide a truly nex-gen codebase.',
-    'aboutus-rules'        => 'What we need from you',
-    'aboutus-rules1'       => 'To be an active member of the community! This means to join in conversations productively, add approved content and help other users if you are able.',
-    'aboutus-rules2'       => 'To read the rules in full and please respect them!',
-    'aboutus-rules3'       => 'Make suggestions! We are striving to make :title better each day. We arent saying that every suggestion will be used, but it never hurts to see new ideas.',
-
-    'blacklist-desc'       => 'The Following Browsers and Bittorrent Clients Are Blacklisted/Forbidden From Annoucing To :title',
-    'blacklist-clients'    => 'Clients',
-    'blacklist-btclient'   => 'Client BitTorrent',
-    'blacklist-browsers'   => 'Browsers',
-    'blacklist-webbrowser' => 'Navigateur Web',
-
-    'staff-group' => 'Groupe',
-    'staff-title' => 'Titre',
-];
+<?php 
+return array (
+  'aboutus-advantage' => 'L&#39;avantage',
+  'aboutus-advantage1' => 'Nous avons des membres et du personnel expérimentés qui connaissent bien le monde de l&#39;assistance vidéo / audio HD et technique.',
+  'aboutus-advantage2' => 'En plus de notre grande passion pour les films et les émissions de télévision, nous offrons également l&#39;une des meilleures sélections de quelque chose qui ne fait pas vraiment FANRES! <em>Un grand</em> merci à nos porteurs de contenu.',
+  'aboutus-advantage3' => 'Bien que nous acceptions les dons pour que le site reste opérationnel, il n’y aura pas de MP ni de bannières sur le site. Aucune mendicité de nous.',
+  'aboutus-advantage4' => 'Notre communauté est incomparable pour son jeune âge. Entre notre personnel et base d&#39;utilisateurs, étaient toujours là pour aider. Nous étions passionnés par le fait de vous assurer que votre expérience sur: title est tout simplement incroyable.',
+  'aboutus-advantage5' => 'Notre service est utilisé quotidiennement par de nombreuses personnes à travers le monde. Nous avons prouvé que nous nous soucions de la fonctionnalité et de la sécurité de notre base de code. Nos développeurs travaillent chaque jour pour fournir une véritable base de code nex-gen.',
+  'aboutus-header' => 'salut',
+  'aboutus-rules' => 'Ce que nous avons besoin de vous',
+  'aboutus-rules1' => 'Être un membre actif de la communauté! Cela signifie participer à des conversations productives, ajouter du contenu approuvé et aider les autres utilisateurs si vous le pouvez.',
+  'aboutus-rules2' => 'Pour lire le règlement dans son intégralité et s&#39;il vous plaît les respecter!',
+  'aboutus-rules3' => 'Faire des suggestions! Nous nous efforçons d&#39;améliorer chaque jour le titre. Nous ne disons pas que chaque suggestion sera utilisée, mais il est toujours utile de voir de nouvelles idées.',
+  'aboutus-welcome' => 'Parlons de',
+  'aboutus-welcome-desc' => ': title est une base de données Movie / TV / FANRES <em>construite</em> par la <em>communauté</em> . Chaque communauté de données a été ajoutée par notre communauté depuis 2017.: Les titres <em>misent particulièrement</em> sur le contenu HD, une base d&#39;utilisateurs proactive, une base de code géniale / sécurisée et une équipe du personnel serviable et sympathique.',
+  'blacklist-browsers' => 'Les navigateurs',
+  'blacklist-btclient' => 'Client BitTorrent',
+  'blacklist-clients' => 'Les clients',
+  'blacklist-desc' => 'Les navigateurs et les clients Bittorrent suivants sont sur la liste noire / interdits d’annoncer à: titre',
+  'blacklist-webbrowser' => 'Navigateur Web',
+  'blacklist-emaildomain' => 'Domaine bloqué',
+  'email-blacklist-desc' => 'Les domaines de messagerie suivants ne peuvent pas être utilisés. Vous ne pouvez pas vous inscrire ou envoyer une invitation aux personnes suivantes.',
+  'email-whitelist-desc' => 'Les domaines de messagerie suivants sont les seuls domaines de messagerie autorisés à être utilisés. Vous pouvez uniquement enregistrer ou envoyer une invitation à l’aide des éléments suivants.',
+  'staff-group' => 'Groupe',
+  'staff-title' => 'Titre',
+  'whitelist-emaildomain' => 'Domaine approuvé',
+);
