@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Ekintza',
   'activity' => 'Jarduera',
   'approved' => 'Onartutako',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'Ikusi Gaiak guztiak',
   'views' => 'Views',
-);
+];

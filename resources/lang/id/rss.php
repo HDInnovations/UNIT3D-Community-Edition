@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Membuat',
   'create-private-feed' => 'Buat Umpan RSS Pribadi',
   'create-public-feed' => 'Buat Umpan RSS Publik',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'Umpan RSS',
   'type' => 'Mengetik',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'O nás',
   'account' => 'Účet',
   'achievement-title' => 'Úžasný',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ano',
   'your' => 'Tvůj',
   'your-comment' => 'Tvůj komentář',
-);
+];

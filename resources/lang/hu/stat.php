@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Gróf szerint',
   'by-data' => 'Adatok szerint',
   'by-volume' => 'Térfogat szerint',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Teljes feltöltés',
   'users-in-group' => 'Felhasználók csoportban',
   'users-per-group' => 'Felhasználók csoportonként',
-);
+];

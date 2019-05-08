@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Peti Sembang',
   'click' => 'Klik',
   'to-enable-editor' => 'untuk membolehkan editor',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Berita (periksa setiap hari)',
   'new-news' => 'Berita baru',
   'new-torrents' => 'Torrents baru',
-);
+];

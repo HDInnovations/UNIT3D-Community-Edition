@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat doboz',
   'click' => 'Kattints',
   'to-enable-editor' => 'a szerkesztő engedélyezéséhez',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Hírek (naponta ellenőrizze)',
   'new-news' => 'Új hírek',
   'new-torrents' => 'Új torrentek',
-);
+];

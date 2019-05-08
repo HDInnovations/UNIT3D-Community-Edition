@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'दिनांक',
   'delete' => 'हटाना',
   'delete-all' => 'सभी सूचनाएं हटाएं',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'सूचनाएं',
   'read' => 'पढ़ना',
   'title' => 'शीर्षक',
-);
+];

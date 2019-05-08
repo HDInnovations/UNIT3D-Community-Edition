@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'การกระทำ',
   'activity' => 'กิจกรรม',
   'approved' => 'ได้รับการอนุมัติ',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'เลิกตรึง',
   'view-all' => 'ดูหัวข้อทั้งหมด',
   'views' => 'เข้าชม',
-);
+];

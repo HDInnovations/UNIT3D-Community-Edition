@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Aktivitāšu vēsture',
   'articles' => 'Raksti',
   'applications' => 'Programmas',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Tērzēšanas rīki',
   'flush-chat' => 'Flush Chatbox',
   'seedboxes' => 'Reģistrētās sēklu kastes',
-);
+];

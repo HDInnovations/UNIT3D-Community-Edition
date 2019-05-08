@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Darbības',
   'backup' => 'Dublēšana',
   'backup_doesnt_exist' => 'Dublējuma fails neeksistē.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Vadītājs',
   'no_disks_configured' => 'Konfigurācijā config / backup.php nav konfigurēti diski',
   'only_local_downloads_supported' => 'Tiek atbalstītas tikai lejupielādes no lokālās failu sistēmas.',
-);
+];

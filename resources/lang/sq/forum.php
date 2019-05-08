@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'veprim',
   'activity' => 'aktivitet',
   'approved' => 'i miratuar',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Zhgozhdo',
   'view-all' => 'Shiko të gjitha temat',
   'views' => 'Views',
-);
+];

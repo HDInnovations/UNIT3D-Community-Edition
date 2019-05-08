@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Prin conte',
   'by-data' => 'Prin Data',
   'by-volume' => 'Volum',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Încărcare totală',
   'users-in-group' => 'Utilizatorii din grup',
   'users-per-group' => 'Utilizatori pe grup',
-);
+];

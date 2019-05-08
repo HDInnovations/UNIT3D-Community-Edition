@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'क्रिया',
   'backup' => 'बैकअप',
   'backup_doesnt_exist' => 'बैकअप फ़ाइल मौजूद नहीं है।',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'मैनेजर',
   'no_disks_configured' => 'कोई बैकअप डिस्क config / backup.php में कॉन्फ़िगर नहीं किया गया है',
   'only_local_downloads_supported' => 'केवल स्थानीय फ़ाइल सिस्टम से डाउनलोड समर्थित हैं।',
-);
+];

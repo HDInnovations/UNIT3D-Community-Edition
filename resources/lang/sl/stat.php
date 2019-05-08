@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Po grofu',
   'by-data' => 'Po podatkih',
   'by-volume' => 'Po količini',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Skupni prenos',
   'users-in-group' => 'Uporabniki v skupini',
   'users-per-group' => 'Uporabniki na skupino',
-);
+];

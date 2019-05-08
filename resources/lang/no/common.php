@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Om oss',
   'account' => 'Konto',
   'achievement-title' => 'Rått',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Ja',
   'your' => 'Din',
   'your-comment' => 'Din kommentar',
-);
+];

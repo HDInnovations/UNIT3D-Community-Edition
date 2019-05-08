@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Jarduera-erregistroa',
   'articles' => 'artikuluak',
   'applications' => 'eskaerak',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Txat tresnak',
   'flush-chat' => 'Garbitu Chatbox',
   'seedboxes' => 'Erregistratutako Seedboxes',
-);
+];

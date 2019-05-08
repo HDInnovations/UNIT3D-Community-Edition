@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'დათვლა',
   'by-data' => 'მონაცემთა მიხედვით',
   'by-volume' => 'მოცულობით',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'სულ ატვირთვა',
   'users-in-group' => 'მომხმარებელი ჯგუფში',
   'users-per-group' => 'მომხმარებელი Per ჯგუფი',
-);
+];

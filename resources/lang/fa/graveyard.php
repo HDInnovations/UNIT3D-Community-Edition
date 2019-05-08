@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'مرده',
   'graveyard' => 'قبرستان',
   'guidelines' => 'دستورالعمل',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'در انتظار',
   'resurrect' => 'رستاخیز',
   'reward' => 'علائم Freeleech',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Morto',
   'graveyard' => 'Cemitério',
   'guidelines' => 'Diretrizes',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Pendente',
   'resurrect' => 'Ressuscitar',
   'reward' => 'Fichas Freeleech',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'বাগ রিপোর্ট',
   'bug-report-description' => 'একটি সাইট বাগ রিপোর্ট করুন',
   'enter-description' => 'যতটা সম্ভব সর্বোত্তম সমস্যার বর্ণনা দিন',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'অগ্রাধিকার',
   'priority-description' => 'বাগ সত্যিই সাইট ব্যবহার করার জন্য একটি সমস্যা যদি শুধুমাত্র খুব উচ্চ চয়ন করুন।',
   'very-high' => 'সুউচ্চ',
-);
+];

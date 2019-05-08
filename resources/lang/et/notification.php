@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Kuupäev',
   'delete' => 'Kustuta',
   'delete-all' => 'Kustuta kõik teated',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Teated',
   'read' => 'Loe',
   'title' => 'Pealkiri',
-);
+];

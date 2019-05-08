@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Datum',
   'delete' => 'Löschen',
   'delete-all' => 'Löschen Sie alle Benachrichtigungen',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Benachrichtigungen',
   'read' => 'Lesen',
   'title' => 'Titel',
-);
+];

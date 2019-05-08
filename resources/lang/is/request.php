@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Bættu við beiðni',
   'age' => 'Aldur',
   'all-requests' => 'Allar beiðnir',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Kjósendur',
   'votes' => 'Atkvæði',
   'yes' => 'Já',
-);
+];

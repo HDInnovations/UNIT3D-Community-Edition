@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Izveidot',
   'create-private-feed' => 'Izveidot privātu RSS plūsmu',
   'create-public-feed' => 'Izveidot publisku RSS plūsmu',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS plūsma',
   'type' => 'Tips',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Activeer account',
   'ban-reason' => 'Reden',
   'banned-footer' => 'Dat is wat je krijgt als je de regels niet volgt',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Uw gebruikersnaam is verzonden naar uw e-mailadres!',
   'disabled-header' => 'Uw account is uitgeschakeld',
   'pruned-header' => 'Je account is gesnoeid',
-);
+];

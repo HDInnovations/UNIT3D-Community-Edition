@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'गणना द्वारा',
   'by-data' => 'डेटा द्वारा',
   'by-volume' => 'मात्रा से',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'कुल अपलोड',
   'users-in-group' => 'उपयोगकर्ता समूह में',
   'users-per-group' => 'उपयोगकर्ता प्रति समूह',
-);
+];

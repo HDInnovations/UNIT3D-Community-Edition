@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Fejlrapport',
   'bug-report-description' => 'Rapporter en sidefejl',
   'enter-description' => 'Beskriv problemet så godt som muligt',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prioritet',
   'priority-description' => 'Vælg kun meget høj, hvis fejlen virkelig er et problem for at bruge webstedet.',
   'very-high' => 'Meget høj',
-);
+];

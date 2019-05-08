@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Ingia ya Shughuli',
   'articles' => 'Makala',
   'applications' => 'Maombi',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Zana za Mazungumzo',
   'flush-chat' => 'Fungua Chatbox',
   'seedboxes' => 'Mbegu za Mbegu zilizosajiliwa',
-);
+];

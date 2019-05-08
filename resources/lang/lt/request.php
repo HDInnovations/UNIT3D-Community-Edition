@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Pridėti užklausą',
   'age' => 'Amžius',
   'all-requests' => 'Visi prašymai',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Rinkėjai',
   'votes' => 'Balsavimas',
   'yes' => 'Taip',
-);
+];

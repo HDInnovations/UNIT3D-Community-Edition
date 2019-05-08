@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Sukurti',
   'create-private-feed' => 'Sukurkite privatų RSS kanalą',
   'create-public-feed' => 'Sukurti viešą RSS kanalą',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS kanalas',
   'type' => 'Tipas',
-);
+];

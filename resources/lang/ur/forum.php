@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'عمل',
   'activity' => 'سرگرمی',
   'approved' => 'منظورشدہ',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'تمام موضوعات دیکھیں',
   'views' => 'مناظر',
-);
+];

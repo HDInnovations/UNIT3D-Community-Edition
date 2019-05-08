@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Isaaktibo ang account',
   'ban-reason' => 'Dahilan',
   'banned-footer' => 'Iyon ang iyong nakuha dahil sa hindi pagsunod sa mga patakaran',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Ang iyong username ay naipadala na sa iyong email address!',
   'disabled-header' => 'Ang iyong Account ay Hindi Pinagana',
   'pruned-header' => 'Na-pruned na ang iyong Account',
-);
+];

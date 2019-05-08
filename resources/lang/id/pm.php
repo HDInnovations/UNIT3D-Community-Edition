@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Membuat',
   'delete' => 'Menghapus',
   'enter-subject' => 'Masukkan subjek',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Subyek',
   'to' => 'Untuk',
   'unread' => 'Belum dibaca',
-);
+];

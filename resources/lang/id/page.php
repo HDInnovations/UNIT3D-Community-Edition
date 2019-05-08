@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Keuntungan',
   'aboutus-advantage1' => 'Kami memiliki anggota dan staf berpengalaman yang berpengalaman dalam dunia video HD / audio dan dukungan teknis.',
   'aboutus-advantage2' => 'Seiring dengan hasrat kami yang luas untuk film dan acara TV, kami juga menawarkan salah satu pilihan terbaik dari sesuatu yang paling tidak - KIPAS! <em>A BESAR TERIMA KASIH</em> kepada pembawa konten kami.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Kelompok',
   'staff-title' => 'Judul',
   'whitelist-emaildomain' => 'Domain Tepercaya',
-);
+];

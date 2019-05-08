@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Қызмет',
   'age' => 'Жасы',
   'agent' => 'Агент',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Қосымша мәліметтер',
   'view-trailer' => 'Трейлерді көру',
   'votes' => 'Дауыстар',
-);
+];

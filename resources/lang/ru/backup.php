@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'действия',
   'backup' => 'Резервное копирование',
   'backup_doesnt_exist' => 'Файл резервной копии не существует.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Менеджер',
   'no_disks_configured' => 'В config / backup.php не настроены резервные диски',
   'only_local_downloads_supported' => 'Поддерживаются только загрузки из локальной файловой системы.',
-);
+];

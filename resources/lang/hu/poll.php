@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Add opció',
   'create-poll' => 'Szavazás létrehozása',
   'current' => 'Aktuális szavazás (ok)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Szavazás',
   'vote-now' => 'Szerezd meg a szavazást most!',
   'votes' => 'szavazatok',
-);
+];

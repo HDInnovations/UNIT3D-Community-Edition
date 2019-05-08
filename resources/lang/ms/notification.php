@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Tarikh',
   'delete' => 'Padam',
   'delete-all' => 'Padamkan semua pemberitahuan',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Pemberitahuan',
   'read' => 'Baca',
   'title' => 'Tajuk',
-);
+];

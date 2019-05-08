@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Дата',
   'delete' => 'удалять',
   'delete-all' => 'Удалить все уведомления',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Уведомления',
   'read' => 'Читать',
   'title' => 'заглавие',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Informe d&#39;error',
   'bug-report-description' => 'Informa d&#39;un error del lloc',
   'enter-description' => 'Descriu el problema el millor possible',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prioritat',
   'priority-description' => 'Trieu només molt alt si l’error és realment un problema per utilitzar el lloc.',
   'very-high' => 'Molt alt',
-);
+];

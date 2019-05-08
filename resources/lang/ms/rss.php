@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Buat',
   'create-private-feed' => 'Buat Pribadi RSS Feed',
   'create-public-feed' => 'Buat Awam RSS Feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Taipkan',
-);
+];

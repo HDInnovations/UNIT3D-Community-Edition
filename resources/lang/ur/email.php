@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'اکاؤنٹ کو چالو کریں',
   'ban-reason' => 'وجہ',
   'banned-footer' => 'آپ کے قوانین پر عمل کرنے کے لئے جو چیزیں آپ حاصل نہیں کرتے ہیں',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'آپ کے صارف کا نام آپ کے ای میل ایڈریس پر بھیج دیا گیا ہے!',
   'disabled-header' => 'آپ کا اکاؤنٹ معذور ہو گیا ہے',
   'pruned-header' => 'آپ کا اکاؤنٹ ختم ہوگیا ہے',
-);
+];

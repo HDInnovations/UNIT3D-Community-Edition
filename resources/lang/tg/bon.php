@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Фаъол карда шудааст',
   'active' => 'Фаъол шуд!',
   'amount' => 'Маблағ',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Шумо қабул кардаед',
   'you-have-sent-tips' => 'Шумо фиристодаед',
   'your-points' => 'Нуқтаҳои шумо',
-);
+];

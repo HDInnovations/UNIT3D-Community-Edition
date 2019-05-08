@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Tambahkan opsi',
   'create-poll' => 'Buat jajak pendapat',
   'current' => 'Polling Saat Ini',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Memilih',
   'vote-now' => 'Dapatkan Suara Anda Sekarang!',
   'votes' => 'Voting',
-);
+];

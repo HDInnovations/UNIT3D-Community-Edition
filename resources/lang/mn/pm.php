@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Үүсгэх',
   'delete' => 'Устгах',
   'enter-subject' => 'Гарчиг оруулна уу',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Гарчиг',
   'to' => 'To',
   'unread' => 'Уншаагүй',
-);
+];

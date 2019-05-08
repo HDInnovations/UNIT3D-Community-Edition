@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'So&#39;rov qo&#39;shish',
   'age' => 'Yoshi',
   'all-requests' => 'Barcha so&#39;rovlar',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Saylovchilar',
   'votes' => 'Ovozlar',
   'yes' => 'Ha',
-);
+];

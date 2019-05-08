@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Adăugați o solicitare',
   'age' => 'Vârstă',
   'all-requests' => 'Toate cererile',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Alegătorii',
   'votes' => 'voturi',
   'yes' => 'da',
-);
+];

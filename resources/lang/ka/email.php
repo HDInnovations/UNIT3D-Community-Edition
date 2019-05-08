@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'ანგარიშის გააქტიურება',
   'ban-reason' => 'მიზეზი',
   'banned-footer' => 'რაც თქვენ მიიღებთ წესების არარსებობას',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'თქვენი მომხმარებლის სახელი გაიგზავნა თქვენს ელ.',
   'disabled-header' => 'თქვენი ანგარიში გამორთულია',
   'pruned-header' => 'თქვენი ანგარიში გაწყდა',
-);
+];

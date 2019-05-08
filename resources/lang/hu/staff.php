@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Naplót',
   'articles' => 'Cikkek',
   'applications' => 'Alkalmazások',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Csevegési eszközök',
   'flush-chat' => 'Flash Chatbox',
   'seedboxes' => 'Regisztrált magok',
-);
+];

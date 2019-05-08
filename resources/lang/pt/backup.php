@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Ações',
   'backup' => 'Cópia de segurança',
   'backup_doesnt_exist' => 'O arquivo de backup não existe.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Gerente',
   'no_disks_configured' => 'Nenhum disco de backup configurado em config / backup.php',
   'only_local_downloads_supported' => 'Apenas downloads do sistema de arquivos Local são suportados.',
-);
+];

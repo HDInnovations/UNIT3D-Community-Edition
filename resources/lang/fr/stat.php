@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Par comte',
   'by-data' => 'Par données',
   'by-volume' => 'Par volume',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Téléchargement total',
   'users-in-group' => 'Utilisateurs du groupe',
   'users-per-group' => 'Utilisateurs par groupe',
-);
+];

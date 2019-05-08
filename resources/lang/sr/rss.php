@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Цреате',
   'create-private-feed' => 'Цреате Привате РСС Феед',
   'create-public-feed' => 'Цреате Публиц РСС Феед',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'РСС',
   'rss-feed' => 'РСС Феед',
   'type' => 'Тип',
-);
+];

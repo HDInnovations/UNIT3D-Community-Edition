@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Patay',
   'graveyard' => 'Sementeryo',
   'guidelines' => 'Mga Alituntunin',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Nakabinbin',
   'resurrect' => 'Buhayin',
   'reward' => 'Mga token ng Freeleech',
-);
+];

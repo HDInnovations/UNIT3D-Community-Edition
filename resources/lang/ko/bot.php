@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => '약',
   'bot' => '봇',
   'bots' => '봇',
@@ -11,4 +12,4 @@ return array (
   'icon' => '상',
   'info' => '정보',
   'name' => '이름',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'اضافه کردن گزینه',
   'create-poll' => 'ایجاد نظرسنجی',
   'current' => 'نظرسنجی فعلی',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'رای',
   'vote-now' => 'رای خود را در حال حاضر دریافت کنید',
   'votes' => 'رای',
-);
+];

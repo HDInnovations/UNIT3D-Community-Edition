@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Жасаңыз',
   'delete' => 'Жою',
   'enter-subject' => 'Тақырыпты енгізіңіз',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Тақырып',
   'to' => 'Кімге',
   'unread' => 'Оқылмаған',
-);
+];

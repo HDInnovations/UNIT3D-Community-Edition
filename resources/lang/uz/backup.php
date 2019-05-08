@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Amallar',
   'backup' => 'Zaxiralash',
   'backup_doesnt_exist' => 'Zaxira fayl mavjud emas.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Menejeri',
   'no_disks_configured' => 'Config / backup.php-da konfiguratsiya qilingan zaxira disk yo&#39;q',
   'only_local_downloads_supported' => 'Mahalliy fayl tizimidan faqat yuklab olinadi.',
-);
+];

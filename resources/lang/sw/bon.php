@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Imeamilishwa',
   'active' => 'Imeamilishwa!',
   'amount' => 'Kiasi',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Umepokea',
   'you-have-sent-tips' => 'Umetumwa',
   'your-points' => 'Pointi yako',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Tạo nên',
   'create-private-feed' => 'Tạo nguồn cấp dữ liệu RSS riêng',
   'create-public-feed' => 'Tạo nguồn cấp dữ liệu RSS công cộng',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'Nguồn cấp dữ liệu RSS',
   'type' => 'Kiểu',
-);
+];

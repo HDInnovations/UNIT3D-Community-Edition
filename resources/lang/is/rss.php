@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Búa til',
   'create-private-feed' => 'Búðu til Private RSS Feed',
   'create-public-feed' => 'Búðu til opinbera RSS straumar',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS straumur',
   'type' => 'Tegund',
-);
+];

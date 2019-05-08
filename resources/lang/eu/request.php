@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Gehitu eskaera',
   'age' => 'Adina',
   'all-requests' => 'Eskaera guztiak',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Boto-emaileen',
   'votes' => 'Botoak',
   'yes' => 'Bai',
-);
+];

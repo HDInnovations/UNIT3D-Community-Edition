@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'कार्यहरू',
   'backup' => 'जगेडा',
   'backup_doesnt_exist' => 'ब्याकअप फाइल अवस्थित छैन।',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'प्रबन्धक',
   'no_disks_configured' => 'कुनै जगेडा डिस्क कन्फिगर / कन्फिगर.php मा कन्फिगर गरिएको छैन',
   'only_local_downloads_supported' => 'स्थानीय फाइल प्रणालीबाट मात्र डाउनलोडहरू समर्थित छन्।',
-);
+];

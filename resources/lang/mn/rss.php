@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Үүсгэх',
   'create-private-feed' => 'Хувийн RSS Feed үүсгэх',
   'create-public-feed' => 'Нийтийн RSS Feed үүсгэнэ',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Төрөл',
-);
+];

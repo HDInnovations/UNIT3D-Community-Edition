@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Data',
   'delete' => 'Ištrinti',
   'delete-all' => 'Ištrinti visus pranešimus',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Pranešimai',
   'read' => 'Skaityti',
   'title' => 'Pavadinimas',
-);
+];

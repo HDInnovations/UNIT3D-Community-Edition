@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Δημιουργώ',
   'delete' => 'Διαγράφω',
   'enter-subject' => 'Εισάγετε θέμα',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Θέμα',
   'to' => 'Προς το',
   'unread' => 'Αδιάβαστος',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'බග් වාර්තාව',
   'bug-report-description' => 'වෙබ් අඩවිය දෝෂ වාර්තා කරන්න',
   'enter-description' => 'හැකි තරම් හැකි හොඳම විසඳුම කුමක්ද?',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'ප්රමුඛතාවය',
   'priority-description' => 'වෙබ් අඩවිය භාවිතා කිරීම සඳහා දෝෂයක් ඇත්තෙන්ම ගැටළුවක් නම්, ඉතා ඉහළ මට්ටමක තෝරාගන්න.',
   'very-high' => 'ඉතා ඉහළයි',
-);
+];

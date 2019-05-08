@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'สร้าง',
   'create-private-feed' => 'สร้างฟีด RSS ส่วนตัว',
   'create-public-feed' => 'สร้างฟีด RSS สาธารณะ',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'ฟีด RSS',
   'type' => 'ชนิด',
-);
+];

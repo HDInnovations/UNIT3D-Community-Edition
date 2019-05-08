@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Guri buruz',
   'account' => 'Kontu-',
   'achievement-title' => 'awesome',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Bai',
   'your' => 'Zure',
   'your-comment' => 'Zure iruzkina',
-);
+];

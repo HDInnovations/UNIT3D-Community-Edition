@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Accions',
   'backup' => 'Còpia de seguretat',
   'backup_doesnt_exist' => 'El fitxer de còpia de seguretat no existeix.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Gestor',
   'no_disks_configured' => 'No s’ha configurat cap disc de còpia de seguretat a config / backup.php',
   'only_local_downloads_supported' => 'Només són compatibles les baixades del sistema de fitxers local.',
-);
+];

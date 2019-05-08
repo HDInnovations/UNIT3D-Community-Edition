@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Дневник на активност',
   'articles' => 'Статии',
   'applications' => 'Апликации',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Алатки за разговор',
   'flush-chat' => 'Флеш Четбокс',
   'seedboxes' => 'Регистрирани семенски кутии',
-);
+];

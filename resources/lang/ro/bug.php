@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Raport de bug-uri',
   'bug-report-description' => 'Raportați o eroare de site',
   'enter-description' => 'Descrieți problema cât mai bine posibil',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prioritate',
   'priority-description' => 'Alegeți foarte mult dacă bug-ul este într-adevăr o problemă pentru utilizarea site-ului.',
   'very-high' => 'Foarte inalt',
-);
+];

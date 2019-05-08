@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => '몹시 떠들어 대다',
   'create-private-feed' => '비공개 RSS 피드 만들기',
   'create-public-feed' => '공개 RSS 피드 만들기',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS 피드',
   'type' => '유형',
-);
+];

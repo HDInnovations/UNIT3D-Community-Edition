@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat Box',
   'click' => 'Cliciwch',
   'to-enable-editor' => 'i alluogi golygydd',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Newyddion (gwiriwch bob dydd)',
   'new-news' => 'Newyddion Newydd',
   'new-torrents' => 'Ffrydiau newydd',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'ක්රියා',
   'backup' => 'බැකප්',
   'backup_doesnt_exist' => 'බැකප් ගොනුව පවතියි.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'කළමනාකරු',
   'no_disks_configured' => 'Config / backup.php හි බැකෝ ඩයික්ස් සකසා නොමැත',
   'only_local_downloads_supported' => 'දේශීය ගොනු පද්ධතියෙන් ලද බාගැනීම් සඳහා පමණක් සහාය වේ.',
-);
+];

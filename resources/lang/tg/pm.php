@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Эҷод кунед',
   'delete' => 'Тоза кардан',
   'enter-subject' => 'Мавзӯъро дохил кунед',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Мавзӯъ',
   'to' => 'Ба',
   'unread' => 'Нашр шуд',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Әрекет',
   'activity' => 'Қызмет',
   'approved' => 'Бекітілген',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Босату',
   'view-all' => 'Барлық тақырыптарды қарау',
   'views' => 'Көріністер',
-);
+];

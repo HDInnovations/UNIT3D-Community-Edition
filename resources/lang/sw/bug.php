@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Ripoti ya Bug',
   'bug-report-description' => 'Ripoti mdudu wa tovuti',
   'enter-description' => 'Eleza tatizo bora iwezekanavyo',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Kipaumbele',
   'priority-description' => 'Chagua tu juu sana kama mdudu kweli ni tatizo la kutumia tovuti.',
   'very-high' => 'Juu sana',
-);
+];

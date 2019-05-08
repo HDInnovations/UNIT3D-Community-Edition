@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Gweithredu',
   'activity' => 'Gweithgaredd',
   'approved' => 'Cymeradwywyd',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'Gweld pob pwnc',
   'views' => 'Barn',
-);
+];

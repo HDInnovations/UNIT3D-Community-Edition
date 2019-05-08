@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Count ilə',
   'by-data' => 'Data ilə',
   'by-volume' => 'Səs ilə',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Ümumi yükləmə',
   'users-in-group' => 'Qrupda İstifadəçilər',
   'users-per-group' => 'Qruplar üzrə istifadəçilər',
-);
+];

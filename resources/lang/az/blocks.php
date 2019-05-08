@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat qutusu',
   'click' => 'Basın',
   'to-enable-editor' => 'redaktoru təmin etmək üçün',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Xəbərlər (gündəlik yoxlayın)',
   'new-news' => 'Yeni xəbərlər',
   'new-torrents' => 'Yeni torrentlər',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Ongeza chaguo',
   'create-poll' => 'Unda uchaguzi',
   'current' => 'Poll ya sasa (s)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Vote',
   'vote-now' => 'Pata Vote Yako Sasa!',
   'votes' => 'Votes',
-);
+];

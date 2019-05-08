@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => '약',
   'about-me' => '나에 대해서',
   'accepted-at' => '수락 시간 :',
@@ -312,4 +313,4 @@ return array (
   'warning' => '경고',
   'warning-log' => '경고 로그',
   'wishlist' => '희망 목록',
-);
+];

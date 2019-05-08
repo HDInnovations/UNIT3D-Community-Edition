@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Aðgerðir',
   'backup' => 'Öryggisafrit',
   'backup_doesnt_exist' => 'Varabúnaðurinn er ekki til.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Framkvæmdastjóri',
   'no_disks_configured' => 'Engin afrit diskur stillt í config / backup.php',
   'only_local_downloads_supported' => 'Aðeins niðurhal frá staðbundnum skráarkerfinu er studd.',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'yaratmak',
   'create-private-feed' => 'Özel RSS Yayını Oluştur',
   'create-public-feed' => 'Genel RSS Yayını Oluştur',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Yayını',
   'type' => 'tip',
-);
+];

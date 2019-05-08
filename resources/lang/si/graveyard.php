@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'මැරිලා',
   'graveyard' => 'ග්රීක දේවස්ථානයකි',
   'guidelines' => 'මාර්ගෝපදේශ',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'නො වේ',
   'resurrect' => 'නැවත උත්පාදනය කරන්න',
   'reward' => 'ෆ්රීලෙක් ටෝකන්ස්',
-);
+];

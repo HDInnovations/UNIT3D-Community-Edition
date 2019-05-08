@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Эҷод кунед',
   'create-private-feed' => 'Эҷоди RSS Feed хусусӣ',
   'create-public-feed' => 'Эҷоди RSS Feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Намуди',
-);
+];

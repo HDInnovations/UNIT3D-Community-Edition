@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Xato haqida hisobot',
   'bug-report-description' => 'Bir sayt bug haqida xabar berish',
   'enter-description' => 'Muammoni imkon qadar yaxshi tushuntiring',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Birinchi o&#39;ringa',
   'priority-description' => 'Agar bug, albatta, saytni ishlatishda muammo bo&#39;lsa, faqat juda yuqori ni tanlang.',
   'very-high' => 'Juda yuqori',
-);
+];

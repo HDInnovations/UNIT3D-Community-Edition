@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Datums',
   'delete' => 'Dzēst',
   'delete-all' => 'Dzēst visus paziņojumus',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Paziņojumi',
   'read' => 'Lasīt',
   'title' => 'Nosaukums',
-);
+];

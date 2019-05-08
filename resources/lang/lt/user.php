@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Apie',
   'about-me' => 'Apie mane',
   'accepted-at' => 'Priimta ne',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Įspėjimas',
   'warning-log' => 'Įspėjimo žurnalas',
   'wishlist' => 'Pageidavimų sąrašas',
-);
+];

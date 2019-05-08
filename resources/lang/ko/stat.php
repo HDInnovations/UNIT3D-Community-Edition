@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => '백작에 의해',
   'by-data' => '데이터 별',
   'by-volume' => '볼륨 별',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => '총 업로드',
   'users-in-group' => '그룹 사용자',
   'users-per-group' => '그룹당 사용자 수',
-);
+];

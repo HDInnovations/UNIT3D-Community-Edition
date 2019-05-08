@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Privalumas',
   'aboutus-advantage1' => 'Mes turime patyrusių narių ir darbuotojų, kurie gerai išmano HD vaizdo / garso ir techninės pagalbos pasaulį.',
   'aboutus-advantage2' => 'Kartu su dideliu aistru filmų ir televizijos laidoms, mes taip pat siūlome vieną iš geriausių pasirinkimų kažkam, kas labiausiai ne - FANRES! <em>BIG AČIŪ</em> mūsų turinio atnešėjams.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Grupė',
   'staff-title' => 'Pavadinimas',
   'whitelist-emaildomain' => 'Patikimas domenas',
-);
+];

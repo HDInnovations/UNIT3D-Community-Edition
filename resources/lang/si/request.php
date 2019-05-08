@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'ඉල්ලීම එකතු කරන්න',
   'age' => 'වයස',
   'all-requests' => 'සියලු ඉල්ලීම්',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'ඡන්දදායකයෝ',
   'votes' => 'ඡන්දය',
   'yes' => 'ඔව්',
-);
+];

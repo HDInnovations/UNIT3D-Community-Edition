@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'تاریخ',
   'delete' => 'حذف کریں',
   'delete-all' => 'تمام اطلاعات کو حذف کریں',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'اطلاعات',
   'read' => 'پڑھو',
   'title' => 'عنوان',
-);
+];

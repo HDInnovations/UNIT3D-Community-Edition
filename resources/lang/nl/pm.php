@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'creëren',
   'delete' => 'Verwijder',
   'enter-subject' => 'Voer onderwerp in',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Onderwerpen',
   'to' => 'Naar',
   'unread' => 'Ongelezen',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Pievienot opciju',
   'create-poll' => 'Izveidot aptauju',
   'current' => 'Pašreizējā aptauja',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Balsojums',
   'vote-now' => 'Iegūstiet savu balsojumu tagad!',
   'votes' => 'Balsis',
-);
+];

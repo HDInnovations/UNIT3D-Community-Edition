@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => '계정 활성화',
   'ban-reason' => '이유',
   'banned-footer' => '규칙을 지키지 않았을 때 얻을 수있는 것',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => '귀하의 사용자 이름이 귀하의 이메일 주소로 발송되었습니다!',
   'disabled-header' => '계정이 비활성화되었습니다',
   'pruned-header' => '귀하의 계정이 정리되었습니다.',
-);
+];

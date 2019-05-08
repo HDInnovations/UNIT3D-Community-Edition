@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Нас барсан',
   'graveyard' => 'Газарзүй',
   'guidelines' => 'Удирдамж',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Хүлээгдэж байна',
   'resurrect' => 'Амилуулалт',
   'reward' => 'Freeleech жетон',
-);
+];

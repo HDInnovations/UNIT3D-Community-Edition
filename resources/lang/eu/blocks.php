@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Txat kutxa',
   'click' => 'klik',
   'to-enable-editor' => 'editorea gaitzeko',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Albisteak (egunero egiaztatu)',
   'new-news' => 'Albiste berriak',
   'new-torrents' => 'Torrent berriak',
-);
+];

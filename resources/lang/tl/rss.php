@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Lumikha',
   'create-private-feed' => 'Lumikha ng Pribadong RSS Feed',
   'create-public-feed' => 'Lumikha ng Pampublikong RSS Feed',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Uri',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'সৃষ্টি',
   'delete' => 'মুছে ফেলা',
   'enter-subject' => 'বিষয় লিখুন',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'বিষয়',
   'to' => 'থেকে',
   'unread' => 'অপঠিত',
-);
+];

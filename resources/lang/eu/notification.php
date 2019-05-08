@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'data',
   'delete' => 'ezabatu',
   'delete-all' => 'Ezabatu jakinarazpen guztiak',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'jakinarazpenak',
   'read' => 'irakurri',
   'title' => 'Izenburua',
-);
+];

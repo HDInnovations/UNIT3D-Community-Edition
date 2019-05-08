@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Ynglŷn â',
   'about-me' => 'Amdanaf i',
   'accepted-at' => 'Derbyniwyd yn',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Rhybudd',
   'warning-log' => 'Log Rhybudd',
   'wishlist' => 'Rhestr dymuniadau',
-);
+];

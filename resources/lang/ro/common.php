@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Despre noi',
   'account' => 'Cont',
   'achievement-title' => 'Minunat',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'da',
   'your' => 'Ta',
   'your-comment' => 'Comentariul tau',
-);
+];

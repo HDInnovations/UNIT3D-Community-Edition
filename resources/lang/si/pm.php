@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'නිර්මාණය කරන්න',
   'delete' => 'මකන්න',
   'enter-subject' => 'විෂය ඇතුලත් කරන්න',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'විෂය',
   'to' => 'වෙත',
   'unread' => 'නොකියවූ',
-);
+];

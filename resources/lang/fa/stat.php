@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'توسط شمارنده',
   'by-data' => 'توسط داده ها',
   'by-volume' => 'حجم',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'مجموع آپلود',
   'users-in-group' => 'کاربران در گروه',
   'users-per-group' => 'کاربران در هر گروه',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Ekintzak',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Babeskopia fitxategia ez da existitzen.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Kudeatzailea',
   'no_disks_configured' => 'Ez da konfigurazio / backup.php konfigurazioan konfiguratutako babeskopiarik',
   'only_local_downloads_supported' => 'Tokiko fitxategi-sistemako deskargak bakarrik onartzen dira.',
-);
+];

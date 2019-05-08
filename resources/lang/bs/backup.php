@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Akcije',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Rezervna datoteka ne postoji.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Menadžer',
   'no_disks_configured' => 'U config / backup.php nije konfiguriran backup disk',
   'only_local_downloads_supported' => 'Podržane su samo preuzimanja s lokalnog datotečnog sustava.',
-);
+];

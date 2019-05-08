@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'აქტიურობა',
   'age' => 'ასაკი',
   'agent' => 'აგენტი',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'იხილეთ მეტი',
   'view-trailer' => 'ტრეილერის ნახვა',
   'votes' => 'ხმების რაოდენობა',
-);
+];

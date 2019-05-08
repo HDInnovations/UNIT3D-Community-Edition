@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'オプションを追加',
   'create-poll' => '投票を作成',
   'current' => '現在の投票',
@@ -16,4 +17,4 @@ return array (
   'vote' => '投票',
   'vote-now' => '今すぐあなたの投票を得てください！',
   'votes' => '投票',
-);
+];

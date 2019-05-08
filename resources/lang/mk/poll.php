@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Додај опција',
   'create-poll' => 'Креирај анкета',
   'current' => 'Тековни Анкета (и)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Гласај',
   'vote-now' => 'Заврши си го гласот сега!',
   'votes' => 'Гласови',
-);
+];

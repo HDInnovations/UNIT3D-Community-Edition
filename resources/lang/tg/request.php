@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Иловаи дархост',
   'age' => 'Синну сол',
   'all-requests' => 'Ҳамаи дархостҳо',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Интихобкунандагон',
   'votes' => 'Votes',
   'yes' => 'Бале',
-);
+];

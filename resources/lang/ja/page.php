@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => '利点',
   'aboutus-advantage1' => '私たちは、HDビデオ/オーディオと技術サポートの世界に精通している経験豊富なメンバーとスタッフを持っています。',
   'aboutus-advantage2' => '映画やテレビ番組に対する私たちの幅広い情熱に加えて、私たちはまた最も好きではないものの中から最高のセレクションの一つを提供します - ファン！ <em>BIGは</em> 、当社のコンテンツbringers <em>をお願い致します</em> 。',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'グループ',
   'staff-title' => 'タイトル',
   'whitelist-emaildomain' => '信頼されたドメイン',
-);
+];

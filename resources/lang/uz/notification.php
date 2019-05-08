@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Sana',
   'delete' => 'O&#39;chir',
   'delete-all' => 'Barcha xabarnomalarni o&#39;chirish',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Bildirishnomalar',
   'read' => 'O&#39;qing',
   'title' => 'Sarlavha',
-);
+];

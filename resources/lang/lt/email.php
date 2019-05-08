@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Įjungti paskyrą',
   'ban-reason' => 'Priežastis',
   'banned-footer' => 'Tai, ką gausite dėl taisyklių nesilaikymo',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Jūsų naudotojo vardas buvo išsiųstas į jūsų el. Pašto adresą!',
   'disabled-header' => 'Jūsų sąskaita buvo užblokuota',
   'pruned-header' => 'Jūsų paskyra buvo apgauta',
-);
+];

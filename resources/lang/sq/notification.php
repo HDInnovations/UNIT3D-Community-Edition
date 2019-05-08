@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'data',
   'delete' => 'fshij',
   'delete-all' => 'Fshi të gjitha njoftimet',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Njoftime',
   'read' => 'lexoj',
   'title' => 'titull',
-);
+];

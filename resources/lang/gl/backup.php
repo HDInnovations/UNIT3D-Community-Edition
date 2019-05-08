@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Accións',
   'backup' => 'Copia de seguridade',
   'backup_doesnt_exist' => 'O ficheiro de copia de seguridade non existe.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Xestor',
   'no_disks_configured' => 'Non se configuraron discos de copia de seguridade en config / backup.php',
   'only_local_downloads_supported' => 'Só se admiten descargas do sistema de ficheiros local.',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Trwy Gyfrif',
   'by-data' => 'Yn ôl Data',
   'by-volume' => 'Yn ôl Cyfrol',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Cyfanswm llwytho',
   'users-in-group' => 'Defnyddwyr Mewn Grŵp',
   'users-per-group' => 'Defnyddwyr Per Grŵp',
-);
+];

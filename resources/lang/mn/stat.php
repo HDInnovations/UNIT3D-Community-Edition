@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Count тоо',
   'by-data' => 'Мэдээллийн дагуу',
   'by-volume' => 'Эзлэхүүнээр',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Нийт байршуулалт',
   'users-in-group' => 'Группын хэрэглэгчид',
   'users-per-group' => 'Групп бүрт хэрэглэгчид',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'กล่องแชท',
   'click' => 'คลิก',
   'to-enable-editor' => 'เพื่อเปิดใช้งานเครื่องมือแก้ไข',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'ข่าว (ตรวจสอบรายวัน)',
   'new-news' => 'ข่าวใหม่',
   'new-torrents' => 'เพลงใหม่',
-);
+];

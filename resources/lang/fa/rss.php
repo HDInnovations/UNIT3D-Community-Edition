@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'ايجاد كردن',
   'create-private-feed' => 'ایجاد RSS خوراک خصوصی',
   'create-public-feed' => 'ایجاد RSS خوراک عمومی',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'خوراک RSS',
   'type' => 'تایپ کنید',
-);
+];

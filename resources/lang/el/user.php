@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Σχετικά με',
   'about-me' => 'Σχετικά με μένα',
   'accepted-at' => 'Αποδεκτό στο',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Προειδοποίηση',
   'warning-log' => 'Εγγραφή προειδοποίησης',
   'wishlist' => 'Λίστα επιθυμιών',
-);
+];

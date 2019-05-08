@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Faollashtirildi',
   'active' => 'Faollashtirilgan!',
   'amount' => 'Miqdor',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Siz olgan',
   'you-have-sent-tips' => 'Siz yubordingiz',
   'your-points' => 'Sizning ballaringiz',
-);
+];

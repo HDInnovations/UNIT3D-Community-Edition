@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Thêm tùy chọn',
   'create-poll' => 'Tạo bình chọn',
   'current' => 'Thăm dò ý kiến hiện tại',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Bỏ phiếu',
   'vote-now' => 'Nhận phiếu bầu của bạn ngay bây giờ!',
   'votes' => 'Phiếu bầu',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'অনুরোধ যোগ করুন',
   'age' => 'বয়স',
   'all-requests' => 'সমস্ত অনুরোধ',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'ভোটাররা',
   'votes' => 'ভোট',
   'yes' => 'হাঁ',
-);
+];

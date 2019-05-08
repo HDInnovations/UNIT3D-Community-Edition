@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Dodaj možnost',
   'create-poll' => 'Ustvarite anketo',
   'current' => 'Trenutna anketa',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Glasujte',
   'vote-now' => 'Get Your Vote V zdaj!',
   'votes' => 'Glasov',
-);
+];

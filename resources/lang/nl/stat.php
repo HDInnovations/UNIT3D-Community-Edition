@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Door graaf',
   'by-data' => 'Door gegevens',
   'by-volume' => 'Op volume',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Totale upload',
   'users-in-group' => 'Gebruikers in groep',
   'users-per-group' => 'Gebruikers per groep',
-);
+];

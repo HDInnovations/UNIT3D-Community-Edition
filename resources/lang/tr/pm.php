@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'yaratmak',
   'delete' => 'silmek',
   'enter-subject' => 'Konu girin',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'konu',
   'to' => 'için',
   'unread' => 'Okunmamış',
-);
+];

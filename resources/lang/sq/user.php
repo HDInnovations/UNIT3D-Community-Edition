@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'për',
   'about-me' => 'Rreth meje',
   'accepted-at' => 'Pranohet në',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'paralajmërim',
   'warning-log' => 'Paralajmërim paralajmërimi',
   'wishlist' => 'Wishlist',
-);
+];

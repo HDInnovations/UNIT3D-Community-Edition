@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Алдааны тайлан',
   'bug-report-description' => 'Сайтын алдааг мэдээлэх',
   'enter-description' => 'Аливаа асуудлыг хамгийн сайн тайлбарлах',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Тэргүүлэх чиглэл',
   'priority-description' => 'Сайтыг ашиглахад алдаа нь үнэхээр асуудал байгаа бол маш ихийг сонгоно уу.',
   'very-high' => 'Маш өндөр',
-);
+];

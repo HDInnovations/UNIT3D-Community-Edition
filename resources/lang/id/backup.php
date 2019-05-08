@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Tindakan',
   'backup' => 'Cadangkan',
   'backup_doesnt_exist' => 'File cadangan tidak ada.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Manajer',
   'no_disks_configured' => 'Tidak ada disk cadangan yang dikonfigurasi di config / backup.php',
   'only_local_downloads_supported' => 'Hanya unduhan dari sistem file lokal yang didukung.',
-);
+];

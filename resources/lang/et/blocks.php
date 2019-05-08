@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Vestluskast',
   'click' => 'Klõpsake nuppu',
   'to-enable-editor' => 'redaktori lubamiseks',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Uudised (kontrollige iga päev)',
   'new-news' => 'Uued uudised',
   'new-torrents' => 'Uued torrentid',
-);
+];

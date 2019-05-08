@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'アクション',
   'activity' => 'アクティビティ',
   'approved' => '承認済み',
@@ -59,4 +60,4 @@ return array (
   'unpin' => '固定解除',
   'view-all' => 'すべてのトピックを見る',
   'views' => 'ビュー',
-);
+];

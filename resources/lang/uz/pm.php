@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Yaratmoq',
   'delete' => 'O&#39;chir',
   'enter-subject' => 'Mavzuni kiriting',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Mavzu',
   'to' => 'To',
   'unread' => 'O&#39;qilmagan',
-);
+];

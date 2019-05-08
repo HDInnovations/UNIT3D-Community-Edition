@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Hisobni faollashtiring',
   'ban-reason' => 'Sababi',
   'banned-footer' => 'Qoidalarga rioya qilmaslik uchun nima qilgan bo&#39;lsang ham',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Foydalanuvchi nomingiz e-pochtangizga yuborildi!',
   'disabled-header' => 'Sizning hisobingiz o&#39;chirilgan',
   'pruned-header' => 'Hisobingiz chop etildi',
-);
+];

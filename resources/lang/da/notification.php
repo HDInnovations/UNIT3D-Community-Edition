@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Dato',
   'delete' => 'Slet',
   'delete-all' => 'Slet alle meddelelser',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'underretninger',
   'read' => 'Læs',
   'title' => 'Titel',
-);
+];

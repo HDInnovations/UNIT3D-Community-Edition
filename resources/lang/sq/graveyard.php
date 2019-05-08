@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'i vdekur',
   'graveyard' => 'varrezë',
   'guidelines' => 'udhëzime',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'në pritje të',
   'resurrect' => 'ringjall',
   'reward' => 'Argumentet e Freeleech',
-);
+];

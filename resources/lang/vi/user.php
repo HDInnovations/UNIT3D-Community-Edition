@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Trong khoảng',
   'about-me' => 'Về tôi',
   'accepted-at' => 'Được chấp nhận tại',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Cảnh báo',
   'warning-log' => 'Nhật ký cảnh báo',
   'wishlist' => 'Danh sách mong muốn',
-);
+];

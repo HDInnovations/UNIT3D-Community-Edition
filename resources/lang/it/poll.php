@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Aggiungi opzione',
   'create-poll' => 'Crea sondaggio',
   'current' => 'Sondaggio (i) corrente',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Votazione',
   'vote-now' => 'Ottieni il tuo voto adesso!',
   'votes' => 'voti',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Activate cyfrif',
   'ban-reason' => 'Rheswm',
   'banned-footer' => 'Dyna beth rydych chi&#39;n ei gael am beidio â dilyn y rheolau',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Mae eich enw defnyddiwr wedi cael ei anfon i&#39;ch cyfeiriad e-bost!',
   'disabled-header' => 'Mae Eich Cyfrif wedi bod yn Anabl',
   'pruned-header' => 'Mae&#39;ch cyfrif wedi bod yn brys',
-);
+];

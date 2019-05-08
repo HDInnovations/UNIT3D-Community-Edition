@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'سرگرمی لاگ ان',
   'articles' => 'مضامین',
   'applications' => 'درخواستیں',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'چیٹ کے اوزار',
   'flush-chat' => 'فلش چیٹ باکس',
   'seedboxes' => 'رجسٹرڈ بیج باکسز',
-);
+];

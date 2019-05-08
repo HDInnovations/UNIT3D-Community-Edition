@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Aðgerð',
   'activity' => 'Virkni',
   'approved' => 'Samþykkt',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Unpin',
   'view-all' => 'Skoða öll efni',
   'views' => 'Skoðanir',
-);
+];

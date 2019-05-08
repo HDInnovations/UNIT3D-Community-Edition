@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Toimet',
   'backup' => 'Varmuuskopioida',
   'backup_doesnt_exist' => 'Varmuuskopiointitiedostoa ei ole.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'johtaja',
   'no_disks_configured' => 'Konfiguroinnissa / backup.php ei ole määritetty varmuuskopioita',
   'only_local_downloads_supported' => 'Vain paikallisten tiedostojärjestelmien lataukset tuetaan.',
-);
+];

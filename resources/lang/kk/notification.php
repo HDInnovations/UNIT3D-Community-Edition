@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Күні',
   'delete' => 'Жою',
   'delete-all' => 'Барлық хабарландыруларды жою',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Хабарламалар',
   'read' => 'Оқылды',
   'title' => 'Тақырып',
-);
+];

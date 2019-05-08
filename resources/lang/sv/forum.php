@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Verkan',
   'activity' => 'Aktivitet',
   'approved' => 'Godkänd',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Lossa',
   'view-all' => 'Visa alla ämnen',
   'views' => 'Visningar',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'ដោយរាប់',
   'by-data' => 'តាមទិន្នន័យ',
   'by-volume' => 'តាមកម្រិតសំឡេង',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'ផ្ទុកឡើងសរុប',
   'users-in-group' => 'អ្នកប្រើជាក្រុម',
   'users-per-group' => 'អ្នកប្រើក្នុងមួយក្រុម',
-);
+];

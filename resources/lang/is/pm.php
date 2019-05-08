@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Búa til',
   'delete' => 'Eyða',
   'enter-subject' => 'Sláðu inn efni',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Efni',
   'to' => 'Til',
   'unread' => 'Ólesin',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'اقدامات',
   'backup' => 'پشتیبان گیری',
   'backup_doesnt_exist' => 'فایل پشتیبان وجود ندارد',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'مدیر',
   'no_disks_configured' => 'هیچ دیسک پشتیبان در config / backup.php پیکربندی نشده است',
   'only_local_downloads_supported' => 'فقط دانلود از سیستم فایل محلی پشتیبانی می شود.',
-);
+];

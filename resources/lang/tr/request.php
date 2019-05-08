@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'İstek ekle',
   'age' => 'Yaş',
   'all-requests' => 'Tüm istekler',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'seçmenler',
   'votes' => 'oy',
   'yes' => 'Evet',
-);
+];

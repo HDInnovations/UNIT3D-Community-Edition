@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'गतिविधि लॉग',
   'articles' => 'सामग्री',
   'applications' => 'अनुप्रयोगों',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'चैट टूल',
   'flush-chat' => 'फ्लश चैटबॉक्स',
   'seedboxes' => 'पंजीकृत सीडबॉक्स',
-);
+];

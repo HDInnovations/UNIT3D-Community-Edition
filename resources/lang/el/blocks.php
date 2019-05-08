@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Κουτί συνομιλίας',
   'click' => 'Κάντε κλικ',
   'to-enable-editor' => 'για να ενεργοποιήσετε τον επεξεργαστή',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Νέα (ελέγξτε καθημερινά)',
   'new-news' => 'Νέα νέα',
   'new-torrents' => 'Νέα torrents',
-);
+];

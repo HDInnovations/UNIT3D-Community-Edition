@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Амалиётҳо',
   'backup' => 'Таъмири',
   'backup_doesnt_exist' => 'Нусхаи эҳтиётӣ вуҷуд надорад.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Менеҷер',
   'no_disks_configured' => 'Ҳеҷ як нусхаи эҳтиётӣ дар танзим / backup.php тасвир карда нашудааст',
   'only_local_downloads_supported' => 'Танҳо downloads аз файли файлҳои маҳаллӣ дастгирӣ карда мешавад.',
-);
+];

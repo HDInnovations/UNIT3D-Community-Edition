@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'সৃষ্টি',
   'create-private-feed' => 'ব্যক্তিগত আরএসএস ফিড তৈরি করুন',
   'create-public-feed' => 'পাবলিক আরএসএস ফিড তৈরি করুন',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'আরএসএস',
   'rss-feed' => 'আরএসএস ফিড',
   'type' => 'আদর্শ',
-);
+];

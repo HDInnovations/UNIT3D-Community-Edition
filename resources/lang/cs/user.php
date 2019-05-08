@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'O',
   'about-me' => 'O mně',
   'accepted-at' => 'Přijato na',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Varování',
   'warning-log' => 'Varovný protokol',
   'wishlist' => 'Seznam přání',
-);
+];

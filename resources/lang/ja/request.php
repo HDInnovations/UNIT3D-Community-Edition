@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'リクエストを追加',
   'age' => '年齢',
   'all-requests' => 'すべてのリクエスト',
@@ -63,4 +64,4 @@ return array (
   'voters' => '有権者',
   'votes' => '投票',
   'yes' => 'はい',
-);
+];

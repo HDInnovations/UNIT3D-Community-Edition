@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Gweithgaredd',
   'age' => 'Oedran',
   'agent' => 'Asiant',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Gweld mwy',
   'view-trailer' => 'Gweld y trelar',
   'votes' => 'Pleidleisiau',
-);
+];

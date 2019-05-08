@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'සක්රීය කර ඇත',
   'active' => 'සක්රීයයි!',
   'amount' => 'ප්රමාණය',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'ඔබ ලබා ඇති',
   'you-have-sent-tips' => 'ඔබ එවූ සේක',
   'your-points' => 'ඔබේ ලකුණු',
-);
+];

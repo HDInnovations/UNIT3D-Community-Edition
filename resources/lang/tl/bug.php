@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Ulat ng bug',
   'bug-report-description' => 'Mag-ulat ng isang site bug',
   'enter-description' => 'Ilarawan ang problema hangga&#39;t maaari',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prayoridad',
   'priority-description' => 'Pumili lamang ng napakataas kung ang bug ay talagang isang problema sa paggamit ng site.',
   'very-high' => 'Napakataas',
-);
+];

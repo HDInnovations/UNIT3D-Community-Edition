@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'krijoj',
   'delete' => 'fshij',
   'enter-subject' => 'Shkruani subjektin',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'subjekt',
   'to' => 'në',
   'unread' => 'i palexuar',
-);
+];

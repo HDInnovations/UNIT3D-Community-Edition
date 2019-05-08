@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Activează contul',
   'ban-reason' => 'Motiv',
   'banned-footer' => 'Thats ceea ce ai pentru că nu respectați regulile',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Numele de utilizator a fost trimis la adresa ta de email!',
   'disabled-header' => 'Contul tau a fost dezactivat',
   'pruned-header' => 'Contul dvs. a fost tăiat',
-);
+];

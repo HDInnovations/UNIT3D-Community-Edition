@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Acción',
   'activity' => 'Actividade',
   'approved' => 'Aprobado',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Desvíe',
   'view-all' => 'Ver todos os temas',
   'views' => 'Vistas',
-);
+];

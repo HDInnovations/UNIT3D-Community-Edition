@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Yaratmoq',
   'create-private-feed' => 'Maxsus RSS Feed yaratish',
   'create-public-feed' => 'Ommaviy RSSlar yaratish',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS Feed',
   'type' => 'Turi',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Хүсэлт нэмэх',
   'age' => 'Нас',
   'all-requests' => 'Бүх хүсэлт',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Сонгогчид',
   'votes' => 'Үнэн',
   'yes' => 'Тиймээ',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Villuskýrsla',
   'bug-report-description' => 'Tilkynna um villusvæði',
   'enter-description' => 'Lýsið vandanum eins vel og mögulegt er',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Forgangur',
   'priority-description' => 'Veldu aðeins mjög hátt ef villan er í raun vandamál fyrir að nota síðuna.',
   'very-high' => 'Mjög hátt',
-);
+];

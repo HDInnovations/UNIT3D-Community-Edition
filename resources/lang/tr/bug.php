@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Hata raporu',
   'bug-report-description' => 'Site hatası bildirin',
   'enter-description' => 'Sorunu en iyi şekilde tanımlayın',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'öncelik',
   'priority-description' => 'Hata gerçekten siteyi kullanmak için bir sorunsa, sadece çok yüksek seçin.',
   'very-high' => 'Çok yüksek',
-);
+];

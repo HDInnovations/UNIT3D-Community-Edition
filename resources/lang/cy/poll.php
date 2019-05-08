@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Ychwanegu opsiwn',
   'create-poll' => 'Creu pôl',
   'current' => 'Pôl (au) Cyfredol',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Pleidleisiwch',
   'vote-now' => 'Cael Eich Pleidlais Nawr!',
   'votes' => 'Pleidleisiau',
-);
+];

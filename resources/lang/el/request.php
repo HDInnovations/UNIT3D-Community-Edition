@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Προσθήκη αιτήματος',
   'age' => 'Ηλικία',
   'all-requests' => 'Όλες οι αιτήσεις',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Οι ψηφοφόροι',
   'votes' => 'Ψηφοφορίες',
   'yes' => 'Ναί',
-);
+];

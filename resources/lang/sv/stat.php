@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Av greve',
   'by-data' => 'Av Data',
   'by-volume' => 'Av volym',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Total uppladdning',
   'users-in-group' => 'Användare i gruppen',
   'users-per-group' => 'Användare per grupp',
-);
+];

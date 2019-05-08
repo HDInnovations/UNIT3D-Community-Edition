@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'ক্রিয়াকলাপ',
   'backup' => 'ব্যাকআপ',
   'backup_doesnt_exist' => 'ব্যাকআপ ফাইল বিদ্যমান নেই।',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'ম্যানেজার',
   'no_disks_configured' => 'কনফিগার / backup.php কনফিগার করা কোন ব্যাকআপ ডিস্ক',
   'only_local_downloads_supported' => 'শুধুমাত্র স্থানীয় ফাইল সিস্টেম থেকে ডাউনলোড সমর্থিত হয়।',
-);
+];

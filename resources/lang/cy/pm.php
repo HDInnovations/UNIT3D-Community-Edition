@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Creu',
   'delete' => 'Dileu',
   'enter-subject' => 'Rhowch y pwnc',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Pwnc',
   'to' => 'I',
   'unread' => 'Heb ei ddarllen',
-);
+];

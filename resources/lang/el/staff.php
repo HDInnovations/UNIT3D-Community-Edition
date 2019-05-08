@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Αρχείο καταγραφής δραστηριότητας',
   'articles' => 'Άρθρα',
   'applications' => 'Εφαρμογές',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Εργαλεία συζήτησης',
   'flush-chat' => 'Flush Chatbox',
   'seedboxes' => 'Εγγεγραμμένοι Seedboxes',
-);
+];

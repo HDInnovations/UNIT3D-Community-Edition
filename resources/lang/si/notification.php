@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'දිනය',
   'delete' => 'මකන්න',
   'delete-all' => 'සියලුම දැනුම්දීම් මකන්න',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'දැනුම්දීම්',
   'read' => 'කියවන්න',
   'title' => 'ශීර්ෂය',
-);
+];

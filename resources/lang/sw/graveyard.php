@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'dead' => 'Wafu',
   'graveyard' => 'Makaburi',
   'guidelines' => 'Miongozo',
@@ -11,4 +12,4 @@ return array (
   'pending' => 'Inasubiri',
   'resurrect' => 'Inarudi',
   'reward' => 'Tokeni za bure',
-);
+];

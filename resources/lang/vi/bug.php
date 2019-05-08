@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Báo cáo lỗi',
   'bug-report-description' => 'Báo cáo lỗi trang web',
   'enter-description' => 'Mô tả vấn đề tốt nhất có thể',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Sự ưu tiên',
   'priority-description' => 'Chọn chỉ rất cao nếu lỗi thực sự là một vấn đề cho việc sử dụng trang web.',
   'very-high' => 'Rất cao',
-);
+];

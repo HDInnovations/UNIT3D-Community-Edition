@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Seçim əlavə edin',
   'create-poll' => 'Anket yaradın',
   'current' => 'Cari Anket (lər)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Vote',
   'vote-now' => 'İndi səs verin!',
   'votes' => 'Votes',
-);
+];

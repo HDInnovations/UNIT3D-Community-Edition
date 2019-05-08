@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'विकल्प जोड़ें',
   'create-poll' => 'जनमत बनाएं',
   'current' => 'वर्तमान पोल',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'वोट',
   'vote-now' => 'अब में अपना वोट प्राप्त करें!',
   'votes' => 'वोट',
-);
+];

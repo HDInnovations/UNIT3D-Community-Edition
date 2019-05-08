@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Pagkilos',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Ang backup na file ay hindi umiiral.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Manager',
   'no_disks_configured' => 'Walang naka-configure na backup disk sa config / backup.php',
   'only_local_downloads_supported' => 'Ang mga pag-download lamang mula sa Lokal na mga filesystem ay suportado.',
-);
+];

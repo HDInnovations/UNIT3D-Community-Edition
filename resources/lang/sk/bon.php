@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'aktivovaný',
   'active' => 'Aktivovaný!',
   'amount' => 'čiastka',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Obdržal si',
   'you-have-sent-tips' => 'Poslal si',
   'your-points' => 'Vaše body',
-);
+];

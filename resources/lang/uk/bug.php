@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Повідомлення про помилку',
   'bug-report-description' => 'Повідомити про помилку сайту',
   'enter-description' => 'Опишіть проблему якомога краще',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Пріоритет',
   'priority-description' => 'Виберіть лише дуже високий рівень, якщо помилка дійсно є проблемою для використання сайту.',
   'very-high' => 'Дуже високо',
-);
+];

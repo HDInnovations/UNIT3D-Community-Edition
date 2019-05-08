@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Rólunk',
   'account' => 'számla',
   'achievement-title' => 'Fantasztikus',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Igen',
   'your' => 'A te',
   'your-comment' => 'A te hozzászólásod',
-);
+];

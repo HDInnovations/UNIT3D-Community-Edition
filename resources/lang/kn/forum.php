@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'ಕ್ರಿಯೆ',
   'activity' => 'ಚಟುವಟಿಕೆ',
   'approved' => 'ಅನುಮೋದಿಸಲಾಗಿದೆ',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'ಅನ್ಪಿನ್ ಮಾಡಿ',
   'view-all' => 'ಎಲ್ಲ ವಿಷಯಗಳನ್ನೂ ವೀಕ್ಷಿಸಿ',
   'views' => 'ವೀಕ್ಷಣೆಗಳು',
-);
+];

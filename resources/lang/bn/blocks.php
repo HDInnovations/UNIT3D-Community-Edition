@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'চ্যাট বক্স',
   'click' => 'ক্লিক',
   'to-enable-editor' => 'সম্পাদক সক্রিয় করতে',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'খবর (প্রতিদিন চেক করুন)',
   'new-news' => 'নতুন খবর',
   'new-torrents' => 'নতুন টরেন্টস',
-);
+];

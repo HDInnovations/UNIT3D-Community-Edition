@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'Фаъолият',
   'age' => 'Синну сол',
   'agent' => 'Агенти',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Дидани бештар',
   'view-trailer' => 'Намоишро тамошо кунед',
   'votes' => 'Votes',
-);
+];

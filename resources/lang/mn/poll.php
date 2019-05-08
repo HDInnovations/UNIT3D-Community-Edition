@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Опцион нэмэх',
   'create-poll' => 'Санал асуулга үүсгэх',
   'current' => 'Одоогийн санал (ууд)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Санал өгөх',
   'vote-now' => 'Одоо саналаа аваарай!',
   'votes' => 'Үнэн',
-);
+];

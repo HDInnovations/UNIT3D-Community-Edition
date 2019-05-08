@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Virkja reikning',
   'ban-reason' => 'Ástæða',
   'banned-footer' => 'Það er það sem þú færð fyrir að fylgja ekki reglunum',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Notandanafnið þitt hefur verið sent á netfangið þitt!',
   'disabled-header' => 'Reikningurinn þinn hefur verið óvirkur',
   'pruned-header' => 'Reikningurinn þinn hefur verið rekinn',
-);
+];

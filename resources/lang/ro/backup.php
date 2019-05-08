@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'acţiuni',
   'backup' => 'Backup',
   'backup_doesnt_exist' => 'Fișierul de backup nu există.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Administrator',
   'no_disks_configured' => 'Nu există discuri de rezervă configurate în config / backup.php',
   'only_local_downloads_supported' => 'Se acceptă numai descărcări de la sistemul de fișiere local.',
-);
+];

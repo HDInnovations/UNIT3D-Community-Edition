@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Virkja',
   'active' => 'Virkja!',
   'amount' => 'Magn',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Þú hefur fengið',
   'you-have-sent-tips' => 'Þú hefur sent',
   'your-points' => 'Stig þitt',
-);
+];

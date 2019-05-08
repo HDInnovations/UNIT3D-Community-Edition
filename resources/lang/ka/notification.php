@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'თარიღი',
   'delete' => 'წაშლა',
   'delete-all' => 'ყველა შეტყობინების წაშლა',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'შეტყობინებები',
   'read' => 'წაიკითხეთ',
   'title' => 'სათაური',
-);
+];

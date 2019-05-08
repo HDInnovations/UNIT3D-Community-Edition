@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat qutisi',
   'click' => 'Tugmasini bosing',
   'to-enable-editor' => 'muharririni yoqish uchun',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Yangiliklar (har kuni tekshirish)',
   'new-news' => 'Yangi yangiliklar',
   'new-torrents' => 'Yangi torrentlar',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Rreth nesh',
   'account' => 'llogari',
   'achievement-title' => 'Mbresëlënës',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'po',
   'your' => 'juaj',
   'your-comment' => 'Komenti yt',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Нишондиҳандаи фаъолият',
   'articles' => 'Мақолаҳо',
   'applications' => 'Барномаҳо',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Алоқаҳои сӯҳбат',
   'flush-chat' => 'Chatbox чап',
   'seedboxes' => 'Нишондиҳандаҳои киштӣ',
-);
+];

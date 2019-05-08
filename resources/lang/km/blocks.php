@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'ប្រអប់ជជែក',
   'click' => 'សូមចុច',
   'to-enable-editor' => 'ដើម្បីបើកកម្មវិធីនិពន្ធ',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'ព័ត៌មាន (ពិនិត្យមើលប្រចាំថ្ងៃ)',
   'new-news' => 'ព័ត៌មានថ្មី',
   'new-torrents' => 'torrent ថ្មី',
-);
+];

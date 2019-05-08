@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => '동작',
   'activity' => '활동',
   'approved' => '승인 됨',
@@ -59,4 +60,4 @@ return array (
   'unpin' => '고정 해제',
   'view-all' => '모든 토픽보기',
   'views' => '조회수',
-);
+];

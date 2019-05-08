@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => '몹시 떠들어 대다',
   'delete' => '지우다',
   'enter-subject' => '제목 입력',
@@ -24,4 +25,4 @@ return array (
   'subject' => '제목',
   'to' => '에',
   'unread' => '읽히지 않는',
-);
+];

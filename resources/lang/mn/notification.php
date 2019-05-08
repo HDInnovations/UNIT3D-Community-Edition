@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Огноо',
   'delete' => 'Устгах',
   'delete-all' => 'Бүх мэдэгдлийг устгах',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Мэдэгдэл',
   'read' => 'Унших',
   'title' => 'Гарчиг',
-);
+];

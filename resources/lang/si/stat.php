@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'ගණන් කිරීම',
   'by-data' => 'දත්ත මගින්',
   'by-volume' => 'වෙළුමෙන්',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'සම්පූර්ණ උඩුගත කිරීම',
   'users-in-group' => 'පරිශීලකයින් සමූහය',
   'users-per-group' => 'පරිශීලකයින් සඳහා කණ්ඩායම',
-);
+];

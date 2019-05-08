@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'tarih',
   'delete' => 'silmek',
   'delete-all' => 'Tüm bildirimleri sil',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Bildirimler',
   'read' => 'okumak',
   'title' => 'Başlık',
-);
+];

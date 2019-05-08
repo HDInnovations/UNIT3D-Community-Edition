@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'İstək əlavə edin',
   'age' => 'Yaş',
   'all-requests' => 'Bütün istəklər',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Seçicilər',
   'votes' => 'Votes',
   'yes' => 'Bəli',
-);
+];

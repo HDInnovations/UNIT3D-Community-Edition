@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Ukrepi',
   'backup' => 'Rezerva',
   'backup_doesnt_exist' => 'Varnostna datoteka ne obstaja.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Manager',
   'no_disks_configured' => 'V config / backup.php ni konfiguriranih diskov za varnostno kopiranje',
   'only_local_downloads_supported' => 'Podprti so samo prenosi iz lokalnega datotečnega sistema.',
-);
+];

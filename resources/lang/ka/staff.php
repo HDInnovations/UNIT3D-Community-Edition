@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'აქტივობის შესვლა',
   'articles' => 'სტატიები',
   'applications' => 'პროგრამები',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'ჩეთის ინსტრუმენტები',
   'flush-chat' => 'ფლეში ჩატი',
   'seedboxes' => 'რეგისტრირებული Seedboxes',
-);
+];

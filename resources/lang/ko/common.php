@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => '회사 소개',
   'account' => '계정',
   'achievement-title' => '최고',
@@ -172,4 +173,4 @@ return array (
   'yes' => '예',
   'your' => '너의',
   'your-comment' => '귀하의 의견',
-);
+];

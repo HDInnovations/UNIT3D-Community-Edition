@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'działania',
   'backup' => 'Utworzyć kopię zapasową',
   'backup_doesnt_exist' => 'Plik kopii zapasowej nie istnieje.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Menedżer',
   'no_disks_configured' => 'Nie skonfigurowano dysków zapasowych w config / backup.php',
   'only_local_downloads_supported' => 'Obsługiwane są tylko pliki do pobrania z lokalnego systemu plików.',
-);
+];

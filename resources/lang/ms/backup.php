@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'actions' => 'Tindakan',
   'backup' => 'Sandaran',
   'backup_doesnt_exist' => 'Fail sandaran tidak wujud.',
@@ -28,4 +29,4 @@ return array (
   'manager' => 'Pengurus',
   'no_disks_configured' => 'Tiada cakera sandaran yang dikonfigurasikan dalam config / backup.php',
   'only_local_downloads_supported' => 'Hanya muat turun dari sistem fail Tempatan disokong.',
-);
+];

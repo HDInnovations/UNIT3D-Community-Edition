@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Kosturinn',
   'aboutus-advantage1' => 'Við höfum upplifað meðlimi og starfsfólk sem er vel versed í heimi HD vídeó / hljóð og tæknilega aðstoð.',
   'aboutus-advantage2' => 'Ásamt víðtæka ástríðu okkar fyrir kvikmyndir og sjónvarpsþætti, bjóðum við einnig upp á einn af bestu vali á eitthvað sem flestir dont - FANRES! <em>A BIG ÞAKKA ÞAKKAR</em> til okkar efnismenn.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Hópur',
   'staff-title' => 'Titill',
   'whitelist-emaildomain' => 'Öruggt lén',
-);
+];

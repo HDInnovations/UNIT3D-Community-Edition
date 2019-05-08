@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => '日付',
   'delete' => '削除する',
   'delete-all' => 'すべての通知を削除',
@@ -10,4 +11,4 @@ return array (
   'notifications' => '通知',
   'read' => '読む',
   'title' => 'タイトル',
-);
+];

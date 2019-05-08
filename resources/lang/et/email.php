@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktiveeri konto',
   'ban-reason' => 'Põhjus',
   'banned-footer' => 'See, mida sa reeglite mittejärgimise eest saad',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Teie kasutajanimi on saadetud teie e-posti aadressile!',
   'disabled-header' => 'Teie konto on keelatud',
   'pruned-header' => 'Teie konto on kärbitud',
-);
+];

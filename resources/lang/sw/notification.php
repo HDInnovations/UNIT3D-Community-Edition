@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Tarehe',
   'delete' => 'Futa',
   'delete-all' => 'Futa arifa zote',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'Arifa',
   'read' => 'Soma',
   'title' => 'Kichwa',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Haqqında',
   'about-me' => 'Mənim haqqımda',
   'accepted-at' => 'Qəbul edildi',
@@ -312,4 +313,4 @@ return array (
   'warning' => 'Xəbərdarlıq',
   'warning-log' => 'Diqqət Giriş',
   'wishlist' => 'İstəklər',
-);
+];

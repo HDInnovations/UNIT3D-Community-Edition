@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Luoda',
   'create-private-feed' => 'Luo yksityinen RSS-syöte',
   'create-public-feed' => 'Luo julkinen RSS-syöte',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS-syöte',
   'type' => 'Tyyppi',
-);
+];

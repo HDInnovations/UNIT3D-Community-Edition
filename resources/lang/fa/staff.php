@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'گزارش فعالیت',
   'articles' => 'مقالات',
   'applications' => 'برنامه های کاربردی',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'ابزار چت',
   'flush-chat' => 'جعبه گفتگو Flush',
   'seedboxes' => 'صندلی های ثبت شده',
-);
+];

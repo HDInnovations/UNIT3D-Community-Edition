@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'მოთხოვნის დამატება',
   'age' => 'ასაკი',
   'all-requests' => 'ყველა მოთხოვნა',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'ამომრჩეველი',
   'votes' => 'ხმების რაოდენობა',
   'yes' => 'დიახ',
-);
+];

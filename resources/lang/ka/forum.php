@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'აქცია',
   'activity' => 'აქტიურობა',
   'approved' => 'დამტკიცებულია',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'გაუქმება',
   'view-all' => 'ყველა თემის ნახვა',
   'views' => 'Დათვალიერება',
-);
+];

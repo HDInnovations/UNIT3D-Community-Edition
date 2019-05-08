@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Tērzēšanas lodziņš',
   'click' => 'Klikšķis',
   'to-enable-editor' => 'lai iespējotu redaktoru',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Jaunumi (pārbaudiet katru dienu)',
   'new-news' => 'Jaunas ziņas',
   'new-torrents' => 'Jaunas straumēm',
-);
+];

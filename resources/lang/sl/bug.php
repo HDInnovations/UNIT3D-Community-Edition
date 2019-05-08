@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Poročilo o napaki',
   'bug-report-description' => 'Prijavite napako spletnega mesta',
   'enter-description' => 'Opišite problem čim bolje',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Prednost',
   'priority-description' => 'Izberite samo zelo visoko, če je napaka res problem pri uporabi spletnega mesta.',
   'very-high' => 'Zelo visoko',
-);
+];

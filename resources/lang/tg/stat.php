@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'by-count' => 'Аз ҳисоби',
   'by-data' => 'Аз рӯи маълумот',
   'by-volume' => 'Бо ҳаҷми',
@@ -36,4 +37,4 @@ return array (
   'total-upload' => 'Боргирии умумии',
   'users-in-group' => 'Истифодабарандагон дар гурӯҳи',
   'users-per-group' => 'Истифодабарандагони як гурӯҳ',
-);
+];

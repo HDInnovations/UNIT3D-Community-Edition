@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Log Gweithgareddau',
   'articles' => 'Erthyglau',
   'applications' => 'Ceisiadau',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Offer Sgwrsio',
   'flush-chat' => 'Flush Chatbox',
   'seedboxes' => 'Blychau Hadau Cofrestredig',
-);
+];

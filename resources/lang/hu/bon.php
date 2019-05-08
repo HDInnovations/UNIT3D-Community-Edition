@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Aktív',
   'active' => 'Aktív!',
   'amount' => 'Összeg',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Kaptál',
   'you-have-sent-tips' => 'Elküldted',
   'your-points' => 'Pontok',
-);
+];

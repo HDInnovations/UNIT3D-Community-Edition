@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'بنانا',
   'create-private-feed' => 'ذاتی آر ایس ایس فیڈ بنائیں',
   'create-public-feed' => 'عوامی آر ایس ایس فیڈ بنائیں',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'آر ایس ایس',
   'rss-feed' => 'آر ایس ایس فیڈ',
   'type' => 'ٹائپ کریں',
-);
+];

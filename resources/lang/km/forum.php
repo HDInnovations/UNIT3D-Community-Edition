@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'សកម្មភាព',
   'activity' => 'សកម្មភាព',
   'approved' => 'បានអនុម័ត',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'មិនភ្ជាប់',
   'view-all' => 'មើលប្រធានបទទាំងអស់',
   'views' => 'ទស្សនៈ',
-);
+];

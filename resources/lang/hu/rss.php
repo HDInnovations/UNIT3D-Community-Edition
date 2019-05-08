@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'teremt',
   'create-private-feed' => 'Privát RSS-hírcsatorna létrehozása',
   'create-public-feed' => 'Nyilvános RSS-hírcsatorna létrehozása',
@@ -15,4 +16,4 @@ return array (
   'rss' => 'RSS',
   'rss-feed' => 'RSS-hírcsatorna',
   'type' => 'típus',
-);
+];

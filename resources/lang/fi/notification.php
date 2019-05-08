@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'Treffi',
   'delete' => 'Poistaa',
   'delete-all' => 'Poista kaikki ilmoitukset',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'ilmoitukset',
   'read' => 'Lukea',
   'title' => 'otsikko',
-);
+];

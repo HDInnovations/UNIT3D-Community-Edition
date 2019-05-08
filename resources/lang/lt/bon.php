@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activated' => 'Suaktyvinta',
   'active' => 'Suaktyvinta!',
   'amount' => 'Suma',
@@ -40,4 +41,4 @@ return array (
   'you-have-received-tips' => 'Tu gavai',
   'you-have-sent-tips' => 'Jūs išsiuntėte',
   'your-points' => 'Jūsų taškai',
-);
+];

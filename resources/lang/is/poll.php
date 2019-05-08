@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-option' => 'Bæta við valkosti',
   'create-poll' => 'Búðu til könnun',
   'current' => 'Núverandi skoðanakönnun (ir)',
@@ -16,4 +17,4 @@ return array (
   'vote' => 'Kjósa',
   'vote-now' => 'Fáðu atkvæði í núna!',
   'votes' => 'Atkvæði',
-);
+];

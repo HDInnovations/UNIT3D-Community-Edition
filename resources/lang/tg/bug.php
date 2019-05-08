@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Ҳисоботи хато',
   'bug-report-description' => 'Гузориши хатои сайт',
   'enter-description' => 'Масъалаи беҳтаринро тавсиф кунед',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Афзалият',
   'priority-description' => 'Агар танҳо хато барои истифодаи сайт мушкилот бошад, танҳо хеле баланд аст.',
   'very-high' => 'Хеле баланд',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'action' => 'Δράση',
   'activity' => 'Δραστηριότητα',
   'approved' => 'Εγκρίθηκε',
@@ -59,4 +60,4 @@ return array (
   'unpin' => 'Ξεκαρφιτσώνω',
   'view-all' => 'Προβολή όλων των θεμάτων',
   'views' => 'Προβολές',
-);
+];

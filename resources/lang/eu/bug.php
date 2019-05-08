@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Akatsen txostena',
   'bug-report-description' => 'Salatu gune baten errore bat',
   'enter-description' => 'Deskribatu arazoa ahalik eta onena',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'Lehentasuna',
   'priority-description' => 'Aukeratu oso altua akatsa benetan gunea erabiltzeko arazoa bada.',
   'very-high' => 'Oso altua',
-);
+];

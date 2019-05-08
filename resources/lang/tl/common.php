@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Tungkol sa atin',
   'account' => 'Account',
   'achievement-title' => 'Kahanga-hanga',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Oo',
   'your' => 'Iyong',
   'your-comment' => 'Ang iyong komento',
-);
+];

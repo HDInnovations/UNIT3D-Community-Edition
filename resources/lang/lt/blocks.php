@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Pokalbių laukelis',
   'click' => 'Spustelėkite',
   'to-enable-editor' => 'įjungti redaktorių',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Naujienos (kasdien patikrinkite)',
   'new-news' => 'Naujos naujienos',
   'new-torrents' => 'Nauji torrentai',
-);
+];

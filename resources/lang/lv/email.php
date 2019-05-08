@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activate-account' => 'Aktivizēt kontu',
   'ban-reason' => 'Iemesls',
   'banned-footer' => 'Tas, ko jūs saņemat, lai neievērotu noteikumus',
@@ -42,4 +43,4 @@ return array (
   'username-sent' => 'Jūsu lietotājvārds ir nosūtīts uz jūsu e-pasta adresi!',
   'disabled-header' => 'Jūsu konts ir atspējots',
   'pruned-header' => 'Jūsu konts ir apgriezts',
-);
+];

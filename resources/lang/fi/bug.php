@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'bug-report' => 'Virhe raportti',
   'bug-report-description' => 'Ilmoita sivuston virheestä',
   'enter-description' => 'Kuvaile ongelmaa mahdollisimman parhaalla mahdollisella tavalla',
@@ -11,4 +12,4 @@ return array (
   'priority' => 'prioriteetti',
   'priority-description' => 'Valitse vain erittäin korkea, jos vika on ongelma sivuston käytössä.',
   'very-high' => 'Erittäin korkea',
-);
+];

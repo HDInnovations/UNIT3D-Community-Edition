@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => 'Virkni Log',
   'articles' => 'Greinar',
   'applications' => 'Umsóknir',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => 'Spjallverkfæri',
   'flush-chat' => 'Skolið spjallborð',
   'seedboxes' => 'Skráðir Seedboxes',
-);
+];

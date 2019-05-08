@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity-log' => '활동 로그',
   'articles' => '조항',
   'applications' => '응용 프로그램',
@@ -44,4 +45,4 @@ return array (
   'chat-tools' => '채팅 도구',
   'flush-chat' => '채팅 창 플러시',
   'seedboxes' => '등록 된 시드 상자',
-);
+];

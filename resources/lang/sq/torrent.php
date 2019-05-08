@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'activity' => 'aktivitet',
   'age' => 'moshë',
   'agent' => 'agjent',
@@ -193,4 +194,4 @@ return array (
   'view-more' => 'Shiko më shumë',
   'view-trailer' => 'Shikoni rimorkio',
   'votes' => 'vota',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'about' => 'Par mums',
   'account' => 'Konts',
   'achievement-title' => 'Satriecošs',
@@ -172,4 +173,4 @@ return array (
   'yes' => 'Jā',
   'your' => 'Jūsu',
   'your-comment' => 'Jūsu komentārs',
-);
+];

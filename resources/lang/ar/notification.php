@@ -1,4 +1,5 @@
 <?php
+
 return [
   'date' => 'تاريخ',
   'delete' => 'حذف',

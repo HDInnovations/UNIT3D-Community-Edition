@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'chatbox' => 'Chat Box',
   'click' => 'Klikněte na',
   'to-enable-editor' => 'pro povolení editoru',
@@ -15,4 +16,4 @@ return array (
   'check-news' => 'Novinky (denně kontrolujte)',
   'new-news' => 'Nové zprávy',
   'new-torrents' => 'Nové torrenty',
-);
+];

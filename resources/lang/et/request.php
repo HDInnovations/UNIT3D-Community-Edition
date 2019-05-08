@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'add-request' => 'Lisa taotlus',
   'age' => 'Vanus',
   'all-requests' => 'Kõik taotlused',
@@ -63,4 +64,4 @@ return array (
   'voters' => 'Valijad',
   'votes' => 'Hääled',
   'yes' => 'Jah',
-);
+];

@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'aboutus-advantage' => 'Faida',
   'aboutus-advantage1' => 'Tumewaona wanachama na wafanyakazi ambao wanafahamu sana katika ulimwengu wa HD video / audio na msaada wa kiufundi.',
   'aboutus-advantage2' => 'Pamoja na tamaa yetu kubwa ya sinema na maonyesho ya televisheni, tunatoa pia chaguo bora zaidi cha kitu ambacho wengi dont - FANRES! <em>BIG inakushukuru</em> kwa waingizaji wetu wa maudhui.',
@@ -24,4 +25,4 @@ return array (
   'staff-group' => 'Kundi',
   'staff-title' => 'Kichwa',
   'whitelist-emaildomain' => 'Domain inayoaminika',
-);
+];

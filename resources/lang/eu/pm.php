@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'create' => 'Sortu',
   'delete' => 'ezabatu',
   'enter-subject' => 'Sartu gaia',
@@ -24,4 +25,4 @@ return array (
   'subject' => 'Gaia',
   'to' => 'to',
   'unread' => 'Irakurri gabeko',
-);
+];

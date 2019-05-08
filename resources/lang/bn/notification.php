@@ -1,5 +1,6 @@
-<?php 
-return array (
+<?php
+
+return [
   'date' => 'তারিখ',
   'delete' => 'মুছে ফেলা',
   'delete-all' => 'সব বিজ্ঞপ্তি মুছে দিন',
@@ -10,4 +11,4 @@ return array (
   'notifications' => 'বিজ্ঞপ্তিগুলি',
   'read' => 'পড়া',
   'title' => 'খেতাব',
-);
+];
