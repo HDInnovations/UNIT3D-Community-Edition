@@ -141,6 +141,7 @@ return [
         ['short' => 'ja',       'long' => 'ja-JP',      'english' => 'Japanese',            'native' => '日本語'],
         ['short' => 'ka',       'long' => 'ka-KA',      'english' => 'Georgian',            'native' => 'ქართული'],
         ['short' => 'kk',       'long' => 'kk-KK',      'english' => 'Kazakh',              'native' => 'Қазақша'],
+        ['short' => 'km',       'long' => 'km-KM',      'english' => 'Khmer',               'native' => 'ភាសាខ្មែរ'],
         ['short' => 'ir',       'long' => 'fa-IR',      'english' => 'Persian',             'native' => 'فارسی'],
         ['short' => 'lt',       'long' => 'lt-LT',      'english' => 'Lithuanian',          'native' => 'Lietuvių'],
         ['short' => 'ko',       'long' => 'ko-KR',      'english' => 'Korean',              'native' => '한국어'],
