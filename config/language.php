@@ -118,6 +118,7 @@ return [
         ['short' => 'bs',       'long' => 'sr-BA',      'english' => 'Bosnian',             'native' => 'Bosanski'],
         ['short' => 'ca',       'long' => 'ca-CA',      'english' => 'Catalan',             'native' => 'Català'],
         ['short' => 'cs',       'long' => 'cs-CZ',      'english' => 'Czech',               'native' => 'Čeština'],
+        ['short' => 'cy',       'long' => 'cy-CY',      'english' => 'Welsh',               'native' => 'Cymraeg'],
         ['short' => 'da',       'long' => 'da-DK',      'english' => 'Danish',              'native' => 'Dansk'],
         ['short' => 'de',       'long' => 'de-DE',      'english' => 'German',              'native' => 'Deutsch'],
         ['short' => 'de-aus',   'long' => 'de-AT',      'english' => 'Austrian',            'native' => 'Österreichisches Deutsch'],
