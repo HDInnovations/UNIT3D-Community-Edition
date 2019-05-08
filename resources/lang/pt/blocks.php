@@ -1,34 +1,18 @@
-<?php
-
-return [
-    // Chat
-    'chatbox'          => 'Chat Box',
-    'click'            => 'Clique',
-    'to-enable-editor' => 'para ativar o editor',
-
-    // Featured Torrents
-    'featured-by'             => 'Destacado por',
-    'featured-torrents'       => 'Torrents em destaque',
-    'featured-torrents-intro' => 'Descarregue enquanto pode!',
-    'featured-until'          => 'Este torrent está destacado até',
-
-    // Latest Torrents
-    'latest-torrents' => 'Últimos torrents',
-
-    // Latest Posts
-    'latest-posts' => 'Últimos posts',
-
-    // Latest Topics
-    'latest-topics' => 'Tópicos recentes',
-
-    // Users Online
-    'active-in-last' => 'Activo nos últimos',
-    'users-online'   => 'Utilizadores online',
-
-    // News/Articles
-    'check-news' => 'Notícias (verifique diariamente)',
-    'new-news'   => 'Novas notícias',
-
-    // Top torrents
-    'new-torrents' => 'Novos torrents',
-];
+<?php 
+return array (
+  'chatbox' => 'Janela de conversa',
+  'click' => 'Clique',
+  'to-enable-editor' => 'para habilitar o editor',
+  'featured-by' => 'Caracterizado por',
+  'featured-torrents' => 'Torrents em destaque',
+  'featured-torrents-intro' => 'Pegue eles enquanto você pode!',
+  'featured-until' => 'Isso é caracterizado torrent até',
+  'top-torrents' => 'Top Torrents',
+  'latest-posts' => 'últimas postagens',
+  'latest-topics' => 'Tópicos mais recentes',
+  'active-in-last' => 'Ativo no último',
+  'users-online' => 'Usuários online',
+  'check-news' => 'Notícias (cheque diariamente)',
+  'new-news' => 'Novas notícias',
+  'new-torrents' => 'Torrents novos',
+);
