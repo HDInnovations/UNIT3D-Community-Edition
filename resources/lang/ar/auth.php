@@ -1,14 +1,17 @@
 <?php
 
 return [
-    'failed'              => 'بيانات الاعتماد هذه لا توافق سجلاتنا في النظام',
-    'throttle'            => 'جرت محاولات متكررة للدخول، الرجاء المحاول في وقت لاحق',
-    'login'               => 'دخول',
-    'signup'              => 'التسجيل',
-    'logout'              => 'تسجيل الخروج',
-    'username'            => 'اسم العضو',
-    'password'            => 'الرقم السري',
-    'lost-password'       => 'هل نسيت الرقم السري؟',
-    'recover-my-password' => 'استعادة رقمي السري',
-    'remember-me'         => 'تذكرني',
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used during authentication for various
+    | messages that we need to display to the user. You are free to modify
+    | these language lines according to your application's requirements.
+    |
+    */
+
+    'failed'   => 'بيانات الاعتماد هذه غير متطابقة مع البيانات المسجلة لدينا.',
+    'throttle' => 'عدد كبير جدا من محاولات الدخول. يرجى المحاولة مرة أخرى بعد :seconds ثانية.',
 ];

@@ -1,14 +1,13 @@
 <?php
-
 return [
-    'notifications'    => 'التنبيهات',
-    'mark-all-read'    => 'اجعل الكل مقروءا',
-    'mark-read'        => 'اجعله مقروءا',
-    'delete-all'       => 'حذف جميع التنبيهات',
-    'title'            => 'العنوان',
-    'message'          => 'الرسالة',
-    'date'             => 'التاريخ',
-    'read'             => 'قراءة',
-    'delete'           => 'حذف',
-    'no-notifications' => 'لا توجد تنبيهات',
+  'date' => 'تاريخ',
+  'delete' => 'حذف',
+  'delete-all' => 'حذف جميع الإخطارات',
+  'mark-all-read' => 'اشر عليها بانها قرات',
+  'mark-read' => 'ضع إشارة مقروء',
+  'message' => 'رسالة',
+  'no-notifications' => 'لا توجد إخطارات',
+  'notifications' => 'إخطارات',
+  'read' => 'اقرأ',
+  'title' => 'عنوان',
 ];
