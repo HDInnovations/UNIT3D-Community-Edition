@@ -140,6 +140,7 @@ return [
         ['short' => 'it',       'long' => 'it-IT',      'english' => 'Italian',             'native' => 'Italiano'],
         ['short' => 'ja',       'long' => 'ja-JP',      'english' => 'Japanese',            'native' => '日本語'],
         ['short' => 'ka',       'long' => 'ka-KA',      'english' => 'Georgian',            'native' => 'ქართული'],
+        ['short' => 'kk',       'long' => 'kk-KK',      'english' => 'Kazakh',              'native' => 'Қазақша'],
         ['short' => 'ir',       'long' => 'fa-IR',      'english' => 'Persian',             'native' => 'فارسی'],
         ['short' => 'lt',       'long' => 'lt-LT',      'english' => 'Lithuanian',          'native' => 'Lietuvių'],
         ['short' => 'ko',       'long' => 'ko-KR',      'english' => 'Korean',              'native' => '한국어'],
