@@ -1,14 +1,13 @@
-<?php
-
-return [
-    'notifications'    => 'Notifications',
-    'mark-all-read'    => 'Mark all as read',
-    'mark-read'        => 'Mark as read',
-    'delete-all'       => 'Delete all notifications',
-    'title'            => 'Title',
-    'message'          => 'Message',
-    'date'             => 'Date',
-    'read'             => 'Read',
-    'delete'           => 'Delete',
-    'no-notifications' => 'There are no notifications found',
-];
+<?php 
+return array (
+  'date' => 'Data',
+  'delete' => 'Șterge',
+  'delete-all' => 'Ștergeți toate notificările',
+  'mark-all-read' => 'Marcheaza totul ca fiind citit',
+  'mark-read' => 'marcheaza ca citit',
+  'message' => 'Mesaj',
+  'no-notifications' => 'Nu s-au găsit nicio notificări',
+  'notifications' => 'notificări',
+  'read' => 'Citit',
+  'title' => 'Titlu',
+);

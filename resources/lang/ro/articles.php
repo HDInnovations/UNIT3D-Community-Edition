@@ -1,8 +1,7 @@
-<?php
-
-return [
-    'meta-articles' => 'Articles and news on the tracker and the community',
-    'read-more'     => 'Read More',
-    'published-at'  => 'Published At ',
-    'articles'      => 'Articles',
-];
+<?php 
+return array (
+  'articles' => 'Articole',
+  'meta-articles' => 'Articole și știri despre tracker și comunitate',
+  'published-at' => 'Publicat pe',
+  'read-more' => 'Citeste mai mult',
+);
