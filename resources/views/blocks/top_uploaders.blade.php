@@ -2,18 +2,18 @@
     <div class="clearfix visible-sm-block"></div>
     <div class="panel panel-chat shoutbox">
         <div class="panel-heading">
-            <h4>Top Uploaders</h4>
+            <h4>@lang('user.top-uploaders-count')</h4>
         </div>
 
         <ul class="nav nav-tabs mb-12" role="tablist">
             <li class="col-md-6">
                 <a href="#alltime" role="tab" data-toggle="tab" aria-expanded="true">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy-alt text-gold"></i> All Time
+                    <i class="{{ config('other.font-awesome') }} fa-trophy-alt text-gold"></i> @lang('stat.all-time')
                 </a>
             </li>
             <li class="active col-md-6">
                 <a href="#30days" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="{{ config('other.font-awesome') }} fa-trophy text-success"></i> Last 30 Days
+                    <i class="{{ config('other.font-awesome') }} fa-trophy text-success"></i> @lang('stat.last30days')
                 </a>
             </li>
         </ul>
