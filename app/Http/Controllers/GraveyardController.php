@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Torrent;
 use App\Models\Graveyard;
@@ -70,7 +71,7 @@ class GraveyardController extends Controller
         $current = Carbon::now();
         $user = auth()->user();
         $search = $request->input('search');
-        $imdb_id = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb_id = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
         $imdb = str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');

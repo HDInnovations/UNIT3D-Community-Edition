@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Str;
 
 /**
  * NOTICE OF LICENSE.
@@ -49,7 +50,7 @@ if (! function_exists('hrefRequest')) {
     function hrefRequest($torrentRequest)
     {
         $appurl = appurl();
-        $slug = str_slug($torrentRequest->name);
+        $slug = Str::slug($torrentRequest->name);
 
         return "{$appurl}/request/{$torrentRequest->id}";
     }

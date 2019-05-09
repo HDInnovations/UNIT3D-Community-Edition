@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Wish;
 use App\Models\Torrent;
@@ -142,7 +143,7 @@ class WishRepository implements WishInterface
                 ->where('status', '=', 1)
                 ->first();
 
-            return route('torrent', ['slug' => str_slug($source->name), 'id' => $source->id]);
+            return route('torrent', ['slug' => Str::slug($source->name), 'id' => $source->id]);
         }
 
         return $this->findById($id)->source ?? null;

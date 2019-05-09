@@ -13,6 +13,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Helpers\Bbcode;
 use App\Helpers\StringHelper;
@@ -525,7 +526,7 @@ class User extends Authenticatable
      */
     public function getSlugAttribute()
     {
-        return str_slug($this->username);
+        return Str::slug($this->username);
     }
 
     /**

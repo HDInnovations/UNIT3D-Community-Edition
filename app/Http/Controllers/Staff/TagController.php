@@ -12,6 +12,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Support\Str;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,7 +51,7 @@ class TagController extends Controller
     {
         $tag = new Tag();
         $tag->name = $request->input('name');
-        $tag->slug = str_slug($tag->name);
+        $tag->slug = Str::slug($tag->name);
 
         $v = validator($tag->toArray(), [
             'name' => 'required|unique:tags',
@@ -94,7 +95,7 @@ class TagController extends Controller
     {
         $tag = Tag::findOrFail($id);
         $tag->name = $request->input('name');
-        $tag->slug = str_slug($tag->name);
+        $tag->slug = Str::slug($tag->name);
 
         $v = validator($tag->toArray(), [
             'name' => 'required',

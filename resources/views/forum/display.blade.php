@@ -108,7 +108,7 @@
                                         class='label label-sm label-success'>{{ strtoupper(trans('forum.implemented')) }}</span> @endif
                             </td>
                             <td class="f-display-topic-started"><a
-                                        href="{{ route('profile', ['username' => str_slug($t->first_post_user_username), 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
+                                        href="{{ route('profile', ['username' => Str::slug($t->first_post_user_username), 'id' => $t->first_post_user_id]) }}">{{ $t->first_post_user_username }}</a>
                             </td>
                             <td class="f-display-topic-stats">
                                 {{ $t->num_post - 1 }} @lang('forum.replies')
@@ -116,7 +116,7 @@
                             </td>
                             @php $last_post = DB::table('posts')->where('topic_id', '=', $t->id)->orderBy('id', 'desc')->first(); @endphp
                             <td class="f-display-topic-last-post">
-                                <a href="{{ route('profile', ['username' => str_slug($t->last_post_user_username), 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>
+                                <a href="{{ route('profile', ['username' => Str::slug($t->last_post_user_username), 'id' => $t->last_post_user_id]) }}">{{ $t->last_post_user_username }}</a>
                                 on
                                 <time datetime="{{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}">
                                     {{ date('M d Y', strtotime($last_post->created_at ?? "UNKNOWN")) }}

@@ -13,6 +13,7 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Torrent;
 use Illuminate\Console\Command;
@@ -78,7 +79,7 @@ class DemoSeed extends Command
                             'user_id'     => $uid,
                             'imdb'        => $id,
                             'name'        => $r['Title'],
-                            'slug'        => str_slug($r['Title']),
+                            'slug'        => Str::slug($r['Title']),
                             'description' => $r['Plot'],
                             'category_id' => 1,
                         ]);

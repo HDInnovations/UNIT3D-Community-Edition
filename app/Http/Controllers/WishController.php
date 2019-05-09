@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Interfaces\WishInterface;
 
@@ -54,7 +55,7 @@ class WishController extends Controller
      */
     public function store(Request $request, $uid)
     {
-        $imdb = starts_with($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
+        $imdb = Str::startsWith($request->get('imdb'), 'tt') ? $request->get('imdb') : 'tt'.$request->get('imdb');
 
         if ($this->wish->exists($uid, $imdb)) {
             return redirect()

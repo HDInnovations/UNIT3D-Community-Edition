@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,7 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->name = $request->input('name');
-        $category->slug = str_slug($category->name);
+        $category->slug = Str::slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->meta = $request->input('meta');
@@ -104,7 +105,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->name = $request->input('name');
-        $category->slug = str_slug($category->name);
+        $category->slug = Str::slug($category->name);
         $category->position = $request->input('position');
         $category->icon = $request->input('icon');
         $category->meta = $request->input('meta');

@@ -13,6 +13,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Str;
 use App\Models\Bot;
 use App\Events\Ping;
 use App\Models\User;
@@ -374,7 +375,7 @@ class ChatRepository
         }
 
         foreach (config('censor.replace') as $word => $rword) {
-            if (str_contains($message, $word)) {
+            if (Str::contains($message, $word)) {
                 $message = str_replace($word, $rword, $message);
             }
         }

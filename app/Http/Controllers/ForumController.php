@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\Forum;
 use App\Models\Topic;
@@ -657,7 +658,7 @@ class ForumController extends Controller
         // Create The Topic
         $topic = new Topic();
         $topic->name = $request->input('title');
-        $topic->slug = str_slug($request->input('title'));
+        $topic->slug = Str::slug($request->input('title'));
         $topic->state = 'open';
         $topic->first_post_user_id = $topic->last_post_user_id = $user->id;
         $topic->first_post_user_username = $topic->last_post_user_username = $user->username;

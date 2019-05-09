@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
@@ -156,7 +157,7 @@ class RegisterController extends Controller
             }
 
             // Handle The Activation System
-            $token = hash_hmac('sha256', $user->username.$user->email.str_random(16), config('app.key'));
+            $token = hash_hmac('sha256', $user->username.$user->email.Str::random(16), config('app.key'));
             $activation = new UserActivation();
             $activation->user_id = $user->id;
             $activation->token = $token;

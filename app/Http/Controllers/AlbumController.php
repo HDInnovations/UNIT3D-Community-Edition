@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Image;
 use Carbon\Carbon;
 use App\Models\Album;
@@ -82,7 +83,7 @@ class AlbumController extends Controller
      */
     public function add(Request $request)
     {
-        $imdb = starts_with($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
+        $imdb = Str::startsWith($request->input('imdb'), 'tt') ? $request->input('imdb') : 'tt'.$request->input('imdb');
         $omdb = $this->client->find(['imdb' => $imdb]);
 
         if ($omdb === null || $omdb === false) {

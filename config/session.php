@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Str;
 /**
  * NOTICE OF LICENSE.
  *
@@ -135,7 +136,7 @@
 
      'cookie' => env(
          'SESSION_COOKIE',
-         str_slug(env('APP_NAME', 'laravel'), '_').'_session'
+         Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
      ),
 
      /*

@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
@@ -975,7 +976,7 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
         $torrent->name = $request->input('name');
-        $torrent->slug = str_slug($torrent->name);
+        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->category_id = $request->input('category_id');
         $torrent->imdb = $request->input('imdb');
@@ -1226,7 +1227,7 @@ class TorrentController extends Controller
         // Create the torrent (DB)
         $torrent = new Torrent();
         $torrent->name = $request->input('name');
-        $torrent->slug = str_slug($torrent->name);
+        $torrent->slug = Str::slug($torrent->name);
         $torrent->description = $request->input('description');
         $torrent->mediainfo = self::anonymizeMediainfo($request->input('mediainfo'));
         $torrent->info_hash = $infohash;

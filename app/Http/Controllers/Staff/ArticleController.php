@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Support\Str;
 use Image;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $article->title = $request->input('title');
-        $article->slug = str_slug($article->title);
+        $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
         $article->user_id = auth()->user()->id;
 
@@ -114,7 +115,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $article->title = $request->input('title');
-        $article->slug = str_slug($article->title);
+        $article->slug = Str::slug($article->title);
         $article->content = $request->input('content');
 
         if ($request->hasFile('image')) {

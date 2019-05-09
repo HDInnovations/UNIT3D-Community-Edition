@@ -13,6 +13,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use Illuminate\Support\Str;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,7 +53,7 @@ class TypeController extends Controller
     {
         $type = new Type();
         $type->name = $request->input('name');
-        $type->slug = str_slug($type->name);
+        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = validator($type->toArray(), [
@@ -100,7 +101,7 @@ class TypeController extends Controller
     {
         $type = Type::findOrFail($id);
         $type->name = $request->input('name');
-        $type->slug = str_slug($type->name);
+        $type->slug = Str::slug($type->name);
         $type->position = $request->input('position');
 
         $v = validator($type->toArray(), [
