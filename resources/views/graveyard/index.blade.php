@@ -16,7 +16,7 @@
     <!-- Search -->
     <div class="container box">
         <div class="text-center">
-            <h3 class="filter-title">Search Filters</h3>
+            <h3 class="filter-title">@lang('torrent.filters')</h3>
         </div>
         <form role="form" method="GET" action="GraveyardController@index" class="form-horizontal form-condensed form-torrent-search form-bordered">
         @csrf
