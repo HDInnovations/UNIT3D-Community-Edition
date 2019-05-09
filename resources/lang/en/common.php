@@ -24,6 +24,7 @@ return [
     'comment'              => 'Comment',
     'comments'             => 'Comments',
     'community'            => 'Community',
+    'connected'            => 'C',
     'contact'              => 'Contact',
     'contact-desc'         => 'This contact request will be sent to the owner and will get back to you as soon as possible',
     'contact-header'       => 'Hello',
