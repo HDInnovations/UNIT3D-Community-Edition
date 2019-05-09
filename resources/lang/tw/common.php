@@ -38,7 +38,7 @@ return [
     'descending'           => '降冪',
     'direction'            => '序向',
     'disable'              => 'Disable',
-    'doubleup_activated'   => '全站雙倍收益已啟動',
+    'doubleup_activated'   => '全站雙倍上傳收益已啟動',
     'download'             => '下載',
     'edit'                 => '編輯',
     'edit-your-comment'    => '編輯你的評論',
