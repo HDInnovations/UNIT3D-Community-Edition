@@ -45,7 +45,7 @@ return [
     'dying-torrent'            => '急需保種',
     'dying-torrents'           => '急需保種',
     'encode-settings'          => '編碼設定',
-    'estimated-ratio'          => '預算下載的分享比率',
+    'estimated-ratio'          => '預算完成後的分享比率',
     'failed'                   => '失敗',
     'feature'                  => '精選',
     'featured'                 => '精選',
