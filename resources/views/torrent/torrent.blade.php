@@ -395,7 +395,7 @@
                 </tr>
 
                 <tr>
-                    <td class="col-sm-2"><strong>@lang('torrent.uploaded')</strong></td>
+                    <td class="col-sm-2"><strong>@lang('torrent.publish-time')</strong></td>
                     <td>{{ $torrent->created_at }} ({{ $torrent->created_at->diffForHumans() }})</td>
                 </tr>
 
