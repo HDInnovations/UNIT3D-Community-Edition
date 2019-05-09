@@ -149,7 +149,7 @@ return [
     'short-completed'          => 'C',
     'short-leechs'             => 'L',
     'short-seeds'              => 'S',
-    'show-files'               => '显示结构',
+    'show-files'               => '文件结构',
     'similar'                  => '类似的资源',
     'size'                     => '体积',
     'special'                  => '特色',
