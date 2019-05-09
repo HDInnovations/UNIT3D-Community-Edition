@@ -153,6 +153,7 @@ return [
     'size'                     => '體積',
     'special'                  => '特色',
     'special-freeleech'        => '特別免費',
+    'staff-tools'              => '推廣',
     'started'                  => '已開始',
     'status'                   => '狀態',
     'statistics'               => '統計',
