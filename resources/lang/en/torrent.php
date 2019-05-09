@@ -108,6 +108,7 @@ return [
     'no-privileges-desc'       => 'Please solve the failed results above for download button to appear',
     'not-completed'            => 'Started Downloading But Never Completed',
     'not-downloaded'           => 'Not Downloaded',
+    'not-seeding'              => 'not seeding',
     'old-torrent'              => 'Old torrent',
     'optional'                 => 'Optional',
     'original-output'          => 'Show / Hide original output',
