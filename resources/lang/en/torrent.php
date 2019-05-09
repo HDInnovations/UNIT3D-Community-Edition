@@ -154,7 +154,7 @@ return [
     'size'                     => 'Size',
     'special'                  => 'Special',
     'special-freeleech'        => 'Special Freeleech',
-	'staff-tools'              => 'Staff Tools',
+    'staff-tools'              => 'Staff Tools',
     'started'                  => 'Started',
     'status'                   => 'Status',
     'statistics'               => 'Statistics',
