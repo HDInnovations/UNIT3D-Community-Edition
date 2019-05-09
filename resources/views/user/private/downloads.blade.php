@@ -69,7 +69,7 @@
                 </span>
                             <span class="badge-user">
                     <label class="inline">
-                        <input type="checkbox" id="notsatisfied" value="1" class="userFilter" trigger="click"> @lang('not-satisfied-not-immune')
+                        <input type="checkbox" id="notsatisfied" value="1" class="userFilter" trigger="click"> @lang('user.not-satisfied-not-immune')
                     </label>
                 </span>
                         </div>
