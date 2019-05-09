@@ -73,7 +73,7 @@ return [
     'have-not-completed'       => '未完成',
     'have-not-downloaded'      => '未下載',
     'health'                   => '活躍度',
-    'history'                  => '歷史',
+    'history'                  => '紀錄',
     'hitrun'                   => 'H&R下完就溜?',
     'hit-and-runs'             => 'H&R下完就溜次數',
     'immune'                   => '豁免?',
