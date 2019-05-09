@@ -78,6 +78,7 @@ return [
     'hit-and-runs'             => 'Hit and Run counts',
     'immune'                   => 'Immune?',
     'info'                     => 'Info',
+    'info-hash'                => 'Info Hash',
     'internal'                 => 'Internal',
     'internal-release'         => 'Internal release',
     'last-seed-activity'       => 'Last seed activity',
