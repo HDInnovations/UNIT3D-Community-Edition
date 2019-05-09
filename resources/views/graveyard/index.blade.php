@@ -73,7 +73,7 @@
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
-                <label class="control-label col-sm-2" for="sorting">SortBy:</label>
+                <label class="control-label col-sm-2" for="sorting">@lang('common.sort')</label>
                 <div class="col-sm-2">
                     <select id="sorting" name="sorting" class="form-control">
                         @foreach ($repository->sorting() as $value => $sort)
@@ -88,7 +88,7 @@
                         @endforeach
                     </select>
                 </div>
-                <label class="control-label col-sm-2" for="qty">Quanity:</label>
+                <label class="control-label col-sm-2" for="qty">@lang('common.quantity')</label>
                 <div class="col-sm-2">
                     <select id="qty" name="qty" class="form-control">
                         <option value="25" selected>25</option>
