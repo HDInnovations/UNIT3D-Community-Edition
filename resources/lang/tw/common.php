@@ -56,7 +56,7 @@ return [
     'fl_tokens'            => '免費令',
     'for'                  => '代表',
     'forum'                => '論壇',
-    'free'                 => '自由',
+    'free'                 => '免費',
     'freeleech_activated'  => '全站免費模式啟動',
     'global'               => '全局',
     'group'                => '組別',
