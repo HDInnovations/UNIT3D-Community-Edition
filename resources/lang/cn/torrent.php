@@ -78,6 +78,7 @@ return [
     'hit-and-runs'             => 'H&R下完就溜次数',
     'immune'                   => '豁免?',
     'info'                     => '资讯',
+    'info-hash'                => '校验码',
     'internal'                 => '内部',
     'internal-release'         => '内部发布',
     'last-seed-activity'       => 'Last seed activity',
