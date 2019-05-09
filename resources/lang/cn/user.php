@@ -283,7 +283,7 @@ return [
     'top-seeding-size'          => 'Top Seeding (Size)',
     'top-seedtime'              => '顶级做种时间',
     'top-uploaders-data'        => '顶级上传者(流量)',
-    'top-uploaders-torrents'    => '顶级上传者(资源数)',
+    'top-uploaders-torrents'    => '顶级发布者',
     'topics'                    => '标题',
     'topics-started'               => '已刊登标题',
     'torrent-comments'          => '资源被评论',
