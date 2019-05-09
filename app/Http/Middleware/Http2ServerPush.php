@@ -13,8 +13,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Str;
 use Closure;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\DomCrawler\Crawler;

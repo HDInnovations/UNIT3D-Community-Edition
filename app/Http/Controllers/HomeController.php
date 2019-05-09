@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Poll;
 use App\Models\Post;
@@ -22,6 +21,7 @@ use App\Models\Group;
 use App\Models\Topic;
 use App\Models\Article;
 use App\Models\Torrent;
+use Illuminate\Http\Request;
 use App\Models\FeaturedTorrent;
 use App\Models\PersonalFreeleech;
 use Illuminate\Support\Facades\DB;

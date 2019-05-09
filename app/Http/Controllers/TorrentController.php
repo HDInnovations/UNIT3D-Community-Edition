@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Peer;
 use App\Models\Type;
@@ -26,6 +25,7 @@ use App\Models\Category;
 use App\Helpers\MediaInfo;
 use App\Models\TagTorrent;
 use App\Models\TorrentFile;
+use Illuminate\Support\Str;
 use App\Bots\IRCAnnounceBot;
 use Illuminate\Http\Request;
 use App\Helpers\TorrentTools;

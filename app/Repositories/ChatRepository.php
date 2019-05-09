@@ -13,7 +13,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Str;
 use App\Models\Bot;
 use App\Events\Ping;
 use App\Models\User;
@@ -24,6 +23,7 @@ use App\Models\UserEcho;
 use App\Models\ChatStatus;
 use App\Events\MessageSent;
 use App\Models\UserAudible;
+use Illuminate\Support\Str;
 use App\Events\MessageDeleted;
 use App\Http\Resources\ChatMessageResource;
 

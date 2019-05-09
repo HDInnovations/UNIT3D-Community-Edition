@@ -13,13 +13,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\Invite;
 use App\Rules\Captcha;
 use App\Models\UserPrivacy;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PrivateMessage;
 use App\Models\UserActivation;

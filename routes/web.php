@@ -29,7 +29,7 @@ Route::middleware('language')->group(function () {
     | Website (Not Authorized)
     |------------------------------------------
     */
-    Route::middleware('guest')->group(['before' => 'auth',], function () {
+    Route::middleware('guest')->group(['before' => 'auth'], function () {
         // Authentication Routes
         Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
         Route::post('login', 'Auth\LoginController@login')->name('');
@@ -363,7 +363,7 @@ Route::middleware('language')->group(function () {
     | ChatBox Routes Group (when authorized)
     |------------------------------------------
     */
-    Route::prefix('chatbox')->middleware('auth', 'twostep', 'online', 'banned', 'active', 'private')->group([ 'namespace' => 'API'], function () {
+    Route::prefix('chatbox')->middleware('auth', 'twostep', 'online', 'banned', 'active', 'private')->group(['namespace' => 'API'], function () {
         Route::get('/', 'ChatController@index');
         Route::get('chatrooms', 'ChatController@fetchChatrooms');
         Route::post('change-chatroom', 'ChatController@changeChatroom');
@@ -445,7 +445,7 @@ Route::middleware('language')->group(function () {
     | Staff Dashboard Routes Group (when authorized and a staff group)
     |-----------------------------------------------------------------
     */
-    Route::prefix('staff_dashboard')->middleware('auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private')->group([ 'namespace' => 'Staff'], function () {
+    Route::prefix('staff_dashboard')->middleware('auth', 'twostep', 'modo', 'online', 'banned', 'active', 'private')->group(['namespace' => 'Staff'], function () {
 
         // BOT Hooks
         Route::get('/bots/{id}/disable', 'BotsController@disable')->name('Staff.bots.disable');

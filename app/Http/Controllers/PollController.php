@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Poll;
 use App\Models\Voter;
 use App\Models\Option;
+use Illuminate\Http\Request;
 use App\Http\Requests\VoteOnPoll;
 use App\Repositories\ChatRepository;
 

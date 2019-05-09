@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Forum;
 use App\Models\Topic;
 use App\Models\Subscription;
+use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {

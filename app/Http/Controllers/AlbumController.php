@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Image;
 use Carbon\Carbon;
 use App\Models\Album;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\Clients\OmdbClient;
 

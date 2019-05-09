@@ -13,9 +13,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Thank;
 use App\Models\Torrent;
+use Illuminate\Http\Request;
 
 class ThankController extends Controller
 {

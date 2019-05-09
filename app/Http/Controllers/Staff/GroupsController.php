@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Support\Str;
 use App\Models\Forum;
 use App\Models\Group;
 use App\Models\Permission;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

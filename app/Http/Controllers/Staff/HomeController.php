@@ -13,7 +13,6 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Http\Request;
 use App\Models\Peer;
 use App\Models\User;
 use App\Models\Group;
@@ -21,6 +20,7 @@ use App\Models\Client;
 use App\Models\Report;
 use App\Models\Torrent;
 use App\Models\Application;
+use Illuminate\Http\Request;
 use App\Helpers\SystemInformation;
 use App\Http\Controllers\Controller;
 use Spatie\SslCertificate\SslCertificate;

@@ -13,8 +13,8 @@
 
 namespace App\Http\Controllers\Staff;
 
-use Illuminate\Http\Request;
 use App\Models\LogActivity;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ActivityLogController extends Controller

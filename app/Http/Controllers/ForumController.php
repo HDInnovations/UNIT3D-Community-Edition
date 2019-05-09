@@ -13,10 +13,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Str;
 use App\Models\Post;
 use App\Models\Forum;
 use App\Models\Topic;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Repositories\ChatRepository;
 use App\Achievements\UserMade25Posts;

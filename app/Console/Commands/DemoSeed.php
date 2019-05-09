@@ -13,9 +13,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Torrent;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use App\Services\Clients\OmdbClient;
 

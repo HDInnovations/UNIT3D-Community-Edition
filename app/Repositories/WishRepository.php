@@ -13,10 +13,10 @@
 
 namespace App\Repositories;
 
-use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Wish;
 use App\Models\Torrent;
+use Illuminate\Support\Str;
 use App\Interfaces\WishInterface;
 use App\Services\Clients\OmdbClient;
 
