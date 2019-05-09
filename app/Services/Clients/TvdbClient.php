@@ -21,6 +21,7 @@ use App\Services\Contracts\MovieTvInterface;
 class TvdbClient extends Client implements MovieTvInterface
 {
     protected $apiUrl = 'thetvdb.com';
+
     protected $apiSecure = false;
 
     /**

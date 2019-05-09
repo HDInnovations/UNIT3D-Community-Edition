@@ -22,6 +22,7 @@ class NewThank extends Notification
     use Queueable;
 
     public $type;
+
     public $thank;
 
     /**

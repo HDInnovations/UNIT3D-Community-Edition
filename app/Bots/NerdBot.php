@@ -30,13 +30,21 @@ use App\Http\Resources\UserAudibleResource;
 class NerdBot
 {
     private $bot;
+
     private $chat;
+
     private $target;
+
     private $type;
+
     private $message;
+
     private $targeted;
+
     private $log;
+
     private $expiresAt;
+
     private $current;
 
     /**

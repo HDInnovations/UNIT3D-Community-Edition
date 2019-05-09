@@ -27,11 +27,17 @@ use App\Http\Resources\UserAudibleResource;
 class SystemBot
 {
     private $bot;
+
     private $chat;
+
     private $target;
+
     private $type;
+
     private $message;
+
     private $targeted;
+
     private $log;
 
     /**

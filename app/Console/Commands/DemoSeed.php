@@ -84,6 +84,7 @@ class DemoSeed extends Command
                         ]);
                     } catch (\Exception $e) {
                         $abort = true;
+
                         break;
                     }
                 }

@@ -26,8 +26,11 @@ class ProcessMassPM implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $sender_id;
+
     protected $receiver_id;
+
     protected $subject;
+
     protected $message;
 
     /**

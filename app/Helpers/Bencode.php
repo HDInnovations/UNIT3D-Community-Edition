@@ -155,6 +155,7 @@ class Bencode
                 foreach (array_keys($d) as $key) {
                     if (! is_int($key)) {
                         $is_dict = true;
+
                         break;
                     }
                 }

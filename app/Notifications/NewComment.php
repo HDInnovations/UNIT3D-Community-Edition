@@ -22,6 +22,7 @@ class NewComment extends Notification
     use Queueable;
 
     public $type;
+
     public $comment;
 
     /**

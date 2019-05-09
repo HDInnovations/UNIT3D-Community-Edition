@@ -23,8 +23,11 @@ class NewRequestBounty extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $sender;
+
     public $tr;
+
     public $amount;
 
     /**

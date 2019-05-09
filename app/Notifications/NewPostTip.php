@@ -23,8 +23,11 @@ class NewPostTip extends Notification implements ShouldQueue
     use Queueable;
 
     public $type;
+
     public $tipper;
+
     public $post;
+
     public $amount;
 
     /**

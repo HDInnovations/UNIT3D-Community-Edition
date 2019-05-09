@@ -16,9 +16,13 @@ namespace App\Helpers;
 class StringHelper
 {
     const KIB = 1024;
+
     const MIB = 1024 * 1024;
+
     const GIB = 1024 * 1024 * 1024;
+
     const TIB = 1024 * 1024 * 1024 * 1024;
+
     const PIB = 1024 * 1024 * 1024 * 1024 * 1024;
 
     public static function generateRandomString($length = 20)

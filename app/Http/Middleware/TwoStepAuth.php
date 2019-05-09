@@ -51,6 +51,7 @@ class TwoStepAuth
                         return redirect('twostep/needed');
                     }
                 }
+
                 break;
         }
 
