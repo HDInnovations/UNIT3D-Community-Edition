@@ -430,7 +430,7 @@
                 </tr>
 
                 <tr>
-                    <td class="col-sm-2"><strong>Info Hash</strong></td>
+                    <td class="col-sm-2"><strong>@lang('torrent.info-hash')</strong></td>
                     <td>{{ $torrent->info_hash }}</td>
                 </tr>
 
