@@ -31,7 +31,7 @@
                 <p class="lead text-orange text-center">{!! trans('request.no-refunds') !!}</p>
             </div>
             <div class="text-center">
-                <h3 class="filter-title">Search Filters</h3>
+                <h3 class="filter-title">@lang('torrent.filters')</h3>
             </div>
             <form role="form" method="GET" action="RequestController@requests" class="form-horizontal form-condensed form-torrent-search form-bordered">
             @csrf
