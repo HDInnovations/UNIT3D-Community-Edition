@@ -166,7 +166,7 @@ return [
     'user'                 => '用户',
     'username'             => '用户名',
     'users'                => '用户',
-    'view'                 => '阅览',
+    'view'                 => '',
     'view-all'             => '阅览全部',
     'warnings'             => '警告',
     'year'                 => '年',
