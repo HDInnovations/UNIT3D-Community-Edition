@@ -41,7 +41,7 @@
                         <th>@lang('common.upload')</th>
                         <th>@lang('common.download')</th>
                         <th>@lang('common.added')</th>
-                        <th>@lang('torrent.updated')</th>
+                        <th>@lang('torrent.last-update')</th>
                         <th>@lang('torrent.seedtime')</th>
                     </tr>
                     </thead>
