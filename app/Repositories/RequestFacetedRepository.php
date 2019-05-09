@@ -61,8 +61,8 @@ class RequestFacetedRepository
     public function direction()
     {
         return [
-            'desc' => 'Descending',
-            'asc'  => 'Ascending',
+            'desc' => trans('common.descending'),
+            'asc'  => trans('common.ascending'),
         ];
     }
 }
