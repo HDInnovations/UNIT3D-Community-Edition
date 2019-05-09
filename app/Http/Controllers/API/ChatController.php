@@ -53,7 +53,7 @@ class ChatController extends Controller
     /* STATUSES */
     public function statuses()
     {
-        return response($this->chat->statuses(), 200);
+        return response($this->chat->statuses());
     }
 
     /* ECHOES */
@@ -101,7 +101,7 @@ class ChatController extends Controller
 
     public function config()
     {
-        return response($this->chat->config(), 200);
+        return response($this->chat->config());
     }
 
     /* MESSAGES */
@@ -357,14 +357,14 @@ class ChatController extends Controller
             return new ChatMessageResource($message);
         }
 
-        return response('success', 200);
+        return response('success');
     }
 
     public function deleteMessage($id)
     {
         $this->chat->deleteMessage($id);
 
-        return response('success', 200);
+        return response('success');
     }
 
     public function deleteRoomEcho(Request $request, $user_id)
@@ -386,7 +386,7 @@ class ChatController extends Controller
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
         event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function deleteTargetEcho(Request $request, $user_id)
@@ -401,7 +401,7 @@ class ChatController extends Controller
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
         event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function deleteBotEcho(Request $request, $user_id)
@@ -416,7 +416,7 @@ class ChatController extends Controller
         cache()->put('user-echoes'.$user_id, $sender_echoes, $expiresAt);
         event(new Chatter('echo', $user_id, UserEchoResource::collection($sender_echoes)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function toggleRoomAudible(Request $request, $user_id)
@@ -432,7 +432,7 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
         event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function toggleTargetAudible(Request $request, $user_id)
@@ -448,7 +448,7 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
         event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function toggleBotAudible(Request $request, $user_id)
@@ -464,7 +464,7 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user_id, $sender_audibles, $expiresAt);
         event(new Chatter('audible', $user_id, UserAudibleResource::collection($sender_audibles)));
 
-        return response($user, 200);
+        return response($user);
     }
 
     /* USERS */
@@ -482,7 +482,7 @@ class ChatController extends Controller
         $user->chatStatus()->associate($status);
         $user->save();
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function updateUserRoom(Request $request, $id)
@@ -520,20 +520,20 @@ class ChatController extends Controller
             event(new Chatter('echo', $id, UserEchoResource::collection($sender_echoes)));
         }
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function updateUserTarget(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
-        return response($user, 200);
+        return response($user);
     }
 
     public function updateBotTarget(Request $request, $id)
     {
         $user = User::with(['chatStatus', 'chatroom', 'group', 'echoes'])->findOrFail($id);
 
-        return response($user, 200);
+        return response($user);
     }
 }

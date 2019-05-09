@@ -36,7 +36,7 @@ class CheckIfBanned
             auth()->logout();
             $request->session()->flush();
 
-            return redirect('login')
+            return redirect()->to('login')
                 ->withErrors('This account is Banned!');
         }
 

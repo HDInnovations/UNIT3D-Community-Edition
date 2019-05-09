@@ -296,10 +296,10 @@ class UserController extends Controller
         \LogActivity::addToLog("Staff Member {$staff->username} has deleted {$user->username} account.");
 
         if ($user->delete()) {
-            return redirect('staff_dashboard')
+            return redirect()->to('staff_dashboard')
                 ->withSuccess('Account Has Been Removed');
         } else {
-            return redirect('staff_dashboard')
+            return redirect()->to('staff_dashboard')
                 ->withErrors('Something Went Wrong!');
         }
     }
@@ -326,7 +326,7 @@ class UserController extends Controller
             $user->save();
         }
 
-        return redirect('staff_dashboard')
+        return redirect()->to('staff_dashboard')
             ->withSuccess('Unvalidated Accounts Are Now Validated');
     }
 }

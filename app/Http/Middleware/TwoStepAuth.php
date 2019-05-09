@@ -48,7 +48,7 @@ class TwoStepAuth
 
                 if (config('auth.TwoStepEnabled') && $user->twostep == 1) {
                     if ($this->twoStepVerification($request) !== true) {
-                        return redirect('twostep/needed');
+                        return redirect()->to('twostep/needed');
                     }
                 }
 
