@@ -219,7 +219,7 @@
                                             data-original-title="@lang('torrent.double-upload')"></i> @lang('torrent.double-upload')</span> @endif
                                 @if ($torrent->free == "1")<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-star text-gold" data-toggle="tooltip"
-                                            data-original-title="100% @lang('common.free')"></i> 100% @lang('common.free')</span> @endif
+                                            data-original-title="@lang('common.free')"></i> @lang('common.free')</span> @endif
                                 @if (config('other.freeleech') == true)<span class="badge-extra text-bold"><i
                                             class="{{ config('other.font-awesome') }} fa-globe text-blue" data-toggle="tooltip"
                                             data-original-title="@lang('common.global') @lang('torrent.freeleech')"></i> @lang('common.global') @lang('torrent.freeleech')</span> @endif
