@@ -15,7 +15,7 @@ return [
     'bookmark'                 => '书签',
     'bookmark'                 => '书签',
     'bookmarks'                => '书签',
-    'bump'                     => 'Bump',
+    'bump'                     => '推顶',
     'cant-upload'              => '错误: 你的上传权利已被禁止',
     'cant-upload-desc'         => '如果您认为这是错误的，请联系工作人员',
     'cards'                    => '卡片形式',
