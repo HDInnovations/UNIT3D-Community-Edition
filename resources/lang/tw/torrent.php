@@ -27,7 +27,7 @@ return [
     'completed_at'             => '完成於',
     'completed-not-seeding'    => '撤種',
     'created_at'               => '建立於',
-    'credited'                 => 'Credited',
+    'credited'                 => '加成',
     'current'                  => '目前',
     'current-filters'          => '目前的過濾器',
     'currently-leeching'       => '吸血',
