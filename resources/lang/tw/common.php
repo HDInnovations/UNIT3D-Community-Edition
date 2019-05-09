@@ -24,6 +24,7 @@ return [
     'comment'              => '評論',
     'comments'             => '評論',
     'community'            => '社群',
+    'connected'            => '已連接',
     'contact'              => '聯絡',
     'contact-desc'         => '發給站長，並會盡快回覆您',
     'contact-header'       => 'Hello',
