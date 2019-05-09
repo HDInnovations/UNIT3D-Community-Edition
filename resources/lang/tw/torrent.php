@@ -108,6 +108,7 @@ return [
     'no-privileges-desc'       => '請解決上述失敗的結果，使下載按鈕出現',
     'not-completed'            => '未完成',
     'not-downloaded'           => '沒有下載',
+    'not-seeding'              => '沒做種',
     'old-torrent'              => '舊資源',
     'optional'                 => '選擇性',
     'original-output'          => '顯示/隱藏原始文檔',
