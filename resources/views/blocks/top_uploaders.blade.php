@@ -28,7 +28,7 @@
                             <th class="torrents-icon"></th>
                             <th>@lang('common.user')</th>
                             <th>@lang('user.total-uploads')</th>
-                            <th>Place</th>
+                            <th>@lang('stat.place')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -66,7 +66,7 @@
                                     <span class="text-green">{{ $uploader->user->getUploads() }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} Place</span>
+                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} @lang('stat.place')</span>
                                 </td>
                             </tr>
                         @endforeach
@@ -83,7 +83,7 @@
                             <th class="torrents-icon"></th>
                             <th>@lang('common.user')</th>
                             <th>@lang('user.total-uploads')</th>
-                            <th>Place</th>
+                            <th>@lang('stat.place')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -121,7 +121,7 @@
                                     <span class="text-green">{{ $past_uploader->user->getLast30Uploads() }}</span>
                                 </td>
                                 <td>
-                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} Place</span>
+                                    <span class="text-bold"><i class="{{ config('other.font-awesome') }} fa-ribbon"></i> {{ App\Helpers\StringHelper::ordinal(++$key) }} @lang('stat.place')</span>
                                 </td>
                             </tr>
                         @endforeach
