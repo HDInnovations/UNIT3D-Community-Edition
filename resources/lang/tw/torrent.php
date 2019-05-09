@@ -121,7 +121,7 @@ return [
     'posters'                  => 'Posters',
     'prewarn'                  => '預警?',
     'progress'                 => '進度',
-	'publish-time'             => '發佈時間',
+    'publish-time'             => '發佈時間',
     'quick-comment'            => '快速評論',
     'quick-tip'                => '隨手',
     'rated'                    => '級別',
