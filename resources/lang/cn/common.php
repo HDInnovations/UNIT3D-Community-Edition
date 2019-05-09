@@ -8,7 +8,7 @@ return [
     'active'               => '使用中',
     'active-warning'       => '生效中的警告',
     'add'                  => '加',
-    'added'                => '已加',
+    'added'                => '加入於',
     'amount'               => '数量',
     'anonymous'            => '匿名',
     'author'               => '作者',
