@@ -311,7 +311,7 @@
 
                 @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                 <tr>
-                    <td class="col-sm-2"><strong>Staff Tools</strong></td>
+                    <td class="col-sm-2"><strong>@lang('torrent.staff-tools')</strong></td>
                     <td>
                         @if ($torrent->free == 0)
                             <a href="{{ route('torrent_fl', ['slug' => $torrent->slug, 'id' => $torrent->id]) }}" class="btn btn-success btn-xs" role="button">
