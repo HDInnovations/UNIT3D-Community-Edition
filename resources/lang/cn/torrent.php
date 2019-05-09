@@ -145,7 +145,7 @@ return [
     'seeders'                  => '做种',
     'seeding'                  => '做种',
     'seedsize'                 => '资源体积',
-    'seedtime'                 => '发种时间',
+    'seedtime'                 => '做种时间',
     'short-completed'          => 'C',
     'short-leechs'             => 'L',
     'short-seeds'              => 'S',
