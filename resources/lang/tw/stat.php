@@ -8,6 +8,7 @@ return [
     'group'                   => '組別',
     'groups'                  => '組別',
     'last30days'              => '最近30天',
+    'place'                   => '名次',
     'nerd-stats'              => '數據帝結論',
     'nerd-stats-desc'         => '我們太熱愛統計數據了。這裡有一些我們認為重要的',
     'registration-date'       => '註冊日期',
