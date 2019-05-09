@@ -108,7 +108,7 @@ return [
     'no-privileges-desc'       => '请解决上述失败的结果，使下载按钮出现',
     'not-completed'            => '未完成',
     'not-downloaded'           => '没有下载',
-	'not-seeding'              => '没做种',
+    'not-seeding'              => '没做种',
     'old-torrent'              => '旧资源',
     'optional'                 => '选择性',
     'original-output'          => '显示/隐藏原始文档',
